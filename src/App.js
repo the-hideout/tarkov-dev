@@ -1,7 +1,6 @@
 import React from 'react';
 import { VictoryChart, VictoryScatter, VictoryTheme } from 'victory';
 
-import logo from './logo.svg';
 import './App.css';
 import data from './data.json';
 
