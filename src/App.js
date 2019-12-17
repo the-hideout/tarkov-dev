@@ -68,6 +68,7 @@ function parseData(){
             ...ammoRow,
             'Penetration Value': Number(ammoRow['Penetration Value']),
             type: getType(ammoRow['0.12 Patch']),
+            name: ammoRow['0.12 Patch'],
         };
     }).filter(Boolean);
 }
@@ -78,6 +79,9 @@ function App() {
     return (
         <div className="App">
             <VictoryChart
+                domainPadding={10}
+                padding={20}
+                height={200}
                 theme={VictoryTheme.material}
             >
                 <VictoryScatter
@@ -118,6 +122,12 @@ function App() {
                             return 'triangleDown';
                         }
                     }
+                    style={{
+                        labels: {
+                          fontSize: 2,
+                        }
+                      }}
+                    labels={({ datum }) => datum.name}
                     size={1}
                     data={ localData }
                     x="Damage"
