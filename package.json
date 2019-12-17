@@ -11,6 +11,7 @@
     "react-scripts": "3.3.0",
     "victory": "^33.1.7"
   },
+  "homepage": "https://kokarn.github.io/tarkov-tools/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
