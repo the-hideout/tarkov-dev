@@ -100,6 +100,10 @@ function parseData(){
             return false;
         }
         
+        if(ammoRow['0.12 Patch'].includes('12.7x108 mm')){
+            return false;
+        }
+        
         return {
             ...ammoRow,
             'Penetration Value': Number(ammoRow['Penetration Value']),
