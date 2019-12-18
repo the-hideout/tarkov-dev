@@ -1,5 +1,13 @@
 import React from 'react';
-import { VictoryChart, VictoryScatter, VictoryTheme, VictoryLegend, VictoryLine, VictoryLabel } from 'victory';
+import { 
+    VictoryChart,
+    VictoryScatter,
+    VictoryTheme,
+    VictoryLegend,
+    VictoryLine,
+    VictoryLabel,
+    VictoryAxis
+} from 'victory';
 
 import './App.css';
 import data from './data.json';
@@ -124,6 +132,32 @@ function App() {
                 height={250}
                 theme={VictoryTheme.material}
             >
+                <VictoryAxis
+                    tickValues={[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240]}
+                    style = {{
+                        tickLabels: {
+                            fontSize: 5,
+                        },
+                        grid: {
+                            stroke: '#555',
+                        },
+                    }}
+                />
+                <VictoryAxis
+                    dependentAxis
+                    tickValues={[10, 20, 30, 40, 50, 60, 70]}
+                    style = {{
+                        tickLabels: {
+                            fontSize: 5,
+                        },
+                        ticks: {
+                            stroke: '#555',
+                        },
+                        grid: {
+                            stroke: '#555',
+                        },
+                    }}
+                />
                 <VictoryScatter
                     symbol={
                         ({ datum }) => {
