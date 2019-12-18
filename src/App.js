@@ -12,6 +12,8 @@ import {
 import './App.css';
 import data from './data.json';
 
+const MAX_DAMAGE = 200;
+
 const symbols = [
     {
         match: ['7.62x54R'],
@@ -155,12 +157,19 @@ function parseData(){
             return false;
         }
         
-        return {
+        const returnData = {
             ...ammoRow,
             'Penetration Value': Number(ammoRow['Penetration Value']),
             'Damage': Number(ammoRow['Damage']),
             ...getTypeAndName(ammoRow['0.12 Patch']),
         };
+        
+        if(returnData.Damage > MAX_DAMAGE){
+            returnData.name = `${returnData.name} (${returnData.Damage})`;
+            returnData.Damage = MAX_DAMAGE;
+        }
+        
+        return returnData;
     }).filter(Boolean);
 }
 
@@ -174,6 +183,10 @@ function App() {
                 padding={20}
                 height={250}
                 theme={VictoryTheme.material}
+                maxDomain = {{
+                    y: 70,
+                    x: MAX_DAMAGE,
+                }}
             >
                 <VictoryAxis
                     tickValues={[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240]}
