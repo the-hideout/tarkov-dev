@@ -79,7 +79,7 @@ const styles = {
         fill: '#ddd',
         strokeWidth: 1,
     },
-    axis: {
+    xaxis: {
         tickLabels: {
             fontSize: 5,
         },
@@ -87,9 +87,17 @@ const styles = {
             stroke: '#555',
         },
     },
+    yaxis: {
+        tickLabels: {
+            fontSize: 5,
+        },
+        grid: {
+            stroke: '#ddd',
+        },
+    },
     scatter: {
         labels: {
-            fontSize: 3,
+            fontSize: 2.5,
             fill: '#fff',
         },
     },
@@ -190,12 +198,12 @@ function App() {
             >
                 <VictoryAxis
                     tickValues={[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240]}
-                    style = {styles.axis}
+                    style = {styles.xaxis}
                 />
                 <VictoryAxis
                     dependentAxis
                     tickValues={[10, 20, 30, 40, 50, 60, 70]}
-                    style = {styles.axis}
+                    style = {styles.yaxis}
                 />
                 <VictoryScatter
                     symbol={
@@ -214,15 +222,17 @@ function App() {
                         }
                     }
                     style={styles.scatter}
-                    labels={({ datum }) => datum.name}
-                    size={2}
+                    labelComponent={<VictoryLabel dy={-3} />}
+                    labels={({ datum }) => {
+                        return datum.name;
+                    }}
+                    size={1}
                     data={ localData }
                     x="Damage"
                     y="Penetration Value"
                 />
                 <VictoryLegend
                     x={290}
-                    // height={150}
                     y={20}
                     orientation="vertical"
                     gutter={10}
