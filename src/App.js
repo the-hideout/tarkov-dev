@@ -71,6 +71,14 @@ const symbols = [
     },
 ];
 
+const styles = {
+    classLabel: {
+        fontSize: 3,
+        fill: '#ddd',
+        strokeWidth: 1,
+    },
+};
+
 function getTypeAndName(name) {
     
     if(name.includes('.366')) {
@@ -203,7 +211,6 @@ function App() {
                     }}
                     data={symbols}
                 />
-                
                 <VictoryLine
                     style={{
                         data: {
@@ -220,11 +227,53 @@ function App() {
                     labels={["Chest HP"]}
                     labelComponent={
                         <VictoryLabel
-                        y={120}
-                        x={125}
+                            y={120}
+                            x={125}
                         />
                     }
                     x={() => 80}
+                />
+                <VictoryLabel
+                    text="Class 1"
+                    style= {styles.classLabel}
+                    datum={{ x: 5, y: 11 }}
+                    textAnchor="start"
+                    verticalAnchor="end"
+                />
+                <VictoryLabel
+                    text="Class 2"
+                    style= {styles.classLabel}
+                    datum={{ x: 5, y: 21 }}
+                    textAnchor="start"
+                    verticalAnchor="end"
+                />
+                <VictoryLabel
+                    text="Class 3"
+                    style= {styles.classLabel}
+                    datum={{ x: 5, y: 31 }}
+                    textAnchor="start"
+                    verticalAnchor="end"
+                />
+                <VictoryLabel
+                    text="Class 4"
+                    style= {styles.classLabel}
+                    datum={{ x: 5, y: 41 }}
+                    textAnchor="start"
+                    verticalAnchor="end"
+                />
+                <VictoryLabel
+                    text="Class 5"
+                    style= {styles.classLabel}
+                    datum={{ x: 5, y: 51 }}
+                    textAnchor="start"
+                    verticalAnchor="end"
+                />
+                <VictoryLabel
+                    text="Class 6"
+                    style= {styles.classLabel}
+                    datum={{ x: 5, y: 61 }}
+                    textAnchor="start"
+                    verticalAnchor="end"
                 />
             </VictoryChart>
         </div>
