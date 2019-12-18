@@ -4,6 +4,65 @@ import { VictoryChart, VictoryScatter, VictoryTheme } from 'victory';
 import './App.css';
 import data from './data.json';
 
+const symbols = [
+    {
+        match: ['7.62x54R'],
+        name: '7.62x54R',
+        symbol: {
+            fill: 'tomato',
+            type: 'triangleUp',
+        },
+    },
+    {
+        match: ['7.62'],
+        name: '7.62',
+        symbol: {
+            fill: 'tomato',
+            type: 'diamond',
+        },
+    },
+    {
+        match: ['5.56'],
+        name: '5.56',
+        symbol: {
+            fill: 'yellow',
+            type: 'star',
+        },
+    },
+    {
+        match: ['5.45'],
+        name: '5.45',
+        symbol: {
+            fill: 'green',
+            type: 'star',
+        },
+    },
+    {
+        match: ['9x'],
+        name: '9x',
+        symbol: {
+            fill: 'yellow',
+            type: 'plus',
+        },
+    },
+    {
+        match: ['12.7'],
+        name: '12.7',
+        symbol: {
+            fill: 'yellow',
+            type: 'triangleDown',
+        },
+    },
+    {
+        match: ['12/70','20/70'],
+        name: 'Shells',
+        symbol: {
+            fill: 'yellow',
+            type: 'circle',
+        },
+    },
+];
+
 function getTypeAndName(name) {
     
     if(name.includes('.366')) {
@@ -63,33 +122,12 @@ function App() {
                 <VictoryScatter
                     symbol={
                         ({ datum }) => {
-                            if (datum.type.indexOf('7.62x54R') === 0){
-                                return 'triangleUp';
+                            for(const symbolSettings of symbols){
+                                for(const match of symbolSettings.match){
+                                    if(datum.type.indexOf(match) === 0){
+                                        return symbolSettings.symbol.type;
                             }
-                            
-                            if (datum.type.indexOf('7.62') === 0){
-                                return 'diamond';
                             }
-                            
-                            if (datum.type.indexOf('5.56') === 0){
-                                return 'star';
-                            }
-                            
-                            // Same icon, should be different color
-                            if (datum.type.indexOf('5.45') === 0){
-                                return 'star';
-                            }
-                            
-                            if (datum.type.indexOf('9x') === 0){
-                                return 'plus';
-                            }
-                            
-                            if (datum.type.indexOf('12.7') === 0){
-                                return 'triangleDown';
-                            }
-                            
-                            if (datum.type.indexOf('12/70') === 0 || datum.type.indexOf('20/70') === 0){
-                                return 'circle';
                             }
                             
                             console.log(`No symbol defined for ${datum.type}`);
