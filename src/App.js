@@ -10,68 +10,11 @@ import {
 } from 'victory';
 
 import './App.css';
+import Symbol from './Symbol.jsx';
+import symbols from './symbols';
 import data from './data.json';
 
 const MAX_DAMAGE = 200;
-
-const symbols = [
-    {
-        match: ['7.62x54R'],
-        name: '7.62x54R',
-        symbol: {
-            fill: 'tomato',
-            type: 'triangleUp',
-        },
-    },
-    {
-        match: ['7.62'],
-        name: '7.62',
-        symbol: {
-            fill: 'tomato',
-            type: 'diamond',
-        },
-    },
-    {
-        match: ['5.56'],
-        name: '5.56',
-        symbol: {
-            fill: 'yellow',
-            type: 'star',
-        },
-    },
-    {
-        match: ['5.45'],
-        name: '5.45',
-        symbol: {
-            fill: 'green',
-            type: 'star',
-        },
-    },
-    {
-        match: ['9x'],
-        name: '9x',
-        symbol: {
-            fill: 'yellow',
-            type: 'plus',
-        },
-    },
-    {
-        match: ['12.7'],
-        name: '12.7',
-        symbol: {
-            fill: 'yellow',
-            type: 'triangleDown',
-        },
-    },
-    {
-        match: ['12/70','20/70'],
-        name: 'Shells',
-        symbol: {
-            fill: 'yellow',
-            type: 'circle',
-        },
-    },
-];
 
 const styles = {
     classLabel: {
@@ -206,21 +149,7 @@ function App() {
                     style = {styles.yaxis}
                 />
                 <VictoryScatter
-                    symbol={
-                        ({ datum }) => {
-                            for(const symbolSettings of symbols){
-                                for(const match of symbolSettings.match){
-                                    if(datum.type.indexOf(match) === 0){
-                                        return symbolSettings.symbol.type;
-                                    }
-                                }
-                            }
-                            
-                            console.log(`No symbol defined for ${datum.type}`);
-                            
-                            return 'minus';
-                        }
-                    }
+                    dataComponent = {<Symbol />}
                     style={styles.scatter}
                     labelComponent={<VictoryLabel dy={-3} />}
                     labels={({ datum }) => {
@@ -244,8 +173,8 @@ function App() {
                     labels={["Chest HP"]}
                     labelComponent={
                         <VictoryLabel
-                            y={120}
-                            x={125}
+                            y={125}
+                            x={147}
                         />
                     }
                     x={() => 80}
