@@ -1,10 +1,12 @@
+import React from 'react';
+
 export default [
     {
         match: ['7.62x54R'],
         name: '7.62x54R',
         symbol: {
             fill: 'tomato',
-            type: '▲',
+            type: <rect />,
         },
     },
     {
@@ -12,7 +14,7 @@ export default [
         name: '7.62',
         symbol: {
             fill: 'tomato',
-            type: '■',
+            type: <rect />,
         },
     },
     {
@@ -20,7 +22,7 @@ export default [
         name: '5.56',
         symbol: {
             fill: 'yellow',
-            type: '▬',
+            type: <rect />,
         },
     },
     {
@@ -28,7 +30,7 @@ export default [
         name: '5.45',
         symbol: {
             fill: 'green',
-            type: '▼',
+            type: <rect />,
         },
     },
     {
@@ -36,7 +38,7 @@ export default [
         name: '9x',
         symbol: {
             fill: 'blue',
-            type: '◆',
+            type: <rect />,
         },
     },
     {
@@ -44,7 +46,7 @@ export default [
         name: '12.7',
         symbol: {
             fill: 'white',
-            type: '●',
+            type: <circle />,
         },
     },
     {
@@ -52,7 +54,7 @@ export default [
         name: 'Shells',
         symbol: {
             fill: 'yellow',
-            type: '◖',
+            type: <rect />,
         },
     },
 ];

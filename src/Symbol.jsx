@@ -26,16 +26,29 @@ class CatPoint extends React.Component {
         const symbol = getSymbol(datum);
         
         return (
-            <text
+            // <text
+            //     x={x}
+            //     y={y}
+            //     fontSize={5}
+            //     fill={symbol.fill}
+            //     textAlign= 'center'
+            //     width={20}
+            //     height={20}
+            // ></text>
+            <symbol.type
+                width="3"
+                height="3"
+                fill={symbol.fill}
                 x={x}
                 y={y}
-                fontSize={5}
-                fill={symbol.fill}
-                textAlign= 'center'
-                width={5}
-            >
-                {symbol.type}
-            </text>
+            />
+            // <rect
+            //     width="3"
+            //     height="3"
+            //     fill={symbol.fill}
+            //     x={x}
+            //     y={y}
+            // />
         );
     }
 } 
