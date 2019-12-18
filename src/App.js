@@ -1,5 +1,5 @@
 import React from 'react';
-import { VictoryChart, VictoryScatter, VictoryTheme } from 'victory';
+import { VictoryChart, VictoryScatter, VictoryTheme, VictoryLegend } from 'victory';
 
 import './App.css';
 import data from './data.json';
@@ -150,6 +150,23 @@ function App() {
                     data={ localData }
                     x="Damage"
                     y="Penetration Value"
+                />
+                <VictoryLegend
+                    x={290}
+                    // height={150}
+                    y={20}
+                    orientation="vertical"
+                    gutter={10}
+                    style={{
+                        border: { 
+                            stroke: "black"
+                        },
+                        labels: {
+                            color: '#fff',
+                            fontSize: 5,
+                        }
+                    }}
+                    data={symbols}
                 />
             </VictoryChart>
         </div>
