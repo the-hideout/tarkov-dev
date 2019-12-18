@@ -120,7 +120,7 @@ function App() {
             <VictoryChart
                 domainPadding={10}
                 padding={20}
-                height={200}
+                height={250}
                 theme={VictoryTheme.material}
             >
                 <VictoryScatter
@@ -130,8 +130,8 @@ function App() {
                                 for(const match of symbolSettings.match){
                                     if(datum.type.indexOf(match) === 0){
                                         return symbolSettings.symbol.type;
-                            }
-                            }
+                                    }
+                                }
                             }
                             
                             console.log(`No symbol defined for ${datum.type}`);
