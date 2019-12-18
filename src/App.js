@@ -107,6 +107,7 @@ function parseData(){
         return {
             ...ammoRow,
             'Penetration Value': Number(ammoRow['Penetration Value']),
+            'Damage': Number(ammoRow['Damage']),
             ...getTypeAndName(ammoRow['0.12 Patch']),
         };
     }).filter(Boolean);
