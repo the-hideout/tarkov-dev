@@ -1,5 +1,5 @@
 import React from 'react';
-import { VictoryChart, VictoryScatter, VictoryTheme, VictoryLegend } from 'victory';
+import { VictoryChart, VictoryScatter, VictoryTheme, VictoryLegend, VictoryLine, VictoryLabel } from 'victory';
 
 import './App.css';
 import data from './data.json';
@@ -168,6 +168,29 @@ function App() {
                         }
                     }}
                     data={symbols}
+                />
+                
+                <VictoryLine
+                    style={{
+                        data: {
+                            stroke: "white",
+                            strokeWidth: 0.5,
+                            strokeDasharray: 1,
+                        },
+                        labels: {
+                            angle: -90,
+                            fill: "white",
+                            fontSize: 5,
+                        }
+                    }}
+                    labels={["Chest HP"]}
+                    labelComponent={
+                        <VictoryLabel
+                        y={120}
+                        x={125}
+                        />
+                    }
+                    x={() => 80}
                 />
             </VictoryChart>
         </div>
