@@ -77,6 +77,41 @@ const styles = {
         fill: '#ddd',
         strokeWidth: 1,
     },
+    axis: {
+        tickLabels: {
+            fontSize: 5,
+        },
+        grid: {
+            stroke: '#555',
+        },
+    },
+    scatter: {
+        labels: {
+            fontSize: 3,
+            fill: '#fff',
+        },
+    },
+    legend: {
+        border: { 
+            stroke: "black",
+        },
+        labels: {
+            color: '#fff',
+            fontSize: 5,
+        }
+    },
+    annoationLine: {
+        data: {
+            stroke: "white",
+            strokeWidth: 0.5,
+            strokeDasharray: 1,
+        },
+        labels: {
+            angle: -90,
+            fill: "white",
+            fontSize: 5,
+        }
+    },
 };
 
 function getTypeAndName(name) {
@@ -142,29 +177,12 @@ function App() {
             >
                 <VictoryAxis
                     tickValues={[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240]}
-                    style = {{
-                        tickLabels: {
-                            fontSize: 5,
-                        },
-                        grid: {
-                            stroke: '#555',
-                        },
-                    }}
+                    style = {styles.axis}
                 />
                 <VictoryAxis
                     dependentAxis
                     tickValues={[10, 20, 30, 40, 50, 60, 70]}
-                    style = {{
-                        tickLabels: {
-                            fontSize: 5,
-                        },
-                        ticks: {
-                            stroke: '#555',
-                        },
-                        grid: {
-                            stroke: '#555',
-                        },
-                    }}
+                    style = {styles.axis}
                 />
                 <VictoryScatter
                     symbol={
@@ -182,12 +200,7 @@ function App() {
                             return 'minus';
                         }
                     }
-                    style={{
-                        labels: {
-                          fontSize: 3,
-                          fill: '#fff',
-                        }
-                      }}
+                    style={styles.scatter}
                     labels={({ datum }) => datum.name}
                     size={2}
                     data={ localData }
@@ -200,30 +213,11 @@ function App() {
                     y={20}
                     orientation="vertical"
                     gutter={10}
-                    style={{
-                        border: { 
-                            stroke: "black"
-                        },
-                        labels: {
-                            color: '#fff',
-                            fontSize: 5,
-                        }
-                    }}
+                    style={styles.legend}
                     data={symbols}
                 />
                 <VictoryLine
-                    style={{
-                        data: {
-                            stroke: "white",
-                            strokeWidth: 0.5,
-                            strokeDasharray: 1,
-                        },
-                        labels: {
-                            angle: -90,
-                            fill: "white",
-                            fontSize: 5,
-                        }
-                    }}
+                    style={styles.annoationLine}
                     labels={["Chest HP"]}
                     labelComponent={
                         <VictoryLabel
