@@ -33,8 +33,8 @@ function getTypeAndName(name) {
         type: matches[ 0 ],
         name: name.replace( `${matches[ 0 ]}`, '' ).trim(),
     };
-    }
-    
+}
+
 function parseData(){
     return data.map((ammoRow) => {
         if(!ammoRow.Damage){
@@ -99,11 +99,12 @@ function App() {
                     }
                     style={{
                         labels: {
-                          fontSize: 2,
+                          fontSize: 3,
+                          fill: '#fff',
                         }
                       }}
                     labels={({ datum }) => datum.name}
-                    size={1}
+                    size={2}
                     data={ localData }
                     x="Damage"
                     y="Penetration Value"
