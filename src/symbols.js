@@ -6,7 +6,7 @@ export default [
         name: '7.62x54R',
         symbol: {
             fill: 'tomato',
-            type: <rect />,
+            type: 'Square',
         },
     },
     {
@@ -14,7 +14,7 @@ export default [
         name: '7.62',
         symbol: {
             fill: 'tomato',
-            type: <rect />,
+            type: 'Square',
         },
     },
     {
@@ -22,7 +22,7 @@ export default [
         name: '5.56',
         symbol: {
             fill: 'yellow',
-            type: <rect />,
+            type: 'Square',
         },
     },
     {
@@ -30,7 +30,7 @@ export default [
         name: '5.45',
         symbol: {
             fill: 'green',
-            type: <rect />,
+            type: 'Square',
         },
     },
     {
@@ -38,7 +38,7 @@ export default [
         name: '9x',
         symbol: {
             fill: 'blue',
-            type: <rect />,
+            type: 'Square',
         },
     },
     {
@@ -46,7 +46,7 @@ export default [
         name: '12.7',
         symbol: {
             fill: 'white',
-            type: <circle />,
+            type: 'Square',
         },
     },
     {
@@ -54,7 +54,7 @@ export default [
         name: 'Shells',
         symbol: {
             fill: 'yellow',
-            type: <rect />,
+            type: 'Square',
         },
     },
 ];

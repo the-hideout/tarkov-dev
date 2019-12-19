@@ -1,6 +1,7 @@
 import React from 'react';
 
 import symbols from './symbols';
+import shapes from './points/';
 
 const getSymbol = function getSymbol(datum){
     for(const symbolSettings of symbols){
@@ -14,7 +15,7 @@ const getSymbol = function getSymbol(datum){
     console.log(`No symbol defined for ${datum.type}`);
     
     return {
-        type: '◢',
+        type: 'Square',
         fill: 'green'
     };
 };
@@ -22,33 +23,17 @@ const getSymbol = function getSymbol(datum){
 class CatPoint extends React.Component {
     render() {
         const {x, y, datum} = this.props;
-        console.log(this.props);
         const symbol = getSymbol(datum);
+        const PointComponent = shapes[symbol.type];
         
         return (
-            // <text
-            //     x={x}
-            //     y={y}
-            //     fontSize={5}
-            //     fill={symbol.fill}
-            //     textAlign= 'center'
-            //     width={20}
-            //     height={20}
-            // ></text>
-            <symbol.type
+            <PointComponent
                 width="3"
                 height="3"
                 fill={symbol.fill}
-                x={x}
-                y={y}
+                x={x-1.5}
+                y={y-1.5}
             />
-            // <rect
-            //     width="3"
-            //     height="3"
-            //     fill={symbol.fill}
-            //     x={x}
-            //     y={y}
-            // />
         );
     }
 } 
