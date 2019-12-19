@@ -161,12 +161,20 @@ function App() {
                     y="Penetration Value"
                 />
                 <VictoryLegend
+                    data={symbols}
+                    events={[{
+                        target: "labels",
+                        eventHandlers: {
+                          onClick: (target) => {
+                            console.log(target);
+                          }
+                        }
+                      }]}
+                    gutter={10}
+                    orientation="vertical"
+                    style={styles.legend}
                     x={290}
                     y={20}
-                    orientation="vertical"
-                    gutter={10}
-                    style={styles.legend}
-                    data={symbols}
                 />
                 <VictoryLine
                     style={styles.annoationLine}
