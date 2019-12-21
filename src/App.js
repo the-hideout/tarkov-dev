@@ -46,11 +46,12 @@ const styles = {
     legend: {
         border: { 
             stroke: "black",
+            fill: '#292525',
         },
         labels: {
             color: '#fff',
-            fontSize: 5,
-        }
+            fontSize: 3,
+        },
     },
     annoationLine: {
         data: {
@@ -135,7 +136,7 @@ function App() {
                     orientation="vertical"
                     style={styles.legend}
                     x={290}
-                    y={20}
+                    y={30}
                 />
                 <VictoryLine
                     style={styles.annoationLine}
