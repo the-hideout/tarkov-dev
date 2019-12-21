@@ -27,7 +27,7 @@ function getTypeAndName(name) {
     const matches = name.match( /\d{1,2}(\.\d{1,2})?x\d*(\s?mm)?R?/ );
     
     return {
-        type: matches[ 0 ],
+        type: matches[ 0 ].replace( /(\d)mm/g, '$1 mm'),
         name: name.replace( `${matches[ 0 ]}`, '' ).trim(),
     };
 }
