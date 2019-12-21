@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
     VictoryChart,
     VictoryScatter,
@@ -11,8 +11,7 @@ import {
 
 import './App.css';
 import Symbol from './Symbol.jsx';
-import symbols from './symbols';
-import data from './data.json';
+import data from './data';
 
 const MAX_DAMAGE = 200;
 
@@ -67,66 +66,25 @@ const styles = {
     },
 };
 
-function getTypeAndName(name) {
-    
-    if(name.includes('.366')) {
-        return {
-            type: '0.366',
-            name: name.replace( '.366 ', '' ),
-        };
+let typeCache = [];
+const legendData = data.map((ammo) => {
+    if (typeCache.includes(ammo.type)){
+        return false;
     }
     
-    if(name.includes('12/70')) {
-        return {
-            type: '12/70',
-            name: name.replace( '12/70 ', '' ),
-        };
-    }
-    
-    if(name.includes('20/70')) {
-        return {
-            type: '20/70',
-            name: name.replace( '20/70 ', '' ),
-        };
-    }
-    
-    const matches = name.match( /\d{1,2}(\.\d{1,2})?x\d*(\s?mm)?R?/ );
+    typeCache.push(ammo.type);
     
     return {
-        type: matches[ 0 ],
-        name: name.replace( `${matches[ 0 ]}`, '' ).trim(),
-    };
-}
-
-function parseData(){
-    return data.map((ammoRow) => {
-        if(!ammoRow.Damage){
-            return false;
-        }
-        
-        if(ammoRow['0.12 Patch'].includes('12.7x108 mm')){
-            return false;
-        }
-        
-        const returnData = {
-            ...ammoRow,
-            'Penetration Value': Number(ammoRow['Penetration Value']),
-            'Damage': Number(ammoRow['Damage']),
-            ...getTypeAndName(ammoRow['0.12 Patch']),
-        };
-        
-        if(returnData.Damage > MAX_DAMAGE){
-            returnData.name = `${returnData.name} (${returnData.Damage})`;
-            returnData.Damage = MAX_DAMAGE;
-        }
-        
-        return returnData;
-    }).filter(Boolean);
-}
-
+        name: ammo.type,
+        symbol: ammo.symbol,
+    }
+}).filter(Boolean);
 
 function App() {
-    const localData = parseData();
+    const [listState, setShowData] = useState(data);
+    
+    console.log(data);
+    
     return (
         <div className="App">
             <VictoryChart
@@ -156,17 +114,19 @@ function App() {
                         return datum.name;
                     }}
                     size={1}
-                    data={ localData }
+                    data={listState}
                     x="Damage"
                     y="Penetration Value"
                 />
                 <VictoryLegend
-                    data={symbols}
+                    data={legendData}
                     events={[{
                         target: "labels",
                         eventHandlers: {
-                          onClick: (target) => {
-                            console.log(target);
+                          onClick: (event, target, index) => {
+                            setShowData(data.filter((ammo) => {
+                                return ammo.type === legendData[index].name;
+                            }));
                           }
                         }
                       }]}
