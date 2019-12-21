@@ -51,6 +51,7 @@ const styles = {
         labels: {
             fill: '#ccc',
             fontSize: 3,
+            cursor: 'pointer',
         },
     },
     annoationLine: {
@@ -83,8 +84,6 @@ const legendData = data.map((ammo) => {
 
 function App() {
     const [listState, setShowData] = useState(data);
-    
-    console.log(data);
     
     return (
         <div className="App">
@@ -130,13 +129,27 @@ function App() {
                     events={[{
                         target: "labels",
                         eventHandlers: {
-                          onClick: (event, target, index) => {
-                            setShowData(data.filter((ammo) => {
-                                return ammo.type === legendData[index].name;
-                            }));
-                          }
-                        }
-                      }]}
+                            onClick: (event, target, index) => {
+                                setShowData(data.filter((ammo) => {
+                                    return ammo.type === legendData[index].name;
+                                }));
+                                
+                                return [
+                                    {
+                                        mutation: (props) => {
+                                            return {
+                                                style: {
+                                                    ...props.style,
+                                                    textDecoration: 'underline',
+                                                    fill: '#fff',
+                                                },
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                        },
+                    }]}
                     gutter={10}
                     orientation="vertical"
                     style={styles.legend}
