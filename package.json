@@ -6,7 +6,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "gh-pages": "^2.1.1",
     "got": "^10.0.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -20,8 +19,6 @@
     "test": "react-scripts test",
     "ci-test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build -u \"kokarn <kokarn@gmail.com>\"",
     "prebuild": "node scripts/getdata.js"
   },
   "eslintConfig": {
