@@ -34,7 +34,7 @@ const styles = {
             fontSize: 5,
         },
         grid: {
-            stroke: '#ddd',
+            stroke: '#555',
         },
     },
     scatter: {
@@ -55,7 +55,7 @@ const styles = {
     },
     annoationLine: {
         data: {
-            stroke: "white",
+            stroke: "#888",
             strokeWidth: 0.5,
             strokeDasharray: 1,
         },
