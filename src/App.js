@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import {
     VictoryChart,
     VictoryScatter,
@@ -83,11 +83,11 @@ const legendData = data.map((ammo) => {
 }).filter(Boolean);
 
 const LegendLabel = props => {
-  const { selectedDatum, datum } = props;
+  const { selectedDatumName, datum } = props;
   const style = useMemo(() => {
     let style = props.style;
 
-    if (selectedDatum && selectedDatum.name === datum.name) {
+    if (selectedDatumName === datum.name) {
       style = {
         ...props.style,
         textDecoration: "underline",
@@ -96,20 +96,29 @@ const LegendLabel = props => {
     }
 
     return style;
-  }, [selectedDatum, datum, props.style]);
+  }, [selectedDatumName, datum.name, props.style]);
 
   return <VictoryLabel {...props} style={style} />;
 };
 
 
 function App() {
-  const [selectedLegend, setSelectedLegend] = useState(null);
+  const [selectedLegendName, setSelectedLegendName] = useState();
 
   const listState = useMemo(() => {
     return data.filter(ammo =>
-      selectedLegend ? ammo.type === selectedLegend.name : true
+      !selectedLegendName || ammo.type === selectedLegendName
     );
-  }, [selectedLegend]);
+  }, [selectedLegendName]);
+
+  const handleLegendClick = useCallback((event, { datum: { name } }) => {
+    if (selectedLegendName === name) {
+      setSelectedLegendName();
+    } else {
+      setSelectedLegendName(name);
+    }
+
+  }, [selectedLegendName, setSelectedLegendName]);
 
 
     return (
@@ -153,14 +162,12 @@ function App() {
                 <VictoryLegend
                     data={legendData}
                     dataComponent = {<Symbol />}
-                    labelComponent={<LegendLabel selectedDatum={selectedLegend} />}
+                    labelComponent={<LegendLabel selectedDatumName={selectedLegendName} />}
                     events={[
                       {
                         target: "labels",
                         eventHandlers: {
-                          onClick: (event, target) => {
-                            setSelectedLegend(target.datum);
-                          }
+                          onClick: handleLegendClick
                         }
                       }
                     ]}
