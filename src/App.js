@@ -40,7 +40,7 @@ const styles = {
     scatter: {
         labels: {
             fontSize: 2.5,
-            fill: '#fff',
+            fill: '#ccc',
         },
     },
     legend: {
@@ -49,7 +49,7 @@ const styles = {
             fill: '#292525',
         },
         labels: {
-            color: '#fff',
+            fill: '#ccc',
             fontSize: 3,
         },
     },
@@ -61,8 +61,8 @@ const styles = {
         },
         labels: {
             angle: -90,
-            fill: "white",
-            fontSize: 5,
+            fill: "#ccc",
+            fontSize: 3,
         }
     },
 };
@@ -90,8 +90,13 @@ function App() {
         <div className="App">
             <VictoryChart
                 domainPadding={10}
-                padding={20}
-                height={250}
+                padding={{
+                    top: 10,
+                    bottom: 20,
+                    right: 10,
+                    left: 20,
+                }}
+                height={180}
                 theme={VictoryTheme.material}
                 maxDomain = {{
                     y: 70,
@@ -135,16 +140,16 @@ function App() {
                     gutter={10}
                     orientation="vertical"
                     style={styles.legend}
-                    x={290}
-                    y={30}
+                    x={315}
+                    y={5}
                 />
                 <VictoryLine
                     style={styles.annoationLine}
                     labels={["Chest HP"]}
                     labelComponent={
                         <VictoryLabel
-                            y={125}
-                            x={147}
+                            y={85}
+                            x={151}
                         />
                     }
                     x={() => 80}
