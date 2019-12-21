@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Tarkov Tools
+[![Build Status](https://travis-ci.org/kokarn/tarkov-tools.svg?branch=master)](https://travis-ci.org/kokarn/tarkov-tools)
 
 ## Available Scripts
 
