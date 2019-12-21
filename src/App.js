@@ -120,6 +120,7 @@ function App() {
                 />
                 <VictoryLegend
                     data={legendData}
+                    dataComponent = {<Symbol />}
                     events={[{
                         target: "labels",
                         eventHandlers: {

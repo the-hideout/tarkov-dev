@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Square extends React.Component {
+class TriangleUp extends React.Component {
     render() {
         return (
             <svg
@@ -9,11 +9,11 @@ class Square extends React.Component {
                 xmlns="http://www.w3.org/2000/svg" 
             >
                 <path
-                    d="M0 0,L0 300,L300 300,L300 0, Z"
+                    d="M0 75,L300 75,L150 225,Z"
                 />
             </svg>
         );
     }
 };
 
-export default Square;
+export default TriangleUp;
