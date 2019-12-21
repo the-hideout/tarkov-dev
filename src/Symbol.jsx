@@ -2,6 +2,8 @@ import React from 'react';
 
 import shapes from './points/';
 
+const SIZE = 2;
+
 class Symbol extends React.Component {
     render() {
         const {x, y, datum} = this.props;
@@ -9,11 +11,11 @@ class Symbol extends React.Component {
         
         return (
             <PointComponent
-                width="3"
-                height="3"
+                width={SIZE}
+                height={SIZE}
                 fill={datum.symbol.fill}
-                x={x-1.5}
-                y={y-1.5}
+                x={x - SIZE / 2}
+                y={y - SIZE / 2}
             />
         );
     }
