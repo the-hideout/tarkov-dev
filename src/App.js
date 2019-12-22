@@ -11,7 +11,7 @@ import {
 
 import './App.css';
 import Symbol from './Symbol.jsx';
-import data from './data';
+import data from './data.json';
 
 const MAX_DAMAGE = 200;
 
@@ -169,8 +169,8 @@ function App() {
                     }}
                     size={1}
                     data={listState}
-                    x="Damage"
-                    y="Penetration Value"
+                    x="damage"
+                    y="penetration"
                 />
                 <VictoryLegend
                     data={legendData}
