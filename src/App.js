@@ -15,6 +15,19 @@ import data from './data.json';
 
 const MAX_DAMAGE = 200;
 
+const formattedData = data.map((ammoData) => {
+    const returnData = {
+        ...ammoData,
+    };
+    
+    if(ammoData.damage > MAX_DAMAGE){
+        returnData.name = `${ammoData.name} (${ammoData.damage})`;
+        returnData.damage = MAX_DAMAGE;
+    }
+    
+    return returnData;
+});
+
 const styles = {
     classLabel: {
         fontSize: 3,
@@ -85,7 +98,7 @@ const styles = {
 };
 
 let typeCache = [];
-const legendData = data.map((ammo) => {
+const legendData = formattedData.map((ammo) => {
     if (typeCache.includes(ammo.type)){
         return false;
     }
@@ -99,43 +112,41 @@ const legendData = data.map((ammo) => {
 }).filter(Boolean);
 
 const LegendLabel = props => {
-  const { selectedDatumName, datum } = props;
-  const style = useMemo(() => {
-    let style = props.style;
+    const { selectedDatumName, datum } = props;
+    const style = useMemo(() => {
+        let style = props.style;
 
-    if (selectedDatumName === datum.name) {
-      style = {
-        ...props.style,
-        textDecoration: "underline",
-        fill: "#fff"
-      };
-    }
+        if (selectedDatumName === datum.name) {
+        style = {
+            ...props.style,
+            textDecoration: "underline",
+            fill: "#fff"
+        };
+        }
 
-    return style;
-  }, [selectedDatumName, datum.name, props.style]);
+        return style;
+    }, [selectedDatumName, datum.name, props.style]);
 
-  return <VictoryLabel {...props} style={style} />;
+    return <VictoryLabel {...props} style={style} />;
 };
 
-
 function App() {
-  const [selectedLegendName, setSelectedLegendName] = useState();
+    const [selectedLegendName, setSelectedLegendName] = useState();
 
-  const listState = useMemo(() => {
-    return data.filter(ammo =>
-      !selectedLegendName || ammo.type === selectedLegendName
-    );
-  }, [selectedLegendName]);
+    const listState = useMemo(() => {
+        return formattedData.filter(ammo =>
+            !selectedLegendName || ammo.type === selectedLegendName
+        );
+    }, [selectedLegendName]);
 
-  const handleLegendClick = useCallback((event, { datum: { name } }) => {
-    if (selectedLegendName === name) {
-      setSelectedLegendName();
-    } else {
-      setSelectedLegendName(name);
-    }
+    const handleLegendClick = useCallback((event, { datum: { name } }) => {
+        if (selectedLegendName === name) {
+            setSelectedLegendName();
+        } else {
+            setSelectedLegendName(name);
+        }
 
-  }, [selectedLegendName, setSelectedLegendName]);
-
+    }, [selectedLegendName, setSelectedLegendName]);
 
     return (
         <div className="App">
