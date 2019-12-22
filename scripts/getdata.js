@@ -5,10 +5,7 @@ const got = require('got');
 
 const symbols = require('../src/symbols.json');
 
-const URLS = [
-    'https://api.sheetson.com/v1/sheets/0.12%20Patch?spreadsheetId=1l_8zSZg-viVTZ2bavMEIIKhix6mFTXuVHWcNKZgBrjQ&limit=100',
-    'https://api.sheetson.com/v1/sheets/0.12%20Patch?spreadsheetId=1l_8zSZg-viVTZ2bavMEIIKhix6mFTXuVHWcNKZgBrjQ&limit=100&skip=100',
-];
+const URL = 'https://sheet.best/api/sheets/0ea7b51d-c0ea-45b8-b5d7-2f3f51121208';
 
 let typeCache = [];
 
@@ -41,7 +38,7 @@ function getTypeAndName(name) {
         type: matches[ 0 ].replace( /(\d)mm/g, '$1 mm'),
         name: name.replace( `${matches[ 0 ]}`, '' ).trim(),
     };
-}
+};
 
 const formatRow = function formatRow(ammoRow){
     if(!ammoRow.Damage){
@@ -67,7 +64,6 @@ const formatRow = function formatRow(ammoRow){
     }
     
     const returnData = {
-        ...ammoRow,
         'penetration': Number(ammoRow['Penetration Value']),
         'damage': Number(ammoRow['Damage']),
         name: name,
@@ -76,23 +72,17 @@ const formatRow = function formatRow(ammoRow){
     };
     
     return returnData;
-}
+};
 
 (async () => {
-    let dataset = [];
-    
     console.time('Get excel sheet data');
+    const response = await got(URL, {
+        responseType: 'json',
+    });
     
-    for(const url of URLS){
-        const response = await got(url, {
-            responseType: 'json',
-        });
-        
-        dataset = dataset.concat(response.body.results);
-    }
     console.timeEnd('Get excel sheet data');
-    
-    dataset = dataset.map(formatRow).filter(Boolean);
+
+    const dataset = response.body.map(formatRow).filter(Boolean);
     
     console.time('Write new data');
     fs.writeFileSync(path.join(__dirname, '..', 'src', 'data.json'), JSON.stringify(dataset, null, 4));

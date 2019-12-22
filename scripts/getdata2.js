@@ -25,9 +25,7 @@ const prefixes = [
     '127x55_',
 ];
 
-const URLS = [
-    'https://sheet.best/api/sheets/d3cf595e-0d31-4fd8-891b-c0102afed308',
-];
+const URL = 'https://sheet.best/api/sheets/d3cf595e-0d31-4fd8-891b-c0102afed308';
 
 let tempType = false;
 let typeCache = [];
@@ -76,22 +74,14 @@ const formatRow = function formatRow(row){
 };
 
 (async () => {
-    let dataset = [];
-    let rawData = [];
     
     console.time('Get excel sheet data');
-    
-    for(const url of URLS){
-        const response = await got(url, {
-            responseType: 'json',
-        });
-        
-        rawData = rawData.concat(response.body);
-    }
+    const response = await got(URL, {
+        responseType: 'json',
+    });
     console.timeEnd('Get excel sheet data');
     
-    rawData = rawData.slice(START_ROW, END_ROW);
-    dataset = rawData.map(formatRow).filter(Boolean);
+    const dataset = response.body.slice(START_ROW, END_ROW).map(formatRow).filter(Boolean);
     
     console.time('Write new data');
     fs.writeFileSync(path.join(__dirname, '..', 'src', 'data.json'), JSON.stringify(dataset, null, 4));
