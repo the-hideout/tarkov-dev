@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { 
+import React, { useState, useMemo, useCallback } from 'react';
+import {
     VictoryChart,
     VictoryScatter,
     VictoryTheme,
@@ -44,7 +44,7 @@ const styles = {
         },
     },
     legend: {
-        border: { 
+        border: {
             stroke: "black",
             fill: '#292525',
         },
@@ -73,18 +73,54 @@ const legendData = data.map((ammo) => {
     if (typeCache.includes(ammo.type)){
         return false;
     }
-    
+
     typeCache.push(ammo.type);
-    
+
     return {
         name: ammo.type,
         symbol: ammo.symbol,
     }
 }).filter(Boolean);
 
+const LegendLabel = props => {
+  const { selectedDatumName, datum } = props;
+  const style = useMemo(() => {
+    let style = props.style;
+
+    if (selectedDatumName === datum.name) {
+      style = {
+        ...props.style,
+        textDecoration: "underline",
+        fill: "#fff"
+      };
+    }
+
+    return style;
+  }, [selectedDatumName, datum.name, props.style]);
+
+  return <VictoryLabel {...props} style={style} />;
+};
+
+
 function App() {
-    const [listState, setShowData] = useState(data);
-    
+  const [selectedLegendName, setSelectedLegendName] = useState();
+
+  const listState = useMemo(() => {
+    return data.filter(ammo =>
+      !selectedLegendName || ammo.type === selectedLegendName
+    );
+  }, [selectedLegendName]);
+
+  const handleLegendClick = useCallback((event, { datum: { name } }) => {
+    if (selectedLegendName === name) {
+      setSelectedLegendName();
+    } else {
+      setSelectedLegendName(name);
+    }
+
+  }, [selectedLegendName, setSelectedLegendName]);
+
+
     return (
         <div className="App">
             <VictoryChart
@@ -126,30 +162,15 @@ function App() {
                 <VictoryLegend
                     data={legendData}
                     dataComponent = {<Symbol />}
-                    events={[{
+                    labelComponent={<LegendLabel selectedDatumName={selectedLegendName} />}
+                    events={[
+                      {
                         target: "labels",
                         eventHandlers: {
-                            onClick: (event, target, index) => {
-                                setShowData(data.filter((ammo) => {
-                                    return ammo.type === legendData[index].name;
-                                }));
-                                
-                                return [
-                                    {
-                                        mutation: (props) => {
-                                            return {
-                                                style: {
-                                                    ...props.style,
-                                                    textDecoration: 'underline',
-                                                    fill: '#fff',
-                                                },
-                                            }
-                                        }
-                                    }
-                                ]
-                            },
-                        },
-                    }]}
+                          onClick: handleLegendClick
+                        }
+                      }
+                    ]}
                     gutter={10}
                     orientation="vertical"
                     style={styles.legend}
@@ -213,5 +234,5 @@ function App() {
         </div>
     );
 }
-    
+
 export default App;
