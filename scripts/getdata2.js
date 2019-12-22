@@ -26,7 +26,7 @@ const prefixes = [
 ];
 
 const URLS = [
-    'https://sheet.best/api/sheets/3a724af7-406b-4648-8777-42dc7eb2c8c0',
+    'https://sheet.best/api/sheets/d3cf595e-0d31-4fd8-891b-c0102afed308',
 ];
 
 let tempType = false;
