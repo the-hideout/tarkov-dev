@@ -89,8 +89,6 @@ const formatRow = function formatRow(row){
         rawData = rawData.concat(response.body);
     }
     console.timeEnd('Get excel sheet data');
-    // let rawData = fs.readFileSync( path.join(__dirname, '..', 'src', 'raw-data2.json' ) );
-    // rawData = JSON.parse(rawData);
     
     rawData = rawData.slice(START_ROW, END_ROW);
     dataset = rawData.map(formatRow).filter(Boolean);
