@@ -28,6 +28,11 @@ const styles = {
         grid: {
             stroke: '#555',
         },
+        axisLabel: {
+            fontSize: 4, 
+            padding: 5,
+            fill: '#ccc',
+        },
     },
     yaxis: {
         tickLabels: {
@@ -35,6 +40,11 @@ const styles = {
         },
         grid: {
             stroke: '#555',
+        },
+        axisLabel: {
+            fontSize: 4, 
+            padding: 5,
+            fill: '#ccc',
         },
     },
     scatter: {
@@ -139,11 +149,14 @@ function App() {
                 }}
             >
                 <VictoryAxis
+                    axisLabelComponent={<VictoryLabel x={177}/>}
+                    label = 'Damage'
                     tickValues={[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240]}
                     style = {styles.xaxis}
                 />
                 <VictoryAxis
                     dependentAxis
+                    label = 'Penetration'
                     tickValues={[10, 20, 30, 40, 50, 60, 70]}
                     style = {styles.yaxis}
                 />
