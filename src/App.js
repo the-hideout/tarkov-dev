@@ -181,7 +181,7 @@ function App() {
                 <VictoryLegend
                     data={legendData}
                     dataComponent = {<Symbol />}
-                    title={'Filter by calibre'}
+                    title={'Filter by caliber'}
                     labelComponent={<LegendLabel selectedDatumName={selectedLegendName} />}
                     events={[
                       {
