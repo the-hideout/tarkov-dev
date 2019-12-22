@@ -57,11 +57,17 @@ const styles = {
         border: {
             stroke: "black",
             fill: '#292525',
+            width: 33,
         },
         labels: {
             fill: '#ccc',
             fontSize: 3,
             cursor: 'pointer',
+        },
+        title: {
+            fill: '#ccc',
+            fontSize: 4,
+            padding: 2
         },
     },
     annoationLine: {
@@ -175,6 +181,7 @@ function App() {
                 <VictoryLegend
                     data={legendData}
                     dataComponent = {<Symbol />}
+                    title={'Filter by calibre'}
                     labelComponent={<LegendLabel selectedDatumName={selectedLegendName} />}
                     events={[
                       {
@@ -187,7 +194,7 @@ function App() {
                     gutter={10}
                     orientation="vertical"
                     style={styles.legend}
-                    x={315}
+                    x={312}
                     y={5}
                 />
                 <VictoryLine
