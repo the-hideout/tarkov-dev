@@ -19,7 +19,7 @@
     "test": "react-scripts test",
     "ci-test": "npm run build && react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "prebuild": "node scripts/getdata2.js"
+    "prebuild": "node scripts/getdata-nofoodaftermidnight.js"
   },
   "eslintConfig": {
     "extends": "react-app"
