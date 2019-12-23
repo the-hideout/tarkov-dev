@@ -9,7 +9,10 @@ class TriangleUp extends React.Component {
                 xmlns="http://www.w3.org/2000/svg" 
             >
                 <path
-                    d="M0 75,L300 75,L150 225,Z"
+                    d="M0 0
+                    L300 0
+                    L150 300
+                    Z"
                 />
             </svg>
         );
