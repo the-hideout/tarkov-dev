@@ -4,4 +4,5 @@ module.exports = {
     TriangleUp: require('./TriangleUp').default,
     TriangleDown: require('./TriangleDown').default,
     Diamond: require('./Diamond').default,
+    Plus: require('./Plus').default,
 };

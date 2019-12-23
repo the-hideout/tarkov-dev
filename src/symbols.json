@@ -1,7 +1,7 @@
 [
     {
         "fill": "tomato",
-        "type": "Square"
+        "type": "Plus"
     },
     {
         "fill": "tomato",
@@ -20,7 +20,7 @@
         "type": "Diamond"
     },{
         "fill": "yellow",
-        "type": "Square"
+        "type": "Plus"
     },
     {
         "fill": "yellow",
@@ -40,7 +40,7 @@
     },
     {
         "fill": "green",
-        "type": "Square"
+        "type": "Plus"
     },
     {
         "fill": "green",
@@ -59,7 +59,7 @@
     },
     {
         "fill": "blue",
-        "type": "Square"
+        "type": "Plus"
     },{
         "fill": "blue",
         "type": "Circle"
