@@ -26,6 +26,9 @@ const formattedData = data.map((ammoData) => {
     }
     
     return returnData;
+})
+.sort((a, b) => {
+    return a.type.localeCompare(b.type);
 });
 
 const styles = {
