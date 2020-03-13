@@ -6,11 +6,11 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "got": "^10.0.4",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0",
-    "victory": "^33.1.7"
+    "got": "^10.6.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-scripts": "^3.4.0",
+    "victory": "^34.1.3"
   },
   "homepage": "https://kokarn.github.io/tarkov-tools/",
   "scripts": {
