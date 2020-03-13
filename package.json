@@ -16,8 +16,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "ci-test": "npm run build && react-scripts test --watchAll=false",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ci-test": "npm run build",
     "eject": "react-scripts eject",
     "prebuild": "node scripts/getdata-nofoodaftermidnight.js"
   },
