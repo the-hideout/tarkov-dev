@@ -5,7 +5,7 @@ const got = require('got');
 
 const symbols = require('../src/symbols.json');
 
-const START_ROW = 32;
+const START_ROW = 36;
 const END_ROW = 160;
 
 const prefixes = [
@@ -32,7 +32,7 @@ let typeCache = [];
 
 const formatRow = function formatRow(row){
     const formattedRow = {
-        type: row['Streaming is what gives me the free time to work on this, come by sometime                  '] || tempType,
+        type: row['I stream:                 '] || tempType,
         name: row['1'],
         damage: Number(row['3']),
         penetration: Number(row['4']),
