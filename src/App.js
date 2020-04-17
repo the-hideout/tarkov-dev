@@ -11,11 +11,11 @@ import {
 
 import './App.css';
 import Symbol from './Symbol.jsx';
-import data from './data.json';
+import rawData from './data.json';
 
 const MAX_DAMAGE = 200;
 
-const formattedData = data.map((ammoData) => {
+const formattedData = rawData.data.map((ammoData) => {
     const returnData = {
         ...ammoData,
     };
@@ -32,6 +32,13 @@ const formattedData = data.map((ammoData) => {
 });
 
 const styles = {
+    updatedLabel: {
+        fontSize: '10px',
+        position: 'absolute',
+        top: 2,
+        left: 4,
+        color: '#ccc',  
+    },
     classLabel: {
         fontSize: 3,
         fill: '#ddd',
@@ -153,6 +160,11 @@ function App() {
 
     return (
         <div className="App">
+            <div
+                style = { styles.updatedLabel }
+            >
+                {`Last updated: ${new Date(rawData.updated).toLocaleDateString()}`}        
+            </div>
             <VictoryChart
                 domainPadding={10}
                 padding={{

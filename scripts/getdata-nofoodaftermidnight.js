@@ -5,7 +5,7 @@ const got = require('got');
 
 const symbols = require('../src/symbols.json');
 
-const START_ROW = 36;
+const START_ROW = 34;
 const END_ROW = 160;
 
 const prefixes = [
@@ -25,7 +25,11 @@ const prefixes = [
     '127x55_',
 ];
 
-const URL = 'https://sheet.best/api/sheets/d3cf595e-0d31-4fd8-891b-c0102afed308';
+const URLS = [
+    'https://sheet.best/api/sheets/d3cf595e-0d31-4fd8-891b-c0102afed308', // Original
+    'https://sheet.best/api/sheets/cb15e425-1904-4306-a92d-6ea52747ee17', // Backup 1
+    'https://sheet.best/api/sheets/908aeaf1-75da-4488-ab19-ebed56f337a1', // Backup 2
+];
 
 let tempType = false;
 let typeCache = [];
@@ -73,15 +77,38 @@ const formatRow = function formatRow(row){
     return formattedRow;
 };
 
+const getSheetData = async function getSheetData(url){
+    console.time(`Get excel sheet data url ${url}`);
+    try {
+        const response = await got(url, {
+            responseType: 'json',
+            timeout: 5000,
+        });
+        console.timeEnd(`Get excel sheet data url ${url}`);
+        
+        return response;
+    } catch (responseError){
+        console.timeEnd(`Get excel sheet data url ${url}`);
+        console.error(responseError);
+    }
+    
+    return false;
+};
+
 (async () => {
+    let response = false;
+    for(let i = 0; i < URLS.length; i = i + 1){
+        response = await getSheetData(URLS[i]);
+        
+        if(response){
+            break;
+        }
+    }
     
-    console.time('Get excel sheet data');
-    const response = await got(URL, {
-        responseType: 'json',
-    });
-    console.timeEnd('Get excel sheet data');
-    
-    const dataset = response.body.slice(START_ROW, END_ROW).map(formatRow).filter(Boolean);
+    const dataset = {
+        updated: new Date(),
+        data: response.body.slice(START_ROW, END_ROW).map(formatRow).filter(Boolean),
+    };
     
     console.time('Write new data');
     fs.writeFileSync(path.join(__dirname, '..', 'src', 'data.json'), JSON.stringify(dataset, null, 4));
