@@ -5,9 +5,6 @@ const got = require('got');
 
 const symbols = require('../src/symbols.json');
 
-const START_ROW = 34;
-const END_ROW = 160;
-
 const prefixes = [
     '9x18pm_',
     '762x25tt_',
@@ -105,9 +102,32 @@ const getSheetData = async function getSheetData(url){
         }
     }
     
+    let started = false;
+    let stopped = false;
+    
     const dataset = {
         updated: new Date(),
-        data: response.body.slice(START_ROW, END_ROW).map(formatRow).filter(Boolean),
+        data: response.body.map((maybeAmmoType) => {
+            if(maybeAmmoType['1'] === 'Ammo Type'){
+                started = true;
+                
+                return false;
+            }
+            
+            if(!started){
+                return false;
+            }
+            
+            if(maybeAmmoType['1'] === null){
+                stopped = true;
+            }
+            
+            if(stopped){
+                return false;
+            }
+            
+            return formatRow(maybeAmmoType);
+        }).filter(Boolean),
     };
     
     console.time('Write new data');
