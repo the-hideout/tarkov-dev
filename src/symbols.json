@@ -1,75 +1,75 @@
 [
     {
-        "fill": "tomato",
+        "fill": "rgb(154, 136, 102)",
         "type": "Plus"
     },
     {
-        "fill": "tomato",
+        "fill": "rgb(154, 136, 102)",
         "type": "Circle"
     },
     {
-        "fill": "tomato",
+        "fill": "rgb(154, 136, 102)",
         "type": "TriangleUp"
     },
     {
-        "fill": "tomato",
+        "fill": "rgb(154, 136, 102)",
         "type": "TriangleDown"
     },
     {
-        "fill": "tomato",
+        "fill": "rgb(154, 136, 102)",
         "type": "Diamond"
     },{
-        "fill": "yellow",
+        "fill": "rgb(196, 214, 176)",
         "type": "Plus"
     },
     {
-        "fill": "yellow",
+        "fill": "rgb(196, 214, 176)",
         "type": "Circle"
     },
     {
-        "fill": "yellow",
+        "fill": "rgb(196, 214, 176)",
         "type": "TriangleUp"
     },
     {
-        "fill": "yellow",
+        "fill": "rgb(196, 214, 176)",
         "type": "TriangleDown"
     },
     {
-        "fill": "yellow",
+        "fill": "rgb(196, 214, 176)",
         "type": "Diamond"
     },
     {
-        "fill": "green",
+        "fill": "rgb(71, 121, 152)",
         "type": "Plus"
     },
     {
-        "fill": "green",
+        "fill": "rgb(71, 121, 152)",
         "type": "Circle"
     },{
-        "fill": "green",
+        "fill": "rgb(71, 121, 152)",
         "type": "TriangleUp"
     },
     {
-        "fill": "green",
+        "fill": "rgb(71, 121, 152)",
         "type": "TriangleDown"
     },
     {
-        "fill": "green",
+        "fill": "rgb(71, 121, 152)",
         "type": "Diamond"
     },
     {
-        "fill": "blue",
+        "fill": "rgb(246, 71, 64)",
         "type": "Plus"
     },{
-        "fill": "blue",
+        "fill": "rgb(246, 71, 64)",
         "type": "Circle"
     },
     {
-        "fill": "blue",
+        "fill": "rgb(246, 71, 64)",
         "type": "TriangleUp"
     },
     {
-        "fill": "blue",
+        "fill": "rgb(246, 71, 64)",
         "type": "TriangleDown"
     }
 ]
