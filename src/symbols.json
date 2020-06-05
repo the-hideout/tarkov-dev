@@ -1,75 +1,75 @@
 [
     {
-        "fill": "rgb(154, 136, 102)",
+        "fill": "tomato",
         "type": "Plus"
     },
     {
-        "fill": "rgb(154, 136, 102)",
+        "fill": "tomato",
         "type": "Circle"
     },
     {
-        "fill": "rgb(154, 136, 102)",
+        "fill": "tomato",
         "type": "TriangleUp"
     },
     {
-        "fill": "rgb(154, 136, 102)",
+        "fill": "tomato",
         "type": "TriangleDown"
     },
     {
-        "fill": "rgb(154, 136, 102)",
+        "fill": "tomato",
         "type": "Diamond"
     },{
-        "fill": "rgb(196, 214, 176)",
+        "fill": "yellow",
         "type": "Plus"
     },
     {
-        "fill": "rgb(196, 214, 176)",
+        "fill": "yellow",
         "type": "Circle"
     },
     {
-        "fill": "rgb(196, 214, 176)",
+        "fill": "yellow",
         "type": "TriangleUp"
     },
     {
-        "fill": "rgb(196, 214, 176)",
+        "fill": "yellow",
         "type": "TriangleDown"
     },
     {
-        "fill": "rgb(196, 214, 176)",
+        "fill": "yellow",
         "type": "Diamond"
     },
     {
-        "fill": "rgb(71, 121, 152)",
+        "fill": "green",
         "type": "Plus"
     },
     {
-        "fill": "rgb(71, 121, 152)",
+        "fill": "green",
         "type": "Circle"
     },{
-        "fill": "rgb(71, 121, 152)",
+        "fill": "green",
         "type": "TriangleUp"
     },
     {
-        "fill": "rgb(71, 121, 152)",
+        "fill": "green",
         "type": "TriangleDown"
     },
     {
-        "fill": "rgb(71, 121, 152)",
+        "fill": "green",
         "type": "Diamond"
     },
     {
-        "fill": "rgb(246, 71, 64)",
+        "fill": "rgb(71, 121, 152)",
         "type": "Plus"
     },{
-        "fill": "rgb(246, 71, 64)",
+        "fill": "rgb(71, 121, 152)",
         "type": "Circle"
     },
     {
-        "fill": "rgb(246, 71, 64)",
+        "fill": "rgb(71, 121, 152)",
         "type": "TriangleUp"
     },
     {
-        "fill": "rgb(246, 71, 64)",
+        "fill": "rgb(71, 121, 152)",
         "type": "TriangleDown"
     }
 ]
