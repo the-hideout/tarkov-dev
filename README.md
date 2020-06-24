@@ -10,3 +10,17 @@ This site isn't as pretty as the original chart but instead includes auto-update
 Simply click the type of ammo you wanna see the stats for and voila!
 
 ![How to use](./utility-preview.gif)
+
+
+## Running in development
+
+Everything should be pretty straightforward.
+
+### Step 1: Install dependencies  
+`npm install`
+
+### Step 2: Get data   
+`npm run prebuild`
+
+### Step 3: Start development server  
+`npm start`
