@@ -70,7 +70,7 @@ function App() {
         <div
             style = { styles.updatedLabel }
         >
-            {`Last updated: ${new Date(rawData.updated).toLocaleDateString()}`}        
+            {`Ammo updated: ${new Date(rawData.updated).toLocaleDateString()}`}        
         </div>
         <Graph
             rawData = {rawData}
