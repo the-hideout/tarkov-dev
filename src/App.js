@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 
 import './App.css';
 import Graph from './components/Graph.jsx';
@@ -68,6 +68,16 @@ function App() {
         }
 
     }, [selectedLegendName, setSelectedLegendName]);
+    
+    const handleHashChange = useCallback(() => {
+        setSelectedLegendName(decodeURIComponent(window.location.hash.substring(1)));
+
+    }, [setSelectedLegendName]);
+    
+    useEffect(() => {
+        window.addEventListener('hashchange', handleHashChange)
+        return () => window.removeEventListener('hashchange', handleHashChange)
+    }, [handleHashChange]);
     
     return <div className="App">
         <div
