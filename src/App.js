@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { useState, useMemo, useCallback } from 'react';
 
 import './App.css';
@@ -49,7 +50,7 @@ const legendData = formattedData.map((ammo) => {
 }).filter(Boolean);
 
 function App() {
-    const [selectedLegendName, setSelectedLegendName] = useState();
+    const [selectedLegendName, setSelectedLegendName] = useState(decodeURIComponent(window.location.hash.substring(1)));
 
     const listState = useMemo(() => {
         return formattedData.filter(ammo =>
@@ -60,13 +61,15 @@ function App() {
     const handleLegendClick = useCallback((event, { datum: { name } }) => {
         if (selectedLegendName === name) {
             setSelectedLegendName();
+            history.replaceState(undefined, undefined, '#');
         } else {
             setSelectedLegendName(name);
+            history.replaceState(undefined, undefined, `#${name}`);
         }
 
     }, [selectedLegendName, setSelectedLegendName]);
     
-   return <div className="App">
+    return <div className="App">
         <div
             style = { styles.updatedLabel }
         >
