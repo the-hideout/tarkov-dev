@@ -9,7 +9,7 @@
         'resort': '<img src="./maps/resort.png">',
     };
     
-    const mql = window.matchMedia('(min-width: 760px)');
+    const mql = window.matchMedia('(min-width: 710px)');
     
     // Small screen, don't do display
     if(!mql.matches){

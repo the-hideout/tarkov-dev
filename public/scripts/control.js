@@ -1,5 +1,5 @@
 (() => {
-    const mql = window.matchMedia('(min-width: 760px)');
+    const mql = window.matchMedia('(min-width: 710px)');
     
     // Big screen, don't do controls
     if(mql.matches){
