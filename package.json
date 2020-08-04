@@ -19,7 +19,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "ci-test": "npm run build",
     "eject": "react-scripts eject",
-    "prebuild": "node scripts/getdata-nofoodaftermidnight.js"
+    "prebuild": "node scripts/getdata-nofoodaftermidnight.js",
+    "stage": "npm run build && rm -rf ./tarkov-tools/ && cp -r build tarkov-tools && npx serve ."
   },
   "eslintConfig": {
     "extends": "react-app"
