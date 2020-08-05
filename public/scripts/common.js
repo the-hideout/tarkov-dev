@@ -35,7 +35,7 @@ const connect = function connect(){
         // Delay should be equal to the interval at which your server
         // sends out pings plus a conservative assumption of the latency.
         socket.pingTimeout = setTimeout(() => {
-            console.log('terminating');
+            document.querySelector('.connection-wrapper [type="submit"]').setAttribute('disabled');
             socket.terminate();
         }, 10000 + 1000);
     };
@@ -57,6 +57,8 @@ const connect = function connect(){
     socket.addEventListener('open', () => {
         heartbeat();
         
+        document.querySelector('.connection-wrapper [type="submit"]').removeAttribute('disabled');
+        
         socket.send(buildMessage({
             type: 'connect',
         }));
@@ -67,6 +69,8 @@ const connect = function connect(){
     
     socket.addEventListener('close', () => {
         console.log('Disconnected from socket server');
+        
+        document.querySelector('.connection-wrapper [type="submit"]').setAttribute('disabled');
         
         clearTimeout(socket.pingTimeout);
     });

@@ -135,8 +135,14 @@
         
         .connection-wrapper input {
             border-radius: 0;
-            width: calc(50% - 2px);
             text-overflow: ellipsis;
+            text-transform: uppercase;
+            width: calc(50% - 2px);
+        }
+        
+        .connection-wrapper input[type="submit"]:active {
+            position: relative;
+            top: 1px;
         }
         
         .id-wrapper {
@@ -232,11 +238,11 @@
             <option value="Other">Other</option>
         </select>
         <div class="info-wrapper">
-            Load this same page in another browser to control it from here
+            Load this page in another browser to control it from here
         </div>
         <div class="connection-wrapper">
-            <input type="text" placeholder="Session id" name="session-id" />
-            <input type="submit" value="Connect" />
+            <input type="text" placeholder="desktop id" name="session-id" />
+            <input type="submit" value="Connect" disabled />
         </div>
     </div>
     <script src="%PUBLIC_URL%/scripts/common.js"></script>
