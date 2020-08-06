@@ -70,7 +70,6 @@ const makeID = function makeID(length) {
                 // Delay should be equal to the interval at which your server
                 // sends out pings plus a conservative assumption of the latency.
                 socket.pingTimeout = setTimeout(() => {
-                    // document.querySelector('.connection-wrapper [type="submit"]').setAttribute('disabled', '');
                     socket.terminate();
                     setSocketConnected(false);
                 }, 10000 + 1000);
