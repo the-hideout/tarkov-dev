@@ -1,5 +1,11 @@
 import React, { useState, useRef } from 'react';
 
+import rawData from '../data.json';
+
+const ammoTypes = [...new Set(rawData.data.map((ammoData) => {
+    return ammoData.type
+}))].sort();
+
 function Control(props) {
     const [connectionText, setConnectionText] = useState('Connect');
     const [connectID, setConnectID] = useState();
@@ -65,25 +71,14 @@ function Control(props) {
         </select>
         <span>View caliber:</span>
         <select name="ammo" onChange={handleAmmoChange}>
-            <option value=".366">.366</option>
-            <option value=".45">.45</option>
-            <option value="12 Gauge Shot">12 Gauge Shot</option>
-            <option value="12 Gauge Slugs">12 Gauge Slugs</option>
-            <option value="12.7x55 mm">12.7x55 mm</option>
-            <option value="20 Gauge">20 Gauge</option>
-            <option value="4.6x30 mm">4.6x30 mm</option>
-            <option value="5.45x39 mm">5.45x39 mm</option>
-            <option value="5.56x45 mm">5.56x45 mm</option>
-            <option value="5.7x28 mm">5.7x28 mm</option>
-            <option value="7.62x25mm">7.62x25mm</option>
-            <option value="7.62x39 mm">7.62x39 mm</option>
-            <option value="7.62x51 mm">7.62x51 mm</option>
-            <option value="7.62x54R">7.62x54R</option>
-            <option value="9x18mm">9x18mm</option>
-            <option value="9x19mm">9x19mm</option>
-            <option value="9x21mm">9x21mm</option>
-            <option value="9x39mm">9x39mm</option>
-            <option value="Other">Other</option>
+            {ammoTypes.map((ammoType) => (
+                <option
+                    key = {ammoType}
+                    value = {ammoType}
+                >
+                    {ammoType}
+                </option>
+            ))}
         </select>
         <div className="info-wrapper">
             Load this page in another browser to control it from here
