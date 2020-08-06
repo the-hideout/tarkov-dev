@@ -19,8 +19,7 @@ const makeID = function makeID(length) {
     return result;
  };
  
-//  const socketServer = `wss://tarkov-socket-server.herokuapp.com`;
- const socketServer = `ws://localhost:8080`;
+ const socketServer = `wss://tarkov-socket-server.herokuapp.com`;
 
  let socket = false;
  
