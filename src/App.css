@@ -1,38 +1,155 @@
+@font-face {
+    font-family: 'bender';
+    src: url('./fonts/bender.woff2') format('woff2'),
+        url('./fonts/bender.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #292626;
+    color: #c7c5b3;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+body * {
+    font-family: 'bender', Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+iframe {
+    border: 0;
+    height: 100%;
+    width: 100%;
+}
+
+input,
+select {
+    border: 0;
+    height: 40px;
+    width: 100%;
+}
+
+input[name="session-id"] {
+    padding-left: 20px;
+}
+
+select {
+    padding: 10px;
+    margin-bottom: 2vh;
+}
+
+#root,
 .App {
-  text-align: center;
+    height: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.update-label {
+    font-size: 10px;
+    text-align: center;
+    color: #ccc;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.display-wrapper {
+    display: none;
+    height: 100vh;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.display-wrapper img {
+    left: 50%;
+    max-height: 100%;
+    max-width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
 }
 
-.App-link {
-  color: #61dafb;
+.control-wrapper {
+    flex-flow: column;
+    display: flex;
+    /* min-height: -webkit-fill-available; */
+    min-height: 100%;
+    padding: 15px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.control-wrapper span {
+    width: 100%;
+}
+
+.info-wrapper {
+    margin-top: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.connection-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.connection-wrapper input {
+    border-radius: 0;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    width: calc(50% - 2px);
+}
+
+.connection-wrapper input[type="submit"]:active {
+    position: relative;
+    top: 1px;
+}
+
+.id-wrapper {
+    background-color: rgba(0,0,0,0.5);
+    bottom: 0;
+    color: #fff;
+    display: none;
+    font-family: bender;
+    font-size: 30px;
+    left: 0;
+    line-height: 20px;
+    padding: 10px 40px;
+    position: absolute;
+}
+
+.id-wrapper svg {
+    fill: #c7c5b3;
+    height: 35px;
+    margin-right: 1vh;
+    width: 35px;
+}
+
+.id-wrapper span {
+    display: inline-block;
+    line-height: 23px;
+    position: relative;
+    top: -6px;
+}
+
+@media screen and (min-width: 710px){
+    .id-wrapper {
+        display: block;
+    }
+    
+    .display-wrapper {
+        display: block;
+    }
+    
+    .control-wrapper {
+        display: none;
+    }
 }

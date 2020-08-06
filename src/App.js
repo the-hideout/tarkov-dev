@@ -1,97 +1,171 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import './App.css';
-import Graph from './components/Graph.jsx';
+import Ammo from './components/Ammo.jsx';
+import Map from './components/Map.jsx';
+import ID from './components/ID.jsx';
+import Control from './components/Control.jsx';
 
-import rawData from './data.json';
+const makeID = function makeID(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const charactersLength = characters.length;
+    
+    for ( let i = 0; i < length; i = i + 1 ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    
+    return result;
+ };
+ 
+//  const socketServer = `wss://tarkov-socket-server.herokuapp.com`;
+ const socketServer = `ws://localhost:8080`;
 
-const styles = {
-    updatedLabel: {
-        fontSize: '10px',
-        position: 'absolute',
-        top: 2,
-        left: 4,
-        color: '#ccc',  
-    },
-};
-
-
-const MAX_DAMAGE = 200;
-
-const formattedData = rawData.data.map((ammoData) => {
-    const returnData = {
-        ...ammoData,
+ let socket = false;
+ 
+ function App() {    
+    const [currentView, setCurrentView] = useState('ammo');
+    const [currentAmmo, setCurrentAmmo] = useState(decodeURIComponent(window.location.hash.substring(1)) || '');
+    const [currentMap, setCurrentMap] = useState('customs');
+    const [sessionID, setSessionID] = useState(makeID(4));
+    const [socketConnected, setSocketConnected] = useState(false);
+    
+    const setID = (newID) => {
+        setSessionID(newID);
     };
     
-    if(ammoData.damage > MAX_DAMAGE){
-        returnData.name = `${ammoData.name} (${ammoData.damage})`;
-        returnData.damage = MAX_DAMAGE;
-    }
-    
-    return returnData;
-})
-.sort((a, b) => {
-    return a.type.localeCompare(b.type);
-});
-
-let typeCache = [];
-const legendData = formattedData.map((ammo) => {
-    if (typeCache.includes(ammo.type)){
-        return false;
-    }
-
-    typeCache.push(ammo.type);
-
-    return {
-        name: ammo.type,
-        symbol: ammo.symbol,
-    }
-}).filter(Boolean);
-
-function App() {
-    const [selectedLegendName, setSelectedLegendName] = useState(decodeURIComponent(window.location.hash.substring(1)));
-
-    const listState = useMemo(() => {
-        return formattedData.filter(ammo =>
-            !selectedLegendName || ammo.type === selectedLegendName
-        );
-    }, [selectedLegendName]);
-
-    const handleLegendClick = useCallback((event, { datum: { name } }) => {
-        if (selectedLegendName === name) {
-            setSelectedLegendName();
-            history.replaceState(undefined, undefined, '#');
-        } else {
-            setSelectedLegendName(name);
-            history.replaceState(undefined, undefined, `#${name}`);
+    const handleDisplayMessage = useCallback((rawMessage) => {
+        const message = JSON.parse(rawMessage.data);
+        
+        if(message.type !== 'command'){
+            return false;
+        }
+        
+        if(message.data.type === 'map'){
+            setCurrentView('map');
+            setCurrentMap(message.data.value);
+            
+            return true;
+        }
+        
+        if(message.data.type === 'ammo'){       
+            setCurrentView('ammo');
+            setCurrentAmmo(message.data.value);
+            history.replaceState(undefined, undefined, `#${message.data.value}`);
+            
+            return true;
         }
 
-    }, [selectedLegendName, setSelectedLegendName]);
+    }, [setCurrentView, setCurrentMap, setCurrentAmmo]);
+    
+    useEffect(() => {        
+        const connect = function connect(){
+            socket = new WebSocket(socketServer);
+
+            const heartbeat = function heartbeat() {
+                clearTimeout(socket.pingTimeout);
+            
+                // Use `WebSocket#terminate()`, which immediately destroys the connection,
+                // instead of `WebSocket#close()`, which waits for the close timer.
+                // Delay should be equal to the interval at which your server
+                // sends out pings plus a conservative assumption of the latency.
+                socket.pingTimeout = setTimeout(() => {
+                    // document.querySelector('.connection-wrapper [type="submit"]').setAttribute('disabled', '');
+                    socket.terminate();
+                    setSocketConnected(false);
+                }, 10000 + 1000);
+            };
+            
+            socket.addEventListener('message', (rawMessage) => {
+                const message = JSON.parse(rawMessage.data);
+                
+                if(message.type === 'ping'){
+                    heartbeat();
+                    
+                    socket.send(JSON.stringify({type: 'pong'}));
+                    
+                    return true;
+                }
+                
+                handleDisplayMessage(rawMessage);
+            });
+            
+            socket.addEventListener('open', () => {
+                console.log('Connected to socket server');
+                console.log(socket);
+                
+                heartbeat();
+                
+                setSocketConnected(true);
+                
+                socket.send(JSON.stringify({
+                    sessionID: sessionID,
+                    type: 'connect',
+                }));
+            });   
+            
+            socket.addEventListener('close', () => {
+                console.log('Disconnected from socket server');
+                
+                setSocketConnected(false);
+                
+                clearTimeout(socket.pingTimeout);
+            });
+            
+            setInterval(() => {        
+                if(socket.readyState === 3){
+                    console.log('trying to re-connect');
+                    connect();
+                }
+            }, 5000);
+        };
+        
+        if(socket === false){
+            connect();
+        }
+        
+        return () => {
+            // socket.terminate();
+        };
+    });    
     
     const handleHashChange = useCallback(() => {
-        setSelectedLegendName(decodeURIComponent(window.location.hash.substring(1)));
+        setCurrentAmmo(decodeURIComponent(window.location.hash.substring(1)));
 
-    }, [setSelectedLegendName]);
+    }, [setCurrentAmmo]);
     
     useEffect(() => {
         window.addEventListener('hashchange', handleHashChange)
         return () => window.removeEventListener('hashchange', handleHashChange)
     }, [handleHashChange]);
     
+    const send = useCallback((messageData) => {
+        socket.send(JSON.stringify({
+            sessionID: sessionID,
+            ...messageData,
+        }));
+    }, [sessionID]);
+
     return <div className="App">
-        <div
-            style = { styles.updatedLabel }
-        >
-            {`Ammo updated: ${new Date(rawData.updated).toLocaleDateString()}`}        
+        <div className="display-wrapper">
+            <Ammo 
+                show = {currentView === 'ammo'}
+                selectedAmmo = {currentAmmo}
+            />
+            <Map 
+                selectedMap = {currentMap}
+                show = {currentView === 'map'}
+            />
+            <ID
+                sessionID = {sessionID}
+            />
         </div>
-        <Graph
-            rawData = {rawData}
-            listState = {listState}
-            legendData = {legendData}
-            selectedLegendName = {selectedLegendName}
-            handleLegendClick = {handleLegendClick}
-            yMax = {MAX_DAMAGE}
+        <Control 
+            send = {send}
+            setID = {setID}
+            sessionID = {sessionID}
+            socketConnected = {socketConnected}
         />
     </div>
 }
