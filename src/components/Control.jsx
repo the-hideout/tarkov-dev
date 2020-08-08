@@ -63,6 +63,7 @@ function Control(props) {
             <option value="customs">Customs</option>
             <option value="dorms">Customs - Dorms</option>
             <option value="factory">Factory</option>
+            <option value="labs">Labs</option>
             <option value="interchange">Interchange</option>
             <option value="reserve">Reserve</option>
             <option value="shoreline">Shoreline</option>
