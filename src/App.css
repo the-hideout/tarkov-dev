@@ -72,6 +72,10 @@ select {
     margin-right: 20px;
 }
 
+.menu button {
+    font-size: 20px;
+}
+
 .menu a,
 .menu button {
     background-color: #000;
@@ -87,29 +91,29 @@ select {
     white-space: nowrap;
 }
 
-.menu a ul {
+.menu button ul {
     background-color: #000;
     display: none;
     left: 0;
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 10px 0;
     position: absolute;
     z-index: 1;
 }
 
-.menu a:hover {
+.menu button:hover {
     color: #000;
     background-color: #9a8866;
 }
 
-.menu a:hover ul {
+.menu button:hover ul {
     display: block;
 }
 
 .menu li:hover button {
     cursor: pointer;
-    text-decoration: underline;
+    /* text-decoration: underline; */
 }
 
 .update-label {

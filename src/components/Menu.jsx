@@ -25,12 +25,13 @@ function Menu(props) {
     return <div
             className="menu" 
         >
-            <span
-                className="branding"
+            <a
+                className = "branding"
+                href={process.env.PUBLIC_URL}
             >
             Tarkov Tools
-            </span>
-            <a href="">
+            </a>
+            <button>
                 Ammo
                 <ul>
                 {ammoTypes.map(ammoType => 
@@ -42,8 +43,8 @@ function Menu(props) {
                     </MenuItem>
                 )} 
                 </ul>
-            </a>
-            <a href="">
+            </button>
+            <button>
                 Maps
                 <ul>
                 {mapData.map(map => 
@@ -55,7 +56,7 @@ function Menu(props) {
                     </MenuItem>
                 )} 
                 </ul>
-            </a>
+            </button>
     </div>;
 }
 
