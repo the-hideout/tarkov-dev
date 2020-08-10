@@ -31,7 +31,9 @@ function Menu(props) {
             >
             Tarkov Tools
             </a>
-            <button>
+            <div
+                className = "submenu-button"
+            >
                 Ammo
                 <ul>
                 {ammoTypes.map(ammoType => 
@@ -43,8 +45,10 @@ function Menu(props) {
                     </MenuItem>
                 )} 
                 </ul>
-            </button>
-            <button>
+            </div>
+            <div
+                className = "submenu-button"
+            >
                 Maps
                 <ul>
                 {mapData.map(map => 
@@ -56,7 +60,7 @@ function Menu(props) {
                     </MenuItem>
                 )} 
                 </ul>
-            </button>
+            </div>
     </div>;
 }
 

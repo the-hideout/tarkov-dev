@@ -77,6 +77,7 @@ select {
 }
 
 .menu a,
+.menu .submenu-button, 
 .menu button {
     background-color: #000;
     border-radius: 3px;
@@ -91,7 +92,7 @@ select {
     white-space: nowrap;
 }
 
-.menu button ul {
+.menu .submenu-button ul {
     background-color: #000;
     display: none;
     left: 0;
@@ -102,12 +103,13 @@ select {
     z-index: 1;
 }
 
-.menu button:hover {
+.menu button:hover,
+.menu .submenu-button:hover {
     color: #000;
     background-color: #9a8866;
 }
 
-.menu button:hover ul {
+.menu .submenu-button:hover ul {
     display: block;
 }
 
