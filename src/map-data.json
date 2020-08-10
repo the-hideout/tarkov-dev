@@ -1,0 +1,38 @@
+[
+    {
+        "key": "customs",
+        "displayText": "Customs"
+    },
+    {
+        "key": "dorms",
+        "displayText": "Customs - Dorms"
+    },
+    {
+        "key": "factory",
+        "displayText": "Factory"
+    },
+    {
+        "key": "interchange",
+        "displayText": "Interchange"
+    },
+    {
+        "key": "labs",
+        "displayText": "Labs"
+    },
+    {
+        "key": "reserve",
+        "displayText": "Reserve"
+    },
+    {
+        "key": "shoreline",
+        "displayText": "Shoreline"
+    },
+    {
+        "key": "resort",
+        "displayText": "Shoreline - Resort"
+    },
+    {
+        "key": "woods",
+        "displayText": "Woods"
+    }
+]

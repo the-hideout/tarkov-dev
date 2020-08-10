@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
 
-import rawData from '../data.json';
+import ammoData from '../data.json';
+import mapData from '../map-data.json';
 
-const ammoTypes = [...new Set(rawData.data.map((ammoData) => {
+const ammoTypes = [...new Set(ammoData.data.map((ammoData) => {
     return ammoData.type
 }))].sort();
 
@@ -60,15 +61,14 @@ function Control(props) {
     return <div className="control-wrapper">
         <span>View map:</span>
         <select name="map" onChange={handleMapChange}>
-            <option value="customs">Customs</option>
-            <option value="dorms">Customs - Dorms</option>
-            <option value="factory">Factory</option>
-            <option value="labs">Labs</option>
-            <option value="interchange">Interchange</option>
-            <option value="reserve">Reserve</option>
-            <option value="shoreline">Shoreline</option>
-            <option value="resort">Shoreline - Resort</option>
-            <option value="woods">Woods</option>
+            {mapData.map(map => 
+                <option
+                    key = {map.key}
+                    value = {map.key}
+                >
+                    {map.displayText}
+                </option>
+            )} 
         </select>
         <span>View caliber:</span>
         <select name="ammo" onChange={handleAmmoChange}>

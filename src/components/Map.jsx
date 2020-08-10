@@ -1,26 +1,16 @@
 import React from 'react';
 
-import interchange from '../maps/interchange.jpg';
-import customs from '../maps/customs.jpg';
-import dorms from '../maps/dorms.jpg';
-import factory from '../maps/factory.jpg';
-import labs from '../maps/labs.jpg';
-import reserve from '../maps/reserve.jpg';
-import resort from '../maps/resort.jpg';
-import shoreline from '../maps/shoreline.jpg';
-import woods from '../maps/woods.jpg';
+import rawMapData from '../map-data.json';
 
-const maps = {
-    interchange: interchange,
-    customs: customs,
-    dorms: dorms,
-    factory: factory,
-    labs: labs,
-    reserve: reserve,
-    resort: resort,
-    shoreline: shoreline,
-    woods: woods,
-};
+const maps = Object.fromEntries(rawMapData.map((mapData) => {
+    return [
+        mapData.key,
+        {
+            ...mapData,
+            image: `/maps/${mapData.key}.jpg`,
+        },
+    ];
+}));
 
 function Map(props) {
     if(!props.show){
@@ -28,9 +18,9 @@ function Map(props) {
     }
     
     return <img 
-        alt = {`Map of ${props.selectedMap}`}
-        title = {`Map of ${props.selectedMap}`}
-        src = {maps[props.selectedMap]}
+        alt = {`Map of ${maps[props.selectedMap].displayText}`}
+        title = {`Map of ${maps[props.selectedMap].displayText}`}
+        src = {`${process.env.PUBLIC_URL}${maps[props.selectedMap].image}`}
     />
 }
 
