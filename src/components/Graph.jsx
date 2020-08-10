@@ -7,8 +7,6 @@ import {
     VictoryLine,
     VictoryLabel,
     VictoryAxis,
-    // VictoryVoronoiContainer,
-    // VictoryTooltip
 } from 'victory';
 
 import Symbol from './Symbol.jsx';
@@ -88,11 +86,11 @@ const LegendLabel = props => {
         let style = props.style;
 
         if (selectedDatumName === datum.name) {
-        style = {
-            ...props.style,
-            textDecoration: "underline",
-            fill: "#fff"
-        };
+            style = {
+                ...props.style,
+                textDecoration: "underline",
+                fill: "#fff"
+            };
         }
 
         return style;
@@ -108,7 +106,7 @@ const Graph = props => {
             padding={{
                 top: 10,
                 bottom: 20,
-                right: 10,
+                right: 50,
                 left: 20,
             }}
             height={180}
@@ -179,7 +177,7 @@ const Graph = props => {
                 orientation="vertical"
                 style={styles.legend}
                 x={312}
-                y={5}
+                y={9}
             />
             <VictoryLine
                 style={styles.annoationLine}

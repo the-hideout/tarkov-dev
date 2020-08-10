@@ -15,7 +15,7 @@ const styles = {
     },
 };
 
-const MAX_DAMAGE = 200;
+const MAX_DAMAGE = 170;
 const MAX_PENETRATION = 70;
 
 const formattedData = rawData.data.map((ammoData) => {
