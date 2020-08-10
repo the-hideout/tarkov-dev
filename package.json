@@ -20,7 +20,7 @@
     "ci-test": "npm run build",
     "eject": "react-scripts eject",
     "prebuild": "node scripts/getdata-nofoodaftermidnight.js",
-    "stage": "npm run build && rm -rf ./tarkov-tools/ && cp -r build tarkov-tools && npx serve ."
+    "stage": "npm run build && npx serve build"
   },
   "eslintConfig": {
     "extends": "react-app"
