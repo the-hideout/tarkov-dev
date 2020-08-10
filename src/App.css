@@ -182,6 +182,34 @@ select {
     position: absolute;
 }
 
+.session-question {
+    /* background-color: black; */
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    right: 0px;
+    text-align: center;
+    top: 0px;
+    width: 30px;
+}
+
+.session-question:hover .session-popup {
+    display: block;
+}
+
+.session-popup {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    width: 30vw;
+    background-color: rgba(0,0,0,0.5);
+    padding: 15px;
+    font-size: 16px;
+}
+
 .id-wrapper svg {
     fill: #c7c5b3;
     height: 35px;
@@ -189,7 +217,7 @@ select {
     width: 35px;
 }
 
-.id-wrapper span {
+.session-id {
     display: inline-block;
     line-height: 23px;
     position: relative;
