@@ -6,6 +6,7 @@ import Ammo from './components/Ammo.jsx';
 import Map from './components/Map.jsx';
 import ID from './components/ID.jsx';
 import Control from './components/Control.jsx';
+import Menu from './components/Menu.jsx';
 
 const makeID = function makeID(length) {
     let result = '';
@@ -146,6 +147,11 @@ const makeID = function makeID(length) {
     }, [sessionID]);
 
     return <div className="App">
+        <Menu
+            setCurrentView = {setCurrentView}
+            setCurrentMap = {setCurrentMap}
+            setCurrentAmmo = {setCurrentAmmo}
+        />
         <div className="display-wrapper">
             <Ammo 
                 show = {currentView === 'ammo'}

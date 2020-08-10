@@ -57,6 +57,61 @@ select {
     height: 100%;
 }
 
+.menu {
+    background-color: #000;
+    border-radius: 3px;
+    color: #9a8866;
+    display: none;
+    font-size: 20px;
+    padding: 10px 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.branding {
+    margin-right: 20px;
+}
+
+.menu a,
+.menu button {
+    background-color: #000;
+    border-radius: 3px;
+    border: 0;
+    color: #9a8866;
+    display: inline-block;
+    margin: 0 10px;
+    padding: 1px 8px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.menu a ul {
+    background-color: #000;
+    display: none;
+    left: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+}
+
+.menu a:hover {
+    color: #000;
+    background-color: #9a8866;
+}
+
+.menu a:hover ul {
+    display: block;
+}
+
+.menu li:hover button {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 .update-label {
     font-size: 10px;
     text-align: center;
@@ -65,7 +120,8 @@ select {
 
 .display-wrapper {
     display: none;
-    height: 100vh;
+    height: calc(100vh - 47px);
+    position: relative;
 }
 
 .display-wrapper img {
@@ -141,6 +197,10 @@ select {
 }
 
 @media screen and (min-width: 710px){
+    .menu {
+        display: block;
+    }
+    
     .id-wrapper {
         display: block;
     }
