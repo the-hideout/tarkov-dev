@@ -33,7 +33,7 @@ let typeCache = [];
 
 const formatRow = function formatRow(row){
     const formattedRow = {
-        type: row['I stream:                 '] || tempType,
+        type: row['I stream:                 '] || tempType,
         name: row['1'],
         damage: Number(row['3']),
         penetration: Number(row['4']),
@@ -41,7 +41,10 @@ const formatRow = function formatRow(row){
         fragChance: row['https://www.twitch.tv/nofoodaftermidnight'],
     };
     
+    
     if(formattedRow.type === 'Mounted Weapons') {
+        tempType = formattedRow.type;
+        
         return false;
     }
     
