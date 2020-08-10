@@ -16,6 +16,7 @@ const styles = {
 };
 
 const MAX_DAMAGE = 200;
+const MAX_PENETRATION = 70;
 
 const formattedData = rawData.data.map((ammoData) => {
     const returnData = {
@@ -25,6 +26,11 @@ const formattedData = rawData.data.map((ammoData) => {
     if(ammoData.damage > MAX_DAMAGE){
         returnData.name = `${ammoData.name} (${ammoData.damage})`;
         returnData.damage = MAX_DAMAGE;
+    }
+    
+    if(ammoData.penetration > MAX_PENETRATION){
+        returnData.name = `${ammoData.name} (${ammoData.penetration})`;
+        returnData.penetration = MAX_PENETRATION;
     }
     
     return returnData;
