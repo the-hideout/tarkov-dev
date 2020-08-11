@@ -6,11 +6,24 @@ const formatPrice = (price) => {
     return new Intl.NumberFormat('ru-RU', {
         style: 'currency',
         currency: 'RUB',
-        maximumSignificantDigits: 5,
+        maximumSignificantDigits: 6,
     }).format(price);
-}
+};
 
-function BarterGroup(props) {        
+function BarterGroup(props) {
+    let minPrice = false;
+    let maxPrice = false;
+    
+    for(const item of props.items){
+        if(!minPrice || item.pricePerSlot < minPrice){
+            minPrice = item.pricePerSlot;
+        }
+        
+        if(!maxPrice || item.pricePerSlot > maxPrice){
+            maxPrice = item.pricePerSlot;
+        }
+    }
+    
     return <div
             className="barter-group-wrapper"
         >
@@ -25,7 +38,7 @@ function BarterGroup(props) {
                 <div
                     className = "price-range-wrapper"
                 >
-                    {`${formatPrice(props.items[props.items.length - 1].pricePerSlot)} - ${formatPrice(props.items[0].pricePerSlot)}` }        
+                    {`${formatPrice(minPrice)} - ${formatPrice(maxPrice)}` }        
                     <div className="note">
                         per slot
                     </div>
