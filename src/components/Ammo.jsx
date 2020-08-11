@@ -87,7 +87,7 @@ function Ammo() {
             history.push(`/ammo/${name}`);
         }
 
-    }, [selectedLegendName, setSelectedLegendName]);
+    }, [selectedLegendName, setSelectedLegendName, history]);
     
     return (
         <div>

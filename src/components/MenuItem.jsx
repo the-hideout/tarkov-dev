@@ -8,9 +8,7 @@ function MenuItem(props) {
         <Link 
             to = {props.to}
         >
-            <button>
-                {props.children}
-            </button>
+            {props.children}
         </Link>
 </li>;
 }
