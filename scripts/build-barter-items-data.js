@@ -25,6 +25,7 @@ const barterItems = require('../data/barter-items.json');
             link: itemData.body[0].link,
             pricePerSlot: Math.floor(itemData.body[0].avg24hPrice / itemData.body[0].slots),
             slots: itemData.body[0].slots,
+            wikiLink: itemData.body[0].wikiLink,
         });
     }
     
