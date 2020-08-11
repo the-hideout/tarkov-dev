@@ -14,10 +14,6 @@ import Control from './components/Control.jsx';
 import Menu from './components/Menu.jsx';
 import Barter from './components/Barter.jsx';
 
-if(window.location.hostname !== 'localhost' && window.location.hostname !== 'tarkov-tools.com'){
-    window.location = `https://tarkov-tools.com${window.location.pathname}`;
-}
-
 const makeID = function makeID(length) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';

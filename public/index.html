@@ -42,6 +42,10 @@
 
         gtag('config', 'UA-3953312-31');
     </script>
-
+    <script>
+        if(window.location.hostname !== 'localhost' && window.location.hostname !== 'tarkov-tools.com'){
+            window.location = `https://tarkov-tools.com`;
+        }
+    </script>
   </body>
 </html>
