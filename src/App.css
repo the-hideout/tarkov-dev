@@ -103,6 +103,7 @@ select {
     z-index: 1;
 }
 
+.menu a:hover,
 .menu button:hover,
 .menu .submenu-button:hover {
     color: #000;

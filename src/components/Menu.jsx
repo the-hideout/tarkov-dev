@@ -61,6 +61,11 @@ function Menu(props) {
                 )} 
                 </ul>
             </div>
+            <a 
+                href="https://developertracker.com/escape-from-tarkov/"
+            >
+                Dev tracker    
+            </a>
     </div>;
 }
 
