@@ -9,16 +9,6 @@ import Graph from './Graph.jsx';
 
 import rawData from '../data.json';
 
-const styles = {
-    updatedLabel: {
-        fontSize: '10px',
-        position: 'absolute',
-        top: 2,
-        left: 4,
-        color: '#ccc',  
-    },
-};
-
 const MAX_DAMAGE = 170;
 const MAX_PENETRATION = 70;
 
@@ -92,7 +82,7 @@ function Ammo() {
     return (
         <div>
             <div
-                style = { styles.updatedLabel }
+                className = {'updated-label'}
             >
                 {`Ammo updated: ${new Date(rawData.updated).toLocaleDateString()}`}        
             </div>
