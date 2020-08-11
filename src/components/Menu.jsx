@@ -18,7 +18,7 @@ function Menu() {
         >
             <Link
                 className = "branding"
-                to = '/tarkov-tools/'
+                to = '/'
             >
                 Tarkov Tools
             </Link>
@@ -29,7 +29,7 @@ function Menu() {
                 <ul>
                 {ammoTypes.map(ammoType => 
                     <MenuItem
-                        to = {`/tarkov-tools/ammo/${ammoType}`}
+                        to = {`/ammo/${ammoType}`}
                         key = {ammoType}
                     >
                         {ammoType}
@@ -44,7 +44,7 @@ function Menu() {
                 <ul>
                 {mapData.map(map => 
                     <MenuItem
-                        to = {`/tarkov-tools/map/${map.key}`}
+                        to = {`/map/${map.key}`}
                         key = {map.key}
                     >
                         {map.displayText}
@@ -52,7 +52,7 @@ function Menu() {
                 )} 
                 </ul>
             </div>
-            <Link to="/tarkov-tools/barter">
+            <Link to="/barter">
                 Loot tiers
             </Link>
             <a 

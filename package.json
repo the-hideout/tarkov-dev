@@ -14,7 +14,6 @@
     "react-scripts": "^3.4.1",
     "victory": "^35.0.8"
   },
-  "homepage": ".",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
