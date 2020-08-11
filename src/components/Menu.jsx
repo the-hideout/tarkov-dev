@@ -56,6 +56,7 @@ function Menu() {
                 Loot tiers
             </Link>
             <a 
+                className = {'devtracker-link'}
                 href="https://developertracker.com/escape-from-tarkov/"
             >
                 Dev tracker    

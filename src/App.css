@@ -68,6 +68,10 @@ select {
     text-transform: uppercase;
 }
 
+.devtracker-link {
+    float: right;
+}
+
 .branding {
     margin-right: 20px;
 }
@@ -280,7 +284,7 @@ select {
     left: 0;
     line-height: 20px;
     padding: 10px 40px;
-    position: absolute;
+    position: fixed;
 }
 
 .session-question {
