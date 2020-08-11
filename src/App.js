@@ -7,6 +7,7 @@ import Map from './components/Map.jsx';
 import ID from './components/ID.jsx';
 import Control from './components/Control.jsx';
 import Menu from './components/Menu.jsx';
+import Barter from './components/Barter.jsx';
 
 const makeID = function makeID(length) {
     let result = '';
@@ -153,6 +154,9 @@ const makeID = function makeID(length) {
             setCurrentAmmo = {setCurrentAmmo}
         />
         <div className="display-wrapper">
+            <Barter 
+                show = {currentView === 'barter'}
+            />
             <Ammo 
                 show = {currentView === 'ammo'}
                 selectedAmmo = {currentAmmo}

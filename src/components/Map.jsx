@@ -19,6 +19,7 @@ function Map(props) {
     
     return <img 
         alt = {`Map of ${maps[props.selectedMap].displayText}`}
+        className = "map-image"
         title = {`Map of ${maps[props.selectedMap].displayText}`}
         src = {`${process.env.PUBLIC_URL}${maps[props.selectedMap].image}`}
     />

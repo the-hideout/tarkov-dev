@@ -29,7 +29,7 @@ function Menu(props) {
                 className = "branding"
                 href={process.env.PUBLIC_URL}
             >
-            Tarkov Tools
+                Tarkov Tools
             </a>
             <div
                 className = "submenu-button"
@@ -60,6 +60,12 @@ function Menu(props) {
                     </MenuItem>
                 )} 
                 </ul>
+            </div>
+            <div
+                className = "submenu-button"
+                onClick = {props.setCurrentView.bind(this, 'barter')}
+            >
+                Rat list
             </div>
             <a 
                 href="https://developertracker.com/escape-from-tarkov/"
