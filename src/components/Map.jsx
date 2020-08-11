@@ -22,7 +22,7 @@ function Map() {
         alt = {`Map of ${maps[currentMap].displayText}`}
         className = "map-image"
         title = {`Map of ${maps[currentMap].displayText}`}
-        src = {`${maps[currentMap].image}`}
+        src = {`/tarkov-tools/${maps[currentMap].image}`}
     />
 }
 

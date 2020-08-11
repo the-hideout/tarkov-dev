@@ -47,13 +47,13 @@ const makeID = function makeID(length) {
         }
         
         if(message.data.type === 'map'){
-            history.push(`/map/${message.data.value}`);
+            history.push(`/tarkov-tools/map/${message.data.value}`);
             
             return true;
         }
         
         if(message.data.type === 'ammo'){       
-            history.push(`/ammo/${message.data.value}`);
+            history.push(`/tarkov-tools/ammo/${message.data.value}`);
             
             return true;
         }
@@ -142,14 +142,14 @@ const makeID = function makeID(length) {
             <Switch>
                 <Route
                     exact
-                    path={["/ammo/:currentAmmo", "/ammo", ""]}
+                    path={["/tarkov-tools/ammo/:currentAmmo", "/tarkov-tools/ammo", '/tarkov-tools', ""]}
                 >
                     <Ammo />
                 </Route>
-                <Route path="/map/:currentMap">
+                <Route path="/tarkov-tools/map/:currentMap">
                     <Map />
                 </Route>
-                <Route exact path="/barter">
+                <Route exact path="/tarkov-tools/barter">
                     <Barter />
                 </Route>
             </Switch>
