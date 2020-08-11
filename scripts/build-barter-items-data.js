@@ -5,7 +5,10 @@ const got = require('got');
 const barterItems = require('../data/barter-items.json');
 
 (async () => {
-    const allData = [];
+    const allData = {
+        updated: new Date(),
+        data: [],
+    };
     
     for(const item of barterItems){
         console.log(`Loading data for ${item.name}`);
@@ -16,7 +19,7 @@ const barterItems = require('../data/barter-items.json');
             responseType: 'json',
         });
         
-        allData.push({
+        allData.data.push({
             ...item,
             img: itemData.body[0].img,
             link: itemData.body[0].link,

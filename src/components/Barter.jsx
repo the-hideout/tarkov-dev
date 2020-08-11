@@ -27,7 +27,7 @@ const arrayChunk = (inputArray, chunkLength) => {
     }, []);
 };
 
-const sortedItems = barterItems.sort((itemA, itemB) => {    
+const sortedItems = barterItems.data.sort((itemA, itemB) => {    
     if(itemA.pricePerSlot > itemB.pricePerSlot){
         return -1;
     }
@@ -55,10 +55,15 @@ for(let i = 0; i < itemChunks.length; i = i + 1){
     });
 };
 
-function Barter(props) {      
+function Barter() {      
     return <div
         className="barter-wrapper" 
     >
+        <div
+            className = {'updated-label'}
+        >
+            {`Prices updated: ${new Date(barterItems.updated).toLocaleDateString()}`}        
+        </div>
         {itemChunks.map((items, index) => 
             <BarterGroup
                 key = {`barter-group-${groupNames[index]}`}

@@ -131,6 +131,14 @@ select {
     position: relative;
 }
 
+.updated-label {
+    color: #ccc;  
+    font-size: 10px;
+    left: 4px;
+    position: absolute;
+    top: 2px;
+}
+
 .map-image {
     left: 50%;
     max-height: 100%;
