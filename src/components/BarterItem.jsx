@@ -34,12 +34,21 @@ function BarterItem(props) {
         // imgClass = `${imgClassBase}2x-1x`;
     }
     
-    return <img
-        alt = {props.name}
-        title = {props.name}
-        className = {imgClass}
-        src = {imgSrc}
-    />
+    return <a
+        href= {props.wikiLink}
+        className = {`barter-item ${imgClass}`}
+    >
+        <span
+            className = {'barter-item-tooltip'}
+        >
+            {new Intl.NumberFormat('en-EN').format(props.pricePerSlot)}
+        </span>
+        <img
+            alt = {props.name}
+            title = {props.name}
+            src = {imgSrc}
+        />
+    </a>
 }
 
 export default BarterItem;

@@ -194,6 +194,34 @@ select {
     width: 90vw;
 }
 
+.barter-item {
+    position: relative;
+}
+
+.barter-item:hover .barter-item-tooltip {
+    bottom: -25px;
+    opacity: 1;
+}
+
+.barter-item img {
+    height: 100%;
+    width: 100%;
+}
+
+.barter-item-tooltip {
+    background-color: rgba(0,0,0,0.5);
+    bottom: -10px;
+    color: #fff;
+    opacity: 0;
+    font-size: 12px;
+    left: 50%;
+    padding: 5px 10px;
+    position: absolute;
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
 .barter-icon-1x-1x {
     height: var(--grid-base);
     width: var(--grid-base);

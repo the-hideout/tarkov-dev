@@ -51,9 +51,11 @@ function BarterGroup(props) {
                     <BarterItem
                         key = {item.name}
                         name = {item.name}
+                        pricePerSlot = {item.pricePerSlot}
                         rotate = {item.rotate}
                         slots = {item.slots}
                         src = {item.img}
+                        wikiLink = {item.wikiLink}
                     />
                 )} 
             </div>
