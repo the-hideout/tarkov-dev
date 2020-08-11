@@ -18,13 +18,11 @@ const maps = Object.fromEntries(rawMapData.map((mapData) => {
 function Map() {
     let {currentMap} = useParams();
     
-    console.log(currentMap);
-    
     return <img 
         alt = {`Map of ${maps[currentMap].displayText}`}
         className = "map-image"
         title = {`Map of ${maps[currentMap].displayText}`}
-        src = {`${process.env.PUBLIC_URL}${maps[currentMap].image}`}
+        src = {`${maps[currentMap].image}`}
     />
 }
 
