@@ -56,9 +56,6 @@ for(let i = 0; i < itemChunks.length; i = i + 1){
 };
 
 function Barter(props) {      
-    if(!props.show){
-        return false;
-    }
     return <div
         className="barter-wrapper" 
     >

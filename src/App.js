@@ -1,5 +1,10 @@
 /* eslint-disable no-restricted-globals */
 import React, { useState, useEffect, useCallback } from 'react';
+import {
+    Switch,
+    Route,
+    useHistory,
+  } from "react-router-dom";
 
 import './App.css';
 import Ammo from './components/Ammo.jsx';
@@ -26,17 +31,15 @@ const makeID = function makeID(length) {
  let socket = false;
  
  function App() {    
-    const [currentView, setCurrentView] = useState('ammo');
-    const [currentAmmo, setCurrentAmmo] = useState(decodeURIComponent(window.location.hash.substring(1)) || '');
-    const [currentMap, setCurrentMap] = useState('customs');
     const [sessionID, setSessionID] = useState(makeID(4));
     const [socketConnected, setSocketConnected] = useState(false);
+    let history = useHistory();
     
     const setID = (newID) => {
         setSessionID(newID);
     };
     
-    const handleDisplayMessage = useCallback((rawMessage) => {
+    const handleDisplayMessage = (rawMessage) => {
         const message = JSON.parse(rawMessage.data);
         
         if(message.type !== 'command'){
@@ -44,21 +47,17 @@ const makeID = function makeID(length) {
         }
         
         if(message.data.type === 'map'){
-            setCurrentView('map');
-            setCurrentMap(message.data.value);
+            history.push(`/map/${message.data.value}`);
             
             return true;
         }
         
         if(message.data.type === 'ammo'){       
-            setCurrentView('ammo');
-            setCurrentAmmo(message.data.value);
-            history.replaceState(undefined, undefined, `#${message.data.value}`);
+            history.push(`/ammo/${message.data.value}`);
             
             return true;
         }
-
-    }, [setCurrentView, setCurrentMap, setCurrentAmmo]);
+    };
     
     useEffect(() => {        
         const connect = function connect(){
@@ -130,16 +129,6 @@ const makeID = function makeID(length) {
         };
     });    
     
-    const handleHashChange = useCallback(() => {
-        setCurrentAmmo(decodeURIComponent(window.location.hash.substring(1)));
-
-    }, [setCurrentAmmo]);
-    
-    useEffect(() => {
-        window.addEventListener('hashchange', handleHashChange)
-        return () => window.removeEventListener('hashchange', handleHashChange)
-    }, [handleHashChange]);
-    
     const send = useCallback((messageData) => {
         socket.send(JSON.stringify({
             sessionID: sessionID,
@@ -148,23 +137,22 @@ const makeID = function makeID(length) {
     }, [sessionID]);
 
     return <div className="App">
-        <Menu
-            setCurrentView = {setCurrentView}
-            setCurrentMap = {setCurrentMap}
-            setCurrentAmmo = {setCurrentAmmo}
-        />
+        <Menu />
         <div className="display-wrapper">
-            <Barter 
-                show = {currentView === 'barter'}
-            />
-            <Ammo 
-                show = {currentView === 'ammo'}
-                selectedAmmo = {currentAmmo}
-            />
-            <Map 
-                selectedMap = {currentMap}
-                show = {currentView === 'map'}
-            />
+            <Switch>
+                <Route
+                    exact
+                    path={["/ammo/:currentAmmo", "/ammo", ""]}
+                >
+                    <Ammo />
+                </Route>
+                <Route path="/map/:currentMap">
+                    <Map />
+                </Route>
+                <Route exact path="/barter">
+                    <Barter />
+                </Route>
+            </Switch>
             <ID
                 sessionID = {sessionID}
             />

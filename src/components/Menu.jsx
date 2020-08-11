@@ -1,4 +1,7 @@
 import React from 'react';
+import {
+    Link
+  } from "react-router-dom";
 
 import MenuItem from './MenuItem';
 
@@ -9,28 +12,16 @@ const ammoTypes = [...new Set(ammoData.data.map((ammoData) => {
     return ammoData.type
 }))].sort();
 
-function Menu(props) {
-    const setMap = (mapKey, event) => {
-        event.preventDefault();
-        props.setCurrentView('map');
-        props.setCurrentMap(mapKey);
-    };
-    
-    const setAmmo = (ammo, event) => {
-        event.preventDefault();
-        props.setCurrentView('ammo');
-        props.setCurrentAmmo(ammo);
-    };
-    
+function Menu() {    
     return <div
             className="menu" 
         >
-            <a
+            <Link
                 className = "branding"
-                href={process.env.PUBLIC_URL}
+                to = '/'
             >
                 Tarkov Tools
-            </a>
+            </Link>
             <div
                 className = "submenu-button"
             >
@@ -38,7 +29,7 @@ function Menu(props) {
                 <ul>
                 {ammoTypes.map(ammoType => 
                     <MenuItem
-                        handleClick={setAmmo.bind(this, ammoType)}
+                        to = {`/ammo/${ammoType}`}
                         key = {ammoType}
                     >
                         {ammoType}
@@ -53,7 +44,7 @@ function Menu(props) {
                 <ul>
                 {mapData.map(map => 
                     <MenuItem
-                        handleClick={setMap.bind(this, map.key)}
+                        to = {`/map/${map.key}`}
                         key = {map.key}
                     >
                         {map.displayText}
@@ -61,12 +52,9 @@ function Menu(props) {
                 )} 
                 </ul>
             </div>
-            <div
-                className = "submenu-button"
-                onClick = {props.setCurrentView.bind(this, 'barter')}
-            >
-                Rat list
-            </div>
+            <Link to="/barter">
+                Loot tiers
+            </Link>
             <a 
                 href="https://developertracker.com/escape-from-tarkov/"
             >

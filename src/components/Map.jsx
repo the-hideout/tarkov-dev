@@ -1,4 +1,7 @@
 import React from 'react';
+import {
+    useParams,
+  } from "react-router-dom";
 
 import rawMapData from '../map-data.json';
 
@@ -12,16 +15,16 @@ const maps = Object.fromEntries(rawMapData.map((mapData) => {
     ];
 }));
 
-function Map(props) {
-    if(!props.show){
-        return true;
-    }
+function Map() {
+    let {currentMap} = useParams();
+    
+    console.log(currentMap);
     
     return <img 
-        alt = {`Map of ${maps[props.selectedMap].displayText}`}
+        alt = {`Map of ${maps[currentMap].displayText}`}
         className = "map-image"
-        title = {`Map of ${maps[props.selectedMap].displayText}`}
-        src = {`${process.env.PUBLIC_URL}${maps[props.selectedMap].image}`}
+        title = {`Map of ${maps[currentMap].displayText}`}
+        src = {`${process.env.PUBLIC_URL}${maps[currentMap].image}`}
     />
 }
 

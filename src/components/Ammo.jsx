@@ -1,5 +1,9 @@
 /* eslint-disable no-restricted-globals */
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import {
+    useParams,
+    useHistory,
+  } from "react-router-dom";
 
 import Graph from './Graph.jsx';
 
@@ -53,18 +57,20 @@ const legendData = formattedData.map((ammo) => {
     }
 }).filter(Boolean);
 
-function Ammo(props) {
-    const [selectedLegendName, setSelectedLegendName] = useState(props.selectedAmmo);
+function Ammo() {
+    const {currentAmmo} = useParams();
+    const history = useHistory();
+    const [selectedLegendName, setSelectedLegendName] = useState(currentAmmo);
     
     useEffect(() => {
-        if(props.selectedAmmo === 'all'){
+        if(currentAmmo === 'all'){
             setSelectedLegendName();
             
             return true;
         }
         
-        setSelectedLegendName(props.selectedAmmo);
-    }, [props.selectedAmmo]);
+        setSelectedLegendName(currentAmmo);
+    }, [currentAmmo]);
 
     const listState = useMemo(() => {
         return formattedData.filter(ammo =>
@@ -75,17 +81,13 @@ function Ammo(props) {
     const handleLegendClick = useCallback((event, { datum: { name } }) => {
         if (selectedLegendName === name) {
             setSelectedLegendName();
-            history.replaceState(undefined, undefined, '#');
+            history.push('/ammo/');
         } else {
             setSelectedLegendName(name);
-            history.replaceState(undefined, undefined, `#${name}`);
+            history.push(`/ammo/${name}`);
         }
 
     }, [selectedLegendName, setSelectedLegendName]);
-    
-    if(!props.show){
-        return true;
-    }
     
     return (
         <div>
