@@ -106,4 +106,4 @@ dist
 build
 src/data.json
 tarkov-tools/*
-src/barter-items.json
+public/barter-items.json

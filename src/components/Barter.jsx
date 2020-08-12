@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import barterItems from '../barter-items.json';
 import BarterGroup from './BarterGroup';
 
 const groupNames = [
@@ -27,42 +26,61 @@ const arrayChunk = (inputArray, chunkLength) => {
     }, []);
 };
 
-const sortedItems = barterItems.data.sort((itemA, itemB) => {    
-    if(itemA.pricePerSlot > itemB.pricePerSlot){
-        return -1;
-    }
+function Barter() {
+    const [itemChunks, setChunks] = useState([]);
+    const [updateDate, setUpdateDate] = useState(new Date());
     
-    if(itemA.pricePerSlot < itemB.pricePerSlot){
-        return 1;
-    }
-    
-    return 0;
-});
-
-const itemChunks = arrayChunk(sortedItems, sortedItems.length / 7);
-
-for(let i = 0; i < itemChunks.length; i = i + 1){
-    itemChunks[i] = itemChunks[i].sort((itemA, itemB) => {
-        if(itemA.slots > itemB.slots){
-            return -1;
+    useEffect(() => {
+        async function fetchData(){
+            const result = await fetch(
+              `${process.env.PUBLIC_URL}/barter-items.json`,
+            )
+            .then(response => response.json());
+            
+            setUpdateDate(new Date(result.updated));
+            
+            const sortedItems = result.data.sort((itemA, itemB) => {    
+                if(itemA.pricePerSlot > itemB.pricePerSlot){
+                    return -1;
+                }
+                
+                if(itemA.pricePerSlot < itemB.pricePerSlot){
+                    return 1;
+                }
+                
+                return 0;
+            });
+            
+            const newChunks = arrayChunk(sortedItems, sortedItems.length / 7);
+         
+            setChunks(newChunks);
         }
         
-        if(itemA.slots < itemB.slots){
-            return 1;
-        }
-        
-        return 0;
-    });
-};
-
-function Barter() {      
+        fetchData();
+      }, []);
+    
+    for(let i = 0; i < itemChunks.length; i = i + 1){
+        itemChunks[i] = itemChunks[i].sort((itemA, itemB) => {
+            if(itemA.slots > itemB.slots){
+                return -1;
+            }
+            
+            if(itemA.slots < itemB.slots){
+                return 1;
+            }
+            
+            return 0;
+        });
+    };
+    
+    
     return <div
         className="barter-wrapper" 
     >
         <div
             className = {'updated-label'}
         >
-            {`Prices updated: ${new Date(barterItems.updated).toLocaleDateString()}`}        
+            {`Prices updated: ${updateDate.toLocaleDateString()}`}        
         </div>
         {itemChunks.map((items, index) => 
             <BarterGroup

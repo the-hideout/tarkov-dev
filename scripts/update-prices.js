@@ -44,6 +44,6 @@ const FILES = [
             await sleep(500);
         }
         
-        fs.writeFileSync(path.join(__dirname, '..', 'src', file), JSON.stringify(allData, null, 4));
+        fs.writeFileSync(path.join(__dirname, '..', 'public', file), JSON.stringify(allData, null, 4));
     }
 })();
