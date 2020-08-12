@@ -46,17 +46,7 @@ const makeID = function makeID(length) {
             return false;
         }
         
-        if(message.data.type === 'map'){
-            history.push(`/map/${message.data.value}`);
-            
-            return true;
-        }
-        
-        if(message.data.type === 'ammo'){       
-            history.push(`/ammo/${message.data.value}`);
-            
-            return true;
-        }
+        history.push(`/${message.data.type}/${message.data.value}`);
     };
     
     useEffect(() => {        
@@ -149,7 +139,10 @@ const makeID = function makeID(length) {
                 <Route path="/map/:currentMap">
                     <Map />
                 </Route>
-                <Route exact path="/barter">
+                <Route
+                    exact
+                    path={["/barter", "/loot-tier/:currentLoot"]}
+                >
                     <Barter />
                 </Route>
             </Switch>

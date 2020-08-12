@@ -38,29 +38,24 @@ function Control(props) {
         setConnectID(tempConnectID);
     };
     
-    const handleMapChange = (event) => {
+    const handleViewChange = (view, eventOrValue) => {
+        const value = eventOrValue.target?.value || eventOrValue;
+        
         props.send({
             type: 'command',
             data: {
-                type: 'map',
-                value: event.target.value,
+                type: view,
+                value: value,
             },
-        });
-    };
-    
-    const handleAmmoChange = (event) => {
-        props.send({
-            type: 'command',
-            data: {
-                type: 'ammo',
-                value: event.target.value,
-            }
         });
     };
     
     return <div className="control-wrapper">
         <span>View map:</span>
-        <select name="map" onChange={handleMapChange}>
+        <select
+            name="map"
+            onChange={handleViewChange.bind(this, 'map')}
+        >
             {mapData.map(map => 
                 <option
                     key = {map.key}
@@ -71,7 +66,10 @@ function Control(props) {
             )} 
         </select>
         <span>View caliber:</span>
-        <select name="ammo" onChange={handleAmmoChange}>
+        <select
+            name="ammo"
+            onChange={handleViewChange.bind(this, 'ammo')}
+        >
             {ammoTypes.map((ammoType) => (
                 <option
                     key = {ammoType}
