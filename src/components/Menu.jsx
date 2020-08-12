@@ -60,7 +60,7 @@ function Menu() {
             <div
                 className = "submenu-wrapper"
             >
-                <Link to="/barter">
+                <Link to="/loot-tier/barter">
                     Loot tiers
                 </Link>
             </div>

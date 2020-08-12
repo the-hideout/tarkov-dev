@@ -12,6 +12,10 @@ function Control(props) {
     const [connectID, setConnectID] = useState();
     
     const inputRef = useRef(null);
+    const typeRefs = {
+        ammo: useRef(null),
+        map: useRef(null),
+    };
     
     const handleConnectClick = (event) => {
         if(connectID.length !== 4){            
@@ -38,8 +42,16 @@ function Control(props) {
         setConnectID(tempConnectID);
     };
     
+    const handleMapChange = () => {
+        handleViewChange('map', typeRefs['map'].current.value);
+    };
+    
+    const handleAmmoChange = () => {
+        handleViewChange('ammo', typeRefs['ammo'].current.value);
+    };
+
     const handleViewChange = (view, eventOrValue) => {
-        const value = eventOrValue.target?.value || eventOrValue;
+        let value = eventOrValue.target?.value || eventOrValue;
         
         props.send({
             type: 'command',
@@ -51,34 +63,65 @@ function Control(props) {
     };
     
     return <div className="control-wrapper">
-        <span>View map:</span>
-        <select
-            name="map"
-            onChange={handleViewChange.bind(this, 'map')}
+        <div
+            className = {'control-section'}
         >
-            {mapData.map(map => 
-                <option
-                    key = {map.key}
-                    value = {map.key}
-                >
-                    {map.displayText}
-                </option>
-            )} 
-        </select>
-        <span>View caliber:</span>
-        <select
-            name="ammo"
-            onChange={handleViewChange.bind(this, 'ammo')}
+            <span>View map:</span>
+            <select
+                name="map"
+                onChange={handleMapChange}
+                ref = {typeRefs['map']}
+            >
+                {mapData.map(map => 
+                    <option
+                        key = {map.key}
+                        value = {map.key}
+                    >
+                        {map.displayText}
+                    </option>
+                )} 
+            </select>
+            <button
+                onClick = {handleMapChange}
+            >
+                Go
+            </button>
+        </div>
+        <div
+            className = {'control-section'}
         >
-            {ammoTypes.map((ammoType) => (
-                <option
-                    key = {ammoType}
-                    value = {ammoType}
-                >
-                    {ammoType}
-                </option>
-            ))}
-        </select>
+            <span>View caliber:</span>
+            <select
+                name="ammo"
+                onChange={handleAmmoChange}
+                ref = {typeRefs['ammo']}    
+            >
+                {ammoTypes.map((ammoType) => (
+                    <option
+                        key = {ammoType}
+                        value = {ammoType}
+                    >
+                        {ammoType}
+                    </option>
+                ))}
+            </select>
+            <button
+                onClick = {handleAmmoChange}
+            >
+                Go
+            </button>
+        </div>
+        <div
+            className = {'control-section'}
+        >
+            <span>View loot tiers:</span>
+            <button
+                className = {'full-width'}
+                onClick = {handleViewChange.bind(this, 'loot-tier', 'barter')}
+            >
+                Barter items
+            </button>
+        </div>
         <div className="info-wrapper">
             Load this page in another browser to control it from here
         </div>
