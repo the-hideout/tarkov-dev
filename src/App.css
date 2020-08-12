@@ -80,23 +80,25 @@ select {
     font-size: 20px;
 }
 
-.menu a,
-.menu .submenu-button, 
-.menu button {
+.menu .submenu-wrapper {
     background-color: #000;
     border-radius: 3px;
-    border: 0;
-    color: #9a8866;
     display: inline-block;
     margin: 0 10px;
     padding: 1px 8px;
     position: relative;
+}
+
+.menu a,
+.menu button {
+    border: 0;
+    color: #9a8866;
     text-align: left;
     text-decoration: none;
     white-space: nowrap;
 }
 
-.menu .submenu-button ul {
+.menu .submenu-wrapper ul {
     background-color: #000;
     display: none;
     left: 0;
@@ -107,14 +109,25 @@ select {
     z-index: 1;
 }
 
+.menu .submenu-wrapper ul a {
+    border-radius: 3px;
+    margin: 0 10px;
+    padding: 1px 8px;
+}
+
 .menu a:hover,
 .menu button:hover,
-.menu .submenu-button:hover {
+.menu .submenu-wrapper:hover {
     color: #000;
+    cursor: pointer;
     background-color: #9a8866;
 }
 
-.menu .submenu-button:hover ul {
+.menu .submenu-wrapper:hover > a {
+    color: #000;
+}
+
+.menu .submenu-wrapper:hover ul {
     display: block;
 }
 

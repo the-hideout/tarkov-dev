@@ -16,17 +16,21 @@ function Menu() {
     return <div
             className="menu" 
         >
+            
             <Link
                 className = "branding"
                 to = '/'
             >
                 Tarkov Tools
             </Link>
-            <Link
-                className = "submenu-button"
-                to = '/ammo/'
+            <div
+                className = "submenu-wrapper"
             >
-                Ammo
+                <Link
+                    to = '/ammo/'
+                >
+                    Ammo
+                </Link>
                 <ul>
                 {ammoTypes.map(ammoType => 
                     <MenuItem
@@ -37,9 +41,9 @@ function Menu() {
                     </MenuItem>
                 )} 
                 </ul>
-            </Link>
+            </div>
             <div
-                className = "submenu-button"
+                className = "submenu-wrapper"
             >
                 Maps
                 <ul>
@@ -53,9 +57,13 @@ function Menu() {
                 )} 
                 </ul>
             </div>
-            <Link to="/barter">
-                Loot tiers
-            </Link>
+            <div
+                className = "submenu-wrapper"
+            >
+                <Link to="/barter">
+                    Loot tiers
+                </Link>
+            </div>
             <a 
                 className = {'devtracker-link'}
                 href="https://developertracker.com/escape-from-tarkov/"
