@@ -20,7 +20,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "ci-test": "echo \"works\"",
     "eject": "react-scripts eject",
-    "prebuild": "node scripts/getdata-nofoodaftermidnight.js && node scripts/build-barter-items-data.js",
+    "prebuild": "node scripts/getdata-nofoodaftermidnight.js && node scripts/update-prices.js",
     "stage": "npm run build && npx serve build"
   },
   "eslintConfig": {
