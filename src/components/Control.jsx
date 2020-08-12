@@ -123,7 +123,10 @@ function Control(props) {
             </button>
         </div>
         <div className="info-wrapper">
-            Load this page in another browser to control it from here
+            Load this page in another browser to control it from here.
+            <p>
+                Wanna view the desktop version? Flip your phone to landscape mode.
+            </p>
         </div>
         <div className="connection-wrapper">
             <input
