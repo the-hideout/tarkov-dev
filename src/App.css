@@ -131,7 +131,7 @@ select {
 
 .display-wrapper {
     display: none;
-    height: calc(100vh - 47px);
+    min-height: calc(100vh - 47px);
     position: relative;
 }
 
