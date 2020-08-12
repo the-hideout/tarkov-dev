@@ -22,8 +22,9 @@ function Menu() {
             >
                 Tarkov Tools
             </Link>
-            <div
+            <Link
                 className = "submenu-button"
+                to = '/ammo/'
             >
                 Ammo
                 <ul>
@@ -36,7 +37,7 @@ function Menu() {
                     </MenuItem>
                 )} 
                 </ul>
-            </div>
+            </Link>
             <div
                 className = "submenu-button"
             >
