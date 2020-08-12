@@ -1,5 +1,13 @@
 import React from 'react';
 
+const formatPrice = (price) => {
+    return new Intl.NumberFormat('ru-RU', {
+        style: 'currency',
+        currency: 'RUB',
+        maximumSignificantDigits: 6,
+    }).format(price);
+};
+
 function BarterItem(props) {   
     const imgClassBase = 'barter-icon-';
     let imgClass;
@@ -41,11 +49,11 @@ function BarterItem(props) {
         <span
             className = {'barter-item-tooltip'}
         >
-            {new Intl.NumberFormat('en-EN').format(props.pricePerSlot)}
+            <div>Value: {formatPrice(props.pricePerSlot * props.slots)}</div>
+            <div>Per slot: {formatPrice(props.pricePerSlot)}</div>
         </span>
         <img
             alt = {props.name}
-            title = {props.name}
             src = {imgSrc}
         />
     </a>

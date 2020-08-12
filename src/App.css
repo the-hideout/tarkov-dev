@@ -199,7 +199,7 @@ select {
 }
 
 .barter-item:hover .barter-item-tooltip {
-    bottom: -25px;
+    right: 100%;
     opacity: 1;
 }
 
@@ -209,18 +209,20 @@ select {
 }
 
 .barter-item-tooltip {
-    background-color: rgba(0,0,0,0.5);
-    bottom: -10px;
+    background-color: rgba(0,0,0,0.8);
     color: #fff;
-    opacity: 0;
     font-size: 12px;
-    left: 50%;
+    opacity: 0;
     padding: 5px 10px;
-    position: absolute;
-    transform: translateX(-50%);
-    transition: all 0.3s ease;
-    z-index: 1;
     pointer-events: none;
+    position: absolute;
+    right: 90%;
+    text-align: right;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    z-index: 1;
 }
 
 .barter-icon-1x-1x {
@@ -270,7 +272,6 @@ select {
 .control-wrapper {
     flex-flow: column;
     display: flex;
-    /* min-height: -webkit-fill-available; */
     min-height: 100%;
     padding: 15px;
 }
@@ -339,7 +340,7 @@ select {
     position: absolute;
     bottom: 0;
     width: 30vw;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.8);
     padding: 15px;
     font-size: 16px;
 }
