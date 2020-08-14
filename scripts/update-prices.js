@@ -41,7 +41,7 @@ const FILES = [
                 wikiLink: itemData.body[0].wikiLink,
             });
             
-            await sleep(500);
+            await sleep(250);
         }
         
         fs.writeFileSync(path.join(__dirname, '..', 'public', file), JSON.stringify(allData, null, 4));
