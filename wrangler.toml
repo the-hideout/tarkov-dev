@@ -1,0 +1,10 @@
+name = "tarkov-tools"
+type = "webpack"
+account_id = "66766e138fce1ac1d2ef95953e037f4e"
+workers_dev = false
+route = "tarkov-tools.com/*"
+zone_id = "1ef934527384406eb8a376100875e27b"
+
+[site]
+bucket = "./build"
+entry-point = "workers-site"

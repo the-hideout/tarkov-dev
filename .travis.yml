@@ -4,7 +4,15 @@ node_js:
 
 script:
   - npm run build
+before_deploy:
+  - npm run update-prices
 deploy:
+    provider: script
+    script: npx @cloudflare/wrangler publish
+    skip_cleanup: true
+    edge: true
+    on:
+      branch: master
 #   - provider: pages
 #     skip_cleanup: true
 #     github_token: $ACCESS_TOKEN  # Set in the settings page of your repository, as a secure variable
@@ -12,11 +20,11 @@ deploy:
 #     local_dir: build
 #     on:
 #       branch: master
-  - provider: s3
-    access_key_id: $AWS_ACCESS_KEY_ID
-    secret_access_key: $AWS_SECRET_ACCESS_KEY
-    bucket: tarkov-tools
-    edge: true
-    local_dir: build
-    on:
-        branch: master
+  # - provider: s3
+  #   access_key_id: $AWS_ACCESS_KEY_ID
+  #   secret_access_key: $AWS_SECRET_ACCESS_KEY
+  #   bucket: tarkov-tools
+  #   edge: true
+  #   local_dir: build
+  #   on:
+  #       branch: master
