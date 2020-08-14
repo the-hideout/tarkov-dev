@@ -68,12 +68,10 @@ select {
     text-transform: uppercase;
 }
 
-.devtracker-link {
-    float: right;
-}
-
 .branding {
-    margin-right: 20px;
+    border-radius: 3px;
+    margin: 0 10px;
+    padding: 1px 8px;
 }
 
 .menu button {
@@ -134,6 +132,24 @@ select {
 .menu li:hover button {
     cursor: pointer;
     /* text-decoration: underline; */
+}
+
+.external-link {
+    border-radius: 3px;
+    margin: 0 10px;
+    padding: 1px 8px;
+}
+
+.menu .last-link {
+    float: right;
+}
+
+.menu svg {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    top: 3px;
+    margin-right: 8px;
 }
 
 .update-label {
