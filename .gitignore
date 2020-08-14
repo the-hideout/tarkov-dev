@@ -107,3 +107,4 @@ build
 src/data.json
 tarkov-tools/*
 public/barter-items.json
+public/keys.json

@@ -141,7 +141,7 @@ const makeID = function makeID(length) {
                 </Route>
                 <Route
                     exact
-                    path={["/barter", "/loot-tier/:currentLoot"]}
+                    path={["/barter", "/loot-tier/:currentLoot", "/loot-tier"]}
                 >
                     <Barter />
                 </Route>

@@ -60,9 +60,23 @@ function Menu() {
             <div
                 className = "submenu-wrapper"
             >
-                <Link to="/loot-tier/barter">
+                <Link
+                    to = '/loot-tier/barter-items'
+                >        
                     Loot tiers
                 </Link>
+                <ul>
+                    <MenuItem
+                        to = {`/loot-tier/barter-items`}
+                    >
+                        Barter Items
+                    </MenuItem>
+                    <MenuItem
+                        to = {`/loot-tier/keys`}
+                    >
+                        Keys
+                    </MenuItem>
+                </ul>
             </div>
             <a 
                 className = {'external-link'}

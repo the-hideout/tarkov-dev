@@ -7,6 +7,7 @@ const sleep = require('./modules/sleep');
 
 const FILES = [
     'barter-items.json',
+    'keys.json',
 ];
 
 (async () => {

@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import {
+    useParams,
+  } from "react-router-dom";
 
 import BarterGroup from './BarterGroup';
 
@@ -29,11 +32,17 @@ const arrayChunk = (inputArray, chunkLength) => {
 function Barter() {
     const [itemChunks, setChunks] = useState([]);
     const [updateDate, setUpdateDate] = useState(new Date());
+    const {currentLoot} = useParams();
     
     useEffect(() => {
         async function fetchData(){
+            let itemFilter = currentLoot;
+            if(!currentLoot || currentLoot === 'barter'){
+                itemFilter = 'barter-items';
+            }
+            
             const result = await fetch(
-              `${process.env.PUBLIC_URL}/barter-items.json`,
+              `${process.env.PUBLIC_URL}/${itemFilter}.json`,
             )
             .then(response => response.json());
             
@@ -55,9 +64,9 @@ function Barter() {
          
             setChunks(newChunks);
         }
-        
+
         fetchData();
-      }, []);
+      }, [currentLoot]);
     
     for(let i = 0; i < itemChunks.length; i = i + 1){
         itemChunks[i] = itemChunks[i].sort((itemA, itemB) => {
