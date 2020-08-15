@@ -15,6 +15,7 @@ function Control(props) {
     const typeRefs = {
         ammo: useRef(null),
         map: useRef(null),
+        lootTier: useRef(null),
     };
     
     const handleConnectClick = (event) => {
@@ -48,6 +49,10 @@ function Control(props) {
     
     const handleAmmoChange = () => {
         handleViewChange('ammo', typeRefs['ammo'].current.value);
+    };
+    
+    const handleLootTierChange = () => {
+        handleViewChange('loot-tier', typeRefs['lootTier'].current.value);
     };
 
     const handleViewChange = (view, eventOrValue) => {
@@ -115,11 +120,26 @@ function Control(props) {
             className = {'control-section'}
         >
             <span>View loot tiers:</span>
-            <button
-                className = {'full-width'}
-                onClick = {handleViewChange.bind(this, 'loot-tier', 'barter')}
+            <select
+                name="loot-tier"
+                onChange={handleLootTierChange}
+                ref = {typeRefs['lootTier']}    
             >
-                Barter items
+                <option
+                    value = 'barter-items'
+                >
+                    {'Barter items'}
+                </option>
+                <option
+                    value = 'keys'
+                >
+                    {'Keys'}
+                </option>
+            </select>
+            <button
+                onClick = {handleLootTierChange}
+            >
+                Go
             </button>
         </div>
         <div className="info-wrapper">
