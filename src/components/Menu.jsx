@@ -103,7 +103,7 @@ function Menu() {
                     <circle cx="310" cy="223" r="113" fill="#fff"/>
                     <path fill="#f96854" d="M165 410V110h-56v300"/>
                 </svg>  
-                Patreon  
+                Support me  
             </a>
             
     </div>;
