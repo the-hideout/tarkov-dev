@@ -3,9 +3,9 @@ node_js:
   - 12
 
 script:
-  - npm run build
-before_deploy:
   - npm run update-prices
+  - npm run build
+#before_deploy:
 deploy:
     provider: script
     script: npx @cloudflare/wrangler publish
