@@ -624,5 +624,150 @@
         "name": "Metal fuel tank",
         "uid": "5d43d553-8e3b-4ca6-8d6d-2b3ff3f3eeaa",
         "rotate": -90
+    },
+    {
+        "name": "Army Crackers",
+        "uid": "4c82de8e-8b09-41b8-beed-dfb17ad94fa2"
+    },
+    {
+        "name": "Condensed milk",
+        "uid": "32a27784-a21d-46d6-866e-44d377020bee"
+    },
+    {
+        "name": "Slickers bar",
+        "uid": "e537d6b4-2964-4a3d-bef2-9e3298ad3272"
+    },
+    {
+        "name": "Pack of sugar",
+        "uid": "67f383be-d8dd-415c-8b2d-337e98e67f8c"
+    },
+    {
+        "name": "Can of pacific saury",
+        "uid": "d5a14663-dbfb-4a0a-90c9-036b75ec8104"
+    },
+    {
+        "name": "Rye croutons"
+    },
+    {
+        "name": "Emelya rye croutons",
+        "uid": "7c65a467-b960-4139-816b-aa07eaae05f9"
+    },
+    {
+        "name": "Humpback salmon",
+        "uid": "01ade022-b0a8-4fb7-8ff9-553cfd7e61f8"
+    },
+    {
+        "name": "Can of green peas",
+        "uid": "e434d99a-7a6d-464b-9f0c-650faa68dc8f"
+    },
+    {
+        "name": "Can of beef stew"
+    },
+    {
+        "name": "Can of delicious beef stew",
+        "uid": "60036b01-88aa-4653-955c-24e303188e62"
+    },
+    {
+        "name": "Pack of oat flakes",
+        "uid": "93bc90cc-99a2-4fc0-bd63-9d60f07181cf"
+    },
+    {
+        "name": "Can of herring",
+        "uid": "45c47deb-6595-4cb5-91d6-102dea6dcd43"
+    },
+    {
+        "name": "Squash spread",
+        "uid": "a3cb95b9-addd-496e-8fcf-971e085fa19a"
+    },
+    {
+        "name": "Alyonka chocolate bar",
+        "uid": "f0d412b4-b4e5-42a2-8efd-084e46d2e7f1"
+    },
+    {
+        "name": "Iskra lunch box",
+        "uid": "c22766d5-d8ae-4b54-aafd-48f651a05284"
+    },
+    {
+        "name": "MRE lunch box",
+        "uid": "d6f4d0af-9906-43b4-a5be-897eb9211c79"
+    },
+    {
+        "name": "Jar of DevilDog mayo",
+        "uid": "1cc437b2-f5c3-47a4-8b53-6b61f9ab8334"
+    },
+    {
+        "name": "Can of sprats",
+        "uid": "f87c0159-3cef-4eff-9ffa-6917b3fb738a"
+    },
+    {
+        "name": "0.6L water bottle",
+        "uid": "d43e286e-2165-40f3-a036-63cfca09b4d7"
+    },
+    {
+        "name": "Water bottle with a filter Aquamari",
+        "uid": "0e8eb783-df57-4731-9640-0b7829dae7f4"
+    },
+    {
+        "name": "Russian Army pineapple juice",
+        "uid": "5ac169da-2e28-4024-bd2b-3c33bdd293a1"
+    },
+    {
+        "name": "Green Ice",
+        "uid": "216c5de3-d269-4ebc-b75c-92aa42ae2f55"
+    },
+    {
+        "name": "Apple juice"
+    },
+    {
+        "name": "Grand juice",
+        "uid": "3b50f114-1d10-4070-83f2-df2d01f423f4"
+    },
+    {
+        "name": "Vita juice",
+        "uid": "422e6757-cca2-4420-a432-9d477f70d88b"
+    },
+    {
+        "name": "Max energy",
+        "uid": "4975d76e-6e1a-46d1-8948-b5cc2d12188a"
+    },
+    {
+        "name": "TarCola",
+        "uid": "d7bcfca7-6dca-455d-bf0a-472df37a900f"
+    },
+    {
+        "name": "Pack of milk",
+        "uid": "2ec4162b-d64d-4212-8779-c7919b6bcf86"
+    },
+    {
+        "name": "Hot Rod",
+        "uid": "ed7ee2cb-19d6-479e-9f96-2cfbb1f0707c"
+    },
+    {
+        "name": "Purified water",
+        "uid": "97d6daa1-5164-4c04-8ffa-d7e6e4cb3508"
+    },
+    {
+        "name": "\"Fierce Hatchling\" moonshine",
+        "uid": "fb7e9a19-7029-4076-83a6-f913c3c8e9f8"
+    },
+    {
+        "name": "Bottle of Dan Jackiel Whiskey",
+        "uid": "2fa0f9fc-fb8f-48a8-8510-1992cf5d20b1"
+    },
+    {
+        "name": "Bottle of vodka Tarkovskaya",
+        "uid": "f591d0d2-1926-46a2-9924-a32610e202ca"
+    },
+    {
+        "name": "Rye croutons",
+        "uid": "ed46df17-27ae-4362-80d4-52895f6a498b"
+    },
+    {
+        "name": "Can of beef stew",
+        "uid": "e7e7644d-6e36-4076-831e-7adcb2cd1736"
+    },
+    {
+        "name": "Apple juice",
+        "uid": "6cb90d05-650c-498a-ab34-5b01abb4d145"
     }
 ]
