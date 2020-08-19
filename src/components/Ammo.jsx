@@ -3,7 +3,7 @@ import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import {
     useParams,
     useHistory,
-  } from "react-router-dom";
+} from "react-router-dom";
 
 import Graph from './Graph.jsx';
 
