@@ -5,6 +5,7 @@ import {
     Route,
     useHistory,
   } from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 import './App.css';
 import Ammo from './components/Ammo.jsx';
@@ -127,6 +128,14 @@ const makeID = function makeID(length) {
     }, [sessionID]);
 
     return <div className="App">
+        <Helmet>
+            <meta charSet="utf-8" />
+            <title>Tarkov Tools</title>
+            <meta
+                name="description"
+                content="Visualization of all ammo types in Escape from Tarkov, along with maps and other great tools"
+            />
+        </Helmet>
         <Menu />
         <div className="display-wrapper">
             <Switch>
@@ -134,15 +143,39 @@ const makeID = function makeID(length) {
                     exact
                     path={["/ammo/:currentAmmo", "/ammo", '/tarkov-tools', ""]}
                 >
+                    <Helmet>
+                        <meta charSet="utf-8" />
+                        <title>Tarkov Ammo</title>
+                        <meta
+                            name="description"
+                            content="Visualization of all ammo types in Escape from Tarkov"
+                        />
+                    </Helmet>
                     <Ammo />
                 </Route>
                 <Route path="/map/:currentMap">
+                    <Helmet>
+                        <meta charSet="utf-8" />
+                        <title>Tarkov Maps</title>
+                        <meta
+                            name="description"
+                            content="Tarkov raid map"
+                        />
+                    </Helmet>
                     <Map />
                 </Route>
                 <Route
                     exact
                     path={["/barter", "/loot-tier/:currentLoot", "/loot-tier"]}
                 >
+                    <Helmet>
+                        <meta charSet="utf-8" />
+                        <title>Tarkov loot tiers</title>
+                        <meta
+                            name="description"
+                            content="Visualization of all different valuable loot"
+                        />
+                    </Helmet>
                     <Barter />
                 </Route>
             </Switch>
