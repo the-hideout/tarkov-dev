@@ -8,25 +8,22 @@ const Sides = {
 function ID(props) {
     const [side, setSide] = useState(Sides.Left);
 
-    const handleSwitchSideClick = useCallback(() => {
-        setSide((currentSide) => {
-            if (currentSide === Sides.Left) {
-                return Sides.Right
-            }
-            return Sides.Left;
-        })
-    }, [setSide]);
-
-
     let sideClass;
     let sideButtonContent;
+    let otherSide;
     if (side === Sides.Left) {
         sideClass = 'id-wrapper-left';
-        sideButtonContent = '>';
+        sideButtonContent = '>>';
+        otherSide = Sides.Right;
     } else {
         sideClass = 'id-wrapper-right';
-        sideButtonContent = '<';
+        sideButtonContent = '<<';
+        otherSide = Sides.Left;
     }
+
+    const handleSwitchSideClick = useCallback(() => {
+        setSide(otherSide)
+    }, [setSide, otherSide]);
 
     return <div
         className={`id-wrapper ${ sideClass }`}
