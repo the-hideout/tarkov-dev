@@ -142,6 +142,7 @@ select {
 
 .menu .last-link {
     float: right;
+    position: relative;
 }
 
 .menu svg {
@@ -150,6 +151,31 @@ select {
     position: relative;
     top: 3px;
     margin-right: 8px;
+}
+
+.menu .last-link:hover .supporters-wrapper {
+    display: block;
+}
+
+.supporters-wrapper {
+    background-color: #000;
+    border-radius: 3px;
+    color: #fff;
+    cursor: default;
+    display: none;
+    padding: 10px 20px;
+    position: absolute;
+    right: 0;
+    top: 28px;
+    z-index: 1;
+}
+
+.supporter-wrapper svg:first-of-type {
+    margin-left: 10px;
+}
+
+.supporter-wrapper {
+    font-size: 14px;
 }
 
 .update-label {

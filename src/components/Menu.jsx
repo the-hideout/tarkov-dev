@@ -4,6 +4,8 @@ import {
   } from "react-router-dom";
 
 import MenuItem from './MenuItem';
+import Supporter from './Supporter';
+import {ReactComponent as PatreonIcon} from './Patreon.svg';
 
 import ammoData from '../data.json';
 import mapData from '../map-data.json';
@@ -84,22 +86,22 @@ function Menu() {
                 className = {'external-link last-link'}
                 href="https://www.patreon.com/kokarn"
             >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-label="Patreon"
-                    role="img"
-                    viewBox="0 0 512 512"
-                >
-                    <rect
-                        width="512"
-                        height="512"
-                        rx="15%"
-                        fill="#052d49"
-                    />
-                    <circle cx="310" cy="223" r="113" fill="#fff"/>
-                    <path fill="#f96854" d="M165 410V110h-56v300"/>
-                </svg>  
+                <PatreonIcon />
                 Support me  
+                <div
+                    className = {'supporters-wrapper'}
+                >
+                    Current supporters: 
+                    <Supporter
+                        name = {'Gustav Ahlberg'}
+                        patreon
+                        github
+                    />
+                    <Supporter
+                        name = {'James Faust'}
+                        patreon
+                    />
+                </div>
             </a>
             
     </div>;
