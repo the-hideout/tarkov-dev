@@ -7,11 +7,15 @@ function Supporter(props) {
     const supporterTypes = [];
     
     if(props.patreon){
-        supporterTypes.push(<PatreonIcon />);
+        supporterTypes.push(<PatreonIcon
+            key = 'patreon'
+        />);
     }
     
     if(props.github){
-        supporterTypes.push(<GithubIcon />);
+        supporterTypes.push(<GithubIcon 
+            key = 'github'
+        />);
     }
     
     return <div
