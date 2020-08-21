@@ -361,10 +361,16 @@ select {
     display: none;
     font-family: bender;
     font-size: 30px;
-    left: 0;
     line-height: 20px;
     padding: 10px 40px;
     position: fixed;
+}
+
+.id-wrapper-left {
+    left: 0;
+}
+.id-wrapper-right {
+    right: 0;
 }
 
 .session-question {
@@ -393,6 +399,36 @@ select {
     background-color: rgba(0,0,0,0.8);
     padding: 15px;
     font-size: 16px;
+}
+
+.id-wrapper-left .session-popup {
+    left: 0;
+}
+
+.id-wrapper-right .session-popup {
+    right: 0;
+}
+
+.session-switch-side {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 16px;
+    font-weight: bold;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: #ccc;
+}
+.session-switch-side:hover,
+.session-switch-side:focus,
+.session-switch-side:active {
+    text-decoration: none;
 }
 
 .id-wrapper svg {
