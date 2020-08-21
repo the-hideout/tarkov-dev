@@ -8,7 +8,7 @@ function MenuItem(props) {
         <Link 
             to = {props.to}
         >
-            {props.children}
+            {props.displayText}
         </Link>
 </li>;
 }

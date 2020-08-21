@@ -34,11 +34,10 @@ function Menu() {
                 <ul>
                 {ammoTypes.map(ammoType => 
                     <MenuItem
-                        to = {`/ammo/${ammoType}`}
+                        displayText = {ammoType}
                         key = {ammoType}
-                    >
-                        {ammoType}
-                    </MenuItem>
+                        to = {`/ammo/${ammoType}`}
+                    />
                 )} 
                 </ul>
             </div>
@@ -49,11 +48,10 @@ function Menu() {
                 <ul>
                 {mapData.map(map => 
                     <MenuItem
-                        to = {`/map/${map.key}`}
+                        displayText = {map.displayText}
                         key = {map.key}
-                    >
-                        {map.displayText}
-                    </MenuItem>
+                        to = {`/map/${map.key}`}
+                    />
                 )} 
                 </ul>
             </div>
@@ -67,15 +65,13 @@ function Menu() {
                 </Link>
                 <ul>
                     <MenuItem
+                        displayText = {'Barter Items'}
                         to = {`/loot-tier/barter-items`}
-                    >
-                        Barter Items
-                    </MenuItem>
+                    />
                     <MenuItem
+                        displayText = {'Keys'}
                         to = {`/loot-tier/keys`}
-                    >
-                        Keys
-                    </MenuItem>
+                    />
                 </ul>
             </div>
             <a 
