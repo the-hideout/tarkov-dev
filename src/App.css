@@ -36,8 +36,8 @@ iframe {
     width: 100%;
 }
 
-input,
-select {
+.control-wrapper input,
+.control-wrapper select {
     border: 0;
     height: 40px;
     width: 100%;
