@@ -49,33 +49,49 @@ const legendData = formattedData.map((ammo) => {
 
 function Ammo() {
     const {currentAmmo} = useParams();
+    let currentAmmoList = [];
+    if(currentAmmo){
+        currentAmmoList = currentAmmo.split(',');
+    }
     const history = useHistory();
-    const [selectedLegendName, setSelectedLegendName] = useState(currentAmmo);
+    const [selectedLegendName, setSelectedLegendName] = useState(currentAmmoList);
     
     useEffect(() => {
-        if(currentAmmo === 'all'){
-            setSelectedLegendName();
+        if(currentAmmo === []){
+            setSelectedLegendName([]);
             
             return true;
         }
         
-        setSelectedLegendName(currentAmmo);
+        if(currentAmmo){
+            setSelectedLegendName(currentAmmo.split(','));    
+        } else {
+            setSelectedLegendName([]);
+        }
     }, [currentAmmo]);
 
     const listState = useMemo(() => {
         return formattedData.filter(ammo =>
-            !selectedLegendName || ammo.type === selectedLegendName
+            !selectedLegendName || selectedLegendName.length === 0 || selectedLegendName.includes(ammo.type)
         );
     }, [selectedLegendName]);
 
     const handleLegendClick = useCallback((event, { datum: { name } }) => {
-        if (selectedLegendName === name) {
-            setSelectedLegendName();
-            history.push('/ammo/');
+        let newSelectedAmmo = [...selectedLegendName];
+        const metaKey = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
+
+        if(newSelectedAmmo.includes(name) && metaKey){
+            newSelectedAmmo.splice(newSelectedAmmo.indexOf(name), 1);
+        } else if(newSelectedAmmo.includes(name)){
+            newSelectedAmmo = [];
+        } else if(metaKey){
+            newSelectedAmmo.push(name);
         } else {
-            setSelectedLegendName(name);
-            history.push(`/ammo/${name}`);
+            newSelectedAmmo = [name];
         }
+        
+        setSelectedLegendName(newSelectedAmmo);
+        history.push(`/ammo/${newSelectedAmmo.join(',')}`);
 
     }, [selectedLegendName, setSelectedLegendName, history]);
     

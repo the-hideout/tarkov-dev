@@ -36,8 +36,10 @@ function Menu() {
                 <ul>
                 {ammoTypes.map(ammoType => 
                     <MenuItem
+                        checkbox
                         displayText = {ammoType}
                         key = {ammoType}
+                        prefix = '/ammo'
                         to = {`/ammo/${ammoType}`}
                     />
                 )} 

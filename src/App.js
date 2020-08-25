@@ -136,12 +136,14 @@ const makeID = function makeID(length) {
                 content="Visualization of all ammo types in Escape from Tarkov, along with maps and other great tools"
             />
         </Helmet>
-        <Menu />
-        <div className="display-wrapper">
-            <Switch>
-                <Route
-                    exact
-                    path={["/ammo/:currentAmmo", "/ammo", '/tarkov-tools', ""]}
+        <Switch>
+            <Route
+                exact
+                path={["/ammo/:currentAmmo", "/ammo", '/tarkov-tools', ""]}
+            >
+                <Menu />
+                <div
+                    className="display-wrapper"
                 >
                     <Helmet>
                         <meta charSet="utf-8" />
@@ -152,8 +154,15 @@ const makeID = function makeID(length) {
                         />
                     </Helmet>
                     <Ammo />
-                </Route>
-                <Route path="/map/:currentMap">
+                </div>
+            </Route>
+            <Route
+                path="/map/:currentMap"
+            >
+                <Menu />
+                <div
+                    className="display-wrapper"
+                >
                     <Helmet>
                         <meta charSet="utf-8" />
                         <title>Tarkov Maps</title>
@@ -163,10 +172,15 @@ const makeID = function makeID(length) {
                         />
                     </Helmet>
                     <Map />
-                </Route>
-                <Route
-                    exact
-                    path={["/barter", "/loot-tier/:currentLoot", "/loot-tier"]}
+                </div>
+            </Route>
+            <Route
+                exact
+                path={["/barter", "/loot-tier/:currentLoot", "/loot-tier"]}
+            >
+                <Menu />
+                <div
+                    className="display-wrapper"
                 >
                     <Helmet>
                         <meta charSet="utf-8" />
@@ -177,12 +191,12 @@ const makeID = function makeID(length) {
                         />
                     </Helmet>
                     <Barter />
-                </Route>
-            </Switch>
-            <ID
-                sessionID = {sessionID}
-            />
-        </div>
+                </div>
+            </Route>
+        </Switch>
+        <ID
+            sessionID = {sessionID}
+        />
         <Control 
             send = {send}
             setID = {setID}

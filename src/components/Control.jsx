@@ -48,7 +48,18 @@ function Control(props) {
     };
     
     const handleAmmoChange = () => {
-        handleViewChange('ammo', typeRefs['ammo'].current.value);
+        const ammoValues = [];
+        
+        for(const option of typeRefs['ammo'].current.children){
+            if(!option.selected){
+                continue;
+            }
+            
+            ammoValues.push(option.value);
+        }
+        
+        ammoValues.sort();
+        handleViewChange('ammo', ammoValues.join(','));
     };
     
     const handleLootTierChange = () => {
@@ -97,6 +108,7 @@ function Control(props) {
         >
             <span>View caliber:</span>
             <select
+                multiple
                 name="ammo"
                 onChange={handleAmmoChange}
                 ref = {typeRefs['ammo']}    

@@ -85,7 +85,7 @@ const LegendLabel = props => {
     const style = useMemo(() => {
         let style = props.style;
 
-        if (selectedDatumName === datum.name) {
+        if (selectedDatumName.includes(datum.name)) {
             style = {
                 ...props.style,
                 textDecoration: "underline",
