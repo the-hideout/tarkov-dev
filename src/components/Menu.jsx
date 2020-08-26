@@ -100,7 +100,7 @@ function Menu() {
                         github
                     />
                     <Supporter
-                        name = {'James Faust'}
+                        name = {'Tippidy'}
                         patreon
                     />
                 </div>
