@@ -100,12 +100,15 @@ function Menu() {
                         github
                     />
                     <Supporter
+                        name = {'KilobyteKeith'}
+                        patreon
+                    />
+                    <Supporter
                         name = {'Tippidy'}
                         patreon
                     />
                 </div>
             </a>
-            
     </div>;
 }
 
