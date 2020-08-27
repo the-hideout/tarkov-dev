@@ -19,7 +19,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "ci-test": "echo \"works\"",
     "eject": "react-scripts eject",
     "prebuild": "node scripts/getdata-nofoodaftermidnight.js",
     "stage": "npm run build && npx serve build",
@@ -39,14 +38,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "husky": "^4.2.5"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run ci-test",
-      "pre-push": "npm run ci-test"
-    }
   }
 }
