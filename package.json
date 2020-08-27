@@ -13,7 +13,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
     "victory": "^35.0.8",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "@sentry/react": "^5.21.4",
+    "@sentry/tracing": "^5.21.4"
   },
   "scripts": {
     "start": "react-scripts start",
