@@ -26,12 +26,21 @@ const FILES = [
                 continue;
             }
             console.log(`Loading data for ${item.name}`);
-            const itemData = await got(`https://tarkov-market.com/api/v1/item?uid=${item.uid}`, {
+            let itemData;
+            
+            try {
+                itemData = await got(`https://tarkov-market.com/api/v1/item?uid=${item.uid}`, {
                 headers: {
                     'x-api-key': process.env.TARKOV_MARKET_API_KEY,
                 },
                 responseType: 'json',
             });
+            } catch (requestError){
+                console.error(requestError);
+                
+                // We wan't CI to stop here
+                process.exit(1);
+            }
             
             allData.data.push({
                 ...item,
