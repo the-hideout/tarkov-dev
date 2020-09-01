@@ -52,7 +52,7 @@ const FILES = [
                 wikiLink: itemData.body[0].wikiLink,
             });
             
-            await sleep(100);
+            await sleep(150);
         }
         
         fs.writeFileSync(path.join(__dirname, '..', 'public', file), JSON.stringify(allData, null, 4));
