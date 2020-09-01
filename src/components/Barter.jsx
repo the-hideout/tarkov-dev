@@ -5,6 +5,8 @@ import {
 
 import BarterGroup from './BarterGroup';
 
+const MAX_ITEMS = 224;
+
 const groupNames = [
     'S',
     'A',
@@ -48,17 +50,19 @@ function Barter() {
             
             setUpdateDate(new Date(result.updated));
             
-            const sortedItems = result.data.sort((itemA, itemB) => {    
-                if(itemA.pricePerSlot > itemB.pricePerSlot){
-                    return -1;
-                }
-                
-                if(itemA.pricePerSlot < itemB.pricePerSlot){
-                    return 1;
-                }
-                
-                return 0;
-            });
+            const sortedItems = result.data
+                .sort((itemA, itemB) => {    
+                    if(itemA.pricePerSlot > itemB.pricePerSlot){
+                        return -1;
+                    }
+                    
+                    if(itemA.pricePerSlot < itemB.pricePerSlot){
+                        return 1;
+                    }
+                    
+                    return 0;
+                })
+                .slice(0, MAX_ITEMS);
             
             const newChunks = arrayChunk(sortedItems, sortedItems.length / 7);
          
