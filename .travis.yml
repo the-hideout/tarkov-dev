@@ -3,7 +3,7 @@ node_js:
   - 14
 
 script:
-  - npm run update-prices
+  - npm run update-prices || travis_terminate 1;
   - npm run build
 #before_deploy:
 deploy:
