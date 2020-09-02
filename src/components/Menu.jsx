@@ -73,6 +73,10 @@ function Menu() {
                         to = {`/loot-tier/barter-items`}
                     />
                     <MenuItem
+                        displayText = {'Mods'}
+                        to = {`/loot-tier/mods`}
+                    />
+                    <MenuItem
                         displayText = {'Keys'}
                         to = {`/loot-tier/keys`}
                     />
