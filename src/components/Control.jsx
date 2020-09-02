@@ -143,6 +143,11 @@ function Control(props) {
                     {'Barter items'}
                 </option>
                 <option
+                    value = 'mods'
+                >
+                    {'Mods'}
+                </option>
+                <option
                     value = 'keys'
                 >
                     {'Keys'}
