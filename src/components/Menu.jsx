@@ -99,7 +99,7 @@ function Menu() {
                 >
                     Current supporters: 
                     <Supporter
-                        name = {'Gustav Ahlberg'}
+                        name = {'Gyran'}
                         patreon
                         github
                     />
