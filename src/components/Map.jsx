@@ -18,7 +18,9 @@ const maps = Object.fromEntries(rawMapData.map((mapData) => {
 
 function Map() {
     let {currentMap} = useParams();
-    
+
+    const { displayText,image } = maps[currentMap];
+
     return <TransformWrapper
         defaultScale={1}
         wheel = {{
@@ -26,12 +28,16 @@ function Map() {
         }}
     >
         <TransformComponent>
-            <img 
-                alt = {`Map of ${maps[currentMap].displayText}`}
-                className = "map-image"
-                title = {`Map of ${maps[currentMap].displayText}`}
-                src = {`${process.env.PUBLIC_URL}${maps[currentMap].image}`}
-            />
+            <div
+                className = "map-image-wrapper"
+            >
+                <img
+                    alt = {`Map of ${ displayText }`}
+                    className = "map-image"
+                    title = {`Map of ${ displayText }`}
+                    src = {`${ process.env.PUBLIC_URL }${ image }`}
+                />
+            </div>
         </TransformComponent>
     </TransformWrapper>;
 }
