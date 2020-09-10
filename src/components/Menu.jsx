@@ -108,6 +108,10 @@ function Menu() {
                         patreon
                     />
                     <Supporter
+                        name = {'SOF.Temptie420'}
+                        patreon
+                    />
+                    <Supporter
                         name = {'Tippidy'}
                         patreon
                     />
