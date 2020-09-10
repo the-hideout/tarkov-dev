@@ -1,3 +1,7 @@
+:root {
+    --menu-height: 47px;
+}
+
 @font-face {
     font-family: 'bender';
     src: url('./fonts/bender.woff2') format('woff2'),
@@ -198,16 +202,24 @@ select {
 
 .display-wrapper {
     display: none;
-    min-height: calc(100vh - 47px);
+    min-height: calc(100vh - var(--menu-height));
     position: relative;
 }
 
 .updated-label {
-    color: #ccc;  
+    color: #ccc;
     font-size: 10px;
     left: 4px;
     position: absolute;
     top: 2px;
+}
+
+.map-image-wrapper {
+    height: calc(100vh - var(--menu-height));
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .map-image {
@@ -487,15 +499,15 @@ select {
     .menu {
         display: block;
     }
-    
+
     .id-wrapper {
         display: block;
     }
-    
+
     .display-wrapper {
         display: block;
     }
-    
+
     .control-wrapper {
         display: none;
     }
