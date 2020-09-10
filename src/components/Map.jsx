@@ -18,22 +18,37 @@ const maps = Object.fromEntries(rawMapData.map((mapData) => {
 
 function Map() {
     let {currentMap} = useParams();
+    const mapNode = document.querySelector('.map-wrapper');
+    let drawWidth;
+    let drawHeight;
     
-    return <TransformWrapper
-        defaultScale={1}
-        wheel = {{
-            step: 200,
-        }}
+    if(mapNode){
+        let {width, height} = mapNode.getBoundingClientRect();
+        drawWidth = width;
+        drawHeight = height;
+    }
+    
+    return <div
+        className = 'map-wrapper'
     >
-        <TransformComponent>
-            <img 
-                alt = {`Map of ${maps[currentMap].displayText}`}
-                className = "map-image"
-                title = {`Map of ${maps[currentMap].displayText}`}
-                src = {`${process.env.PUBLIC_URL}${maps[currentMap].image}`}
-            />
-        </TransformComponent>
-    </TransformWrapper>;
+        <TransformWrapper
+            defaultScale={1}
+            wheel = {{
+                step: 200,
+            }}
+        >
+            <TransformComponent>
+                <img 
+                    alt = {`Map of ${maps[currentMap].displayText}`}
+                    className = "map-image"
+                    height = {drawHeight}
+                    width = {drawWidth}
+                    title = {`Map of ${maps[currentMap].displayText}`}
+                    src = {`${process.env.PUBLIC_URL}${maps[currentMap].image}`}
+                />
+            </TransformComponent>
+        </TransformWrapper>
+    </div>;
 }
 
 export default Map;

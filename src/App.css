@@ -210,6 +210,13 @@ select {
     top: 2px;
 }
 
+.map-wrapper {
+    height: calc(100vh - 47px);
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
 .map-image {
     /* left: 50%; */
     max-height: 100%;
@@ -217,6 +224,7 @@ select {
     /* position: absolute;
     top: 50%;
     transform: translateX(-50%) translateY(-50%); */
+    object-fit: contain;
 }
 
 .barter-wrapper {
