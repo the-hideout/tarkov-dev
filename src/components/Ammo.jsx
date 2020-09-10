@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import Graph from './Graph.jsx';
+import useKeyPress from '../hooks/useKeyPress';
 
 import rawData from '../data.json';
 
@@ -42,6 +43,7 @@ const legendData = formattedData.map((ammo) => {
     typeCache.push(ammo.type);
 
     return {
+        ...ammo,
         name: ammo.type,
         symbol: ammo.symbol,
     }
@@ -55,6 +57,7 @@ function Ammo() {
     }
     const history = useHistory();
     const [selectedLegendName, setSelectedLegendName] = useState(currentAmmoList);
+    const shiftPress = useKeyPress('Shift');
     
     useEffect(() => {
         if(currentAmmo === []){
@@ -73,8 +76,17 @@ function Ammo() {
     const listState = useMemo(() => {
         return formattedData.filter(ammo =>
             !selectedLegendName || selectedLegendName.length === 0 || selectedLegendName.includes(ammo.type)
-        );
-    }, [selectedLegendName]);
+        ).map((ammo) => {
+            if(!shiftPress){
+                return ammo;
+            }
+            
+            return {
+                ...ammo,
+                name: `${ammo.name} (${ammo.fragChance})`,
+            };
+        });
+    }, [selectedLegendName, shiftPress]);
 
     const handleLegendClick = useCallback((event, { datum: { name } }) => {
         let newSelectedAmmo = [...selectedLegendName];
