@@ -185,7 +185,7 @@ const Graph = props => {
                 labelComponent={
                     <VictoryLabel
                         y={85}
-                        x={158}
+                        x={163}
                     />
                 }
                 x={() => 85}
