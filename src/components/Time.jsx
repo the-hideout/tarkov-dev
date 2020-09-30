@@ -70,8 +70,22 @@ export function formatFuture(ms) {
     return text;
 }
 
-function Time() {
+function Time(props) {
     const time = useDate(new Date(), 50);
+
+    if(props?.currentMap === 'factory'){
+        return <div
+            className = 'time-wrapper'
+        >
+            <div>
+                15:28:00
+            </div>
+            <div>
+                03:28:00
+            </div>
+        </div>;
+    }
+
     const tarkovTime1 = realTimeToTarkovTime(time, true);
     const tarkovTime2 = realTimeToTarkovTime(time);
 

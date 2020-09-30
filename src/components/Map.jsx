@@ -24,7 +24,9 @@ function Map() {
     const { displayText,image } = maps[currentMap];
 
     return <div>
-        <Time />
+        <Time 
+            currentMap = {currentMap}
+        />
         <TransformWrapper
             defaultScale={1}
             wheel = {{
