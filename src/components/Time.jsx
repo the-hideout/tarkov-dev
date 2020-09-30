@@ -57,13 +57,13 @@ export function formatFuture(ms) {
     const sec = time.second();
     let text = '';
 
-    if (hour != 0) {
+    if (hour !== 0) {
         text = hour + 'hr';
     }
 
     text += min + 'min';
 
-    if(hour == 0 && min == 0) {
+    if(hour === 0 && min === 0) {
         text = sec + 's';
     }
 
