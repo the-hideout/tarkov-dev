@@ -214,6 +214,20 @@ select {
     top: 2px;
 }
 
+.time-wrapper {
+    background-color: rgba(0,0,0,0.5);
+    padding: 10px 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 5;
+    text-align: right;
+}
+
+.time-wrapper div {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
 .map-image-wrapper {
     height: calc(100vh - var(--menu-height));
     width: 100vw;
