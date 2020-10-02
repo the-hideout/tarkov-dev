@@ -1,525 +1,652 @@
 [
     {
         "name": "Factory exit key",
-        "uid": "4eea4ded-3828-4a33-8657-4c76baed7ec8"
-    },
-    {
-        "name": "Door key"
+        "uid": "4eea4ded-3828-4a33-8657-4c76baed7ec8",
+        "shortName": "Factory"
     },
     {
         "name": "Dorm guard desk key",
-        "uid": "ea881417-c0de-4d57-941f-bfdff1a2f307"
+        "uid": "ea881417-c0de-4d57-941f-bfdff1a2f307",
+        "shortName": "Gdesk"
     },
     {
         "name": "Dorm room 104 Key",
-        "uid": "2fe40ae1-e0e5-4efa-adb4-1bb215979483"
+        "uid": "2fe40ae1-e0e5-4efa-adb4-1bb215979483",
+        "shortName": "104 Key"
     },
     {
         "name": "Dorm room 105 Key",
-        "uid": "a13c686c-7360-413e-87c7-594bedb5ce90"
+        "uid": "a13c686c-7360-413e-87c7-594bedb5ce90",
+        "shortName": "105 Key"
     },
     {
         "name": "Dorm room 110 Key",
-        "uid": "79e9a83e-51ad-44f8-a438-5f9e457e5bb0"
+        "uid": "79e9a83e-51ad-44f8-a438-5f9e457e5bb0",
+        "shortName": "110 Key"
     },
     {
         "name": "Dorm room 114 Key",
-        "uid": "a840d9f9-0469-4ccf-b602-1af4d8e3212e"
+        "uid": "a840d9f9-0469-4ccf-b602-1af4d8e3212e",
+        "shortName": "114 Key"
     },
     {
         "name": "Dorm room 206 Key",
-        "uid": "c57a2ce7-a92f-48a5-9734-913c602d372e"
+        "uid": "c57a2ce7-a92f-48a5-9734-913c602d372e",
+        "shortName": "206 Key"
     },
     {
         "name": "Dorm room 103 Key",
-        "uid": "17fbeddf-058f-4910-a544-adc1375da7b1"
+        "uid": "17fbeddf-058f-4910-a544-adc1375da7b1",
+        "shortName": "103 Key"
     },
     {
         "name": "Dorm room 108 Key",
-        "uid": "6562b747-8c52-4b2d-ad0a-04b11b913393"
+        "uid": "6562b747-8c52-4b2d-ad0a-04b11b913393",
+        "shortName": "108 Key"
     },
     {
         "name": "Dorm room 118 Key",
-        "uid": "f4478d5e-6f74-47b6-87d9-8f04bf2e3fef"
+        "uid": "f4478d5e-6f74-47b6-87d9-8f04bf2e3fef",
+        "shortName": "Room 118 Key"
     },
     {
         "name": "Dorm room 203 Key",
-        "uid": "32a22599-3bea-4530-80c6-bfac5787f43a"
+        "uid": "32a22599-3bea-4530-80c6-bfac5787f43a",
+        "shortName": "Room 203 Key"
     },
     {
         "name": "Dorm room 204 Key",
-        "uid": "e4635bee-5e09-4cb6-a83c-f8d612e506f9"
+        "uid": "e4635bee-5e09-4cb6-a83c-f8d612e506f9",
+        "shortName": "Room 204 Key"
     },
     {
         "name": "Dorm room 214 Key",
-        "uid": "51349588-f862-4b9b-bed1-ba0b055ce310"
+        "uid": "51349588-f862-4b9b-bed1-ba0b055ce310",
+        "shortName": "Room 214 Key"
     },
     {
         "name": "Dorm room 218 Key",
-        "uid": "385e6918-9dad-44ab-8879-6f6d2c7419c6"
+        "uid": "385e6918-9dad-44ab-8879-6f6d2c7419c6",
+        "shortName": "Room 218 Key"
     },
     {
         "name": "Dorm room 220 Key",
-        "uid": "5d1314ef-26f8-4d43-a5b6-ab8894771f2c"
+        "uid": "5d1314ef-26f8-4d43-a5b6-ab8894771f2c",
+        "shortName": "Room 220 Key"
     },
     {
         "name": "Dorm room 303 Key",
-        "uid": "9eee88a0-4484-46ec-91be-8c400d45084d"
+        "uid": "9eee88a0-4484-46ec-91be-8c400d45084d",
+        "shortName": "303 Key"
     },
     {
         "name": "Dorm room 306 Key",
-        "uid": "8a5b5169-88da-485a-a62a-7dda83358c46"
+        "uid": "8a5b5169-88da-485a-a62a-7dda83358c46",
+        "shortName": "306 Key"
     },
     {
         "name": "Dorm room 308 Key",
-        "uid": "bc135a6d-e550-4a62-90b8-08195205b6e1"
+        "uid": "bc135a6d-e550-4a62-90b8-08195205b6e1",
+        "shortName": "308 Key"
     },
     {
         "name": "Dorm room 315 Key",
-        "uid": "8f04e603-a88e-486e-87d5-5a45d0914e59"
+        "uid": "8f04e603-a88e-486e-87d5-5a45d0914e59",
+        "shortName": "315 Key"
     },
     {
         "name": "Marked key",
-        "uid": "c3fac5ca-00e6-47a0-8789-4baa12135c25"
+        "uid": "c3fac5ca-00e6-47a0-8789-4baa12135c25",
+        "shortName": "Mark.Key"
     },
     {
         "name": "Machinery key",
-        "uid": "ffaea168-4de8-4d05-a2df-bd5c8555f824"
+        "uid": "ffaea168-4de8-4d05-a2df-bd5c8555f824",
+        "shortName": "Key"
     },
     {
         "name": "Military base checkpoint key",
-        "uid": "4f615ebf-4384-4c76-94d6-1a6b808981bb"
+        "uid": "4f615ebf-4384-4c76-94d6-1a6b808981bb",
+        "shortName": "Checkpoint"
     },
     {
         "name": "Customs office key",
-        "uid": "ba364823-20f7-4c2b-84b7-2f6b0521ca55"
+        "uid": "ba364823-20f7-4c2b-84b7-2f6b0521ca55",
+        "shortName": "Customs key"
     },
     {
         "name": "Portable cabin key of customs Factory zone",
-        "uid": "fdc6a458-6695-41a5-a837-76a6b6b27ab0"
+        "uid": "fdc6a458-6695-41a5-a837-76a6b6b27ab0",
+        "shortName": "Key"
     },
     {
         "name": "Trailer park cabin key",
-        "uid": "69bb219a-82d3-4ace-a482-94694599d473"
+        "uid": "69bb219a-82d3-4ace-a482-94694599d473",
+        "shortName": "Cabin key"
     },
     {
         "name": "Cabinet key",
-        "uid": "411f36cc-9241-402f-9f19-963ac0de0b81"
+        "uid": "411f36cc-9241-402f-9f19-963ac0de0b81",
+        "shortName": "Gas station"
     },
     {
         "name": "The key to the gas station storage room",
-        "uid": "268dd2dc-fb0b-4969-96cc-4b656576bf5e"
+        "uid": "268dd2dc-fb0b-4969-96cc-4b656576bf5e",
+        "shortName": "Storage"
     },
     {
         "name": "Unknown key",
-        "uid": "ad3238f4-ba76-48a4-adc3-3d3eb8cfcfd0"
+        "uid": "ad3238f4-ba76-48a4-adc3-3d3eb8cfcfd0",
+        "shortName": "Unk. key"
     },
     {
         "name": "USEC stash on Customs key",
-        "uid": "eb9c18d4-7723-4b9a-8869-ae9bf5f17785"
+        "uid": "eb9c18d4-7723-4b9a-8869-ae9bf5f17785",
+        "shortName": "USEC key"
     },
     {
         "name": "Yotota car key",
-        "uid": "59899b15-acc8-4a9e-a86c-b6de954c54b9"
+        "uid": "59899b15-acc8-4a9e-a86c-b6de954c54b9",
+        "shortName": "Yotota"
     },
     {
         "name": "Key ZB-014",
-        "uid": "6ede2ccf-67dd-4f64-bcaf-eecf4f604a59"
+        "uid": "6ede2ccf-67dd-4f64-bcaf-eecf4f604a59",
+        "shortName": "ZB-014"
     },
     {
         "name": "Shturman key",
-        "uid": "599461a9-784f-4f4b-9320-a659acd50608"
+        "uid": "599461a9-784f-4f4b-9320-a659acd50608",
+        "shortName": "KSH"
     },
     {
         "name": "Weather station safe key",
-        "uid": "d3acc38b-f59e-4141-9c43-a69437e090ec"
+        "uid": "d3acc38b-f59e-4141-9c43-a69437e090ec",
+        "shortName": "Safe"
     },
     {
         "name": "Health resort warehouse safe key",
-        "uid": "770d636f-7837-4e72-b010-66338fbf6cb9"
+        "uid": "770d636f-7837-4e72-b010-66338fbf6cb9",
+        "shortName": "Safe"
     },
     {
         "name": "Key to store safe",
-        "uid": "6a3f2e34-bd50-428a-9d99-016b19354c67"
+        "uid": "6a3f2e34-bd50-428a-9d99-016b19354c67",
+        "shortName": "Safe"
     },
     {
         "name": "Gas station safe key",
-        "uid": "11c2931b-cb5b-47c6-be55-26cb3c629654"
+        "uid": "11c2931b-cb5b-47c6-be55-26cb3c629654",
+        "shortName": "Safe"
     },
     {
         "name": "Cottage back entrance key",
-        "uid": "e3b8def9-0e7e-4683-803e-aede32ea7854"
+        "uid": "e3b8def9-0e7e-4683-803e-aede32ea7854",
+        "shortName": "Cottage"
     },
     {
         "name": "Cottage safe key",
-        "uid": "8218090f-1dbb-4b97-b2d0-6bb23710a59c"
+        "uid": "8218090f-1dbb-4b97-b2d0-6bb23710a59c",
+        "shortName": "Safe"
     },
     {
         "name": "SMW car key",
-        "uid": "fe65b65c-94ee-49f8-8276-f6c7fb76ef9f"
+        "uid": "fe65b65c-94ee-49f8-8276-f6c7fb76ef9f",
+        "shortName": "SMW"
     },
     {
         "name": "Health resort utility room key",
-        "uid": "43220c45-100c-44fb-a262-980735f2f9ee"
+        "uid": "43220c45-100c-44fb-a262-980735f2f9ee",
+        "shortName": "Storeroom"
     },
     {
         "name": "Health resort management office safe key",
-        "uid": "9c161cad-8de6-45e1-b246-0637f98434d1"
+        "uid": "9c161cad-8de6-45e1-b246-0637f98434d1",
+        "shortName": "Safe"
     },
     {
         "name": "Health resort room 321 safe key",
-        "uid": "d38b3215-6a29-4fbd-89c2-4452f5d13e28"
+        "uid": "d38b3215-6a29-4fbd-89c2-4452f5d13e28",
+        "shortName": "Safe 321"
     },
     {
         "name": "Office 104 West wing key",
-        "uid": "1ef2585d-76d7-4974-8804-1aecdb563212"
+        "uid": "1ef2585d-76d7-4974-8804-1aecdb563212",
+        "shortName": "San.104"
     },
     {
         "name": "Office 112 West wing key",
-        "uid": "8530af95-9e03-41ee-a8ee-1e2799daf115"
+        "uid": "8530af95-9e03-41ee-a8ee-1e2799daf115",
+        "shortName": "San. 112"
     },
     {
         "name": "West wing room 203 key",
-        "uid": "71f4586f-19d4-4277-a463-43f2d67a2259"
+        "uid": "71f4586f-19d4-4277-a463-43f2d67a2259",
+        "shortName": "San.203"
     },
     {
         "name": "West wing room 205 key",
-        "uid": "bb554d5c-7476-4c16-88e4-cb9f6244d462"
+        "uid": "bb554d5c-7476-4c16-88e4-cb9f6244d462",
+        "shortName": "San.205"
     },
     {
         "name": "West wing room 207 key",
-        "uid": "130ed773-7ba8-48ca-a728-76faa2dccf09"
+        "uid": "130ed773-7ba8-48ca-a728-76faa2dccf09",
+        "shortName": "San.207"
     },
     {
         "name": "West wing room 216 key",
-        "uid": "f21ffe76-2412-4e00-b0d8-c79901c4d510"
+        "uid": "f21ffe76-2412-4e00-b0d8-c79901c4d510",
+        "shortName": "San.216"
     },
     {
         "name": "West wing room 218 key",
-        "uid": "ad360ab8-7eae-4dfc-b87c-709cf44be2e8"
+        "uid": "ad360ab8-7eae-4dfc-b87c-709cf44be2e8",
+        "shortName": "San.218"
     },
     {
         "name": "West wing room 219 key",
-        "uid": "c5b08816-9967-4705-9e4d-84e7fec311b6"
+        "uid": "c5b08816-9967-4705-9e4d-84e7fec311b6",
+        "shortName": "San.219"
     },
     {
         "name": "West wing room 220 key",
-        "uid": "41fc64dc-c2a5-460d-a7c4-60f929776b12"
+        "uid": "41fc64dc-c2a5-460d-a7c4-60f929776b12",
+        "shortName": "San.220"
     },
     {
         "name": "West wing room 221 key",
-        "uid": "36a90266-7423-451c-8dbb-764efa0790f3"
+        "uid": "36a90266-7423-451c-8dbb-764efa0790f3",
+        "shortName": "San.221"
     },
     {
         "name": "West wing room 222 key",
-        "uid": "d91fb710-f131-4716-a0fe-5ef8302a61d6"
+        "uid": "d91fb710-f131-4716-a0fe-5ef8302a61d6",
+        "shortName": "San.222"
     },
     {
         "name": "West wing room 301 key",
-        "uid": "c74f6dea-b77b-4a3a-9ebe-342c7cac3f9c"
+        "uid": "c74f6dea-b77b-4a3a-9ebe-342c7cac3f9c",
+        "shortName": "San.301"
     },
     {
         "name": "West wing room 303 key",
-        "uid": "ac933f86-7877-49a3-be5e-b8de8d4219f5"
+        "uid": "ac933f86-7877-49a3-be5e-b8de8d4219f5",
+        "shortName": "San.303"
     },
     {
         "name": "West wing room 306 key",
-        "uid": "10d1f8d1-05e2-4b2d-b2c4-5d85e8bf59d8"
+        "uid": "10d1f8d1-05e2-4b2d-b2c4-5d85e8bf59d8",
+        "shortName": "San.306"
     },
     {
         "name": "West wing room 309 key",
-        "uid": "142cef39-23d4-458c-8a0d-1d1b735e674e"
+        "uid": "142cef39-23d4-458c-8a0d-1d1b735e674e",
+        "shortName": "San.309"
     },
     {
         "name": "West wing room 323 key",
-        "uid": "06c085e7-2720-4676-af66-c6fbc1370cad"
+        "uid": "06c085e7-2720-4676-af66-c6fbc1370cad",
+        "shortName": "San.323"
     },
     {
         "name": "West wing room 325 key",
-        "uid": "5e87fdce-a5ed-4ded-bee2-a51cc6eb412b"
+        "uid": "5e87fdce-a5ed-4ded-bee2-a51cc6eb412b",
+        "shortName": "San.325"
     },
     {
         "name": "Office 107 East wing key",
-        "uid": "3af6a5cb-c84d-401a-8e57-e7df43524400"
+        "uid": "3af6a5cb-c84d-401a-8e57-e7df43524400",
+        "shortName": "San.107"
     },
     {
         "name": "Office 108 East wing key",
-        "uid": "9d12c050-e753-4ac8-bb4f-eb2741efd095"
+        "uid": "9d12c050-e753-4ac8-bb4f-eb2741efd095",
+        "shortName": "San.108"
     },
     {
         "name": "Key with tape",
-        "uid": "28091ab5-f397-4ca8-8348-96e2cb025d12"
+        "uid": "28091ab5-f397-4ca8-8348-96e2cb025d12",
+        "shortName": "Tape key"
     },
     {
         "name": "East wing room 205 key",
-        "uid": "a0a44753-d938-44e6-9000-cda70a6c4ae2"
+        "uid": "a0a44753-d938-44e6-9000-cda70a6c4ae2",
+        "shortName": "San.205"
     },
     {
         "name": "East wing room 206 key",
-        "uid": "3f3948b7-a471-4f77-829a-951b0e5667be"
+        "uid": "3f3948b7-a471-4f77-829a-951b0e5667be",
+        "shortName": "San.206"
     },
     {
         "name": "East wing room 209 key",
-        "uid": "25dd9fb1-fdd7-4895-8939-518c453045a3"
+        "uid": "25dd9fb1-fdd7-4895-8939-518c453045a3",
+        "shortName": "San.209"
     },
     {
         "name": "East wing room 213 key",
-        "uid": "dd7e191a-cdb5-4dd0-978f-7b498963b7bc"
+        "uid": "dd7e191a-cdb5-4dd0-978f-7b498963b7bc",
+        "shortName": "San.213"
     },
     {
         "name": "East wing room 216 key",
-        "uid": "b188405e-1fd3-4213-8a46-64aa6b654e38"
+        "uid": "b188405e-1fd3-4213-8a46-64aa6b654e38",
+        "shortName": "San.216"
     },
     {
         "name": "East wing room 222 key",
-        "uid": "d7c4334d-588e-4817-bd79-91b669cba8cb"
+        "uid": "d7c4334d-588e-4817-bd79-91b669cba8cb",
+        "shortName": "San.222"
     },
     {
         "name": "East wing room 226 key",
-        "uid": "bc590d25-8050-4dba-848a-ba85e45e64aa"
+        "uid": "bc590d25-8050-4dba-848a-ba85e45e64aa",
+        "shortName": "San.226"
     },
     {
         "name": "East wing room 306 key",
-        "uid": "6058815a-1d5e-4a5c-8d81-ccc2e8ce94d6"
+        "uid": "6058815a-1d5e-4a5c-8d81-ccc2e8ce94d6",
+        "shortName": "San.306"
     },
     {
         "name": "East wing room 308 key",
-        "uid": "ad6812c4-6d00-409f-9101-d6aed2a61976"
+        "uid": "ad6812c4-6d00-409f-9101-d6aed2a61976",
+        "shortName": "San.308"
     },
     {
         "name": "East wing room 310 key",
-        "uid": "b937c496-afbf-490f-9cac-dad317659a87"
+        "uid": "b937c496-afbf-490f-9cac-dad317659a87",
+        "shortName": "San.310"
     },
     {
         "name": "East wing room 313 key",
-        "uid": "672e30b3-4164-453a-9181-b51426cd5d02"
+        "uid": "672e30b3-4164-453a-9181-b51426cd5d02",
+        "shortName": "San.313"
     },
     {
         "name": "East wing room 314 key",
-        "uid": "d9857f4a-7f31-44e1-8cce-aa174ecb03fc"
+        "uid": "d9857f4a-7f31-44e1-8cce-aa174ecb03fc",
+        "shortName": "San.314"
     },
     {
         "name": "East wing room 316 key",
-        "uid": "0ad810b6-1c0a-400e-a4ff-db835bb00f09"
+        "uid": "0ad810b6-1c0a-400e-a4ff-db835bb00f09",
+        "shortName": "San.316"
     },
     {
         "name": "East wing room 322 key",
-        "uid": "3257e049-4714-4f69-88bb-037ac895ccaa"
+        "uid": "3257e049-4714-4f69-88bb-037ac895ccaa",
+        "shortName": "San.322"
     },
     {
         "name": "East wing room 328 key",
-        "uid": "d4dfa1fb-32b5-4a44-89a9-2cc5a5b2c3f1"
+        "uid": "d4dfa1fb-32b5-4a44-89a9-2cc5a5b2c3f1",
+        "shortName": "San.328"
     },
     {
         "name": "Key to HEP station storage",
-        "uid": "45aa72f2-79fb-4297-907b-28a8fe0a7d89"
+        "uid": "45aa72f2-79fb-4297-907b-28a8fe0a7d89",
+        "shortName": "HEPS"
     },
     {
         "name": "Key to OLI administrator office",
-        "uid": "7f5afdbc-a2ba-4017-b380-7e09b8370d1f"
+        "uid": "7f5afdbc-a2ba-4017-b380-7e09b8370d1f",
+        "shortName": "OLI Office"
     },
     {
         "name": "Key to OLI logistics department office",
-        "uid": "57561fa5-1f42-413f-b6e8-c6482bd12455"
+        "uid": "57561fa5-1f42-413f-b6e8-c6482bd12455",
+        "shortName": "Log. Office"
     },
     {
         "name": "Key to utility room of OLI outlet",
-        "uid": "079d145b-2659-4a7d-8a57-cfaa885ea509"
+        "uid": "079d145b-2659-4a7d-8a57-cfaa885ea509",
+        "shortName": "OLI Ut."
     },
     {
         "name": "Key to utility room of power substation",
-        "uid": "c38a1c43-3ed6-4351-9fe7-09630df32972"
+        "uid": "c38a1c43-3ed6-4351-9fe7-09630df32972",
+        "shortName": "Pow. Ut."
     },
     {
         "name": "Key to pharmacy",
-        "uid": "6fef3370-2d30-486d-9148-ad2abeb18aac"
+        "uid": "6fef3370-2d30-486d-9148-ad2abeb18aac",
+        "shortName": "Pharmacy"
     },
     {
         "name": "Key to KIBA store outlet",
-        "uid": "36f30c05-7865-409c-bad2-cc309fca4bd3"
+        "uid": "36f30c05-7865-409c-bad2-cc309fca4bd3",
+        "shortName": "KIBA"
     },
     {
         "name": "TerraGroup Labs access keycard",
-        "uid": "fc401d47-8836-4a5d-a794-76f672442d66"
+        "uid": "fc401d47-8836-4a5d-a794-76f672442d66",
+        "shortName": "Keycard"
     },
     {
         "name": "Key card with a blue marking",
-        "uid": "b4c395c0-37e2-4106-b14a-0ca49e726c77"
+        "uid": "b4c395c0-37e2-4106-b14a-0ca49e726c77",
+        "shortName": "Key card"
     },
     {
         "name": "Lab. Black keycard",
-        "uid": "da801361-759c-458e-8d5f-12765a3c06ca"
+        "uid": "da801361-759c-458e-8d5f-12765a3c06ca",
+        "shortName": "Black"
     },
     {
         "name": "Lab. Blue keycard",
-        "uid": "2102fe59-ad10-468b-9df2-2df7b140fe0c"
+        "uid": "2102fe59-ad10-468b-9df2-2df7b140fe0c",
+        "shortName": "Blue"
     },
     {
         "name": "Lab. Green keycard",
-        "uid": "305e1f6a-11e4-470f-ab92-b086909ad0bb"
+        "uid": "305e1f6a-11e4-470f-ab92-b086909ad0bb",
+        "shortName": "Green"
     },
     {
         "name": "Lab. Red keycard",
-        "uid": "df5b7b68-8ffd-416b-a582-43edc6104a8a"
+        "uid": "df5b7b68-8ffd-416b-a582-43edc6104a8a",
+        "shortName": "Red"
     },
     {
         "name": "Lab. Violet keycard",
-        "uid": "7466a495-55bf-4390-974c-2d30dcc0024d"
+        "uid": "7466a495-55bf-4390-974c-2d30dcc0024d",
+        "shortName": "Violet"
     },
     {
         "name": "Lab. Yellow keycard",
-        "uid": "a42a8c0a-ff57-4cc1-b654-2ce313c53f33"
+        "uid": "a42a8c0a-ff57-4cc1-b654-2ce313c53f33",
+        "shortName": "Yellow"
     },
     {
         "name": "Lab. key. Arsenal storage room",
-        "uid": "c27d4382-2b48-4656-b6a3-88b7c196e1ef"
+        "uid": "c27d4382-2b48-4656-b6a3-88b7c196e1ef",
+        "shortName": "Lk.ASR"
     },
     {
         "name": "Lab. key. Manager office",
-        "uid": "122a1a58-b7b2-4c8c-a2ee-bfeaeebf4316"
+        "uid": "122a1a58-b7b2-4c8c-a2ee-bfeaeebf4316",
+        "shortName": "Lk.MO"
     },
     {
         "name": "Lab. key. Testing area (weap.)",
-        "uid": "d1dc3d20-d7de-4492-a840-018b1202a995"
+        "uid": "d1dc3d20-d7de-4492-a840-018b1202a995",
+        "shortName": "weap."
     },
     {
         "name": "RB-AK key",
-        "uid": "7279cd72-723c-45f7-84b0-70ac524672cc"
+        "uid": "7279cd72-723c-45f7-84b0-70ac524672cc",
+        "shortName": "RB-AK"
     },
     {
         "name": "RB-AM key",
-        "uid": "666c540d-7931-4d76-a3bf-f47284a3949e"
+        "uid": "666c540d-7931-4d76-a3bf-f47284a3949e",
+        "shortName": "RB-AM"
     },
     {
         "name": "RB-AO key",
-        "uid": "591b353f-4dc4-4fe4-a28d-a2ce7fa33250"
+        "uid": "591b353f-4dc4-4fe4-a28d-a2ce7fa33250",
+        "shortName": "RB-AO"
     },
     {
         "name": "RB-BK key",
-        "uid": "8a6150f2-568a-4816-9976-872d9b4962d8"
+        "uid": "8a6150f2-568a-4816-9976-872d9b4962d8",
+        "shortName": "RB-BK"
     },
     {
         "name": "RB-GN key",
-        "uid": "14ad3253-2234-455f-ab6c-9543aa1953ab"
+        "uid": "14ad3253-2234-455f-ab6c-9543aa1953ab",
+        "shortName": "RB-GN"
     },
     {
         "name": "RB-KORL key",
-        "uid": "4416489c-3163-4265-beef-1c8df3dd68ee"
+        "uid": "4416489c-3163-4265-beef-1c8df3dd68ee",
+        "shortName": "RB-KORL"
     },
     {
         "name": "RB-KPRL key",
-        "uid": "30e33418-3f30-405f-aad9-c6dee1189ddb"
+        "uid": "30e33418-3f30-405f-aad9-c6dee1189ddb",
+        "shortName": "RB-KPRL"
     },
     {
         "name": "RB-KSM key",
-        "uid": "793065c9-c8e6-4486-8cf2-5d2becc57058"
+        "uid": "793065c9-c8e6-4486-8cf2-5d2becc57058",
+        "shortName": "RB-KSM"
     },
     {
         "name": "RB-MP11 key",
-        "uid": "74551dd8-7817-4eb3-988b-3d1bb7b6ad33"
+        "uid": "74551dd8-7817-4eb3-988b-3d1bb7b6ad33",
+        "shortName": "RB-MP11"
     },
     {
         "name": "RB-MP12 key",
-        "uid": "83b1e027-9ab8-493b-aad2-6df4b1dc531d"
+        "uid": "83b1e027-9ab8-493b-aad2-6df4b1dc531d",
+        "shortName": "RB-MP12"
     },
     {
         "name": "RB-MP13 key",
-        "uid": "ae00e4bd-9155-44c5-b585-84b169f36cda"
+        "uid": "ae00e4bd-9155-44c5-b585-84b169f36cda",
+        "shortName": "RB-MP13"
     },
     {
         "name": "RB-MP21 key",
-        "uid": "ab1d0e22-d6b7-4e25-b388-558749b916b6"
+        "uid": "ab1d0e22-d6b7-4e25-b388-558749b916b6",
+        "shortName": "RB-MP21"
     },
     {
         "name": "RB-MP22 key",
-        "uid": "a7d2c75d-0c6e-4cdf-b776-645c54804373"
+        "uid": "a7d2c75d-0c6e-4cdf-b776-645c54804373",
+        "shortName": "RB-MP22"
     },
     {
         "name": "RB-OB key",
-        "uid": "9bdcde08-dc85-4133-a4a1-223a1af49a40"
+        "uid": "9bdcde08-dc85-4133-a4a1-223a1af49a40",
+        "shortName": "RB-OB"
     },
     {
         "name": "RB-OP key",
-        "uid": "0fa34328-b4a7-49d6-8254-8c14ba1642d3"
+        "uid": "0fa34328-b4a7-49d6-8254-8c14ba1642d3",
+        "shortName": "RB-OP"
     },
     {
         "name": "RB-ORB1 key",
-        "uid": "02d66dd2-252d-4f70-8ad8-53afb7cfa1aa"
+        "uid": "02d66dd2-252d-4f70-8ad8-53afb7cfa1aa",
+        "shortName": "RB-ORB1"
     },
     {
         "name": "RB-ORB2 key",
-        "uid": "5b0173d4-7a29-4c0c-a30e-bc7611553db6"
+        "uid": "5b0173d4-7a29-4c0c-a30e-bc7611553db6",
+        "shortName": "RB-ORB2"
     },
     {
         "name": "RB-ORB3 key",
-        "uid": "8d6f3f73-528d-4340-b6f9-cff161a466e2"
+        "uid": "8d6f3f73-528d-4340-b6f9-cff161a466e2",
+        "shortName": "RB-ORB3"
     },
     {
         "name": "RB-PKPM key",
-        "uid": "5ce0e01d-7985-425d-adfc-6bb9acdf6fc2"
+        "uid": "5ce0e01d-7985-425d-adfc-6bb9acdf6fc2",
+        "shortName": "RB-PKPM"
     },
     {
         "name": "RB-PS81 key",
-        "uid": "aa894472-d9e5-4799-979e-abe56c2541ae"
+        "uid": "aa894472-d9e5-4799-979e-abe56c2541ae",
+        "shortName": "RB-PS81"
     },
     {
         "name": "RB-PS82 key",
-        "uid": "f5292a27-69a6-40d2-9f3f-9cc5358f3657"
+        "uid": "f5292a27-69a6-40d2-9f3f-9cc5358f3657",
+        "shortName": "RB-PS82"
     },
     {
         "name": "Key RB-PSP2",
-        "uid": "5c9bfa96-0595-49e7-a5f1-132a36aec62a"
+        "uid": "5c9bfa96-0595-49e7-a5f1-132a36aec62a",
+        "shortName": "RB-PSP2"
     },
     {
         "name": "RB-RH key",
-        "uid": "9cec59ab-63a6-4110-8d66-f5d52dd3d2b1"
+        "uid": "9cec59ab-63a6-4110-8d66-f5d52dd3d2b1",
+        "shortName": "RB-RH"
     },
     {
         "name": "RB-RLSSA key",
-        "uid": "21365cac-3339-47d9-8913-be4d17af46ae"
+        "uid": "21365cac-3339-47d9-8913-be4d17af46ae",
+        "shortName": "RB-RSSLA"
     },
     {
         "name": "RB-SMP key",
-        "uid": "bfd5fbab-3955-46cb-9eb7-368c17d08b79"
+        "uid": "bfd5fbab-3955-46cb-9eb7-368c17d08b79",
+        "shortName": "RB-SMP"
     },
     {
         "name": "RB-TB key",
-        "uid": "7fa340a5-abbc-4b73-802d-caaad0a25795"
+        "uid": "7fa340a5-abbc-4b73-802d-caaad0a25795",
+        "shortName": "RB-TB"
     },
     {
         "name": "RB-VO key",
-        "uid": "63c11292-586b-4854-902b-a5468a216df6"
+        "uid": "63c11292-586b-4854-902b-a5468a216df6",
+        "shortName": "RB-VO"
     },
     {
         "name": "Door key",
-        "uid": "fa376084-836a-4136-bc21-55830ba3a302"
+        "uid": "fa376084-836a-4136-bc21-55830ba3a302",
+        "shortName": "Key"
     },
     {
         "name": "Key to KIBA Outlet grate door",
-        "uid": "dbab964d-c699-49c3-9e26-7a65619e7fb6"
+        "uid": "dbab964d-c699-49c3-9e26-7a65619e7fb6",
+        "shortName": "KIBA 2"
     },
     {
         "name": "Door key (alternative)",
-        "uid": "9a23b9b6-4c65-416c-b031-015822d42165"
+        "uid": "9a23b9b6-4c65-416c-b031-015822d42165",
+        "shortName": "alternative"
     },
     {
         "name": "Portable cabin key",
-        "uid": "422d4b1f-a801-4d40-bfed-d4a31364382e"
+        "uid": "422d4b1f-a801-4d40-bfed-d4a31364382e",
+        "shortName": "Cabin key"
     },
     {
         "name": "RB-PP key",
-        "uid": "f76050d0-efa7-43a6-b97c-ab6ca90a5555"
+        "uid": "f76050d0-efa7-43a6-b97c-ab6ca90a5555",
+        "shortName": "RB-PP"
     },
     {
         "name": "RB-PSP1 key",
-        "uid": "56ce6468-aab5-4f3d-885b-4876713b7d94"
+        "uid": "56ce6468-aab5-4f3d-885b-4876713b7d94",
+        "shortName": "RB-PSP1"
     },
     {
         "name": "RB-RS key",
-        "uid": "794ee196-42a8-486d-a5e1-0dfebc0c7e36"
+        "uid": "794ee196-42a8-486d-a5e1-0dfebc0c7e36",
+        "shortName": "RB-RS"
     },
     {
         "name": "RB-ST key",
-        "uid": "5b52d1ca-896d-4082-8af6-e21e75e9c033"
+        "uid": "5b52d1ca-896d-4082-8af6-e21e75e9c033",
+        "shortName": "RB-ST"
     }
 ]
