@@ -9,6 +9,7 @@ const shouldRotate = require('./modules/should-rotate.js');
 const FILES = [
     'barter-items.json',
     'keys.json',
+    'mods.json',
 ];
 
 const formatName = (rawName) => {
@@ -27,7 +28,7 @@ const formatName = (rawName) => {
 (async () => {
     for(const file of FILES){
         const INPUT_PATH = path.join(__dirname, '..', 'data', file);
-        const OUTPUT_PATH = path.join(__dirname, '..', 'data', 'mods.json');
+        const OUTPUT_PATH = path.join(__dirname, '..', 'data', file);
 
         let itemData = JSON.parse(fs.readFileSync(INPUT_PATH));
         let missinguid = 0;
