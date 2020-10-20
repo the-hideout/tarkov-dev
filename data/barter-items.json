@@ -818,9 +818,6 @@
         "shortName": "Peas"
     },
     {
-        "name": "Can of beef stew"
-    },
-    {
         "name": "Can of delicious beef stew",
         "uid": "60036b01-88aa-4653-955c-24e303188e62",
         "shortName": "Tushonka"
@@ -949,5 +946,10 @@
         "name": "Apple juice",
         "uid": "6cb90d05-650c-498a-ab34-5b01abb4d145",
         "shortName": "Apl.jc."
+    },
+    {
+        "name": "Premium Kvass \"Norvinskiy Yadreniy\" 0.6L bottle",
+        "uid": "c4adee2a-48bb-47c9-8e17-75b9c8d79eae",
+        "shortName": "Kvass"
     }
 ]

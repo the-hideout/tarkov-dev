@@ -102,13 +102,19 @@
         "shortName": "T-5000 pad"
     },
     {
-        "name": "Zenit 2IRS Klesch flashlight + laser designator"
+        "name": "Zenit 2IRS Klesch flashlight + laser designator",
+        "uid": "46d926fe-7249-434a-b691-c39bfab29e58",
+        "shortName": "2IRS"
     },
     {
-        "name": "Zenit 2P Klesch flashlight + laser designator"
+        "name": "Zenit 2P Klesch flashlight + laser designator",
+        "uid": "145c5673-e35f-40cd-a555-32ef01dda46f",
+        "shortName": "Klesch"
     },
     {
-        "name": "Zenit 2U Klesch tactical flashlight"
+        "name": "Zenit 2U Klesch tactical flashlight",
+        "uid": "241305b8-813a-4768-8f9d-5088274216f1",
+        "shortName": "2U \"Kleh\""
     },
     {
         "name": "AN/PEQ-15 tactical device",
@@ -546,7 +552,9 @@
         "shortName": "Wave MB"
     },
     {
-        "name": "KAC QDC Flash suppressor kit 7.62x51 flash hider"
+        "name": "KAC QDC Flash suppressor kit 7.62x51 flash hider",
+        "uid": "53d010e4-adb9-4360-8eca-90ab415baafc",
+        "shortName": "KAC QDC"
     },
     {
         "name": "Orsis T-5000M muzzle brake",
@@ -3930,5 +3938,47 @@
         "name": "Magpul AFG grip FG",
         "uid": "d3faa9e5-80e9-4045-b4b4-9c9bfe9dfdb8",
         "shortName": "AFG FG"
+    },
+    {
+        "name": "TD Aluminium skeletonized vertical grip"
+    },
+    {
+        "name": "Trigger for M45A1"
+    },
+    {
+        "name": "Hammer for M45A1"
+    },
+    {
+        "name": "Slide lock for M45A1"
+    },
+    {
+        "name": "Regular RFB 7.62x51 Flash hider"
+    },
+    {
+        "name": "RFB Thread spacer"
+    },
+    {
+        "name": "RFB thread protection cap"
+    },
+    {
+        "name": "Rotor 43 7.62x51 muzzle brake for VPO-101"
+    },
+    {
+        "name": "Novak Lomount Rear Sight"
+    },
+    {
+        "name": "Kel-Tec RFB regular handguard"
+    },
+    {
+        "name": "Standart polymerpistol grip for M45A1"
+    },
+    {
+        "name": "Polymer pistol grip for KS-23M"
+    },
+    {
+        "name": "M45A1 .45 ACP slide"
+    },
+    {
+        "name": "M45A1 .45 ACP 7-round magazine"
     }
 ]
