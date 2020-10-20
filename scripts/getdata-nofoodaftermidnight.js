@@ -40,40 +40,45 @@ const formatRow = function formatRow(row){
         armorDamage: Number(row['5']),
         fragChance: row['https://www.twitch.tv/nofoodaftermidnight'],
     };
-    
-    
+
     if(formattedRow.type === 'Mounted Weapons') {
         tempType = formattedRow.type;
-        
+
         return false;
     }
-    
+
+    if(formattedRow.name.toLowerCase().includes('flashbang')){
+        tempType = formattedRow.type;
+
+        return false;
+    }
+
     if(formattedRow.damage === 0) {
         return false;
     }
-    
+
     let symbol = symbols[typeCache.length];
-    
+
     if(typeCache.includes(formattedRow.type)) {
         symbol = symbols[typeCache.indexOf(formattedRow.type)];
     } else {
         typeCache.push(formattedRow.type);
     }
-    
+
     if(!symbol) {
         console.log(`Missing symbol for ${formattedRow.type}`);
     }
-    
+
     formattedRow.symbol = symbol;
-    
+
     for(const prefix of prefixes){
         formattedRow.name = formattedRow.name.replace(prefix, '');
     }
-    
+
     formattedRow.name = formattedRow.name.replace(/_/g, ' ');
-    
+
     tempType = formattedRow.type;
-    
+
     return formattedRow;
 };
 
@@ -85,13 +90,13 @@ const getSheetData = async function getSheetData(url){
             timeout: 5000,
         });
         console.timeEnd(`Get excel sheet data url ${url}`);
-        
+
         return response;
     } catch (responseError){
         console.timeEnd(`Get excel sheet data url ${url}`);
         console.error(responseError);
     }
-    
+
     return false;
 };
 
@@ -99,40 +104,40 @@ const getSheetData = async function getSheetData(url){
     let response = false;
     for(let i = 0; i < URLS.length; i = i + 1){
         response = await getSheetData(URLS[i]);
-        
+
         if(response){
             break;
         }
     }
-    
+
     let started = false;
     let stopped = false;
-    
+
     const dataset = {
         updated: new Date(),
         data: response.body.map((maybeAmmoType) => {
             if(maybeAmmoType['1'] === 'Ammo Type'){
                 started = true;
-                
+
                 return false;
             }
-            
+
             if(!started){
                 return false;
             }
-            
+
             if(maybeAmmoType['1'] === null){
                 stopped = true;
             }
-            
+
             if(stopped){
                 return false;
             }
-            
+
             return formatRow(maybeAmmoType);
         }).filter(Boolean),
     };
-    
+
     console.time('Write new data');
     fs.writeFileSync(path.join(__dirname, '..', 'src', 'data.json'), JSON.stringify(dataset, null, 4));
     console.timeEnd('Write new data');

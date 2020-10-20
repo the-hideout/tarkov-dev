@@ -71,5 +71,9 @@
     {
         "fill": "rgb(71, 121, 152)",
         "type": "TriangleDown"
+    },
+    {
+        "fill": "rgb(71, 121, 152)",
+        "type": "Diamond"
     }
 ]
