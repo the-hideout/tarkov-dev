@@ -262,6 +262,19 @@ select {
     padding: 10px 0;
 }
 
+.barter-group-wrapper.filter-wrapper {
+    padding: 10px 20px;
+    line-height: 24px;
+}
+
+.barter-group-wrapper .text-label {
+    flex-grow: 1;
+}
+
+.barter-group-wrapper input {
+    margin-left: 10px;
+}
+
 .barter-group-title {
     font-size: 40px;
     text-align: center;

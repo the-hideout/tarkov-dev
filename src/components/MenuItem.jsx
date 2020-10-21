@@ -33,6 +33,10 @@ function MenuItem(props) {
         }
     }, [currentAmmo, props.displayText]);
     
+    const handleClick = (event) => {
+        console.log(event);
+    };
+    
     const getCheckbox = () => {
         if(!props.checkbox){
             return false;
@@ -50,6 +54,7 @@ function MenuItem(props) {
         {getCheckbox()}
         <Link 
             to = {props.to}
+            onClick = {handleClick}
         >
             {props.displayText}
         </Link>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+    import React, { useState, useEffect } from 'react';
 import {
     useParams,
   } from "react-router-dom";
@@ -32,9 +32,10 @@ const arrayChunk = (inputArray, chunkLength) => {
 };
 
 function Barter() {
-    const [itemChunks, setChunks] = useState([]);
+    const [items, setItems] = useState([]);
     const [updateDate, setUpdateDate] = useState(new Date());
     const {currentLoot} = useParams();
+    const [nameFilter, setNameFilter] = useState('');
     
     useEffect(() => {
         async function fetchData(){
@@ -61,16 +62,15 @@ function Barter() {
                     }
                     
                     return 0;
-                })
-                .slice(0, MAX_ITEMS);
-            
-            const newChunks = arrayChunk(sortedItems, sortedItems.length / 7);
-         
-            setChunks(newChunks);
+                });
+                
+            setItems(sortedItems);
         }
 
         fetchData();
-      }, [currentLoot]);
+    }, [currentLoot, setItems]);
+    
+    const itemChunks = arrayChunk(items.slice(0, MAX_ITEMS), items.length / 7);
     
     for(let i = 0; i < itemChunks.length; i = i + 1){
         itemChunks[i] = itemChunks[i].sort((itemA, itemB) => {
@@ -86,17 +86,29 @@ function Barter() {
         });
     };
     
+    // console.log(displayItems)
     
     return <div
         className="barter-wrapper" 
     >
-        <div
-            className = {'updated-label'}
-        >
-            {`Prices updated: ${updateDate.toLocaleDateString()}`}        
+        <div class="barter-group-wrapper filter-wrapper">
+            <div
+                className = {'text-label'}
+            >
+                {`Prices updated: ${updateDate.toLocaleDateString()}`}        
+            </div>
+            <span>
+                Filter
+            </span> 
+            <input
+                type = {'text'}
+                placeholder = {'btc, graphics e.t.c'}
+                onChange = {e => setNameFilter(e.target.value)}
+            />
         </div>
         {itemChunks.map((items, index) => 
             <BarterGroup
+                filter = {nameFilter}
                 key = {`barter-group-${groupNames[index]}`}
                 name = {groupNames[index]}
                 items = {items}
