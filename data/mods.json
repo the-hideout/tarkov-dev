@@ -247,21 +247,6 @@
         "shortName": "M1911A1 Tri"
     },
     {
-        "name": "Wilson Extended slide stop for M1911A1"
-    },
-    {
-        "name": "STI HEX Hammer for M1911A1"
-    },
-    {
-        "name": "Hammer for M1911A1 (alternative)"
-    },
-    {
-        "name": "Wilson Ultralight skeletonized hammer for M1911A1"
-    },
-    {
-        "name": "Caspian Trik Trigger for M1911A1"
-    },
-    {
         "name": "Izhmash 5.45x39 muzzle brake for AKS-74U (6P26 0-20)",
         "uid": "de04ba9e-a192-473f-81f2-61dd39a927fc",
         "shortName": "6P26 0-20"
@@ -687,9 +672,6 @@
         "shortName": "P90 FH"
     },
     {
-        "name": "Anarchy Outdoors Muzzle Brake .45 ACP"
-    },
-    {
         "name": "CNC Warrior AK 5.56x45 mm muzzle device adapter",
         "uid": "c46dfbbc-e84f-42fb-a3fb-6ce94f27c199",
         "shortName": "CNC War."
@@ -708,9 +690,6 @@
         "name": "Direct Thread adapter for the Lantac Blast mitigation device.",
         "uid": "36a06ccd-6920-4f5b-b677-72faaf8a5e51",
         "shortName": "A3 Adapter"
-    },
-    {
-        "name": "M700 thread protection cap (stainless)"
     },
     {
         "name": "M700 thread protection cap",
@@ -766,9 +745,6 @@
         "name": "B&T adapter for MP9 regular suppressor.",
         "uid": "0de105ac-a511-4e54-b612-61e49b374339",
         "shortName": "SVD-S thr."
-    },
-    {
-        "name": "GK-01 compensator"
     },
     {
         "name": "GK-02 Muzzle Brake",
@@ -1072,9 +1048,6 @@
         "uid": "2e1e4be5-7576-45ca-a6d2-686656758ffc",
         "rotate": -90,
         "shortName": "Ultra 5"
-    },
-    {
-        "name": "ELCAN Specter OS4x assault scope"
     },
     {
         "name": "ELCAN SpecterDR 1x/4x Scope FDE",
@@ -1531,12 +1504,6 @@
         "shortName": "M1911A1 RS"
     },
     {
-        "name": "Ghost ring kit M590 Frontsight"
-    },
-    {
-        "name": "Ghost ring Rear sight for M590"
-    },
-    {
         "name": "Burris FullField TAC 30 1-4x24 riflescope",
         "uid": "a82bcc23-b503-485f-9714-bd621587a532",
         "rotate": -90,
@@ -1567,9 +1534,6 @@
         "shortName": "NF 7-35x56"
     },
     {
-        "name": "Nightforce NXS 2.5-10x24 scope"
-    },
-    {
         "name": "Optical scope March Tactical 3-24x42 FFP",
         "uid": "0217f39f-ffc7-4763-9eac-1a7171a56df3",
         "rotate": -90,
@@ -1596,9 +1560,6 @@
         "uid": "4368d6d0-e042-49d7-89c3-3285b5beac38",
         "rotate": -90,
         "shortName": "1P69"
-    },
-    {
-        "name": "PAG-17 scope"
     },
     {
         "name": "VOMZ Pilad 4x32 riflescope",
@@ -1789,7 +1750,9 @@
         "shortName": "WASR 10-63"
     },
     {
-        "name": "B-30 foregrip and rail mount B-31С"
+        "name": "B-30 foregrip and rail mount B-31С",
+        "uid": "065cbb87-05ea-4acd-b76a-3336241838b9",
+        "shortName": "B-30 B-31С"
     },
     {
         "name": "ADAR 2-15 wooden stock for AR-15 and compatibles",
@@ -2148,12 +2111,6 @@
         "shortName": "XRS DRG"
     },
     {
-        "name": "Speedfeed short M590A1 forestock"
-    },
-    {
-        "name": "Magpul MOE M590 forestock"
-    },
-    {
         "name": "US Palm pistol grip for AK",
         "uid": "db8d7347-98ae-4650-bd18-c5dd9c15d0f2",
         "shortName": "US Palm AK"
@@ -2379,9 +2336,6 @@
         "name": "Standart polymerpistol grip for M1911A1",
         "uid": "bd90b11e-71d2-45eb-a80f-b00a4f8627ce",
         "shortName": "M1911A1 P."
-    },
-    {
-        "name": "Pachmayr \"American legend grip 423 for M1911A1"
     },
     {
         "name": "Izhmash SVDS pistol grip",
@@ -2943,9 +2897,6 @@
         "shortName": "M1911"
     },
     {
-        "name": "Mec-Gar .45 ACP 11-round magazine for M1911A1"
-    },
-    {
         "name": "Standard MP7 20-round 4.6x30 magazine",
         "uid": "60e75ea2-da4d-485f-87f5-79e187d2d8c5",
         "shortName": "MP7 20"
@@ -3286,9 +3237,6 @@
         "shortName": "ASh-12"
     },
     {
-        "name": "100 rounds belt"
-    },
-    {
         "name": "4-shell M870 12ga magazine cap",
         "uid": "3712e980-5530-49aa-82c4-1540e1d94be3",
         "shortName": "M870x4"
@@ -3310,9 +3258,6 @@
         "uid": "a7f76495-aa55-47f7-8325-5439b38d950d",
         "rotate": -90,
         "shortName": "MP-133x8"
-    },
-    {
-        "name": "MP-153 forend cap"
     },
     {
         "name": "MP-153 6-rd magazine extension",
@@ -3348,9 +3293,6 @@
         "shortName": "Powermag 20"
     },
     {
-        "name": "8-shell M590A1 12ga magazine cap"
-    },
-    {
         "name": "4-shot MC 20-01 Sb.3 20ga magazine for TOZ-106",
         "uid": "08d085a9-78f4-46a5-ae39-842b0043edc4",
         "shortName": "Sb.3x4"
@@ -3359,9 +3301,6 @@
         "name": "5-shot MC 20-01 Sb.3 20ga magazine for TOZ-106",
         "uid": "3b2e999c-f293-41b7-806f-96355e62a414",
         "shortName": "Sb.3x5"
-    },
-    {
-        "name": "AGS-30 30-Grenades box 30x29"
     },
     {
         "name": "2-shot MC 20-01 Sb.3 20ga magazine for TOZ-106",
@@ -3940,45 +3879,15 @@
         "shortName": "AFG FG"
     },
     {
-        "name": "TD Aluminium skeletonized vertical grip"
+        "name": "Rotor 43 7.62x51 muzzle brake for VPO-101",
+        "uid": "94d75251-32ed-4e04-9ae7-d036eba5ac0f",
+        "shortName": "Rotor43 7.62x51",
+        "rotate": -90
     },
     {
-        "name": "Trigger for M45A1"
-    },
-    {
-        "name": "Hammer for M45A1"
-    },
-    {
-        "name": "Slide lock for M45A1"
-    },
-    {
-        "name": "Regular RFB 7.62x51 Flash hider"
-    },
-    {
-        "name": "RFB Thread spacer"
-    },
-    {
-        "name": "RFB thread protection cap"
-    },
-    {
-        "name": "Rotor 43 7.62x51 muzzle brake for VPO-101"
-    },
-    {
-        "name": "Novak Lomount Rear Sight"
-    },
-    {
-        "name": "Kel-Tec RFB regular handguard"
-    },
-    {
-        "name": "Standart polymerpistol grip for M45A1"
-    },
-    {
-        "name": "Polymer pistol grip for KS-23M"
-    },
-    {
-        "name": "M45A1 .45 ACP slide"
-    },
-    {
-        "name": "M45A1 .45 ACP 7-round magazine"
+        "name": "X47 Tactical Handguard for AK and compatible",
+        "uid": "1be79487-9209-477f-b9f0-bfbcc4a57bfc",
+        "shortName": "X47",
+        "rotate": -90
     }
 ]
