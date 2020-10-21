@@ -70,7 +70,7 @@ function Barter() {
         fetchData();
     }, [currentLoot, setItems]);
 
-    const itemChunks = arrayChunk(items.slice(0, MAX_ITEMS), items.length / 7);
+    const itemChunks = arrayChunk(items.slice(0, MAX_ITEMS), MAX_ITEMS / 7);
 
     for(let i = 0; i < itemChunks.length; i = i + 1){
         itemChunks[i] = itemChunks[i].sort((itemA, itemB) => {
