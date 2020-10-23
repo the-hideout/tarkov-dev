@@ -4,7 +4,7 @@ import {
     Switch,
     Route,
     useHistory,
-  } from "react-router-dom";
+} from "react-router-dom";
 import {Helmet} from "react-helmet";
 
 import './App.css';
@@ -19,44 +19,44 @@ const makeID = function makeID(length) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     const charactersLength = characters.length;
-    
+
     for ( let i = 0; i < length; i = i + 1 ) {
        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
-    
+
     return result;
  };
- 
+
  const socketServer = `wss://tarkov-socket-server.herokuapp.com`;
 
  let socket = false;
- 
- function App() {    
+
+ function App() {
     const [sessionID, setSessionID] = useState(makeID(4));
     const [socketConnected, setSocketConnected] = useState(false);
     let history = useHistory();
-    
+
     const setID = (newID) => {
         setSessionID(newID);
     };
-    
+
     const handleDisplayMessage = (rawMessage) => {
         const message = JSON.parse(rawMessage.data);
-        
+
         if(message.type !== 'command'){
             return false;
         }
-        
+
         history.push(`/${message.data.type}/${message.data.value}`);
     };
-    
-    useEffect(() => {        
+
+    useEffect(() => {
         const connect = function connect(){
             socket = new WebSocket(socketServer);
 
             const heartbeat = function heartbeat() {
                 clearTimeout(socket.pingTimeout);
-            
+
                 // Use `WebSocket#terminate()`, which immediately destroys the connection,
                 // instead of `WebSocket#close()`, which waits for the close timer.
                 // Delay should be equal to the interval at which your server
@@ -68,60 +68,60 @@ const makeID = function makeID(length) {
                     setSocketConnected(false);
                 }, 10000 + 1000);
             };
-            
+
             socket.addEventListener('message', (rawMessage) => {
                 const message = JSON.parse(rawMessage.data);
-                
+
                 if(message.type === 'ping'){
                     heartbeat();
-                    
+
                     socket.send(JSON.stringify({type: 'pong'}));
-                    
+
                     return true;
                 }
-                
+
                 handleDisplayMessage(rawMessage);
             });
-            
+
             socket.addEventListener('open', () => {
                 console.log('Connected to socket server');
                 console.log(socket);
-                
+
                 heartbeat();
-                
+
                 setSocketConnected(true);
-                
+
                 socket.send(JSON.stringify({
                     sessionID: sessionID,
                     type: 'connect',
                 }));
-            });   
-            
+            });
+
             socket.addEventListener('close', () => {
                 console.log('Disconnected from socket server');
-                
+
                 setSocketConnected(false);
-                
+
                 clearTimeout(socket.pingTimeout);
             });
-            
-            setInterval(() => {        
+
+            setInterval(() => {
                 if(socket.readyState === 3){
                     console.log('trying to re-connect');
                     connect();
                 }
             }, 5000);
         };
-        
+
         if(socket === false){
             connect();
         }
-        
+
         return () => {
             // socket.terminate();
         };
-    });    
-    
+    });
+
     const send = useCallback((messageData) => {
         socket.send(JSON.stringify({
             sessionID: sessionID,
@@ -199,7 +199,7 @@ const makeID = function makeID(length) {
         <ID
             sessionID = {sessionID}
         />
-        <Control 
+        <Control
             send = {send}
             setID = {setID}
             sessionID = {sessionID}
