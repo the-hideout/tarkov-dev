@@ -1,6 +1,6 @@
-import React from 'react';
+import { Component } from 'react';
 
-class Plus extends React.Component {
+class Plus extends Component {
     render() {
         return (
             <svg

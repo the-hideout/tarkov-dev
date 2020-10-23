@@ -1,6 +1,6 @@
-import React from 'react';
+import { Component } from 'react';
 
-class Circle extends React.Component {
+class Circle extends Component {
     render() {
         return (
             <svg

@@ -1,10 +1,10 @@
-import React from 'react';
+import { Component } from 'react';
 
 import shapes from './points';
 
 const SIZE = 2;
 
-class Symbol extends React.Component {
+class Symbol extends Component {
     render() {
         const {x, y, datum} = this.props;
         const PointComponent = shapes[datum.symbol.type];

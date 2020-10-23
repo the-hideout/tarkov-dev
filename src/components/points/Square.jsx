@@ -1,6 +1,6 @@
-import React from 'react';
+import { Component } from 'react';
 
-class Square extends React.Component {
+class Square extends Component {
     render() {
         return (
             <svg

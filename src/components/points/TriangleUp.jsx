@@ -1,6 +1,6 @@
-import React from 'react';
+import { Component } from 'react';
 
-class TriangleUp extends React.Component {
+class TriangleUp extends Component {
     render() {
         return (
             <svg
