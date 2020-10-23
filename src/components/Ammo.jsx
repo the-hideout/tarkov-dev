@@ -17,17 +17,17 @@ const formattedData = rawData.data.map((ammoData) => {
     const returnData = {
         ...ammoData,
     };
-    
+
     if(ammoData.damage > MAX_DAMAGE){
         returnData.name = `${ammoData.name} (${ammoData.damage})`;
         returnData.damage = MAX_DAMAGE;
     }
-    
+
     if(ammoData.penetration > MAX_PENETRATION){
         returnData.name = `${ammoData.name} (${ammoData.penetration})`;
         returnData.penetration = MAX_PENETRATION;
     }
-    
+
     return returnData;
 })
 .sort((a, b) => {
@@ -58,16 +58,16 @@ function Ammo() {
     const history = useHistory();
     const [selectedLegendName, setSelectedLegendName] = useState(currentAmmoList);
     const shiftPress = useKeyPress('Shift');
-    
+
     useEffect(() => {
         if(currentAmmo === []){
             setSelectedLegendName([]);
-            
+
             return true;
         }
-        
+
         if(currentAmmo){
-            setSelectedLegendName(currentAmmo.split(','));    
+            setSelectedLegendName(currentAmmo.split(','));
         } else {
             setSelectedLegendName([]);
         }
@@ -80,7 +80,7 @@ function Ammo() {
             if(!shiftPress){
                 return ammo;
             }
-            
+
             return {
                 ...ammo,
                 name: `${ammo.name} (${ammo.fragChance})`,
@@ -101,18 +101,18 @@ function Ammo() {
         } else {
             newSelectedAmmo = [name];
         }
-        
+
         setSelectedLegendName(newSelectedAmmo);
         history.push(`/ammo/${newSelectedAmmo.join(',')}`);
 
     }, [selectedLegendName, setSelectedLegendName, history]);
-    
+
     return (
         <div>
             <div
                 className = {'updated-label'}
             >
-                {`Ammo updated: ${new Date(rawData.updated).toLocaleDateString()}`}        
+                {`Ammo updated: ${new Date(rawData.updated).toLocaleDateString()}`}
             </div>
             <Graph
                 rawData = {rawData}
