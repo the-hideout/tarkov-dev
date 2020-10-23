@@ -1,7 +1,6 @@
-import React from 'react';
 import {
     Link
-  } from "react-router-dom";
+} from "react-router-dom";
 
 import MenuItem from './MenuItem';
 import Supporter from './Supporter';
@@ -14,11 +13,11 @@ const ammoTypes = [...new Set(ammoData.data.map((ammoData) => {
     return ammoData.type
 }))].sort();
 
-function Menu() {    
+function Menu() {
     return <div
-            className="menu" 
+            className="menu"
         >
-            
+
             <Link
                 className = "branding"
                 to = '/'
@@ -34,7 +33,7 @@ function Menu() {
                     Ammo
                 </Link>
                 <ul>
-                {ammoTypes.map(ammoType => 
+                {ammoTypes.map(ammoType =>
                     <MenuItem
                         checkbox
                         displayText = {ammoType}
@@ -42,7 +41,7 @@ function Menu() {
                         prefix = '/ammo'
                         to = {`/ammo/${ammoType}`}
                     />
-                )} 
+                )}
                 </ul>
             </div>
             <div
@@ -50,13 +49,13 @@ function Menu() {
             >
                 Maps
                 <ul>
-                {mapData.map(map => 
+                {mapData.map(map =>
                     <MenuItem
                         displayText = {map.displayText}
                         key = {map.key}
                         to = {`/map/${map.key}`}
                     />
-                )} 
+                )}
                 </ul>
             </div>
             <div
@@ -64,7 +63,7 @@ function Menu() {
             >
                 <Link
                     to = '/loot-tier/barter-items'
-                >        
+                >
                     Loot tiers
                 </Link>
                 <ul>
@@ -82,22 +81,22 @@ function Menu() {
                     />
                 </ul>
             </div>
-            <a 
+            <a
                 className = {'external-link'}
                 href="https://developertracker.com/escape-from-tarkov/"
             >
-                Dev tracker    
+                Dev tracker
             </a>
-            <a 
+            <a
                 className = {'external-link last-link'}
                 href="https://www.patreon.com/kokarn"
             >
                 <PatreonIcon />
-                Support me  
+                Support me
                 <div
                     className = {'supporters-wrapper'}
                 >
-                    Current supporters: 
+                    Current supporters:
                     <Supporter
                         name = {'Gyran'}
                         patreon

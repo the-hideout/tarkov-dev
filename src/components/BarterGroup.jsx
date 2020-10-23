@@ -1,5 +1,3 @@
-import React from 'react';
-
 import BarterItem from './BarterItem';
 
 const formatPrice = (price) => {
@@ -13,17 +11,17 @@ const formatPrice = (price) => {
 function BarterGroup(props) {
     let minPrice = false;
     let maxPrice = false;
-    
+
     for(const item of props.items){
         if(!minPrice || item.pricePerSlot < minPrice){
             minPrice = item.pricePerSlot;
         }
-        
+
         if(!maxPrice || item.pricePerSlot > maxPrice){
             maxPrice = item.pricePerSlot;
         }
     }
-    
+
     return <div
             className="barter-group-wrapper"
         >
@@ -33,12 +31,12 @@ function BarterGroup(props) {
                 <div
                     className = "barter-class-wrapper"
                 >
-                    {props.name}  
+                    {props.name}
                 </div>
                 <div
                     className = "price-range-wrapper"
                 >
-                    {`${formatPrice(minPrice)} - ${formatPrice(maxPrice)}` }        
+                    {`${formatPrice(minPrice)} - ${formatPrice(maxPrice)}` }
                     <div className="note">
                         per slot
                     </div>
@@ -47,7 +45,7 @@ function BarterGroup(props) {
             <div
                 className = "barter-group-items"
             >
-                {props.items.filter(item => item.name.toLowerCase().indexOf(props.filter) > -1 || item.shortName?.toLowerCase().indexOf(props.filter) > -1 ).map(item => 
+                {props.items.filter(item => item.name.toLowerCase().indexOf(props.filter) > -1 || item.shortName?.toLowerCase().indexOf(props.filter) > -1 ).map(item =>
                     <BarterItem
                         key = {item.name}
                         name = {item.name}
@@ -57,7 +55,7 @@ function BarterGroup(props) {
                         src = {item.img}
                         wikiLink = {item.wikiLink}
                     />
-                )} 
+                )}
             </div>
         </div>
 }

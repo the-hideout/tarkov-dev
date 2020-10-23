@@ -1,5 +1,3 @@
-import React from 'react';
-
 const formatPrice = (price) => {
     return new Intl.NumberFormat('ru-RU', {
         style: 'currency',
@@ -8,40 +6,40 @@ const formatPrice = (price) => {
     }).format(price);
 };
 
-function BarterItem(props) {   
+function BarterItem(props) {
     const imgClassBase = 'barter-icon-';
     let imgClass;
     switch (props.slots){
         case 2:
-            imgClass = `${imgClassBase}1x-2x`;    
+            imgClass = `${imgClassBase}1x-2x`;
             break;
         case 3:
-            imgClass = `${imgClassBase}1x-3x`;    
+            imgClass = `${imgClassBase}1x-3x`;
             break;
         case 4:
-            imgClass = `${imgClassBase}2x-2x`;    
+            imgClass = `${imgClassBase}2x-2x`;
             break;
         case 6:
-            imgClass = `${imgClassBase}2x-3x`;    
+            imgClass = `${imgClassBase}2x-3x`;
             break;
         case 8:
-            imgClass = `${imgClassBase}2x-4x`;    
+            imgClass = `${imgClassBase}2x-4x`;
             break;
         case 9:
-            imgClass = `${imgClassBase}2x-2x`;    
+            imgClass = `${imgClassBase}2x-2x`;
             break;
         case 1:
         default:
-            imgClass = `${imgClassBase}1x-1x`;    
+            imgClass = `${imgClassBase}1x-1x`;
     };
-    
+
     let imgSrc = props.src;
-    
+
     if(props.rotate){
         imgSrc = `//images.weserv.nl/?url=${encodeURIComponent(imgSrc)}&ro=${props.rotate}}`;
         // imgClass = `${imgClassBase}2x-1x`;
     }
-    
+
     return <a
         href= {props.wikiLink}
         className = {`barter-item ${imgClass}`}

@@ -1,23 +1,21 @@
-import React from 'react';
-
 import {ReactComponent as PatreonIcon} from './Patreon.svg';
 import {ReactComponent as GithubIcon} from './Github.svg';
 
-function Supporter(props) {    
+function Supporter(props) {
     const supporterTypes = [];
-    
+
     if(props.patreon){
         supporterTypes.push(<PatreonIcon
             key = 'patreon'
         />);
     }
-    
+
     if(props.github){
-        supporterTypes.push(<GithubIcon 
+        supporterTypes.push(<GithubIcon
             key = 'github'
         />);
     }
-    
+
     return <div
         className = {'supporter-wrapper'}
     >

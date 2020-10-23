@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import ammoData from '../data.json';
 import mapData from '../map-data.json';
@@ -10,65 +10,65 @@ const ammoTypes = [...new Set(ammoData.data.map((ammoData) => {
 function Control(props) {
     const [connectionText, setConnectionText] = useState('Connect');
     const [connectID, setConnectID] = useState();
-    
+
     const inputRef = useRef(null);
     const typeRefs = {
         ammo: useRef(null),
         map: useRef(null),
         lootTier: useRef(null),
     };
-    
+
     const handleConnectClick = (event) => {
-        if(connectID.length !== 4){            
+        if(connectID.length !== 4){
             inputRef.current.focus();
-            
+
             return true;
         }
-        
+
         setConnectionText(`Connected to ${props.sessionID}`);
-        
+
         props.send({
             type: 'command',
             data: {
                 type: 'map',
                 value: document.querySelector('[name="map"]').value,
             },
-        });  
+        });
     };
-    
+
     const handleIDChange = (event) => {
         const tempConnectID = event.target.value.trim().toUpperCase().substring(0, 4);
         props.setID(tempConnectID);
-        
+
         setConnectID(tempConnectID);
     };
-    
+
     const handleMapChange = () => {
         handleViewChange('map', typeRefs['map'].current.value);
     };
-    
+
     const handleAmmoChange = () => {
         const ammoValues = [];
-        
+
         for(const option of typeRefs['ammo'].current.children){
             if(!option.selected){
                 continue;
             }
-            
+
             ammoValues.push(option.value);
         }
-        
+
         ammoValues.sort();
         handleViewChange('ammo', ammoValues.join(','));
     };
-    
+
     const handleLootTierChange = () => {
         handleViewChange('loot-tier', typeRefs['lootTier'].current.value);
     };
 
     const handleViewChange = (view, eventOrValue) => {
         let value = eventOrValue.target?.value || eventOrValue;
-        
+
         props.send({
             type: 'command',
             data: {
@@ -77,7 +77,7 @@ function Control(props) {
             },
         });
     };
-    
+
     return <div className="control-wrapper">
         <div
             className = {'control-section'}
@@ -88,14 +88,14 @@ function Control(props) {
                 onChange={handleMapChange}
                 ref = {typeRefs['map']}
             >
-                {mapData.map(map => 
+                {mapData.map(map =>
                     <option
                         key = {map.key}
                         value = {map.key}
                     >
                         {map.displayText}
                     </option>
-                )} 
+                )}
             </select>
             <button
                 onClick = {handleMapChange}
@@ -111,7 +111,7 @@ function Control(props) {
                 multiple
                 name="ammo"
                 onChange={handleAmmoChange}
-                ref = {typeRefs['ammo']}    
+                ref = {typeRefs['ammo']}
             >
                 {ammoTypes.map((ammoType) => (
                     <option
@@ -135,7 +135,7 @@ function Control(props) {
             <select
                 name="loot-tier"
                 onChange={handleLootTierChange}
-                ref = {typeRefs['lootTier']}    
+                ref = {typeRefs['lootTier']}
             >
                 <option
                     value = 'barter-items'
@@ -175,11 +175,11 @@ function Control(props) {
                 ref = {inputRef}
                 type = "text"
             />
-            <input 
+            <input
                 disabled = {!props.socketConnected}
                 onClick = {handleConnectClick}
                 type = "submit"
-                value = {connectionText} 
+                value = {connectionText}
             />
         </div>
     </div>

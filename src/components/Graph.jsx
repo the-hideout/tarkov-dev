@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import {useMemo} from 'react';
 import {
     VictoryChart,
     VictoryScatter,
@@ -25,7 +25,7 @@ const styles = {
             stroke: '#555',
         },
         axisLabel: {
-            fontSize: 4, 
+            fontSize: 4,
             padding: 5,
             fill: '#ccc',
         },
@@ -38,7 +38,7 @@ const styles = {
             stroke: '#555',
         },
         axisLabel: {
-            fontSize: 4, 
+            fontSize: 4,
             padding: 5,
             fill: '#ccc',
         },
