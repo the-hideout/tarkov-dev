@@ -85,6 +85,10 @@ function Time(props) {
         </div>;
     }
 
+    if(props?.currentMap === 'labs'){
+        return null;
+    }
+
     const tarkovTime1 = realTimeToTarkovTime(time, true);
     const tarkovTime2 = realTimeToTarkovTime(time);
 
