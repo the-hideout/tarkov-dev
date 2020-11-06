@@ -3889,5 +3889,202 @@
         "uid": "1be79487-9209-477f-b9f0-bfbcc4a57bfc",
         "shortName": "X47",
         "rotate": -90
+    },
+    {
+        "name": "TD Aluminium skeletonized vertical grip",
+        "uid": "2c158186-8675-49df-addf-2ab1fd20417a",
+        "shortName": "TD"
+    },
+    {
+        "name": "Wilson Extended slide stop for M1911A1",
+        "uid": "60a6f708-d26f-4b35-bf73-3b122c20da7b",
+        "shortName": "Wilson Ext."
+    },
+    {
+        "name": "STI HEX Hammer for M1911A1",
+        "uid": "0f0bd097-69bb-47ef-97a3-12921d0128d1",
+        "shortName": "HEX Ham."
+    },
+    {
+        "name": "Wilson Ultralight skeletonized hammer for M1911A1",
+        "uid": "03838a53-3080-4d97-9a23-d14c523f8374",
+        "shortName": "US Ham."
+    },
+    {
+        "name": "Caspian Trik Trigger for M1911A1",
+        "uid": "0f9b838f-6836-4ce0-b940-b88877e0d2ac",
+        "shortName": "Trik"
+    },
+    {
+        "name": "Trigger for M45A1",
+        "uid": "5e8bc506-f380-47d2-9677-f06b8a926239",
+        "shortName": "M45A1 Trig."
+    },
+    {
+        "name": "Hammer for M45A1",
+        "uid": "423d0927-3c09-47e9-b0ea-94bfcc80c3a6",
+        "shortName": "M45A1 Ham."
+    },
+    {
+        "name": "Slide lock for M45A1",
+        "uid": "85d743d1-14da-4ae8-bdaf-6e5142c1e081",
+        "shortName": "M45A1 Catch"
+    },
+    {
+        "name": "JMAC RRD-4C muzzle brake for AK-74 type thread",
+        "uid": "97774138-15a2-4419-aab1-1646d57d1077",
+        "shortName": "RRD 4C"
+    },
+    {
+        "name": "Ferfrans Muzzle Brake 5.56x45",
+        "uid": "93815481-7212-4973-b7f1-3397694dd26c",
+        "shortName": "Ferfrans MB"
+    },
+    {
+        "name": "Ferfrans \"CRD\" 5.56x45",
+        "uid": "6495c2eb-5359-465e-b965-12ff82f02f87",
+        "shortName": "CRD"
+    },
+    {
+        "name": "JMAC RRD-4C 7.62x39 muzzle brake for AKM type thread",
+        "uid": "330658d2-9ae8-42fc-ba69-559f09b2ddf6",
+        "shortName": "RRD 4C"
+    },
+    {
+        "name": "Regular RFB 7.62x51 Flash hider",
+        "uid": "a8458119-10ac-4f0f-be7a-712e2dd4b525",
+        "shortName": "RFB FH"
+    },
+    {
+        "name": "Anarchy Outdoors Muzzle Brake .45 ACP",
+        "uid": "beff3c67-5bbe-4ba2-803b-d51f70482af3",
+        "shortName": "AO MB"
+    },
+    {
+        "name": "RFB Thread spacer",
+        "uid": "3900c093-80af-4274-b6ef-bf64358c38b6",
+        "shortName": "RFB sp."
+    },
+    {
+        "name": "RFB thread protection cap",
+        "uid": "c4212aef-2a77-4a6e-a34b-d5bddef23544",
+        "shortName": "RFB protection cap"
+    },
+    {
+        "name": "Ghost ring kit M590 Frontsight",
+        "uid": "b5dbdeea-17e4-4954-92a6-0d47c0a3bdbd",
+        "shortName": "GR FS"
+    },
+    {
+        "name": "Ghost ring Rear sight for M590",
+        "uid": "6eae90ad-53e9-4a56-bdf1-8772bdd51196",
+        "shortName": "GR RS"
+    },
+    {
+        "name": "Novak Lomount Rear Sight",
+        "uid": "37b1d1d8-684c-4bf6-b070-d067e48ba6df",
+        "shortName": "Lomount RS"
+    },
+    {
+        "name": "Novak Lomount Front Sight",
+        "uid": "dff5f30e-85f5-4886-a91e-c7fe5c37ac7d",
+        "shortName": "Lomount FS"
+    },
+    {
+        "name": "SOK-12 aluminum handguard Bravo-18",
+        "uid": "c13d2a69-21e3-497e-8661-b4797986670c",
+        "shortName": "Bravo-18",
+        "rotate": -90
+    },
+    {
+        "name": "Lancer LCH-7 12.5 inch M-LOK handguard for AR-10",
+        "uid": "b89ceee3-94e3-454e-92e8-6ec8b2e463fd",
+        "shortName": "LCH-7 12.5",
+        "rotate": -90
+    },
+    {
+        "name": "Speedfeed short M590A1 forestock",
+        "uid": "13fcf22b-9a6f-467d-937e-20a973aebb4b",
+        "shortName": "Speedfeed",
+        "rotate": -90
+    },
+    {
+        "name": "Magpul MOE M590 forestock",
+        "uid": "e799ebd5-35ff-4768-8079-9099efcae43a",
+        "shortName": "MOE M590",
+        "rotate": -90
+    },
+    {
+        "name": "Kel-Tec RFB regular handguard",
+        "uid": "cfaaa357-8ba3-4885-a543-19ca6eb84bb4",
+        "shortName": "RFB HG",
+        "rotate": -90
+    },
+    {
+        "name": "TOZ KS-23M forestock",
+        "uid": "3b3f6838-ecf0-421a-a8e6-c58b35aba13c",
+        "shortName": "KS-23M for.",
+        "rotate": -90
+    },
+    {
+        "name": "Aeroknox scorpius pistol grip for AK",
+        "uid": "5214d609-fda1-4840-8806-00e6b3a2bf31",
+        "shortName": "Scorpius"
+    },
+    {
+        "name": "Pachmayr \"American legend grip 423 for M1911A1",
+        "uid": "0b44653d-a664-4670-a47b-119e2c399acc",
+        "shortName": "ALG#423 P.Grip"
+    },
+    {
+        "name": "Standart polymerpistol grip for M45A1",
+        "uid": "909ee335-4d0f-4c4b-b07a-0704d9a14925",
+        "shortName": "M45A1 P.Grip"
+    },
+    {
+        "name": "Polymer pistol grip for KS-23M",
+        "uid": "2422d472-2b8b-40b2-8e43-2a5e19a1b966",
+        "shortName": "KS23M Pgrip"
+    },
+    {
+        "name": "M45A1 .45 ACP slide",
+        "uid": "3edca209-c644-4b51-a2c5-7f41d56cdb32",
+        "shortName": "M45A1 slide",
+        "rotate": -90
+    },
+    {
+        "name": "Avalanche Mod.2 charging handle for AR-15",
+        "uid": "e04b4279-4a60-45cc-814d-ddec04dc8581",
+        "shortName": "AR-15 Charge"
+    },
+    {
+        "name": "Mec-Gar .45 ACP 11-round magazine for M1911A1",
+        "uid": "02ce9d4a-1118-4277-b0e7-dae162e8841c",
+        "shortName": "Mec-Gar"
+    },
+    {
+        "name": "M45A1 .45 ACP 7-round magazine",
+        "uid": "0a3c3398-d9cd-4ed6-bd33-01d61ddd5ea9",
+        "shortName": "M45A1"
+    },
+    {
+        "name": "100 rounds belt",
+        "uid": "75a957b6-bbdc-4a5a-9109-e2a0f1b94273",
+        "shortName": "ammo belt"
+    },
+    {
+        "name": "MP-153 forend cap",
+        "uid": "3be330b9-2b78-4213-ae81-643716bba9f1",
+        "shortName": "МP153x4"
+    },
+    {
+        "name": "8-shell M590A1 12ga magazine cap",
+        "uid": "753e3d7c-a2db-4ef3-9129-31028e986163",
+        "shortName": "M590A1x8"
+    },
+    {
+        "name": "3-shell KS-23M 23mm magazine cap",
+        "uid": "5b1a3591-24e0-426a-ba98-817e9fa9b17f",
+        "shortName": "KS-23Mx3"
     }
 ]
