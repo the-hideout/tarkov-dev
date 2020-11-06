@@ -5,8 +5,6 @@ import {
 
 import BarterGroup from './BarterGroup';
 
-const MAX_ITEMS = 224;
-
 const groupNames = [
     'S',
     'A',
@@ -15,6 +13,12 @@ const groupNames = [
     'D',
     'E',
     'F',
+];
+
+const allowedGroups = [
+    'barter-items',
+    'mods',
+    'keys',
 ];
 
 const arrayChunk = (inputArray, chunkLength) => {
@@ -36,22 +40,40 @@ function Barter() {
     const [updateDate, setUpdateDate] = useState(new Date());
     const {currentLoot} = useParams();
     const [nameFilter, setNameFilter] = useState('');
+    const [numberFilter, setNumberFilter] = useState(244);
 
     useEffect(() => {
         async function fetchData(){
             let itemFilter = currentLoot;
+            let dataSources = [];
             if(!currentLoot || currentLoot === 'barter'){
                 itemFilter = 'barter-items';
             }
 
-            const result = await fetch(
-              `${process.env.PUBLIC_URL}/${itemFilter}.json`,
-            )
-            .then(response => response.json());
+            if(itemFilter.includes(',')){
+                dataSources = itemFilter
+                    .split(',')
+                    .filter((potentialGroup) => {
+                        return allowedGroups.includes(potentialGroup);
+                    });
+            } else {
+                dataSources.push(itemFilter);
+            }
+
+            let allItems = [];
+            let result;
+            for(const dataSource of dataSources){
+                result = await fetch(
+                    `${process.env.PUBLIC_URL}/${dataSource}.json`,
+                )
+                    .then(response => response.json());
+
+                allItems = allItems.concat(result.data);
+            }
 
             setUpdateDate(new Date(result.updated));
 
-            const sortedItems = result.data
+            const sortedItems = allItems
                 .sort((itemA, itemB) => {
                     if(itemA.pricePerSlot > itemB.pricePerSlot){
                         return -1;
@@ -70,7 +92,7 @@ function Barter() {
         fetchData();
     }, [currentLoot, setItems]);
 
-    const itemChunks = arrayChunk(items.slice(0, MAX_ITEMS), MAX_ITEMS / 7);
+    const itemChunks = arrayChunk(items.slice(0, Math.min(items.length, numberFilter)), Math.min(items.length, numberFilter) / 7);
 
     for(let i = 0; i < itemChunks.length; i = i + 1){
         itemChunks[i] = itemChunks[i].sort((itemA, itemB) => {
@@ -100,6 +122,11 @@ function Barter() {
             <span>
                 Filter
             </span>
+            <input
+                type = {'number'}
+                placeholder = {'max items'}
+                onChange = {e => setNumberFilter(Math.max(7, Number(e.target.value)))}
+            />
             <input
                 type = {'text'}
                 placeholder = {'btc, graphics e.t.c'}
