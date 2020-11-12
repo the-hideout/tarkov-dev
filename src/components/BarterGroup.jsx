@@ -36,7 +36,7 @@ function BarterGroup(props) {
                 <div
                     className = "price-range-wrapper"
                 >
-                    {`${formatPrice(minPrice)} - ${formatPrice(maxPrice)}` }
+                    {`${formatPrice(maxPrice)} - ${formatPrice(minPrice)}` }
                     <div className="note">
                         per slot
                     </div>
