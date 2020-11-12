@@ -271,6 +271,16 @@ select {
     flex-grow: 1;
 }
 
+.barter-group-wrapper .flea-toggle-label {
+    margin-right: 10px;
+    position: relative;
+    top: -3px;
+}
+
+.barter-group-wrapper .flea-toggle {
+    top: 5px;
+}
+
 .barter-group-wrapper input {
     margin-left: 10px;
 }

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import {
     useParams,
 } from "react-router-dom";
+import Switch from "react-switch";
 
 import BarterGroup from './BarterGroup';
 
@@ -41,6 +42,8 @@ function Barter() {
     const {currentLoot} = useParams();
     const [nameFilter, setNameFilter] = useState('');
     const [numberFilter, setNumberFilter] = useState(244);
+    const [includeFlea, setIncludeFlea] = useState(true);
+    const [filteredItems, setFilteredItems] = useState([]);
 
     useEffect(() => {
         async function fetchData(){
@@ -71,43 +74,55 @@ function Barter() {
                 allItems = allItems.concat(result.data);
             }
 
-            allItems = allItems.map((item) => {
-                const fleaPrice = item.price - item.fee;
-                let sellTo = 'Flea Market';
-
-                if(fleaPrice <= item.traderPrice){
-                    sellTo = item.trader;
-                }
-
-                return {
-                    ...item,
-                    sellTo: sellTo,
-                    pricePerSlot: Math.floor(Math.max(fleaPrice, item.traderPrice) / item.slots),
-                };
-            });
-
             setUpdateDate(new Date(result.updated));
 
-            const sortedItems = allItems
-                .sort((itemA, itemB) => {
-                    if(itemA.pricePerSlot > itemB.pricePerSlot){
-                        return -1;
-                    }
-
-                    if(itemA.pricePerSlot < itemB.pricePerSlot){
-                        return 1;
-                    }
-
-                    return 0;
-                });
-
-            setItems(sortedItems);
+            setItems(allItems);
         }
 
         fetchData();
     }, [currentLoot, setItems]);
 
-    const itemChunks = arrayChunk(items.slice(0, Math.min(items.length, numberFilter)), Math.min(items.length, numberFilter) / 7);
+    useEffect(() => {
+        const filteredItems = items.map((item) => {
+            if(!includeFlea){
+                return {
+                    ...item,
+                    sellTo: item.trader,
+                    pricePerSlot: Math.floor(item.traderPrice / item.slots),
+                };
+            }
+
+            let sellTo = 'Flea Market';
+            const fleaPrice = item.price - item.fee;
+
+            if(fleaPrice <= item.traderPrice){
+                sellTo = item.trader;
+            }
+
+            return {
+                ...item,
+                sellTo: sellTo,
+                pricePerSlot: Math.floor(Math.max(fleaPrice, item.traderPrice) / item.slots),
+            };
+        });
+
+        const sortedItems = filteredItems
+            .sort((itemA, itemB) => {
+                if(itemA.pricePerSlot > itemB.pricePerSlot){
+                    return -1;
+                }
+
+                if(itemA.pricePerSlot < itemB.pricePerSlot){
+                    return 1;
+                }
+
+                return 0;
+            });
+
+        setFilteredItems(sortedItems);
+    }, [items, setFilteredItems, includeFlea]);
+
+    const itemChunks = arrayChunk(filteredItems.slice(0, Math.min(filteredItems.length, numberFilter)), Math.min(items.length, numberFilter) / 7);
 
     for(let i = 0; i < itemChunks.length; i = i + 1){
         itemChunks[i] = itemChunks[i].sort((itemA, itemB) => {
@@ -134,9 +149,18 @@ function Barter() {
             >
                 {`Prices updated: ${updateDate.toLocaleDateString()}`}
             </div>
-            <span>
-                Filter
-            </span>
+            <label>
+                <span
+                    className = {'flea-toggle-label'}
+                >
+                    Include Flea
+                </span>
+                <Switch
+                    className = {'flea-toggle'}
+                    onChange = {e => setIncludeFlea(!includeFlea)}
+                    checked = {includeFlea}
+                />
+            </label>
             <input
                 type = {'number'}
                 placeholder = {'max items'}
