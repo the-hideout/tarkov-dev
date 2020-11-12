@@ -71,6 +71,13 @@ function Barter() {
                 allItems = allItems.concat(result.data);
             }
 
+            allItems = allItems.map((item) => {
+                return {
+                    ...item,
+                    pricePerSlot: Math.floor(item.price - item.fee / item.slots),
+                };
+            });
+
             setUpdateDate(new Date(result.updated));
 
             const sortedItems = allItems
