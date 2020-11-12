@@ -7,13 +7,15 @@ import {
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 
-Sentry.init({
-    dsn: 'https://0c31a9f171194843bd9ae061c0856470@o90181.ingest.sentry.io/5407213',
-    integrations: [
-      new Integrations.BrowserTracing(),
-    ],
-    tracesSampleRate: 1.0,
-  });
+if(window.location.hostname !== 'localhost'){
+    Sentry.init({
+        dsn: 'https://0c31a9f171194843bd9ae061c0856470@o90181.ingest.sentry.io/5407213',
+        integrations: [
+            new Integrations.BrowserTracing(),
+        ],
+        tracesSampleRate: 1.0,
+    });
+}
 
 ReactDOM.render((<Router><App /></Router>), document.getElementById('root'));
 
