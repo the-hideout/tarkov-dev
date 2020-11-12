@@ -51,6 +51,7 @@ function BarterGroup(props) {
                         name = {item.name}
                         pricePerSlot = {item.pricePerSlot}
                         rotate = {item.rotate}
+                        sellTo = {item.sellTo}
                         slots = {item.slots}
                         src = {item.img}
                         wikiLink = {item.wikiLink}

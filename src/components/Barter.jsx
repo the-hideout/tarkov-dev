@@ -72,9 +72,17 @@ function Barter() {
             }
 
             allItems = allItems.map((item) => {
+                const fleaPrice = item.price - item.fee;
+                let sellTo = 'Flea Market';
+
+                if(fleaPrice <= item.traderPrice){
+                    sellTo = item.trader;
+                }
+
                 return {
                     ...item,
-                    pricePerSlot: Math.floor(item.price - item.fee / item.slots),
+                    sellTo: sellTo,
+                    pricePerSlot: Math.floor(Math.max(fleaPrice, item.traderPrice) / item.slots),
                 };
             });
 

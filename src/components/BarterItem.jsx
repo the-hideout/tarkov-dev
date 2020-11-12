@@ -49,6 +49,12 @@ function BarterItem(props) {
         >
             <div>Value: {formatPrice(props.pricePerSlot * props.slots)}</div>
             <div>Per slot: {formatPrice(props.pricePerSlot)}</div>
+            <div>Sell to: {props.sellTo}</div>
+        </span>
+        <span
+            className = {'sell-to-icon'}
+        >
+            {props.sellTo.substring(0, 2).toUpperCase()}
         </span>
         <img
             alt = {props.name}

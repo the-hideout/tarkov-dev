@@ -315,6 +315,20 @@ select {
     width: 100%;
 }
 
+.sell-to-icon {
+    background-color: rgba(0,0,0, 0.8);
+    border-top-left-radius: 3px;
+    bottom: 1px;
+    color: #c7c5b3;
+    font-size: 14px;
+    height: 18px;
+    line-height: 20px;
+    position: absolute;
+    right: 1px;
+    text-align: center;
+    width: 24px;
+}
+
 .barter-item-tooltip {
     background-color: rgba(0,0,0,0.8);
     color: #fff;
@@ -327,7 +341,7 @@ select {
     text-align: right;
     top: 50%;
     transform: translateY(-50%);
-    transition: all 0.3s ease;
+    transition: all 0.15s ease;
     white-space: nowrap;
     z-index: 1;
 }
