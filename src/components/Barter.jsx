@@ -143,7 +143,9 @@ function Barter() {
     return <div
         className="barter-wrapper"
     >
-        <div class="barter-group-wrapper filter-wrapper">
+        <div
+            className="barter-group-wrapper filter-wrapper"
+        >
             <div
                 className = {'text-label'}
             >
