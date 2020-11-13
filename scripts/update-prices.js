@@ -12,6 +12,12 @@ const FILES = [
     'mods.json',
 ];
 
+const CURRENCY_MODIFIER = {
+    "₽": 1,
+    "$": 125,
+    "€": 142,
+};
+
 (async () => {
     for(const file of FILES){
         const allData = {
@@ -50,7 +56,7 @@ const FILES = [
                 link: itemData.body[0].link,
                 price: itemData.body[0].avg24hPrice,
                 fee: fleaMarketFee(itemData.body[0]),
-                traderPrice: itemData.body[0].traderPrice,
+                traderPrice: itemData.body[0].traderPrice * CURRENCY_MODIFIER[itemData.body[0].traderPriceCur],
                 trader: itemData.body[0].traderName,
                 slots: itemData.body[0].slots,
                 wikiLink: itemData.body[0].wikiLink,
