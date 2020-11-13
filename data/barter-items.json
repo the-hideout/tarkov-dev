@@ -951,5 +951,42 @@
         "name": "Premium Kvass \"Norvinskiy Yadreniy\" 0.6L bottle",
         "uid": "c4adee2a-48bb-47c9-8e17-75b9c8d79eae",
         "shortName": "Kvass"
+    },
+    {
+        "name": "Wilston cigarettes",
+        "uid": "8248e222-1197-4347-adf0-6b0f11b6c277",
+        "shortName": "Cigarettes"
+    },
+    {
+        "name": "Construction measuring tape",
+        "uid": "acad7790-99d4-475e-b7a5-9fd590e5bffd",
+        "shortName": "MTape"
+    },
+    {
+        "name": "GreenBat lithium battery",
+        "uid": "9b2efc09-ed97-48da-8441-3fa587983572",
+        "shortName": "GreenBat"
+    },
+    {
+        "name": "Cyclon accumulator battery",
+        "uid": "82ae274f-81f1-4ad6-98de-7fd5ee9c9279",
+        "shortName": "Cyclon",
+        "rotate": -90
+    },
+    {
+        "name": "Pack of chlorine",
+        "uid": "a83a9d18-b892-4af3-912d-c6b155902d08",
+        "shortName": "Chlorine",
+        "rotate": -90
+    },
+    {
+        "name": "Raven figurine",
+        "uid": "e989ad9e-f9c8-4720-95e0-84ba111d2601",
+        "shortName": "Raven"
+    },
+    {
+        "name": "Veritas guitar pick",
+        "uid": "d7a6f354-7c03-4e25-8139-0bf501167228",
+        "shortName": "Veritas"
     }
 ]
