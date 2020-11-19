@@ -171,7 +171,7 @@ function Barter() {
             <input
                 type = {'text'}
                 placeholder = {'btc, graphics e.t.c'}
-                onChange = {e => setNameFilter(e.target.value)}
+                onChange = {e => setNameFilter(e.target.value.toLowerCase())}
             />
         </div>
         {itemChunks.map((items, index) =>
