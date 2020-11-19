@@ -15,6 +15,8 @@ import Control from './components/Control.jsx';
 import Menu from './components/Menu.jsx';
 import Barter from './components/Barter.jsx';
 
+import rawMapData from './map-data.json';
+
 const makeID = function makeID(length) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -139,6 +141,18 @@ const makeID = function makeID(length) {
             />
         </Helmet>
         <Switch>
+            <Route
+                exact
+                strict
+                sensitive
+                path={rawMapData.map((mapData) => {
+                    return `/map/${mapData.key.toUpperCase()}`;
+                })}
+                render = { props => {
+                    const path = props.location.pathname;
+                    return <Redirect to={`${path.toLowerCase()}`} />
+                }}
+            />
             <Route
                 exact
                 path={["/ammo/:currentAmmo", "/ammo", '/tarkov-tools', ""]}
