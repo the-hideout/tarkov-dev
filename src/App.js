@@ -126,6 +126,18 @@ const makeID = function makeID(length) {
     });
 
     const send = useCallback((messageData) => {
+        if(socket.readyState !== 1){
+            // Wait a bit if we're not connected
+            setTimeout(() => {
+                socket.send(JSON.stringify({
+                    sessionID: sessionID,
+                    ...messageData,
+                }));
+            }, 500);
+
+            return true;
+        }
+
         socket.send(JSON.stringify({
             sessionID: sessionID,
             ...messageData,
