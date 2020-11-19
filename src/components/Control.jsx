@@ -9,7 +9,7 @@ const ammoTypes = [...new Set(ammoData.data.map((ammoData) => {
 
 function Control(props) {
     const [connectionText, setConnectionText] = useState('Connect');
-    const [connectID, setConnectID] = useState();
+    const [connectID, setConnectID] = useState(props.sessionID);
 
     const inputRef = useRef(null);
     const typeRefs = {
