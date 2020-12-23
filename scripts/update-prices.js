@@ -18,6 +18,15 @@ const CURRENCY_MODIFIER = {
     "€": 142,
 };
 
+const availableLanguages = [
+    'en',
+    'ru',
+    'de',
+    'fr',
+    'es',
+    'cn',
+];
+
 (async () => {
     for(const file of FILES){
         const allData = {
@@ -68,20 +77,46 @@ const CURRENCY_MODIFIER = {
         fs.writeFileSync(path.join(__dirname, '..', 'public', file), JSON.stringify(allData, null, 4));
     }
 
-    let itemData;
-    try {
-        itemData = await got(`https://tarkov-market.com/api/v1/items/all`, {
-            headers: {
-                'x-api-key': process.env.TARKOV_MARKET_API_KEY,
-            },
-            responseType: 'json',
-        });
-    } catch (requestError){
-        console.error(requestError);
+    for(const languageCode of availableLanguages){
+        console.log(`Loading all items for ${languageCode}`);
+        console.time(`all-${languageCode}`);
+        let itemData;
+        try {
+            itemData = await got(`https://tarkov-market.com/api/v1/items/all?lang=${languageCode}`, {
+                headers: {
+                    'x-api-key': process.env.TARKOV_MARKET_API_KEY,
+                },
+                responseType: 'json',
+            });
+        } catch (requestError){
+            console.error(requestError);
 
-        // We wan't CI to stop here
-        process.exit(1);
+            // We wan't CI to stop here
+            process.exit(1);
+        }
+
+        const ratScannerData = itemData.body.map((rawItemData) => {
+            return {
+                uid: rawItemData.uid, // wut
+                name: rawItemData.name,
+                shortName: rawItemData.shortName,
+                slots: rawItemData.slots,
+                wikiLink: rawItemData.wikiLink,
+                imgLink: rawItemData.img,
+                timestamp: Math.floor(new Date(rawItemData.updated).getTime() / 1000),
+                price: rawItemData.price,
+                avg24hPrice: rawItemData.avg24hPrice,
+                avg7dPrice: rawItemData.avg7daysPrice,
+                avg24hAgo: rawItemData.avg24hPrice,  // fix
+                avg7dAgo: rawItemData.avg7daysPrice, // fix2
+                traderName: rawItemData.traderName,
+                traderPrice: rawItemData.traderPrice,
+                traderCurrency: rawItemData.traderPriceCur,
+            }
+        })
+
+        fs.writeFileSync(path.join(__dirname, '..', 'public', `all-${languageCode}.json`), JSON.stringify(ratScannerData, null, 4));
+        console.timeEnd(`all-${languageCode}`);
+        await sleep(2000);
     }
-
-    fs.writeFileSync(path.join(__dirname, '..', 'public', 'all-en.json'), JSON.stringify(itemData.body, null, 4));
 })();
