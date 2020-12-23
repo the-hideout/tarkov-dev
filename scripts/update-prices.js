@@ -83,5 +83,5 @@ const CURRENCY_MODIFIER = {
         process.exit(1);
     }
 
-    fs.writeFileSync(path.join(__dirname, '..', 'public', 'all-en.json'), JSON.stringify(itemData, null, 4));
+    fs.writeFileSync(path.join(__dirname, '..', 'public', 'all-en.json'), JSON.stringify(itemData.body, null, 4));
 })();
