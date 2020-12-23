@@ -1,0 +1,39 @@
+.quest-items-wrapper {
+  display: flex;
+  --grid-base: 50px;
+}
+
+.quest-item {
+  position: relative;
+  color: #c7c5b3;
+}
+
+.quest-item img {
+  height: 100%;
+  width: 100%;
+}
+
+.quest-item-amount {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.quest-item-fir {
+  border: 1px solid gold;
+}
+
+.quest-item-1x1 {
+  width: var(--grid-base);
+  height: var(--grid-base);
+}
+
+.quest-item-1x2 {
+  width: var(--grid-base);
+  height: calc(2 * var(--grid-base));
+}
+.quest-item-2x1 {
+  width: calc(2 * var(--grid-base));
+  height: var(--grid-base);
+}

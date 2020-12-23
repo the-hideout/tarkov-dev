@@ -17,6 +17,7 @@ import Menu from './components/Menu.jsx';
 import Barter from './components/Barter.jsx';
 
 import rawMapData from './map-data.json';
+import QuestItemsPage from './components/quest-items-page';
 
 const makeID = function makeID(length) {
     let result = '';
@@ -221,6 +222,12 @@ const makeID = function makeID(length) {
                     </Helmet>
                     <Barter />
                 </div>
+            </Route>
+            <Route
+                exact
+                path={'/quest-items'}
+            >
+                <QuestItemsPage />
             </Route>
         </Switch>
         <ID
