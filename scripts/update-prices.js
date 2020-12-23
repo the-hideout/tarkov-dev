@@ -67,4 +67,21 @@ const CURRENCY_MODIFIER = {
 
         fs.writeFileSync(path.join(__dirname, '..', 'public', file), JSON.stringify(allData, null, 4));
     }
+
+    let itemData;
+    try {
+        itemData = await got(`https://tarkov-market.com/api/v1/items/all`, {
+            headers: {
+                'x-api-key': process.env.TARKOV_MARKET_API_KEY,
+            },
+            responseType: 'json',
+        });
+    } catch (requestError){
+        console.error(requestError);
+
+        // We wan't CI to stop here
+        process.exit(1);
+    }
+
+    fs.writeFileSync(path.join(__dirname, '..', 'public', 'all-en.json'), JSON.stringify(itemData, null, 4));
 })();
