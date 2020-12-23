@@ -117,6 +117,6 @@ const availableLanguages = [
 
         fs.writeFileSync(path.join(__dirname, '..', 'public', `all-${languageCode}.json`), JSON.stringify(ratScannerData, null, 4));
         console.timeEnd(`all-${languageCode}`);
-        await sleep(2000);
+        await sleep(10000);
     }
 })();
