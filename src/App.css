@@ -262,9 +262,18 @@ select {
     padding: 10px 0;
 }
 
-.barter-group-wrapper.filter-wrapper {
+.filter-wrapper {
     padding: 10px 20px;
     line-height: 24px;
+}
+
+.filter-item span {
+    margin-right: 10px;
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
 }
 
 .barter-group-wrapper .text-label {

@@ -1,6 +1,12 @@
-.quest-items-wrapper {
-  display: flex;
+.quest-items-page {
   --grid-base: 50px;
+}
+
+.quest-items-wrapper {
+  display: grid;
+  grid-auto-rows: var(--grid-base);
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-base), 1fr));
+  grid-auto-flow: dense;
 }
 
 .quest-item {
@@ -25,15 +31,27 @@
 }
 
 .quest-item-1x1 {
-  width: var(--grid-base);
-  height: var(--grid-base);
 }
 
 .quest-item-1x2 {
-  width: var(--grid-base);
-  height: calc(2 * var(--grid-base));
+  grid-row-end: span 2;
 }
 .quest-item-2x1 {
-  width: calc(2 * var(--grid-base));
-  height: var(--grid-base);
+  grid-column-end: span 2;
+}
+
+.quest-item-2x2 {
+  grid-column-end: span 2;
+  grid-row-end: span 2;
+}
+
+.quest-item-3x2 {
+  grid-column-end: span 3;
+  grid-row-end: span 2;
+}
+
+.quest-item-5x7 {
+  grid-column-end: span 5;
+  grid-row-end: span 7;
+
 }

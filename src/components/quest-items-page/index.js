@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Switch from 'react-switch';
-import BarterItem from '../BarterItem';
 import Menu from '../Menu';
 
 import Quests, { QuestObjective } from './data';
@@ -9,15 +7,18 @@ import Quests, { QuestObjective } from './data';
 import './index.css';
 
 const QuestItemsPage = () => {
-  const questItemDescriptor = useMemo(() => {
-    const items = [];
+  const [onlyFIR, setOnlyFIR] = useState(false);
+
+  const questItemDescriptors = useMemo(() => {
+    let innerItemDescriptors = [];
     Object.values(Quests).forEach((quest) => {
       quest.objectives.forEach((objective) => {
         if (objective.type === QuestObjective.Find) {
-          console.log('qu', quest);
 
-          items.push({
+          innerItemDescriptors.push({
+            key: `${quest.id}-${objective.target.id}`,
             item: objective.target,
+            quest,
             amount: objective.amount,
             findInRaid: objective.findInRaid,
           });
@@ -25,30 +26,51 @@ const QuestItemsPage = () => {
       });
     });
 
-    return items;
+    if (onlyFIR) {
+      innerItemDescriptors = innerItemDescriptors.filter(
+        (itemDescriptor) => itemDescriptor.findInRaid,
+      );
+    }
+
+    return innerItemDescriptors;
+  }, [onlyFIR]);
+
+  const handleOnlyFIRChange = useCallback(() => {
+    setOnlyFIR((oldValue) => !oldValue);
   }, []);
 
-  console.log('items', questItemDescriptor);
+  console.log('items', questItemDescriptors);
 
   return (
-    <div className={'display-wrapper'}>
+    <div className={'display-wrapper quest-items-page'}>
       <Menu />
-      QuestItemsPage
+      <div className="filter-wrapper">
+        <label className="filter-item">
+          <span>Only show find in raid</span>
+          <Switch
+            onChange={handleOnlyFIRChange}
+            checked={onlyFIR}
+          />
+        </label>
+      </div>
       <div className={'quest-items-wrapper'}>
-        {questItemDescriptor.map((questItemDescription) => {
+        {questItemDescriptors.map((questItemDescriptor) => {
           return (
             <a
-              href={questItemDescription.item.wikiUrl}
+              key={questItemDescriptor.key}
+              href={questItemDescriptor.item.wikiLink}
               className={`quest-item quest-item-${
-                questItemDescription.item.gridSize
-              }${questItemDescription.findInRaid ? ' quest-item-fir' : ''}`}
+                questItemDescriptor.item.gridSize
+              }${questItemDescriptor.findInRaid ? ' quest-item-fir' : ''}`}
             >
               <img
-                alt={questItemDescription.item.name}
-                src={questItemDescription.item.imgSrc}
+                alt={questItemDescriptor.item.name}
+                src={questItemDescriptor.item.imgLink}
               />
-              {questItemDescription.amount > 1 && (
-                <div className={'sell-to-icon'}>x{questItemDescription.amount}</div>
+              {questItemDescriptor.amount > 1 && (
+                <div className={'sell-to-icon'}>
+                  x{questItemDescriptor.amount}
+                </div>
               )}
             </a>
           );
