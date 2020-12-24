@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Switch from 'react-switch';
 import Menu from '../Menu';
 
-import Quests, { QuestObjective } from './data';
+import Quests, { QuestObjective } from '../../Quests';
 
 import './index.css';
 
