@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Switch from 'react-switch';
 import Menu from '../Menu';
 
+import Items from '../../Items';
 import Quests, { QuestObjective } from '../../Quests';
 
 import './index.css';
@@ -15,9 +16,11 @@ const QuestItemsPage = () => {
       quest.objectives.forEach((objective) => {
         if (objective.type === QuestObjective.Find) {
 
+          const item = Items[objective.targetUid];
+
           innerItemDescriptors.push({
-            key: `${quest.id}-${objective.target.name}`,
-            item: objective.target,
+            key: `${quest.id}-${item.name}`,
+            item,
             quest,
             amount: objective.amount,
             findInRaid: objective.findInRaid,
@@ -55,10 +58,18 @@ const QuestItemsPage = () => {
       </div>
       <div className={'quest-items-wrapper'}>
         {questItemDescriptors.map((questItemDescriptor) => {
+          const [cols, rows] = questItemDescriptor.item.gridSize.split('x');
+
+          console.log('ii', questItemDescriptor.item)
+
           return (
             <a
               key={questItemDescriptor.key}
               href={questItemDescriptor.item.wikiLink}
+              style={{
+                gridColumnEnd: `span ${cols}`,
+                gridRowEnd: `span ${rows}`,
+              }}
               className={`quest-item quest-item-${
                 questItemDescriptor.item.gridSize
               }${questItemDescriptor.findInRaid ? ' quest-item-fir' : ''}`}

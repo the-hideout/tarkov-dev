@@ -260,7 +260,7 @@
             ]
         },
         {
-            "title": "Private clinic",
+            "name": "Private clinic",
             "items": [
                 {
                     "uid": "6d59aee8-84cc-4c8d-8aa3-df18f68fa513",
@@ -277,7 +277,7 @@
             ]
         },
         {
-            "title": "General wares",
+            "name": "General wares",
             "items": [
                 {
                     "uid": "e7e7644d-6e36-4076-831e-7adcb2cd1736",
@@ -288,7 +288,7 @@
             ]
         },
         {
-            "title": "Trust regain",
+            "name": "Trust regain",
             "items": [
                 {
                     "uid": "9eee88a0-4484-46ec-91be-8c400d45084d",
@@ -317,7 +317,7 @@
             ]
         },
         {
-            "title": "Supplier",
+            "name": "Supplier",
             "giver": "Skier",
             "items": [
                 {
@@ -335,7 +335,7 @@
             ]
         },
         {
-            "title": "What's on the flash drive?",
+            "name": "What's on the flash drive?",
             "giver": "Skier",
             "items": [
                 {
@@ -347,7 +347,7 @@
             ]
         },
         {
-            "title": "\"Vitamins\" - Part 2",
+            "name": "\"Vitamins\" - Part 2",
             "giver": "Skier",
             "items": [
                 {
@@ -365,7 +365,7 @@
             ]
         },
         {
-            "title": "Humanitarian Supplies",
+            "name": "Humanitarian Supplies",
             "giver": "Peacekeeper",
             "items": [
                 {
@@ -377,7 +377,7 @@
             ]
         },
         {
-            "title": "Spa Tour - Part 3",
+            "name": "Spa Tour - Part 3",
             "giver": "Peacekeeper",
             "items": [
                 {
@@ -407,7 +407,7 @@
             ]
         },
         {
-            "title": "Spa Tour - Part 7",
+            "name": "Spa Tour - Part 7",
             "giver": "Peacekeeper",
             "items": [
                 {
@@ -437,7 +437,7 @@
             ]
         },
         {
-            "title": "Samples",
+            "name": "Samples",
             "giver": "Peacekeeper",
             "items": [
                 {
@@ -485,7 +485,7 @@
             ]
         },
         {
-            "title": "Lend lease - Part 2",
+            "name": "Lend lease - Part 2",
             "giver": "Peacekeeper",
             "items": [
                 {
@@ -503,7 +503,7 @@
             ]
         },
         {
-            "title": "Signal - Part 2",
+            "name": "Signal - Part 2",
             "giver": "Mechanic",
             "items": [
                 {
@@ -533,7 +533,7 @@
             ]
         },
         {
-            "title": "Farming - Part 2",
+            "name": "Farming - Part 2",
             "giver": "Mechanic",
             "items": [
                 {
@@ -557,7 +557,7 @@
             ]
         },
         {
-            "title": "Bad habit",
+            "name": "Bad habit",
             "giver": "Mechanic",
             "items": [
                 {
@@ -581,7 +581,7 @@
             ]
         },
         {
-            "title": "Farming - Part 4",
+            "name": "Farming - Part 4",
             "giver": "Mechanic",
             "items": [
                 {
@@ -599,7 +599,7 @@
             ]
         },
         {
-            "title": "Fertilizers",
+            "name": "Fertilizers",
             "giver": "Mechanic",
             "items": [
                 {
@@ -617,7 +617,7 @@
             ]
         },
         {
-            "title": "Import",
+            "name": "Import",
             "giver": "Mechanic",
             "items": [
                 {
@@ -635,7 +635,7 @@
             ]
         },
         {
-            "title": "Dressed to kill",
+            "name": "Dressed to kill",
             "giver": "Ragman",
             "items": [
                 {
@@ -653,7 +653,7 @@
             ]
         },
         {
-            "title": "Sew it good - Part 1",
+            "name": "Sew it good - Part 1",
             "giver": "Ragman",
             "items": [
                 {
@@ -671,7 +671,7 @@
             ]
         },
         {
-            "title": "The Blood of War - Part 2",
+            "name": "The Blood of War - Part 2",
             "giver": "Ragman",
             "items": [
                 {
@@ -683,7 +683,7 @@
             ]
         },
         {
-            "title": "Living high is not a crime - Part 2",
+            "name": "Living high is not a crime - Part 2",
             "giver": "Ragman",
             "items": [
                 {
@@ -701,7 +701,7 @@
             ]
         },
         {
-            "title": "Living high is not a crime - Part 1",
+            "name": "Living high is not a crime - Part 1",
             "giver": "Ragman",
             "items": [
                 {
@@ -731,7 +731,7 @@
             ]
         },
         {
-            "title": "Sew it good - Part 4",
+            "name": "Sew it good - Part 4",
             "giver": "Ragman",
             "items": [
                 {
@@ -749,7 +749,7 @@
             ]
         },
         {
-            "title": "Textile - Part 1",
+            "name": "Textile - Part 1",
             "giver": "Ragman",
             "items": [
                 {
@@ -773,7 +773,7 @@
             ]
         },
         {
-            "title": "Textile - Part 2",
+            "name": "Textile - Part 2",
             "giver": "Ragman",
             "items": [
                 {
@@ -797,7 +797,7 @@
             ]
         },
         {
-            "title": "Acquaintance",
+            "name": "Acquaintance",
             "giver": "Jaeger",
             "items": [
                 {
@@ -821,7 +821,7 @@
             ]
         },
         {
-            "title": "Ambulance",
+            "name": "Ambulance",
             "giver": "Jaeger",
             "items": [
                 {
@@ -839,7 +839,7 @@
             ]
         },
         {
-            "title": "Fishing place",
+            "name": "Fishing place",
             "giver": "Jaeger",
             "items": [
                 {
@@ -851,7 +851,7 @@
             ]
         },
         {
-            "title": "Huntsman path - The trophy",
+            "name": "Huntsman path - The trophy",
             "giver": "Jaeger",
             "items": [
                 {
@@ -863,7 +863,7 @@
             ]
         },
         {
-            "title": "Huntsman path - Sell-out",
+            "name": "Huntsman path - Sell-out",
             "giver": "Jaeger",
             "items": [
                 {
@@ -875,7 +875,7 @@
             ]
         },
         {
-            "title": "Huntsman path - Woods keeper",
+            "name": "Huntsman path - Woods keeper",
             "giver": "Jaeger",
             "items": [
                 {
@@ -887,7 +887,7 @@
             ]
         },
         {
-            "title": "Shady business",
+            "name": "Shady business",
             "giver": "Jaeger",
             "items": [
                 {
