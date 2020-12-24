@@ -16,7 +16,7 @@ const QuestItemsPage = () => {
         if (objective.type === QuestObjective.Find) {
 
           innerItemDescriptors.push({
-            key: `${quest.id}-${objective.target.id}`,
+            key: `${quest.id}-${objective.target.name}`,
             item: objective.target,
             quest,
             amount: objective.amount,
