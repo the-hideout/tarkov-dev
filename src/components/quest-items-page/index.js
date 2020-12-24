@@ -7,42 +7,61 @@ import Quests, { QuestObjective } from '../../Quests';
 
 import './index.css';
 
+const getQuestItemDescriptors = () => {
+  const QuestItemDescriptorsMap = {};
+  Object.values(Quests).forEach((quest) => {
+    quest.objectives.forEach((objective) => {
+      if (objective.type === QuestObjective.Find) {
+        const item = Items[objective.targetUid];
+        if (!QuestItemDescriptorsMap[item.uid]) {
+          QuestItemDescriptorsMap[item.uid] = {
+            item,
+            quests: [],
+            findInRaidAmount: 0,
+            notFindInRaidAmount: 0,
+          };
+        }
+
+        QuestItemDescriptorsMap[item.uid].quests.push(quest.id);
+        if (objective.findInRaid) {
+          QuestItemDescriptorsMap[item.uid].findInRaidAmount +=
+            objective.amount;
+        } else {
+          QuestItemDescriptorsMap[item.uid].notFindInRaidAmount +=
+            objective.amount;
+        }
+      }
+    });
+  });
+
+  return Object.values(QuestItemDescriptorsMap);
+};
+const QuestItemDescriptors = getQuestItemDescriptors();
+
 const QuestItemsPage = () => {
   const [onlyFIR, setOnlyFIR] = useState(false);
 
-  const questItemDescriptors = useMemo(() => {
-    let innerItemDescriptors = [];
-    Object.values(Quests).forEach((quest) => {
-      quest.objectives.forEach((objective) => {
-        if (objective.type === QuestObjective.Find) {
-
-          const item = Items[objective.targetUid];
-
-          innerItemDescriptors.push({
-            key: `${quest.id}-${item.name}`,
-            item,
-            quest,
-            amount: objective.amount,
-            findInRaid: objective.findInRaid,
-          });
-        }
-      });
+  const data = useMemo(() => {
+    let innerData = QuestItemDescriptors.map((questItemDescriptor) => {
+      return {
+        ...questItemDescriptor,
+        key: questItemDescriptor.item.uid,
+        findInRaid: questItemDescriptor.findInRaidAmount > 0
+      }
     });
 
     if (onlyFIR) {
-      innerItemDescriptors = innerItemDescriptors.filter(
+      innerData = innerData.filter(
         (itemDescriptor) => itemDescriptor.findInRaid,
       );
     }
 
-    return innerItemDescriptors;
+    return innerData;
   }, [onlyFIR]);
 
   const handleOnlyFIRChange = useCallback(() => {
     setOnlyFIR((oldValue) => !oldValue);
   }, []);
-
-  console.log('items', questItemDescriptors);
 
   return (
     <div className={'display-wrapper quest-items-page'}>
@@ -50,20 +69,17 @@ const QuestItemsPage = () => {
       <div className="filter-wrapper">
         <label className="filter-item">
           <span>Only show find in raid</span>
-          <Switch
-            onChange={handleOnlyFIRChange}
-            checked={onlyFIR}
-          />
+          <Switch onChange={handleOnlyFIRChange} checked={onlyFIR} />
         </label>
       </div>
       <div className={'quest-items-wrapper'}>
-        {questItemDescriptors.map((questItemDescriptor) => {
+        {data.map((questItemDescriptor) => {
           const [cols, rows] = questItemDescriptor.item.gridSize.split('x');
 
-          console.log('ii', questItemDescriptor.item)
+          console.log('ii', questItemDescriptor.item);
 
           return (
-            <a
+            <button
               key={questItemDescriptor.key}
               href={questItemDescriptor.item.wikiLink}
               style={{
@@ -83,7 +99,7 @@ const QuestItemsPage = () => {
                   x{questItemDescriptor.amount}
                 </div>
               )}
-            </a>
+            </button>
           );
         })}
       </div>
