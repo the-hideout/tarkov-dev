@@ -66,7 +66,8 @@ const formatRow = function formatRow(row){
     }
 
     if(!symbol) {
-        console.log(`Missing symbol for ${formattedRow.type}`);
+        console.log(`Missing symbol for ${formattedRow.type}, the graph will crash. Add more symbols to src/symbols.json`);
+        process.exit(1);
     }
 
     formattedRow.symbol = symbol;
