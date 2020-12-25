@@ -963,6 +963,21 @@
         "shortName": "MTape"
     },
     {
+        "name": "Christmas tree decoration ball (red)",
+        "uid": "27733d7f-c2f5-4ba5-9403-2a4c3ae45f8b",
+        "shortName": "R.Ball"
+    },
+    {
+        "name": "Christmas tree decoration ball (silver)",
+        "uid": "c3df8f34-c54a-45c8-81dc-6b85f83b9fa9",
+        "shortName": "S.Ball"
+    },
+    {
+        "name": "Christmas tree decoration ball (violet)",
+        "uid": "62457d27-0b7c-4d70-8b9f-73fbc2e8835f",
+        "shortName": "V.Ball"
+    },
+    {
         "name": "GreenBat lithium battery",
         "uid": "9b2efc09-ed97-48da-8441-3fa587983572",
         "shortName": "GreenBat"
