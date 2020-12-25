@@ -75,5 +75,24 @@
     {
         "fill": "rgb(71, 121, 152)",
         "type": "Diamond"
+    },
+    {
+        "fill": "rgb(181, 59, 209)",
+        "type": "Plus"
+    },{
+        "fill": "rgb(181, 59, 209)",
+        "type": "Circle"
+    },
+    {
+        "fill": "rgb(181, 59, 209)",
+        "type": "TriangleUp"
+    },
+    {
+        "fill": "rgb(181, 59, 209)",
+        "type": "TriangleDown"
+    },
+    {
+        "fill": "rgb(181, 59, 209)",
+        "type": "Diamond"
     }
 ]
