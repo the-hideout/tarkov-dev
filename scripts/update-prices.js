@@ -77,6 +77,8 @@ const availableLanguages = [
         fs.writeFileSync(path.join(__dirname, '..', 'public', file), JSON.stringify(allData, null, 4));
     }
 
+    // Skip the rest for now
+    return true;
     for(const languageCode of availableLanguages){
         console.log(`Loading all items for ${languageCode}`);
         console.time(`all-${languageCode}`);
