@@ -67,7 +67,16 @@ export function formatFuture(ms) {
     }
 
     return text;
-}
+};
+
+const getSource = (props) => {
+    if(!props.source){
+        return false;
+    }
+    return (<div>
+        By: <a href={props.sourceLink}>{props.source}</a>
+    </div>);
+};
 
 function Time(props) {
     const time = useDate(new Date(), 50);
@@ -101,6 +110,7 @@ function Time(props) {
         <div>
             {dayjs.utc(tarkovTime2).format('HH:mm:ss')}
         </div>
+        {getSource(props)}
     </div>;
 }
 

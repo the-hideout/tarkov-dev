@@ -20,11 +20,13 @@ const maps = Object.fromEntries(rawMapData.map((mapData) => {
 function Map() {
     let {currentMap} = useParams();
 
-    const { displayText,image } = maps[currentMap];
+    const { displayText, image, source, sourceLink } = maps[currentMap];
 
     return <div>
         <Time
             currentMap = {currentMap}
+            source = {source}
+            sourceLink = {sourceLink}
         />
         <TransformWrapper
             defaultScale={1}
