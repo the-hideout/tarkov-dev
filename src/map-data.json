@@ -37,6 +37,8 @@
     },
     {
         "key": "woods",
-        "displayText": "Woods"
+        "displayText": "Woods",
+        "source": "EFTFG",
+        "sourceLink": "https://eftfg.com/"
     }
 ]
