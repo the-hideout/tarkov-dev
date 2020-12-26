@@ -1,4 +1,3 @@
-import Items from './Items';
 import rawData from './data/quests.json';
 
 export const QuestObjective = {
