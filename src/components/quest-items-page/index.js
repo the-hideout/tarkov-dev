@@ -12,9 +12,14 @@ const getQuestItemDescriptors = () => {
   Object.values(Quests).forEach((quest) => {
     quest.objectives.forEach((objective) => {
       if (objective.type === QuestObjective.Find) {
-        const item = Items[objective.targetUid];
-        if (!QuestItemDescriptorsMap[item.uid]) {
-          QuestItemDescriptorsMap[item.uid] = {
+        const item = Items[objective.targetId];
+
+        if(!item){
+            console.log(`failed to find item ${objective.targetId}`)
+        }
+
+        if (!QuestItemDescriptorsMap[item.id]) {
+          QuestItemDescriptorsMap[item.id] = {
             item,
             quests: [],
             findInRaidAmount: 0,
@@ -22,12 +27,12 @@ const getQuestItemDescriptors = () => {
           };
         }
 
-        QuestItemDescriptorsMap[item.uid].quests.push(quest.id);
+        QuestItemDescriptorsMap[item.id].quests.push(quest.id);
         if (objective.findInRaid) {
-          QuestItemDescriptorsMap[item.uid].findInRaidAmount +=
+          QuestItemDescriptorsMap[item.id].findInRaidAmount +=
             objective.amount;
         } else {
-          QuestItemDescriptorsMap[item.uid].notFindInRaidAmount +=
+          QuestItemDescriptorsMap[item.id].notFindInRaidAmount +=
             objective.amount;
         }
       }
@@ -45,7 +50,7 @@ const QuestItemsPage = () => {
     let innerData = QuestItemDescriptors.map((questItemDescriptor) => {
       return {
         ...questItemDescriptor,
-        key: questItemDescriptor.item.uid,
+        key: questItemDescriptor.item.id,
         findInRaid: questItemDescriptor.findInRaidAmount > 0
       }
     });

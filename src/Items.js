@@ -1,4 +1,4 @@
-import rawData from './all-en.json';
+import rawData from './data/all-raw.json';
 
 const RotateItemsUids = [
   'e7aa5222-213f-456a-bc06-f8f40ad979b9',
@@ -74,16 +74,17 @@ const getSize = function sizeFromSlots(rawItem) {
 const items = Object.fromEntries(
   rawData.map((rawItem) => {
     return [
-      rawItem.uid,
-      {
-        uid: rawItem.uid,
-        name: rawItem.name,
-        shortName: rawItem.shortName,
-        wikiLink: rawItem.wikiLink,
-        imgLink: rawItem.imgLink,
-        gridSize: getSize(rawItem),
-        canCraftInHideout: false,
-      },
+        rawItem.bsgId,
+        {
+            id: rawItem.bsgId,
+            uid: rawItem.uid,
+            name: rawItem.name,
+            shortName: rawItem.shortName,
+            wikiLink: rawItem.wikiLink,
+            imgLink: rawItem.imgBig,
+            gridSize: getSize(rawItem),
+            canCraftInHideout: false,
+        },
     ];
   }),
 );
