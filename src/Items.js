@@ -1,4 +1,4 @@
-import rawData from './data/all-raw.json';
+import rawData from './data/all-en.json';
 
 const RotateItemsUids = [
   'e7aa5222-213f-456a-bc06-f8f40ad979b9',
