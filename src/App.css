@@ -224,6 +224,10 @@ select {
     text-align: right;
 }
 
+.time-wrapper a {
+    color: inherit;
+}
+
 .time-wrapper div {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
