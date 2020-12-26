@@ -26,7 +26,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "eject": "react-scripts eject",
     "prebuild": "node scripts/getdata-nofoodaftermidnight.js",
-    "stage": "npm run build && npx serve build",
+    "stage": "npx rimraf build && npm run build && npx serve build",
     "update-prices": "node scripts/update-prices.js"
   },
   "eslintConfig": {
