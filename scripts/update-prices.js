@@ -20,21 +20,71 @@ const CURRENCY_MODIFIER = {
 
 const availableLanguages = [
     'en',
-    'ru',
-    'de',
-    'fr',
-    'es',
-    'cn',
+    // 'ru',
+    // 'de',
+    // 'fr',
+    // 'es',
+    // 'cn',
 ];
 
 (async () => {
+    let allItemData = {};
+    for(const languageCode of availableLanguages){
+        try {
+            const response = await got(`https://tarkov-market.com/api/v1/items/all?lang=${languageCode}`, {
+                headers: {
+                    'x-api-key': process.env.TARKOV_MARKET_API_KEY,
+                },
+                responseType: 'json',
+            });
+
+            allItemData[languageCode] = response.body;
+        } catch (requestError){
+            console.error(requestError);
+
+            // We wan't CI to stop here
+            process.exit(1);
+        }
+        console.log(`Loading all items for ${languageCode}`);
+        console.time(`all-${languageCode}`);
+
+        console.timeEnd(`all-${languageCode}`);
+
+
+        // const ratScannerData = allItemData.body.map((rawallItemData) => {
+        //     return {
+        //         uid: rawallItemData.uid, // wut
+        //         name: rawallItemData.name,
+        //         shortName: rawallItemData.shortName,
+        //         slots: rawallItemData.slots,
+        //         wikiLink: rawallItemData.wikiLink,
+        //         imgLink: rawallItemData.img,
+        //         timestamp: Math.floor(new Date(rawallItemData.updated).getTime() / 1000),
+        //         price: rawallItemData.price,
+        //         avg24hPrice: rawallItemData.avg24hPrice,
+        //         avg7dPrice: rawallItemData.avg7daysPrice,
+        //         avg24hAgo: rawallItemData.avg24hPrice,  // fix
+        //         avg7dAgo: rawallItemData.avg7daysPrice, // fix2
+        //         traderName: rawallItemData.traderName,
+        //         traderPrice: rawallItemData.traderPrice,
+        //         traderCurrency: rawallItemData.traderPriceCur,
+        //     }
+        // });
+
+        fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', `all-${languageCode}.json`), JSON.stringify(allItemData[languageCode], null, 4));
+
+        if(availableLanguages > 3){
+            await sleep(20000);
+        }
+    }
+
     for(const file of FILES){
         const allData = {
             updated: new Date(),
             data: [],
         };
 
-        const DATA_PATH = path.join(__dirname, '..', 'data', file);
+        const DATA_PATH = path.join(__dirname, '..', 'src', 'data', file);
 
         let itemData = JSON.parse(fs.readFileSync(DATA_PATH));
 
@@ -42,40 +92,26 @@ const availableLanguages = [
             if(!item.uid){
                 continue;
             }
+
             console.log(`Loading data for ${item.name}`);
-            let itemData;
-
-            try {
-                itemData = await got(`https://tarkov-market.com/api/v1/item?uid=${item.uid}`, {
-                    headers: {
-                        'x-api-key': process.env.TARKOV_MARKET_API_KEY,
-                    },
-                    responseType: 'json',
-                });
-            } catch (requestError){
-                console.error(requestError);
-
-                // We wan't CI to stop here
-                process.exit(1);
-            }
+            const itemData = allItemData['en'].find(tempItemData => tempItemData.uid === item.uid);
 
             allData.data.push({
                 ...item,
-                img: itemData.body[0].img,
-                link: itemData.body[0].link,
-                price: itemData.body[0].avg24hPrice,
-                fee: fleaMarketFee(itemData.body[0]),
-                traderPrice: itemData.body[0].traderPrice * CURRENCY_MODIFIER[itemData.body[0].traderPriceCur],
-                trader: itemData.body[0].traderName,
-                slots: itemData.body[0].slots,
-                wikiLink: itemData.body[0].wikiLink,
+                img: itemData.img,
+                link: itemData.link,
+                price: itemData.avg24hPrice,
+                fee: fleaMarketFee(itemData),
+                traderPrice: itemData.traderPrice * CURRENCY_MODIFIER[itemData.traderPriceCur],
+                trader: itemData.traderName,
+                slots: itemData.slots,
+                wikiLink: itemData.wikiLink,
             });
-
-            await sleep(150);
         }
 
         fs.writeFileSync(path.join(__dirname, '..', 'public', file), JSON.stringify(allData, null, 4));
     }
+<<<<<<< HEAD
 
     // Skip the rest for now
     return true;
@@ -121,4 +157,6 @@ const availableLanguages = [
         console.timeEnd(`all-${languageCode}`);
         await sleep(30000);
     }
+=======
+>>>>>>> feature/quest-items
 })();

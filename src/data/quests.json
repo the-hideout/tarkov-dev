@@ -1,0 +1,911 @@
+{
+    "updated": "2020-12-26T01:38:41.247Z",
+    "data": [
+        {
+            "questId": "5936da9e86f7742d65037edf",
+            "traderId": "54cb50c76803fa8b248b4571",
+            "items": [
+                {
+                    "id": "5937ee6486f77408994ba448",
+                    "name": "Machinery key",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": "5967530a86f77462ba22226b",
+            "traderId": "54cb50c76803fa8b248b4571",
+            "items": [
+                {
+                    "id": "5938144586f77473c2087145",
+                    "name": "Portable cabin key of customs Factory zone",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": "59675d6c86f7740a842fc482",
+            "traderId": "54cb50c76803fa8b248b4571",
+            "items": [
+                {
+                    "id": "55d482194bdc2d1d4e8b456b",
+                    "name": "60-round 6L31 5.45x39 magazine for АК-74 and compatibles",
+                    "count": 6,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": "59c50c8886f7745fed3193bf",
+            "traderId": "54cb50c76803fa8b248b4571",
+            "items": [
+                {
+                    "id": "572b7fa524597762b747ce82",
+                    "name": "Lower half-mask",
+                    "count": 7,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "59ca1a6286f774509a270942",
+            "traderId": "54cb50c76803fa8b248b4571",
+            "items": [
+                {
+                    "id": "58d3db5386f77426186285a0",
+                    "name": "M67 Hand grenade",
+                    "count": 10,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": "59ca29fb86f77445ab465c87",
+            "traderId": "54cb50c76803fa8b248b4571",
+            "items": [
+                {
+                    "id": "5644bd2b4bdc2d3b4c8b4572",
+                    "name": "AK-74N 5.45x39 assault rifle",
+                    "count": 3,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5447a9cd4bdc2dbd208b4567",
+                    "name": "Colt M4A1 5.56x45 Assault Rifle",
+                    "count": 3,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5448bd6b4bdc2dfc2f8b4569",
+                    "name": "PM 9x18PM pistol",
+                    "count": 5,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": "5d4bec3486f7743cac246665",
+            "traderId": "54cb50c76803fa8b248b4571",
+            "items": [
+                {
+                    "id": "5d03794386f77420415576f5",
+                    "name": "6-STEN-140-M military battery",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5d0379a886f77420407aa271",
+                    "name": "OFZ 30x160mm shell ",
+                    "count": 10,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5967733e86f774602332fc84",
+            "traderId": "54cb57776803fa99248b456e",
+            "items": [
+                {
+                    "id": "544fb45d4bdc2dee738b4568",
+                    "name": "Salewa FIRST AID KIT",
+                    "count": 5,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": "59689ee586f7740d1570bbd5",
+            "traderId": "54cb57776803fa99248b456e",
+            "items": [
+                {
+                    "id": "590a3efd86f77437d351a25b",
+                    "name": "Gas analyzer",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": "5969f90786f77420d2328015",
+            "traderId": "54cb57776803fa99248b456e",
+            "items": [
+                {
+                    "id": "544fb3f34bdc2d03748b456a",
+                    "name": "Morphine injector",
+                    "count": 4,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "596a1e6c86f7741ddc2d3206",
+            "traderId": "54cb57776803fa99248b456e",
+            "items": [
+                {
+                    "id": "57347d7224597744596b4e72",
+                    "name": "Can of beef stew",
+                    "count": 15,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "596a204686f774576d4c95de",
+            "traderId": "54cb57776803fa99248b456e",
+            "items": [
+                {
+                    "id": "590a3efd86f77437d351a25b",
+                    "name": "Gas analyzer",
+                    "count": 2,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "596a218586f77420d232807c",
+            "traderId": "54cb57776803fa99248b456e",
+            "items": [
+                {
+                    "id": "5733279d245977289b77ec24",
+                    "name": "Car battery",
+                    "count": 4,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "590a3c0a86f774385a33c450",
+                    "name": "Spark plug",
+                    "count": 8,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "59c9392986f7742f6923add2",
+            "traderId": "54cb57776803fa99248b456e",
+            "items": [
+                {
+                    "id": "593aa4be86f77457f56379f8",
+                    "name": "Dorm room 303 Key",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "591afe0186f77431bd616a11",
+                    "name": "Key ZB-014",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5913915886f774123603c392",
+                    "name": "Military base checkpoint key",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5913877a86f774432f15d444",
+                    "name": "The key to the gas station storage room",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": "5edac34d0bb72a50635c2bfa",
+            "traderId": "54cb57776803fa99248b456e",
+            "items": [
+                {
+                    "id": "5c1d0c5f86f7744bb2683cf0",
+                    "name": "Lab. Blue keycard",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5c1d0dc586f7744baf2e7b79",
+                    "name": "Lab. Green keycard ",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5ed515f6915ec335206e4152",
+                    "name": "AHF1-M",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5ed515c8d380ab312177c0fa",
+                    "name": "3-(b-TG)",
+                    "count": 1,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5c51aac186f77432ea65c552",
+            "traderId": "579dc571d53a0658a154fbec",
+            "items": [
+                {
+                    "id": "5bc9c377d4351e3bac12251b",
+                    "name": "Old firesteel",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5bc9c1e2d4351e00367fbcf0",
+                    "name": "Antique axe",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5bc9c049d4351e44f824d360",
+                    "name": "Battered antique Book",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5bc9b355d4351e6d1509862a",
+                    "name": "#FireKlean gun lube",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5bc9bc53d4351e00367fbcee",
+                    "name": "Golden rooster",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5bc9bdb8d4351e003562b8a1",
+                    "name": "Silver Badge",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5bc9b9ecd4351e3bac122519",
+                    "name": "Deadlyslob's beard oil",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5bc9b720d4351e450201234b",
+                    "name": "Golden 1GPhone",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5bc9b156d4351e00367fbce9",
+                    "name": "Jar of DevilDog mayo",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5bc9c29cd4351e003562b8a3",
+                    "name": "Can of sprats",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5bd073c986f7747f627e796c",
+                    "name": "Kotton beanie",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5e54f62086f774219b0f1937",
+                    "name": "Raven figurine",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5e54f79686f7744022011103",
+                    "name": "Pestily plague mask",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5e54f76986f7740366043752",
+                    "name": "Shroud half-mask",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5e54f6af86f7742199090bf3",
+                    "name": "Can of Dr. Lupo's coffee beans",
+                    "count": 1,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5979ed3886f77431307dc512",
+            "traderId": "58330581ace78e27b8b10cee",
+            "items": [
+                {
+                    "id": "590c621186f774138d11ea29",
+                    "name": "Secure Flash drive",
+                    "count": 2,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5979f9ba86f7740f6c3fe9f2",
+            "traderId": "58330581ace78e27b8b10cee",
+            "items": [
+                {
+                    "id": "5780cfa52459777dfb276eb1",
+                    "name": "Dorm room 220 Key",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": "5b478ff486f7744d184ecbbf",
+            "traderId": "58330581ace78e27b8b10cee",
+            "items": [
+                {
+                    "id": "59e7715586f7742ee5789605",
+                    "name": "Respirator",
+                    "count": 4,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5b4335ba86f7744d2837a264",
+                    "name": "Medical bloodset",
+                    "count": 3,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5a0327ba86f77456b9154236",
+            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "items": [
+                {
+                    "id": "590c5bbd86f774785762df04",
+                    "name": "WD-40 100ml.",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "59e358a886f7741776641ac3",
+                    "name": "Clin wiper",
+                    "count": 2,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "59e35cbb86f7741778269d83",
+                    "name": "Corrugated hose",
+                    "count": 2,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "59e3556c86f7741776641ac2",
+                    "name": "Ox bleach",
+                    "count": 2,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5a27b87686f77460de0252a8",
+            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "items": [
+                {
+                    "id": "590c5f0d86f77413997acfab",
+                    "name": "MRE lunch box",
+                    "count": 5,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": "5a27bafb86f7741c73584017",
+            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "items": [
+                {
+                    "id": "544fb3f34bdc2d03748b456a",
+                    "name": "Morphine injector",
+                    "count": 4,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "59faf98186f774067b6be103",
+                    "name": "Heat-exchange alkali surface washer",
+                    "count": 2,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "59e35cbb86f7741778269d83",
+                    "name": "Corrugated hose",
+                    "count": 2,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "59fafb5d86f774067a6f2084",
+                    "name": "5L propane tank",
+                    "count": 2,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5c0d0f1886f77457b8210226",
+            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "items": [
+                {
+                    "id": "5c05308086f7746b2101e90b",
+                    "name": "Virtex programmable processor",
+                    "count": 2,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5c052f6886f7746b1e3db148",
+                    "name": "Military COFDM wireless Signal Transmitter",
+                    "count": 1,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5edac020218d181e29451446",
+            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "items": [
+                {
+                    "id": "5ed51652f6c34d2cc26336a1",
+                    "name": "M.U.L.E. stimulator",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5ed5166ad380ab312177c100",
+                    "name": "Cocktail \"Obdolbos\"",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5ed5160a87bb8443d10680b5",
+                    "name": "Meldonin",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5ed515f6915ec335206e4152",
+                    "name": "AHF1-M",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5ed515ece452db0eb56fc028",
+                    "name": "P22",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5ed515e03a40a50460332579",
+                    "name": "L1 (Norepinephrine)",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5ed515c8d380ab312177c0fa",
+                    "name": "3-(b-TG)",
+                    "count": 1,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5ac3460c86f7742880308185",
+            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "items": [
+                {
+                    "id": "59e36c6f86f774176c10a2a7",
+                    "name": "Powercord",
+                    "count": 2,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "57347cd0245977445a2d6ff1",
+                    "name": "T-Shaped Plug",
+                    "count": 4,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "590a3b0486f7743954552bdb",
+                    "name": "Printed circuit board",
+                    "count": 2,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5ac3464c86f7741d651d6877",
+            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "items": [
+                {
+                    "id": "57347ca924597744596b4e71",
+                    "name": "Graphics card",
+                    "count": 3,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5734779624597737e04bf329",
+                    "name": "CPU Fan",
+                    "count": 8,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5ac346a886f7744e1b083d67",
+            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "items": [
+                {
+                    "id": "573477e124597737dd42e191",
+                    "name": "PC CPU",
+                    "count": 3,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "590a358486f77429692b2790",
+                    "name": "Rechargeable battery",
+                    "count": 3,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "590a3b0486f7743954552bdb",
+                    "name": "Printed circuit board",
+                    "count": 3,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "56742c324bdc2d150f8b456d",
+                    "name": "Broken GPhone",
+                    "count": 3,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5ac3475486f7741d6224abd3",
+            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "items": [
+                {
+                    "id": "573476d324597737da2adc13",
+                    "name": "Malboro Cigarettes",
+                    "count": 5,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5734770f24597738025ee254",
+                    "name": "Strike Cigarettes",
+                    "count": 5,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "573476f124597737e04bf328",
+                    "name": "Wilston cigarettes",
+                    "count": 5,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5c1128e386f7746565181106",
+            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "items": [
+                {
+                    "id": "5c06779c86f77426e00dd782",
+                    "name": "Wires",
+                    "count": 5,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5c06782b86f77426df5407d2",
+                    "name": "Capacitors",
+                    "count": 5,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5c139eb686f7747878361a6f",
+            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "items": [
+                {
+                    "id": "5c052fb986f7746b2101e909",
+                    "name": "UHF RFID Reader ",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5c05300686f7746dce784e5d",
+                    "name": "VPX Flash Storage Module",
+                    "count": 1,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5ae4495086f77443c122bc40",
+            "traderId": "5ac3b934156ae10c4430e83c",
+            "items": [
+                {
+                    "id": "5ab8f20c86f7745cdb629fb2",
+                    "name": "Ski hat with holes for eyes",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "59e763f286f7742ee57895da",
+                    "name": "Pilgrim tourist backpack",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": "5ae4495c86f7744e87761355",
+            "traderId": "5ac3b934156ae10c4430e83c",
+            "items": [
+                {
+                    "id": "5ab8e79e86f7742d8b372e78",
+                    "name": "BNTI Gzhel-K armor",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5ab8e79e86f7742d8b372e78",
+                    "name": "BNTI Gzhel-K armor",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": "5ae4496986f774459e77beb6",
+            "traderId": "5ac3b934156ae10c4430e83c",
+            "items": [
+                {
+                    "id": "545cdb794bdc2d3a198b456a",
+                    "name": "6B43 Zabralo-Sh 6A Armor",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "545cdb794bdc2d3a198b456a",
+                    "name": "6B43 Zabralo-Sh 6A Armor",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": "5ae4497b86f7744cf402ed00",
+            "traderId": "5ac3b934156ae10c4430e83c",
+            "items": [
+                {
+                    "id": "59e7643b86f7742cbf2c109a",
+                    "name": "Wartech gear rig (TV-109, TV-106)",
+                    "count": 2,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5648a69d4bdc2ded0b8b457b",
+                    "name": "BlackRock chest rig",
+                    "count": 2,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5ae449d986f774453a54a7e1",
+            "traderId": "5ac3b934156ae10c4430e83c",
+            "items": [
+                {
+                    "id": "5ad7247386f7747487619dc3",
+                    "name": "Key to Goshan cash register",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": "5b47876e86f7744d1c353205",
+            "traderId": "5ac3b934156ae10c4430e83c",
+            "items": [
+                {
+                    "id": "5b43575a86f77424f443fe62",
+                    "name": "Fuel conditioner",
+                    "count": 4,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5b47891f86f7744d1b23c571",
+            "traderId": "5ac3b934156ae10c4430e83c",
+            "items": [
+                {
+                    "id": "59e3639286f7741777737013",
+                    "name": "Bronze lion",
+                    "count": 2,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "573478bc24597738002c6175",
+                    "name": "Horse figurine",
+                    "count": 2,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "59e3658a86f7741776641ac4",
+                    "name": "Cat figurine",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "59faf7ca86f7740dbe19f6c2",
+                    "name": "Roler submariner gold wrist watch",
+                    "count": 1,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5c1141f386f77430ff393792",
+            "traderId": "5ac3b934156ae10c4430e83c",
+            "items": [
+                {
+                    "id": "590de71386f774347051a052",
+                    "name": "Antique teapot",
+                    "count": 3,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "590de7e986f7741b096e5f32",
+                    "name": "Antique vase",
+                    "count": 2,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5e381b0286f77420e3417a74",
+            "traderId": "5ac3b934156ae10c4430e83c",
+            "items": [
+                {
+                    "id": "5e2af4d286f7746d4159f07a",
+                    "name": "Aramid fiber cloth",
+                    "count": 5,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5e2af4a786f7746d3f3c3400",
+                    "name": "Ripstop cloth",
+                    "count": 10,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5c12688486f77426843c7d32",
+                    "name": "Paracord",
+                    "count": 3,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5e383a6386f77465910ce1f3",
+            "traderId": "5ac3b934156ae10c4430e83c",
+            "items": [
+                {
+                    "id": "5e2af4d286f7746d4159f07a",
+                    "name": "Aramid fiber cloth",
+                    "count": 5,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5e2af4a786f7746d3f3c3400",
+                    "name": "Ripstop cloth",
+                    "count": 10,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5c12688486f77426843c7d32",
+                    "name": "Paracord",
+                    "count": 3,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5e4d515e86f77438b2195244",
+            "traderId": "5ac3b934156ae10c4430e83c",
+            "items": [
+                {
+                    "id": "5e2af47786f7746d404f3aaa",
+                    "name": "Fleece cloth",
+                    "count": 10,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5e2af41e86f774755a234b67",
+                    "name": "Polyamide fabric Cordura",
+                    "count": 10,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5e2af29386f7746d4159f077",
+                    "name": "KEKTAPE duct tape",
+                    "count": 5,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5d25e46e86f77409453bce7c",
+            "traderId": "5c0647fdd443bc2504c2d371",
+            "items": [
+                {
+                    "id": "5c052e6986f7746b207bc3c9",
+                    "name": "Portable defibrillator",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5d02778e86f774203e7dedbe",
+                    "name": "CMS kit",
+                    "count": 2,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5d25e48d86f77408251c4bfb",
+            "traderId": "5c0647fdd443bc2504c2d371",
+            "items": [
+                {
+                    "id": "590c621186f774138d11ea29",
+                    "name": "Secure Flash drive",
+                    "count": 3,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": "5d25e4b786f77408251c4bfc",
+            "traderId": "5c0647fdd443bc2504c2d371",
+            "items": [
+                {
+                    "id": "5c94bbff86f7747ee735c08f",
+                    "name": "TerraGroup Labs access keycard",
+                    "count": 3,
+                    "foundInRaid": true
+                }
+            ]
+        }
+    ]
+}

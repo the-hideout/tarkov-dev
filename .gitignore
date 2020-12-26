@@ -108,3 +108,7 @@ src/data.json
 tarkov-tools/*
 public/*.json
 !public/manifest.json
+all-en.json
+quests-raw.json
+bsg-all-raw.json
+all-raw.json
