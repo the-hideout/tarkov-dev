@@ -16,7 +16,7 @@ import Control from './components/Control.jsx';
 import Menu from './components/Menu.jsx';
 import Barter from './components/Barter.jsx';
 
-import rawMapData from './map-data.json';
+import rawMapData from './data/maps.json';
 import QuestItemsPage from './components/quest-items-page';
 
 const makeID = function makeID(length) {
@@ -145,7 +145,15 @@ const makeID = function makeID(length) {
         }));
     }, [sessionID]);
 
-    return <div className="App">
+    let className = 'App';
+
+    // if(socketConnected){
+    //     className = `${className} connected`;
+    // }
+
+    return <div
+        className = {className}
+    >
         <Helmet>
             <meta charSet="utf-8" />
             <title>Tarkov Tools</title>
