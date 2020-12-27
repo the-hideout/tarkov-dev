@@ -7,7 +7,7 @@ import Supporter from './Supporter';
 import {ReactComponent as PatreonIcon} from './Patreon.svg';
 
 import ammoData from '../data.json';
-import mapData from '../map-data.json';
+import mapData from '../data/maps.json';
 
 const ammoTypes = [...new Set(ammoData.data.map((ammoData) => {
     return ammoData.type
@@ -17,7 +17,6 @@ function Menu() {
     return <div
             className="menu"
         >
-
             <Link
                 className = "branding"
                 to = '/'
@@ -81,6 +80,16 @@ function Menu() {
                     />
                 </ul>
             </div>
+            {/* <Link
+                to = '/item-tracker/'
+            >
+                Kappa Tracker
+            </Link>
+            <Link
+                to = '/hideout/'
+            >
+                Hideout
+            </Link> */}
             <a
                 className = {'external-link'}
                 href="https://developertracker.com/escape-from-tarkov/"

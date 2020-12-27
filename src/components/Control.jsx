@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 
 import ammoData from '../data.json';
-import mapData from '../map-data.json';
+import mapData from '../data/maps.json';
 
 const ammoTypes = [...new Set(ammoData.data.map((ammoData) => {
     return ammoData.type
@@ -77,6 +77,8 @@ function Control(props) {
             },
         });
     };
+
+    // return null;
 
     return <div className="control-wrapper">
         <div

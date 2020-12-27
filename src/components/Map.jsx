@@ -5,7 +5,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 import Time from './Time';
 
-import rawMapData from '../map-data.json';
+import rawMapData from '../data/maps.json';
 
 const maps = Object.fromEntries(rawMapData.map((mapData) => {
     return [
