@@ -1,24 +1,25 @@
 import rawData from './data/all-en.json';
 
-const RotateItemsUids = [
-  'e7aa5222-213f-456a-bc06-f8f40ad979b9',
-  'c8f6ab75-7cbf-4e82-b0fe-46ec1a15c382',
-  '8a9d698f-aa8a-450f-8737-70509185aa23',
-  '23cd6ce1-4f19-4133-aa24-269f721ae76b',
-  'f159cf91-480e-4f50-aab6-badb0850af5b',
-  'aed566f6-dc68-4263-a933-061c645098fc',
-  '9622c54f-7c61-4e2b-ae1a-153e889ef829',
-  'd6f4d0af-9906-43b4-a5be-897eb9211c79',
-  '6af1c257-a3ac-426a-8f4f-90dfaefd5a78',
-  '6038fd0e-cb60-4595-8ede-6bea1263cf80',
-  'e989ad9e-f9c8-4720-95e0-84ba111d2601',
-  '38ee0fb0-095c-4d6f-9070-206627c70a02',
-  'c22766d5-d8ae-4b54-aafd-48f651a05284',
-  'bd0d4464-06a3-4485-9dfd-3731e3b4de76',
+const RotateItemsIds = [
+    '5d0379a886f77420407aa271',
+    '5bc9c1e2d4351e00367fbcf0',
+    '5bc9c049d4351e44f824d360',
+    '59e3556c86f7741776641ac2',
+    '590c5f0d86f77413997acfab',
+    '59faf98186f774067b6be103',
+    '5b43575a86f77424f443fe62',
+    '590de71386f774347051a052',
+    '544fb45d4bdc2dee738b4568',
+    '5e54f62086f774219b0f1937',
+    '573478bc24597738002c6175',
+    '59e3658a86f7741776641ac4',
+    '590a3efd86f77437d351a25b',
+    '59e358a886f7741776641ac3',
 ];
 const RotateItemLookupMap = new Map();
-RotateItemsUids.forEach((uid) => {
-  RotateItemLookupMap.set(uid, true);
+
+RotateItemsIds.forEach((id) => {
+  RotateItemLookupMap.set(id, true);
 });
 
 const getSize = function sizeFromSlots(rawItem) {
@@ -64,7 +65,7 @@ const getSize = function sizeFromSlots(rawItem) {
       break;
   }
 
-  if (RotateItemLookupMap.has(rawItem.uid)) {
+  if (RotateItemLookupMap.has(rawItem.bsgId)) {
     size = size.split('x').reverse().join('x');
   }
 
