@@ -57,7 +57,7 @@ export const Quests = rawData.data.map((questData) => {
       return {
         type: QuestObjective.Find,
         amount: itemData.count,
-        findInRaid: itemData.fir,
+        findInRaid: itemData.foundInRaid,
         targetId: itemData.id,
       };
     }),
