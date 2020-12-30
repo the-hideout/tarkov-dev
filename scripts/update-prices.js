@@ -65,8 +65,8 @@ const availableLanguages = [
                 price: rawItemData.price,
                 avg24hPrice: rawItemData.avg24hPrice,
                 avg7dPrice: rawItemData.avg7daysPrice,
-                avg24hAgo: rawItemData.avg24hPrice,  // fix
-                avg7dAgo: rawItemData.avg7daysPrice, // fix2
+                avg24hAgo: Math.floor(rawItemData.avg24hPrice * (rawItemData.diff24h / 100)),
+                avg7dAgo: Math.floor(rawItemData.avg7daysPrice * (rawItemData.diff7days / 100)),
                 traderName: rawItemData.traderName,
                 traderPrice: rawItemData.traderPrice,
                 traderCurrency: rawItemData.traderPriceCur,
