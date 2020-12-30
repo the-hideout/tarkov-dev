@@ -21,11 +21,11 @@ const CURRENCY_MODIFIER = {
 
 const availableLanguages = [
     'en',
-    // 'ru',
-    // 'de',
-    // 'fr',
-    // 'es',
-    // 'cn',
+    'ru',
+    'de',
+    'fr',
+    'es',
+    'cn',
 ];
 
 (async () => {
