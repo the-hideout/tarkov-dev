@@ -5,6 +5,7 @@ const got = require('got');
 
 const sleep = require('./modules/sleep');
 const fleaMarketFee = require('./modules/flea-market-fee');
+const questData = require('./modules/quests');
 
 const FILES = [
     'barter-items.json',
@@ -50,28 +51,30 @@ const availableLanguages = [
 
         console.timeEnd(`all-${languageCode}`);
 
-
-        // const ratScannerData = allItemData.body.map((rawallItemData) => {
-        //     return {
-        //         uid: rawallItemData.uid, // wut
-        //         name: rawallItemData.name,
-        //         shortName: rawallItemData.shortName,
-        //         slots: rawallItemData.slots,
-        //         wikiLink: rawallItemData.wikiLink,
-        //         imgLink: rawallItemData.img,
-        //         timestamp: Math.floor(new Date(rawallItemData.updated).getTime() / 1000),
-        //         price: rawallItemData.price,
-        //         avg24hPrice: rawallItemData.avg24hPrice,
-        //         avg7dPrice: rawallItemData.avg7daysPrice,
-        //         avg24hAgo: rawallItemData.avg24hPrice,  // fix
-        //         avg7dAgo: rawallItemData.avg7daysPrice, // fix2
-        //         traderName: rawallItemData.traderName,
-        //         traderPrice: rawallItemData.traderPrice,
-        //         traderCurrency: rawallItemData.traderPriceCur,
-        //     }
-        // });
-
         fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', `all-${languageCode}.json`), JSON.stringify(allItemData[languageCode], null, 4));
+
+        const ratScannerData = allItemData[languageCode].map((rawItemData) => {
+            return {
+                uid: rawItemData.bsgId,
+                name: rawItemData.name,
+                shortName: rawItemData.shortName,
+                slots: rawItemData.slots,
+                wikiLink: rawItemData.wikiLink,
+                imgLink: rawItemData.img,
+                timestamp: Math.floor(new Date(rawItemData.updated).getTime() / 1000),
+                price: rawItemData.price,
+                avg24hPrice: rawItemData.avg24hPrice,
+                avg7dPrice: rawItemData.avg7daysPrice,
+                avg24hAgo: rawItemData.avg24hPrice,  // fix
+                avg7dAgo: rawItemData.avg7daysPrice, // fix2
+                traderName: rawItemData.traderName,
+                traderPrice: rawItemData.traderPrice,
+                traderCurrency: rawItemData.traderPriceCur,
+                quests: questData.getItemUsage(rawItemData.bsgId),
+            };
+        });
+
+        fs.writeFileSync(path.join(__dirname, '..', 'public', 'data', `all-${languageCode}.json`), JSON.stringify(ratScannerData, null, 4));
 
         if(availableLanguages > 3){
             await sleep(20000);
