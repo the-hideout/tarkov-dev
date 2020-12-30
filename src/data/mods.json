@@ -4086,5 +4086,25 @@
         "name": "3-shell KS-23M 23mm magazine cap",
         "uid": "5b1a3591-24e0-426a-ba98-817e9fa9b17f",
         "shortName": "KS-23Mx3"
+    },
+    {
+        "name": "Magex G30 magazine for Glock .45 ACP",
+        "uid": "1af2be41-2888-4282-a458-1367cf4710d4",
+        "shortName": "Magex G30"
+    },
+    {
+        "name": "Standard UMP 25-round .45 ACP magazine",
+        "uid": "74929fbd-e8b6-4143-ad54-2a5014362233",
+        "shortName": "UMP 45"
+    },
+    {
+        "name": "Sword Int. Mk-18 .338 LM 10-round magazine",
+        "uid": "21977580-ce02-431e-8e38-fcaa86f995b0",
+        "shortName": "Mk-18 10"
+    },
+    {
+        "name": "Glock .45 ACP magazine",
+        "uid": "e29a6334-f2ab-41e2-a63d-c9791779620d",
+        "shortName": ".45 Glock"
     }
 ]
