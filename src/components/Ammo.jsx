@@ -8,7 +8,7 @@ import {
 import Graph from './Graph.jsx';
 import useKeyPress from '../hooks/useKeyPress';
 
-import rawData from '../data.json';
+import rawData from '../data/ammo.json';
 
 const MAX_DAMAGE = 170;
 const MAX_PENETRATION = 70;

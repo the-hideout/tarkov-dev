@@ -369,44 +369,42 @@ select {
     z-index: 1;
 }
 
-.barter-icon-1x-1x {
+.barter-icon-1x1 {
     height: var(--grid-base);
     width: var(--grid-base);
 }
 
-.barter-icon-1x-2x {
+.barter-icon-2x1 {
     height: calc(2 * var(--grid-base));
     width: var(--grid-base);
     grid-row-end: span 2;
 }
 
-.barter-icon-1x-3x {
+.barter-icon-1x2,
+.barter-icon-1x3,
+.barter-icon-3x1 {
     height: calc(2 * var(--grid-base));
     width: var(--grid-base);
     grid-row-end: span 2;
 }
 
-.barter-icon-2x-1x {
-    height: calc(2 * var(--grid-base));
-    width: var(--grid-base);
-    grid-row-end: span 2;
-}
-
-.barter-icon-2x-2x {
+.barter-icon-2x2,
+.barter-icon-3x3 {
     height: calc(2 * var(--grid-base));
     width: calc(2 * var(--grid-base));
     grid-row-end: span 2;
     grid-column-end: span 2;
 }
 
-.barter-icon-2x-3x {
+.barter-icon-3x2,
+.barter-icon-2x3 {
     height: calc(2 * var(--grid-base));
     width: calc(3 * var(--grid-base));
     grid-row-end: span 2;
     grid-column-end: span 3;
 }
 
-.barter-icon-2x-4x {
+.barter-icon-4x2 {
     height: calc(2 * var(--grid-base));
     width: calc(4 * var(--grid-base));
     grid-row-end: span 2;

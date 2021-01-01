@@ -7,11 +7,7 @@ const sleep = require('./modules/sleep');
 const fleaMarketFee = require('./modules/flea-market-fee');
 const questData = require('./modules/quests');
 
-const FILES = [
-    'barter-items.json',
-    'keys.json',
-    'mods.json',
-];
+const itemData = require('../src/data/items.json')
 
 const CURRENCY_MODIFIER = {
     "₽": 1,
@@ -51,6 +47,23 @@ const availableLanguages = [
 
         console.timeEnd(`all-${languageCode}`);
 
+        for(let i = 0; i < allItemData[languageCode].length; i = i + 1){
+            allItemData[languageCode][i] = {
+                types: [],
+                fee: fleaMarketFee(allItemData[languageCode][i]),
+                ...allItemData[languageCode][i],
+                ...itemData[allItemData[languageCode][i].bsgId],
+                price: allItemData[languageCode][i].avg24hPrice,
+                traderPrice: allItemData[languageCode][i].traderPrice * CURRENCY_MODIFIER[allItemData[languageCode][i].traderPriceCur],
+            };
+
+            Reflect.deleteProperty(allItemData[languageCode][i], 'bsgId');
+            Reflect.deleteProperty(allItemData[languageCode][i], 'uid');
+            Reflect.deleteProperty(allItemData[languageCode][i], 'reference');
+            Reflect.deleteProperty(allItemData[languageCode][i], 'isFunctional');
+            Reflect.deleteProperty(allItemData[languageCode][i], 'link');
+        }
+
         fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', `all-${languageCode}.json`), JSON.stringify(allItemData[languageCode], null, 4));
 
         const ratScannerData = allItemData[languageCode].map((rawItemData) => {
@@ -79,39 +92,5 @@ const availableLanguages = [
         if(availableLanguages.length > 3){
             await sleep(20000);
         }
-    }
-
-    for(const file of FILES){
-        const allData = {
-            updated: new Date(),
-            data: [],
-        };
-
-        const DATA_PATH = path.join(__dirname, '..', 'src', 'data', file);
-
-        let itemData = JSON.parse(fs.readFileSync(DATA_PATH));
-
-        for(const item of itemData){
-            if(!item.uid){
-                continue;
-            }
-
-            console.log(`Loading data for ${item.name}`);
-            const itemData = allItemData['en'].find(tempItemData => tempItemData.uid === item.uid);
-
-            allData.data.push({
-                ...item,
-                img: itemData.img,
-                link: itemData.link,
-                price: itemData.avg24hPrice,
-                fee: fleaMarketFee(itemData),
-                traderPrice: itemData.traderPrice * CURRENCY_MODIFIER[itemData.traderPriceCur],
-                trader: itemData.traderName,
-                slots: itemData.slots,
-                wikiLink: itemData.wikiLink,
-            });
-        }
-
-        fs.writeFileSync(path.join(__dirname, '..', 'public', file), JSON.stringify(allData, null, 4));
     }
 })();

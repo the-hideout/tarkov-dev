@@ -6,6 +6,8 @@ import Switch from "react-switch";
 
 import BarterGroup from './BarterGroup';
 
+import Items from '../Items';
+
 const groupNames = [
     'S',
     'A',
@@ -21,6 +23,12 @@ const allowedGroups = [
     'mods',
     'keys',
 ];
+
+const groupMap = {
+    'barter-items': 'barter',
+    'mods': 'mod',
+    'keys': 'key',
+};
 
 const arrayChunk = (inputArray, chunkLength) => {
     return inputArray.reduce((resultArray, item, index) => {
@@ -63,18 +71,19 @@ function Barter() {
                 dataSources.push(itemFilter);
             }
 
-            let allItems = [];
-            let result;
-            for(const dataSource of dataSources){
-                result = await fetch(
-                    `${process.env.PUBLIC_URL}/${dataSource}.json`,
-                )
-                    .then(response => response.json());
+            let allowedTypes = dataSources.map(source => groupMap[source]);
 
-                allItems = allItems.concat(result.data);
-            }
+            let allItems = Object.values(Items).filter((item) => {
+                for(const allowedType of allowedTypes){
+                    if(item.types.includes(allowedType)){
+                        return true;
+                    }
+                }
 
-            setUpdateDate(new Date(result.updated));
+                return false;
+            });
+
+            setUpdateDate(new Date());
 
             setItems(allItems);
         }
@@ -87,7 +96,7 @@ function Barter() {
             if(!includeFlea){
                 return {
                     ...item,
-                    sellTo: item.trader,
+                    sellTo: item.traderName,
                     pricePerSlot: Math.floor(item.traderPrice / item.slots),
                 };
             }
@@ -96,7 +105,7 @@ function Barter() {
             const fleaPrice = item.price - item.fee;
 
             if(fleaPrice <= item.traderPrice){
-                sellTo = item.trader;
+                sellTo = item.traderName;
             }
 
             return {

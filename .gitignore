@@ -104,10 +104,14 @@ dist
 .tern-port
 
 build
-src/data.json
+src/data/ammo.json
 tarkov-tools/*
 public/*.json
 !public/manifest.json
 all-en.json
+all-de.json
+all-es.json
+all-fr.json
+all-ru.json
 quests-raw.json
 bsg-all-raw.json

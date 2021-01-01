@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 
-import ammoData from '../data.json';
+import ammoData from '../data/ammo.json';
 import mapData from '../data/maps.json';
 
 const ammoTypes = [...new Set(ammoData.data.map((ammoData) => {

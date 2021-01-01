@@ -1,92 +1,153 @@
 import rawData from './data/all-en.json';
 
-const RotateItemsIds = [
-    '5d0379a886f77420407aa271',
-    '5bc9c1e2d4351e00367fbcf0',
-    '5bc9c049d4351e44f824d360',
-    '59e3556c86f7741776641ac2',
-    '590c5f0d86f77413997acfab',
-    '59faf98186f774067b6be103',
-    '5b43575a86f77424f443fe62',
-    '590de71386f774347051a052',
-    '544fb45d4bdc2dee738b4568',
-    '5e54f62086f774219b0f1937',
-    '573478bc24597738002c6175',
-    '59e3658a86f7741776641ac4',
-    '590a3efd86f77437d351a25b',
-    '59e358a886f7741776641ac3',
-];
-const RotateItemLookupMap = new Map();
-
-RotateItemsIds.forEach((id) => {
-  RotateItemLookupMap.set(id, true);
-});
-
 const getSize = function sizeFromSlots(rawItem) {
-  let size;
+
   switch (rawItem.slots) {
     case 1:
-      size = '1x1';
-      break;
+        return {
+            height: 1,
+            width: 1,
+        };
     case 2:
-      size = '2x1';
-      break;
+        if(rawItem.horizontal){
+            return {
+                height: 1,
+                width: 2,
+            };
+        }
+
+        return {
+            height: 2,
+            width: 1,
+        };
     case 3:
-      size = '3x1';
-      break;
+        if(rawItem.horizontal){
+            return {
+                height: 1,
+                width: 3,
+            };
+        }
+
+        return {
+            height: 3,
+            width: 1,
+        };
     case 4:
-      size = '2x2';
-      break;
+        return {
+            height: 2,
+            width: 2,
+        };
+    case 5:
+        return {
+            height: 1,
+            width: 5,
+        };
     case 6:
-      size = '3x2';
-      break;
+        if(rawItem.horizontal){
+            return {
+                height: 2,
+                width: 3,
+            };
+        }
+
+        return {
+            height: 3,
+            width: 2,
+        };
+    case 7:
+        return {
+            height: 1,
+            width: 7,
+        };
     case 8:
-      size = '4x2';
-      break;
+        return {
+            height: 2,
+            width: 4,
+        };
     case 9:
-      size = '3x3';
-      break;
+        return {
+            height: 3,
+            width: 3,
+        };
     case 10:
-      size = '5x2';
-      break;
+        return {
+            height: 2,
+            width: 5,
+        };
     case 12:
-      size = '3x4';
-      break;
+        return {
+            height: 4,
+            width: 3,
+        };
+    case 15:
+        return {
+            height: 3,
+            width: 5,
+        };
+    case 16:
+        return {
+            height: 4,
+            width: 4,
+        };
+    case 20:
+        return {
+            height: 4,
+            width: 5,
+        };
+    case 25:
+        return {
+            height: 5,
+            width: 5,
+        };
+    case 30:
+        return {
+            height: 6,
+            width: 5,
+        };
     case 35:
-      size = '5x7';
-      break;
+        return {
+            height: 7,
+            width: 5,
+        };
+    case 42:
+        return {
+            height: 8,
+            width: 4,
+        };
     default:
       console.log(
         'could not get size for item with slots',
         rawItem.slots,
         rawItem,
       );
-      size = '1x1';
-      break;
+      return {
+        height: 1,
+        width: 1,
+      };
   }
-
-  if (RotateItemLookupMap.has(rawItem.bsgId)) {
-    size = size.split('x').reverse().join('x');
-  }
-
-  return size;
-};
+}
 
 const items = Object.fromEntries(
   rawData.map((rawItem) => {
     return [
-        rawItem.bsgId,
+        rawItem.id,
         {
-            id: rawItem.bsgId,
-            uid: rawItem.uid,
+            id: rawItem.id,
             name: rawItem.name,
             shortName: rawItem.shortName,
             wikiLink: rawItem.wikiLink,
             // imgLink: rawItem.imgBig,
-            // imgLink: rawItem.img,
-            imgLink: `https://raw.githack.com/RatScanner/EfTIcons/master/uid/${rawItem.bsgId}.png`,
-            gridSize: getSize(rawItem),
+            imgLink: rawItem.img || `https://raw.githack.com/RatScanner/EfTIcons/master/uid/${rawItem.id}.png`,
+            imgIconLink: `https://raw.githack.com/RatScanner/EfTIcons/master/uid/${rawItem.id}.png`,
             canCraftInHideout: false,
+            types: rawItem.types,
+            traderName: rawItem.traderName,
+            traderPrice: rawItem.traderPrice,
+            price: rawItem.price,
+            fee: rawItem.fee,
+            slots: rawItem.slots,
+            horizontal: rawItem.horizontal,
+            ...getSize(rawItem),
         },
     ];
   }),

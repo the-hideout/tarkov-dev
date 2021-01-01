@@ -140,6 +140,6 @@ const getSheetData = async function getSheetData(url){
     };
 
     console.time('Write new data');
-    fs.writeFileSync(path.join(__dirname, '..', 'src', 'data.json'), JSON.stringify(dataset, null, 4));
+    fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'ammo.json'), JSON.stringify(dataset, null, 4));
     console.timeEnd('Write new data');
 })()

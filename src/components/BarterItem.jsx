@@ -1,61 +1,30 @@
-const formatPrice = (price) => {
-    return new Intl.NumberFormat('ru-RU', {
-        style: 'currency',
-        currency: 'RUB',
-        maximumSignificantDigits: 6,
-    }).format(price);
-};
+import BarterItemTooltip from './BarterItemTooltip';
+import BarterItemSellToIcon from './BarterItemSellToIcon';
 
 function BarterItem(props) {
-    const imgClassBase = 'barter-icon-';
-    let imgClass;
-    switch (props.slots){
-        case 2:
-            imgClass = `${imgClassBase}1x-2x`;
-            break;
-        case 3:
-            imgClass = `${imgClassBase}1x-3x`;
-            break;
-        case 4:
-            imgClass = `${imgClassBase}2x-2x`;
-            break;
-        case 6:
-            imgClass = `${imgClassBase}2x-3x`;
-            break;
-        case 8:
-            imgClass = `${imgClassBase}2x-4x`;
-            break;
-        case 9:
-            imgClass = `${imgClassBase}2x-2x`;
-            break;
-        case 1:
-        default:
-            imgClass = `${imgClassBase}1x-1x`;
-    };
-
     let imgSrc = props.src;
+    const noop = () => {};
 
-    if(props.rotate){
-        imgSrc = `//images.weserv.nl/?url=${encodeURIComponent(imgSrc)}&ro=${props.rotate}}`;
-        // imgClass = `${imgClassBase}2x-1x`;
+    if(props.width > props.height && !(props.width === 3 && props.height === 2) && !(props.width === 4 && props.height === 2)){
+        imgSrc = `//images.weserv.nl/?url=${encodeURIComponent(imgSrc)}&ro=-90}`;
+    } else if (props.height === 3 && props.width === 2){
+        imgSrc = `//images.weserv.nl/?url=${encodeURIComponent(imgSrc)}&ro=-90}`;
     }
 
     return <a
-        href= {props.wikiLink}
-        className = {`barter-item ${imgClass}`}
+        href = {props.wikiLink}
+        className = {`barter-item barter-icon-${props.width}x${props.height}`}
+        onClick = {props.onClick|| noop}
     >
-        <span
-            className = {'barter-item-tooltip'}
-        >
-            <div>Value: {formatPrice(props.pricePerSlot * props.slots)}</div>
-            <div>Per slot: {formatPrice(props.pricePerSlot)}</div>
-            <div>Sell to: {props.sellTo}</div>
-        </span>
-        <span
-            className = {'sell-to-icon'}
-        >
-            {props.sellTo.substring(0, 2).toUpperCase()}
-        </span>
+        <BarterItemTooltip
+            pricePerSlot = {props.pricePerSlot}
+            slots = {props.slots}
+            sellTo = {props.sellTo}
+        />
+        <BarterItemSellToIcon
+            sellTo = {props.sellTo}
+        />
+
         <img
             alt = {props.name}
             src = {imgSrc}
