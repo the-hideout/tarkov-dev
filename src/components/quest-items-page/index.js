@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import Switch from 'react-switch';
-import Menu from '../Menu';
+import Menu from '../menu';
 
 import Items from '../../Items';
 import Quests, { QuestObjective } from '../../Quests';

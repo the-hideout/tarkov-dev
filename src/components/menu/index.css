@@ -1,0 +1,204 @@
+.navigation,
+.menu {
+    background-color: #000;
+    color: #9a8866;
+}
+
+.navigation {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 40px;
+}
+
+.navigation a,
+.navigation button {
+    border: 0;
+    border-radius: 3px;
+    color: #9a8866;
+    text-align: left;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.menu {
+    display: none;
+    flex-grow: 1;
+    font-size: 34px;
+    line-height: 1;
+    margin: 1em 0.5em;
+    padding: 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.menu.open {
+    display: block;
+    padding: 20px;
+    position: absolute;
+    margin: 0;
+    top: 52px;
+    z-index: 10;
+}
+
+.menu ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.menu a,
+.menu li,
+.menu span {
+    padding: 0;
+    display: block;
+    margin: 0;
+    text-align: right;
+}
+
+.mobile-icon {
+    font-size: 0;
+    margin-left: auto;
+}
+
+.mobile-icon svg {
+    fill: #9a8866;
+    height: 54px;
+    padding: 3px 8px;
+}
+
+.App.connected .menu {
+    display: none;
+}
+
+.branding {
+    border-radius: 3px;
+    margin: 0 10px;
+    padding: 1px 8px;
+}
+
+.menu button {
+    font-size: 20px;
+}
+
+.menu .submenu-wrapper {
+    background-color: #000;
+    border-radius: 3px;
+    position: relative;
+}
+
+.menu .submenu-wrapper ul {
+    background-color: #000;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    display: none;
+    left: 0;
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+    position: absolute;
+    z-index: 1;
+}
+
+.submenu-wrapper li {
+    align-items: center;
+    display: flex;
+}
+
+.submenu-wrapper input {
+    cursor: pointer;
+    margin: 0 0 0 18px;
+}
+
+.menu .submenu-wrapper ul a {
+    border-radius: 3px;
+    margin: 0 10px;
+    padding: 1px 8px;
+}
+
+.menu a:hover,
+.menu button:hover,
+.menu .submenu-wrapper:hover {
+    color: #000;
+    cursor: pointer;
+    background-color: #9a8866;
+}
+
+.menu .submenu-wrapper:hover > a {
+    color: #000;
+}
+
+.menu .submenu-wrapper:hover ul {
+    display: block;
+}
+
+.menu li:hover button {
+    cursor: pointer;
+    /* text-decoration: underline; */
+}
+
+.external-link {
+    border-radius: 3px;
+    margin: 0 10px;
+    padding: 1px 8px;
+}
+
+.menu .last-link {
+    position: relative;
+    margin-left: auto;
+}
+
+.menu svg {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    top: 3px;
+    margin-right: 8px;
+}
+
+.menu .last-link:hover .supporters-wrapper {
+    display: block;
+}
+
+.supporters-wrapper {
+    background-color: #000;
+    border-radius: 3px;
+    color: #fff;
+    cursor: default;
+    display: none;
+    padding: 10px 20px;
+    position: absolute;
+    right: 0;
+    top: 28px;
+    z-index: 1;
+}
+
+.supporter-wrapper svg:first-of-type {
+    margin-left: 10px;
+}
+
+.supporter-wrapper {
+    font-size: 14px;
+}
+
+@media only screen and (min-width: 768px) {
+    .mobile-icon {
+        display: none;
+    }
+
+    .menu {
+        display: flex;
+        font-size: 24px;
+        margin: 14px;
+        width: auto;
+    }
+
+    .menu > li {
+        border-width: 0 1px 0 0;
+    }
+
+    .menu a,
+    .menu span {
+        padding: 1px 8px;
+    }
+  }

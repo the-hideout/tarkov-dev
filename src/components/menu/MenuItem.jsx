@@ -34,7 +34,9 @@ function MenuItem(props) {
     }, [currentAmmo, props.displayText]);
 
     const handleClick = (event) => {
-        console.log(event);
+        if(props.onClick){
+            props.onClick();
+        }
     };
 
     const getCheckbox = () => {

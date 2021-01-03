@@ -12,9 +12,10 @@ import './App.css';
 import Ammo from './components/Ammo.jsx';
 import Map from './components/Map.jsx';
 import ID from './components/ID.jsx';
-import Control from './components/Control.jsx';
-import Menu from './components/Menu.jsx';
+import Control from './components/control';
+import Menu from './components/menu';
 import Barter from './components/Barter.jsx';
+import Connect from './components/Connect.jsx';
 
 import rawMapData from './data/maps.json';
 import QuestItemsPage from './components/quest-items-page';
@@ -38,6 +39,7 @@ const makeID = function makeID(length) {
  function App() {
     const [sessionID, setSessionID] = useState(makeID(4));
     const [socketConnected, setSocketConnected] = useState(false);
+    const [isControlling, setIsControlling] = useState(false);
     let history = useHistory();
 
     const setID = (newID) => {
@@ -147,9 +149,9 @@ const makeID = function makeID(length) {
 
     let className = 'App';
 
-    // if(socketConnected){
-    //     className = `${className} connected`;
-    // }
+    if(isControlling){
+        className = `${className} connected`;
+    }
 
     return <div
         className = {className}
@@ -237,15 +239,28 @@ const makeID = function makeID(length) {
             >
                 <QuestItemsPage />
             </Route>
+            <Route
+                exact
+                path={'/control'}
+            >
+                <Control
+                    send = {send}
+                    setID = {setID}
+                    sessionID = {sessionID}
+                    socketConnected = {socketConnected}
+                    handleControlling = {setIsControlling}
+                />
+            </Route>
         </Switch>
         <ID
             sessionID = {sessionID}
         />
-        <Control
+        <Connect
             send = {send}
             setID = {setID}
             sessionID = {sessionID}
             socketConnected = {socketConnected}
+            handleControlling = {setIsControlling}
         />
     </div>
 }

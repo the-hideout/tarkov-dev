@@ -1,46 +1,19 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 
-import ammoData from '../data/ammo.json';
-import mapData from '../data/maps.json';
+import ammoData from '../../data/ammo.json';
+import mapData from '../../data/maps.json';
+
+import './index.css';
 
 const ammoTypes = [...new Set(ammoData.data.map((ammoData) => {
     return ammoData.type
 }))].sort();
 
 function Control(props) {
-    const [connectionText, setConnectionText] = useState('Connect');
-    const [connectID, setConnectID] = useState(props.sessionID);
-
-    const inputRef = useRef(null);
     const typeRefs = {
         ammo: useRef(null),
         map: useRef(null),
         lootTier: useRef(null),
-    };
-
-    const handleConnectClick = (event) => {
-        if(connectID.length !== 4){
-            inputRef.current.focus();
-
-            return true;
-        }
-
-        setConnectionText(`Connected to ${props.sessionID}`);
-
-        props.send({
-            type: 'command',
-            data: {
-                type: 'map',
-                value: document.querySelector('[name="map"]').value,
-            },
-        });
-    };
-
-    const handleIDChange = (event) => {
-        const tempConnectID = event.target.value.trim().toUpperCase().substring(0, 4);
-        props.setID(tempConnectID);
-
-        setConnectID(tempConnectID);
     };
 
     const handleMapChange = () => {
@@ -77,8 +50,6 @@ function Control(props) {
             },
         });
     };
-
-    // return null;
 
     return <div className="control-wrapper">
         <div
@@ -164,25 +135,8 @@ function Control(props) {
         <div className="info-wrapper">
             Load this page in another browser to control it from here.
             <p>
-                Wanna view the desktop version? Flip your phone to landscape mode.
+                Don't wanna control any more? Just <a href="/">go here</a>.
             </p>
-        </div>
-        <div className="connection-wrapper">
-            <input
-                maxLength = "4"
-                minLength = "4"
-                name = "session-id"
-                onChange = {handleIDChange}
-                placeholder = "desktop id"
-                ref = {inputRef}
-                type = "text"
-            />
-            <input
-                disabled = {!props.socketConnected}
-                onClick = {handleConnectClick}
-                type = "submit"
-                value = {connectionText}
-            />
         </div>
     </div>
 }

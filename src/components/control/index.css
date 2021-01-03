@@ -1,0 +1,47 @@
+
+.control-wrapper {
+    display: flex;
+    flex-flow: column;
+    padding: 15px;
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+}
+
+.control-wrapper span {
+    width: 100%;
+}
+
+.control-wrapper input,
+.control-wrapper select {
+    border: 0;
+    height: 40px;
+    width: 100%;
+}
+
+.control-section {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.control-section select {
+    width: 70%;
+}
+
+.control-section button {
+    border: 0;
+    height: 40px;
+    margin-left: auto;
+    padding: 0;
+    width: 28%;
+}
+
+.control-section .full-width {
+    width: 100%;
+}
+
+.info-wrapper {
+    margin-top: auto;
+    padding: 20px;
+    text-align: center;
+}
