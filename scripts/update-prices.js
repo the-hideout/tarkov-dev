@@ -90,7 +90,7 @@ const availableLanguages = [
         fs.writeFileSync(path.join(__dirname, '..', 'public', 'data', `all-${languageCode}.json`), JSON.stringify(ratScannerData, null, 4));
 
         if(availableLanguages.length > 3){
-            await sleep(20000);
+            await sleep(30000);
         }
     }
 })();
