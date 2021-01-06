@@ -66,7 +66,7 @@ const styles = {
             padding: 2
         },
     },
-    annoationLine: {
+    annotionLine: {
         data: {
             stroke: "#888",
             strokeWidth: 0.5,
@@ -99,6 +99,42 @@ const LegendLabel = props => {
     return <VictoryLabel {...props} style={style} />;
 };
 
+const getChestLine = xMax => {
+    if(xMax < 86){
+        return false;
+    }
+
+    return <VictoryLine
+        style={styles.annotionLine}
+        labels={["Chest HP"]}
+        labelComponent={
+            <VictoryLabel
+                textAnchor = 'middle'
+                verticalAnchor = 'middle'
+                dx = {xMax / 2}
+            />
+        }
+        x={() => 85}
+    />
+};
+
+const getArmorLabel = (tier, yMax, xMax) => {
+    if(tier * 10 > yMax){
+        return false;
+    }
+
+    return <VictoryLabel
+        text = {`Class ${tier}`}
+        style = {styles.classLabel}
+        datum = {{
+            x: xMax / 100,
+            y: tier * 10 + 1,
+        }}
+        textAnchor = "start"
+        verticalAnchor = "end"
+    />
+};
+
 const Graph = props => {
     return (
         <VictoryChart
@@ -111,9 +147,13 @@ const Graph = props => {
             }}
             height={180}
             theme={VictoryTheme.material}
+            minDomain = {{
+                y: 0,
+                x: 0,
+            }}
             maxDomain = {{
-                y: 70,
-                x: props.yMax,
+                y: props.yMax,
+                x: props.xMax,
             }}
             // containerComponent={<VictoryVoronoiContainer/>}
             // animate={{ duration: 2000, easing: "bounce" }}
@@ -144,7 +184,7 @@ const Graph = props => {
                 x="damage"
                 y="penetration"
             />
-            <VictoryScatter
+            {/* <VictoryScatter
                 dataComponent = {<Symbol />}
                 style={styles.scatter}
                 labelComponent={<VictoryLabel dy={-3} />}
@@ -159,7 +199,7 @@ const Graph = props => {
                 data={props.listState}
                 x="damage"
                 y="penetration"
-            />
+            /> */}
             <VictoryLegend
                 data={props.legendData}
                 dataComponent = {<Symbol />}
@@ -179,18 +219,28 @@ const Graph = props => {
                 x={312}
                 y={9}
             />
-            <VictoryLine
-                style={styles.annoationLine}
-                labels={["Chest HP"]}
-                labelComponent={
-                    <VictoryLabel
-                        y={85}
-                        x={163}
-                    />
-                }
-                x={() => 85}
-            />
-            <VictoryLabel
+            {
+                getChestLine(props.xMax)
+            }
+            {
+                getArmorLabel(1, props.yMax, props.xMax)
+            }
+            {
+                getArmorLabel(2, props.yMax, props.xMax)
+            }
+            {
+                getArmorLabel(3, props.yMax, props.xMax)
+            }
+            {
+                getArmorLabel(4, props.yMax, props.xMax)
+            }
+            {
+                getArmorLabel(5, props.yMax, props.xMax)
+            }
+            {
+                getArmorLabel(6, props.yMax, props.xMax)
+            }
+            {/* <VictoryLabel
                 text="Class 1"
                 style= {styles.classLabel}
                 datum={{ x: 5, y: 11 }}
@@ -231,7 +281,7 @@ const Graph = props => {
                 datum={{ x: 5, y: 61 }}
                 textAnchor="start"
                 verticalAnchor="end"
-            />
+            /> */}
         </VictoryChart>
     );
 }

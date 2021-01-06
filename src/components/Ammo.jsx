@@ -58,6 +58,10 @@ function Ammo() {
     const history = useHistory();
     const [selectedLegendName, setSelectedLegendName] = useState(currentAmmoList);
     const shiftPress = useKeyPress('Shift');
+    const [maxPenetration, setMaxPenetration] = useState(MAX_PENETRATION);
+    const [minPenetration, setMinPenetration] = useState(0);
+    const [maxDamage, setMaxDamage] = useState(MAX_DAMAGE);
+    const [minDamage, setMinDamage] = useState(0);
 
     useEffect(() => {
         if(currentAmmo === []){
@@ -74,9 +78,30 @@ function Ammo() {
     }, [currentAmmo]);
 
     const listState = useMemo(() => {
-        return formattedData.filter(ammo =>
+        let tempMaxPen = 0;
+        let tempMinPen = MAX_PENETRATION;
+        let tempMaxDmg = 0;
+        let tempMinDmg = MAX_DAMAGE;
+
+        const returnData = formattedData.filter(ammo =>
             !selectedLegendName || selectedLegendName.length === 0 || selectedLegendName.includes(ammo.type)
         ).map((ammo) => {
+            if(ammo.penetration > tempMaxPen){
+                tempMaxPen = ammo.penetration;
+            }
+
+            if (ammo.penetration < tempMinPen ){
+                tempMinPen = ammo.penetration;
+            }
+
+            if(ammo.damage > tempMaxDmg){
+                tempMaxDmg = ammo.damage;
+            }
+
+            if(ammo.damage < tempMinDmg){
+                tempMinDmg = ammo.damage;
+            }
+
             if(!shiftPress){
                 return ammo;
             }
@@ -86,6 +111,13 @@ function Ammo() {
                 name: `${ammo.name} (${ammo.fragChance})`,
             };
         });
+
+        setMaxPenetration(tempMaxPen);
+        setMinPenetration(tempMinPen);
+        setMaxDamage(tempMaxDmg);
+        setMinDamage(tempMinDmg);
+
+        return returnData;
     }, [selectedLegendName, shiftPress]);
 
     const handleLegendClick = useCallback((event, { datum: { name } }) => {
@@ -107,23 +139,25 @@ function Ammo() {
 
     }, [selectedLegendName, setSelectedLegendName, history]);
 
-    return (
-        <div>
-            <div
-                className = {'updated-label'}
-            >
-                {`Ammo updated: ${new Date(rawData.updated).toLocaleDateString()}`}
-            </div>
-            <Graph
-                rawData = {rawData}
-                listState = {listState}
-                legendData = {legendData}
-                selectedLegendName = {selectedLegendName}
-                handleLegendClick = {handleLegendClick}
-                yMax = {MAX_DAMAGE}
-            />
-        </div>
-    );
+    return [
+        <div
+            className = {'updated-label'}
+            key = {'ammo-updated-label'}
+        >
+            {`Ammo updated: ${new Date(rawData.updated).toLocaleDateString()}`}
+        </div>,
+        <Graph
+            key = 'ammo-graph'
+            listState = {listState}
+            legendData = {legendData}
+            selectedLegendName = {selectedLegendName}
+            handleLegendClick = {handleLegendClick}
+            xMin = {Math.max(0, minDamage - 10)}
+            xMax = {Math.min(MAX_DAMAGE, maxDamage + 10)}
+            yMin = {Math.max(0, minPenetration - 10)}
+            yMax = {Math.min(MAX_PENETRATION, maxPenetration + 10)}
+        />
+    ];
 }
 
 export default Ammo;
