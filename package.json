@@ -14,6 +14,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.0",
     "react-switch": "^5.0.1",
+    "react-table": "^7.6.2",
     "react-zoom-pan-pinch": "^1.6.1",
     "resize-observer-polyfill": "^1.5.1",
     "victory": "^35.3.1"

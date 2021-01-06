@@ -55,6 +55,7 @@ const availableLanguages = [
                 ...itemData[allItemData[languageCode][i].bsgId],
                 price: allItemData[languageCode][i].avg24hPrice,
                 traderPrice: allItemData[languageCode][i].traderPrice * CURRENCY_MODIFIER[allItemData[languageCode][i].traderPriceCur],
+                id: allItemData[languageCode][i].bsgId,
             };
 
             Reflect.deleteProperty(allItemData[languageCode][i], 'bsgId');

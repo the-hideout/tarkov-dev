@@ -1,7 +1,6 @@
 import rawData from './data/all-en.json';
 
 const getSize = function sizeFromSlots(rawItem) {
-
   switch (rawItem.slots) {
     case 1:
         return {

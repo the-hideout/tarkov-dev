@@ -1,0 +1,14 @@
+.barter-table {
+    border: 0;
+    max-width: 768px;
+    margin: 0 auto;
+}
+
+.cost-wrapper {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.cost-wrapper div {
+    width: 100%;
+}
