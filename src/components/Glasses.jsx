@@ -3,14 +3,6 @@ import {useMemo} from 'react';
 import DataTable from './data-table';
 import items from '../Items';
 
-const formatPrice = (price) => {
-    return new Intl.NumberFormat('ru-RU', {
-        style: 'currency',
-        currency: 'RUB',
-        maximumSignificantDigits: 6,
-    }).format(price);
-};
-
 let displayItems = [];
 
 for(const item of Object.values(items)){

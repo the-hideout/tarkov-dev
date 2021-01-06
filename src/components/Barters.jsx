@@ -2,16 +2,9 @@ import {useMemo} from 'react';
 
 import DataTable from './data-table';
 import items from '../Items';
+import formatPrice from '../modules/format-price';
 
 import rawData from '../data/barters.json';
-
-const formatPrice = (price) => {
-    return new Intl.NumberFormat('ru-RU', {
-        style: 'currency',
-        currency: 'RUB',
-        maximumSignificantDigits: 6,
-    }).format(price);
-};
 
 function priceCell({ value }) {
     return <span>{formatPrice(value)}</span>;

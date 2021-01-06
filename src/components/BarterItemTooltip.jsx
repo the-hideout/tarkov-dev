@@ -1,10 +1,4 @@
-const formatPrice = (price) => {
-    return new Intl.NumberFormat('ru-RU', {
-        style: 'currency',
-        currency: 'RUB',
-        maximumSignificantDigits: 6,
-    }).format(price);
-};
+import formatPrice from '../modules/format-price';
 
 function BarterItemTooltip(props) {
     if(!props.pricePerSlot){
