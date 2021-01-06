@@ -147,6 +147,7 @@ const items = Object.fromEntries(
             slots: rawItem.slots,
             horizontal: rawItem.horizontal,
             ...getSize(rawItem),
+            itemProperties: rawItem.itemProperties,
         },
     ];
   }),

@@ -1,0 +1,26 @@
+.data-table {
+    border: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.data-cell {
+    padding: 0 15px;
+}
+
+.cost-wrapper {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.cost-wrapper div {
+    width: 100%;
+}
+
+.data-table .center-content {
+    text-align: center;
+}
+
+.data-table .table-image {
+    max-width: 64px;
+}

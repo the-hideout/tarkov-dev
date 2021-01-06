@@ -2,7 +2,7 @@ import { useTable, useSortBy } from 'react-table';
 
 import './index.css';
 
-function BarterTable({ columns, data }) {
+function DataTable({ columns, data }) {
     // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -18,7 +18,7 @@ function BarterTable({ columns, data }) {
   // Render the UI for your table
   return (
     <table
-        className = {'barter-table'}
+        className = {'data-table'}
         {
             ...getTableProps()
         }
@@ -31,11 +31,7 @@ function BarterTable({ columns, data }) {
               {column.render('Header')}
               {/* Add a sort direction indicator */}
               <span>
-                {column.isSorted
-                  ? column.isSortedDesc
-                    ? ' 🔽'
-                    : ' 🔼'
-                  : ''}
+                {column.isSorted ? column.isSortedDesc ? ' 🔽' : ' 🔼': ''}
               </span>
             </th>
             ))}
@@ -49,7 +45,10 @@ function BarterTable({ columns, data }) {
                 <tr {...row.getRowProps()}>
                 {row.cells.map(cell => {
                     return <td
-                        {...cell.getCellProps()}
+                        className = {'data-cell'}
+                        {
+                            ...cell.getCellProps()
+                        }
                     >
                         {cell.render('Cell')}
                     </td>
@@ -62,6 +61,6 @@ function BarterTable({ columns, data }) {
   )
 }
 
-export default BarterTable;
+export default DataTable;
 
 

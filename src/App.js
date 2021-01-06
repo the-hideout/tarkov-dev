@@ -16,7 +16,8 @@ import Control from './components/control';
 import Menu from './components/menu';
 import Barter from './components/Barter.jsx';
 import Connect from './components/Connect.jsx';
-import Barters from './components/barters';
+import Barters from './components/Barters';
+import Glasses from './components/Glasses';
 
 import rawMapData from './data/maps.json';
 import QuestItemsPage from './components/quest-items-page';
@@ -248,6 +249,21 @@ const makeID = function makeID(length) {
                     />
                 </Helmet>
                 <Barters />
+            </Route>
+            <Route
+                exact
+                path={'/glasses/'}
+            >
+                <Menu />
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>Tarkov eye protection</title>
+                    <meta
+                        name="description"
+                        content="All available items for eye protection and their stats"
+                    />
+                </Helmet>
+                <Glasses />
             </Route>
             <Route
                 exact

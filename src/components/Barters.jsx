@@ -1,9 +1,9 @@
 import {useMemo} from 'react';
 
-import BarterTable from './barter-table';
-import items from '../../Items';
+import DataTable from './data-table';
+import items from '../Items';
 
-import rawData from '../../data/barters.json';
+import rawData from '../data/barters.json';
 
 const formatPrice = (price) => {
     return new Intl.NumberFormat('ru-RU', {
@@ -33,6 +33,20 @@ function costCell({ value }) {
 function Barters() {
     const columns = useMemo(
         () => [
+            {
+                accessor: 'image',
+                Cell: ({ value }) => {
+                    return <div
+                        className = 'center-content'
+                    >
+                        <img
+                            alt = ''
+                            className = 'table-image'
+                            src = { value }
+                        />
+                    </div>
+                },
+            },
             {
                 Header: 'Trader',
                 accessor: 'trader',
@@ -67,6 +81,7 @@ function Barters() {
 
         const tradeData = {
             trader: barterRow.trader,
+            image: rewardItem.imgLink,
             cost: barterRow.requiredItems.map(item => {
                     cost = cost + items[item.id].price * item.count;
 
@@ -83,7 +98,7 @@ function Barters() {
         return itemB.savings - itemA.savings;
     }), [])
 
-    return <BarterTable
+    return <DataTable
         columns={columns}
         data={data}
     />

@@ -24,8 +24,33 @@ const availableLanguages = [
     'cn',
 ];
 
+const mappingProperties = [
+    {
+        propertyKey: 'BlindnessProtection',
+        type: 'glasses',
+    },
+];
+
 (async () => {
     let allItemData = {};
+    let bsgData = false;
+
+    try {
+        const response = await got('https://tarkov-market.com/api/v1/bsg/items/all', {
+            headers: {
+                'x-api-key': process.env.TARKOV_MARKET_API_KEY,
+            },
+            responseType: 'json',
+        });
+
+        bsgData = response.body;
+    } catch (requestError){
+        console.error(requestError);
+
+        // We wan't CI to stop here
+        process.exit(1);
+    }
+
     for(const languageCode of availableLanguages){
         try {
             const response = await got(`https://tarkov-market.com/api/v1/items/all?lang=${languageCode}`, {
@@ -48,6 +73,8 @@ const availableLanguages = [
         console.timeEnd(`all-${languageCode}`);
 
         for(let i = 0; i < allItemData[languageCode].length; i = i + 1){
+            const bsgItemData = bsgData[allItemData[languageCode][i].bsgId];
+
             allItemData[languageCode][i] = {
                 types: [],
                 fee: fleaMarketFee(allItemData[languageCode][i]),
@@ -56,7 +83,17 @@ const availableLanguages = [
                 price: allItemData[languageCode][i].avg24hPrice,
                 traderPrice: allItemData[languageCode][i].traderPrice * CURRENCY_MODIFIER[allItemData[languageCode][i].traderPriceCur],
                 id: allItemData[languageCode][i].bsgId,
+                itemProperties: {},
             };
+
+            for(const extraProp of mappingProperties){
+                if(!bsgItemData._props[extraProp.propertyKey]){
+                    continue;
+                }
+
+                allItemData[languageCode][i].types.push(extraProp.type);
+                allItemData[languageCode][i].itemProperties[extraProp.propertyKey] = bsgItemData._props[extraProp.propertyKey];
+            }
 
             Reflect.deleteProperty(allItemData[languageCode][i], 'bsgId');
             Reflect.deleteProperty(allItemData[languageCode][i], 'uid');
