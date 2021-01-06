@@ -10,8 +10,6 @@ for(const item of Object.values(items)){
         continue;
     }
 
-    console.log(item);
-
     displayItems.push(item);
 }
 
