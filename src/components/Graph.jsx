@@ -240,48 +240,6 @@ const Graph = props => {
             {
                 getArmorLabel(6, props.yMax, props.xMax)
             }
-            {/* <VictoryLabel
-                text="Class 1"
-                style= {styles.classLabel}
-                datum={{ x: 5, y: 11 }}
-                textAnchor="start"
-                verticalAnchor="end"
-            />
-            <VictoryLabel
-                text="Class 2"
-                style= {styles.classLabel}
-                datum={{ x: 5, y: 21 }}
-                textAnchor="start"
-                verticalAnchor="end"
-            />
-            <VictoryLabel
-                text="Class 3"
-                style= {styles.classLabel}
-                datum={{ x: 5, y: 31 }}
-                textAnchor="start"
-                verticalAnchor="end"
-            />
-            <VictoryLabel
-                text="Class 4"
-                style= {styles.classLabel}
-                datum={{ x: 5, y: 41 }}
-                textAnchor="start"
-                verticalAnchor="end"
-            />
-            <VictoryLabel
-                text="Class 5"
-                style= {styles.classLabel}
-                datum={{ x: 5, y: 51 }}
-                textAnchor="start"
-                verticalAnchor="end"
-            />
-            <VictoryLabel
-                text="Class 6"
-                style= {styles.classLabel}
-                datum={{ x: 5, y: 61 }}
-                textAnchor="start"
-                verticalAnchor="end"
-            /> */}
         </VictoryChart>
     );
 }
