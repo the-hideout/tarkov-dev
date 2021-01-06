@@ -7,6 +7,7 @@ import {
     VictoryLine,
     VictoryLabel,
     VictoryAxis,
+    VictoryContainer,
 } from 'victory';
 
 import Symbol from './Symbol.jsx';
@@ -156,8 +157,13 @@ const Graph = props => {
                 y: props.yMax,
                 x: props.xMax,
             }}
-            // containerComponent={<VictoryVoronoiContainer/>}
-            // animate={{ duration: 2000, easing: "bounce" }}
+            containerComponent={
+                <VictoryContainer
+                  style={{
+                    touchAction: "auto"
+                  }}
+                />
+              }
         >
             <VictoryAxis
                 axisLabelComponent={<VictoryLabel x={177}/>}
