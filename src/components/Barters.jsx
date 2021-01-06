@@ -7,7 +7,11 @@ import formatPrice from '../modules/format-price';
 import rawData from '../data/barters.json';
 
 function priceCell({ value }) {
-    return <span>{formatPrice(value)}</span>;
+    return <div
+        className = 'center-content'
+    >
+        {formatPrice(value)}
+    </div>;
 };
 
 function createMarkup(htmlString) {
