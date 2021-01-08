@@ -102,6 +102,7 @@ const Menu = () => {
                 >
                     <Link
                         to = '/loot-tier/'
+                        onClick = {setIsOpen.bind(this, false)}
                     >
                         Loot tiers
                     </Link>
@@ -128,6 +129,7 @@ const Menu = () => {
                 >
                     <Link
                         to = '/control/'
+                        onClick = {setIsOpen.bind(this, false)}
                     >
                         Remote control
                     </Link>
