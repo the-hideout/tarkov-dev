@@ -1,7 +1,4 @@
 import { useState, useEffect } from 'react';
-import {
-    useParams,
-} from "react-router-dom";
 import Switch from "react-switch";
 import Select from 'react-select'
 
@@ -20,17 +17,17 @@ const groupNames = [
     'F',
 ];
 
-const allowedGroups = [
-    'barter-items',
-    'mods',
-    'keys',
-];
+// const allowedGroups = [
+//     'barter-items',
+//     'mods',
+//     'keys',
+// ];
 
-const groupMap = {
-    'barter-items': 'barter',
-    'mods': 'mod',
-    'keys': 'key',
-};
+// const groupMap = {
+//     'barter-items': 'barter',
+//     'mods': 'mod',
+//     'keys': 'key',
+// };
 
 const filterOptions = [
     {
@@ -82,7 +79,6 @@ const arrayChunk = (inputArray, chunkLength) => {
 function Barter() {
     const [items, setItems] = useState([]);
     const [updateDate, setUpdateDate] = useState(new Date());
-    const {currentLoot} = useParams();
     const [nameFilter, setNameFilter] = useState('');
     const [numberFilter, setNumberFilter] = useState(244);
     const [includeFlea, setIncludeFlea] = useState(true);
@@ -110,45 +106,47 @@ function Barter() {
 
     useEffect(() => {
         async function fetchData(){
-            let itemFilter = currentLoot;
-            let dataSources = [];
-            if(!currentLoot || currentLoot === 'barter'){
-                itemFilter = 'barter-items';
-            }
+            // let itemFilter = currentLoot;
+            // let dataSources = [];
+            // if(!currentLoot || currentLoot === 'barter'){
+            //     itemFilter = 'barter-items';
+            // }
 
-            if(itemFilter.includes(',')){
-                dataSources = itemFilter
-                    .split(',')
-                    .filter((potentialGroup) => {
-                        return allowedGroups.includes(potentialGroup);
-                    });
-            } else {
-                dataSources.push(itemFilter);
-            }
+            // if(itemFilter.includes(',')){
+            //     dataSources = itemFilter
+            //         .split(',')
+            //         .filter((potentialGroup) => {
+            //             return allowedGroups.includes(potentialGroup);
+            //         });
+            // } else {
+            //     dataSources.push(itemFilter);
+            // }
 
-            let allowedTypes = dataSources.map(source => groupMap[source]);
+            // let allowedTypes = dataSources.map(source => groupMap[source]);
 
-            let allItems = Object.values(Items).filter((item) => {
-                if(item.types.includes('un-lootable')){
-                    return false;
-                }
 
-                if(!includeMarked && item.types.includes('marked-only')){
-                    return false;
-                }
-
-                const intersection = item.types.filter(type => filters.types?.includes(type));
-
-                return intersection.length > 0;
-            });
-
-            setUpdateDate(new Date());
-
-            setItems(allItems);
         }
 
+        let allItems = Object.values(Items).filter((item) => {
+            if(item.types.includes('un-lootable')){
+                return false;
+            }
+
+            if(!includeMarked && item.types.includes('marked-only')){
+                return false;
+            }
+
+            const intersection = item.types.filter(type => filters.types?.includes(type));
+
+            return intersection.length > 0;
+        });
+
+        setUpdateDate(new Date());
+
+        setItems(allItems);
+
         fetchData();
-    }, [currentLoot, setItems, filters, includeMarked]);
+    }, [setItems, filters, includeMarked]);
 
     useEffect(() => {
         const filteredItems = items.map((item) => {

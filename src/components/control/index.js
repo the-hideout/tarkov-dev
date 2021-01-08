@@ -37,9 +37,9 @@ function Control(props) {
         handleViewChange('ammo', ammoValues.join(','));
     };
 
-    const handleLootTierChange = () => {
-        handleViewChange('loot-tier', typeRefs['lootTier'].current.value);
-    };
+    // const handleLootTierChange = () => {
+    //     handleViewChange('loot-tier', typeRefs['lootTier'].current.value);
+    // };
 
     const handleViewChange = (view, eventOrValue) => {
         let value = eventOrValue.target?.value || eventOrValue;
