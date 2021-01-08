@@ -45,3 +45,26 @@
     padding: 20px;
     text-align: center;
 }
+
+.connection-wrapper {
+    bottom: 2vh;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.connection-wrapper input,
+.connection-wrapper select {
+    border-radius: 0;
+    border: 0;
+    height: 40px;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    width: calc(50% - 2px);
+    margin: 10px;
+}
+
+.connection-wrapper input[type="submit"]:active {
+    position: relative;
+    top: 1px;
+}
