@@ -26,8 +26,6 @@ import {
 
         setConnectionText(`Connected to ${props.sessionID}`);
 
-        props.handleControlling(true);
-
         history.push(`/control/`);
     };
 
@@ -39,7 +37,7 @@ import {
             minLength = "4"
             name = "session-id"
             onChange = {handleIDChange}
-            placeholder = "desktop id"
+            placeholder = "id to control"
             ref = {inputRef}
             type = "text"
         />

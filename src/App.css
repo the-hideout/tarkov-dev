@@ -56,10 +56,6 @@ select {
     position: relative;
 }
 
-.App.connected .display-wrapper {
-    display: none;
-}
-
 .updated-label {
     color: #ccc;
     font-size: 10px;
@@ -326,30 +322,6 @@ select {
     grid-column-end: span 4;
 }
 
-.connection-wrapper {
-    bottom: 2vh;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 15px;
-    position: fixed;
-    width: 100%;
-}
-
-.connection-wrapper input,
-.connection-wrapper select {
-    border-radius: 0;
-    border: 0;
-    height: 40px;
-    text-overflow: ellipsis;
-    text-transform: uppercase;
-    width: calc(50% - 2px);
-}
-
-.connection-wrapper input[type="submit"]:active {
-    position: relative;
-    top: 1px;
-}
-
 .id-wrapper {
     background-color: rgba(0,0,0,0.5);
     bottom: 0;
@@ -494,18 +466,6 @@ select {
     }
 
     .id-wrapper {
-        display: block;
-    }
-
-    .connection-wrapper {
-        display: none;
-    }
-
-    .App.connected .control-section {
-        display: flex;
-    }
-
-    .App.connected .info-wrapper {
         display: block;
     }
 

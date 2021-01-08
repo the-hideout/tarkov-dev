@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 
+import Connect from './Connect.jsx';
+
 import ammoData from '../../data/ammo.json';
 import mapData from '../../data/maps.json';
 
@@ -101,7 +103,7 @@ function Control(props) {
                 Go
             </button>
         </div>
-        <div
+        {/* <div
             className = {'control-section'}
         >
             <span>View loot tiers:</span>
@@ -131,13 +133,16 @@ function Control(props) {
             >
                 Go
             </button>
-        </div>
+        </div> */}
         <div className="info-wrapper">
-            Load this page in another browser to control it from here.
-            <p>
-                Don't wanna control any more? Just <a href="/">go here</a>.
-            </p>
+            Load tarkov-tools in another browser or window to control it from here
         </div>
+        <Connect
+            send = {props.send}
+            setID = {props.setID}
+            sessionID = {props.sessionID}
+            socketConnected = {props.socketConnected}
+        />
     </div>
 }
 

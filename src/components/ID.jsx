@@ -27,11 +27,11 @@ function ID(props) {
 
     return <div
         className={`id-wrapper ${ sideClass }`}
-        alt="open this page on your phone and connect using this id"
-        title="open this page on your phone and connect using this id"
+        alt="open this page in another browser or window and connect using this id"
+        title="open this page in another browser or window and connect using this id"
     >
         <div className="update-label">
-            Code for phone control
+            ID for remote control
             <span
                 className="session-question"
             >
@@ -39,7 +39,7 @@ function ID(props) {
                 <div
                     className="session-popup"
                 >
-                    Go to tarkov tools with your phone and enter this ID to control this webpage with your phone
+                    Go to tarkov tools with another browser and enter this ID to control this page from there
                 </div>
             </span>
             <button

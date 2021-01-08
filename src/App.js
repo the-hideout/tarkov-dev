@@ -15,7 +15,6 @@ import ID from './components/ID.jsx';
 import Control from './components/control';
 import Menu from './components/menu';
 import Barter from './components/Barter.jsx';
-import Connect from './components/Connect.jsx';
 import Barters from './components/Barters';
 import Glasses from './components/Glasses';
 
@@ -41,7 +40,6 @@ const makeID = function makeID(length) {
  function App() {
     const [sessionID, setSessionID] = useState(makeID(4));
     const [socketConnected, setSocketConnected] = useState(false);
-    const [isControlling, setIsControlling] = useState(false);
     let history = useHistory();
 
     const setID = (newID) => {
@@ -149,14 +147,8 @@ const makeID = function makeID(length) {
         }));
     }, [sessionID]);
 
-    let className = 'App';
-
-    if(isControlling){
-        className = `${className} connected`;
-    }
-
     return <div
-        className = {className}
+        className = 'App'
     >
         <Helmet>
             <meta charSet="utf-8" />
@@ -197,6 +189,9 @@ const makeID = function makeID(length) {
                     </Helmet>
                     <Ammo />
                 </div>
+                <ID
+                    sessionID = {sessionID}
+                />
             </Route>
             <Route
                 path="/map/:currentMap"
@@ -215,6 +210,9 @@ const makeID = function makeID(length) {
                     </Helmet>
                     <Map />
                 </div>
+                <ID
+                    sessionID = {sessionID}
+                />
             </Route>
             <Route
                 exact
@@ -234,6 +232,9 @@ const makeID = function makeID(length) {
                     </Helmet>
                     <Barter />
                 </div>
+                <ID
+                    sessionID = {sessionID}
+                />
             </Route>
             <Route
                 exact
@@ -249,6 +250,9 @@ const makeID = function makeID(length) {
                     />
                 </Helmet>
                 <Barters />
+                <ID
+                    sessionID = {sessionID}
+                />
             </Route>
             <Route
                 exact
@@ -264,36 +268,32 @@ const makeID = function makeID(length) {
                     />
                 </Helmet>
                 <Glasses />
+                <ID
+                    sessionID = {sessionID}
+                />
             </Route>
             <Route
                 exact
                 path={'/quest-items'}
             >
                 <QuestItemsPage />
+                <ID
+                    sessionID = {sessionID}
+                />
             </Route>
             <Route
                 exact
                 path={'/control'}
             >
+                <Menu />
                 <Control
                     send = {send}
                     setID = {setID}
                     sessionID = {sessionID}
                     socketConnected = {socketConnected}
-                    handleControlling = {setIsControlling}
                 />
             </Route>
         </Switch>
-        <ID
-            sessionID = {sessionID}
-        />
-        <Connect
-            send = {send}
-            setID = {setID}
-            sessionID = {sessionID}
-            socketConnected = {socketConnected}
-            handleControlling = {setIsControlling}
-        />
     </div>
 }
 

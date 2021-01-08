@@ -101,11 +101,11 @@ const Menu = () => {
                     className = "submenu-wrapper"
                 >
                     <Link
-                        to = '/loot-tier/barter-items'
+                        to = '/loot-tier/'
                     >
                         Loot tiers
                     </Link>
-                    <ul>
+                    {/* <ul>
                         <MenuItem
                             displayText = {'Barter Items'}
                             to = {`/loot-tier/barter-items`}
@@ -121,7 +121,16 @@ const Menu = () => {
                             to = {`/loot-tier/keys`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
-                    </ul>
+                    </ul> */}
+                </li>
+                <li
+                    className = "submenu-wrapper"
+                >
+                    <Link
+                        to = '/control/'
+                    >
+                        Remote control
+                    </Link>
                 </li>
                 <a
                     className = {'external-link'}
