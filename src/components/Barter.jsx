@@ -65,7 +65,7 @@ const arrayChunk = (inputArray, chunkLength) => {
 };
 
 function Barter() {
-    const [numberFilter, setNumberFilter] = useState(244);
+    const [numberFilter] = useState(244);
     const [minPrice, setMinPrice] = useState(0);
     const [includeFlea, setIncludeFlea] = useState(true);
     const [includeMarked, setIncludeMarked] = useState(false);
@@ -276,11 +276,11 @@ function Barter() {
                     onChange = {handleFilterChange}
                     classNamePrefix="select"
                 />
-                <input
+                {/* <input
                     type = {'number'}
                     placeholder = {'max items'}
                     onChange = {e => setNumberFilter(Math.max(7, Number(e.target.value)))}
-                />
+                /> */}
                 <input
                     type = {'number'}
                     placeholder = {'min value'}
