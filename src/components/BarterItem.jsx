@@ -1,14 +1,28 @@
 import BarterItemTooltip from './BarterItemTooltip';
 import BarterItemSellToIcon from './BarterItemSellToIcon';
 
+const sizesNotToRotate = [
+    '3x2',
+    '4x2',
+    '5x1',
+    '5x2',
+    '5x3',
+];
+
+const sizesToAlwaysRotate = [
+    '2x3',
+];
+
 function BarterItem(props) {
     let imgSrc = props.src;
     const noop = () => {};
 
-    if(props.width > props.height && !(props.width === 3 && props.height === 2) && !(props.width === 4 && props.height === 2)){
-        imgSrc = `//images.weserv.nl/?url=${encodeURIComponent(imgSrc)}&ro=-90}`;
-    } else if (props.height === 3 && props.width === 2){
-        imgSrc = `//images.weserv.nl/?url=${encodeURIComponent(imgSrc)}&ro=-90}`;
+    const gridSize = `${props.width}x${props.height}`;
+
+    if(props.width > props.height && !sizesNotToRotate.includes(gridSize)){
+        imgSrc = `//images.weserv.nl/?url=${encodeURIComponent(imgSrc)}&ro=-90`;
+    } else if (sizesToAlwaysRotate.includes(gridSize)){
+        imgSrc = `//images.weserv.nl/?url=${encodeURIComponent(imgSrc)}&ro=-90`;
     }
 
     return <a

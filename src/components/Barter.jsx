@@ -3,8 +3,10 @@ import {
     useParams,
 } from "react-router-dom";
 import Switch from "react-switch";
+import Select from 'react-select'
 
 import BarterGroup from './BarterGroup';
+import FilterIcon from './FilterIcon.jsx';
 
 import Items from '../Items';
 
@@ -30,6 +32,39 @@ const groupMap = {
     'keys': 'key',
 };
 
+const filterOptions = [
+    {
+        value: 'barter',
+        label: 'Barter',
+        default: true,
+    },
+    {
+        value: 'keys',
+        label: 'Keys',
+        default: true,
+    },
+    // {
+    //     value: 'marked',
+    //     label: 'Marked',
+    //     default: false,
+    // },
+    {
+        value: 'mods',
+        label: 'Mods',
+        default: true,
+    },
+    {
+        value: 'provisions',
+        label: 'Provisions',
+        default: true,
+    },
+    {
+        value: 'wearable',
+        label: 'Wearable',
+        default: true,
+    },
+];
+
 const arrayChunk = (inputArray, chunkLength) => {
     return inputArray.reduce((resultArray, item, index) => {
         const chunkIndex = Math.floor(index / chunkLength);
@@ -51,7 +86,27 @@ function Barter() {
     const [nameFilter, setNameFilter] = useState('');
     const [numberFilter, setNumberFilter] = useState(244);
     const [includeFlea, setIncludeFlea] = useState(true);
+    const [includeMarked, setIncludeMarked] = useState(false);
     const [filteredItems, setFilteredItems] = useState([]);
+    const [filters, setFilters] = useState({
+        types: filterOptions.map(filter => {
+            if(filter.default){
+                return filter.value;
+            }
+
+            return false;
+        }).filter(Boolean),
+    });
+    const [showFilter, setShowFilter] = useState(false);
+
+    const handleFilterChange = (selectedFilters) => {
+        setFilters({
+            ...filters,
+            types: selectedFilters?.map((selectedValue) => {
+                return selectedValue.value;
+            }),
+        });
+    };
 
     useEffect(() => {
         async function fetchData(){
@@ -74,13 +129,17 @@ function Barter() {
             let allowedTypes = dataSources.map(source => groupMap[source]);
 
             let allItems = Object.values(Items).filter((item) => {
-                for(const allowedType of allowedTypes){
-                    if(item.types.includes(allowedType)){
-                        return true;
-                    }
+                if(item.types.includes('un-lootable')){
+                    return false;
                 }
 
-                return false;
+                if(!includeMarked && item.types.includes('marked-only')){
+                    return false;
+                }
+
+                const intersection = item.types.filter(type => filters.types?.includes(type));
+
+                return intersection.length > 0;
             });
 
             setUpdateDate(new Date());
@@ -89,7 +148,7 @@ function Barter() {
         }
 
         fetchData();
-    }, [currentLoot, setItems]);
+    }, [currentLoot, setItems, filters, includeMarked]);
 
     useEffect(() => {
         const filteredItems = items.map((item) => {
@@ -153,35 +212,76 @@ function Barter() {
         className="barter-wrapper"
     >
         <div
-            className="barter-group-wrapper filter-wrapper"
+            className = {'filter-toggle-icon-wrapper'}
+            onClick = {e => setShowFilter(!showFilter)}
+        >
+            <FilterIcon />
+        </div>
+        <div
+            className = {`barter-group-wrapper filter-wrapper ${showFilter ? 'open': ''}`}
         >
             <div
-                className = {'text-label'}
+                className = {'filter-content-wrapper'}
             >
-                {`Prices updated: ${updateDate.toLocaleDateString()}`}
-            </div>
-            <label>
-                <span
-                    className = {'flea-toggle-label'}
+                <div
+                    className = {'text-label'}
                 >
-                    Include Flea
-                </span>
-                <Switch
-                    className = {'flea-toggle'}
-                    onChange = {e => setIncludeFlea(!includeFlea)}
-                    checked = {includeFlea}
+                    {`Prices updated: ${updateDate.toLocaleDateString()}`}
+                </div>
+                <label
+                    className = {'filter-toggle-wrapper'}
+                >
+                    <span
+                        className = {'filter-toggle-label'}
+                    >
+                        Include Flea
+                    </span>
+                    <Switch
+                        className = {'filter-toggle'}
+                        onChange = {e => setIncludeFlea(!includeFlea)}
+                        checked = {includeFlea}
+                    />
+                </label>
+                <label
+                    className = {'filter-toggle-wrapper'}
+                >
+                    <span
+                        className = {'filter-toggle-label'}
+                    >
+                        Include Marked
+                    </span>
+                    <Switch
+                        className = {'filter-toggle'}
+                        onChange = {e => setIncludeMarked(!includeMarked)}
+                        checked = {includeMarked}
+                    />
+                </label>
+                <Select
+                    defaultValue={filterOptions.map(filter => {
+                        if(filter.default) {
+                            return filter;
+                        }
+
+                        return false;
+                    }).filter(Boolean)}
+                    isMulti
+                    name="colors"
+                    options={filterOptions}
+                    className="basic-multi-select"
+                    onChange = {handleFilterChange}
+                    classNamePrefix="select"
                 />
-            </label>
-            <input
-                type = {'number'}
-                placeholder = {'max items'}
-                onChange = {e => setNumberFilter(Math.max(7, Number(e.target.value)))}
-            />
-            <input
-                type = {'text'}
-                placeholder = {'btc, graphics e.t.c'}
-                onChange = {e => setNameFilter(e.target.value.toLowerCase())}
-            />
+                <input
+                    type = {'number'}
+                    placeholder = {'max items'}
+                    onChange = {e => setNumberFilter(Math.max(7, Number(e.target.value)))}
+                />
+                <input
+                    type = {'text'}
+                    placeholder = {'btc, graphics e.t.c'}
+                    onChange = {e => setNameFilter(e.target.value.toLowerCase())}
+                />
+            </div>
         </div>
         {itemChunks.map((items, index) =>
             <BarterGroup

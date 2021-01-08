@@ -16,6 +16,9 @@ function BarterGroup(props) {
         }
     }
 
+    minPrice = Math.floor(minPrice / 1000) * 1000;
+    maxPrice = Math.ceil(maxPrice / 1000) * 1000;
+
     return <div
             className="barter-group-wrapper"
         >
@@ -30,9 +33,11 @@ function BarterGroup(props) {
                 <div
                     className = "price-range-wrapper"
                 >
-                    {`${formatPrice(maxPrice)} - ${formatPrice(minPrice)}` }
-                    <div className="note">
-                        per slot
+                    <div>
+                        {`${formatPrice(minPrice)} - ${formatPrice(maxPrice)}` }
+                        <div className="note">
+                            per slot
+                        </div>
                     </div>
                 </div>
             </div>

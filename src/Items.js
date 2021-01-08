@@ -32,6 +32,13 @@ const getSize = function sizeFromSlots(rawItem) {
             width: 1,
         };
     case 4:
+        if(rawItem.horizontal){
+            return {
+                height: 1,
+                width: 4,
+            };
+        }
+
         return {
             height: 2,
             width: 2,
