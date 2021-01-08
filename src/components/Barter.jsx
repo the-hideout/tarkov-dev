@@ -4,6 +4,7 @@ import Select from 'react-select'
 
 import BarterGroup from './BarterGroup';
 import FilterIcon from './FilterIcon.jsx';
+import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
 
 import Items from '../Items';
 
@@ -50,6 +51,8 @@ const filterOptions = [
     },
 ];
 
+
+
 const arrayChunk = (inputArray, chunkLength) => {
     return inputArray.reduce((resultArray, item, index) => {
         const chunkIndex = Math.floor(index / chunkLength);
@@ -66,20 +69,23 @@ const arrayChunk = (inputArray, chunkLength) => {
 
 function Barter() {
     const [numberFilter] = useState(244);
-    const [minPrice, setMinPrice] = useState(0);
-    const [includeFlea, setIncludeFlea] = useState(true);
-    const [includeMarked, setIncludeMarked] = useState(false);
+    const [minPrice, setMinPrice] = useStateWithLocalStorage('minPrice', 0);
+    // const [includeFlea, setIncludeFlea] = useState(true);
+    const [includeFlea, setIncludeFlea] = useStateWithLocalStorage('includeFlea', true);
+    const [includeMarked, setIncludeMarked] = useStateWithLocalStorage('includeMarked', false);
     const [filteredItems, setFilteredItems] = useState([]);
-    const [groupByType, setGroupByType] = useState(false);
-    const [filters, setFilters] = useState({
+    const [groupByType, setGroupByType] = useStateWithLocalStorage('groupByType', false);
+    const [filters, setFilters] = useStateWithLocalStorage('filters', {
         name: '',
-        types: filterOptions.map(filter => {
-            if(filter.default){
-                return filter.value;
-            }
+        types: filterOptions
+            .map(filter => {
+                if(filter.default){
+                    return filter.value;
+                }
 
-            return false;
-        }).filter(Boolean),
+                return false;
+            })
+            .filter(Boolean),
     });
     const [showFilter, setShowFilter] = useState(false);
 
@@ -262,13 +268,9 @@ function Barter() {
                     />
                 </label>
                 <Select
-                    defaultValue={filterOptions.map(filter => {
-                        if(filter.default) {
-                            return filter;
-                        }
-
-                        return false;
-                    }).filter(Boolean)}
+                    defaultValue={filters.types.map(filter => {
+                        return filterOptions.find(defaultFilter => defaultFilter.value === filter);
+                    })}
                     isMulti
                     name="colors"
                     options={filterOptions}
@@ -282,6 +284,7 @@ function Barter() {
                     onChange = {e => setNumberFilter(Math.max(7, Number(e.target.value)))}
                 /> */}
                 <input
+                    defaultValue = {minPrice || ''}
                     type = {'number'}
                     placeholder = {'min value'}
                     onChange = {e => setMinPrice(Number(e.target.value))}
