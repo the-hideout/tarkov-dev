@@ -7,7 +7,7 @@ import FilterIcon from './FilterIcon.jsx';
 
 import Items from '../Items';
 
-const groupNames = [
+const defaultGroupNames = [
     'S',
     'A',
     'B',
@@ -66,9 +66,11 @@ const arrayChunk = (inputArray, chunkLength) => {
 
 function Barter() {
     const [numberFilter, setNumberFilter] = useState(244);
+    const [minPrice, setMinPrice] = useState(0);
     const [includeFlea, setIncludeFlea] = useState(true);
     const [includeMarked, setIncludeMarked] = useState(false);
     const [filteredItems, setFilteredItems] = useState([]);
+    const [groupByType, setGroupByType] = useState(false);
     const [filters, setFilters] = useState({
         name: '',
         types: filterOptions.map(filter => {
@@ -91,7 +93,29 @@ function Barter() {
     };
 
     useEffect(() => {
-        const filteredItems = Object.values(Items)
+        const itemData = Object.values(Items)
+            .map((item) => {
+                if(!includeFlea){
+                    return {
+                        ...item,
+                        sellTo: item.traderName,
+                        pricePerSlot: Math.floor(item.traderPrice / item.slots),
+                    };
+                }
+
+                let sellTo = 'Flea Market';
+                const fleaPrice = item.price - item.fee;
+
+                if(fleaPrice <= item.traderPrice){
+                    sellTo = item.traderName;
+                }
+
+                return {
+                    ...item,
+                    sellTo: sellTo,
+                    pricePerSlot: Math.floor(Math.max(fleaPrice, item.traderPrice) / item.slots),
+                };
+            })
             .filter((item) => {
                 if(item.types.includes('un-lootable')){
                     return false;
@@ -108,42 +132,15 @@ function Barter() {
                     return false;
                 }
 
-                if(filters.name.length <= 0 ){
-                    return true;
+                if (filters.name.length > 0 && (item.name.toLowerCase().indexOf(filters.name) === -1 && item.shortName?.toLowerCase().indexOf(filters.name) === -1)){
+                    return false;
                 }
 
-                if (item.name.toLowerCase().indexOf(filters.name) > -1){
-                    return true;
+                if(minPrice && item.pricePerSlot < minPrice){
+                    return false;
                 }
 
-                if(item.shortName?.toLowerCase().indexOf(filters.name) > -1){
-                    return true;
-                }
-
-                return false;
-        });
-
-        const itemData = filteredItems.map((item) => {
-            if(!includeFlea){
-                return {
-                    ...item,
-                    sellTo: item.traderName,
-                    pricePerSlot: Math.floor(item.traderPrice / item.slots),
-                };
-            }
-
-            let sellTo = 'Flea Market';
-            const fleaPrice = item.price - item.fee;
-
-            if(fleaPrice <= item.traderPrice){
-                sellTo = item.traderName;
-            }
-
-            return {
-                ...item,
-                sellTo: sellTo,
-                pricePerSlot: Math.floor(Math.max(fleaPrice, item.traderPrice) / item.slots),
-            };
+                return true;
         });
 
         const sortedItems = itemData
@@ -160,9 +157,32 @@ function Barter() {
             });
 
         setFilteredItems(sortedItems);
-    }, [setFilteredItems, includeFlea, filters, includeMarked]);
+    }, [setFilteredItems, includeFlea, filters, includeMarked, minPrice]);
 
-    const itemChunks = arrayChunk(filteredItems.slice(0, Math.min(filteredItems.length, numberFilter)), Math.min(Object.values(Items).length, numberFilter) / 7);
+    let itemChunks = arrayChunk(filteredItems.slice(0, Math.min(filteredItems.length, numberFilter)), Math.min(Object.values(Items).length, numberFilter) / 7);
+    let groupNames = defaultGroupNames;
+
+    if(groupByType){
+        groupNames = filters.types;
+        const chunkMap = {};
+        const selectedItems = filteredItems.slice(0, Math.min(filteredItems.length, numberFilter));
+
+        for(const item of selectedItems){
+            for(const activeFilter of filters.types){
+                if(!item.types.includes(activeFilter)){
+                    continue;
+                }
+
+                if(!chunkMap[activeFilter]){
+                    chunkMap[activeFilter] = [];
+                }
+
+                chunkMap[activeFilter].push(item);
+            }
+        }
+
+        itemChunks = Object.values(chunkMap);
+    }
 
     for(let i = 0; i < itemChunks.length; i = i + 1){
         itemChunks[i] = itemChunks[i].sort((itemA, itemB) => {
@@ -226,6 +246,20 @@ function Barter() {
                         checked = {includeMarked}
                     />
                 </label>
+                <label
+                    className = {'filter-toggle-wrapper'}
+                >
+                    <span
+                        className = {'filter-toggle-label'}
+                    >
+                        Group by type
+                    </span>
+                    <Switch
+                        className = {'filter-toggle'}
+                        onChange = {e => setGroupByType(!groupByType)}
+                        checked = {groupByType}
+                    />
+                </label>
                 <Select
                     defaultValue={filterOptions.map(filter => {
                         if(filter.default) {
@@ -245,6 +279,11 @@ function Barter() {
                     type = {'number'}
                     placeholder = {'max items'}
                     onChange = {e => setNumberFilter(Math.max(7, Number(e.target.value)))}
+                />
+                <input
+                    type = {'number'}
+                    placeholder = {'min value'}
+                    onChange = {e => setMinPrice(Number(e.target.value))}
                 />
                 <input
                     type = {'text'}
