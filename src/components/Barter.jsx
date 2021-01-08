@@ -163,7 +163,7 @@ function Barter() {
     let groupNames = defaultGroupNames;
 
     if(groupByType){
-        groupNames = filters.types;
+        groupNames = [];
         const chunkMap = {};
         const selectedItems = filteredItems.slice(0, Math.min(filteredItems.length, numberFilter));
 
@@ -175,6 +175,7 @@ function Barter() {
 
                 if(!chunkMap[activeFilter]){
                     chunkMap[activeFilter] = [];
+                    groupNames.push(activeFilter);
                 }
 
                 chunkMap[activeFilter].push(item);
