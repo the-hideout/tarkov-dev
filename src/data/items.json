@@ -3782,7 +3782,7 @@
         "name": "FLIR RS-32 2.25-9x 35mm 60Hz thermal riflescope",
         "id": "5d1b5e94d7ad1a2b865a96b0",
         "types": [
-            "wearable"
+            "mods"
         ],
         "horizontal": true
     },
@@ -7553,7 +7553,8 @@
         "id": "5d6d3be5a4b9361bc73bc763",
         "types": [
             "wearable"
-        ]
+        ],
+        "horizontal": true
     },
     "5e00cfa786f77469dc6e5685": {
         "name": "TW EXFIL Ear Covers Black",

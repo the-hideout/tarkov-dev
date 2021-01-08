@@ -44,7 +44,7 @@ function BarterGroup(props) {
             <div
                 className = "barter-group-items"
             >
-                {props.items.filter(item => item.name.toLowerCase().indexOf(props.filter) > -1 || item.shortName?.toLowerCase().indexOf(props.filter) > -1 ).map(item =>
+                {props.items.map(item =>
                     <BarterItem
                         key = {item.name}
                         name = {item.name}
