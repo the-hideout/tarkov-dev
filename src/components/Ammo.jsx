@@ -58,10 +58,10 @@ function Ammo() {
     const history = useHistory();
     const [selectedLegendName, setSelectedLegendName] = useState(currentAmmoList);
     const shiftPress = useKeyPress('Shift');
-    const [maxPenetration, setMaxPenetration] = useState(MAX_PENETRATION);
-    const [minPenetration, setMinPenetration] = useState(0);
-    const [maxDamage, setMaxDamage] = useState(MAX_DAMAGE);
-    const [minDamage, setMinDamage] = useState(0);
+    // const [maxPenetration, setMaxPenetration] = useState(MAX_PENETRATION);
+    // const [minPenetration, setMinPenetration] = useState(0);
+    // const [maxDamage, setMaxDamage] = useState(MAX_DAMAGE);
+    // const [minDamage, setMinDamage] = useState(0);
 
     useEffect(() => {
         if(currentAmmo === []){
@@ -78,29 +78,29 @@ function Ammo() {
     }, [currentAmmo]);
 
     const listState = useMemo(() => {
-        let tempMaxPen = 0;
-        let tempMinPen = MAX_PENETRATION;
-        let tempMaxDmg = 0;
-        let tempMinDmg = MAX_DAMAGE;
+        // let tempMaxPen = 0;
+        // let tempMinPen = MAX_PENETRATION;
+        // let tempMaxDmg = 0;
+        // let tempMinDmg = MAX_DAMAGE;
 
         const returnData = formattedData.filter(ammo =>
             !selectedLegendName || selectedLegendName.length === 0 || selectedLegendName.includes(ammo.type)
         ).map((ammo) => {
-            if(ammo.penetration > tempMaxPen){
-                tempMaxPen = ammo.penetration;
-            }
+            // if(ammo.penetration > tempMaxPen){
+            //     tempMaxPen = ammo.penetration;
+            // }
 
-            if (ammo.penetration < tempMinPen ){
-                tempMinPen = ammo.penetration;
-            }
+            // if (ammo.penetration < tempMinPen ){
+            //     tempMinPen = ammo.penetration;
+            // }
 
-            if(ammo.damage > tempMaxDmg){
-                tempMaxDmg = ammo.damage;
-            }
+            // if(ammo.damage > tempMaxDmg){
+            //     tempMaxDmg = ammo.damage;
+            // }
 
-            if(ammo.damage < tempMinDmg){
-                tempMinDmg = ammo.damage;
-            }
+            // if(ammo.damage < tempMinDmg){
+            //     tempMinDmg = ammo.damage;
+            // }
 
             if(!shiftPress){
                 return ammo;
@@ -112,10 +112,10 @@ function Ammo() {
             };
         });
 
-        setMaxPenetration(tempMaxPen);
-        setMinPenetration(tempMinPen);
-        setMaxDamage(tempMaxDmg);
-        setMinDamage(tempMinDmg);
+        // setMaxPenetration(tempMaxPen);
+        // setMinPenetration(tempMinPen);
+        // setMaxDamage(tempMaxDmg);
+        // setMinDamage(tempMinDmg);
 
         return returnData;
     }, [selectedLegendName, shiftPress]);
@@ -152,6 +152,10 @@ function Ammo() {
             legendData = {legendData}
             selectedLegendName = {selectedLegendName}
             handleLegendClick = {handleLegendClick}
+            // xMin = {Math.max(0, minDamage - 10)}
+            // xMax = {Math.min(MAX_DAMAGE, maxDamage + 10)}
+            // yMin = {Math.max(0, minPenetration - 10)}
+            // yMax = {Math.min(MAX_PENETRATION, maxPenetration + 10)}
             xMax = {MAX_DAMAGE}
             yMax = {MAX_PENETRATION}
         />
