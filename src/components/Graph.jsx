@@ -139,7 +139,7 @@ const getArmorLabel = (tier, yMax, xMax) => {
 const Graph = props => {
     return (
         <VictoryChart
-            animate={{duration: 500}}
+            animate={{duration: 200}}
             domainPadding={10}
             padding={{
                 top: 10,

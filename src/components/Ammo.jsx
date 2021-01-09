@@ -152,10 +152,8 @@ function Ammo() {
             legendData = {legendData}
             selectedLegendName = {selectedLegendName}
             handleLegendClick = {handleLegendClick}
-            xMin = {Math.max(0, minDamage - 10)}
-            xMax = {Math.min(MAX_DAMAGE, maxDamage + 10)}
-            yMin = {Math.max(0, minPenetration - 10)}
-            yMax = {Math.min(MAX_PENETRATION, maxPenetration + 10)}
+            xMax = {MAX_DAMAGE}
+            yMax = {MAX_PENETRATION}
         />
     ];
 }
