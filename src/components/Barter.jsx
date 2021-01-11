@@ -94,7 +94,14 @@ function Barter() {
             ...filters,
             types: selectedFilters?.map((selectedValue) => {
                 return selectedValue.value;
-            }) || [],
+            }) || filterOptions.map(filter => {
+                if(filter.default){
+                    return filter.value;
+                }
+
+                return false;
+            })
+            .filter(Boolean),
         });
     };
 
