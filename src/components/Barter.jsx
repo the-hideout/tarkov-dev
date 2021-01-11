@@ -297,6 +297,7 @@ function Barter() {
                     onChange = {e => setMinPrice(Number(e.target.value))}
                 />
                 <input
+                    defaultValue = {filters.name || ''}
                     type = {'text'}
                     placeholder = {'btc, graphics e.t.c'}
                     onChange = {e => setFilters({
