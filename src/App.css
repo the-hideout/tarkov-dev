@@ -45,6 +45,10 @@ select {
     margin-bottom: 2vh;
 }
 
+a {
+    color: #9a8866;
+}
+
 .update-label {
     font-size: 10px;
     text-align: center;
@@ -448,9 +452,9 @@ select {
     }
 
     .barter-group-wrapper .text-label {
-        font-size: 16px;
-        position: static;
-        line-height: 40px;
+        bottom: -4px;
+        right: 30px;
+        top: auto;
     }
 
     .barter-class-wrapper {

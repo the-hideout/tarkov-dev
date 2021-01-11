@@ -140,38 +140,18 @@ const Menu = () => {
                 >
                     Dev tracker
                 </a>
-                <li
-                    className = {'external-link last-link'}
+                <a
+                    href="https://www.patreon.com/kokarn"
                 >
-                    <a
-                        href="https://www.patreon.com/kokarn"
+                    <PatreonIcon />
+                </a>
+                <Link
+                    className = {'last-link'}
+                        to = '/about/'
+                        onClick = {setIsOpen.bind(this, false)}
                     >
-                        <PatreonIcon />
-                        Support me
-                    </a>
-                    <div
-                        className = {'supporters-wrapper'}
-                    >
-                        Current supporters:
-                        <Supporter
-                            name = {'Gyran'}
-                            patreon
-                            github
-                        />
-                        <Supporter
-                            name = {'KilobyteKeith'}
-                            patreon
-                        />
-                        <Supporter
-                            name = {'SOF.Temptie420'}
-                            patreon
-                        />
-                        <Supporter
-                            name = {'Tippidy'}
-                            patreon
-                        />
-                    </div>
-                </li>
+                        About
+                </Link>
             </ul>
     </nav>;
 }
