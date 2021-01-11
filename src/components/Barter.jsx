@@ -94,7 +94,7 @@ function Barter() {
             ...filters,
             types: selectedFilters?.map((selectedValue) => {
                 return selectedValue.value;
-            }),
+            }) || [],
         });
     };
 
@@ -268,7 +268,7 @@ function Barter() {
                     />
                 </label>
                 <Select
-                    defaultValue={filters.types.map(filter => {
+                    defaultValue={filters.types?.map(filter => {
                         return filterOptions.find(defaultFilter => defaultFilter.value === filter);
                     })}
                     isMulti
