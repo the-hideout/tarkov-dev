@@ -60,6 +60,19 @@ a {
     position: relative;
 }
 
+.page-wrapper {
+    max-width: 1200px;
+    margin: 0 10px;
+}
+
+.page-wrapper svg {
+    height: 20px;
+    margin-right: 8px;
+    position: relative;
+    top: 3px;
+    width: 20px;
+}
+
 .updated-label {
     color: #ccc;
     font-size: 10px;
@@ -476,5 +489,11 @@ a {
 
     .control-wrapper {
         display: none;
+    }
+}
+
+@media screen and (min-width: 1220px){
+    .page-wrapper {
+        margin: 0 auto;
     }
 }
