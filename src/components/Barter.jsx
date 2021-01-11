@@ -165,7 +165,7 @@ function Barter() {
         setFilteredItems(sortedItems);
     }, [setFilteredItems, includeFlea, filters, includeMarked, minPrice]);
 
-    let itemChunks = arrayChunk(filteredItems.slice(0, Math.min(filteredItems.length, numberFilter)), Math.min(Object.values(Items).length, numberFilter) / 7);
+    let itemChunks = arrayChunk(filteredItems.slice(0, Math.min(filteredItems.length, numberFilter)), Math.min(filteredItems.length, numberFilter) / 7);
     let groupNames = defaultGroupNames;
 
     if(groupByType){
