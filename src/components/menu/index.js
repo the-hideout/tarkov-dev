@@ -4,7 +4,6 @@ import {
 } from "react-router-dom";
 
 import MenuItem from './MenuItem';
-import Supporter from './Supporter';
 import {ReactComponent as PatreonIcon} from './Patreon.svg';
 import MenuIcon from './MenuIcon.jsx';
 import useObserver from '../../hooks/useObserver';
