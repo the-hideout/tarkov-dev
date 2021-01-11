@@ -172,7 +172,7 @@ function Barter() {
         setFilteredItems(sortedItems);
     }, [setFilteredItems, includeFlea, filters, includeMarked, minPrice]);
 
-    let itemChunks = arrayChunk(filteredItems.slice(0, Math.min(filteredItems.length, numberFilter)), Math.min(filteredItems.length, numberFilter) / 7);
+    let itemChunks = arrayChunk(filteredItems.slice(0, Math.min(filteredItems.length, numberFilter)), Math.ceil(Math.min(filteredItems.length, numberFilter) / 7));
     let groupNames = defaultGroupNames;
 
     if(groupByType){
@@ -199,7 +199,7 @@ function Barter() {
     }
 
     for(let i = 0; i < itemChunks.length; i = i + 1){
-        itemChunks[i] = itemChunks[i].sort((itemA, itemB) => {
+        itemChunks[i] = itemChunks[i]?.sort((itemA, itemB) => {
             if(itemA.slots > itemB.slots){
                 return -1;
             }
