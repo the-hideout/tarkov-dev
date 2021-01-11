@@ -302,7 +302,8 @@ a {
 .barter-icon-3x3,
 .barter-icon-3x4,
 .barter-icon-4x4,
-.barter-icon-5x5 {
+.barter-icon-5x5,
+.barter-icon-4x8 {
     height: calc(2 * var(--grid-base));
     width: calc(2 * var(--grid-base));
     grid-row-end: span 2;
