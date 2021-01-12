@@ -41,7 +41,7 @@ function About() {
                 href = 'https://www.patreon.com/kokarn'
             >
                 Patreon
-            </a> supporter or by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site.
+            </a> supporter or by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site
         </p>
         <h3>
             Current supporters
