@@ -18,10 +18,12 @@ function About() {
             </a>
         </p>
         <p>
-            <img
-                src="https://travis-ci.com/kokarn/tarkov-tools.svg?branch=master"
-                alt="Build status"
-            />
+            <a href="https://travis-ci.com/github/kokarn/tarkov-tools">
+                <img
+                    src="https://travis-ci.com/kokarn/tarkov-tools.svg?branch=master"
+                    alt="Build status"
+                />
+            </a>
         </p>
         <h2>
             Discussions & feedback
