@@ -1,4 +1,4 @@
-import Supporter from '../../components/menu/Supporter';
+import Supporter from '../../components/Supporter';
 
 import './index.css';
 
@@ -46,17 +46,15 @@ function About() {
         <h3>
             Current supporters
         </h3>
-        <p>
-            <Supporter
-                name = {'Gyran'}
-                patreon
-                github
-            />
-            <Supporter
-                name = {'KilobyteKeith'}
-                patreon
-            />
-        </p>
+        <Supporter
+            name = {'Gyran'}
+            patreon
+            github
+        />
+        <Supporter
+            name = {'KilobyteKeith'}
+            patreon
+        />
         <h2>
             External resources
         </h2>

@@ -113,7 +113,7 @@ function Control(props) {
                 ref = {typeRefs['lootTier']}
             >
                 <option
-                    value = 'barter-items'
+                    value = 'grid-items'
                 >
                     {'Barter items'}
                 </option>

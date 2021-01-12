@@ -1,8 +1,10 @@
-import BarterItem from './BarterItem';
+import Item from './Item';
 
-import formatPrice from '../modules/format-price';
+import formatPrice from '../../modules/format-price';
 
-function BarterGroup(props) {
+import './index.css';
+
+function ItemGrid(props) {
     let minPrice = false;
     let maxPrice = false;
 
@@ -20,10 +22,10 @@ function BarterGroup(props) {
     maxPrice = Math.ceil(maxPrice / 1000) * 1000;
 
     return <div
-            className="barter-group-wrapper"
+            className="item-group-wrapper"
         >
             <div
-                className = "barter-group-title"
+                className = "item-group-title"
             >
                 <div
                     className = "barter-class-wrapper"
@@ -42,10 +44,10 @@ function BarterGroup(props) {
                 </div>
             </div>
             <div
-                className = "barter-group-items"
+                className = "item-group-items"
             >
                 {props.items.map(item =>
-                    <BarterItem
+                    <Item
                         key = {item.name}
                         name = {item.name}
                         pricePerSlot = {item.pricePerSlot}
@@ -62,6 +64,6 @@ function BarterGroup(props) {
         </div>
 }
 
-export default BarterGroup;
+export default ItemGrid;
 
 

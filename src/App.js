@@ -14,7 +14,7 @@ import Map from './components/Map.jsx';
 import ID from './components/ID.jsx';
 import Control from './components/control';
 import Menu from './components/menu';
-import Barter from './components/Barter.jsx';
+import LootTier from './pages/LootTier.jsx';
 import Barters from './components/Barters';
 import Glasses from './components/Glasses';
 import About from './pages/about/';
@@ -223,21 +223,7 @@ const makeID = function makeID(length) {
                 exact
                 path={["/barter", "/loot-tier/:currentLoot", "/loot-tier"]}
             >
-                <Menu />
-                <div
-                    className="display-wrapper"
-                >
-                    <Helmet>
-                        <meta charSet="utf-8" />
-                        <title>Tarkov loot tiers</title>
-                        <meta
-                            name="description"
-                            content="Visualization of all different valuable loot"
-                        />
-                    </Helmet>
-                    <Barter />
-                </div>
-                <ID
+                <LootTier
                     sessionID = {sessionID}
                 />
             </Route>

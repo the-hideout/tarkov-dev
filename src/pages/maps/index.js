@@ -9,7 +9,9 @@ import rawMapData from '../../data/maps.json';
 
 function Maps() {
     return [
-        <Helmet>
+        <Helmet
+            key = {'loot-tier-helmet'}
+        >
             <meta
                 charSet='utf-8'
             />
@@ -23,6 +25,7 @@ function Maps() {
         </Helmet>,
         <div
             className = {'page-wrapper'}
+            key = 'map-page-wrapper'
         >
             <h1>
                 Escape from Tarkov maps

@@ -4,7 +4,7 @@ import {
 } from "react-router-dom";
 
 import MenuItem from './MenuItem';
-import {ReactComponent as PatreonIcon} from './Patreon.svg';
+import {ReactComponent as PatreonIcon} from '../Patreon.svg';
 import MenuIcon from './MenuIcon.jsx';
 import useObserver from '../../hooks/useObserver';
 
@@ -42,6 +42,7 @@ const Menu = () => {
     });
 
     return <nav
+            key = 'main-navigation'
             className = "navigation"
             ref={navEl}
         >
@@ -110,7 +111,7 @@ const Menu = () => {
                     {/* <ul>
                         <MenuItem
                             displayText = {'Barter Items'}
-                            to = {`/loot-tier/barter-items`}
+                            to = {`/loot-tier/grid-items`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
                         <MenuItem

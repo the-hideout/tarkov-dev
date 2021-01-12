@@ -1,12 +1,12 @@
-import formatPrice from '../modules/format-price';
+import formatPrice from '../../modules/format-price';
 
-function BarterItemTooltip(props) {
+function ItemTooltip(props) {
     if(!props.pricePerSlot){
         return false;
     }
 
     return <span
-        className = {'barter-item-tooltip'}
+        className = {'grid-item-tooltip'}
     >
         <div>Value: {formatPrice(props.pricePerSlot * props.slots)}</div>
         <div>Per slot: {formatPrice(props.pricePerSlot)}</div>
@@ -14,4 +14,4 @@ function BarterItemTooltip(props) {
     </span>
 };
 
-export default BarterItemTooltip;
+export default ItemTooltip;

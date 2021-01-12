@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
-import Switch from "react-switch";
+import Switch from 'react-switch';
 import Select from 'react-select'
+import {Helmet} from 'react-helmet';
 
-import BarterGroup from './BarterGroup';
-import FilterIcon from './FilterIcon.jsx';
+import Menu from '../components/menu';
+import ID from '../components/ID.jsx';
+import ItemGrid from '../components/item-grid/';
+import FilterIcon from '../components/FilterIcon.jsx';
 import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
 
 import Items from '../Items';
@@ -67,7 +70,7 @@ const arrayChunk = (inputArray, chunkLength) => {
     }, []);
 };
 
-function Barter() {
+function LootTier(props) {
     const [numberFilter] = useState(244);
     const [minPrice, setMinPrice] = useStateWithLocalStorage('minPrice', 0);
     // const [includeFlea, setIncludeFlea] = useState(true);
@@ -212,111 +215,131 @@ function Barter() {
         });
     };
 
-    return <div
-        className="barter-wrapper"
-    >
-        <div
-            className = {'filter-toggle-icon-wrapper'}
-            onClick = {e => setShowFilter(!showFilter)}
+    return [
+        <Helmet
+            key = {'loot-tier-helmet'}
         >
-            <FilterIcon />
-        </div>
+            <meta charSet="utf-8" />
+            <title>Tarkov loot tiers</title>
+            <meta
+                name="description"
+                content="Visualization of all different valuable loot"
+            />
+        </Helmet>,
+        <Menu
+            key = 'main-navigaton'
+        />,
         <div
-            className = {`barter-group-wrapper filter-wrapper ${showFilter ? 'open': ''}`}
+            className="display-wrapper"
+            key = {'display-wrapper'}
         >
             <div
-                className = {'filter-content-wrapper'}
+                className = {'filter-toggle-icon-wrapper'}
+                onClick = {e => setShowFilter(!showFilter)}
+            >
+                <FilterIcon />
+            </div>
+            <div
+                className = {`item-group-wrapper filter-wrapper ${showFilter ? 'open': ''}`}
             >
                 <div
-                    className = {'text-label'}
+                    className = {'filter-content-wrapper'}
                 >
-                    {`Prices updated: ${new Date().toLocaleDateString()}`}
+                    <div
+                        className = {'text-label'}
+                    >
+                        {`Prices updated: ${new Date().toLocaleDateString()}`}
+                    </div>
+                    <label
+                        className = {'filter-toggle-wrapper'}
+                    >
+                        <span
+                            className = {'filter-toggle-label'}
+                        >
+                            Include Flea
+                        </span>
+                        <Switch
+                            className = {'filter-toggle'}
+                            onChange = {e => setIncludeFlea(!includeFlea)}
+                            checked = {includeFlea}
+                        />
+                    </label>
+                    <label
+                        className = {'filter-toggle-wrapper'}
+                    >
+                        <span
+                            className = {'filter-toggle-label'}
+                        >
+                            Include Marked
+                        </span>
+                        <Switch
+                            className = {'filter-toggle'}
+                            onChange = {e => setIncludeMarked(!includeMarked)}
+                            checked = {includeMarked}
+                        />
+                    </label>
+                    <label
+                        className = {'filter-toggle-wrapper'}
+                    >
+                        <span
+                            className = {'filter-toggle-label'}
+                        >
+                            Group by type
+                        </span>
+                        <Switch
+                            className = {'filter-toggle'}
+                            onChange = {e => setGroupByType(!groupByType)}
+                            checked = {groupByType}
+                        />
+                    </label>
+                    <Select
+                        defaultValue={filters.types?.map(filter => {
+                            return filterOptions.find(defaultFilter => defaultFilter.value === filter);
+                        })}
+                        isMulti
+                        name="colors"
+                        options={filterOptions}
+                        className="basic-multi-select"
+                        onChange = {handleFilterChange}
+                        classNamePrefix="select"
+                    />
+                    {/* <input
+                        type = {'number'}
+                        placeholder = {'max items'}
+                        onChange = {e => setNumberFilter(Math.max(7, Number(e.target.value)))}
+                    /> */}
+                    <input
+                        defaultValue = {minPrice || ''}
+                        type = {'number'}
+                        placeholder = {'min value'}
+                        onChange = {e => setMinPrice(Number(e.target.value))}
+                    />
+                    <input
+                        defaultValue = {filters.name || ''}
+                        type = {'text'}
+                        placeholder = {'btc, graphics e.t.c'}
+                        onChange = {e => setFilters({
+                            ...filters,
+                            name: e.target.value.toLowerCase(),
+                        })}
+                    />
                 </div>
-                <label
-                    className = {'filter-toggle-wrapper'}
-                >
-                    <span
-                        className = {'filter-toggle-label'}
-                    >
-                        Include Flea
-                    </span>
-                    <Switch
-                        className = {'filter-toggle'}
-                        onChange = {e => setIncludeFlea(!includeFlea)}
-                        checked = {includeFlea}
-                    />
-                </label>
-                <label
-                    className = {'filter-toggle-wrapper'}
-                >
-                    <span
-                        className = {'filter-toggle-label'}
-                    >
-                        Include Marked
-                    </span>
-                    <Switch
-                        className = {'filter-toggle'}
-                        onChange = {e => setIncludeMarked(!includeMarked)}
-                        checked = {includeMarked}
-                    />
-                </label>
-                <label
-                    className = {'filter-toggle-wrapper'}
-                >
-                    <span
-                        className = {'filter-toggle-label'}
-                    >
-                        Group by type
-                    </span>
-                    <Switch
-                        className = {'filter-toggle'}
-                        onChange = {e => setGroupByType(!groupByType)}
-                        checked = {groupByType}
-                    />
-                </label>
-                <Select
-                    defaultValue={filters.types?.map(filter => {
-                        return filterOptions.find(defaultFilter => defaultFilter.value === filter);
-                    })}
-                    isMulti
-                    name="colors"
-                    options={filterOptions}
-                    className="basic-multi-select"
-                    onChange = {handleFilterChange}
-                    classNamePrefix="select"
-                />
-                {/* <input
-                    type = {'number'}
-                    placeholder = {'max items'}
-                    onChange = {e => setNumberFilter(Math.max(7, Number(e.target.value)))}
-                /> */}
-                <input
-                    defaultValue = {minPrice || ''}
-                    type = {'number'}
-                    placeholder = {'min value'}
-                    onChange = {e => setMinPrice(Number(e.target.value))}
-                />
-                <input
-                    defaultValue = {filters.name || ''}
-                    type = {'text'}
-                    placeholder = {'btc, graphics e.t.c'}
-                    onChange = {e => setFilters({
-                        ...filters,
-                        name: e.target.value.toLowerCase(),
-                    })}
-                />
             </div>
-        </div>
-        {itemChunks.map((items, index) =>
-            <BarterGroup
-                key = {`barter-group-${groupNames[index]}`}
-                name = {groupNames[index]}
-                items = {items}
-            />
-        )}
-    </div>;
-}
+            {itemChunks.map((items, index) =>
+                <ItemGrid
+                    key = {`barter-group-${groupNames[index]}`}
+                    name = {groupNames[index]}
+                    items = {items}
+                />
+            )}
+        </div>,
+        <ID
+            key = {'session-id'}
+            sessionID = {props.sessionID}
+        />
+    ];
+};
 
-export default Barter;
+export default LootTier;
 
 
