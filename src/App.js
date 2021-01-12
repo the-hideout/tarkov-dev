@@ -201,14 +201,6 @@ const makeID = function makeID(length) {
                 <div
                     className="display-wrapper"
                 >
-                    <Helmet>
-                        <meta charSet="utf-8" />
-                        <title>Tarkov Maps</title>
-                        <meta
-                            name="description"
-                            content="Tarkov raid map"
-                        />
-                    </Helmet>
                     <Map />
                 </div>
                 <ID
