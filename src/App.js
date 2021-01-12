@@ -18,6 +18,7 @@ import Barter from './components/Barter.jsx';
 import Barters from './components/Barters';
 import Glasses from './components/Glasses';
 import About from './pages/about/';
+import Maps from './pages/maps/';
 
 import rawMapData from './data/maps.json';
 import QuestItemsPage from './components/quest-items-page';
@@ -190,6 +191,16 @@ const makeID = function makeID(length) {
                     </Helmet>
                     <Ammo />
                 </div>
+                <ID
+                    sessionID = {sessionID}
+                />
+            </Route>
+            <Route
+                exact
+                path={'/maps/'}
+            >
+                <Menu />
+                <Maps />
                 <ID
                     sessionID = {sessionID}
                 />

@@ -82,9 +82,11 @@ const Menu = () => {
                 <li
                     className = "submenu-wrapper"
                 >
-                    <span>
+                    <Link
+                        to = '/maps/'
+                    >
                         Maps
-                    </span>
+                    </Link>
                     <ul>
                     {mapData.map(map =>
                         <MenuItem
