@@ -22,6 +22,7 @@ import Maps from './pages/maps/';
 
 import rawMapData from './data/maps.json';
 import QuestItemsPage from './components/quest-items-page';
+import useStateWithLocalStorage from './hooks/useStateWithLocalStorage';
 
 const makeID = function makeID(length) {
     let result = '';
@@ -40,7 +41,7 @@ const makeID = function makeID(length) {
  let socket = false;
 
  function App() {
-    const [sessionID, setSessionID] = useState(makeID(4));
+    const [sessionID, setSessionID] = useStateWithLocalStorage('sessionId', makeID(4));
     const [socketConnected, setSocketConnected] = useState(false);
     let history = useHistory();
 
