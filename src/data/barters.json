@@ -1,5 +1,5 @@
 {
-    "updated": "2021-01-05T17:20:57.206Z",
+    "updated": "2021-01-13T21:03:21.946Z",
     "data": [
         {
             "requiredItems": [
@@ -38,6 +38,23 @@
         {
             "requiredItems": [
                 {
+                    "name": "Round pliers",
+                    "id": "5d1b31ce86f7742523398394",
+                    "count": 1
+                }
+            ],
+            "rewardItems": [
+                {
+                    "name": "Standard 9x18PM 30-round magazine for PP-91",
+                    "id": "57d1519e24597714373db79d",
+                    "count": 1
+                }
+            ],
+            "trader": "Prapor"
+        },
+        {
+            "requiredItems": [
+                {
                     "name": "Spark plug",
                     "id": "590a3c0a86f774385a33c450",
                     "count": 2
@@ -57,7 +74,12 @@
                 {
                     "name": "Horse figurine",
                     "id": "573478bc24597738002c6175",
-                    "count": 2
+                    "count": 1
+                },
+                {
+                    "name": "Smoked Chimney drain cleaner",
+                    "id": "5e2af00086f7746d3f3c33f7",
+                    "count": 1
                 }
             ],
             "rewardItems": [
@@ -206,6 +228,23 @@
         {
             "requiredItems": [
                 {
+                    "name": "Energy-saving lamp",
+                    "id": "590a3cd386f77436f20848cb",
+                    "count": 2
+                }
+            ],
+            "rewardItems": [
+                {
+                    "name": "F-1 Hand grenade",
+                    "id": "5710c24ad2720bc3458b45a3",
+                    "count": 1
+                }
+            ],
+            "trader": "Prapor"
+        },
+        {
+            "requiredItems": [
+                {
                     "name": "Damaged hard drive",
                     "id": "590a386e86f77429692b27ab",
                     "count": 2
@@ -245,23 +284,6 @@
         {
             "requiredItems": [
                 {
-                    "name": "Round pliers",
-                    "id": "5d1b31ce86f7742523398394",
-                    "count": 1
-                }
-            ],
-            "rewardItems": [
-                {
-                    "name": "Standard 9x18PM 30-round magazine for PP-91",
-                    "id": "57d1519e24597714373db79d",
-                    "count": 1
-                }
-            ],
-            "trader": "Prapor"
-        },
-        {
-            "requiredItems": [
-                {
                     "name": "Weapon parts",
                     "id": "5d1c819a86f774771b0acd6c",
                     "count": 1
@@ -288,23 +310,6 @@
                 {
                     "name": "Yarygin MP-443 Grach 9x19 pistol",
                     "id": "576a581d2459771e7b1bc4f1",
-                    "count": 1
-                }
-            ],
-            "trader": "Prapor"
-        },
-        {
-            "requiredItems": [
-                {
-                    "name": "Pompon hat",
-                    "id": "5b4329075acfc400153b78ff",
-                    "count": 2
-                }
-            ],
-            "rewardItems": [
-                {
-                    "name": "MPL-50 entrenching tool",
-                    "id": "5bead2e00db834001c062938",
                     "count": 1
                 }
             ],
@@ -350,6 +355,16 @@
                     "name": "Cat figurine",
                     "id": "59e3658a86f7741776641ac4",
                     "count": 1
+                },
+                {
+                    "name": "USB Adapter",
+                    "id": "5909e99886f7740c983b9984",
+                    "count": 2
+                },
+                {
+                    "name": "Malboro Cigarettes",
+                    "id": "573476d324597737da2adc13",
+                    "count": 1
                 }
             ],
             "rewardItems": [
@@ -388,18 +403,35 @@
                 {
                     "name": "Apollon Soyuz cigarettes",
                     "id": "573475fb24597737fb1379e1",
-                    "count": 6
+                    "count": 5
                 },
                 {
                     "name": "Malboro Cigarettes",
                     "id": "573476d324597737da2adc13",
-                    "count": 4
+                    "count": 3
                 }
             ],
             "rewardItems": [
                 {
                     "name": "SV-98 bolt-action sniper rifle",
                     "id": "55801eed4bdc2d89578b4588",
+                    "count": 1
+                }
+            ],
+            "trader": "Prapor"
+        },
+        {
+            "requiredItems": [
+                {
+                    "name": "Pompon hat",
+                    "id": "5b4329075acfc400153b78ff",
+                    "count": 2
+                }
+            ],
+            "rewardItems": [
+                {
+                    "name": "MPL-50 entrenching tool",
+                    "id": "5bead2e00db834001c062938",
                     "count": 1
                 }
             ],
@@ -434,23 +466,6 @@
                 {
                     "name": "8 pcs pack of 9x39 7N9 SPP ammo",
                     "id": "5c12619186f7743f871c8a32",
-                    "count": 1
-                }
-            ],
-            "trader": "Prapor"
-        },
-        {
-            "requiredItems": [
-                {
-                    "name": "Energy-saving lamp",
-                    "id": "590a3cd386f77436f20848cb",
-                    "count": 2
-                }
-            ],
-            "rewardItems": [
-                {
-                    "name": "F-1 Hand grenade",
-                    "id": "5710c24ad2720bc3458b45a3",
                     "count": 1
                 }
             ],
@@ -839,19 +854,14 @@
         {
             "requiredItems": [
                 {
-                    "name": "Crickent lighter",
-                    "id": "56742c284bdc2d98058b456d",
-                    "count": 10
+                    "name": "Gas analyzer",
+                    "id": "590a3efd86f77437d351a25b",
+                    "count": 1
                 },
                 {
-                    "name": "Toilet paper",
-                    "id": "5c13cef886f774072e618e82",
-                    "count": 2
-                },
-                {
-                    "name": "Ortodontox toothpaste",
-                    "id": "5d4041f086f7743cac3f22a7",
-                    "count": 2
+                    "name": "Ultraviolet lamp",
+                    "id": "590a3d9c86f774385926e510",
+                    "count": 1
                 }
             ],
             "rewardItems": [
@@ -910,15 +920,15 @@
         {
             "requiredItems": [
                 {
-                    "name": "Rye croutons",
-                    "id": "57347d3d245977448f7b7f61",
+                    "name": "Emelya rye croutons",
+                    "id": "5751487e245977207e26a315",
                     "count": 1
                 }
             ],
             "rewardItems": [
                 {
-                    "name": "Emelya rye croutons",
-                    "id": "5751487e245977207e26a315",
+                    "name": "Rye croutons",
+                    "id": "57347d3d245977448f7b7f61",
                     "count": 1
                 }
             ],
@@ -964,6 +974,11 @@
                     "name": "Pile of meds",
                     "id": "5d1b3a5d86f774252167ba22",
                     "count": 6
+                },
+                {
+                    "name": "Disposable syringe",
+                    "id": "5d1b3f2d86f774253763b735",
+                    "count": 2
                 }
             ],
             "rewardItems": [
@@ -1144,7 +1159,7 @@
                 {
                     "name": "Pile of meds",
                     "id": "5d1b3a5d86f774252167ba22",
-                    "count": 10
+                    "count": 15
                 }
             ],
             "rewardItems": [
@@ -1305,12 +1320,12 @@
                 {
                     "name": "Portable defibrillator",
                     "id": "5c052e6986f7746b207bc3c9",
-                    "count": 10
+                    "count": 12
                 },
                 {
                     "name": "LEDX Skin Transilluminator",
                     "id": "5c0530ee86f774697952d952",
-                    "count": 10
+                    "count": 12
                 },
                 {
                     "name": "Ibuprofen painkillers (12/12)",
@@ -1357,6 +1372,28 @@
         {
             "requiredItems": [
                 {
+                    "name": "DVD drive",
+                    "id": "5734781f24597737e04bf32a",
+                    "count": 1
+                },
+                {
+                    "name": "Wires",
+                    "id": "5c06779c86f77426e00dd782",
+                    "count": 1
+                }
+            ],
+            "rewardItems": [
+                {
+                    "name": "Zenit RP-1 charge handle for AK",
+                    "id": "5648ac824bdc2ded0b8b457d",
+                    "count": 1
+                }
+            ],
+            "trader": "Skier"
+        },
+        {
+            "requiredItems": [
+                {
                     "name": "Horse figurine",
                     "id": "573478bc24597738002c6175",
                     "count": 2
@@ -1377,12 +1414,39 @@
                     "name": "Rechargeable battery",
                     "id": "590a358486f77429692b2790",
                     "count": 1
+                },
+                {
+                    "name": "Chainlet",
+                    "id": "573474f924597738002c6174",
+                    "count": 2
                 }
             ],
             "rewardItems": [
                 {
                     "name": "ADAR 2-15 .223 Carbine",
                     "id": "5c07c60e0db834002330051f",
+                    "count": 1
+                }
+            ],
+            "trader": "Skier"
+        },
+        {
+            "requiredItems": [
+                {
+                    "name": "Strike Cigarettes",
+                    "id": "5734770f24597738025ee254",
+                    "count": 1
+                },
+                {
+                    "name": "Weapon parts",
+                    "id": "5d1c819a86f774771b0acd6c",
+                    "count": 1
+                }
+            ],
+            "rewardItems": [
+                {
+                    "name": "Magex G30 magazine for Glock .45 ACP",
+                    "id": "5fb651dc85f90547f674b6f4",
                     "count": 1
                 }
             ],
@@ -1669,6 +1733,28 @@
         {
             "requiredItems": [
                 {
+                    "name": "Malboro Cigarettes",
+                    "id": "573476d324597737da2adc13",
+                    "count": 1
+                },
+                {
+                    "name": "Crickent lighter",
+                    "id": "56742c284bdc2d98058b456d",
+                    "count": 2
+                }
+            ],
+            "rewardItems": [
+                {
+                    "name": "Standard UMP 25-round .45 ACP magazine",
+                    "id": "5fc3e466187fea44d52eda90",
+                    "count": 1
+                }
+            ],
+            "trader": "Peacekeeper"
+        },
+        {
+            "requiredItems": [
+                {
                     "name": "Bars A-2607- Damascus",
                     "id": "57e26ea924597715ca604a09",
                     "count": 4
@@ -1712,6 +1798,23 @@
                 {
                     "name": "Flyye MBSS Backpack",
                     "id": "544a5cde4bdc2d39388b456b",
+                    "count": 1
+                }
+            ],
+            "trader": "Peacekeeper"
+        },
+        {
+            "requiredItems": [
+                {
+                    "name": "Gas analyzer",
+                    "id": "590a3efd86f77437d351a25b",
+                    "count": 1
+                }
+            ],
+            "rewardItems": [
+                {
+                    "name": "Standard 9x19 30-round magazine for MP9",
+                    "id": "5de8eac42a78646d96665d91",
                     "count": 1
                 }
             ],
@@ -1764,15 +1867,25 @@
         {
             "requiredItems": [
                 {
-                    "name": "Dogtag USEC",
-                    "id": "59f32c3b86f77472a31742f0",
-                    "count": 7
+                    "name": "Phased array element",
+                    "id": "5d03775b86f774203e7e0c4b",
+                    "count": 2
+                },
+                {
+                    "name": "Military circuit board",
+                    "id": "5d0376a486f7747d8050965c",
+                    "count": 2
+                },
+                {
+                    "name": "LEDX Skin Transilluminator",
+                    "id": "5c0530ee86f774697952d952",
+                    "count": 1
                 }
             ],
             "rewardItems": [
                 {
-                    "name": "SIG MPX 9x19 Submachine gun",
-                    "id": "58948c8e86f77409493f7266",
+                    "name": "Secure container Beta",
+                    "id": "5857a8b324597729ab0a0e7d",
                     "count": 1
                 }
             ],
@@ -1803,25 +1916,15 @@
         {
             "requiredItems": [
                 {
-                    "name": "Phased array element",
-                    "id": "5d03775b86f774203e7e0c4b",
-                    "count": 2
-                },
-                {
-                    "name": "Military circuit board",
-                    "id": "5d0376a486f7747d8050965c",
-                    "count": 2
-                },
-                {
-                    "name": "LEDX Skin Transilluminator",
-                    "id": "5c0530ee86f774697952d952",
-                    "count": 1
+                    "name": "Dogtag USEC",
+                    "id": "59f32c3b86f77472a31742f0",
+                    "count": 7
                 }
             ],
             "rewardItems": [
                 {
-                    "name": "Secure container Beta",
-                    "id": "5857a8b324597729ab0a0e7d",
+                    "name": "SIG MPX 9x19 Submachine gun",
+                    "id": "58948c8e86f77409493f7266",
                     "count": 1
                 }
             ],
@@ -1847,15 +1950,20 @@
         {
             "requiredItems": [
                 {
-                    "name": "Air filter for gas mask",
-                    "id": "590c595c86f7747884343ad7",
+                    "name": "Printed circuit board",
+                    "id": "590a3b0486f7743954552bdb",
+                    "count": 2
+                },
+                {
+                    "name": "Geiger-Muller counter",
+                    "id": "5672cb724bdc2dc2088b456b",
                     "count": 1
                 }
             ],
             "rewardItems": [
                 {
-                    "name": "Magpul PMAG D-60 5.56x45 60-round magazine",
-                    "id": "59c1383d86f774290a37e0ca",
+                    "name": "60-round MAG5-60 5.56x45 STANAG magazine",
+                    "id": "544a37c44bdc2d25388b4567",
                     "count": 1
                 }
             ],
@@ -1864,15 +1972,20 @@
         {
             "requiredItems": [
                 {
-                    "name": "Printed circuit board",
-                    "id": "590a3b0486f7743954552bdb",
+                    "name": "Air filter for gas mask",
+                    "id": "590c595c86f7747884343ad7",
+                    "count": 1
+                },
+                {
+                    "name": "GreenBat lithium battery",
+                    "id": "5e2aedd986f7746d404f3aa4",
                     "count": 2
                 }
             ],
             "rewardItems": [
                 {
-                    "name": "60-round MAG5-60 5.56x45 STANAG magazine",
-                    "id": "544a37c44bdc2d25388b4567",
+                    "name": "Magpul PMAG D-60 5.56x45 60-round magazine",
+                    "id": "59c1383d86f774290a37e0ca",
                     "count": 1
                 }
             ],
@@ -1971,23 +2084,6 @@
         {
             "requiredItems": [
                 {
-                    "name": "Dogtag USEC",
-                    "id": "59f32c3b86f77472a31742f0",
-                    "count": 10
-                }
-            ],
-            "rewardItems": [
-                {
-                    "name": "Team Wendy EXFIL Ballistic Helmet Black",
-                    "id": "5e00c1ad86f774747333222c",
-                    "count": 1
-                }
-            ],
-            "trader": "Peacekeeper"
-        },
-        {
-            "requiredItems": [
-                {
                     "name": "USB Adapter",
                     "id": "5909e99886f7740c983b9984",
                     "count": 10
@@ -2014,6 +2110,23 @@
                 {
                     "name": "FN P90 5.7x28 submachinegun",
                     "id": "5cc82d76e24e8d00134b4b83",
+                    "count": 1
+                }
+            ],
+            "trader": "Peacekeeper"
+        },
+        {
+            "requiredItems": [
+                {
+                    "name": "Dogtag USEC",
+                    "id": "59f32c3b86f77472a31742f0",
+                    "count": 10
+                }
+            ],
+            "rewardItems": [
+                {
+                    "name": "Team Wendy EXFIL Ballistic Helmet Black",
+                    "id": "5e00c1ad86f774747333222c",
                     "count": 1
                 }
             ],
@@ -2300,6 +2413,33 @@
         {
             "requiredItems": [
                 {
+                    "name": "Pliers",
+                    "id": "590c2b4386f77425357b6123",
+                    "count": 1
+                },
+                {
+                    "name": "Nippers",
+                    "id": "5d40425986f7743185265461",
+                    "count": 1
+                },
+                {
+                    "name": "Round pliers",
+                    "id": "5d1b31ce86f7742523398394",
+                    "count": 1
+                }
+            ],
+            "rewardItems": [
+                {
+                    "name": "Pliers Elite",
+                    "id": "5af04b6486f774195a3ebb49",
+                    "count": 1
+                }
+            ],
+            "trader": "Mechanic"
+        },
+        {
+            "requiredItems": [
+                {
                     "name": "DVD drive",
                     "id": "5734781f24597737e04bf32a",
                     "count": 5
@@ -2353,6 +2493,33 @@
                 {
                     "name": "HK MP7A1 4.6x30 submachinegun",
                     "id": "5ba26383d4351e00334c93d9",
+                    "count": 1
+                }
+            ],
+            "trader": "Mechanic"
+        },
+        {
+            "requiredItems": [
+                {
+                    "name": "DVD drive",
+                    "id": "5734781f24597737e04bf32a",
+                    "count": 1
+                },
+                {
+                    "name": "Damaged hard drive",
+                    "id": "590a386e86f77429692b27ab",
+                    "count": 1
+                },
+                {
+                    "name": "Capacitors",
+                    "id": "5c06782b86f77426df5407d2",
+                    "count": 2
+                }
+            ],
+            "rewardItems": [
+                {
+                    "name": "HK UMP 45 submachinegun",
+                    "id": "5fc3e272f8b6a877a729eac5",
                     "count": 1
                 }
             ],
@@ -2471,6 +2638,23 @@
         {
             "requiredItems": [
                 {
+                    "name": "Tube of Poxeram Cold Welding",
+                    "id": "5e2af22086f7746d3f3c33fa",
+                    "count": 2
+                }
+            ],
+            "rewardItems": [
+                {
+                    "name": "SGMT Drum mag for Glock 9x19, 50 rounds capacity",
+                    "id": "5a718f958dc32e00094b97e7",
+                    "count": 1
+                }
+            ],
+            "trader": "Mechanic"
+        },
+        {
+            "requiredItems": [
+                {
                     "name": "T-Shaped Plug",
                     "id": "57347cd0245977445a2d6ff1",
                     "count": 15
@@ -2534,8 +2718,8 @@
             ],
             "rewardItems": [
                 {
-                    "name": "Colt AR-15 charging handle for AR-15",
-                    "id": "55d44fd14bdc2d962f8b456e",
+                    "name": "Badger Ordnance Tactical Charging Handle Latch",
+                    "id": "56ea7165d2720b6e518b4583",
                     "count": 1
                 }
             ],
@@ -2670,28 +2854,6 @@
                 {
                     "name": "Daniel Defence FDE RIS II FSP 9.5 foregrip for AR-15-compatible systems",
                     "id": "5c9a26332e2216001219ea70",
-                    "count": 1
-                }
-            ],
-            "trader": "Mechanic"
-        },
-        {
-            "requiredItems": [
-                {
-                    "name": "Nippers",
-                    "id": "5d40425986f7743185265461",
-                    "count": 1
-                },
-                {
-                    "name": "Wrench",
-                    "id": "590c311186f77424d1667482",
-                    "count": 1
-                }
-            ],
-            "rewardItems": [
-                {
-                    "name": "Upper receiver Colt M4A1 5.56x45 for M4A1 assault rifle",
-                    "id": "55d355e64bdc2d962f8b4569",
                     "count": 1
                 }
             ],
@@ -3073,6 +3235,23 @@
         {
             "requiredItems": [
                 {
+                    "name": "Tube of Poxeram Cold Welding",
+                    "id": "5e2af22086f7746d3f3c33fa",
+                    "count": 2
+                }
+            ],
+            "rewardItems": [
+                {
+                    "name": "SGMT Drum mag for Glock 9x19, 50 rounds capacity",
+                    "id": "5a718f958dc32e00094b97e7",
+                    "count": 1
+                }
+            ],
+            "trader": "Mechanic"
+        },
+        {
+            "requiredItems": [
+                {
                     "name": "Wires",
                     "id": "5c06779c86f77426e00dd782",
                     "count": 4
@@ -3126,7 +3305,12 @@
                 {
                     "name": "Tube of Poxeram Cold Welding",
                     "id": "5e2af22086f7746d3f3c33fa",
-                    "count": 14
+                    "count": 10
+                },
+                {
+                    "name": "KEKTAPE duct tape",
+                    "id": "5e2af29386f7746d4159f077",
+                    "count": 2
                 }
             ],
             "rewardItems": [
@@ -3463,38 +3647,6 @@
         {
             "requiredItems": [
                 {
-                    "name": "SAS drive",
-                    "id": "590c37d286f77443be3d7827",
-                    "count": 3
-                },
-                {
-                    "name": "SSD drive",
-                    "id": "590c392f86f77444754deb29",
-                    "count": 1
-                },
-                {
-                    "name": "RAM",
-                    "id": "57347baf24597738002c6178",
-                    "count": 8
-                },
-                {
-                    "name": "Broken GPhone X",
-                    "id": "5c1265fc86f7743f896a21c2",
-                    "count": 2
-                }
-            ],
-            "rewardItems": [
-                {
-                    "name": "Graphics card",
-                    "id": "57347ca924597744596b4e71",
-                    "count": 1
-                }
-            ],
-            "trader": "Mechanic"
-        },
-        {
-            "requiredItems": [
-                {
                     "name": "NIXXOR lens",
                     "id": "5d1b2ffd86f77425243e8d17",
                     "count": 4
@@ -3738,28 +3890,6 @@
         {
             "requiredItems": [
                 {
-                    "name": "Aramid fiber cloth",
-                    "id": "5e2af4d286f7746d4159f07a",
-                    "count": 1
-                },
-                {
-                    "name": "Ripstop cloth",
-                    "id": "5e2af4a786f7746d3f3c3400",
-                    "count": 1
-                }
-            ],
-            "rewardItems": [
-                {
-                    "name": "Module-3M bodyarmor (40/40)",
-                    "id": "59e7635f86f7742cbf2c1095",
-                    "count": 1
-                }
-            ],
-            "trader": "Ragman"
-        },
-        {
-            "requiredItems": [
-                {
                     "name": "Max energy",
                     "id": "5751435d24597720a27126d1",
                     "count": 3
@@ -3804,6 +3934,28 @@
         {
             "requiredItems": [
                 {
+                    "name": "Golden neck chain",
+                    "id": "5734758f24597738025ee253",
+                    "count": 2
+                },
+                {
+                    "name": "TT pistol 7.62x25 TT Gold",
+                    "id": "5b3b713c5acfc4330140bd8d",
+                    "count": 2
+                }
+            ],
+            "rewardItems": [
+                {
+                    "name": "Crye Precision AVS platecarrier (70/70)",
+                    "id": "544a5caa4bdc2d1a388b4568",
+                    "count": 1
+                }
+            ],
+            "trader": "Ragman"
+        },
+        {
+            "requiredItems": [
+                {
                     "name": "Duct tape",
                     "id": "57347c1124597737fb1379e3",
                     "count": 5
@@ -3818,28 +3970,6 @@
                 {
                     "name": "ANA Tactical Alpha chest rig",
                     "id": "592c2d1a86f7746dbe2af32a",
-                    "count": 1
-                }
-            ],
-            "trader": "Ragman"
-        },
-        {
-            "requiredItems": [
-                {
-                    "name": "TT pistol 7.62x25 TT Gold",
-                    "id": "5b3b713c5acfc4330140bd8d",
-                    "count": 4
-                },
-                {
-                    "name": "Chainlet",
-                    "id": "573474f924597738002c6174",
-                    "count": 8
-                }
-            ],
-            "rewardItems": [
-                {
-                    "name": "5.11 Tactec plate carrier (50/50)",
-                    "id": "5b44cad286f77402a54ae7e5",
                     "count": 1
                 }
             ],
@@ -4199,12 +4329,7 @@
                 {
                     "name": "Fleece cloth",
                     "id": "5e2af47786f7746d404f3aaa",
-                    "count": 4
-                },
-                {
-                    "name": "Aramid fiber cloth",
-                    "id": "5e2af4d286f7746d4159f07a",
-                    "count": 3
+                    "count": 2
                 },
                 {
                     "name": "Paracord",
@@ -4214,7 +4339,12 @@
                 {
                     "name": "Duffle bag",
                     "id": "56e33634d2720bd8058b456b",
-                    "count": 5
+                    "count": 2
+                },
+                {
+                    "name": "Ripstop cloth",
+                    "id": "5e2af4a786f7746d3f3c3400",
+                    "count": 2
                 }
             ],
             "rewardItems": [
@@ -4519,12 +4649,17 @@
                 {
                     "name": "Highcom Trooper TFO armor (multicam) (85/85)",
                     "id": "5c0e655586f774045612eeb2",
-                    "count": 3
+                    "count": 2
                 },
                 {
                     "name": "Polyamide fabric Cordura",
                     "id": "5e2af41e86f774755a234b67",
-                    "count": 6
+                    "count": 2
+                },
+                {
+                    "name": "Aramid fiber cloth",
+                    "id": "5e2af4d286f7746d4159f07a",
+                    "count": 4
                 }
             ],
             "rewardItems": [
@@ -4687,6 +4822,28 @@
                 {
                     "name": "Cobra EKP-8-18 reflex sight",
                     "id": "591c4efa86f7741030027726",
+                    "count": 1
+                }
+            ],
+            "trader": "Jaeger"
+        },
+        {
+            "requiredItems": [
+                {
+                    "name": "Classic matches",
+                    "id": "57347b8b24597737dd42e192",
+                    "count": 2
+                },
+                {
+                    "name": "Apollon Soyuz cigarettes",
+                    "id": "573475fb24597737fb1379e1",
+                    "count": 2
+                }
+            ],
+            "rewardItems": [
+                {
+                    "name": "Kiba Arms International SPRM mount for pump-action shotguns",
+                    "id": "55d48a634bdc2d8b2f8b456a",
                     "count": 1
                 }
             ],
@@ -5042,7 +5199,7 @@
                 {
                     "name": "Paracord",
                     "id": "5c12688486f77426843c7d32",
-                    "count": 10
+                    "count": 12
                 },
                 {
                     "name": "Duct tape",
@@ -5052,12 +5209,12 @@
                 {
                     "name": "Insulating tape",
                     "id": "5734795124597738002c6176",
-                    "count": 10
+                    "count": 15
                 },
                 {
                     "name": "A pack of nails",
                     "id": "590c31c586f774245e3141b2",
-                    "count": 12
+                    "count": 15
                 }
             ],
             "rewardItems": [
