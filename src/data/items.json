@@ -3128,7 +3128,8 @@
         "name": "Wartech TV-110 plate carrier (85/85)",
         "id": "5c0e746986f7741453628fe5",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ],
         "horizontal": true
     },
@@ -3136,35 +3137,40 @@
         "name": "Crye Precision AVS platecarrier (70/70)",
         "id": "544a5caa4bdc2d1a388b4568",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5ab8dced86f774646209ec87": {
         "name": "ANA Tactical M2 armored rig (60/60)",
         "id": "5ab8dced86f774646209ec87",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5c0e722886f7740458316a57": {
         "name": "ANA Tactical M1 armored rig (65/65)",
         "id": "5c0e722886f7740458316a57",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5c0e446786f7742013381639": {
         "name": "6B5-15 Zh -86 \"Uley\" armored rig (50/50)",
         "id": "5c0e446786f7742013381639",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5b44cad286f77402a54ae7e5": {
         "name": "5.11 Tactec plate carrier (50/50)",
         "id": "5b44cad286f77402a54ae7e5",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5ab8dab586f77441cd04f2a2": {
@@ -3332,7 +3338,8 @@
         "name": "BNTI Kirasa-N armor (70/70)",
         "id": "5b44d22286f774172b0c9de8",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5d5d85c586f774279a21cbdb": {
@@ -3445,7 +3452,8 @@
         "name": "FORT Redut-T5 body armor (95/95)",
         "id": "5ca21c6986f77479963115a7",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5ac8d6885acfc400180ae7b0": {
@@ -3475,7 +3483,8 @@
         "name": "6B43 Zabralo-Sh 6A Armor (85/85)",
         "id": "545cdb794bdc2d3a198b456a",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5abcc328d8ce8700194394f3": {
@@ -3527,7 +3536,8 @@
         "name": "6B5-16 Zh -86 \"Uley\" armored rig (80/80)",
         "id": "5c0e3eb886f7742015526062",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5c0e874186f7745dc7616606": {
@@ -3632,7 +3642,8 @@
         "name": "6B3TM-01M armored rig (40/40)",
         "id": "5d5d646386f7742797261fd9",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5b432b6c5acfc4001a599bf0": {
@@ -3661,7 +3672,8 @@
         "name": "6B13 assault armor (digital flora pattern) (47/47)",
         "id": "5c0e53c886f7747fa54205c7",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "58d399e486f77442e0016fe7": {
@@ -3705,7 +3717,8 @@
         "name": "Zhuk-6a heavy armor (75/75)",
         "id": "5c0e625a86f7742d77340f62",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5df8a4d786f77412672a1e3b": {
@@ -3733,7 +3746,8 @@
         "name": "BNTI Gzhel-K armor (65/65)",
         "id": "5ab8e79e86f7742d8b372e78",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5d6d3716a4b9361bc8618872": {
@@ -3768,7 +3782,8 @@
         "name": "IOTV Gen4 armor (high mobility kit) (62/62)",
         "id": "5b44d0de86f774503d30cba8",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5d5d940f86f7742797262046": {
@@ -3870,7 +3885,8 @@
         "name": "PACA Soft Armor (50/50)",
         "id": "5648a7494bdc2d9d488b4583",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "59c0ec5b86f77435b128bfca": {
@@ -3899,14 +3915,16 @@
         "name": "Module-3M bodyarmor (40/40)",
         "id": "59e7635f86f7742cbf2c1095",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5ab8e4ed86f7742d8e50c7fa": {
         "name": "MF-UNTAR armor vest (45/45)",
         "id": "5ab8e4ed86f7742d8e50c7fa",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5c0a2cec0db834001b7ce47d": {
@@ -3928,7 +3946,8 @@
         "name": "Zhuk-3 Press armor (50/50)",
         "id": "5c0e5edb86f77461f55ed1f7",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5c0e774286f77468413cc5b2": {
@@ -3942,49 +3961,56 @@
         "name": "6B23-1 armor (digital flora pattern) (60/60)",
         "id": "5c0e5bab86f77461f55ed1f3",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5c0e655586f774045612eeb2": {
         "name": "Highcom Trooper TFO armor (multicam) (85/85)",
         "id": "5c0e655586f774045612eeb2",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5c0e51be86f774598e797894": {
         "name": "6B13 assault armor (flora pattern) (47/47)",
         "id": "5c0e51be86f774598e797894",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5c0e57ba86f7747fa141986d": {
         "name": "6B23-2 armor (mountain flora pattern) (55/55)",
         "id": "5c0e57ba86f7747fa141986d",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5ca2151486f774244a3b8d30": {
         "name": "FORT Redut-M body armor (57/57)",
         "id": "5ca2151486f774244a3b8d30",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5c0e541586f7747fa54205c9": {
         "name": "6B13 M assault armor (tan) (60/60)",
         "id": "5c0e541586f7747fa54205c9",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5b44cf1486f77431723e3d05": {
         "name": "IOTV Gen4 armor (assault kit) (68/68)",
         "id": "5b44cf1486f77431723e3d05",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ],
         "horizontal": true
     },
@@ -3999,7 +4025,8 @@
         "name": "IOTV Gen4 armor (full protection) (80/80)",
         "id": "5b44cd8b86f774503d30cba2",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5c0e805e86f774683f3dd637": {
@@ -4156,7 +4183,8 @@
         "name": "6B2 armor (flora) (80/80)",
         "id": "5df8a2ca86f7740bfe6df777",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5c07dd120db834001c39092d": {
@@ -14963,7 +14991,8 @@
         "name": "5.11 Hexgrid plate carrier",
         "id": "5fd4c474dd870108a754b241",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ],
         "horizontal": true
     },

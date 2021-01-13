@@ -29,6 +29,34 @@ const mappingProperties = [
         propertyKey: 'BlindnessProtection',
         type: 'glasses',
     },
+    {
+        propertyKey: 'MaxDurability',
+        type: 'armor',
+    },
+    {
+        propertyKey: 'armorClass',
+        type: 'armor',
+    },
+    {
+        propertyKey: 'speedPenaltyPercent',
+        type: 'armor',
+    },
+    {
+        propertyKey: 'mousePenalty',
+        type: 'armor',
+    },
+    {
+        propertyKey: 'weaponErgonomicPenalty',
+        type: 'armor',
+    },
+    {
+        propertyKey: 'armorZone',
+        type: 'armor',
+    },
+    {
+        propertyKey: 'ArmorMaterial',
+        type: 'armor',
+    },
 ];
 
 (async () => {
@@ -87,11 +115,14 @@ const mappingProperties = [
             };
 
             for(const extraProp of mappingProperties){
+                if(!allItemData[languageCode][i].types.includes(extraProp.type)){
+                    continue;
+                }
+
                 if(!bsgItemData._props[extraProp.propertyKey]){
                     continue;
                 }
 
-                allItemData[languageCode][i].types.push(extraProp.type);
                 allItemData[languageCode][i].itemProperties[extraProp.propertyKey] = bsgItemData._props[extraProp.propertyKey];
             }
 
