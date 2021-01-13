@@ -21,6 +21,8 @@ import About from './pages/about/';
 import Maps from './pages/maps/';
 import ItemTracker from './pages/ItemTracker';
 
+import Debug from './components/Debug';
+
 import rawMapData from './data/maps.json';
 import QuestItemsPage from './components/quest-items-page';
 import useStateWithLocalStorage from './hooks/useStateWithLocalStorage';
@@ -278,6 +280,15 @@ const makeID = function makeID(length) {
                 path={'/item-tracker/'}
             >
                 <ItemTracker />
+                <ID
+                    sessionID = {sessionID}
+                />
+            </Route>
+            <Route
+                exact
+                path={'/debug/'}
+            >
+                <Debug />
                 <ID
                     sessionID = {sessionID}
                 />
