@@ -16,7 +16,7 @@ import Control from './components/control';
 import Menu from './components/menu';
 import LootTier from './pages/LootTier.jsx';
 import Barters from './components/Barters';
-import Glasses from './components/Glasses';
+import Glasses from './pages/Glasses';
 import About from './pages/about/';
 import Maps from './pages/maps/';
 import ItemTracker from './pages/ItemTracker';

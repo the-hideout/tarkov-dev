@@ -1,7 +1,8 @@
 import {useMemo} from 'react';
 
-import DataTable from './data-table';
+import DataTable from '../components/data-table';
 import items from '../Items';
+import formatPrice from '../modules/format-price';
 
 let displayItems = [];
 
@@ -12,6 +13,14 @@ for(const item of Object.values(items)){
 
     displayItems.push(item);
 }
+
+const centerCell = ({ value }) => {
+    return <div
+        className = 'center-content'
+    >
+        { value }
+    </div>
+};
 
 function Glasses() {
     const columns = useMemo(
@@ -37,13 +46,12 @@ function Glasses() {
             {
                 Header: 'Blindness protection',
                 accessor: 'blindness',
-                Cell: ({ value }) => {
-                    return <div
-                        className = 'center-content'
-                    >
-                        { value }
-                    </div>
-                },
+                Cell: centerCell,
+            },
+            {
+                Header: 'Price',
+                accessor: 'price',
+                Cell: centerCell,
             },
         ],
         []
@@ -55,6 +63,7 @@ function Glasses() {
             name: item.name,
             blindness: item.itemProperties.BlindnessProtection,
             image: item.imgLink,
+            price: `${formatPrice(item.price)}`,
         };
     })
     .filter(Boolean)
