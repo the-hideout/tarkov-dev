@@ -40,6 +40,7 @@
         {
             "questId": "59c50c8886f7745fed3193bf",
             "traderId": "54cb50c76803fa8b248b4571",
+            "name": "The Punisher - Part 2",
             "items": [
                 {
                     "id": "572b7fa524597762b747ce82",
@@ -52,6 +53,7 @@
         {
             "questId": "59ca1a6286f774509a270942",
             "traderId": "54cb50c76803fa8b248b4571",
+            "name": "No offence",
             "items": [
                 {
                     "id": "58d3db5386f77426186285a0",
@@ -88,6 +90,7 @@
         {
             "questId": "5d4bec3486f7743cac246665",
             "traderId": "54cb50c76803fa8b248b4571",
+            "name": "Regulated materials",
             "items": [
                 {
                     "id": "5d03794386f77420415576f5",
@@ -98,7 +101,7 @@
                 {
                     "id": "5d0379a886f77420407aa271",
                     "name": "OFZ 30x160mm shell ",
-                    "count": 10,
+                    "count": 5,
                     "foundInRaid": true
                 }
             ]
@@ -118,6 +121,7 @@
         {
             "questId": "59689ee586f7740d1570bbd5",
             "traderId": "54cb57776803fa99248b456e",
+            "name": "Sanitary Standards - Part 1",
             "items": [
                 {
                     "id": "590a3efd86f77437d351a25b",
@@ -130,6 +134,7 @@
         {
             "questId": "5969f90786f77420d2328015",
             "traderId": "54cb57776803fa99248b456e",
+            "name": "Painkiller",
             "items": [
                 {
                     "id": "544fb3f34bdc2d03748b456a",
@@ -142,6 +147,7 @@
         {
             "questId": "596a1e6c86f7741ddc2d3206",
             "traderId": "54cb57776803fa99248b456e",
+            "name": "General wares",
             "items": [
                 {
                     "id": "57347d7224597744596b4e72",
@@ -154,6 +160,7 @@
         {
             "questId": "596a204686f774576d4c95de",
             "traderId": "54cb57776803fa99248b456e",
+            "name": "Sanitary Standards - Part 2",
             "items": [
                 {
                     "id": "590a3efd86f77437d351a25b",
@@ -166,6 +173,7 @@
         {
             "questId": "596a218586f77420d232807c",
             "traderId": "54cb57776803fa99248b456e",
+            "name": "Car repair",
             "items": [
                 {
                     "id": "5733279d245977289b77ec24",
@@ -214,6 +222,7 @@
         {
             "questId": "5edac34d0bb72a50635c2bfa",
             "traderId": "54cb57776803fa99248b456e",
+            "name": "Colleagues - Part 3",
             "items": [
                 {
                     "id": "5c1d0c5f86f7744bb2683cf0",
@@ -243,6 +252,7 @@
         },
         {
             "questId": "5c51aac186f77432ea65c552",
+            "name": "Collector",
             "traderId": "579dc571d53a0658a154fbec",
             "items": [
                 {
@@ -340,6 +350,7 @@
         {
             "questId": "5979ed3886f77431307dc512",
             "traderId": "58330581ace78e27b8b10cee",
+            "name": "What’s on the flash drive?",
             "items": [
                 {
                     "id": "590c621186f774138d11ea29",
@@ -364,6 +375,7 @@
         {
             "questId": "5b478ff486f7744d184ecbbf",
             "traderId": "58330581ace78e27b8b10cee",
+            "name": "\"Vitamins\" - Part 2",
             "items": [
                 {
                     "id": "59e7715586f7742ee5789605",
@@ -382,6 +394,7 @@
         {
             "questId": "5a0327ba86f77456b9154236",
             "traderId": "5935c25fb3acc3127c3d8cd9",
+            "name": "Spa Tour - Part 3",
             "items": [
                 {
                     "id": "590c5bbd86f774785762df04",
@@ -424,6 +437,7 @@
         {
             "questId": "5a27bafb86f7741c73584017",
             "traderId": "5935c25fb3acc3127c3d8cd9",
+            "name": "Spa Tour - Part 7",
             "items": [
                 {
                     "id": "544fb3f34bdc2d03748b456a",
@@ -454,6 +468,7 @@
         {
             "questId": "5c0d0f1886f77457b8210226",
             "traderId": "5935c25fb3acc3127c3d8cd9",
+            "name": "Lend lease - Part 2",
             "items": [
                 {
                     "id": "5c05308086f7746b2101e90b",
@@ -472,6 +487,7 @@
         {
             "questId": "5edac020218d181e29451446",
             "traderId": "5935c25fb3acc3127c3d8cd9",
+            "name": "Samples",
             "items": [
                 {
                     "id": "5ed51652f6c34d2cc26336a1",
@@ -520,6 +536,7 @@
         {
             "questId": "5ac3460c86f7742880308185",
             "traderId": "5a7c2eca46aef81a7ca2145d",
+            "name": "Farming - Part 2",
             "items": [
                 {
                     "id": "59e36c6f86f774176c10a2a7",
@@ -544,6 +561,7 @@
         {
             "questId": "5ac3464c86f7741d651d6877",
             "traderId": "5a7c2eca46aef81a7ca2145d",
+            "name": "Farming - Part 4",
             "items": [
                 {
                     "id": "57347ca924597744596b4e71",
@@ -562,6 +580,7 @@
         {
             "questId": "5ac346a886f7744e1b083d67",
             "traderId": "5a7c2eca46aef81a7ca2145d",
+            "name": "Signal - Part 2",
             "items": [
                 {
                     "id": "573477e124597737dd42e191",
@@ -592,6 +611,7 @@
         {
             "questId": "5ac3475486f7741d6224abd3",
             "traderId": "5a7c2eca46aef81a7ca2145d",
+            "name": "Bad habit",
             "items": [
                 {
                     "id": "573476d324597737da2adc13",
@@ -616,6 +636,7 @@
         {
             "questId": "5c1128e386f7746565181106",
             "traderId": "5a7c2eca46aef81a7ca2145d",
+            "name": "Fertilizers",
             "items": [
                 {
                     "id": "5c06779c86f77426e00dd782",
@@ -634,6 +655,7 @@
         {
             "questId": "5c139eb686f7747878361a6f",
             "traderId": "5a7c2eca46aef81a7ca2145d",
+            "name": "Import",
             "items": [
                 {
                     "id": "5c052fb986f7746b2101e909",
@@ -652,6 +674,7 @@
         {
             "questId": "5ae4495086f77443c122bc40",
             "traderId": "5ac3b934156ae10c4430e83c",
+            "name": "Sew it good - Part 1",
             "items": [
                 {
                     "id": "5ab8f20c86f7745cdb629fb2",
@@ -706,6 +729,7 @@
         {
             "questId": "5ae4497b86f7744cf402ed00",
             "traderId": "5ac3b934156ae10c4430e83c",
+            "name": "Sew it good - Part 4",
             "items": [
                 {
                     "id": "59e7643b86f7742cbf2c109a",
@@ -736,6 +760,7 @@
         {
             "questId": "5b47876e86f7744d1c353205",
             "traderId": "5ac3b934156ae10c4430e83c",
+            "name": "The Blood of War - Part 2",
             "items": [
                 {
                     "id": "5b43575a86f77424f443fe62",
@@ -748,6 +773,7 @@
         {
             "questId": "5b47891f86f7744d1b23c571",
             "traderId": "5ac3b934156ae10c4430e83c",
+            "name": "Living high is not a crime - Part 1",
             "items": [
                 {
                     "id": "59e3639286f7741777737013",
@@ -778,6 +804,7 @@
         {
             "questId": "5c1141f386f77430ff393792",
             "traderId": "5ac3b934156ae10c4430e83c",
+            "name": "Living high is not a crime - Part 2",
             "items": [
                 {
                     "id": "590de71386f774347051a052",
@@ -796,30 +823,7 @@
         {
             "questId": "5e381b0286f77420e3417a74",
             "traderId": "5ac3b934156ae10c4430e83c",
-            "items": [
-                {
-                    "id": "5e2af4d286f7746d4159f07a",
-                    "name": "Aramid fiber cloth",
-                    "count": 5,
-                    "foundInRaid": true
-                },
-                {
-                    "id": "5e2af4a786f7746d3f3c3400",
-                    "name": "Ripstop cloth",
-                    "count": 10,
-                    "foundInRaid": true
-                },
-                {
-                    "id": "5c12688486f77426843c7d32",
-                    "name": "Paracord",
-                    "count": 3,
-                    "foundInRaid": true
-                }
-            ]
-        },
-        {
-            "questId": "5e383a6386f77465910ce1f3",
-            "traderId": "5ac3b934156ae10c4430e83c",
+            "name": "Textile - Part 1",
             "items": [
                 {
                     "id": "5e2af4d286f7746d4159f07a",
@@ -844,6 +848,7 @@
         {
             "questId": "5e4d515e86f77438b2195244",
             "traderId": "5ac3b934156ae10c4430e83c",
+            "name": "Textile - Part 2",
             "items": [
                 {
                     "id": "5e2af47786f7746d404f3aaa",
@@ -868,6 +873,7 @@
         {
             "questId": "5d25e46e86f77409453bce7c",
             "traderId": "5c0647fdd443bc2504c2d371",
+            "name": "Ambulance",
             "items": [
                 {
                     "id": "5c052e6986f7746b207bc3c9",
@@ -886,6 +892,7 @@
         {
             "questId": "5d25e48d86f77408251c4bfb",
             "traderId": "5c0647fdd443bc2504c2d371",
+            "name": "Shady business",
             "items": [
                 {
                     "id": "590c621186f774138d11ea29",
@@ -898,11 +905,12 @@
         {
             "questId": "5d25e4b786f77408251c4bfc",
             "traderId": "5c0647fdd443bc2504c2d371",
+            "name": "Fishing place",
             "items": [
                 {
                     "id": "5c94bbff86f7747ee735c08f",
                     "name": "TerraGroup Labs access keycard",
-                    "count": 3,
+                    "count": 2,
                     "foundInRaid": true
                 }
             ]

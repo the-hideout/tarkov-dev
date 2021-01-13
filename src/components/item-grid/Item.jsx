@@ -1,5 +1,5 @@
 import ItemTooltip from './ItemTooltip';
-import ItemSellToIcon from './ItemSellToIcon';
+import ItemIcon from './ItemIcon';
 
 const sizesNotToRotate = [
     '3x2',
@@ -35,8 +35,8 @@ function Item(props) {
             slots = {props.slots}
             sellTo = {props.sellTo}
         />
-        <ItemSellToIcon
-            sellTo = {props.sellTo}
+        <ItemIcon
+            text = {props.sellTo?.toUpperCase().substr(0, 2) || props.count}
         />
 
         <img

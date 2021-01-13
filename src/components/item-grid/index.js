@@ -4,6 +4,29 @@ import formatPrice from '../../modules/format-price';
 
 import './index.css';
 
+const getSubtitle = (text, minPrice, maxPrice) => {
+    if(minPrice || maxPrice){
+        return <div
+            className = "item-group-subtitle-wrapper"
+        >
+            <div>
+                {`${formatPrice(minPrice)} - ${formatPrice(maxPrice)}` }
+                <div className="note">
+                    per slot
+                </div>
+            </div>
+        </div>;
+    }
+
+    return <div
+        className = "item-group-subtitle-wrapper"
+    >
+        <div>
+            {text}
+        </div>
+    </div>;
+};
+
 function ItemGrid(props) {
     let minPrice = false;
     let maxPrice = false;
@@ -21,8 +44,14 @@ function ItemGrid(props) {
     minPrice = Math.floor(minPrice / 1000) * 1000;
     maxPrice = Math.ceil(maxPrice / 1000) * 1000;
 
+    let className = 'item-group-wrapper';
+
+    if(props.name.length <= 2){
+        className = `${className} big`;
+    }
+
     return <div
-            className="item-group-wrapper"
+            className = {className}
         >
             <div
                 className = "item-group-title"
@@ -32,23 +61,16 @@ function ItemGrid(props) {
                 >
                     {props.name}
                 </div>
-                <div
-                    className = "price-range-wrapper"
-                >
-                    <div>
-                        {`${formatPrice(minPrice)} - ${formatPrice(maxPrice)}` }
-                        <div className="note">
-                            per slot
-                        </div>
-                    </div>
-                </div>
+                { getSubtitle(props.subtitle, minPrice, maxPrice) }
             </div>
             <div
                 className = "item-group-items"
             >
                 {props.items.map(item =>
                     <Item
-                        key = {item.name}
+                        key = {`${props.name}-${item.name}`}
+                        onClick = {item.onClick?.bind(this, item)}
+                        count = {item.count}
                         name = {item.name}
                         pricePerSlot = {item.pricePerSlot}
                         horizontal = {item.horizontal}
