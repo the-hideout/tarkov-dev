@@ -162,11 +162,11 @@ function Armor() {
             charSet='utf-8'
         />
         <title>
-            Escape from Tarkov item tracker
+            Escape from Tarkov Armor chart
         </title>
         <meta
             name = 'description'
-            content = 'Track what items you need to Find in Raid for Escape from Tarkov quests'
+            content = 'All armor in Escape from Tarkov sortable by price, repairability, armor class etc'
         />
     </Helmet>,
     <Menu
