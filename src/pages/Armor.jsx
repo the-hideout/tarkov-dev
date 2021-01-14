@@ -121,8 +121,16 @@ function Armor() {
         if(!materialDestructabilityMap[item.itemProperties.ArmorMaterial]){
             console.log(`Missing ${item.itemProperties.ArmorMaterial}`);
         }
+
+        const match = item.name.match(/(.*)\s\(.+?$/);
+        let itemName = item.name;
+
+        if(match){
+            itemName = match[1].trim();
+        }
+
         return {
-            name: item.name,
+            name: itemName,
             armorClass: item.itemProperties.armorClass,
             material: item.itemProperties.ArmorMaterial,
             maxDurability: item.itemProperties.MaxDurability,
