@@ -155,7 +155,9 @@ function Armor() {
         return itemB.blindness - itemA.blindness;
     }), [])
 
-    return [<Helmet>
+    return [<Helmet
+        key = {'armor-table'}
+    >
         <meta
             charSet='utf-8'
         />
@@ -167,7 +169,9 @@ function Armor() {
             content = 'Track what items you need to Find in Raid for Escape from Tarkov quests'
         />
     </Helmet>,
-    <Menu />,
+    <Menu
+        key = {'main-navigation'}
+    />,
     <div
         className="display-wrapper data-wrapper"
         key = {'display-wrapper'}
