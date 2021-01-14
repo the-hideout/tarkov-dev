@@ -16,11 +16,8 @@ Simply click the type of ammo you wanna see the stats for and voila!
 
 Everything should be pretty straightforward.
 
-### Step 1: Install dependencies  
+### Step 1: Install dependencies
 `npm install`
 
-### Step 2: Get data   
-`npm run prebuild`
-
-### Step 3: Start development server  
+### Step 2: Start development server
 `npm start`
