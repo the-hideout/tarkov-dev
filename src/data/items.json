@@ -3551,7 +3551,8 @@
         "name": "Ars Arma A18 Skanda plate carrier (80/80)",
         "id": "5d5d87f786f77427997cfaef",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ],
         "horizontal": true
     },
@@ -13407,7 +13408,8 @@
         "name": "LBT 6094A Slick Plate Carrier (80/80)",
         "id": "5e4abb5086f77406975c9342",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5e4abc6786f77406812bd572": {
@@ -13436,7 +13438,8 @@
         "name": "Ars Arma CPC MOD.2 plate carrier",
         "id": "5e4ac41886f77406a511c9a8",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5e4abc1f86f774069619fbaa": {
