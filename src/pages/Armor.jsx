@@ -46,6 +46,14 @@ const centerCell = ({ value }) => {
     </div>
 };
 
+const linkCell = (allData) => {
+    return <a
+        href = {allData.row.original.wikiLink}
+    >
+        {allData.value}
+    </a>
+};
+
 function Armor() {
     const columns = useMemo(
         () => [
@@ -66,6 +74,7 @@ function Armor() {
             {
                 Header: 'Name',
                 accessor: 'name',
+                Cell: linkCell,
             },
             {
                 Header: 'Armor Class',
@@ -93,18 +102,17 @@ function Armor() {
                 Cell: centerCell,
             },
             {
-                Header: 'Movement Speed',
-                accessor: 'movement',
-                Cell: centerCell,
-            },
-            {
-                Header: 'Turn Speed',
-                accessor: 'turnSpeed',
-                Cell: centerCell,
-            },
-            {
-                Header: 'Ergonomics',
-                accessor: 'ergonomics',
+                Header: ({ value }) => {
+                    return <div
+                        className = 'center-content'
+                    >
+                        Stats
+                        <div>
+                            Mov/Turn/Ergo
+                        </div>
+                    </div>
+                },
+                accessor: 'stats',
                 Cell: centerCell,
             },
             {
@@ -136,11 +144,10 @@ function Armor() {
             maxDurability: item.itemProperties.MaxDurability,
             repairability: `${materialRepairabilityMap[item.itemProperties.ArmorMaterial]}/6`,
             effectiveDurability: Math.floor(item.itemProperties.MaxDurability / materialDestructabilityMap[item.itemProperties.ArmorMaterial]),
-            movement: `${item.itemProperties.speedPenaltyPercent}%`,
-            turnSpeed: `${item.itemProperties.mousePenalty}%`,
-            ergonomics: `${item.itemProperties.weaponErgonomicPenalty}`,
+            stats: `${item.itemProperties.speedPenaltyPercent}% / ${item.itemProperties.mousePenalty}% / ${item.itemProperties.weaponErgonomicPenalty}`,
             price: formatPrice(item.price),
             image: item.imgLink,
+            wikiLink: item.wikiLink,
         };
     })
     .filter(Boolean)
