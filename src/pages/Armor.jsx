@@ -54,6 +54,26 @@ const linkCell = (allData) => {
     </a>
 };
 
+const getArmorZoneString = (armorZones) => {
+    return armorZones.map((zoneName) => {
+        if(zoneName === 'Chest'){
+            return 'Thorax';
+        }
+
+        if(zoneName === 'LeftArm'){
+            return false;
+        }
+
+        if(zoneName === 'RightArm'){
+            return 'Arms';
+        }
+
+        return zoneName;
+    })
+    .filter(Boolean)
+    .join(', ');
+};
+
 function Armor() {
     const columns = useMemo(
         () => [
@@ -79,6 +99,11 @@ function Armor() {
             {
                 Header: 'Armor Class',
                 accessor: 'armorClass',
+                Cell: centerCell,
+            },
+            {
+                Header: 'Zones',
+                accessor: 'armorZone',
                 Cell: centerCell,
             },
             // {
@@ -140,6 +165,7 @@ function Armor() {
         return {
             name: itemName,
             armorClass: `${item.itemProperties.armorClass}/6`,
+            armorZone: getArmorZoneString(item.itemProperties.armorZone),
             material: item.itemProperties.ArmorMaterial,
             maxDurability: item.itemProperties.MaxDurability,
             repairability: `${materialRepairabilityMap[item.itemProperties.ArmorMaterial]}/6`,
