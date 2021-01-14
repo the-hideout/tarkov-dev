@@ -14,6 +14,7 @@ if(window.location.hostname !== 'localhost'){
             new Integrations.BrowserTracing(),
         ],
         tracesSampleRate: 1.0,
+        release: process.env.npm_package_version,
     });
 }
 
