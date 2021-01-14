@@ -130,7 +130,7 @@ function Armor() {
             effectiveDurability: Math.floor(item.itemProperties.MaxDurability / materialDestructabilityMap[item.itemProperties.ArmorMaterial]),
             movement: `${item.itemProperties.speedPenaltyPercent}%`,
             turnSpeed: `${item.itemProperties.mousePenalty}%`,
-            ergonomics: `${item.itemProperties.weaponErgonomicPenalty}%`,
+            ergonomics: `${item.itemProperties.weaponErgonomicPenalty}`,
             price: formatPrice(item.price),
             image: item.imgLink,
         };
