@@ -7,10 +7,17 @@ import {
     VictoryLine,
     VictoryLabel,
     VictoryAxis,
+    // VictoryContainer,
+    // VictoryTooltip,
+    // VictoryVoronoiContainer,
     VictoryContainer,
 } from 'victory';
 
 import Symbol from './Symbol.jsx';
+// import GraphLabel from './GraphLabel';
+
+const MAX_DAMAGE = 170;
+const MAX_PENETRATION = 70;
 
 const styles = {
     classLabel: {
@@ -125,6 +132,7 @@ const getArmorLabel = (tier, yMax, xMax) => {
     }
 
     return <VictoryLabel
+        key = {`class-${tier}-label`}
         text = {`Class ${tier}`}
         style = {styles.classLabel}
         datum = {{
@@ -154,8 +162,8 @@ const Graph = props => {
                 x: 0,
             }}
             maxDomain = {{
-                y: props.yMax,
-                x: props.xMax,
+                y: MAX_PENETRATION,
+                x: MAX_DAMAGE,
             }}
             containerComponent={
                 <VictoryContainer
@@ -180,8 +188,12 @@ const Graph = props => {
             <VictoryScatter
                 dataComponent = {<Symbol />}
                 style={styles.scatter}
-                // labelComponent={<VictoryLabel dy={-3} />}
-                labelComponent={<VictoryLabel dy={-3} />}
+                // labelComponent={<GraphLabel
+                //     dy={-3}
+                // />}
+                labelComponent={<VictoryLabel
+                    dy={-3}
+                />}
                 labels={({ datum }) => {
                     return datum.name;
                 }}
