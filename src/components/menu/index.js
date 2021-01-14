@@ -6,7 +6,6 @@ import {
 import MenuItem from './MenuItem';
 import {ReactComponent as PatreonIcon} from '../Patreon.svg';
 import MenuIcon from './MenuIcon.jsx';
-import useObserver from '../../hooks/useObserver';
 
 import ammoData from '../../data/ammo.json';
 import mapData from '../../data/maps.json';
@@ -23,23 +22,9 @@ const Menu = () => {
     const handleMenuClick = () => {
         setIsOpen(!isOpen);
     };
-    let lastHeight = 0;
 
-    const setCSSVar = () => {
-        const viewableHeight = window.innerHeight - navEl.current?.offsetHeight || 0;
-
-        if(viewableHeight === lastHeight){
-            return true;
-        }
-
-        document.documentElement.style.setProperty('--display-height', `${viewableHeight}px`);
-        lastHeight = viewableHeight;
-    }
-
-    useObserver({
-        callback: setCSSVar,
-        element: navEl,
-    });
+    const viewableHeight = window.innerHeight - navEl.current?.offsetHeight || 0;
+    document.documentElement.style.setProperty('--display-height', `${viewableHeight}px`);
 
     return <nav
             key = 'main-navigation'
