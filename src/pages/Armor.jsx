@@ -81,11 +81,11 @@ function Armor() {
                 accessor: 'armorClass',
                 Cell: centerCell,
             },
-            {
-                Header: 'Material',
-                accessor: 'material',
-                Cell: centerCell,
-            },
+            // {
+            //     Header: 'Material',
+            //     accessor: 'material',
+            //     Cell: centerCell,
+            // },
             {
                 Header: 'Max Durability',
                 accessor: 'maxDurability',
@@ -139,7 +139,7 @@ function Armor() {
 
         return {
             name: itemName,
-            armorClass: item.itemProperties.armorClass,
+            armorClass: `${item.itemProperties.armorClass}/6`,
             material: item.itemProperties.ArmorMaterial,
             maxDurability: item.itemProperties.MaxDurability,
             repairability: `${materialRepairabilityMap[item.itemProperties.ArmorMaterial]}/6`,
