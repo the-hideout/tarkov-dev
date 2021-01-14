@@ -60,6 +60,11 @@ a {
     position: relative;
 }
 
+.display-wrapper.data-wrapper {
+    height: auto;
+    overflow-x: scroll;
+}
+
 .page-wrapper {
     max-width: 1200px;
     margin: 0 10px;
@@ -221,3 +226,4 @@ a {
         margin: 0 auto;
     }
 }
+

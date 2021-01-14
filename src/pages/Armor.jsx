@@ -154,7 +154,7 @@ function Armor() {
     </Helmet>,
     <Menu />,
     <div
-        className="display-wrapper"
+        className="display-wrapper data-wrapper"
         key = {'display-wrapper'}
     >
         <DataTable
