@@ -21,6 +21,7 @@ import About from './pages/about/';
 import Maps from './pages/maps/';
 import ItemTracker from './pages/ItemTracker';
 import Armor from './pages/Armor';
+import Headwear from './pages/Headwear';
 
 import Debug from './components/Debug';
 
@@ -290,6 +291,15 @@ const makeID = function makeID(length) {
                 path={'/armor/'}
             >
                 <Armor />
+                <ID
+                    sessionID = {sessionID}
+                />
+            </Route>
+            <Route
+                exact
+                path={'/headwear/'}
+            >
+                <Headwear />
                 <ID
                     sessionID = {sessionID}
                 />

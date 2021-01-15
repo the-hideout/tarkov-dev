@@ -155,6 +155,7 @@ const items = Object.fromEntries(
             horizontal: rawItem.horizontal,
             ...getSize(rawItem),
             itemProperties: rawItem.itemProperties,
+            bsgTypes: rawItem.bsgTypes,
         },
     ];
   }),

@@ -57,6 +57,22 @@ const mappingProperties = [
         propertyKey: 'ArmorMaterial',
         type: 'armor',
     },
+    {
+        propertyKey: 'headSegments',
+        type: 'helmet',
+    },
+    {
+        propertyKey: 'BlocksEarpiece',
+        type: 'helmet',
+    },
+    {
+        propertyKey: 'DeafStrength',
+        type: 'helmet',
+    },
+    {
+        propertyKey: 'RicochetParams',
+        type: 'helmet',
+    },
 ];
 
 const getBsgTypes = (itemId, bsgData) => {
