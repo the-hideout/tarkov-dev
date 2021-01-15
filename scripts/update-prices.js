@@ -127,9 +127,9 @@ const getBsgTypes = (itemId, bsgData) => {
             };
 
             for(const extraProp of mappingProperties){
-                if(!allItemData[languageCode][i].types.includes(extraProp.type)){
-                    continue;
-                }
+                // if(!allItemData[languageCode][i].types.includes(extraProp.type)){
+                //     continue;
+                // }
 
                 if(!bsgItemData._props[extraProp.propertyKey]){
                     continue;
