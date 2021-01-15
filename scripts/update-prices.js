@@ -59,6 +59,15 @@ const mappingProperties = [
     },
 ];
 
+const getBsgTypes = (itemId, bsgData) => {
+    const currentType = [bsgData[itemId]._props.Name];
+    if(!bsgData[itemId]._parent){
+        return currentType;
+    }
+
+    return getBsgTypes(bsgData[itemId]._parent, bsgData).concat(currentType);
+};
+
 (async () => {
     let allItemData = {};
     let bsgData = false;
@@ -112,6 +121,9 @@ const mappingProperties = [
                 traderPrice: allItemData[languageCode][i].traderPrice * CURRENCY_MODIFIER[allItemData[languageCode][i].traderPriceCur],
                 id: allItemData[languageCode][i].bsgId,
                 itemProperties: {},
+                bsgTypes: [
+                    ...getBsgTypes(bsgItemData._parent, bsgData).filter(Boolean),
+                ],
             };
 
             for(const extraProp of mappingProperties){
