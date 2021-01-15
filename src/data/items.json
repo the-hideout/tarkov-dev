@@ -1543,7 +1543,8 @@
         "name": "LSHZ-2DTM face shield (50/50)",
         "id": "5d6d3829a4b9361bc8618943",
         "types": [
-            "wearable"
+            "wearable",
+            "glasses"
         ],
         "horizontal": true
     },
@@ -1836,7 +1837,8 @@
         "name": "Vulkan-5 face shield (85/85)",
         "id": "5ca2113f86f7740b2547e1d2",
         "types": [
-            "wearable"
+            "wearable",
+            "glasses"
         ],
         "horizontal": true
     },
@@ -1921,7 +1923,8 @@
         "name": "ZSh-1-2M face shield (50/50)",
         "id": "5aa7e3abe5b5b000171d064d",
         "types": [
-            "wearable"
+            "wearable",
+            "glasses"
         ],
         "horizontal": true
     },
@@ -2388,7 +2391,8 @@
         "name": "Multi-hit ballistic face shield-visor for Ops-Core FAST helmet (40/40)",
         "id": "5a16b7e1fcdbcb00165aa6c9",
         "types": [
-            "wearable"
+            "wearable",
+            "glasses"
         ]
     },
     "5d1b2fa286f77425227d1674": {
@@ -2988,7 +2992,8 @@
         "name": "PSH-97 \"Djeta\" helmet",
         "id": "5c0d2727d174af02a012cf58",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5b4329075acfc400153b78ff": {
@@ -3265,14 +3270,16 @@
         "name": "ZSh-1-2M helmet (black)",
         "id": "5aa7e4a4e5b5b000137b76f2",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5a7c4850e899ef00150be885": {
         "name": "6B47 Ratnik-BSh Helmet",
         "id": "5a7c4850e899ef00150be885",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "57c44dd02459772d2e0ae249": {
@@ -3354,7 +3361,8 @@
         "name": "SSh-68 helmet (1968 steel helmet)",
         "id": "5c06c6a80db834001b735491",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5d5d8ca986f7742798716522": {
@@ -3375,7 +3383,8 @@
         "name": "Soft tank crew helmet TSH-4M-L",
         "id": "5df8a58286f77412631087ed",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "57dbb57e2459774673234890": {
@@ -3423,14 +3432,16 @@
         "id": "59ef13ca86f77445fd0e2483",
         "types": [
             "wearable",
-            "un-lootable"
+            "un-lootable",
+            "helmet"
         ]
     },
     "5c17a7ed2e2216152142459c": {
         "name": "Crye Precision Airframe Tan",
         "id": "5c17a7ed2e2216152142459c",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5bd073a586f7747e6f135799": {
@@ -3460,7 +3471,8 @@
         "name": "Ops-Core Fast MT SUPER HIGH CUT Helmet Tan",
         "id": "5ac8d6885acfc400180ae7b0",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "55d614004bdc2d86028b4568": {
@@ -3499,7 +3511,8 @@
         "name": "Team Wendy EXFIL Ballistic Helmet Black",
         "id": "5e00c1ad86f774747333222c",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5b86a0e586f7745b600ccb23": {
@@ -3544,7 +3557,8 @@
         "name": "Maska 1Sch helmet (Killa)",
         "id": "5c0e874186f7745dc7616606",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5d5d87f786f77427997cfaef": {
@@ -3576,14 +3590,16 @@
         "name": "Light armored Shattered mask",
         "id": "5b432b2f5acfc4771e1c6622",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5b40e3f35acfc40016388218": {
         "name": "Highcom Striker ACHHC IIIA black helmet",
         "id": "5b40e3f35acfc40016388218",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "572b7fa524597762b747ce82": {
@@ -3613,7 +3629,8 @@
         "name": "Highcom Striker ULACH IIIA black helmet",
         "id": "5b40e1525acfc4771e1c6611",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "57ae0171245977343c27bfcf": {
@@ -3755,28 +3772,32 @@
         "name": "BNTI LSHZ-2DTM Helmet",
         "id": "5d6d3716a4b9361bc8618872",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "59e7711e86f7746cae05fbe1": {
         "name": "Kolpak-1S riot helmet",
         "id": "59e7711e86f7746cae05fbe1",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5aa7e454e5b5b0214e506fa2": {
         "name": "ZSh-1-2M helmet",
         "id": "5aa7e454e5b5b0214e506fa2",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5b4329f05acfc47a86086aa1": {
         "name": "DEVTAC Ronin ballistic helmet",
         "id": "5b4329f05acfc47a86086aa1",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5b44d0de86f774503d30cba8": {
@@ -3813,14 +3834,16 @@
         "name": "Team Wendy EXFIL Ballistic Helmet Coyote",
         "id": "5e01ef6886f77445f643baa4",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5aa7d193e5b5b000171d063f": {
         "name": "SSSh-95 Sfera-S (Sphere-S)",
         "id": "5aa7d193e5b5b000171d063f",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "56e335e4d2720b6c058b456d": {
@@ -3834,14 +3857,16 @@
         "name": "MSA ACH TC-2002 MICH Series Helmet",
         "id": "5d5e9c74a4b9364855191c40",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5aa7e276e5b5b000171d0647": {
         "name": "Altyn helmet",
         "id": "5aa7e276e5b5b000171d0647",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "576fd4ec2459777f0b518431": {
@@ -4063,7 +4088,8 @@
         "name": "6B47 Helmet with cover (flora digital)",
         "id": "5aa7cfc0e5b5b00015693143",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5c066ef40db834001966a595": {
@@ -4077,35 +4103,40 @@
         "name": "UNTAR helmet",
         "id": "5aa7d03ae5b5b00016327db5",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5b40e4035acfc47a87740943": {
         "name": "Highcom Striker ACHHC IIIA olive helmet",
         "id": "5b40e4035acfc47a87740943",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5645bc214bdc2d363b8b4571": {
         "name": "Kiver-M Helmet",
         "id": "5645bc214bdc2d363b8b4571",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5b432d215acfc4771e1c6624": {
         "name": "LZSh light helmet",
         "id": "5b432d215acfc4771e1c6624",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5d5e7d28a4b936645d161203": {
         "name": "MSA ACH TC-2001 MICH Series Helmet",
         "id": "5d5e7d28a4b936645d161203",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "577d141e24597739c5255e01": {
@@ -4119,14 +4150,16 @@
         "name": "SHPM Firefighter's helmet",
         "id": "5c08f87c0db8340019124324",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5ca20ee186f774799474abc2": {
         "name": "Vulkan-5 (LShZ-5) heavy helmet",
         "id": "5ca20ee186f774799474abc2",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5d63d33b86f7746ea9275524": {
@@ -4155,14 +4188,16 @@
         "name": "Ops-Core Fast MT SUPER HIGH CUT Helmet",
         "id": "5a154d5cfcdbcb001a3b00da",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5b40e2bc5acfc40016388216": {
         "name": "Highcom Striker ULACH IIIA tan helmet",
         "id": "5b40e2bc5acfc40016388216",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5c05293e0db83400232fff80": {
@@ -4208,7 +4243,8 @@
         "name": "Maska 1Sch helmet",
         "id": "5c091a4e0db834001d5addc8",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5af0454c86f7746bf20992e8": {
@@ -13069,7 +13105,8 @@
         "name": "Maska 1Sch face shield",
         "id": "5c0919b50db834001b7ce3b9",
         "types": [
-            "wearable"
+            "wearable",
+            "glasses"
         ],
         "horizontal": true
     },
@@ -13431,7 +13468,8 @@
         "name": "MSA Gallet TC 800 High Cut combat helmet",
         "id": "5e4bfc1586f774264f7582d3",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5e4ac41886f77406a511c9a8": {
@@ -13663,7 +13701,8 @@
         "name": "Tac-Kek Fast MT Helmet (non-ballistic replica)",
         "id": "5ea05cf85ad9772e6624305d",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5ea058e01dbce517f324b3e2": {
@@ -13916,7 +13955,8 @@
         "name": "Diamond Age Bastion Helmet",
         "id": "5ea17ca01412a1425304d1c0",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5e0090f7e9dc277128008b93": {
@@ -14233,14 +14273,16 @@
         "name": "Rys-T helmet",
         "id": "5f60c74e3b85f6263c145586",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5f60b34a41e30a4ab12a6947": {
         "name": "Galvion Caiman Ballistic Helmet",
         "id": "5f60b34a41e30a4ab12a6947",
         "types": [
-            "wearable"
+            "wearable",
+            "helmet"
         ]
     },
     "5d70e500a4b9364de70d38ce": {
@@ -14319,7 +14361,8 @@
         "name": "Caiman Fixed Arm Visor",
         "id": "5f60bf4558eff926626a60f2",
         "types": [
-            "wearable"
+            "wearable",
+            "glasses"
         ],
         "horizontal": true
     },
@@ -14334,7 +14377,8 @@
         "name": "Rys-T face shield",
         "id": "5f60c85b58eff926626a60f7",
         "types": [
-            "wearable"
+            "wearable",
+            "glasses"
         ],
         "horizontal": true
     },
