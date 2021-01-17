@@ -1,5 +1,5 @@
 {
-    "updated": "2021-01-13T21:03:21.946Z",
+    "updated": "2021-01-17T19:38:29.111Z",
     "data": [
         {
             "requiredItems": [
@@ -3235,23 +3235,6 @@
         {
             "requiredItems": [
                 {
-                    "name": "Tube of Poxeram Cold Welding",
-                    "id": "5e2af22086f7746d3f3c33fa",
-                    "count": 2
-                }
-            ],
-            "rewardItems": [
-                {
-                    "name": "SGMT Drum mag for Glock 9x19, 50 rounds capacity",
-                    "id": "5a718f958dc32e00094b97e7",
-                    "count": 1
-                }
-            ],
-            "trader": "Mechanic"
-        },
-        {
-            "requiredItems": [
-                {
                     "name": "Wires",
                     "id": "5c06779c86f77426e00dd782",
                     "count": 4
@@ -4837,7 +4820,7 @@
                 {
                     "name": "Apollon Soyuz cigarettes",
                     "id": "573475fb24597737fb1379e1",
-                    "count": 2
+                    "count": 1
                 }
             ],
             "rewardItems": [
