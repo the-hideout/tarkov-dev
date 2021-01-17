@@ -29,7 +29,7 @@ function About() {
             Discussions & feedback
         </h2>
         <p>
-            If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/SwpAe48d">
+            If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/B2xM8WZyVv">
                 Discord
             </a> server
         </p>
