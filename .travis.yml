@@ -5,6 +5,16 @@ node_js:
 script:
   - npm run update-prices || travis_terminate 1;
   - npm run build
+  - name: Create release and notify Sentry of deploy
+    env: SENTRY_ORG=oskar-risberg SENTRY_PROJECT=tarkov-tools SENTRY_ENVIRONMENT=production
+    script: |
+      curl -sL https://sentry.io/get-cli/ | bash
+      export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+      sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
+      sentry-cli releases set-commits $SENTRY_RELEASE --auto
+      sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps build/static/js
+      sentry-cli releases finalize $SENTRY_RELEASE
+      sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
     # on:
     #   branch: master
 
@@ -16,16 +26,16 @@ deploy:
     on:
       branch: master
 
-jobs:
-  include:
-    # ...
-    - name: Create release and notify Sentry of deploy
-      env: SENTRY_ORG=oskar-risberg SENTRY_PROJECT=tarkov-tools SENTRY_ENVIRONMENT=production
-      script: |
-        curl -sL https://sentry.io/get-cli/ | bash
-        export SENTRY_RELEASE=$(sentry-cli releases propose-version)
-        sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
-        sentry-cli releases set-commits $SENTRY_RELEASE --auto
-        sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps build/static/js
-        sentry-cli releases finalize $SENTRY_RELEASE
-        sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
+# jobs:
+#   include:
+#     # ...
+#     - name: Create release and notify Sentry of deploy
+#       env: SENTRY_ORG=oskar-risberg SENTRY_PROJECT=tarkov-tools SENTRY_ENVIRONMENT=production
+#       script: |
+#         curl -sL https://sentry.io/get-cli/ | bash
+#         export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+#         sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
+#         sentry-cli releases set-commits $SENTRY_RELEASE --auto
+#         sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps build/static/js
+#         sentry-cli releases finalize $SENTRY_RELEASE
+#         sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
