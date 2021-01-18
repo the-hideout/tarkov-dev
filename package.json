@@ -28,7 +28,7 @@
     "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eject": "react-scripts eject",
-    "prebuild": "node scripts/getdata-nofoodaftermidnight.js",
+    "prebuild": "node scripts/getdata-nofoodaftermidnight.js && node scripts/get-all-barters.js",
     "stage": "npx rimraf build && npm run update-prices && npm run build && npx serve build",
     "update-prices": "node scripts/update-prices.js"
   },
