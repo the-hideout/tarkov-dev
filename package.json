@@ -5,6 +5,7 @@
   "dependencies": {
     "@sentry/react": "^5.27.1",
     "@sentry/tracing": "^5.27.1",
+    "cheerio": "^1.0.0-rc.5",
     "dayjs": "^1.9.4",
     "got": "^11.8.0",
     "history": "^5.0.0",
