@@ -4,11 +4,20 @@ node_js:
 
 jobs:
   include:
-    - name: Update prices
-      script: npm run update-prices || travis_terminate 1;
+    # - name: Update prices
+    #   script:
 
-    - name: Build site
-      script: npm run build
+    - name: Build & deploy site
+      script: |
+        npm run update-prices || travis_terminate 1;
+        npm run build
+      deploy:
+        provider: script
+        script: npx @cloudflare/wrangler publish
+        skip_cleanup: true
+        edge: true
+        on:
+          branch: master
 
     - name: Create release and notify Sentry of deploy
       env: SENTRY_ORG=oskar-risberg SENTRY_PROJECT=tarkov-tools SENTRY_ENVIRONMENT=production
@@ -23,13 +32,6 @@ jobs:
       # on:
       #   branch: master
 
-deploy:
-    provider: script
-    script: npx @cloudflare/wrangler publish
-    skip_cleanup: true
-    edge: true
-    on:
-      branch: master
 
 # jobs:
 #   include:
