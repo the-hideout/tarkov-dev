@@ -1,0 +1,12 @@
+.guides-list-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.guides-list-wrapper a {
+    max-width: 30%;
+}
+
+.guides-list-wrapper img {
+    max-width: 100%;
+}
