@@ -56,6 +56,19 @@ function About() {
             patreon
         />
         <h2>
+            Cool resources
+        </h2>
+        <p>
+            <a href="https://tarkovbitcoinprice.com/">
+                Tarkov Bitcoin Price
+            </a>
+        </p>
+        <p>
+            <a href="https://github.com/RatScanner/RatScanner">
+                RatScanner
+            </a>
+        </p>
+        <h2>
             External resources
         </h2>
         <p>
