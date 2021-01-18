@@ -1,10 +1,10 @@
 import {useMemo} from 'react';
 import {Helmet} from 'react-helmet';
 
-import Menu from '../components/menu';
-import DataTable from '../components/data-table';
-import formatPrice from '../modules/format-price';
-import items from '../Items';
+import Menu from '../../components/menu';
+import DataTable from '../../components/data-table';
+import formatPrice from '../../modules/format-price';
+import items from '../../Items';
 
 const materialDestructabilityMap = {
     'Aramid': 0.25,
@@ -26,30 +26,12 @@ const materialRepairabilityMap = {
     'ArmoredSteel': 5,
     'Ceramic': 2,
     'Glass': 1,
-};
-
-const ricochetMap = (ricochetCoefficient) => {
-    if(ricochetCoefficient < 0.2){
-        return 'None';
-    }
-
-    if(ricochetCoefficient < 0.8){
-        return 'Low';
-    }
-
-    if(ricochetCoefficient < 0.9){
-        return 'Medium';
-    }
-
-    if(ricochetCoefficient < 1){
-        return 'High';
-    }
 }
 
 let displayItems = [];
 
 for(const item of Object.values(items)){
-    if(!item.types.includes('helmet')){
+    if(!item.types.includes('armor')){
         continue;
     }
 
@@ -72,7 +54,27 @@ const linkCell = (allData) => {
     </a>
 };
 
-function Headwear() {
+const getArmorZoneString = (armorZones) => {
+    return armorZones.map((zoneName) => {
+        if(zoneName === 'Chest'){
+            return 'Thorax';
+        }
+
+        if(zoneName === 'LeftArm'){
+            return false;
+        }
+
+        if(zoneName === 'RightArm'){
+            return 'Arms';
+        }
+
+        return zoneName;
+    })
+    .filter(Boolean)
+    .join(', ');
+};
+
+function Armor() {
     const columns = useMemo(
         () => [
             {
@@ -104,36 +106,26 @@ function Headwear() {
                 accessor: 'armorZone',
                 Cell: centerCell,
             },
-            {
-                Header: 'Ricochet chance',
-                accessor: 'ricochetChance',
-                Cell: centerCell,
-            },
-            {
-                Header: 'Blocks sound',
-                accessor: 'deafenStrength',
-                Cell: centerCell,
-            },
-            {
-                Header: 'Blocks headphones',
-                accessor: 'blocksHeadphones',
-                Cell: centerCell,
-            },
+            // {
+            //     Header: 'Material',
+            //     accessor: 'material',
+            //     Cell: centerCell,
+            // },
             {
                 Header: 'Max Durability',
                 accessor: 'maxDurability',
                 Cell: centerCell,
             },
-            // {
-            //     Header: 'Effective Durability',
-            //     accessor: 'effectiveDurability',
-            //     Cell: centerCell,
-            // },
-            // {
-            //     Header: 'Repairability',
-            //     accessor: 'repairability',
-            //     Cell: centerCell,
-            // },
+            {
+                Header: 'Effective Durability',
+                accessor: 'effectiveDurability',
+                Cell: centerCell,
+            },
+            {
+                Header: 'Repairability',
+                accessor: 'repairability',
+                Cell: centerCell,
+            },
             {
                 Header: ({ value }) => {
                     return <div
@@ -158,6 +150,7 @@ function Headwear() {
     )
 
     const data = useMemo(() => displayItems.map((item) => {
+        // console.log(item);
         if(!materialDestructabilityMap[item.itemProperties.ArmorMaterial]){
             console.log(`Missing ${item.itemProperties.ArmorMaterial}`);
         }
@@ -172,15 +165,12 @@ function Headwear() {
         return {
             name: itemName,
             armorClass: `${item.itemProperties.armorClass}/6`,
-            armorZone: item.itemProperties.headSegments.join(', '),
+            armorZone: getArmorZoneString(item.itemProperties.armorZone),
             material: item.itemProperties.ArmorMaterial,
-            deafenStrength: item.itemProperties.DeafStrength,
-            blocksHeadphones: item.itemProperties.BlocksEarpiece ? 'Yes' : 'No',
             maxDurability: item.itemProperties.MaxDurability,
-            ricochetChance: ricochetMap(item.itemProperties.RicochetParams.x),
             repairability: `${materialRepairabilityMap[item.itemProperties.ArmorMaterial]}/6`,
             effectiveDurability: Math.floor(item.itemProperties.MaxDurability / materialDestructabilityMap[item.itemProperties.ArmorMaterial]),
-            stats: `${item.itemProperties.speedPenaltyPercent || 0}% / ${item.itemProperties.mousePenalty || 0}% / ${item.itemProperties.weaponErgonomicPenalty || 0}`,
+            stats: `${item.itemProperties.speedPenaltyPercent}% / ${item.itemProperties.mousePenalty}% / ${item.itemProperties.weaponErgonomicPenalty}`,
             price: formatPrice(item.price),
             image: item.imgLink,
             wikiLink: item.wikiLink,
@@ -192,17 +182,17 @@ function Headwear() {
     }), [])
 
     return [<Helmet
-        key = {'helmet-table'}
+        key = {'armor-table'}
     >
         <meta
             charSet='utf-8'
         />
         <title>
-            Escape from Tarkov Helmet chart
+            Escape from Tarkov Armor chart
         </title>
         <meta
             name = 'description'
-            content = 'All helmets in Escape from Tarkov sortable by price, armor class etc'
+            content = 'All armor in Escape from Tarkov sortable by price, repairability, armor class etc'
         />
     </Helmet>,
     <Menu
@@ -220,4 +210,4 @@ function Headwear() {
     ];
 };
 
-export default Headwear;
+export default Armor;

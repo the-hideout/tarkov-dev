@@ -1,8 +1,10 @@
 import {useMemo} from 'react';
+import {Helmet} from 'react-helmet';
 
-import DataTable from '../components/data-table';
-import items from '../Items';
-import formatPrice from '../modules/format-price';
+import Menu from '../../components/menu';
+import DataTable from '../../components/data-table';
+import items from '../../Items';
+import formatPrice from '../../modules/format-price';
 
 let displayItems = [];
 
@@ -71,10 +73,32 @@ function Glasses() {
         return itemB.blindness - itemA.blindness;
     }), [])
 
-    return <DataTable
-        columns={columns}
-        data={data}
-    />
+    return [<Helmet
+        key = {'glasses-table'}
+    >
+        <meta
+            charSet='utf-8'
+        />
+        <title>
+            Escape from Tarkov Helmet chart
+        </title>
+        <meta
+            name = 'description'
+            content = 'All glasses in Escape from Tarkov sortable by price, armor class etc'
+        />
+    </Helmet>,
+    <Menu
+        key = {'main-navigation'}
+    />,
+    <div
+        className="display-wrapper data-wrapper"
+        key = {'display-wrapper'}
+    >
+        <DataTable
+            columns={columns}
+            data={data}
+        />
+    </div>];
 };
 
 export default Glasses;

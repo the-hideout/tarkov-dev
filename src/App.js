@@ -16,12 +16,13 @@ import Control from './components/control';
 import Menu from './components/menu';
 import LootTier from './pages/LootTier.jsx';
 import Barters from './components/Barters';
-import Glasses from './pages/Glasses';
 import About from './pages/about/';
 import Maps from './pages/maps/';
 import ItemTracker from './pages/ItemTracker';
-import Armor from './pages/Armor';
-import Headwear from './pages/Headwear';
+import Guides from './pages/guides/';
+import Glasses from './pages/guides/Glasses';
+import Armor from './pages/guides/Armor';
+import Headwear from './pages/guides/Headwear';
 
 import Debug from './components/Debug';
 
@@ -252,21 +253,29 @@ const makeID = function makeID(length) {
             </Route>
             <Route
                 exact
-                path={'/glasses/'}
+                path={'/guides/'}
             >
                 <Menu />
-                <Helmet>
-                    <meta charSet="utf-8" />
-                    <title>Tarkov eye protection</title>
-                    <meta
-                        name="description"
-                        content="All available items for eye protection and their stats"
-                    />
-                </Helmet>
-                <Glasses />
+                <Guides />
                 <ID
                     sessionID = {sessionID}
                 />
+            </Route>
+            <Route
+                path="/guides/headwear"
+            >
+                <Headwear />
+            </Route>
+            <Route
+                path="/guides/glasses"
+            >
+                <Glasses />
+            </Route>
+            <Route
+                exact
+                path={'/guides/armor'}
+            >
+                <Armor />
             </Route>
             <Route
                 exact
@@ -282,24 +291,6 @@ const makeID = function makeID(length) {
                 path={'/item-tracker/'}
             >
                 <ItemTracker />
-                <ID
-                    sessionID = {sessionID}
-                />
-            </Route>
-            <Route
-                exact
-                path={'/armor/'}
-            >
-                <Armor />
-                <ID
-                    sessionID = {sessionID}
-                />
-            </Route>
-            <Route
-                exact
-                path={'/headwear/'}
-            >
-                <Headwear />
                 <ID
                     sessionID = {sessionID}
                 />
