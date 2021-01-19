@@ -36,7 +36,7 @@ function Guides() {
                 className = 'guides-list-wrapper'
             >
                 <Link
-                    to = {`/guides/armor`}
+                    to = {`/gear/armor`}
                 >
                     <h2>
                         Armor
@@ -47,7 +47,7 @@ function Guides() {
                     />
                 </Link>
                 <Link
-                    to = {`/guides/headwear`}
+                    to = {`/gear/helmets`}
                 >
                     <h2>
                         Helmet
@@ -58,7 +58,7 @@ function Guides() {
                     />
                 </Link>
                 <Link
-                    to = {`/guides/glasses`}
+                    to = {`/gear/glasses`}
                 >
                     <h2>
                         Glasses
