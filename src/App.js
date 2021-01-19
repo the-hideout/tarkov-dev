@@ -253,7 +253,7 @@ const makeID = function makeID(length) {
             </Route>
             <Route
                 exact
-                path={'/guides/'}
+                path={'/gear/'}
             >
                 <Menu />
                 <Guides />
@@ -262,18 +262,18 @@ const makeID = function makeID(length) {
                 />
             </Route>
             <Route
-                path="/guides/helmets"
+                path="/gear/helmets"
             >
                 <Helmets />
             </Route>
             <Route
-                path="/guides/glasses"
+                path="/gear/glasses"
             >
                 <Glasses />
             </Route>
             <Route
                 exact
-                path={'/guides/armor'}
+                path={'/gear/armor'}
             >
                 <Armor />
             </Route>

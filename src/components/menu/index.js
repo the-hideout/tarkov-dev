@@ -115,25 +115,25 @@ const Menu = () => {
                     className = "submenu-wrapper"
                 >
                     <Link
-                        to = '/guides/'
+                        to = '/gear/'
                     >
-                        Guides
+                        Gear
                     </Link>
                     <ul>
                         <MenuItem
                             displayText = {'Armor'}
-                            to = {`/guides/armor`}
+                            to = {`/gear/armor`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
                         <MenuItem
                             displayText = {'Helmets'}
-                            to = {`/guides/helmets`}
+                            to = {`/gear/helmets`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
 
                         <MenuItem
                             displayText = {'Glasses'}
-                            to = {`/guides/glasses`}
+                            to = {`/gear/glasses`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
                     </ul>

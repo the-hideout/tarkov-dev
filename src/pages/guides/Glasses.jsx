@@ -46,6 +46,11 @@ function Glasses() {
                 accessor: 'name',
             },
             {
+                Header: 'Armor Class',
+                accessor: 'armorClass',
+                Cell: centerCell,
+            },
+            {
                 Header: 'Blindness protection',
                 accessor: 'blindness',
                 Cell: centerCell,
@@ -60,10 +65,17 @@ function Glasses() {
     )
 
     const data = useMemo(() => displayItems.map((item) => {
-        console.log(item);
+        const match = item.name.match(/(.*)\s\(.+?$/);
+        let itemName = item.name;
+
+        if(match){
+            itemName = match[1].trim();
+        }
+
         return {
-            name: item.name,
-            blindness: item.itemProperties.BlindnessProtection,
+            name: itemName,
+            armorClass: `${item.itemProperties.armorClass}/6`,
+            blindness: `${(item.itemProperties.BlindnessProtection || 0) * 100}%`,
             image: item.imgLink,
             price: `${formatPrice(item.price)}`,
         };
