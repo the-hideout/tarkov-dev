@@ -56,6 +56,20 @@ function Glasses() {
                 Cell: centerCell,
             },
             {
+                Header: ({ value }) => {
+                    return <div
+                        className = 'center-content'
+                    >
+                        Stats
+                        <div>
+                            Turn/Ergo
+                        </div>
+                    </div>
+                },
+                accessor: 'stats',
+                Cell: centerCell,
+            },
+            {
                 Header: 'Price',
                 accessor: 'price',
                 Cell: centerCell,
@@ -65,7 +79,7 @@ function Glasses() {
     )
 
     const data = useMemo(() => displayItems.map((item) => {
-        const match = item.name.match(/(.*)\s\(.+?$/);
+        const match = item.name.match(/(.*)\s\(\d.+?$/);
         let itemName = item.name;
 
         if(match){
@@ -76,6 +90,7 @@ function Glasses() {
             name: itemName,
             armorClass: `${item.itemProperties.armorClass}/6`,
             blindness: `${(item.itemProperties.BlindnessProtection || 0) * 100}%`,
+            stats: `${item.itemProperties.mousePenalty || 0}% / ${item.itemProperties.weaponErgonomicPenalty || 0}`,
             image: item.imgLink,
             price: `${formatPrice(item.price)}`,
         };

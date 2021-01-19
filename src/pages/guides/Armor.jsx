@@ -155,7 +155,7 @@ function Armor() {
             console.log(`Missing ${item.itemProperties.ArmorMaterial}`);
         }
 
-        const match = item.name.match(/(.*)\s\(.+?$/);
+        const match = item.name.match(/(.*)\s\(\d.+?$/);
         let itemName = item.name;
 
         if(match){
