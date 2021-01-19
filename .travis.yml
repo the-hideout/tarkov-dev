@@ -13,8 +13,8 @@ jobs:
         script: npx @cloudflare/wrangler publish
         skip_cleanup: true
         edge: true
-        on:
-          branch: master
+        # on:
+        #   branch: master
 
     - name: Create release and notify Sentry of deploy
       env: SENTRY_ORG=oskar-risberg SENTRY_PROJECT=tarkov-tools SENTRY_ENVIRONMENT=production
