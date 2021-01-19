@@ -22,7 +22,7 @@ import ItemTracker from './pages/ItemTracker';
 import Guides from './pages/guides/';
 import Glasses from './pages/guides/Glasses';
 import Armor from './pages/guides/Armor';
-import Headwear from './pages/guides/Headwear';
+import Helmets from './pages/guides/Helmets';
 
 import Debug from './components/Debug';
 
@@ -262,9 +262,9 @@ const makeID = function makeID(length) {
                 />
             </Route>
             <Route
-                path="/guides/headwear"
+                path="/guides/helmets"
             >
-                <Headwear />
+                <Helmets />
             </Route>
             <Route
                 path="/guides/glasses"

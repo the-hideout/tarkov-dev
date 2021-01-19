@@ -115,6 +115,33 @@ const Menu = () => {
                     className = "submenu-wrapper"
                 >
                     <Link
+                        to = '/guides/'
+                    >
+                        Guides
+                    </Link>
+                    <ul>
+                        <MenuItem
+                            displayText = {'Armor'}
+                            to = {`/guides/armor`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {'Helmets'}
+                            to = {`/guides/helmets`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+
+                        <MenuItem
+                            displayText = {'Glasses'}
+                            to = {`/guides/glasses`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                    </ul>
+                </li>
+                <li
+                    className = "submenu-wrapper"
+                >
+                    <Link
                         to = '/control/'
                         onClick = {setIsOpen.bind(this, false)}
                     >

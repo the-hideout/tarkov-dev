@@ -72,7 +72,7 @@ const linkCell = (allData) => {
     </a>
 };
 
-function Headwear() {
+function Helmets() {
     const columns = useMemo(
         () => [
             {
@@ -220,4 +220,4 @@ function Headwear() {
     ];
 };
 
-export default Headwear;
+export default Helmets;
