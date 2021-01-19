@@ -4,6 +4,10 @@
         "displayText": "Customs"
     },
     {
+        "key": "customs-cardinal",
+        "displayText": "Customs - Cardinal"
+    },
+    {
         "key": "dorms",
         "displayText": "Customs - Dorms"
     },
