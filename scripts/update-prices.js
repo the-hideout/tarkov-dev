@@ -140,6 +140,7 @@ const getBsgTypes = (itemId, bsgData) => {
                 bsgTypes: [
                     ...getBsgTypes(bsgItemData._parent, bsgData).filter(Boolean),
                 ],
+                hasGrid: bsgItemData._props.Grids?.length > 0,
             };
 
             for(const extraProp of mappingProperties){

@@ -70,16 +70,12 @@
 
 .filter-toggle-wrapper {
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
 }
 
-.item-group-wrapper .filter-toggle-label {
+.filter-toggle-label {
     margin-right: 10px;
-    position: relative;
-    top: -3px;
-}
-
-.item-group-wrapper .filter-toggle {
-    top: 5px;
 }
 
 .item-group-wrapper input,

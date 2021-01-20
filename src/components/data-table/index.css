@@ -1,7 +1,14 @@
-.data-table {
+.data-table,
+.data-table-filters-wrapper {
     border: 0;
     max-width: 1200px;
     margin: 0 auto;
+}
+
+.data-table-filters-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
 }
 
 .data-cell {

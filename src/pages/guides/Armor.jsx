@@ -1,10 +1,12 @@
 import {useMemo} from 'react';
 import {Helmet} from 'react-helmet';
+import Switch from 'react-switch';
 
 import Menu from '../../components/menu';
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
 import items from '../../Items';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 const materialDestructabilityMap = {
     'Aramid': 0.25,
@@ -75,6 +77,8 @@ const getArmorZoneString = (armorZones) => {
 };
 
 function Armor() {
+    const [includeRigs, setIncludeRigs] = useStateWithLocalStorage('includeRigs', true);
+
     const columns = useMemo(
         () => [
             {
@@ -155,6 +159,10 @@ function Armor() {
             console.log(`Missing ${item.itemProperties.ArmorMaterial}`);
         }
 
+        if(!includeRigs && item.hasGrid){
+            return false;
+        }
+
         const match = item.name.match(/(.*)\s\(\d.+?$/);
         let itemName = item.name;
 
@@ -179,7 +187,7 @@ function Armor() {
     .filter(Boolean)
     .sort((itemA, itemB) => {
         return itemB.blindness - itemA.blindness;
-    }), [])
+    }), [includeRigs])
 
     return [<Helmet
         key = {'armor-table'}
@@ -202,6 +210,24 @@ function Armor() {
         className="display-wrapper data-wrapper"
         key = {'display-wrapper'}
     >
+        <div
+            className = 'data-table-filters-wrapper'
+        >
+            <label
+                className = {'filter-toggle-wrapper'}
+            >
+                <div
+                    className = {'filter-toggle-label'}
+                >
+                    Include rigs
+                </div>
+                <Switch
+                    className = {'filter-toggle'}
+                    onChange = {e => setIncludeRigs(!includeRigs)}
+                    checked = {includeRigs}
+                />
+            </label>
+            </div>
         <DataTable
             columns={columns}
             data={data}
