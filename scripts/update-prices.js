@@ -7,7 +7,8 @@ const sleep = require('./modules/sleep');
 const fleaMarketFee = require('./modules/flea-market-fee');
 const questData = require('./modules/quests');
 
-const itemData = require('../src/data/items.json')
+const itemData = require('../src/data/items.json');
+const calculateBestPrice = require('./modules/calculate-best-price');
 
 const CURRENCY_MODIFIER = {
     "₽": 1,
@@ -141,6 +142,7 @@ const getBsgTypes = (itemId, bsgData) => {
                     ...getBsgTypes(bsgItemData._parent, bsgData).filter(Boolean),
                 ],
                 hasGrid: bsgItemData._props.Grids?.length > 0,
+                ...calculateBestPrice(allItemData[languageCode][i]),
             };
 
             for(const extraProp of mappingProperties){

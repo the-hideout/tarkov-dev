@@ -157,6 +157,8 @@ const items = Object.fromEntries(
             itemProperties: rawItem.itemProperties,
             bsgTypes: rawItem.bsgTypes,
             hasGrid: rawItem.hasGrid,
+            bestPrice: rawItem.bestPrice,
+            bestPriceFee: rawItem.bestPriceFee,
         },
     ];
   }),
