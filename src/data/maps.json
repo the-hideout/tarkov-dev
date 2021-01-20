@@ -1,11 +1,8 @@
 [
     {
         "key": "customs",
-        "displayText": "Customs"
-    },
-    {
-        "key": "customs-cardinal",
-        "displayText": "Customs - Cardinal"
+        "displayText": "Customs",
+        "source": "Tactical Otter"
     },
     {
         "key": "dorms",

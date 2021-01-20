@@ -21,6 +21,10 @@ const maps = Object.fromEntries(rawMapData.map((mapData) => {
 function Map() {
     let {currentMap} = useParams();
 
+    if(currentMap === 'customs-cardinal'){
+        currentMap = 'customs';
+    }
+
     const { displayText, image, source, sourceLink } = maps[currentMap];
     const infoString = `Escape from Tarkov ${displayText} map`
 
