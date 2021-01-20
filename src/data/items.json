@@ -12898,21 +12898,24 @@
         "name": "Christmas tree decoration ball (red)",
         "id": "5df8a6a186f77412640e2e80",
         "types": [
-            "barter"
+            "barter",
+            "un-lootable"
         ]
     },
     "5df8a72c86f77412640e2e83": {
         "name": "Christmas tree decoration ball (silver)",
         "id": "5df8a72c86f77412640e2e83",
         "types": [
-            "barter"
+            "barter",
+            "un-lootable"
         ]
     },
     "5df8a77486f77412672a1e3f": {
         "name": "Christmas tree decoration ball (violet)",
         "id": "5df8a77486f77412672a1e3f",
         "types": [
-            "barter"
+            "barter",
+            "un-lootable"
         ]
     },
     "5d1340bdd7ad1a0e8d245aab": {
