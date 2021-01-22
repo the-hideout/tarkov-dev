@@ -6,6 +6,7 @@ import Menu from '../../components/menu';
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
 import items from '../../Items';
+import ID from '../../components/ID.jsx';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 const materialDestructabilityMap = {
@@ -76,7 +77,7 @@ const getArmorZoneString = (armorZones) => {
     .join(', ');
 };
 
-function Armor() {
+function Armor(props) {
     const [includeRigs, setIncludeRigs] = useStateWithLocalStorage('includeRigs', true);
 
     const columns = useMemo(
@@ -232,7 +233,11 @@ function Armor() {
             columns={columns}
             data={data}
         />
-    </div>
+    </div>,
+    <ID
+        key = {'session-id'}
+        sessionID = {props.sessionID}
+    />
     ];
 };
 

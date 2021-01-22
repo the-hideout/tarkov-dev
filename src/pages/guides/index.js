@@ -3,13 +3,14 @@ import {
 } from 'react-router-dom';
 import {Helmet} from 'react-helmet';
 
+import ID from '../../components/ID.jsx';
 import './index.css';
 
 import armorTableImage from '../../images/armor-table.png';
 import helmetTableImage from '../../images/helmet-table.png';
 import glassesTableImage from '../../images/glasses-table.png';
 
-function Guides() {
+function Guides(props) {
     return [
         <Helmet
             key = {'loot-tier-helmet'}
@@ -69,7 +70,11 @@ function Guides() {
                     />
                 </Link>
             </div>
-        </div>
+        </div>,
+        <ID
+            key = {'session-id'}
+            sessionID = {props.sessionID}
+        />
     ];
 };
 

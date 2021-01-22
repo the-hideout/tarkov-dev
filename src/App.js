@@ -264,18 +264,24 @@ const makeID = function makeID(length) {
             <Route
                 path="/gear/helmets"
             >
-                <Helmets />
+                <Helmets
+                    sessionID = {sessionID}
+                />
             </Route>
             <Route
                 path="/gear/glasses"
             >
-                <Glasses />
+                <Glasses
+                    sessionID = {sessionID}
+                />
             </Route>
             <Route
                 exact
                 path={'/gear/armor'}
             >
-                <Armor />
+                <Armor
+                    sessionID = {sessionID}
+                />
             </Route>
             <Route
                 exact

@@ -5,6 +5,7 @@ import Menu from '../../components/menu';
 import DataTable from '../../components/data-table';
 import items from '../../Items';
 import formatPrice from '../../modules/format-price';
+import ID from '../../components/ID.jsx';
 
 let displayItems = [];
 
@@ -24,7 +25,7 @@ const centerCell = ({ value }) => {
     </div>
 };
 
-function Glasses() {
+function Glasses(props) {
     const columns = useMemo(
         () => [
             {
@@ -125,7 +126,12 @@ function Glasses() {
             columns={columns}
             data={data}
         />
-    </div>];
+    </div>,
+    <ID
+        key = {'session-id'}
+        sessionID = {props.sessionID}
+    />
+    ];
 };
 
 export default Glasses;

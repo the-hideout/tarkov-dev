@@ -5,6 +5,7 @@ import Menu from '../../components/menu';
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
 import items from '../../Items';
+import ID from '../../components/ID.jsx';
 
 const materialDestructabilityMap = {
     'Aramid': 0.25,
@@ -72,7 +73,7 @@ const linkCell = (allData) => {
     </a>
 };
 
-function Helmets() {
+function Helmets(props) {
     const columns = useMemo(
         () => [
             {
@@ -216,7 +217,11 @@ function Helmets() {
             columns={columns}
             data={data}
         />
-    </div>
+    </div>,
+    <ID
+        key = {'session-id'}
+        sessionID = {props.sessionID}
+    />
     ];
 };
 
