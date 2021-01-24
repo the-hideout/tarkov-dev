@@ -168,7 +168,7 @@ const getBsgTypes = (itemId, bsgData) => {
 
         const ratScannerData = allItemData[languageCode].map((rawItemData) => {
             return {
-                uid: rawItemData.bsgId,
+                uid: rawItemData.id,
                 name: rawItemData.name,
                 shortName: rawItemData.shortName,
                 slots: rawItemData.slots,
