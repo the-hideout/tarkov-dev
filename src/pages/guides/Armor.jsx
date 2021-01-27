@@ -292,7 +292,7 @@ function Armor(props) {
         <DataTable
             columns = {columns}
             data = {data}
-            sortBy = {'repairability'}
+            sortBy = {'effectiveDurability'}
             sortByDesc = {true}
             autoResetSortBy = {false}
         />

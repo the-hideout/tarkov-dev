@@ -280,7 +280,7 @@ function Helmets(props) {
         <DataTable
             columns={columns}
             data={data}
-            sortBy = {'repairability'}
+            sortBy = {'armorClass'}
             sortByDesc = {true}
             autoResetSortBy = {false}
         />
