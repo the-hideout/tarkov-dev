@@ -1,5 +1,6 @@
 import {useMemo} from 'react';
 import {Helmet} from 'react-helmet';
+import Switch from 'react-switch';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
@@ -94,6 +95,7 @@ const marks = {
 };
 
 function Helmets(props) {
+    const [includeBlockingHeadset, setIncludeBlockingHeadset] = useStateWithLocalStorage('includeBlockingHeadset', false);
     const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage('minHelmetArmorClass', 6);
     const handleArmorClassChange = (newValueLabel) => {
         setMinArmorClass(newValueLabel);
@@ -191,6 +193,10 @@ function Helmets(props) {
             return false;
         }
 
+        if(item.itemProperties.BlocksEarpiece && !includeBlockingHeadset){
+            return false;
+        }
+
         const match = item.name.match(/(.*)\s\(\d.+?$/);
         let itemName = item.name;
 
@@ -218,7 +224,7 @@ function Helmets(props) {
     .filter(Boolean)
     .sort((itemA, itemB) => {
         return itemB.blindness - itemA.blindness;
-    }), [minArmorClass])
+    }), [minArmorClass, includeBlockingHeadset])
 
     return [<Helmet
         key = {'helmet-table'}
@@ -247,6 +253,20 @@ function Helmets(props) {
             <div
                 className = {'filter-slider-wrapper'}
             >
+                <label
+                    className = {'filter-toggle-wrapper'}
+                >
+                    <div
+                        className = {'filter-toggle-label'}
+                    >
+                        Show blocking headset
+                    </div>
+                    <Switch
+                        className = {'filter-toggle'}
+                        onChange = {e => setIncludeBlockingHeadset(!includeBlockingHeadset)}
+                        checked = {includeBlockingHeadset}
+                    />
+                </label>
                 <div
                     className = {'filter-slider-label'}
                 >
