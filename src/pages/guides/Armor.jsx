@@ -1,6 +1,8 @@
 import {useMemo} from 'react';
 import {Helmet} from 'react-helmet';
 import Switch from 'react-switch';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 import Menu from '../../components/menu';
 import DataTable from '../../components/data-table';
@@ -49,6 +51,14 @@ const centerCell = ({ value }) => {
     </div>
 };
 
+const centerNowrapCell = ({ value }) => {
+    return <div
+        className = 'center-content nowrap-content'
+    >
+        { value }
+    </div>
+};
+
 const linkCell = (allData) => {
     return <a
         href = {allData.row.original.wikiLink}
@@ -77,8 +87,18 @@ const getArmorZoneString = (armorZones) => {
     .join(', ');
 };
 
+const marks = {
+    1: 6,
+    2: 5,
+    3: 4,
+    4: 3,
+    5: 2,
+    6: 1,
+};
+
 function Armor(props) {
     const [includeRigs, setIncludeRigs] = useStateWithLocalStorage('includeRigs', true);
+    const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage('minArmorClass', 6);
 
     const columns = useMemo(
         () => [
@@ -143,7 +163,7 @@ function Armor(props) {
                     </div>
                 },
                 accessor: 'stats',
-                Cell: centerCell,
+                Cell: centerNowrapCell,
             },
             {
                 Header: 'Current Price',
@@ -161,6 +181,10 @@ function Armor(props) {
         }
 
         if(!includeRigs && item.hasGrid){
+            return false;
+        }
+
+        if(item.itemProperties.armorClass < (7 - minArmorClass)){
             return false;
         }
 
@@ -188,7 +212,11 @@ function Armor(props) {
     .filter(Boolean)
     .sort((itemA, itemB) => {
         return itemB.blindness - itemA.blindness;
-    }), [includeRigs])
+    }), [includeRigs, minArmorClass]);
+
+    const handleArmorClassChange = (newValueLabel) => {
+        setMinArmorClass(newValueLabel);
+    };
 
     return [<Helmet
         key = {'armor-table'}
@@ -228,10 +256,45 @@ function Armor(props) {
                     checked = {includeRigs}
                 />
             </label>
+            <div
+                className = {'filter-slider-wrapper'}
+            >
+                <div
+                    className = {'filter-slider-label'}
+                >
+                    Min armor class
+                </div>
+                <Slider
+                    defaultValue = {minArmorClass}
+                    min = {1}
+                    max = {6}
+                    marks = {marks}
+                    onChange = {handleArmorClassChange}
+                    trackStyle = {{
+                        backgroundColor: '#048802',
+                    }}
+                    handleStyle = {{
+                        backgroundColor: '#048802',
+                        borderColor: '#048802',
+                    }}
+                    activeDotStyle = {{
+                        backgroundColor: '#048802',
+                        borderColor: '#048802',
+                    }}
+                    reverse
+                    style = {{
+                        top: '-7px',
+                        width: '170px',
+                    }}
+                />
             </div>
+        </div>
         <DataTable
-            columns={columns}
-            data={data}
+            columns = {columns}
+            data = {data}
+            sortBy = {'repairability'}
+            sortByDesc = {true}
+            autoResetSortBy = {false}
         />
     </div>,
     <ID

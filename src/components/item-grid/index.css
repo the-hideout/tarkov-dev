@@ -99,6 +99,18 @@
     color: #000;
 }
 
+.filter-slider-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 10px;
+    width: 305px;
+}
+
+.rc-slider-mark .rc-slider-mark-text-active {
+    color: #fff;
+}
+
 .item-group-title {
     align-items: center;
     display: flex;

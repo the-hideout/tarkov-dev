@@ -29,6 +29,10 @@
     text-align: center;
 }
 
+.data-table .nowrap-content {
+    white-space: nowrap;
+}
+
 .data-table .table-image {
     max-height: 64px;
     max-width: 64px;
