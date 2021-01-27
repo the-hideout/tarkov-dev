@@ -59,6 +59,10 @@ function About() {
             name = {'teebles'}
             patreon
         />
+        <Supporter
+            name = {'Trontus'}
+            patreon
+        />
         <h2>
             Cool resources
         </h2>
