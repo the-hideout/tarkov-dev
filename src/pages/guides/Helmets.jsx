@@ -250,23 +250,23 @@ function Helmets(props) {
         <div
             className = 'data-table-filters-wrapper'
         >
+            <label
+                className = {'filter-toggle-wrapper'}
+            >
+                <div
+                    className = {'filter-toggle-label'}
+                >
+                    Show blocking headset
+                </div>
+                <Switch
+                    className = {'filter-toggle'}
+                    onChange = {e => setIncludeBlockingHeadset(!includeBlockingHeadset)}
+                    checked = {includeBlockingHeadset}
+                />
+            </label>
             <div
                 className = {'filter-slider-wrapper'}
             >
-                <label
-                    className = {'filter-toggle-wrapper'}
-                >
-                    <div
-                        className = {'filter-toggle-label'}
-                    >
-                        Show blocking headset
-                    </div>
-                    <Switch
-                        className = {'filter-toggle'}
-                        onChange = {e => setIncludeBlockingHeadset(!includeBlockingHeadset)}
-                        checked = {includeBlockingHeadset}
-                    />
-                </label>
                 <div
                     className = {'filter-slider-label'}
                 >
