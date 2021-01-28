@@ -34,6 +34,7 @@ function Item(props) {
             pricePerSlot = {props.pricePerSlot}
             slots = {props.slots}
             sellTo = {props.sellTo}
+            name = {props.name}
         />
         <ItemIcon
             text = {props.sellTo?.toUpperCase().substr(0, 2) || props.count}
