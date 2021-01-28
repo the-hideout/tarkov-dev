@@ -104,7 +104,7 @@ const getStatsString = (itemProperties) => {
 };
 
 function Helmets(props) {
-    const [includeBlockingHeadset, setIncludeBlockingHeadset] = useStateWithLocalStorage('includeBlockingHeadset', false);
+    const [includeBlockingHeadset, setIncludeBlockingHeadset] = useStateWithLocalStorage('includeBlockingHeadset', true);
     const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage('minHelmetArmorClass', 6);
     const handleArmorClassChange = (newValueLabel) => {
         setMinArmorClass(newValueLabel);
