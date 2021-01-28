@@ -10,6 +10,7 @@ import formatPrice from '../../modules/format-price';
 import items from '../../Items';
 import ID from '../../components/ID.jsx';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import ArrowIcon from '../../components/data-table/Arrow.js';
 
 const materialDestructabilityMap = {
     'Aramid': 0.25,
@@ -94,6 +95,14 @@ const marks = {
     6: 1,
 };
 
+const getStatsString = (itemProperties) => {
+    if(!itemProperties.speedPenaltyPercent && !itemProperties.mousePenalty && !itemProperties.weaponErgonomicPenalty){
+        return '';
+    }
+
+    return `${itemProperties.speedPenaltyPercent || 0}% / ${itemProperties.mousePenalty || 0}% / ${itemProperties.weaponErgonomicPenalty || 0}`
+};
+
 function Helmets(props) {
     const [includeBlockingHeadset, setIncludeBlockingHeadset] = useStateWithLocalStorage('includeBlockingHeadset', false);
     const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage('minHelmetArmorClass', 6);
@@ -102,6 +111,32 @@ function Helmets(props) {
     };
     const columns = useMemo(
         () => [
+            {
+                id: 'expander',
+                Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) => (
+                    // <span {...getToggleAllRowsExpandedProps()}>
+                    //     {isAllRowsExpanded ? 'v' : '>'}
+                    // </span>
+                    null
+                ),
+                Cell: ({ row }) =>
+                    // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
+                    // to build the toggle for expanding a row
+                    row.canExpand ? (
+                        <span
+                            {...row.getToggleRowExpandedProps({
+                                style: {
+                                    // We can even use the row.depth property
+                                    // and paddingLeft to indicate the depth
+                                    // of the row
+                                    // paddingLeft: `${row.depth * 2}rem`,
+                                },
+                            })}
+                        >
+                            {row.isExpanded ? <ArrowIcon/> : <ArrowIcon className = {'arrow-right'} />}
+                        </span>
+                    ) : null,
+            },
             {
                 accessor: 'image',
                 Cell: ({ value }) => {
@@ -215,11 +250,30 @@ function Helmets(props) {
             ricochetChance: ricochetMap(item.itemProperties.RicochetParams.x),
             repairability: `${materialRepairabilityMap[item.itemProperties.ArmorMaterial]}/6`,
             effectiveDurability: Math.floor(item.itemProperties.MaxDurability / materialDestructabilityMap[item.itemProperties.ArmorMaterial]),
-            stats: `${item.itemProperties.speedPenaltyPercent || 0}% / ${item.itemProperties.mousePenalty || 0}% / ${item.itemProperties.weaponErgonomicPenalty || 0}`,
+            stats: getStatsString(item.itemProperties),
             price: formatPrice(item.price),
             image: item.imgLink,
             wikiLink: item.wikiLink,
-        };
+            subRows: item.linkedItems.map((linkedItemId) => {
+                const linkedItem = items[linkedItemId];
+                return {
+                    name: linkedItem.name,
+                    armorClass: linkedItem.itemProperties.armorClass ? `${linkedItem.itemProperties.armorClass}/6` : '',
+                    armorZone: linkedItem.itemProperties.headSegments?.join(', '),
+                    material: linkedItem.itemProperties.ArmorMaterial,
+                    deafenStrength: linkedItem.itemProperties.DeafStrength,
+                    blocksHeadphones: linkedItem.itemProperties.BlocksEarpiece ? 'Yes' : 'No',
+                    maxDurability: linkedItem.itemProperties.MaxDurability,
+                    ricochetChance: ricochetMap(linkedItem.itemProperties.RicochetParams?.x),
+                    repairability: `${materialRepairabilityMap[linkedItem.itemProperties.ArmorMaterial]}/6`,
+                    effectiveDurability: Math.floor(linkedItem.itemProperties.MaxDurability / materialDestructabilityMap[linkedItem.itemProperties.ArmorMaterial]),
+                    stats: getStatsString(linkedItem.itemProperties),
+                    price: formatPrice(linkedItem.price),
+                    image: linkedItem.imgLink,
+                    wikiLink: linkedItem.wikiLink,
+                };
+            }),
+        }
     })
     .filter(Boolean)
     .sort((itemA, itemB) => {

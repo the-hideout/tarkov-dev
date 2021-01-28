@@ -12,6 +12,10 @@
     margin: 20px auto;
 }
 
+.data-table tbody tr {
+    height: 69px;
+}
+
 .data-cell {
     padding: 0 15px;
 }
@@ -38,6 +42,26 @@
     max-width: 64px;
 }
 
-.data-table tr:hover td {
+.data-table tr:hover td,
+.data-table tbody tr.expanded td {
     background-color: #292626;
+}
+
+.arrow-icon,
+.arrow-placeholder {
+    fill: #c7c5b3;
+    height: 10px;
+    width: 10px;
+}
+
+.arrow-icon.arrow-up {
+    transform: rotate(180deg);
+}
+
+.arrow-icon.arrow-right {
+    transform: rotate(-90deg);
+}
+
+.data-table .header-sort-icon {
+    height: 10px;
 }

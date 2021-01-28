@@ -1,4 +1,6 @@
-import { useTable, useSortBy } from 'react-table';
+import { useTable, useSortBy, useExpanded } from 'react-table';
+// import {ReactComponent as ArrowIcon} from './Arrow.js';
+import ArrowIcon from './Arrow.js';
 
 import './index.css';
 
@@ -23,7 +25,7 @@ function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy }) {
             ],
         },
         autoResetSortBy: autoResetSortBy,
-    }, useSortBy);
+    }, useSortBy, useExpanded);
 
     // Render the UI for your table
     return (
@@ -43,11 +45,20 @@ function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy }) {
                             <th {
                                 ...column.getHeaderProps(column.getSortByToggleProps())
                             }>
-                                {column.render('Header')}
-                                {/* Add a sort direction indicator */}
-                                <span>
-                                    {column.isSorted ? column.isSortedDesc ? ' ∨' : ' ∧': ''}
+                                <span
+                                    className = {'header-text'}
+                                >
+                                    {column.render('Header')}
                                 </span>
+                                {/* Add a sort direction indicator */}
+                                <div
+                                    className = {'header-sort-icon'}
+                                    style = {{
+                                        // marginLeft: '2px',
+                                    }}
+                                >
+                                    {column.isSorted ? column.isSortedDesc ? <ArrowIcon/> : <ArrowIcon className = {'arrow-up'} /> : <div className = { 'arrow-placeholder' } />}
+                                </div>
                             </th>
                         ))}
                     </tr>
@@ -56,8 +67,15 @@ function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy }) {
             <tbody {...getTableBodyProps()}>
                 {rows.map((row, i) => {
                     prepareRow(row);
+                    const tableProps = row.getRowProps();
+
+                    tableProps.className = `${row.isExpanded || row.depth === 1 ? 'expanded' : ''}`
                     return (
-                        <tr {...row.getRowProps()}>
+                        <tr
+                            {
+                                ...tableProps
+                            }
+                        >
                             {row.cells.map(cell => {
                                 return <td
                                     className = {'data-cell'}

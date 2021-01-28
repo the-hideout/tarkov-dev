@@ -159,6 +159,7 @@ const items = Object.fromEntries(
             hasGrid: rawItem.hasGrid,
             bestPrice: rawItem.bestPrice,
             bestPriceFee: rawItem.bestPriceFee,
+            linkedItems: rawItem.linkedItems,
         },
     ];
   }),

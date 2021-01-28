@@ -143,6 +143,9 @@ const getBsgTypes = (itemId, bsgData) => {
                 ],
                 hasGrid: bsgItemData._props.Grids?.length > 0,
                 ...calculateBestPrice(allItemData[languageCode][i]),
+                linkedItems: bsgItemData._props.Slots?.map((slot) => {
+                    return slot._props.filters[0].Filter;
+                }).flat() || [],
             };
 
             for(const extraProp of mappingProperties){
