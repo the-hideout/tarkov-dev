@@ -27,8 +27,10 @@ addEventListener('fetch', event => {
 async function handleEvent(event) {
   const url = new URL(event.request.url)
   let options = {
-    browserTTL: 600, // 10 minutes
-    edgeTTL: 60 * 60 * 24, // 1 days
+      cacheControl: {
+          browserTTL: 600,
+          edgeTTL: 60 * 60 * 24 * 2,
+      }
   };
 
   /**
