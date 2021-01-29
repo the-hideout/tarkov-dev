@@ -12,6 +12,7 @@
 
 body {
     background-color: #292626;
+    background-image: url('images/background.png');
     color: #c7c5b3;
     margin: 0;
     padding: 0;
@@ -58,7 +59,6 @@ a {
 .display-wrapper {
     height: var(--display-height);
     position: relative;
-    background-image: url('images/background.png');
 }
 
 .display-wrapper.data-wrapper {
