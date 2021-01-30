@@ -62,6 +62,7 @@ function ItemGrid(props) {
                     {props.name}
                 </div>
                 { getSubtitle(props.subtitle, minPrice, maxPrice) }
+                { props.extraTitleProps }
             </div>
             <div
                 className = "item-group-items"

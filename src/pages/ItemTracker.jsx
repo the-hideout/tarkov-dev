@@ -1,3 +1,4 @@
+import {useMemo, useCallback} from 'react';
 import Switch from "react-switch";
 import {Helmet} from 'react-helmet';
 
@@ -15,7 +16,7 @@ function ItemTracker() {
     // const [groupByQuest, setGroupByQuest] = useStateWithLocalStorage('groupByQuest', true);
     const [onlyFoundInRaid, setOnlyFoundInRaid] = useStateWithLocalStorage('onlyFoundInRaid', true);
 
-    const handleItemClick = (item, event) => {
+    const handleItemClick = useCallback((item, event) => {
         event.preventDefault();
 
         const questDataCopy = [...questData];
@@ -37,7 +38,74 @@ function ItemTracker() {
         }
 
         setQuestData(questDataCopy);
-    };
+    }, [questData, setQuestData]);
+
+    const handleDoneClick = useCallback((questId, event) => {
+        event.preventDefault();
+
+
+        const questDataCopy = [...questData];
+        for(const quest of questDataCopy){
+            if(quest.questId !== questId){
+                continue;
+            }
+
+            for(const questItem of quest.items){
+                questItem.count = 0;
+            }
+
+            break;
+        }
+
+        setQuestData(questDataCopy);
+    }, [questData, setQuestData]);
+
+    const displayQuests = useMemo(() => {
+        return questData
+            .sort((itemA, itemB) => {
+                if(itemA.name && itemB.name){
+                    return itemA.name.replace(/[^a-zA-Z0-9]/g, '').localeCompare(itemB.name.replace(/[^a-zA-Z0-9]/g, ''));
+                }
+
+                return 0;
+            })
+            .map((questData) => {
+                const questItems = questData.items.map(questItemData => {
+                    if(onlyFoundInRaid && !questItemData.foundInRaid){
+                        return false;
+                    }
+
+                    if(questItemData.count <= 0){
+                        return false;
+                    }
+
+                    return {
+                        ...questItemData,
+                        ...Items[questItemData.id],
+                        onClick: handleItemClick,
+                        questId: questData.questId,
+                    };
+                }).filter(Boolean);
+
+                if(questItems.length === 0){
+                    return false;
+                }
+
+                return <ItemGrid
+                    key = {`loot-group-${questData.questId}`}
+                    name = {questData.name || questData.questId}
+                    subtitle = {Traders[questData.traderId].name}
+                    items = {questItems}
+                    extraTitleProps = {
+                        <button
+                            onClick = {handleDoneClick.bind(this, questData.questId)}
+                        >
+                            Finished
+                        </button>
+                    }
+                />
+            })
+    }, [onlyFoundInRaid, handleItemClick, questData, handleDoneClick]);
 
     return [
         <Helmet>
@@ -49,7 +117,7 @@ function ItemTracker() {
             </title>
             <meta
                 name = 'description'
-                content = 'Track what items you need to Find in Raid for Escape from Tarkov quests'
+                content = 'Track what items you need to find in Raid for Escape from Tarkov quests'
             />
         </Helmet>,
         <Menu />,
@@ -106,41 +174,7 @@ function ItemTracker() {
                     </label>
                 </div>
             </div>
-            {questData.sort((itemA, itemB) => {
-                if(itemA.name && itemB.name){
-                    return itemA.name.replace(/[^a-zA-Z0-9]/g, '').localeCompare(itemB.name.replace(/[^a-zA-Z0-9]/g, ''));
-                }
-
-                return 0;
-            }).map((questData) => {
-                const questItems = questData.items.map(questItemData => {
-                    if(onlyFoundInRaid && !questItemData.foundInRaid){
-                        return false;
-                    }
-
-                    if(questItemData.count <= 0){
-                        return false;
-                    }
-
-                    return {
-                        ...questItemData,
-                        ...Items[questItemData.id],
-                        onClick: handleItemClick,
-                        questId: questData.questId,
-                    };
-                }).filter(Boolean);
-
-                if(questItems.length === 0){
-                    return false;
-                }
-
-                return <ItemGrid
-                    key = {`loot-group-${questData.questId}`}
-                    name = {questData.name || questData.questId}
-                    subtitle = {Traders[questData.traderId].name}
-                    items = {questItems}
-                />
-            })}
+            {displayQuests}
         </div>
     ];
 }
