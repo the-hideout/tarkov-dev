@@ -23,7 +23,10 @@ const Menu = () => {
         setIsOpen(!isOpen);
     };
 
-    const viewableHeight = window.innerHeight - navEl.current?.offsetHeight || 0;
+    let viewableHeight = window.innerHeight - navEl.current?.offsetHeight || 0;
+    if(viewableHeight < 100){
+        viewableHeight = window.innerHeight;
+    }
     document.documentElement.style.setProperty('--display-height', `${viewableHeight}px`);
 
     return <nav
