@@ -269,7 +269,7 @@ function Helmets(props) {
                     effectiveDurability: Math.floor(linkedItem.itemProperties.MaxDurability / materialDestructabilityMap[linkedItem.itemProperties.ArmorMaterial]),
                     stats: getStatsString(linkedItem.itemProperties),
                     price: formatPrice(linkedItem.price),
-                    image: linkedItem.imgLink,
+                    image: `https://assets.tarkov-tools.com/${linkedItem.id}-image.jpg`,
                     wikiLink: linkedItem.wikiLink,
                 };
             }),
