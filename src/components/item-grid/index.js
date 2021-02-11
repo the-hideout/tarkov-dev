@@ -78,7 +78,7 @@ function ItemGrid(props) {
                         sellTo = {item.sellTo}
                         slots = {item.slots}
                         // src = {item.imgLink}
-                        src = {`https://assets.tarkov-tools.com/${item.id}-image.jpg`}
+                        src = {`https://assets.tarkov-tools.com/${item.id}-icon.jpg`}
                         wikiLink = {item.wikiLink}
                         height = {item.height}
                         width = {item.width}
