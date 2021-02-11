@@ -1,0 +1,38 @@
+.cost-wrapper {
+    padding: 5px 0;
+}
+
+.price-wrapper {
+    display: block;
+    clear: both;
+    color: #636363;
+    font-size: 14px;
+}
+
+.barter-cost-item-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.barter-cost-item-count-wrapper {
+    margin-right: 10px;
+    text-align: right;
+    width: 15px;
+}
+
+.barter-cost-image-wrapper {
+    font-size: 0;
+    margin-right: 10px;
+}
+
+.barter-cost-item-wrapper img {
+    /* height: 34px; */
+    width: 34px;
+}
+
+.barter-cost-item-text-wrapper {
+    flex-grow: 1;
+    white-space: nowrap;
+}

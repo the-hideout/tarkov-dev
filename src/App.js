@@ -15,7 +15,7 @@ import ID from './components/ID.jsx';
 import Control from './components/control';
 import Menu from './components/menu';
 import LootTier from './pages/LootTier.jsx';
-import Barters from './components/Barters';
+import Barters from './pages/barters';
 import About from './pages/about/';
 import Maps from './pages/maps/';
 import ItemTracker from './pages/ItemTracker';

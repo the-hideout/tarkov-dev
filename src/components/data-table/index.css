@@ -20,15 +20,6 @@
     padding: 0 15px;
 }
 
-.cost-wrapper {
-    display: flex;
-    flex-flow: wrap;
-}
-
-.cost-wrapper div {
-    width: 100%;
-}
-
 .data-table .center-content {
     text-align: center;
 }
