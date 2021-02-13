@@ -98,6 +98,7 @@ function Barters() {
                                 className = 'price-wrapper'
                             >
                                 {formatPrice(value.value)}
+                                {value.barterOnly && <span> (Barter only)</span>}
                             </div>
                         </div>
                     </div>
@@ -210,6 +211,13 @@ function Barters() {
             },
             savings: barterRow.rewardItems[0].item.avg24hPrice - cost,
         };
+
+        // If the reward has no value, it's not available for purchase
+        if(tradeData.reward.value === 0){
+            tradeData.reward.value = tradeData.cost;
+            tradeData.reward.barterOnly = true;
+            tradeData.savings = 0;
+        }
 
         if(hasZeroCostItem){
             return false;
