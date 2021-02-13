@@ -24,11 +24,11 @@ function costItemsCell({ value }) {
                 key = {`cost-item-${itemIndex}`}
                 className = 'barter-cost-item-wrapper'
             >
-                <div
+                {/* <div
                     className = 'barter-cost-item-count-wrapper'
                 >
                     {costItem.count}
-                </div>
+                </div> */}
                 <div
                     className = 'barter-cost-image-wrapper'
                 >
@@ -48,7 +48,8 @@ function costItemsCell({ value }) {
                     <div
                         className = 'price-wrapper'
                     >
-                        {formatPrice(costItem.price)}
+                        <span className = 'barter-cost-item-count-wrapper'>{costItem.count}</span> X {formatPrice(costItem.price)} = {formatPrice(costItem.count * costItem.price)}
+                        {/* {formatPrice(costItem.price)} */}
                     </div>
                 </div>
             </div>
@@ -61,40 +62,46 @@ function Barters() {
     const columns = useMemo(
         () => [
             {
-                accessor: 'image',
-                Cell: ({ value }) => {
-                    return <div
-                        className = 'center-content'
-                    >
-                        <img
-                            alt = ''
-                            className = 'table-image'
-                            src = { value }
-                        />
-                    </div>
-                },
-            },
-            {
                 Header: 'Reward',
                 accessor: 'reward',
                 Cell: ({ value }) => {
                     return <div
-                        className = 'center-content'
+                        className = 'barter-reward-wrapper'
                     >
-                        <a href={value.wikiLink}>
-                            {value.name}
-                        </a>
                         <div
-                            className = 'price-wrapper'
+                            className = 'barter-reward-image-wrapper'
                         >
-                            {formatPrice(value.value)}
+                            <img
+                                alt = ''
+                                className = 'table-image'
+                                src = { value.iconLink }
+                            />
+                        </div>
+                        <div
+                            className = 'barter-reward-info-wrapper'
+                        >
+                            <div>
+                                <a
+                                    className = 'barter-reward-item-title'
+                                    href={value.wikiLink}
+
+                                >
+                                    {value.name}
+                                </a>
+                            </div>
+                            <div
+                                className = 'trader-wrapper'
+                            >
+                                {value.trader}
+                            </div>
+                            <div
+                                className = 'price-wrapper'
+                            >
+                                {formatPrice(value.value)}
+                            </div>
                         </div>
                     </div>
                 },
-            },
-            {
-                Header: 'Trader',
-                accessor: 'trader',
             },
             {
                 Header: 'Cost',
@@ -102,14 +109,25 @@ function Barters() {
                 Cell: costItemsCell,
             },
             {
-                Header: 'Cost',
+                Header: 'Cost ₽',
                 accessor: 'cost',
                 Cell: priceCell,
             },
             {
                 Header: 'Estimated savings',
-                accessor: 'savings',
+                accessor: d=>Number(d.savings),
                 Cell: priceCell,
+                sortType: (a, b) => {
+                    if(a.value > b.value){
+                        return 1;
+                    }
+
+                    if(a.value < b.value){
+                        return -1;
+                    }
+
+                    return 0;
+                },
             },
         ],
         []
@@ -154,8 +172,6 @@ function Barters() {
         let hasZeroCostItem = false;
 
         const tradeData = {
-            trader: barterRow.source,
-            image: barterRow.rewardItems[0].item.iconLink,
             costItems: barterRow.requiredItems.map(requiredItem => {
                     if(requiredItem === null){
                         // console.log(barterRow);
@@ -189,6 +205,8 @@ function Barters() {
                 name: barterRow.rewardItems[0].item.name,
                 wikiLink: barterRow.rewardItems[0].item.wikiLink,
                 value: barterRow.rewardItems[0].item.avg24hPrice,
+                trader: barterRow.source,
+                iconLink: barterRow.rewardItems[0].item.iconLink,
             },
             savings: barterRow.rewardItems[0].item.avg24hPrice - cost,
         };
@@ -215,6 +233,7 @@ function Barters() {
     return [
         <div
             className = 'data-table-filters-wrapper'
+            key = 'barters-filters'
         >
             <input
                 defaultValue = {nameFilter || ''}
@@ -225,6 +244,7 @@ function Barters() {
         </div>,
         <DataTable
             columns={columns}
+            key = 'barters-table'
             data={data}
         />
     ];

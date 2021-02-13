@@ -3,10 +3,30 @@
 }
 
 .price-wrapper {
-    display: block;
-    clear: both;
     color: #636363;
     font-size: 14px;
+}
+
+.trader-wrapper {
+    font-size: 14px;
+}
+
+.barter-reward-wrapper {
+    display: flex;
+}
+
+.barter-reward-image-wrapper {
+    margin-right: 10px;
+}
+
+.barter-reward-info-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.barter-reward-info-wrapper > div {
+    width: 100%;
 }
 
 .barter-cost-item-wrapper {
@@ -17,9 +37,7 @@
 }
 
 .barter-cost-item-count-wrapper {
-    margin-right: 10px;
-    text-align: right;
-    width: 15px;
+    color: #c7c5b3;
 }
 
 .barter-cost-image-wrapper {
