@@ -18,11 +18,11 @@ const CURRENCY_MODIFIER = {
 
 const availableLanguages = [
     'en',
-    'ru',
-    'de',
-    'fr',
-    'es',
-    'cn',
+    // 'ru',
+    // 'de',
+    // 'fr',
+    // 'es',
+    // 'cn',
 ];
 
 const mappingProperties = [
@@ -169,28 +169,28 @@ const getBsgTypes = (itemId, bsgData) => {
 
         fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', `all-${languageCode}.json`), JSON.stringify(allItemData[languageCode], null, 4));
 
-        const ratScannerData = allItemData[languageCode].map((rawItemData) => {
-            return {
-                uid: rawItemData.id,
-                name: rawItemData.name,
-                shortName: rawItemData.shortName,
-                slots: rawItemData.slots,
-                wikiLink: rawItemData.wikiLink,
-                imgLink: rawItemData.img,
-                timestamp: Math.floor(new Date(rawItemData.updated).getTime() / 1000),
-                price: rawItemData.price,
-                avg24hPrice: rawItemData.avg24hPrice,
-                avg7dPrice: rawItemData.avg7daysPrice,
-                avg24hAgo: rawItemData.avg24hPrice + Math.floor(rawItemData.avg24hPrice * (rawItemData.diff24h / 100)),
-                avg7dAgo: rawItemData.avg7daysPrice + Math.floor(rawItemData.avg7daysPrice * (rawItemData.diff7days / 100)),
-                traderName: rawItemData.traderName,
-                traderPrice: rawItemData.traderPrice,
-                traderCurrency: rawItemData.traderPriceCur,
-                quests: questData.getItemUsage(rawItemData.bsgId),
-            };
-        });
+        // const ratScannerData = allItemData[languageCode].map((rawItemData) => {
+        //     return {
+        //         uid: rawItemData.id,
+        //         name: rawItemData.name,
+        //         shortName: rawItemData.shortName,
+        //         slots: rawItemData.slots,
+        //         wikiLink: rawItemData.wikiLink,
+        //         imgLink: rawItemData.img,
+        //         timestamp: Math.floor(new Date(rawItemData.updated).getTime() / 1000),
+        //         price: rawItemData.price,
+        //         avg24hPrice: rawItemData.avg24hPrice,
+        //         avg7dPrice: rawItemData.avg7daysPrice,
+        //         avg24hAgo: rawItemData.avg24hPrice + Math.floor(rawItemData.avg24hPrice * (rawItemData.diff24h / 100)),
+        //         avg7dAgo: rawItemData.avg7daysPrice + Math.floor(rawItemData.avg7daysPrice * (rawItemData.diff7days / 100)),
+        //         traderName: rawItemData.traderName,
+        //         traderPrice: rawItemData.traderPrice,
+        //         traderCurrency: rawItemData.traderPriceCur,
+        //         quests: questData.getItemUsage(rawItemData.bsgId),
+        //     };
+        // });
 
-        fs.writeFileSync(path.join(__dirname, '..', 'public', 'data', `all-${languageCode}.json`), JSON.stringify(ratScannerData, null, 4));
+        // fs.writeFileSync(path.join(__dirname, '..', 'public', 'data', `all-${languageCode}.json`), JSON.stringify(ratScannerData, null, 4));
 
         if(availableLanguages.length > 3){
             await sleep(30000);
