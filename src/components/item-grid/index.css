@@ -78,6 +78,21 @@
     margin-right: 10px;
 }
 
+.filter-input-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.filter-input-label {
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.filter-input-wrapper input {
+    padding: 4px;
+    width: 90px;
+}
+
 .item-group-wrapper input,
 .item-group-wrapper.filter-wrapper button {
     border: 0;

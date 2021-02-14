@@ -106,6 +106,7 @@ const getStatsString = (itemProperties) => {
 function Helmets(props) {
     const [includeBlockingHeadset, setIncludeBlockingHeadset] = useStateWithLocalStorage('includeBlockingHeadset', true);
     const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage('minHelmetArmorClass', 6);
+    const [maxPrice, setMaxPrice] = useStateWithLocalStorage('maxPrice', 9999999);
     const handleArmorClassChange = (newValueLabel) => {
         setMinArmorClass(newValueLabel);
     };
@@ -232,6 +233,10 @@ function Helmets(props) {
             return false;
         }
 
+        if(item.price > maxPrice){
+            return false;
+        }
+
         const match = item.name.match(/(.*)\s\(\d.+?$/);
         let itemName = item.name;
 
@@ -278,7 +283,7 @@ function Helmets(props) {
     .filter(Boolean)
     .sort((itemA, itemB) => {
         return itemB.blindness - itemA.blindness;
-    }), [minArmorClass, includeBlockingHeadset])
+    }), [minArmorClass, includeBlockingHeadset, maxPrice])
 
     return [<Helmet
         key = {'helmet-table'}
@@ -348,6 +353,21 @@ function Helmets(props) {
                         top: '-7px',
                         width: '170px',
                     }}
+                />
+            </div>
+            <div
+                className = 'filter-input-wrapper'
+            >
+                <div
+                    className = 'filter-input-label'
+                >
+                    Max price
+                </div>
+                <input
+                    defaultValue = {maxPrice || ''}
+                    type = {'number'}
+                    placeholder = {'max price'}
+                    onChange = {e => setMaxPrice(Number(e.target.value))}
                 />
             </div>
         </div>
