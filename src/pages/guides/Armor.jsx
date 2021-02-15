@@ -99,6 +99,7 @@ const marks = {
 function Armor(props) {
     const [includeRigs, setIncludeRigs] = useStateWithLocalStorage('includeRigs', true);
     const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage('minArmorClass', 6);
+    const [maxPrice, setMaxPrice] = useStateWithLocalStorage('armorMaxPrice', 9999999);
 
     const columns = useMemo(
         () => [
@@ -188,6 +189,10 @@ function Armor(props) {
             return false;
         }
 
+        if(item.price > maxPrice){
+            return false;
+        }
+
         const match = item.name.match(/(.*)\s\(\d.+?$/);
         let itemName = item.name;
 
@@ -212,7 +217,7 @@ function Armor(props) {
     .filter(Boolean)
     .sort((itemA, itemB) => {
         return itemB.blindness - itemA.blindness;
-    }), [includeRigs, minArmorClass]);
+    }), [includeRigs, minArmorClass, maxPrice]);
 
     const handleArmorClassChange = (newValueLabel) => {
         setMinArmorClass(newValueLabel);
@@ -286,6 +291,21 @@ function Armor(props) {
                         top: '-7px',
                         width: '170px',
                     }}
+                />
+            </div>
+            <div
+                className = 'filter-input-wrapper'
+            >
+                <div
+                    className = 'filter-input-label'
+                >
+                    Max price
+                </div>
+                <input
+                    defaultValue = {maxPrice || ''}
+                    type = {'number'}
+                    placeholder = {'max price'}
+                    onChange = {e => setMaxPrice(Number(e.target.value))}
                 />
             </div>
         </div>
