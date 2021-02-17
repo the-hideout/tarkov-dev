@@ -14269,7 +14269,8 @@
         "name": "BNTI Korund-VM armor",
         "id": "5f5f41476bdad616ad46d631",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5f60c74e3b85f6263c145586": {
