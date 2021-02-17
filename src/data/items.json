@@ -13697,7 +13697,8 @@
         "name": "FORT Defender-2 body armor",
         "id": "5e9dacf986f774054d6b89f4",
         "types": [
-            "wearable"
+            "wearable",
+            "armor"
         ]
     },
     "5ea05cf85ad9772e6624305d": {
