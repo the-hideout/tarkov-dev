@@ -7,8 +7,9 @@ const sleep = require('./modules/sleep');
 const fleaMarketFee = require('./modules/flea-market-fee');
 const questData = require('./modules/quests');
 
-const itemData = require('../src/data/items.json');
+const itemIds = require('../src/data/items.json');
 const calculateBestPrice = require('./modules/calculate-best-price');
+const normalizeName = require('./modules/normalize-name');
 
 const CURRENCY_MODIFIER = {
     "₽": 1,
@@ -76,6 +77,8 @@ const mappingProperties = [
     },
 ];
 
+let itemData = {};
+
 const getBsgTypes = (itemId, bsgData) => {
     const currentType = [bsgData[itemId]._props.Name];
     if(!bsgData[itemId]._parent){
@@ -85,9 +88,58 @@ const getBsgTypes = (itemId, bsgData) => {
     return getBsgTypes(bsgData[itemId]._parent, bsgData).concat(currentType);
 };
 
+const arrayChunk = (inputArray, chunkLength) => {
+    return inputArray.reduce((resultArray, item, index) => {
+        const chunkIndex = Math.floor(index / chunkLength);
+
+        if(!resultArray[chunkIndex]) {
+            resultArray[chunkIndex] = []; // start a new chunk
+        }
+
+        resultArray[chunkIndex].push(item);
+
+        return resultArray
+    }, []);
+};
+
 (async () => {
     let allItemData = {};
     let bsgData = false;
+    let tempData = [];
+
+    try {
+        const chunks = arrayChunk(itemIds, 500);
+        for(const chunk of chunks){
+            console.time(`chunk`);
+            const bodyQuery = JSON.stringify({query: `{
+                    ${chunk.map((itemId) => {
+                        return `item${itemId}: item(id:"${itemId}"){
+                            id
+                            name
+                            types
+                        }`;
+                    }).join('\n') }
+                }`
+            });
+            const response = await got.post('https://tarkov-tools.com/graphql', {
+                body: bodyQuery,
+                responseType: 'json',
+            });
+            console.timeEnd(`chunk`);
+
+            tempData = tempData.concat(Object.values(response.body.data));
+        }
+
+    } catch (requestError){
+        console.error(requestError);
+
+        // We wan't CI to stop here
+        process.exit(1);
+    }
+
+    for(const item of tempData){
+        itemData[item.id] = item;
+    }
 
     try {
         const response = await got('https://tarkov-market.com/api/v1/bsg/items/all', {
@@ -145,7 +197,28 @@ const getBsgTypes = (itemId, bsgData) => {
                 ...calculateBestPrice(allItemData[languageCode][i]),
                 linkedItems: bsgItemData._props.Slots?.map((slot) => {
                     return slot._props.filters[0].Filter;
+                    // "Slots": [
+                    // {
+                    //     "_name": "mod_equipment_000",
+                    //     "_id": "5e00c1ad86f774747333222e",
+                    //     "_parent": "5e00c1ad86f774747333222c",
+                    //     "_props": {
+                    //         "filters": [
+                    //             {
+                    //                 "Shift": 0,
+                    //                 "Filter": [
+                    //                     "5e00cfa786f77469dc6e5685",
+                    //                     "5e01f31d86f77465cf261343"
+                    //                 ]
+                    //             }
+                    //         ]
+                    //     },
+                    //     "_required": false,
+                    //     "_mergeSlotWithChildren": false,
+                    //     "_proto": "55d30c4c4bdc2db4468b457e"
+                    // },
                 }).flat() || [],
+                urlName: normalizeName(allItemData[languageCode][i].name),
             };
 
             for(const extraProp of mappingProperties){
