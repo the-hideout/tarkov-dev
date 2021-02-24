@@ -1,4 +1,5 @@
 import {useMemo, useState} from 'react';
+import {Helmet} from 'react-helmet';
 
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
@@ -34,6 +35,7 @@ function costItemsCell({ value }) {
                 >
                     <img
                         alt = {costItem.name}
+                        loading = 'lazy'
                         src = {costItem.iconLink}
                     />
                 </div>
@@ -74,6 +76,7 @@ function Barters() {
                             <img
                                 alt = ''
                                 className = 'table-image'
+                                loading = 'lazy'
                                 src = { value.iconLink }
                             />
                         </div>
@@ -239,16 +242,44 @@ function Barters() {
     }), [nameFilter])
 
     return [
+        <Helmet
+            key = {'loot-tier-helmet'}
+        >
+            <meta
+                charSet='utf-8'
+            />
+            <title>
+                Escape from Tarkov barter profits
+            </title>
+            <meta
+                name = 'description'
+                content = 'Escape from Tarkov barter profits'
+            />
+        </Helmet>,
         <div
             className = 'data-table-filters-wrapper'
             key = 'barters-filters'
         >
-            <input
-                defaultValue = {nameFilter || ''}
-                type = {'text'}
-                placeholder = {'filter on item'}
-                onChange = {e => setNameFilter(e.target.value)}
-            />
+            <h1
+                className = 'barters-page-title'
+            >
+                Barter profits
+            </h1>
+            <div
+                className = 'filter-input-wrapper'
+            >
+                <div
+                    className = 'filter-input-label'
+                >
+                    Item filter
+                </div>
+                <input
+                    defaultValue = {nameFilter || ''}
+                    type = {'text'}
+                    placeholder = {'filter on item'}
+                    onChange = {e => setNameFilter(e.target.value)}
+                />
+            </div>
         </div>,
         <DataTable
             columns={columns}

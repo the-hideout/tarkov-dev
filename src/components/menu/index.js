@@ -148,15 +148,19 @@ const Menu = () => {
                         to = '/control/'
                         onClick = {setIsOpen.bind(this, false)}
                     >
-                        Remote control
+                        Remote
                     </Link>
                 </li>
-                <a
-                    className = {'external-link'}
-                    href="https://developertracker.com/escape-from-tarkov/"
+                <li
+                    className = "submenu-wrapper"
                 >
-                    Dev tracker
-                </a>
+                    <Link
+                        to = '/barters/'
+                        onClick = {setIsOpen.bind(this, false)}
+                    >
+                        Barter profit
+                    </Link>
+                </li>
                 <a
                     href="https://www.patreon.com/kokarn"
                 >

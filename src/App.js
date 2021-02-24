@@ -9,7 +9,7 @@ import {
 import {Helmet} from "react-helmet";
 
 import './App.css';
-import Ammo from './components/Ammo.jsx';
+import Ammo from './pages/Ammo.jsx';
 import Map from './components/Map.jsx';
 import ID from './components/ID.jsx';
 import Control from './pages/control';

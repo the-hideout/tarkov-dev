@@ -67,6 +67,13 @@ function About() {
             Cool resources
         </h2>
         <p>
+            <a
+                href="https://developertracker.com/escape-from-tarkov/"
+            >
+                Escape from Tarkov Dev tracker
+            </a>
+        </p>
+        <p>
             <a href="https://tarkovbitcoinprice.com/">
                 Tarkov Bitcoin Price
             </a>
@@ -80,7 +87,8 @@ function About() {
             External resources
         </h2>
         <p>
-            All pricing data is courtesy of <a href="https://tarkov-market.com">Tarkov Market</a>
+            Some pricing data is courtesy of <a href="https://tarkov-market.com">Tarkov Market</a>.
+            The rest is from our <a href="https://tarkov-tools.com/___graphql">API</a>
         </p>
         <p>
             Some icons are linked from the amazing <a href="https://github.com/RatScanner/EfTIcons">EFTIcons library</a>

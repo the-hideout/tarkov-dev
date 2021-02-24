@@ -1,3 +1,8 @@
+.barters-page-title {
+    margin: 0 0 0 15px;
+    flex-grow: 1;
+}
+
 .cost-wrapper {
     padding: 5px 0;
 }

@@ -10,6 +10,7 @@
     display: flex;
     justify-content: center;
     margin: 20px auto;
+    width: 100%;
 }
 
 .data-table tbody tr {
