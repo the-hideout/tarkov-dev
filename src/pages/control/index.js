@@ -53,7 +53,10 @@ function Control(props) {
         });
     };
 
-    return <div className="control-wrapper">
+    return <div
+        className="control-wrapper"
+        key = ''
+    >
         <div
             className = {'control-section'}
         >
@@ -143,7 +146,7 @@ function Control(props) {
             sessionID = {props.sessionID}
             socketConnected = {props.socketConnected}
         />
-    </div>
+    </div>;
 }
 
 export default Control;

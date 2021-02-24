@@ -3,7 +3,6 @@ import Switch from "react-switch";
 import {Helmet} from 'react-helmet';
 
 import ItemGrid from '../components/item-grid/';
-import Menu from '../components/menu';
 import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
 import Items from '../Items';
 import Traders from '../data/traders';
@@ -120,7 +119,6 @@ function ItemTracker() {
                 content = 'Track what items you need to find in Raid for Escape from Tarkov quests'
             />
         </Helmet>,
-        <Menu />,
         <div
             className="display-wrapper"
             style = {{

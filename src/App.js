@@ -12,7 +12,7 @@ import './App.css';
 import Ammo from './components/Ammo.jsx';
 import Map from './components/Map.jsx';
 import ID from './components/ID.jsx';
-import Control from './components/control';
+import Control from './pages/control';
 import Menu from './components/menu';
 import LootTier from './pages/LootTier.jsx';
 import Barters from './pages/barters';
@@ -167,6 +167,7 @@ const makeID = function makeID(length) {
                 content="Visualization of all ammo types in Escape from Tarkov, along with maps and other great tools"
             />
         </Helmet>
+        <Menu />
         <Switch>
             <Route
                 exact
@@ -184,7 +185,6 @@ const makeID = function makeID(length) {
                 exact
                 path={["/ammo/:currentAmmo", "/ammo", '/tarkov-tools', ""]}
             >
-                <Menu />
                 <div
                     className="display-wrapper"
                 >
@@ -206,7 +206,6 @@ const makeID = function makeID(length) {
                 exact
                 path={'/maps/'}
             >
-                <Menu />
                 <Maps />
                 <ID
                     sessionID = {sessionID}
@@ -215,7 +214,6 @@ const makeID = function makeID(length) {
             <Route
                 path="/map/:currentMap"
             >
-                <Menu />
                 <div
                     className="display-wrapper"
                 >
@@ -237,7 +235,6 @@ const makeID = function makeID(length) {
                 exact
                 path={'/barters/'}
             >
-                <Menu />
                 <Helmet>
                     <meta charSet="utf-8" />
                     <title>Tarkov barters</title>
@@ -255,7 +252,6 @@ const makeID = function makeID(length) {
                 exact
                 path={'/gear/'}
             >
-                <Menu />
                 <Guides />
                 <ID
                     sessionID = {sessionID}
@@ -314,7 +310,6 @@ const makeID = function makeID(length) {
                 exact
                 path={'/about/'}
             >
-                <Menu />
                 <About />
                 <ID
                     sessionID = {sessionID}
@@ -324,7 +319,6 @@ const makeID = function makeID(length) {
                 exact
                 path={'/control'}
             >
-                <Menu />
                 <Control
                     send = {send}
                     setID = {setID}

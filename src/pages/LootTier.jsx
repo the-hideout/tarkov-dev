@@ -3,7 +3,6 @@ import Switch from 'react-switch';
 import Select from 'react-select'
 import {Helmet} from 'react-helmet';
 
-import Menu from '../components/menu';
 import ID from '../components/ID.jsx';
 import ItemGrid from '../components/item-grid/';
 import FilterIcon from '../components/FilterIcon.jsx';
@@ -226,9 +225,6 @@ function LootTier(props) {
                 content="Visualization of all different valuable loot"
             />
         </Helmet>,
-        <Menu
-            key = 'main-navigaton'
-        />,
         <div
             className="display-wrapper"
             style = {{

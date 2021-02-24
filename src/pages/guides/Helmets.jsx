@@ -4,7 +4,6 @@ import Switch from 'react-switch';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-import Menu from '../../components/menu';
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
 import items from '../../Items';
@@ -299,9 +298,6 @@ function Helmets(props) {
             content = 'All helmets in Escape from Tarkov sortable by price, armor class etc'
         />
     </Helmet>,
-    <Menu
-        key = {'main-navigation'}
-    />,
     <div
         className="display-wrapper data-wrapper"
         key = {'display-wrapper'}

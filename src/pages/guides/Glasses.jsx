@@ -1,7 +1,6 @@
 import {useMemo} from 'react';
 import {Helmet} from 'react-helmet';
 
-import Menu from '../../components/menu';
 import DataTable from '../../components/data-table';
 import items from '../../Items';
 import formatPrice from '../../modules/format-price';
@@ -115,9 +114,6 @@ function Glasses(props) {
             content = 'All glasses in Escape from Tarkov sortable by price, armor class etc'
         />
     </Helmet>,
-    <Menu
-        key = {'main-navigation'}
-    />,
     <div
         className="display-wrapper data-wrapper"
         key = {'display-wrapper'}
