@@ -5,7 +5,7 @@ import {
     useHistory,
 } from "react-router-dom";
 
-import Graph from './Graph.jsx';
+import Graph from '../components/Graph.jsx';
 import useKeyPress from '../hooks/useKeyPress';
 
 import rawData from '../data/ammo.json';
