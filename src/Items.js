@@ -160,6 +160,7 @@ const items = Object.fromEntries(
             bestPrice: rawItem.bestPrice,
             bestPriceFee: rawItem.bestPriceFee,
             linkedItems: rawItem.linkedItems,
+            basePrice: rawItem.basePrice,
         },
     ];
   }),
