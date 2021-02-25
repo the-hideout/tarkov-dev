@@ -236,14 +236,6 @@ const makeID = function makeID(length) {
                 exact
                 path={'/barters/'}
             >
-                <Helmet>
-                    <meta charSet="utf-8" />
-                    <title>Tarkov barters</title>
-                    <meta
-                        name="description"
-                        content="All available barters and their profitability"
-                    />
-                </Helmet>
                 <Barters />
                 <ID
                     sessionID = {sessionID}
