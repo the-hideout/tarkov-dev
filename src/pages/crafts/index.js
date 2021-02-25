@@ -5,7 +5,9 @@ import Switch from 'react-switch';
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage'
+import fleaMarketFee from '../../modules/flea-market-fee';
 
+import Items from '../../Items';
 import rawData from '../../data/crafts.json';
 
 import './index.css';
@@ -202,8 +204,9 @@ function Crafts() {
                     value: craftRow.rewardItems[0].item.avg24hPrice,
                     source: station,
                     iconLink: craftRow.rewardItems[0].item.iconLink,
+                    count: craftRow.count,
                 },
-                profit: (craftRow.rewardItems[0].item.avg24hPrice * craftRow.rewardItems[0].count) - totalCost,
+                profit: (craftRow.rewardItems[0].item.avg24hPrice * craftRow.rewardItems[0].count) - totalCost -  fleaMarketFee(Items[craftRow.rewardItems[0].item.id].basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.count),
             };
 
             // If the reward has no value, it's not available for purchase
