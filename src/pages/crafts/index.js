@@ -176,7 +176,7 @@ function Crafts() {
             }
 
             let hasZeroCostItem = false;
-            const [station, level] = craftRow.source.split('level');
+            const [station, ] = craftRow.source.split('level');
 
             const tradeData = {
                 costItems: craftRow.requiredItems.map(requiredItem => {
