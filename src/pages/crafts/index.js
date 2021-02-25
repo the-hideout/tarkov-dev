@@ -112,13 +112,15 @@ function Crafts() {
             },
             {
                 Header: 'Cost ₽',
-                accessor: 'cost',
+                accessor: d => Number(d.cost),
                 Cell: priceCell,
+                id: 'cost',
             },
             {
                 Header: 'Estimated profit',
                 accessor: d => Number(d.profit),
                 Cell: priceCell,
+                id: 'profit',
                 sortType: (a, b) => {
                     if(a.value > b.value){
                         return 1;
@@ -255,11 +257,11 @@ function Crafts() {
                 charSet='utf-8'
             />
             <title>
-                Escape from Tarkov craft profits
+                Escape from Tarkov Hideout craft profits
             </title>
             <meta
                 name = 'description'
-                content = 'Escape from Tarkov craft profits'
+                content = 'Escape from Tarkov Hideout craft profits'
             />
         </Helmet>,
         <div
@@ -269,7 +271,7 @@ function Crafts() {
             <h1
                 className = 'crafts-page-title'
             >
-                Craft profits
+                Hideout craft profits
             </h1>
             <label
                 className = {'filter-toggle-wrapper'}
@@ -305,6 +307,8 @@ function Crafts() {
             columns={columns}
             key = 'crafts-table'
             data={data}
+            sortBy = {'profit'}
+            autoResetSortBy = {false}
         />
     ];
 };
