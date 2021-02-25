@@ -274,7 +274,7 @@ const makeID = function makeID(length) {
             </Route>
             <Route
                 exact
-                path={'/crafts/'}
+                path={'/hideout-profit/'}
             >
                 <Crafts />
                 <ID
