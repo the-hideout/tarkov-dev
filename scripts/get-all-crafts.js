@@ -4,6 +4,8 @@ const path = require('path');
 const got = require('got');
 
 (async () => {
+    console.log('Getting all crafts');
+    console.time('all-crafts');
     const response = await got.post('https://tarkov-tools.com/graphql', {
         json: {
             query: `{
@@ -39,4 +41,6 @@ const got = require('got');
     });
 
     fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'crafts.json'), JSON.stringify(response.body.data.crafts, null, 4));
+
+    console.timeEnd('all-crafts');
 })();
