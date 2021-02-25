@@ -23,6 +23,7 @@ import Guides from './pages/guides/';
 import Glasses from './pages/guides/Glasses';
 import Armor from './pages/guides/Armor';
 import Helmets from './pages/guides/Helmets';
+import Crafts from './pages/crafts';
 
 import Debug from './components/Debug';
 
@@ -276,6 +277,15 @@ const makeID = function makeID(length) {
                 path={'/gear/armor'}
             >
                 <Armor
+                    sessionID = {sessionID}
+                />
+            </Route>
+            <Route
+                exact
+                path={'/crafts/'}
+            >
+                <Crafts />
+                <ID
                     sessionID = {sessionID}
                 />
             </Route>
