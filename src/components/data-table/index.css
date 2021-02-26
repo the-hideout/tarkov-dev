@@ -17,8 +17,22 @@
     height: 69px;
 }
 
+.data-table th {
+    padding-bottom: 10px;
+}
+
 .data-cell {
-    padding: 0 15px;
+    padding: 5px 15px;
+    border-top: 4px solid #1b1919;
+    border-bottom: 4px solid #1b1919;
+}
+
+td.data-cell:last-child {
+    border-right: 4px solid #1b1919;
+}
+
+td.data-cell:first-child {
+    border-left: 4px solid #1b1919;
 }
 
 .data-table .center-content {
@@ -34,7 +48,7 @@
     max-width: 64px;
 }
 
-.data-table tr:hover td,
+.data-table tr td,
 .data-table tbody tr.expanded td {
     background-color: #292626;
 }
