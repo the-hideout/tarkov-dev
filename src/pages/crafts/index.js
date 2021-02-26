@@ -12,6 +12,16 @@ import rawData from '../../data/crafts.json';
 
 import './index.css';
 
+const stations = [
+    'booze-generator',
+    'intelligence-center',
+    'lavatory',
+    'medstation',
+    'nutrition-unit',
+    'water-collector',
+    'workbench',
+];
+
 function priceCell({ value }) {
     return <div
         className = 'center-content'
@@ -31,13 +41,11 @@ function costItemsCell({ value }) {
             >
                 <div
                     className = 'craft-cost-image-wrapper'
-                >
-                    <img
+                ><img
                         alt = {costItem.name}
                         loading = 'lazy'
                         src = {costItem.iconLink}
-                    />
-                </div>
+                    /></div>
                 <div
                     className = 'craft-cost-item-text-wrapper'
                 >
@@ -60,7 +68,7 @@ function costItemsCell({ value }) {
 
 function Crafts() {
     const [nameFilter, setNameFilter] = useState('');
-    const [topPerStationOnly, setTopPerStationOnly] = useStateWithLocalStorage('showTopPerStationOnly', false);
+    const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedStation', 'top');
 
     const columns = useMemo(
         () => [
@@ -73,14 +81,16 @@ function Crafts() {
                     >
                         <div
                             className = 'craft-reward-image-wrapper'
+                        ><span
+                            className = 'craft-reward-count-wrapper'
                         >
-                            <img
+                            {value.count}
+                        </span><img
                                 alt = ''
                                 className = 'table-image'
                                 loading = 'lazy'
                                 src = { value.iconLink }
-                            />
-                        </div>
+                            /></div>
                         <div
                             className = 'craft-reward-info-wrapper'
                         >
@@ -178,7 +188,13 @@ function Crafts() {
             }
 
             let hasZeroCostItem = false;
-            const [station, ] = craftRow.source.split('level');
+            let [station, ] = craftRow.source.split('level');
+
+            station = station.trim();
+
+            if(selectedStation && selectedStation !== 'top' && selectedStation !== station.toLowerCase().replace(/\s/g, '-')){
+                return false;
+            }
 
             const tradeData = {
                 costItems: craftRow.requiredItems.map(requiredItem => {
@@ -204,10 +220,12 @@ function Crafts() {
                     value: craftRow.rewardItems[0].item.avg24hPrice,
                     source: station,
                     iconLink: craftRow.rewardItems[0].item.iconLink,
-                    count: craftRow.count,
+                    count: craftRow.rewardItems[0].count,
                 },
                 profit: (craftRow.rewardItems[0].item.avg24hPrice * craftRow.rewardItems[0].count) - totalCost -  fleaMarketFee(Items[craftRow.rewardItems[0].item.id].basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.count),
             };
+            // console.log(Items[craftRow.rewardItems[0].item.id])
+            // console.log(fleaMarketFee(Items[craftRow.rewardItems[0].item.id].basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.count));
 
             // If the reward has no value, it's not available for purchase
             if(tradeData.reward.value === 0){
@@ -235,7 +253,7 @@ function Crafts() {
             return 0;
         })
         .map((craft) => {
-            if(!topPerStationOnly){
+            if(selectedStation !== 'top'){
                 return craft;
             }
 
@@ -249,7 +267,7 @@ function Crafts() {
         })
         .filter(Boolean)
     },
-        [nameFilter, topPerStationOnly]
+        [nameFilter, selectedStation]
     );
 
     return [
@@ -276,20 +294,25 @@ function Crafts() {
             >
                 Hideout craft profits
             </h1>
-            <label
-                className = {'filter-toggle-wrapper'}
-            >
-                <div
-                    className = {'filter-toggle-label'}
+            <div className = 'button-group-wrapper'>
+                {stations.map((stationName) => {
+                    return <button
+                        className = {`button-group-button ${stationName === selectedStation ? 'selected': ''}`}
+                        onClick={setSelectedStation.bind(undefined, stationName)}
+                    ><img
+                            alt = {stationName}
+                            title = {stationName}
+                            src={`${process.env.PUBLIC_URL}/images/${stationName}-icon.png`}
+                        /></button>
+                })}
+                <button
+                    className = {`button-group-button ${'top' === selectedStation ? 'selected': ''}`}
+                    title = 'Top crafts in each station'
+                    onClick={setSelectedStation.bind(undefined, 'top')}
                 >
-                    Show top per station
-                </div>
-                <Switch
-                    className = {'filter-toggle'}
-                    onChange = {e => setTopPerStationOnly(!topPerStationOnly)}
-                    checked = {topPerStationOnly}
-                />
-            </label>
+                    Top
+                </button>
+            </div>
             <div
                 className = 'filter-input-wrapper'
             >

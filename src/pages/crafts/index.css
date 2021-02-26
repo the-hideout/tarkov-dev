@@ -22,6 +22,22 @@
 
 .craft-reward-image-wrapper {
     margin-right: 10px;
+    position: relative;
+    font-size: 0;
+}
+
+.craft-reward-count-wrapper {
+    background-color: rgba(0,0,0, 0.8);
+    border-top-left-radius: 3px;
+    bottom: 1px;
+    color: #c7c5b3;
+    font-size: 14px;
+    height: 18px;
+    line-height: 20px;
+    padding: 0 5px;
+    position: absolute;
+    right: 1px;
+    text-align: center;
 }
 
 .craft-reward-info-wrapper {
@@ -58,4 +74,42 @@
 .craft-cost-item-text-wrapper {
     flex-grow: 1;
     white-space: nowrap;
+}
+
+.station-toggle-handle {
+    width: 26px;
+}
+
+.button-group-wrapper {
+    display: flex;
+    border: 1px solid #1b1919;
+}
+
+.button-group-button {
+    border-radius: 0;
+    background-color: #292626;
+    color: #c7c5b3;
+    height: 40px;
+    width: 50px;
+    outline: none;
+}
+
+.button-group-button img {
+    max-height: 100%;
+}
+
+.button-group-button:hover,
+.button-group-button.selected {
+    background-color: #1b1919;
+    cursor: pointer;
+}
+
+.button-group-button:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.button-group-button:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
 }
