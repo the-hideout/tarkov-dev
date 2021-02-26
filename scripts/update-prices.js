@@ -117,6 +117,8 @@ const arrayChunk = (inputArray, chunkLength) => {
                             id
                             name
                             types
+                            width
+                            height
                         }`;
                     }).join('\n') }
                 }`

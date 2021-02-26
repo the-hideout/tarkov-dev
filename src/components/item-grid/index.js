@@ -74,7 +74,6 @@ function ItemGrid(props) {
                         count = {item.count}
                         name = {item.name}
                         pricePerSlot = {item.pricePerSlot}
-                        horizontal = {item.horizontal}
                         sellTo = {item.sellTo}
                         slots = {item.slots}
                         src = {item.imgLink}
