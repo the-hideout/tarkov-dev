@@ -1,6 +1,5 @@
 import {useMemo, useState} from 'react';
 import {Helmet} from 'react-helmet';
-import Switch from 'react-switch';
 
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
