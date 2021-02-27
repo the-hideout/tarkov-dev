@@ -12,7 +12,6 @@ const items = Object.fromEntries(
             // imgLink: rawItem.imgBig,
             imgLink: rawItem.img || `https://raw.githack.com/RatScanner/EfTIcons/master/uid/${rawItem.id}.png`,
             imgIconLink: `https://raw.githack.com/RatScanner/EfTIcons/master/uid/${rawItem.id}.png`,
-            canCraftInHideout: false,
             types: rawItem.types,
             traderName: rawItem.traderName,
             traderPrice: rawItem.traderPrice,
