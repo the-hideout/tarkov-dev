@@ -99,7 +99,7 @@ function ItemTracker() {
                         <button
                             onClick = {handleDoneClick.bind(this, questData.questId)}
                         >
-                            Finished
+                            Collected
                         </button>
                     }
                 />
