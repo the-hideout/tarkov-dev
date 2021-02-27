@@ -161,6 +161,16 @@ const Menu = () => {
                         Barter profit
                     </Link>
                 </li>
+                <li
+                    className = "submenu-wrapper"
+                >
+                    <Link
+                        to = '/hideout-profit/'
+                        onClick = {setIsOpen.bind(this, false)}
+                    >
+                        Hideout profit
+                    </Link>
+                </li>
                 <a
                     href="https://www.patreon.com/kokarn"
                 >
