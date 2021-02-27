@@ -27,6 +27,7 @@ const items = Object.fromEntries(
             basePrice: rawItem.basePrice,
             width: rawItem.width,
             height: rawItem.height,
+            urlName: rawItem.urlName,
         },
     ];
   }),

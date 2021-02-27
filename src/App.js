@@ -283,19 +283,18 @@ const makeID = function makeID(length) {
             </Route>
             <Route
                 exact
-                path={'/quest-items'}
+                path={'/item-tracker/'}
             >
-                <QuestItemsPage />
+                <ItemTracker />
                 <ID
                     sessionID = {sessionID}
                 />
             </Route>
             <Route
                 exact
-                path={'/item-tracker/'}
+                path={'/item/:itemName'}
             >
-                <ItemTracker />
-                <ID
+                <Item
                     sessionID = {sessionID}
                 />
             </Route>
