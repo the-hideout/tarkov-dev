@@ -9,6 +9,7 @@
     "dayjs": "^1.9.4",
     "got": "^11.8.0",
     "history": "^5.0.0",
+    "lodash.debounce": "^4.0.8",
     "rc-slider": "^9.7.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

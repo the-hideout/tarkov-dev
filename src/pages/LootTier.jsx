@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Switch from 'react-switch';
 import Select from 'react-select'
 import {Helmet} from 'react-helmet';
+import debounce from 'lodash.debounce';
 
 import ID from '../components/ID.jsx';
 import ItemGrid from '../components/item-grid/';
@@ -53,7 +54,7 @@ const filterOptions = [
     },
 ];
 
-
+const DEFAULT_MAX_ITEMS = 244;
 
 const arrayChunk = (inputArray, chunkLength) => {
     return inputArray.reduce((resultArray, item, index) => {
@@ -70,7 +71,7 @@ const arrayChunk = (inputArray, chunkLength) => {
 };
 
 function LootTier(props) {
-    const [numberFilter] = useState(244);
+    const [numberFilter, setNumberFilter] = useState(DEFAULT_MAX_ITEMS);
     const [minPrice, setMinPrice] = useStateWithLocalStorage('minPrice', 0);
     // const [includeFlea, setIncludeFlea] = useState(true);
     const [includeFlea, setIncludeFlea] = useStateWithLocalStorage('includeFlea', true);
@@ -173,6 +174,18 @@ function LootTier(props) {
 
         setFilteredItems(sortedItems);
     }, [setFilteredItems, includeFlea, filters, includeMarked, minPrice]);
+
+    const minPriceHandler = debounce((event) => {
+        console.log('debouncer called');
+        const newValue = Number(event.target.value);
+        setMinPrice(newValue);
+
+        if(newValue > 0){
+            setNumberFilter(99999);
+        } else {
+            setNumberFilter(DEFAULT_MAX_ITEMS);
+        }
+    }, 400);
 
     let itemChunks = arrayChunk(filteredItems.slice(0, Math.min(filteredItems.length, numberFilter)), Math.ceil(Math.min(filteredItems.length, numberFilter) / 7));
     let groupNames = defaultGroupNames;
@@ -312,7 +325,7 @@ function LootTier(props) {
                         defaultValue = {minPrice || ''}
                         type = {'number'}
                         placeholder = {'min value'}
-                        onChange = {e => setMinPrice(Number(e.target.value))}
+                        onChange = {minPriceHandler}
                     />
                     <input
                         defaultValue = {filters.name || ''}
