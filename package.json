@@ -32,7 +32,8 @@
     "eject": "react-scripts eject",
     "prebuild": "node scripts/getdata-nofoodaftermidnight.js && node scripts/get-all-barters.js && node scripts/get-all-crafts.js",
     "stage": "npx rimraf build && npm run update-prices && npm run build && npx serve build",
-    "update-prices": "node scripts/update-prices.js"
+    "update-prices": "node scripts/update-prices.js",
+    "postinstall": "npm run prebuild"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -21,3 +21,8 @@ Everything should be pretty straightforward.
 
 ### Step 2: Start development server
 `npm start`
+
+
+## Updating data
+Most data can be updated just by running
+`npm run prebuild`
