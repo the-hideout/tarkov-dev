@@ -109,8 +109,9 @@ const arrayChunk = (inputArray, chunkLength) => {
 
     try {
         const chunks = arrayChunk(itemIds, 500);
+        let i = 1;
         for(const chunk of chunks){
-            console.time(`chunk`);
+            console.time(`tt-api-chunk-${i}`);
             const bodyQuery = JSON.stringify({query: `{
                     ${chunk.map((itemId) => {
                         return `item${itemId}: item(id:"${itemId}"){
@@ -127,9 +128,10 @@ const arrayChunk = (inputArray, chunkLength) => {
                 body: bodyQuery,
                 responseType: 'json',
             });
-            console.timeEnd(`chunk`);
+            console.timeEnd(`tt-api-chunk-${i}`);
 
             tempData = tempData.concat(Object.values(response.body.data));
+            i = i + 1;
         }
 
     } catch (requestError){
