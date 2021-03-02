@@ -17,7 +17,6 @@ const items = Object.fromEntries(
             fee: rawItem.fee,
             slots: rawItem.slots,
             itemProperties: rawItem.itemProperties,
-            bsgTypes: rawItem.bsgTypes,
             hasGrid: rawItem.hasGrid,
             bestPrice: rawItem.bestPrice,
             bestPriceFee: rawItem.bestPriceFee,

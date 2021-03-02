@@ -5,7 +5,6 @@ const got = require('got');
 
 const sleep = require('./modules/sleep');
 const fleaMarketFee = require('./modules/flea-market-fee');
-const questData = require('./modules/quests');
 
 const itemIds = require('../src/data/items.json');
 const calculateBestPrice = require('./modules/calculate-best-price');
@@ -194,42 +193,15 @@ const arrayChunk = (inputArray, chunkLength) => {
                 traderPrice: allItemData[languageCode][i].traderPrice * CURRENCY_MODIFIER[allItemData[languageCode][i].traderPriceCur],
                 id: allItemData[languageCode][i].bsgId,
                 itemProperties: {},
-                bsgTypes: [
-                    ...getBsgTypes(bsgItemData._parent, bsgData).filter(Boolean),
-                ],
                 hasGrid: bsgItemData._props.Grids?.length > 0,
                 ...calculateBestPrice(allItemData[languageCode][i]),
                 linkedItems: bsgItemData._props.Slots?.map((slot) => {
                     return slot._props.filters[0].Filter;
-                    // "Slots": [
-                    // {
-                    //     "_name": "mod_equipment_000",
-                    //     "_id": "5e00c1ad86f774747333222e",
-                    //     "_parent": "5e00c1ad86f774747333222c",
-                    //     "_props": {
-                    //         "filters": [
-                    //             {
-                    //                 "Shift": 0,
-                    //                 "Filter": [
-                    //                     "5e00cfa786f77469dc6e5685",
-                    //                     "5e01f31d86f77465cf261343"
-                    //                 ]
-                    //             }
-                    //         ]
-                    //     },
-                    //     "_required": false,
-                    //     "_mergeSlotWithChildren": false,
-                    //     "_proto": "55d30c4c4bdc2db4468b457e"
-                    // },
                 }).flat() || [],
                 urlName: normalizeName(allItemData[languageCode][i].name),
             };
 
             for(const extraProp of mappingProperties){
-                // if(!allItemData[languageCode][i].types.includes(extraProp.type)){
-                //     continue;
-                // }
-
                 if(!bsgItemData._props[extraProp.propertyKey]){
                     continue;
                 }
@@ -242,32 +214,15 @@ const arrayChunk = (inputArray, chunkLength) => {
             Reflect.deleteProperty(allItemData[languageCode][i], 'reference');
             Reflect.deleteProperty(allItemData[languageCode][i], 'isFunctional');
             Reflect.deleteProperty(allItemData[languageCode][i], 'link');
+            Reflect.deleteProperty(allItemData[languageCode][i], 'avg7daysPrice');
+            Reflect.deleteProperty(allItemData[languageCode][i], 'diff24h');
+            Reflect.deleteProperty(allItemData[languageCode][i], 'diff7days');
+            Reflect.deleteProperty(allItemData[languageCode][i], 'imgBig');
+            Reflect.deleteProperty(allItemData[languageCode][i], 'icon');
+            Reflect.deleteProperty(allItemData[languageCode][i], 'traderPriceCur');
         }
 
         fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', `all-${languageCode}.json`), JSON.stringify(allItemData[languageCode], null, 4));
-
-        // const ratScannerData = allItemData[languageCode].map((rawItemData) => {
-        //     return {
-        //         uid: rawItemData.id,
-        //         name: rawItemData.name,
-        //         shortName: rawItemData.shortName,
-        //         slots: rawItemData.slots,
-        //         wikiLink: rawItemData.wikiLink,
-        //         imgLink: rawItemData.img,
-        //         timestamp: Math.floor(new Date(rawItemData.updated).getTime() / 1000),
-        //         price: rawItemData.price,
-        //         avg24hPrice: rawItemData.avg24hPrice,
-        //         avg7dPrice: rawItemData.avg7daysPrice,
-        //         avg24hAgo: rawItemData.avg24hPrice + Math.floor(rawItemData.avg24hPrice * (rawItemData.diff24h / 100)),
-        //         avg7dAgo: rawItemData.avg7daysPrice + Math.floor(rawItemData.avg7daysPrice * (rawItemData.diff7days / 100)),
-        //         traderName: rawItemData.traderName,
-        //         traderPrice: rawItemData.traderPrice,
-        //         traderCurrency: rawItemData.traderPriceCur,
-        //         quests: questData.getItemUsage(rawItemData.bsgId),
-        //     };
-        // });
-
-        // fs.writeFileSync(path.join(__dirname, '..', 'public', 'data', `all-${languageCode}.json`), JSON.stringify(ratScannerData, null, 4));
 
         if(availableLanguages.length > 3){
             await sleep(30000);
