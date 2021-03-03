@@ -199,6 +199,8 @@ function Crafts() {
                         totalCost = totalCost + requiredItem.item.avg24hPrice * requiredItem.count;
 
                         if(requiredItem.item.avg24hPrice * requiredItem.count === 0){
+                            console.log(`Found a zero cost item! ${requiredItem.item.name}`);
+
                             hasZeroCostItem = true;
                         }
 
@@ -231,8 +233,8 @@ function Crafts() {
             }
 
             if(hasZeroCostItem){
-                console.log('Found a zero cost item!');
-                console.log(craftRow);
+                // console.log('Found a zero cost item!');
+                // console.log(craftRow);
 
                 return false;
             }
