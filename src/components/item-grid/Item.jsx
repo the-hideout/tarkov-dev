@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import ItemTooltip from './ItemTooltip';
 import ItemIcon from './ItemIcon';
 
@@ -14,8 +15,16 @@ const sizesToAlwaysRotate = [
 ];
 
 function Item(props) {
+    const {item, onClick} = props;
+
+    const handleClick = useCallback(() => {
+        if (onClick && item) {
+            onClick(item);
+        }
+      }, [item, onClick]);
+
+
     let imgSrc = props.src;
-    const noop = () => {};
 
     const gridSize = `${props.width}x${props.height}`;
 
@@ -28,7 +37,7 @@ function Item(props) {
     return <a
         href = {props.wikiLink}
         className = {`grid-item grid-item-${props.width}x${props.height}`}
-        onClick = {props.onClick|| noop}
+        onClick = {handleClick}
     >
         <ItemTooltip
             pricePerSlot = {props.pricePerSlot}

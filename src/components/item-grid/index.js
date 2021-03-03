@@ -69,8 +69,8 @@ function ItemGrid(props) {
             >
                 {props.items.map(item =>
                     <Item
-                        key = {`${props.name}-${item.name}`}
-                        onClick = {item.onClick?.bind(this, item)}
+                        key = {`${props.name}-${item.id}`}
+                        onClick = {item.onClick}
                         count = {item.count}
                         name = {item.name}
                         pricePerSlot = {item.pricePerSlot}
@@ -81,6 +81,7 @@ function ItemGrid(props) {
                         wikiLink = {item.wikiLink}
                         height = {item.height}
                         width = {item.width}
+                        item = {item}
                     />
                 )}
             </div>
