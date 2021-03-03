@@ -149,7 +149,6 @@ function Crafts() {
     )
 
     const data = useMemo(() => {
-        let addedStations = [];
         return rawData.map((craftRow) => {
             let totalCost = 0;
 
@@ -250,21 +249,7 @@ function Crafts() {
             }
 
             return 0;
-        })
-        .map((craft) => {
-            if(selectedStation !== 'top'){
-                return craft;
-            }
-
-            if(addedStations.includes(craft.reward.source)){
-                return false;
-            }
-
-            addedStations.push(craft.reward.source);
-
-            return craft;
-        })
-        .filter(Boolean)
+        });
     },
         [nameFilter, selectedStation]
     );
