@@ -40,6 +40,7 @@ const got = require('got');
         responseType: 'json',
     });
 
+    console.log(`Got ${response.body.data.crafts.length} crafts`);
     fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'crafts.json'), JSON.stringify(response.body.data.crafts, null, 4));
 
     console.timeEnd('all-crafts');
