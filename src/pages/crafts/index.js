@@ -297,6 +297,7 @@ function Crafts() {
                 {stations.map((stationName) => {
                     return <button
                         className = {`button-group-button ${stationName === selectedStation ? 'selected': ''}`}
+                        key = {`station-selector-button-${stationName}`}
                         onClick={setSelectedStation.bind(undefined, stationName)}
                     ><img
                             alt = {stationName}
