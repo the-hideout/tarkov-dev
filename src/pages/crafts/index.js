@@ -222,8 +222,6 @@ function Crafts() {
                 },
                 profit: (craftRow.rewardItems[0].item.avg24hPrice * craftRow.rewardItems[0].count) - totalCost -  fleaMarketFee(Items[craftRow.rewardItems[0].item.id].basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.count),
             };
-            // console.log(Items[craftRow.rewardItems[0].item.id])
-            // console.log(fleaMarketFee(Items[craftRow.rewardItems[0].item.id].basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.count));
 
             // If the reward has no value, it's not available for purchase
             if(tradeData.reward.value === 0){
@@ -233,6 +231,9 @@ function Crafts() {
             }
 
             if(hasZeroCostItem){
+                console.log('Found a zero cost item!');
+                console.log(craftRow);
+
                 return false;
             }
 
