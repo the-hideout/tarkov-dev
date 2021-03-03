@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import Switch from 'react-switch';
 import Select from 'react-select'
 import {Helmet} from 'react-helmet';
 import debounce from 'lodash.debounce';
 
+import QueueBrowserTask from '../modules/queue-browser-task';
 import ID from '../components/ID.jsx';
 import ItemGrid from '../components/item-grid/';
 import FilterIcon from '../components/FilterIcon.jsx';
@@ -66,7 +67,7 @@ const arrayChunk = (inputArray, chunkLength) => {
 
         resultArray[chunkIndex].push(item);
 
-        return resultArray
+        return resultArray;
     }, []);
 };
 
@@ -76,7 +77,6 @@ function LootTier(props) {
     // const [includeFlea, setIncludeFlea] = useState(true);
     const [includeFlea, setIncludeFlea] = useStateWithLocalStorage('includeFlea', true);
     const [includeMarked, setIncludeMarked] = useStateWithLocalStorage('includeMarked', false);
-    const [filteredItems, setFilteredItems] = useState([]);
     const [groupByType, setGroupByType] = useStateWithLocalStorage('groupByType', false);
     const [filters, setFilters] = useStateWithLocalStorage('filters', {
         name: '',
@@ -93,23 +93,25 @@ function LootTier(props) {
     const [showFilter, setShowFilter] = useState(false);
 
     const handleFilterChange = (selectedFilters) => {
-        setFilters({
-            ...filters,
-            types: selectedFilters?.map((selectedValue) => {
-                return selectedValue.value;
-            }) || filterOptions.map(filter => {
-                if(filter.default){
-                    return filter.value;
-                }
+        QueueBrowserTask.task(() => {
+            setFilters({
+                ...filters,
+                types: selectedFilters?.map((selectedValue) => {
+                    return selectedValue.value;
+                }) || filterOptions.map(filter => {
+                    if(filter.default){
+                        return filter.value;
+                    }
 
-                return false;
-            })
-            .filter(Boolean),
+                    return false;
+                })
+                .filter(Boolean),
+            });
         });
     };
 
-    useEffect(() => {
-        const itemData = Object.values(Items)
+    const itemData = useMemo(() => {
+        return Object.values(Items)
             .map((item) => {
                 if(!includeFlea){
                     return {
@@ -137,18 +139,23 @@ function LootTier(props) {
                     return false;
                 }
 
-                if(!includeMarked && item.types.includes('marked-only')){
+                return true;
+            });
+    }, [includeFlea]);
+
+    const typeFilteredItems = useMemo(() => {
+        const innerTypeFilteredItems = itemData
+            .filter((item) => {
+                if (!includeMarked && item.types.includes('marked-only')) {
                     return false;
                 }
 
-                const intersection = item.types.filter(type => filters.types?.includes(type));
+                const intersection = item.types.filter((type) =>
+                    filters.types?.includes(type),
+                );
 
                 // No categories matching
                 if(intersection.length === 0){
-                    return false;
-                }
-
-                if (filters.name.length > 0 && (item.name.toLowerCase().indexOf(filters.name) === -1 && item.shortName?.toLowerCase().indexOf(filters.name) === -1)){
                     return false;
                 }
 
@@ -157,23 +164,42 @@ function LootTier(props) {
                 }
 
                 return true;
+            })
+
+
+        return innerTypeFilteredItems;
+    }, [filters.types, includeMarked, itemData, minPrice]);
+
+    const filteredItems = useMemo(() => {
+        const items = typeFilteredItems.filter((item) => {
+            if (
+                filters.name.length > 0 &&
+                item.name.toLowerCase().indexOf(filters.name) === -1 &&
+                item.shortName?.toLowerCase().indexOf(filters.name) === -1
+            ) {
+                return false;
+            }
+
+            return true;
         });
 
-        const sortedItems = itemData
-            .sort((itemA, itemB) => {
-                if(itemA.pricePerSlot > itemB.pricePerSlot){
-                    return -1;
-                }
+        return items;
 
-                if(itemA.pricePerSlot < itemB.pricePerSlot){
-                    return 1;
-                }
+    }, [filters.name, typeFilteredItems]);
 
-                return 0;
-            });
+    useEffect(() => {
+        filteredItems.sort((itemA, itemB) => {
+            if (itemA.pricePerSlot > itemB.pricePerSlot) {
+                return -1;
+            }
 
-        setFilteredItems(sortedItems);
-    }, [setFilteredItems, includeFlea, filters, includeMarked, minPrice]);
+            if (itemA.pricePerSlot < itemB.pricePerSlot) {
+                return 1;
+            }
+
+            return 0;
+        });
+    }, [filteredItems])
 
     const minPriceHandler = debounce((event) => {
         console.log('debouncer called');
@@ -187,45 +213,90 @@ function LootTier(props) {
         }
     }, 400);
 
-    let itemChunks = arrayChunk(filteredItems.slice(0, Math.min(filteredItems.length, numberFilter)), Math.ceil(Math.min(filteredItems.length, numberFilter) / 7));
-    let groupNames = defaultGroupNames;
+    const selectedItems = useMemo(() => {
+        return filteredItems.slice(
+            0,
+            Math.min(filteredItems.length, numberFilter),
+        );
+    }, [filteredItems, numberFilter]);
 
-    if(groupByType){
-        groupNames = [];
-        const chunkMap = {};
-        const selectedItems = filteredItems.slice(0, Math.min(filteredItems.length, numberFilter));
+    const groupNames = useMemo(() => {
+        if (groupByType) {
+            const activeFiltersSet = new Set();
 
-        for(const item of selectedItems){
-            for(const activeFilter of filters.types){
-                if(!item.types.includes(activeFilter)){
-                    continue;
+            for (const item of selectedItems) {
+                for (const activeFilter of filters.types) {
+                    if (!item.types.includes(activeFilter)) {
+                        continue;
+                    }
+
+                    activeFiltersSet.add(activeFilter);
                 }
-
-                if(!chunkMap[activeFilter]){
-                    chunkMap[activeFilter] = [];
-                    groupNames.push(activeFilter);
-                }
-
-                chunkMap[activeFilter].push(item);
             }
+
+            return Array.from(activeFiltersSet);
         }
 
-        itemChunks = Object.values(chunkMap);
-    }
+        return defaultGroupNames;
+    }, [groupByType, selectedItems, filters.types]);
 
-    for(let i = 0; i < itemChunks.length; i = i + 1){
-        itemChunks[i] = itemChunks[i]?.sort((itemA, itemB) => {
-            if(itemA.slots > itemB.slots){
-                return -1;
+    const itemChunks = useMemo(() => {
+        let innerItemChunks = arrayChunk(
+            selectedItems,
+            selectedItems.length / 7,
+        );
+
+        if (groupByType) {
+            const chunkMap = {};
+
+            for (const item of selectedItems) {
+                for (const activeFilter of filters.types) {
+                    if (!item.types.includes(activeFilter)) {
+                        continue;
+                    }
+
+                    if (!chunkMap[activeFilter]) {
+                        chunkMap[activeFilter] = [];
+                    }
+
+                    chunkMap[activeFilter].push(item);
+                }
             }
 
-            if(itemA.slots < itemB.slots){
-                return 1;
-            }
+            innerItemChunks = Object.values(chunkMap);
+        }
 
-            return 0;
-        });
-    };
+        for (let i = 0; i < innerItemChunks.length; i = i + 1) {
+            innerItemChunks[i] = innerItemChunks[i]?.sort((itemA, itemB) => {
+                if (itemA.slots > itemB.slots) {
+                    return -1;
+                }
+
+                if (itemA.slots < itemB.slots) {
+                    return 1;
+                }
+
+                return 0;
+            });
+        }
+
+        return innerItemChunks;
+    }, [filters.types, groupByType, selectedItems]);
+
+    const handleFilterNameChange = useCallback((e) => {
+        if (typeof window !== 'undefined') {
+            const name = e.target.value.toLowerCase();
+
+            // schedule this for the next loop so that the UI
+            // has time to update but we do the filtering as soon as possible
+            QueueBrowserTask.task(() => {
+                setFilters({
+                    ...filters,
+                    name,
+                });
+            });
+        }
+    }, [filters, setFilters]);
 
     return [
         <Helmet
@@ -331,10 +402,7 @@ function LootTier(props) {
                         defaultValue = {filters.name || ''}
                         type = {'text'}
                         placeholder = {'btc, graphics e.t.c'}
-                        onChange = {e => setFilters({
-                            ...filters,
-                            name: e.target.value.toLowerCase(),
-                        })}
+                        onChange={handleFilterNameChange}
                     />
                 </div>
             </div>
