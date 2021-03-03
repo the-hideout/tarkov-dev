@@ -39,6 +39,7 @@ const got = require('got');
         responseType: 'json',
     });
 
+    console.log(`Got ${response.body.data.barters.length} barters`);
     fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'barters.json'), JSON.stringify(response.body.data.barters, null, 4));
     console.timeEnd('all-barters');
 })();
