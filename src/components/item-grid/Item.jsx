@@ -17,9 +17,9 @@ const sizesToAlwaysRotate = [
 function Item(props) {
     const {item, onClick} = props;
 
-    const handleClick = useCallback(() => {
+    const handleClick = useCallback((e) => {
         if (onClick && item) {
-            onClick(item);
+            onClick(item, e);
         }
       }, [item, onClick]);
 
