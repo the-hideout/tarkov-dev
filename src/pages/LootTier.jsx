@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import Switch from 'react-switch';
 import Select from 'react-select'
 import {Helmet} from 'react-helmet';
@@ -183,12 +183,7 @@ function LootTier(props) {
             return true;
         });
 
-        return items;
-
-    }, [filters.name, typeFilteredItems]);
-
-    useEffect(() => {
-        filteredItems.sort((itemA, itemB) => {
+        items.sort((itemA, itemB) => {
             if (itemA.pricePerSlot > itemB.pricePerSlot) {
                 return -1;
             }
@@ -199,7 +194,9 @@ function LootTier(props) {
 
             return 0;
         });
-    }, [filteredItems])
+
+        return items;
+    }, [filters.name, typeFilteredItems]);
 
     const minPriceHandler = debounce((event) => {
         console.log('debouncer called');
