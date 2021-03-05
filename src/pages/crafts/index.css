@@ -83,6 +83,7 @@
 .button-group-wrapper {
     display: flex;
     border: 1px solid #1b1919;
+    margin-right: 10px;
 }
 
 .button-group-button {

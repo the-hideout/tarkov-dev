@@ -1,5 +1,6 @@
 import {useMemo, useState} from 'react';
 import {Helmet} from 'react-helmet';
+import Switch from 'react-switch';
 
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
@@ -19,6 +20,11 @@ const stations = [
     'nutrition-unit',
     'water-collector',
     'workbench',
+];
+
+const fuelIds = [
+    '5d1b371186f774253763a656', // Expeditionary fuel tank
+    '5d1b36a186f7742523398433', // Metal fuel tank
 ];
 
 function priceCell({ value }) {
@@ -67,6 +73,7 @@ function costItemsCell({ value }) {
 
 function Crafts() {
     const [nameFilter, setNameFilter] = useState('');
+    const [freeFuel, setFreeFuel] = useState(false);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedStation', 'top');
 
     const columns = useMemo(
@@ -196,18 +203,23 @@ function Crafts() {
 
             const tradeData = {
                 costItems: craftRow.requiredItems.map(requiredItem => {
-                        totalCost = totalCost + requiredItem.item.avg24hPrice * requiredItem.count;
-
+                        let calculationPrice = requiredItem.item.avg24hPrice;
                         if(requiredItem.item.avg24hPrice * requiredItem.count === 0){
                             console.log(`Found a zero cost item! ${requiredItem.item.name}`);
 
                             hasZeroCostItem = true;
                         }
 
+                        if(freeFuel && fuelIds.includes(requiredItem.item.id)){
+                            calculationPrice = 0;
+                        }
+
+                        totalCost = totalCost + calculationPrice * requiredItem.count;
+
                         return {
                             count: requiredItem.count,
                             name: requiredItem.item.name,
-                            price: requiredItem.item.avg24hPrice,
+                            price: calculationPrice,
                             iconLink: requiredItem.item.iconLink,
                             wikiLink: requiredItem.item.wikiLink,
                         };
@@ -254,7 +266,7 @@ function Crafts() {
             return 0;
         });
     },
-        [nameFilter, selectedStation]
+        [nameFilter, selectedStation, freeFuel]
     );
 
     return [
@@ -301,6 +313,20 @@ function Crafts() {
                     Top
                 </button>
             </div>
+            <label
+                className = {'filter-toggle-wrapper'}
+            >
+                <div
+                    className = {'filter-toggle-label'}
+                >
+                    Fuel is free
+                </div>
+                <Switch
+                    className = {'filter-toggle'}
+                    onChange = {e => setFreeFuel(!freeFuel)}
+                    checked = {freeFuel}
+                />
+            </label>
             <div
                 className = 'filter-input-wrapper'
             >
