@@ -156,6 +156,8 @@ function Crafts() {
     )
 
     const data = useMemo(() => {
+        let addedStations = [];
+
         return rawData.map((craftRow) => {
             let totalCost = 0;
 
@@ -264,6 +266,20 @@ function Crafts() {
             }
 
             return 0;
+        })
+        .filter((craft) => {
+            // This is done after profit sorting
+            if(selectedStation !== 'top'){
+                return true;
+            }
+
+            if(addedStations.includes(craft.reward.source)){
+                return false;
+            }
+
+            addedStations.push(craft.reward.source);
+
+            return true;
         });
     },
         [nameFilter, selectedStation, freeFuel]
