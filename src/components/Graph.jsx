@@ -61,7 +61,7 @@ const styles = {
         border: {
             stroke: "black",
             fill: '#292525',
-            width: 33,
+            width: 37,
         },
         labels: {
             fill: '#ccc',
@@ -235,7 +235,7 @@ const Graph = props => {
                 gutter={10}
                 orientation="vertical"
                 style={styles.legend}
-                x={312}
+                x={308}
                 y={9}
             />
             {
