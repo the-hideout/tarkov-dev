@@ -3,6 +3,7 @@
   "version": "2.0.2",
   "private": true,
   "dependencies": {
+    "@cloudflare/kv-asset-handler": "^0.1.0",
     "@sentry/react": "^6.0.2",
     "@sentry/tracing": "^6.0.2",
     "cheerio": "^1.0.0-rc.5",
