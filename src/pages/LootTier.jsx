@@ -217,7 +217,13 @@ function LootTier(props) {
         );
     }, [filteredItems, numberFilter]);
 
-    const groupNames = useMemo(() => {
+    const {
+        groupNames,
+        itemChunks,
+    } = useMemo(() => {
+        let innerGroupNames;
+        let innerItemChunks;
+
         if (groupByType) {
             const activeFiltersSet = new Set();
 
@@ -230,20 +236,8 @@ function LootTier(props) {
                     activeFiltersSet.add(activeFilter);
                 }
             }
+            innerGroupNames = Array.from(activeFiltersSet);
 
-            return Array.from(activeFiltersSet);
-        }
-
-        return defaultGroupNames;
-    }, [groupByType, selectedItems, filters.types]);
-
-    const itemChunks = useMemo(() => {
-        let innerItemChunks = arrayChunk(
-            selectedItems,
-            selectedItems.length / 7,
-        );
-
-        if (groupByType) {
             const chunkMap = {};
 
             for (const item of selectedItems) {
@@ -261,6 +255,13 @@ function LootTier(props) {
             }
 
             innerItemChunks = Object.values(chunkMap);
+        } else {
+            innerGroupNames = defaultGroupNames
+
+            innerItemChunks = arrayChunk(
+                selectedItems,
+                Math.ceil(selectedItems.length / innerGroupNames.length),
+            );
         }
 
         for (let i = 0; i < innerItemChunks.length; i = i + 1) {
@@ -277,7 +278,10 @@ function LootTier(props) {
             });
         }
 
-        return innerItemChunks;
+        return {
+            groupNames: innerGroupNames,
+            itemChunks: innerItemChunks,
+        };
     }, [filters.types, groupByType, selectedItems]);
 
     const handleFilterNameChange = useCallback((e) => {
