@@ -1,16 +1,21 @@
 import {useState, useEffect} from 'react';
 import {
     Link,
-    useParams,
     useHistory,
+    useRouteMatch,
 } from "react-router-dom";
 
 function MenuItem(props) {
-    const {currentAmmo} = useParams();
+    const routeMatch = useRouteMatch('/ammo/:currentAmmo');
+    let currentAmmo = '';
+    if(routeMatch){
+        currentAmmo = routeMatch.params.currentAmmo;
+    }
     let ammoTypes = currentAmmo?.split(',');
     if(!ammoTypes){
         ammoTypes = [];
     }
+
     const [checked, setChecked] = useState(ammoTypes.includes(props.displayText));
     const history = useHistory();
 
@@ -24,7 +29,7 @@ function MenuItem(props) {
             ammoTypes.sort();
         }
 
-        history.push(`${props.prefix}/${ammoTypes.join(',')}`);
+        history.push(`${props.prefix}/${ammoTypes.filter(Boolean).join(',')}`);
     };
 
     useEffect(() => {
