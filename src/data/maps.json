@@ -21,6 +21,10 @@
         "displayText": "Interchange"
     },
     {
+        "key": "interchange-stashes",
+        "displayText": "Interchange - Stashes"
+    },
+    {
         "key": "labs",
         "displayText": "Labs"
     },
