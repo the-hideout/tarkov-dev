@@ -103,7 +103,7 @@ function Crafts() {
             count
           }
           source
-          time
+          duration
         }
     }
 	`;
@@ -192,20 +192,15 @@ function Crafts() {
             },
             {
                 Header: 'Estimated profit',
-                accessor: d => Number(d.profit),
+                accessor: 'profit',
                 Cell: priceCell,
-                id: 'profit',
-                sortType: (a, b) => {
-                    if(a.value > b.value){
-                        return 1;
-                    }
-
-                    if(a.value < b.value){
-                        return -1;
-                    }
-
-                    return 0;
-                },
+                sortType: 'basic',
+            },
+            {
+                Header: 'Estimated profit per hour',
+                accessor: 'profitPerHour',
+                Cell: priceCell,
+                sortType: 'basic',
             },
         ],
         []
@@ -292,8 +287,10 @@ function Crafts() {
                     iconLink: craftRow.rewardItems[0].item.iconLink,
                     count: craftRow.rewardItems[0].count,
                 },
-                profit: (craftRow.rewardItems[0].item.avg24hPrice * craftRow.rewardItems[0].count) - totalCost -  fleaMarketFee(Items[craftRow.rewardItems[0].item.id].basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.count),
             };
+
+            tradeData.profit = (craftRow.rewardItems[0].item.avg24hPrice * craftRow.rewardItems[0].count) - totalCost -  fleaMarketFee(Items[craftRow.rewardItems[0].item.id].basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.count);
+            tradeData.profitPerHour = Math.floor(tradeData.profit / (craftRow.duration / 3600));
 
             // If the reward has no value, it's not available for purchase
             if(tradeData.reward.value === 0){
