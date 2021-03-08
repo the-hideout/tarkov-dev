@@ -1,6 +1,7 @@
-import {useMemo, useState} from 'react';
+import {useMemo, useState, useRef, useEffect} from 'react';
 import {Helmet} from 'react-helmet';
 import Switch from 'react-switch';
+import { useQuery } from 'use-http';
 
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
@@ -8,7 +9,6 @@ import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage'
 import fleaMarketFee from '../../modules/flea-market-fee';
 
 import Items from '../../Items';
-import rawData from '../../data/crafts.json';
 
 import './index.css';
 
@@ -75,6 +75,62 @@ function Crafts() {
     const [nameFilter, setNameFilter] = useState('');
     const [freeFuel, setFreeFuel] = useState(false);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedStation', 'top');
+
+    const [crafts, setCrafts] = useState([]);
+	const { query } = useQuery`
+    {
+        crafts {
+          rewardItems {
+            item {
+              id
+              name
+              iconLink
+              imageLink
+              wikiLink
+              avg24hPrice
+            }
+            count
+          }
+          requiredItems {
+            item {
+              id
+              name
+              iconLink
+              imageLink
+              wikiLink
+              avg24hPrice
+            }
+            count
+          }
+          source
+          time
+        }
+    }
+	`;
+
+	// aka componentDidMount
+	const mounted = useRef(false);
+
+	useEffect(() => {
+		if (mounted.current) {
+            return;
+        }
+
+		mounted.current = true;
+		initializeCrafts();
+	});
+
+	async function initializeCrafts() {
+		const res = await query();
+		let crafts = [];
+		if (res.data && res.data.crafts) {
+			crafts = res.data.crafts;
+		}
+
+		if (crafts.length > 0) {
+            setCrafts(crafts);
+        }
+	}
 
     const columns = useMemo(
         () => [
@@ -158,7 +214,7 @@ function Crafts() {
     const data = useMemo(() => {
         let addedStations = [];
 
-        return rawData.map((craftRow) => {
+        return crafts.map((craftRow) => {
             let totalCost = 0;
 
             if(!craftRow.rewardItems[0]){
@@ -282,7 +338,7 @@ function Crafts() {
             return true;
         });
     },
-        [nameFilter, selectedStation, freeFuel]
+        [nameFilter, selectedStation, freeFuel, crafts]
     );
 
     return [

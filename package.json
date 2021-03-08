@@ -23,6 +23,7 @@
     "react-zoom-pan-pinch": "^1.6.1",
     "resize-observer-polyfill": "^1.5.1",
     "source-map-explorer": "^2.5.2",
+    "use-http": "^1.0.17",
     "victory": "^35.3.1"
   },
   "scripts": {
@@ -31,7 +32,7 @@
     "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eject": "react-scripts eject",
-    "prebuild": "node scripts/getdata-nofoodaftermidnight.js && node scripts/get-all-barters.js && node scripts/get-all-crafts.js",
+    "prebuild": "node scripts/getdata-nofoodaftermidnight.js && node scripts/get-all-barters.js",
     "stage": "npx rimraf build && npm run update-prices && npm run build && npx serve build",
     "update-prices": "node scripts/update-prices.js",
     "postinstall": "npm run prebuild"
