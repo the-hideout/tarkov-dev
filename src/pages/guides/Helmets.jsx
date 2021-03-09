@@ -279,10 +279,7 @@ function Helmets(props) {
             }),
         }
     })
-    .filter(Boolean)
-    .sort((itemA, itemB) => {
-        return itemB.blindness - itemA.blindness;
-    }), [minArmorClass, includeBlockingHeadset, maxPrice])
+    .filter(Boolean), [minArmorClass, includeBlockingHeadset, maxPrice])
 
     return [<Helmet
         key = {'helmet-table'}

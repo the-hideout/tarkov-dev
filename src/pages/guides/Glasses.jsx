@@ -95,10 +95,7 @@ function Glasses(props) {
             price: `${formatPrice(item.price)}`,
         };
     })
-    .filter(Boolean)
-    .sort((itemA, itemB) => {
-        return itemB.blindness - itemA.blindness;
-    }), [])
+    .filter(Boolean), [])
 
     return [<Helmet
         key = {'glasses-table'}

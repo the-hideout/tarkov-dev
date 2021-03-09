@@ -213,10 +213,7 @@ function Armor(props) {
             wikiLink: item.wikiLink,
         };
     })
-    .filter(Boolean)
-    .sort((itemA, itemB) => {
-        return itemB.blindness - itemA.blindness;
-    }), [includeRigs, minArmorClass, maxPrice]);
+    .filter(Boolean), [includeRigs, minArmorClass, maxPrice]);
 
     const handleArmorClassChange = (newValueLabel) => {
         setMinArmorClass(newValueLabel);
