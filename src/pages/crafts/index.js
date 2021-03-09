@@ -413,10 +413,11 @@ function Crafts() {
             </div>
         </div>,
         <DataTable
-            columns={columns}
+            columns = {columns}
             key = 'crafts-table'
-            data={data}
+            data = {data}
             sortBy = {'profit'}
+            sortByDesc = {true}
             autoResetSortBy = {false}
         />
     ];
