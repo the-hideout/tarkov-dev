@@ -289,7 +289,7 @@ function Crafts() {
                 },
             };
 
-            tradeData.profit = (craftRow.rewardItems[0].item.avg24hPrice * craftRow.rewardItems[0].count) - totalCost -  fleaMarketFee(Items[craftRow.rewardItems[0].item.id].basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.count);
+            tradeData.profit = Math.floor((craftRow.rewardItems[0].item.avg24hPrice * craftRow.rewardItems[0].count) - totalCost -  fleaMarketFee(Items[craftRow.rewardItems[0].item.id].basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.count));
             tradeData.profitPerHour = Math.floor(tradeData.profit / (craftRow.duration / 3600));
 
             // If the reward has no value, it's not available for purchase
