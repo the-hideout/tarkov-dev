@@ -51,6 +51,7 @@ async function handleEvent(event) {
       // Indeed. Let's change it to instead map to the root `/index.html`.
       // This avoids the need to do a redundant lookup that we know will
       // fail.
+      options.cacheControl.browserTTL = 0;
       return new Request(`${new URL(req.url).origin}/index.html`, req)
     } else {
       // The default handler decided this is not an HTML page. It's probably
