@@ -3,19 +3,25 @@ function ItemIcon(props) {
         return false;
     }
 
-    let sellTo = <img
-        alt = {props.text}
-        src = {`${ process.env.PUBLIC_URL }/images/${ props.text.toLowerCase() }-icon.png`}
-        title = {props.text}
-    />;
+    let parsedText = props.text;
+    let sellTo;
 
-    if(props.text.toLowerCase() === 'flea market'){
-        let parsedText = props.text;
+    if(typeof parsedText === 'string'){
+        if(parsedText.toLowerCase() === 'flea market'){
+            if(props.maxLength){
+                parsedText = parsedText.substring(0, 2);
+            }
 
-        if(props.maxLength){
-            parsedText = parsedText.substring(0, 2);
+            sellTo = parsedText;
+        } else {
+            sellTo = <img
+                alt = {parsedText}
+                src = {`${ process.env.PUBLIC_URL }/images/${ parsedText.toLowerCase() }-icon.png`}
+                title = {parsedText}
+            />;
         }
-
+    } else {
+        parsedText = parsedText.toString();
         sellTo = parsedText;
     }
 
