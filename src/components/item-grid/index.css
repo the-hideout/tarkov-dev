@@ -175,11 +175,16 @@
     bottom: 1px;
     color: #c7c5b3;
     font-size: 14px;
-    height: 18px;
-    line-height: 20px;
+    height: 24px;
+    line-height: 24px;
     position: absolute;
     right: 1px;
     text-align: center;
+    width: 24px;
+}
+
+.sell-to-icon img {
+    height: 24px;
     width: 24px;
 }
 

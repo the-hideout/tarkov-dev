@@ -46,7 +46,8 @@ function Item(props) {
             name = {props.name}
         />
         <ItemIcon
-            text = {props.sellTo?.toUpperCase().substr(0, 2) || props.count}
+            text = {props.sellTo?.toUpperCase() || props.count}
+            maxLength = {2}
         />
 
         <img
