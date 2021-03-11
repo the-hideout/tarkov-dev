@@ -129,11 +129,15 @@ function Crafts() {
 	});
 
 	async function initializeCrafts() {
-		const res = await query();
-		let crafts = [];
-		if (res.data && res.data.crafts) {
-			crafts = res.data.crafts;
-		}
+        let crafts = [];
+        try {
+            const res = await query();
+            if (res.data && res.data.crafts) {
+                crafts = res.data.crafts;
+            }
+        } catch (loadError){
+            console.error(loadError);
+        }
 
 		if (crafts.length > 0) {
             setCrafts(crafts);
