@@ -258,7 +258,7 @@ function Crafts() {
 
             station = station.trim();
 
-            if(selectedStation && selectedStation !== 'top' && selectedStation !== station.toLowerCase().replace(/\s/g, '-')){
+            if(!nameFilter && selectedStation && selectedStation !== 'top' && selectedStation !== station.toLowerCase().replace(/\s/g, '-')){
                 return false;
             }
 
