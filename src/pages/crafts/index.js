@@ -35,6 +35,14 @@ function priceCell({ value }) {
     </div>;
 };
 
+function profitCell({ value }) {
+    return <div
+        className = {`center-content ${value > 0 ? 'craft-profit' : 'craft-loss'}`}
+    >
+        {formatPrice(value)}
+    </div>;
+};
+
 function costItemsCell({ value }) {
     return <div
         className = 'cost-wrapper'
@@ -193,13 +201,13 @@ function Crafts() {
             {
                 Header: 'Estimated profit',
                 accessor: 'profit',
-                Cell: priceCell,
+                Cell: profitCell,
                 sortType: 'basic',
             },
             {
                 Header: 'Estimated profit per hour',
                 accessor: 'profitPerHour',
-                Cell: priceCell,
+                Cell: profitCell,
                 sortType: 'basic',
             },
         ],
