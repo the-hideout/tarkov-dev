@@ -104,7 +104,7 @@ function Glasses(props) {
             charSet='utf-8'
         />
         <title>
-            Escape from Tarkov Helmet chart
+            Escape from Tarkov Helmet glasses chart
         </title>
         <meta
             name = 'description'
@@ -115,6 +115,13 @@ function Glasses(props) {
         className="display-wrapper data-wrapper"
         key = {'display-wrapper'}
     >
+        <div
+            className = 'data-table-filters-wrapper'
+        >
+            <h1>
+                Escape from Tarkov glasses chart
+            </h1>
+        </div>
         <DataTable
             columns={columns}
             data={data}
