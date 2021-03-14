@@ -129,6 +129,11 @@ const Menu = () => {
                             onClick = {setIsOpen.bind(this, false)}
                         />
                         <MenuItem
+                            displayText = {'Backpacks'}
+                            to = {`/gear/backpacks`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
                             displayText = {'Helmets'}
                             to = {`/gear/helmets`}
                             onClick = {setIsOpen.bind(this, false)}
