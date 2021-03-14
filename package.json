@@ -35,6 +35,7 @@
     "prebuild": "node scripts/getdata-nofoodaftermidnight.js && node scripts/get-all-barters.js",
     "stage": "npx rimraf build && npm run update-prices && npm run build && npx serve build",
     "update-prices": "node scripts/update-prices.js",
+    "postupdate-prices": "node scripts/get-quests.js",
     "postinstall": "npm run prebuild"
   },
   "eslintConfig": {

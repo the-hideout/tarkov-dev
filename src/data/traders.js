@@ -1,4 +1,4 @@
-export const Traders = {
+const Traders = {
     '54cb50c76803fa8b248b4571': {
         id: '54cb50c76803fa8b248b4571',
         name: 'Prapor',
@@ -33,4 +33,4 @@ export const Traders = {
     },
 };
 
-export default Traders;
+module.exports = Traders;
