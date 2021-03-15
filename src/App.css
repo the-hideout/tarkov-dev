@@ -58,6 +58,11 @@ button {
     color: #000;
 }
 
+cite {
+    display: block;
+    font-size: 14px;
+}
+
 .update-label {
     font-size: 10px;
     text-align: center;

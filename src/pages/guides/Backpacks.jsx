@@ -24,6 +24,18 @@ const centerCell = ({ value }) => {
     </div>;
 };
 
+const priceCell = ({ value }) => {
+    return <div
+        className = 'center-content'
+    >
+        { formatPrice(value) }
+    </div>;
+};
+
+const NOTES = {
+    '5e4abc6786f77406812bd572': 'Can only keep medical items',
+};
+
 function Backpacks(props) {
     const columns = useMemo(
         () => [
@@ -45,20 +57,27 @@ function Backpacks(props) {
                 Header: 'Name',
                 accessor: 'name',
                 Cell: (cellData) => {
+                    const fullItemData = cellData.data.find(cellItem => cellItem.name === cellData.value);
                     return <div
                         className = 'center-content'
                     >
                         <a
-                            href = {cellData.data.find(cellItem => cellItem.name === cellData.value).wikiLink}
+                            href = {fullItemData.wikiLink}
                         >
                             {cellData.value}
                         </a>
+                        {NOTES[fullItemData.id] ? <cite>{NOTES[fullItemData.id]}</cite> : ''}
                     </div>
                 },
             },
             {
-                Header: 'Slots',
+                Header: 'Grid slots',
                 accessor: 'slots',
+                Cell: centerCell,
+            },
+            {
+                Header: 'Inner size',
+                accessor: 'size',
                 Cell: centerCell,
             },
             {
@@ -67,9 +86,19 @@ function Backpacks(props) {
                 Cell: centerCell,
             },
             {
+                Header: 'Slot ratio',
+                accessor: 'ratio',
+                Cell: centerCell,
+            },
+            {
                 Header: 'Price',
                 accessor: 'price',
-                Cell: centerCell,
+                Cell: priceCell,
+            },
+            {
+                Header: 'Price per slot',
+                accessor: 'pricePerSlot',
+                Cell: priceCell,
             },
         ],
         []
@@ -84,12 +113,16 @@ function Backpacks(props) {
         }
 
         return {
+            id: item.id,
             name: itemName,
+            size: item.itemProperties.grid?.totalSize,
             slots: item.slots,
             speedPenalty: `${item.itemProperties.speedPenaltyPercent || 0}%`,
-            image: `https://assets.tarkov-tools.com/${item.id}-grid-image.jpg`,
-            price: `${formatPrice(item.price)}`,
+            image: `https://assets.tarkov-tools.com/${item.id}-icon.jpg`,
+            price: item.price,
             wikiLink: item.wikiLink,
+            ratio: (item.itemProperties.grid?.totalSize / item.slots).toFixed(2),
+            pricePerSlot: Math.floor(item.price / item.slots),
         };
     })
     .filter(Boolean), [])
