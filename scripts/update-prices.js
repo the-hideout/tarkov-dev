@@ -89,8 +89,8 @@ const getGrid = (item) => {
     for(const grid of item._props.Grids){
         gridData.totalSize = gridData.totalSize + grid._props.cellsH * grid._props.cellsV;
         gridData.pockets.push({
-            height: grid._props.cellsH,
-            width: grid._props.cellsV
+            height: grid._props.cellsV,
+            width: grid._props.cellsH,
         });
     }
 
