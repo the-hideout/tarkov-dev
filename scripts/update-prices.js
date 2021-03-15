@@ -76,6 +76,27 @@ const mappingProperties = [
     },
 ];
 
+const getGrid = (item) => {
+    if(!item._props.Grids){
+        return false;
+    }
+
+    const gridData = {
+        pockets: [],
+        totalSize: 0,
+    };
+
+    for(const grid of item._props.Grids){
+        gridData.totalSize = gridData.totalSize + grid._props.cellsH * grid._props.cellsV;
+        gridData.pockets.push({
+            height: grid._props.cellsH,
+            width: grid._props.cellsV
+        });
+    }
+
+    return gridData;
+};
+
 let itemData = {};
 
 const getBsgTypes = (itemId, bsgData) => {
@@ -208,6 +229,8 @@ const arrayChunk = (inputArray, chunkLength) => {
 
                 allItemData[languageCode][i].itemProperties[extraProp.propertyKey] = bsgItemData._props[extraProp.propertyKey];
             }
+
+            allItemData[languageCode][i].itemProperties.grid = getGrid(bsgItemData);
 
             Reflect.deleteProperty(allItemData[languageCode][i], 'bsgId');
             Reflect.deleteProperty(allItemData[languageCode][i], 'uid');
