@@ -26,54 +26,19 @@ const availableLanguages = [
 ];
 
 const mappingProperties = [
-    {
-        propertyKey: 'BlindnessProtection',
-        type: 'glasses',
-    },
-    {
-        propertyKey: 'MaxDurability',
-        type: 'armor',
-    },
-    {
-        propertyKey: 'armorClass',
-        type: 'armor',
-    },
-    {
-        propertyKey: 'speedPenaltyPercent',
-        type: 'armor',
-    },
-    {
-        propertyKey: 'mousePenalty',
-        type: 'armor',
-    },
-    {
-        propertyKey: 'weaponErgonomicPenalty',
-        type: 'armor',
-    },
-    {
-        propertyKey: 'armorZone',
-        type: 'armor',
-    },
-    {
-        propertyKey: 'ArmorMaterial',
-        type: 'armor',
-    },
-    {
-        propertyKey: 'headSegments',
-        type: 'helmet',
-    },
-    {
-        propertyKey: 'BlocksEarpiece',
-        type: 'helmet',
-    },
-    {
-        propertyKey: 'DeafStrength',
-        type: 'helmet',
-    },
-    {
-        propertyKey: 'RicochetParams',
-        type: 'helmet',
-    },
+    'BlindnessProtection',
+    'MaxDurability',
+    'armorClass',
+    'speedPenaltyPercent',
+    'mousePenalty',
+    'weaponErgonomicPenalty',
+    'armorZone',
+    'ArmorMaterial',
+    'headSegments',
+    'BlocksEarpiece',
+    'DeafStrength',
+    'RicochetParams',
+    'Weight',
 ];
 
 const getGrid = (item) => {
@@ -223,11 +188,11 @@ const arrayChunk = (inputArray, chunkLength) => {
             };
 
             for(const extraProp of mappingProperties){
-                if(!bsgItemData._props[extraProp.propertyKey]){
+                if(!bsgItemData._props[extraProp]){
                     continue;
                 }
 
-                allItemData[languageCode][i].itemProperties[extraProp.propertyKey] = bsgItemData._props[extraProp.propertyKey];
+                allItemData[languageCode][i].itemProperties[extraProp] = bsgItemData._props[extraProp];
             }
 
             allItemData[languageCode][i].itemProperties.grid = getGrid(bsgItemData);
