@@ -110,6 +110,14 @@ const centerCell = ({ value }) => {
     </div>;
 };
 
+const centerNowrapCell = ({ value }) => {
+    return <div
+        className = 'center-content nowrap-content'
+    >
+        { value }
+    </div>;
+};
+
 const priceCell = ({ value }) => {
     return <div
         className = 'center-content'
@@ -188,9 +196,9 @@ function Backpacks(props) {
                 Cell: centerCell,
             },
             {
-                Header: 'Speed penalty',
-                accessor: 'speedPenalty',
-                Cell: centerCell,
+                Header: 'Weight',
+                accessor: 'weight',
+                Cell: centerNowrapCell,
             },
             {
                 Header: 'Slot ratio',
@@ -234,7 +242,7 @@ function Backpacks(props) {
             ratio: (item.itemProperties.grid?.totalSize / item.slots).toFixed(2),
             size: item.itemProperties.grid?.totalSize,
             slots: item.slots,
-            speedPenalty: `${item.itemProperties.speedPenaltyPercent || 0}%`,
+            weight: `${item.itemProperties.Weight} kg`,
             wikiLink: item.wikiLink,
         };
     })
