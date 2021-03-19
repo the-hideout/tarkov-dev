@@ -7,19 +7,11 @@ function ItemIcon(props) {
     let sellTo;
 
     if(typeof parsedText === 'string'){
-        if(parsedText.toLowerCase() === 'flea market'){
-            if(props.maxLength){
-                parsedText = parsedText.substring(0, 2);
-            }
-
-            sellTo = parsedText;
-        } else {
-            sellTo = <img
-                alt = {parsedText}
-                src = {`${ process.env.PUBLIC_URL }/images/${ parsedText.toLowerCase() }-icon.png`}
-                title = {parsedText}
-            />;
-        }
+        sellTo = <img
+            alt = {parsedText}
+            src = {`${ process.env.PUBLIC_URL }/images/${ parsedText.replace(/\s/g, '-').toLowerCase() }-icon.png`}
+            title = {parsedText}
+        />;
     } else {
         parsedText = parsedText.toString();
         sellTo = parsedText;
