@@ -74,6 +74,11 @@ function Item(props) {
                 <div
                     className = 'icon-and-link-wrapper'
                 >
+                    {currentItemData.grid && <CanvasGrid
+                        height = {currentItemData.grid.height}
+                        grid = {currentItemData.grid.pockets}
+                        width = {currentItemData.grid.width}
+                    />}
                     <img
                         className = {'item-image'}
                         alt = {currentItemData.name}
@@ -127,6 +132,7 @@ function Item(props) {
                             However, due to how fees are calculated you're better off selling for {formatPrice(currentItemData.bestPrice)}</div>}
                                     >
                                         <img
+                                            alt = 'Warning'
                                             className = 'warning-icon'
                                             src = {warningIcon}
                                         />
@@ -157,16 +163,6 @@ function Item(props) {
                             {formatPrice(currentItemData.traderPrice)}
                         </div>
                     </div>
-                </div>
-                <div
-                    className = 'image-information-wrapper'
-                >
-                    {currentItemData.grid && <CanvasGrid
-                        height = {currentItemData.grid.height}
-                        grid = {currentItemData.grid.pockets}
-                        width = {currentItemData.grid.width}
-                    />}
-
                 </div>
                 <div>
                     <h2>

@@ -5,14 +5,23 @@
 }
 
 .icon-and-link-wrapper {
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     position: absolute;
     right: 0;
     top: 0;
-    text-align: right;
+}
+
+.icon-and-link-wrapper canvas {
+    margin-right: 10px;
 }
 
 .icon-and-link-wrapper a {
     display: block;
+    text-align: right;
+    width: 100%;
 }
 
 .information-grid {
