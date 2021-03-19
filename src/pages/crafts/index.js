@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {Helmet} from 'react-helmet';
 import Switch from 'react-switch';
 
-import CraftTable from '../../components/craft-table';
+import CraftsTable from '../../components/crafts-table';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage'
 
 import './index.css';
@@ -96,7 +96,7 @@ function Crafts() {
                 />
             </div>
         </div>,
-        <CraftTable
+        <CraftsTable
             nameFilter = {nameFilter}
             freefuel = {freeFuel}
             selectedStation = {selectedStation}

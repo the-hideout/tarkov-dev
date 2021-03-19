@@ -48,7 +48,7 @@ function costItemsCell({ value }) {
                     className = 'craft-cost-item-text-wrapper'
                 >
                     <a
-                        href = {costItem.wikiLink}
+                        href = {costItem.itemLink}
                     >
                         {costItem.name}
                     </a>
@@ -74,6 +74,7 @@ function CraftTable(props) {
             item {
               id
               name
+              normalizedName
               iconLink
               imageLink
               wikiLink
@@ -85,6 +86,7 @@ function CraftTable(props) {
             item {
               id
               name
+              normalizedName
               iconLink
               imageLink
               wikiLink
@@ -194,6 +196,7 @@ function CraftTable(props) {
                             price: calculationPrice,
                             iconLink: requiredItem.item.iconLink,
                             wikiLink: requiredItem.item.wikiLink,
+                            itemLink: `/item/${requiredItem.item.normalizedName}`,
                         };
                     })
                     .filter(Boolean),
@@ -201,6 +204,7 @@ function CraftTable(props) {
                 reward: {
                     name: craftRow.rewardItems[0].item.name,
                     wikiLink: craftRow.rewardItems[0].item.wikiLink,
+                    itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
                     value: craftRow.rewardItems[0].item.avg24hPrice,
                     source: station,
                     iconLink: craftRow.rewardItems[0].item.iconLink,
@@ -284,7 +288,7 @@ function CraftTable(props) {
                             <div>
                                 <a
                                     className = 'craft-reward-item-title'
-                                    href={value.wikiLink}
+                                    href={value.itemLink}
 
                                 >
                                     {value.name}

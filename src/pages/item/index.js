@@ -1,26 +1,36 @@
-// import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import {Helmet} from 'react-helmet';
 import {
     useParams,
 } from "react-router-dom";
+import Favicon from 'react-favicon';
 
 import ID from '../../components/ID.jsx';
+import CraftsTable from '../../components/crafts-table';
+import BartersTable from '../../components/barters-table';
+import QuestsList from '../../components/quests-list'
+
+import formatPrice from '../../modules/format-price';
 
 import Items from '../../Items';
-import Barters from '../../data/barters.json';
 import Quests from '../../Quests';
 
 import './index.css';
 
 function Item(props) {
     const {itemName} = useParams();
-
-    console.log(itemName);
-
     const currentItemData = Object.values(Items).find(item => {
-        console.log(item);
-        return item.urlName === itemName;
+        return item.normalizedName === itemName;
     });
+
+    const itemQuests = useMemo(() => {
+        return Quests
+            .filter((questData) => {
+                return questData.objectives.find((objectiveData) => {
+                    return objectiveData.targetId === currentItemData.id;
+                });
+            });
+    }, [currentItemData]);
 
     console.log(currentItemData);
     return [
@@ -28,12 +38,18 @@ function Item(props) {
             key = {'loot-tier-helmet'}
         >
             <meta charSet="utf-8" />
-            <title>Tarkov loot tiers</title>
+            <title>
+                {`${currentItemData.name} - Escape from Tarkov`}
+            </title>
             <meta
                 name="description"
-                content="Visualization of all different valuable loot"
+                content= {`All the relevant information about ${currentItemData.name}`}
             />
         </Helmet>,
+        <Favicon
+            key = {'item-favicon'}
+            url={`https://assets.tarkov-tools.com/${currentItemData.id}-icon.jpg`}
+        />,
         <div
             className="display-wrapper"
             key = {'display-wrapper'}
@@ -43,96 +59,49 @@ function Item(props) {
             >
                 <h1>
                     {currentItemData.name}
+                    <img
+                        className = {'item-image'}
+                        alt = {currentItemData.name}
+                        src = {`https://assets.tarkov-tools.com/${currentItemData.id}-grid-image.jpg`}
+                    />
+                    <cite>
+                        {currentItemData.shortName}
+                    </cite>
                 </h1>
                 <p>
-                    {currentItemData.shortName}
+                    Current flea price: {formatPrice(currentItemData.price)} with a fee of {formatPrice(currentItemData.fee)}
                 </p>
-                <img
-                    alt = {currentItemData.name}
-                    src = {currentItemData.imgLink}
+                <p>
+                    Best flea price to maximise profit: {formatPrice(currentItemData.bestPrice)} with a fee of {formatPrice(currentItemData.bestPriceFee)}
+                </p>
+                <p>
+                    Sell to {currentItemData.traderName} for: {formatPrice(currentItemData.traderPrice)}
+                </p>
+                <a
+                    href={currentItemData.wikiLink}
+                >Wiki link</a>
+                <div>
+                    <h2>
+                        Barters with {currentItemData.name}
+                    </h2>
+                    <BartersTable
+                        nameFilter = {currentItemData.name}
+                    />
+                </div>
+                <div>
+                    <h2>
+                        Crafts with {currentItemData.name}
+                    </h2>
+                    <CraftsTable
+                        nameFilter = {currentItemData.name}
+                    />
+                </div>
+                <QuestsList
+                    itemQuests = {itemQuests}
                 />
-                <pre>
+                {/* <pre>
                     {JSON.stringify(currentItemData, null, 4)}
-                </pre>
-                <div>
-                    <h2>
-                        Used in these quests:
-                    </h2>
-                    {
-                    Quests
-                        .filter((questData) => {
-                            return questData.objectives.find((objectiveData) => {
-                                return objectiveData.targetId === currentItemData.id;
-                            });
-                        })
-                        .map((questData) => {
-                            return <div>{questData.name}</div>;
-                        })
-                    }
-                </div>
-                <div>
-                    <h2>
-                        Used in these barters:
-                    </h2>
-                    {
-                    Barters
-                        .filter((barterData) => {
-                            console.log(barterData);
-                            return barterData.requiredItems.find((barterItemData) => {
-                                return barterItemData.id === currentItemData.id;
-                            });
-                        })
-                        .map((barterData) => {
-                            return <div>
-                                {barterData.trader}
-                                {barterData.requiredItems.map((requiredItem) => {
-                                    return <div><img
-                                        alt = {Items[requiredItem.id].name}
-                                        src = {Items[requiredItem.id].imgLink}
-                                    />x{requiredItem.count}</div>
-                                })}
-                                for
-                                {barterData.rewardItems.map((requiredItem) => {
-                                    return <div><img
-                                        alt = {Items[requiredItem.id].name}
-                                        src = {Items[requiredItem.id].imgLink}
-                                    />x{requiredItem.count}</div>
-                                })}
-                            </div>;
-                        })
-                    }
-                </div>
-                <div>
-                    <h2>
-                        Reward in these barters:
-                    </h2>
-                    {
-                    Barters
-                        .filter((barterData) => {
-                            return barterData.rewardItems.find((barterItemData) => {
-                                return barterItemData.targetId === currentItemData.id;
-                            });
-                        })
-                        .map((barterData) => {
-                            return <div>
-                                {barterData.trader}
-                                {barterData.requiredItems.map((requiredItem) => {
-                                    return <div><img
-                                        alt = {Items[requiredItem.id].name}
-                                        src = {Items[requiredItem.id].imgLink}
-                                    />x{requiredItem.count}</div>
-                                })}
-                                for
-                                {barterData.rewardItems.map((requiredItem) => {
-                                    return <div><img
-                                        alt = {Items[requiredItem.id].name}
-                                        src = {Items[requiredItem.id].imgLink}
-                                    />x{requiredItem.count}</div>
-                                })}
-                            </div>;
-                        })
-                    }
-                </div>
+                </pre> */}
             </div>
         </div>,
         <ID

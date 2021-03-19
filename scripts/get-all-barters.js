@@ -14,6 +14,7 @@ const got = require('got');
                     item {
                       id
                       name
+                      normalizedName
                       iconLink
                       imageLink
                       wikiLink
@@ -25,6 +26,7 @@ const got = require('got');
                     item {
                       id
                       name
+                      normalizedName
                       iconLink
                       imageLink
                       wikiLink

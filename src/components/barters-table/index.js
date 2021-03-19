@@ -40,7 +40,7 @@ function costItemsCell({ value }) {
                     className = 'barter-cost-item-text-wrapper'
                 >
                     <a
-                        href = {costItem.wikiLink}
+                        href = {costItem.itemLink}
                     >
                         {costItem.name}
                     </a>
@@ -83,7 +83,7 @@ function BartersTable(props) {
                             <div>
                                 <a
                                     className = 'barter-reward-item-title'
-                                    href={value.wikiLink}
+                                    href={value.itemLink}
 
                                 >
                                     {value.name}
@@ -198,6 +198,7 @@ function BartersTable(props) {
                         price: requiredItem.item.avg24hPrice,
                         iconLink: requiredItem.item.iconLink,
                         wikiLink: requiredItem.item.wikiLink,
+                        itemLink: `/item/${requiredItem.item.normalizedName}`,
                     };
                 })
                 .filter(Boolean),
@@ -208,6 +209,7 @@ function BartersTable(props) {
                 value: barterRow.rewardItems[0].item.avg24hPrice,
                 trader: barterRow.source,
                 iconLink: barterRow.rewardItems[0].item.iconLink,
+                itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,
             },
             savings: barterRow.rewardItems[0].item.avg24hPrice - cost,
         };
