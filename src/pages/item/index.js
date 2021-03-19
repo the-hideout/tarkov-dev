@@ -74,7 +74,7 @@ function Item(props) {
                 <div
                     className = 'icon-and-link-wrapper'
                 >
-                    {currentItemData.grid && currentItemData.types.includes('backpack') && <CanvasGrid
+                    {currentItemData.grid && <CanvasGrid
                         height = {currentItemData.grid.height}
                         grid = {currentItemData.grid.pockets}
                         width = {currentItemData.grid.width}
@@ -176,9 +176,9 @@ function Item(props) {
                 <QuestsList
                     itemQuests = {itemQuests}
                 />
-                {/* <pre>
+                <pre>
                     {JSON.stringify(currentItemData, null, 4)}
-                </pre> */}
+                </pre>
             </div>
         </div>,
         <ID
