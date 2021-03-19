@@ -176,9 +176,9 @@ function Item(props) {
                 <QuestsList
                     itemQuests = {itemQuests}
                 />
-                <pre>
+                {/* <pre>
                     {JSON.stringify(currentItemData, null, 4)}
-                </pre>
+                </pre> */}
             </div>
         </div>,
         <ID
