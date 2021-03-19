@@ -74,7 +74,7 @@ function Item(props) {
                 <div
                     className = 'icon-and-link-wrapper'
                 >
-                    {currentItemData.grid && <CanvasGrid
+                    {currentItemData.grid && currentItemData.types.includes('backpack') && <CanvasGrid
                         height = {currentItemData.grid.height}
                         grid = {currentItemData.grid.pockets}
                         width = {currentItemData.grid.width}
