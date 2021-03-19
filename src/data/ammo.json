@@ -1,5 +1,5 @@
 {
-    "updated": "2021-01-03T07:50:19.600Z",
+    "updated": "2021-03-19T15:57:43.258Z",
     "data": [
         {
             "type": "12 Gauge Shot",
@@ -65,7 +65,7 @@
             "type": "12 Gauge Slugs",
             "name": "RIP Slug",
             "damage": 265,
-            "penetration": 0,
+            "penetration": 2,
             "armorDamage": 11,
             "fragChance": "100%",
             "symbol": {
@@ -77,7 +77,7 @@
             "type": "12 Gauge Slugs",
             "name": "Superformance HP Slug",
             "damage": 220,
-            "penetration": 2,
+            "penetration": 5,
             "armorDamage": 12,
             "fragChance": "39%",
             "symbol": {
@@ -917,7 +917,7 @@
             "type": "9x39mm",
             "name": "sp5",
             "damage": 68,
-            "penetration": 35,
+            "penetration": 38,
             "armorDamage": 52,
             "fragChance": "20%",
             "symbol": {
@@ -929,7 +929,7 @@
             "type": "9x39mm",
             "name": "sp6",
             "damage": 58,
-            "penetration": 43,
+            "penetration": 46,
             "armorDamage": 60,
             "fragChance": "10%",
             "symbol": {
@@ -941,7 +941,7 @@
             "type": "9x39mm",
             "name": "SPP",
             "damage": 64,
-            "penetration": 45,
+            "penetration": 50,
             "armorDamage": 56,
             "fragChance": "20%",
             "symbol": {
@@ -953,7 +953,7 @@
             "type": "9x39mm",
             "name": "BP",
             "damage": 60,
-            "penetration": 48,
+            "penetration": 55,
             "armorDamage": 68,
             "fragChance": "10%",
             "symbol": {
