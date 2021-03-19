@@ -138,15 +138,8 @@ function Item(props) {
                                         />
                                     </Tippy>
                                 }
-                                {/* {formatPrice(Math.min(currentItemData.price - currentItemData.fee, currentItemData.bestPrice - currentItemData.bestPriceFee))} */}
                                 <span>{formatPrice(Math.min(currentItemData.price, currentItemData.bestPrice))}</span>
-                                {/* {formatPrice(currentItemData.fee)} */}
                             </div>
-                            {/* <div
-                                className = 'price-wrapper'
-                            >
-                                {formatPrice(currentItemData.bestPrice)} {formatPrice(currentItemData.bestPriceFee)}
-                            </div> */}
                         </div>
                     </Tippy>
                     <div
