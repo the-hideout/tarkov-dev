@@ -238,7 +238,13 @@ function BartersTable(props) {
         }
 
         return 0;
-    }), [nameFilter])
+    }), [nameFilter]);
+
+    if(data.length <= 0){
+        return <div>
+            None
+        </div>;
+    }
 
     return <DataTable
         columns={columns}

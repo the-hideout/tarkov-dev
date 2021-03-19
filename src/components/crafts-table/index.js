@@ -335,6 +335,12 @@ function CraftTable(props) {
         []
     );
 
+    if(data.length <= 0){
+        return <div>
+            None
+        </div>;
+    }
+
     return <DataTable
         columns = {columns}
         key = 'crafts-table'
