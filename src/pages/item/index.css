@@ -6,3 +6,25 @@
 .item-image {
     float: right;
 }
+
+.information-grid {
+    display: flex;
+}
+
+.sell-to-wrapper {
+    margin: 10px;
+}
+
+.sell-to-wrapper:first-child {
+    margin-left: 0;
+}
+
+.sell-to-wrapper img {
+    height: 86px;
+    width: 86px;
+}
+
+.sell-to-wrapper .price-wrapper {
+    text-align: center;
+    width: 100%;
+}

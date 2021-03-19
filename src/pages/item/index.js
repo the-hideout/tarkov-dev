@@ -33,6 +33,7 @@ function Item(props) {
     }, [currentItemData]);
 
     console.log(currentItemData);
+    const traderIsBest = currentItemData.traderPrice > currentItemData.price - currentItemData.fee ? true : false;
     return [
         <Helmet
             key = {'loot-tier-helmet'}
@@ -55,7 +56,7 @@ function Item(props) {
             key = {'display-wrapper'}
         >
             <div
-            className = {'item-page-wrapper'}
+                className = {'item-page-wrapper'}
             >
                 <h1>
                     {currentItemData.name}
@@ -68,18 +69,48 @@ function Item(props) {
                         {currentItemData.shortName}
                     </cite>
                 </h1>
-                <p>
-                    Current flea price: {formatPrice(currentItemData.price)} with a fee of {formatPrice(currentItemData.fee)}
-                </p>
-                <p>
-                    Best flea price to maximise profit: {formatPrice(currentItemData.bestPrice)} with a fee of {formatPrice(currentItemData.bestPriceFee)}
-                </p>
-                <p>
-                    Sell to {currentItemData.traderName} for: {formatPrice(currentItemData.traderPrice)}
-                </p>
                 <a
                     href={currentItemData.wikiLink}
                 >Wiki link</a>
+                <div
+                    className = 'information-grid'
+                >
+                    <div
+                        className = {`sell-to-wrapper ${traderIsBest ? '' : 'best-profit'}`}
+                    >
+                        <img
+                            alt = 'Flea market'
+                            src = {`${ process.env.PUBLIC_URL }/images/flea-market-icon.png`}
+                            title = {`Sell ${currentItemData.name} on the Flea market`}
+                        />
+                        <div
+                            className = 'price-wrapper'
+                        >
+                            {formatPrice(currentItemData.price)}
+                            {/* {formatPrice(currentItemData.fee)} */}
+                        </div>
+                        {/* <div
+                            className = 'price-wrapper'
+                        >
+                            {formatPrice(currentItemData.bestPrice)} {formatPrice(currentItemData.bestPriceFee)}
+                        </div> */}
+                    </div>
+                    <div
+                        className = {`sell-to-wrapper ${traderIsBest ? 'best-profit' : ''}`}
+                    >
+                        <img
+                            alt = {currentItemData.traderName}
+                            src = {`${ process.env.PUBLIC_URL }/images/${currentItemData.traderName.toLowerCase()}-icon.png`}
+                            title = {`Sell ${currentItemData.name} on the Flea market`}
+                        />
+                        <div
+                            className = 'price-wrapper'
+                        >
+                            {formatPrice(currentItemData.traderPrice)}
+                        </div>
+                    </div>
+                </div>
+
                 <div>
                     <h2>
                         Barters with {currentItemData.name}
