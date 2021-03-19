@@ -13,6 +13,14 @@ function priceCell({ value }) {
     </div>;
 };
 
+function profitCell({ value }) {
+    return <div
+        className = {`center-content ${value > 0 ? 'craft-profit' : 'craft-loss'}`}
+    >
+        {formatPrice(value)}
+    </div>;
+};
+
 function costItemsCell({ value }) {
     return <div
         className = 'cost-wrapper'
@@ -117,7 +125,7 @@ function BartersTable(props) {
             {
                 Header: 'Estimated savings',
                 accessor: d=>Number(d.savings),
-                Cell: priceCell,
+                Cell: profitCell,
                 sortType: (a, b) => {
                     if(a.value > b.value){
                         return 1;
