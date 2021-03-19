@@ -6,7 +6,9 @@ const getQuestList = (questList) => {
     }
 
     return questList.map((questData) => {
-        return <div>
+        return <div
+            key = {`quest-list-${questData.name}`}
+        >
             <a
                 href = {questData.wikiLink}
             >
