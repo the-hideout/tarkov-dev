@@ -8,7 +8,6 @@ const fleaMarketFee = require('./modules/flea-market-fee');
 
 const itemIds = require('../src/data/items.json');
 const calculateBestPrice = require('./modules/calculate-best-price');
-const normalizeName = require('./modules/normalize-name');
 
 const CURRENCY_MODIFIER = {
     "₽": 1,
@@ -90,7 +89,7 @@ const arrayChunk = (inputArray, chunkLength) => {
 (async () => {
     let allItemData = {};
     let bsgData = false;
-    let tempData = [];
+    let tarkovToolsData = [];
 
     try {
         const chunks = arrayChunk(itemIds, 500);
@@ -102,6 +101,7 @@ const arrayChunk = (inputArray, chunkLength) => {
                         return `item${itemId}: item(id:"${itemId}"){
                             id
                             name
+                            normalizedName
                             types
                             width
                             height
@@ -115,7 +115,7 @@ const arrayChunk = (inputArray, chunkLength) => {
             });
             console.timeEnd(`tt-api-chunk-${i}`);
 
-            tempData = tempData.concat(Object.values(response.body.data));
+            tarkovToolsData = tarkovToolsData.concat(Object.values(response.body.data));
             i = i + 1;
         }
 
@@ -126,7 +126,7 @@ const arrayChunk = (inputArray, chunkLength) => {
         process.exit(1);
     }
 
-    for(const item of tempData){
+    for(const item of tarkovToolsData){
         itemData[item.id] = item;
     }
 
@@ -184,7 +184,6 @@ const arrayChunk = (inputArray, chunkLength) => {
                 linkedItems: bsgItemData._props.Slots?.map((slot) => {
                     return slot._props.filters[0].Filter;
                 }).flat() || [],
-                urlName: normalizeName(allItemData[languageCode][i].name),
             };
 
             for(const extraProp of mappingProperties){
