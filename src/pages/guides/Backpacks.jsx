@@ -9,91 +9,6 @@ import ID from '../../components/ID.jsx';
 
 let displayItems = [];
 
-const NOTES = {
-    '5e4abc6786f77406812bd572': 'Can only keep medical items',
-};
-
-const GRID_MAP = {
-    '5c0e805e86f774683f3dd637': [ // Paratus
-        {
-            row: 0,
-            col: 0,
-            width: 5,
-            height: 5,
-        },
-        {
-            row: 5,
-            col: 0,
-            width: 1,
-            height: 2,
-        },
-        {
-            row: 5,
-            col: 1,
-            width: 3,
-            height: 2,
-        },
-        {
-            row: 5,
-            col: 4,
-            width: 1,
-            height: 2,
-        },
-    ],
-    '5f5e46b96bdad616ad46d613': [ // Eberlestock
-        {
-            row: 0,
-            col: 0,
-            width: 5,
-            height: 4,
-        },
-        {
-            row: 4,
-            col: 0,
-            width: 5,
-            height: 2,
-        },
-        {
-            row: 6,
-            col: 0,
-            width: 5,
-            height: 2,
-        },
-    ],
-    '5d5d940f86f7742797262046': [ // Mechanism
-        {
-            row: 0,
-            col: 0,
-            width: 4,
-            height: 4,
-        },
-        {
-            row: 4,
-            col: 0,
-            width: 2,
-            height: 2,
-        },
-        {
-            row: 4,
-            col: 2,
-            width: 2,
-            height: 2,
-        },
-        {
-            row: 6,
-            col: 0,
-            width: 2,
-            height: 2,
-        },
-        {
-            row: 6,
-            col: 2,
-            width: 2,
-            height: 2,
-        },
-    ],
-};
-
 for(const item of Object.values(items)){
     if(!item.types.includes('backpack')){
         continue;
@@ -147,21 +62,10 @@ function Backpacks(props) {
                 Header: 'Grid',
                 accessor: 'grid',
                 Cell: ({value}) => {
-                    let grid = [{
-                        row: 0,
-                        col: 0,
-                        width: value.width,
-                        height: value.height,
-                    }];
-
-                    if(GRID_MAP[value.id]){
-                        grid = GRID_MAP[value.id];
-                    }
-
                     return <div>
                         <CanvasGrid
                             height = {value.height}
-                            grid = {grid}
+                            grid = {value.pockets}
                             width = {value.width}
                         />
                     </div>
@@ -180,8 +84,7 @@ function Backpacks(props) {
                         >
                             {cellData.value}
                         </a>
-                        {NOTES[fullItemData.id] ? <cite>{NOTES[fullItemData.id]}</cite> : ''}
-                        {/* {JSON.stringify(fullItemData.grid.pockets, null, 4)} */}
+                        {fullItemData.notes ? <cite>{fullItemData.notes}</cite> : ''}
                     </div>
                 },
             },
@@ -228,12 +131,7 @@ function Backpacks(props) {
         }
 
         return {
-            grid: {
-                id: item.id,
-                height: item.itemProperties.grid.totalSize / item.itemProperties.grid.pockets[0].width,
-                width: item.itemProperties.grid.pockets[0].width,
-                pockets: item.itemProperties.grid.pockets,
-            },
+            grid: item.grid,
             id: item.id,
             image: `https://assets.tarkov-tools.com/${item.id}-icon.jpg`,
             name: itemName,
@@ -245,6 +143,7 @@ function Backpacks(props) {
             weight: `${item.itemProperties.Weight} kg`,
             wikiLink: item.wikiLink,
             itemLink: `/item/${item.normalizedName}`,
+            notes: item.notes,
         };
     })
     .filter(Boolean), [])
