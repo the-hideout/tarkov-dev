@@ -6,6 +6,7 @@
     "@cloudflare/kv-asset-handler": "^0.1.0",
     "@sentry/react": "^6.0.2",
     "@sentry/tracing": "^6.0.2",
+    "@tippyjs/react": "^4.2.4",
     "cheerio": "^1.0.0-rc.5",
     "dayjs": "^1.9.4",
     "got": "^11.8.0",

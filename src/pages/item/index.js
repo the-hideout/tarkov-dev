@@ -4,11 +4,15 @@ import {
     useParams,
 } from "react-router-dom";
 import Favicon from 'react-favicon';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import ID from '../../components/ID.jsx';
 import CraftsTable from '../../components/crafts-table';
 import BartersTable from '../../components/barters-table';
 import QuestsList from '../../components/quests-list'
+import CanvasGrid from '../../components/canvas-grid';
+import warningIcon from '../../images/icon-warning.png';
 
 import formatPrice from '../../modules/format-price';
 
@@ -32,8 +36,10 @@ function Item(props) {
             });
     }, [currentItemData]);
 
-    console.log(currentItemData);
+    // console.log(currentItemData);
     const traderIsBest = currentItemData.traderPrice > currentItemData.price - currentItemData.fee ? true : false;
+    const useFleaPrice = currentItemData.price <= currentItemData.bestPrice;
+
     return [
         <Helmet
             key = {'loot-tier-helmet'}
@@ -60,38 +66,83 @@ function Item(props) {
             >
                 <h1>
                     {currentItemData.name}
-                    <img
-                        className = {'item-image'}
-                        alt = {currentItemData.name}
-                        src = {`https://assets.tarkov-tools.com/${currentItemData.id}-grid-image.jpg`}
-                    />
+
                     <cite>
                         {currentItemData.shortName}
                     </cite>
                 </h1>
                 <div
+                    className = 'icon-and-link-wrapper'
+                >
+                    <img
+                        className = {'item-image'}
+                        alt = {currentItemData.name}
+                        src = {`https://assets.tarkov-tools.com/${currentItemData.id}-grid-image.jpg`}
+                    />
+                    <a
+                        href={currentItemData.wikiLink}
+                    >Wiki</a>
+                </div>
+                <h2>
+                    Sells for
+                </h2>
+                <div
                     className = 'information-grid'
                 >
-                    <div
-                        className = {`text-and-image-information-wrapper ${traderIsBest ? '' : 'best-profit'}`}
-                    >
-                        <img
-                            alt = 'Flea market'
-                            src = {`${ process.env.PUBLIC_URL }/images/flea-market-icon.png`}
-                            title = {`Sell ${currentItemData.name} on the Flea market`}
-                        />
-                        <div
-                            className = 'price-wrapper'
-                        >
-                            {formatPrice(Math.min(currentItemData.price, currentItemData.bestPrice))}
-                            {/* {formatPrice(currentItemData.fee)} */}
+                    <Tippy
+                        placement = 'bottom'
+                        content={
+                        <div>
+                            <div
+                                className = 'tooltip-calculation'
+                            >
+                                Best price to sell for <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.price) : formatPrice(currentItemData.bestPrice)}</div>
+                            </div>
+                            <div
+                                className = 'tooltip-calculation'
+                            >
+                                Fee <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.fee) : formatPrice(currentItemData.bestPriceFee)}</div>
+                            </div>
+                            <div
+                                className = 'tooltip-calculation'
+                            >
+                                Profit <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.price - currentItemData.fee) : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}</div>
+                            </div>
                         </div>
-                        {/* <div
-                            className = 'price-wrapper'
+                    }>
+                        <div
+                            className = {`text-and-image-information-wrapper ${traderIsBest ? '' : 'best-profit'}`}
                         >
-                            {formatPrice(currentItemData.bestPrice)} {formatPrice(currentItemData.bestPriceFee)}
-                        </div> */}
-                    </div>
+                            <img
+                                alt = 'Flea market'
+                                src = {`${ process.env.PUBLIC_URL }/images/flea-market-icon.png`}
+                                title = {`Sell ${currentItemData.name} on the Flea market`}
+                            />
+                            <div
+                                className = 'price-wrapper'
+                            >
+                                {!useFleaPrice && <Tippy
+                                    placement = 'bottom'
+                                    content={ <div>This item is currently being sold for {formatPrice(currentItemData.price)} on the Flea Market.
+                            However, due to how fees are calculated you're better off selling for {formatPrice(currentItemData.bestPrice)}</div>}
+                                    >
+                                        <img
+                                            className = 'warning-icon'
+                                            src = {warningIcon}
+                                        />
+                                    </Tippy>
+                                }
+                                {/* {formatPrice(Math.min(currentItemData.price - currentItemData.fee, currentItemData.bestPrice - currentItemData.bestPriceFee))} */}
+                                <span>{formatPrice(Math.min(currentItemData.price, currentItemData.bestPrice))}</span>
+                                {/* {formatPrice(currentItemData.fee)} */}
+                            </div>
+                            {/* <div
+                                className = 'price-wrapper'
+                            >
+                                {formatPrice(currentItemData.bestPrice)} {formatPrice(currentItemData.bestPriceFee)}
+                            </div> */}
+                        </div>
+                    </Tippy>
                     <div
                         className = {`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''}`}
                     >
@@ -106,15 +157,17 @@ function Item(props) {
                             {formatPrice(currentItemData.traderPrice)}
                         </div>
                     </div>
-                    <div
-                        className = 'text-information-wrapper'
-                    >
-                        <a
-                            href={currentItemData.wikiLink}
-                        >Wiki</a>
-                    </div>
                 </div>
+                <div
+                    className = 'image-information-wrapper'
+                >
+                    {currentItemData.grid && <CanvasGrid
+                        height = {currentItemData.grid.height}
+                        grid = {currentItemData.grid.pockets}
+                        width = {currentItemData.grid.width}
+                    />}
 
+                </div>
                 <div>
                     <h2>
                         Barters with {currentItemData.name}

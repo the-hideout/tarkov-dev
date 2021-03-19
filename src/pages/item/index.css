@@ -1,14 +1,32 @@
 .item-page-wrapper {
     margin: 0 auto;
     max-width: 1200px;
+    position: relative;
 }
 
-.item-image {
-    float: right;
+.icon-and-link-wrapper {
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: right;
+}
+
+.icon-and-link-wrapper a {
+    display: block;
 }
 
 .information-grid {
     display: flex;
+}
+
+.tooltip-calculation {
+    display: flex;
+}
+
+.tooltip-price-wrapper {
+    flex-grow: 1;
+    margin-left: 10px;
+    text-align: right;
 }
 
 .text-information-wrapper {
@@ -26,6 +44,15 @@
 .text-and-image-information-wrapper img {
     height: 86px;
     width: 86px;
+}
+
+.text-and-image-information-wrapper .warning-icon {
+    height: 14px;
+    width: 14px;
+    vertical-align: text-bottom;
+    position: relative;
+    bottom: 2px;
+    margin-right: 5px;
 }
 
 .text-and-image-information-wrapper .price-wrapper {
