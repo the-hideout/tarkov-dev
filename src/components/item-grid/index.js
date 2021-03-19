@@ -78,7 +78,7 @@ function ItemGrid(props) {
                         slots = {item.slots}
                         src = {item.imgLink}
                         // src = {`https://assets.tarkov-tools.com/${item.id}-grid_image.jpg`}
-                        wikiLink = {item.wikiLink}
+                        itemLink = {`/item/${item.normalizedName}`}
                         height = {item.height}
                         width = {item.width}
                         item = {item}

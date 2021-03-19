@@ -176,7 +176,7 @@ function Backpacks(props) {
                         className = 'center-content'
                     >
                         <a
-                            href = {fullItemData.wikiLink}
+                            href = {fullItemData.itemLink}
                         >
                             {cellData.value}
                         </a>
@@ -244,6 +244,7 @@ function Backpacks(props) {
             slots: item.slots,
             weight: `${item.itemProperties.Weight} kg`,
             wikiLink: item.wikiLink,
+            itemLink: `/item/${item.normalizedName}`,
         };
     })
     .filter(Boolean), [])

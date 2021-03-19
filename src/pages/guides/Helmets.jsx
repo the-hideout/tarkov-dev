@@ -79,7 +79,7 @@ const centerNowrapCell = ({ value }) => {
 
 const linkCell = (allData) => {
     return <a
-        href = {allData.row.original.wikiLink}
+        href = {allData.row.original.itemLink}
     >
         {allData.value}
     </a>
@@ -258,6 +258,7 @@ function Helmets(props) {
             price: formatPrice(item.price),
             image: `https://assets.tarkov-tools.com/${item.id}-grid-image.jpg`,
             wikiLink: item.wikiLink,
+            itemLink: `/item/${item.normalizedName}`,
             subRows: item.linkedItems.map((linkedItemId) => {
                 const linkedItem = items[linkedItemId];
                 return {
@@ -275,6 +276,7 @@ function Helmets(props) {
                     price: formatPrice(linkedItem.price),
                     image: `https://assets.tarkov-tools.com/${linkedItem.id}-grid-image.jpg`,
                     wikiLink: linkedItem.wikiLink,
+                    itemLink: `/item/${item.normalizedName}`,
                 };
             }),
         }

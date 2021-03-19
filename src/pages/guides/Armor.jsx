@@ -60,7 +60,7 @@ const centerNowrapCell = ({ value }) => {
 
 const linkCell = (allData) => {
     return <a
-        href = {allData.row.original.wikiLink}
+        href = {allData.row.original.itemLink}
     >
         {allData.value}
     </a>
@@ -211,6 +211,7 @@ function Armor(props) {
             price: formatPrice(item.price),
             image: `https://assets.tarkov-tools.com/${item.id}-grid-image.jpg`,
             wikiLink: item.wikiLink,
+            itemLink: `/item/${item.normalizedName}`,
         };
     })
     .filter(Boolean), [includeRigs, minArmorClass, maxPrice]);

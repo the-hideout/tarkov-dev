@@ -35,7 +35,7 @@ function Item(props) {
     }
 
     return <a
-        href = {props.wikiLink}
+        href = {props.itemLink}
         className = {`grid-item grid-item-${props.width}x${props.height}`}
         onClick = {handleClick}
     >
