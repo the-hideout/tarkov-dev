@@ -69,14 +69,11 @@ function Item(props) {
                         {currentItemData.shortName}
                     </cite>
                 </h1>
-                <a
-                    href={currentItemData.wikiLink}
-                >Wiki link</a>
                 <div
                     className = 'information-grid'
                 >
                     <div
-                        className = {`sell-to-wrapper ${traderIsBest ? '' : 'best-profit'}`}
+                        className = {`text-and-image-information-wrapper ${traderIsBest ? '' : 'best-profit'}`}
                     >
                         <img
                             alt = 'Flea market'
@@ -96,7 +93,7 @@ function Item(props) {
                         </div> */}
                     </div>
                     <div
-                        className = {`sell-to-wrapper ${traderIsBest ? 'best-profit' : ''}`}
+                        className = {`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''}`}
                     >
                         <img
                             alt = {currentItemData.traderName}
@@ -108,6 +105,13 @@ function Item(props) {
                         >
                             {formatPrice(currentItemData.traderPrice)}
                         </div>
+                    </div>
+                    <div
+                        className = 'text-information-wrapper'
+                    >
+                        <a
+                            href={currentItemData.wikiLink}
+                        >Wiki</a>
                     </div>
                 </div>
 

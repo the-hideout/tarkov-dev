@@ -11,20 +11,24 @@
     display: flex;
 }
 
-.sell-to-wrapper {
+.text-information-wrapper {
+    margin-left: auto;
+}
+
+.text-and-image-information-wrapper {
     margin: 10px;
 }
 
-.sell-to-wrapper:first-child {
+.text-and-image-information-wrapper:first-child {
     margin-left: 0;
 }
 
-.sell-to-wrapper img {
+.text-and-image-information-wrapper img {
     height: 86px;
     width: 86px;
 }
 
-.sell-to-wrapper .price-wrapper {
+.text-and-image-information-wrapper .price-wrapper {
     text-align: center;
     width: 100%;
 }
