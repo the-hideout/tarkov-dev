@@ -121,7 +121,7 @@ function Item(props) {
                             <img
                                 alt = 'Flea market'
                                 src = {`${ process.env.PUBLIC_URL }/images/flea-market-icon.png`}
-                                title = {`Sell ${currentItemData.name} on the Flea market`}
+                                // title = {`Sell ${currentItemData.name} on the Flea market`}
                             />
                             <div
                                 className = 'price-wrapper'
@@ -155,7 +155,7 @@ function Item(props) {
                         <img
                             alt = {currentItemData.traderName}
                             src = {`${ process.env.PUBLIC_URL }/images/${currentItemData.traderName.toLowerCase()}-icon.png`}
-                            title = {`Sell ${currentItemData.name} on the Flea market`}
+                            // title = {`Sell ${currentItemData.name} on the Flea market`}
                         />
                         <div
                             className = 'price-wrapper'
