@@ -83,7 +83,7 @@ function Item(props) {
                         <div
                             className = 'price-wrapper'
                         >
-                            {formatPrice(currentItemData.price)}
+                            {formatPrice(Math.min(currentItemData.price, currentItemData.bestPrice))}
                             {/* {formatPrice(currentItemData.fee)} */}
                         </div>
                         {/* <div
