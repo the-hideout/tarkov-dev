@@ -44,7 +44,7 @@ const makeID = function makeID(length) {
     return result;
  };
 
- const socketServer = `wss://tarkov-socket-server.herokuapp.com`;
+ const socketServer = `wss://tarkov-data-manager.herokuapp.com`;
 
  let socket = false;
 
