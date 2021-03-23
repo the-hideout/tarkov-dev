@@ -3,6 +3,7 @@
     display: flex;
     height: auto;
     justify-content: space-around;
+    flex-flow: wrap;
 }
 
 .start-wrapper ul {
@@ -23,8 +24,8 @@
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 24%;
     text-align: center;
+    width: 95%;
 }
 
 .start-section-wrapper h3 {
@@ -34,5 +35,21 @@
 }
 
 .start-section-wrapper img {
-    max-width: 256px;
+    max-width: 100%;
+}
+
+@media screen and (min-width: 800px){
+    .start-section-wrapper {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 1220px){
+    .start-section-wrapper img {
+        max-width: 256px;
+    }
+
+    .start-section-wrapper {
+        width: 24%;
+    }
 }
