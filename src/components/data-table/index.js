@@ -4,7 +4,7 @@ import ArrowIcon from './Arrow.js';
 
 import './index.css';
 
-function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy }) {
+function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, className }) {
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
     const {
@@ -30,7 +30,7 @@ function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy }) {
     // Render the UI for your table
     return (
         <table
-            className = {'data-table'}
+            className = {`data-table ${className}`}
             {
                 ...getTableProps()
             }

@@ -26,6 +26,7 @@ import Helmets from './pages/guides/Helmets';
 import Backpacks from './pages/guides/Backpacks';
 import Crafts from './pages/crafts';
 import Item from './pages/item';
+import Start from './pages/start';
 
 import Debug from './components/Debug';
 
@@ -185,7 +186,16 @@ const makeID = function makeID(length) {
             />
             <Route
                 exact
-                path={["/ammo/:currentAmmo", "/ammo", '/tarkov-tools', ""]}
+                path={['/tarkov-tools', ""]}
+            >
+                <Start />
+                <ID
+                    sessionID = {sessionID}
+                />
+            </Route>
+            <Route
+                exact
+                path={["/ammo/:currentAmmo", "/ammo",]}
             >
                 <div
                     className="display-wrapper"

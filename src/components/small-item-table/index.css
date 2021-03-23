@@ -1,0 +1,20 @@
+.small-data-table td.data-cell:first-child {
+    border-left: 0;
+}
+
+.small-data-table td.data-cell:last-child {
+    border-right: 0;
+}
+
+.small-data-table td.data-cell {
+    padding: 10px 0;
+}
+
+.small-item-table-name-wrapper {
+    align-items: center;
+    display: flex;
+}
+
+.small-item-table-image-wrapper {
+    margin-right: 10px;
+}
