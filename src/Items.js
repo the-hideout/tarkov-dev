@@ -63,6 +63,7 @@ const items = Object.fromEntries(
             normalizedName: rawItem.normalizedName,
             grid: grid,
             notes: NOTES[rawItem.id],
+            avg24hPrice: rawItem.avg24hPrice,
         },
     ];
   }),

@@ -105,6 +105,7 @@ const arrayChunk = (inputArray, chunkLength) => {
                             types
                             width
                             height
+                            avg24hPrice
                         }`;
                     }).join('\n') }
                 }`
