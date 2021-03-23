@@ -6,10 +6,6 @@ import {Helmet} from 'react-helmet';
 import ID from '../../components/ID.jsx';
 import './index.css';
 
-import armorTableImage from '../../images/armor-table.png';
-import helmetTableImage from '../../images/helmet-table.png';
-import glassesTableImage from '../../images/glasses-table.png';
-
 function Guides(props) {
     return [
         <Helmet
@@ -44,7 +40,18 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Armor table'}
-                        src = {armorTableImage}
+                        src = {`${process.env.PUBLIC_URL}/images/armor-table.jpg`}
+                    />
+                </Link>
+                <Link
+                    to = {`/gear/backpacks`}
+                >
+                    <h2>
+                        Backpacks
+                    </h2>
+                    <img
+                        alt = {'Backpacks table'}
+                        src = {`${process.env.PUBLIC_URL}/images/backpacks-table.jpg`}
                     />
                 </Link>
                 <Link
@@ -55,7 +62,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Helmet table'}
-                        src = {helmetTableImage}
+                        src = {`${process.env.PUBLIC_URL}/images/helmet-table.jpg`}
                     />
                 </Link>
                 <Link
@@ -66,7 +73,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Glasses table'}
-                        src = {glassesTableImage}
+                        src = {`${process.env.PUBLIC_URL}/images/glasses-table.jpg`}
                     />
                 </Link>
             </div>
