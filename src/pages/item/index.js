@@ -120,7 +120,7 @@ function Item(props) {
                         >
                             <img
                                 alt = 'Flea market'
-                                src = {`${ process.env.PUBLIC_URL }/images/flea-market-icon.png`}
+                                src = {`${ process.env.PUBLIC_URL }/images/flea-market-icon.jpg`}
                                 // title = {`Sell ${currentItemData.name} on the Flea market`}
                             />
                             <div
@@ -147,7 +147,7 @@ function Item(props) {
                     >
                         <img
                             alt = {currentItemData.traderName}
-                            src = {`${ process.env.PUBLIC_URL }/images/${currentItemData.traderName.toLowerCase()}-icon.png`}
+                            src = {`${ process.env.PUBLIC_URL }/images/${currentItemData.traderName.toLowerCase()}-icon.jpg`}
                             // title = {`Sell ${currentItemData.name} on the Flea market`}
                         />
                         <div
