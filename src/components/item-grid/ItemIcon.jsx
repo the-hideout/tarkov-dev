@@ -9,7 +9,7 @@ function ItemIcon(props) {
     if(typeof parsedText === 'string'){
         sellTo = <img
             alt = {parsedText}
-            src = {`${ process.env.PUBLIC_URL }/images/${ parsedText.replace(/\s/g, '-').toLowerCase() }-icon.png`}
+            src = {`${ process.env.PUBLIC_URL }/images/${ parsedText.replace(/\s/g, '-').toLowerCase() }-icon.jpg`}
             title = {parsedText}
         />;
     } else {
