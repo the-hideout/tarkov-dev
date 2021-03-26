@@ -55,7 +55,7 @@ function costItemsCell({ value }) {
                     <div
                         className = 'price-wrapper'
                     >
-                        <span className = 'craft-cost-item-count-wrapper'>{costItem.count}</span> X {formatPrice(costItem.avg24hPrice)} = {formatPrice(costItem.count * costItem.avg24hPrice)}
+                        <span className = 'craft-cost-item-count-wrapper'>{costItem.count}</span> X {formatPrice(costItem.price)} = {formatPrice(costItem.count * costItem.price)}
                         {/* {formatPrice(costItem.avg24hPrice)} */}
                     </div>
                 </div>
