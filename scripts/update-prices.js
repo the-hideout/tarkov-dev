@@ -207,6 +207,7 @@ const arrayChunk = (inputArray, chunkLength) => {
             Reflect.deleteProperty(allItemData[languageCode][i], 'imgBig');
             Reflect.deleteProperty(allItemData[languageCode][i], 'icon');
             Reflect.deleteProperty(allItemData[languageCode][i], 'traderPriceCur');
+            Reflect.deleteProperty(allItemData[languageCode][i], 'updated');
         }
 
         fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', `all-${languageCode}.json`), JSON.stringify(allItemData[languageCode], null, 4));
