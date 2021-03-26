@@ -205,6 +205,7 @@ const arrayChunk = (inputArray, chunkLength) => {
             Reflect.deleteProperty(allItemData[languageCode][i], 'icon');
             Reflect.deleteProperty(allItemData[languageCode][i], 'traderPriceCur');
             Reflect.deleteProperty(allItemData[languageCode][i], 'updated');
+            Reflect.deleteProperty(allItemData[languageCode][i], 'img');
             Reflect.deleteProperty(allItemData[languageCode][i], 'price');
         }
 
