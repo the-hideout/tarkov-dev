@@ -2,14 +2,6 @@
     --display-height: 100%;
 }
 
-@font-face {
-    font-family: 'bender';
-    src: url('./fonts/bender.woff2') format('woff2'),
-        url('./fonts/bender.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 body {
     background-color: #292626;
     background-image: url('images/background.png');
