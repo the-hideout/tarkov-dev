@@ -1,9 +1,8 @@
-import {useMemo} from 'react';
+import {useMemo, useRef, useState, useEffect} from 'react';
+import { useQuery } from 'use-http';
 
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
-
-import rawData from '../../data/barters.json';
 
 function priceCell({ value }) {
     return <div
@@ -66,6 +65,65 @@ function costItemsCell({ value }) {
 
 function BartersTable(props) {
     const {nameFilter} = props;
+    const [barters, setBarters] = useState([]);
+	const { query } = useQuery`{
+        barters {
+          rewardItems {
+            item {
+              id
+              name
+              normalizedName
+              iconLink
+              imageLink
+              wikiLink
+              avg24hPrice
+            }
+            count
+          }
+          requiredItems {
+            item {
+              id
+              name
+              normalizedName
+              iconLink
+              imageLink
+              wikiLink
+              avg24hPrice
+            }
+            count
+          }
+          source
+        }
+    }`;
+
+	// aka componentDidMount
+	const mounted = useRef(false);
+
+	useEffect(() => {
+		if (mounted.current) {
+            return;
+        }
+
+		mounted.current = true;
+		initializeBarters();
+	});
+
+	async function initializeBarters() {
+        let barters = [];
+        try {
+            const res = await query();
+            if (res.data && res.data.barters) {
+                barters = res.data.barters;
+            }
+        } catch (loadError){
+            console.error(loadError);
+        }
+
+		if (barters.length > 0) {
+            setBarters(barters);
+        }
+	}
+
     const columns = useMemo(
         () => [
             {
@@ -142,7 +200,7 @@ function BartersTable(props) {
         []
     )
 
-    const data = useMemo(() => rawData.map((barterRow) => {
+    const data = useMemo(() => barters.map((barterRow) => {
         let cost = 0;
 
         if(!barterRow.rewardItems[0]){
