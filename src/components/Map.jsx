@@ -6,6 +6,8 @@ import {Helmet} from 'react-helmet';
 
 import Time from './Time';
 
+import ErrorPage from './error-page';
+
 import rawMapData from '../data/maps.json';
 
 const maps = Object.fromEntries(rawMapData.map((mapData) => {
@@ -23,6 +25,10 @@ function Map() {
 
     if(currentMap === 'customs-cardinal'){
         currentMap = 'customs';
+    }
+
+    if(!maps[currentMap]){
+        return <ErrorPage />;
     }
 
     const { displayText, image, source, sourceLink } = maps[currentMap];

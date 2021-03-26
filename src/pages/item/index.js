@@ -13,6 +13,7 @@ import BartersTable from '../../components/barters-table';
 import QuestsList from '../../components/quests-list'
 import CanvasGrid from '../../components/canvas-grid';
 import warningIcon from '../../images/icon-warning.png';
+import ErrorPage from '../../components/error-page';
 
 import formatPrice from '../../modules/format-price';
 
@@ -31,10 +32,14 @@ function Item(props) {
         return Quests
             .filter((questData) => {
                 return questData.objectives.find((objectiveData) => {
-                    return objectiveData.targetId === currentItemData.id;
+                    return objectiveData.targetId === currentItemData?.id;
                 });
             });
     }, [currentItemData]);
+
+    if(!currentItemData){
+        return <ErrorPage />;
+    }
 
     // console.log(currentItemData);
     const traderIsBest = currentItemData.traderPrice > currentItemData.price - currentItemData.fee ? true : false;
