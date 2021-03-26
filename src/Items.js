@@ -1,6 +1,8 @@
 import rawData from './data/all-en.json';
 import itemGrids from './data/item-grids.json';
 
+import bestPrice from './modules/best-price';
+
 const NOTES = {
     '5e4abc6786f77406812bd572': 'Can only keep medical items',
 };
@@ -54,8 +56,7 @@ const items = Object.fromEntries(
             slots: rawItem.slots,
             itemProperties: rawItem.itemProperties,
             hasGrid: rawItem.hasGrid,
-            bestPrice: rawItem.bestPrice,
-            bestPriceFee: rawItem.bestPriceFee,
+            ...bestPrice(rawItem),
             linkedItems: rawItem.linkedItems,
             basePrice: rawItem.basePrice,
             width: rawItem.width,

@@ -181,7 +181,6 @@ const arrayChunk = (inputArray, chunkLength) => {
                 id: allItemData[languageCode][i].bsgId,
                 itemProperties: {},
                 hasGrid: bsgItemData._props.Grids?.length > 0,
-                ...calculateBestPrice(allItemData[languageCode][i]),
                 linkedItems: bsgItemData._props.Slots?.map((slot) => {
                     return slot._props.filters[0].Filter;
                 }).flat() || [],
