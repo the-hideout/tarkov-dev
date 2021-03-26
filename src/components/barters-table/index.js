@@ -261,7 +261,7 @@ function BartersTable(props) {
                     return {
                         count: requiredItem.count,
                         name: requiredItem.item.name,
-                        price: requiredItem.item.avg24hPrice,
+                        avg24hPrice: requiredItem.item.avg24hPrice,
                         iconLink: requiredItem.item.iconLink,
                         wikiLink: requiredItem.item.wikiLink,
                         itemLink: `/item/${requiredItem.item.normalizedName}`,
@@ -304,7 +304,7 @@ function BartersTable(props) {
         }
 
         return 0;
-    }), [nameFilter]);
+    }), [nameFilter, barters]);
 
     if(data.length <= 0){
         return <div>
