@@ -47,7 +47,7 @@ const items = Object.fromEntries(
             id: rawItem.id,
             name: rawItem.name,
             shortName: rawItem.shortName,
-            wikiLink: rawItem.wikiLink,
+            wikiLink: `https://escapefromtarkov.gamepedia.com${rawItem.wikiLink}`,
             imgLink: `https://assets.tarkov-tools.com/${rawItem.id}-grid-image.jpg`,
             types: rawItem.types,
             traderName: rawItem.traderName,
