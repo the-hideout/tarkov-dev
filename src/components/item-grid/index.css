@@ -258,6 +258,11 @@
     grid-column-end: span 4;
 }
 
+@media screen and (min-width: 1920px){
+    .item-group-wrapper {
+        --grid-base: 60px;
+    }
+}
 
 @media screen and (min-width: 710px){
     .filter-toggle-icon-wrapper {

@@ -71,7 +71,8 @@ cite {
 
 .display-wrapper {
     height: var(--display-height);
-    margin: 0 10px;
+    margin: 0 auto;
+    max-width: 1920px;
     position: relative;
 }
 

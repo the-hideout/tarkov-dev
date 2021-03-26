@@ -313,7 +313,6 @@ function LootTier(props) {
         <div
             className="display-wrapper"
             style = {{
-                backgroundColor: '#000',
                 height: 'auto',
             }}
             key = {'display-wrapper'}
