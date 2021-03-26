@@ -135,7 +135,7 @@ function LootTier(props) {
                 };
             })
             .filter((item) => {
-                if(item.types.includes('un-lootable')){
+                if(item.types.includes('unLootable')){
                     return false;
                 }
 
@@ -146,7 +146,7 @@ function LootTier(props) {
     const typeFilteredItems = useMemo(() => {
         const innerTypeFilteredItems = itemData
             .filter((item) => {
-                if (!includeMarked && item.types.includes('marked-only')) {
+                if (!includeMarked && item.types.includes('markedOnly')) {
                     return false;
                 }
 
