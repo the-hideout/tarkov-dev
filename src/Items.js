@@ -53,7 +53,7 @@ const items = Object.fromEntries(
             traderName: rawItem.traderName,
             traderPrice: rawItem.traderPrice,
             fee: calculateFee(rawItem.avg24hPrice, rawItem.basePrice),
-            slots: rawItem.slots,
+            slots: rawItem.width * rawItem.height,
             itemProperties: rawItem.itemProperties,
             hasGrid: rawItem.hasGrid,
             ...bestPrice(rawItem),
