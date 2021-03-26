@@ -188,7 +188,7 @@ function Armor(props) {
             return false;
         }
 
-        if(item.price > maxPrice){
+        if(item.avg24hPrice > maxPrice){
             return false;
         }
 
@@ -208,7 +208,7 @@ function Armor(props) {
             repairability: `${materialRepairabilityMap[item.itemProperties.ArmorMaterial]}/6`,
             effectiveDurability: Math.floor(item.itemProperties.MaxDurability / materialDestructabilityMap[item.itemProperties.ArmorMaterial]),
             stats: `${item.itemProperties.speedPenaltyPercent}% / ${item.itemProperties.mousePenalty}% / ${item.itemProperties.weaponErgonomicPenalty}`,
-            price: formatPrice(item.price),
+            price: formatPrice(item.avg24hPrice),
             image: `https://assets.tarkov-tools.com/${item.id}-grid-image.jpg`,
             wikiLink: item.wikiLink,
             itemLink: `/item/${item.normalizedName}`,

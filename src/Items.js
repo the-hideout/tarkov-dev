@@ -2,6 +2,7 @@ import rawData from './data/all-en.json';
 import itemGrids from './data/item-grids.json';
 
 import bestPrice from './modules/best-price';
+import calculateFee from './modules/flea-market-fee';
 
 const NOTES = {
     '5e4abc6786f77406812bd572': 'Can only keep medical items',
@@ -51,8 +52,7 @@ const items = Object.fromEntries(
             types: rawItem.types,
             traderName: rawItem.traderName,
             traderPrice: rawItem.traderPrice,
-            price: rawItem.price,
-            fee: rawItem.fee,
+            fee: calculateFee(rawItem.avg24hPrice, rawItem.basePrice),
             slots: rawItem.slots,
             itemProperties: rawItem.itemProperties,
             hasGrid: rawItem.hasGrid,

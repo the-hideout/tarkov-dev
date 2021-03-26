@@ -232,7 +232,7 @@ function Helmets(props) {
             return false;
         }
 
-        if(item.price > maxPrice){
+        if(item.avg24hPrice > maxPrice){
             return false;
         }
 
@@ -255,7 +255,7 @@ function Helmets(props) {
             repairability: `${materialRepairabilityMap[item.itemProperties.ArmorMaterial]}/6`,
             effectiveDurability: Math.floor(item.itemProperties.MaxDurability / materialDestructabilityMap[item.itemProperties.ArmorMaterial]),
             stats: getStatsString(item.itemProperties),
-            price: formatPrice(item.price),
+            price: formatPrice(item.avg24hPrice),
             image: `https://assets.tarkov-tools.com/${item.id}-grid-image.jpg`,
             wikiLink: item.wikiLink,
             itemLink: `/item/${item.normalizedName}`,
@@ -273,7 +273,7 @@ function Helmets(props) {
                     repairability: `${materialRepairabilityMap[linkedItem.itemProperties.ArmorMaterial]}/6`,
                     effectiveDurability: Math.floor(linkedItem.itemProperties.MaxDurability / materialDestructabilityMap[linkedItem.itemProperties.ArmorMaterial]),
                     stats: getStatsString(linkedItem.itemProperties),
-                    price: formatPrice(linkedItem.price),
+                    price: formatPrice(linkedItem.avg24hPrice),
                     image: `https://assets.tarkov-tools.com/${linkedItem.id}-grid-image.jpg`,
                     wikiLink: linkedItem.wikiLink,
                     itemLink: `/item/${item.normalizedName}`,

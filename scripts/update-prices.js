@@ -4,10 +4,8 @@ const path = require('path');
 const got = require('got');
 
 const sleep = require('./modules/sleep');
-const fleaMarketFee = require('./modules/flea-market-fee');
 
 const itemIds = require('../src/data/items.json');
-const calculateBestPrice = require('./modules/calculate-best-price');
 
 const CURRENCY_MODIFIER = {
     "₽": 1,
@@ -173,7 +171,6 @@ const arrayChunk = (inputArray, chunkLength) => {
 
             allItemData[languageCode][i] = {
                 types: [],
-                fee: fleaMarketFee(allItemData[languageCode][i]),
                 ...allItemData[languageCode][i],
                 ...itemData[allItemData[languageCode][i].bsgId],
                 price: allItemData[languageCode][i].avg24hPrice,
@@ -208,6 +205,7 @@ const arrayChunk = (inputArray, chunkLength) => {
             Reflect.deleteProperty(allItemData[languageCode][i], 'icon');
             Reflect.deleteProperty(allItemData[languageCode][i], 'traderPriceCur');
             Reflect.deleteProperty(allItemData[languageCode][i], 'updated');
+            Reflect.deleteProperty(allItemData[languageCode][i], 'price');
         }
 
         fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', `all-${languageCode}.json`), JSON.stringify(allItemData[languageCode], null, 4));

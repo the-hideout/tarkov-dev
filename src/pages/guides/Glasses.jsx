@@ -92,7 +92,7 @@ function Glasses(props) {
             blindness: `${(item.itemProperties.BlindnessProtection || 0) * 100}%`,
             stats: `${item.itemProperties.mousePenalty || 0}% / ${item.itemProperties.weaponErgonomicPenalty || 0}`,
             image: `https://assets.tarkov-tools.com/${item.id}-grid-image.jpg`,
-            price: `${formatPrice(item.price)}`,
+            price: `${formatPrice(item.avg24hPrice)}`,
         };
     })
     .filter(Boolean), [])
