@@ -8,6 +8,18 @@ import QueueBrowserTask from '../../modules/queue-browser-task';
 import mapData from '../../data/maps.json';
 import SmallItemTable from '../../components/small-item-table';
 
+import Icon from '@mdi/react'
+import { mdiAmmunition } from '@mdi/js';
+import { mdiHammerWrench } from '@mdi/js';
+import { mdiFinance } from '@mdi/js';
+import { mdiAccountSwitch } from '@mdi/js';
+import { mdiProgressWrench } from '@mdi/js';
+import { mdiMap } from '@mdi/js';
+import { mdiTshirtCrew } from '@mdi/js';
+import { mdiBagPersonal } from '@mdi/js';
+import { mdiRacingHelmet } from '@mdi/js';
+import { mdiSunglasses } from '@mdi/js';
+
 import './index.css';
 
 function Item(props) {
@@ -54,10 +66,17 @@ function Item(props) {
                         </li>;
                     })}
                 </ul> */}
+                
                 <Link
                     to = {`/ammo/`}
                 >
                     <h2>
+                        <Icon 
+                            path={mdiAmmunition}
+                            size={1}
+                            rotate={90}
+                            className = 'icon-with-text'
+                        />
                         Ammo chart
                     </h2>
                     <img
@@ -70,6 +89,11 @@ function Item(props) {
                 className = 'start-section-wrapper'
             >
                 <h3>
+                    <Icon 
+                        path={mdiHammerWrench}
+                        size={1}
+                        className = 'icon-with-text'
+                    />
                     Tools
                 </h3>
                 <ul>
@@ -77,6 +101,11 @@ function Item(props) {
                         <Link
                             to = '/loot-tier/'
                         >
+                            <Icon 
+                                path={mdiFinance}
+                                size={1}
+                                className = 'icon-with-text'
+                            />
                             Loot tiers
                         </Link>
                     </li>
@@ -84,6 +113,11 @@ function Item(props) {
                         <Link
                             to = '/barters/'
                         >
+                            <Icon 
+                                path={mdiAccountSwitch}
+                                size={1}
+                                className = 'icon-with-text'
+                            />
                             Barter trades
                         </Link>
                     </li>
@@ -91,11 +125,21 @@ function Item(props) {
                         <Link
                             to = '/hideout-profit/'
                         >
+                            <Icon 
+                                path={mdiProgressWrench}
+                                size={1}
+                                className = 'icon-with-text'
+                            />
                             Hideout crafts
                         </Link>
                     </li>
                 </ul>
                 <h3>
+                    <Icon 
+                        path={mdiMap}
+                        size={1}
+                        className = 'icon-with-text'
+                    />
                     Maps
                 </h3>
                 <ul>
@@ -151,6 +195,11 @@ function Item(props) {
                     to = {`/gear/armor`}
                 >
                     <h2>
+                        <Icon 
+                            path={mdiTshirtCrew}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
                         Armor
                     </h2>
                     <img
@@ -162,6 +211,11 @@ function Item(props) {
                     to = {`/gear/backpacks`}
                 >
                     <h2>
+                        <Icon 
+                            path={mdiBagPersonal}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
                         Backpacks
                     </h2>
                     <img
@@ -173,6 +227,11 @@ function Item(props) {
                     to = {`/gear/helmets`}
                 >
                     <h2>
+                        <Icon 
+                            path={mdiRacingHelmet}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
                         Helmets
                     </h2>
                     <img
@@ -184,6 +243,11 @@ function Item(props) {
                     to = {`/gear/glasses`}
                 >
                     <h2>
+                        <Icon 
+                            path={mdiSunglasses}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
                         Glasses
                     </h2>
                     <img

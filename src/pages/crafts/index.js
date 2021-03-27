@@ -5,6 +5,9 @@ import Switch from 'react-switch';
 import CraftsTable from '../../components/crafts-table';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage'
 
+import Icon from '@mdi/react'
+import { mdiProgressWrench } from '@mdi/js';
+
 import './index.css';
 
 const stations = [
@@ -44,7 +47,12 @@ function Crafts() {
             <h1
                 className = 'crafts-page-title'
             >
-                Hideout craft profits
+                <Icon 
+                    path={mdiProgressWrench}
+                    size={1.5}
+                    className = 'icon-with-text'
+                />
+                Hideout Crafts
             </h1>
             <div className = 'button-group-wrapper'>
                 {stations.map((stationName) => {
