@@ -276,7 +276,7 @@ function Helmets(props) {
                     price: formatPrice(linkedItem.avg24hPrice),
                     image: `https://assets.tarkov-tools.com/${linkedItem.id}-grid-image.jpg`,
                     wikiLink: linkedItem.wikiLink,
-                    itemLink: `/item/${item.normalizedName}`,
+                    itemLink: `/item/${linkedItem.normalizedName}`,
                 };
             }),
         }
