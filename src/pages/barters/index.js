@@ -3,6 +3,9 @@ import {Helmet} from 'react-helmet';
 
 import BartersTable from '../../components/barters-table';
 
+import Icon from '@mdi/react'
+import { mdiAccountSwitch } from '@mdi/js';
+
 import './index.css';
 
 function Barters() {
@@ -30,6 +33,11 @@ function Barters() {
             <h1
                 className = 'barters-page-title'
             >
+                <Icon 
+                    path={mdiAccountSwitch}
+                    size={1.5}
+                    className = 'icon-with-text'
+                />
                 Barter profits
             </h1>
             <div

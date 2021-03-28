@@ -5,6 +5,9 @@ import {Helmet} from 'react-helmet';
 
 import './index.css';
 
+import Icon from '@mdi/react'
+import { mdiMap } from '@mdi/js';
+
 import rawMapData from '../../data/maps.json';
 
 function Maps() {
@@ -16,19 +19,26 @@ function Maps() {
                 charSet='utf-8'
             />
             <title>
-                Escape from Tarkov maps
+                Escape from Tarkov Maps
             </title>
             <meta
                 name = 'description'
-                content = 'Escape from Tarkov maps'
+                content = 'Escape from Tarkov Maps'
             />
         </Helmet>,
         <div
             className = {'page-wrapper'}
             key = 'map-page-wrapper'
         >
-            <h1>
-                Escape from Tarkov maps
+            <h1
+                className = 'center-title'
+            >
+                <Icon 
+                    path={mdiMap}
+                    size={1.5}
+                    className = 'icon-with-text'
+                />
+                Escape from Tarkov Maps
             </h1>
             <div
                 className = 'maps-wrapper'
