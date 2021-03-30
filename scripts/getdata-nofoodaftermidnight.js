@@ -5,6 +5,42 @@ const got = require('got');
 
 const symbols = require('../src/symbols.json');
 
+const customAmmo = [
+    {
+        type: '7.62x39 mm',
+        name: 'MAI AP',
+        damage: 47,
+        penetration: 76,
+        fragChance: '0%',
+        symbol: {
+            fill: "rgb(71, 121, 152)",
+            type: "Plus"
+        },
+    },
+    {
+        type: '5.56x45 mm',
+        name: 'Mk 318 Mod 0 (SOST)',
+        damage: 65,
+        penetration: 21,
+        fragChance: '0%',
+        symbol: {
+            fill: 'green',
+            type: 'Diamond',
+        },
+    },
+    {
+        type: '5.56x45 mm',
+        name: 'SSA AP',
+        damage: 36,
+        penetration: 64,
+        fragChance: '0%',
+        symbol: {
+            fill: 'green',
+            type: 'Diamond',
+        },
+    },
+];
+
 const prefixes = [
     '9x18pm_',
     '762x25tt_',
@@ -138,6 +174,8 @@ const getSheetData = async function getSheetData(url){
             return formatRow(maybeAmmoType);
         }).filter(Boolean),
     };
+
+    dataset.data = dataset.data.concat(customAmmo);
 
     console.time('Write new data');
     fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'ammo.json'), JSON.stringify(dataset, null, 4));
