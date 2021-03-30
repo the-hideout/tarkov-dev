@@ -32,7 +32,7 @@ const customAmmo = [
         type: '5.56x45 mm',
         name: 'SSA AP',
         damage: 36,
-        penetration: 64,
+        penetration: 56,
         fragChance: '0%',
         symbol: {
             fill: 'green',
