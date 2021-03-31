@@ -10,7 +10,7 @@ const customAmmo = [
         type: '7.62x39 mm',
         name: 'MAI AP',
         damage: 47,
-        penetration: 76,
+        penetration: 58,
         fragChance: '0%',
         symbol: {
             fill: "rgb(71, 121, 152)",
