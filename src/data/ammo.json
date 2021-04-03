@@ -1,5 +1,5 @@
 {
-    "updated": "2021-03-27T23:01:58.625Z",
+    "updated": "2021-04-02T15:18:25.136Z",
     "data": [
         {
             "type": "12 Gauge Shot",
@@ -1191,6 +1191,18 @@
         },
         {
             "type": "5.56x45 mm",
+            "name": "Mk318 SOST",
+            "damage": 65,
+            "penetration": 21,
+            "armorDamage": 35,
+            "fragChance": "15%",
+            "symbol": {
+                "fill": "green",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "5.56x45 mm",
             "name": "M856 (Tracer)",
             "damage": 55,
             "penetration": 23,
@@ -1217,7 +1229,7 @@
             "type": "5.56x45 mm",
             "name": "M855",
             "damage": 50,
-            "penetration": 30,
+            "penetration": 28,
             "armorDamage": 37,
             "fragChance": "40%",
             "symbol": {
@@ -1262,6 +1274,18 @@
             }
         },
         {
+            "type": "5.56x45 mm",
+            "name": "SSA AP",
+            "damage": 36,
+            "penetration": 56,
+            "armorDamage": 64,
+            "fragChance": "20%",
+            "symbol": {
+                "fill": "green",
+                "type": "Diamond"
+            }
+        },
+        {
             "type": "7.62x39 mm",
             "name": "HP",
             "damage": 87,
@@ -1287,7 +1311,7 @@
         },
         {
             "type": "7.62x39 mm",
-            "name": "T45M (Tracer)",
+            "name": "T45M",
             "damage": 62,
             "penetration": 30,
             "armorDamage": 46,
@@ -1316,6 +1340,18 @@
             "penetration": 47,
             "armorDamage": 63,
             "fragChance": "12%",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "7.62x39 mm",
+            "name": "MAI AP",
+            "damage": 47,
+            "penetration": 58,
+            "armorDamage": 76,
+            "fragChance": "5%",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
                 "type": "Plus"
