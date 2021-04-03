@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import {Helmet} from 'react-helmet';
 import {
     useParams,
@@ -8,7 +8,7 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import ID from '../../components/ID.jsx';
-import CraftsTable from '../../components/crafts-table';
+// import CraftsTable from '../../components/crafts-table';
 import BartersTable from '../../components/barters-table';
 import QuestsList from '../../components/quests-list'
 import CanvasGrid from '../../components/canvas-grid';
@@ -22,6 +22,8 @@ import Items from '../../Items';
 import Quests from '../../Quests';
 
 import './index.css';
+
+const CraftsTable = React.lazy(() => import('../../components/crafts-table'));
 
 function Item(props) {
     const {itemName} = useParams();
@@ -174,9 +176,11 @@ function Item(props) {
                     <h2>
                         Crafts with {currentItemData.name}
                     </h2>
-                    <CraftsTable
-                        nameFilter = {currentItemData.name}
-                    />
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <CraftsTable
+                            nameFilter = {currentItemData.name}
+                        />
+                    </Suspense>
                 </div>
                 <QuestsList
                     itemQuests = {itemQuests}
