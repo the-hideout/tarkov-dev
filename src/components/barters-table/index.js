@@ -77,6 +77,9 @@ function BartersTable(props) {
               imageLink
               wikiLink
               avg24hPrice
+              traderPrices {
+                  price
+              }
             }
             count
           }
@@ -272,13 +275,14 @@ function BartersTable(props) {
             reward: {
                 name: barterRow.rewardItems[0].item.name,
                 wikiLink: barterRow.rewardItems[0].item.wikiLink,
-                value: barterRow.rewardItems[0].item.avg24hPrice,
+                value: barterRow.rewardItems[0].item.avg24hPrice || Math.max(...barterRow.rewardItems[0].item.traderPrices.map(priceObject => priceObject.price)),
                 trader: barterRow.source,
                 iconLink: barterRow.rewardItems[0].item.iconLink,
                 itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,
             },
-            savings: barterRow.rewardItems[0].item.avg24hPrice - cost,
         };
+
+        tradeData.savings = tradeData.reward.value - cost;
 
         // If the reward has no value, it's not available for purchase
         if(tradeData.reward.value === 0){

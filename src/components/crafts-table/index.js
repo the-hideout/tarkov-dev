@@ -79,6 +79,9 @@ function CraftTable(props) {
               imageLink
               wikiLink
               avg24hPrice
+              traderPrices {
+                  price
+              }
             }
             count
           }
@@ -205,7 +208,7 @@ function CraftTable(props) {
                     name: craftRow.rewardItems[0].item.name,
                     wikiLink: craftRow.rewardItems[0].item.wikiLink,
                     itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
-                    value: craftRow.rewardItems[0].item.avg24hPrice,
+                    value: Math.max(craftRow.rewardItems[0].item.avg24hPrice, Math.max(...craftRow.rewardItems[0].item.traderPrices.map(priceObject => priceObject.price))),
                     source: station,
                     iconLink: craftRow.rewardItems[0].item.iconLink,
                     count: craftRow.rewardItems[0].count,
