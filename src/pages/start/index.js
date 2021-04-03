@@ -66,12 +66,12 @@ function Item(props) {
                         </li>;
                     })}
                 </ul> */}
-                
+
                 <Link
                     to = {`/ammo/`}
                 >
                     <h2>
-                        <Icon 
+                        <Icon
                             path={mdiAmmunition}
                             size={1}
                             rotate={90}
@@ -81,7 +81,7 @@ function Item(props) {
                     </h2>
                     <img
                         alt = 'Ammo chart'
-                        src = {`${process.env.PUBLIC_URL}/images/ammo-chart.jpg`}
+                        src = {`${process.env.PUBLIC_URL}/images/ammo-chart-thumbnail.jpg`}
                     />
                 </Link>
             </div>
@@ -89,7 +89,7 @@ function Item(props) {
                 className = 'start-section-wrapper'
             >
                 <h3>
-                    <Icon 
+                    <Icon
                         path={mdiHammerWrench}
                         size={1}
                         className = 'icon-with-text'
@@ -101,7 +101,7 @@ function Item(props) {
                         <Link
                             to = '/loot-tier/'
                         >
-                            <Icon 
+                            <Icon
                                 path={mdiFinance}
                                 size={1}
                                 className = 'icon-with-text'
@@ -113,7 +113,7 @@ function Item(props) {
                         <Link
                             to = '/barters/'
                         >
-                            <Icon 
+                            <Icon
                                 path={mdiAccountSwitch}
                                 size={1}
                                 className = 'icon-with-text'
@@ -125,7 +125,7 @@ function Item(props) {
                         <Link
                             to = '/hideout-profit/'
                         >
-                            <Icon 
+                            <Icon
                                 path={mdiProgressWrench}
                                 size={1}
                                 className = 'icon-with-text'
@@ -135,7 +135,7 @@ function Item(props) {
                     </li>
                 </ul>
                 <h3>
-                    <Icon 
+                    <Icon
                         path={mdiMap}
                         size={1}
                         className = 'icon-with-text'
@@ -147,7 +147,7 @@ function Item(props) {
                         return <li>
                             <Link
                                 to = {`/map/${mapData.key}`}
-                                >
+                            >
                                 {mapData.displayText}
                             </Link>
                         </li>;
@@ -195,7 +195,7 @@ function Item(props) {
                     to = {`/gear/armor`}
                 >
                     <h2>
-                        <Icon 
+                        <Icon
                             path={mdiTshirtCrew}
                             size={1}
                             className = 'icon-with-text'
@@ -204,14 +204,14 @@ function Item(props) {
                     </h2>
                     <img
                         alt = {'Armor table'}
-                        src = {`${process.env.PUBLIC_URL}/images/armor-table.jpg`}
+                        src = {`${process.env.PUBLIC_URL}/images/armor-table-thumbnail.jpg`}
                     />
                 </Link>
                 <Link
                     to = {`/gear/backpacks`}
                 >
                     <h2>
-                        <Icon 
+                        <Icon
                             path={mdiBagPersonal}
                             size={1}
                             className = 'icon-with-text'
@@ -220,14 +220,14 @@ function Item(props) {
                     </h2>
                     <img
                         alt = {'Backpacks table'}
-                        src = {`${process.env.PUBLIC_URL}/images/backpacks-table.jpg`}
+                        src = {`${process.env.PUBLIC_URL}/images/backpacks-table-thumbnail.jpg`}
                     />
                 </Link>
                 <Link
                     to = {`/gear/helmets`}
                 >
                     <h2>
-                        <Icon 
+                        <Icon
                             path={mdiRacingHelmet}
                             size={1}
                             className = 'icon-with-text'
@@ -236,14 +236,14 @@ function Item(props) {
                     </h2>
                     <img
                         alt = {'Helmets table'}
-                        src = {`${process.env.PUBLIC_URL}/images/helmet-table.jpg`}
+                        src = {`${process.env.PUBLIC_URL}/images/helmets-table-thumbnail.jpg`}
                     />
                 </Link>
                 <Link
                     to = {`/gear/glasses`}
                 >
                     <h2>
-                        <Icon 
+                        <Icon
                             path={mdiSunglasses}
                             size={1}
                             className = 'icon-with-text'
@@ -252,7 +252,7 @@ function Item(props) {
                     </h2>
                     <img
                         alt = {'Glasses table'}
-                        src = {`${process.env.PUBLIC_URL}/images/glasses-table.jpg`}
+                        src = {`${process.env.PUBLIC_URL}/images/glasses-table-thumbnail.jpg`}
                     />
                 </Link>
             </div>
