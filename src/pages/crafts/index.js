@@ -47,7 +47,7 @@ function Crafts() {
             <h1
                 className = 'crafts-page-title'
             >
-                <Icon 
+                <Icon
                     path={mdiProgressWrench}
                     size={1.5}
                     className = 'icon-with-text'
@@ -106,7 +106,7 @@ function Crafts() {
         </div>,
         <CraftsTable
             nameFilter = {nameFilter}
-            freefuel = {freeFuel}
+            freeFuel = {freeFuel}
             selectedStation = {selectedStation}
         />
     ];
