@@ -180,28 +180,28 @@ function CraftTable(props) {
 
             const tradeData = {
                 costItems: craftRow.requiredItems.map(requiredItem => {
-                        let calculationPrice = requiredItem.item.avg24hPrice;
-                        if(requiredItem.item.avg24hPrice * requiredItem.count === 0){
-                            console.log(`Found a zero cost item! ${requiredItem.item.name}`);
+                    let calculationPrice = requiredItem.item.avg24hPrice;
+                    if(requiredItem.item.avg24hPrice * requiredItem.count === 0){
+                        console.log(`Found a zero cost item! ${requiredItem.item.name}`);
 
-                            hasZeroCostItem = true;
-                        }
+                        hasZeroCostItem = true;
+                    }
 
-                        if(freeFuel && fuelIds.includes(requiredItem.item.id)){
-                            calculationPrice = 0;
-                        }
+                    if(freeFuel && fuelIds.includes(requiredItem.item.id)){
+                        calculationPrice = 0;
+                    }
 
-                        totalCost = totalCost + calculationPrice * requiredItem.count;
+                    totalCost = totalCost + calculationPrice * requiredItem.count;
 
-                        return {
-                            count: requiredItem.count,
-                            name: requiredItem.item.name,
-                            price: calculationPrice,
-                            iconLink: requiredItem.item.iconLink,
-                            wikiLink: requiredItem.item.wikiLink,
-                            itemLink: `/item/${requiredItem.item.normalizedName}`,
-                        };
-                    })
+                    return {
+                        count: requiredItem.count,
+                        name: requiredItem.item.name,
+                        price: calculationPrice,
+                        iconLink: requiredItem.item.iconLink,
+                        wikiLink: requiredItem.item.wikiLink,
+                        itemLink: `/item/${requiredItem.item.normalizedName}`,
+                    };
+                })
                     .filter(Boolean),
                 cost: totalCost,
                 reward: {
