@@ -242,7 +242,7 @@ function BartersTable(props) {
             }
         }
 
-        let hasZeroCostItem = false;
+        // let hasZeroCostItem = false;
 
         const tradeData = {
             costItems: barterRow.requiredItems.map(requiredItem => {
@@ -262,9 +262,9 @@ function BartersTable(props) {
 
                     cost = cost + requiredItemPrice * requiredItem.count;
 
-                    if(cost === 0){
-                        hasZeroCostItem = true;
-                    }
+                    // if(cost === 0){
+                    //     hasZeroCostItem = true;
+                    // }
 
                     return {
                         count: requiredItem.count,
