@@ -92,6 +92,9 @@ function BartersTable(props) {
               imageLink
               wikiLink
               avg24hPrice
+              traderPrices {
+                price
+              }
             }
             count
           }
@@ -255,7 +258,9 @@ function BartersTable(props) {
                         return false;
                     }
 
-                    cost = cost + requiredItem.item.avg24hPrice * requiredItem.count;
+                    const requiredItemPrice = requiredItem.item.avg24hPrice || Math.max(...requiredItem.item.traderPrices.map(priceObject => priceObject.price))
+
+                    cost = cost + requiredItemPrice * requiredItem.count;
 
                     if(cost === 0){
                         hasZeroCostItem = true;
@@ -264,7 +269,7 @@ function BartersTable(props) {
                     return {
                         count: requiredItem.count,
                         name: requiredItem.item.name,
-                        avg24hPrice: requiredItem.item.avg24hPrice,
+                        avg24hPrice: requiredItemPrice,
                         iconLink: requiredItem.item.iconLink,
                         wikiLink: requiredItem.item.wikiLink,
                         itemLink: `/item/${requiredItem.item.normalizedName}`,
@@ -291,9 +296,9 @@ function BartersTable(props) {
             tradeData.savings = 0;
         }
 
-        if(hasZeroCostItem){
-            return false;
-        }
+        // if(hasZeroCostItem){
+        //     return false;
+        // }
 
         return tradeData;
     })
