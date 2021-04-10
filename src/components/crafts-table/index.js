@@ -169,7 +169,7 @@ function CraftTable(props) {
                 }
             }
 
-            let hasZeroCostItem = false;
+            // let hasZeroCostItem = false;
             let [station, ] = craftRow.source.split('level');
 
             station = station.trim();
@@ -181,11 +181,11 @@ function CraftTable(props) {
             const tradeData = {
                 costItems: craftRow.requiredItems.map(requiredItem => {
                     let calculationPrice = requiredItem.item.avg24hPrice;
-                    if(requiredItem.item.avg24hPrice * requiredItem.count === 0){
-                        console.log(`Found a zero cost item! ${requiredItem.item.name}`);
+                    // if(requiredItem.item.avg24hPrice * requiredItem.count === 0){
+                    //     console.log(`Found a zero cost item! ${requiredItem.item.name}`);
 
-                        hasZeroCostItem = true;
-                    }
+                    //     hasZeroCostItem = true;
+                    // }
 
                     if(freeFuel && fuelIds.includes(requiredItem.item.id)){
                         calculationPrice = 0;
@@ -225,12 +225,12 @@ function CraftTable(props) {
                 tradeData.profit = 0;
             }
 
-            if(hasZeroCostItem){
-                // console.log('Found a zero cost item!');
-                // console.log(craftRow);
+            // if(hasZeroCostItem){
+            //     // console.log('Found a zero cost item!');
+            //     // console.log(craftRow);
 
-                return false;
-            }
+            //     return false;
+            // }
 
             return tradeData;
         })
