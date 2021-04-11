@@ -33,7 +33,7 @@ function Barters() {
             <h1
                 className = 'barters-page-title'
             >
-                <Icon 
+                <Icon
                     path={mdiAccountSwitch}
                     size={1.5}
                     className = 'icon-with-text'
@@ -58,6 +58,7 @@ function Barters() {
         </div>,
         <BartersTable
             nameFilter = {nameFilter}
+            key = 'barters-page-barters-table'
         />
     ];
 };

@@ -145,6 +145,7 @@ function Crafts() {
             nameFilter = {nameFilter}
             freeFuel = {freeFuel}
             selectedStation = {selectedStation}
+            key = 'crafts-page-crafts-table'
         />
     ];
 };
