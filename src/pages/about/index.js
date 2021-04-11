@@ -87,8 +87,7 @@ function About() {
             External resources
         </h2>
         <p>
-            Some pricing data is courtesy of <a href="https://tarkov-market.com">Tarkov Market</a>.
-            The rest is from our <a href="https://tarkov-tools.com/___graphql">API</a>
+            Pricing data is from our <a href="https://tarkov-tools.com/___graphql">API</a>
         </p>
         <p>
             Some icons are linked from the amazing <a href="https://github.com/RatScanner/EfTIcons">EFTIcons library</a>

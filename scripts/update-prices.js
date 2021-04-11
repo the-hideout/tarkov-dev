@@ -3,24 +3,7 @@ const path = require('path');
 
 const got = require('got');
 
-const sleep = require('./modules/sleep');
-
 const itemIds = require('../src/data/items.json');
-
-const CURRENCY_MODIFIER = {
-    "₽": 1,
-    "$": 125,
-    "€": 142,
-};
-
-const availableLanguages = [
-    'en',
-    // 'ru',
-    // 'de',
-    // 'fr',
-    // 'es',
-    // 'cn',
-];
 
 const mappingProperties = [
     'BlindnessProtection',
@@ -61,15 +44,6 @@ const getGrid = (item) => {
 
 let itemData = {};
 
-const getBsgTypes = (itemId, bsgData) => {
-    const currentType = [bsgData[itemId]._props.Name];
-    if(!bsgData[itemId]._parent){
-        return currentType;
-    }
-
-    return getBsgTypes(bsgData[itemId]._parent, bsgData).concat(currentType);
-};
-
 const arrayChunk = (inputArray, chunkLength) => {
     return inputArray.reduce((resultArray, item, index) => {
         const chunkIndex = Math.floor(index / chunkLength);
@@ -85,8 +59,8 @@ const arrayChunk = (inputArray, chunkLength) => {
 };
 
 (async () => {
-    let allItemData = {};
-    let bsgData = false;
+    let allItemData = [];
+    let bsgData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'assets', 'bsg-data.json')));
     let tarkovToolsData = [];
 
     try {
@@ -99,11 +73,20 @@ const arrayChunk = (inputArray, chunkLength) => {
                         return `item${itemId}: item(id:"${itemId}"){
                             id
                             name
+                            shortName
+                            basePrice
                             normalizedName
                             types
                             width
                             height
                             avg24hPrice
+                            wikiLink
+                            traderPrices {
+                                price
+                                trader {
+                                    name
+                                }
+                            }
                         }`;
                     }).join('\n') }
                 }`
@@ -129,93 +112,49 @@ const arrayChunk = (inputArray, chunkLength) => {
         itemData[item.id] = item;
     }
 
-    try {
-        const response = await got('https://tarkov-market.com/api/v1/bsg/items/all', {
-            headers: {
-                'x-api-key': process.env.TARKOV_MARKET_API_KEY,
-            },
-            responseType: 'json',
-        });
-
-        bsgData = response.body;
-    } catch (requestError){
-        console.error(requestError);
-
-        // We wan't CI to stop here
-        process.exit(1);
-    }
-
-    for(const languageCode of availableLanguages){
-        try {
-            const response = await got(`https://tarkov-market.com/api/v1/items/all?lang=${languageCode}`, {
-                headers: {
-                    'x-api-key': process.env.TARKOV_MARKET_API_KEY,
-                },
-                responseType: 'json',
-            });
-
-            allItemData[languageCode] = response.body;
-        } catch (requestError){
-            console.error(requestError);
-
-            // We wan't CI to stop here
-            process.exit(1);
-        }
-        console.log(`Loading all items for ${languageCode}`);
-        console.time(`all-${languageCode}`);
-
-        console.timeEnd(`all-${languageCode}`);
-
-        for(let i = 0; i < allItemData[languageCode].length; i = i + 1){
-            const bsgItemData = bsgData[allItemData[languageCode][i].bsgId];
-
-            allItemData[languageCode][i] = {
-                types: [],
-                ...allItemData[languageCode][i],
-                ...itemData[allItemData[languageCode][i].bsgId],
-                price: allItemData[languageCode][i].avg24hPrice,
-                traderPrice: allItemData[languageCode][i].traderPrice * CURRENCY_MODIFIER[allItemData[languageCode][i].traderPriceCur],
-                id: allItemData[languageCode][i].bsgId,
-                itemProperties: {},
-                hasGrid: bsgItemData._props.Grids?.length > 0,
-                linkedItems: bsgItemData._props.Slots?.map((slot) => {
-                    return slot._props.filters[0].Filter;
-                }).flat() || [],
-            };
-
-            for(const extraProp of mappingProperties){
-                if(!bsgItemData._props[extraProp]){
-                    continue;
-                }
-
-                allItemData[languageCode][i].itemProperties[extraProp] = bsgItemData._props[extraProp];
+    const languageCode = 'en';
+    for(const itemId in itemData){
+        const bsgItemData = bsgData[itemId];
+        const bestTraderPrice = itemData[itemId].traderPrices.sort((a, b) => {
+            if(a.price > b.price) {
+                return -1;
             }
 
-            allItemData[languageCode][i].itemProperties.grid = getGrid(bsgItemData);
+            if(a.price < b.price) {
+                return 1;
+            }
 
-            Reflect.deleteProperty(allItemData[languageCode][i], 'bsgId');
-            Reflect.deleteProperty(allItemData[languageCode][i], 'uid');
-            Reflect.deleteProperty(allItemData[languageCode][i], 'reference');
-            Reflect.deleteProperty(allItemData[languageCode][i], 'isFunctional');
-            Reflect.deleteProperty(allItemData[languageCode][i], 'link');
-            Reflect.deleteProperty(allItemData[languageCode][i], 'avg7daysPrice');
-            Reflect.deleteProperty(allItemData[languageCode][i], 'diff24h');
-            Reflect.deleteProperty(allItemData[languageCode][i], 'diff7days');
-            Reflect.deleteProperty(allItemData[languageCode][i], 'imgBig');
-            Reflect.deleteProperty(allItemData[languageCode][i], 'icon');
-            Reflect.deleteProperty(allItemData[languageCode][i], 'traderPriceCur');
-            Reflect.deleteProperty(allItemData[languageCode][i], 'updated');
+            return 0;
+        }).shift();
 
-            Reflect.deleteProperty(allItemData[languageCode][i], 'img');
-            Reflect.deleteProperty(allItemData[languageCode][i], 'price');
-            Reflect.deleteProperty(allItemData[languageCode][i], 'slots');
-            allItemData[languageCode][i].wikiLink = allItemData[languageCode][i].wikiLink.replace('https://escapefromtarkov.gamepedia.com', '');
+        console.log(bestTraderPrice);
+
+        const item = {
+            types: [],
+            ...itemData[itemId],
+            price: itemData[itemId].avg24hPrice,
+            traderPrice: bestTraderPrice?.price || 0,
+            traderName: bestTraderPrice?.trader?.name || '?',
+            itemProperties: {},
+            hasGrid: bsgItemData._props.Grids?.length > 0,
+            linkedItems: bsgItemData._props.Slots?.map((slot) => {
+                return slot._props.filters[0].Filter;
+            }).flat() || [],
+        };
+
+        for(const extraProp of mappingProperties){
+            if(!bsgItemData._props[extraProp]){
+                continue;
+            }
+
+            item.itemProperties[extraProp] = bsgItemData._props[extraProp];
         }
 
-        fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', `all-${languageCode}.json`), JSON.stringify(allItemData[languageCode], null, 4));
+        item.itemProperties.grid = getGrid(bsgItemData);
+        item.wikiLink = item.wikiLink.replace('https://escapefromtarkov.gamepedia.com', '');
 
-        if(availableLanguages.length > 3){
-            await sleep(30000);
-        }
+        allItemData.push(item);
     }
+
+    fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', `all-${languageCode}.json`), JSON.stringify(allItemData, null, 4));
 })();
