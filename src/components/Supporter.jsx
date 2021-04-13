@@ -19,8 +19,16 @@ function Supporter(props) {
     return <div
         className = {'supporter-wrapper'}
     >
-        {props.name}
-        {supporterTypes}
+        {props.link && <a
+            href = {props.link}
+        >
+            {props.name}
+            {supporterTypes}
+        </a>}
+        {!props.link && <span>
+            {props.name}
+            {supporterTypes}
+        </span>}
     </div>
 }
 

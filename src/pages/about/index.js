@@ -52,16 +52,23 @@ function About() {
             github
         />
         <Supporter
-            name = {'KilobyteKeith'}
-            patreon
-        />
-        <Supporter
             name = {'teebles'}
             patreon
         />
         <Supporter
             name = {'Trontus'}
             patreon
+        />
+        <Supporter
+            name = {'Thaddeus'}
+            patreon
+            github
+            link = 'https://tarkovtracker.io/'
+        />
+        <Supporter
+            name = {'RatScanner'}
+            patreon
+            link = 'https://ratscanner.com/'
         />
         <h2>
             Cool resources
