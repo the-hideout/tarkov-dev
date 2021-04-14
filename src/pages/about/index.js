@@ -70,6 +70,10 @@ function About() {
             patreon
             link = 'https://ratscanner.com/'
         />
+        <Supporter
+            name = {'Razzmatazz'}
+            patreon
+        />
         <h2>
             Cool resources
         </h2>
