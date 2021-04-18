@@ -23,7 +23,8 @@ import { mdiSunglasses } from '@mdi/js';
 import './index.css';
 
 function Item(props) {
-    const [nameFilter, setNameFilter] = useState('');
+    const defaultQuery = new URLSearchParams(window.location.search).get('search');
+    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
 
     const handleNameFilterChange = useCallback((e) => {
         if (typeof window !== 'undefined') {

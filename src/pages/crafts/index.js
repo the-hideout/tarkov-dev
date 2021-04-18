@@ -34,7 +34,8 @@ function capitalizeTheFirstLetterOfEachWord(words) {
 }
 
 function Crafts() {
-    const [nameFilter, setNameFilter] = useState('');
+    const defaultQuery = new URLSearchParams(window.location.search).get('search');
+    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [freeFuel, setFreeFuel] = useState(false);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedStation', 'top');
 

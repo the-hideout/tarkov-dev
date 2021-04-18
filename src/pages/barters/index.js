@@ -9,7 +9,8 @@ import { mdiAccountSwitch } from '@mdi/js';
 import './index.css';
 
 function Barters() {
-    const [nameFilter, setNameFilter] = useState('');
+    const defaultQuery = new URLSearchParams(window.location.search).get('search');
+    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
 
     return [
         <Helmet
