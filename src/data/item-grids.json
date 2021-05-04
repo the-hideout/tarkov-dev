@@ -1164,5 +1164,25 @@
             "width": 1,
             "height": 1
         }
+    ],
+    "6034d2d697633951dc245ea6": [
+        {
+            "row": 0,
+            "col": 0,
+            "width": 3,
+            "height": 5
+        },
+        {
+            "row": 5,
+            "col": 0,
+            "width": 3,
+            "height": 2
+        },
+        {
+            "row": 0,
+            "col": 3,
+            "width": 2,
+            "height": 7
+        }
     ]
 }
