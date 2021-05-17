@@ -17,7 +17,7 @@
     "rc-slider": "^9.7.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-favicon": "^0.0.18",
+    "react-favicon": "^0.0.22",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.0",
@@ -58,6 +58,6 @@
     ]
   },
   "devDependencies": {
-    "image-size": "^0.9.2"
+    "image-size": "^1.0.0"
   }
 }
