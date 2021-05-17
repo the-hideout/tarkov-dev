@@ -1,5 +1,9 @@
 # Tarkov Tools
 
+[![Build Status](https://travis-ci.org/kokarn/tarkov-tools.svg?branch=master)](https://travis-ci.org/kokarn/tarkov-tools)
+[![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dkokarn%26type%3Dpatrons&style=flat)](https://patreon.com/kokarn)
+![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m785748655-5631dd88e9569d8faf253651)
+
 ## If you wanna help out, please do!
 
 I'm always looking for anybody contributing anything from simple spelling errors, icons updates, fixes for small css bugs or just posting issues to keep track of what needs to be done.
@@ -21,8 +25,6 @@ Most data can be updated just by running
 
 
 ### History
-
-[![Build Status](https://travis-ci.org/kokarn/tarkov-tools.svg?branch=master)](https://travis-ci.org/kokarn/tarkov-tools)
 
 After reading the great post about [a single visualization for all ammo types](https://www.reddit.com/r/EscapefromTarkov/comments/ebvizg/ammo_table_visualized_on_one_graph/) I decided to create one where it automatically updates depending on the ["official" spreadsheet](https://docs.google.com/spreadsheets/d/1l_8zSZg-viVTZ2bavMEIIKhix6mFTXuVHWcNKZgBrjQ/htmlview?sle=true).
 
