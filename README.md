@@ -6,7 +6,7 @@
 
 ## If you wanna help out, please do!
 
-I'm always looking for anybody contributing anything from simple spelling errors, icons updates, fixes for small css bugs or just posting issues to keep track of what needs to be done.
+I'm always looking for anybody contributing anything from simple spelling errors, icon updates, fixes for small css bugs or just posting issues to keep track of what needs to be done.
 
 
 ## Running in development
@@ -30,8 +30,4 @@ After reading the great post about [a single visualization for all ammo types](h
 
 Then after a lot of feedback from the community I realized that was crap and switched to the one provided by the glorious [NoFoodAfterMidnight](https://www.twitch.tv/nofoodaftermidnight)s [spreadsheet](https://docs.google.com/spreadsheets/u/0/d/1jjWcIue0_PCsbLQAiL5VrIulPK8SzM5jjiCMx9zUuvE)
 
-This site isn't as pretty as the original chart but instead includes auto-updates and interactivity.
-
-Simply click the type of ammo you wanna see the stats for and voila!
-
-![How to use](./utility-preview.gif)
+Since then it has evolved quite a long way, with a [Flea Market Price API](https://tarkov-tools.com/___graphql), [Gear guides](https://tarkov-tools.com/gear/) and so much more.
