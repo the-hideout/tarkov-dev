@@ -73,6 +73,11 @@ function About() {
         <Supporter
             name = {'Razzmatazz'}
             patreon
+            github
+        />
+        <Supporter
+            name = {'Christopher Llewellyn'}
+            patreon
         />
         <h2>
             Cool resources
