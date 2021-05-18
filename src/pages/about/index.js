@@ -76,7 +76,7 @@ function About() {
             github
         />
         <Supporter
-            name = {'Christopher Llewellyn'}
+            name = {'MrWelshLlama'}
             patreon
         />
         <h2>
