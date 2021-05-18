@@ -45,11 +45,11 @@ const makeID = function makeID(length) {
     return result;
  };
 
- const socketServer = `wss://tarkov-data-manager.herokuapp.com`;
+const socketServer = `wss://tarkov-tools-live.herokuapp.com`;
 
- let socket = false;
+let socket = false;
 
- function App() {
+function App() {
     const [sessionID, setSessionID] = useStateWithLocalStorage('sessionId', makeID(4));
     const [socketConnected, setSocketConnected] = useState(false);
     let history = useHistory();
