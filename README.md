@@ -8,6 +8,10 @@
 
 I'm always looking for anybody contributing anything from simple spelling errors, icon updates, fixes for small css bugs or just posting issues to keep track of what needs to be done.
 
+## Other parts of the site that you can also help out with
+[Tarkov Tools API](https://github.com/kokarn/tarkov-data-api)
+[Tarkov Data](https://github.com/TarkovTracker/tarkovdata/)
+
 
 ## Running in development
 
