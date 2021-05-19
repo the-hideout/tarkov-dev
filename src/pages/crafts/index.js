@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet';
+import Select from 'react-select';
 import Switch from 'react-switch';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -11,6 +12,12 @@ import Icon from '@mdi/react'
 import { mdiProgressWrench } from '@mdi/js';
 
 import './index.css';
+
+const levels = [
+    { value: 1, label: '1' },
+    { value: 2, label: '2' },
+    { value: 3, label: '3' },
+];
 
 const stations = [
     'booze-generator',
@@ -36,6 +43,10 @@ function capitalizeTheFirstLetterOfEachWord(words) {
 function Crafts() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [levelFilter, setLevelFilter] = useState(levels[2]);
+    const [levelTooltipDisabled, setLevelTooltipDisabled] = useState(false);
+    const hideLevelTooltip = () => setLevelTooltipDisabled(true);
+    const showLevelTooltip = () => setLevelTooltipDisabled(false);
     const [freeFuel, setFreeFuel] = useState(false);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedStation', 'top');
 
@@ -141,8 +152,38 @@ function Crafts() {
                     onChange = {e => setNameFilter(e.target.value)}
                 />
             </div>
+            <Tippy
+                disabled = {levelTooltipDisabled}
+                placement = 'bottom'
+                content={
+                    <div>
+                        Sets maximum level of craft stations
+                    </div>
+                }
+            >
+                <div
+                    className = 'filter-dropdown-wrapper'
+                >
+                    <div
+                        className = 'filter-dropdown-label'
+                    >
+                        Level
+                    </div>
+                    <Select
+                        defaultValue={levelFilter}
+                        name="levels"
+                        onChange={setLevelFilter}
+                        options={levels}
+                        className="filter-dropdown-select"
+                        classNamePrefix="select"
+                        onMenuOpen={hideLevelTooltip}
+                        onMenuClose={showLevelTooltip}
+                    />
+                </div>
+            </Tippy>
         </div>,
         <CraftsTable
+            levelFilter = {levelFilter}
             nameFilter = {nameFilter}
             freeFuel = {freeFuel}
             selectedStation = {selectedStation}
