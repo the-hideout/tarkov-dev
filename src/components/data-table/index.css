@@ -72,3 +72,8 @@ td.data-cell:first-child {
 .data-table .header-sort-icon {
     height: 10px;
 }
+
+div.no-data-info {
+    display: flex;
+    justify-content: center;
+}
