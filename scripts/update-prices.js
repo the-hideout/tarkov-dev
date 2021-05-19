@@ -151,7 +151,7 @@ const arrayChunk = (inputArray, chunkLength) => {
         }
 
         item.itemProperties.grid = getGrid(bsgItemData);
-        item.wikiLink = item.wikiLink.replace('https://escapefromtarkov.gamepedia.com', '');
+        item.wikiLink = item.wikiLink.replace('https://escapefromtarkov.gamepedia.com/', '');
         item.wikiLink = item.wikiLink.replace('https://escapefromtarkov.fandom.com/wiki/', '');
 
         allItemData.push(item);
