@@ -65,7 +65,7 @@ function costItemsCell({ value }) {
 };
 
 function CraftTable(props) {
-    const {selectedStation, freeFuel, nameFilter, levelFilter} = props;
+    const {selectedStation, freeFuel, nameFilter, levelFilter = 3} = props;
     const [crafts, setCrafts] = useState([]);
 	const { query } = useQuery`
     {
