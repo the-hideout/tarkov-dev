@@ -4,6 +4,12 @@ node_js:
 
 jobs:
   include:
+    - name: Build site
+      script: |
+        npm run update-prices || travis_terminate 1;
+        npm run build
+      if: type = pull_request
+
     - name: Build & deploy site
       script: |
         npm run update-prices || travis_terminate 1;
@@ -15,6 +21,7 @@ jobs:
         edge: true
         # on:
         #   branch: master
+      if: type = push
 
     - name: Create release and notify Sentry of deploy
       env: SENTRY_ORG=oskar-risberg SENTRY_PROJECT=tarkov-tools SENTRY_ENVIRONMENT=production
@@ -26,5 +33,5 @@ jobs:
         sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps build/static/js
         sentry-cli releases finalize $SENTRY_RELEASE
         sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
-      # on:
-      #   branch: master
+      on:
+        branch: master
