@@ -344,8 +344,10 @@ function CraftTable(props) {
     );
 
     if(data.length <= 0){
-        return <div>
-            None
+        return <div
+            className = {'no-data-info'}
+        >
+            No crafts available for selected filters
         </div>;
     }
 
