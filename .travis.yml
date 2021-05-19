@@ -35,3 +35,4 @@ jobs:
         sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
       on:
         branch: master
+      if: type = push
