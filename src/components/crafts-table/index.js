@@ -65,7 +65,7 @@ function costItemsCell({ value }) {
 };
 
 function CraftTable(props) {
-    const {selectedStation, freeFuel, nameFilter} = props;
+    const {selectedStation, freeFuel, nameFilter, levelFilter} = props;
     const [crafts, setCrafts] = useState([]);
 	const { query } = useQuery`
     {
@@ -170,11 +170,16 @@ function CraftTable(props) {
             }
 
             // let hasZeroCostItem = false;
-            let [station, ] = craftRow.source.split('level');
+            let [station, level] = craftRow.source.split('level');
 
+            level = parseInt(level);
             station = station.trim();
 
             if(!nameFilter && selectedStation && selectedStation !== 'top' && selectedStation !== station.toLowerCase().replace(/\s/g, '-')){
+                return false;
+            }
+
+            if(level > levelFilter.value){
                 return false;
             }
 
@@ -209,7 +214,7 @@ function CraftTable(props) {
                     wikiLink: craftRow.rewardItems[0].item.wikiLink,
                     itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
                     value: Math.max(craftRow.rewardItems[0].item.avg24hPrice, Math.max(...craftRow.rewardItems[0].item.traderPrices.map(priceObject => priceObject.price))),
-                    source: station,
+                    source: `${station} (level ${level})`,
                     iconLink: craftRow.rewardItems[0].item.iconLink,
                     count: craftRow.rewardItems[0].count,
                 },
@@ -238,7 +243,7 @@ function CraftTable(props) {
         .sort((itemA, itemB) => {
             if(itemB.profit < itemA.profit){
                 return -1;
-            };
+            }
 
             if(itemB.profit > itemA.profit){
                 return 1;
@@ -261,7 +266,7 @@ function CraftTable(props) {
             return true;
         });
     },
-        [nameFilter, selectedStation, freeFuel, crafts]
+        [nameFilter, levelFilter, selectedStation, freeFuel, crafts]
     );
 
     const columns = useMemo(

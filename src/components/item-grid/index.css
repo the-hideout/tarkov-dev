@@ -93,6 +93,20 @@
     width: 90px;
 }
 
+.filter-dropdown-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.filter-dropdown-label {
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.filter-dropdown-select {
+    min-width: 70px;
+}
+
 .item-group-wrapper input,
 .item-group-wrapper.filter-wrapper button {
     border: 0;
