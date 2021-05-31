@@ -59,6 +59,24 @@ function Item(props) {
                 className = 'start-section-wrapper'
             >
                 {/* <h3>
+                    Items
+                </h3> */}
+                <input
+                    type="text"
+                    defaultValue = {nameFilter}
+                    onChange = {handleNameFilterChange}
+                    placeholder = 'Search...'
+                />
+                <SmallItemTable
+                    maxItems = {8}
+                    nameFilter = {nameFilter}
+                    defaultRandom = {true}
+                />
+            </div>
+            <div
+                className = 'start-section-wrapper'
+            >
+                {/* <h3>
                     Ammo types
                 </h3>
                 <ul>
@@ -256,24 +274,6 @@ function Item(props) {
                         src = {`${process.env.PUBLIC_URL}/images/glasses-table-thumbnail.jpg`}
                     />
                 </Link>
-            </div>
-            <div
-                className = 'start-section-wrapper'
-            >
-                {/* <h3>
-                    Items
-                </h3> */}
-                <input
-                    type="text"
-                    defaultValue = {nameFilter}
-                    onChange = {handleNameFilterChange}
-                    placeholder = 'Search...'
-                />
-                <SmallItemTable
-                    maxItems = {8}
-                    nameFilter = {nameFilter}
-                    defaultRandom = {true}
-                />
             </div>
         </div>,
     ];
