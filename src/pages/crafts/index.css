@@ -69,6 +69,7 @@
 .craft-cost-item-wrapper img {
     /* height: 34px; */
     width: 34px;
+    border: 1px solid #4a5154;
 }
 
 .craft-cost-item-text-wrapper {

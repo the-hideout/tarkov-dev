@@ -18,3 +18,7 @@
 .small-item-table-image-wrapper {
     margin-right: 10px;
 }
+
+.small-data-table .table-image {
+    border: 1px solid #4a5154;
+}

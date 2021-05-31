@@ -52,6 +52,7 @@
 
 .barter-cost-item-wrapper img {
     /* height: 34px; */
+    border: 1px solid #4a5154;
     width: 34px;
 }
 
