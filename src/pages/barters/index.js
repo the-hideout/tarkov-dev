@@ -81,6 +81,7 @@ function Barters() {
                 {traders.map((traderName) => {
                     return <Tippy
                         placement = 'top'
+                        key = {`trader-tooltip-${traderName}`}
                         content={
                         <div>
                             {capitalizeTheFirstLetterOfEachWord(traderName.replace('-', ' '))}

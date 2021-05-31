@@ -83,6 +83,7 @@ function Crafts() {
                 {stations.map((stationName) => {
                     return <Tippy
                         placement = 'top'
+                        key = {`station-tooltip-${stationName}`}
                         content={
                         <div>
                             {capitalizeTheFirstLetterOfEachWord(stationName.replace('-', ' '))}
