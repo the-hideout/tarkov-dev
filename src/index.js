@@ -6,7 +6,8 @@ import {
 } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
-import { Provider } from 'use-http';
+import store from './store';
+import { Provider } from 'react-redux';
 
 if(window.location.hostname !== 'localhost'){
     Sentry.init({
@@ -21,7 +22,7 @@ if(window.location.hostname !== 'localhost'){
 
 ReactDOM.render((<Router>
     <Provider
-        url="https://tarkov-tools.com/graphql"
+        store = {store}
     >
         <App />
     </Provider>

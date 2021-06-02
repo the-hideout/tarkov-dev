@@ -1,4 +1,4 @@
-import React, { Suspense, useMemo } from 'react';
+import React, { Suspense, useMemo, useEffect } from 'react';
 import {Helmet} from 'react-helmet';
 import {
     useParams,
@@ -6,6 +6,7 @@ import {
 import Favicon from 'react-favicon';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
+import { useSelector, useDispatch } from 'react-redux';
 
 import ID from '../../components/ID.jsx';
 // import CraftsTable from '../../components/crafts-table';
@@ -17,8 +18,8 @@ import ErrorPage from '../../components/error-page';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
+import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 
-import Items from '../../Items';
 import Quests from '../../Quests';
 
 import './index.css';
@@ -27,7 +28,19 @@ const CraftsTable = React.lazy(() => import('../../components/crafts-table'));
 
 function Item(props) {
     const {itemName} = useParams();
-    const currentItemData = Object.values(Items).find(item => {
+    const dispatch = useDispatch();
+    const items = useSelector(selectAllItems);
+    const itemStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        if (itemStatus === 'idle') {
+          dispatch(fetchItems());
+        }
+      }, [itemStatus, dispatch]);
+
+    const currentItemData = items.find(item => {
         return item.normalizedName === itemName;
     });
 

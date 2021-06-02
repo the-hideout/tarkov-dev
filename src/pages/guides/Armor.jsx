@@ -1,14 +1,15 @@
-import {useMemo} from 'react';
+import {useMemo, useEffect} from 'react';
 import {Helmet} from 'react-helmet';
 import Switch from 'react-switch';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import { useSelector, useDispatch } from 'react-redux';
 
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
-import items from '../../Items';
 import ID from '../../components/ID.jsx';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 
 const materialDestructabilityMap = {
     'Aramid': 0.25,
@@ -30,16 +31,6 @@ const materialRepairabilityMap = {
     'ArmoredSteel': 5,
     'Ceramic': 2,
     'Glass': 1,
-}
-
-let displayItems = [];
-
-for(const item of Object.values(items)){
-    if(!item.types.includes('armor')){
-        continue;
-    }
-
-    displayItems.push(item);
 }
 
 const centerCell = ({ value }) => {
@@ -99,6 +90,31 @@ function Armor(props) {
     const [includeRigs, setIncludeRigs] = useStateWithLocalStorage('includeRigs', true);
     const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage('minArmorClass', 6);
     const [maxPrice, setMaxPrice] = useStateWithLocalStorage('armorMaxPrice', 9999999);
+    const dispatch = useDispatch();
+    const items = useSelector(selectAllItems);
+    const itemStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        if (itemStatus === 'idle') {
+          dispatch(fetchItems());
+        }
+    }, [itemStatus, dispatch]);
+
+
+    const displayItems = useMemo(
+        () => items.filter(item => item.types.includes('armor')),
+        [items]
+    );
+
+    // for(const item of Object.values(items)){
+    //     if(!item.types.includes('armor')){
+    //         continue;
+    //     }
+
+    //     displayItems.push(item);
+    // }
 
     const columns = useMemo(
         () => [
@@ -180,7 +196,7 @@ function Armor(props) {
             console.log(`Missing ${item.itemProperties.ArmorMaterial}`);
         }
 
-        if(!includeRigs && item.hasGrid){
+        if(!includeRigs && item.grid){
             return false;
         }
 
@@ -214,7 +230,7 @@ function Armor(props) {
             itemLink: `/item/${item.normalizedName}`,
         };
     })
-    .filter(Boolean), [includeRigs, minArmorClass, maxPrice]);
+    .filter(Boolean), [includeRigs, minArmorClass, maxPrice, displayItems]);
 
     const handleArmorClassChange = (newValueLabel) => {
         setMinArmorClass(newValueLabel);

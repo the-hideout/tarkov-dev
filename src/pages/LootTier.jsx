@@ -1,16 +1,16 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import Switch from 'react-switch';
 import Select from 'react-select'
 import {Helmet} from 'react-helmet';
 import debounce from 'lodash.debounce';
+import { useSelector, useDispatch } from 'react-redux';
 
 import QueueBrowserTask from '../modules/queue-browser-task';
 import ID from '../components/ID.jsx';
 import ItemGrid from '../components/item-grid/';
 import FilterIcon from '../components/FilterIcon.jsx';
 import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
-
-import Items from '../Items';
+import { selectAllItems, fetchItems } from '../features/items/itemsSlice';
 
 const defaultGroupNames = [
     'S',
@@ -92,6 +92,18 @@ function LootTier(props) {
     });
     const [showFilter, setShowFilter] = useState(false);
 
+    const dispatch = useDispatch();
+    const items = useSelector(selectAllItems);
+    const itemStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        if (itemStatus === 'idle') {
+          dispatch(fetchItems());
+        }
+      }, [itemStatus, dispatch]);
+
     const handleFilterChange = (selectedFilters) => {
         QueueBrowserTask.task(() => {
             setFilters({
@@ -111,7 +123,7 @@ function LootTier(props) {
     };
 
     const itemData = useMemo(() => {
-        return Object.values(Items)
+        return items
             .map((item) => {
                 if(!includeFlea){
                     return {
@@ -141,7 +153,7 @@ function LootTier(props) {
 
                 return true;
             });
-    }, [includeFlea]);
+    }, [includeFlea, items]);
 
     const typeFilteredItems = useMemo(() => {
         const innerTypeFilteredItems = itemData

@@ -1,8 +1,13 @@
-import {useMemo, useRef, useState, useEffect} from 'react';
-import { useQuery } from 'use-http';
+import {useMemo, useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    Link,
+} from "react-router-dom";
+
 
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
+import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
 
 function priceCell({ value }) {
     return <div
@@ -46,11 +51,11 @@ function costItemsCell({ value }) {
                 <div
                     className = 'barter-cost-item-text-wrapper'
                 >
-                    <a
-                        href = {costItem.itemLink}
+                    <Link
+                        to = {costItem.itemLink}
                     >
                         {costItem.name}
-                    </a>
+                    </Link>
                     <div
                         className = 'price-wrapper'
                     >
@@ -65,70 +70,18 @@ function costItemsCell({ value }) {
 
 function BartersTable(props) {
     const { selectedTrader, nameFilter, levelFilter = 3} = props;
-    const [barters, setBarters] = useState([]);
-	const { query } = useQuery`{
-        barters {
-          rewardItems {
-            item {
-              id
-              name
-              normalizedName
-              iconLink
-              imageLink
-              wikiLink
-              avg24hPrice
-              traderPrices {
-                  price
-              }
-            }
-            count
-          }
-          requiredItems {
-            item {
-              id
-              name
-              normalizedName
-              iconLink
-              imageLink
-              wikiLink
-              avg24hPrice
-              traderPrices {
-                price
-              }
-            }
-            count
-          }
-          source
+    const dispatch = useDispatch();
+
+    const barters = useSelector(selectAllBarters);
+    const bartersStatus = useSelector((state) => {
+        return state.barters.status;
+    });
+
+    useEffect(() => {
+        if (bartersStatus === 'idle') {
+          dispatch(fetchBarters());
         }
-    }`;
-
-	// aka componentDidMount
-	const mounted = useRef(false);
-
-	useEffect(() => {
-		if (mounted.current) {
-            return;
-        }
-
-		mounted.current = true;
-		initializeBarters();
-	});
-
-	async function initializeBarters() {
-        let barters = [];
-        try {
-            const res = await query();
-            if (res.data && res.data.barters) {
-                barters = res.data.barters;
-            }
-        } catch (loadError){
-            console.error(loadError);
-        }
-
-		if (barters.length > 0) {
-            setBarters(barters);
-        }
-	}
+    }, [bartersStatus, dispatch]);
 
     const columns = useMemo(
         () => [
@@ -153,13 +106,13 @@ function BartersTable(props) {
                             className = 'barter-reward-info-wrapper'
                         >
                             <div>
-                                <a
+                                <Link
                                     className = 'barter-reward-item-title'
-                                    href={value.itemLink}
+                                    to = {value.itemLink}
 
                                 >
                                     {value.name}
-                                </a>
+                                </Link>
                             </div>
                             <div
                                 className = 'trader-wrapper'
@@ -204,7 +157,7 @@ function BartersTable(props) {
             },
         ],
         []
-    )
+    );
 
     const data = useMemo(() => {
         let addedTraders = [];
@@ -259,7 +212,6 @@ function BartersTable(props) {
                 return false;
 		    }
 
-            console.log(barterRow)
             const tradeData = {
                 costItems: barterRow.requiredItems.map(requiredItem => {
                         if(requiredItem === null){

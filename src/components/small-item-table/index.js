@@ -1,9 +1,12 @@
-import {useMemo} from 'react';
+import {useMemo, useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    Link,
+} from "react-router-dom";
 
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
-
-import Items from '../../Items';
+import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 
 import './index.css';
 
@@ -24,8 +27,20 @@ function shuffleArray(array) {
 
 function SmallItemTable(props) {
     const {maxItems, nameFilter, defaultRandom} = props;
+    const dispatch = useDispatch();
+    const items = useSelector(selectAllItems);
+    const itemStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        if (itemStatus === 'idle') {
+          dispatch(fetchItems());
+        }
+      }, [itemStatus, dispatch]);
+
     const data = useMemo(() => {
-        const returnData = Object.values(Items).map((itemData) => {
+        const returnData = items.map((itemData) => {
             return {
                 id: itemData.id,
                 name: itemData.name,
@@ -49,7 +64,7 @@ function SmallItemTable(props) {
 
         return returnData.slice(0, maxItems);
     },
-        [nameFilter, maxItems, defaultRandom]
+        [nameFilter, maxItems, defaultRandom, items]
     );
 
     const columns = useMemo(
@@ -71,13 +86,12 @@ function SmallItemTable(props) {
                             src = { allData.row.original.iconLink }
                         /></div>
                         <div>
-                            <a
+                            <Link
                                 className = 'craft-reward-item-title'
-                                href={allData.row.original.itemLink}
-
+                                to = {allData.row.original.itemLink}
                             >
                                 {allData.row.original.name}
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 },

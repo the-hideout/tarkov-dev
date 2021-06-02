@@ -1,11 +1,12 @@
-import {useMemo, useCallback} from 'react';
+import {useMemo, useCallback, useEffect} from 'react';
 import Switch from "react-switch";
 import {Helmet} from 'react-helmet';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ItemGrid from '../components/item-grid/';
 import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
-import Items from '../Items';
 import Traders from '../data/traders';
+import { selectAllItems, fetchItems } from '../features/items/itemsSlice';
 
 import quests from '../data/quests.json';
 
@@ -14,6 +15,17 @@ function ItemTracker() {
     // const [questData, setQuestData] = useState(quests.data);
     // const [groupByQuest, setGroupByQuest] = useStateWithLocalStorage('groupByQuest', true);
     const [onlyFoundInRaid, setOnlyFoundInRaid] = useStateWithLocalStorage('onlyFoundInRaid', true);
+    const dispatch = useDispatch();
+    const items = useSelector(selectAllItems);
+    const itemStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        if (itemStatus === 'idle') {
+          dispatch(fetchItems());
+        }
+    }, [itemStatus, dispatch]);
 
     const handleItemClick = useCallback((item, event) => {
         event.preventDefault();
@@ -80,7 +92,7 @@ function ItemTracker() {
 
                     return {
                         ...questItemData,
-                        ...Items[questItemData.id],
+                        ...items.find(item => item.id === questItemData.id),
                         onClick: handleItemClick,
                         questId: questData.questId,
                     };
@@ -104,7 +116,7 @@ function ItemTracker() {
                     }
                 />
             })
-    }, [onlyFoundInRaid, handleItemClick, questData, handleDoneClick]);
+    }, [onlyFoundInRaid, handleItemClick, questData, handleDoneClick, items]);
 
     return [
         <Helmet>

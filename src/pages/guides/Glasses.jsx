@@ -1,20 +1,11 @@
-import {useMemo} from 'react';
+import {useMemo, useEffect} from 'react';
 import {Helmet} from 'react-helmet';
+import { useSelector, useDispatch } from 'react-redux';
 
 import DataTable from '../../components/data-table';
-import items from '../../Items';
 import formatPrice from '../../modules/format-price';
 import ID from '../../components/ID.jsx';
-
-let displayItems = [];
-
-for(const item of Object.values(items)){
-    if(!item.types.includes('glasses')){
-        continue;
-    }
-
-    displayItems.push(item);
-}
+import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 
 const centerCell = ({ value }) => {
     return <div
@@ -25,6 +16,23 @@ const centerCell = ({ value }) => {
 };
 
 function Glasses(props) {
+    const dispatch = useDispatch();
+    const items = useSelector(selectAllItems);
+    const itemStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        if (itemStatus === 'idle') {
+          dispatch(fetchItems());
+        }
+    }, [itemStatus, dispatch]);
+
+    const displayItems = useMemo(
+        () => items.filter(item => item.types.includes('glasses')),
+        [items]
+    );
+
     const columns = useMemo(
         () => [
             {
@@ -95,7 +103,7 @@ function Glasses(props) {
             price: `${formatPrice(item.avg24hPrice)}`,
         };
     })
-    .filter(Boolean), [])
+    .filter(Boolean), [displayItems])
 
     return [<Helmet
         key = {'glasses-table'}

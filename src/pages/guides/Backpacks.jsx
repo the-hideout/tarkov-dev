@@ -1,21 +1,12 @@
-import {useMemo} from 'react';
+import {useMemo, useEffect} from 'react';
 import {Helmet} from 'react-helmet';
+import { useSelector, useDispatch } from 'react-redux';
 
 import CanvasGrid from '../../components/canvas-grid';
 import DataTable from '../../components/data-table';
-import items from '../../Items';
 import formatPrice from '../../modules/format-price';
 import ID from '../../components/ID.jsx';
-
-let displayItems = [];
-
-for(const item of Object.values(items)){
-    if(!item.types.includes('backpack')){
-        continue;
-    }
-
-    displayItems.push(item);
-}
+import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 
 const centerCell = ({ value }) => {
     return <div
@@ -42,6 +33,24 @@ const priceCell = ({ value }) => {
 };
 
 function Backpacks(props) {
+    const dispatch = useDispatch();
+    const items = useSelector(selectAllItems);
+    const itemStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        if (itemStatus === 'idle') {
+          dispatch(fetchItems());
+        }
+    }, [itemStatus, dispatch]);
+
+
+    const displayItems = useMemo(
+        () => items.filter(item => item.types.includes('backpack')),
+        [items]
+    );
+
     const columns = useMemo(
         () => [
             {
@@ -146,7 +155,7 @@ function Backpacks(props) {
             notes: item.notes,
         };
     })
-    .filter(Boolean), [])
+    .filter(Boolean), [displayItems])
 
     return [<Helmet
         key = {'backpacks-table'}

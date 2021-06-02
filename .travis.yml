@@ -6,13 +6,11 @@ jobs:
   include:
     - name: Build site
       script: |
-        npm run update-prices || travis_terminate 1;
         npm run build
       if: type = pull_request
 
     - name: Build & deploy site
       script: |
-        npm run update-prices || travis_terminate 1;
         npm run build
       deploy:
         provider: script

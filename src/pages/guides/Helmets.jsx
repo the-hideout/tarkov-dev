@@ -1,15 +1,16 @@
-import {useMemo} from 'react';
+import {useMemo, useEffect} from 'react';
 import {Helmet} from 'react-helmet';
 import Switch from 'react-switch';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import { useSelector, useDispatch } from 'react-redux';
 
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
-import items from '../../Items';
 import ID from '../../components/ID.jsx';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import ArrowIcon from '../../components/data-table/Arrow.js';
+import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 
 const materialDestructabilityMap = {
     'Aramid': 0.25,
@@ -49,16 +50,6 @@ const ricochetMap = (ricochetCoefficient) => {
     if(ricochetCoefficient < 1){
         return 'High';
     }
-}
-
-let displayItems = [];
-
-for(const item of Object.values(items)){
-    if(!item.types.includes('helmet')){
-        continue;
-    }
-
-    displayItems.push(item);
 }
 
 const centerCell = ({ value }) => {
@@ -109,6 +100,24 @@ function Helmets(props) {
     const handleArmorClassChange = (newValueLabel) => {
         setMinArmorClass(newValueLabel);
     };
+    const dispatch = useDispatch();
+    const items = useSelector(selectAllItems);
+    const itemStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        if (itemStatus === 'idle') {
+          dispatch(fetchItems());
+        }
+    }, [itemStatus, dispatch]);
+
+
+    const displayItems = useMemo(
+        () => items.filter(item => item.types.includes('helmet')),
+        [items]
+    );
+
     const columns = useMemo(
         () => [
             {
@@ -260,7 +269,7 @@ function Helmets(props) {
             wikiLink: item.wikiLink,
             itemLink: `/item/${item.normalizedName}`,
             subRows: item.linkedItems.map((linkedItemId) => {
-                const linkedItem = items[linkedItemId];
+                const linkedItem = items.find(item => item.id === linkedItemId);
                 return {
                     name: linkedItem.name,
                     armorClass: linkedItem.itemProperties.armorClass ? `${linkedItem.itemProperties.armorClass}/6` : '',
@@ -281,7 +290,7 @@ function Helmets(props) {
             }),
         }
     })
-    .filter(Boolean), [minArmorClass, includeBlockingHeadset, maxPrice])
+    .filter(Boolean), [minArmorClass, includeBlockingHeadset, maxPrice, displayItems, items])
 
     return [<Helmet
         key = {'helmet-table'}

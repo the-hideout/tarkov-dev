@@ -1,11 +1,13 @@
-import {useMemo, useState, useEffect, useRef} from 'react';
-import { useQuery } from 'use-http';
+import {useMemo, useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    Link,
+} from "react-router-dom";
 
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
 import fleaMarketFee from '../../modules/flea-market-fee';
-
-import Items from '../../Items';
+import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
 
 const fuelIds = [
     '5d1b371186f774253763a656', // Expeditionary fuel tank
@@ -47,11 +49,11 @@ function costItemsCell({ value }) {
                 <div
                     className = 'craft-cost-item-text-wrapper'
                 >
-                    <a
-                        href = {costItem.itemLink}
+                    <Link
+                        to = {costItem.itemLink}
                     >
                         {costItem.name}
-                    </a>
+                    </Link>
                     <div
                         className = 'price-wrapper'
                     >
@@ -66,69 +68,18 @@ function costItemsCell({ value }) {
 
 function CraftTable(props) {
     const {selectedStation, freeFuel, nameFilter, levelFilter = 3} = props;
-    const [crafts, setCrafts] = useState([]);
-	const { query } = useQuery`
-    {
-        crafts {
-          rewardItems {
-            item {
-              id
-              name
-              normalizedName
-              iconLink
-              imageLink
-              wikiLink
-              avg24hPrice
-              traderPrices {
-                  price
-              }
-            }
-            count
-          }
-          requiredItems {
-            item {
-              id
-              name
-              normalizedName
-              iconLink
-              imageLink
-              wikiLink
-              avg24hPrice
-            }
-            count
-          }
-          source
-          duration
+    const dispatch = useDispatch();
+
+    const crafts = useSelector(selectAllCrafts);
+    const craftsStatus = useSelector((state) => {
+        return state.crafts.status;
+    });
+
+    useEffect(() => {
+        if (craftsStatus === 'idle') {
+          dispatch(fetchCrafts());
         }
-    }`;
-
-	// aka componentDidMount
-	const mounted = useRef(false);
-
-	useEffect(() => {
-		if (mounted.current) {
-            return;
-        }
-
-		mounted.current = true;
-		initializeCrafts();
-	});
-
-	async function initializeCrafts() {
-        let crafts = [];
-        try {
-            const res = await query();
-            if (res.data && res.data.crafts) {
-                crafts = res.data.crafts;
-            }
-        } catch (loadError){
-            console.error(loadError);
-        }
-
-		if (crafts.length > 0) {
-            setCrafts(crafts);
-        }
-	}
+    }, [craftsStatus, dispatch]);
 
     const data = useMemo(() => {
         let addedStations = [];
@@ -220,7 +171,7 @@ function CraftTable(props) {
                 },
             };
 
-            tradeData.profit = Math.floor((craftRow.rewardItems[0].item.avg24hPrice * craftRow.rewardItems[0].count) - totalCost -  fleaMarketFee(Items[craftRow.rewardItems[0].item.id].basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.count));
+            tradeData.profit = Math.floor((craftRow.rewardItems[0].item.avg24hPrice * craftRow.rewardItems[0].count) - totalCost -  fleaMarketFee(craftRow.rewardItems[0].item.basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.rewardItems[0].count));
             tradeData.profitPerHour = Math.floor(tradeData.profit / (craftRow.duration / 3600));
 
             // If the reward has no value, it's not available for purchase
@@ -294,13 +245,13 @@ function CraftTable(props) {
                             className = 'craft-reward-info-wrapper'
                         >
                             <div>
-                                <a
+                                <Link
                                     className = 'craft-reward-item-title'
-                                    href={value.itemLink}
+                                    to = {value.itemLink}
 
                                 >
                                     {value.name}
-                                </a>
+                                </Link>
                             </div>
                             <div
                                 className = 'source-wrapper'
