@@ -148,16 +148,24 @@ function Item(props) {
                         </div>
                     </Tippy>
                     <div
-                        className = {`text-and-image-information-wrapper`}
+                        className = {`text-and-image-information-wrapper  price-info-wrapper`}
                     >
                         <div
                             className = 'price-wrapper'
                         >
-                            Change vs yesterday: {currentItemData.changeLast48h} %
+                            <div>
+                                Change vs yesterday: {currentItemData.changeLast48h} %
+                            </div>
+                            <div>
+                                Lowest scanned price last 24h: {formatPrice(currentItemData.low24hPrice)}
+                            </div>
+                            <div>
+                                Highetst scanned price last 24h: {formatPrice(currentItemData.high24hPrice)}
+                            </div>
                         </div>
                     </div>
                     <div
-                        className = {`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''}`}
+                        className = {`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''} first-trader-price`}
                     >
                         <img
                             alt = {currentItemData.traderName}

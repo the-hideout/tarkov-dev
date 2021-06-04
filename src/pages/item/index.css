@@ -73,6 +73,16 @@
     color: #c7c5b3;
 }
 
+.text-and-image-information-wrapper.price-info-wrapper {
+    align-items: center;
+    display: flex;
+    text-align: left;
+}
+
+.text-and-image-information-wrapper.first-trader-price {
+    margin-left: auto;
+}
+
 @media screen and (min-width: 900px) {
     .icon-and-link-wrapper {
         position: absolute;

@@ -30,6 +30,8 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
                 avg24hPrice
                 wikiLink
                 changeLast48h
+                low24hPrice
+                high24hPrice
                 traderPrices {
                     price
                     trader {
