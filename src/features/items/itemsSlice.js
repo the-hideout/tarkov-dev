@@ -29,6 +29,7 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
                 height
                 avg24hPrice
                 wikiLink
+                changeLast48h
                 traderPrices {
                     price
                     trader {
@@ -107,6 +108,12 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
             ...bestPrice(rawItem),
             grid: grid,
             notes: NOTES[rawItem.id],
+            traderPrices: rawItem.traderPrices.map(traderPrice => {
+                return {
+                    price: traderPrice.price,
+                    trader: traderPrice.trader.name,
+                };
+            }),
         };
     });
 });

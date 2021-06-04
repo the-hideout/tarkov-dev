@@ -141,10 +141,21 @@ function Item(props) {
                                         />
                                     </Tippy>
                                 }
-                                <span>{formatPrice(Math.min(currentItemData.avg24hPrice, currentItemData.bestPrice))}</span>
+                                <span>
+                                    {formatPrice(Math.min(currentItemData.avg24hPrice, currentItemData.bestPrice))}
+                                </span>
                             </div>
                         </div>
                     </Tippy>
+                    <div
+                        className = {`text-and-image-information-wrapper`}
+                    >
+                        <div
+                            className = 'price-wrapper'
+                        >
+                            Change vs yesterday: {currentItemData.changeLast48h} %
+                        </div>
+                    </div>
                     <div
                         className = {`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''}`}
                     >
@@ -159,6 +170,22 @@ function Item(props) {
                             {formatPrice(currentItemData.traderPrice)}
                         </div>
                     </div>
+                    {currentItemData.traderPrices.map((traderPrice) => {
+                        return <div
+                            className = {`text-and-image-information-wrapper`}
+                        >
+                            <img
+                                alt = {traderPrice.trader}
+                                src = {`${ process.env.PUBLIC_URL }/images/${traderPrice.trader.toLowerCase()}-icon.jpg`}
+                                // title = {`Sell ${currentItemData.name} on the Flea market`}
+                            />
+                            <div
+                                className = 'price-wrapper'
+                            >
+                                {formatPrice(traderPrice.price)}
+                            </div>
+                        </div>
+                    })}
                     <div
                         className = 'icon-and-link-wrapper'
                     >
