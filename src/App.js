@@ -84,7 +84,7 @@ function App() {
                         socket.terminate();
                     }
                     setSocketConnected(false);
-                }, 10000 + 1000);
+                }, 40000 + 1000);
             };
 
             socket.addEventListener('message', (rawMessage) => {
