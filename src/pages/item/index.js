@@ -181,6 +181,7 @@ function Item(props) {
                     {currentItemData.traderPrices.map((traderPrice) => {
                         return <div
                             className = {`text-and-image-information-wrapper`}
+                            key = {`${currentItemData.id}-trader-price-${traderPrice.trader}`}
                         >
                             <img
                                 alt = {traderPrice.trader}
