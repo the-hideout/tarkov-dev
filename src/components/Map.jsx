@@ -54,9 +54,10 @@ function Map() {
                 sourceLink = {sourceLink}
             />
             <TransformWrapper
-                defaultScale={1}
+                initialScale={1}
+                centerOnInit = {true}
                 wheel = {{
-                    step: 200,
+                    step: 0.2,
                 }}
             >
                 <TransformComponent>

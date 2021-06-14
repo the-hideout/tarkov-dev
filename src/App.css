@@ -114,7 +114,7 @@ cite {
 
 .map-image-wrapper {
     height: var(--display-height);
-    width: 100vw;
+    width: 98vw;
     display: flex;
     align-items: center;
     justify-content: center;
