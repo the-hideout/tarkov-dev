@@ -3,11 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     Link,
 } from "react-router-dom";
-
+import Tippy from '@tippyjs/react';
+import {followCursor} from 'tippy.js';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
 import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
+
+import './index.css';
 
 function priceCell({ value }) {
     return <div
@@ -22,6 +26,54 @@ function profitCell({ value }) {
         className = {`center-content ${value > 0 ? 'craft-profit' : 'craft-loss'}`}
     >
         {formatPrice(value)}
+    </div>;
+};
+
+function getItemCost(costItem) {
+    if(costItem.alternatePrice > 0 && costItem.alternatePrice < costItem.avg24hPrice){
+        return <Tippy
+            placement = 'bottom'
+            followCursor = {'horizontal'}
+            // showOnCreate = {true}
+            content={
+                <div
+                    className = 'barter-cost-with-barter-wrapper'
+                >
+                    <img
+                        alt = 'Icon'
+                        src = {`https://assets.tarkov-tools.com/${costItem.alternatePriceSource.requiredItems[0].item.id}-icon.jpg`}
+                    />
+                    <div
+                        className = 'barter-cost-barter-details-wrapper'
+                    >
+                        <div>
+                            {costItem.alternatePriceSource.requiredItems[0].item.name}
+                        </div>
+                        <div>
+                            {formatPrice(costItem.alternatePriceSource.requiredItems[0].item.avg24hPrice)}
+                        </div>
+                        <div>
+                            {costItem.alternatePriceSource.source}
+                        </div>
+                    </div>
+                </div>
+            }
+            plugins={[followCursor]}
+        >
+            <div>
+                <span className = 'barter-cost-item-count-wrapper'>
+                    {costItem.count}
+                </span> X <img
+                    alt = 'Barter'
+                    className = 'barter-icon'
+                    src = {`${ process.env.PUBLIC_URL }/images/icon-barter.png`}
+                />{formatPrice(costItem.avg24hPrice)} = {formatPrice(costItem.count * (costItem.alternatePrice || costItem.avg24hPrice))}
+            </div>
+        </Tippy>
+    }
+
+    return <div>
+        <span className = 'barter-cost-item-count-wrapper'>{costItem.count} </span> X {formatPrice(costItem.avg24hPrice)} = {formatPrice(costItem.count * (costItem.alternatePrice || costItem.avg24hPrice))}
     </div>;
 };
 
@@ -59,13 +111,38 @@ function costItemsCell({ value }) {
                     <div
                         className = 'price-wrapper'
                     >
-                        <span className = 'barter-cost-item-count-wrapper'>{costItem.count}</span> X {formatPrice(costItem.avg24hPrice)} = {formatPrice(costItem.count * costItem.avg24hPrice)}
-                        {/* {formatPrice(costItem.avg24hPrice)} */}
+                        {getItemCost(costItem)}
                     </div>
                 </div>
             </div>
         })}
     </div>;
+};
+
+function getAlternatePriceSource(item, barters) {
+    let alternatePrice = false;
+
+    for(const barter of barters){
+        if(barter.rewardItems.length > 1){
+            continue;
+        }
+
+        if(barter.requiredItems.length > 1){
+            continue;
+        }
+
+        if(barter.rewardItems[0].count !== barter.requiredItems[0].count){
+            continue;
+        }
+
+        if(barter.rewardItems[0].item.id !== item.id){
+            continue;
+        }
+
+        alternatePrice = barter;
+    }
+
+    return alternatePrice;
 };
 
 function BartersTable(props) {
@@ -226,7 +303,15 @@ function BartersTable(props) {
                             return false;
                         }
 
-                        const requiredItemPrice = requiredItem.item.avg24hPrice || Math.max(...requiredItem.item.traderPrices.map(priceObject => priceObject.price))
+                        let requiredItemPrice = requiredItem.item.avg24hPrice || Math.max(...requiredItem.item.traderPrices.map(priceObject => priceObject.price))
+
+                        const alternatePriceSource = getAlternatePriceSource(requiredItem.item, barters);
+                        let alternatePrice = 0;
+
+                        if(alternatePriceSource){
+                            alternatePrice = alternatePriceSource.requiredItems[0].item.avg24hPrice;
+                            requiredItemPrice = alternatePrice;
+                        }
 
                         cost = cost + requiredItemPrice * requiredItem.count;
 
@@ -241,6 +326,8 @@ function BartersTable(props) {
                             iconLink: requiredItem.item.iconLink,
                             wikiLink: requiredItem.item.wikiLink,
                             itemLink: `/item/${requiredItem.item.normalizedName}`,
+                            alternatePrice: alternatePrice,
+                            alternatePriceSource: alternatePriceSource,
                         };
                     })
                     .filter(Boolean),

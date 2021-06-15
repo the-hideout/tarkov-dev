@@ -72,6 +72,14 @@
     border: 1px solid #4a5154;
 }
 
+img.barter-icon {
+    border: 0;
+    position: relative;
+    top: 2px;
+    width: 14px;
+    margin-right: 3px;
+}
+
 .craft-cost-item-text-wrapper {
     flex-grow: 1;
     white-space: nowrap;

@@ -1,0 +1,11 @@
+.barter-cost-with-barter-wrapper {
+    display: flex;
+}
+
+.barter-cost-with-barter-wrapper img {
+    margin-right: 10px;
+}
+
+.barter-cost-barter-details-wrapper > div {
+    line-height: 20px;
+}
