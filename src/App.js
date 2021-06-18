@@ -202,7 +202,7 @@ function App() {
                 >
                     <Helmet>
                         <meta charSet="utf-8" />
-                        <title>Tarkov Ammo</title>
+                        <title>Tarkov Ammo Chart</title>
                         <meta
                             name="description"
                             content="Visualization of all ammo types in Escape from Tarkov"
