@@ -233,6 +233,11 @@ cite {
     margin-right: 8px;
 }
 
+.table-wrapper {
+    max-width: 100%;
+    overflow-x: scroll;
+}
+
 @media screen and (min-width: 710px){
 
     .id-wrapper {

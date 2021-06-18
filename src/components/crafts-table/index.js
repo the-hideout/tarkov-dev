@@ -402,14 +402,18 @@ function CraftTable(props) {
         </div>;
     }
 
-    return <DataTable
-        columns = {columns}
-        key = 'crafts-table'
-        data = {data}
-        sortBy = {'profit'}
-        sortByDesc = {true}
-        autoResetSortBy = {false}
-    />
+    return <div
+        className = 'table-wrapper'
+    >
+        <DataTable
+            columns = {columns}
+            key = 'crafts-table'
+            data = {data}
+            sortBy = {'profit'}
+            sortByDesc = {true}
+            autoResetSortBy = {false}
+        />
+    </div>
 }
 
 export default CraftTable;
