@@ -18,6 +18,10 @@
     margin-right: 10px;
 }
 
+.icon-and-link-wrapper img {
+    max-height: 200px;
+}
+
 .icon-and-link-wrapper a {
     display: block;
     text-align: right;
@@ -26,6 +30,11 @@
 
 .information-grid {
     display: flex;
+}
+
+.information-grid h1,
+.icon-and-link-wrapper {
+    margin: 20px 0 0 0;
 }
 
 .tooltip-calculation {
@@ -84,7 +93,7 @@
 }
 
 @media screen and (min-width: 900px) {
-    .icon-and-link-wrapper {
+    /* .icon-and-link-wrapper {
         position: absolute;
-    }
+    } */
 }

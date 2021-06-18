@@ -84,13 +84,34 @@ function Item(props) {
             <div
                 className = {'item-page-wrapper'}
             >
-                <h1>
-                    {currentItemData.name}
+                <div
+                    className = 'information-grid'
+                >
+                    <h1>
+                        {currentItemData.name}
+                        <cite>
+                            {currentItemData.shortName}
+                        </cite>
+                    </h1>
+                    <div
+                        className = 'icon-and-link-wrapper'
+                    >
+                        {currentItemData.grid && <CanvasGrid
+                            height = {currentItemData.grid.height}
+                            grid = {currentItemData.grid.pockets}
+                            width = {currentItemData.grid.width}
+                        />}
+                        <img
+                            className = {'item-image'}
+                            alt = {currentItemData.name}
+                            src = {`https://assets.tarkov-tools.com/${currentItemData.id}-grid-image.jpg`}
+                        />
+                        <a
+                            href={currentItemData.wikiLink}
+                        >Wiki</a>
+                    </div>
 
-                    <cite>
-                        {currentItemData.shortName}
-                    </cite>
-                </h1>
+                </div>
                 <h2>
                     Sells for
                 </h2>
@@ -195,23 +216,6 @@ function Item(props) {
                             </div>
                         </div>
                     })}
-                    <div
-                        className = 'icon-and-link-wrapper'
-                    >
-                        {currentItemData.grid && <CanvasGrid
-                            height = {currentItemData.grid.height}
-                            grid = {currentItemData.grid.pockets}
-                            width = {currentItemData.grid.width}
-                        />}
-                        <img
-                            className = {'item-image'}
-                            alt = {currentItemData.name}
-                            src = {`https://assets.tarkov-tools.com/${currentItemData.id}-grid-image.jpg`}
-                        />
-                        <a
-                            href={currentItemData.wikiLink}
-                        >Wiki</a>
-                    </div>
                 </div>
                 <div>
                     <h2>
