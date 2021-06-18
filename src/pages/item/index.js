@@ -185,20 +185,22 @@ function Item(props) {
                             </div>
                         </div>
                     </div>
-                    <div
-                        className = {`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''} first-trader-price`}
-                    >
-                        <img
-                            alt = {currentItemData.traderName}
-                            src = {`${ process.env.PUBLIC_URL }/images/${currentItemData.traderName.toLowerCase()}-icon.jpg`}
-                            // title = {`Sell ${currentItemData.name} on the Flea market`}
-                        />
+                    {currentItemData.traderPrices.length > 0 &&
                         <div
-                            className = 'price-wrapper'
+                            className = {`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''} first-trader-price`}
                         >
-                            {formatPrice(currentItemData.traderPrice)}
+                            <img
+                                alt = {currentItemData.traderName}
+                                src = {`${ process.env.PUBLIC_URL }/images/${currentItemData.traderName.toLowerCase()}-icon.jpg`}
+                                // title = {`Sell ${currentItemData.name} on the Flea market`}
+                            />
+                            <div
+                                className = 'price-wrapper'
+                            >
+                                {formatPrice(currentItemData.traderPrice)}
+                            </div>
                         </div>
-                    </div>
+                    }
                     {currentItemData.traderPrices.map((traderPrice) => {
                         return <div
                             className = {`text-and-image-information-wrapper`}
