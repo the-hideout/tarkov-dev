@@ -238,6 +238,12 @@ cite {
     overflow-x: scroll;
 }
 
+@media screen and (min-width: 900px) {
+    .table-wrapper {
+        overflow-x: initial;
+    }
+}
+
 @media screen and (min-width: 710px){
 
     .id-wrapper {
