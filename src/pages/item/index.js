@@ -15,6 +15,7 @@ import QuestsList from '../../components/quests-list'
 import CanvasGrid from '../../components/canvas-grid';
 import warningIcon from '../../images/icon-warning.png';
 import ErrorPage from '../../components/error-page';
+import Loading from '../../components/loading';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
@@ -57,7 +58,11 @@ function Item(props) {
             });
     }, [currentItemData]);
 
-    if(!currentItemData){
+    if(!currentItemData && (itemStatus === 'idle' || itemStatus === 'loading')){
+        return <Loading />;
+    }
+
+    if(!currentItemData && (itemStatus === 'succeeded' || itemStatus === 'failed')){
         return <ErrorPage />;
     }
 

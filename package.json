@@ -20,6 +20,7 @@
     "react-dom": "^17.0.1",
     "react-favicon": "^0.0.23",
     "react-helmet": "^6.1.0",
+    "react-loader-spinner": "^4.0.0",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.0",
