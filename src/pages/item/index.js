@@ -40,9 +40,13 @@ function Item(props) {
         }
       }, [itemStatus, dispatch]);
 
-    const currentItemData = items.find(item => {
+    let currentItemData = items.find(item => {
         return item.normalizedName === itemName;
     });
+
+    if(!currentItemData){
+        currentItemData = items.find(item => item.id === itemName);
+    }
 
     const itemQuests = useMemo(() => {
         return Quests
@@ -71,6 +75,10 @@ function Item(props) {
             <meta
                 name="description"
                 content= {`All the relevant information about ${currentItemData.name}`}
+            />
+            <link
+                rel = 'canonical'
+                href = {`https://tarkov-tools.com/item/${currentItemData.normalizedName}`}
             />
         </Helmet>,
         <Favicon
