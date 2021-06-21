@@ -59,7 +59,7 @@
 
 .text-and-image-information-wrapper:first-child {
     margin-left: 0;
-    flex-basis: 20%;
+    flex-basis: 0%;
 }
 
 .text-and-image-information-wrapper img {
