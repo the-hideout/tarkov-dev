@@ -10,7 +10,7 @@ const getQuestList = (questList) => {
             key = {`quest-list-${questData.name}`}
         >
             <a
-                href = {questData.wikiLink}
+                href = {`https://tarkovtracker.io/quest/${questData.id}/`}
             >
                 {questData.name}
             </a>

@@ -1,4 +1,4 @@
-import {useState, useRef} from 'react';
+import {useState} from 'react';
 import {
     Link
 } from "react-router-dom";
@@ -19,21 +19,13 @@ const ammoTypes = [...new Set(ammoData.data.map((ammoData) => {
 
 const Menu = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const navEl = useRef(null);
     const handleMenuClick = () => {
         setIsOpen(!isOpen);
     };
 
-    let viewableHeight = window.innerHeight - navEl.current?.offsetHeight || 0;
-    if(viewableHeight < 100){
-        viewableHeight = window.innerHeight;
-    }
-    document.documentElement.style.setProperty('--display-height', `${viewableHeight}px`);
-
     return <nav
             key = 'main-navigation'
             className = "navigation"
-            ref={navEl}
         >
             <Link
                 className = "branding"

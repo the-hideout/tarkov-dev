@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import {
     useParams,
 } from 'react-router-dom';
@@ -27,12 +28,25 @@ function Map() {
         currentMap = 'customs';
     }
 
+    useEffect(() => {
+        let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
+        if(viewableHeight < 100){
+            viewableHeight = window.innerHeight;
+        }
+
+        document.documentElement.style.setProperty('--display-height', `${viewableHeight}px`);
+
+        return function cleanup() {
+            document.documentElement.style.setProperty('--display-height', `auto`);
+        };
+    });
+
     if(!maps[currentMap]){
         return <ErrorPage />;
     }
 
     const { displayText, image, source, sourceLink } = maps[currentMap];
-    const infoString = `Escape from Tarkov ${displayText} map`
+    const infoString = `Escape from Tarkov ${displayText} map`;
 
     return [
         <Helmet>

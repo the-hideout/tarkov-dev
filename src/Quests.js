@@ -49,7 +49,7 @@ export const Maps = {
 
 export const Quests = rawData.data.map((questData) => {
   return {
-    id: questData.id,
+    id: questData.questId,
     name: questData.name,
     wikiLink: 'https://escapefromtarkov.gamepedia.com/The_Punisher_-_Part_2',
     giver: Traders[questData.traderId],
