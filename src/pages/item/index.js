@@ -3,7 +3,6 @@ import {Helmet} from 'react-helmet';
 import {
     useParams,
 } from "react-router-dom";
-import Favicon from 'react-favicon';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useSelector, useDispatch } from 'react-redux';
@@ -86,10 +85,6 @@ function Item(props) {
                 href = {`https://tarkov-tools.com/item/${currentItemData.normalizedName}`}
             />
         </Helmet>,
-        <Favicon
-            key = {'item-favicon'}
-            url={`https://assets.tarkov-tools.com/${currentItemData.id}-icon.jpg`}
-        />,
         <div
             className="display-wrapper"
             key = {'display-wrapper'}
