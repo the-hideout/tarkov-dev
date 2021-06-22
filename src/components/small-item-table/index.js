@@ -47,6 +47,7 @@ function SmallItemTable(props) {
                 shortName: itemData.shortName,
                 normalizedName: itemData.normalizedName,
                 avg24hPrice: itemData.avg24hPrice,
+                lastLowPrice: itemData.lastLowPrice,
                 iconLink: `https://assets.tarkov-tools.com/${itemData.id}-icon.jpg`,
                 itemLink: `/item/${itemData.normalizedName}`,
             }
@@ -98,7 +99,7 @@ function SmallItemTable(props) {
             },
             {
                 Header: 'Cost ₽',
-                accessor: d => Number(d.avg24hPrice),
+                accessor: d => Number(d.lastLowPrice),
                 Cell: priceCell,
                 id: 'cost',
             },
