@@ -32,6 +32,7 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
                 changeLast48h
                 low24hPrice
                 high24hPrice
+                lastLowPrice
                 traderPrices {
                     price
                     trader {

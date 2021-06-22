@@ -65,7 +65,7 @@ function Item(props) {
         return <ErrorPage />;
     }
 
-    const traderIsBest = currentItemData.traderPrice > currentItemData.avg24hPrice - fleaFee(currentItemData.avg24hPrice, currentItemData.basePrice) ? true : false;
+    const traderIsBest = currentItemData.traderPrice > currentItemData.lastLowPrice - fleaFee(currentItemData.avg24hPrice, currentItemData.basePrice) ? true : false;
     const useFleaPrice = currentItemData.avg24hPrice <= currentItemData.bestPrice;
 
     return [
@@ -133,17 +133,17 @@ function Item(props) {
                             <div
                                 className = 'tooltip-calculation'
                             >
-                                Best price to sell for <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.avg24hPrice) : formatPrice(currentItemData.bestPrice)}</div>
+                                Best price to sell for <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice) : formatPrice(currentItemData.bestPrice)}</div>
                             </div>
                             <div
                                 className = 'tooltip-calculation'
                             >
-                                Fee <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(fleaFee(currentItemData.avg24hPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPriceFee)}</div>
+                                Fee <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPriceFee)}</div>
                             </div>
                             <div
                                 className = 'tooltip-calculation'
                             >
-                                Profit <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.avg24hPrice - fleaFee(currentItemData.avg24hPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}</div>
+                                Profit <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice - fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}</div>
                             </div>
                         </div>
                     }>
@@ -160,7 +160,7 @@ function Item(props) {
                             >
                                 {!useFleaPrice && <Tippy
                                     placement = 'bottom'
-                                    content={ <div>This item is currently being sold for {formatPrice(currentItemData.avg24hPrice)} on the Flea Market.
+                                    content={ <div>This item is currently being sold for {formatPrice(currentItemData.lastLowPrice)} on the Flea Market.
                             However, due to how fees are calculated you're better off selling for {formatPrice(currentItemData.bestPrice)}</div>}
                                     >
                                         <img
@@ -171,7 +171,7 @@ function Item(props) {
                                     </Tippy>
                                 }
                                 <span>
-                                    {formatPrice(Math.min(currentItemData.avg24hPrice, currentItemData.bestPrice))}
+                                    {formatPrice(useFleaPrice ? currentItemData.lastLowPrice : currentItemData.bestPrice)}
                                 </span>
                             </div>
                         </div>
