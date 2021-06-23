@@ -56,8 +56,9 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
 
     return itemData.data.itemsByType.map((rawItem) => {
         let grid = false;
-        rawItem.itemProperties = itemProps[rawItem.id].itemProperties;
-        rawItem.linkedItems = itemProps[rawItem.id].linkedItems;
+
+        rawItem.itemProperties = itemProps[rawItem.id]?.itemProperties || {};
+        rawItem.linkedItems = itemProps[rawItem.id]?.linkedItems || {};
 
         if(itemProps[rawItem.id]?.hasGrid){
             let gridPockets = [{
