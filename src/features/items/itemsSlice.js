@@ -103,7 +103,7 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
         return {
             ...rawItem,
             fee: calculateFee(rawItem.avg24hPrice, rawItem.basePrice),
-            wikiLink: `https://escapefromtarkov.fandom.com/wiki/${rawItem.wikiLink.replace('https://escapefromtarkov.gamepedia.com/', '').replace('https://escapefromtarkov.fandom.com/wiki/', '')}`,
+            wikiLink: `https://escapefromtarkov.fandom.com/wiki/${rawItem?.wikiLink.replace('https://escapefromtarkov.gamepedia.com/', '').replace('https://escapefromtarkov.fandom.com/wiki/', '')}`,
             imgLink: `https://assets.tarkov-tools.com/${rawItem.id}-grid-image.jpg`,
             slots: rawItem.width * rawItem.height,
             traderPrice: bestTraderPrice?.price || 0,
