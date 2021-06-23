@@ -25,7 +25,7 @@
     flex-grow: 1;
     font-size: 34px;
     line-height: 1;
-    margin: 1em 0.5em;
+    margin: 0 0 7px;
     padding: 0;
     text-decoration: none;
     text-transform: uppercase;
@@ -52,8 +52,8 @@
 .menu span {
     padding: 0;
     display: block;
-    margin: 0 5px;
     text-align: right;
+    margin-top: auto;
 }
 
 .mobile-icon {
@@ -73,7 +73,7 @@
 
 .branding {
     border-radius: 3px;
-    margin: 0 10px;
+    margin: 0 30px 0 10px;
     padding: 1px 8px;
 }
 
@@ -85,6 +85,7 @@
     background-color: #000;
     border-radius: 3px;
     position: relative;
+    margin: auto 10px 0 0;
 }
 
 .menu .submenu-wrapper ul {
@@ -146,6 +147,7 @@
 .menu .last-link {
     position: relative;
     margin-left: auto;
+    margin-top: auto;
 }
 
 .menu svg {
@@ -187,8 +189,7 @@
 
     .menu {
         display: flex;
-        font-size: 24px;
-        margin: 14px;
+        font-size: 20px;
         width: auto;
     }
 
