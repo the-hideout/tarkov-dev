@@ -1,22 +1,24 @@
-import { useTable, useSortBy, useExpanded } from 'react-table';
+import { useTable, useSortBy, useExpanded, usePagination } from 'react-table';
 // import {ReactComponent as ArrowIcon} from './Arrow.js';
 import ArrowIcon from './Arrow.js';
 
 import './index.css';
 
-function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, className }) {
+function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, className, maxItems }) {
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
     const {
         getTableProps,
         getTableBodyProps,
         headerGroups,
+        page,
         rows,
         prepareRow,
     } = useTable({
         columns,
         data,
         initialState: {
+            pageSize: maxItems,
             sortBy: [
                 {
                     id: sortBy,
@@ -25,7 +27,40 @@ function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, classNa
             ],
         },
         autoResetSortBy: autoResetSortBy,
-    }, useSortBy, useExpanded);
+    }, useSortBy, useExpanded, usePagination);
+
+    const getRows = () => {
+        let rowContainer = rows;
+
+        if(maxItems){
+            rowContainer = page;
+        }
+
+        return rowContainer.map((row, i) => {
+            prepareRow(row);
+            const tableProps = row.getRowProps();
+
+            tableProps.className = `${row.isExpanded || row.depth === 1 ? 'expanded' : ''}`
+            return (
+                <tr
+                    {
+                        ...tableProps
+                    }
+                >
+                    {row.cells.map(cell => {
+                        return <td
+                            className = {'data-cell'}
+                            {
+                                ...cell.getCellProps()
+                            }
+                        >
+                            {cell.render('Cell')}
+                        </td>
+                    })}
+                </tr>
+            )
+        })
+    };
 
     // Render the UI for your table
     return (
@@ -65,30 +100,9 @@ function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, classNa
                 ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-                {rows.map((row, i) => {
-                    prepareRow(row);
-                    const tableProps = row.getRowProps();
-
-                    tableProps.className = `${row.isExpanded || row.depth === 1 ? 'expanded' : ''}`
-                    return (
-                        <tr
-                            {
-                                ...tableProps
-                            }
-                        >
-                            {row.cells.map(cell => {
-                                return <td
-                                    className = {'data-cell'}
-                                    {
-                                        ...cell.getCellProps()
-                                    }
-                                >
-                                    {cell.render('Cell')}
-                                </td>
-                            })}
-                        </tr>
-                    )
-                })}
+                {
+                    getRows()
+                }
             </tbody>
         </table>
     );
