@@ -1,8 +1,5 @@
 import {useMemo, useEffect} from 'react';
 import {Helmet} from 'react-helmet';
-import Switch from 'react-switch';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
 import { useSelector, useDispatch } from 'react-redux';
 
 import DataTable from '../../components/data-table';
@@ -11,6 +8,7 @@ import ID from '../../components/ID.jsx';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import ArrowIcon from '../../components/data-table/Arrow.js';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
+import {Filter, ToggleFilter, SliderFilter, InputFilter} from '../../components/filter';
 
 const materialDestructabilityMap = {
     'Aramid': 0.25,
@@ -310,71 +308,30 @@ function Helmets(props) {
         className="display-wrapper"
         key = {'display-wrapper'}
     >
-        <div
-            className = 'data-table-filters-wrapper'
+        <Filter
+            center
         >
-            <label
-                className = {'filter-toggle-wrapper'}
-            >
-                <div
-                    className = {'filter-toggle-label'}
-                >
-                    Show blocking headset
-                </div>
-                <Switch
-                    className = {'filter-toggle'}
+                <ToggleFilter
+                    label = 'Show blockin headset'
                     onChange = {e => setIncludeBlockingHeadset(!includeBlockingHeadset)}
                     checked = {includeBlockingHeadset}
                 />
-            </label>
-            <div
-                className = {'filter-slider-wrapper'}
-            >
-                <div
-                    className = {'filter-slider-label'}
-                >
-                    Min armor class
-                </div>
-                <Slider
+                <SliderFilter
                     defaultValue = {minArmorClass}
+                    label = 'Min armor class'
                     min = {1}
                     max = {6}
                     marks = {marks}
                     onChange = {handleArmorClassChange}
-                    trackStyle = {{
-                        backgroundColor: '#048802',
-                    }}
-                    handleStyle = {{
-                        backgroundColor: '#048802',
-                        borderColor: '#048802',
-                    }}
-                    activeDotStyle = {{
-                        backgroundColor: '#048802',
-                        borderColor: '#048802',
-                    }}
-                    reverse
-                    style = {{
-                        top: '-7px',
-                        width: '170px',
-                    }}
                 />
-            </div>
-            <div
-                className = 'filter-input-wrapper'
-            >
-                <div
-                    className = 'filter-input-label'
-                >
-                    Max price
-                </div>
-                <input
+                <InputFilter
+                    label = 'Max price'
                     defaultValue = {maxPrice || ''}
                     type = {'number'}
                     placeholder = {'max price'}
                     onChange = {e => setMaxPrice(Number(e.target.value))}
                 />
-            </div>
-        </div>
+        </Filter>
         <DataTable
             columns={columns}
             data={data}

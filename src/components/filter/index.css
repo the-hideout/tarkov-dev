@@ -87,7 +87,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 305px;
 }
 
 .filter-input {
@@ -96,6 +95,10 @@
 
 .basic-multi-select {
     min-width: 110px;
+}
+
+.rc-slicer {
+    margin-left: 20px;
 }
 
 @media screen and (min-width: 710px){
