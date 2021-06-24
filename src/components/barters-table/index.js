@@ -397,15 +397,11 @@ function BartersTable(props) {
         </div>;
     }
 
-    return <div
-        className = 'table-wrapper'
-    >
-        <DataTable
-            columns={columns}
-            key = 'barters-table'
-            data={data}
-        />
-    </div>;
+    return <DataTable
+        columns={columns}
+        key = 'barters-table'
+        data={data}
+    />;
 };
 
 export default BartersTable;

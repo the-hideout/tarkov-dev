@@ -307,7 +307,7 @@ function Helmets(props) {
         />
     </Helmet>,
     <div
-        className="display-wrapper data-wrapper"
+        className="display-wrapper"
         key = {'display-wrapper'}
     >
         <div

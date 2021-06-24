@@ -68,11 +68,6 @@ cite {
     position: relative;
 }
 
-.display-wrapper.data-wrapper {
-    height: auto;
-    overflow-x: scroll;
-}
-
 .page-wrapper {
     max-width: 1200px;
     margin: 0 10px;
@@ -231,17 +226,6 @@ cite {
 .screen-link {
     margin-left: 8px;
     margin-right: 8px;
-}
-
-.table-wrapper {
-    max-width: 100%;
-    overflow-x: scroll;
-}
-
-@media screen and (min-width: 900px) {
-    .table-wrapper {
-        overflow-x: initial;
-    }
 }
 
 @media screen and (min-width: 710px){

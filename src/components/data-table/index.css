@@ -78,3 +78,14 @@ div.no-data-info {
     display: flex;
     justify-content: center;
 }
+
+.table-wrapper {
+    max-width: 100%;
+    overflow-x: scroll;
+}
+
+@media screen and (min-width: 900px) {
+    .table-wrapper {
+        overflow-x: initial;
+    }
+}

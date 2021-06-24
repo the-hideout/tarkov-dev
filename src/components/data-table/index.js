@@ -64,47 +64,51 @@ function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, classNa
 
     // Render the UI for your table
     return (
-        <table
-            className = {`data-table ${className}`}
-            {
-                ...getTableProps()
-            }
+        <div
+        className = 'table-wrapper'
         >
-            <thead>
-                {headerGroups.map(headerGroup => (
-                    <tr {
-                        ...headerGroup.getHeaderGroupProps()
-                        }
-                    >
-                        {headerGroup.headers.map(column => (
-                            <th {
-                                ...column.getHeaderProps(column.getSortByToggleProps())
-                            }>
-                                <span
-                                    className = {'header-text'}
-                                >
-                                    {column.render('Header')}
-                                </span>
-                                {/* Add a sort direction indicator */}
-                                <div
-                                    className = {'header-sort-icon'}
-                                    style = {{
-                                        // marginLeft: '2px',
-                                    }}
-                                >
-                                    {column.isSorted ? column.isSortedDesc ? <ArrowIcon/> : <ArrowIcon className = {'arrow-up'} /> : <div className = { 'arrow-placeholder' } />}
-                                </div>
-                            </th>
-                        ))}
-                    </tr>
-                ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
+            <table
+                className = {`data-table ${className}`}
                 {
-                    getRows()
+                    ...getTableProps()
                 }
-            </tbody>
-        </table>
+            >
+                <thead>
+                    {headerGroups.map(headerGroup => (
+                        <tr {
+                            ...headerGroup.getHeaderGroupProps()
+                            }
+                        >
+                            {headerGroup.headers.map(column => (
+                                <th {
+                                    ...column.getHeaderProps(column.getSortByToggleProps())
+                                }>
+                                    <span
+                                        className = {'header-text'}
+                                    >
+                                        {column.render('Header')}
+                                    </span>
+                                    {/* Add a sort direction indicator */}
+                                    <div
+                                        className = {'header-sort-icon'}
+                                        style = {{
+                                            // marginLeft: '2px',
+                                        }}
+                                    >
+                                        {column.isSorted ? column.isSortedDesc ? <ArrowIcon/> : <ArrowIcon className = {'arrow-up'} /> : <div className = { 'arrow-placeholder' } />}
+                                    </div>
+                                </th>
+                            ))}
+                        </tr>
+                    ))}
+                </thead>
+                <tbody {...getTableBodyProps()}>
+                    {
+                        getRows()
+                    }
+                </tbody>
+            </table>
+        </div>
     );
 }
 
