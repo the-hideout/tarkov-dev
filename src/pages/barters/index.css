@@ -3,11 +3,13 @@
     align-items: center;
     max-width: 1200px;
     margin: auto;
+    white-space: nowrap;
 }
 
 .barters-page-title {
     margin: 0;
     flex-grow: 1;
+    text-align: center;
 }
 
 .cost-wrapper {
@@ -66,4 +68,10 @@
 .barter-cost-item-text-wrapper {
     flex-grow: 1;
     white-space: nowrap;
+}
+
+@media screen and (min-width: 710px) {
+    .barters-page-title {
+        text-align: left;
+    }
 }
