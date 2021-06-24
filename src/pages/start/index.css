@@ -38,12 +38,6 @@
     max-width: 100%;
 }
 
-@media screen and (min-width: 800px){
-    .start-section-wrapper {
-        width: 50%;
-    }
-}
-
 @media screen and (min-width: 1220px){
     .start-section-wrapper img {
         max-width: 256px;
@@ -51,5 +45,9 @@
 
     .start-section-wrapper {
         width: 24%;
+    }
+
+    .item-section {
+        width: 74%;
     }
 }

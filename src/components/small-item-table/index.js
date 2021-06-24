@@ -50,6 +50,7 @@ function SmallItemTable(props) {
                 lastLowPrice: itemData.lastLowPrice,
                 iconLink: `https://assets.tarkov-tools.com/${itemData.id}-icon.jpg`,
                 itemLink: `/item/${itemData.normalizedName}`,
+                instaProfit: itemData.lastLowPrice ? (itemData.traderPrice - itemData.lastLowPrice) : 0,
             }
         })
         .filter(item => {
@@ -63,9 +64,9 @@ function SmallItemTable(props) {
             shuffleArray(returnData);
         }
 
-        return returnData.slice(0, maxItems);
+        return returnData;
     },
-        [nameFilter, maxItems, defaultRandom, items]
+        [nameFilter, defaultRandom, items]
     );
 
     const columns = useMemo(
@@ -103,6 +104,24 @@ function SmallItemTable(props) {
                 Cell: priceCell,
                 id: 'cost',
             },
+            {
+                Header: 'InstaProfit',
+                accessor: d => Number(d.instaProfit),
+                Cell: priceCell,
+                id: 'instaProfit',
+                sortDescFirst: true,
+                sortType: (a, b) => {
+                    if(a.values.instaProfit > b.values.instaProfit){
+                        return 1;
+                    }
+
+                    if(a.values.instaProfit < b.values.instaProfit){
+                        return -1;
+                    }
+
+                    return 0;
+                },
+            },
         ],
         []
     );
@@ -121,6 +140,7 @@ function SmallItemTable(props) {
         // sortBy = {'profit'}
         // sortByDesc = {true}
         autoResetSortBy = {false}
+        maxItems = {maxItems}
     />
 }
 

@@ -56,7 +56,7 @@ function Item(props) {
             key = {'display-wrapper'}
         >
             <div
-                className = 'start-section-wrapper'
+                className = 'start-section-wrapper item-section'
             >
                 {/* <h3>
                     Items
@@ -68,7 +68,7 @@ function Item(props) {
                     placeholder = 'Search...'
                 />
                 <SmallItemTable
-                    maxItems = {8}
+                    maxItems = {15}
                     nameFilter = {nameFilter}
                     defaultRandom = {true}
                 />
@@ -103,10 +103,6 @@ function Item(props) {
                         src = {`${process.env.PUBLIC_URL}/images/ammo-chart-thumbnail.jpg`}
                     />
                 </Link>
-            </div>
-            <div
-                className = 'start-section-wrapper'
-            >
                 <h3>
                     <Icon
                         path={mdiHammerWrench}
@@ -172,44 +168,6 @@ function Item(props) {
                         </li>;
                     })}
                 </ul>
-
-            </div>
-            <div
-                className = 'start-section-wrapper'
-                >
-                {/* <h3>
-                    Gear charts
-                </h3> */}
-                {/* <ul>
-                    <li>
-                        <Link
-                            to = '/gear/armor'
-                        >
-                            Armor chart
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            to = '/gear/backpacks'
-                        >
-                            Backpack chart
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            to = '/gear/helmets'
-                        >
-                            Helmets chart
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            to = '/gear/glasses'
-                        >
-                            Glasses chart
-                        </Link>
-                    </li>
-                </ul> */}
                 <Link
                     to = {`/gear/armor`}
                 >
