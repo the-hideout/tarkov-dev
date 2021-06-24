@@ -1,3 +1,10 @@
+.barters-headline-wrapper {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+}
+
 .barters-page-title {
     margin: 0;
     flex-grow: 1;

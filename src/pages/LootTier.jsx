@@ -347,6 +347,7 @@ function LootTier(props) {
                     defaultValue = {filters.types?.map(filter => {
                         return filterOptions.find(defaultFilter => defaultFilter.value === filter);
                     })}
+                    isMulti
                     options = {filterOptions}
                     onChange = {handleFilterChange}
                 />

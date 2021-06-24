@@ -3,10 +3,39 @@ import Switch from 'react-switch';
 import Select from 'react-select';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import FilterIcon from '../FilterIcon.jsx';
 
 import './index.css';
+
+const ConditionalWrapper = ({ condition, wrapper, children }) => {
+    return condition ? wrapper(children) : children;
+};
+
+function ButtonGroupFilterButton ({tooltipContent, onClick, content, selected}) {
+    return <Tippy
+        placement = 'top'
+        content={tooltipContent}
+    >
+        <button
+            className = {`button-group-button ${selected ? 'selected': ''}`}
+
+            onClick={onClick}
+        >
+            {content}
+        </button>
+    </Tippy>
+};
+
+function ButtonGroupFilter ({children}) {
+    return <div
+        className = 'button-group-wrapper'
+    >
+        {children}
+    </div>
+};
 
 function SliderFilter ({label, defaultValue, min, max, marks, onChange}) {
     return <div
@@ -45,10 +74,10 @@ function SliderFilter ({label, defaultValue, min, max, marks, onChange}) {
 
 function ToggleFilter ({label, onChange, checked}) {
     return <label
-        className = {'filter-toggle-wrapper'}
+        className = {'single-filter-wrapper'}
     >
         <span
-            className = {'filter-toggle-label'}
+            className = {'single-filter-label'}
         >
             {label}
         </span>
@@ -58,26 +87,52 @@ function ToggleFilter ({label, onChange, checked}) {
             checked = {checked}
         />
     </label>
-}
+};
 
-function SelectFilter ({defaultValue, options, onChange}) {
-    return <Select
-        defaultValue = {defaultValue}
-        isMulti
-        name = "colors"
-        options = {options}
-        className = "basic-multi-select"
-        onChange = {onChange}
-        classNamePrefix = "select"
-    />
+function SelectFilter ({defaultValue, options, onChange, isMulti = false, label, tooltip, tooltipDisabled, onMenuOpen, onMenuClose}) {
+    return <ConditionalWrapper
+        condition = {tooltip}
+        wrapper = {
+            children => {
+                return <Tippy
+                    disabled = {tooltipDisabled}
+                    placement = 'bottom'
+                    content = {tooltip}
+                >
+                    {children}
+                </Tippy>
+            }
+        }
+    >
+        <label
+            className = {'single-filter-wrapper'}
+        >
+            <span
+                className = {'single-filter-label'}
+            >
+                {label}
+            </span>
+            <Select
+                defaultValue = {defaultValue}
+                isMulti = {isMulti}
+                name = "colors"
+                options = {options}
+                className = "basic-multi-select"
+                onChange = {onChange}
+                classNamePrefix = "select"
+                onMenuClose = {onMenuClose}
+                onMenuOpen = {onMenuOpen}
+            />
+        </label>
+    </ConditionalWrapper>;
 };
 
 function InputFilter ({defaultValue, type, placeholder, onChange, label}) {
     return <label
-        className = {'filter-toggle-wrapper'}
+        className = {'single-filter-wrapper'}
     >
         <span
-            className = {'filter-toggle-label'}
+            className = {'single-filter-label'}
         >
             {label}
         </span>
@@ -124,5 +179,7 @@ export {
     ToggleFilter,
     SelectFilter,
     InputFilter,
-    SliderFilter
+    SliderFilter,
+    ButtonGroupFilter,
+    ButtonGroupFilterButton
 };

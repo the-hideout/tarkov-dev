@@ -1,11 +1,15 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet';
-import Select from 'react-select';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css'; // optional
 
 import BartersTable from '../../components/barters-table';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage'
+import {
+    Filter,
+    SelectFilter,
+    InputFilter,
+    ButtonGroupFilter,
+    ButtonGroupFilterButton,
+} from '../../components/filter';
 
 import Icon from '@mdi/react'
 import { mdiAccountSwitch } from '@mdi/js';
@@ -43,10 +47,8 @@ function Barters() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [levelFilter, setLevelFilter] = useState(levels[3]);
-    const [levelTooltipDisabled, setLevelTooltipDisabled] = useState(false);
-    const hideLevelTooltip = () => setLevelTooltipDisabled(true);
-    const showLevelTooltip = () => setLevelTooltipDisabled(false);
     const [selectedTrader, setSelectedTrader] = useStateWithLocalStorage('selectedTrader', 'all');
+    const [levelTooltipDisabled, setLevelTooltipDisabled] = useState(false);
 
     return [
         <Helmet
@@ -64,8 +66,7 @@ function Barters() {
             />
         </Helmet>,
         <div
-            className = 'data-table-filters-wrapper'
-            key = 'barters-filters'
+            className = 'barters-headline-wrapper'
         >
             <h1
                 className = 'barters-page-title'
@@ -77,87 +78,59 @@ function Barters() {
                 />
                 Barter profits
             </h1>
-            <div className = 'button-group-wrapper'>
-                {traders.map((traderName) => {
-                    return <Tippy
-                        placement = 'top'
-                        key = {`trader-tooltip-${traderName}`}
-                        content={
-                        <div>
-                            {capitalizeTheFirstLetterOfEachWord(traderName.replace('-', ' '))}
-                        </div>
-					}>
-                        <button
-                            className = {`button-group-button ${traderName === selectedTrader ? 'selected': ''}`}
-                            key = {`trader-selector-button-${traderName}`}
-                            onClick={setSelectedTrader.bind(undefined, traderName)}
-                        ><img
-                            alt = {traderName}
-                            title = {traderName}
-                            src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
-                        /></button>
-                    </Tippy>
-				})}
-                <Tippy
-                    placement = 'top'
-                    content={
-                    <div>
-                        Show all barters
-                    </div>
-                }>
-                    <button
-                        className = {`button-group-button ${'all' === selectedTrader ? 'selected': ''}`}
-                        title = 'All Traders Barters'
-                        onClick={setSelectedTrader.bind(undefined, 'all')}
-                    >
-                        All
-                    </button>
-                </Tippy>
-            </div>
-            <div
-                className = 'filter-input-wrapper'
-            >
-                <div
-                    className = 'filter-input-label'
-                >
-                    Item filter
-                </div>
-                <input
+            <Filter>
+                <ButtonGroupFilter>
+                    {traders.map((traderName) => {
+                        return <ButtonGroupFilterButton
+                            key = {`trader-tooltip-${traderName}`}
+                            tooltipContent = {
+                                <div>
+                                    {capitalizeTheFirstLetterOfEachWord(traderName.replace('-', ' '))}
+                                </div>
+                            }
+                            selected = {traderName === selectedTrader}
+                            content = {<img
+                                alt = {traderName}
+                                title = {traderName}
+                                src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
+                            />}
+                            onClick = {setSelectedTrader.bind(undefined, traderName)}
+                        />
+                    })}
+                    <ButtonGroupFilterButton
+                        tooltipContent = {
+                            <div>
+                                Show all barters
+                            </div>
+                        }
+                        selected = {false}
+                        content = {'All'}
+                        onClick = {setSelectedTrader.bind(undefined, 'all')}
+                    />
+                </ButtonGroupFilter>
+                <InputFilter
                     defaultValue = {nameFilter || ''}
+                    label = 'Item filter'
                     type = {'text'}
                     placeholder = {'filter on item'}
                     onChange = {e => setNameFilter(e.target.value)}
                 />
-            </div>
-            <Tippy
-                disabled = {levelTooltipDisabled}
-                placement = 'bottom'
-                content={
-                    <div>
-                        Sets maximum loyalty level for traders
-                    </div>
-                }
-            >
-                <div
-                    className = 'filter-dropdown-wrapper'
-                >
-                    <div
-                        className = 'filter-dropdown-label'
-                    >
-                        Loyalty
-                    </div>
-                    <Select
-                        defaultValue={levelFilter}
-                        name="levels"
-                        onChange={setLevelFilter}
-                        options={levels}
-                        className="filter-dropdown-select"
-                        classNamePrefix="select"
-                        onMenuOpen={hideLevelTooltip}
-                        onMenuClose={showLevelTooltip}
-                    />
-                </div>
-            </Tippy>
+                <SelectFilter
+                    defaultValue={levelFilter}
+                    tooltipDisabled = {levelTooltipDisabled}
+                    name = "levels"
+                    label = 'Loyalty'
+                    onChange={setLevelFilter}
+                    options={levels}
+                    tooltip = {
+                        <div>
+                            Sets maximum loyalty level for traders
+                        </div>
+                    }
+                    onMenuOpen = {e => setLevelTooltipDisabled(true)}
+                    onMenuClose = {e => setLevelTooltipDisabled(false)}
+                />
+            </Filter>
         </div>,
         <BartersTable
             levelFilter = {levelFilter}
