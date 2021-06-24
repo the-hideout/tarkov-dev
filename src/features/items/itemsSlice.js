@@ -133,7 +133,6 @@ const itemsSlice = createSlice({
         [fetchItems.fulfilled]: (state, action) => {
             state.status = 'succeeded';
             // Add any fetched items to the array
-            console.log(action.payload);
             state.items = state.items.concat(action.payload)
         },
         [fetchItems.rejected]: (state, action) => {
