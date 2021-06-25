@@ -1,12 +1,16 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet';
-import Select from 'react-select';
-import Switch from 'react-switch';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css'; // optional
 
 import CraftsTable from '../../components/crafts-table';
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage'
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import {
+    Filter,
+    SelectFilter,
+    InputFilter,
+    ButtonGroupFilter,
+    ButtonGroupFilterButton,
+    ToggleFilter,
+} from '../../components/filter';
 
 import Icon from '@mdi/react'
 import { mdiProgressWrench } from '@mdi/js';
@@ -66,7 +70,7 @@ function Crafts() {
             />
         </Helmet>,
         <div
-            className = 'data-table-filters-wrapper'
+            className = 'crafts-headline-wrapper'
             key = 'crafts-filters'
         >
             <h1
@@ -79,109 +83,69 @@ function Crafts() {
                 />
                 Hideout Crafts
             </h1>
-            <div className = 'button-group-wrapper'>
-                {stations.map((stationName) => {
-                    return <Tippy
-                        placement = 'top'
-                        key = {`station-tooltip-${stationName}`}
-                        content={
-                        <div>
-                            {capitalizeTheFirstLetterOfEachWord(stationName.replace('-', ' '))}
-                        </div>
-                    }>
-                        <button
-                            className = {`button-group-button ${stationName === selectedStation ? 'selected': ''}`}
-                            key = {`station-selector-button-${stationName}`}
+            <Filter>
+                <ButtonGroupFilter>
+                    {stations.map((stationName) => {
+                        return <ButtonGroupFilterButton
+                            key = {`station-tooltip-${stationName}`}
+                            tooltipContent={
+                                <div>
+                                    {capitalizeTheFirstLetterOfEachWord(stationName.replace('-', ' '))}
+                                </div>
+                            }
+                            selected = { stationName === selectedStation }
+                            content = { <img
+                                alt = {stationName}
+                                title = {stationName}
+                                src={`${process.env.PUBLIC_URL}/images/${stationName}-icon.png`}
+                            /> }
                             onClick={setSelectedStation.bind(undefined, stationName)}
-                        ><img
-                            alt = {stationName}
-                            title = {stationName}
-                            src={`${process.env.PUBLIC_URL}/images/${stationName}-icon.png`}
-                        /></button>
-                    </Tippy>
-                })}
-                <Tippy
-                    placement = 'top'
-                    content={
-                    <div>
-                        Most profitable craft in each station
-                    </div>
-                }>
-                    <button
-                        className = {`button-group-button ${'top' === selectedStation ? 'selected': ''}`}
-                        title = 'Top crafts in each station'
+                        />
+                    })}
+                    <ButtonGroupFilterButton
+                        tooltipContent = {
+                            <div>
+                                Most profitable craft in each station
+                            </div>
+                        }
+                        selected = {false}
+                        content = {'All'}
                         onClick={setSelectedStation.bind(undefined, 'top')}
-                    >
-                        Top
-                    </button>
-                </Tippy>
-            </div>
-            <Tippy
-                placement = 'bottom'
-                content={
-                <div>
-                    Sets all fuel prices to 0, as that's more or less the case if you use fuel to power your hideout
-                </div>
-            }>
-                <label
-                    className = {'filter-toggle-wrapper'}
-                >
-                    <div
-                        className = {'filter-toggle-label'}
-                    >
-                        Fuel is free
-                    </div>
-                    <Switch
-                        className = {'filter-toggle'}
-                        onChange = {e => setFreeFuel(!freeFuel)}
-                        checked = {freeFuel}
                     />
-                </label>
-            </Tippy>
-            <div
-                className = 'filter-input-wrapper'
-            >
-                <div
-                    className = 'filter-input-label'
-                >
-                    Item filter
-                </div>
-                <input
-                    defaultValue = {nameFilter || ''}
+                 </ButtonGroupFilter>
+                 <ToggleFilter
+                    checked = {freeFuel}
+                    label = {'Fuel is free'}
+                    onChange = {e => setFreeFuel(!freeFuel)}
+                    tooltipContent = {
+                        <div>
+                            Sets all fuel prices to 0, as that's more or less the case if you use fuel to power your hideout
+                        </div>
+                    }
+                />
+                <InputFilter
+                    defaultValue = {nameFilter || ''}
+                    label = 'Item filter'
                     type = {'text'}
                     placeholder = {'filter on item'}
                     onChange = {e => setNameFilter(e.target.value)}
                 />
-            </div>
-            <Tippy
-                disabled = {levelTooltipDisabled}
-                placement = 'bottom'
-                content={
-                    <div>
-                        Sets maximum level of craft stations
-                    </div>
-                }
-            >
-                <div
-                    className = 'filter-dropdown-wrapper'
-                >
-                    <div
-                        className = 'filter-dropdown-label'
-                    >
-                        Level
-                    </div>
-                    <Select
-                        defaultValue={levelFilter}
-                        name="levels"
-                        onChange={setLevelFilter}
-                        options={levels}
-                        className="filter-dropdown-select"
-                        classNamePrefix="select"
-                        onMenuOpen={hideLevelTooltip}
-                        onMenuClose={showLevelTooltip}
-                    />
-                </div>
-            </Tippy>
+                <SelectFilter
+                    defaultValue={levelFilter}
+                    tooltipDisabled = {levelTooltipDisabled}
+                    name = "levels"
+                    label = 'Level'
+                    onChange={setLevelFilter}
+                    options={levels}
+                    tooltip = {
+                        <div>
+                            Sets maximum level of craft stations
+                        </div>
+                    }
+                    onMenuOpen = {e => setLevelTooltipDisabled(true)}
+                    onMenuClose = {e => setLevelTooltipDisabled(false)}
+                />
+            </Filter>
         </div>,
         <CraftsTable
             levelFilter = {levelFilter}

@@ -1,6 +1,15 @@
+.crafts-headline-wrapper {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    white-space: nowrap;
+}
+
 .crafts-page-title {
     margin: 0;
     flex-grow: 1;
+    text-align: center;
 }
 
 .cost-wrapper {
@@ -130,4 +139,10 @@ img.barter-icon {
 
 .craft-loss {
     color: #cd1e2f;
+}
+
+@media screen and (min-width: 710px) {
+    .crafts-page-title {
+        text-align: left;
+    }
 }

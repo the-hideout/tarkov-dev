@@ -72,21 +72,35 @@ function SliderFilter ({label, defaultValue, min, max, marks, onChange}) {
     </div>
 };
 
-function ToggleFilter ({label, onChange, checked}) {
-    return <label
-        className = {'single-filter-wrapper'}
-    >
-        <span
-            className = {'single-filter-label'}
+function ToggleFilter ({label, onChange, checked, tooltipContent}) {
+    return <ConditionalWrapper
+        condition = {tooltipContent}
+        wrapper = {
+            children => {
+                return <Tippy
+                    placement = 'bottom'
+                    content = {tooltipContent}
+                >
+                    {children}
+                </Tippy>
+            }
+        }
         >
-            {label}
-        </span>
-        <Switch
-            className = {'filter-toggle'}
-            onChange = {onChange}
-            checked = {checked}
-        />
-    </label>
+        <label
+            className = {'single-filter-wrapper'}
+        >
+            <span
+                className = {'single-filter-label'}
+            >
+                {label}
+            </span>
+            <Switch
+                className = {'filter-toggle'}
+                onChange = {onChange}
+                checked = {checked}
+            />
+        </label>
+    </ConditionalWrapper>
 };
 
 function SelectFilter ({defaultValue, options, onChange, isMulti = false, label, tooltip, tooltipDisabled, onMenuOpen, onMenuClose}) {
