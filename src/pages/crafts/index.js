@@ -49,8 +49,6 @@ function Crafts() {
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [levelFilter, setLevelFilter] = useState(levels[2]);
     const [levelTooltipDisabled, setLevelTooltipDisabled] = useState(false);
-    const hideLevelTooltip = () => setLevelTooltipDisabled(true);
-    const showLevelTooltip = () => setLevelTooltipDisabled(false);
     const [freeFuel, setFreeFuel] = useState(false);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedStation', 'top');
 
