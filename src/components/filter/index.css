@@ -31,6 +31,7 @@
 
 .filter-wrapper.open {
     box-shadow: 0px 5px 15px 5px rgba(0,0,0,0.69);
+    overflow: visible;
     max-height: var(--display-height);
 }
 
