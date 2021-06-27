@@ -10,6 +10,7 @@
 
 .footer-wrapper svg {
     height: 20px;
+    vertical-align: middle;
     width: 20px;
 }
 
