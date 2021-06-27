@@ -27,6 +27,7 @@ import Backpacks from './pages/guides/Backpacks';
 import Crafts from './pages/crafts';
 import Item from './pages/item';
 import Start from './pages/start';
+import Footer from './components/footer';
 
 import Debug from './components/Debug';
 
@@ -347,6 +348,7 @@ function App() {
                 />
             </Route>
         </Switch>
+        <Footer />
     </div>
 }
 

@@ -4,8 +4,6 @@ import {
 } from "react-router-dom";
 
 import MenuItem from './MenuItem';
-import {ReactComponent as PatreonIcon} from '../Patreon.svg';
-import {ReactComponent as GithubIcon} from '../Github.svg';
 import MenuIcon from './MenuIcon.jsx';
 
 import ammoData from '../../data/ammo.json';
@@ -169,23 +167,6 @@ const Menu = () => {
                         Hideout profit
                     </Link>
                 </li>
-                <a
-                    href="https://www.patreon.com/kokarn"
-                >
-                    <PatreonIcon />
-                </a>
-                <a
-                    href="https://github.com/kokarn/tarkov-tools"
-                >
-                    <GithubIcon />
-                </a>
-                <Link
-                    className = {'last-link'}
-                        to = '/about/'
-                        onClick = {setIsOpen.bind(this, false)}
-                    >
-                        About
-                </Link>
             </ul>
     </nav>;
 }

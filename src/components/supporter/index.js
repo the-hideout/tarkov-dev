@@ -1,18 +1,20 @@
 import {ReactComponent as PatreonIcon} from './Patreon.svg';
 import {ReactComponent as GithubIcon} from './Github.svg';
 
+import './index.css';
+
 function Supporter(props) {
     const supporterTypes = [];
-
-    if(props.patreon){
-        supporterTypes.push(<PatreonIcon
-            key = 'patreon'
-        />);
-    }
 
     if(props.github){
         supporterTypes.push(<GithubIcon
             key = 'github'
+        />);
+    }
+
+    if(props.patreon){
+        supporterTypes.push(<PatreonIcon
+            key = 'patreon'
         />);
     }
 
@@ -22,11 +24,19 @@ function Supporter(props) {
         {props.link && <a
             href = {props.link}
         >
-            {props.name}
+            <div
+                className = 'supporter-name-wrapper'
+            >
+                {props.name}
+            </div>
             {supporterTypes}
         </a>}
         {!props.link && <span>
-            {props.name}
+            <div
+                className = 'supporter-name-wrapper'
+            >
+                {props.name}
+            </div>
             {supporterTypes}
         </span>}
     </div>

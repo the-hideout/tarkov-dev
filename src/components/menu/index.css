@@ -174,14 +174,6 @@
     z-index: 1;
 }
 
-.supporter-wrapper svg:first-of-type {
-    margin-left: 10px;
-}
-
-.supporter-wrapper {
-    font-size: 14px;
-}
-
 @media only screen and (min-width: 768px) {
     .mobile-icon {
         display: none;

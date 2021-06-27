@@ -1,4 +1,4 @@
-import Supporter from '../../components/Supporter';
+import Supporter from '../../components/supporter';
 
 import './index.css';
 

@@ -1,0 +1,25 @@
+.footer-wrapper {
+    background-color: #000;
+    display: flex;
+    flex-flow: wrap;
+    gap: 30px;
+    justify-content: center;
+    max-width: 1920px;
+    padding: 0 10px 50px 10px;
+}
+
+.footer-wrapper svg {
+    height: 20px;
+    width: 20px;
+}
+
+.footer-section-wrapper {
+    width: 100%;
+}
+
+@media screen and (min-width: 700px) {
+    .footer-section-wrapper {
+        width: 20%;
+    }
+}
+

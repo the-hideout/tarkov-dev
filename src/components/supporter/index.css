@@ -1,0 +1,17 @@
+.supporter-wrapper {
+    margin-bottom: 5px;;
+}
+
+.supporter-wrapper a,
+.supporter-wrapper span {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.supporter-name-wrapper {
+    flex-grow: 1;
+}
+
+.supporter-wrapper svg {
+
+}
