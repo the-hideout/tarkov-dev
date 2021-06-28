@@ -18,7 +18,7 @@ const renderer = ({days, hours, minutes, seconds, completed }) => {
 
 function WipeCountdown() {
     return <Countdown
-        date={'2021-06-30T10:00:00+09:00'}
+        date={'2021-06-30T10:00:00+03:00'}
         renderer={renderer}
     />;
 }
