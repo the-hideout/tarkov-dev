@@ -39,7 +39,9 @@ function Footer() {
             <h3>
                 Supporters
             </h3>
-            <p>
+            <p
+                className = 'become-supporter-wrapper'
+            >
                 <a
                     href="https://www.patreon.com/bePatron?u=26501878"
                     data-patreon-widget-type="become-patron-button"

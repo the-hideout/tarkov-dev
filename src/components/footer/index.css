@@ -22,6 +22,10 @@
     top: 5px;
 }
 
+.become-supporter-wrapper {
+    text-align: center;
+}
+
 @media screen and (min-width: 700px) {
     .footer-section-wrapper {
         width: 20%;
