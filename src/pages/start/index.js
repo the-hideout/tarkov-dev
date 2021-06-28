@@ -159,7 +159,9 @@ function Item(props) {
                 </h3>
                 <ul>
                     {mapData.map(mapData => {
-                        return <li>
+                        return <li
+                            key = {`map-link-${mapData.key}`}
+                        >
                             <Link
                                 to = {`/map/${mapData.key}`}
                             >
