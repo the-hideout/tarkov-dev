@@ -30,11 +30,15 @@
     },
     {
         "key": "reserve",
-        "displayText": "Reserve"
+        "displayText": "Reserve",
+        "source": "/u/LowEffortSaltBox",
+        "sourceLink": "https://twitter.com/re3mr"
     },
     {
         "key": "underground",
-        "displayText": "Reserve - Underground"
+        "displayText": "Reserve - Underground",
+        "source": "/u/LowEffortSaltBox",
+        "sourceLink": "https://twitter.com/re3mr"
     },
     {
         "key": "shoreline",
