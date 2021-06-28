@@ -87,6 +87,14 @@ function Footer() {
                 patreon
                 github
             />
+            <Supporter
+                name = {'lipowskm'}
+                github
+            />
+            <Supporter
+                name = {'Hiltuska'}
+                github
+            />
         </div>
         <div
             className = 'footer-section-wrapper'
