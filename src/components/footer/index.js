@@ -9,7 +9,7 @@ function Footer() {
         className = {'footer-wrapper'}
     >
         <div
-            className = 'footer-section-wrapper'
+            className = 'footer-section-wrapper about-section-wrapper'
         >
             <h3>
                 Tarkov Tools
