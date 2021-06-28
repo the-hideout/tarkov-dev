@@ -10,12 +10,16 @@
 
 .footer-wrapper svg {
     height: 20px;
-    vertical-align: middle;
     width: 20px;
 }
 
 .footer-section-wrapper {
     width: 100%;
+}
+
+.about-section-wrapper svg {
+    position: relative;
+    top: 5px;
 }
 
 @media screen and (min-width: 700px) {
