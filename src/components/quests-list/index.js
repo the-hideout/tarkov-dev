@@ -1,7 +1,9 @@
-const getQuestList = (questList) => {
+import { useTranslation } from 'react-i18next';
+
+const getQuestList = (questList, t) => {
     if(questList.length === 0){
         return <div>
-            None
+            {t('None')}
         </div>
     }
 
@@ -20,13 +22,14 @@ const getQuestList = (questList) => {
 
 function QuestsList(props) {
     const {itemQuests} = props;
+    const {t} = useTranslation();
 
     return <div>
         <h2>
-            Quests
+            {t('Quests')}
         </h2>
         {
-            getQuestList(itemQuests)
+            getQuestList(itemQuests, t)
         }
     </div>
 };
