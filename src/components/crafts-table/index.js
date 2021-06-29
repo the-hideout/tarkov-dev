@@ -6,6 +6,7 @@ import {
 import Tippy from '@tippyjs/react';
 import {followCursor} from 'tippy.js';
 import 'tippy.js/dist/tippy.css'; // optional
+import { useTranslation } from 'react-i18next';
 
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
@@ -148,6 +149,7 @@ function getAlternatePriceSource(item, barters) {
 function CraftTable(props) {
     const {selectedStation, freeFuel, nameFilter, levelFilter = 3} = props;
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     const crafts = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
@@ -323,7 +325,7 @@ function CraftTable(props) {
     const columns = useMemo(
         () => [
             {
-                Header: 'Reward',
+                Header: t('Reward'),
                 accessor: 'reward',
                 Cell: ({ value }) => {
                     return <div
@@ -368,37 +370,37 @@ function CraftTable(props) {
                 },
             },
             {
-                Header: 'Cost',
+                Header: t('Cost'),
                 accessor: 'costItems',
                 Cell: costItemsCell,
             },
             {
-                Header: 'Cost ₽',
+                Header: t('Cost ₽'),
                 accessor: d => Number(d.cost),
                 Cell: priceCell,
                 id: 'cost',
             },
             {
-                Header: 'Estimated profit',
+                Header: t('Estimated profit'),
                 accessor: 'profit',
                 Cell: profitCell,
                 sortType: 'basic',
             },
             {
-                Header: 'Estimated profit per hour',
+                Header: t('Estimated profit per hour'),
                 accessor: 'profitPerHour',
                 Cell: profitCell,
                 sortType: 'basic',
             },
         ],
-        []
+        [t]
     );
 
     if(data.length <= 0){
         return <div
             className = {'no-data-info'}
         >
-            No crafts available for selected filters
+            {t('No crafts available for selected filters')}
         </div>;
     }
 

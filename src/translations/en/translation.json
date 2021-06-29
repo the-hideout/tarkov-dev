@@ -4,5 +4,8 @@
   "Cost": "Cost",
   "Cost ₽": "Cost ₽",
   "Estimated savings": "Estimated savings",
-  "None": "None"
+  "Estimated profit per hour": "Estimated profit per hour",
+  "Estimated profit": "Estimated profit",
+  "None": "None",
+  "No crafts available for selected filters": "No crafts available for selected filters"
 }
