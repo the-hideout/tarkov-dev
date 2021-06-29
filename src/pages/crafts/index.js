@@ -106,7 +106,7 @@ function Crafts() {
                                 Most profitable craft in each station
                             </div>
                         }
-                        selected = {false}
+                        selected = {selectedStation === 'top'}
                         content = {'All'}
                         onClick={setSelectedStation.bind(undefined, 'top')}
                     />
