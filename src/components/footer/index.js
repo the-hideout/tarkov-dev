@@ -79,10 +79,12 @@ function Footer() {
                 name = {'Razzmatazz'}
                 patreon
                 github
+                link = 'https://tarkov.guru/'
             />
             <Supporter
-                name = {'MrWelshLlama'}
+                name = {'tarkov-gunsmith'}
                 patreon
+                link = 'https://tarkov-gunsmith.com/'
             />
             <Supporter
                 name = {'Gyran'}
