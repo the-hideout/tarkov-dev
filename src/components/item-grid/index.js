@@ -1,10 +1,11 @@
-import Item from './Item';
+import { useTranslation } from 'react-i18next';
 
+import Item from './Item';
 import formatPrice from '../../modules/format-price';
 
 import './index.css';
 
-const getSubtitle = (text, minPrice, maxPrice) => {
+const getSubtitle = (text, minPrice, maxPrice, t) => {
     if(minPrice || maxPrice){
         return <div
             className = "item-group-subtitle-wrapper"
@@ -12,7 +13,7 @@ const getSubtitle = (text, minPrice, maxPrice) => {
             <div>
                 {`${formatPrice(minPrice)} - ${formatPrice(maxPrice)}` }
                 <div className="note">
-                    per slot
+                    {t('per slot')}
                 </div>
             </div>
         </div>;
@@ -28,6 +29,7 @@ const getSubtitle = (text, minPrice, maxPrice) => {
 };
 
 function ItemGrid(props) {
+    const { t } = useTranslation();
     let minPrice = false;
     let maxPrice = false;
 
@@ -61,7 +63,7 @@ function ItemGrid(props) {
                 >
                     {props.name}
                 </div>
-                { getSubtitle(props.subtitle, minPrice, maxPrice) }
+                { getSubtitle(props.subtitle, minPrice, maxPrice, t) }
                 { props.extraTitleProps }
             </div>
             <div
@@ -77,7 +79,6 @@ function ItemGrid(props) {
                         sellTo = {item.sellTo}
                         slots = {item.slots}
                         src = {item.imgLink}
-                        // src = {`https://assets.tarkov-tools.com/${item.id}-grid_image.jpg`}
                         itemLink = {`/item/${item.normalizedName}`}
                         height = {item.height}
                         width = {item.width}

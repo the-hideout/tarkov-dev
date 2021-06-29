@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {
     Link
 } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 import MenuItem from './MenuItem';
 import MenuIcon from './MenuIcon.jsx';
@@ -20,6 +21,7 @@ const Menu = () => {
     const handleMenuClick = () => {
         setIsOpen(!isOpen);
     };
+    const { t } = useTranslation();
 
     return <nav
             key = 'main-navigation'
@@ -44,7 +46,7 @@ const Menu = () => {
                     <Link
                         to = '/ammo/'
                     >
-                        Ammo
+                        {t('Ammo')}
                     </Link>
                     <ul>
                     {ammoTypes.map(ammoType =>
@@ -65,7 +67,7 @@ const Menu = () => {
                     <Link
                         to = '/maps/'
                     >
-                        Maps
+                        {t('Maps')}
                     </Link>
                     <ul>
                     {mapData.map(map =>
@@ -85,25 +87,8 @@ const Menu = () => {
                         to = '/loot-tier/'
                         onClick = {setIsOpen.bind(this, false)}
                     >
-                        Loot tiers
+                        {t('Loot tiers')}
                     </Link>
-                    {/* <ul>
-                        <MenuItem
-                            displayText = {'Barter Items'}
-                            to = {`/loot-tier/grid-items`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {'Mods'}
-                            to = {`/loot-tier/mods`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {'Keys'}
-                            to = {`/loot-tier/keys`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                    </ul> */}
                 </li>
                 <li
                     className = "submenu-wrapper"
@@ -111,27 +96,27 @@ const Menu = () => {
                     <Link
                         to = '/gear/'
                     >
-                        Gear
+                        {t('Gear')}
                     </Link>
                     <ul>
                         <MenuItem
-                            displayText = {'Armor'}
+                            displayText = {t('Armor')}
                             to = {`/gear/armor`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
                         <MenuItem
-                            displayText = {'Backpacks'}
+                            displayText = {t('Backpacks')}
                             to = {`/gear/backpacks`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
                         <MenuItem
-                            displayText = {'Helmets'}
+                            displayText = {t('Helmets')}
                             to = {`/gear/helmets`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
 
                         <MenuItem
-                            displayText = {'Glasses'}
+                            displayText = {t('Glasses')}
                             to = {`/gear/glasses`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
@@ -144,7 +129,7 @@ const Menu = () => {
                         to = '/control/'
                         onClick = {setIsOpen.bind(this, false)}
                     >
-                        Remote
+                        {t('Remote')}
                     </Link>
                 </li>
                 <li
@@ -154,7 +139,7 @@ const Menu = () => {
                         to = '/barters/'
                         onClick = {setIsOpen.bind(this, false)}
                     >
-                        Barter profit
+                        {t('Barter profit')}
                     </Link>
                 </li>
                 <li
@@ -164,7 +149,7 @@ const Menu = () => {
                         to = '/hideout-profit/'
                         onClick = {setIsOpen.bind(this, false)}
                     >
-                        Hideout profit
+                        {t('Hideout profit')}
                     </Link>
                 </li>
             </ul>

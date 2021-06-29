@@ -1,6 +1,10 @@
+import { useTranslation } from 'react-i18next';
+
 import formatPrice from '../../modules/format-price';
 
 function ItemTooltip(props) {
+    const { t } = useTranslation();
+
     if(!props.pricePerSlot){
         return false;
     }
@@ -13,9 +17,9 @@ function ItemTooltip(props) {
         >
             {props.name}
         </div>
-        <div>Value: {formatPrice(props.pricePerSlot * props.slots)}</div>
-        <div>Per slot: {formatPrice(props.pricePerSlot)}</div>
-        <div>Sell to: {props.sellTo}</div>
+        <div>{t('Value')}: {formatPrice(props.pricePerSlot * props.slots)}</div>
+        <div>{t('Per slot')}: {formatPrice(props.pricePerSlot)}</div>
+        <div>{t('Sell to')}: {props.sellTo}</div>
     </span>
 };
 

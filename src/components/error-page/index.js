@@ -1,21 +1,23 @@
 import {Helmet} from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 import ID from '../ID.jsx';
 
 import './index.css';
 
 function ErrorPage(props) {
+    const { t } = useTranslation();
     return [
         <Helmet
             key = {'loot-tier-helmet'}
         >
             <meta charSet="utf-8" />
             <title>
-                {`Page not found - Escape from Tarkov`}
+                {t(`Page not found - Escape from Tarkov`)}
             </title>
             <meta
                 name="description"
-                content= {`This is not the page you are looking for`}
+                content= {t(`This is not the page you are looking for`)}
             />
         </Helmet>,
         <div
@@ -23,7 +25,7 @@ function ErrorPage(props) {
             key = {'display-wrapper'}
         >
             <h1>
-                Sorry, that page doesn't exist!
+                {t(`Sorry, that page doesn't exist!`)}
             </h1>
         </div>,
         <ID

@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import Supporter from '../supporter';
 import {ReactComponent as GithubIcon} from '../supporter/Github.svg';
 import {ReactComponent as DiscordIcon} from '../supporter/Discord.svg';
@@ -5,6 +7,8 @@ import {ReactComponent as DiscordIcon} from '../supporter/Discord.svg';
 import './index.css';
 
 function Footer() {
+    const { t } = useTranslation();
+
     return <div
         className = {'footer-wrapper'}
     >
@@ -12,10 +16,10 @@ function Footer() {
             className = 'footer-section-wrapper about-section-wrapper'
         >
             <h3>
-                Tarkov Tools
+                {t('Tarkov Tools')}
             </h3>
             <p>
-                The whole platform is open source, and the code is available on <a href="https://github.com/kokarn/tarkov-tools">
+                {t('The whole platform is open source, and the code is available on')} <a href="https://github.com/kokarn/tarkov-tools">
                     <GithubIcon /> GitHub
                 </a>
             </p>
@@ -23,12 +27,12 @@ function Footer() {
                 <a href="https://travis-ci.com/github/kokarn/tarkov-tools">
                     <img
                         src="https://travis-ci.com/kokarn/tarkov-tools.svg?branch=master"
-                        alt="Build status"
+                        alt = {t('Build status')}
                     />
                 </a>
             </p>
             <p>
-                If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/B2xM8WZyVv">
+                {t('If you wanna have a chat, ask questions or request features, we have a')} <a href="https://discord.gg/B2xM8WZyVv">
                     <DiscordIcon /> Discord
                 </a> server
             </p>
@@ -37,7 +41,7 @@ function Footer() {
             className = 'footer-section-wrapper'
         >
             <h3>
-                Supporters
+                {t('Supporters')}
             </h3>
             <p
                 className = 'become-supporter-wrapper'
@@ -46,7 +50,7 @@ function Footer() {
                     href="https://www.patreon.com/bePatron?u=26501878"
                     data-patreon-widget-type="become-patron-button"
                 >
-                    Become a Patron!
+                    {t('Become a Patron!')}
                 </a>
             </p>
             <Supporter
@@ -100,7 +104,7 @@ function Footer() {
             className = 'footer-section-wrapper'
         >
             <h3>
-                Resources
+                {t('Resources')}
             </h3>
             <p>
                 <a href="https://tarkov-tools.com/___graphql">Tarkov Tools API</a>
