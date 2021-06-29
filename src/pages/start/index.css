@@ -1,5 +1,5 @@
 .start-wrapper {
-    align-items: flex-start;
+    align-items: stretch;
     display: flex;
     height: auto;
     justify-content: space-between;
