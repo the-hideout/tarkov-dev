@@ -6,6 +6,7 @@ import {
 import Tippy from '@tippyjs/react';
 import {followCursor} from 'tippy.js';
 import 'tippy.js/dist/tippy.css'; // optional
+import { useTranslation } from 'react-i18next';
 
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
@@ -148,6 +149,7 @@ function getAlternatePriceSource(item, barters) {
 function BartersTable(props) {
     const { selectedTrader, nameFilter, levelFilter = 3} = props;
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
@@ -163,7 +165,7 @@ function BartersTable(props) {
     const columns = useMemo(
         () => [
             {
-                Header: 'Reward',
+                Header: t('Reward'),
                 accessor: 'reward',
                 Cell: ({ value }) => {
                     return <div
@@ -200,24 +202,24 @@ function BartersTable(props) {
                                 className = 'price-wrapper'
                             >
                                 {formatPrice(value.value)}
-                                {value.barterOnly && <span> (Barter only)</span>}
+                                {value.barterOnly && <span> ({t('Barter only')})</span>}
                             </div>
                         </div>
                     </div>
                 },
             },
             {
-                Header: 'Cost',
+                Header: t('Cost'),
                 accessor: 'costItems',
                 Cell: costItemsCell,
             },
             {
-                Header: 'Cost ₽',
+                Header: t('Cost ₽'),
                 accessor: 'cost',
                 Cell: priceCell,
             },
             {
-                Header: 'Estimated savings',
+                Header: t('Estimated savings'),
                 accessor: d=>Number(d.savings),
                 Cell: profitCell,
                 sortType: (a, b) => {
@@ -233,7 +235,7 @@ function BartersTable(props) {
                 },
             },
         ],
-        []
+        [t]
     );
 
     const data = useMemo(() => {
@@ -393,7 +395,7 @@ function BartersTable(props) {
 
     if(data.length <= 0){
         return <div>
-            None
+            {t('None')}
         </div>;
     }
 
