@@ -13,6 +13,11 @@
     width: 20px;
 }
 
+.footer-wrapper img {
+    margin-left: 5px;
+    vertical-align: sub;
+}
+
 .footer-section-wrapper {
     width: 100%;
 }

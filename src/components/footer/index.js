@@ -22,8 +22,6 @@ function Footer() {
                 {t('The whole platform is open source, and the code is available on')} <a href="https://github.com/kokarn/tarkov-tools">
                     <GithubIcon /> GitHub
                 </a>
-            </p>
-            <p>
                 <a href="https://travis-ci.com/github/kokarn/tarkov-tools">
                     <img
                         src="https://travis-ci.com/kokarn/tarkov-tools.svg?branch=master"
@@ -33,8 +31,8 @@ function Footer() {
             </p>
             <p>
                 {t('If you wanna have a chat, ask questions or request features, we have a')} <a href="https://discord.gg/B2xM8WZyVv">
-                    <DiscordIcon /> Discord
-                </a> server
+                    <DiscordIcon /> Discord server
+                </a>
             </p>
         </div>
         <div
