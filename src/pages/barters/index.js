@@ -103,7 +103,7 @@ function Barters() {
                                 Show all barters
                             </div>
                         }
-                        selected = {false}
+                        selected = {selectedTrader === 'all'}
                         content = {'All'}
                         onClick = {setSelectedTrader.bind(undefined, 'all')}
                     />
