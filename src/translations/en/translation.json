@@ -33,5 +33,10 @@
   "Remote": "Remote",
   "Barter profit": "Barter profit",
   "Hideout profit": "Hideout profit",
-  "Quests": "Quests"
+  "Quests": "Quests",
+  "Name": "Name",
+  "InstaProfit": "InstaProfit",
+  "open this page in another browser or window and connect using this id": "open this page in another browser or window and connect using this id",
+  "ID for remote control": "ID for remote control",
+  "Go to tarkov tools with another browser and enter this ID to control this page from there": "Go to tarkov tools with another browser and enter this ID to control this page from there"
 }

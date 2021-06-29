@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Sides = {
     Left: 'Left',
@@ -7,6 +8,7 @@ const Sides = {
 
 function ID(props) {
     const [side, setSide] = useState(Sides.Left);
+    const {t} = useTranslation();
 
     let sideClass;
     let sideButtonContent;
@@ -27,11 +29,11 @@ function ID(props) {
 
     return <div
         className={`id-wrapper ${ sideClass }`}
-        alt="open this page in another browser or window and connect using this id"
-        title="open this page in another browser or window and connect using this id"
+        alt={t('open this page in another browser or window and connect using this id')}
+        title={t('open this page in another browser or window and connect using this id')}
     >
         <div className="update-label">
-            ID for remote control
+            {t('ID for remote control')}
             <span
                 className="session-question"
             >
@@ -39,7 +41,7 @@ function ID(props) {
                 <div
                     className="session-popup"
                 >
-                    Go to tarkov tools with another browser and enter this ID to control this page from there
+                    {t('Go to tarkov tools with another browser and enter this ID to control this page from there')}
                 </div>
             </span>
             <button

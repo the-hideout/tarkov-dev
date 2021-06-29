@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     Link,
 } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
@@ -32,6 +33,7 @@ function SmallItemTable(props) {
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
+    const {t} = useTranslation();
 
     useEffect(() => {
         if (itemStatus === 'idle') {
@@ -72,7 +74,7 @@ function SmallItemTable(props) {
     const columns = useMemo(
         () => [
             {
-                Header: 'Name',
+                Header: t('Name'),
                 accessor: 'name',
                 Cell: (allData) => {
                     // allData.row.original.itemLink
@@ -99,13 +101,13 @@ function SmallItemTable(props) {
                 },
             },
             {
-                Header: 'Cost ₽',
+                Header: t('Cost ₽'),
                 accessor: d => Number(d.lastLowPrice),
                 Cell: priceCell,
                 id: 'cost',
             },
             {
-                Header: 'InstaProfit',
+                Header: t('InstaProfit'),
                 accessor: d => Number(d.instaProfit),
                 Cell: priceCell,
                 id: 'instaProfit',
@@ -123,12 +125,12 @@ function SmallItemTable(props) {
                 },
             },
         ],
-        []
+        [t]
     );
 
     if(data.length <= 0){
         return <div>
-            None
+            {t('None')}
         </div>;
     }
 
