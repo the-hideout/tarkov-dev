@@ -39,7 +39,7 @@ const getTraderId = (name) => {
         };
 
         for(const objective of quest.objectives){
-            if(objective.type !== 'find' && objective.type !== 'collect'){
+            if(objective.type !== 'find' && objective.type !== 'collect' && objective.type !== 'key'){
                 continue;
             }
 
