@@ -3,7 +3,6 @@ const path = require('path');
 
 const got = require('got');
 
-const allItems = require('../src/data/all-en.json');
 const traders = require('../src/data/traders');
 
 const formatName = (name) => {
@@ -45,8 +44,7 @@ const getTraderId = (name) => {
             }
 
             const findItem = {
-                id: allItems.find(item => formatName(item.name) === formatName(objective.target))?.id,
-                name: objective.target,
+                id: objective.target,
                 count: objective.number,
                 foundInRaid: objective.type === 'find' ? true : false,
             };
