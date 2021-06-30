@@ -22,3 +22,13 @@
 .small-data-table .table-image {
     border: 1px solid #4a5154;
 }
+
+.small-data-table .trader-icon {
+    max-width: 40px;
+}
+
+.small-data-table .trader-price-content {
+    align-items: center;
+    display: flex;
+    gap: 15px;
+}

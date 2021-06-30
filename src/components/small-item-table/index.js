@@ -19,6 +19,20 @@ function priceCell({ value }) {
     </div>;
 };
 
+function traderPriceCell(datum) {
+    return <div
+        className = 'trader-price-content'
+    >
+        <img
+            alt = {datum.row.original.traderName}
+            className = 'trader-icon'
+            title = {datum.row.original.traderName}
+            src={`${process.env.PUBLIC_URL}/images/${datum.row.original.traderName}-icon.jpg`}
+        />
+        {formatPrice(datum.row.values.traderPrice)}
+    </div>;
+};
+
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -53,6 +67,8 @@ function SmallItemTable(props) {
                 iconLink: `https://assets.tarkov-tools.com/${itemData.id}-icon.jpg`,
                 itemLink: `/item/${itemData.normalizedName}`,
                 instaProfit: itemData.lastLowPrice ? (itemData.traderPrice - itemData.lastLowPrice) : 0,
+                traderName: itemData.traderName,
+                traderPrice: itemData.traderPrice,
             }
         })
         .filter(item => {
@@ -101,10 +117,16 @@ function SmallItemTable(props) {
                 },
             },
             {
-                Header: t('Cost ₽'),
+                Header: t('Trader'),
+                accessor: d => Number(d.traderPrice),
+                Cell: traderPriceCell,
+                id: 'traderPrice',
+            },
+            {
+                Header: t('Flea'),
                 accessor: d => Number(d.lastLowPrice),
                 Cell: priceCell,
-                id: 'cost',
+                id: 'fleaPrice',
             },
             {
                 Header: t('InstaProfit'),
