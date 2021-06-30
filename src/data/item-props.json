@@ -40729,5 +40729,21 @@
         },
         "hasGrid": false,
         "linkedItems": []
+    },
+    "60a283193cb70855c43a381d": {
+        "itemProperties": {
+            "MaxDurability": 40,
+            "armorClass": "6",
+            "speedPenaltyPercent": -36,
+            "mousePenalty": -16,
+            "weaponErgonomicPenalty": -20,
+            "armorZone": [
+                "LeftArm",
+                "RightArm",
+                "Chest",
+                "Stomach"
+            ],
+            "ArmorMaterial": "Combined"
+        }
     }
 }
