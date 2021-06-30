@@ -132,6 +132,11 @@ function Footer() {
                 </a>
             </p>
         </div>
+        <div
+            className = 'copyright-wrapper'
+        >
+            Game content and materials are trademarks and copyrights of Battlestate Games and its licensors. All rights reserved.
+        </div>
     </div>;
 };
 

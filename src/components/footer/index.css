@@ -32,6 +32,12 @@
     text-align: center;
 }
 
+.copyright-wrapper {
+    font-size: 12px;
+    text-align: center;
+    width: 100%;
+}
+
 @media screen and (min-width: 700px) {
     .footer-section-wrapper {
         width: 20%;
