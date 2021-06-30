@@ -27,7 +27,7 @@ function traderPriceCell(datum) {
             alt = {datum.row.original.traderName}
             className = 'trader-icon'
             title = {datum.row.original.traderName}
-            src={`${process.env.PUBLIC_URL}/images/${datum.row.original.traderName}-icon.jpg`}
+            src={`${process.env.PUBLIC_URL}/images/${datum.row.original.traderName.toLowerCase()}-icon.jpg`}
         />
         {formatPrice(datum.row.values.traderPrice)}
     </div>;
