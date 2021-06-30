@@ -85,6 +85,10 @@ function Footer() {
                 name = {'tarkov-gunsmith'}
                 patreon
                 link = 'https://tarkov-gunsmith.com/'
+            />            
+            <Supporter
+                name = {'Veldmuus'}
+                patreon
             />
             <Supporter
                 name = {'Gyran'}
