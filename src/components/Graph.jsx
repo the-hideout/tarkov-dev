@@ -12,6 +12,7 @@ import {
     // VictoryVoronoiContainer,
     VictoryContainer,
 } from 'victory';
+import {useHistory} from 'react-router-dom';
 
 import Symbol from './Symbol.jsx';
 // import GraphLabel from './GraphLabel';
@@ -145,6 +146,9 @@ const getArmorLabel = (tier, yMax, xMax) => {
 };
 
 const Graph = props => {
+    const history = useHistory();
+    const handleOnClick = (id) => history.push(`/item/${id}`);
+
     return (
         <VictoryChart
             animate={{duration: 200}}
@@ -186,13 +190,25 @@ const Graph = props => {
                 style = {styles.yaxis}
             />
             <VictoryScatter
-                dataComponent = {<Symbol />}
+                dataComponent = {<Symbol 
+                    link = {true}
+                />}
+                events={[
+                    {
+                      target: "labels",
+                      eventHandlers: {
+                        onClick: (evt, data) => {
+                            handleOnClick(data.datum.id);
+                        }
+                      }
+                    }
+                  ]}
                 style={styles.scatter}
                 // labelComponent={<GraphLabel
                 //     dy={-3}
                 // />}
                 labelComponent={<VictoryLabel
-                    dy={-3}
+                    dy = {-3}
                 />}
                 labels={({ datum }) => {
                     return datum.name;
@@ -221,7 +237,9 @@ const Graph = props => {
             /> */}
             <VictoryLegend
                 data={props.legendData}
-                dataComponent = {<Symbol />}
+                dataComponent = {<Symbol 
+                    link = {false}
+                />}
                 title={'Filter by caliber'}
                 labelComponent={<LegendLabel selectedDatumName={props.selectedLegendName} />}
                 events={[

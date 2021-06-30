@@ -102,6 +102,8 @@ function Ammo() {
             //     tempMinDmg = ammo.damage;
             // }
 
+            ammo.name = ammo.shortName;
+
             if(!shiftPress){
                 return ammo;
             }

@@ -1,1636 +1,1759 @@
 {
-    "updated": "2021-06-02T18:23:10.946Z",
+    "updated": "2021-06-30T10:30:44.305Z",
     "data": [
         {
-            "type": "12 Gauge Shot",
-            "name": "5.25mm Buckshot",
-            "damage": 37,
-            "penetration": 1,
-            "armorDamage": 15,
-            "fragChance": "0%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "12 Gauge Shot",
-            "name": "8.5mm Buckshot \"Magnum\"",
-            "damage": 50,
-            "penetration": 2,
-            "armorDamage": 26,
-            "fragChance": "0%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "12 Gauge Shot",
-            "name": "6.5mm Buckshot \"Express\"",
-            "damage": 35,
-            "penetration": 3,
-            "armorDamage": 26,
-            "fragChance": "0%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "12 Gauge Shot",
-            "name": "7mm Buckshot",
-            "damage": 39,
-            "penetration": 3,
-            "armorDamage": 26,
-            "fragChance": "0%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "12 Gauge Shot",
-            "name": "Flechette",
-            "damage": 25,
-            "penetration": 31,
-            "armorDamage": 26,
-            "fragChance": "0%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "12 Gauge Slugs",
-            "name": "RIP Slug",
-            "damage": 265,
-            "penetration": 2,
-            "armorDamage": 11,
-            "fragChance": "100%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "12 Gauge Slugs",
-            "name": "Superformance HP Slug",
-            "damage": 220,
-            "penetration": 5,
-            "armorDamage": 12,
-            "fragChance": "39%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "12 Gauge Slugs",
-            "name": "Grizzly 40 Slug",
-            "damage": 190,
-            "penetration": 12,
-            "armorDamage": 48,
-            "fragChance": "12%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "12 Gauge Slugs",
-            "name": "HP Copper Sabot Premier",
-            "damage": 206,
-            "penetration": 14,
-            "armorDamage": 46,
-            "fragChance": "38%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "12 Gauge Slugs",
-            "name": "Led Slug",
-            "damage": 167,
-            "penetration": 15,
-            "armorDamage": 55,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "12 Gauge Slugs",
-            "name": "Dual Sabot Slug",
-            "damage": 85,
-            "penetration": 17,
-            "armorDamage": 65,
-            "fragChance": "10%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "12 Gauge Slugs",
-            "name": "Slug \"Poleva-3\"",
-            "damage": 140,
-            "penetration": 17,
-            "armorDamage": 40,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "12 Gauge Slugs",
-            "name": "FTX Custom Lite Slug",
-            "damage": 183,
-            "penetration": 20,
-            "armorDamage": 50,
-            "fragChance": "10%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "12 Gauge Slugs",
-            "name": "Slug \"Poleva-6u\" ",
-            "damage": 150,
-            "penetration": 20,
-            "armorDamage": 50,
-            "fragChance": "15%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "12 Gauge Slugs",
-            "name": "Shell With .50 BMG (Tracer)",
-            "damage": 197,
-            "penetration": 26,
-            "armorDamage": 57,
-            "fragChance": "5%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "12 Gauge Slugs",
-            "name": "AP 20 Slug",
-            "damage": 164,
-            "penetration": 37,
-            "armorDamage": 65,
-            "fragChance": "3%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "20 Gauge",
-            "name": "5.6mm Buckshot",
-            "damage": 26,
-            "penetration": 1,
-            "armorDamage": 12,
-            "fragChance": "0%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": "20 Gauge",
-            "name": "6.2mm Buckshot",
-            "damage": 22,
-            "penetration": 2,
-            "armorDamage": 13,
-            "fragChance": "0%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": "20 Gauge",
-            "name": "7.5mm Buckshot",
-            "damage": 25,
-            "penetration": 3,
-            "armorDamage": 14,
-            "fragChance": "0%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": "20 Gauge",
-            "name": "7.3mm Buckshot",
-            "damage": 23,
-            "penetration": 3,
-            "armorDamage": 13,
-            "fragChance": "0%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": "20 Gauge",
-            "name": "Devastator Slug",
-            "damage": 198,
-            "penetration": 5,
-            "armorDamage": 13,
-            "fragChance": "100%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": "20 Gauge",
-            "name": "Slug \"Poleva-3\"",
-            "damage": 120,
-            "penetration": 14,
-            "armorDamage": 35,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": "20 Gauge",
-            "name": "Star Slug",
-            "damage": 154,
-            "penetration": 16,
-            "armorDamage": 42,
-            "fragChance": "10%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": "20 Gauge",
-            "name": "Slug \"Poleva-6u\" ",
-            "damage": 135,
-            "penetration": 17,
-            "armorDamage": 40,
-            "fragChance": "15%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": "23x75 mm",
-            "name": "Shrapnel 25",
-            "damage": 78,
-            "penetration": 10,
-            "armorDamage": 20,
-            "fragChance": "0%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "23x75 mm",
-            "name": "Shrapnel 10",
-            "damage": 87,
-            "penetration": 11,
-            "armorDamage": 20,
-            "fragChance": "0%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "23x75 mm",
-            "name": "\"Barricade\" Slug",
-            "damage": 192,
-            "penetration": 39,
-            "armorDamage": 75,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "9x18mm",
-            "name": "SP8",
-            "damage": 67,
-            "penetration": 1,
-            "armorDamage": 2,
-            "fragChance": "60%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "9x18mm",
-            "name": "SP7",
-            "damage": 77,
-            "penetration": 2,
-            "armorDamage": 5,
-            "fragChance": "2%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "9x18mm",
-            "name": "PSV",
-            "damage": 69,
-            "penetration": 3,
-            "armorDamage": 5,
-            "fragChance": "40%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "9x18mm",
-            "name": "P gzh",
-            "damage": 50,
-            "penetration": 5,
-            "armorDamage": 16,
-            "fragChance": "25%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "9x18mm",
-            "name": "PSO gzh",
-            "damage": 54,
-            "penetration": 5,
-            "armorDamage": 13,
-            "fragChance": "35%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "9x18mm",
-            "name": "PS gs PPO",
-            "damage": 55,
-            "penetration": 6,
-            "armorDamage": 16,
-            "fragChance": "25%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "9x18mm",
-            "name": "PRS gs",
-            "damage": 58,
-            "penetration": 6,
-            "armorDamage": 16,
-            "fragChance": "30%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "9x18mm",
-            "name": "PPE gzh",
-            "damage": 61,
-            "penetration": 7,
-            "armorDamage": 15,
-            "fragChance": "35%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "9x18mm",
-            "name": "PPT gzh",
-            "damage": 59,
-            "penetration": 8,
-            "armorDamage": 22,
-            "fragChance": "17%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "9x18mm",
-            "name": "PST gzh",
-            "damage": 50,
-            "penetration": 12,
-            "armorDamage": 26,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "9x18mm",
-            "name": "RG028 gzh",
+            "type": "9x18 mm",
+            "name": "9x18mm PM RG028 gzh",
+            "shortName": "RG028 gzh",
             "damage": 65,
             "penetration": 13,
             "armorDamage": 26,
-            "fragChance": "2%",
+            "id": "573720e02459776143012541",
             "symbol": {
                 "fill": "tomato",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "9x18mm",
-            "name": "BZT gzh",
-            "damage": 53,
-            "penetration": 18,
-            "armorDamage": 28,
-            "fragChance": "17%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "9x18mm",
-            "name": "PMM",
-            "damage": 58,
-            "penetration": 24,
-            "armorDamage": 33,
-            "fragChance": "17%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "9x18mm",
-            "name": "PBM",
-            "damage": 40,
-            "penetration": 28,
-            "armorDamage": 30,
-            "fragChance": "16%",
-            "symbol": {
-                "fill": "tomato",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "7.62x25mm",
-            "name": "LRNPC",
-            "damage": 66,
-            "penetration": 7,
-            "armorDamage": 27,
-            "fragChance": "35%",
-            "symbol": {
-                "fill": "yellow",
                 "type": "Plus"
             }
         },
         {
-            "type": "7.62x25mm",
-            "name": "LRN",
-            "damage": 64,
-            "penetration": 8,
-            "armorDamage": 28,
-            "fragChance": "35%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "7.62x25mm",
-            "name": "FMJ43",
-            "damage": 60,
-            "penetration": 11,
-            "armorDamage": 29,
-            "fragChance": "25%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "7.62x25mm",
-            "name": "akbs",
-            "damage": 58,
-            "penetration": 12,
-            "armorDamage": 32,
-            "fragChance": "25%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "7.62x25mm",
-            "name": "P Gl",
-            "damage": 58,
-            "penetration": 14,
-            "armorDamage": 32,
-            "fragChance": "25%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "7.62x25mm",
-            "name": "T Gzh (Tracer)",
+            "type": "9x18 mm",
+            "name": "9x18 mm PM PS gs PPO",
+            "shortName": "PS gs PPO",
             "damage": 55,
-            "penetration": 18,
-            "armorDamage": 34,
-            "fragChance": "17%",
+            "penetration": 6,
+            "armorDamage": 16,
+            "id": "57371f2b24597761224311f1",
             "symbol": {
-                "fill": "yellow",
+                "fill": "tomato",
                 "type": "Plus"
-            }
-        },
-        {
-            "type": "7.62x25mm",
-            "name": "Pst gzh",
-            "damage": 50,
-            "penetration": 25,
-            "armorDamage": 36,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "9x19mm",
-            "name": "RIP",
-            "damage": 102,
-            "penetration": 2,
-            "armorDamage": 11,
-            "fragChance": "100%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "9x19mm",
-            "name": "Quakemaker",
-            "damage": 85,
-            "penetration": 8,
-            "armorDamage": 22,
-            "fragChance": "10%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "9x19mm",
-            "name": "PSO gzh",
-            "damage": 59,
-            "penetration": 10,
-            "armorDamage": 32,
-            "fragChance": "25%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "9x19mm",
-            "name": "Luger CCI",
-            "damage": 70,
-            "penetration": 10,
-            "armorDamage": 38,
-            "fragChance": "25%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "9x19mm",
-            "name": "Green Tracer",
-            "damage": 58,
-            "penetration": 14,
-            "armorDamage": 33,
-            "fragChance": "15%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "9x19mm",
-            "name": "PST gzh",
-            "damage": 54,
-            "penetration": 20,
-            "armorDamage": 33,
-            "fragChance": "15%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "9x19mm",
-            "name": "AP 6.3",
-            "damage": 52,
-            "penetration": 30,
-            "armorDamage": 48,
-            "fragChance": "5%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "9x19mm",
-            "name": "7n31",
-            "damage": 52,
-            "penetration": 39,
-            "armorDamage": 53,
-            "fragChance": "5%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": ".45",
-            "name": "RIP",
-            "damage": 127,
-            "penetration": 3,
-            "armorDamage": 12,
-            "fragChance": "100%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": ".45",
-            "name": "Hydroshok",
-            "damage": 95,
-            "penetration": 13,
-            "armorDamage": 30,
-            "fragChance": "50%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": ".45",
-            "name": "Lasermatch (Tracer)",
-            "damage": 74,
-            "penetration": 19,
-            "armorDamage": 37,
-            "fragChance": "1%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": ".45",
-            "name": "ACP",
-            "damage": 69,
-            "penetration": 23,
-            "armorDamage": 36,
-            "fragChance": "1%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": ".45",
-            "name": "ACP AP",
-            "damage": 70,
-            "penetration": 36,
-            "armorDamage": 43,
-            "fragChance": "1%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": "9x21mm",
-            "name": "sp12",
-            "damage": 80,
-            "penetration": 15,
-            "armorDamage": 63,
-            "fragChance": "35%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "9x21mm",
-            "name": "sp11",
-            "damage": 65,
-            "penetration": 18,
-            "armorDamage": 44,
-            "fragChance": "30%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "9x21mm",
-            "name": "sp10",
-            "damage": 49,
-            "penetration": 35,
-            "armorDamage": 46,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "9x21mm",
-            "name": "sp13",
-            "damage": 63,
-            "penetration": 39,
-            "armorDamage": 47,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "5.7x28 mm",
-            "name": "r37f",
-            "damage": 98,
-            "penetration": 8,
-            "armorDamage": 7,
-            "fragChance": "100%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.7x28 mm",
-            "name": "ss198lf",
-            "damage": 74,
-            "penetration": 10,
-            "armorDamage": 15,
-            "fragChance": "80%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.7x28 mm",
-            "name": "r37x",
-            "damage": 81,
-            "penetration": 11,
-            "armorDamage": 14,
-            "fragChance": "70%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.7x28 mm",
-            "name": "ss197sr",
-            "damage": 62,
-            "penetration": 20,
-            "armorDamage": 22,
-            "fragChance": "50%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.7x28 mm",
-            "name": "l191 (Tracer)",
-            "damage": 58,
-            "penetration": 33,
-            "armorDamage": 41,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.7x28 mm",
-            "name": "sb193",
-            "damage": 54,
-            "penetration": 35,
-            "armorDamage": 37,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.7x28 mm",
-            "name": "ss190",
-            "damage": 49,
-            "penetration": 37,
-            "armorDamage": 43,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "yellow",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "4.6x30 mm",
-            "name": "Action SX",
-            "damage": 65,
-            "penetration": 18,
-            "armorDamage": 39,
-            "fragChance": "50%",
-            "symbol": {
-                "fill": "green",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "4.6x30 mm",
-            "name": "Subsonic SX",
-            "damage": 45,
-            "penetration": 36,
-            "armorDamage": 46,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "green",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "4.6x30 mm",
-            "name": "FMJ SX",
-            "damage": 43,
-            "penetration": 40,
-            "armorDamage": 41,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "green",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "4.6x30 mm",
-            "name": "AP SX",
-            "damage": 35,
-            "penetration": 53,
-            "armorDamage": 46,
-            "fragChance": "10%",
-            "symbol": {
-                "fill": "green",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "9x39mm",
-            "name": "sp5",
-            "damage": 68,
-            "penetration": 38,
-            "armorDamage": 52,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "green",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "9x39mm",
-            "name": "sp6",
-            "damage": 58,
-            "penetration": 46,
-            "armorDamage": 60,
-            "fragChance": "10%",
-            "symbol": {
-                "fill": "green",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "9x39mm",
-            "name": "SPP",
-            "damage": 64,
-            "penetration": 50,
-            "armorDamage": 56,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "green",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": "9x39mm",
-            "name": "BP",
-            "damage": 60,
-            "penetration": 55,
-            "armorDamage": 68,
-            "fragChance": "10%",
-            "symbol": {
-                "fill": "green",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": ".366",
-            "name": "Geksa",
-            "damage": 110,
-            "penetration": 14,
-            "armorDamage": 38,
-            "fragChance": "45%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": ".366",
-            "name": "FMJ",
-            "damage": 98,
-            "penetration": 23,
-            "armorDamage": 48,
-            "fragChance": "25%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": ".366",
-            "name": "EKO",
-            "damage": 73,
-            "penetration": 30,
-            "armorDamage": 40,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": ".366",
-            "name": "AP",
-            "damage": 90,
-            "penetration": 42,
-            "armorDamage": 60,
-            "fragChance": "1%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": "5.45x39 mm",
-            "name": "SP",
-            "damage": 68,
-            "penetration": 11,
-            "armorDamage": 34,
-            "fragChance": "45%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "5.45x39 mm",
-            "name": "HP",
-            "damage": 74,
-            "penetration": 11,
-            "armorDamage": 20,
-            "fragChance": "35%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "5.45x39 mm",
-            "name": "PRS",
-            "damage": 60,
-            "penetration": 14,
-            "armorDamage": 28,
-            "fragChance": "30%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "5.45x39 mm",
-            "name": "US",
-            "damage": 65,
-            "penetration": 15,
-            "armorDamage": 34,
-            "fragChance": "10%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "5.45x39 mm",
-            "name": "FMJ",
-            "damage": 54,
-            "penetration": 20,
-            "armorDamage": 30,
-            "fragChance": "25%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "5.45x39 mm",
-            "name": "T (Tracer)",
-            "damage": 57,
-            "penetration": 20,
-            "armorDamage": 38,
-            "fragChance": "16%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "5.45x39 mm",
-            "name": "PS",
-            "damage": 50,
-            "penetration": 25,
-            "armorDamage": 35,
-            "fragChance": "40%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "5.45x39 mm",
-            "name": "PP",
-            "damage": 46,
-            "penetration": 30,
-            "armorDamage": 32,
-            "fragChance": "17%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "5.45x39 mm",
-            "name": "BP",
-            "damage": 48,
-            "penetration": 32,
-            "armorDamage": 41,
-            "fragChance": "16%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "5.45x39 mm",
-            "name": "BT (Tracer)",
-            "damage": 44,
-            "penetration": 37,
-            "armorDamage": 49,
-            "fragChance": "16%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "5.45x39 mm",
-            "name": "BS",
-            "damage": 40,
-            "penetration": 51,
-            "armorDamage": 57,
-            "fragChance": "17%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "5.45x39 mm",
-            "name": "7n39",
-            "damage": 37,
-            "penetration": 62,
-            "armorDamage": 60,
-            "fragChance": "2%",
-            "symbol": {
-                "fill": "green",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "5.56x45 mm",
-            "name": "Warmage",
-            "damage": 85,
-            "penetration": 3,
-            "armorDamage": 14,
-            "fragChance": "90%",
-            "symbol": {
-                "fill": "green",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.56x45 mm",
-            "name": "55 HP",
-            "damage": 75,
-            "penetration": 9,
-            "armorDamage": 22,
-            "fragChance": "70%",
-            "symbol": {
-                "fill": "green",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.56x45 mm",
-            "name": "MK 255 Mod 0",
-            "damage": 60,
-            "penetration": 17,
-            "armorDamage": 32,
-            "fragChance": "3%",
-            "symbol": {
-                "fill": "green",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.56x45 mm",
-            "name": "Mk318 SOST",
-            "damage": 65,
-            "penetration": 21,
-            "armorDamage": 35,
-            "fragChance": "15%",
-            "symbol": {
-                "fill": "green",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.56x45 mm",
-            "name": "M856 (Tracer)",
-            "damage": 55,
-            "penetration": 23,
-            "armorDamage": 34,
-            "fragChance": "33%",
-            "symbol": {
-                "fill": "green",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.56x45 mm",
-            "name": "FMJ",
-            "damage": 52,
-            "penetration": 24,
-            "armorDamage": 33,
-            "fragChance": "50%",
-            "symbol": {
-                "fill": "green",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.56x45 mm",
-            "name": "M855",
-            "damage": 50,
-            "penetration": 28,
-            "armorDamage": 37,
-            "fragChance": "40%",
-            "symbol": {
-                "fill": "green",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.56x45 mm",
-            "name": "M856A1 (Tracer)",
-            "damage": 51,
-            "penetration": 37,
-            "armorDamage": 52,
-            "fragChance": "33%",
-            "symbol": {
-                "fill": "green",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.56x45 mm",
-            "name": "M855A1",
-            "damage": 45,
-            "penetration": 43,
-            "armorDamage": 52,
-            "fragChance": "34%",
-            "symbol": {
-                "fill": "green",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.56x45 mm",
-            "name": "M995",
-            "damage": 40,
-            "penetration": 53,
-            "armorDamage": 58,
-            "fragChance": "32%",
-            "symbol": {
-                "fill": "green",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "5.56x45 mm",
-            "name": "SSA AP",
-            "damage": 36,
-            "penetration": 56,
-            "armorDamage": 64,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "green",
-                "type": "Diamond"
-            }
-        },
-        {
-            "type": "7.62x39 mm",
-            "name": "HP",
-            "damage": 87,
-            "penetration": 15,
-            "armorDamage": 35,
-            "fragChance": "26%",
-            "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "7.62x39 mm",
-            "name": "US",
-            "damage": 56,
-            "penetration": 29,
-            "armorDamage": 42,
-            "fragChance": "8%",
-            "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "7.62x39 mm",
-            "name": "T45M",
-            "damage": 62,
-            "penetration": 30,
-            "armorDamage": 46,
-            "fragChance": "12%",
-            "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "7.62x39 mm",
-            "name": "PS",
-            "damage": 57,
-            "penetration": 32,
-            "armorDamage": 52,
-            "fragChance": "25%",
-            "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "7.62x39 mm",
-            "name": "BP",
-            "damage": 58,
-            "penetration": 47,
-            "armorDamage": 63,
-            "fragChance": "12%",
-            "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "7.62x39 mm",
-            "name": "MAI AP",
-            "damage": 47,
-            "penetration": 58,
-            "armorDamage": 76,
-            "fragChance": "5%",
-            "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": ".300 blk",
-            "name": "BPZ",
-            "damage": 60,
-            "penetration": 28,
-            "armorDamage": 36,
-            "fragChance": "30%",
-            "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "Circle"
-            }
-        },
-        {
-            "type": ".300 blk",
-            "name": "AP",
-            "damage": 55,
-            "penetration": 44,
-            "armorDamage": 60,
-            "fragChance": "30%",
-            "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "Circle"
             }
         },
         {
             "type": "7.62x51 mm",
-            "name": "Ultra Nosler",
-            "damage": 107,
-            "penetration": 15,
-            "armorDamage": 20,
-            "fragChance": "70%",
-            "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": "7.62x51 mm",
-            "name": "BPZ FMJ",
-            "damage": 88,
-            "penetration": 31,
-            "armorDamage": 33,
-            "fragChance": "25%",
-            "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": "7.62x51 mm",
-            "name": "TPZ SP",
-            "damage": 60,
-            "penetration": 36,
-            "armorDamage": 40,
-            "fragChance": "20%",
-            "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": "7.62x51 mm",
-            "name": "M80",
-            "damage": 80,
-            "penetration": 41,
-            "armorDamage": 66,
-            "fragChance": "17%",
-            "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "TriangleUp"
-            }
-        },
-        {
-            "type": "7.62x51 mm",
-            "name": "M62 (Tracer)",
+            "name": "7.62x51 mm M62",
+            "shortName": "M62",
             "damage": 79,
             "penetration": 44,
             "armorDamage": 75,
-            "fragChance": "14%",
+            "id": "5a608bf24f39f98ffc77720e",
             "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "TriangleUp"
+                "fill": "tomato",
+                "type": "Circle"
             }
         },
         {
-            "type": "7.62x51 mm",
-            "name": "M61",
-            "damage": 70,
-            "penetration": 64,
-            "armorDamage": 83,
-            "fragChance": "13%",
+            "type": "9x18 mm",
+            "name": "9x18 mm PM 9 BZT gzh",
+            "shortName": "9 BZT gzh",
+            "damage": 53,
+            "penetration": 18,
+            "armorDamage": 28,
+            "id": "573718ba2459775a75491131",
             "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "TriangleUp"
+                "fill": "tomato",
+                "type": "Plus"
             }
         },
         {
-            "type": "7.62x51 mm",
-            "name": "M993",
+            "type": "9x18 mm",
+            "name": "9x18 mm PM PMM",
+            "shortName": "PMM",
+            "damage": 58,
+            "penetration": 24,
+            "armorDamage": 33,
+            "id": "57371aab2459775a77142f22",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "9x18 mm",
+            "name": "9x18 mm PM SP8 gzh",
+            "shortName": "SP8 gzh",
             "damage": 67,
-            "penetration": 70,
-            "armorDamage": 85,
-            "fragChance": "13%",
+            "penetration": 1,
+            "armorDamage": 2,
+            "id": "5737218f245977612125ba51",
             "symbol": {
-                "fill": "rgb(71, 121, 152)",
+                "fill": "tomato",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "9x18 mm",
+            "name": "9x18 mm PM 9 P gzh",
+            "shortName": "9 P gzh",
+            "damage": 50,
+            "penetration": 5,
+            "armorDamage": 16,
+            "id": "573719762459775a626ccbc1",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "9x18 mm",
+            "name": "9x18 mm PM PSV",
+            "shortName": "PSV",
+            "damage": 69,
+            "penetration": 3,
+            "armorDamage": 5,
+            "id": "5737207f24597760ff7b25f2",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "9x18 mm",
+            "name": "9x18 mm PM Pst gzh",
+            "shortName": "Pst gzh",
+            "damage": 50,
+            "penetration": 12,
+            "armorDamage": 26,
+            "id": "5737201124597760fc4431f1",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "7.62x25 mm",
+            "name": "7.62x25mm TT FMJ43",
+            "shortName": "FMJ43",
+            "damage": 60,
+            "penetration": 11,
+            "armorDamage": 29,
+            "id": "5735ff5c245977640e39ba7e",
+            "symbol": {
+                "fill": "tomato",
                 "type": "TriangleUp"
             }
         },
         {
-            "type": "7.62x54R",
-            "name": "T-46M (Tracer)",
-            "damage": 82,
-            "penetration": 41,
-            "armorDamage": 83,
-            "fragChance": "18%",
+            "type": "9x18 mm",
+            "name": "9x18 mm PM PSO gzh",
+            "shortName": "PSO gzh",
+            "damage": 54,
+            "penetration": 5,
+            "armorDamage": 13,
+            "id": "57371f8d24597761006c6a81",
             "symbol": {
-                "fill": "rgb(71, 121, 152)",
+                "fill": "tomato",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "9x19 mm",
+            "name": "9x19 mm Pst gzh",
+            "shortName": "Pst gzh",
+            "damage": 54,
+            "penetration": 20,
+            "armorDamage": 33,
+            "id": "56d59d3ad2720bdb418b4577",
+            "symbol": {
+                "fill": "tomato",
                 "type": "TriangleDown"
             }
         },
         {
-            "type": "7.62x54R",
-            "name": "LPS Gzh",
-            "damage": 81,
-            "penetration": 42,
-            "armorDamage": 78,
-            "fragChance": "18%",
+            "type": "5.56x45 mm",
+            "name": "5.56x45 mm M856",
+            "shortName": "M856",
+            "damage": 55,
+            "penetration": 23,
+            "armorDamage": 34,
+            "id": "59e68f6f86f7746c9f75e846",
             "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "TriangleDown"
+                "fill": "tomato",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "9x18 mm",
+            "name": "9x18 mm PM SP7 gzh",
+            "shortName": "SP7 gzh",
+            "damage": 77,
+            "penetration": 2,
+            "armorDamage": 5,
+            "id": "57372140245977611f70ee91",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "5.56x45 mm",
+            "name": "5.56x45 mm M995",
+            "shortName": "M995",
+            "damage": 40,
+            "penetration": 53,
+            "armorDamage": 58,
+            "id": "59e690b686f7746c9f75e848",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "5.56x45 mm",
+            "name": "5.56x45 mm M856A1",
+            "shortName": "M856A1",
+            "damage": 51,
+            "penetration": 37,
+            "armorDamage": 52,
+            "id": "59e6906286f7746c9f75e847",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "5.56x45 mm",
+            "name": "5.56x45 mm M855A1",
+            "shortName": "M855A1",
+            "damage": 45,
+            "penetration": 43,
+            "armorDamage": 52,
+            "id": "54527ac44bdc2d36668b4567",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "9x18 mm",
+            "name": "9x18 mm PM PBM",
+            "shortName": "PBM",
+            "damage": 40,
+            "penetration": 28,
+            "armorDamage": 30,
+            "id": "573719df2459775a626ccbc2",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "5.45x39 mm",
+            "name": "5.45x39 mm PS",
+            "shortName": "PS",
+            "damage": 50,
+            "penetration": 25,
+            "armorDamage": 35,
+            "id": "56dff3afd2720bba668b4567",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Plus"
             }
         },
         {
             "type": "7.62x54R",
-            "name": "7N1",
-            "damage": 86,
-            "penetration": 45,
-            "armorDamage": 84,
-            "fragChance": "8%",
-            "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "7.62x54R",
-            "name": "7BT1 (Tracer)",
-            "damage": 78,
-            "penetration": 59,
-            "armorDamage": 87,
-            "fragChance": "8%",
-            "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "TriangleDown"
-            }
-        },
-        {
-            "type": "7.62x54R",
-            "name": "SNB",
+            "name": "7.62x54R SNB",
+            "shortName": "SNB",
             "damage": 75,
             "penetration": 62,
             "armorDamage": 87,
-            "fragChance": "8%",
+            "id": "560d61e84bdc2da74d8b4571",
             "symbol": {
-                "fill": "rgb(71, 121, 152)",
+                "fill": "yellow",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "9x18 mm",
+            "name": "9x18 mm PM PRS gs",
+            "shortName": "PRS gs",
+            "damage": 58,
+            "penetration": 6,
+            "armorDamage": 16,
+            "id": "57371eb62459776125652ac1",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "9x19 mm",
+            "name": "9x19 mm PSO gzh",
+            "shortName": "PSO gzh",
+            "damage": 59,
+            "penetration": 10,
+            "armorDamage": 32,
+            "id": "58864a4f2459770fcc257101",
+            "symbol": {
+                "fill": "tomato",
                 "type": "TriangleDown"
+            }
+        },
+        {
+            "type": "7.62x51 mm",
+            "name": "7.62x51 mm M80",
+            "shortName": "M80",
+            "damage": 80,
+            "penetration": 41,
+            "armorDamage": 66,
+            "id": "58dd3ad986f77403051cba8f",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "5.56x45 mm",
+            "name": "5.56x45 mm Mk 255 Mod 0",
+            "shortName": "Mk255 Mod0",
+            "damage": 60,
+            "penetration": 17,
+            "armorDamage": 32,
+            "id": "59e6918f86f7746c9f75e849",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Diamond"
             }
         },
         {
             "type": "7.62x54R",
-            "name": "7n37",
+            "name": "7.62x54R LPS Gzh",
+            "shortName": "LPS Gzh",
+            "damage": 81,
+            "penetration": 42,
+            "armorDamage": 78,
+            "id": "5887431f2459777e1612938f",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "5.45x39 mm",
+            "name": "5.45x39 mm PRS",
+            "shortName": "PRS",
+            "damage": 60,
+            "penetration": 14,
+            "armorDamage": 28,
+            "id": "56dff338d2720bbd668b4569",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "5.45x39 mm",
+            "name": "5.45x39 mm BT",
+            "shortName": "BT",
+            "damage": 44,
+            "penetration": 37,
+            "armorDamage": 49,
+            "id": "56dff061d2720bb5668b4567",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "4.6x30 mm",
+            "name": "4.6x30mm AP SX",
+            "shortName": "AP SX",
+            "damage": 35,
+            "penetration": 53,
+            "armorDamage": 46,
+            "id": "5ba26835d4351e0035628ff5",
+            "symbol": {
+                "fill": "yellow",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "7.62x25 mm",
+            "name": "7.62x25mm TT LRN",
+            "shortName": "LRN",
+            "damage": 64,
+            "penetration": 8,
+            "armorDamage": 28,
+            "id": "573601b42459776410737435",
+            "symbol": {
+                "fill": "tomato",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "5.45x39 mm",
+            "name": "5.45x39 mm SP",
+            "shortName": "SP",
+            "damage": 68,
+            "penetration": 11,
+            "armorDamage": 34,
+            "id": "56dff421d2720b5f5a8b4567",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "5.56x45 mm",
+            "name": "5.56x45 mm 55 HP",
+            "shortName": "55 HP",
+            "damage": 75,
+            "penetration": 9,
+            "armorDamage": 22,
+            "id": "59e6927d86f77411da468256",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "9x18 mm",
+            "name": "9x18 mm PM PPT gzh",
+            "shortName": "PPT gzh",
+            "damage": 59,
+            "penetration": 8,
+            "armorDamage": 22,
+            "id": "57371e4124597760ff7b25f1",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "5.45x39 mm",
+            "name": "5.45x39 mm HP",
+            "shortName": "HP",
+            "damage": 74,
+            "penetration": 11,
+            "armorDamage": 20,
+            "id": "56dff216d2720bbd668b4568",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "5.56x45 mm",
+            "name": "5.56x45 mm M855",
+            "shortName": "M855",
+            "damage": 50,
+            "penetration": 28,
+            "armorDamage": 37,
+            "id": "54527a984bdc2d4e668b4567",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "5.45x39 mm",
+            "name": "5.45x39 mm 7N39 \"Igolnik\"",
+            "shortName": "7N39",
+            "damage": 37,
+            "penetration": 62,
+            "armorDamage": 60,
+            "id": "5c0d5e4486f77478390952fe",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": ".366",
+            "name": ".366 ТКМ Geksa",
+            "shortName": "Geksa",
+            "damage": 110,
+            "penetration": 14,
+            "armorDamage": 38,
+            "id": "59e6658b86f77411d949b250",
+            "symbol": {
+                "fill": "yellow",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": ".366",
+            "name": ".366 ТКМ FMJ",
+            "shortName": "FMJ",
+            "damage": 98,
+            "penetration": 23,
+            "armorDamage": 48,
+            "id": "59e6542b86f77411dc52a77a",
+            "symbol": {
+                "fill": "yellow",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": "9x19 mm",
+            "name": "9x19 mm Green Tracer",
+            "shortName": "GT",
+            "damage": 58,
+            "penetration": 14,
+            "armorDamage": 33,
+            "id": "5c3df7d588a4501f290594e5",
+            "symbol": {
+                "fill": "tomato",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": "4.6x30 mm",
+            "name": "4.6x30mm Action SX",
+            "shortName": "Action SX",
+            "damage": 65,
+            "penetration": 18,
+            "armorDamage": 39,
+            "id": "5ba26812d4351e003201fef1",
+            "symbol": {
+                "fill": "yellow",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "7.62x25 mm",
+            "name": "7.62x25mm TT Pst gzh",
+            "shortName": "Pst gzh",
+            "damage": 50,
+            "penetration": 25,
+            "armorDamage": 36,
+            "id": "573603562459776430731618",
+            "symbol": {
+                "fill": "tomato",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "7.62x25 mm",
+            "name": "7.62x25mm TT P gl",
+            "shortName": "P gl",
+            "damage": 58,
+            "penetration": 14,
+            "armorDamage": 32,
+            "id": "5736026a245977644601dc61",
+            "symbol": {
+                "fill": "tomato",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "20 Gauge",
+            "name": "20x70 7.5mm Buckshot",
+            "shortName": "7.5 20c",
+            "damage": 25,
+            "penetration": 3,
+            "armorDamage": 14,
+            "id": "5a38ebd9c4a282000d722a5b",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": ".366",
+            "name": ".366 ТКМ EKO",
+            "shortName": "EKO",
+            "damage": 73,
+            "penetration": 30,
+            "armorDamage": 40,
+            "id": "59e655cb86f77411dc52a77b",
+            "symbol": {
+                "fill": "yellow",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": "7.62x25 mm",
+            "name": "7.62x25mm TT LRNPC",
+            "shortName": "LRNPC",
+            "damage": 66,
+            "penetration": 7,
+            "armorDamage": 27,
+            "id": "573602322459776445391df1",
+            "symbol": {
+                "fill": "tomato",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "7.62x39 mm",
+            "name": "7.62x39 mm PS",
+            "shortName": "PS",
+            "damage": 57,
+            "penetration": 32,
+            "armorDamage": 52,
+            "id": "5656d7c34bdc2d9d198b4587",
+            "symbol": {
+                "fill": "green",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "5.45x39 mm",
+            "name": "5.45x39 mm US",
+            "shortName": "US",
+            "damage": 65,
+            "penetration": 15,
+            "armorDamage": 34,
+            "id": "56dff4ecd2720b5f5a8b4568",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "7.62x25 mm",
+            "name": "7.62x25mm TT AKBS",
+            "shortName": "AKBS",
+            "damage": 58,
+            "penetration": 12,
+            "armorDamage": 32,
+            "id": "5735fdcd2459776445391d61",
+            "symbol": {
+                "fill": "tomato",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "7.62x39 mm",
+            "name": "7.62x39 mm HP",
+            "shortName": "HP",
+            "damage": 87,
+            "penetration": 15,
+            "armorDamage": 35,
+            "id": "59e4d3d286f774176a36250a",
+            "symbol": {
+                "fill": "green",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "5.56x45 mm",
+            "name": "5.56x45 mm 55 FMJ",
+            "shortName": "55 FMJ",
+            "damage": 52,
+            "penetration": 24,
+            "armorDamage": 33,
+            "id": "59e6920f86f77411d82aa167",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "4.6x30 mm",
+            "name": "4.6x30mm FMJ SX",
+            "shortName": "FMJ SX",
+            "damage": 43,
+            "penetration": 40,
+            "armorDamage": 41,
+            "id": "5ba2678ad4351e44f824b344",
+            "symbol": {
+                "fill": "yellow",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "5.45x39 mm",
+            "name": "5.45x39 mm BP",
+            "shortName": "BP",
+            "damage": 48,
+            "penetration": 32,
+            "armorDamage": 41,
+            "id": "56dfef82d2720bbd668b4567",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "5.45x39 mm",
+            "name": "5.45x39 mm BS",
+            "shortName": "BS",
+            "damage": 40,
+            "penetration": 51,
+            "armorDamage": 57,
+            "id": "56dff026d2720bb8668b4567",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "7.62x39 mm",
+            "name": "7.62x39 mm US",
+            "shortName": "US",
+            "damage": 56,
+            "penetration": 29,
+            "armorDamage": 42,
+            "id": "59e4d24686f7741776641ac7",
+            "symbol": {
+                "fill": "green",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "7.62x39 mm",
+            "name": "7.62x39 mm T45M",
+            "shortName": "T45M",
+            "damage": 62,
+            "penetration": 30,
+            "armorDamage": 46,
+            "id": "59e4cf5286f7741778269d8a",
+            "symbol": {
+                "fill": "green",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "20 Gauge",
+            "name": "20/70 Star Slug",
+            "shortName": "20/70 Slug",
+            "damage": 154,
+            "penetration": 16,
+            "armorDamage": 42,
+            "id": "5d6e6a05a4b93618084f58d0",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "5.45x39 mm",
+            "name": "5.45x39 mm T",
+            "shortName": "T",
+            "damage": 57,
+            "penetration": 20,
+            "armorDamage": 38,
+            "id": "56dff4a2d2720bbd668b456a",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "7.62x39 mm",
+            "name": "7.62x39 mm BP",
+            "shortName": "BP",
+            "damage": 58,
+            "penetration": 47,
+            "armorDamage": 63,
+            "id": "59e0d99486f7744a32234762",
+            "symbol": {
+                "fill": "green",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "7.62x25 mm",
+            "name": "7.62x25mm TT PT gzh",
+            "shortName": "PT gzh",
+            "damage": 55,
+            "penetration": 18,
+            "armorDamage": 34,
+            "id": "573603c924597764442bd9cb",
+            "symbol": {
+                "fill": "tomato",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "7.62x51 mm",
+            "name": "7.62x51 mm M61",
+            "shortName": "M61",
+            "damage": 70,
+            "penetration": 64,
+            "armorDamage": 83,
+            "id": "5a6086ea4f39f99cd479502f",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "9x18 mm",
+            "name": "9x18 mm PM PPe gzh",
+            "shortName": "PPe gzh",
+            "damage": 61,
+            "penetration": 7,
+            "armorDamage": 15,
+            "id": "57371b192459775a9f58a5e0",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "7.62x54R",
+            "name": "7.62x54R 7N1 Sniper cartridge",
+            "shortName": "7N1",
+            "damage": 86,
+            "penetration": 45,
+            "armorDamage": 84,
+            "id": "59e77a2386f7742ee578960a",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "4.6x30 mm",
+            "name": "4.6x30mm Subsonic SX",
+            "shortName": "Subsonic SX",
+            "damage": 45,
+            "penetration": 36,
+            "armorDamage": 46,
+            "id": "5ba26844d4351e00334c9475",
+            "symbol": {
+                "fill": "yellow",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "5.45x39 mm",
+            "name": "5.45x39 mm FMJ",
+            "shortName": "FMJ",
+            "damage": 54,
+            "penetration": 20,
+            "armorDamage": 30,
+            "id": "56dff0bed2720bb0668b4567",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "5.56x45 mm",
+            "name": "5.56x45mm Warmage",
+            "shortName": "WG",
+            "damage": 85,
+            "penetration": 3,
+            "armorDamage": 14,
+            "id": "5c0d5ae286f7741e46554302",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "5.45x39 mm",
+            "name": "5.45x39 mm PP",
+            "shortName": "PP",
+            "damage": 46,
+            "penetration": 30,
+            "armorDamage": 32,
+            "id": "56dff2ced2720bb4668b4567",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "9x21 mm",
+            "name": "9x21 mm SP10",
+            "shortName": "SP10",
+            "damage": 49,
+            "penetration": 35,
+            "armorDamage": 46,
+            "id": "5a269f97c4a282000b151807",
+            "symbol": {
+                "fill": "green",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "9x21 mm",
+            "name": "9x21 mm SP11",
+            "shortName": "SP11",
+            "damage": 65,
+            "penetration": 18,
+            "armorDamage": 44,
+            "id": "5a26abfac4a28232980eabff",
+            "symbol": {
+                "fill": "green",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "9x19 mm",
+            "name": "9x19 mm RIP",
+            "shortName": "RIP",
+            "damage": 102,
+            "penetration": 2,
+            "armorDamage": 11,
+            "id": "5c0d56a986f774449d5de529",
+            "symbol": {
+                "fill": "tomato",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": "9x19 mm",
+            "name": "9x19 mm AP 6.3",
+            "shortName": "AP 6.3",
+            "damage": 52,
+            "penetration": 30,
+            "armorDamage": 48,
+            "id": "5c925fa22e221601da359b7b",
+            "symbol": {
+                "fill": "tomato",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": "9x19 mm",
+            "name": "9x19 mm Luger CCI",
+            "shortName": "Luger CCI",
+            "damage": 70,
+            "penetration": 10,
+            "armorDamage": 38,
+            "id": "5a3c16fe86f77452b62de32a",
+            "symbol": {
+                "fill": "tomato",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": "9x39 mm",
+            "name": "9x39 mm 7N12 BP",
+            "shortName": "BP",
+            "damage": 60,
+            "penetration": 55,
+            "armorDamage": 68,
+            "id": "5c0d688c86f77413ae3407b2",
+            "symbol": {
+                "fill": "green",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "9x21 mm",
+            "name": "9x21 mm SP12",
+            "shortName": "SP12",
+            "damage": 80,
+            "penetration": 15,
+            "armorDamage": 63,
+            "id": "5a26ac06c4a282000c5a90a8",
+            "symbol": {
+                "fill": "green",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "9x39 mm",
+            "name": "9x39 mm 7N9 SPP",
+            "shortName": "SPP",
+            "damage": 64,
+            "penetration": 50,
+            "armorDamage": 56,
+            "id": "5c0d668f86f7747ccb7f13b2",
+            "symbol": {
+                "fill": "green",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "9x39 mm",
+            "name": "9x39 mm SP-5",
+            "shortName": "SP-5",
+            "damage": 68,
+            "penetration": 38,
+            "armorDamage": 52,
+            "id": "57a0dfb82459774d3078b56c",
+            "symbol": {
+                "fill": "green",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "9x39 mm",
+            "name": "9x39 mm SP-6",
+            "shortName": "SP-6",
+            "damage": 58,
+            "penetration": 46,
+            "armorDamage": 60,
+            "id": "57a0e5022459774d1673f889",
+            "symbol": {
+                "fill": "green",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "9x21 mm",
+            "name": "9x21 mm SP13",
+            "shortName": "SP13",
+            "damage": 63,
+            "penetration": 39,
+            "armorDamage": 47,
+            "id": "5a26ac0ec4a28200741e1e18",
+            "symbol": {
+                "fill": "green",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "12.7x55 mm",
+            "name": "12.7x55 mm PS12",
+            "shortName": "PS12",
+            "damage": 115,
+            "penetration": 28,
+            "armorDamage": 60,
+            "id": "5cadf6ddae9215051e1c23b2",
+            "symbol": {
+                "fill": "green",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": "12.7x55 mm",
+            "name": "12.7x55 mm PS12A",
+            "shortName": "PS12A",
+            "damage": 165,
+            "penetration": 10,
+            "armorDamage": 22,
+            "id": "5cadf6e5ae921500113bb973",
+            "symbol": {
+                "fill": "green",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": "12 Gauge Shot",
+            "name": "12/70 8.5 mm \"Magnum\" Buckshot",
+            "shortName": "8.5 12c",
+            "damage": 50,
+            "penetration": 2,
+            "armorDamage": 26,
+            "id": "5d6e6806a4b936088465b17e",
+            "symbol": {
+                "fill": "green",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "12 Gauge Shot",
+            "name": "12x70 7mm Buckshot",
+            "shortName": "7mm 12c",
+            "damage": 39,
+            "penetration": 3,
+            "armorDamage": 26,
+            "id": "560d5e524bdc2d25448b4571",
+            "symbol": {
+                "fill": "green",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "12 Gauge Shot",
+            "name": "12/70 5.25mm Buckshot",
+            "shortName": "5.25 12c",
+            "damage": 37,
+            "penetration": 1,
+            "armorDamage": 15,
+            "id": "5d6e6772a4b936088465b17c",
+            "symbol": {
+                "fill": "green",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "12.7x55 mm",
+            "name": "12.7x55 mm PS12B",
+            "shortName": "PS12B",
+            "damage": 102,
+            "penetration": 46,
+            "armorDamage": 57,
+            "id": "5cadf6eeae921500134b2799",
+            "symbol": {
+                "fill": "green",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": "12 Gauge Shot",
+            "name": "12x70 6.5 mm \"Express\" Buckshot",
+            "shortName": "6.5 12c",
+            "damage": 35,
+            "penetration": 3,
+            "armorDamage": 26,
+            "id": "5d6e67fba4b9361bc73bc779",
+            "symbol": {
+                "fill": "green",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "12 Gauge Shot",
+            "name": "12/70 Flechette",
+            "shortName": "Flech.",
+            "damage": 25,
+            "penetration": 31,
+            "armorDamage": 26,
+            "id": "5d6e6911a4b9361bd5780d52",
+            "symbol": {
+                "fill": "green",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "12 Gauge Slug",
+            "name": "12/70 FTX Custom LIte Slug",
+            "shortName": "FTX",
+            "damage": 183,
+            "penetration": 20,
+            "armorDamage": 50,
+            "id": "5d6e68e6a4b9361c140bcfe0",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "12 Gauge Slug",
+            "name": "12/70 AP-20 Slug",
+            "shortName": "AP-20",
+            "damage": 164,
+            "penetration": 37,
+            "armorDamage": 65,
+            "id": "5d6e68a8a4b9360b6c0d54e2",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "12 Gauge Slug",
+            "name": "12x70 RIP",
+            "shortName": "12x70 RIP",
+            "damage": 265,
+            "penetration": 2,
+            "armorDamage": 11,
+            "id": "5c0d591486f7744c505b416f",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "20 Gauge",
+            "name": "20/70 7.3mm Buckshot",
+            "shortName": "7.3 20c",
+            "damage": 23,
+            "penetration": 3,
+            "armorDamage": 13,
+            "id": "5d6e69c7a4b9360b6c0d54e4",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "12 Gauge Slug",
+            "name": "12/70 Dual Sabot Slug",
+            "shortName": "2-Sabot",
+            "damage": 85,
+            "penetration": 17,
+            "armorDamage": 65,
+            "id": "5d6e68dea4b9361bcc29e659",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "20 Gauge",
+            "name": "20/70 Devastator Slug",
+            "shortName": "Dev.",
+            "damage": 198,
+            "penetration": 5,
+            "armorDamage": 13,
+            "id": "5d6e6a5fa4b93614ec501745",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "12 Gauge Slug",
+            "name": "12/70 Grizzly 40 Slug ",
+            "shortName": "Grizzly",
+            "damage": 190,
+            "penetration": 12,
+            "armorDamage": 48,
+            "id": "5d6e6869a4b9361c140bcfde",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "5.7x28 mm",
+            "name": "5.7x28 mm L191",
+            "shortName": "L191",
+            "damage": 58,
+            "penetration": 33,
+            "armorDamage": 41,
+            "id": "5cc80f53e4a949000e1ea4f8",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "5.7x28 mm",
+            "name": "5.7x28 mm SS198LF",
+            "shortName": "SS198LF",
+            "damage": 74,
+            "penetration": 10,
+            "armorDamage": 15,
+            "id": "5cc80f79e4a949033c7343b2",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "12 Gauge Slug",
+            "name": "12x70 shell with .50 BMG bullet",
+            "shortName": ".50 12c",
+            "damage": 197,
+            "penetration": 26,
+            "armorDamage": 57,
+            "id": "5d6e68c4a4b9361b93413f79",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "5.7x28 mm",
+            "name": "5.7x28 mm SS197SR",
+            "shortName": "SS197SR",
+            "damage": 62,
+            "penetration": 20,
+            "armorDamage": 22,
+            "id": "5cc80f8fe4a949033b0224a2",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "12 Gauge Slug",
+            "name": "12/70 \"Poleva-6u\" Slug",
+            "shortName": "P-6u 12c",
+            "damage": 150,
+            "penetration": 20,
+            "armorDamage": 50,
+            "id": "5d6e689ca4b9361bc8618956",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "12 Gauge Slug",
+            "name": "12/70 \"Poleva-3\" Slug",
+            "shortName": "P-3 12c",
+            "damage": 140,
+            "penetration": 17,
+            "armorDamage": 40,
+            "id": "5d6e6891a4b9361bd473feea",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "20 Gauge",
+            "name": "20/70 6.2mm Buckshot",
+            "shortName": "6.2 20k",
+            "damage": 22,
+            "penetration": 2,
+            "armorDamage": 13,
+            "id": "5d6e69b9a4b9361bc8618958",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "20 Gauge",
+            "name": "20/70 5.6mm Buckshot",
+            "shortName": "5.6 20c",
+            "damage": 26,
+            "penetration": 1,
+            "armorDamage": 12,
+            "id": "5d6e695fa4b936359b35d852",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "20 Gauge",
+            "name": "20/70 Slug \"Poleva-3\"",
+            "shortName": "P-3 20c",
+            "damage": 120,
+            "penetration": 14,
+            "armorDamage": 35,
+            "id": "5d6e6a53a4b9361bd473feec",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "20 Gauge",
+            "name": "20/70 Slug Poleva-6u",
+            "shortName": "P-6u 20c",
+            "damage": 135,
+            "penetration": 17,
+            "armorDamage": 40,
+            "id": "5d6e6a42a4b9364f07165f52",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": "5.7x28 mm",
+            "name": "5.7x28 mm SS190",
+            "shortName": "SS190",
+            "damage": 49,
+            "penetration": 37,
+            "armorDamage": 43,
+            "id": "5cc80f38e4a949001152b560",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": ".45",
+            "name": ".45 ACP FMJ",
+            "shortName": ".45 FMJ",
+            "damage": 69,
+            "penetration": 23,
+            "armorDamage": 36,
+            "id": "5e81f423763d9f754677bf2e",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "5.7x28 mm",
+            "name": "5.7x28 mm SB193",
+            "shortName": "SB193",
+            "damage": 54,
+            "penetration": 35,
+            "armorDamage": 37,
+            "id": "5cc80f67e4a949035e43bbba",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "7.62x51 mm",
+            "name": "7.62x51 mm BPZ FMJ",
+            "shortName": "BPZ FMJ",
+            "damage": 88,
+            "penetration": 31,
+            "armorDamage": 33,
+            "id": "5e023e53d4353e3302577c4c",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "7.62x51 mm",
+            "name": "7.62x51 mm TPZ SP",
+            "shortName": "TPZ SP",
+            "damage": 60,
+            "penetration": 36,
+            "armorDamage": 40,
+            "id": "5e023e6e34d52a55c3304f71",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "7.62x54R",
+            "name": "7.62x54R 7BT1",
+            "shortName": "7BT1",
+            "damage": 78,
+            "penetration": 59,
+            "armorDamage": 87,
+            "id": "5e023d34e8a400319a28ed44",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "7.62x54R",
+            "name": "7.62x54R 7N37",
+            "shortName": "7N37",
             "damage": 72,
             "penetration": 70,
             "armorDamage": 88,
-            "fragChance": "8%",
+            "id": "5e023d48186a883be655e551",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "7.62x54R",
+            "name": "7.62x54R T-46M",
+            "shortName": "T46M",
+            "damage": 82,
+            "penetration": 41,
+            "armorDamage": 83,
+            "id": "5e023cf8186a883be655e54f",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": ".45",
+            "name": ".45 ACP Lasermatch FMJ",
+            "shortName": ".45 LM",
+            "damage": 74,
+            "penetration": 19,
+            "armorDamage": 37,
+            "id": "5efb0d4f4bc50b58e81710f3",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": ".366",
+            "name": ".366 AP",
+            "shortName": "366 AP",
+            "damage": 90,
+            "penetration": 42,
+            "armorDamage": 60,
+            "id": "5f0596629e22f464da6bbdd9",
+            "symbol": {
+                "fill": "yellow",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": "7.62x51 mm",
+            "name": "7.62x51 mm M993",
+            "shortName": "M993",
+            "damage": 67,
+            "penetration": 70,
+            "armorDamage": 85,
+            "id": "5efb0c1bd79ff02a1f5e68d9",
+            "symbol": {
+                "fill": "tomato",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "9x19 mm",
+            "name": "9x19 mm 7N31",
+            "shortName": "7N31",
+            "damage": 52,
+            "penetration": 39,
+            "armorDamage": 55,
+            "id": "5efb0da7a29a85116f6ea05f",
+            "symbol": {
+                "fill": "tomato",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": "23x75 mm",
+            "name": "23x75mm \"Barricade\"",
+            "shortName": "Barr.",
+            "damage": 192,
+            "penetration": 39,
+            "armorDamage": 75,
+            "id": "5e85aa1a988a8701445df1f5",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
                 "type": "TriangleDown"
             }
         },
         {
-            "type": ".338 Lapua Magnum",
-            "name": "Tac-X",
-            "damage": 196,
-            "penetration": 18,
+            "type": "23x75 mm",
+            "name": "23x75mm Shrapnel 10",
+            "shortName": "Shrap.10",
+            "damage": 87,
+            "penetration": 11,
+            "armorDamage": 20,
+            "id": "5e85a9a6eacf8c039e4e2ac1",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": "23x75 mm",
+            "name": "23x75mm Shrapnel-25",
+            "shortName": "Shr.25",
+            "damage": 78,
+            "penetration": 10,
+            "armorDamage": 20,
+            "id": "5f647f31b6238e5dd066e196",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": ".45",
+            "name": ".45 ACP AP",
+            "shortName": ".45 AP",
+            "damage": 70,
+            "penetration": 36,
+            "armorDamage": 43,
+            "id": "5efb0cabfb3e451d70735af5",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": ".45",
+            "name": ".45 ACP Hydra-Shok",
+            "shortName": ".45 HS",
+            "damage": 95,
+            "penetration": 13,
+            "armorDamage": 30,
+            "id": "5efb0fc6aeb21837e749c801",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": ".45",
+            "name": ".45 RIP",
+            "shortName": ".45 RIP",
+            "damage": 127,
+            "penetration": 3,
+            "armorDamage": 12,
+            "id": "5ea2a8e200685063ec28c05a",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": "12 Gauge Slug",
+            "name": "12x70 Led slug",
+            "shortName": "12x70 Slug",
+            "damage": 167,
+            "penetration": 15,
             "armorDamage": 55,
-            "fragChance": "50%",
+            "id": "58820d1224597753c90aeb13",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "12 Gauge Slug",
+            "name": "12/70 HP Slug Copper Sabot Premier",
+            "shortName": "CSP",
+            "damage": 206,
+            "penetration": 14,
+            "armorDamage": 46,
+            "id": "5d6e68b3a4b9361bca7e50b5",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "12 Gauge Slug",
+            "name": "12/70 HP Slug \"SuperFormance\"",
+            "shortName": "SF",
+            "damage": 220,
+            "penetration": 5,
+            "armorDamage": 12,
+            "id": "5d6e68d1a4b93622fe60e845",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "5.7x28 mm",
+            "name": "5.7x28 mm R37.F",
+            "shortName": "R37.F",
+            "damage": 98,
+            "penetration": 8,
+            "armorDamage": 7,
+            "id": "5cc86832d7f00c000d3a6e6c",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": "5.7x28 mm",
+            "name": "5.7x28 mm R37.X",
+            "shortName": "R37.X",
+            "damage": 81,
+            "penetration": 11,
+            "armorDamage": 14,
+            "id": "5cc86840d7f00c002412c56c",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Circle"
+            }
+        },
+        {
+            "type": ".300 Blackout",
+            "name": ".300 BPZ AAC Blackout",
+            "shortName": "BPZ",
+            "damage": 60,
+            "penetration": 28,
+            "armorDamage": 36,
+            "id": "5fbe3ffdf8b6a877a729ea82",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
                 "type": "Diamond"
             }
         },
         {
-            "type": ".338 Lapua Magnum",
-            "name": "UPZ",
-            "damage": 142,
-            "penetration": 32,
-            "armorDamage": 70,
-            "fragChance": "60%",
+            "type": ".300 Blackout",
+            "name": ".300 AAC Blackout AP",
+            "shortName": "AP",
+            "damage": 55,
+            "penetration": 44,
+            "armorDamage": 60,
+            "id": "5fd20ff893a8961fc660a954",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
                 "type": "Diamond"
             }
         },
         {
-            "type": ".338 Lapua Magnum",
-            "name": "FMJ",
-            "damage": 122,
-            "penetration": 47,
-            "armorDamage": 83,
-            "fragChance": "20%",
+            "type": "7.62x51 mm",
+            "name": "7.62x51 mm Ultra Nosler",
+            "shortName": "Ultra Nosler",
+            "damage": 107,
+            "penetration": 15,
+            "armorDamage": 20,
+            "id": "5e023e88277cce2b522ff2b1",
             "symbol": {
-                "fill": "rgb(71, 121, 152)",
-                "type": "Diamond"
+                "fill": "tomato",
+                "type": "Circle"
             }
         },
         {
             "type": ".338 Lapua Magnum",
-            "name": "AP",
+            "name": ".338 Lapua Magnum AP",
+            "shortName": "AP",
             "damage": 115,
             "penetration": 79,
             "armorDamage": 89,
-            "fragChance": "13%",
+            "id": "5fc382a9d724d907e2077dab",
             "symbol": {
-                "fill": "rgb(71, 121, 152)",
+                "fill": "rgb(181, 59, 209)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": ".338 Lapua Magnum",
+            "name": ".338 Lapua Magnum FMJ",
+            "shortName": "FMJ",
+            "damage": 122,
+            "penetration": 47,
+            "armorDamage": 83,
+            "id": "5fc275cf85fd526b824a571a",
+            "symbol": {
+                "fill": "rgb(181, 59, 209)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": ".338 Lapua Magnum",
+            "name": ".338 UPZ Lapua Magnum",
+            "shortName": ".338 UPZ",
+            "damage": 142,
+            "penetration": 32,
+            "armorDamage": 70,
+            "id": "5fc382c1016cce60e8341b20",
+            "symbol": {
+                "fill": "rgb(181, 59, 209)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": ".338 Lapua Magnum",
+            "name": ".338 Lapua Magnum TAC-X",
+            "shortName": "TAC-X",
+            "damage": 196,
+            "penetration": 18,
+            "armorDamage": 55,
+            "id": "5fc382b6d6fa9c00c571bbc3",
+            "symbol": {
+                "fill": "rgb(181, 59, 209)",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "9x19 mm",
+            "name": "9x19 mm QuakeMaker",
+            "shortName": "QuakeMaker",
+            "damage": 85,
+            "penetration": 8,
+            "armorDamage": 22,
+            "id": "5efb0e16aeb21837e749c7ff",
+            "symbol": {
+                "fill": "tomato",
+                "type": "TriangleDown"
+            }
+        },
+        {
+            "type": "5.56x45 mm",
+            "name": "5.56x45 mm Mk 318 Mod 0 (SOST)",
+            "shortName": "SOST",
+            "damage": 65,
+            "penetration": 21,
+            "armorDamage": 35,
+            "id": "60194943740c5d77f6705eea",
+            "symbol": {
+                "fill": "tomato",
                 "type": "Diamond"
             }
         },
         {
-            "type": "12.7x55 mm",
-            "name": "ps12a",
-            "damage": 165,
-            "penetration": 10,
-            "armorDamage": 22,
-            "fragChance": "70%",
+            "type": "5.56x45 mm",
+            "name": "5.56x45 mm SSA AP",
+            "shortName": "SSA AP",
+            "damage": 36,
+            "penetration": 56,
+            "armorDamage": 64,
+            "id": "601949593ae8f707c4608daa",
             "symbol": {
-                "fill": "rgb(181, 59, 209)",
-                "type": "Plus"
+                "fill": "tomato",
+                "type": "Diamond"
             }
         },
         {
-            "type": "12.7x55 mm",
-            "name": "ps12",
-            "damage": 115,
-            "penetration": 28,
-            "armorDamage": 60,
-            "fragChance": "30%",
+            "type": "7.62x39 mm",
+            "name": "7.62x39 mm MAI AP",
+            "shortName": "7.62 AP",
+            "damage": 47,
+            "penetration": 58,
+            "armorDamage": 76,
+            "id": "601aa3d2b2bcb34913271e6d",
             "symbol": {
-                "fill": "rgb(181, 59, 209)",
+                "fill": "green",
                 "type": "Plus"
-            }
-        },
-        {
-            "type": "12.7x55 mm",
-            "name": "ps12b",
-            "damage": 102,
-            "penetration": 46,
-            "armorDamage": 57,
-            "fragChance": "30%",
-            "symbol": {
-                "fill": "rgb(181, 59, 209)",
-                "type": "Plus"
-            }
-        },
-        {
-            "type": "Other",
-            "name": "40mm Buckshot Grenade",
-            "damage": 160,
-            "penetration": 5,
-            "armorDamage": 95,
-            "fragChance": "0%",
-            "symbol": {
-                "fill": "rgb(181, 59, 209)",
-                "type": "Circle"
             }
         }
     ]
