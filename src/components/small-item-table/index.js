@@ -20,6 +20,10 @@ function priceCell({ value }) {
 };
 
 function traderPriceCell(datum) {
+    if(datum.row.original.traderName === '?'){
+        return null;
+    }
+
     return <div
         className = 'trader-price-content'
     >
