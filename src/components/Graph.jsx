@@ -147,7 +147,7 @@ const getArmorLabel = (tier, yMax, xMax) => {
 
 const Graph = props => {
     const history = useHistory();
-    const handleOnClick = (id) => history.push(`/item/${id}`);
+    const handleOnClick = (id) => history.push(`/item/${id.toString()}`);
 
     return (
         <VictoryChart
@@ -190,7 +190,7 @@ const Graph = props => {
                 style = {styles.yaxis}
             />
             <VictoryScatter
-                dataComponent = {<Symbol 
+                dataComponent = {<Symbol
                     link = {true}
                 />}
                 events={[
@@ -237,7 +237,7 @@ const Graph = props => {
             /> */}
             <VictoryLegend
                 data={props.legendData}
-                dataComponent = {<Symbol 
+                dataComponent = {<Symbol
                     link = {false}
                 />}
                 title={'Filter by caliber'}
