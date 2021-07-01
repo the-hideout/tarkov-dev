@@ -57,7 +57,7 @@ const linkCell = (allData) => {
 };
 
 const getArmorZoneString = (armorZones) => {
-    return armorZones.map((zoneName) => {
+    return armorZones?.map((zoneName) => {
         if(zoneName === 'Chest'){
             return 'Thorax';
         }
