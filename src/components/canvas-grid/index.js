@@ -4,7 +4,7 @@ function CanvasGrid(props) {
     const canvas = useRef();
     let boxes = [];
 
-    boxes = boxes.concat(props.grid.map((pocket) => {
+    boxes = boxes.concat(props.grid?.map((pocket) => {
         const returnData = {
             startX: pocket.col * 20,
             startY: pocket.row * 20,
@@ -13,7 +13,7 @@ function CanvasGrid(props) {
         };
 
         return returnData;
-    }));
+    })).filter(Boolean);
 
     // initialize the canvas context
     useEffect(() => {
@@ -24,6 +24,10 @@ function CanvasGrid(props) {
         const ctx = canvasEle.getContext("2d");
         boxes.map(info => drawPocket(info, ctx));
     });
+
+    if(!boxes){
+        return null;
+    }
 
     const drawPocket = (info, ctx) => {
         let { startX, startY, horizontal, vertical } = info;
