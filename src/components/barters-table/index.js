@@ -201,7 +201,7 @@ function BartersTable(props) {
                             <div
                                 className = 'price-wrapper'
                             >
-                                {formatPrice(value.value)}
+                                {formatPrice(value.value)} @ {value.sellTo}
                                 {value.barterOnly && <span> ({t('Barter only')})</span>}
                             </div>
                         </div>
@@ -305,7 +305,7 @@ function BartersTable(props) {
                             return false;
                         }
 
-                        let requiredItemPrice = requiredItem.item.avg24hPrice || Math.max(...requiredItem.item.traderPrices.map(priceObject => priceObject.price))
+                        let requiredItemPrice = requiredItem.item.avg24hPrice || Math.max(...requiredItem.item.traderPrices.map(priceObject => priceObject.price));
 
                         const alternatePriceSource = getAlternatePriceSource(requiredItem.item, barters);
                         let alternatePrice = 0;
@@ -335,14 +335,24 @@ function BartersTable(props) {
                     .filter(Boolean),
                 cost: cost,
                 reward: {
+                    sellTo: 'Flea market',
                     name: barterRow.rewardItems[0].item.name,
                     wikiLink: barterRow.rewardItems[0].item.wikiLink,
-                    value: barterRow.rewardItems[0].item.avg24hPrice || Math.max(...barterRow.rewardItems[0].item.traderPrices.map(priceObject => priceObject.price)),
+                    value: barterRow.rewardItems[0].item.avg24hPrice,
                     trader: barterRow.source,
                     iconLink: barterRow.rewardItems[0].item.iconLink,
                     itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,
                 },
             };
+
+            const bestTraderValue = Math.max(...barterRow.rewardItems[0].item.traderPrices.map(priceObject => priceObject.price));
+            const bestTrade = barterRow.rewardItems[0].item.traderPrices.find(traderPrice => traderPrice.price === bestTraderValue);
+
+            if(bestTrade && bestTrade.price > tradeData.reward.value){
+                // console.log(barterRow.rewardItems[0].item.traderPrices);
+                tradeData.reward.value = bestTrade.price;
+                tradeData.reward.sellTo = bestTrade.trader.name;
+            }
 
             tradeData.savings = tradeData.reward.value - cost;
 

@@ -21,6 +21,9 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
               avg24hPrice
               traderPrices {
                   price
+                  trader {
+                      name
+                  }
               }
             }
             count
@@ -35,6 +38,12 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
               imageLink
               wikiLink
               avg24hPrice
+              traderPrices {
+                price
+                trader {
+                    name
+                }
+            }
             }
             count
           }

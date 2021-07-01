@@ -228,7 +228,7 @@ function CraftTable(props) {
 
             const tradeData = {
                 costItems: craftRow.requiredItems.map(requiredItem => {
-                    let calculationPrice = requiredItem.item.avg24hPrice;
+                    let calculationPrice = requiredItem.item.avg24hPrice || Math.max(...requiredItem.item.traderPrices.map(priceObject => priceObject.price));;
                     // if(requiredItem.item.avg24hPrice * requiredItem.count === 0){
                     //     console.log(`Found a zero cost item! ${requiredItem.item.name}`);
 
@@ -263,17 +263,35 @@ function CraftTable(props) {
                     .filter(Boolean),
                 cost: totalCost,
                 reward: {
+                    sellTo: 'Flea Market',
                     name: craftRow.rewardItems[0].item.name,
                     wikiLink: craftRow.rewardItems[0].item.wikiLink,
                     itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
-                    value: Math.max(craftRow.rewardItems[0].item.avg24hPrice, Math.max(...craftRow.rewardItems[0].item.traderPrices.map(priceObject => priceObject.price))),
+                    value: craftRow.rewardItems[0].item.avg24hPrice,
                     source: `${station} (level ${level})`,
                     iconLink: craftRow.rewardItems[0].item.iconLink,
                     count: craftRow.rewardItems[0].count,
                 },
             };
 
-            tradeData.profit = Math.floor((craftRow.rewardItems[0].item.avg24hPrice * craftRow.rewardItems[0].count) - totalCost -  fleaMarketFee(craftRow.rewardItems[0].item.basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.rewardItems[0].count));
+            const bestTraderValue = Math.max(...craftRow.rewardItems[0].item.traderPrices.map(priceObject => priceObject.price));
+            const bestTrade = craftRow.rewardItems[0].item.traderPrices.find(traderPrice => traderPrice.price === bestTraderValue);
+
+            if(bestTrade && bestTrade.price > tradeData.reward.value){
+                // console.log(barterRow.rewardItems[0].item.traderPrices);
+                tradeData.reward.value = bestTrade.price;
+                tradeData.reward.sellTo = bestTrade.trader.name;
+            }
+
+            tradeData.profit = (tradeData.reward.value * craftRow.rewardItems[0].count) - totalCost;
+            if(tradeData.reward.sellTo === 'Flea Market'){
+                tradeData.profit = tradeData.profit - fleaMarketFee(craftRow.rewardItems[0].item.basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.rewardItems[0].count);
+            }
+
+            if(tradeData.profit === Infinity){
+                tradeData.profit = 0;
+            }
+
             tradeData.profitPerHour = Math.floor(tradeData.profit / (craftRow.duration / 3600));
 
             // If the reward has no value, it's not available for purchase
@@ -363,7 +381,7 @@ function CraftTable(props) {
                             <div
                                 className = 'price-wrapper'
                             >
-                                {formatPrice(value.value)}
+                                {formatPrice(value.value)} @ {value.sellTo}
                             </div>
                         </div>
                     </div>

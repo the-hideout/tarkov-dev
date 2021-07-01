@@ -20,6 +20,9 @@ export const fetchBarters = createAsyncThunk('barters/fetchBarters', async () =>
               avg24hPrice
               traderPrices {
                   price
+                  trader {
+                      name
+                  }
               }
             }
             count
