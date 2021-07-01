@@ -40745,5 +40745,20 @@
             ],
             "ArmorMaterial": "Combined"
         }
+    },
+    "609e8540d5c319764c2bc2e9": {
+        "itemProperties": {
+            "Durability": 35,
+            "MaxDurability": 35,
+            "armorClass": "4",
+            "speedPenaltyPercent": -4,
+            "mousePenalty": -4,
+            "weaponErgonomicPenalty": -2,
+            "armorZone": [
+                "Chest",
+                "Stomach"
+            ],
+            "ArmorMaterial": "Combined"
+        }
     }
 }
