@@ -59,6 +59,10 @@ function Footer() {
                 link = 'https://play.google.com/store/apps/details?id=com.austinhodak.thehideout'
             />
             <Supporter
+                name = {'KilobyteKeith'}
+                patreon
+            />
+            <Supporter
                 name = {'teebles'}
                 patreon
             />
