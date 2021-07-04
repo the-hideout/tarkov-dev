@@ -55,6 +55,7 @@ let socket = false;
 function App() {
     const [sessionID, setSessionID] = useStateWithLocalStorage('sessionId', makeID(4));
     const [socketConnected, setSocketConnected] = useState(false);
+    const [socketEnabled, setSocketEnabled] = useState(false);
     let history = useHistory();
 
     const setID = (newID) => {
@@ -134,14 +135,14 @@ function App() {
             }, 5000);
         };
 
-        if(socket === false){
+        if(socket === false && socketEnabled){
             connect();
         }
 
         return () => {
             // socket.terminate();
         };
-    });
+    }, [socketEnabled, handleDisplayMessage, sessionID]);
 
     const send = useCallback((messageData) => {
         if(socket.readyState !== 1){
@@ -195,6 +196,8 @@ function App() {
                 <Start />
                 <ID
                     sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => setSocketEnabled(!socketEnabled)}
                 />
             </Route>
             <Route
@@ -216,6 +219,8 @@ function App() {
                 </div>
                 <ID
                     sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => setSocketEnabled(!socketEnabled)}
                 />
             </Route>
             <Route
@@ -225,6 +230,8 @@ function App() {
                 <Maps />
                 <ID
                     sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => setSocketEnabled(!socketEnabled)}
                 />
             </Route>
             <Route
@@ -237,6 +244,8 @@ function App() {
                 </div>
                 <ID
                     sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => setSocketEnabled(!socketEnabled)}
                 />
             </Route>
             <Route
@@ -254,6 +263,8 @@ function App() {
                 <Barters />
                 <ID
                     sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => setSocketEnabled(!socketEnabled)}
                 />
             </Route>
             <Route
@@ -263,6 +274,8 @@ function App() {
                 <Guides />
                 <ID
                     sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => setSocketEnabled(!socketEnabled)}
                 />
             </Route>
             <Route
@@ -302,6 +315,8 @@ function App() {
                 <Crafts />
                 <ID
                     sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => setSocketEnabled(!socketEnabled)}
                 />
             </Route>
             <Route
@@ -311,6 +326,8 @@ function App() {
                 <ItemTracker />
                 <ID
                     sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => setSocketEnabled(!socketEnabled)}
                 />
             </Route>
             <Route
@@ -328,6 +345,8 @@ function App() {
                 <Debug />
                 <ID
                     sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => setSocketEnabled(!socketEnabled)}
                 />
             </Route>
             <Route
@@ -337,6 +356,8 @@ function App() {
                 <About />
                 <ID
                     sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => setSocketEnabled(!socketEnabled)}
                 />
             </Route>
             <Route

@@ -31,6 +31,7 @@ function ID(props) {
         className={`id-wrapper ${ sideClass }`}
         alt={t('open this page in another browser or window and connect using this id')}
         title={t('open this page in another browser or window and connect using this id')}
+        onClick = {props.onClick}
     >
         <div className="update-label">
             {t('ID for remote control')}
