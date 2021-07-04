@@ -73,6 +73,7 @@ const getSource = (props) => {
     if(!props.source){
         return false;
     }
+
     return (<div>
         By: <a href={props.sourceLink}>{props.source}</a>
     </div>);
@@ -96,7 +97,17 @@ function Time(props) {
     }
 
     if(props?.currentMap === 'labs'){
-        return null;
+        const source = getSource(props);
+
+        if(!source){
+            return null;
+        }
+
+        return <div
+            className = 'time-wrapper'
+        >
+            {getSource(props)}
+        </div>;
     }
 
     const tarkovTime1 = realTimeToTarkovTime(time, true);
