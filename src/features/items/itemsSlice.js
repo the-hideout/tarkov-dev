@@ -101,6 +101,11 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
             return 0;
         }).shift();
 
+
+        if(!Array.isArray(rawItem.linkedItems)){
+            rawItem.linkedItems = [];
+        }
+
         return {
             ...rawItem,
             fee: calculateFee(rawItem.avg24hPrice, rawItem.basePrice),
