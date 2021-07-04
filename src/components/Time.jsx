@@ -91,6 +91,7 @@ function Time(props) {
             <div>
                 03:28:00
             </div>
+            {getSource(props)}
         </div>;
     }
 
