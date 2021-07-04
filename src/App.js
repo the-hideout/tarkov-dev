@@ -128,7 +128,7 @@ function App() {
             });
 
             setInterval(() => {
-                if(socket.readyState === 3){
+                if(socket.readyState === 3 && socketEnabled){
                     console.log('trying to re-connect');
                     connect();
                 }
