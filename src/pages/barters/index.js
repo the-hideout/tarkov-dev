@@ -9,6 +9,7 @@ import {
     InputFilter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
+    ToggleFilter
 } from '../../components/filter';
 
 import Icon from '@mdi/react'
@@ -47,6 +48,7 @@ function Barters() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [levelFilter, setLevelFilter] = useState(levels[3]);
+    const [includeFlea, setIncludeFlea] = useStateWithLocalStorage('includeFlea', false);
     const [selectedTrader, setSelectedTrader] = useStateWithLocalStorage('selectedTrader', 'all');
     const [levelTooltipDisabled, setLevelTooltipDisabled] = useState(false);
 
@@ -108,6 +110,16 @@ function Barters() {
                         onClick = {setSelectedTrader.bind(undefined, 'all')}
                     />
                 </ButtonGroupFilter>
+                <ToggleFilter
+                    checked = {includeFlea}
+                    label = {'Flea?'}
+                    onChange = {e => setIncludeFlea(!includeFlea)}
+                    tooltipContent = {
+                        <div>
+                            Include flea market prices
+                        </div>
+                    }
+                />
                 <InputFilter
                     defaultValue = {nameFilter || ''}
                     label = 'Item filter'
@@ -136,6 +148,7 @@ function Barters() {
             levelFilter = {levelFilter}
             nameFilter = {nameFilter}
             selectedTrader = {selectedTrader}
+            includeFlea = {includeFlea}
             key = 'barters-page-barters-table'
         />
     ];

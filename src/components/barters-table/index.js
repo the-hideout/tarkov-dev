@@ -147,7 +147,7 @@ function getAlternatePriceSource(item, barters) {
 };
 
 function BartersTable(props) {
-    const { selectedTrader, nameFilter, levelFilter = 3} = props;
+    const { selectedTrader, nameFilter, levelFilter = 3, includeFlea = true} = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
@@ -348,7 +348,8 @@ function BartersTable(props) {
             const bestTraderValue = Math.max(...barterRow.rewardItems[0].item.traderPrices.map(priceObject => priceObject.price));
             const bestTrade = barterRow.rewardItems[0].item.traderPrices.find(traderPrice => traderPrice.price === bestTraderValue);
 
-            if(bestTrade && bestTrade.price > tradeData.reward.value){
+            if((bestTrade && bestTrade.price > tradeData.reward.value) || (bestTrade && !includeFlea)){
+                console.log(includeFlea);
                 // console.log(barterRow.rewardItems[0].item.traderPrices);
                 tradeData.reward.value = bestTrade.price;
                 tradeData.reward.sellTo = bestTrade.trader.name;
@@ -400,7 +401,7 @@ function BartersTable(props) {
             return true;
 	    });
     },
-        [nameFilter, levelFilter, selectedTrader, barters]
+        [nameFilter, levelFilter, selectedTrader, barters, includeFlea]
     );
 
     if(data.length <= 0){
