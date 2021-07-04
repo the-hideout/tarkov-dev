@@ -74,7 +74,7 @@ function LootTier(props) {
     const [numberFilter, setNumberFilter] = useState(DEFAULT_MAX_ITEMS);
     const [minPrice, setMinPrice] = useStateWithLocalStorage('minPrice', 0);
     // const [includeFlea, setIncludeFlea] = useState(true);
-    const [includeFlea, setIncludeFlea] = useStateWithLocalStorage('includeFlea', true);
+    const [includeFlea, setIncludeFlea] = useStateWithLocalStorage('includeFlea', false);
     const [includeMarked, setIncludeMarked] = useStateWithLocalStorage('includeMarked', false);
     const [groupByType, setGroupByType] = useStateWithLocalStorage('groupByType', false);
     const [filters, setFilters] = useStateWithLocalStorage('filters', {
