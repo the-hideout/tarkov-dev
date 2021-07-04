@@ -62,17 +62,18 @@ function App() {
         setSessionID(newID);
     };
 
-    const handleDisplayMessage = (rawMessage) => {
-        const message = JSON.parse(rawMessage.data);
-
-        if(message.type !== 'command'){
-            return false;
-        }
-
-        history.push(`/${message.data.type}/${message.data.value}`);
-    };
-
     useEffect(() => {
+        const handleDisplayMessage = (rawMessage) => {
+            const message = JSON.parse(rawMessage.data);
+
+            if(message.type !== 'command'){
+                return false;
+            }
+
+            history.push(`/${message.data.type}/${message.data.value}`);
+        };
+
+
         const connect = function connect(){
             socket = new WebSocket(socketServer);
 
@@ -142,7 +143,7 @@ function App() {
         return () => {
             // socket.terminate();
         };
-    }, [socketEnabled, handleDisplayMessage, sessionID]);
+    }, [socketEnabled, sessionID, history]);
 
     const send = useCallback((messageData) => {
         if(socket.readyState !== 1){
