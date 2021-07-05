@@ -29,7 +29,6 @@ import Crafts from './pages/crafts';
 import Item from './pages/item';
 import Start from './pages/start';
 import Footer from './components/footer';
-import WipeCountdown from './components/countdown';
 
 import Debug from './components/Debug';
 
@@ -176,7 +175,6 @@ function App() {
             />
         </Helmet>
         <Menu />
-        <WipeCountdown />
         <Switch>
             <Route
                 exact
