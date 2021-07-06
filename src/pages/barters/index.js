@@ -30,6 +30,7 @@ const traders = [
     'skier',
     'peacekeeper',
     'mechanic',
+    'ragman',
     'jaeger',
 ];
 
