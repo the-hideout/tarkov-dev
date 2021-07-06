@@ -147,7 +147,7 @@ function getAlternatePriceSource(item, barters) {
 };
 
 function CraftTable(props) {
-    const {selectedStation, freeFuel, nameFilter, levelFilter = 3} = props;
+    const {selectedStation, freeFuel, nameFilter, levelFilter = 3, includeFlea = true} = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
@@ -277,7 +277,7 @@ function CraftTable(props) {
             const bestTraderValue = Math.max(...craftRow.rewardItems[0].item.traderPrices.map(priceObject => priceObject.price));
             const bestTrade = craftRow.rewardItems[0].item.traderPrices.find(traderPrice => traderPrice.price === bestTraderValue);
 
-            if(bestTrade && bestTrade.price > tradeData.reward.value){
+            if((bestTrade && bestTrade.price > tradeData.reward.value) || (bestTrade && !includeFlea)){
                 // console.log(barterRow.rewardItems[0].item.traderPrices);
                 tradeData.reward.value = bestTrade.price;
                 tradeData.reward.sellTo = bestTrade.trader.name;
@@ -337,7 +337,7 @@ function CraftTable(props) {
             return true;
         });
     },
-        [nameFilter, levelFilter, selectedStation, freeFuel, crafts, barters]
+        [nameFilter, levelFilter, selectedStation, freeFuel, crafts, barters, includeFlea]
     );
 
     const columns = useMemo(

@@ -50,6 +50,7 @@ function Crafts() {
     const [levelFilter, setLevelFilter] = useState(levels[2]);
     const [levelTooltipDisabled, setLevelTooltipDisabled] = useState(false);
     const [freeFuel, setFreeFuel] = useState(false);
+    const [includeFlea, setIncludeFlea] = useStateWithLocalStorage('includeFlea', false);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedStation', 'top');
 
     return [
@@ -121,6 +122,16 @@ function Crafts() {
                         </div>
                     }
                 />
+                <ToggleFilter
+                    checked = {includeFlea}
+                    label = {'Flea?'}
+                    onChange = {e => setIncludeFlea(!includeFlea)}
+                    tooltipContent = {
+                        <div>
+                            Include flea market prices
+                        </div>
+                    }
+                />
                 <InputFilter
                     defaultValue = {nameFilter || ''}
                     label = 'Item filter'
@@ -149,6 +160,7 @@ function Crafts() {
             levelFilter = {levelFilter}
             nameFilter = {nameFilter}
             freeFuel = {freeFuel}
+            includeFlea = {includeFlea}
             selectedStation = {selectedStation}
             key = 'crafts-page-crafts-table'
         />
