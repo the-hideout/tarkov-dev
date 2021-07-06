@@ -4,12 +4,41 @@ import {
     Link,
 } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import Icon from '@mdi/react'
+import { mdiClockAlertOutline } from '@mdi/js';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 
 import './index.css';
+
+function fleaPriceCell({ value }) {
+    if(value){
+        return <div
+            className = 'center-content'
+        >
+            {formatPrice(value)}
+        </div>;
+    }
+
+    return <div
+        className = 'center-content'
+    >
+        <Tippy
+            placement = 'bottom'
+            content={'No flea price scanned in the last 24 hours'}
+        >
+            <Icon
+                path={mdiClockAlertOutline}
+                size={1.5}
+                className = 'icon-with-text'
+            />
+        </Tippy>
+    </div>
+};
 
 function priceCell({ value }) {
     return <div
@@ -129,7 +158,7 @@ function SmallItemTable(props) {
             {
                 Header: t('Flea'),
                 accessor: d => Number(d.lastLowPrice),
-                Cell: priceCell,
+                Cell: fleaPriceCell,
                 id: 'fleaPrice',
             },
             {
