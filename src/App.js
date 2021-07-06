@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import {
     Switch,
     Route,
@@ -7,6 +7,7 @@ import {
     Redirect
 } from "react-router-dom";
 import {Helmet} from "react-helmet";
+import { useDispatch, useSelector } from 'react-redux';
 
 import './App.css';
 import './i18n';
@@ -30,6 +31,8 @@ import Item from './pages/item';
 import Start from './pages/start';
 import Footer from './components/footer';
 
+import {setConnectionStatus, enableConnection} from './features/sockets/socketsSlice';
+
 import Debug from './components/Debug';
 
 import rawMapData from './data/maps.json';
@@ -52,14 +55,11 @@ const socketServer = `wss://tarkov-tools-live.herokuapp.com`;
 let socket = false;
 
 function App() {
-    const [sessionID, setSessionID] = useStateWithLocalStorage('sessionId', makeID(4));
-    const [socketConnected, setSocketConnected] = useState(false);
-    const [socketEnabled, setSocketEnabled] = useState(false);
+    const [sessionID] = useStateWithLocalStorage('sessionId', makeID(4));
+    const socketEnabled = useSelector(state => state.sockets.enabled);
+    const controlId = useSelector(state => state.sockets.controlId);
     let history = useHistory();
-
-    const setID = (newID) => {
-        setSessionID(newID);
-    };
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const handleDisplayMessage = (rawMessage) => {
@@ -87,7 +87,7 @@ function App() {
                     if(socket && socket.terminate){
                         socket.terminate();
                     }
-                    setSocketConnected(false);
+                    dispatch(setConnectionStatus(false));
                 }, 40000 + 1000);
             };
 
@@ -111,7 +111,7 @@ function App() {
 
                 heartbeat();
 
-                setSocketConnected(true);
+                dispatch(setConnectionStatus(true));
 
                 socket.send(JSON.stringify({
                     sessionID: sessionID,
@@ -122,7 +122,7 @@ function App() {
             socket.addEventListener('close', () => {
                 console.log('Disconnected from socket server');
 
-                setSocketConnected(false);
+                dispatch(setConnectionStatus(false));
 
                 clearTimeout(socket.pingTimeout);
             });
@@ -142,14 +142,14 @@ function App() {
         return () => {
             // socket.terminate();
         };
-    }, [socketEnabled, sessionID, history]);
+    }, [socketEnabled, sessionID, history, dispatch]);
 
     const send = useCallback((messageData) => {
         if(socket.readyState !== 1){
             // Wait a bit if we're not connected
             setTimeout(() => {
                 socket.send(JSON.stringify({
-                    sessionID: sessionID,
+                    sessionID: controlId,
                     ...messageData,
                 }));
             }, 500);
@@ -158,10 +158,10 @@ function App() {
         }
 
         socket.send(JSON.stringify({
-            sessionID: sessionID,
+            sessionID: controlId,
             ...messageData,
         }));
-    }, [sessionID]);
+    }, [controlId]);
 
     return <div
         className = 'App'
@@ -196,7 +196,7 @@ function App() {
                 <ID
                     sessionID = {sessionID}
                     socketEnabled = {socketEnabled}
-                    onClick = {e => setSocketEnabled(!socketEnabled)}
+                    onClick = {e => dispatch(enableConnection())}
                 />
             </Route>
             <Route
@@ -219,7 +219,7 @@ function App() {
                 <ID
                     sessionID = {sessionID}
                     socketEnabled = {socketEnabled}
-                    onClick = {e => setSocketEnabled(!socketEnabled)}
+                    onClick = {e => dispatch(enableConnection())}
                 />
             </Route>
             <Route
@@ -230,7 +230,7 @@ function App() {
                 <ID
                     sessionID = {sessionID}
                     socketEnabled = {socketEnabled}
-                    onClick = {e => setSocketEnabled(!socketEnabled)}
+                    onClick = {e => dispatch(enableConnection())}
                 />
             </Route>
             <Route
@@ -244,7 +244,7 @@ function App() {
                 <ID
                     sessionID = {sessionID}
                     socketEnabled = {socketEnabled}
-                    onClick = {e => setSocketEnabled(!socketEnabled)}
+                    onClick = {e => dispatch(enableConnection())}
                 />
             </Route>
             <Route
@@ -253,6 +253,11 @@ function App() {
             >
                 <LootTier
                     sessionID = {sessionID}
+                />
+                <ID
+                    sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => dispatch(enableConnection())}
                 />
             </Route>
             <Route
@@ -263,7 +268,7 @@ function App() {
                 <ID
                     sessionID = {sessionID}
                     socketEnabled = {socketEnabled}
-                    onClick = {e => setSocketEnabled(!socketEnabled)}
+                    onClick = {e => dispatch(enableConnection())}
                 />
             </Route>
             <Route
@@ -274,7 +279,7 @@ function App() {
                 <ID
                     sessionID = {sessionID}
                     socketEnabled = {socketEnabled}
-                    onClick = {e => setSocketEnabled(!socketEnabled)}
+                    onClick = {e => dispatch(enableConnection())}
                 />
             </Route>
             <Route
@@ -283,12 +288,22 @@ function App() {
                 <Helmets
                     sessionID = {sessionID}
                 />
+                <ID
+                    sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => dispatch(enableConnection())}
+                />
             </Route>
             <Route
                 path="/gear/glasses"
             >
                 <Glasses
                     sessionID = {sessionID}
+                />
+                <ID
+                    sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => dispatch(enableConnection())}
                 />
             </Route>
             <Route
@@ -298,6 +313,11 @@ function App() {
                 <Armor
                     sessionID = {sessionID}
                 />
+                <ID
+                    sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => dispatch(enableConnection())}
+                />
             </Route>
             <Route
                 exact
@@ -305,6 +325,11 @@ function App() {
             >
                 <Backpacks
                     sessionID = {sessionID}
+                />
+                <ID
+                    sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => dispatch(enableConnection())}
                 />
             </Route>
             <Route
@@ -315,7 +340,7 @@ function App() {
                 <ID
                     sessionID = {sessionID}
                     socketEnabled = {socketEnabled}
-                    onClick = {e => setSocketEnabled(!socketEnabled)}
+                    onClick = {e => dispatch(enableConnection())}
                 />
             </Route>
             <Route
@@ -326,7 +351,7 @@ function App() {
                 <ID
                     sessionID = {sessionID}
                     socketEnabled = {socketEnabled}
-                    onClick = {e => setSocketEnabled(!socketEnabled)}
+                    onClick = {e => dispatch(enableConnection())}
                 />
             </Route>
             <Route
@@ -335,6 +360,11 @@ function App() {
             >
                 <Item
                     sessionID = {sessionID}
+                />
+                <ID
+                    sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => dispatch(enableConnection())}
                 />
             </Route>
             <Route
@@ -345,7 +375,7 @@ function App() {
                 <ID
                     sessionID = {sessionID}
                     socketEnabled = {socketEnabled}
-                    onClick = {e => setSocketEnabled(!socketEnabled)}
+                    onClick = {e => dispatch(enableConnection())}
                 />
             </Route>
             <Route
@@ -356,7 +386,7 @@ function App() {
                 <ID
                     sessionID = {sessionID}
                     socketEnabled = {socketEnabled}
-                    onClick = {e => setSocketEnabled(!socketEnabled)}
+                    onClick = {e => dispatch(enableConnection())}
                 />
             </Route>
             <Route
@@ -365,9 +395,6 @@ function App() {
             >
                 <Control
                     send = {send}
-                    setID = {setID}
-                    sessionID = {sessionID}
-                    socketConnected = {socketConnected}
                 />
             </Route>
         </Switch>

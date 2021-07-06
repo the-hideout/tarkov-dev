@@ -8,7 +8,6 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useSelector, useDispatch } from 'react-redux';
 
-import ID from '../../components/ID.jsx';
 // import CraftsTable from '../../components/crafts-table';
 import BartersTable from '../../components/barters-table';
 import QuestsList from '../../components/quests-list'
@@ -39,7 +38,7 @@ function Item(props) {
         if (itemStatus === 'idle') {
           dispatch(fetchItems());
         }
-      }, [itemStatus, dispatch]);
+    }, [itemStatus, dispatch]);
 
     let currentItemData = items.find(item => {
         return item.normalizedName === itemName;
@@ -263,10 +262,6 @@ function Item(props) {
                 </pre> */}
             </div>
         </div>,
-        <ID
-            key = {'session-id'}
-            sessionID = {props.sessionID}
-        />
     ];
 };
 

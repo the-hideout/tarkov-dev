@@ -1,6 +1,9 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useMemo } from 'react';
+import Select from 'react-select';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Connect from './Connect.jsx';
+import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 
 import ammoData from '../../data/ammo.json';
 import mapData from '../../data/maps.json';
@@ -11,7 +14,31 @@ const ammoTypes = [...new Set(ammoData.data.map((ammoData) => {
     return ammoData.type
 }))].sort();
 
+
 function Control(props) {
+    const dispatch = useDispatch();
+    const items = useSelector(selectAllItems);
+    const itemStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        if (itemStatus === 'idle') {
+          dispatch(fetchItems());
+        }
+    }, [itemStatus, dispatch]);
+
+    const itemList = useMemo(() => {
+        return items
+            .map((item) => {
+                return {
+                    label: item.name,
+                    value: item.id,
+                };
+            })
+            .sort((a, b) => a.label.localeCompare(b.label));
+    }, [items])
+
     const typeRefs = {
         ammo: useRef(null),
         map: useRef(null),
@@ -44,6 +71,10 @@ function Control(props) {
     const handleViewChange = (view, eventOrValue) => {
         let value = eventOrValue.target?.value || eventOrValue;
 
+        if(!props.send){
+            return false;
+        }
+
         props.send({
             type: 'command',
             data: {
@@ -51,6 +82,10 @@ function Control(props) {
                 value: value,
             },
         });
+    };
+
+    const handleSelectChange = (event) => {
+        handleViewChange('item', event.value);
     };
 
     return <div
@@ -106,6 +141,17 @@ function Control(props) {
                 Go
             </button>
         </div>
+        <Select
+                // defaultValue = {defaultValue}
+                // isMulti = {isMulti}
+                name = "colors"
+                options = {itemList}
+                className = "basic-multi-select"
+                onChange = {handleSelectChange}
+                classNamePrefix = "select"
+                // onMenuClose = {onMenuClose}
+                // onMenuOpen = {onMenuOpen}
+        />
         {/* <div
             className = {'control-section'}
         >
@@ -140,12 +186,7 @@ function Control(props) {
         <div className="info-wrapper">
             Load tarkov-tools in another browser or window to control it from here
         </div>
-        <Connect
-            send = {props.send}
-            setID = {props.setID}
-            sessionID = {props.sessionID}
-            socketConnected = {props.socketConnected}
-        />
+        <Connect />
     </div>;
 }
 

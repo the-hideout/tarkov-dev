@@ -3,34 +3,37 @@ import { useState, useRef } from 'react';
 import {
     useHistory
 } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {enableConnection, setControlId} from '../../features/sockets/socketsSlice';
 
- function Connect(props) {
+ function Connect() {
     const [connectionText, setConnectionText] = useState('Connect');
-    const [connectID, setConnectID] = useState(props.sessionID);
+    const controlId = useSelector(state => state.sockets.controlId);
+    // const socketConnected = useSelector(state => state.sockets.connected);
     let history = useHistory();
     const inputRef = useRef(null);
+    const dispatch = useDispatch();
 
     const handleIDChange = (event) => {
         const tempConnectID = event.target.value.trim().toUpperCase().substring(0, 4);
-        props.setID(tempConnectID);
-
-        setConnectID(tempConnectID);
+        dispatch(setControlId(tempConnectID));
     };
 
     const handleConnectClick = (event) => {
-        if(connectID.length !== 4){
+        if(controlId.length !== 4){
             inputRef.current.focus();
 
             return true;
         }
 
-        setConnectionText(`Connected to ${props.sessionID}`);
+        setConnectionText(`Connected to ${controlId}`);
+        dispatch(enableConnection());
 
         history.push(`/control/`);
     };
 
     return <div
-        className="connection-wrapper"
+        className = "connection-wrapper"
     >
         <input
             maxLength = "4"
@@ -42,7 +45,7 @@ import {
             type = "text"
         />
         <input
-            disabled = {!props.socketConnected}
+            // disabled = {!socketConnected}
             onClick = {handleConnectClick}
             type = "submit"
             value = {connectionText}

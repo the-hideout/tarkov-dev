@@ -3,7 +3,6 @@ import {
 } from 'react-router-dom';
 import {Helmet} from 'react-helmet';
 
-import ID from '../../components/ID.jsx';
 import './index.css';
 
 import Icon from '@mdi/react'
@@ -36,7 +35,7 @@ function Guides(props) {
             <h1
                 className = 'center-title'
             >
-                <Icon 
+                <Icon
                     path={mdiHanger}
                     size={1.5}
                     className = 'icon-with-text'
@@ -53,7 +52,7 @@ function Guides(props) {
                     <h2
                         className = 'center-title'
                     >
-                        <Icon 
+                        <Icon
                             path={mdiTshirtCrew}
                             size={1}
                             className = 'icon-with-text'
@@ -72,7 +71,7 @@ function Guides(props) {
                     <h2
                         className = 'center-title'
                     >
-                        <Icon 
+                        <Icon
                             path={mdiBagPersonal}
                             size={1}
                             className = 'icon-with-text'
@@ -91,7 +90,7 @@ function Guides(props) {
                     <h2
                         className = 'center-title'
                     >
-                        <Icon 
+                        <Icon
                             path={mdiRacingHelmet}
                             size={1}
                             className = 'icon-with-text'
@@ -110,7 +109,7 @@ function Guides(props) {
                     <h2
                         className = 'center-title'
                     >
-                        <Icon 
+                        <Icon
                             path={mdiSunglasses}
                             size={1}
                             className = 'icon-with-text'
@@ -124,10 +123,6 @@ function Guides(props) {
                 </Link>
             </div>
         </div>,
-        <ID
-            key = {'session-id'}
-            sessionID = {props.sessionID}
-        />
     ];
 };
 
