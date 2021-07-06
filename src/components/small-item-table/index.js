@@ -29,22 +29,22 @@ function fleaPriceCell({ value }) {
     >
         <Tippy
             placement = 'bottom'
-            content={'No flea price scanned in the last 24 hours'}
+            content={'No flea price seen in the past 24 hours'}
         >
             <Icon
                 path={mdiClockAlertOutline}
-                size={1.5}
+                size={1}
                 className = 'icon-with-text'
             />
         </Tippy>
     </div>
 };
 
-function priceCell({ value }) {
+function instaProfitCell({ value }) {
     return <div
         className = 'center-content'
     >
-        {formatPrice(value)}
+        {value ? formatPrice(value) : '-'}
     </div>;
 };
 
@@ -164,7 +164,7 @@ function SmallItemTable(props) {
             {
                 Header: t('InstaProfit'),
                 accessor: d => Number(d.instaProfit),
-                Cell: priceCell,
+                Cell: instaProfitCell,
                 id: 'instaProfit',
                 sortDescFirst: true,
                 sortType: (a, b) => {
