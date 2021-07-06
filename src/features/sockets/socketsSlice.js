@@ -15,7 +15,7 @@ const socketsSlice = createSlice({
             state.controlId = action.payload;
         },
         setConnectionStatus: (state, action) => {
-            state.connected = action.status;
+            state.connected = action.payload;
         },
         enableConnection: (state) => {
             state.enabled = true;

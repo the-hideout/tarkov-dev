@@ -9,7 +9,6 @@ import {enableConnection, setControlId} from '../../features/sockets/socketsSlic
  function Connect() {
     const [connectionText, setConnectionText] = useState('Connect');
     const controlId = useSelector(state => state.sockets.controlId);
-    // const socketConnected = useSelector(state => state.sockets.connected);
     let history = useHistory();
     const inputRef = useRef(null);
     const dispatch = useDispatch();

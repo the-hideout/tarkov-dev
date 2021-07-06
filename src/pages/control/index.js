@@ -21,6 +21,7 @@ function Control(props) {
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
+    const socketConnected = useSelector(state => state.sockets.connected);
 
     useEffect(() => {
         if (itemStatus === 'idle') {
@@ -97,6 +98,7 @@ function Control(props) {
         >
             <span>View map:</span>
             <select
+                disabled = {!socketConnected}
                 name="map"
                 onChange={handleMapChange}
                 ref = {typeRefs['map']}
@@ -111,6 +113,7 @@ function Control(props) {
                 )}
             </select>
             <button
+                disabled = {!socketConnected}
                 onClick = {handleMapChange}
             >
                 Go
@@ -121,6 +124,7 @@ function Control(props) {
         >
             <span>View caliber:</span>
             <select
+                disabled = {!socketConnected}
                 multiple
                 name="ammo"
                 onChange={handleAmmoChange}
@@ -136,6 +140,7 @@ function Control(props) {
                 ))}
             </select>
             <button
+                disabled = {!socketConnected}
                 onClick = {handleAmmoChange}
             >
                 Go
@@ -144,6 +149,7 @@ function Control(props) {
         <Select
                 // defaultValue = {defaultValue}
                 // isMulti = {isMulti}
+                isDisabled = {!socketConnected}
                 name = "colors"
                 options = {itemList}
                 className = "basic-multi-select"
