@@ -1,4 +1,3 @@
-
 .control-wrapper {
     display: flex;
     flex-flow: column;
@@ -6,6 +5,8 @@
     width: 100%;
     min-height: 100%;
     position: relative;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .control-wrapper span {
