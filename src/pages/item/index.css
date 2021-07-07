@@ -101,6 +101,16 @@
     position: relative;
 }
 
+.quest-icon-wrapper {
+    position: absolute;
+    top: -13px;
+    right: -13px;
+}
+
+.quest-icon-wrapper .icon-with-text {
+    margin: 0;
+}
+
 .text-and-image-information-wrapper.first-trader-price {
     /* margin-left: auto; */
 }

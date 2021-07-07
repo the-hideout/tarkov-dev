@@ -7,6 +7,8 @@ import {
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useSelector, useDispatch } from 'react-redux';
+import Icon from '@mdi/react'
+import { mdiLock } from '@mdi/js';
 
 // import CraftsTable from '../../components/crafts-table';
 import BartersTable from '../../components/barters-table';
@@ -264,9 +266,24 @@ function Item() {
                                 <div
                                     className = 'source-wrapper'
                                 >
-                                    <LoyaltyLevelIcon
+                                    {buyPrice.source !== 'flea-market' && <LoyaltyLevelIcon
                                         loyaltyLevel = {loyaltyLevel}
-                                    />
+                                    />}
+                                    {buyPrice.requirements.find(requirement => requirement.type === 'questCompleted') &&
+                                    <Tippy
+                                        content = {'Locked behind a quest'}
+                                    >
+                                        <div
+                                            className = 'quest-icon-wrapper'
+                                        >
+                                            <Icon
+                                                path={mdiLock}
+                                                size={1}
+                                                className = 'icon-with-text'
+                                            />
+                                        </div>
+                                    </Tippy>
+                                    }
                                     <img
                                         alt = {buyPrice.requirements.source}
                                         src = {`${ process.env.PUBLIC_URL }/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
