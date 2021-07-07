@@ -223,19 +223,28 @@ function Item() {
                             </div>
                         }
                         {currentItemData.traderPrices.map((traderPrice) => {
+                            const traderName = traderPrice.trader.toLowerCase();
+
                             return <div
                                 className = {`text-and-image-information-wrapper`}
-                                key = {`${currentItemData.id}-trader-price-${traderPrice.trader}`}
+                                key = {`${currentItemData.id}-trader-price-${traderName}`}
                             >
                                 <img
-                                    alt = {traderPrice.trader}
-                                    src = {`${ process.env.PUBLIC_URL }/images/${traderPrice.trader.toLowerCase()}-icon.jpg`}
+                                    alt = {traderName}
+                                    src = {`${ process.env.PUBLIC_URL }/images/${traderName}-icon.jpg`}
                                     // title = {`Sell ${currentItemData.name} on the Flea market`}
                                 />
                                 <div
                                     className = 'price-wrapper'
                                 >
-                                    {formatPrice(traderPrice.price)}
+                                    {traderName === 'peacekeeper' ? <Tippy
+                                        content = {formatPrice(traderPrice.price)}
+                                        placement = 'bottom'
+                                    >
+                                        <div>
+                                            {formatPrice(traderPrice.price / 124, 'USD')}
+                                        </div>
+                                    </Tippy> : formatPrice(traderPrice.price)}
                                 </div>
                             </div>
                         })}
@@ -266,7 +275,7 @@ function Item() {
                                 <div
                                     className = {`price-wrapper ${index === 0 ? 'best-profit' : ''}`}
                                 >
-                                    {formatPrice(buyPrice.price)}
+                                    {buyPrice.source === 'peacekeeper' ? formatPrice(buyPrice.price, 'USD'): formatPrice(buyPrice.price)}
                                 </div>
                             </div>
                         })}

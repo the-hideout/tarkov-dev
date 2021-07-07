@@ -1,4 +1,12 @@
-module.exports = (price) => {
+module.exports = (price, currency = 'RUB') => {
+    if(currency === 'USD'){
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            maximumSignificantDigits: 6,
+        }).format(Math.floor(price));
+    }
+
     return new Intl.NumberFormat('ru-RU', {
         style: 'currency',
         currency: 'RUB',
