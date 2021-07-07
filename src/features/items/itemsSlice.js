@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import calculateFee from '../../modules/flea-market-fee';
 import bestPrice from '../../modules/best-price';
+import camelcaseToDashes from '../../modules/camelcase-to-dashes';
 
 import itemGrids from '../../data/item-grids.json';
 import itemProps from '../../data/item-props.json';
@@ -39,6 +40,22 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
                         name
                     }
                 }
+                sellFor {
+                    source
+                    price
+                    requirements {
+                      type
+                      value
+                    }
+                  }
+                  buyFor {
+                    source
+                    price
+                    requirements {
+                      type
+                      value
+                    }
+                  }
             }
         }`
     });
@@ -90,21 +107,30 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
         }
 
         const bestTraderPrice = rawItem.traderPrices.sort((a, b) => {
-            if(a.price > b.price) {
-                return -1;
-            }
-
-            if(a.price < b.price) {
-                return 1;
-            }
-
-            return 0;
+            return b.price - a.price;
         }).shift();
 
+        rawItem.buyFor = rawItem.buyFor.sort((a, b) => {
+            return a.price - b.price;
+        });
 
         if(!Array.isArray(rawItem.linkedItems)){
             rawItem.linkedItems = [];
         }
+
+        rawItem.sellFor = rawItem.sellFor.map((sellPrice) => {
+            return {
+                ...sellPrice,
+                source: camelcaseToDashes(sellPrice.source),
+            };
+        });
+
+        rawItem.buyFor = rawItem.buyFor.map((buyPrice) => {
+            return {
+                ...buyPrice,
+                source: camelcaseToDashes(buyPrice.source),
+            };
+        });
 
         return {
             ...rawItem,
