@@ -5,10 +5,6 @@ const got = require('got');
 
 const traders = require('../src/data/traders');
 
-const formatName = (name) => {
-    return name.toLowerCase().trim();
-};
-
 const getTraderId = (name) => {
     for(const key in traders){
         if(traders[key].name === name){

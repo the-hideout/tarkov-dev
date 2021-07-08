@@ -1,5 +1,5 @@
 {
-    "updated": "2021-06-30T08:17:33.664Z",
+    "updated": "2021-07-08T09:45:03.709Z",
     "data": [
         {
             "questId": 0,
@@ -1248,6 +1248,31 @@
                     "id": "5bc9be8fd4351e00334cae6e",
                     "count": 1,
                     "foundInRaid": true
+                },
+                {
+                    "id": "60b0f988c4449e4cb624c1da",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "60b0f93284c20f0feb453da7",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "60b0f7057897d47c5b04ab94",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "60b0f6c058e0b0481a09ad11",
+                    "count": 1,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "60b0f561c4449e4cb624c1d7",
+                    "count": 1,
+                    "foundInRaid": true
                 }
             ]
         },
@@ -1323,6 +1348,64 @@
                     "id": "5696686a4bdc2da3298b456a",
                     "count": 500,
                     "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": 205,
+            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "name": "Surplus Goods",
+            "items": [
+                {
+                    "id": "5d9f1fa686f774726974a992",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": 207,
+            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "name": "Revision",
+            "items": [
+                {
+                    "id": "5d9f1fa686f774726974a992",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": 209,
+            "traderId": "5ac3b934156ae10c4430e83c",
+            "name": "Inventory check",
+            "items": [
+                {
+                    "id": "5d80ccac86f77470841ff452",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5d80ccdd86f77474f7575e02",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5d80cd1a86f77402aa362f42",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": 213,
+            "traderId": "5c0647fdd443bc2504c2d371",
+            "name": "Tagilla",
+            "items": [
+                {
+                    "id": "60a7acf20c5cb24b01346648",
+                    "count": 1,
+                    "foundInRaid": true
                 }
             ]
         }
