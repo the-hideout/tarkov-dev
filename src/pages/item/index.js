@@ -159,14 +159,13 @@ function Item() {
 
                 </div>
                 <div
-                    className = 'information-grid information-outer-grid'
+                    className = 'trader-wrapper'
                 >
-                    <div
-                        className = 'information-grid'
-                    >
+                    <div>
                         <h2>
                             Sell for
                         </h2>
+                        <div className={'information-grid'}>
                         <Tippy
                             placement = 'bottom'
                             content={
@@ -276,13 +275,13 @@ function Item() {
                                 </div>
                             </div>
                         })}
+                        </div>
                     </div>
-                    <div
-                        className = 'information-grid'
-                    >
+                    <div>
                         <h2>
                             Buy for
                         </h2>
+                        <div className={'information-grid'}>
                         {currentItemData.buyFor.map((buyPrice, index) => {
                             const loyaltyLevel = buyPrice.requirements.find(requirement => requirement.type === 'loyaltyLevel')?.value;
                             return <div
@@ -325,6 +324,7 @@ function Item() {
                                 </div>
                             </div>
                         })}
+                        </div>
                     </div>
                 </div>
                 <div>
