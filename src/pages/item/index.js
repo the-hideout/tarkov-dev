@@ -29,6 +29,32 @@ import './index.css';
 
 const CraftsTable = React.lazy(() => import('../../components/crafts-table'));
 
+function TraderPrice ({currency, price}) {
+    if(currency === 'USD'){
+        return <Tippy
+            content = {formatPrice(price * 124)}
+            placement = 'bottom'
+        >
+            <div>
+                {formatPrice(price , 'USD')}
+            </div>
+        </Tippy>
+    }
+
+    if(currency === 'EUR'){
+        return <Tippy
+            content = {formatPrice(price * 147)}
+            placement = 'bottom'
+        >
+            <div>
+                {formatPrice(price, 'EUR')}
+            </div>
+        </Tippy>
+    }
+
+    return formatPrice(price);
+};
+
 function Item() {
     const {itemName} = useParams();
     const dispatch = useDispatch();
@@ -292,7 +318,10 @@ function Item() {
                                 <div
                                     className = {`price-wrapper ${index === 0 ? 'best-profit' : ''}`}
                                 >
-                                    {buyPrice.source === 'peacekeeper' ? formatPrice(buyPrice.price, 'USD'): formatPrice(buyPrice.price)}
+                                    <TraderPrice
+                                        currency = {buyPrice.currency}
+                                        price = {buyPrice.price}
+                                    />
                                 </div>
                             </div>
                         })}

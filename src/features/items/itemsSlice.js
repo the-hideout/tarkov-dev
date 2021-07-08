@@ -13,6 +13,12 @@ const initialState = {
     error: null,
 };
 
+const CURRENCY_MULTIPLIER = {
+    RUB: 1,
+    USD: 124,
+    EUR: 147,
+};
+
 const NOTES = {
     '5e4abc6786f77406812bd572': 'Can only keep medical items',
 };
@@ -51,6 +57,7 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
                   buyFor {
                     source
                     price
+                    currency
                     requirements {
                       type
                       value
@@ -111,7 +118,7 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
         }).shift();
 
         rawItem.buyFor = rawItem.buyFor.sort((a, b) => {
-            return a.price - b.price;
+            return (a.price * CURRENCY_MULTIPLIER[a.currency]) - (b.price * CURRENCY_MULTIPLIER[b.currency]);
         });
 
         if(!Array.isArray(rawItem.linkedItems)){
