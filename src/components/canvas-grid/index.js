@@ -6,8 +6,8 @@ function CanvasGrid(props) {
 
     boxes = boxes.concat(props.grid?.map((pocket) => {
         const returnData = {
-            startX: pocket.col * 20,
-            startY: pocket.row * 20,
+            startX: pocket.col * 20 + (pocket.col * 2),
+            startY: pocket.row * 20 + (pocket.row * 2),
             horizontal: pocket.width,
             vertical: pocket.height,
         };
@@ -74,8 +74,8 @@ function CanvasGrid(props) {
     };
 
     return <canvas
-        height = {props.height * 20 + 2}
-        width = {props.width * 20 + 2}
+        height = {props.height * 22}
+        width = {props.width * 22}
         ref={canvas}
     ></canvas>;
 }
