@@ -40,6 +40,7 @@ const Backpacks = React.lazy(() => import('./pages/guides/Backpacks'));
 const Crafts = React.lazy(() => import('./pages/crafts'));
 const Item = React.lazy(() => import('./pages/item'));
 const Start = React.lazy(() => import('./pages/start'));
+const APIDocs = React.lazy(() => import('./pages/api-docs'));
 
 const makeID = function makeID(length) {
     let result = '';
@@ -389,6 +390,17 @@ return (
                     path={'/about/'}
                 >
                     <About />
+                    <ID
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                </Route>
+                <Route
+                    exact
+                    path={'/api/'}
+                >
+                    <APIDocs />
                     <ID
                         sessionID = {sessionID}
                         socketEnabled = {socketEnabled}

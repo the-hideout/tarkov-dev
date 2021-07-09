@@ -30,6 +30,7 @@
     "react-scripts": "^4.0.0",
     "react-select": "^4.2.1",
     "react-switch": "^6.0.0",
+    "react-syntax-highlighter": "^15.4.3",
     "react-table": "^7.6.2",
     "react-zoom-pan-pinch": "^2.0.2",
     "redux-thunk": "^2.3.0",
