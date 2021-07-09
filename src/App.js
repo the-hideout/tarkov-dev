@@ -4,11 +4,11 @@ import {
     Switch,
     Route,
     useHistory,
-    Redirect
+    Redirect,
+    BrowserRouter as Router,
 } from "react-router-dom";
 import {Helmet} from "react-helmet";
 import { useDispatch, useSelector } from 'react-redux';
-
 import './App.css';
 import './i18n';
 
@@ -166,9 +166,11 @@ function App() {
         }));
     }, [controlId]);
 
-    return <div
-        className = 'App'
-    >
+return (
+    <Router>
+        <div
+            className = 'App'
+        >
         <Helmet>
             <meta charSet="utf-8" />
             <title>Tarkov Tools</title>
@@ -404,7 +406,7 @@ function App() {
             </Switch>
         </Suspense>
         <Footer />
-    </div>
+    </Router>
 }
 
 export default App;
