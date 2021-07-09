@@ -21,17 +21,36 @@ function APIDocs() {
             FAQ
         </h2>
         <p>
-            Is it free? Yes. It does however cost money for us to run and maintain, so please consider supporting <a href="https://www.patreon.com/bePatron?u=26501878&redirect_uri=https%3A%2F%2Ftarkov-tools.com">the Patreon</a>
+            <h3>Is it free?</h3>
+            Yes. It does however cost money for us to run and maintain, so please consider supporting us on <a href="https://www.patreon.com/bePatron?u=26501878&redirect_uri=https%3A%2F%2Ftarkov-tools.com"> Patreon</a>
         </p>
         <p>
-            Is there a rate limit? No
+            <h3>Is there a rate limit?</h3>
+            No
         </p>
+        <p>
+            <h3>Wait... really?</h3>
+            Yeah. It's actually better if you <i>don't</i> limit your requests to get as fresh data as possible
+        </p>
+        <p>
+            <h3>Where is the data from?</h3>
+            We source data from multiple places to build an API as complete as possible. We use data from:
+            <ul>
+                <li><a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki">Escape from Tarkov Wiki</a></li>
+                <li><a href="https://github.com/TarkovTracker/tarkovdata/">TarkovTracker/tarkovdata</a></li>
+                <li>Directly from the game</li>
+                <li>Our network of scanners</li>
+            </ul>
+        </p>
+        <h2>
+            Examples
+        </h2>
         <div
             className = 'example-wrapper'
         >
-            <h2>
+            <h3>
                 Browser JS example
-            </h2>
+            </h3>
             <SyntaxHighlighter
                 language = 'javascript'
                 style = {atomOneDark}
@@ -57,9 +76,9 @@ function APIDocs() {
         <div
             className = 'example-wrapper'
         >
-            <h2>
+            <h3>
                 Node JS example
-            </h2>
+            </h3>
             <SyntaxHighlighter
                 language = 'javascript'
                 style = {atomOneDark}
@@ -82,9 +101,9 @@ request('https://tarkov-tools.com/graphql', query).then((data) => console.log(da
         <div
             className = 'example-wrapper'
         >
-            <h2>
+            <h3>
                 Python example
-            </h2>
+            </h3>
             <SyntaxHighlighter
                 language = 'python'
                 style = {monokai}
@@ -114,9 +133,9 @@ result = run_query(new_query)
         <div
             className = 'example-wrapper'
         >
-            <h2>
+            <h3>
                 CLI example
-            </h2>
+            </h3>
             <SyntaxHighlighter
                 language = 'bash'
             >
