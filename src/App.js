@@ -406,7 +406,8 @@ return (
             </Switch>
         </Suspense>
         <Footer />
-    </Router>
+        </div>
+    </Router>);
 }
 
 export default App;
