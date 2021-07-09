@@ -47,10 +47,9 @@ function Footer() {
                 className = 'become-supporter-wrapper'
             >
                 <a
-                    href="https://www.patreon.com/bePatron?u=26501878"
-                    data-patreon-widget-type="become-patron-button"
+                    href="https://www.patreon.com/bePatron?u=26501878&redirect_uri=https%3A%2F%2Ftarkov-tools.com"
                 >
-                    {t('Become a Patron!')}
+                    {t('Become a patron')}
                 </a>
             </p>
             <Supporter

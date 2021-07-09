@@ -31,6 +31,17 @@
     text-align: center;
 }
 
+.become-supporter-wrapper a {
+    color: #fff;
+    font-size: 0.875rem;
+    font-family: 'America', 'GT America', 'Lato', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    background-color: rgb(255, 66, 77);
+    border-radius: 20px;
+    padding: 10px 40px;
+    text-align: center;
+    display: inline-block;
+}
+
 .copyright-wrapper {
     font-size: 12px;
     text-align: center;
