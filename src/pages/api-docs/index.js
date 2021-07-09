@@ -145,6 +145,35 @@ result = run_query(new_query)
 https://tarkov-tools.com/graphql`}
             </SyntaxHighlighter>
         </div>
+        <div
+            className = 'example-wrapper'
+        >
+            <h3>
+                PHP example
+            </h3>
+            <SyntaxHighlighter
+                language = 'php'
+                style = {atomOneDark}
+            >
+                {`$headers = ['Content-Type: application/json'];
+
+$query = '{
+  itemsByName(name: "m855a1") {
+    id
+    name
+    shortName
+  }
+}';
+$data = @file_get_contents('https://tarkov-tools.com/graphql', false, stream_context_create([
+  'http' => [
+    'method' => 'POST',
+    'header' => $headers,
+    'content' => json_encode(['query' => $query]),
+  ]
+]));
+return json_decode($data, true);`}
+            </SyntaxHighlighter>
+        </div>
     </div>;
 };
 
