@@ -84,6 +84,10 @@ div.no-data-info {
     overflow-x: scroll;
 }
 
+.cost-wrapper {
+    padding: 5px 0;
+}
+
 @media screen and (min-width: 900px) {
     .table-wrapper {
         overflow-x: initial;

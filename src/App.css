@@ -227,6 +227,11 @@ cite {
     margin-right: 8px;
 }
 
+.price-wrapper {
+    color: #636363;
+    font-size: 14px;
+}
+
 @media screen and (min-width: 710px){
 
     .id-wrapper {

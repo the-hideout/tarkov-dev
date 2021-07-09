@@ -12,134 +12,14 @@
     text-align: center;
 }
 
-.cost-wrapper {
-    padding: 5px 0;
-}
-
-.price-wrapper {
-    color: #636363;
-    font-size: 14px;
-}
-
 .source-wrapper {
     font-size: 14px;
-}
-
-.craft-reward-wrapper {
-    display: flex;
-}
-
-.craft-reward-image-wrapper {
-    margin-right: 10px;
-    position: relative;
-    font-size: 0;
-}
-
-.craft-reward-count-wrapper {
-    background-color: rgba(0,0,0, 0.8);
-    border-top-left-radius: 3px;
-    bottom: 1px;
-    color: #c7c5b3;
-    font-size: 14px;
-    height: 18px;
-    line-height: 20px;
-    padding: 0 5px;
-    position: absolute;
-    right: 1px;
-    text-align: center;
-}
-
-.craft-reward-info-wrapper {
-    flex-grow: 1;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.craft-reward-info-wrapper > div {
-    width: 100%;
-}
-
-.craft-cost-item-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.craft-cost-item-count-wrapper {
-    color: #c7c5b3;
-}
-
-.craft-cost-image-wrapper {
-    font-size: 0;
-    margin-right: 10px;
-}
-
-.craft-cost-item-wrapper img {
-    /* height: 34px; */
-    width: 34px;
-    border: 1px solid #4a5154;
-}
-
-img.barter-icon {
-    border: 0;
-    position: relative;
-    top: 2px;
-    width: 14px;
-    margin-right: 3px;
-}
-
-.craft-cost-item-text-wrapper {
-    flex-grow: 1;
-    white-space: nowrap;
 }
 
 .station-toggle-handle {
     width: 26px;
 }
 
-.button-group-wrapper {
-    display: flex;
-    border: 1px solid #1b1919;
-    margin-right: 10px;
-}
-
-.button-group-button {
-    border-radius: 0;
-    background-color: #292626;
-    color: #c7c5b3;
-    height: 40px;
-    width: 50px;
-    outline: none;
-}
-
-.button-group-button img {
-    max-height: 100%;
-}
-
-.button-group-button:hover,
-.button-group-button.selected {
-    background-color: #1b1919;
-    cursor: pointer;
-}
-
-.button-group-button:first-child {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-}
-
-.button-group-button:last-child {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-}
-
-.craft-profit {
-    color: #008800;
-}
-
-.craft-loss {
-    color: #cd1e2f;
-}
 
 @media screen and (min-width: 710px) {
     .crafts-page-title {
