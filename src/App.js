@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import React, { useEffect, useCallback, Suspense, lazy } from 'react';
+import React, { useEffect, useCallback, Suspense } from 'react';
 import {
     Switch,
     Route,
