@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import React, { useEffect, useCallback, Suspense } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {
     Switch,
     Route,
@@ -16,7 +16,6 @@ import Map from './components/Map.jsx';
 import ID from './components/ID.jsx';
 import Menu from './components/menu';
 import Footer from './components/footer';
-import Loading from './components/loading';
 
 import {setConnectionStatus, enableConnection} from './features/sockets/socketsSlice';
 
@@ -25,21 +24,21 @@ import Debug from './components/Debug';
 import rawMapData from './data/maps.json';
 import useStateWithLocalStorage from './hooks/useStateWithLocalStorage';
 
-const Ammo = React.lazy(() => import ('./pages/Ammo.jsx'));
-const Control = React.lazy(() => import('./pages/control'));
-const LootTier = React.lazy(() => import('./pages/LootTier.jsx'));
-const Barters = React.lazy(() => import('./pages/barters'));
-const About = React.lazy(() => import('./pages/about/'));
-const Maps = React.lazy(() => import('./pages/maps/'));
-const ItemTracker = React.lazy(() => import('./pages/ItemTracker'));
-const Guides = React.lazy(() => import('./pages/guides/'));
-const Glasses = React.lazy(() => import('./pages/guides/Glasses'));
-const Armor = React.lazy(() => import('./pages/guides/Armor'));
-const Helmets = React.lazy(() => import('./pages/guides/Helmets'));
-const Backpacks = React.lazy(() => import('./pages/guides/Backpacks'));
-const Crafts = React.lazy(() => import('./pages/crafts'));
-const Item = React.lazy(() => import('./pages/item'));
-const Start = React.lazy(() => import('./pages/start'));
+import Ammo from './pages/Ammo.jsx';
+import Control from './pages/control';
+import LootTier from './pages/LootTier.jsx';
+import Barters from './pages/barters';
+import About from './pages/about/';
+import Maps from './pages/maps/';
+import ItemTracker from './pages/ItemTracker';
+import Guides from './pages/guides/';
+import Glasses from './pages/guides/Glasses';
+import Armor from './pages/guides/Armor';
+import Helmets from './pages/guides/Helmets';
+import Backpacks from './pages/guides/Backpacks';
+import Crafts from './pages/crafts';
+import Item from './pages/item';
+import Start from './pages/start';
 
 const makeID = function makeID(length) {
     let result = '';
@@ -180,7 +179,7 @@ return (
             />
         </Helmet>
         <Menu />
-        <Suspense fallback={<Loading />}>
+        {/* <Suspense fallback={<Loading />}> */}
             <Switch>
                 <Route
                     exact
@@ -404,7 +403,7 @@ return (
                     />
                 </Route>
             </Switch>
-        </Suspense>
+        {/* </Suspense> */}
         <Footer />
         </div>
     </Router>);
