@@ -8,6 +8,7 @@ import Icon from '@mdi/react'
 import { mdiClockAlertOutline } from '@mdi/js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
+import Fuse from 'fuse.js'
 
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
@@ -89,7 +90,7 @@ function SmallItemTable(props) {
       }, [itemStatus, dispatch]);
 
     const data = useMemo(() => {
-        const returnData = items.map((itemData) => {
+        let returnData = items.map((itemData) => {
             return {
                 id: itemData.id,
                 name: itemData.name,
@@ -103,15 +104,29 @@ function SmallItemTable(props) {
                 traderName: itemData.traderName,
                 traderPrice: itemData.traderPrice,
             }
-        })
-        .filter(item => {
-            if(!nameFilter){
-                return true;
-            }
-            return item.name.toLowerCase().includes(nameFilter) || item.shortName.toLowerCase().includes(nameFilter);
         });
+        // .filter(item => {
+        //     if(!nameFilter){
+        //         return true;
+        //     }
 
-        if(defaultRandom){
+        //     return item.name.toLowerCase().includes(nameFilter) || item.shortName.toLowerCase().includes(nameFilter);
+        // });
+
+        if(nameFilter){
+            const options = {
+                includeScore: true,
+                // equivalent to `keys: [['author', 'tags', 'value']]`
+                keys: ['name', 'shortname'],
+              }
+
+              const fuse = new Fuse(returnData, options);
+              const result = fuse.search(nameFilter);
+
+              returnData = result.sort((a, b) => b.score - a.score).map(resultObject => resultObject.item);
+        }
+
+        if(defaultRandom && !nameFilter){
             shuffleArray(returnData);
         }
 
