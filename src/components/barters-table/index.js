@@ -147,7 +147,7 @@ function getAlternatePriceSource(item, barters) {
 };
 
 function BartersTable(props) {
-    const { selectedTrader, nameFilter, levelFilter = 3, includeFlea = true} = props;
+    const { selectedTrader, nameFilter, levelFilter = 3, includeFlea = true, itemFilter} = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
@@ -249,7 +249,34 @@ function BartersTable(props) {
                 return false;
             }
 
-            if(nameFilter.length > 0){
+            if(itemFilter){
+                let matchesFilter = false;
+                for(const requiredItem of barterRow.requiredItems){
+                    if(requiredItem === null){
+                        continue;
+                    }
+
+                    if(requiredItem.item.id === itemFilter){
+                        matchesFilter = true;
+
+                        break;
+                    }
+                }
+
+                for(const rewardItem of barterRow.rewardItems){
+                    if(rewardItem.item.id === itemFilter){
+                        matchesFilter = true;
+
+                        break;
+                    }
+                }
+
+                if(!matchesFilter){
+                    return false;
+                }
+            }
+
+            if(nameFilter?.length > 0){
                 let matchesFilter = false;
                 const findString = nameFilter.toLowerCase().replace(/\s/g, '');
                 for(const requiredItem of barterRow.requiredItems){

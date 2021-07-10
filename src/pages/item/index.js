@@ -332,7 +332,7 @@ function Item() {
                         Barters with {currentItemData.name}
                     </h2>
                     <BartersTable
-                        nameFilter = {currentItemData.name}
+                        itemFilter = {currentItemData.id}
                     />
                 </div>
                 <div>
@@ -341,7 +341,7 @@ function Item() {
                     </h2>
                     <Suspense fallback={<div>Loading...</div>}>
                         <CraftsTable
-                            nameFilter = {currentItemData.name}
+                            itemFilter = {currentItemData.id}
                         />
                     </Suspense>
                 </div>
