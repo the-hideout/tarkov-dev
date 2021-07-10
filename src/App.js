@@ -40,6 +40,7 @@ import Crafts from './pages/crafts';
 import Item from './pages/item';
 import Start from './pages/start';
 
+
 const makeID = function makeID(length) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -388,6 +389,17 @@ return (
                     path={'/about/'}
                 >
                     <About />
+                    <ID
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                </Route>
+                <Route
+                    exact
+                    path={'/api/'}
+                >
+                    <APIDocs />
                     <ID
                         sessionID = {sessionID}
                         socketEnabled = {socketEnabled}

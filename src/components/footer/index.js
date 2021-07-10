@@ -1,4 +1,7 @@
 import { useTranslation } from 'react-i18next';
+import {
+    Link,
+} from "react-router-dom";
 
 import Supporter from '../supporter';
 import {ReactComponent as GithubIcon} from '../supporter/Github.svg';
@@ -120,7 +123,11 @@ function Footer() {
                 {t('Resources')}
             </h3>
             <p>
-                <a href="https://tarkov-tools.com/___graphql">Tarkov Tools API</a>
+                <Link
+                    to = {'/api/'}
+                >
+                    Tarkov Tools API
+                </Link>
             </p>
             <p>
                 <a
