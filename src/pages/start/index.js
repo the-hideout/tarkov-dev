@@ -66,6 +66,7 @@ function Item(props) {
                     defaultValue = {nameFilter}
                     onChange = {handleNameFilterChange}
                     placeholder = 'Search...'
+                    autoFocus = {true}
                 />
                 <SmallItemTable
                     maxItems = {15}
