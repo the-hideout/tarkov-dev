@@ -39,7 +39,7 @@ import Backpacks from './pages/guides/Backpacks';
 import Crafts from './pages/crafts';
 import Item from './pages/item';
 import Start from './pages/start';
-
+import APIDocs from './pages/api-docs';
 
 const makeID = function makeID(length) {
     let result = '';
