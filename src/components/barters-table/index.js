@@ -427,7 +427,7 @@ function BartersTable(props) {
             return true;
 	    });
     },
-        [nameFilter, levelFilter, selectedTrader, barters, includeFlea]
+        [nameFilter, levelFilter, selectedTrader, barters, includeFlea, itemFilter]
     );
 
     if(data.length <= 0){

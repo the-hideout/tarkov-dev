@@ -364,7 +364,7 @@ function CraftTable(props) {
             return true;
         });
     },
-        [nameFilter, levelFilter, selectedStation, freeFuel, crafts, barters, includeFlea]
+        [nameFilter, levelFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter]
     );
 
     const columns = useMemo(
