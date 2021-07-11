@@ -281,7 +281,9 @@ function Item() {
                         <h2>
                             Buy for
                         </h2>
-                        <div className={'information-grid'}>
+                        <div
+                            className = 'information-grid single-line-grid'
+                        >
                         {currentItemData.buyFor.map((buyPrice, index) => {
                             const loyaltyLevel = buyPrice.requirements.find(requirement => requirement.type === 'loyaltyLevel')?.value;
                             return <div
