@@ -5,6 +5,7 @@ import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 import store from './store';
 import { Provider } from 'react-redux';
+import {BrowserRouter as Router} from 'react-router-dom';
 
 if(window.location.hostname !== 'localhost'){
     Sentry.init({
@@ -21,7 +22,9 @@ ReactDOM.render((
     <Provider
         store = {store}
     >
-        <App />
+        <Router>
+            <App />
+        </Router>
     </Provider>
 ), document.getElementById('root'));
 
