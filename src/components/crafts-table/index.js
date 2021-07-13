@@ -321,6 +321,8 @@ function CraftTable(props) {
 
             tradeData.profitPerHour = Math.floor(tradeData.profit / (craftRow.duration / 3600));
 
+            tradeData.fleaThroughput = Math.floor(craftRow.rewardItems[0].item.avg24hPrice * craftRow.rewardItems[0].count / (craftRow.duration / 3600));
+
             // If the reward has no value, it's not available for purchase
             if(tradeData.reward.value === 0){
                 tradeData.reward.value = tradeData.cost;
@@ -425,6 +427,12 @@ function CraftTable(props) {
                 Cell: priceCell,
                 id: 'cost',
             },
+            ...( includeFlea ? [{
+                Header: t('Flea throughput/h'),
+                accessor: 'fleaThroughput',
+                Cell: priceCell,
+                sortType: 'basic',
+            }] : []),
             {
                 Header: t('Estimated profit'),
                 accessor: 'profit',
@@ -432,13 +440,13 @@ function CraftTable(props) {
                 sortType: 'basic',
             },
             {
-                Header: t('Estimated profit per hour'),
+                Header: t('Estimated profit/h'),
                 accessor: 'profitPerHour',
                 Cell: profitCell,
                 sortType: 'basic',
             },
         ],
-        [t]
+        [t, includeFlea]
     );
 
     if(data.length <= 0){
