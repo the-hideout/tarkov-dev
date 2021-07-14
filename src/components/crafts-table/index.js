@@ -7,6 +7,8 @@ import Tippy from '@tippyjs/react';
 import {followCursor} from 'tippy.js';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useTranslation } from 'react-i18next';
+import duration from 'dayjs/plugin/duration';
+import dayjs from 'dayjs';
 
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
@@ -15,6 +17,8 @@ import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice'
 import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
 
 import './index.css';
+
+dayjs.extend(duration);
 
 const fuelIds = [
     '5d1b371186f774253763a656', // Expeditionary fuel tank
@@ -29,11 +33,24 @@ function priceCell({ value }) {
     </div>;
 };
 
-function profitCell({ value }) {
+function profitPerHourCell({value}) {
     return <div
         className = {`center-content ${value > 0 ? 'craft-profit' : 'craft-loss'}`}
     >
         {formatPrice(value)}
+    </div>;
+};
+
+function profitCell(props) {
+    return <div
+        className = {`center-content ${props.value > 0 ? 'craft-profit' : 'craft-loss'}`}
+    >
+        {formatPrice(props.value)}
+        <div
+            className = 'duration-wrapper'
+        >
+            {dayjs.duration(props.row.original.craftTime * 1000).format('HH[h] mm[m]')}
+        </div>
     </div>;
 };
 
@@ -289,6 +306,7 @@ function CraftTable(props) {
                 })
                     .filter(Boolean),
                 cost: totalCost,
+                craftTime: craftRow.duration,
                 reward: {
                     sellTo: 'Flea Market',
                     name: craftRow.rewardItems[0].item.name,
@@ -442,7 +460,7 @@ function CraftTable(props) {
             {
                 Header: t('Estimated profit/h'),
                 accessor: 'profitPerHour',
-                Cell: profitCell,
+                Cell: profitPerHourCell,
                 sortType: 'basic',
             },
         ],

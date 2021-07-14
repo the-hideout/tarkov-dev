@@ -78,3 +78,8 @@ img.barter-icon {
     flex-grow: 1;
     white-space: nowrap;
 }
+
+.duration-wrapper {
+    color: #636363;
+    font-size: 14px;
+}

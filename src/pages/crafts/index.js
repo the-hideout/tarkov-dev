@@ -50,7 +50,7 @@ function Crafts() {
     const [levelFilter, setLevelFilter] = useState(levels[2]);
     const [levelTooltipDisabled, setLevelTooltipDisabled] = useState(false);
     const [freeFuel, setFreeFuel] = useState(false);
-    const [includeFlea, setIncludeFlea] = useStateWithLocalStorage('includeFlea', false);
+    const [includeFlea, setIncludeFlea] = useStateWithLocalStorage('includeFlea', true);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedStation', 'top');
 
     return [
@@ -114,7 +114,7 @@ function Crafts() {
                  </ButtonGroupFilter>
                  <ToggleFilter
                     checked = {freeFuel}
-                    label = {'Fuel is free'}
+                    label = {'Empty fuel'}
                     onChange = {e => setFreeFuel(!freeFuel)}
                     tooltipContent = {
                         <div>
@@ -123,12 +123,12 @@ function Crafts() {
                     }
                 />
                 <ToggleFilter
-                    checked = {includeFlea}
-                    label = {'Flea?'}
+                    checked = {!includeFlea}
+                    label = {'No Flea?'}
                     onChange = {e => setIncludeFlea(!includeFlea)}
                     tooltipContent = {
                         <div>
-                            Include flea market prices
+                            Don't have access to flea market? Check this
                         </div>
                     }
                 />
