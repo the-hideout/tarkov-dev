@@ -15,8 +15,8 @@
 }
 
 .craft-reward-image-wrapper {
-    margin-right: 10px;
     position: relative;
+    margin: auto;
     font-size: 0;
 }
 
@@ -42,6 +42,10 @@
 
 .craft-reward-info-wrapper > div {
     width: 100%;
+}
+
+.craft-reward-info-wrapper div:first-child {
+    white-space: nowrap;
 }
 
 .craft-cost-item-wrapper {
@@ -82,4 +86,10 @@ img.barter-icon {
 .duration-wrapper {
     color: #636363;
     font-size: 14px;
+}
+
+@media screen and (min-width: 700px) {
+    .craft-reward-image-wrapper {
+        margin-right: 10px;
+    }
 }
