@@ -18,6 +18,8 @@ import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSl
 
 import './index.css';
 
+const priceToUse = 'lastLowPrice';
+
 dayjs.extend(duration);
 
 const fuelIds = [
@@ -75,7 +77,7 @@ function getItemCost(costItem) {
                             {costItem.alternatePriceSource.requiredItems[0].item.name}
                         </div>
                         <div>
-                            {formatPrice(costItem.alternatePriceSource.requiredItems[0].item.avg24hPrice)}
+                            {formatPrice(costItem.alternatePriceSource.requiredItems[0].item[priceToUse])}
                         </div>
                         <div>
                             {costItem.alternatePriceSource.source}
@@ -272,8 +274,8 @@ function CraftTable(props) {
 
             const tradeData = {
                 costItems: craftRow.requiredItems.map(requiredItem => {
-                    let calculationPrice = requiredItem.item.avg24hPrice || Math.max(...requiredItem.item.traderPrices.map(priceObject => priceObject.price));;
-                    // if(requiredItem.item.avg24hPrice * requiredItem.count === 0){
+                    let calculationPrice = requiredItem.item[priceToUse] || Math.max(...requiredItem.item.traderPrices.map(priceObject => priceObject.price));;
+                    // if(requiredItem.item[priceToUse] * requiredItem.count === 0){
                     //     console.log(`Found a zero cost item! ${requiredItem.item.name}`);
 
                     //     hasZeroCostItem = true;
@@ -283,7 +285,7 @@ function CraftTable(props) {
                     let alternatePrice = 0;
 
                     if(alternatePriceSource){
-                        alternatePrice = alternatePriceSource.requiredItems[0].item.avg24hPrice;
+                        alternatePrice = alternatePriceSource.requiredItems[0].item[priceToUse];
                         calculationPrice = alternatePrice;
                     }
 
@@ -312,7 +314,7 @@ function CraftTable(props) {
                     name: craftRow.rewardItems[0].item.name,
                     wikiLink: craftRow.rewardItems[0].item.wikiLink,
                     itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
-                    value: craftRow.rewardItems[0].item.avg24hPrice,
+                    value: craftRow.rewardItems[0].item[priceToUse],
                     source: `${station} (level ${level})`,
                     iconLink: craftRow.rewardItems[0].item.iconLink,
                     count: craftRow.rewardItems[0].count,
@@ -330,7 +332,7 @@ function CraftTable(props) {
 
             tradeData.profit = (tradeData.reward.value * craftRow.rewardItems[0].count) - totalCost;
             if(tradeData.reward.sellTo === 'Flea Market'){
-                tradeData.profit = tradeData.profit - fleaMarketFee(craftRow.rewardItems[0].item.basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.rewardItems[0].count);
+                tradeData.profit = tradeData.profit - fleaMarketFee(craftRow.rewardItems[0].item.basePrice, craftRow.rewardItems[0].item[priceToUse], craftRow.rewardItems[0].count);
             }
 
             if(tradeData.profit === Infinity){
@@ -339,7 +341,7 @@ function CraftTable(props) {
 
             tradeData.profitPerHour = Math.floor(tradeData.profit / (craftRow.duration / 3600));
 
-            tradeData.fleaThroughput = Math.floor(craftRow.rewardItems[0].item.avg24hPrice * craftRow.rewardItems[0].count / (craftRow.duration / 3600));
+            tradeData.fleaThroughput = Math.floor(craftRow.rewardItems[0].item[priceToUse] * craftRow.rewardItems[0].count / (craftRow.duration / 3600));
 
             // If the reward has no value, it's not available for purchase
             if(tradeData.reward.value === 0){
