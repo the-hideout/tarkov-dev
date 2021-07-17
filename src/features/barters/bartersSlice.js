@@ -18,6 +18,7 @@ export const fetchBarters = createAsyncThunk('barters/fetchBarters', async () =>
               imageLink
               wikiLink
               avg24hPrice
+              lastLowPrice
               traderPrices {
                   price
                   trader {
@@ -36,6 +37,7 @@ export const fetchBarters = createAsyncThunk('barters/fetchBarters', async () =>
               imageLink
               wikiLink
               avg24hPrice
+              lastLowPrice
               traderPrices {
                 price
               }
