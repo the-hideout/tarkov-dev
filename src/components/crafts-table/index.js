@@ -27,6 +27,20 @@ const fuelIds = [
     '5d1b36a186f7742523398433', // Metal fuel tank
 ];
 
+function getDurationDisplay(time) {
+    let format = 'mm[m]';
+
+    if(dayjs.duration(time).hours() > 0){
+        format = `H[h] ${format}`;
+    }
+
+    if(dayjs.duration(time).days() > 0){
+        format = `D[d] ${format}`;
+    }
+
+    return dayjs.duration(time).format(format);
+};
+
 function priceCell({ value }) {
     return <div
         className = 'center-content'
@@ -51,7 +65,7 @@ function profitCell(props) {
         <div
             className = 'duration-wrapper'
         >
-            {dayjs.duration(props.row.original.craftTime * 1000).format('HH[h] mm[m]')}
+            {getDurationDisplay(props.row.original.craftTime * 1000)}
         </div>
     </div>;
 };
