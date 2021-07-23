@@ -13,41 +13,9 @@ import Fuse from 'fuse.js'
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
+import ValueCell from '../value-cell';
 
 import './index.css';
-
-function fleaPriceCell({ value }) {
-    if(value){
-        return <div
-            className = 'center-content'
-        >
-            {formatPrice(value)}
-        </div>;
-    }
-
-    return <div
-        className = 'center-content'
-    >
-        <Tippy
-            placement = 'bottom'
-            content={'No flea price seen in the past 24 hours'}
-        >
-            <Icon
-                path={mdiClockAlertOutline}
-                size={1}
-                className = 'icon-with-text'
-            />
-        </Tippy>
-    </div>
-};
-
-function instaProfitCell({ value }) {
-    return <div
-        className = 'center-content'
-    >
-        {value ? formatPrice(value) : '-'}
-    </div>;
-};
 
 function traderPriceCell(datum) {
     if(datum.row.original.traderName === '?'){
@@ -116,7 +84,6 @@ function SmallItemTable(props) {
         if(nameFilter){
             const options = {
                 includeScore: true,
-                // equivalent to `keys: [['author', 'tags', 'value']]`
                 keys: ['name', 'shortname'],
               }
 
@@ -173,13 +140,33 @@ function SmallItemTable(props) {
             {
                 Header: t('Flea'),
                 accessor: d => Number(d.lastLowPrice),
-                Cell: fleaPriceCell,
+                Cell: ({value}) => {
+                    return <ValueCell
+                        value = {value}
+                        noValue = {
+                            <div
+                                className = 'center-content'
+                            >
+                                <Tippy
+                                    placement = 'bottom'
+                                    content={'No flea price seen in the past 24 hours'}
+                                >
+                                    <Icon
+                                        path={mdiClockAlertOutline}
+                                        size={1}
+                                        className = 'icon-with-text'
+                                    />
+                                </Tippy>
+                            </div>
+                        }
+                    />;
+                },
                 id: 'fleaPrice',
             },
             {
                 Header: t('InstaProfit'),
                 accessor: d => Number(d.instaProfit),
-                Cell: instaProfitCell,
+                Cell: ValueCell,
                 id: 'instaProfit',
                 sortDescFirst: true,
                 sortType: (a, b) => {

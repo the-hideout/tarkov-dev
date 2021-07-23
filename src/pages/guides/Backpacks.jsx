@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import CanvasGrid from '../../components/canvas-grid';
 import DataTable from '../../components/data-table';
-import formatPrice from '../../modules/format-price';
 import ID from '../../components/ID.jsx';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
+import ValueCell from '../../components/value-cell';
 
 const centerCell = ({ value }) => {
     return <div
@@ -21,14 +21,6 @@ const centerNowrapCell = ({ value }) => {
         className = 'center-content nowrap-content'
     >
         { value }
-    </div>;
-};
-
-const priceCell = ({ value }) => {
-    return <div
-        className = 'center-content'
-    >
-        { formatPrice(value) }
     </div>;
 };
 
@@ -120,12 +112,12 @@ function Backpacks(props) {
             {
                 Header: 'Price',
                 accessor: 'price',
-                Cell: priceCell,
+                Cell: ValueCell,
             },
             {
                 Header: 'Price per slot',
                 accessor: 'pricePerSlot',
-                Cell: priceCell,
+                Cell: ValueCell,
             },
         ],
         []

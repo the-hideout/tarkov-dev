@@ -3,126 +3,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     Link,
 } from "react-router-dom";
-import Tippy from '@tippyjs/react';
-import {followCursor} from 'tippy.js';
-import 'tippy.js/dist/tippy.css'; // optional
 import { useTranslation } from 'react-i18next';
 
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
+// import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
 import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
+import ValueCell from '../value-cell';
+import CostItemsCell from '../cost-items-cell';
 
 import './index.css';
 
-function priceCell({ value }) {
-    return <div
-        className = 'center-content'
-    >
-        {formatPrice(value)}
-    </div>;
-};
-
-function profitCell({ value }) {
-    return <div
-        className = {`center-content ${value > 0 ? 'craft-profit' : 'craft-loss'}`}
-    >
-        {formatPrice(value)}
-    </div>;
-};
-
-function getItemCost(costItem) {
-    if(costItem.alternatePrice > 0 && costItem.alternatePrice < costItem.avg24hPrice){
-        return <Tippy
-            placement = 'bottom'
-            followCursor = {'horizontal'}
-            // showOnCreate = {true}
-            content={
-                <div
-                    className = 'barter-cost-with-barter-wrapper'
-                >
-                    <img
-                        alt = 'Icon'
-                        src = {`https://assets.tarkov-tools.com/${costItem.alternatePriceSource.requiredItems[0].item.id}-icon.jpg`}
-                    />
-                    <div
-                        className = 'barter-cost-barter-details-wrapper'
-                    >
-                        <div>
-                            {costItem.alternatePriceSource.requiredItems[0].item.name}
-                        </div>
-                        <div>
-                            {formatPrice(costItem.alternatePriceSource.requiredItems[0].item.avg24hPrice)}
-                        </div>
-                        <div>
-                            {costItem.alternatePriceSource.source}
-                        </div>
-                    </div>
-                </div>
-            }
-            plugins={[followCursor]}
-        >
-            <div>
-                <span className = 'barter-cost-item-count-wrapper'>
-                    {costItem.count}
-                </span> X <img
-                    alt = 'Barter'
-                    className = 'barter-icon'
-                    src = {`${ process.env.PUBLIC_URL }/images/icon-barter.png`}
-                />{formatPrice(costItem.avg24hPrice)} = {formatPrice(costItem.count * (costItem.alternatePrice || costItem.avg24hPrice))}
-            </div>
-        </Tippy>
-    }
-
-    return <div>
-        <span className = 'barter-cost-item-count-wrapper'>{costItem.count} </span> X {formatPrice(costItem.avg24hPrice)} = {formatPrice(costItem.count * (costItem.alternatePrice || costItem.avg24hPrice))}
-    </div>;
-};
-
-function costItemsCell({ value }) {
-    return <div
-        className = 'cost-wrapper'
-    >
-        {value.map((costItem, itemIndex) => {
-            return <div
-                key = {`cost-item-${itemIndex}`}
-                className = 'barter-cost-item-wrapper'
-            >
-                {/* <div
-                    className = 'barter-cost-item-count-wrapper'
-                >
-                    {costItem.count}
-                </div> */}
-                <div
-                    className = 'barter-cost-image-wrapper'
-                >
-                    <img
-                        alt = {costItem.name}
-                        loading = 'lazy'
-                        src = {costItem.iconLink}
-                    />
-                </div>
-                <div
-                    className = 'barter-cost-item-text-wrapper'
-                >
-                    <Link
-                        to = {costItem.itemLink}
-                    >
-                        {costItem.name}
-                    </Link>
-                    <div
-                        className = 'price-wrapper'
-                    >
-                        {getItemCost(costItem)}
-                    </div>
-                </div>
-            </div>
-        })}
-    </div>;
-};
+const priceToUse = 'lastLowPrice';
 
 function getAlternatePriceSource(item, barters) {
-    let alternatePrice = false;
-
     for(const barter of barters){
         if(barter.rewardItems.length > 1){
             continue;
@@ -140,10 +34,10 @@ function getAlternatePriceSource(item, barters) {
             continue;
         }
 
-        alternatePrice = barter;
+        return barter;
     }
 
-    return alternatePrice;
+    return false;
 };
 
 function BartersTable(props) {
@@ -211,17 +105,26 @@ function BartersTable(props) {
             {
                 Header: t('Cost'),
                 accessor: 'costItems',
-                Cell: costItemsCell,
+                Cell: ({value}) => {
+                    return <CostItemsCell
+                        costItems = {value}
+                    />;
+                },
             },
             {
                 Header: t('Cost ₽'),
                 accessor: 'cost',
-                Cell: priceCell,
+                Cell: ValueCell,
             },
             {
                 Header: t('Estimated savings'),
                 accessor: d=>Number(d.savings),
-                Cell: profitCell,
+                Cell: ({value}) => {
+                    return <ValueCell
+                        value = {value}
+                        highlightProfit
+                    />;
+                },
                 sortType: (a, b) => {
                     if(a.value > b.value){
                         return 1;
@@ -331,15 +234,25 @@ function BartersTable(props) {
 
                             return false;
                         }
+                        
+                        let priceSource = 'flea';
+                        let requiredItemPrice = requiredItem.item[priceToUse];
 
-                        let requiredItemPrice = requiredItem.item.avg24hPrice || Math.max(...requiredItem.item.traderPrices.map(priceObject => priceObject.price));
+                        if(!requiredItemPrice){
+                            requiredItemPrice = Math.max(...requiredItem.item.traderPrices.map(priceObject => priceObject.price));
+                            priceSource = 'trader';
+                        }
 
                         const alternatePriceSource = getAlternatePriceSource(requiredItem.item, barters);
                         let alternatePrice = 0;
 
                         if(alternatePriceSource){
-                            alternatePrice = alternatePriceSource.requiredItems[0].item.avg24hPrice;
+                            alternatePrice = alternatePriceSource.requiredItems[0].item[priceToUse];
+                        }
+
+                        if(alternatePrice && alternatePrice < requiredItemPrice){
                             requiredItemPrice = alternatePrice;
+                            priceSource = 'barter';
                         }
 
                         cost = cost + requiredItemPrice * requiredItem.count;
@@ -351,7 +264,8 @@ function BartersTable(props) {
                         return {
                             count: requiredItem.count,
                             name: requiredItem.item.name,
-                            avg24hPrice: requiredItemPrice,
+                            price: requiredItemPrice,
+                            priceSource: priceSource,
                             iconLink: requiredItem.item.iconLink,
                             wikiLink: requiredItem.item.wikiLink,
                             itemLink: `/item/${requiredItem.item.normalizedName}`,
@@ -365,7 +279,7 @@ function BartersTable(props) {
                     sellTo: 'Flea market',
                     name: barterRow.rewardItems[0].item.name,
                     wikiLink: barterRow.rewardItems[0].item.wikiLink,
-                    value: barterRow.rewardItems[0].item.avg24hPrice,
+                    value: barterRow.rewardItems[0].item[priceToUse],
                     trader: barterRow.source,
                     iconLink: barterRow.rewardItems[0].item.iconLink,
                     itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,

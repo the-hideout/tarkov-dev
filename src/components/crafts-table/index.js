@@ -3,9 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     Link,
 } from "react-router-dom";
-import Tippy from '@tippyjs/react';
-import {followCursor} from 'tippy.js';
-import 'tippy.js/dist/tippy.css'; // optional
 import { useTranslation } from 'react-i18next';
 import duration from 'dayjs/plugin/duration';
 import dayjs from 'dayjs';
@@ -15,6 +12,8 @@ import formatPrice from '../../modules/format-price';
 import fleaMarketFee from '../../modules/flea-market-fee';
 import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
 import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
+import ValueCell from '../value-cell';
+import CostItemsCell from '../cost-items-cell';
 
 import './index.css';
 
@@ -39,118 +38,6 @@ function getDurationDisplay(time) {
     }
 
     return dayjs.duration(time).format(format);
-};
-
-function priceCell({ value }) {
-    return <div
-        className = 'center-content'
-    >
-        {formatPrice(value)}
-    </div>;
-};
-
-function profitPerHourCell({value}) {
-    return <div
-        className = {`center-content ${value > 0 ? 'craft-profit' : 'craft-loss'}`}
-    >
-        {formatPrice(value)}
-    </div>;
-};
-
-function profitCell(props) {
-    return <div
-        className = {`center-content ${props.value > 0 ? 'craft-profit' : 'craft-loss'}`}
-    >
-        {formatPrice(props.value)}
-        <div
-            className = 'duration-wrapper'
-        >
-            {getDurationDisplay(props.row.original.craftTime * 1000)}
-        </div>
-    </div>;
-};
-
-function getItemCost(costItem) {
-    if(costItem.alternatePrice > 0){
-        return <Tippy
-            placement = 'bottom'
-            followCursor = {'horizontal'}
-            // showOnCreate = {true}
-            content={
-                <div
-                    className = 'barter-cost-with-barter-wrapper'
-                >
-                    <img
-                        alt = 'Icon'
-                        src = {`https://assets.tarkov-tools.com/${costItem.alternatePriceSource.requiredItems[0].item.id}-icon.jpg`}
-                    />
-                    <div
-                        className = 'barter-cost-barter-details-wrapper'
-                    >
-                        <div>
-                            {costItem.alternatePriceSource.requiredItems[0].item.name}
-                        </div>
-                        <div>
-                            {formatPrice(costItem.alternatePriceSource.requiredItems[0].item[priceToUse])}
-                        </div>
-                        <div>
-                            {costItem.alternatePriceSource.source}
-                        </div>
-                    </div>
-                </div>
-            }
-            plugins={[followCursor]}
-        >
-            <div>
-                <span className = 'craft-cost-item-count-wrapper'>
-                    {costItem.count}
-                </span> X <img
-                    alt = 'Barter'
-                    className = 'barter-icon'
-                    src = {`${ process.env.PUBLIC_URL }/images/icon-barter.png`}
-                />{formatPrice(costItem.price)} = {formatPrice(costItem.count * (costItem.alternatePrice || costItem.price))}
-            </div>
-        </Tippy>
-    }
-
-    return <div>
-        <span className = 'craft-cost-item-count-wrapper'>{costItem.count} </span> X {formatPrice(costItem.price)} = {formatPrice(costItem.count * (costItem.alternatePrice || costItem.price))}
-    </div>;
-}
-
-function costItemsCell({ value }) {
-    return <div
-        className = 'cost-wrapper'
-    >
-        {value.map((costItem, itemIndex) => {
-            return <div
-                key = {`cost-item-${itemIndex}`}
-                className = 'craft-cost-item-wrapper'
-            >
-                <div
-                    className = 'craft-cost-image-wrapper'
-                ><img
-                        alt = {costItem.name}
-                        loading = 'lazy'
-                        src = {costItem.iconLink}
-                    /></div>
-                <div
-                    className = 'craft-cost-item-text-wrapper'
-                >
-                    <Link
-                        to = {costItem.itemLink}
-                    >
-                        {costItem.name}
-                    </Link>
-                    <div
-                        className = 'price-wrapper'
-                    >
-                        {getItemCost(costItem)}
-                    </div>
-                </div>
-            </div>
-        })}
-    </div>;
 };
 
 function getAlternatePriceSource(item, barters) {
@@ -300,6 +187,9 @@ function CraftTable(props) {
 
                     if(alternatePriceSource){
                         alternatePrice = alternatePriceSource.requiredItems[0].item[priceToUse];
+                    }
+
+                    if(alternatePrice && alternatePrice < calculationPrice){
                         calculationPrice = alternatePrice;
                     }
 
@@ -453,30 +343,50 @@ function CraftTable(props) {
             {
                 Header: t('Cost'),
                 accessor: 'costItems',
-                Cell: costItemsCell,
+                Cell: ({value}) => {
+                    return <CostItemsCell
+                        costItems = {value}
+                    />;
+                },
             },
             {
                 Header: t('Cost ₽'),
                 accessor: d => Number(d.cost),
-                Cell: priceCell,
+                Cell: ValueCell,
                 id: 'cost',
             },
             ...( includeFlea ? [{
                 Header: t('Flea throughput/h'),
                 accessor: 'fleaThroughput',
-                Cell: priceCell,
+                Cell: ValueCell,
                 sortType: 'basic',
             }] : []),
             {
                 Header: t('Estimated profit'),
                 accessor: 'profit',
-                Cell: profitCell,
+                Cell: (props) => {
+                    return <ValueCell
+                        value = {props.value}
+                        highlightProfit
+                    >
+                        <div
+                            className = 'duration-wrapper'
+                        >
+                            {getDurationDisplay(props.row.original.craftTime * 1000)}
+                        </div>
+                    </ValueCell>;
+                },
                 sortType: 'basic',
             },
             {
                 Header: t('Estimated profit/h'),
                 accessor: 'profitPerHour',
-                Cell: profitPerHourCell,
+                Cell: ({value}) => {
+                    return <ValueCell
+                        value = {value}
+                        highlightProfit
+                    />;
+                },
                 sortType: 'basic',
             },
         ],
