@@ -1,3 +1,5 @@
+import getRublePrice from './get-ruble-price';
+
 const fuelIds = [
     '5d1b371186f774253763a656', // Expeditionary fuel tank
     '5d1b36a186f7742523398433', // Metal fuel tank
@@ -5,7 +7,7 @@ const fuelIds = [
 
 const priceToUse = 'lastLowPrice';
 
-function getAlternatePriceSource(item, barters) {
+function getBarterPrice(item, barters) {
     for(const barter of barters){
         if(barter.rewardItems.length > 1){
             continue;
@@ -29,27 +31,46 @@ function getAlternatePriceSource(item, barters) {
     return false;
 };
 
-module.exports = (itemsList, barters, freeFuel = false) => {
+function getCheapestItemPrice(item, barters) {
+    let bestPrice = {
+        source: 'fleaMarket',
+        price: item[priceToUse],
+    };
+
+    if(!item.buyFor){
+        console.log(item);
+
+        return bestPrice;
+    }
+
+    item.buyFor.map((priceObject) => {
+        const rublePrice = getRublePrice(priceObject.price, priceObject.currency);
+
+        if(rublePrice > bestPrice.price){
+            return true;
+        }
+
+        bestPrice.source = priceObject.source;
+        bestPrice.price = rublePrice;
+
+        return true;
+    });
+
+    const barter = getBarterPrice(item, barters);
+
+    if(barter && barter.requiredItems[0].item[priceToUse] < bestPrice.price){
+        bestPrice.price = barter.requiredItems[0].item[priceToUse];
+        bestPrice.source = 'barter';
+        bestPrice.barter = barter;
+    }
+
+    return bestPrice;
+};
+
+const formatCostItems = (itemsList, barters, freeFuel = false) => {
     return itemsList.map(requiredItem => {
-        let priceSource = 'flea';
-        let calculationPrice = requiredItem.item[priceToUse];
-
-        if(!calculationPrice){
-            calculationPrice = Math.max(...requiredItem.item.traderPrices.map(priceObject => priceObject.price));
-            priceSource = 'trader';
-        }
-
-        const alternatePriceSource = getAlternatePriceSource(requiredItem.item, barters);
-        let alternatePrice = 0;
-
-        if(alternatePriceSource){
-            alternatePrice = alternatePriceSource.requiredItems[0].item[priceToUse];
-        }
-
-        if(alternatePrice && alternatePrice < calculationPrice){
-            calculationPrice = alternatePrice;
-            priceSource = 'barter';
-        }
+        let bestPrice = getCheapestItemPrice(requiredItem.item, barters);
+        let calculationPrice = bestPrice.price;
 
         if(freeFuel && fuelIds.includes(requiredItem.item.id)){
             calculationPrice = 0;
@@ -59,12 +80,13 @@ module.exports = (itemsList, barters, freeFuel = false) => {
             count: requiredItem.count,
             name: requiredItem.item.name,
             price: calculationPrice,
-            priceSource: priceSource,
+            priceSource: bestPrice.source,
+            alternatePriceSource: bestPrice.barter,
             iconLink: requiredItem.item.iconLink,
             wikiLink: requiredItem.item.wikiLink,
             itemLink: `/item/${requiredItem.item.normalizedName}`,
-            alternatePrice: alternatePrice,
-            alternatePriceSource: alternatePriceSource,
         };
     });
 };
+
+export default formatCostItems;

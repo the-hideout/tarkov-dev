@@ -6,10 +6,28 @@ import formatPrice from '../../modules/format-price';
 
 const priceToUse = 'lastLowPrice';
 
+const TRADERS = [
+    'prapor',
+    'therapist',
+    'fence',
+    'skier',
+    'peacekeeper',
+    'mechanic',
+    'ragman',
+    'jaeger',
+];
+
 function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSource = 'flea'}) {
-    if(priceSource === 'flea'){
+    if(priceSource === 'fleaMarket'){
         return <div>
-            <span>{count} </span> X {formatPrice(price)} = {formatPrice(count * (alternatePrice || price))}
+            <img
+                alt = 'Flea market'
+                className = 'barter-icon'
+                src = {`${ process.env.PUBLIC_URL }/images/flea-market-icon.jpg`}
+            />
+            <span>
+                {count}
+            </span> X {formatPrice(price)} = {formatPrice(count * (alternatePrice || price))}
         </div>;
     }
 
@@ -44,15 +62,29 @@ function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSour
             plugins={[followCursor]}
         >
             <div>
-                <span>
-                    {count}
-                </span> X <img
+                <img
                     alt = 'Barter'
                     className = 'barter-icon'
                     src = {`${ process.env.PUBLIC_URL }/images/icon-barter.png`}
-                />{formatPrice(price)} = {formatPrice(count * (alternatePrice || price))}
+                />
+                <span>
+                    {count}
+                </span> X {formatPrice(price)} = {formatPrice(count * (alternatePrice || price))}
             </div>
         </Tippy>
+    }
+
+    if(TRADERS.includes(priceSource)){
+        return <div>
+            <img
+                alt = {priceSource}
+                className = 'barter-icon'
+                src = {`${ process.env.PUBLIC_URL }/images/${priceSource}-icon.jpg`}
+            />
+            <span>
+                {count}
+            </span> X {formatPrice(price)} = {formatPrice(count * (alternatePrice || price))}
+        </div>
     }
 
     return null;

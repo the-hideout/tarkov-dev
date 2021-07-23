@@ -25,6 +25,16 @@ export const fetchBarters = createAsyncThunk('barters/fetchBarters', async () =>
                       name
                   }
               }
+              buyFor {
+                source
+                price
+                currency
+              }
+              sellFor {
+                source
+                price
+                currency
+              }
             }
             count
           }
@@ -40,6 +50,16 @@ export const fetchBarters = createAsyncThunk('barters/fetchBarters', async () =>
               lastLowPrice
               traderPrices {
                 price
+              }
+              buyFor {
+                source
+                price
+                currency
+              }
+              sellFor {
+                source
+                price
+                currency
               }
             }
             count

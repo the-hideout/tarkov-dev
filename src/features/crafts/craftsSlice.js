@@ -26,6 +26,16 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
                       name
                   }
               }
+              buyFor {
+                source
+                price
+                currency
+              }
+              sellFor {
+                source
+                price
+                currency
+              }
             }
             count
           }
@@ -45,7 +55,17 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
                 trader {
                     name
                 }
-            }
+              }
+              buyFor {
+                source
+                price
+                currency
+              }
+              sellFor {
+                source
+                price
+                currency
+              }
             }
             count
           }

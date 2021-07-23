@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import calculateFee from '../../modules/flea-market-fee';
 import bestPrice from '../../modules/best-price';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes';
+import getRublePrice from '../../modules/get-ruble-price';
 
 import itemGrids from '../../data/item-grids.json';
 import itemProps from '../../data/item-props.json';
@@ -11,12 +12,6 @@ const initialState = {
     items: [],
     status: 'idle',
     error: null,
-};
-
-const CURRENCY_MULTIPLIER = {
-    RUB: 1,
-    USD: 124,
-    EUR: 147,
 };
 
 const NOTES = {
@@ -53,6 +48,7 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
                       type
                       value
                     }
+                    currency
                   }
                   buyFor {
                     source
@@ -118,7 +114,7 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
         }).shift();
 
         rawItem.buyFor = rawItem.buyFor.sort((a, b) => {
-            return (a.price * CURRENCY_MULTIPLIER[a.currency]) - (b.price * CURRENCY_MULTIPLIER[b.currency]);
+            return getRublePrice(a.price, a.currency) - getRublePrice(b.price, b.currency);
         });
 
         if(!Array.isArray(rawItem.linkedItems)){
