@@ -11,34 +11,11 @@ import formatPrice from '../../modules/format-price';
 import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
+import formatCostItems from '../../modules/format-cost-items';
 
 import './index.css';
 
 const priceToUse = 'lastLowPrice';
-
-function getAlternatePriceSource(item, barters) {
-    for(const barter of barters){
-        if(barter.rewardItems.length > 1){
-            continue;
-        }
-
-        if(barter.requiredItems.length > 1){
-            continue;
-        }
-
-        if(barter.rewardItems[0].count !== barter.requiredItems[0].count){
-            continue;
-        }
-
-        if(barter.rewardItems[0].item.id !== item.id){
-            continue;
-        }
-
-        return barter;
-    }
-
-    return false;
-};
 
 function BartersTable(props) {
     const { selectedTrader, nameFilter, levelFilter = 3, includeFlea = true, itemFilter} = props;
@@ -221,59 +198,11 @@ function BartersTable(props) {
                 return false;
 		    }
 
+            const costItems = formatCostItems(barterRow.requiredItems, barters);
+            costItems.map(costItem => cost = cost + costItem.price * costItem.count);
+
             const tradeData = {
-                costItems: barterRow.requiredItems.map(requiredItem => {
-                        if(requiredItem === null){
-                            // console.log(barterRow);
-
-                            return false;
-                        }
-
-                        if(!requiredItem.item){
-                            // console.log(requiredItem);
-
-                            return false;
-                        }
-                        
-                        let priceSource = 'flea';
-                        let requiredItemPrice = requiredItem.item[priceToUse];
-
-                        if(!requiredItemPrice){
-                            requiredItemPrice = Math.max(...requiredItem.item.traderPrices.map(priceObject => priceObject.price));
-                            priceSource = 'trader';
-                        }
-
-                        const alternatePriceSource = getAlternatePriceSource(requiredItem.item, barters);
-                        let alternatePrice = 0;
-
-                        if(alternatePriceSource){
-                            alternatePrice = alternatePriceSource.requiredItems[0].item[priceToUse];
-                        }
-
-                        if(alternatePrice && alternatePrice < requiredItemPrice){
-                            requiredItemPrice = alternatePrice;
-                            priceSource = 'barter';
-                        }
-
-                        cost = cost + requiredItemPrice * requiredItem.count;
-
-                        // if(cost === 0){
-                        //     hasZeroCostItem = true;
-                        // }
-
-                        return {
-                            count: requiredItem.count,
-                            name: requiredItem.item.name,
-                            price: requiredItemPrice,
-                            priceSource: priceSource,
-                            iconLink: requiredItem.item.iconLink,
-                            wikiLink: requiredItem.item.wikiLink,
-                            itemLink: `/item/${requiredItem.item.normalizedName}`,
-                            alternatePrice: alternatePrice,
-                            alternatePriceSource: alternatePriceSource,
-                        };
-                    })
-                    .filter(Boolean),
+                costItems: costItems,
                 cost: cost,
                 reward: {
                     sellTo: 'Flea market',

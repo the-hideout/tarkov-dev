@@ -14,17 +14,13 @@ import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice'
 import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
+import formatCostItems from '../../modules/format-cost-items';
 
 import './index.css';
 
 const priceToUse = 'lastLowPrice';
 
 dayjs.extend(duration);
-
-const fuelIds = [
-    '5d1b371186f774253763a656', // Expeditionary fuel tank
-    '5d1b36a186f7742523398433', // Metal fuel tank
-];
 
 function getDurationDisplay(time) {
     let format = 'mm[m]';
@@ -38,32 +34,6 @@ function getDurationDisplay(time) {
     }
 
     return dayjs.duration(time).format(format);
-};
-
-function getAlternatePriceSource(item, barters) {
-    let alternatePrice = false;
-
-    for(const barter of barters){
-        if(barter.rewardItems.length > 1){
-            continue;
-        }
-
-        if(barter.requiredItems.length > 1){
-            continue;
-        }
-
-        if(barter.rewardItems[0].count !== barter.requiredItems[0].count){
-            continue;
-        }
-
-        if(barter.rewardItems[0].item.id !== item.id){
-            continue;
-        }
-
-        alternatePrice = barter;
-    }
-
-    return alternatePrice;
 };
 
 function CraftTable(props) {
@@ -173,44 +143,12 @@ function CraftTable(props) {
                 return false;
             }
 
+            const costItems = formatCostItems(craftRow.requiredItems, barters, freeFuel);
+
+            costItems.map(costItem => totalCost = totalCost + costItem.price * costItem.count);
+
             const tradeData = {
-                costItems: craftRow.requiredItems.map(requiredItem => {
-                    let calculationPrice = requiredItem.item[priceToUse] || Math.max(...requiredItem.item.traderPrices.map(priceObject => priceObject.price));;
-                    // if(requiredItem.item[priceToUse] * requiredItem.count === 0){
-                    //     console.log(`Found a zero cost item! ${requiredItem.item.name}`);
-
-                    //     hasZeroCostItem = true;
-                    // }
-
-                    const alternatePriceSource = getAlternatePriceSource(requiredItem.item, barters);
-                    let alternatePrice = 0;
-
-                    if(alternatePriceSource){
-                        alternatePrice = alternatePriceSource.requiredItems[0].item[priceToUse];
-                    }
-
-                    if(alternatePrice && alternatePrice < calculationPrice){
-                        calculationPrice = alternatePrice;
-                    }
-
-                    if(freeFuel && fuelIds.includes(requiredItem.item.id)){
-                        calculationPrice = 0;
-                    }
-
-                    totalCost = totalCost + calculationPrice * requiredItem.count;
-
-                    return {
-                        count: requiredItem.count,
-                        name: requiredItem.item.name,
-                        price: calculationPrice,
-                        iconLink: requiredItem.item.iconLink,
-                        wikiLink: requiredItem.item.wikiLink,
-                        itemLink: `/item/${requiredItem.item.normalizedName}`,
-                        alternatePrice: alternatePrice,
-                        alternatePriceSource: alternatePriceSource,
-                    };
-                })
-                    .filter(Boolean),
+                costItems: costItems,
                 cost: totalCost,
                 craftTime: craftRow.duration,
                 reward: {
