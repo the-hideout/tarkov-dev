@@ -54,6 +54,8 @@ function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSour
             </div>
         </Tippy>
     }
+
+    return null;
 }
 
 export default ItemCost;
