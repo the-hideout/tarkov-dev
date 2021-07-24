@@ -35,6 +35,7 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
                 low24hPrice
                 high24hPrice
                 lastLowPrice
+                gridImageLink
                 traderPrices {
                     price
                     trader {

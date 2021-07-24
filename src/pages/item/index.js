@@ -147,11 +147,11 @@ function Item() {
                             grid = {currentItemData.grid.pockets}
                             width = {currentItemData.grid.width}
                         />}
-                        <img
+                        {currentItemData.gridImageLink && <img
                             className = {'item-image'}
                             alt = {currentItemData.name}
-                            src = {`https://assets.tarkov-tools.com/${currentItemData.id}-grid-image.jpg`}
-                        />
+                            src = {currentItemData.gridImageLink}
+                        /> }
                         {currentItemData.wikiLink &&
                             <a
                                 href={currentItemData.wikiLink}
@@ -279,7 +279,7 @@ function Item() {
                         })}
                         </div>
                     </div>
-                    <div>
+                    {currentItemData.buyFor.length > 0 && <div>
                         <h2>
                             Buy for
                         </h2>
@@ -329,7 +329,7 @@ function Item() {
                             </div>
                         })}
                         </div>
-                    </div>
+                    </div> }
                 </div>
                 <div>
                     <h2>
