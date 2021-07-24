@@ -1,6 +1,7 @@
 import Tippy from '@tippyjs/react';
 import {followCursor} from 'tippy.js';
 import 'tippy.js/dist/tippy.css'; // optional
+import { useTranslation } from 'react-i18next';
 
 import formatPrice from '../../modules/format-price';
 
@@ -18,10 +19,12 @@ const TRADERS = [
 ];
 
 function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSource = 'flea'}) {
+    const { t } = useTranslation();
+
     if(priceSource === 'fleaMarket'){
         return <div>
             <img
-                alt = 'Flea market'
+                alt = {t('Flea market')}
                 className = 'barter-icon'
                 src = {`${ process.env.PUBLIC_URL }/images/flea-market-icon.jpg`}
             />
@@ -41,7 +44,7 @@ function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSour
                     className = 'cost-with-barter-wrapper'
                 >
                     <img
-                        alt = 'Icon'
+                        alt = {t('Icon')}
                         src = {`https://assets.tarkov-tools.com/${alternatePriceSource.requiredItems[0].item.id}-icon.jpg`}
                     />
                     <div
@@ -63,7 +66,7 @@ function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSour
         >
             <div>
                 <img
-                    alt = 'Barter'
+                    alt = {t('Barter')}
                     className = 'barter-icon'
                     src = {`${ process.env.PUBLIC_URL }/images/icon-barter.png`}
                 />
@@ -77,7 +80,7 @@ function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSour
     if(TRADERS.includes(priceSource)){
         return <div>
             <img
-                alt = {priceSource}
+                alt = {t(priceSource)}
                 className = 'barter-icon'
                 src = {`${ process.env.PUBLIC_URL }/images/${priceSource}-icon.jpg`}
             />
