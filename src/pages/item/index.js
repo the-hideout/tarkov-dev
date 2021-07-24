@@ -152,9 +152,11 @@ function Item() {
                             alt = {currentItemData.name}
                             src = {`https://assets.tarkov-tools.com/${currentItemData.id}-grid-image.jpg`}
                         />
-                        <a
-                            href={currentItemData.wikiLink}
-                        >Wiki</a>
+                        {currentItemData.wikiLink &&
+                            <a
+                                href={currentItemData.wikiLink}
+                            >Wiki</a>
+                        }
                     </div>
 
                 </div>
