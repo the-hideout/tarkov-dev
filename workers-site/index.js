@@ -52,6 +52,7 @@ async function handleEvent(event) {
       // This avoids the need to do a redundant lookup that we know will
       // fail.
       options.cacheControl.browserTTL = 0;
+      options.cacheControl.edgeTTL = 60;
       return new Request(`${new URL(req.url).origin}/index.html`, req)
     } else {
       // The default handler decided this is not an HTML page. It's probably
