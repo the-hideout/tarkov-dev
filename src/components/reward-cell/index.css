@@ -1,0 +1,43 @@
+.reward-wrapper {
+    display: flex;
+}
+
+.reward-image-wrapper {
+    position: relative;
+    margin: auto;
+    font-size: 0;
+}
+
+.reward-count-wrapper {
+    background-color: rgba(0,0,0, 0.8);
+    border-top-left-radius: 3px;
+    bottom: 1px;
+    color: #c7c5b3;
+    font-size: 14px;
+    height: 18px;
+    line-height: 20px;
+    padding: 0 5px;
+    position: absolute;
+    right: 1px;
+    text-align: center;
+}
+
+.reward-info-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.reward-info-wrapper > div {
+    width: 100%;
+}
+
+.reward-info-wrapper div:first-child {
+    white-space: nowrap;
+}
+
+@media screen and (min-width: 700px) {
+    .reward-image-wrapper {
+        margin-right: 10px;
+    }
+}

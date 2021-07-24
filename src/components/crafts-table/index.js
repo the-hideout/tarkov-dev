@@ -1,14 +1,10 @@
 import {useMemo, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-    Link,
-} from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import duration from 'dayjs/plugin/duration';
 import dayjs from 'dayjs';
 
 import DataTable from '../data-table';
-import formatPrice from '../../modules/format-price';
 import fleaMarketFee from '../../modules/flea-market-fee';
 import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
 import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
@@ -17,6 +13,7 @@ import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
 
 import './index.css';
+import RewardCell from '../reward-cell';
 
 const priceToUse = 'lastLowPrice';
 
@@ -236,46 +233,10 @@ function CraftTable(props) {
             {
                 Header: t('Reward'),
                 accessor: 'reward',
-                Cell: ({ value }) => {
-                    return <div
-                        className = 'craft-reward-wrapper'
-                    >
-                        <div
-                            className = 'craft-reward-image-wrapper'
-                        ><span
-                            className = 'craft-reward-count-wrapper'
-                        >
-                            {value.count}
-                        </span><img
-                                alt = ''
-                                className = 'table-image'
-                                loading = 'lazy'
-                                src = { value.iconLink }
-                            /></div>
-                        <div
-                            className = 'craft-reward-info-wrapper'
-                        >
-                            <div>
-                                <Link
-                                    className = 'craft-reward-item-title'
-                                    to = {value.itemLink}
-
-                                >
-                                    {value.name}
-                                </Link>
-                            </div>
-                            <div
-                                className = 'source-wrapper'
-                            >
-                                {value.source}
-                            </div>
-                            <div
-                                className = 'price-wrapper'
-                            >
-                                {formatPrice(value.value)} @ {value.sellTo}
-                            </div>
-                        </div>
-                    </div>
+                Cell: ({value}) => {
+                    return <RewardCell
+                        {...value}
+                    />;
                 },
             },
             {

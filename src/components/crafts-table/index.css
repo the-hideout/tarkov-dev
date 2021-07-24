@@ -1,48 +1,4 @@
-.craft-reward-wrapper {
-    display: flex;
-}
-
-.craft-reward-image-wrapper {
-    position: relative;
-    margin: auto;
-    font-size: 0;
-}
-
-.craft-reward-count-wrapper {
-    background-color: rgba(0,0,0, 0.8);
-    border-top-left-radius: 3px;
-    bottom: 1px;
-    color: #c7c5b3;
-    font-size: 14px;
-    height: 18px;
-    line-height: 20px;
-    padding: 0 5px;
-    position: absolute;
-    right: 1px;
-    text-align: center;
-}
-
-.craft-reward-info-wrapper {
-    flex-grow: 1;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.craft-reward-info-wrapper > div {
-    width: 100%;
-}
-
-.craft-reward-info-wrapper div:first-child {
-    white-space: nowrap;
-}
-
 .duration-wrapper {
     color: #636363;
     font-size: 14px;
-}
-
-@media screen and (min-width: 700px) {
-    .craft-reward-image-wrapper {
-        margin-right: 10px;
-    }
 }

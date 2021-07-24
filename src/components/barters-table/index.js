@@ -1,17 +1,14 @@
 import {useMemo, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-    Link,
-} from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 import DataTable from '../../components/data-table';
-import formatPrice from '../../modules/format-price';
 // import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
 import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
+import RewardCell from '../reward-cell';
 
 import './index.css';
 
@@ -38,45 +35,10 @@ function BartersTable(props) {
             {
                 Header: t('Reward'),
                 accessor: 'reward',
-                Cell: ({ value }) => {
-                    return <div
-                        className = 'barter-reward-wrapper'
-                    >
-                        <div
-                            className = 'barter-reward-image-wrapper'
-                        >
-                            <img
-                                alt = ''
-                                className = 'table-image'
-                                loading = 'lazy'
-                                src = { value.iconLink }
-                            />
-                        </div>
-                        <div
-                            className = 'barter-reward-info-wrapper'
-                        >
-                            <div>
-                                <Link
-                                    className = 'barter-reward-item-title'
-                                    to = {value.itemLink}
-
-                                >
-                                    {value.name}
-                                </Link>
-                            </div>
-                            <div
-                                className = 'trader-wrapper'
-                            >
-                                {value.trader}
-                            </div>
-                            <div
-                                className = 'price-wrapper'
-                            >
-                                {formatPrice(value.value)} @ {value.sellTo}
-                                {value.barterOnly && <span> ({t('Barter only')})</span>}
-                            </div>
-                        </div>
-                    </div>
+                Cell: ({value}) => {
+                    return <RewardCell
+                        {...value}
+                    />;
                 },
             },
             {
@@ -207,9 +169,8 @@ function BartersTable(props) {
                 reward: {
                     sellTo: 'Flea market',
                     name: barterRow.rewardItems[0].item.name,
-                    wikiLink: barterRow.rewardItems[0].item.wikiLink,
                     value: barterRow.rewardItems[0].item[priceToUse],
-                    trader: barterRow.source,
+                    source: barterRow.source,
                     iconLink: barterRow.rewardItems[0].item.iconLink,
                     itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,
                 },
