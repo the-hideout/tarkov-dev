@@ -31,11 +31,13 @@ function getBarterPrice(item, barters) {
     return false;
 };
 
-function getCheapestItemPrice(item, barters) {
-    let bestPrice = {
-        source: 'fleaMarket',
-        price: item[priceToUse],
-    };
+function getCheapestItemPrice(item, barters, useFlea = true) {
+    let bestPrice = {};
+
+    if(useFlea && item[priceToUse] > 0){
+        bestPrice.source = 'fleaMarket';
+        bestPrice.price = item[priceToUse];
+    }
 
     if(!item.buyFor){
         console.log(item);
@@ -47,6 +49,10 @@ function getCheapestItemPrice(item, barters) {
         const rublePrice = getRublePrice(priceObject.price, priceObject.currency);
 
         if(rublePrice > bestPrice.price){
+            return true;
+        }
+
+        if(priceObject.source === 'fleaMarket' && !useFlea){
             return true;
         }
 
@@ -64,12 +70,32 @@ function getCheapestItemPrice(item, barters) {
         bestPrice.barter = barter;
     }
 
+    // If we don't have any price at all, fall back to highest trader sell price
+    if(!bestPrice.price){
+        item.sellFor.map((priceObject) => {
+            const rublePrice = getRublePrice(priceObject.price, priceObject.currency);
+    
+            if(rublePrice < bestPrice.price){
+                return true;
+            }
+
+            if(priceObject.source === 'fleaMarket' && !useFlea){
+                return true;
+            }
+    
+            bestPrice.source = priceObject.source;
+            bestPrice.price = rublePrice;
+    
+            return true;
+        });
+    }
+
     return bestPrice;
 };
 
-const formatCostItems = (itemsList, barters, freeFuel = false) => {
+const formatCostItems = (itemsList, barters, freeFuel = false, useFlea = true) => {
     return itemsList.map(requiredItem => {
-        let bestPrice = getCheapestItemPrice(requiredItem.item, barters);
+        let bestPrice = getCheapestItemPrice(requiredItem.item, barters, useFlea);
         let calculationPrice = bestPrice.price;
 
         if(freeFuel && fuelIds.includes(requiredItem.item.id)){

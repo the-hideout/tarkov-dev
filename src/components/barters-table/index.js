@@ -160,7 +160,7 @@ function BartersTable(props) {
                 return false;
 		    }
 
-            const costItems = formatCostItems(barterRow.requiredItems, barters);
+            const costItems = formatCostItems(barterRow.requiredItems, barters, false, includeFlea);
             costItems.map(costItem => cost = cost + costItem.price * costItem.count);
 
             const tradeData = {

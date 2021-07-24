@@ -140,7 +140,7 @@ function CraftTable(props) {
                 return false;
             }
 
-            const costItems = formatCostItems(craftRow.requiredItems, barters, freeFuel);
+            const costItems = formatCostItems(craftRow.requiredItems, barters, freeFuel, includeFlea);
 
             costItems.map(costItem => totalCost = totalCost + costItem.price * costItem.count);
 
