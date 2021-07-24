@@ -77,11 +77,11 @@ function ItemGrid(props) {
                         name = {item.name}
                         pricePerSlot = {item.pricePerSlot}
                         sellTo = {item.sellTo}
-                        slots = {item.slots}
-                        src = {item.imgLink}
+                        slots = {item.gridImageLink ? item.slots : 1}
+                        src = {item.gridImageLink || item.fallbackImageLink}
                         itemLink = {`/item/${item.normalizedName}`}
-                        height = {item.height}
-                        width = {item.width}
+                        height = {item.gridImageLink ? item.height : 1}
+                        width = {item.gridImageLink ? item.width : 1}
                         item = {item}
                     />
                 )}
