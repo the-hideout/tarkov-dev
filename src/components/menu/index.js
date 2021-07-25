@@ -39,7 +39,16 @@ const Menu = () => {
             <ul
                 className = {`menu${isOpen ? ' open': ''}`}
             >
-
+                <li
+                    className = "submenu-wrapper"
+                >
+                    <Link
+                        to = '/'
+                        onClick = {setIsOpen.bind(this, false)}
+                    >
+                        {t('Home')}
+                    </Link>
+                </li>
                 <li
                     className = "submenu-wrapper"
                 >
