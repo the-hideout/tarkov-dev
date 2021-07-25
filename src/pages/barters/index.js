@@ -11,6 +11,7 @@ import {
     ButtonGroupFilterButton,
     ToggleFilter
 } from '../../components/filter';
+import capitalizeTheFirstLetterOfEachWord from '../../modules/capitalize-first';
 
 import Icon from '@mdi/react'
 import { mdiAccountSwitch } from '@mdi/js';
@@ -33,17 +34,6 @@ const traders = [
     'ragman',
     'jaeger',
 ];
-
-function capitalizeTheFirstLetterOfEachWord(words) {
-    const separateWord = words.toLowerCase().split(' ');
-
-    for (let i = 0; i < separateWord.length; i = i + 1) {
-       separateWord[i] = separateWord[i].charAt(0).toUpperCase() +
-       separateWord[i].substring(1);
-    }
-
-    return separateWord.join(' ');
-}
 
 function Barters() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
