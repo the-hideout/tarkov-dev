@@ -39,6 +39,7 @@ import Crafts from './pages/crafts';
 import Item from './pages/item';
 import Start from './pages/start';
 import APIDocs from './pages/api-docs';
+import Rigs from './pages/guides/Rigs';
 
 const makeID = function makeID(length) {
     let result = '';
@@ -327,6 +328,19 @@ return (
                 path={'/gear/backpacks'}
             >
                 <Backpacks
+                    sessionID = {sessionID}
+                />
+                <ID
+                    sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => dispatch(enableConnection())}
+                />
+            </Route>
+            <Route
+                exact
+                path={'/gear/rigs'}
+            >
+                <Rigs
                     sessionID = {sessionID}
                 />
                 <ID

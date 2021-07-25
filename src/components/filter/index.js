@@ -37,7 +37,7 @@ function ButtonGroupFilter ({children}) {
     </div>
 };
 
-function SliderFilter ({label, defaultValue, min, max, marks, onChange}) {
+function SliderFilter ({label, defaultValue, min, max, marks, onChange, reverse = false}) {
     return <div
         className = {'filter-slider-wrapper'}
     >
@@ -63,7 +63,7 @@ function SliderFilter ({label, defaultValue, min, max, marks, onChange}) {
                 backgroundColor: '#048802',
                 borderColor: '#048802',
             }}
-            reverse
+            reverse = {reverse}
             style = {{
                 top: '-7px',
                 width: '170px',

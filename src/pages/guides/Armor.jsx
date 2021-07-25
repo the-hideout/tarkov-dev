@@ -267,6 +267,7 @@ function Armor(props) {
                 min = {1}
                 max = {6}
                 marks = {marks}
+                reverse
                 onChange = {handleArmorClassChange}
             />
             <InputFilter

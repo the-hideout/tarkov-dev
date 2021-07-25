@@ -114,10 +114,14 @@ const Menu = () => {
                             to = {`/gear/helmets`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
-
                         <MenuItem
                             displayText = {t('Glasses')}
                             to = {`/gear/glasses`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {t('Rigs')}
+                            to = {`/gear/rigs`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
                     </ul>
