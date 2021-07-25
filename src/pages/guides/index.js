@@ -6,11 +6,7 @@ import {Helmet} from 'react-helmet';
 import './index.css';
 
 import Icon from '@mdi/react'
-import { mdiHanger } from '@mdi/js';
-import { mdiTshirtCrew } from '@mdi/js';
-import { mdiBagPersonal } from '@mdi/js';
-import { mdiRacingHelmet } from '@mdi/js';
-import { mdiSunglasses } from '@mdi/js';
+import { mdiHanger, mdiTshirtCrew, mdiBagPersonal, mdiRacingHelmet, mdiSunglasses, mdiTshirtCrewOutline } from '@mdi/js';
 
 function Guides(props) {
     return [
@@ -61,7 +57,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Armor table'}
-                        src = {`${process.env.PUBLIC_URL}/images/armor-table.jpg`}
+                        src = {`${process.env.PUBLIC_URL}/images/armor-table-thumbnail.jpg`}
                     />
                 </Link>
                 <Link
@@ -80,7 +76,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Backpacks table'}
-                        src = {`${process.env.PUBLIC_URL}/images/backpacks-table.jpg`}
+                        src = {`${process.env.PUBLIC_URL}/images/backpacks-table-thumbnail.jpg`}
                     />
                 </Link>
                 <Link
@@ -99,7 +95,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Helmet table'}
-                        src = {`${process.env.PUBLIC_URL}/images/helmet-table.jpg`}
+                        src = {`${process.env.PUBLIC_URL}/images/helmets-table-thumbnail.jpg`}
                     />
                 </Link>
                 <Link
@@ -118,7 +114,26 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Glasses table'}
-                        src = {`${process.env.PUBLIC_URL}/images/glasses-table.jpg`}
+                        src = {`${process.env.PUBLIC_URL}/images/glasses-table-thumbnail.jpg`}
+                    />
+                </Link>
+                <Link
+                    to = {`/gear/rigs`}
+                    className = 'screen-link'
+                >
+                    <h2
+                        className = 'center-title'
+                    >
+                        <Icon
+                            path={mdiTshirtCrewOutline}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Rigs
+                    </h2>
+                    <img
+                        alt = {'Rigs table'}
+                        src = {`${process.env.PUBLIC_URL}/images/rigs-table-thumbnail.jpg`}
                     />
                 </Link>
             </div>

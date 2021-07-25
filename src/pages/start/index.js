@@ -9,16 +9,19 @@ import mapData from '../../data/maps.json';
 import SmallItemTable from '../../components/small-item-table';
 
 import Icon from '@mdi/react'
-import { mdiAmmunition } from '@mdi/js';
-import { mdiHammerWrench } from '@mdi/js';
-import { mdiFinance } from '@mdi/js';
-import { mdiAccountSwitch } from '@mdi/js';
-import { mdiProgressWrench } from '@mdi/js';
-import { mdiMap } from '@mdi/js';
-import { mdiTshirtCrew } from '@mdi/js';
-import { mdiBagPersonal } from '@mdi/js';
-import { mdiRacingHelmet } from '@mdi/js';
-import { mdiSunglasses } from '@mdi/js';
+import { 
+    mdiAmmunition, 
+    mdiHammerWrench, 
+    mdiFinance, 
+    mdiAccountSwitch,
+    mdiProgressWrench,
+    mdiMap,
+    mdiTshirtCrew,
+    mdiBagPersonal,
+    mdiRacingHelmet,
+    mdiSunglasses,
+    mdiTshirtCrewOutline 
+} from '@mdi/js';
 
 import './index.css';
 
@@ -69,7 +72,7 @@ function Item(props) {
                     autoFocus = {true}
                 />
                 <SmallItemTable
-                    maxItems = {15}
+                    maxItems = {17}
                     nameFilter = {nameFilter}
                     defaultRandom = {true}
                 />
@@ -233,6 +236,22 @@ function Item(props) {
                     <img
                         alt = {'Glasses table'}
                         src = {`${process.env.PUBLIC_URL}/images/glasses-table-thumbnail.jpg`}
+                    />
+                </Link>
+                <Link
+                    to = {`/gear/rigs`}
+                >
+                    <h2>
+                        <Icon
+                            path={mdiTshirtCrewOutline}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Rigs
+                    </h2>
+                    <img
+                        alt = {'Rigs table'}
+                        src = {`${process.env.PUBLIC_URL}/images/rigs-table-thumbnail.jpg`}
                     />
                 </Link>
             </div>

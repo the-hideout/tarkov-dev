@@ -1,6 +1,7 @@
 .guides-list-wrapper {
     display: flex;
     justify-content: space-between;
+    flex-flow: wrap;
 }
 
 .guides-list-wrapper a {
