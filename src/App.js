@@ -23,7 +23,7 @@ import Debug from './components/Debug';
 import rawMapData from './data/maps.json';
 import useStateWithLocalStorage from './hooks/useStateWithLocalStorage';
 
-import Ammo from './pages/Ammo.jsx';
+import Ammo from './pages/ammo';
 import Control from './pages/control';
 import LootTier from './pages/LootTier.jsx';
 import Barters from './pages/barters';
