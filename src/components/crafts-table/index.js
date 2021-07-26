@@ -1,8 +1,11 @@
-import {useMemo, useEffect} from 'react';
+import {useMemo, useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import duration from 'dayjs/plugin/duration';
 import dayjs from 'dayjs';
+import {
+    Link,
+} from "react-router-dom";
 
 import DataTable from '../data-table';
 import fleaMarketFee from '../../modules/flea-market-fee';
@@ -40,6 +43,8 @@ function CraftTable(props) {
     const { t } = useTranslation();
     const includeFlea = useSelector((state) => state.settings.hasFlea);
     const stations = useSelector(selectAllStations);
+    // const [skippedByLevel, setSkippedByLevel] = useState(false);
+    const skippedByLevelRef = useRef();
 
     const crafts = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
@@ -140,6 +145,8 @@ function CraftTable(props) {
             }
 
             if(level > stations[station.toLowerCase().replace(/\s/g, '-')]){
+                //setSkippedByLevel(true);
+                skippedByLevelRef.current = true;
                 return false;
             }
 
@@ -295,11 +302,31 @@ function CraftTable(props) {
         [t, includeFlea]
     );
 
+    let extraRow = false;
+
     if(data.length <= 0){
-        return <div
-            className = {'no-data-info'}
-        >
-            {t('No crafts available for selected filters')}
+        extraRow = t('No crafts available for selected filters');
+    }
+
+    if(data.length <= 0 && skippedByLevelRef.current){
+        extraRow = <div>
+            {t('No crafts available for selected filters but some were hidden by ')}
+            <Link
+                to = '/settings/'
+            >
+                {t('your settings')}
+            </Link>
+        </div>;
+    }
+
+    if(data.length > 0 && skippedByLevelRef.current){
+        extraRow = <div>
+            {t('Some crafts hidden by ')}
+            <Link
+                to = '/settings/'
+            >
+                {t('your settings')}
+            </Link>
         </div>;
     }
 
@@ -307,6 +334,7 @@ function CraftTable(props) {
         columns = {columns}
         key = 'crafts-table'
         data = {data}
+        extraRow = {extraRow}
         sortBy = {'profit'}
         sortByDesc = {true}
         autoResetSortBy = {false}

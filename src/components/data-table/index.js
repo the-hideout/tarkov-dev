@@ -4,7 +4,7 @@ import ArrowIcon from './Arrow.js';
 
 import './index.css';
 
-function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, className, maxItems }) {
+function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, className, maxItems, extraRow }) {
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
     const {
@@ -106,6 +106,14 @@ function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, classNa
                     {
                         getRows()
                     }
+                    {extraRow && <tr>
+                        <td
+                            className = 'data-cell table-extra-row'
+                            colSpan = {999}
+                        >
+                            {extraRow}
+                        </td>
+                    </tr>}
                 </tbody>
             </table>
         </div>

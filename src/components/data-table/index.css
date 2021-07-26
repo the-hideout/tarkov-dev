@@ -88,6 +88,10 @@ div.no-data-info {
     padding: 5px 0;
 }
 
+.table-extra-row {
+    text-align: center;
+}
+
 @media screen and (min-width: 900px) {
     .table-wrapper {
         overflow-x: initial;

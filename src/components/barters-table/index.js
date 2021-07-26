@@ -1,6 +1,9 @@
-import {useMemo, useEffect} from 'react';
+import {useMemo, useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import {
+    Link,
+} from "react-router-dom";
 
 import DataTable from '../../components/data-table';
 // import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
@@ -21,6 +24,7 @@ function BartersTable(props) {
     const { t } = useTranslation();
     const includeFlea = useSelector((state) => state.settings.hasFlea);
     const traders = useSelector(selectAllTraders);
+    const skippedByLevelRef = useRef();
 
     const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
@@ -160,6 +164,7 @@ function BartersTable(props) {
             }
 
             if(level > traders[trader.toLowerCase()]){
+                skippedByLevelRef.current = true;
                 return false;
 		    }
 
@@ -237,14 +242,37 @@ function BartersTable(props) {
         [nameFilter, selectedTrader, barters, includeFlea, itemFilter, traders]
     );
 
+    let extraRow = false;
+
     if(data.length <= 0){
-        return <div>
-            {t('None')}
+        extraRow = t('No barters available for selected filters');
+    }
+
+    if(data.length <= 0 && skippedByLevelRef.current){
+        extraRow = <div>
+            {t('No barters available for selected filters but some were hidden by ')}
+            <Link
+                to = '/settings/'
+            >
+                {t('your settings')}
+            </Link>
+        </div>;
+    }
+
+    if(data.length > 0 && skippedByLevelRef.current){
+        extraRow = <div>
+            {t('Some barters hidden by ')}
+            <Link
+                to = '/settings/'
+            >
+                {t('your settings')}
+            </Link>
         </div>;
     }
 
     return <DataTable
         columns={columns}
+        extraRow = {extraRow}
         key = 'barters-table'
         data={data}
     />;
