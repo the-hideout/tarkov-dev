@@ -3,6 +3,8 @@ import {
     Link
 } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import Icon from '@mdi/react';
+import {mdiCogOutline} from '@mdi/js';
 
 import MenuItem from './MenuItem';
 import MenuIcon from './MenuIcon.jsx';
@@ -32,6 +34,17 @@ const Menu = () => {
                 to = '/'
             >
                 Tarkov Tools
+            </Link>
+            <Link
+                className = 'mobile-settings-link'
+                to = '/settings/'
+                onClick = {setIsOpen.bind(this, false)}
+            >
+                <Icon
+                    path={mdiCogOutline}
+                    size={1}
+                    className = 'icon-with-text'
+                />
             </Link>
             <MenuIcon
                 onClick = {handleMenuClick}
@@ -163,6 +176,20 @@ const Menu = () => {
                         onClick = {setIsOpen.bind(this, false)}
                     >
                         {t('Hideout profit')}
+                    </Link>
+                </li>
+                <li
+                    className = "submenu-wrapper desktop-settings-link"
+                >
+                    <Link
+                        to = '/settings/'
+                        onClick = {setIsOpen.bind(this, false)}
+                    >
+                        <Icon
+                            path={mdiCogOutline}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
                     </Link>
                 </li>
             </ul>

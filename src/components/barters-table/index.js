@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import DataTable from '../../components/data-table';
 // import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
 import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
+import {selectAllTraders} from '../../features/settings/settingsSlice';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
@@ -15,9 +16,11 @@ import './index.css';
 const priceToUse = 'lastLowPrice';
 
 function BartersTable(props) {
-    const { selectedTrader, nameFilter, levelFilter = 3, includeFlea = true, itemFilter} = props;
+    const { selectedTrader, nameFilter, itemFilter} = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
+    const includeFlea = useSelector((state) => state.settings.hasFlea);
+    const traders = useSelector(selectAllTraders);
 
     const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
@@ -156,7 +159,7 @@ function BartersTable(props) {
                 return false;
             }
 
-            if(level > levelFilter.value){
+            if(level > traders[trader.toLowerCase()]){
                 return false;
 		    }
 
@@ -231,7 +234,7 @@ function BartersTable(props) {
             return true;
 	    });
     },
-        [nameFilter, levelFilter, selectedTrader, barters, includeFlea, itemFilter]
+        [nameFilter, selectedTrader, barters, includeFlea, itemFilter, traders]
     );
 
     if(data.length <= 0){

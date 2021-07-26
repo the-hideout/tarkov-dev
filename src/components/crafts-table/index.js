@@ -11,6 +11,7 @@ import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSl
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
+import {selectAllStations} from '../../features/settings/settingsSlice';
 
 import './index.css';
 import RewardCell from '../reward-cell';
@@ -34,9 +35,11 @@ function getDurationDisplay(time) {
 };
 
 function CraftTable(props) {
-    const {selectedStation, freeFuel, nameFilter, levelFilter = 3, includeFlea = true, itemFilter} = props;
+    const {selectedStation, freeFuel, nameFilter, itemFilter} = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
+    const includeFlea = useSelector((state) => state.settings.hasFlea);
+    const stations = useSelector(selectAllStations);
 
     const crafts = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
@@ -136,7 +139,7 @@ function CraftTable(props) {
                 return false;
             }
 
-            if(level > levelFilter.value){
+            if(level > stations[station.toLowerCase().replace(/\s/g, '-')]){
                 return false;
             }
 
@@ -225,7 +228,7 @@ function CraftTable(props) {
             return true;
         });
     },
-        [nameFilter, levelFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter]
+        [nameFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter, stations]
     );
 
     const columns = useMemo(

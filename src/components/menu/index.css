@@ -153,8 +153,6 @@
 .menu svg {
     height: 20px;
     width: 20px;
-    position: relative;
-    top: 3px;
 }
 
 .menu .last-link:hover .supporters-wrapper {
@@ -174,9 +172,18 @@
     z-index: 1;
 }
 
-@media only screen and (min-width: 768px) {
-    .mobile-icon {
+li.desktop-settings-link {
+    display: none;
+}
+
+@media only screen and (min-width: 950px) {
+    .mobile-icon,
+    .mobile-settings-link {
         display: none;
+    }
+
+    li.desktop-settings-link {
+        display: block;
     }
 
     .menu {

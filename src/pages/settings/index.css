@@ -1,0 +1,31 @@
+.settings-group-wrapper {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 45px;
+    flex-flow: wrap;
+    justify-content: space-around;
+}
+
+.settings-group-wrapper h2 {
+    width: 100%;
+}
+
+.trader-level-wrapper {
+    text-align: center;
+}
+
+.trader-level-wrapper img {
+    width: 64px;
+}
+
+.toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@media screen and (min-width: 1040px) {
+    .settings-group-wrapper {
+        justify-content: flex-start;
+    }
+}

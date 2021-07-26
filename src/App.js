@@ -40,6 +40,7 @@ import Item from './pages/item';
 import Start from './pages/start';
 import APIDocs from './pages/api-docs';
 import Rigs from './pages/guides/Rigs';
+import Settings from './pages/settings';
 
 const makeID = function makeID(length) {
     let result = '';
@@ -411,6 +412,17 @@ return (
                 path={'/api/'}
             >
                 <APIDocs />
+                <ID
+                    sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => dispatch(enableConnection())}
+                />
+            </Route>
+            <Route
+                exact
+                path={'/settings/'}
+            >
+                <Settings />
                 <ID
                     sessionID = {sessionID}
                     socketEnabled = {socketEnabled}

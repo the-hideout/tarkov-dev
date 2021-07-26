@@ -5,7 +5,6 @@ import CraftsTable from '../../components/crafts-table';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import {
     Filter,
-    SelectFilter,
     InputFilter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
@@ -17,12 +16,6 @@ import Icon from '@mdi/react'
 import { mdiProgressWrench } from '@mdi/js';
 
 import './index.css';
-
-const levels = [
-    { value: 1, label: '1' },
-    { value: 2, label: '2' },
-    { value: 3, label: '3' },
-];
 
 const stations = [
     'booze-generator',
@@ -37,10 +30,7 @@ const stations = [
 function Crafts() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
-    const [levelFilter, setLevelFilter] = useState(levels[2]);
-    const [levelTooltipDisabled, setLevelTooltipDisabled] = useState(false);
     const [freeFuel, setFreeFuel] = useState(false);
-    const [includeFlea, setIncludeFlea] = useStateWithLocalStorage('includeFlea', true);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedStation', 'top');
 
     return [
@@ -112,16 +102,6 @@ function Crafts() {
                         </div>
                     }
                 />
-                <ToggleFilter
-                    checked = {!includeFlea}
-                    label = {'No Flea?'}
-                    onChange = {e => setIncludeFlea(!includeFlea)}
-                    tooltipContent = {
-                        <div>
-                            Don't have access to flea market? Check this
-                        </div>
-                    }
-                />
                 <InputFilter
                     defaultValue = {nameFilter || ''}
                     label = 'Item filter'
@@ -129,28 +109,11 @@ function Crafts() {
                     placeholder = {'filter on item'}
                     onChange = {e => setNameFilter(e.target.value)}
                 />
-                <SelectFilter
-                    defaultValue={levelFilter}
-                    tooltipDisabled = {levelTooltipDisabled}
-                    name = "levels"
-                    label = 'Level'
-                    onChange={setLevelFilter}
-                    options={levels}
-                    tooltip = {
-                        <div>
-                            Sets maximum level of craft stations
-                        </div>
-                    }
-                    onMenuOpen = {e => setLevelTooltipDisabled(true)}
-                    onMenuClose = {e => setLevelTooltipDisabled(false)}
-                />
             </Filter>
         </div>,
         <CraftsTable
-            levelFilter = {levelFilter}
             nameFilter = {nameFilter}
             freeFuel = {freeFuel}
-            includeFlea = {includeFlea}
             selectedStation = {selectedStation}
             key = 'crafts-page-crafts-table'
         />

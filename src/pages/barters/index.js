@@ -5,11 +5,9 @@ import BartersTable from '../../components/barters-table';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage'
 import {
     Filter,
-    SelectFilter,
     InputFilter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
-    ToggleFilter
 } from '../../components/filter';
 import capitalizeTheFirstLetterOfEachWord from '../../modules/capitalize-first';
 
@@ -17,13 +15,6 @@ import Icon from '@mdi/react'
 import { mdiAccountSwitch } from '@mdi/js';
 
 import './index.css';
-
-const levels = [
-    { value: 1, label: '1'},
-    { value: 2, label: '2'},
-    { value: 3, label: '3'},
-    { value: 4, label: '4'},
-]
 
 const traders = [
     'prapor',
@@ -38,10 +29,7 @@ const traders = [
 function Barters() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
-    const [levelFilter, setLevelFilter] = useState(levels[3]);
-    const [includeFlea, setIncludeFlea] = useStateWithLocalStorage('includeFlea', false);
     const [selectedTrader, setSelectedTrader] = useStateWithLocalStorage('selectedTrader', 'all');
-    const [levelTooltipDisabled, setLevelTooltipDisabled] = useState(false);
 
     return [
         <Helmet
@@ -60,6 +48,7 @@ function Barters() {
         </Helmet>,
         <div
             className = 'barters-headline-wrapper'
+            key = 'barters-headline'
         >
             <h1
                 className = 'barters-page-title'
@@ -101,16 +90,6 @@ function Barters() {
                         onClick = {setSelectedTrader.bind(undefined, 'all')}
                     />
                 </ButtonGroupFilter>
-                <ToggleFilter
-                    checked = {includeFlea}
-                    label = {'Flea?'}
-                    onChange = {e => setIncludeFlea(!includeFlea)}
-                    tooltipContent = {
-                        <div>
-                            Include flea market prices
-                        </div>
-                    }
-                />
                 <InputFilter
                     defaultValue = {nameFilter || ''}
                     label = 'Item filter'
@@ -118,28 +97,11 @@ function Barters() {
                     placeholder = {'filter on item'}
                     onChange = {e => setNameFilter(e.target.value)}
                 />
-                <SelectFilter
-                    defaultValue={levelFilter}
-                    tooltipDisabled = {levelTooltipDisabled}
-                    name = "levels"
-                    label = 'Loyalty'
-                    onChange={setLevelFilter}
-                    options={levels}
-                    tooltip = {
-                        <div>
-                            Sets maximum loyalty level for traders
-                        </div>
-                    }
-                    onMenuOpen = {e => setLevelTooltipDisabled(true)}
-                    onMenuClose = {e => setLevelTooltipDisabled(false)}
-                />
             </Filter>
         </div>,
         <BartersTable
-            levelFilter = {levelFilter}
             nameFilter = {nameFilter}
             selectedTrader = {selectedTrader}
-            includeFlea = {includeFlea}
             key = 'barters-page-barters-table'
         />
     ];
