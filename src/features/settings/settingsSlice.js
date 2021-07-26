@@ -21,7 +21,7 @@ const settingsSlice = createSlice({
         lavatory: JSON.parse(localStorage.getItem('lavatory')) || 3,
         medstation: JSON.parse(localStorage.getItem('medstation')) || 3,
         'nutrition-unit': JSON.parse(localStorage.getItem('nutrition-unit')) || 3,
-        'water-collector': JSON.parse(localStorage.getItem('water-collector')) || 1,
+        'water-collector': JSON.parse(localStorage.getItem('water-collector')) || 3,
         workbench: JSON.parse(localStorage.getItem('workbench')) || 3,
         completedQuests: [],
     },
