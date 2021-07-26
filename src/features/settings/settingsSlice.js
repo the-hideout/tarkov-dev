@@ -17,7 +17,7 @@ const settingsSlice = createSlice({
         ragman: JSON.parse(localStorage.getItem('ragman')) || 4,
         jaeger: JSON.parse(localStorage.getItem('jaeger')) || 4,
         'booze-generator': JSON.parse(localStorage.getItem('booze-generator')) || 1,
-        'intelligence-center': JSON.parse(localStorage.getItem('intelligence-center')) || 1,
+        'intelligence-center': JSON.parse(localStorage.getItem('intelligence-center')) || 3,
         lavatory: JSON.parse(localStorage.getItem('lavatory')) || 3,
         medstation: JSON.parse(localStorage.getItem('medstation')) || 3,
         'nutrition-unit': JSON.parse(localStorage.getItem('nutrition-unit')) || 3,
