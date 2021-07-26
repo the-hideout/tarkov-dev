@@ -70,11 +70,6 @@
     align-items: center;
 }
 
-.filter-input-wrapper input {
-    padding: 4px;
-    width: 90px;
-}
-
 .filter-dropdown-wrapper {
     display: flex;
     align-items: center;

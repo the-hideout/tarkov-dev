@@ -29,6 +29,18 @@ iframe {
     width: 100%;
 }
 
+input[type="text"],
+input[type="number"] {
+    border: none;
+    border-radius: 4px;
+    padding: 12px;
+    max-height: 40px;
+}
+
+input[type="number"] {
+    width: 80px;
+}
+
 input[name="session-id"] {
     padding-left: 20px;
 }

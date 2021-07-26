@@ -52,17 +52,20 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+    gap: 30px;
 }
 
 .connection-wrapper input,
 .connection-wrapper select {
-    border-radius: 0;
     border: 0;
     height: 40px;
     text-overflow: ellipsis;
     text-transform: uppercase;
     width: calc(50% - 2px);
-    margin: 10px;
+}
+
+.connection-wrapper input[type="submit"] {
+    border-radius: 4px;
 }
 
 .connection-wrapper input[type="submit"]:active {
