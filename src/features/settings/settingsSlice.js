@@ -6,7 +6,7 @@ const settingsSlice = createSlice({
     name: 'settings',
     initialState: {
         progressStatus: 'idle',
-        hasFlea: JSON.parse(localStorage.getItem('hasFlea')) || true,
+        hasFlea: JSON.parse(localStorage.getItem('useFlea')) || true,
         tarkovTrackerAPIKey: JSON.parse(localStorage.getItem('tarkovTrackerAPIKey')) || false,
         prapor: JSON.parse(localStorage.getItem('prapor')) || 4,
         therapist: JSON.parse(localStorage.getItem('therapist')) || 4,
@@ -28,7 +28,7 @@ const settingsSlice = createSlice({
     reducers: {
         toggleFlea: (state, action) => {
             state.hasFlea = action.payload;
-            localStorage.setItem('hasFlea', JSON.stringify(action.payload));
+            localStorage.setItem('useFlea', JSON.stringify(action.payload));
         },
         setStationOrTraderLevel: (state, action) => {
             state[action.payload.target] = action.payload.value;
