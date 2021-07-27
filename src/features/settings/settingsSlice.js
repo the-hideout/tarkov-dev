@@ -6,7 +6,7 @@ const settingsSlice = createSlice({
     name: 'settings',
     initialState: {
         progressStatus: 'idle',
-        hasFlea: JSON.parse(localStorage.getItem('hasFlea')) || false,
+        hasFlea: JSON.parse(localStorage.getItem('hasFlea')) || true,
         tarkovTrackerAPIKey: JSON.parse(localStorage.getItem('tarkovTrackerAPIKey')) || false,
         prapor: JSON.parse(localStorage.getItem('prapor')) || 4,
         therapist: JSON.parse(localStorage.getItem('therapist')) || 4,
