@@ -13,6 +13,7 @@ import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
 import RewardCell from '../reward-cell';
+import capitalizeFirst from '../../modules/capitalize-first';
 
 import './index.css';
 
@@ -82,6 +83,23 @@ function BartersTable(props) {
 
                     return 0;
                 },
+            },
+            {
+                Header: t('instaProfit'),
+                accessor: 'instaProfit',
+                Cell: (props) => {
+                    return <ValueCell
+                        value = {props.value}
+                        highlightProfit
+                    >
+                        <div
+                            className = 'duration-wrapper'
+                        >
+                            {capitalizeFirst(props.row.original.instaProfitSource.source)}
+                        </div>
+                    </ValueCell>;
+                },
+                sortType: 'basic',
             },
         ],
         [t]
@@ -171,9 +189,26 @@ function BartersTable(props) {
             const costItems = formatCostItems(barterRow.requiredItems, barters, false, includeFlea);
             costItems.map(costItem => cost = cost + costItem.price * costItem.count);
 
+            const bestSellTo = barterRow.rewardItems[0].item.sellFor.reduce((previousSellForObject, sellForObject) => {
+                if(sellForObject.source === 'fleaMarket'){
+                    return previousSellForObject;
+                }
+
+                if(previousSellForObject.price > sellForObject.price){
+                    return previousSellForObject;
+                }
+
+                return sellForObject;
+            }, {
+                source: 'unknown',
+                price: 0,
+            });
+
             const tradeData = {
                 costItems: costItems,
                 cost: cost,
+                instaProfit: bestSellTo.price - cost,
+                instaProfitSource: bestSellTo,
                 reward: {
                     sellTo: 'Flea market',
                     name: barterRow.rewardItems[0].item.name,
