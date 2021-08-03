@@ -356,7 +356,7 @@
     },
     "544a5cde4bdc2d39388b456b": {
         "itemProperties": {
-            "Weight": 0.7,
+            "Weight": 0.5,
             "grid": {
                 "pockets": [
                     {
@@ -1817,7 +1817,7 @@
     },
     "5648a7494bdc2d9d488b4583": {
         "itemProperties": {
-            "Weight": 5,
+            "Weight": 3.5,
             "grid": {
                 "pockets": [],
                 "totalSize": 0
@@ -14521,7 +14521,7 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "MaxDurability": 30,
+            "MaxDurability": 35,
             "armorClass": "4",
             "speedPenaltyPercent": -3,
             "mousePenalty": -8,
@@ -14555,7 +14555,7 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "MaxDurability": 30,
+            "MaxDurability": 35,
             "armorClass": "4",
             "speedPenaltyPercent": -3,
             "mousePenalty": -8,
@@ -15111,7 +15111,7 @@
     },
     "5ab8e4ed86f7742d8e50c7fa": {
         "itemProperties": {
-            "Weight": 11,
+            "Weight": 8.5,
             "grid": {
                 "pockets": [],
                 "totalSize": 0
@@ -15256,7 +15256,7 @@
     },
     "5ab8ebf186f7742d8b372e80": {
         "itemProperties": {
-            "Weight": 1.3,
+            "Weight": 3.1,
             "grid": {
                 "pockets": [
                     {
@@ -15289,7 +15289,7 @@
     },
     "5ab8f04f86f774585f4237d8": {
         "itemProperties": {
-            "Weight": 0.6,
+            "Weight": 0.4,
             "grid": {
                 "pockets": [
                     {
@@ -23063,7 +23063,7 @@
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
-                "z": 85
+                "z": 50
             }
         },
         "hasGrid": false,
@@ -33594,7 +33594,7 @@
     },
     "5df8a2ca86f7740bfe6df777": {
         "itemProperties": {
-            "Weight": 4.5,
+            "Weight": 4.1,
             "grid": {
                 "pockets": [],
                 "totalSize": 0
@@ -40512,7 +40512,7 @@
     },
     "6034d103ca006d2dca39b3f0": {
         "itemProperties": {
-            "Weight": 1.5,
+            "Weight": 1.4,
             "grid": {
                 "pockets": [
                     {
@@ -40885,7 +40885,7 @@
     },
     "6038d614d10cbf667352dd44": {
         "itemProperties": {
-            "Weight": 1.5,
+            "Weight": 1.4,
             "grid": {
                 "pockets": [
                     {
@@ -41954,7 +41954,7 @@
     },
     "60a272cc93ef783291411d8e": {
         "itemProperties": {
-            "Weight": 1.6,
+            "Weight": 1.3,
             "grid": {
                 "pockets": [
                     {
@@ -41970,7 +41970,7 @@
     },
     "60a2828e8689911a226117f9": {
         "itemProperties": {
-            "Weight": 2.3,
+            "Weight": 2.1,
             "grid": {
                 "pockets": [
                     {
