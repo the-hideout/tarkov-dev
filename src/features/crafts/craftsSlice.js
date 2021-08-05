@@ -101,7 +101,7 @@ const craftsSlice = createSlice({
         [fetchCrafts.fulfilled]: (state, action) => {
             state.status = 'succeeded';
             // Add any fetched crafts to the array
-            state.crafts = state.crafts.concat(action.payload)
+            state.crafts = action.payload;
         },
         [fetchCrafts.rejected]: (state, action) => {
             state.status = 'failed';

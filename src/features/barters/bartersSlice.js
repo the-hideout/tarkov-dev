@@ -95,7 +95,7 @@ const bartersSlice = createSlice({
         [fetchBarters.fulfilled]: (state, action) => {
             state.status = 'succeeded';
             // Add any fetched barters to the array
-            state.barters = state.barters.concat(action.payload)
+            state.barters = action.payload;
         },
         [fetchBarters.rejected]: (state, action) => {
             state.status = 'failed';
