@@ -142,6 +142,7 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
             fee: calculateFee(rawItem.avg24hPrice, rawItem.basePrice),
             fallbackImageLink: `${ process.env.PUBLIC_URL }/images/unknown-item-icon.jpg`,
             slots: rawItem.width * rawItem.height,
+            iconLink: `https://assets.tarkov-tools.com/${rawItem.id}-icon.jpg`,
             traderPrice: bestTraderPrice?.price || 0,
             traderName: bestTraderPrice?.trader?.name || '?',
             ...bestPrice(rawItem),

@@ -41,6 +41,7 @@ import Start from './pages/start';
 import APIDocs from './pages/api-docs';
 import Rigs from './pages/guides/Rigs';
 import Settings from './pages/settings';
+import Suppressors from './pages/guides/Suppressors';
 
 const makeID = function makeID(length) {
     let result = '';
@@ -342,6 +343,19 @@ return (
                 path={'/gear/rigs'}
             >
                 <Rigs
+                    sessionID = {sessionID}
+                />
+                <ID
+                    sessionID = {sessionID}
+                    socketEnabled = {socketEnabled}
+                    onClick = {e => dispatch(enableConnection())}
+                />
+            </Route>
+            <Route
+                exact
+                path={'/gear/suppressors'}
+            >
+                <Suppressors
                     sessionID = {sessionID}
                 />
                 <ID

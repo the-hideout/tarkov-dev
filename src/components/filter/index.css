@@ -98,8 +98,9 @@
 }
 
 .button-group-wrapper {
-    display: flex;
     border: 1px solid #1b1919;
+    display: flex;
+    flex-flow: wrap;
     margin-right: 10px;
 }
 
