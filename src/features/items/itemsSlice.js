@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import equal from 'fast-deep-equal';
 
 import calculateFee from '../../modules/flea-market-fee';
 import bestPrice from '../../modules/best-price';
@@ -166,10 +167,10 @@ const itemsSlice = createSlice({
         },
         [fetchItems.fulfilled]: (state, action) => {
             state.status = 'succeeded';
-            // Add any fetched items to the array
-            // state.items = state.items.concat(action.payload);
 
-            state.items = action.payload;
+            if(!equal(state.items, action.payload)){
+                state.items = action.payload;
+            }
         },
         [fetchItems.rejected]: (state, action) => {
             state.status = 'failed';

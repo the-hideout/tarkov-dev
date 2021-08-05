@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import equal from 'fast-deep-equal';
 
 const initialState = {
     barters: [],
@@ -94,8 +95,10 @@ const bartersSlice = createSlice({
         },
         [fetchBarters.fulfilled]: (state, action) => {
             state.status = 'succeeded';
-            // Add any fetched barters to the array
-            state.barters = action.payload;
+
+            if(!equal(state.barters, action.payload)){
+                state.barters = action.payload;
+            }
         },
         [fetchBarters.rejected]: (state, action) => {
             state.status = 'failed';
