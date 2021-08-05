@@ -96,11 +96,21 @@ function Armor(props) {
     });
 
     useEffect(() => {
+        let timer = false;
         if (itemStatus === 'idle') {
-          dispatch(fetchItems());
+            dispatch(fetchItems());
+        }
+
+        if(!timer){
+            timer = setInterval(() => {
+                dispatch(fetchItems());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
         }
     }, [itemStatus, dispatch]);
-
 
     const displayItems = useMemo(
         () => items.filter(item => item.types.includes('armor')),

@@ -33,8 +33,19 @@ function BartersTable(props) {
     });
 
     useEffect(() => {
+        let timer = false;
         if (bartersStatus === 'idle') {
-          dispatch(fetchBarters());
+            dispatch(fetchBarters());
+        }
+
+        if(!timer){
+            timer = setInterval(() => {
+                dispatch(fetchBarters());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
         }
     }, [bartersStatus, dispatch]);
 

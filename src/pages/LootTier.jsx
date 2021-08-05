@@ -97,10 +97,21 @@ function LootTier(props) {
     });
 
     useEffect(() => {
+        let timer = false;
         if (itemStatus === 'idle') {
-          dispatch(fetchItems());
+            dispatch(fetchItems());
         }
-      }, [itemStatus, dispatch]);
+
+        if(!timer){
+            timer = setInterval(() => {
+                dispatch(fetchItems());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        }
+    }, [itemStatus, dispatch]);
 
     const handleFilterChange = (selectedFilters) => {
         QueueBrowserTask.task(() => {

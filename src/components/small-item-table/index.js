@@ -52,10 +52,21 @@ function SmallItemTable(props) {
     const {t} = useTranslation();
 
     useEffect(() => {
+        let timer = false;
         if (itemStatus === 'idle') {
-          dispatch(fetchItems());
+            dispatch(fetchItems());
         }
-      }, [itemStatus, dispatch]);
+
+        if(!timer){
+            timer = setInterval(() => {
+                dispatch(fetchItems());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        }
+    }, [itemStatus, dispatch]);
 
     const data = useMemo(() => {
         let returnData = items.map((itemData) => {

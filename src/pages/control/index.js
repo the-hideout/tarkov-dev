@@ -24,8 +24,19 @@ function Control(props) {
     const socketConnected = useSelector(state => state.sockets.connected);
 
     useEffect(() => {
+        let timer = false;
         if (itemStatus === 'idle') {
-          dispatch(fetchItems());
+            dispatch(fetchItems());
+        }
+
+        if(!timer){
+            timer = setInterval(() => {
+                dispatch(fetchItems());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
         }
     }, [itemStatus, dispatch]);
 

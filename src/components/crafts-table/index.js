@@ -57,16 +57,38 @@ function CraftTable(props) {
     });
 
     useEffect(() => {
-        if (craftsStatus === 'idle') {
-          dispatch(fetchCrafts());
-        }
-    }, [craftsStatus, dispatch]);
-
-    useEffect(() => {
+        let timer = false;
         if (bartersStatus === 'idle') {
-          dispatch(fetchBarters());
+            dispatch(fetchBarters());
+        }
+
+        if(!timer){
+            timer = setInterval(() => {
+                dispatch(fetchBarters());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
         }
     }, [bartersStatus, dispatch]);
+
+    useEffect(() => {
+        let timer = false;
+        if (craftsStatus === 'idle') {
+            dispatch(fetchCrafts());
+        }
+
+        if(!timer){
+            timer = setInterval(() => {
+                dispatch(fetchCrafts());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        }
+    }, [craftsStatus, dispatch]);
 
     const data = useMemo(() => {
         let addedStations = [];
