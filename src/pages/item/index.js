@@ -242,7 +242,7 @@ function Item() {
                                     Lowest scanned price last 24h: {formatPrice(currentItemData.low24hPrice)}
                                 </div>
                                 <div>
-                                    Highetst scanned price last 24h: {formatPrice(currentItemData.high24hPrice)}
+                                    Highest scanned price last 24h: {formatPrice(currentItemData.high24hPrice)}
                                 </div>
                             </div>
                         </div>
