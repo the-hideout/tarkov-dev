@@ -6,8 +6,6 @@ import ItemsTable from '../../components/item-table';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import {
     Filter,
-    // ButtonGroupFilter,
-    // ButtonGroupFilterButton,
     SelectFilter,
 } from '../../components/filter';
 
@@ -42,6 +40,23 @@ const getGuns = (items, targetItem) => {
     return parentItems;
 };
 
+// const getChain = (items, targetItem) => {
+//     const chain = items.filter(innerItem => innerItem.linkedItems.includes(targetItem.id));
+
+//     for(const key in chain){
+//         chain[key] = {
+//             ...chain[key],
+//             fitChain: getChain(items, chain[key]),
+//         };
+//     }
+
+//     return chain;
+// };
+
+const getAttachmentPoints = (items, targetItem) => {
+    return items.filter(innerItem => innerItem.linkedItems.includes(targetItem.id));
+};
+
 function Suppressors(props) {
     const [selectedGun, setSelectedGun] = useState(false)
     const dispatch = useDispatch();
@@ -74,6 +89,7 @@ function Suppressors(props) {
             return {
                 ...item,
                 fitsTo: getGuns(items, item),
+                subRows: getAttachmentPoints(items, item),
             };
         }),
 
@@ -125,17 +141,6 @@ function Suppressors(props) {
         [allItems, selectedGun]
     );
 
-    // const parentItems = useMemo(
-    //     () => items.filter(item => item.linkedItems.includes(displayItems.map(displayItem => displayItem.id))),
-    //     [items, displayItems]
-    // );
-
-    // console.log(parentItems);
-
-    // displayItems.map(item => {
-    //     console.log(item.fitsTo);
-    // });
-
     const columns = [
         {
             key: 'iconLink',
@@ -145,10 +150,6 @@ function Suppressors(props) {
             title: 'Name',
             key: 'name',
         },
-        // {
-        //     title: 'Accuracy',
-        //     key: 'itemProperties.Accuracy',
-        // },
         {
             title: 'Ergonomics',
             key: 'itemProperties.Ergonomics',
@@ -192,35 +193,6 @@ function Suppressors(props) {
         <Filter
             center
         >
-            {/* <ButtonGroupFilter>
-                {activeGuns.map((activeGun) => {
-                    return <ButtonGroupFilterButton
-                        key = {`trader-tooltip-${activeGun.name}`}
-                        tooltipContent = {
-                            <div>
-                                {activeGun.name}
-                            </div>
-                        }
-                        selected = {activeGun.id === selectedGun.id}
-                        content = {<img
-                            alt = {activeGun.name}
-                            title = {activeGun.name}
-                            src={activeGun.iconLink}
-                        />}
-                        onClick = {setSelectedGun.bind(undefined, activeGun)}
-                    />
-                })}
-                <ButtonGroupFilterButton
-                    tooltipContent = {
-                        <div>
-                            Show all suppressors
-                        </div>
-                    }
-                    selected = {selectedGun === false}
-                    content = {'All'}
-                    onClick = {setSelectedGun.bind(undefined, false)}
-                />
-            </ButtonGroupFilter> */}
             <SelectFilter
                 label = 'Filter by gun'
                 options = {activeGuns.map((activeGun) => {
