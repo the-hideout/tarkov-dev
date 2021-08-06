@@ -50,9 +50,12 @@ td.data-cell:first-child {
     border: 1px solid #4a5154;
 }
 
-.data-table tr td,
-.data-table tbody tr.expanded td {
+.data-table tr td {
     background-color: #292626;
+}
+
+.data-table tbody tr.expanded td {
+    background-color: #1b1919;
 }
 
 .arrow-icon,
