@@ -73,7 +73,7 @@ function Suppressors(props) {
         .map(item => {
             return {
                 ...item,
-                subRows: getGuns(items, item),
+                fitsTo: getGuns(items, item),
             };
         }),
 
@@ -87,7 +87,7 @@ function Suppressors(props) {
 
             allItems
                 .map(displayItem => {
-                    for(const subRow of displayItem.subRows){
+                    for(const subRow of displayItem.fitsTo){
                         if(idCache.includes(subRow.id)){
                             continue;
                         }
@@ -114,7 +114,7 @@ function Suppressors(props) {
                     return true;
                 }
 
-                for(const subRow of item.subRows){
+                for(const subRow of item.fitsTo){
                     if(subRow.id === selectedGun.id){
                         return true;
                     }
@@ -133,7 +133,7 @@ function Suppressors(props) {
     // console.log(parentItems);
 
     // displayItems.map(item => {
-    //     console.log(item.subRows);
+    //     console.log(item.fitsTo);
     // });
 
     const columns = [
