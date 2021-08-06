@@ -103,7 +103,7 @@ function ToggleFilter ({label, onChange, checked, tooltipContent}) {
     </ConditionalWrapper>
 };
 
-function SelectFilter ({defaultValue, options, onChange, isMulti = false, label, tooltip, tooltipDisabled, onMenuOpen, onMenuClose}) {
+function SelectFilter ({defaultValue, options, onChange, isMulti = false, label, tooltip, tooltipDisabled, onMenuOpen, onMenuClose, wide}) {
     return <ConditionalWrapper
         condition = {tooltip}
         wrapper = {
@@ -119,7 +119,7 @@ function SelectFilter ({defaultValue, options, onChange, isMulti = false, label,
         }
     >
         <label
-            className = {'single-filter-wrapper'}
+            className = {`single-filter-wrapper ${wide ? 'single-filter-wrapper-wide' : ''}`}
         >
             <span
                 className = {'single-filter-label'}

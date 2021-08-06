@@ -61,6 +61,14 @@
     align-items: center;
 }
 
+.single-filter-wrapper-wide {
+    width: 400px;
+}
+
+.single-filter-wrapper-wide .basic-multi-select {
+    flex-grow: 1;
+}
+
 .single-filter-label {
     margin-right: 10px;
 }
