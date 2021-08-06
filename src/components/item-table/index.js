@@ -6,7 +6,7 @@ import {useMemo} from 'react';
 import { useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
 import Fuse from 'fuse.js';
-import ArrowIcon from '../../components/data-table/Arrow.js';
+// import ArrowIcon from '../../components/data-table/Arrow.js';
 
 import DataTable from '../data-table';
 import ValueCell from '../value-cell';
@@ -91,35 +91,35 @@ function ItemTable(props) {
         [t, columns]
     );
 
-    displayColumns = [
-        {
-            id: 'expander',
-            Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) => (
-                // <span {...getToggleAllRowsExpandedProps()}>
-                //     {isAllRowsExpanded ? 'v' : '>'}
-                // </span>
-                null
-            ),
-            Cell: ({ row }) =>
-                // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
-                // to build the toggle for expanding a row
-                row.canExpand ? (
-                    <span
-                        {...row.getToggleRowExpandedProps({
-                            style: {
-                                // We can even use the row.depth property
-                                // and paddingLeft to indicate the depth
-                                // of the row
-                                // paddingLeft: `${row.depth * 2}rem`,
-                            },
-                        })}
-                    >
-                        {row.isExpanded ? <ArrowIcon/> : <ArrowIcon className = {'arrow-right'} />}
-                    </span>
-                ) : null,
-        },
-        ...displayColumns,
-    ];
+    // displayColumns = [
+    //     {
+    //         id: 'expander',
+    //         Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) => (
+    //             // <span {...getToggleAllRowsExpandedProps()}>
+    //             //     {isAllRowsExpanded ? 'v' : '>'}
+    //             // </span>
+    //             null
+    //         ),
+    //         Cell: ({ row }) =>
+    //             // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
+    //             // to build the toggle for expanding a row
+    //             row.canExpand ? (
+    //                 <span
+    //                     {...row.getToggleRowExpandedProps({
+    //                         style: {
+    //                             // We can even use the row.depth property
+    //                             // and paddingLeft to indicate the depth
+    //                             // of the row
+    //                             // paddingLeft: `${row.depth * 2}rem`,
+    //                         },
+    //                     })}
+    //                 >
+    //                     {row.isExpanded ? <ArrowIcon/> : <ArrowIcon className = {'arrow-right'} />}
+    //                 </span>
+    //             ) : null,
+    //     },
+    //     ...displayColumns,
+    // ];
 
     return <DataTable
         className = 'data-table'
