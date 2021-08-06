@@ -6,8 +6,9 @@ import ItemsTable from '../../components/item-table';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import {
     Filter,
-    ButtonGroupFilter,
-    ButtonGroupFilterButton,
+    // ButtonGroupFilter,
+    // ButtonGroupFilterButton,
+    SelectFilter,
 } from '../../components/filter';
 
 const getGuns = (items, targetItem) => {
@@ -188,8 +189,10 @@ function Suppressors(props) {
                 Escape from Tarkov Suppressors
             </h1>
         </div>
-        <Filter>
-            <ButtonGroupFilter>
+        <Filter
+            center
+        >
+            {/* <ButtonGroupFilter>
                 {activeGuns.map((activeGun) => {
                     return <ButtonGroupFilterButton
                         key = {`trader-tooltip-${activeGun.name}`}
@@ -217,7 +220,20 @@ function Suppressors(props) {
                     content = {'All'}
                     onClick = {setSelectedGun.bind(undefined, false)}
                 />
-            </ButtonGroupFilter>
+            </ButtonGroupFilter> */}
+            <SelectFilter
+                label = 'Filter by gun'
+                options = {activeGuns.map((activeGun) => {
+                    return {
+                        label: activeGun.name,
+                        value: activeGun.id,
+                    };
+                })}
+                onChange = {(event) => {
+                    setSelectedGun(activeGuns.find(activeGun => activeGun.id === event.value))
+                }}
+                wide
+            />
         </Filter>
         <ItemsTable
             columns = {columns}
