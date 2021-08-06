@@ -103,7 +103,7 @@ function ToggleFilter ({label, onChange, checked, tooltipContent}) {
     </ConditionalWrapper>
 };
 
-function SelectFilter ({defaultValue, options, onChange, isMulti = false, label, tooltip, tooltipDisabled, onMenuOpen, onMenuClose, wide}) {
+function SelectFilter ({defaultValue, options, onChange, isMulti = false, label, tooltip, tooltipDisabled, onMenuOpen, onMenuClose, wide, parentRef}) {
     return <ConditionalWrapper
         condition = {tooltip}
         wrapper = {
@@ -127,15 +127,16 @@ function SelectFilter ({defaultValue, options, onChange, isMulti = false, label,
                 {label}
             </span>
             <Select
+                className = "basic-multi-select"
+                classNamePrefix = "select"
                 defaultValue = {defaultValue}
                 isMulti = {isMulti}
                 name = "colors"
-                options = {options}
-                className = "basic-multi-select"
                 onChange = {onChange}
-                classNamePrefix = "select"
                 onMenuClose = {onMenuClose}
                 onMenuOpen = {onMenuOpen}
+                options = {options}
+                ref = {parentRef}
             />
         </label>
     </ConditionalWrapper>;
