@@ -1,4 +1,4 @@
-import {useMemo, useEffect, useState} from 'react';
+import {useMemo, useEffect, useState, useRef} from 'react';
 import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -71,6 +71,7 @@ function Suppressors(props) {
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
+    const selectInputRef = useRef();
 
     useEffect(() => {
         let timer = false;
