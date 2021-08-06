@@ -54,7 +54,14 @@ const getGuns = (items, targetItem) => {
 // };
 
 const getAttachmentPoints = (items, targetItem) => {
-    return items.filter(innerItem => innerItem.linkedItems.includes(targetItem.id));
+    return items
+        .filter(innerItem => innerItem.linkedItems.includes(targetItem.id))
+        .map(item => {
+            return {
+                ...item,
+                fitsTo: getGuns(items, item),
+            };
+        });
 };
 
 function Suppressors(props) {
@@ -137,7 +144,26 @@ function Suppressors(props) {
                 }
 
                 return false;
-        }),
+            })
+            .map((subItem) => {
+                subItem.subRows = subItem.subRows
+                    .filter(item => {
+                        if(!selectedGun){
+                            return true;
+                        }
+
+                        for(const subRow of item.fitsTo){
+                            if(subRow.id === selectedGun.id){
+                                return true;
+                            }
+                        }
+
+                        return false;
+                    });
+
+                return subItem;
+            })
+        ,
         [allItems, selectedGun]
     );
 
