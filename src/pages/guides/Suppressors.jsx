@@ -198,7 +198,7 @@ function Suppressors(props) {
             charSet='utf-8'
         />
         <title>
-            Escape from Tarkov Helmet suppressors chart
+            Escape from Tarkov suppressors chart
         </title>
         <meta
             name = 'description'
