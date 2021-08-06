@@ -228,10 +228,23 @@ function Suppressors(props) {
                     };
                 })}
                 onChange = {(event) => {
+                    if(!event){
+                        return true;
+                    }
+
                     setSelectedGun(activeGuns.find(activeGun => activeGun.id === event.value))
                 }}
+                parentRef = {selectInputRef}
                 wide
             />
+            {selectedGun && <img
+                alt = {`${selectedGun.name}-icon`}
+                onClick = {() => {
+                    selectInputRef.current?.select.clearValue();
+                    setSelectedGun(false);
+                }}
+                src = {selectedGun.iconLink}
+            />}
         </Filter>
         <ItemsTable
             columns = {columns}
