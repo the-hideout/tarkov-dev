@@ -146,6 +146,11 @@ const Menu = () => {
                             to = {`/gear/rigs`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
+                        <MenuItem
+                            displayText = {t('Suppressors')}
+                            to = {`/gear/suppressors`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
                     </ul>
                 </li>
                 <li

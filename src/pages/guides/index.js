@@ -6,7 +6,15 @@ import {Helmet} from 'react-helmet';
 import './index.css';
 
 import Icon from '@mdi/react'
-import { mdiHanger, mdiTshirtCrew, mdiBagPersonal, mdiRacingHelmet, mdiSunglasses, mdiTshirtCrewOutline } from '@mdi/js';
+import {
+    mdiHanger,
+    mdiTshirtCrew,
+    mdiBagPersonal,
+    mdiRacingHelmet,
+    mdiSunglasses,
+    mdiTshirtCrewOutline,
+    mdiBottleWine,
+} from '@mdi/js';
 
 function Guides(props) {
     return [
@@ -134,6 +142,25 @@ function Guides(props) {
                     <img
                         alt = {'Rigs table'}
                         src = {`${process.env.PUBLIC_URL}/images/rigs-table-thumbnail.jpg`}
+                    />
+                </Link>
+                <Link
+                    to = {`/gear/suppressors`}
+                    className = 'screen-link'
+                >
+                    <h2
+                        className = 'center-title'
+                    >
+                        <Icon
+                            path={mdiBottleWine}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Suppressors
+                    </h2>
+                    <img
+                        alt = {'Suppressors table'}
+                        src = {`${process.env.PUBLIC_URL}/images/suppressors-table-thumbnail.jpg`}
                     />
                 </Link>
             </div>

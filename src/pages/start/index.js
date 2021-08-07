@@ -9,10 +9,10 @@ import mapData from '../../data/maps.json';
 import SmallItemTable from '../../components/small-item-table';
 
 import Icon from '@mdi/react'
-import { 
-    mdiAmmunition, 
-    mdiHammerWrench, 
-    mdiFinance, 
+import {
+    mdiAmmunition,
+    mdiHammerWrench,
+    mdiFinance,
     mdiAccountSwitch,
     mdiProgressWrench,
     mdiMap,
@@ -20,7 +20,8 @@ import {
     mdiBagPersonal,
     mdiRacingHelmet,
     mdiSunglasses,
-    mdiTshirtCrewOutline 
+    mdiTshirtCrewOutline,
+    mdiBottleWine,
 } from '@mdi/js';
 
 import './index.css';
@@ -72,7 +73,7 @@ function Start(props) {
                     autoFocus = {true}
                 />
                 <SmallItemTable
-                    maxItems = {17}
+                    maxItems = {20}
                     nameFilter = {nameFilter}
                     defaultRandom = {true}
                 />
@@ -252,6 +253,22 @@ function Start(props) {
                     <img
                         alt = {'Rigs table'}
                         src = {`${process.env.PUBLIC_URL}/images/rigs-table-thumbnail.jpg`}
+                    />
+                </Link>
+                <Link
+                    to = {`/gear/suppressors`}
+                >
+                    <h2>
+                        <Icon
+                            path={mdiBottleWine}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Suppressors
+                    </h2>
+                    <img
+                        alt = {'Suppressors table'}
+                        src = {`${process.env.PUBLIC_URL}/images/suppressors-table-thumbnail.jpg`}
                     />
                 </Link>
             </div>
