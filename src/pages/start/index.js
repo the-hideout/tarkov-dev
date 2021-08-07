@@ -25,7 +25,7 @@ import {
 
 import './index.css';
 
-function Item(props) {
+function Start(props) {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
 
@@ -259,4 +259,4 @@ function Item(props) {
     ];
 };
 
-export default Item;
+export default Start;
