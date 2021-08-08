@@ -489,7 +489,7 @@
             },
             "MaxDurability": 85,
             "armorClass": "6",
-            "speedPenaltyPercent": -42,
+            "speedPenaltyPercent": -35,
             "mousePenalty": -21,
             "weaponErgonomicPenalty": -27,
             "armorZone": [
@@ -2105,7 +2105,7 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "Recoil": -8,
+            "Recoil": -10,
             "Loudness": -5,
             "Ergonomics": -2,
             "Velocity": 0.5
@@ -8514,9 +8514,9 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "Recoil": -15,
+            "Recoil": -16,
             "Loudness": 5,
-            "Ergonomics": -3,
+            "Ergonomics": -4,
             "Velocity": 0.5
         },
         "hasGrid": false,
@@ -16603,7 +16603,7 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "Recoil": -8,
+            "Recoil": -10,
             "Ergonomics": -2,
             "Velocity": 0.5
         },
@@ -16646,7 +16646,7 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "Recoil": -10,
+            "Recoil": -8,
             "Loudness": -5,
             "Ergonomics": -2,
             "Velocity": 0.5
@@ -16689,7 +16689,7 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "Recoil": -8,
+            "Recoil": -10,
             "Loudness": -5,
             "Ergonomics": -2,
             "Velocity": 0.5
@@ -19497,7 +19497,7 @@
             },
             "MaxDurability": 95,
             "armorClass": "5",
-            "speedPenaltyPercent": -33,
+            "speedPenaltyPercent": -24,
             "mousePenalty": -19,
             "weaponErgonomicPenalty": -22,
             "armorZone": [
@@ -39990,7 +39990,7 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 60,
+            "Ergonomics": 62,
             "Velocity": 13
         },
         "hasGrid": false,
@@ -40058,7 +40058,7 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "Recoil": -3,
+            "Recoil": -5,
             "Ergonomics": -6,
             "Velocity": -15.31
         },
@@ -42726,7 +42726,7 @@
             },
             "MaxDurability": 55,
             "armorClass": "6",
-            "speedPenaltyPercent": -36,
+            "speedPenaltyPercent": -28,
             "mousePenalty": -16,
             "weaponErgonomicPenalty": -20,
             "armorZone": [
