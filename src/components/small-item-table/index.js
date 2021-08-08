@@ -95,7 +95,7 @@ function SmallItemTable(props) {
         if(nameFilter){
             const options = {
                 includeScore: true,
-                keys: ['name', 'shortname'],
+                keys: ['shortName', 'name'],
               }
 
               const fuse = new Fuse(returnData, options);
