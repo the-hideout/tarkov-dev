@@ -17,6 +17,7 @@ const initialState = {
 
 const NOTES = {
     '5e4abc6786f77406812bd572': 'Can only keep medical items',
+    '60a2828e8689911a226117f9': `Can't store Pillbox, Day Pack, LK 3F or MBSS inside`,
 };
 
 export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
