@@ -7,7 +7,7 @@ import store from './store';
 import { Provider } from 'react-redux';
 import {BrowserRouter as Router} from 'react-router-dom';
 
-if(window.location.hostname !== 'localhost'){
+if(window.location.hostname !== 'localhost' && window.location.protocol !== 'file:'){
     Sentry.init({
         dsn: 'https://0c31a9f171194843bd9ae061c0856470@o90181.ingest.sentry.io/5407213',
         integrations: [
