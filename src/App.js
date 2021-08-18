@@ -43,17 +43,7 @@ import Rigs from './pages/guides/Rigs';
 import Settings from './pages/settings';
 import Suppressors from './pages/guides/Suppressors';
 
-const makeID = function makeID(length) {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    const charactersLength = characters.length;
-
-    for ( let i = 0; i < length; i = i + 1 ) {
-       result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-
-    return result;
- };
+import makeID from './modules/make-id';
 
 const socketServer = `wss://tarkov-tools-live.herokuapp.com`;
 
