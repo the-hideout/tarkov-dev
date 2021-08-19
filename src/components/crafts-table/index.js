@@ -15,6 +15,7 @@ import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
 import {selectAllStations} from '../../features/settings/settingsSlice';
+import CenterCell from '../center-cell';
 
 import './index.css';
 import RewardCell from '../reward-cell';
@@ -281,6 +282,22 @@ function CraftTable(props) {
                 },
             },
             {
+                Header: t('Duration'),
+                accessor: 'craftTime',
+                Cell: ({value}) => {
+                    return <CenterCell
+                        nowrap
+                    >
+                        <div
+                            className = 'duration-wrapper'
+                        >
+                            {getDurationDisplay(value * 1000)}
+                        </div>
+                    </CenterCell>;
+                },
+                sortType: 'basic',
+            },
+            {
                 Header: t('Cost ₽'),
                 accessor: d => Number(d.cost),
                 Cell: ValueCell,
@@ -299,13 +316,7 @@ function CraftTable(props) {
                     return <ValueCell
                         value = {props.value}
                         highlightProfit
-                    >
-                        <div
-                            className = 'duration-wrapper'
-                        >
-                            {getDurationDisplay(props.row.original.craftTime * 1000)}
-                        </div>
-                    </ValueCell>;
+                    />;
                 },
                 sortType: 'basic',
             },
