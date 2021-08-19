@@ -1,18 +1,35 @@
 import {
     Link,
 } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 
 import ItemCost from '../item-cost';
 import './index.css';
+import {
+    toggleItem as toggleCraftItem,
+} from '../../features/crafts/craftsSlice';
+import {
+    toggleItem as toggleBarterItem,
+} from '../../features/barters/bartersSlice';
 
-function CostItemsCell({ costItems }) {
+function CostItemsCell({ costItems, craftId, barterId }) {
+    const dispatch = useDispatch();
+
     return <div
         className = 'cost-wrapper'
     >
         {costItems.map((costItem, itemIndex) => {
             return <div
                 key = {`cost-item-${itemIndex}`}
-                className = 'cost-item-wrapper'
+                className = {`cost-item-wrapper ${costItem.count === 0 ? 'disabled': ''}`}
+                onClick = {() => {
+                    dispatch(toggleCraftItem({
+                        itemId: costItem.id,
+                    }));
+                    dispatch(toggleBarterItem({
+                        itemId: costItem.id,
+                    }));
+                }}
             >
                 <div
                     className = 'cost-image-wrapper'
@@ -33,11 +50,13 @@ function CostItemsCell({ costItems }) {
                         className = 'price-wrapper'
                     >
                         <ItemCost
-                            price = {costItem.price}
-                            priceSource = {costItem.priceSource}
-                            count = {costItem.count}
                             alternatePrice = {costItem.alternatePrice}
                             alternatePriceSource = {costItem.alternatePriceSource}
+                            craftId = {craftId}
+                            barterId = {barterId}
+                            count = {costItem.count}
+                            price = {costItem.price}
+                            priceSource = {costItem.priceSource}
                         />
                     </div>
                 </div>

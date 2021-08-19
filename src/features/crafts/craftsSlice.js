@@ -88,13 +88,39 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
     const craftsData = await response.json();
 
     return craftsData.data.crafts;
-
 });
 
 const craftsSlice = createSlice({
     name: 'crafts',
     initialState,
-    reducers: {},
+    reducers: {
+        toggleItem: (state, action) => {
+            let newCrafts = [
+                ...state.crafts,
+            ];
+
+            console.log(action.payload.itemId);
+
+            newCrafts = newCrafts.map((craft) => {
+                craft.requiredItems = craft.requiredItems.map((requiredItem) => {
+                    if(requiredItem.item.id === action.payload.itemId){
+                        if(requiredItem.count === 0){
+                            requiredItem.count = requiredItem.originalCount;
+                        } else {
+                            requiredItem.originalCount = requiredItem.count;
+                            requiredItem.count = 0;
+                        }
+                    }
+
+                    return requiredItem;
+                });
+
+                return craft;
+            });
+
+            state.crafts = newCrafts;
+        },
+    },
     extraReducers: {
         [fetchCrafts.pending]: (state, action) => {
             state.status = 'loading';
@@ -112,6 +138,10 @@ const craftsSlice = createSlice({
         },
     },
 });
+
+export const {
+    toggleItem,
+} = craftsSlice.actions;
 
 export default craftsSlice.reducer;
 

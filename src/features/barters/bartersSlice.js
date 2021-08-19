@@ -88,7 +88,32 @@ export const fetchBarters = createAsyncThunk('barters/fetchBarters', async () =>
 const bartersSlice = createSlice({
     name: 'barters',
     initialState,
-    reducers: {},
+    reducers: {
+        toggleItem: (state, action) => {
+            let newBarters = [
+                ...state.barters,
+            ];
+
+            newBarters = newBarters.map((barter) => {
+                barter.requiredItems = barter.requiredItems.map((requiredItem) => {
+                    if(requiredItem.item.id === action.payload.itemId){
+                        if(requiredItem.count === 0){
+                            requiredItem.count = requiredItem.originalCount;
+                        } else {
+                            requiredItem.originalCount = requiredItem.count;
+                            requiredItem.count = 0;
+                        }
+                    }
+
+                    return requiredItem;
+                });
+
+                return barter;
+            });
+
+            state.barters = newBarters;
+        },
+    },
     extraReducers: {
         [fetchBarters.pending]: (state, action) => {
             state.status = 'loading';
@@ -106,6 +131,10 @@ const bartersSlice = createSlice({
         },
     },
 });
+
+export const {
+    toggleItem,
+} = bartersSlice.actions;
 
 export default bartersSlice.reducer;
 

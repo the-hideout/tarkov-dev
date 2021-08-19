@@ -1,9 +1,24 @@
 
 .cost-item-wrapper {
+    align-items: center;
     display: flex;
     justify-content: center;
-    align-items: center;
+    position: relative;
     width: 100%;
+}
+
+.cost-item-wrapper.disabled img {
+    filter: grayscale(100%);
+}
+
+.cost-item-wrapper.disabled::after {
+    background-color: rgba(0, 0, 0, 0.3);
+    bottom: 0;
+    content: " ";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .cost-item-count-wrapper {
