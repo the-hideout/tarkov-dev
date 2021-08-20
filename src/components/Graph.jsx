@@ -216,8 +216,8 @@ const Graph = props => {
                 size={1}
                 activeSize={5}
                 data={props.listState}
-                x="damage"
-                y="penetration"
+                x="displayDamage"
+                y="displayPenetration"
             />
             {/* <VictoryScatter
                 dataComponent = {<Symbol />}
