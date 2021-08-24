@@ -1,4 +1,6 @@
-import { getAssetFromKV, mapRequestToAsset } from '@cloudflare/kv-asset-handler'
+import { getAssetFromKV, mapRequestToAsset } from '@cloudflare/kv-asset-handler';
+
+import redirects from './redirects.json';
 
 /**
  * The DEBUG flag will do two things that help during development:
@@ -33,6 +35,10 @@ async function handleEvent(event) {
       }
   };
 
+  if(redirects[url.pathname]){
+    return Response.redirect(`https://tarkov-tools.com${redirects[url.pathname]}`, 301);
+  }
+
   /**
    * You can add custom logic to how we fetch your assets
    * by configuring the function `mapRequestToAsset`
@@ -53,7 +59,7 @@ async function handleEvent(event) {
       // fail.
       options.cacheControl.browserTTL = 0;
       options.cacheControl.edgeTTL = 60;
-      return new Request(`${new URL(req.url).origin}/index.html`, req)
+      return new Request(`${new URL(req.url).origin}/index.html`, req);
     } else {
       // The default handler decided this is not an HTML page. It's probably
       // an image, CSS, or JS file. Leave it as-is.
