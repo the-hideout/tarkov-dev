@@ -205,6 +205,8 @@ function Item() {
                             >
                                 <img
                                     alt = 'Flea market'
+                                    height = '86'
+                                    width = '86'
                                     src = {`${ process.env.PUBLIC_URL }/images/flea-market-icon.jpg`}
                                     // title = {`Sell ${currentItemData.name} on the Flea market`}
                                 />
@@ -252,6 +254,8 @@ function Item() {
                             >
                                 <img
                                     alt = {currentItemData.traderName}
+                                    height = '86'
+                                    width = '86'
                                     src = {`${ process.env.PUBLIC_URL }/images/${currentItemData.traderName.toLowerCase()}-icon.jpg`}
                                     // title = {`Sell ${currentItemData.name} on the Flea market`}
                                 />
@@ -271,6 +275,8 @@ function Item() {
                             >
                                 <img
                                     alt = {traderName}
+                                    height = '86'
+                                    width = '86'
                                     src = {`${ process.env.PUBLIC_URL }/images/${traderName}-icon.jpg`}
                                     // title = {`Sell ${currentItemData.name} on the Flea market`}
                                 />
@@ -326,6 +332,8 @@ function Item() {
                                     }
                                     <img
                                         alt = {buyPrice.requirements.source}
+                                        height = '86'
+                                        width = '86'
                                         src = {`${ process.env.PUBLIC_URL }/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
                                     />
                                 </div>

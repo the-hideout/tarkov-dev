@@ -28,8 +28,10 @@ function traderPriceCell(datum) {
         <img
             alt = {datum.row.original.traderName}
             className = 'trader-icon'
+            height = '40'
+            src={`${process.env.PUBLIC_URL}/images/${datum.row.original.traderName?.toLowerCase()}-icon.jpg`}
             title = {datum.row.original.traderName}
-            src={`${process.env.PUBLIC_URL}/images/${datum.row.original.traderName.toLowerCase()}-icon.jpg`}
+            width = '40'
         />
         {formatPrice(datum.row.values.traderPrice)}
     </div>;
@@ -128,8 +130,10 @@ function SmallItemTable(props) {
                         ><img
                             alt = ''
                             className = 'table-image'
+                            height = '64'
                             loading = 'lazy'
                             src = { allData.row.original.iconLink }
+                            width = '64'
                         /></div>
                         <div>
                             <Link

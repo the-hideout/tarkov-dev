@@ -22,6 +22,8 @@ function RewardCell({count, iconLink, itemLink, name, source, value, sellTo, bar
                 alt = ''
                 className = 'table-image'
                 loading = 'lazy'
+                height = '64'
+                width = '64'
                 src = { iconLink }
             /></div>
         <div

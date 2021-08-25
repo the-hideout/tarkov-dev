@@ -36,6 +36,8 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                 ><img
                         alt = {costItem.name}
                         loading = 'lazy'
+                        height = '34'
+                        width = '34'
                         src = {costItem.iconLink}
                     /></div>
                 <div

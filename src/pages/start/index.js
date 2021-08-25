@@ -105,7 +105,10 @@ function Start(props) {
                     </h2>
                     <img
                         alt = 'Ammo chart'
+                        className = 'link-image'
+                        height = '140'
                         src = {`${process.env.PUBLIC_URL}/images/ammo-chart-thumbnail.jpg`}
+                        width = '256'
                     />
                 </Link>
                 <h3>
@@ -188,7 +191,10 @@ function Start(props) {
                     </h2>
                     <img
                         alt = {'Armor table'}
+                        className = 'link-image'
+                        height = '140'
                         src = {`${process.env.PUBLIC_URL}/images/armor-table-thumbnail.jpg`}
+                        width = '256'
                     />
                 </Link>
                 <Link
@@ -204,7 +210,10 @@ function Start(props) {
                     </h2>
                     <img
                         alt = {'Backpacks table'}
+                        className = 'link-image'
+                        height = '140'
                         src = {`${process.env.PUBLIC_URL}/images/backpacks-table-thumbnail.jpg`}
+                        width = '256'
                     />
                 </Link>
                 <Link
@@ -220,7 +229,10 @@ function Start(props) {
                     </h2>
                     <img
                         alt = {'Helmets table'}
+                        className = 'link-image'
+                        height = '140'
                         src = {`${process.env.PUBLIC_URL}/images/helmets-table-thumbnail.jpg`}
+                        width = '256'
                     />
                 </Link>
                 <Link
@@ -236,7 +248,10 @@ function Start(props) {
                     </h2>
                     <img
                         alt = {'Glasses table'}
+                        className = 'link-image'
+                        height = '140'
                         src = {`${process.env.PUBLIC_URL}/images/glasses-table-thumbnail.jpg`}
+                        width = '256'
                     />
                 </Link>
                 <Link
@@ -252,7 +267,10 @@ function Start(props) {
                     </h2>
                     <img
                         alt = {'Rigs table'}
+                        className = 'link-image'
+                        height = '140'
                         src = {`${process.env.PUBLIC_URL}/images/rigs-table-thumbnail.jpg`}
+                        width = '256'
                     />
                 </Link>
                 <Link
@@ -268,7 +286,10 @@ function Start(props) {
                     </h2>
                     <img
                         alt = {'Suppressors table'}
+                        className = 'link-image'
+                        height = '140'
                         src = {`${process.env.PUBLIC_URL}/images/suppressors-table-thumbnail.jpg`}
+                        width = '256'
                     />
                 </Link>
             </div>
