@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, Suspense } from 'react';
 import {
     Switch,
     Route,
@@ -38,12 +38,15 @@ import Backpacks from './pages/guides/Backpacks';
 import Crafts from './pages/crafts';
 import Item from './pages/item';
 import Start from './pages/start';
-import APIDocs from './pages/api-docs';
 import Rigs from './pages/guides/Rigs';
 import Settings from './pages/settings';
 import Suppressors from './pages/guides/Suppressors';
-
 import makeID from './modules/make-id';
+import Loading from './components/loading';
+
+const APIDocs = React.lazy(() => import('./pages/api-docs'));
+// import APIDocs from './pages/api-docs';
+
 
 const socketServer = `wss://tarkov-tools-live.herokuapp.com`;
 
@@ -415,7 +418,9 @@ return (
                 exact
                 path={'/api/'}
             >
-                <APIDocs />
+                <Suspense fallback={<Loading />}>
+                    <APIDocs />
+                </Suspense>
                 <ID
                     sessionID = {sessionID}
                     socketEnabled = {socketEnabled}

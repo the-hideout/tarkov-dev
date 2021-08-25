@@ -1,5 +1,5 @@
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { atomOneDark, monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomDark as atomOneDark, twilight as monokai } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import './index.css';
 
