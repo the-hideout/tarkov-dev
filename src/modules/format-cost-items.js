@@ -17,10 +17,6 @@ function getBarterPrice(item, barters) {
             continue;
         }
 
-        if(barter.rewardItems[0].count !== barter.requiredItems[0].count){
-            continue;
-        }
-
         if(barter.rewardItems[0].item.id !== item.id){
             continue;
         }
@@ -65,7 +61,7 @@ function getCheapestItemPrice(item, barters, useFlea = true) {
     const barter = getBarterPrice(item, barters);
 
     if(barter && barter.requiredItems[0].item[priceToUse] < bestPrice.price){
-        bestPrice.price = barter.requiredItems[0].item[priceToUse];
+        bestPrice.price = barter.requiredItems[0].item[priceToUse] * barter.requiredItems[0].count;
         bestPrice.source = 'barter';
         bestPrice.barter = barter;
     }
@@ -74,7 +70,7 @@ function getCheapestItemPrice(item, barters, useFlea = true) {
     if(!bestPrice.price){
         item.sellFor.map((priceObject) => {
             const rublePrice = getRublePrice(priceObject.price, priceObject.currency);
-    
+
             if(rublePrice < bestPrice.price){
                 return true;
             }
@@ -82,10 +78,10 @@ function getCheapestItemPrice(item, barters, useFlea = true) {
             if(priceObject.source === 'fleaMarket' && !useFlea){
                 return true;
             }
-    
+
             bestPrice.source = priceObject.source;
             bestPrice.price = rublePrice;
-    
+
             return true;
         });
     }

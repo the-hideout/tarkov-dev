@@ -51,7 +51,7 @@ function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSour
                         className = 'cost-barter-details-wrapper'
                     >
                         <div>
-                            {alternatePriceSource.requiredItems[0].item.name}
+                            {alternatePriceSource.requiredItems[0].count} X {alternatePriceSource.requiredItems[0].item.name}
                         </div>
                         <div>
                             {formatPrice(alternatePriceSource.requiredItems[0].item[priceToUse])}
