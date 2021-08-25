@@ -25,14 +25,6 @@ function Footer() {
                 {t('The whole platform is open source, and the code is available on')} <a href="https://github.com/kokarn/tarkov-tools">
                     <GithubIcon /> GitHub
                 </a>
-                <a
-                    href="https://github.com/kokarn/tarkov-tools/actions"
-                >
-                    <img
-                        alt="Build Status"
-                        src="https://img.shields.io/github/workflow/status/kokarn/tarkov-tools/Deploy?style=flat-square"
-                    />
-                </a>
             </p>
             <p>
                 {t('If you wanna have a chat, ask questions or request features, we have a')} <a href="https://discord.gg/B2xM8WZyVv">
