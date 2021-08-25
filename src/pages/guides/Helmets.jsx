@@ -164,6 +164,8 @@ function Helmets(props) {
                             alt = ''
                             className = 'table-image'
                             src = { value }
+                            height = '64'
+                            width = '64'
                         />
                     </div>
                 },
