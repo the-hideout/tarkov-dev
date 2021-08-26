@@ -1,4 +1,4 @@
 *
-!item-grids.json
-!item-props.json
+!item-grids*.json
+!item-props*.json
 !.gitignore
