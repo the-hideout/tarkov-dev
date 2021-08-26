@@ -6,9 +6,6 @@ import bestPrice from '../../modules/best-price';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes';
 import getRublePrice from '../../modules/get-ruble-price';
 
-import itemGrids from '../../data/item-grids.json';
-import itemProps from '../../data/item-props.json';
-
 const initialState = {
     items: [],
     status: 'idle',
@@ -66,16 +63,21 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
         }`
     });
 
-    const response = await fetch('https://tarkov-tools.com/graphql', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        },
-        body: bodyQuery,
-    });
-
-    const itemData = await response.json();
+    const [itemData, itemGrids, itemProps] = await Promise.all([
+        fetch('https://tarkov-tools.com/graphql', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: bodyQuery,
+        })
+            .then(response => response.json()),
+        fetch(`${process.env.PUBLIC_URL}/data/item-grids.json`)
+            .then(response => response.json()),
+        fetch(`${process.env.PUBLIC_URL}/data/item-props.json`)
+            .then(response => response.json()),
+    ]);
 
     return itemData.data.itemsByType.map((rawItem) => {
         let grid = false;
