@@ -73,9 +73,9 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
             body: bodyQuery,
         })
             .then(response => response.json()),
-        fetch(`${process.env.PUBLIC_URL}/data/item-grids.json`)
+        fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`)
             .then(response => response.json()),
-        fetch(`${process.env.PUBLIC_URL}/data/item-props.json`)
+        fetch(`${process.env.PUBLIC_URL}/data/item-props.min.json`)
             .then(response => response.json()),
     ]);
 
