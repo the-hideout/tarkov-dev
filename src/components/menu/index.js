@@ -36,6 +36,7 @@ const Menu = () => {
                 Tarkov Tools
             </Link>
             <Link
+                aria-label="Settings"
                 className = 'mobile-settings-link'
                 to = '/settings/'
                 onClick = {setIsOpen.bind(this, false)}
@@ -187,6 +188,7 @@ const Menu = () => {
                     className = "submenu-wrapper desktop-settings-link"
                 >
                     <Link
+                        aria-label="Settings"
                         to = '/settings/'
                         onClick = {setIsOpen.bind(this, false)}
                     >
