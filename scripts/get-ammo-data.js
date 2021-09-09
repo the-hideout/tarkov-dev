@@ -72,14 +72,13 @@ const URLS = [
     'https://raw.githack.com/TarkovTracker/tarkovdata/master/ammunition.json',
 ];
 
-let tempType = false;
 let typeCache = [];
 
 const getPrettyCaliber = (item) => {
     if(item.type === 'Caliber12g' && item.damage > 70){
         return '12 Gauge Slug';
     }
-    
+
     if (item.type === 'Caliber12g'){
         return '12 Gauge Shot';
     }
