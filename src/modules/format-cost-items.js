@@ -99,6 +99,7 @@ const formatCostItems = (itemsList, barters, freeFuel = false, useFlea = true) =
         }
 
         return {
+            id: requiredItem.item.id,
             count: requiredItem.count,
             name: requiredItem.item.name,
             price: calculationPrice,
