@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.1.0",
-    "@mdi/js": "^5.9.55",
+    "@mdi/js": "^6.1.95",
     "@mdi/react": "^1.4.0",
     "@reduxjs/toolkit": "^1.5.1",
     "@sentry/react": "^6.0.2",
@@ -38,7 +38,7 @@
     "redux-thunk": "^2.3.0",
     "resize-observer-polyfill": "^1.5.1",
     "source-map-explorer": "^2.5.2",
-    "victory": "^35.3.1"
+    "victory": "^36.0.0"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
