@@ -6663,7 +6663,7 @@
             },
             "Recoil": -4,
             "Ergonomics": -10,
-            "Velocity": 5.4
+            "Velocity": 8.4
         },
         "hasGrid": false,
         "linkedItems": [
@@ -6680,7 +6680,7 @@
             },
             "Recoil": -5,
             "Ergonomics": -13,
-            "Velocity": 9.5
+            "Velocity": 11.5
         },
         "hasGrid": false,
         "linkedItems": [
@@ -17534,7 +17534,7 @@
             },
             "Recoil": -10,
             "Ergonomics": -13,
-            "Velocity": 8.4
+            "Velocity": 10.4
         },
         "hasGrid": false,
         "linkedItems": [
@@ -22597,7 +22597,7 @@
             },
             "Recoil": -8,
             "Ergonomics": -8,
-            "Velocity": 6.2
+            "Velocity": 8.2
         },
         "hasGrid": false,
         "linkedItems": [
@@ -22620,7 +22620,7 @@
                 "totalSize": 0
             },
             "Ergonomics": -2,
-            "Velocity": -2
+            "Velocity": -1
         },
         "hasGrid": false,
         "linkedItems": []
@@ -22633,7 +22633,7 @@
                 "totalSize": 0
             },
             "Recoil": -1,
-            "Ergonomics": -2,
+            "Ergonomics": -1,
             "Velocity": -2
         },
         "hasGrid": false,
@@ -22826,7 +22826,7 @@
             },
             "Recoil": -9,
             "Ergonomics": -14,
-            "Velocity": 9
+            "Velocity": 12.6
         },
         "hasGrid": false,
         "linkedItems": []
@@ -22840,7 +22840,7 @@
             },
             "Recoil": -4,
             "Ergonomics": -11,
-            "Velocity": 6.4
+            "Velocity": 10.4
         },
         "hasGrid": false,
         "linkedItems": [
@@ -31342,7 +31342,7 @@
             },
             "Recoil": -9,
             "Ergonomics": -14,
-            "Velocity": 8.8
+            "Velocity": 11.5
         },
         "hasGrid": false,
         "linkedItems": []
@@ -31356,7 +31356,7 @@
             },
             "Recoil": -4,
             "Ergonomics": -10,
-            "Velocity": 6.8
+            "Velocity": 8.8
         },
         "hasGrid": false,
         "linkedItems": [
@@ -33547,7 +33547,7 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 36,
-            "Velocity": 2.9
+            "Velocity": 5.9
         },
         "hasGrid": false,
         "linkedItems": [
@@ -33578,7 +33578,7 @@
             },
             "Recoil": -7,
             "Ergonomics": -8,
-            "Velocity": 4.48
+            "Velocity": 6.48
         },
         "hasGrid": false,
         "linkedItems": [
@@ -33973,7 +33973,7 @@
             },
             "Recoil": -5,
             "Ergonomics": -10,
-            "Velocity": 7.5
+            "Velocity": 11.5
         },
         "hasGrid": false,
         "linkedItems": [
