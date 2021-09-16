@@ -18,6 +18,7 @@ import warningIcon from '../../images/icon-warning.png';
 import ErrorPage from '../../components/error-page';
 import Loading from '../../components/loading';
 import LoyaltyLevelIcon from '../../components/loyalty-level-icon';
+import PropertyList from '../../components/property-list';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
@@ -26,6 +27,7 @@ import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import Quests from '../../Quests';
 
 import './index.css';
+
 
 const CraftsTable = React.lazy(() => import('../../components/crafts-table'));
 
@@ -350,6 +352,12 @@ function Item() {
                         </div>
                     </div> }
                 </div>
+                <h2>
+                    Stats
+                </h2>
+                <PropertyList
+                    properties = {currentItemData.itemProperties}
+                />
                 <div>
                     <h2>
                         Barters with {currentItemData.name}

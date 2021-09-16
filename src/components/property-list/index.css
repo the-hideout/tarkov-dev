@@ -1,0 +1,34 @@
+
+.property-list {
+    display: flex;
+    flex-flow: wrap;
+    gap: 5px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.property-wrapper {
+    align-items: center;
+    background-color: #292629;
+    border: 1px solid #000;
+    display: flex;
+    flex-basis: 100%;
+    padding: 15px 10px;
+    text-align: center;
+}
+
+.property-wrapper div:first-child {
+    border-right: 1px dashed #000;
+}
+
+.property-wrapper div {
+    padding: 0px 5px;
+    width: 50%;
+}
+
+@media screen and (min-width: 780px) {
+    .property-wrapper {
+        flex-basis: 33%;
+        white-space: nowrap;
+    }
+}

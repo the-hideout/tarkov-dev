@@ -7,7 +7,15 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 48
+            "Ergonomics": 48,
+            "bFirerate": 800,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 147,
+            "RecoilForceBack": 405,
+            "ammoCaliber": "Caliber556x45NATO"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -81,7 +89,8 @@
     "5447ac644bdc2d6c208b4567": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber556x45NATO"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -103,7 +112,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 85,
-            "Velocity": -4.54
+            "Velocity": -4.54,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 480,
+            "RecoilForceBack": 305,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -196,7 +212,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 40
+            "Ergonomics": 40,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 520,
+            "RecoilForceBack": 650,
+            "ammoCaliber": "Caliber12g"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -499,12 +522,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -516,16 +540,17 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.1,
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "BlindnessProtection": 0.1,
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -539,7 +564,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 49,
-            "Velocity": 2.6
+            "Velocity": 2.6,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 156,
+            "RecoilForceBack": 520,
+            "ammoCaliber": "Caliber762x54R"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -1625,7 +1657,8 @@
     "560d75f54bdc2da74d8b4573": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber762x54R"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -1652,7 +1685,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 31,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 140,
+            "RecoilForceBack": 397,
+            "ammoCaliber": "Caliber545x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -1760,17 +1801,17 @@
                 "Head"
             ],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "High",
             "RicochetParams": {
                 "x": 0.8,
                 "y": 0.3,
                 "z": 70
-            }
+            },
+            "DeafStrength": "High",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -1866,12 +1907,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Aramid",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -2371,7 +2413,8 @@
     "5649ed104bdc2d3d1c8b458b": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber762x39"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -2536,7 +2579,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 80
+            "Ergonomics": 80,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 450,
+            "RecoilForceBack": 275,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -2663,7 +2713,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 43
+            "Ergonomics": 43,
+            "bFirerate": 40,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 455,
+            "RecoilForceBack": 585,
+            "ammoCaliber": "Caliber12g"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -2852,7 +2909,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 80,
-            "Velocity": -13.12
+            "Velocity": -13.12,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 455,
+            "RecoilForceBack": 260,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -3139,7 +3203,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 70
+            "Ergonomics": 70,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 650,
+            "RecoilForceBack": 325,
+            "ammoCaliber": "Caliber762x25TT"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -3277,12 +3348,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3298,12 +3370,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3319,12 +3392,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3340,12 +3414,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3777,7 +3852,8 @@
     "573722e82459776104581c21": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3785,7 +3861,8 @@
     "573724b42459776125652ac2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3793,7 +3870,8 @@
     "5737250c2459776125652acc": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3801,7 +3879,8 @@
     "5737256c2459776125652acd": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3809,7 +3888,8 @@
     "573725b0245977612125bae2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3817,7 +3897,8 @@
     "5737260b24597761224311f2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3825,7 +3906,8 @@
     "5737266524597761006c6a8c": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3833,7 +3915,8 @@
     "573726d824597765d96be361": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3841,7 +3924,8 @@
     "5737273924597765dd374461": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3849,7 +3933,8 @@
     "573727c624597765cc785b5b": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3857,7 +3942,8 @@
     "5737280e24597765cc785b5c": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3865,7 +3951,8 @@
     "5737287724597765e1625ae2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3873,7 +3960,8 @@
     "573728cc24597765cc785b5d": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3881,7 +3969,8 @@
     "573728f324597765e5728561": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3889,7 +3978,8 @@
     "5737292724597765e5728562": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3897,7 +3987,8 @@
     "57372a7f24597766fe0de0c1": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3905,7 +3996,8 @@
     "57372ac324597767001bc261": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3913,7 +4005,8 @@
     "57372b832459776701014e41": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3921,7 +4014,8 @@
     "57372bad245977670b7cd242": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3929,7 +4023,8 @@
     "57372bd3245977670b7cd243": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3937,7 +4032,8 @@
     "57372c21245977670937c6c2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3945,7 +4041,8 @@
     "57372c56245977685e584582": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3953,7 +4050,8 @@
     "57372c89245977685d4159b1": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3961,7 +4059,8 @@
     "57372d1b2459776862260581": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3969,7 +4068,8 @@
     "57372d4c245977685a3da2a1": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3977,7 +4077,8 @@
     "57372db0245977685d4159b2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3985,7 +4086,8 @@
     "57372deb245977685d4159b3": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3993,7 +4095,8 @@
     "57372e1924597768553071c1": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4001,7 +4104,8 @@
     "57372e4a24597768553071c2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4009,7 +4113,8 @@
     "57372e73245977685d4159b4": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4017,7 +4122,8 @@
     "57372e94245977685648d3e1": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4025,7 +4131,8 @@
     "57372ebf2459776862260582": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4033,7 +4140,8 @@
     "57372ee1245977685d4159b5": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4041,7 +4149,8 @@
     "57372f2824597769a270a191": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4049,7 +4158,8 @@
     "57372f5c24597769917c0131": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4057,7 +4167,8 @@
     "57372f7d245977699b53e301": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4065,7 +4176,8 @@
     "57372fc52459776998772ca1": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4073,7 +4185,8 @@
     "5737300424597769942d5a01": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4081,7 +4194,8 @@
     "5737330a2459776af32363a1": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4089,7 +4203,8 @@
     "5737339e2459776af261abeb": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4097,7 +4212,8 @@
     "573733c72459776b0b7b51b0": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4105,7 +4221,8 @@
     "5739d41224597779c3645501": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4130,7 +4247,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 40
+            "Ergonomics": 40,
+            "bFirerate": 40,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 182,
+            "RecoilForceBack": 400,
+            "ammoCaliber": "Caliber762x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -4301,7 +4425,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 35,
-            "Velocity": 2.7
+            "Velocity": 2.7,
+            "bFirerate": 40,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 390,
+            "RecoilForceBack": 650,
+            "ammoCaliber": "Caliber12g"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -4431,7 +4562,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 75,
-            "Velocity": -1.74
+            "Velocity": -1.74,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 500,
+            "RecoilForceBack": 310,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -4621,7 +4759,15 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 43
+            "Ergonomics": 43,
+            "bFirerate": 900,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 140,
+            "RecoilForceBack": 300,
+            "ammoCaliber": "Caliber9x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -4756,7 +4902,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 80,
-            "Velocity": -4.54
+            "Velocity": -4.54,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 480,
+            "RecoilForceBack": 305,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -4977,7 +5130,15 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 46
+            "Ergonomics": 46,
+            "bFirerate": 900,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 140,
+            "RecoilForceBack": 300,
+            "ammoCaliber": "Caliber9x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -5336,7 +5497,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 65,
-            "Velocity": -6.06
+            "Velocity": -6.06,
+            "bFirerate": 900,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 65,
+            "RecoilForceBack": 235,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -5450,7 +5619,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 44,
-            "Velocity": -17.9
+            "Velocity": -17.9,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 141,
+            "RecoilForceBack": 445,
+            "ammoCaliber": "Caliber545x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -5636,7 +5813,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 65,
-            "Velocity": -5
+            "Velocity": -5,
+            "bFirerate": 900,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 65,
+            "RecoilForceBack": 235,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -5685,7 +5870,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 65,
-            "Velocity": -6.06
+            "Velocity": -6.06,
+            "bFirerate": 1000,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 65,
+            "RecoilForceBack": 235,
+            "ammoCaliber": "Caliber9x18PMM"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -6063,7 +6256,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 44,
-            "Velocity": -17.9
+            "Velocity": -17.9,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 140,
+            "RecoilForceBack": 445,
+            "ammoCaliber": "Caliber545x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -6138,7 +6339,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 44,
-            "Velocity": -17.9
+            "Velocity": -17.9,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 140,
+            "RecoilForceBack": 445,
+            "ammoCaliber": "Caliber545x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -6348,7 +6557,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 40
+            "Ergonomics": 40,
+            "bFirerate": 40,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 182,
+            "RecoilForceBack": 400,
+            "ammoCaliber": "Caliber762x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -6583,7 +6799,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 40,
-            "Velocity": 5.81
+            "Velocity": 5.81,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 130,
+            "RecoilForceBack": 650,
+            "ammoCaliber": "Caliber762x51"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -6846,7 +7069,15 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 40
+            "Ergonomics": 40,
+            "bFirerate": 850,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 67,
+            "RecoilForceBack": 333,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -7997,7 +8228,16 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 50,
-            "Velocity": 13
+            "Velocity": 13,
+            "bFirerate": 800,
+            "weapFireType": [
+                "single",
+                "burst",
+                "fullauto"
+            ],
+            "RecoilForceUp": 73,
+            "RecoilForceBack": 340,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -8675,7 +8915,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 35,
-            "Velocity": -17.9
+            "Velocity": -17.9,
+            "bFirerate": 700,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 84,
+            "RecoilForceBack": 350,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -9221,7 +9469,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 26,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 600,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 194,
+            "RecoilForceBack": 448,
+            "ammoCaliber": "Caliber762x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -9806,7 +10062,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 30,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 600,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 193,
+            "RecoilForceBack": 448,
+            "ammoCaliber": "Caliber762x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -10041,7 +10304,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 30,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 600,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 290,
+            "RecoilForceBack": 485,
+            "ammoCaliber": "Caliber366TKM"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -10180,12 +10450,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Aramid",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -10252,12 +10523,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -10269,16 +10541,17 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.1,
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "BlindnessProtection": 0.1,
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -10294,12 +10567,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -10320,15 +10594,15 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "headSegments": [
-                "Top"
-            ],
-            "DeafStrength": "High",
             "RicochetParams": {
                 "x": 0.2,
                 "y": 0.01,
                 "z": 90
-            }
+            },
+            "DeafStrength": "High",
+            "headSegments": [
+                "Top"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -10346,12 +10620,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -10511,19 +10786,19 @@
                 "Head"
             ],
             "ArmorMaterial": "UHMWPE",
+            "RicochetParams": {
+                "x": 0,
+                "y": 0,
+                "z": 80
+            },
+            "DeafStrength": "Low",
             "headSegments": [
                 "Top",
                 "Nape",
                 "Ears",
                 "Eyes",
                 "Jaws"
-            ],
-            "DeafStrength": "Low",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            }
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -10566,7 +10841,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 82,
-            "Velocity": 0.1
+            "Velocity": 0.1,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 520,
+            "RecoilForceBack": 325,
+            "ammoCaliber": "Caliber9x21"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -10596,7 +10878,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 32,
-            "Velocity": -17.9
+            "Velocity": -17.9,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 55,
+            "RecoilForceBack": 305,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -10872,7 +11161,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 24,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 600,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 195,
+            "RecoilForceBack": 448,
+            "ammoCaliber": "Caliber762x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -11164,7 +11461,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 26,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 600,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 193,
+            "RecoilForceBack": 448,
+            "ammoCaliber": "Caliber762x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -11596,16 +11901,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.5,
                 "z": 70
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -11634,14 +11939,15 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "headSegments": [
-                "Eyes"
-            ],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -11653,7 +11959,6 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.1,
             "MaxDurability": 40,
             "armorClass": "3",
             "mousePenalty": -8,
@@ -11662,15 +11967,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0.7,
                 "y": 0.3,
                 "z": 55
-            }
+            },
+            "BlindnessProtection": 0.1,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -11728,14 +12035,15 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "headSegments": [
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -11753,14 +12061,15 @@
                 "Head"
             ],
             "ArmorMaterial": "Aluminium",
-            "headSegments": [
-                "Ears"
-            ],
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 70
-            }
+            },
+            "DeafStrength": "Low",
+            "headSegments": [
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -11778,12 +12087,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": [
@@ -11799,7 +12109,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 70,
-            "Velocity": -4.54
+            "Velocity": -4.54,
+            "bFirerate": 750,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 455,
+            "RecoilForceBack": 260,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -12354,7 +12672,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 40
+            "Ergonomics": 40,
+            "bFirerate": 700,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 245,
+            "RecoilForceBack": 525,
+            "ammoCaliber": "Caliber762x51"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -12491,7 +12816,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 60,
-            "Velocity": 1.81
+            "Velocity": 1.81,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 780,
+            "RecoilForceBack": 650,
+            "ammoCaliber": "Caliber20g"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -12610,12 +12942,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -12631,12 +12964,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -13132,7 +13466,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 45
+            "Ergonomics": 45,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 520,
+            "RecoilForceBack": 650,
+            "ammoCaliber": "Caliber12g"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -13617,7 +13958,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 90
+            "Ergonomics": 90,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 365,
+            "RecoilForceBack": 260,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -13774,17 +14122,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Aluminium",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "Low",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 75
-            }
+            },
+            "DeafStrength": "Low",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -14456,12 +14804,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14477,12 +14826,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14498,12 +14848,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14519,12 +14870,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14536,16 +14888,17 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.2,
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "BlindnessProtection": 0.2,
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14557,16 +14910,17 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.15,
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "BlindnessProtection": 0.15,
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14578,16 +14932,17 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.25,
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "BlindnessProtection": 0.25,
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14603,12 +14958,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14624,12 +14980,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14645,12 +15002,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14729,17 +15087,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Aluminium",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "Low",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 75
-            }
+            },
+            "DeafStrength": "Low",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -14763,17 +15121,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "Low",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 75
-            }
+            },
+            "DeafStrength": "Low",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14794,17 +15152,17 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "High",
             "RicochetParams": {
                 "x": 0.7,
                 "y": 0.2,
                 "z": 70
-            }
+            },
+            "DeafStrength": "High",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14825,17 +15183,17 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "High",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 70
-            }
+            },
+            "DeafStrength": "High",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -14849,7 +15207,6 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.25,
             "MaxDurability": 50,
             "armorClass": "5",
             "mousePenalty": -8,
@@ -14858,15 +15215,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0.7,
                 "y": 0.4,
                 "z": 70
-            }
+            },
+            "BlindnessProtection": 0.25,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14878,7 +15237,6 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.1,
             "MaxDurability": 50,
             "armorClass": "3",
             "weaponErgonomicPenalty": -5,
@@ -14886,15 +15244,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0.8,
                 "y": 0.3,
                 "z": 55
-            }
+            },
+            "BlindnessProtection": 0.1,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14915,17 +15275,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "High",
             "RicochetParams": {
                 "x": 0.8,
                 "y": 0.3,
                 "z": 75
-            }
+            },
+            "DeafStrength": "High",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -14948,17 +15308,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "High",
             "RicochetParams": {
                 "x": 0.7,
                 "y": 0.3,
                 "z": 75
-            }
+            },
+            "DeafStrength": "High",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -15084,7 +15444,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 28
+            "Ergonomics": 28,
+            "bFirerate": 700,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 296,
+            "RecoilForceBack": 530,
+            "ammoCaliber": "Caliber762x51"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -15491,12 +15858,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Aluminium",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15518,12 +15886,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Ceramic",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15537,7 +15906,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 32,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 140,
+            "RecoilForceBack": 397,
+            "ammoCaliber": "Caliber545x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -15679,12 +16056,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15700,12 +16078,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15721,12 +16100,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15742,12 +16122,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15805,7 +16186,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 24,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 600,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 195,
+            "RecoilForceBack": 448,
+            "ammoCaliber": "Caliber762x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -15918,7 +16307,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 80,
-            "Velocity": -4.54
+            "Velocity": -4.54,
+            "bFirerate": 750,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 455,
+            "RecoilForceBack": 260,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -15953,22 +16350,23 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.15,
             "MaxDurability": 30,
             "armorClass": "2",
             "armorZone": [
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "BlindnessProtection": 0.15,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15982,7 +16380,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 33,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 138,
+            "RecoilForceBack": 394,
+            "ammoCaliber": "Caliber545x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -16125,7 +16531,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 35,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 132,
+            "RecoilForceBack": 395,
+            "ammoCaliber": "Caliber556x45NATO"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -16205,7 +16619,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 43,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 600,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 136,
+            "RecoilForceBack": 392,
+            "ammoCaliber": "Caliber556x45NATO"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -16280,7 +16702,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 35,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 600,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 174,
+            "RecoilForceBack": 422,
+            "ammoCaliber": "Caliber762x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -16376,7 +16806,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 43,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 600,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 186,
+            "RecoilForceBack": 422,
+            "ammoCaliber": "Caliber762x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -16467,7 +16905,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 43,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 600,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 160,
+            "RecoilForceBack": 413,
+            "ammoCaliber": "Caliber545x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -16696,16 +17142,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.5,
                 "z": 70
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -17416,7 +17862,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 17,
-            "Velocity": 3.81
+            "Velocity": 3.81,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 338,
+            "RecoilForceBack": 975,
+            "ammoCaliber": "Caliber762x54R"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -18063,7 +18516,15 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 31
+            "Ergonomics": 31,
+            "bFirerate": 700,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 350,
+            "RecoilForceBack": 600,
+            "ammoCaliber": "Caliber762x51"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -18130,7 +18591,15 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 90
+            "Ergonomics": 90,
+            "bFirerate": 1200,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 360,
+            "RecoilForceBack": 286,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -18640,7 +19109,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 70
+            "Ergonomics": 70,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 650,
+            "RecoilForceBack": 325,
+            "ammoCaliber": "Caliber762x25TT"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -18836,17 +19312,17 @@
                 "Head"
             ],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "Low",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 75
-            }
+            },
+            "DeafStrength": "Low",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -18867,17 +19343,17 @@
                 "Head"
             ],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "Low",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 75
-            }
+            },
+            "DeafStrength": "Low",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -18898,16 +19374,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 75
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -18928,16 +19404,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 75
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -18953,12 +19429,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -18974,12 +19451,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -18995,12 +19473,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19016,12 +19495,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19037,12 +19517,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19058,12 +19539,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19079,12 +19561,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19105,19 +19588,19 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
+            "RicochetParams": {
+                "x": 0,
+                "y": 0,
+                "z": 75
+            },
+            "DeafStrength": "High",
             "headSegments": [
                 "Top",
                 "Nape",
                 "Ears",
                 "Eyes",
                 "Jaws"
-            ],
-            "DeafStrength": "High",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 75
-            }
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19135,16 +19618,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 70
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19160,12 +19643,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19188,16 +19672,17 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.1,
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "BlindnessProtection": 0.1,
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19213,12 +19698,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19238,16 +19724,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.8,
                 "y": 0.3,
                 "z": 75
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -19273,12 +19759,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19458,12 +19945,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Titan",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19487,12 +19975,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Titan",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19514,12 +20003,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Titan",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19541,12 +20031,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19558,7 +20049,6 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.1,
             "MaxDurability": 40,
             "armorClass": "3",
             "weaponErgonomicPenalty": -7,
@@ -19566,15 +20056,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0.7,
                 "y": 0.4,
                 "z": 55
-            }
+            },
+            "BlindnessProtection": 0.1,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20470,7 +20962,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 65,
-            "Velocity": 13
+            "Velocity": 13,
+            "bFirerate": 950,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 65,
+            "RecoilForceBack": 221,
+            "ammoCaliber": "Caliber46x30"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -21243,7 +21743,15 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 51
+            "Ergonomics": 51,
+            "bFirerate": 850,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 156,
+            "RecoilForceBack": 413,
+            "ammoCaliber": "Caliber556x45NATO"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -21644,12 +22152,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -21665,12 +22174,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -21686,12 +22196,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -21707,12 +22218,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -21728,12 +22240,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -21747,7 +22260,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 65,
-            "Velocity": 13
+            "Velocity": 13,
+            "bFirerate": 950,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 65,
+            "RecoilForceBack": 221,
+            "ammoCaliber": "Caliber46x30"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -22194,7 +22715,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 45,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 131,
+            "RecoilForceBack": 370,
+            "ammoCaliber": "Caliber545x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -22241,7 +22770,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 30,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 141,
+            "RecoilForceBack": 398,
+            "ammoCaliber": "Caliber545x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -22330,7 +22867,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 31,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 141,
+            "RecoilForceBack": 398,
+            "ammoCaliber": "Caliber545x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -22420,7 +22965,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 17,
-            "Velocity": 2.81
+            "Velocity": 2.81,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 338,
+            "RecoilForceBack": 975,
+            "ammoCaliber": "Caliber762x54R"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -22683,7 +23235,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 33,
-            "Velocity": 1.81
+            "Velocity": 1.81,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 234,
+            "RecoilForceBack": 845,
+            "ammoCaliber": "Caliber762x51"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -23438,12 +23997,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": [
@@ -23542,16 +24102,16 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 50
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -23728,7 +24288,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 48
+            "Ergonomics": 48,
+            "bFirerate": 800,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 149,
+            "RecoilForceBack": 407,
+            "ammoCaliber": "Caliber556x45NATO"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -23847,17 +24414,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "High",
             "RicochetParams": {
                 "x": 0.2,
                 "y": 0.01,
                 "z": 65
-            }
+            },
+            "DeafStrength": "High",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -23869,7 +24436,6 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.35,
             "MaxDurability": 50,
             "armorClass": "6",
             "weaponErgonomicPenalty": -19,
@@ -23877,15 +24443,17 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0.8,
                 "y": 0.3,
                 "z": 70
-            }
+            },
+            "BlindnessProtection": 0.35,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -23906,17 +24474,17 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "High",
             "RicochetParams": {
                 "x": 0.8,
                 "y": 0.3,
                 "z": 80
-            }
+            },
+            "DeafStrength": "High",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -24015,17 +24583,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "High",
             "RicochetParams": {
                 "x": 0.2,
                 "y": 0.01,
                 "z": 60
-            }
+            },
+            "DeafStrength": "High",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -24037,16 +24605,17 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.15,
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "BlindnessProtection": 0.15,
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -24378,12 +24947,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Ceramic",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -24445,12 +25015,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Ceramic",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -24472,12 +25043,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -24499,12 +25071,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Ceramic",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -24526,12 +25099,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -24553,12 +25127,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -24580,12 +25155,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Ceramic",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -24606,12 +25182,13 @@
                 "Chest"
             ],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -24631,14 +25208,15 @@
                 "Head"
             ],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [
-                "Top"
-            ],
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 50
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -24907,7 +25485,6 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.35,
             "MaxDurability": 50,
             "armorClass": "6",
             "weaponErgonomicPenalty": -19,
@@ -24915,15 +25492,17 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0.8,
                 "y": 0.3,
                 "z": 70
-            }
+            },
+            "BlindnessProtection": 0.35,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -24944,17 +25523,17 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "High",
             "RicochetParams": {
                 "x": 0.8,
                 "y": 0.3,
                 "z": 80
-            }
+            },
+            "DeafStrength": "High",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -25109,7 +25688,8 @@
     "5c11279ad174af029d64592b": {
         "itemProperties": {
             "Weight": 0.24,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber556x45NATO"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25117,7 +25697,8 @@
     "5c1127bdd174af44217ab8b9": {
         "itemProperties": {
             "Weight": 0.28,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x18PM"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25125,7 +25706,8 @@
     "5c1127d0d174af29be75cf68": {
         "itemProperties": {
             "Weight": 0.22,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber12g"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25133,7 +25715,8 @@
     "5c1260dc86f7746b106e8748": {
         "itemProperties": {
             "Weight": 0.19,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x39"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25149,7 +25732,8 @@
     "5c12619186f7743f871c8a32": {
         "itemProperties": {
             "Weight": 0.19,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber9x39"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25165,7 +25749,8 @@
     "5c1262a286f7743f8a69aab2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false
+            "grid": false,
+            "ammoCaliber": "Caliber556x45NATO"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25297,15 +25882,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Aluminium",
-            "headSegments": [
-                "Ears",
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 70
-            }
+            },
+            "DeafStrength": "Low",
+            "headSegments": [
+                "Ears",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25323,14 +25909,15 @@
                 "Head"
             ],
             "ArmorMaterial": "Aluminium",
-            "headSegments": [
-                "Ears"
-            ],
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 70
-            }
+            },
+            "DeafStrength": "Low",
+            "headSegments": [
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25350,16 +25937,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.5,
                 "z": 75
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -25404,16 +25991,17 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.15,
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "BlindnessProtection": 0.15,
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25429,12 +26017,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25647,7 +26236,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 26
+            "Ergonomics": 26,
+            "bFirerate": 700,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 340,
+            "RecoilForceBack": 750,
+            "ammoCaliber": "Caliber762x54R"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -25850,7 +26446,15 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 72
+            "Ergonomics": 72,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 87,
+            "RecoilForceBack": 242,
+            "ammoCaliber": "Caliber556x45NATO"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -26100,7 +26704,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 29,
-            "Velocity": 1.8
+            "Velocity": 1.8,
+            "bFirerate": 600,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 400,
+            "RecoilForceBack": 650,
+            "ammoCaliber": "Caliber762x51"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -27931,17 +28542,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "High",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 50
-            }
+            },
+            "DeafStrength": "High",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -27955,7 +28566,6 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.1,
             "MaxDurability": 85,
             "armorClass": "4",
             "mousePenalty": -9,
@@ -27964,15 +28574,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0.7,
                 "y": 0.4,
                 "z": 55
-            }
+            },
+            "BlindnessProtection": 0.1,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -27994,12 +28606,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -28023,12 +28636,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -28041,7 +28655,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 70
+            "Ergonomics": 70,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 475,
+            "RecoilForceBack": 280,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -28204,7 +28825,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 55,
-            "Velocity": 1.1
+            "Velocity": 1.1,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 155,
+            "RecoilForceBack": 450,
+            "ammoCaliber": "Caliber127x55"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -28898,7 +29527,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 60,
-            "Velocity": 1.5
+            "Velocity": 1.5,
+            "bFirerate": 900,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 60,
+            "RecoilForceBack": 300,
+            "ammoCaliber": "Caliber57x28"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -31556,7 +32193,16 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 55,
-            "Velocity": 13
+            "Velocity": 13,
+            "bFirerate": 900,
+            "weapFireType": [
+                "single",
+                "burst",
+                "fullauto"
+            ],
+            "RecoilForceUp": 75,
+            "RecoilForceBack": 330,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -31640,7 +32286,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 86
+            "Ergonomics": 86,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 330,
+            "RecoilForceBack": 240,
+            "ammoCaliber": "Caliber57x28"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -31817,7 +32470,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 50
+            "Ergonomics": 50,
+            "bFirerate": 800,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 140,
+            "RecoilForceBack": 380,
+            "ammoCaliber": "Caliber556x45NATO"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -32545,16 +33205,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.5,
                 "z": 70
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -32581,16 +33241,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.5,
                 "z": 70
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -32608,16 +33268,17 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.3,
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "BlindnessProtection": 0.3,
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -32638,7 +33299,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 86
+            "Ergonomics": 86,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 330,
+            "RecoilForceBack": 240,
+            "ammoCaliber": "Caliber57x28"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -32664,16 +33332,17 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.15,
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "BlindnessProtection": 0.15,
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -32685,16 +33354,17 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.25,
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "BlindnessProtection": 0.25,
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -32715,17 +33385,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "High",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.5,
                 "z": 70
-            }
+            },
+            "DeafStrength": "High",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -32743,7 +33413,6 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.1,
             "MaxDurability": 50,
             "armorClass": "4",
             "mousePenalty": -5,
@@ -32752,15 +33421,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0.7,
                 "y": 0.4,
                 "z": 70
-            }
+            },
+            "BlindnessProtection": 0.1,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -32776,12 +33447,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "Aramid",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 0
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -32801,14 +33473,15 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "LowerNape"
-            ],
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 50
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "LowerNape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -33237,12 +33910,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -33287,7 +33961,15 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 72
+            "Ergonomics": 72,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 125,
+            "RecoilForceBack": 295,
+            "ammoCaliber": "Caliber762x51"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -33461,7 +34143,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 36,
-            "Velocity": 5.9
+            "Velocity": 5.9,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 245,
+            "RecoilForceBack": 585,
+            "ammoCaliber": "Caliber366TKM"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -33591,7 +34280,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 75,
-            "Velocity": 13
+            "Velocity": 13,
+            "bFirerate": 1100,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 67,
+            "RecoilForceBack": 315,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -33868,7 +34565,14 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 35,
-            "Velocity": 3.81
+            "Velocity": 3.81,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 165,
+            "RecoilForceBack": 630,
+            "ammoCaliber": "Caliber762x51"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -34127,12 +34831,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Titan",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -34237,17 +34942,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "Low",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 75
-            }
+            },
+            "DeafStrength": "Low",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -34284,7 +34989,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 37
+            "Ergonomics": 37,
+            "bFirerate": 700,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 265,
+            "RecoilForceBack": 590,
+            "ammoCaliber": "Caliber762x51"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -34846,7 +35558,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 75,
-            "Velocity": 13
+            "Velocity": 13,
+            "bFirerate": 900,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 70,
+            "RecoilForceBack": 315,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -34940,16 +35660,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.5,
                 "z": 65
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -34968,7 +35688,6 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.1,
             "MaxDurability": 45,
             "armorClass": "3",
             "mousePenalty": -10,
@@ -34977,15 +35696,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0.7,
                 "y": 0.4,
                 "z": 55
-            }
+            },
+            "BlindnessProtection": 0.1,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -35003,14 +35724,15 @@
                 "Head"
             ],
             "ArmorMaterial": "Aluminium",
-            "headSegments": [
-                "Ears"
-            ],
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 70
-            }
+            },
+            "DeafStrength": "Low",
+            "headSegments": [
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -35061,16 +35783,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.5,
                 "z": 65
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -35093,14 +35815,15 @@
                 "Head"
             ],
             "ArmorMaterial": "Aluminium",
-            "headSegments": [
-                "Ears"
-            ],
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 70
-            }
+            },
+            "DeafStrength": "Low",
+            "headSegments": [
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -35112,7 +35835,6 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.1,
             "MaxDurability": 45,
             "armorClass": "3",
             "mousePenalty": -10,
@@ -35121,15 +35843,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0.7,
                 "y": 0.4,
                 "z": 55
-            }
+            },
+            "BlindnessProtection": 0.1,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -35452,12 +36176,13 @@
                 "Chest"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -35645,16 +36370,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.5,
                 "z": 70
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -35704,12 +36429,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -35725,12 +36451,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -35990,12 +36717,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -36007,16 +36735,17 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.3,
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "BlindnessProtection": 0.3,
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -36032,12 +36761,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -36050,7 +36780,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 75
+            "Ergonomics": 75,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 530,
+            "RecoilForceBack": 355,
+            "ammoCaliber": "Caliber1143x23ACP"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -36160,7 +36897,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 120
+            "Ergonomics": 120,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 200,
+            "RecoilForceBack": 400,
+            "ammoCaliber": "Caliber40x46"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -36298,7 +37042,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 38
+            "Ergonomics": 38,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 610,
+            "RecoilForceBack": 740,
+            "ammoCaliber": "Caliber23x75"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -36422,7 +37173,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 48
+            "Ergonomics": 48,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 550,
+            "RecoilForceBack": 610,
+            "ammoCaliber": "Caliber12g"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -36570,12 +37328,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -36715,7 +37474,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 16,
-            "Velocity": -17.9
+            "Velocity": -17.9,
+            "bFirerate": 1000,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 77,
+            "RecoilForceBack": 360,
+            "ammoCaliber": "Caliber762x25TT"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -36733,7 +37500,6 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.2,
             "MaxDurability": 45,
             "armorClass": "2",
             "mousePenalty": -2,
@@ -36742,16 +37508,18 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "headSegments": [
-                "Top",
-                "Eyes",
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 50
-            }
+            },
+            "BlindnessProtection": 0.2,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Eyes",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -36773,16 +37541,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.5,
                 "z": 40
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -36931,16 +37699,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.5,
                 "z": 70
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -36964,15 +37732,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Ceramic",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 50
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -37601,7 +38370,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 48
+            "Ergonomics": 48,
+            "bFirerate": 700,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 173,
+            "RecoilForceBack": 307,
+            "ammoCaliber": "Caliber762x51"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -37821,7 +38597,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 78
+            "Ergonomics": 78,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 515,
+            "RecoilForceBack": 325,
+            "ammoCaliber": "Caliber1143x23ACP"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -38067,12 +38850,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -38143,16 +38927,16 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ],
-            "DeafStrength": "None",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.5,
                 "z": 75
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -38180,14 +38964,15 @@
                 "Head"
             ],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [
-                "Top"
-            ],
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 45
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -38199,21 +38984,22 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.15,
             "MaxDurability": 30,
             "armorClass": "2",
             "armorZone": [
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "headSegments": [
-                "Eyes"
-            ],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "BlindnessProtection": 0.15,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -38232,14 +39018,15 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "headSegments": [
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -38260,17 +39047,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Titan",
-            "headSegments": [
-                "Top",
-                "Nape",
-                "Ears"
-            ],
-            "DeafStrength": "High",
             "RicochetParams": {
                 "x": 0.9,
                 "y": 0.4,
                 "z": 65
-            }
+            },
+            "DeafStrength": "High",
+            "headSegments": [
+                "Top",
+                "Nape",
+                "Ears"
+            ]
         },
         "hasGrid": false,
         "linkedItems": [
@@ -38284,7 +39071,6 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.3,
             "MaxDurability": 55,
             "armorClass": "5",
             "mousePenalty": -6,
@@ -38293,15 +39079,17 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ],
             "RicochetParams": {
                 "x": 0.7,
                 "y": 0.4,
                 "z": 70
-            }
+            },
+            "BlindnessProtection": 0.3,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes",
+                "Jaws"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -38328,12 +39116,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -38349,12 +39138,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -38370,12 +39160,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -38730,12 +39521,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -38751,12 +39543,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -38781,7 +39574,16 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 65,
-            "Velocity": 13
+            "Velocity": 13,
+            "bFirerate": 1100,
+            "weapFireType": [
+                "single",
+                "burst",
+                "fullauto"
+            ],
+            "RecoilForceUp": 62,
+            "RecoilForceBack": 440,
+            "ammoCaliber": "Caliber1143x23ACP"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -39367,7 +40169,15 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 48
+            "Ergonomics": 48,
+            "bFirerate": 800,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 159,
+            "RecoilForceBack": 405,
+            "ammoCaliber": "Caliber762x35"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -39623,7 +40433,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 14
+            "Ergonomics": 14,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 630,
+            "RecoilForceBack": 1125,
+            "ammoCaliber": "Caliber86x70"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -39881,7 +40698,15 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 62,
-            "Velocity": 13
+            "Velocity": 13,
+            "bFirerate": 600,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 87,
+            "RecoilForceBack": 335,
+            "ammoCaliber": "Caliber1143x23ACP"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -39977,7 +40802,16 @@
             },
             "MaxDurability": 100,
             "Ergonomics": 65,
-            "Velocity": 13
+            "Velocity": 13,
+            "bFirerate": 950,
+            "weapFireType": [
+                "single",
+                "burst",
+                "fullauto"
+            ],
+            "RecoilForceUp": 48,
+            "RecoilForceBack": 390,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -40256,12 +41090,13 @@
                 "Chest"
             ],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -40391,12 +41226,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "Combined",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -40589,7 +41425,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 93
+            "Ergonomics": 93,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 340,
+            "RecoilForceBack": 235,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -40903,7 +41746,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 50
+            "Ergonomics": 50,
+            "bFirerate": 800,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 58,
+            "RecoilForceBack": 280,
+            "ammoCaliber": "Caliber9x19PARA"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -40978,21 +41828,22 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.1,
             "MaxDurability": 25,
             "armorClass": "1",
             "armorZone": [
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "headSegments": [
-                "Eyes"
-            ],
             "RicochetParams": {
                 "x": 0.7,
                 "y": 0.3,
                 "z": 55
-            }
+            },
+            "BlindnessProtection": 0.1,
+            "DeafStrength": "None",
+            "headSegments": [
+                "Eyes"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -41221,12 +42072,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -41242,12 +42094,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -41263,12 +42116,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -41284,12 +42138,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -41305,12 +42160,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -41326,12 +42182,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -41408,12 +42265,13 @@
                 "Chest"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -41434,12 +42292,13 @@
                 "Chest"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -41552,12 +42411,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -41570,7 +42430,15 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 47
+            "Ergonomics": 47,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 188,
+            "RecoilForceBack": 440,
+            "ammoCaliber": "Caliber762x39"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -41939,7 +42807,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 48
+            "Ergonomics": 48,
+            "bFirerate": 40,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 445,
+            "RecoilForceBack": 565,
+            "ammoCaliber": "Caliber12g"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -42495,12 +43370,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -42613,12 +43489,13 @@
                 "Stomach"
             ],
             "ArmorMaterial": "Combined",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -42908,12 +43785,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -42925,7 +43803,6 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.7,
             "MaxDurability": 40,
             "armorClass": "5",
             "speedPenaltyPercent": -5,
@@ -42935,18 +43812,19 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
+            "RicochetParams": {
+                "x": 0.9,
+                "y": 0.4,
+                "z": 70
+            },
+            "BlindnessProtection": 0.7,
+            "DeafStrength": "Low",
             "headSegments": [
                 "Top",
                 "Ears",
                 "Eyes",
                 "Jaws"
-            ],
-            "DeafStrength": "Low",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 70
-            }
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -42958,7 +43836,6 @@
                 "pockets": [],
                 "totalSize": 0
             },
-            "BlindnessProtection": 0.7,
             "MaxDurability": 40,
             "armorClass": "5",
             "speedPenaltyPercent": -5,
@@ -42968,18 +43845,19 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
+            "RicochetParams": {
+                "x": 0.9,
+                "y": 0.4,
+                "z": 70
+            },
+            "BlindnessProtection": 0.7,
+            "DeafStrength": "Low",
             "headSegments": [
                 "Top",
                 "Ears",
                 "Eyes",
                 "Jaws"
-            ],
-            "DeafStrength": "Low",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 70
-            }
+            ]
         },
         "hasGrid": false,
         "linkedItems": []
@@ -43046,12 +43924,13 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "headSegments": [],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 80
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": []
         },
         "hasGrid": false,
         "linkedItems": []
@@ -43069,14 +43948,15 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "headSegments": [
-                "Top"
-            ],
             "RicochetParams": {
                 "x": 0,
                 "y": 0,
                 "z": 1
-            }
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top"
+            ]
         },
         "hasGrid": false,
         "linkedItems": []

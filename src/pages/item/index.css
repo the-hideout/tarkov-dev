@@ -4,6 +4,10 @@
     position: relative;
 }
 
+.item-page-wrapper h2 {
+    margin-top: 70px;
+}
+
 .icon-and-link-wrapper {
     align-items: flex-start;
     display: flex;
@@ -118,6 +122,7 @@
 .trader-wrapper {
     justify-content: space-between;
 }
+
 
 @media screen and (min-width: 900px) {
     .text-and-image-information-wrapper.price-info-wrapper {
