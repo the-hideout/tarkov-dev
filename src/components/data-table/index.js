@@ -1,12 +1,18 @@
+import { useEffect } from 'react';
 import { useTable, useSortBy, useExpanded, usePagination } from 'react-table';
 // import {ReactComponent as ArrowIcon} from './Arrow.js';
 import ArrowIcon from './Arrow.js';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 import './index.css';
 
 function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, className, maxItems, extraRow }) {
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
+    
+    const storageKey = columns.map(({ Header }) => Header).join(',');
+    const [ initialSortBy, setSortBy ] = useStateWithLocalStorage(storageKey, [{id: sortBy, desc: sortByDesc}]);
+
     const {
         getTableProps,
         getTableBodyProps,
@@ -14,20 +20,20 @@ function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, classNa
         page,
         rows,
         prepareRow,
+        state: { sortBy: sortByState } = {},
     } = useTable({
         columns,
         data,
         initialState: {
             pageSize: maxItems,
-            sortBy: [
-                {
-                    id: sortBy,
-                    desc: sortByDesc,
-                },
-            ],
+            sortBy: initialSortBy,
         },
         autoResetSortBy: autoResetSortBy,
     }, useSortBy, useExpanded, usePagination);
+
+    useEffect(() => {
+        setSortBy(sortByState)
+    });
 
     const getRows = () => {
         let rowContainer = rows;
