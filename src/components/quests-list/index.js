@@ -1,5 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
+import QuestItemsCell from '../quest-items-cell';
+import './index.css';
+
 const getQuestList = (questList, t) => {
     if(questList.length === 0){
         return <div>
@@ -7,17 +10,38 @@ const getQuestList = (questList, t) => {
         </div>
     }
 
-    return questList.map((questData) => {
-        return <div
-            key = {`quest-list-${questData.name}`}
-        >
-            <a
-                href = {`https://tarkovtracker.io/quest/${questData.id}/`}
-            >
-                {questData.name}
-            </a>
-        </div>;
-    })
+    return (
+        <div className="quest-list table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{t('Quest')}</th>
+                        <th>{t('Item')}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {questList.map((questData) => {
+                        return <tr
+                            key = {`quest-list-${questData.name}`}
+                        >
+                            <td>
+                                <a
+                                    href = {`https://tarkovtracker.io/quest/${questData.id}/`}
+                                >
+                                    {questData.name}
+                                </a>
+                            </td>
+                            <td>
+                                <QuestItemsCell
+                                    questItems = {questData.objectives}
+                                />
+                            </td>
+                        </tr>
+                    })}
+                </tbody>
+            </table>
+        </div>
+    );
 };
 
 function QuestsList(props) {
