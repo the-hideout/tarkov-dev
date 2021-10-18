@@ -105,6 +105,7 @@ dist
 
 build
 src/data/ammo.json
+src/data/traders.json
 tarkov-tools/*
 !public/manifest.json
 all-en.json
