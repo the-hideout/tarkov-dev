@@ -26,9 +26,17 @@ const getQuestList = (questList, t) => {
                         >
                             <td>
                                 <a
+                                    className = "quest-name-wrapper"
                                     href = {`https://tarkovtracker.io/quest/${questData.id}/`}
                                 >
-                                    {questData.name}
+                                    <img
+                                        className = 'quest-giver-image'
+                                        src={`${ process.env.PUBLIC_URL }/images/${questData.giver.locale.en.toLowerCase()}-icon.jpg`}
+                                        alt={questData.giver.locale.en}
+                                    />
+                                    <div>
+                                        {questData.name}
+                                    </div>
                                 </a>
                             </td>
                             <td>
