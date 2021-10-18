@@ -107,6 +107,8 @@ function Item() {
                     return false;
                 }
 
+                questData.objectives = questData.objectives.filter(({ targetId }) => targetId === currentItemData?.id)
+
                 questData.objectives.forEach(objectiveData => {
                     if (objectiveData.targetId === currentItemData?.id) {
                         objectiveData.iconLink = currentItemData.iconLink;
