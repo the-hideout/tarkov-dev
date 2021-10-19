@@ -25,6 +25,9 @@ jobs:
     - name: Install
       run: npm ci
 
+    - name: Get files needed
+      run: npm run prebuild
+
     - name: Test
       run: npm run test
 
