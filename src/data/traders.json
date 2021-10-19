@@ -1,0 +1,307 @@
+{
+    "prapor": {
+        "id": 0,
+        "name": "Pavel Yegorovich Romanenko",
+        "locale": {
+            "en": "Prapor"
+        },
+        "wiki": "https://escapefromtarkov.gamepedia.com/Prapor",
+        "description": "Warrant officer in charge of supply warehouses on the sustaining base for the Internal Troops enforcing the Norvinsk region blockade. During the Contract Wars he secretly supplied the BEAR PMC operators with weapons, ammunition, and various other provisions he had at his disposal.",
+        "currencies": [
+            "RUB"
+        ],
+        "salesCurrency": "RUB",
+        "loyalty": [
+            {
+                "level": 1,
+                "requiredLevel": 1,
+                "requiredReputation": 0,
+                "requiredSales": 0
+            },
+            {
+                "level": 2,
+                "requiredLevel": 15,
+                "requiredReputation": 0.2,
+                "requiredSales": 750000
+            },
+            {
+                "level": 3,
+                "requiredLevel": 26,
+                "requiredReputation": 0.35,
+                "requiredSales": 1500000
+            },
+            {
+                "level": 4,
+                "requiredLevel": 36,
+                "requiredReputation": 0.5,
+                "requiredSales": 2300000
+            }
+        ]
+    },
+    "therapist": {
+        "id": 1,
+        "name": "Elvira Khabibullina",
+        "locale": {
+            "en": "Therapist"
+        },
+        "wiki": "https://escapefromtarkov.gamepedia.com/Therapist",
+        "description": "Head of the Trauma Care Department of the Tarkov Central City Hospital.",
+        "currencies": [
+            "RUB",
+            "EUR"
+        ],
+        "salesCurrency": "RUB",
+        "loyalty": [
+            {
+                "level": 1,
+                "requiredLevel": 1,
+                "requiredReputation": 0,
+                "requiredSales": 0
+            },
+            {
+                "level": 2,
+                "requiredLevel": 13,
+                "requiredReputation": 0.15,
+                "requiredSales": 400000
+            },
+            {
+                "level": 3,
+                "requiredLevel": 24,
+                "requiredReputation": 0.3,
+                "requiredSales": 700000
+            },
+            {
+                "level": 4,
+                "requiredLevel": 35,
+                "requiredReputation": 0.6,
+                "requiredSales": 900000
+            }
+        ]
+    },
+    "skier": {
+        "id": 2,
+        "name": "Alexander Fyodorovich Kiselyov",
+        "locale": {
+            "en": "Skier"
+        },
+        "wiki": "https://escapefromtarkov.gamepedia.com/Skier",
+        "description": "Port zone customs terminal employee. Initially dealing in the terminal's goods, over the course of conflict put together a gang to grab everything he could put his hands on in the vicinity of the terminal.",
+        "currencies": [
+            "RUB",
+            "USD",
+            "EUR"
+        ],
+        "salesCurrency": "RUB",
+        "loyalty": [
+            {
+                "level": 1,
+                "requiredLevel": 1,
+                "requiredReputation": 0,
+                "requiredSales": 0
+            },
+            {
+                "level": 2,
+                "requiredLevel": 15,
+                "requiredReputation": 0.2,
+                "requiredSales": 800000
+            },
+            {
+                "level": 3,
+                "requiredLevel": 28,
+                "requiredReputation": 0.4,
+                "requiredSales": 1600000
+            },
+            {
+                "level": 4,
+                "requiredLevel": 38,
+                "requiredReputation": 0.75,
+                "requiredSales": 2600000
+            }
+        ]
+    },
+    "peacekeeper": {
+        "id": 3,
+        "name": "Tadeusz Pilsudski",
+        "locale": {
+            "en": "Peacekeeper"
+        },
+        "wiki": "https://escapefromtarkov.gamepedia.com/Peacekeeper",
+        "description": "UN peacekeeping force supplies officer, based in one of the central checkpoints leading to the Tarkov port zone. The blue helmets have been venturing into small deals from the very beginning, buying everything of value in exchange for western weapons, ammo and some kinds of military equipment.",
+        "currencies": [
+            "USD"
+        ],
+        "salesCurrency": "USD",
+        "loyalty": [
+            {
+                "level": 1,
+                "requiredLevel": 1,
+                "requiredReputation": 0,
+                "requiredSales": 0
+            },
+            {
+                "level": 2,
+                "requiredLevel": 14,
+                "requiredReputation": 0,
+                "requiredSales": 11000
+            },
+            {
+                "level": 3,
+                "requiredLevel": 23,
+                "requiredReputation": 0.3,
+                "requiredSales": 25000
+            },
+            {
+                "level": 4,
+                "requiredLevel": 37,
+                "requiredReputation": 0.6,
+                "requiredSales": 32000
+            }
+        ]
+    },
+    "mechanic": {
+        "id": 4,
+        "name": "Sergey Arsenyevich Samoylov",
+        "locale": {
+            "en": "Mechanic"
+        },
+        "wiki": "https://escapefromtarkov.gamepedia.com/Mechanic",
+        "description": "Chemical plant foreman before conflict, from its very beginning he took to weapon modification works and repairs and maintenance of complex equipment and tech. He prefers clandestine solo living and operates discreetly, placing complicated and challenging tasks above everything.",
+        "currencies": [
+            "EUR",
+            "RUB",
+            "BTC"
+        ],
+        "salesCurrency": "RUB",
+        "loyalty": [
+            {
+                "level": 1,
+                "requiredLevel": 1,
+                "requiredReputation": 0,
+                "requiredSales": 0
+            },
+            {
+                "level": 2,
+                "requiredLevel": 20,
+                "requiredReputation": 0.15,
+                "requiredSales": 750000
+            },
+            {
+                "level": 3,
+                "requiredLevel": 30,
+                "requiredReputation": 0.3,
+                "requiredSales": 1600000
+            },
+            {
+                "level": 4,
+                "requiredLevel": 40,
+                "requiredReputation": 0.6,
+                "requiredSales": 2500000
+            }
+        ]
+    },
+    "ragman": {
+        "id": 5,
+        "name": "Abramyan Arshavir Sarkisivich",
+        "locale": {
+            "en": "Ragman"
+        },
+        "wiki": "https://escapefromtarkov.gamepedia.com/Ragman",
+        "description": "Abramyan Arshavir Sarkisivich aka Ragman. He worked as a director in a big market located in Tarkov's suburb. Sells everything related to clothing and gear.",
+        "currencies": [
+            "RUB"
+        ],
+        "salesCurrency": "RUB",
+        "loyalty": [
+            {
+                "level": 1,
+                "requiredLevel": 1,
+                "requiredReputation": 0,
+                "requiredSales": 0
+            },
+            {
+                "level": 2,
+                "requiredLevel": 17,
+                "requiredReputation": 0,
+                "requiredSales": 750000
+            },
+            {
+                "level": 3,
+                "requiredLevel": 32,
+                "requiredReputation": 0.3,
+                "requiredSales": 1600000
+            },
+            {
+                "level": 4,
+                "requiredLevel": 42,
+                "requiredReputation": 0.6,
+                "requiredSales": 2500000
+            }
+        ]
+    },
+    "jaeger": {
+        "id": 6,
+        "name": "Ivan Egorovich Kharitonov",
+        "locale": {
+            "en": "Jaeger"
+        },
+        "wiki": "https://escapefromtarkov.gamepedia.com/Jaeger",
+        "description": "Kharitonov Ivan Egorovich aka Jaeger. He worked in the forest hunting property of the Priozersky reserve under the State Jaegers Service. Professional hunter and survival specialist. He guarded and guards, no matter what, his jaeger's ground from various aggressive individuals.",
+        "currencies": [
+            "RUB"
+        ],
+        "salesCurrency": "RUB",
+        "loyalty": [
+            {
+                "level": 1,
+                "requiredLevel": 1,
+                "requiredReputation": 0,
+                "requiredSales": 0
+            },
+            {
+                "level": 2,
+                "requiredLevel": 15,
+                "requiredReputation": 0.2,
+                "requiredSales": 750000
+            },
+            {
+                "level": 3,
+                "requiredLevel": 22,
+                "requiredReputation": 0.35,
+                "requiredSales": 1500000
+            },
+            {
+                "level": 4,
+                "requiredLevel": 33,
+                "requiredReputation": 0.5,
+                "requiredSales": 2300000
+            }
+        ]
+    },
+    "fence": {
+        "id": 7,
+        "name": "<unknown>",
+        "locale": {
+            "en": "Fence"
+        },
+        "wiki": "https://escapefromtarkov.gamepedia.com/Fence",
+        "description": "The conflict had barely started when Fence had already started setting up anonymous outlets for buying and selling goods. Keeping incognito, he nevertheless managed to put together a well-organised smuggler network operating all over Norvinsk region.",
+        "currencies": [
+            "RUB"
+        ],
+        "salesCurrency": "RUB",
+        "loyalty": [
+            {
+                "level": 1,
+                "requiredLevel": 1,
+                "requiredReputation": 0,
+                "requiredSales": 0
+            },
+            {
+                "level": 2,
+                "requiredLevel": 1,
+                "requiredReputation": 6,
+                "requiredSales": 0
+            }
+        ]
+    }
+}
