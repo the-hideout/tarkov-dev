@@ -1,0 +1,31 @@
+.quest-list table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.quest-name-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.quest-giver-image {
+    margin-right: 10px;
+    max-height: 64px;
+    max-width: 64px;
+}
+
+.quest-list tbody tr {
+    border-left: 4px solid #1b1919;
+    border-right: 4px solid #1b1919;
+}
+
+.quest-list td {
+    background-color: #292626;
+    border-top: 4px solid #1b1919;
+    border-bottom: 4px solid #1b1919;
+    padding: 5px 15px;
+}
+
+.quest-list td:first-child {
+}
+

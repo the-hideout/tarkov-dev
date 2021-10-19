@@ -3,15 +3,14 @@ const path = require('path');
 
 const got = require('got');
 
-const traders = require('../src/data/traders');
+const traders = require('../src/data/traders.json');
 
-const getTraderId = (name) => {
+const getTraderId = (id) => {
     for(const key in traders){
-        if(traders[key].name === name){
-            return traders[key].id;
+        if(traders[key].id === id){
+            return key
         }
     }
-
     return false;
 }
 

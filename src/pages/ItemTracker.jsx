@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import ItemGrid from '../components/item-grid/';
 import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
-import Traders from '../data/traders';
+import Traders from '../data/traders.json';
 import { selectAllItems, fetchItems } from '../features/items/itemsSlice';
 
 import quests from '../data/quests.json';

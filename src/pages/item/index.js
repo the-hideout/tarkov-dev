@@ -98,9 +98,25 @@ function Item() {
     const itemQuests = useMemo(() => {
         return Quests
             .filter((questData) => {
-                return questData.objectives.find((objectiveData) => {
-                    return objectiveData.targetId === currentItemData?.id;
-                });
+                const requiresItem = questData.objectives
+                    .find((objectiveData) => {
+                        return objectiveData.targetId === currentItemData?.id;
+                    });
+
+                if (!requiresItem) {
+                    return false;
+                }
+
+                questData.objectives = questData.objectives.filter(({ targetId }) => targetId === currentItemData?.id)
+
+                questData.objectives.forEach(objectiveData => {
+                    if (objectiveData.targetId === currentItemData?.id) {
+                        objectiveData.iconLink = currentItemData.iconLink;
+                        objectiveData.name = currentItemData.name;
+                    }
+                })
+
+                return true;
             });
     }, [currentItemData]);
 
