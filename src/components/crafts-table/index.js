@@ -14,7 +14,7 @@ import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSl
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
-import {selectAllStations} from '../../features/settings/settingsSlice';
+import { selectAllStations, selectAllSkills } from '../../features/settings/settingsSlice';
 import CenterCell from '../center-cell';
 
 import './index.css';
@@ -44,6 +44,7 @@ function CraftTable(props) {
     const { t } = useTranslation();
     const includeFlea = useSelector((state) => state.settings.hasFlea);
     const stations = useSelector(selectAllStations);
+    const skills = useSelector(selectAllSkills);
     // const [skippedByLevel, setSkippedByLevel] = useState(false);
     const skippedByLevelRef = useRef();
 
@@ -175,12 +176,15 @@ function CraftTable(props) {
 
             const costItems = formatCostItems(craftRow.requiredItems, barters, freeFuel, includeFlea);
 
+            // const craftDuration = Math.floor(craftRow.duration - (skills.crafting * 0.75))
+            const craftDuration = Math.floor(craftRow.duration - (craftRow.duration * (skills.crafting * 0.75)/100));
+
             costItems.map(costItem => totalCost = totalCost + costItem.price * costItem.count);
 
             const tradeData = {
                 costItems: costItems,
                 cost: totalCost,
-                craftTime: craftRow.duration,
+                craftTime: craftDuration,
                 reward: {
                     sellTo: 'Flea Market',
                     name: craftRow.rewardItems[0].item.name,
@@ -211,9 +215,9 @@ function CraftTable(props) {
                 tradeData.profit = 0;
             }
 
-            tradeData.profitPerHour = Math.floor(tradeData.profit / (craftRow.duration / 3600));
+            tradeData.profitPerHour = Math.floor(tradeData.profit / (craftDuration / 3600));
 
-            tradeData.fleaThroughput = Math.floor(craftRow.rewardItems[0].item[priceToUse] * craftRow.rewardItems[0].count / (craftRow.duration / 3600));
+            tradeData.fleaThroughput = Math.floor(craftRow.rewardItems[0].item[priceToUse] * craftRow.rewardItems[0].count / (craftDuration / 3600));
 
             // If the reward has no value, it's not available for purchase
             if(tradeData.reward.value === 0){
@@ -258,7 +262,7 @@ function CraftTable(props) {
             return true;
         });
     },
-        [nameFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter, stations]
+        [nameFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter, stations, skills.crafting]
     );
 
     const columns = useMemo(
