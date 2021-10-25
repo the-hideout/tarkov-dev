@@ -23,6 +23,7 @@ const settingsSlice = createSlice({
         'nutrition-unit': JSON.parse(localStorage.getItem('nutrition-unit')) || 3,
         'water-collector': JSON.parse(localStorage.getItem('water-collector')) || 3,
         workbench: JSON.parse(localStorage.getItem('workbench')) || 3,
+        'crafting': JSON.parse(localStorage.getItem('crafting')) || 0,
         completedQuests: [],
     },
     reducers: {
@@ -61,6 +62,12 @@ export const selectAllStations = (state) => {
         workbench: state.settings.workbench,
     };
 };
+
+export const selectAllSkills = (state) => {
+    return {
+        'crafting': state.settings['crafting']
+    }
+}
 
 export const selectCompletedQuests = (state) => {
     return state.settings.completedQuests;
