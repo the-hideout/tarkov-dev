@@ -47,7 +47,7 @@ function CraftTable(props) {
     const skills = useSelector(selectAllSkills);
     // const [skippedByLevel, setSkippedByLevel] = useState(false);
     const skippedByLevelRef = useRef();
-    const feeReduction = stations['intelligence-center'] == 3 ? 0.7 : 1;
+    const feeReduction = stations['intelligence-center'] === 3 ? 0.7 : 1;
 
     const crafts = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
@@ -263,7 +263,7 @@ function CraftTable(props) {
             return true;
         });
     },
-        [nameFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter, stations, skills.crafting]
+        [nameFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter, stations, skills.crafting, feeReduction]
     );
 
     const columns = useMemo(
