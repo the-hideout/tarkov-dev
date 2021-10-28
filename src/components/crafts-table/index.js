@@ -47,6 +47,7 @@ function CraftTable(props) {
     const skills = useSelector(selectAllSkills);
     // const [skippedByLevel, setSkippedByLevel] = useState(false);
     const skippedByLevelRef = useRef();
+    const feeReduction = stations['intelligence-center'] === 3 ? 0.7 : 1;
 
     const crafts = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
@@ -208,7 +209,7 @@ function CraftTable(props) {
 
             tradeData.profit = (tradeData.reward.value * craftRow.rewardItems[0].count) - totalCost;
             if(tradeData.reward.sellTo === 'Flea Market'){
-                tradeData.profit = tradeData.profit - fleaMarketFee(craftRow.rewardItems[0].item.basePrice, craftRow.rewardItems[0].item[priceToUse], craftRow.rewardItems[0].count);
+                tradeData.profit = tradeData.profit - (fleaMarketFee(craftRow.rewardItems[0].item.basePrice, craftRow.rewardItems[0].item[priceToUse], craftRow.rewardItems[0].count) * feeReduction);
             }
 
             if(tradeData.profit === Infinity){
@@ -262,7 +263,7 @@ function CraftTable(props) {
             return true;
         });
     },
-        [nameFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter, stations, skills.crafting]
+        [nameFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter, stations, skills.crafting, feeReduction]
     );
 
     const columns = useMemo(
