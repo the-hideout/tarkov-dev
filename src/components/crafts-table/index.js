@@ -25,7 +25,15 @@ const priceToUse = 'lastLowPrice';
 dayjs.extend(duration);
 
 function getDurationDisplay(time) {
-    let format = 'mm[m]';
+    let format = '';
+
+    if(dayjs.duration(time).seconds() > 0){
+        format = `s[s] ${format}`;
+    }
+
+    if(dayjs.duration(time).minutes() > 0){
+        format = `mm[m] ${format}`;
+    }
 
     if(dayjs.duration(time).hours() > 0){
         format = `H[h] ${format}`;
@@ -177,7 +185,6 @@ function CraftTable(props) {
 
             const costItems = formatCostItems(craftRow.requiredItems, barters, freeFuel, includeFlea);
 
-            // const craftDuration = Math.floor(craftRow.duration - (skills.crafting * 0.75))
             const craftDuration = Math.floor(craftRow.duration - (craftRow.duration * (skills.crafting * 0.75)/100));
 
             costItems.map(costItem => totalCost = totalCost + costItem.price * costItem.count);
@@ -263,7 +270,7 @@ function CraftTable(props) {
             return true;
         });
     },
-        [nameFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter, stations, skills.crafting, feeReduction]
+        [nameFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter, stations, skills, feeReduction]
     );
 
     const columns = useMemo(
