@@ -19,6 +19,7 @@ import ErrorPage from '../../components/error-page';
 import Loading from '../../components/loading';
 import LoyaltyLevelIcon from '../../components/loyalty-level-icon';
 import PropertyList from '../../components/property-list';
+import ItemsForHideout from '../../components/items-for-hideout';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
@@ -388,6 +389,16 @@ function Item() {
                     </h2>
                     <Suspense fallback={<div>Loading...</div>}>
                         <CraftsTable
+                            itemFilter = {currentItemData.id}
+                        />
+                    </Suspense>
+                </div>
+                <div>
+                    <h2>
+                        Hideout modules needing {currentItemData.name}
+                    </h2>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <ItemsForHideout
                             itemFilter = {currentItemData.id}
                         />
                     </Suspense>
