@@ -103,7 +103,7 @@ function SmallItemTable(props) {
             const fuse = new Fuse(returnData, options);
             const result = fuse.search(nameFilter);
 
-              returnData = result.sort((a, b) => b.score - a.score).map(resultObject => resultObject.item);
+            returnData = result.sort((a, b) => a.score - b.score).map(resultObject => resultObject.item);
         }
 
         if(defaultRandom && !nameFilter){
