@@ -98,10 +98,10 @@ function SmallItemTable(props) {
             const options = {
                 includeScore: true,
                 keys: ['shortName', 'name'],
-              }
+            }
 
-              const fuse = new Fuse(returnData, options);
-              const result = fuse.search(nameFilter);
+            const fuse = new Fuse(returnData, options);
+            const result = fuse.search(nameFilter);
 
               returnData = result.sort((a, b) => b.score - a.score).map(resultObject => resultObject.item);
         }
