@@ -3,7 +3,6 @@
     width: 100%;
 }
 
-
 .hideout-item-list-row {
     border-left: 4px solid #1b1919;
     border-right: 4px solid #1b1919;
@@ -22,7 +21,7 @@
 
 .hideout-item-wrapper {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     margin-bottom: 5px;
 }
 
