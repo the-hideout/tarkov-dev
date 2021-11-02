@@ -23,8 +23,7 @@ const settingsSlice = createSlice({
         'nutrition-unit': JSON.parse(localStorage.getItem('nutrition-unit')) || 3,
         'water-collector': JSON.parse(localStorage.getItem('water-collector')) || 3,
         workbench: JSON.parse(localStorage.getItem('workbench')) || 3,
-        crafting: JSON.parse(localStorage.getItem('crafting')) || 0,
-        'hideout-managment': JSON.parse(localStorage.getItem('hideout-managment')) || 0,
+        'crafting': JSON.parse(localStorage.getItem('crafting')) || 0,
         completedQuests: [],
     },
     reducers: {
@@ -66,8 +65,7 @@ export const selectAllStations = (state) => {
 
 export const selectAllSkills = (state) => {
     return {
-        crafting: state.settings.crafting,
-        'hideout-managment': state.settings['hideout-managment']
+        'crafting': state.settings['crafting']
     }
 }
 
