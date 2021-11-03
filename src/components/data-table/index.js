@@ -9,9 +9,9 @@ import './index.css';
 function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, className, maxItems, extraRow }) {
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
-    
+
     const storageKey = columns.map(({ Header }) => Header).join(',');
-    const [ initialSortBy, setSortBy ] = useStateWithLocalStorage(storageKey, [{id: sortBy, desc: sortByDesc}]);
+    const [ initialSortBy, setSortBy ] = useStateWithLocalStorage(storageKey, []);
 
     const {
         getTableProps,
@@ -20,7 +20,9 @@ function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, classNa
         page,
         rows,
         prepareRow,
-        state: { sortBy: sortByState } = {},
+        state: {
+            sortBy: sortByState,
+        } = {},
     } = useTable({
         columns,
         data,
@@ -32,7 +34,7 @@ function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, classNa
     }, useSortBy, useExpanded, usePagination);
 
     useEffect(() => {
-        setSortBy(sortByState)
+        setSortBy(sortByState);
     });
 
     const getRows = () => {
