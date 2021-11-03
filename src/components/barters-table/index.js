@@ -197,7 +197,7 @@ function BartersTable(props) {
                 return false;
 		    }
 
-            const costItems = formatCostItems(barterRow.requiredItems, barters, false, includeFlea);
+            const costItems = formatCostItems(barterRow.requiredItems, 1, barters, false, includeFlea);
             costItems.map(costItem => cost = cost + costItem.price * costItem.count);
 
             const bestSellTo = barterRow.rewardItems[0].item.sellFor.reduce((previousSellForObject, sellForObject) => {
