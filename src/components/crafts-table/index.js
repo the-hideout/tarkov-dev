@@ -25,7 +25,15 @@ const priceToUse = 'lastLowPrice';
 dayjs.extend(duration);
 
 function getDurationDisplay(time) {
-    let format = 'mm[m]';
+    let format = '';
+
+    if(dayjs.duration(time).seconds() > 0){
+        format = `s[s] ${format}`;
+    }
+
+    if(dayjs.duration(time).minutes() > 0){
+        format = `mm[m] ${format}`;
+    }
 
     if(dayjs.duration(time).hours() > 0){
         format = `H[h] ${format}`;
