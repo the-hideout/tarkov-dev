@@ -89,7 +89,7 @@ function getCheapestItemPrice(item, barters, useFlea = true) {
     return bestPrice;
 };
 
-const formatCostItems = (itemsList, barters, freeFuel = false, useFlea = true) => {
+const formatCostItems = (itemsList, hidMan, barters, freeFuel = false, useFlea = true) => {
     return itemsList.map(requiredItem => {
         let bestPrice = getCheapestItemPrice(requiredItem.item, barters, useFlea);
         let calculationPrice = bestPrice.price;
@@ -100,7 +100,7 @@ const formatCostItems = (itemsList, barters, freeFuel = false, useFlea = true) =
 
         return {
             id: requiredItem.item.id,
-            count: requiredItem.count,
+            count: requiredItem.count === 0.66 ? (requiredItem.count - (requiredItem.count *(hidMan*0.5)/100)).toFixed(2) : requiredItem.count,
             name: requiredItem.item.name,
             price: calculationPrice,
             priceSource: bestPrice.source,

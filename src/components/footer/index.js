@@ -115,6 +115,10 @@ function Footer() {
                 name = {'Akiyamov'}
                 github
             />
+            <Supporter
+                name = {'tiddle'}
+                github
+            />
         </div>
         <div
             className = 'footer-section-wrapper'
