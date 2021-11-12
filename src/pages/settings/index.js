@@ -25,7 +25,6 @@ function Settings() {
     const allSkills = useSelector(selectAllSkills);
     const hasFlea = useSelector((state) => state.settings.hasFlea);
 
-
     return <div
         className = {'page-wrapper'}
     >
@@ -38,7 +37,7 @@ function Settings() {
             <div
                 className = 'toggle-wrapper'
             >
-                <span 
+                <span
                     className = 'toggle-label'
                 >
                     {t('Has flea')}
@@ -74,7 +73,18 @@ function Settings() {
                         label: '4',
                     },
                 ];
-                
+
+                if(traderKey === 'jaeger'){
+                    selectOptions.unshift({
+                        value: 0,
+                        label: 'Locked',
+                    });
+                }
+
+                const selectedOption = selectOptions.find((selectOption) => {
+                    return selectOption.value === allTraders[traderKey];
+                });
+
                 return <Tippy
                     key = {`${traderKey}-level`}
                     placement = 'top'
@@ -88,7 +98,7 @@ function Settings() {
                             src = {`${process.env.PUBLIC_URL}/images/${traderKey}-icon.jpg`}
                         />
                         <Select
-                            defaultValue = {selectOptions[allTraders[traderKey] -1]}
+                            defaultValue = {selectedOption}
                             name = "colors"
                             options = {selectOptions}
                             className = "basic-multi-select"
@@ -113,11 +123,11 @@ function Settings() {
             {Object.keys(allStations).map((stationKey) => {
                 let selectOptions = [
                     {
-                        value: 0, 
+                        value: 0,
                         label: '0'
                     },
                     {
-                        value: 1, 
+                        value: 1,
                         label: '1'
                     },
                     {

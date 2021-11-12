@@ -15,7 +15,7 @@ const settingsSlice = createSlice({
         peacekeeper: JSON.parse(localStorage.getItem('peacekeeper')) || 4,
         mechanic: JSON.parse(localStorage.getItem('mechanic')) || 4,
         ragman: JSON.parse(localStorage.getItem('ragman')) || 4,
-        jaeger: JSON.parse(localStorage.getItem('jaeger')) || 4,
+        jaeger: Number.isInteger(JSON.parse(localStorage.getItem('jaeger'))) ? JSON.parse(localStorage.getItem('jaeger')) : 4,
         'booze-generator': JSON.parse(localStorage.getItem('booze-generator')) || 1,
         'intelligence-center': JSON.parse(localStorage.getItem('intelligence-center')) || 3,
         lavatory: JSON.parse(localStorage.getItem('lavatory')) || 3,
