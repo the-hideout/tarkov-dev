@@ -55,7 +55,7 @@ function Settings() {
                 {t('Traders')}
             </h2>
             {Object.keys(allTraders).map((traderKey) => {
-                const selectOptions = [
+                let selectOptions = [
                     {
                         value: 1,
                         label: '1',
@@ -79,6 +79,14 @@ function Settings() {
                         value: 0,
                         label: 'Locked',
                     });
+                }
+
+                if(traderKey === 'fence'){
+                    selectOptions.unshift({
+                        value: 0,
+                        label: '0',
+                    });
+                    selectOptions = [...selectOptions.slice(0,2)]
                 }
 
                 const selectedOption = selectOptions.find((selectOption) => {
@@ -124,7 +132,7 @@ function Settings() {
                 let selectOptions = [
                     {
                         value: 0,
-                        label: '0'
+                        label: 'Not built'
                     },
                     {
                         value: 1,
@@ -140,7 +148,7 @@ function Settings() {
                     },
                 ];
 
-                if(stationKey === 'boozeGenerator' || stationKey === 'waterCollector'){
+                if(stationKey === 'booze-generator'){
                     selectOptions = [...selectOptions.slice(0, 2)];
                 }
 
