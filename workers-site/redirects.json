@@ -1462,5 +1462,6 @@
     "/item/16-pcs-9x18-pm-ps-gs-ppo-ammo-box": "/item/9x18pm-ps-gs-ppo-16-pcs-ammo-pack",
     "/item/20-pcs-pack-556x45-warmage-ammo": "/item/556x45-warmageddon-20-pcs-ammo-pack",
     "/item/8-pcs-pack-of-9x39-7n9-spp-ammo": "/item/9x39-spp-8-pcs-ammo-pack",
-    "/item/20-pcs-9x19-mm-dipp-ammo-box": "/item/9x19mm-rip-20-round-ammo-box"
+    "/item/20-pcs-9x19-mm-dipp-ammo-box": "/item/9x19mm-rip-20-round-ammo-box",
+    "/item/bp-gs": "/item/545x39-bs-gs-120-pcs-ammo-pack"
 }
