@@ -10,7 +10,7 @@ const settingsSlice = createSlice({
         tarkovTrackerAPIKey: JSON.parse(localStorage.getItem('tarkovTrackerAPIKey')) || false,
         prapor: JSON.parse(localStorage.getItem('prapor')) || 4,
         therapist: JSON.parse(localStorage.getItem('therapist')) || 4,
-        fence: JSON.parse(localStorage.getItem('fence')) || 4,
+        fence: JSON.parse(localStorage.getItem('fence')) || 0,
         skier: JSON.parse(localStorage.getItem('skier')) || 4,
         peacekeeper: JSON.parse(localStorage.getItem('peacekeeper')) || 4,
         mechanic: JSON.parse(localStorage.getItem('mechanic')) || 4,
@@ -23,7 +23,7 @@ const settingsSlice = createSlice({
         'nutrition-unit': JSON.parse(localStorage.getItem('nutrition-unit')) || 3,
         'water-collector': JSON.parse(localStorage.getItem('water-collector')) || 3,
         workbench: JSON.parse(localStorage.getItem('workbench')) || 3,
-        'crafting': JSON.parse(localStorage.getItem('crafting')) || 0,
+        crafting: JSON.parse(localStorage.getItem('crafting')) || 0,
         'hideout-managment': JSON.parse(localStorage.getItem('hideout-managment')) || 0,
         completedQuests: [],
     },
@@ -66,7 +66,7 @@ export const selectAllStations = (state) => {
 
 export const selectAllSkills = (state) => {
     return {
-        'crafting': state.settings['crafting'],
+        crafting: state.settings.crafting,
         'hideout-managment': state.settings['hideout-managment']
     }
 }
