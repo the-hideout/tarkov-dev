@@ -3,7 +3,7 @@
   "version": "2.0.2",
   "private": true,
   "dependencies": {
-    "@cloudflare/kv-asset-handler": "^0.1.0",
+    "@cloudflare/kv-asset-handler": "^0.2.0",
     "@mdi/js": "^6.1.95",
     "@mdi/react": "^1.4.0",
     "@reduxjs/toolkit": "^1.5.1",
