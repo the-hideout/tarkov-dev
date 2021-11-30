@@ -289,15 +289,19 @@ function Ammo() {
         >
             {`Ammo updated: ${new Date(rawData.updated).toLocaleDateString()}`}
         </div>,
-        <Graph
-            key = 'ammo-graph'
-            listState = {listState}
-            legendData = {legendData}
-            selectedLegendName = {selectedLegendName}
-            handleLegendClick = {handleLegendClick}
-            xMax = {MAX_DAMAGE}
-            yMax = {MAX_PENETRATION}
-        />,
+        <div
+            className = 'page-wrapper'
+            key = 'ammo-graph-wrapper'
+        >
+            <Graph
+                listState = {listState}
+                legendData = {legendData}
+                selectedLegendName = {selectedLegendName}
+                handleLegendClick = {handleLegendClick}
+                xMax = {MAX_DAMAGE}
+                yMax = {MAX_PENETRATION}
+            />
+        </div>,
         <DataTable
             columns = {columns}
             key = 'ammo-table'
