@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import {Redirect} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 
 import shapes from './points';
 
@@ -17,7 +17,7 @@ class Symbol extends Component {
             if(this.props.link === false){
                 return true;
             }
-            
+
             this.setState({
                 redirect: true
             });
@@ -26,15 +26,15 @@ class Symbol extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect 
-                push 
+            return <Navigate
+                replace
                 to = {`/item/${this.props.datum.id}`}
             />;
         }
 
         const {x, y, datum} = this.props;
         const PointComponent = shapes[datum.symbol.type];
-        
+
         return (
             <PointComponent
                 onClick = {this.handleOnClick}
@@ -46,5 +46,5 @@ class Symbol extends Component {
             />
         );
     }
-} 
+}
 export default Symbol;

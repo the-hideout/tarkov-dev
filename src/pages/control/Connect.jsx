@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 import { useState, useRef } from 'react';
 import {
-    useHistory
+    useNavigate
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {enableConnection, setControlId} from '../../features/sockets/socketsSlice';
@@ -9,7 +9,7 @@ import {enableConnection, setControlId} from '../../features/sockets/socketsSlic
  function Connect() {
     const [connectionText, setConnectionText] = useState('Connect');
     const controlId = useSelector(state => state.sockets.controlId);
-    let history = useHistory();
+    let navigate = useNavigate();
     const inputRef = useRef(null);
     const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ import {enableConnection, setControlId} from '../../features/sockets/socketsSlic
         setConnectionText(`Connected to ${controlId}`);
         dispatch(enableConnection());
 
-        history.push(`/control/`);
+        navigate(`/control/`);
     };
 
     return <div

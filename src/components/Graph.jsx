@@ -12,7 +12,7 @@ import {
     // VictoryVoronoiContainer,
     VictoryContainer,
 } from 'victory';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import Symbol from './Symbol.jsx';
 // import GraphLabel from './GraphLabel';
@@ -146,8 +146,8 @@ const getArmorLabel = (tier, yMax, xMax) => {
 };
 
 const Graph = props => {
-    const history = useHistory();
-    const handleOnClick = (id) => history.push(`/item/${id.toString()}`);
+    const navigate = useNavigate();
+    const handleOnClick = (id) => navigate(`/item/${id.toString()}`);
 
     return (
         <VictoryChart

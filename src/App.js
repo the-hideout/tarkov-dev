@@ -1,10 +1,9 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useCallback, Suspense } from 'react';
 import {
-    Switch,
+    Routes,
     Route,
-    useHistory,
-    Redirect,
+    useNavigate,
 } from "react-router-dom";
 import {Helmet} from "react-helmet";
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +19,7 @@ import {setConnectionStatus, enableConnection} from './features/sockets/socketsS
 
 import Debug from './components/Debug';
 
-import rawMapData from './data/maps.json';
+// import rawMapData from './data/maps.json';
 import useStateWithLocalStorage from './hooks/useStateWithLocalStorage';
 
 import Ammo from './pages/ammo';
@@ -56,7 +55,7 @@ function App() {
     const [sessionID] = useStateWithLocalStorage('sessionId', makeID(4));
     const socketEnabled = useSelector(state => state.sockets.enabled);
     const controlId = useSelector(state => state.sockets.controlId);
-    let history = useHistory();
+    let navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -67,7 +66,7 @@ function App() {
                 return false;
             }
 
-            history.push(`/${message.data.type}/${message.data.value}`);
+            navigate(`/${message.data.type}/${message.data.value}`);
         };
 
         const connect = function connect(){
@@ -139,7 +138,7 @@ function App() {
         return () => {
             // socket.terminate();
         };
-    }, [socketEnabled, sessionID, history, dispatch]);
+    }, [socketEnabled, sessionID, navigate, dispatch]);
 
     const send = useCallback((messageData) => {
         if(socket.readyState !== 1){
@@ -174,279 +173,390 @@ return (
     </Helmet>
     <Menu />
     {/* <Suspense fallback={<Loading />}> */}
-        <Switch>
+        <Routes>
             <Route
-                exact
-                strict
-                sensitive
-                path={rawMapData.map((mapData) => {
-                    return `/map/${mapData.key.toUpperCase()}`;
-                })}
-                render = { props => {
-                    const path = props.location.pathname;
-                    return <Redirect to={`${path.toLowerCase()}`} />
-                }}
+                path={'/'}
+                element = {[
+                    <Start
+                        key = 'start-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />]
+                }
             />
             <Route
-                exact
-                path={['/tarkov-tools', ""]}
-            >
-                <Start />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                path={'/tarkov-tools'}
+                element = {[
+                    <Start
+                        key = 'start-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />]
+                }
+            />
             <Route
-                exact
-                path={["/ammo/:currentAmmo", "/ammo",]}
-            >
-                <div
-                    className="display-wrapper"
-                >
-                    <Helmet>
-                        <meta charSet="utf-8" />
-                        <title>Tarkov Ammo Chart</title>
-                        <meta
-                            name="description"
-                            content="Visualization of all ammo types in Escape from Tarkov"
-                        />
-                    </Helmet>
-                    <Ammo />
-                </div>
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                path={"/ammo"}
+                element = {[
+                    <div
+                        className="display-wrapper"
+                        key = 'ammo-wrapper'
+                    >
+                        <Helmet>
+                            <meta charSet="utf-8" />
+                            <title>Tarkov Ammo Chart</title>
+                            <meta
+                                name="description"
+                                content="Visualization of all ammo types in Escape from Tarkov"
+                            />
+                        </Helmet>
+                        <Ammo />
+                    </div>,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
+                path={"/ammo/:currentAmmo"}
+                element = {[
+                    <div
+                        className="display-wrapper"
+                        key = 'ammo-wrapper'
+                    >
+                        <Helmet>
+                            <meta charSet="utf-8" />
+                            <title>Tarkov Ammo Chart</title>
+                            <meta
+                                name="description"
+                                content="Visualization of all ammo types in Escape from Tarkov"
+                            />
+                        </Helmet>
+                        <Ammo />
+                    </div>,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
                 path={'/maps/'}
-            >
-                <Maps />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <Maps
+                        key = 'maps-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
                 path="/map/:currentMap"
-            >
-                <div
-                    className="display-wrapper"
-                >
-                    <Map />
-                </div>
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <div
+                        className="display-wrapper"
+                        key = 'map-wrapper'
+                    >
+                        <Map />
+                    </div>,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
-                path={["/barter", "/loot-tier/:currentLoot", "/loot-tier"]}
-            >
-                <LootTier
-                    sessionID = {sessionID}
-                />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                path={"/barter"}
+                element = {[
+                    <LootTier
+                        sessionID = {sessionID}
+                        key = 'loot-tier-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
+                path={"/loot-tier/:currentLoot"}
+                element = {[
+                    <LootTier
+                        sessionID = {sessionID}
+                        key = 'loot-tier-wrapper'
+                    />,
+                    <ID
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={"/loot-tier"}
+                element = {[
+                    <LootTier
+                        sessionID = {sessionID}
+                        key = 'loot-tier-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
                 path={'/barters/'}
-            >
-                <Barters />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <Barters
+                        key = 'barters-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
                 path={'/gear/'}
-            >
-                <Guides />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <Guides
+                        key = 'gear-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
                 path="/gear/helmets"
-            >
-                <Helmets
-                    sessionID = {sessionID}
-                />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <Helmets
+                        sessionID = {sessionID}
+                        key = 'helmets-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+
             <Route
                 path="/gear/glasses"
-            >
-                <Glasses
-                    sessionID = {sessionID}
-                />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <Glasses
+                        sessionID = {sessionID}
+                        key = 'glasses-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
                 path={'/gear/armor'}
-            >
-                <Armor
-                    sessionID = {sessionID}
-                />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <Armor
+                        sessionID = {sessionID}
+                        key = 'armor-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
                 path={'/gear/backpacks'}
-            >
-                <Backpacks
-                    sessionID = {sessionID}
-                />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <Backpacks
+                        sessionID = {sessionID}
+                        key = 'backpacks-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
                 path={'/gear/rigs'}
-            >
-                <Rigs
-                    sessionID = {sessionID}
-                />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <Rigs
+                        sessionID = {sessionID}
+                        key = 'rigs-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
                 path={'/gear/suppressors'}
-            >
-                <Suppressors
-                    sessionID = {sessionID}
-                />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <Suppressors
+                        sessionID = {sessionID}
+                        key = 'suppressors-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
                 path={'/hideout-profit/'}
-            >
-                <Crafts />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <Crafts
+                        key = 'hideout-profit-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
                 path={'/item-tracker/'}
-            >
-                <ItemTracker />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <ItemTracker
+                        key = 'item-tracker-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
                 path={'/item/:itemName'}
-            >
-                <Item
-                    sessionID = {sessionID}
-                />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <Item
+                        sessionID = {sessionID}
+                        key = 'specific-item-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
                 path={'/debug/'}
-            >
-                <Debug />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <Debug
+                        key = 'debug-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
                 path={'/about/'}
-            >
-                <About />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <About
+                        key = 'about-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
                 path={'/api/'}
-            >
-                <Suspense fallback={<Loading />}>
-                    <APIDocs />
-                </Suspense>
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <Suspense
+                        fallback={<Loading />}
+                        key = 'api-docs-wrapper'
+                    >
+                        <APIDocs />
+                    </Suspense>,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
                 path={'/settings/'}
-            >
-                <Settings />
-                <ID
-                    sessionID = {sessionID}
-                    socketEnabled = {socketEnabled}
-                    onClick = {e => dispatch(enableConnection())}
-                />
-            </Route>
+                element = {[
+                    <Settings
+                        key = 'settings-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
             <Route
-                exact
                 path={'/control'}
-            >
-                <Control
-                    send = {send}
-                />
-            </Route>
-        </Switch>
+                element = {[
+                    <Control
+                        send = {send}
+                    />
+                ]}
+            />
+        </Routes>
     {/* </Suspense> */}
     <Footer />
     </div>);

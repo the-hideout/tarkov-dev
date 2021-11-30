@@ -2,7 +2,7 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import {
     useParams,
-    useHistory,
+    useNavigate,
 } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
@@ -71,7 +71,7 @@ function Ammo() {
     if(currentAmmo){
         currentAmmoList = currentAmmo.split(',');
     }
-    const history = useHistory();
+    const navigate = useNavigate();
     const [selectedLegendName, setSelectedLegendName] = useState(currentAmmoList);
     const shiftPress = useKeyPress('Shift');
     const { t } = useTranslation();
@@ -159,9 +159,9 @@ function Ammo() {
         }
 
         setSelectedLegendName(newSelectedAmmo);
-        history.push(`/ammo/${newSelectedAmmo.join(',')}`);
+        navigate(`/ammo/${newSelectedAmmo.join(',')}`);
 
-    }, [selectedLegendName, setSelectedLegendName, history]);
+    }, [selectedLegendName, setSelectedLegendName, navigate]);
 
     const traderPriceSort = useMemo(() => (a, b) => {
         if(!a.original.trader){

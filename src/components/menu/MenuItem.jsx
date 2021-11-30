@@ -1,12 +1,12 @@
 import {useState, useEffect} from 'react';
 import {
     Link,
-    useHistory,
-    useRouteMatch,
+    useNavigate,
+    useMatch,
 } from "react-router-dom";
 
 function MenuItem(props) {
-    const routeMatch = useRouteMatch('/ammo/:currentAmmo');
+    const routeMatch = useMatch('/ammo/:currentAmmo');
     let currentAmmo = '';
     if(routeMatch){
         currentAmmo = routeMatch.params.currentAmmo;
@@ -17,7 +17,7 @@ function MenuItem(props) {
     }
 
     const [checked, setChecked] = useState(ammoTypes.includes(props.displayText));
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         setChecked(event.currentTarget.checked);
@@ -29,7 +29,7 @@ function MenuItem(props) {
             ammoTypes.sort();
         }
 
-        history.push(`${props.prefix}/${ammoTypes.filter(Boolean).join(',')}`);
+        navigate(`${props.prefix}/${ammoTypes.filter(Boolean).join(',')}`);
     };
 
     useEffect(() => {

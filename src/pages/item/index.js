@@ -2,7 +2,7 @@ import React, { Suspense, useMemo, useEffect } from 'react';
 import {Helmet} from 'react-helmet';
 import {
     useParams,
-    Redirect
+    Navigate,
 } from "react-router-dom";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -122,7 +122,10 @@ function Item() {
     }, [currentItemData]);
 
     if(redirect){
-        return <Redirect to={`/item/${currentItemData.normalizedName}`} />;
+        return <Navigate
+            to={`/item/${currentItemData.normalizedName}`}
+            replace
+        />;
     }
 
     if(!currentItemData && (itemStatus === 'idle' || itemStatus === 'loading')){
