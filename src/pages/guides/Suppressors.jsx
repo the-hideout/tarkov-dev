@@ -71,7 +71,7 @@ function Suppressors(props) {
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
-    const selectInputRef = useRef();
+    const selectInputRef = useRef(null);
 
     useEffect(() => {
         let timer = false;
@@ -241,7 +241,7 @@ function Suppressors(props) {
             {selectedGun && <img
                 alt = {`${selectedGun.name}-icon`}
                 onClick = {() => {
-                    selectInputRef.current?.select.clearValue();
+                    selectInputRef.current?.clearValue();
                     setSelectedGun(false);
                 }}
                 src = {selectedGun.iconLink}
