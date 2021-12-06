@@ -7,13 +7,6 @@ export const QuestObjective = {
   Kill: 'Kill',
 };
 
-export const Maps = {
-  Shorline: {
-    id: 'Shorline',
-    name: 'Shorline',
-  },
-};
-
 export const Quests = rawData.data.map((questData) => {
   return {
     id: questData.questId,
