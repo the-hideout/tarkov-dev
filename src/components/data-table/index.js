@@ -11,7 +11,7 @@ function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraR
     // const [data, setData] = React.useState([])
 
     const storageKey = columns.map(({ Header }) => {
-        if(!Header){
+        if(!Header || typeof Header !== 'string'){
             return '';
         }
 
