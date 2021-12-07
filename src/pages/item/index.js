@@ -270,7 +270,7 @@ function Item() {
                                 </div>
                             </div>
                         </div>
-                        {currentItemData.traderPrices.length > 0 &&
+                        {currentItemData.traderPrices && currentItemData.traderPrices.length > 0 &&
                             <div
                                 className = {`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''} first-trader-price`}
                             >
@@ -288,7 +288,7 @@ function Item() {
                                 </div>
                             </div>
                         }
-                        {currentItemData.traderPrices.map((traderPrice) => {
+                        {currentItemData.traderPrices && currentItemData.traderPrices.map((traderPrice) => {
                             const traderName = traderPrice.trader.toLowerCase();
 
                             return <div
@@ -318,7 +318,7 @@ function Item() {
                         })}
                         </div>
                     </div>
-                    {currentItemData.buyFor.length > 0 && <div>
+                    {currentItemData.buyFor && currentItemData.buyFor.length > 0 && <div>
                         <h2>
                             Buy for
                         </h2>
