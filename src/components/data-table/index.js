@@ -44,7 +44,8 @@ function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraR
         if(nameFilter && sortByState[0]?.id === 'name'){
             setSortBy([]);
         }
-    }, [nameFilter, setSortBy, sortByState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [nameFilter]);
 
     const getRows = () => {
         let rowContainer = rows;
