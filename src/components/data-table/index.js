@@ -11,6 +11,10 @@ function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraR
     // const [data, setData] = React.useState([])
 
     const storageKey = columns.map(({ Header }) => {
+        if(!Header){
+            return '';
+        }
+
         return Header.toLowerCase().replace(/\s/, '-').replace(/[^a-z-]/g, '');
     }).join(',');
     const [ initialSortBy, storageSetSortBy ] = useStateWithLocalStorage(storageKey, []);
