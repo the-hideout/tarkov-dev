@@ -275,7 +275,7 @@ function Helmets(props) {
             effectiveDurability: Math.floor(item.itemProperties.MaxDurability / materialDestructabilityMap[item.itemProperties.ArmorMaterial]),
             stats: getStatsString(item.itemProperties),
             price: formatPrice(item.avg24hPrice),
-            image: `https://assets.tarkov-tools.com/${item.id}-grid-image.jpg`,
+            image: `https://assets.tarkov-tools.com/${item.id}-icon.jpg`,
             wikiLink: item.wikiLink,
             itemLink: `/item/${item.normalizedName}`,
             subRows: item.linkedItems.map((linkedItemId) => {
@@ -293,7 +293,7 @@ function Helmets(props) {
                     effectiveDurability: Math.floor(linkedItem.itemProperties.MaxDurability / materialDestructabilityMap[linkedItem.itemProperties.ArmorMaterial]),
                     stats: getStatsString(linkedItem.itemProperties),
                     price: formatPrice(linkedItem.avg24hPrice),
-                    image: `https://assets.tarkov-tools.com/${linkedItem.id}-grid-image.jpg`,
+                    image: `https://assets.tarkov-tools.com/${linkedItem.id}-icon.jpg`,
                     wikiLink: linkedItem.wikiLink,
                     itemLink: `/item/${linkedItem.normalizedName}`,
                 };

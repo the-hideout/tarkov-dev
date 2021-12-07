@@ -236,7 +236,7 @@ function Armor(props) {
             effectiveDurability: Math.floor(item.itemProperties.MaxDurability / materialDestructabilityMap[item.itemProperties.ArmorMaterial]),
             stats: `${item.itemProperties.speedPenaltyPercent}% / ${item.itemProperties.mousePenalty}% / ${item.itemProperties.weaponErgonomicPenalty}`,
             price: formatPrice(item.avg24hPrice),
-            image: `https://assets.tarkov-tools.com/${item.id}-grid-image.jpg`,
+            image: `https://assets.tarkov-tools.com/${item.id}-icon.jpg`,
             wikiLink: item.wikiLink,
             itemLink: `/item/${item.normalizedName}`,
         };
