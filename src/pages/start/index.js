@@ -56,7 +56,7 @@ function Start(props) {
             />
         </Helmet>,
         <div
-            className="display-wrapper start-wrapper"
+            className="display-wrapper page-wrapper start-wrapper"
             key = {'display-wrapper'}
         >
             <div
