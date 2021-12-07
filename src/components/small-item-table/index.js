@@ -215,6 +215,7 @@ function SmallItemTable(props) {
         // sortByDesc = {true}
         autoResetSortBy = {false}
         maxItems = {maxItems}
+        nameFilter = {nameFilter}
     />
 }
 

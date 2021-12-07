@@ -6,14 +6,17 @@ import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 import './index.css';
 
-function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, className, maxItems, extraRow }) {
+function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraRow, nameFilter }) {
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
 
-    const storageKey = columns.map(({ Header }) => Header).join(',');
-    const [ initialSortBy, setSortBy ] = useStateWithLocalStorage(storageKey, []);
+    const storageKey = columns.map(({ Header }) => {
+        return Header.toLowerCase().replace(/\s/, '-').replace(/[^a-z-]/g, '');
+    }).join(',');
+    const [ initialSortBy, storageSetSortBy ] = useStateWithLocalStorage(storageKey, []);
 
     const {
+        setSortBy,
         getTableProps,
         getTableBodyProps,
         headerGroups,
@@ -34,8 +37,14 @@ function DataTable({ columns, data, sortBy, sortByDesc, autoResetSortBy, classNa
     }, useSortBy, useExpanded, usePagination);
 
     useEffect(() => {
-        setSortBy(sortByState);
-    });
+        storageSetSortBy(sortByState);
+    }, [storageSetSortBy, sortByState]);
+
+    useEffect(() => {
+        if(nameFilter && sortByState[0]?.id === 'name'){
+            setSortBy([]);
+        }
+    }, [nameFilter, setSortBy, sortByState]);
 
     const getRows = () => {
         let rowContainer = rows;
