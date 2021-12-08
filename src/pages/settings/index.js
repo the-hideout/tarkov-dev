@@ -14,7 +14,7 @@ import {
     selectAllSkills,
     setTarkovTrackerAPIKey,
     fetchTarkovTrackerProgress,
-    selectCompletedQuests,
+    // selectCompletedQuests,
 } from '../../features/settings/settingsSlice';
 import capitalizeFirst from '../../modules/capitalize-first';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes';
@@ -31,7 +31,7 @@ function Settings() {
     const progressStatus = useSelector((state) => {
         return state.settings.progressStatus;
     });
-    const completedQuests = useSelector(selectCompletedQuests);
+    // const completedQuests = useSelector(selectCompletedQuests);
     const tarkovTrackerAPIKey = useSelector((state) => state.settings.tarkovTrackerAPIKey);
 
     useEffect(() => {
