@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
@@ -11,6 +12,9 @@ import {
     toggleFlea,
     setStationOrTraderLevel,
     selectAllSkills,
+    setTarkovTrackerAPIKey,
+    fetchTarkovTrackerProgress,
+    selectCompletedQuests,
 } from '../../features/settings/settingsSlice';
 import capitalizeFirst from '../../modules/capitalize-first';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes';
@@ -24,6 +28,17 @@ function Settings() {
     const allStations = useSelector(selectAllStations);
     const allSkills = useSelector(selectAllSkills);
     const hasFlea = useSelector((state) => state.settings.hasFlea);
+    const progressStatus = useSelector((state) => {
+        return state.settings.progressStatus;
+    });
+    const completedQuests = useSelector(selectCompletedQuests);
+    const tarkovTrackerAPIKey = useSelector((state) => state.settings.tarkovTrackerAPIKey);
+
+    useEffect(() => {
+        if (progressStatus === 'idle') {
+          dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
+        }
+    }, [progressStatus, dispatch, tarkovTrackerAPIKey]);
 
     return <div
         className = {'page-wrapper'}
@@ -427,6 +442,27 @@ function Settings() {
                 </div>
                 </Tippy>
             })}
+        </div>
+        <div
+            className = 'settings-group-wrapper'
+        >
+            <h2>
+                {t('Load from TarkovTracker')}
+            </h2>
+            <label>
+                {t('TarkovTracker API Token')}
+            </label>
+            <input
+                defaultValue = {useSelector((state) => state.settings.tarkovTrackerAPIKey)}
+                type = 'text'
+                placeholder = {t('TarkovTracker API Token')}
+                onChange = {(event) => {
+                    dispatch(setTarkovTrackerAPIKey(event.target.value))
+                }}
+            />
+            <a href="https://tarkovtracker.io/settings/">
+                {t('Copy from tarkovtracker settings')}
+            </a>
         </div>
     </div>;
 };
