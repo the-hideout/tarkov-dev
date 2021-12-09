@@ -103,6 +103,9 @@ dist
 # TernJS port file
 .tern-port
 
+# Anything realted to JetBrains etc
+.idea
+
 build
 src/data/ammo.json
 src/data/traders.json
