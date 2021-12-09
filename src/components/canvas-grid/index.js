@@ -50,7 +50,7 @@ function CanvasGrid(props) {
                 y: y,
                 width: width,
                 height: height,
-                fillStyle: '#212222', // inner border color
+                fillStyle: '#181818', // inner border color
             }, ctx);
 
             drawSquare({

@@ -1,6 +1,20 @@
 import {
     createSlice,
+    createAsyncThunk,
 } from '@reduxjs/toolkit';
+
+export const fetchTarkovTrackerProgress = createAsyncThunk('settings/fetchTarkovTrackerProgress', async (apiKey) => {
+    const response = await fetch('https://tarkovtracker.io/api/v1/progress', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${apiKey}`
+        },
+    });
+
+    const progressData = await response.json();
+
+    return progressData;
+});
 
 const settingsSlice = createSlice({
     name: 'settings',
@@ -28,6 +42,10 @@ const settingsSlice = createSlice({
         completedQuests: [],
     },
     reducers: {
+        setTarkovTrackerAPIKey: (state, action) => {
+            state.tarkovTrackerAPIKey = action.payload;
+            localStorage.setItem('tarkovTrackerAPIKey', JSON.stringify(action.payload));
+        },
         toggleFlea: (state, action) => {
             state.hasFlea = action.payload;
             localStorage.setItem('useFlea', JSON.stringify(action.payload));
@@ -35,6 +53,19 @@ const settingsSlice = createSlice({
         setStationOrTraderLevel: (state, action) => {
             state[action.payload.target] = action.payload.value;
             localStorage.setItem(action.payload.target, JSON.stringify(action.payload.value));
+        },
+    },
+    extraReducers: {
+        [fetchTarkovTrackerProgress.pending]: (state, action) => {
+            state.progressStatus = 'loading';
+        },
+        [fetchTarkovTrackerProgress.fulfilled]: (state, action) => {
+            state.progressStatus = 'succeeded';
+            state.completedQuests = state.completedQuests.concat(Object.keys(action.payload.quests));
+        },
+        [fetchTarkovTrackerProgress.rejected]: (state, action) => {
+            state.progressStatus = 'failed';
+            state.error = action.payload;
         },
     },
 });
@@ -76,6 +107,7 @@ export const selectCompletedQuests = (state) => {
 };
 
 export const {
+    setTarkovTrackerAPIKey,
     toggleFlea,
     setStationOrTraderLevel,
 } = settingsSlice.actions;
