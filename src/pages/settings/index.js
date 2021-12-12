@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
-import Switch from 'react-switch';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import {
     InputFilter,
+    ToggleFilter,
 } from '../../components/filter';
 import {
     selectAllTraders,
@@ -134,33 +134,17 @@ function Settings() {
         <div
             className = {'settings-group-wrapper'}
         >
-            <div
-                className = 'toggle-wrapper'
-            >
-                <span
-                    className = 'toggle-label'
-                >
-                    {t('Has flea')}
-                </span>
-                <Switch
-                    onChange = {() => dispatch(toggleFlea(!hasFlea))}
-                    checked = {hasFlea}
-                    disabled = {useTarkovTracker}
-                />
-            </div>
-            <div
-                className = 'toggle-wrapper'
-            >
-                <span
-                    className = 'toggle-label'
-                >
-                    {t('Use TarkovTracker')}
-                </span>
-                <Switch
-                    onChange = {() => dispatch(toggleTarkovTracker(!useTarkovTracker))}
-                    checked = {useTarkovTracker}
-                />
-            </div>
+            <ToggleFilter
+                label = {t('Has flea')}
+                onChange = {() => dispatch(toggleFlea(!hasFlea))}
+                checked = {hasFlea}
+                disabled = {useTarkovTracker}
+            />
+            <ToggleFilter
+                label = {t('Use TarkovTracker')}
+                onChange = {() => dispatch(toggleTarkovTracker(!useTarkovTracker))}
+                checked = {useTarkovTracker}
+            />
             <InputFilter
                 label = {
                     <a href="https://tarkovtracker.io/settings/">

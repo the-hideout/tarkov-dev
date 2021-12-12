@@ -72,7 +72,7 @@ function SliderFilter ({label, defaultValue, min, max, marks, onChange, reverse 
     </div>
 };
 
-function ToggleFilter ({label, onChange, checked, tooltipContent}) {
+function ToggleFilter ({label, onChange, checked, tooltipContent, disabled}) {
     return <ConditionalWrapper
         condition = {tooltipContent}
         wrapper = {
@@ -98,6 +98,7 @@ function ToggleFilter ({label, onChange, checked, tooltipContent}) {
                 className = {'filter-toggle'}
                 onChange = {onChange}
                 checked = {checked}
+                disabled = {disabled}
             />
         </label>
     </ConditionalWrapper>
