@@ -7,6 +7,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk('settings/fetchTarkov
     if(!apiKey){
         return {
             quests: {},
+            hideout: {},
         };
     }
 
