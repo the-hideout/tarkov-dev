@@ -7,6 +7,9 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import {
+    InputFilter,
+} from '../../components/filter';
+import {
     selectAllTraders,
     selectAllStations,
     toggleFlea,
@@ -158,21 +161,19 @@ function Settings() {
                     checked = {useTarkovTracker}
                 />
             </div>
-            <div>
-                <label>
+            <InputFilter
+                label = {
                     <a href="https://tarkovtracker.io/settings/">
                         {t('TarkovTracker API Token')}
                     </a>
-                </label>
-                <input
-                    defaultValue = {useSelector((state) => state.settings.tarkovTrackerAPIKey)}
-                    type = 'text'
-                    placeholder = {t('TarkovTracker API Token')}
-                    onChange = {(event) => {
-                        dispatch(setTarkovTrackerAPIKey(event.target.value))
-                    }}
-                />
-            </div>
+                }
+                defaultValue = {useSelector((state) => state.settings.tarkovTrackerAPIKey)}
+                type = 'text'
+                placeholder = {t('TarkovTracker API Token')}
+                onChange = {(event) => {
+                    dispatch(setTarkovTrackerAPIKey(event.target.value))
+                }}
+            />
         </div>
         <div
             className = 'settings-group-wrapper'
