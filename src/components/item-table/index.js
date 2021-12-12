@@ -1,8 +1,8 @@
 import {useMemo} from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
-// import {
-//     Link,
-// } from "react-router-dom";
+import {
+    Link,
+} from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
 import Fuse from 'fuse.js';
@@ -23,6 +23,10 @@ const getCell = (type) => {
         return ValueCell;
     }
 
+    if(type === 'name'){
+        return nameCell;
+    }
+
     return defaultCell;
 };
 
@@ -31,6 +35,16 @@ const defaultCell = ({value}) => {
         className = 'center-content'
     >
         { value }
+    </div>;
+};
+
+const nameCell = (props) => {
+    return <div>
+        <Link
+            to = {`/item/${props.row.original.normalizedName}`}
+        >
+            {props.value}
+        </Link>
     </div>;
 };
 

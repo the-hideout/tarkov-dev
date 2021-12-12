@@ -176,6 +176,7 @@ function Suppressors(props) {
         {
             title: 'Name',
             key: 'name',
+            type: 'name',
         },
         {
             title: 'Ergonomics',
