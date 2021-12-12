@@ -14,8 +14,10 @@ import {
     selectAllSkills,
     setTarkovTrackerAPIKey,
     fetchTarkovTrackerProgress,
+    toggleTarkovTracker,
     // selectCompletedQuests,
 } from '../../features/settings/settingsSlice';
+import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
 import capitalizeFirst from '../../modules/capitalize-first';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes';
 
@@ -41,17 +43,84 @@ function Settings() {
     const allStations = useSelector(selectAllStations);
     const allSkills = useSelector(selectAllSkills);
     const hasFlea = useSelector((state) => state.settings.hasFlea);
+    const useTarkovTracker = useSelector((state) => state.settings.useTarkovTracker);
     const progressStatus = useSelector((state) => {
         return state.settings.progressStatus;
     });
+    const tarkovTrackerModules = useSelector((state) => {
+        return state.settings.tarkovTrackerModules;
+    });
     // const completedQuests = useSelector(selectCompletedQuests);
     const tarkovTrackerAPIKey = useSelector((state) => state.settings.tarkovTrackerAPIKey);
+    const hideoutModules = useSelector(selectAllHideoutModules);
+    const hideoutLoadingStatus = useSelector((state) => {
+        return state.hideout.status;
+    });
+
+    useEffect(() => {
+        let timer = false;
+        if (hideoutLoadingStatus === 'idle') {
+            dispatch(fetchHideout());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchHideout());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        }
+    }, [hideoutLoadingStatus, dispatch]);
 
     useEffect(() => {
         if (progressStatus === 'idle') {
           dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
         }
     }, [progressStatus, dispatch, tarkovTrackerAPIKey]);
+
+    useEffect(() => {
+        if(useTarkovTracker){
+            dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
+        }
+    }, [useTarkovTracker, dispatch, tarkovTrackerAPIKey]);
+
+    useEffect(() => {
+        const maxLevels = {};
+
+        const modulesWithLevels = tarkovTrackerModules.map(moduleId => {
+            return Object.values(hideoutModules).find(currentModule => currentModule.id === moduleId);
+        });
+
+        for(const module of modulesWithLevels){
+            if(!module.name){
+                continue;
+            }
+
+            const moduleKey = module.name.toLowerCase().replace(/\s/g, '-');
+
+            if(!maxLevels[moduleKey]){
+                maxLevels[moduleKey] = module.level;
+
+                continue;
+            }
+
+            if(maxLevels[moduleKey] > module.level){
+                continue;
+            }
+
+            maxLevels[moduleKey] = module.level;
+        }
+
+        for(const moduleKey in maxLevels){
+            dispatch(setStationOrTraderLevel({
+                target: moduleKey,
+                value: maxLevels[moduleKey],
+            }))
+        }
+
+    }, [tarkovTrackerModules, hideoutModules, dispatch]);
 
     return <div
         className = {'page-wrapper'}
@@ -73,6 +142,35 @@ function Settings() {
                 <Switch
                     onChange = {() => dispatch(toggleFlea(!hasFlea))}
                     checked = {hasFlea}
+                    disabled = {useTarkovTracker}
+                />
+            </div>
+            <div
+                className = 'toggle-wrapper'
+            >
+                <span
+                    className = 'toggle-label'
+                >
+                    {t('Use TarkovTracker')}
+                </span>
+                <Switch
+                    onChange = {() => dispatch(toggleTarkovTracker(!useTarkovTracker))}
+                    checked = {useTarkovTracker}
+                />
+            </div>
+            <div>
+                <label>
+                    <a href="https://tarkovtracker.io/settings/">
+                        {t('TarkovTracker API Token')}
+                    </a>
+                </label>
+                <input
+                    defaultValue = {useSelector((state) => state.settings.tarkovTrackerAPIKey)}
+                    type = 'text'
+                    placeholder = {t('TarkovTracker API Token')}
+                    onChange = {(event) => {
+                        dispatch(setTarkovTrackerAPIKey(event.target.value))
+                    }}
                 />
             </div>
         </div>
@@ -177,6 +275,7 @@ function Settings() {
                         />
                         <Select
                             defaultValue = {selectOptions[allStations[stationKey]]}
+                            isDisabled = {useTarkovTracker}
                             name = "colors"
                             options = {selectOptions}
                             className = "basic-multi-select"
@@ -229,27 +328,6 @@ function Settings() {
                 </div>
                 </Tippy>
             })}
-        </div>
-        <div
-            className = 'settings-group-wrapper'
-        >
-            <h2>
-                {t('Load from TarkovTracker')}
-            </h2>
-            <label>
-                {t('TarkovTracker API Token')}
-            </label>
-            <input
-                defaultValue = {useSelector((state) => state.settings.tarkovTrackerAPIKey)}
-                type = 'text'
-                placeholder = {t('TarkovTracker API Token')}
-                onChange = {(event) => {
-                    dispatch(setTarkovTrackerAPIKey(event.target.value))
-                }}
-            />
-            <a href="https://tarkovtracker.io/settings/">
-                {t('Copy from tarkovtracker settings')}
-            </a>
         </div>
     </div>;
 };

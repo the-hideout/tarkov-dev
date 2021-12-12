@@ -237,7 +237,6 @@ cite {
 }
 
 @media screen and (min-width: 710px){
-
     .id-wrapper {
         display: block;
     }
@@ -247,7 +246,13 @@ cite {
     }
 }
 
-@media screen and (min-width: 1220px){
+@media screen and (min-width: 1200px){
+    .page-wrapper {
+        margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 1800px){
     .page-wrapper {
         margin: 0 auto;
         max-width: 1600px;

@@ -4,6 +4,12 @@ import {
 } from '@reduxjs/toolkit';
 
 export const fetchTarkovTrackerProgress = createAsyncThunk('settings/fetchTarkovTrackerProgress', async (apiKey) => {
+    if(!apiKey){
+        return {
+            quests: {},
+        };
+    }
+
     const response = await fetch('https://tarkovtracker.io/api/v1/progress', {
         method: 'GET',
         headers: {
@@ -21,7 +27,7 @@ const settingsSlice = createSlice({
     initialState: {
         progressStatus: 'idle',
         hasFlea: JSON.parse(localStorage.getItem('useFlea')) || true,
-        tarkovTrackerAPIKey: JSON.parse(localStorage.getItem('tarkovTrackerAPIKey')) || false,
+        tarkovTrackerAPIKey: JSON.parse(localStorage.getItem('tarkovTrackerAPIKey')) || '',
         prapor: JSON.parse(localStorage.getItem('prapor')) || 4,
         therapist: JSON.parse(localStorage.getItem('therapist')) || 4,
         fence: JSON.parse(localStorage.getItem('fence')) || 0,
@@ -40,6 +46,8 @@ const settingsSlice = createSlice({
         crafting: JSON.parse(localStorage.getItem('crafting')) || 0,
         'hideout-managment': JSON.parse(localStorage.getItem('hideout-managment')) || 0,
         completedQuests: [],
+        useTarkovTracker: JSON.parse(localStorage.getItem('useTarkovTracker')) || false,
+        tarkovTrackerModules: [],
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
@@ -54,6 +62,10 @@ const settingsSlice = createSlice({
             state[action.payload.target] = action.payload.value;
             localStorage.setItem(action.payload.target, JSON.stringify(action.payload.value));
         },
+        toggleTarkovTracker: (state, action) => {
+            state.useTarkovTracker = action.payload;
+            localStorage.setItem('useTarkovTracker', JSON.stringify(action.payload));
+        },
     },
     extraReducers: {
         [fetchTarkovTrackerProgress.pending]: (state, action) => {
@@ -62,6 +74,8 @@ const settingsSlice = createSlice({
         [fetchTarkovTrackerProgress.fulfilled]: (state, action) => {
             state.progressStatus = 'succeeded';
             state.completedQuests = state.completedQuests.concat(Object.keys(action.payload.quests));
+            state.hasFlea = action.payload.level > 15 ? true : false;
+            state.tarkovTrackerModules = Object.keys(action.payload.hideout).map(Number);
         },
         [fetchTarkovTrackerProgress.rejected]: (state, action) => {
             state.progressStatus = 'failed';
@@ -110,6 +124,7 @@ export const {
     setTarkovTrackerAPIKey,
     toggleFlea,
     setStationOrTraderLevel,
+    toggleTarkovTracker,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

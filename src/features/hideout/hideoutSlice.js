@@ -10,6 +10,7 @@ const initialState = {
 export const fetchHideout = createAsyncThunk('hideout/fetchHideout', async () => {
     const bodyQuery = JSON.stringify({query: `{
         hideoutModules {
+            id
             name
             level
             itemRequirements {
@@ -63,4 +64,4 @@ const hideoutSlice = createSlice({
 
 export default hideoutSlice.reducer;
 
-export const selectAllHideoutModules = (state) => { console.log(state); return state.hideout.hideout; }
+export const selectAllHideoutModules = (state) => { return state.hideout.hideout; }
