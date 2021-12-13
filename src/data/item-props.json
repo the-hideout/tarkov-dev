@@ -2767,6 +2767,22 @@
         "hasGrid": false,
         "linkedItems": []
     },
+    "5675838d4bdc2d95058b456e": {
+        "itemProperties": {
+            "Weight": 1,
+            "grid": {
+                "pockets": [
+                    {
+                        "height": 4,
+                        "width": 3
+                    }
+                ],
+                "totalSize": 12
+            }
+        },
+        "hasGrid": true,
+        "linkedItems": []
+    },
     "5696686a4bdc2da3298b456a": {
         "itemProperties": {
             "Weight": 0,
@@ -4615,6 +4631,14 @@
         "linkedItems": []
     },
     "5751916f24597720a27126df": {
+        "itemProperties": {
+            "Weight": 0.01,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "5751961824597720a31c09ac": {
         "itemProperties": {
             "Weight": 0.01,
             "grid": false
@@ -21738,6 +21762,14 @@
         "hasGrid": false,
         "linkedItems": []
     },
+    "5b9b9020e7ef6f5716480215": {
+        "itemProperties": {
+            "Weight": 0.01,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
     "5ba26383d4351e00334c93d9": {
         "itemProperties": {
             "Weight": 1.62,
@@ -25481,6 +25513,22 @@
             "Ergonomics": -3
         },
         "hasGrid": false,
+        "linkedItems": []
+    },
+    "5c0a5f6c86f774753654890e": {
+        "itemProperties": {
+            "Weight": 15,
+            "grid": {
+                "pockets": [
+                    {
+                        "height": 12,
+                        "width": 20
+                    }
+                ],
+                "totalSize": 240
+            }
+        },
+        "hasGrid": true,
         "linkedItems": []
     },
     "5c0a840b86f7742ffa4f2482": {
@@ -38548,6 +38596,14 @@
         "hasGrid": false,
         "linkedItems": []
     },
+    "5e85aac65505fa48730d8af2": {
+        "itemProperties": {
+            "Weight": 0.06,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
     "5e870397991fd70db46995c8": {
         "itemProperties": {
             "Weight": 1.1,
@@ -39233,6 +39289,14 @@
     "5ede475b549eed7c6d5c18fb": {
         "itemProperties": {
             "Weight": 0.23,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "5ede47641cf3836a88318df1": {
+        "itemProperties": {
+            "Weight": 0.22,
             "grid": false
         },
         "hasGrid": false,
@@ -40946,6 +41010,14 @@
         "linkedItems": []
     },
     "5f647f31b6238e5dd066e196": {
+        "itemProperties": {
+            "Weight": 0.08,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "5f647fd3f6e4ab66c82faed6": {
         "itemProperties": {
             "Weight": 0.08,
             "grid": false
@@ -45595,10 +45667,1364 @@
         "hasGrid": false,
         "linkedItems": []
     },
+    "60db29ce99594040e04c4a27": {
+        "itemProperties": {
+            "Weight": 1.1,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "MaxDurability": 100,
+            "Ergonomics": 50,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single",
+                "doubleaction"
+            ],
+            "RecoilForceUp": 520,
+            "RecoilForceBack": 650,
+            "ammoCaliber": "Caliber12g"
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "60dc519adf4c47305f6d410d",
+            "612368f58b401f4f51239b33",
+            "612781056f3d944a17348d60",
+            "6123649463849f3d843da7c4"
+        ]
+    },
+    "60dc519adf4c47305f6d410d": {
+        "itemProperties": {
+            "Weight": 0.25,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -2
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "560d5e524bdc2d25448b4571",
+            "5d6e6772a4b936088465b17c",
+            "5d6e67fba4b9361bc73bc779",
+            "5d6e6806a4b936088465b17e",
+            "5d6e68dea4b9361bcc29e659",
+            "5d6e6911a4b9361bd5780d52",
+            "5c0d591486f7744c505b416f",
+            "58820d1224597753c90aeb13",
+            "5d6e68c4a4b9361b93413f79",
+            "5d6e68a8a4b9360b6c0d54e2",
+            "5d6e68e6a4b9361c140bcfe0",
+            "5d6e6869a4b9361c140bcfde",
+            "5d6e68b3a4b9361bca7e50b5",
+            "5d6e6891a4b9361bd473feea",
+            "5d6e689ca4b9361bc8618956",
+            "5d6e68d1a4b93622fe60e845"
+        ]
+    },
+    "6113c3586c780c1e710c90bc": {
+        "itemProperties": {
+            "Weight": 0.08,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 11
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6113cc78d3a39d50044c065a": {
+        "itemProperties": {
+            "Weight": 0.087,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 13
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6113cce3d92c473c770200c7": {
+        "itemProperties": {
+            "Weight": 0.085,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 12
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6113d6c3290d254f5e6b27db": {
+        "itemProperties": {
+            "Weight": 0.45,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -4
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "611a30addbdd8440277441dc": {
+        "itemProperties": {
+            "Weight": 2.4,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -14,
+            "Ergonomics": -11,
+            "Velocity": 17
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "611a31ce5b7ffe001b4649d1": {
+        "itemProperties": {
+            "Weight": 0.12,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -4,
+            "Ergonomics": 4
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6123649463849f3d843da7c4": {
+        "itemProperties": {
+            "Weight": 0.8,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -2,
+            "Ergonomics": 9
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "612368f58b401f4f51239b33": {
+        "itemProperties": {
+            "Weight": 1.55,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -10,
+            "Ergonomics": -18,
+            "Velocity": 18.9
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "619d36da53b4d42ee724fae4",
+            "609b9e31506cf869cf3eaf41",
+            "5dfe14f30b92095fd441edaf"
+        ]
+    },
+    "612781056f3d944a17348d60": {
+        "itemProperties": {
+            "Weight": 0.45,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -33,
+            "Ergonomics": 3
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "612e0cfc8004cc50514c2d9e": {
+        "itemProperties": {
+            "Weight": 0.141,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 1,
+            "Recoil": -10,
+            "Ergonomics": -1,
+            "Velocity": 0.5
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "612e0e04568c120fdd294258"
+        ]
+    },
+    "612e0d3767085e45ef14057f": {
+        "itemProperties": {
+            "Weight": 0.165,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 1,
+            "Recoil": -10,
+            "Ergonomics": -1,
+            "Velocity": 0.5
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "612e0e04568c120fdd294258"
+        ]
+    },
+    "612e0d81290d254f5e6b291a": {
+        "itemProperties": {
+            "Weight": 0.177,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 1,
+            "Recoil": -14,
+            "Loudness": 25,
+            "Ergonomics": -1,
+            "Velocity": 0.5
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "612e0e04568c120fdd294258"
+        ]
+    },
+    "612e0e04568c120fdd294258": {
+        "itemProperties": {
+            "Weight": 0.01,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 2
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "612e0e3c290d254f5e6b291d": {
+        "itemProperties": {
+            "Weight": 0.035,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -9,
+            "Loudness": 10
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "612e0e55a112697a4b3a66e7": {
+        "itemProperties": {
+            "Weight": 0.028,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -9,
+            "Loudness": 10
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6130c3dffaa1272e43151c7d": {
+        "itemProperties": {
+            "Weight": 0.415,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -5,
+            "Ergonomics": -5,
+            "Velocity": -15.1
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5fb65424956329274326f316",
+            "5fc4b992187fea44d52edaa9",
+            "5fb6548dd1409e5ca04b54f9"
+        ]
+    },
+    "6130c43c67085e45ef1405a1": {
+        "itemProperties": {
+            "Weight": 0.145,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 3,
+            "Recoil": -13,
+            "Ergonomics": -1,
+            "Velocity": 2
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5dfa3d2b0dee1b22f862eade"
+        ]
+    },
+    "6130c4d51cb55961fa0fd49f": {
+        "itemProperties": {
+            "Weight": 0.453,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 2,
+            "Recoil": -11,
+            "Loudness": -25,
+            "Ergonomics": -16,
+            "Velocity": 0.5
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6130ca3fd92c473c77020dbd": {
+        "itemProperties": {
+            "Weight": 0.015,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 3
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
     "614451b71e5874611e2c7ae5": {
         "itemProperties": {
             "Weight": 1,
             "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "615d8d878004cc50514c3233": {
+        "itemProperties": {
+            "Weight": 0.07,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "616442e4faa1272e43152193"
+        ]
+    },
+    "615d8da4d3a39d50044c10e8": {
+        "itemProperties": {
+            "Weight": 0.007,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "616442e4faa1272e43152193"
+        ]
+    },
+    "615d8dbd290d254f5e6b2ed6": {
+        "itemProperties": {
+            "Weight": 0.325,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 4
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5a7d9122159bd4001438dbf4",
+            "5a6f5d528dc32e00094b97d9",
+            "5a7d912f159bd400165484f3",
+            "5a71e0fb8dc32e00094b97f2",
+            "5a7d90eb159bd400165484f1",
+            "5a6f58f68dc32e000a311390",
+            "5a7d9104159bd400134c8c21",
+            "5a71e0048dc32e000c52ecc8",
+            "5a7b32a2e899ef00135e345a",
+            "615d8da4d3a39d50044c10e8"
+        ]
+    },
+    "615d8df08004cc50514c3236": {
+        "itemProperties": {
+            "Weight": 0.128,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -12,
+            "Ergonomics": -1,
+            "Velocity": 1
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "615d8e2f1cb55961fa0fd9a4": {
+        "itemProperties": {
+            "Weight": 0.085,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 1,
+            "Recoil": -11,
+            "Ergonomics": -2
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "615d8e9867085e45ef1409c6": {
+        "itemProperties": {
+            "Weight": 0.11,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -1,
+            "Ergonomics": -1
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "612e0d3767085e45ef14057f",
+            "5b7d693d5acfc43bca706a3d",
+            "5a34fd2bc4a282329a73b4c5",
+            "618178aa1cb55961fa0fdc80",
+            "6065c6e7132d4d12c81fd8e1",
+            "5d1f819086f7744b355c219b",
+            "5dcbe965e4ed22586443a79d",
+            "5d026791d7ad1a04a067ea63",
+            "5dfa3cd1b33c0951220c079b",
+            "6130c43c67085e45ef1405a1",
+            "5cdd7685d7f00c000f260ed2",
+            "5c878e9d2e2216000f201903",
+            "5d02677ad7ad1a04a15c0f95",
+            "5bbdb8bdd4351e4502011460",
+            "5cdd7693d7f00c0010373aa5",
+            "607ffb988900dc2d9a55b6e4",
+            "615d8eb350224f204c1da1cf",
+            "612e0e3c290d254f5e6b291d",
+            "5d443f8fa4b93678dd4a01aa",
+            "5fbc22ccf24b94483f726483",
+            "59bffc1f86f77435b128b872",
+            "5cf78496d7f00c065703d6ca",
+            "5a34fe59c4a282000b1521a2"
+        ]
+    },
+    "615d8eb350224f204c1da1cf": {
+        "itemProperties": {
+            "Weight": 0.173,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 2,
+            "Recoil": -8,
+            "Loudness": -25,
+            "Ergonomics": -2,
+            "Velocity": 2
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "615d8f5dd92c473c770212ef": {
+        "itemProperties": {
+            "Weight": 0.095,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -17,
+            "Ergonomics": -1,
+            "Velocity": 0.5
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "615d8f8567085e45ef1409ca"
+        ]
+    },
+    "615d8f8567085e45ef1409ca": {
+        "itemProperties": {
+            "Weight": 0.29,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -7,
+            "Loudness": -25,
+            "Ergonomics": -19,
+            "Velocity": 1.5
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "615d8faecabb9b7ad90f4d5d": {
+        "itemProperties": {
+            "Weight": 0.064,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 7
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "615d8fd3290d254f5e6b2edc": {
+        "itemProperties": {
+            "Weight": 0.028,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -1,
+            "Ergonomics": 8
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61605d88ffa6e502ac5e7eeb": {
+        "itemProperties": {
+            "Weight": 0.308,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -1
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61605e13ffa6e502ac5e7eef": {
+        "itemProperties": {
+            "Weight": 0.218,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "616442e4faa1272e43152193": {
+        "itemProperties": {
+            "Weight": 0.06,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "616554fe50224f204c1da2aa": {
+        "itemProperties": {
+            "Weight": 0.015,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "61657230d92c473c770213d7",
+            "58d399e486f77442e0016fe7",
+            "5b3116595acfc40019476364",
+            "58d39b0386f77443380bf13c"
+        ]
+    },
+    "61657230d92c473c770213d7": {
+        "itemProperties": {
+            "Weight": 0.094,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "616584766ef05c2ce828ef57": {
+        "itemProperties": {
+            "Weight": 0.098,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "61659f79d92c473c770213ee",
+            "5c7d55de2e221644f31bff68",
+            "5c7d560b2e22160bc12c6139"
+        ]
+    },
+    "61659f79d92c473c770213ee": {
+        "itemProperties": {
+            "Weight": 0.27,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -2
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6165ac306ef05c2ce828ef74": {
+        "itemProperties": {
+            "Weight": 0.85,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "MaxDurability": 100,
+            "Ergonomics": 45,
+            "bFirerate": 600,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 262,
+            "RecoilForceBack": 605,
+            "ammoCaliber": "Caliber762x51"
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "55d4b9964bdc2d1d4e8b456e",
+            "571659bb2459771fb2755a12",
+            "602e71bd53a60014f9705bfa",
+            "6113c3586c780c1e710c90bc",
+            "6113cc78d3a39d50044c065a",
+            "6113cce3d92c473c770200c7",
+            "5cc9bcaed7f00c011c04e179",
+            "5bb20e18d4351e00320205d5",
+            "5bb20e0ed4351e3bac1212dc",
+            "6193dcd0f8ee7e52e4210a28",
+            "5d025cc1d7ad1a53845279ef",
+            "5c6d7b3d2e221600114c9b7d",
+            "57c55efc2459772d2c6271e7",
+            "57af48872459771f0b2ebf11",
+            "57c55f092459772d291a8463",
+            "57c55f112459772d28133310",
+            "57c55f172459772d27602381",
+            "5a339805c4a2826c6e06d73d",
+            "55802f5d4bdc2dac148b458f",
+            "5d15cf3bd7ad1a67e71518b2",
+            "59db3a1d86f77429e05b4e92",
+            "5fbcbd6c187fea44d52eda14",
+            "59db3acc86f7742a2c4ab912",
+            "59db3b0886f77429d72fb895",
+            "615d8faecabb9b7ad90f4d5d",
+            "5b07db875acfc40dc528a5f6",
+            "618168dc8004cc50514c34fc",
+            "6183d53f1cb55961fa0fdcda",
+            "6165adcdd3a39d50044c120f",
+            "6165aeedfaa1272e431521e3",
+            "61816734d8e3106d9806c1f3",
+            "61825d06d92c473c770215de",
+            "6181688c6c780c1e710c9b04"
+        ]
+    },
+    "6165ac8c290d254f5e6b2f6c": {
+        "itemProperties": {
+            "Weight": 0.227,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -3
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6165adcdd3a39d50044c120f": {
+        "itemProperties": {
+            "Weight": 0.2,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -1,
+            "Ergonomics": 2
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "57ac965c24597706be5f975c",
+            "57aca93d2459771f2c7e26db",
+            "544a3f024bdc2d1d388b4568",
+            "544a3a774bdc2d3a388b4567",
+            "5d2dc3e548f035404a1a4798",
+            "57adff4f24597737f373b6e6",
+            "5c0517910db83400232ffee5",
+            "591c4efa86f7741030027726",
+            "570fd79bd2720bc7458b4583",
+            "570fd6c2d2720bc6458b457f",
+            "558022b54bdc2dac148b458d",
+            "5c07dd120db834001c39092d",
+            "5c0a2cec0db834001b7ce47d",
+            "58491f3324597764bc48fa02",
+            "584924ec24597768f12ae244",
+            "5b30b0dc5acfc400153b7124",
+            "6165ac8c290d254f5e6b2f6c",
+            "60a23797a37c940de7062d02",
+            "5d2da1e948f035477b1ce2ba",
+            "5c0505e00db834001b735073",
+            "609a63b6e2ff132951242d09",
+            "584984812459776a704a82a6",
+            "59f9d81586f7744c7506ee62",
+            "570fd721d2720bc5458b4596",
+            "57ae0171245977343c27bfcf",
+            "5dfe6104585a0c3e995c7b82",
+            "544a3d0a4bdc2d1b388b4567",
+            "5d1b5e94d7ad1a2b865a96b0",
+            "609bab8b455afd752b2e6138",
+            "58d39d3d86f77445bb794ae7",
+            "616554fe50224f204c1da2aa",
+            "5c7d55f52e221644f31bff6a",
+            "616584766ef05c2ce828ef57",
+            "5b3b6dc75acfc47a8773fb1e",
+            "615d8d878004cc50514c3233",
+            "5b2389515acfc4771e1be0c0",
+            "577d128124597739d65d0e56",
+            "618b9643526131765025ab35",
+            "618bab21526131765025ab3f",
+            "5c86592b2e2216000e69e77c",
+            "5a37ca54c4a282000d72296a",
+            "5d0a29fed7ad1a002769ad08",
+            "5c064c400db834001d23f468",
+            "58d2664f86f7747fec5834f6",
+            "57c69dd424597774c03b7bbc",
+            "5b3b99265acfc4704b4a1afb",
+            "5aa66a9be5b5b0214e506e89",
+            "5aa66c72e5b5b00016327c93",
+            "5c1cdd302e221602b3137250",
+            "61714b2467085e45ef140b2c",
+            "6171407e50224f204c1da3c5",
+            "61713cc4d8e3106d9806c109",
+            "5b31163c5acfc400153b71cb",
+            "5a33b652c4a28232996e407c",
+            "5a33b2c9c4a282000c5a9511",
+            "59db7eed86f77461f8380365",
+            "5a1ead28fcdbcb001912fa9f",
+            "5dff77c759400025ea5150cf",
+            "618168b350224f204c1da4d8",
+            "6183b0711cb55961fa0fdcad",
+            "6183b084a112697a4b3a6e6c",
+            "61817865d3a39d50044c13a4",
+            "5bb20e49d4351e3bac1212de",
+            "5ba26b17d4351e00367f9bdd",
+            "5dfa3d7ac41b2312ea33362a",
+            "5c1780312e221602b66cc189",
+            "5fb6564947ce63734e3fa1da",
+            "5bc09a18d4351e003562b68e",
+            "5c18b9192e2216398b5a8104",
+            "5fc0fa957283c4046c58147e",
+            "5894a81786f77427140b8347",
+            "55d5f46a4bdc2d1b198b4567",
+            "5ae30bad5acfc400185c2dc4",
+            "5ba26b01d4351e0085325a51",
+            "5dfa3d950dee1b22f862eae0",
+            "5c17804b2e2216152006c02f",
+            "5fb6567747ce63734e3fa1dc",
+            "5bc09a30d4351e00367fb7c8",
+            "5c18b90d2e2216152142466b",
+            "5fc0fa362770a0045c59c677",
+            "5894a73486f77426d259076c",
+            "57fd23e32459772d0805bcf1",
+            "544909bb4bdc2d6f028b4577",
+            "5d10b49bd7ad1a1a560708b0",
+            "5c06595c0db834001a66af6c",
+            "5a7b483fe899ef0016170d15",
+            "61605d88ffa6e502ac5e7eeb",
+            "5c5952732e2216398b5abda2",
+            "61816df1d3a39d50044c139e",
+            "619666f4af1f5202c57a952d",
+            "61816dfa6ef05c2ce828f1ad",
+            "5649a2464bdc2d91118b45a8"
+        ]
+    },
+    "6165aeedfaa1272e431521e3": {
+        "itemProperties": {
+            "Weight": 0.2,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -1,
+            "Ergonomics": 2
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "57ac965c24597706be5f975c",
+            "57aca93d2459771f2c7e26db",
+            "544a3f024bdc2d1d388b4568",
+            "544a3a774bdc2d3a388b4567",
+            "5d2dc3e548f035404a1a4798",
+            "57adff4f24597737f373b6e6",
+            "5c0517910db83400232ffee5",
+            "591c4efa86f7741030027726",
+            "570fd79bd2720bc7458b4583",
+            "570fd6c2d2720bc6458b457f",
+            "558022b54bdc2dac148b458d",
+            "5c07dd120db834001c39092d",
+            "5c0a2cec0db834001b7ce47d",
+            "58491f3324597764bc48fa02",
+            "584924ec24597768f12ae244",
+            "5b30b0dc5acfc400153b7124",
+            "6165ac8c290d254f5e6b2f6c",
+            "60a23797a37c940de7062d02",
+            "5d2da1e948f035477b1ce2ba",
+            "5c0505e00db834001b735073",
+            "609a63b6e2ff132951242d09",
+            "584984812459776a704a82a6",
+            "59f9d81586f7744c7506ee62",
+            "570fd721d2720bc5458b4596",
+            "57ae0171245977343c27bfcf",
+            "5dfe6104585a0c3e995c7b82",
+            "544a3d0a4bdc2d1b388b4567",
+            "5d1b5e94d7ad1a2b865a96b0",
+            "609bab8b455afd752b2e6138",
+            "58d39d3d86f77445bb794ae7",
+            "616554fe50224f204c1da2aa",
+            "5c7d55f52e221644f31bff6a",
+            "616584766ef05c2ce828ef57",
+            "5b3b6dc75acfc47a8773fb1e",
+            "615d8d878004cc50514c3233",
+            "5b2389515acfc4771e1be0c0",
+            "577d128124597739d65d0e56",
+            "618b9643526131765025ab35",
+            "618bab21526131765025ab3f",
+            "5c86592b2e2216000e69e77c",
+            "5a37ca54c4a282000d72296a",
+            "5d0a29fed7ad1a002769ad08",
+            "5c064c400db834001d23f468",
+            "58d2664f86f7747fec5834f6",
+            "57c69dd424597774c03b7bbc",
+            "5b3b99265acfc4704b4a1afb",
+            "5aa66a9be5b5b0214e506e89",
+            "5aa66c72e5b5b00016327c93",
+            "5c1cdd302e221602b3137250",
+            "61714b2467085e45ef140b2c",
+            "6171407e50224f204c1da3c5",
+            "61713cc4d8e3106d9806c109",
+            "5b31163c5acfc400153b71cb",
+            "5a33b652c4a28232996e407c",
+            "5a33b2c9c4a282000c5a9511",
+            "59db7eed86f77461f8380365",
+            "5a1ead28fcdbcb001912fa9f",
+            "5dff77c759400025ea5150cf",
+            "618168b350224f204c1da4d8",
+            "6183b0711cb55961fa0fdcad",
+            "6183b084a112697a4b3a6e6c",
+            "61817865d3a39d50044c13a4",
+            "5bb20e49d4351e3bac1212de",
+            "5ba26b17d4351e00367f9bdd",
+            "5dfa3d7ac41b2312ea33362a",
+            "5c1780312e221602b66cc189",
+            "5fb6564947ce63734e3fa1da",
+            "5bc09a18d4351e003562b68e",
+            "5c18b9192e2216398b5a8104",
+            "5fc0fa957283c4046c58147e",
+            "5894a81786f77427140b8347",
+            "55d5f46a4bdc2d1b198b4567",
+            "5ae30bad5acfc400185c2dc4",
+            "5ba26b01d4351e0085325a51",
+            "5dfa3d950dee1b22f862eae0",
+            "5c17804b2e2216152006c02f",
+            "5fb6567747ce63734e3fa1dc",
+            "5bc09a30d4351e00367fb7c8",
+            "5c18b90d2e2216152142466b",
+            "5fc0fa362770a0045c59c677",
+            "5894a73486f77426d259076c",
+            "57fd23e32459772d0805bcf1",
+            "544909bb4bdc2d6f028b4577",
+            "5d10b49bd7ad1a1a560708b0",
+            "5c06595c0db834001a66af6c",
+            "5a7b483fe899ef0016170d15",
+            "61605d88ffa6e502ac5e7eeb",
+            "5c5952732e2216398b5abda2",
+            "61816df1d3a39d50044c139e",
+            "619666f4af1f5202c57a952d",
+            "61816dfa6ef05c2ce828f1ad",
+            "5649a2464bdc2d91118b45a8"
+        ]
+    },
+    "61695095d92c473c7702147a": {
+        "itemProperties": {
+            "Weight": 1.043,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -17
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61702be9faa1272e431522c3": {
+        "itemProperties": {
+            "Weight": 0.572,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -6,
+            "Ergonomics": -13,
+            "Velocity": -6.58
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "612e0d3767085e45ef14057f",
+            "61713308d92c473c770214a0",
+            "5b7d693d5acfc43bca706a3d",
+            "5a34fd2bc4a282329a73b4c5",
+            "6065c6e7132d4d12c81fd8e1",
+            "5d1f819086f7744b355c219b",
+            "5dcbe965e4ed22586443a79d",
+            "5d026791d7ad1a04a067ea63",
+            "5dfa3cd1b33c0951220c079b",
+            "6130c43c67085e45ef1405a1",
+            "5cdd7685d7f00c000f260ed2",
+            "5c878e9d2e2216000f201903",
+            "5d02677ad7ad1a04a15c0f95",
+            "5bbdb8bdd4351e4502011460",
+            "5cdd7693d7f00c0010373aa5",
+            "607ffb988900dc2d9a55b6e4",
+            "615d8eb350224f204c1da1cf",
+            "612e0e3c290d254f5e6b291d",
+            "5d443f8fa4b93678dd4a01aa",
+            "5c7954d52e221600106f4cc7",
+            "5fbc22ccf24b94483f726483",
+            "59bffc1f86f77435b128b872",
+            "5cf78496d7f00c065703d6ca",
+            "5fbe7618d6fa9c00c571bb6c",
+            "61702f1b67085e45ef140b26"
+        ]
+    },
+    "61702d8a67085e45ef140b24": {
+        "itemProperties": {
+            "Weight": 0.041,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 1
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61702f1b67085e45ef140b26": {
+        "itemProperties": {
+            "Weight": 0.12,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -2,
+            "Ergonomics": -1
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61703001d92c473c77021497": {
+        "itemProperties": {
+            "Weight": 0.55,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -3,
+            "Ergonomics": 5
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5c7fc87d2e221644f31c0298",
+            "5cda9bcfd7f00c0c0b53e900",
+            "59f8a37386f7747af3328f06",
+            "5a7dbfc1159bd40016548fde",
+            "619386379fb0c665d5490dbe",
+            "5c87ca002e221600114cb150",
+            "588226d124597767ad33f787",
+            "588226dd24597767ad33f789",
+            "588226e62459776e3e094af7",
+            "588226ef24597767af46e39c",
+            "59fc48e086f77463b1118392",
+            "5fce0cf655375d18a253eff0",
+            "5cf4fb76d7f00c065703d3ac",
+            "5b057b4f5acfc4771e1bd3e9",
+            "5c791e872e2216001219c40a",
+            "558032614bdc2de7118b4585",
+            "58c157be86f77403c74b2bb6",
+            "58c157c886f774032749fb06",
+            "5f6340d3ca442212f4047eb2",
+            "591af28e86f77414a27a9e1d",
+            "5c1cd46f2e22164bef5cfedb",
+            "5c1bc4812e22164bef5cfde7",
+            "5c1bc5612e221602b5429350",
+            "5c1bc5af2e221602b412949b",
+            "5c1bc5fb2e221602b1779b32",
+            "5c1bc7432e221602b412949d",
+            "5c1bc7752e221602b1779b34",
+            "5649a2464bdc2d91118b45a8",
+            "57fd23e32459772d0805bcf1",
+            "544909bb4bdc2d6f028b4577",
+            "5d10b49bd7ad1a1a560708b0",
+            "5c06595c0db834001a66af6c",
+            "5a7b483fe899ef0016170d15",
+            "61605d88ffa6e502ac5e7eeb",
+            "5c5952732e2216398b5abda2",
+            "5a800961159bd4315e3a1657",
+            "5cc9c20cd7f00c001336c65d",
+            "5d2369418abbc306c62e0c80",
+            "5b07dd285acfc4001754240d",
+            "56def37dd2720bec348b456a",
+            "5a5f1ce64f39f90b401987bc",
+            "560d657b4bdc2da74d8b4572",
+            "5b3a337e5acfc4704b4a19a0",
+            "57d17e212459775a1179a0f5"
+        ]
+    },
+    "61712eae6c780c1e710c9a1d": {
+        "itemProperties": {
+            "Weight": 0.43,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 4
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5c7fc87d2e221644f31c0298",
+            "5cda9bcfd7f00c0c0b53e900",
+            "59f8a37386f7747af3328f06",
+            "5a7dbfc1159bd40016548fde",
+            "619386379fb0c665d5490dbe",
+            "5c87ca002e221600114cb150",
+            "588226d124597767ad33f787",
+            "588226dd24597767ad33f789",
+            "588226e62459776e3e094af7",
+            "588226ef24597767af46e39c",
+            "59fc48e086f77463b1118392",
+            "5fce0cf655375d18a253eff0",
+            "5cf4fb76d7f00c065703d3ac",
+            "5b057b4f5acfc4771e1bd3e9",
+            "5c791e872e2216001219c40a",
+            "558032614bdc2de7118b4585",
+            "58c157be86f77403c74b2bb6",
+            "58c157c886f774032749fb06",
+            "5f6340d3ca442212f4047eb2",
+            "591af28e86f77414a27a9e1d",
+            "5c1cd46f2e22164bef5cfedb",
+            "5c1bc4812e22164bef5cfde7",
+            "5c1bc5612e221602b5429350",
+            "5c1bc5af2e221602b412949b",
+            "5c1bc5fb2e221602b1779b32",
+            "5c1bc7432e221602b412949d",
+            "5c1bc7752e221602b1779b34",
+            "5649a2464bdc2d91118b45a8",
+            "57fd23e32459772d0805bcf1",
+            "544909bb4bdc2d6f028b4577",
+            "5d10b49bd7ad1a1a560708b0",
+            "5c06595c0db834001a66af6c",
+            "5a7b483fe899ef0016170d15",
+            "61605d88ffa6e502ac5e7eeb",
+            "5c5952732e2216398b5abda2",
+            "5a800961159bd4315e3a1657",
+            "5cc9c20cd7f00c001336c65d",
+            "5d2369418abbc306c62e0c80",
+            "5b07dd285acfc4001754240d",
+            "56def37dd2720bec348b456a",
+            "5a5f1ce64f39f90b401987bc",
+            "560d657b4bdc2da74d8b4572",
+            "5b3a337e5acfc4704b4a19a0",
+            "57d17e212459775a1179a0f5"
+        ]
+    },
+    "617130016c780c1e710c9a24": {
+        "itemProperties": {
+            "Weight": 0.1,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 2
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "617131a4568c120fdd29482d": {
+        "itemProperties": {
+            "Weight": 0.16,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -3
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61713308d92c473c770214a0": {
+        "itemProperties": {
+            "Weight": 0.122,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 3,
+            "Recoil": -5,
+            "Ergonomics": -1,
+            "Velocity": 0.5
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "6171367e1cb55961fa0fdb36"
+        ]
+    },
+    "6171367e1cb55961fa0fdb36": {
+        "itemProperties": {
+            "Weight": 0.46,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 2,
+            "Recoil": -14,
+            "Loudness": -30,
+            "Ergonomics": -18,
+            "Velocity": 1
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61713a8fd92c473c770214a4": {
+        "itemProperties": {
+            "Weight": 0.27,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 5
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "57ac965c24597706be5f975c",
+            "57aca93d2459771f2c7e26db",
+            "544a3f024bdc2d1d388b4568",
+            "544a3a774bdc2d3a388b4567",
+            "5d2dc3e548f035404a1a4798",
+            "57adff4f24597737f373b6e6",
+            "5c0517910db83400232ffee5",
+            "591c4efa86f7741030027726",
+            "570fd79bd2720bc7458b4583",
+            "570fd6c2d2720bc6458b457f",
+            "558022b54bdc2dac148b458d",
+            "5c07dd120db834001c39092d",
+            "5c0a2cec0db834001b7ce47d",
+            "58491f3324597764bc48fa02",
+            "584924ec24597768f12ae244",
+            "5b30b0dc5acfc400153b7124",
+            "6165ac8c290d254f5e6b2f6c",
+            "60a23797a37c940de7062d02",
+            "5d2da1e948f035477b1ce2ba",
+            "5c0505e00db834001b735073",
+            "609a63b6e2ff132951242d09",
+            "584984812459776a704a82a6",
+            "59f9d81586f7744c7506ee62",
+            "570fd721d2720bc5458b4596",
+            "57ae0171245977343c27bfcf",
+            "5dfe6104585a0c3e995c7b82",
+            "544a3d0a4bdc2d1b388b4567",
+            "5d1b5e94d7ad1a2b865a96b0",
+            "609bab8b455afd752b2e6138",
+            "58d39d3d86f77445bb794ae7",
+            "616554fe50224f204c1da2aa",
+            "5c7d55f52e221644f31bff6a",
+            "616584766ef05c2ce828ef57",
+            "5b3b6dc75acfc47a8773fb1e",
+            "615d8d878004cc50514c3233",
+            "5b2389515acfc4771e1be0c0",
+            "577d128124597739d65d0e56",
+            "618b9643526131765025ab35",
+            "618bab21526131765025ab3f",
+            "5c86592b2e2216000e69e77c",
+            "5a37ca54c4a282000d72296a",
+            "5d0a29fed7ad1a002769ad08",
+            "5c064c400db834001d23f468",
+            "58d2664f86f7747fec5834f6",
+            "57c69dd424597774c03b7bbc",
+            "5b3b99265acfc4704b4a1afb",
+            "5aa66a9be5b5b0214e506e89",
+            "5aa66c72e5b5b00016327c93",
+            "5c1cdd302e221602b3137250",
+            "61714b2467085e45ef140b2c",
+            "6171407e50224f204c1da3c5",
+            "61713cc4d8e3106d9806c109",
+            "5b31163c5acfc400153b71cb",
+            "5a33b652c4a28232996e407c",
+            "5a33b2c9c4a282000c5a9511",
+            "59db7eed86f77461f8380365",
+            "5a1ead28fcdbcb001912fa9f",
+            "5dff77c759400025ea5150cf",
+            "61702be9faa1272e431522c3",
+            "61703001d92c473c77021497",
+            "61712eae6c780c1e710c9a1d",
+            "5bb20e49d4351e3bac1212de",
+            "5ba26b17d4351e00367f9bdd",
+            "5dfa3d7ac41b2312ea33362a",
+            "5c1780312e221602b66cc189",
+            "5fb6564947ce63734e3fa1da",
+            "5bc09a18d4351e003562b68e",
+            "5c18b9192e2216398b5a8104",
+            "5fc0fa957283c4046c58147e",
+            "5894a81786f77427140b8347",
+            "55d5f46a4bdc2d1b198b4567",
+            "5ae30bad5acfc400185c2dc4"
+        ]
+    },
+    "61713cc4d8e3106d9806c109": {
+        "itemProperties": {
+            "Weight": 0.25,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "56ea70acd2720b844b8b4594",
+            "5aa66be6e5b5b0214e506e97",
+            "61714eec290d254f5e6b2ffc",
+            "57ae0171245977343c27bfcf",
+            "61605d88ffa6e502ac5e7eeb",
+            "58d39d3d86f77445bb794ae7",
+            "616554fe50224f204c1da2aa",
+            "615d8d878004cc50514c3233",
+            "577d128124597739d65d0e56",
+            "58d2664f86f7747fec5834f6",
+            "61714b2467085e45ef140b2c",
+            "5a33b2c9c4a282000c5a9511"
+        ]
+    },
+    "6171407e50224f204c1da3c5": {
+        "itemProperties": {
+            "Weight": 0.25,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5b2388675acfc4771e1be0be",
+            "5b3b99475acfc432ff4dcbee",
+            "5a37cb10c4a282329a73b4e7",
+            "57c5ac0824597754771e88a9",
+            "618ba27d9008e4636a67f61d",
+            "617151c1d92c473c770214ab",
+            "57ae0171245977343c27bfcf",
+            "61605d88ffa6e502ac5e7eeb",
+            "58d39d3d86f77445bb794ae7",
+            "616554fe50224f204c1da2aa",
+            "615d8d878004cc50514c3233",
+            "577d128124597739d65d0e56",
+            "58d2664f86f7747fec5834f6",
+            "61714b2467085e45ef140b2c",
+            "5a33b2c9c4a282000c5a9511"
+        ]
+    },
+    "61714b2467085e45ef140b2c": {
+        "itemProperties": {
+            "Weight": 0.015,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "58d399e486f77442e0016fe7"
+        ]
+    },
+    "61714eec290d254f5e6b2ffc": {
+        "itemProperties": {
+            "Weight": 0.9,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -6
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "617151c1d92c473c770214ab": {
+        "itemProperties": {
+            "Weight": 0.9,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -3
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "617153016c780c1e710c9a2f": {
+        "itemProperties": {
+            "Weight": 0.162,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -1
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "617155ee50224f204c1da3cd",
+            "617154aa1cb55961fa0fdb3b"
+        ]
+    },
+    "617154aa1cb55961fa0fdb3b": {
+        "itemProperties": {
+            "Weight": 0.39,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -33,
+            "Ergonomics": 4
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "617155ee50224f204c1da3cd": {
+        "itemProperties": {
+            "Weight": 0.907,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -33,
+            "Ergonomics": 6
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "61715e7e67085e45ef140b33"
+        ]
+    },
+    "61715e7e67085e45ef140b33": {
+        "itemProperties": {
+            "Weight": 0.057,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 5
         },
         "hasGrid": false,
         "linkedItems": []
@@ -45643,6 +47069,2097 @@
             },
             "DeafStrength": "None",
             "headSegments": []
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6176aca650224f204c1da3fb": {
+        "itemProperties": {
+            "Weight": 0.51,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "MaxDurability": 100,
+            "Ergonomics": 48,
+            "bFirerate": 700,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 240,
+            "RecoilForceBack": 600,
+            "ammoCaliber": "Caliber762x51"
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "55d4b9964bdc2d1d4e8b456e",
+            "571659bb2459771fb2755a12",
+            "602e71bd53a60014f9705bfa",
+            "6113c3586c780c1e710c90bc",
+            "6113cc78d3a39d50044c065a",
+            "6113cce3d92c473c770200c7",
+            "5cc9bcaed7f00c011c04e179",
+            "5bb20e18d4351e00320205d5",
+            "5bb20e0ed4351e3bac1212dc",
+            "6193dcd0f8ee7e52e4210a28",
+            "5d025cc1d7ad1a53845279ef",
+            "5c6d7b3d2e221600114c9b7d",
+            "57c55efc2459772d2c6271e7",
+            "57af48872459771f0b2ebf11",
+            "57c55f092459772d291a8463",
+            "57c55f112459772d28133310",
+            "57c55f172459772d27602381",
+            "5a339805c4a2826c6e06d73d",
+            "55802f5d4bdc2dac148b458f",
+            "5d15cf3bd7ad1a67e71518b2",
+            "59db3a1d86f77429e05b4e92",
+            "5fbcbd6c187fea44d52eda14",
+            "59db3acc86f7742a2c4ab912",
+            "59db3b0886f77429d72fb895",
+            "615d8faecabb9b7ad90f4d5d",
+            "5b07db875acfc40dc528a5f6",
+            "617130016c780c1e710c9a24",
+            "617131a4568c120fdd29482d",
+            "617153016c780c1e710c9a2f",
+            "61713a8fd92c473c770214a4",
+            "61702d8a67085e45ef140b24"
+        ]
+    },
+    "617aa4dd8166f034d57de9c5": {
+        "itemProperties": {
+            "Weight": 0.539,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "617fd91e5539a84ec44ce155": {
+        "itemProperties": {
+            "Weight": 0.31,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61816734d8e3106d9806c1f3": {
+        "itemProperties": {
+            "Weight": 0.35,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -5
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "618167528004cc50514c34f9",
+            "61825d136ef05c2ce828f1cc",
+            "618167441cb55961fa0fdc71",
+            "61825d24d3a39d50044c13af"
+        ]
+    },
+    "618167441cb55961fa0fdc71": {
+        "itemProperties": {
+            "Weight": 0.06,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 5
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "618167528004cc50514c34f9": {
+        "itemProperties": {
+            "Weight": 0.3,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -24,
+            "Ergonomics": 3
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "618167616ef05c2ce828f1a8"
+        ]
+    },
+    "618167616ef05c2ce828f1a8": {
+        "itemProperties": {
+            "Weight": 0.1,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -4,
+            "Ergonomics": 3
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6181688c6c780c1e710c9b04": {
+        "itemProperties": {
+            "Weight": 0.017,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 1
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "618168b350224f204c1da4d8": {
+        "itemProperties": {
+            "Weight": 1.02,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -3,
+            "Ergonomics": -6,
+            "Velocity": -8
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "612e0d3767085e45ef14057f",
+            "5b7d693d5acfc43bca706a3d",
+            "5a34fd2bc4a282329a73b4c5",
+            "618178aa1cb55961fa0fdc80",
+            "6065c6e7132d4d12c81fd8e1",
+            "5d1f819086f7744b355c219b",
+            "5dcbe965e4ed22586443a79d",
+            "5d026791d7ad1a04a067ea63",
+            "5dfa3cd1b33c0951220c079b",
+            "6130c43c67085e45ef1405a1",
+            "5cdd7685d7f00c000f260ed2",
+            "5c878e9d2e2216000f201903",
+            "5d02677ad7ad1a04a15c0f95",
+            "5bbdb8bdd4351e4502011460",
+            "5cdd7693d7f00c0010373aa5",
+            "607ffb988900dc2d9a55b6e4",
+            "615d8eb350224f204c1da1cf",
+            "612e0e3c290d254f5e6b291d",
+            "5d443f8fa4b93678dd4a01aa",
+            "5c7954d52e221600106f4cc7",
+            "5fbc22ccf24b94483f726483",
+            "59bffc1f86f77435b128b872",
+            "5cf78496d7f00c065703d6ca",
+            "5fbe7618d6fa9c00c571bb6c",
+            "61816fcad92c473c770215cc"
+        ]
+    },
+    "618168dc8004cc50514c34fc": {
+        "itemProperties": {
+            "Weight": 0.33,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -4
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61816df1d3a39d50044c139e": {
+        "itemProperties": {
+            "Weight": 0.075,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5c7fc87d2e221644f31c0298",
+            "5cda9bcfd7f00c0c0b53e900",
+            "59f8a37386f7747af3328f06",
+            "5a7dbfc1159bd40016548fde",
+            "619386379fb0c665d5490dbe",
+            "5c87ca002e221600114cb150",
+            "588226d124597767ad33f787",
+            "588226dd24597767ad33f789",
+            "588226e62459776e3e094af7",
+            "588226ef24597767af46e39c",
+            "59fc48e086f77463b1118392",
+            "5fce0cf655375d18a253eff0",
+            "5cf4fb76d7f00c065703d3ac",
+            "5b057b4f5acfc4771e1bd3e9",
+            "5c791e872e2216001219c40a",
+            "558032614bdc2de7118b4585",
+            "58c157be86f77403c74b2bb6",
+            "58c157c886f774032749fb06",
+            "5f6340d3ca442212f4047eb2",
+            "591af28e86f77414a27a9e1d",
+            "5c1cd46f2e22164bef5cfedb",
+            "5c1bc4812e22164bef5cfde7",
+            "5c1bc5612e221602b5429350",
+            "5c1bc5af2e221602b412949b",
+            "5c1bc5fb2e221602b1779b32",
+            "5c1bc7432e221602b412949d",
+            "5c1bc7752e221602b1779b34",
+            "61965d9058ef8c428c287e0d"
+        ]
+    },
+    "61816dfa6ef05c2ce828f1ad": {
+        "itemProperties": {
+            "Weight": 0.07,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5a800961159bd4315e3a1657",
+            "57fd23e32459772d0805bcf1",
+            "544909bb4bdc2d6f028b4577",
+            "5c06595c0db834001a66af6c",
+            "5cc9c20cd7f00c001336c65d",
+            "5d2369418abbc306c62e0c80",
+            "5b07dd285acfc4001754240d",
+            "56def37dd2720bec348b456a",
+            "5a7b483fe899ef0016170d15",
+            "61605d88ffa6e502ac5e7eeb",
+            "5a5f1ce64f39f90b401987bc",
+            "560d657b4bdc2da74d8b4572",
+            "5b3a337e5acfc4704b4a19a0",
+            "5c5952732e2216398b5abda2",
+            "57d17e212459775a1179a0f5",
+            "5d10b49bd7ad1a1a560708b0"
+        ]
+    },
+    "61816fcad92c473c770215cc": {
+        "itemProperties": {
+            "Weight": 0.034,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61817865d3a39d50044c13a4": {
+        "itemProperties": {
+            "Weight": 0.036,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "618178aa1cb55961fa0fdc80": {
+        "itemProperties": {
+            "Weight": 0.16,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 4,
+            "Recoil": -7,
+            "Ergonomics": -2,
+            "Velocity": 1
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5a34fe59c4a282000b1521a2"
+        ]
+    },
+    "61825d06d92c473c770215de": {
+        "itemProperties": {
+            "Weight": 0.35,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -5
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "618167528004cc50514c34f9",
+            "61825d136ef05c2ce828f1cc",
+            "618167441cb55961fa0fdc71",
+            "61825d24d3a39d50044c13af"
+        ]
+    },
+    "61825d136ef05c2ce828f1cc": {
+        "itemProperties": {
+            "Weight": 0.3,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -24,
+            "Ergonomics": 3
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "618167616ef05c2ce828f1a8"
+        ]
+    },
+    "61825d24d3a39d50044c13af": {
+        "itemProperties": {
+            "Weight": 0.06,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 5
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6183afd850224f204c1da514": {
+        "itemProperties": {
+            "Weight": 0.85,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "MaxDurability": 100,
+            "Ergonomics": 45,
+            "bFirerate": 600,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 262,
+            "RecoilForceBack": 605,
+            "ammoCaliber": "Caliber762x51"
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "55d4b9964bdc2d1d4e8b456e",
+            "571659bb2459771fb2755a12",
+            "602e71bd53a60014f9705bfa",
+            "6113c3586c780c1e710c90bc",
+            "6113cc78d3a39d50044c065a",
+            "6113cce3d92c473c770200c7",
+            "5cc9bcaed7f00c011c04e179",
+            "5bb20e18d4351e00320205d5",
+            "5bb20e0ed4351e3bac1212dc",
+            "6193dcd0f8ee7e52e4210a28",
+            "5d025cc1d7ad1a53845279ef",
+            "5c6d7b3d2e221600114c9b7d",
+            "57c55efc2459772d2c6271e7",
+            "57af48872459771f0b2ebf11",
+            "57c55f092459772d291a8463",
+            "57c55f112459772d28133310",
+            "57c55f172459772d27602381",
+            "5a339805c4a2826c6e06d73d",
+            "55802f5d4bdc2dac148b458f",
+            "5d15cf3bd7ad1a67e71518b2",
+            "59db3a1d86f77429e05b4e92",
+            "5fbcbd6c187fea44d52eda14",
+            "59db3acc86f7742a2c4ab912",
+            "59db3b0886f77429d72fb895",
+            "615d8faecabb9b7ad90f4d5d",
+            "5b07db875acfc40dc528a5f6",
+            "618168dc8004cc50514c34fc",
+            "6183d53f1cb55961fa0fdcda",
+            "6165adcdd3a39d50044c120f",
+            "6165aeedfaa1272e431521e3",
+            "61816734d8e3106d9806c1f3",
+            "61825d06d92c473c770215de",
+            "6181688c6c780c1e710c9b04"
+        ]
+    },
+    "6183b0711cb55961fa0fdcad": {
+        "itemProperties": {
+            "Weight": 1.12,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -6,
+            "Ergonomics": -13,
+            "Velocity": -6.48
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "612e0d3767085e45ef14057f",
+            "5b7d693d5acfc43bca706a3d",
+            "5a34fd2bc4a282329a73b4c5",
+            "618178aa1cb55961fa0fdc80",
+            "6065c6e7132d4d12c81fd8e1",
+            "5d1f819086f7744b355c219b",
+            "5dcbe965e4ed22586443a79d",
+            "5d026791d7ad1a04a067ea63",
+            "5dfa3cd1b33c0951220c079b",
+            "6130c43c67085e45ef1405a1",
+            "5cdd7685d7f00c000f260ed2",
+            "5c878e9d2e2216000f201903",
+            "5d02677ad7ad1a04a15c0f95",
+            "5bbdb8bdd4351e4502011460",
+            "5cdd7693d7f00c0010373aa5",
+            "607ffb988900dc2d9a55b6e4",
+            "615d8eb350224f204c1da1cf",
+            "612e0e3c290d254f5e6b291d",
+            "5d443f8fa4b93678dd4a01aa",
+            "5c7954d52e221600106f4cc7",
+            "5fbc22ccf24b94483f726483",
+            "59bffc1f86f77435b128b872",
+            "5cf78496d7f00c065703d6ca",
+            "5fbe7618d6fa9c00c571bb6c",
+            "61816fcad92c473c770215cc"
+        ]
+    },
+    "6183b084a112697a4b3a6e6c": {
+        "itemProperties": {
+            "Weight": 1.26,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -10,
+            "Ergonomics": -22,
+            "Velocity": -4.48
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "612e0d3767085e45ef14057f",
+            "5b7d693d5acfc43bca706a3d",
+            "5a34fd2bc4a282329a73b4c5",
+            "618178aa1cb55961fa0fdc80",
+            "6065c6e7132d4d12c81fd8e1",
+            "5d1f819086f7744b355c219b",
+            "5dcbe965e4ed22586443a79d",
+            "5d026791d7ad1a04a067ea63",
+            "5dfa3cd1b33c0951220c079b",
+            "6130c43c67085e45ef1405a1",
+            "5cdd7685d7f00c000f260ed2",
+            "5c878e9d2e2216000f201903",
+            "5d02677ad7ad1a04a15c0f95",
+            "5bbdb8bdd4351e4502011460",
+            "5cdd7693d7f00c0010373aa5",
+            "607ffb988900dc2d9a55b6e4",
+            "615d8eb350224f204c1da1cf",
+            "612e0e3c290d254f5e6b291d",
+            "5d443f8fa4b93678dd4a01aa",
+            "5fbc22ccf24b94483f726483",
+            "59bffc1f86f77435b128b872",
+            "5cf78496d7f00c065703d6ca",
+            "5fbe7618d6fa9c00c571bb6c",
+            "61816fcad92c473c770215cc"
+        ]
+    },
+    "6183d53f1cb55961fa0fdcda": {
+        "itemProperties": {
+            "Weight": 0.35,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -4
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6183fc15d3a39d50044c13e9": {
+        "itemProperties": {
+            "Weight": 0.9,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -2,
+            "Ergonomics": -5,
+            "Velocity": -15
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5b3a16655acfc40016387a2a",
+            "5c7e5f112e221600106f4ede",
+            "5c0fafb6d174af02a96260ba",
+            "612e0cfc8004cc50514c2d9e",
+            "5cf6937cd7f00c056c53fb39",
+            "544a38634bdc2d58388b4568",
+            "5cff9e5ed7ad1a09407397d4",
+            "5c48a2a42e221602b66d1e07",
+            "5f6372e2865db925d54f3869",
+            "618407a850224f204c1da549",
+            "615d8e2f1cb55961fa0fd9a4",
+            "56ea8180d2720bf2698b456a",
+            "5d02676dd7ad1a049e54f6dc",
+            "56ea6fafd2720b844b8b4593",
+            "5943ee5a86f77413872d25ec",
+            "609269c3b0e443224b421cc1",
+            "5c7fb51d2e2216001219ce11",
+            "5ea172e498dacb342978818e",
+            "5c6d710d2e22165df16b81e7",
+            "612e0e55a112697a4b3a66e7",
+            "5d440625a4b9361eec4ae6c5",
+            "5cc9b815d7f00c000e2579d6",
+            "5a7c147ce899ef00150bd8b8",
+            "5c7954d52e221600106f4cc7",
+            "59bffc1f86f77435b128b872",
+            "5a9fbb84a2750c00137fa685",
+            "61816fcad92c473c770215cc"
+        ]
+    },
+    "6183fd911cb55961fa0fdce9": {
+        "itemProperties": {
+            "Weight": 1,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -4,
+            "Ergonomics": -13,
+            "Velocity": -8
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5b3a16655acfc40016387a2a",
+            "5c7e5f112e221600106f4ede",
+            "5c0fafb6d174af02a96260ba",
+            "612e0cfc8004cc50514c2d9e",
+            "5cf6937cd7f00c056c53fb39",
+            "544a38634bdc2d58388b4568",
+            "5cff9e5ed7ad1a09407397d4",
+            "5c48a2a42e221602b66d1e07",
+            "5f6372e2865db925d54f3869",
+            "618407a850224f204c1da549",
+            "615d8e2f1cb55961fa0fd9a4",
+            "56ea8180d2720bf2698b456a",
+            "5d02676dd7ad1a049e54f6dc",
+            "56ea6fafd2720b844b8b4593",
+            "5943ee5a86f77413872d25ec",
+            "609269c3b0e443224b421cc1",
+            "5c7fb51d2e2216001219ce11",
+            "5ea172e498dacb342978818e",
+            "5c6d710d2e22165df16b81e7",
+            "612e0e55a112697a4b3a66e7",
+            "5d440625a4b9361eec4ae6c5",
+            "5cc9b815d7f00c000e2579d6",
+            "5a7c147ce899ef00150bd8b8",
+            "5c7954d52e221600106f4cc7",
+            "59bffc1f86f77435b128b872",
+            "5a9fbb84a2750c00137fa685",
+            "61816fcad92c473c770215cc"
+        ]
+    },
+    "6183fd9e8004cc50514c358f": {
+        "itemProperties": {
+            "Weight": 1.05,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -6,
+            "Ergonomics": -19,
+            "Velocity": -4.48
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5b3a16655acfc40016387a2a",
+            "5c7e5f112e221600106f4ede",
+            "5c0fafb6d174af02a96260ba",
+            "612e0cfc8004cc50514c2d9e",
+            "5cf6937cd7f00c056c53fb39",
+            "544a38634bdc2d58388b4568",
+            "5cff9e5ed7ad1a09407397d4",
+            "5c48a2a42e221602b66d1e07",
+            "5f6372e2865db925d54f3869",
+            "618407a850224f204c1da549",
+            "615d8e2f1cb55961fa0fd9a4",
+            "56ea8180d2720bf2698b456a",
+            "5d02676dd7ad1a049e54f6dc",
+            "56ea6fafd2720b844b8b4593",
+            "5943ee5a86f77413872d25ec",
+            "609269c3b0e443224b421cc1",
+            "5c7fb51d2e2216001219ce11",
+            "5ea172e498dacb342978818e",
+            "5c6d710d2e22165df16b81e7",
+            "612e0e55a112697a4b3a66e7",
+            "5d440625a4b9361eec4ae6c5",
+            "5cc9b815d7f00c000e2579d6",
+            "5a7c147ce899ef00150bd8b8",
+            "5c7954d52e221600106f4cc7",
+            "59bffc1f86f77435b128b872",
+            "5a9fbb84a2750c00137fa685",
+            "61816fcad92c473c770215cc"
+        ]
+    },
+    "618405198004cc50514c3594": {
+        "itemProperties": {
+            "Weight": 0.2,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 2
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "57ac965c24597706be5f975c",
+            "57aca93d2459771f2c7e26db",
+            "544a3f024bdc2d1d388b4568",
+            "544a3a774bdc2d3a388b4567",
+            "5d2dc3e548f035404a1a4798",
+            "57adff4f24597737f373b6e6",
+            "5c0517910db83400232ffee5",
+            "591c4efa86f7741030027726",
+            "570fd79bd2720bc7458b4583",
+            "570fd6c2d2720bc6458b457f",
+            "558022b54bdc2dac148b458d",
+            "5c07dd120db834001c39092d",
+            "5c0a2cec0db834001b7ce47d",
+            "58491f3324597764bc48fa02",
+            "584924ec24597768f12ae244",
+            "5b30b0dc5acfc400153b7124",
+            "6165ac8c290d254f5e6b2f6c",
+            "60a23797a37c940de7062d02",
+            "5d2da1e948f035477b1ce2ba",
+            "5c0505e00db834001b735073",
+            "609a63b6e2ff132951242d09",
+            "584984812459776a704a82a6",
+            "59f9d81586f7744c7506ee62",
+            "570fd721d2720bc5458b4596",
+            "57ae0171245977343c27bfcf",
+            "5dfe6104585a0c3e995c7b82",
+            "544a3d0a4bdc2d1b388b4567",
+            "5d1b5e94d7ad1a2b865a96b0",
+            "609bab8b455afd752b2e6138",
+            "58d39d3d86f77445bb794ae7",
+            "616554fe50224f204c1da2aa",
+            "5c7d55f52e221644f31bff6a",
+            "616584766ef05c2ce828ef57",
+            "5b3b6dc75acfc47a8773fb1e",
+            "615d8d878004cc50514c3233",
+            "5b2389515acfc4771e1be0c0",
+            "577d128124597739d65d0e56",
+            "618b9643526131765025ab35",
+            "618bab21526131765025ab3f",
+            "5c86592b2e2216000e69e77c",
+            "5a37ca54c4a282000d72296a",
+            "5d0a29fed7ad1a002769ad08",
+            "5c064c400db834001d23f468",
+            "58d2664f86f7747fec5834f6",
+            "57c69dd424597774c03b7bbc",
+            "5b3b99265acfc4704b4a1afb",
+            "5aa66a9be5b5b0214e506e89",
+            "5aa66c72e5b5b00016327c93",
+            "5c1cdd302e221602b3137250",
+            "61714b2467085e45ef140b2c",
+            "6171407e50224f204c1da3c5",
+            "61713cc4d8e3106d9806c109",
+            "5b31163c5acfc400153b71cb",
+            "5a33b652c4a28232996e407c",
+            "5a33b2c9c4a282000c5a9511",
+            "59db7eed86f77461f8380365",
+            "5a1ead28fcdbcb001912fa9f",
+            "5dff77c759400025ea5150cf",
+            "6183fc15d3a39d50044c13e9",
+            "6183fd911cb55961fa0fdce9",
+            "6183fd9e8004cc50514c358f",
+            "61817865d3a39d50044c13a4",
+            "5bb20e49d4351e3bac1212de",
+            "5ba26b17d4351e00367f9bdd",
+            "5dfa3d7ac41b2312ea33362a",
+            "5c1780312e221602b66cc189",
+            "5fb6564947ce63734e3fa1da",
+            "5bc09a18d4351e003562b68e",
+            "5c18b9192e2216398b5a8104",
+            "5fc0fa957283c4046c58147e",
+            "5894a81786f77427140b8347",
+            "55d5f46a4bdc2d1b198b4567",
+            "5ae30bad5acfc400185c2dc4",
+            "5ba26b01d4351e0085325a51",
+            "5dfa3d950dee1b22f862eae0",
+            "5c17804b2e2216152006c02f",
+            "5fb6567747ce63734e3fa1dc",
+            "5bc09a30d4351e00367fb7c8",
+            "5c18b90d2e2216152142466b",
+            "5fc0fa362770a0045c59c677",
+            "5894a73486f77426d259076c",
+            "57fd23e32459772d0805bcf1",
+            "544909bb4bdc2d6f028b4577",
+            "5d10b49bd7ad1a1a560708b0",
+            "5c06595c0db834001a66af6c",
+            "5a7b483fe899ef0016170d15",
+            "61605d88ffa6e502ac5e7eeb",
+            "5c5952732e2216398b5abda2",
+            "61816df1d3a39d50044c139e",
+            "619666f4af1f5202c57a952d",
+            "61816dfa6ef05c2ce828f1ad",
+            "5649a2464bdc2d91118b45a8"
+        ]
+    },
+    "6184055050224f204c1da540": {
+        "itemProperties": {
+            "Weight": 0.7,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "MaxDurability": 100,
+            "Ergonomics": 45,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 160,
+            "RecoilForceBack": 468,
+            "ammoCaliber": "Caliber556x45NATO"
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "55d4b9964bdc2d1d4e8b456e",
+            "571659bb2459771fb2755a12",
+            "602e71bd53a60014f9705bfa",
+            "6113c3586c780c1e710c90bc",
+            "6113cc78d3a39d50044c065a",
+            "6113cce3d92c473c770200c7",
+            "5cc9bcaed7f00c011c04e179",
+            "5bb20e18d4351e00320205d5",
+            "5bb20e0ed4351e3bac1212dc",
+            "6193dcd0f8ee7e52e4210a28",
+            "5d025cc1d7ad1a53845279ef",
+            "5c6d7b3d2e221600114c9b7d",
+            "57c55efc2459772d2c6271e7",
+            "57af48872459771f0b2ebf11",
+            "57c55f092459772d291a8463",
+            "57c55f112459772d28133310",
+            "57c55f172459772d27602381",
+            "5a339805c4a2826c6e06d73d",
+            "55802f5d4bdc2dac148b458f",
+            "5d15cf3bd7ad1a67e71518b2",
+            "59db3a1d86f77429e05b4e92",
+            "5fbcbd6c187fea44d52eda14",
+            "59db3acc86f7742a2c4ab912",
+            "59db3b0886f77429d72fb895",
+            "615d8faecabb9b7ad90f4d5d",
+            "5b07db875acfc40dc528a5f6",
+            "55d4887d4bdc2d962f8b4570",
+            "61840bedd92c473c77021635",
+            "61840d85568c120fdd2962a5",
+            "5c05413a0db834001c390617",
+            "5c6d450c2e221600114c997d",
+            "5c6d42cb2e2216000e69d7d1",
+            "59c1383d86f774290a37e0ca",
+            "5aaa5e60e5b5b000140293d6",
+            "5448c1d04bdc2dff2f8b4569",
+            "5aaa5dfee5b5b000140293d3",
+            "5d1340b3d7ad1a0b52682ed7",
+            "544a378f4bdc2d30388b4567",
+            "5d1340bdd7ad1a0e8d245aab",
+            "55802d5f4bdc2dac148b458e",
+            "5d1340cad7ad1a0b0b249869",
+            "5c6592372e221600133e47d7",
+            "544a37c44bdc2d25388b4567",
+            "5c6d46132e221601da357d56",
+            "618405198004cc50514c3594",
+            "618426d96c780c1e710c9b9f",
+            "61816734d8e3106d9806c1f3",
+            "61825d06d92c473c770215de",
+            "6181688c6c780c1e710c9b04"
+        ]
+    },
+    "618407a850224f204c1da549": {
+        "itemProperties": {
+            "Weight": 0.15,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 1,
+            "Recoil": -7,
+            "Ergonomics": -1,
+            "Velocity": 1
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61840bedd92c473c77021635": {
+        "itemProperties": {
+            "Weight": 0.117,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -3
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61840d85568c120fdd2962a5": {
+        "itemProperties": {
+            "Weight": 0.117,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -3
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "618426d96c780c1e710c9b9f": {
+        "itemProperties": {
+            "Weight": 0.2,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 2
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "57ac965c24597706be5f975c",
+            "57aca93d2459771f2c7e26db",
+            "544a3f024bdc2d1d388b4568",
+            "544a3a774bdc2d3a388b4567",
+            "5d2dc3e548f035404a1a4798",
+            "57adff4f24597737f373b6e6",
+            "5c0517910db83400232ffee5",
+            "591c4efa86f7741030027726",
+            "570fd79bd2720bc7458b4583",
+            "570fd6c2d2720bc6458b457f",
+            "558022b54bdc2dac148b458d",
+            "5c07dd120db834001c39092d",
+            "5c0a2cec0db834001b7ce47d",
+            "58491f3324597764bc48fa02",
+            "584924ec24597768f12ae244",
+            "5b30b0dc5acfc400153b7124",
+            "6165ac8c290d254f5e6b2f6c",
+            "60a23797a37c940de7062d02",
+            "5d2da1e948f035477b1ce2ba",
+            "5c0505e00db834001b735073",
+            "609a63b6e2ff132951242d09",
+            "584984812459776a704a82a6",
+            "59f9d81586f7744c7506ee62",
+            "570fd721d2720bc5458b4596",
+            "57ae0171245977343c27bfcf",
+            "5dfe6104585a0c3e995c7b82",
+            "544a3d0a4bdc2d1b388b4567",
+            "5d1b5e94d7ad1a2b865a96b0",
+            "609bab8b455afd752b2e6138",
+            "58d39d3d86f77445bb794ae7",
+            "616554fe50224f204c1da2aa",
+            "5c7d55f52e221644f31bff6a",
+            "616584766ef05c2ce828ef57",
+            "5b3b6dc75acfc47a8773fb1e",
+            "615d8d878004cc50514c3233",
+            "5b2389515acfc4771e1be0c0",
+            "577d128124597739d65d0e56",
+            "618b9643526131765025ab35",
+            "618bab21526131765025ab3f",
+            "5c86592b2e2216000e69e77c",
+            "5a37ca54c4a282000d72296a",
+            "5d0a29fed7ad1a002769ad08",
+            "5c064c400db834001d23f468",
+            "58d2664f86f7747fec5834f6",
+            "57c69dd424597774c03b7bbc",
+            "5b3b99265acfc4704b4a1afb",
+            "5aa66a9be5b5b0214e506e89",
+            "5aa66c72e5b5b00016327c93",
+            "5c1cdd302e221602b3137250",
+            "61714b2467085e45ef140b2c",
+            "6171407e50224f204c1da3c5",
+            "61713cc4d8e3106d9806c109",
+            "5b31163c5acfc400153b71cb",
+            "5a33b652c4a28232996e407c",
+            "5a33b2c9c4a282000c5a9511",
+            "59db7eed86f77461f8380365",
+            "5a1ead28fcdbcb001912fa9f",
+            "5dff77c759400025ea5150cf",
+            "6183fc15d3a39d50044c13e9",
+            "6183fd911cb55961fa0fdce9",
+            "6183fd9e8004cc50514c358f",
+            "61817865d3a39d50044c13a4",
+            "5bb20e49d4351e3bac1212de",
+            "5ba26b17d4351e00367f9bdd",
+            "5dfa3d7ac41b2312ea33362a",
+            "5c1780312e221602b66cc189",
+            "5fb6564947ce63734e3fa1da",
+            "5bc09a18d4351e003562b68e",
+            "5c18b9192e2216398b5a8104",
+            "5fc0fa957283c4046c58147e",
+            "5894a81786f77427140b8347",
+            "55d5f46a4bdc2d1b198b4567",
+            "5ae30bad5acfc400185c2dc4",
+            "5ba26b01d4351e0085325a51",
+            "5dfa3d950dee1b22f862eae0",
+            "5c17804b2e2216152006c02f",
+            "5fb6567747ce63734e3fa1dc",
+            "5bc09a30d4351e00367fb7c8",
+            "5c18b90d2e2216152142466b",
+            "5fc0fa362770a0045c59c677",
+            "5894a73486f77426d259076c",
+            "57fd23e32459772d0805bcf1",
+            "544909bb4bdc2d6f028b4577",
+            "5d10b49bd7ad1a1a560708b0",
+            "5c06595c0db834001a66af6c",
+            "5a7b483fe899ef0016170d15",
+            "61605d88ffa6e502ac5e7eeb",
+            "5c5952732e2216398b5abda2",
+            "61816df1d3a39d50044c139e",
+            "619666f4af1f5202c57a952d",
+            "61816dfa6ef05c2ce828f1ad",
+            "5649a2464bdc2d91118b45a8"
+        ]
+    },
+    "618428466ef05c2ce828f218": {
+        "itemProperties": {
+            "Weight": 0.7,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "MaxDurability": 100,
+            "Ergonomics": 45,
+            "bFirerate": 650,
+            "weapFireType": [
+                "single",
+                "fullauto"
+            ],
+            "RecoilForceUp": 160,
+            "RecoilForceBack": 468,
+            "ammoCaliber": "Caliber556x45NATO"
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "55d4b9964bdc2d1d4e8b456e",
+            "571659bb2459771fb2755a12",
+            "602e71bd53a60014f9705bfa",
+            "6113c3586c780c1e710c90bc",
+            "6113cc78d3a39d50044c065a",
+            "6113cce3d92c473c770200c7",
+            "5cc9bcaed7f00c011c04e179",
+            "5bb20e18d4351e00320205d5",
+            "5bb20e0ed4351e3bac1212dc",
+            "6193dcd0f8ee7e52e4210a28",
+            "5d025cc1d7ad1a53845279ef",
+            "5c6d7b3d2e221600114c9b7d",
+            "57c55efc2459772d2c6271e7",
+            "57af48872459771f0b2ebf11",
+            "57c55f092459772d291a8463",
+            "57c55f112459772d28133310",
+            "57c55f172459772d27602381",
+            "5a339805c4a2826c6e06d73d",
+            "55802f5d4bdc2dac148b458f",
+            "5d15cf3bd7ad1a67e71518b2",
+            "59db3a1d86f77429e05b4e92",
+            "5fbcbd6c187fea44d52eda14",
+            "59db3acc86f7742a2c4ab912",
+            "59db3b0886f77429d72fb895",
+            "615d8faecabb9b7ad90f4d5d",
+            "5b07db875acfc40dc528a5f6",
+            "55d4887d4bdc2d962f8b4570",
+            "61840bedd92c473c77021635",
+            "61840d85568c120fdd2962a5",
+            "5c05413a0db834001c390617",
+            "5c6d450c2e221600114c997d",
+            "5c6d42cb2e2216000e69d7d1",
+            "59c1383d86f774290a37e0ca",
+            "5aaa5e60e5b5b000140293d6",
+            "5448c1d04bdc2dff2f8b4569",
+            "5aaa5dfee5b5b000140293d3",
+            "5d1340b3d7ad1a0b52682ed7",
+            "544a378f4bdc2d30388b4567",
+            "5d1340bdd7ad1a0e8d245aab",
+            "55802d5f4bdc2dac148b458e",
+            "5d1340cad7ad1a0b0b249869",
+            "5c6592372e221600133e47d7",
+            "544a37c44bdc2d25388b4567",
+            "5c6d46132e221601da357d56",
+            "618405198004cc50514c3594",
+            "618426d96c780c1e710c9b9f",
+            "61816734d8e3106d9806c1f3",
+            "61825d06d92c473c770215de",
+            "6181688c6c780c1e710c9b04"
+        ]
+    },
+    "618a431df1eb8e24b8741deb": {
+        "itemProperties": {
+            "Weight": 0.53,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "618a5d5852ecee1505530b2a": {
+        "itemProperties": {
+            "Weight": 0.52,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -3
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "618a75c9a3884f56c957ca1b": {
+        "itemProperties": {
+            "Weight": 0.04,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -1
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "618a75f0bd321d49084cd399"
+        ]
+    },
+    "618a75f0bd321d49084cd399": {
+        "itemProperties": {
+            "Weight": 0.6,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -6
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "618a760e526131765025aae3"
+        ]
+    },
+    "618a760e526131765025aae3": {
+        "itemProperties": {
+            "Weight": 0.005,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 5
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "618aef6d0a5a59657e5f55ee": {
+        "itemProperties": {
+            "Weight": 0.18,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "MaxDurability": 10,
+            "armorClass": "0",
+            "armorZone": [],
+            "ArmorMaterial": "UHMWPE",
+            "RicochetParams": {
+                "x": 0,
+                "y": 0,
+                "z": 80
+            },
+            "DeafStrength": "None",
+            "headSegments": []
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "618b9643526131765025ab35": {
+        "itemProperties": {
+            "Weight": 0.194,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 0.5
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5b2388675acfc4771e1be0be",
+            "5b3b99475acfc432ff4dcbee",
+            "5a37cb10c4a282329a73b4e7",
+            "57c5ac0824597754771e88a9",
+            "618ba27d9008e4636a67f61d",
+            "617151c1d92c473c770214ab",
+            "618b9671d14d6d5ab879c5ea",
+            "618ba91477b82356f91ae0e8",
+            "618b9682a3884f56c957ca78",
+            "618ba92152ecee1505530bd3"
+        ]
+    },
+    "618b9671d14d6d5ab879c5ea": {
+        "itemProperties": {
+            "Weight": 0.02,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 0.5
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "618b9682a3884f56c957ca78": {
+        "itemProperties": {
+            "Weight": 0.02,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5a32aa8bc4a2826c6e06d737"
+        ]
+    },
+    "618ba27d9008e4636a67f61d": {
+        "itemProperties": {
+            "Weight": 0.57,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -4
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "618ba91477b82356f91ae0e8": {
+        "itemProperties": {
+            "Weight": 0.02,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 0.5
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "618ba92152ecee1505530bd3": {
+        "itemProperties": {
+            "Weight": 0.02,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5a32aa8bc4a2826c6e06d737"
+        ]
+    },
+    "618bab21526131765025ab3f": {
+        "itemProperties": {
+            "Weight": 0.194,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 0.5
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5b2388675acfc4771e1be0be",
+            "5b3b99475acfc432ff4dcbee",
+            "5a37cb10c4a282329a73b4e7",
+            "57c5ac0824597754771e88a9",
+            "618ba27d9008e4636a67f61d",
+            "617151c1d92c473c770214ab",
+            "618b9671d14d6d5ab879c5ea",
+            "618ba91477b82356f91ae0e8",
+            "618b9682a3884f56c957ca78",
+            "618ba92152ecee1505530bd3"
+        ]
+    },
+    "618bb76513f5097c8d5aa2d5": {
+        "itemProperties": {
+            "Weight": 1.5,
+            "grid": {
+                "pockets": [
+                    {
+                        "height": 5,
+                        "width": 5
+                    }
+                ],
+                "totalSize": 25
+            },
+            "speedPenaltyPercent": -2
+        },
+        "hasGrid": true,
+        "linkedItems": []
+    },
+    "618cfae774bb2d036a049e7c": {
+        "itemProperties": {
+            "Weight": 1.13,
+            "grid": {
+                "pockets": [
+                    {
+                        "height": 5,
+                        "width": 5
+                    }
+                ],
+                "totalSize": 25
+            },
+            "speedPenaltyPercent": -3
+        },
+        "hasGrid": true,
+        "linkedItems": []
+    },
+    "619256e5f8af2c1a4e1f5d92": {
+        "itemProperties": {
+            "Weight": 0.42,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619386379fb0c665d5490dbe": {
+        "itemProperties": {
+            "Weight": 0.068,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 7
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6193a720f8ee7e52e42109ed": {
+        "itemProperties": {
+            "Weight": 0.222,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "MaxDurability": 100,
+            "Ergonomics": 82,
+            "bFirerate": 30,
+            "weapFireType": [
+                "single"
+            ],
+            "RecoilForceUp": 482,
+            "RecoilForceBack": 295,
+            "ammoCaliber": "Caliber1143x23ACP"
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "6194ef39de3cdf1d2614a768",
+            "6194efe07c6c7b169525f11b",
+            "6194eff92d2c397d6600348b",
+            "6194f017ed0429009f543eaa",
+            "6194f02d9bb3d20b0946d2f0",
+            "6194f5d418a3974e5e7421ef",
+            "6194f5722d2c397d6600348f",
+            "6194f5a318a3974e5e7421eb",
+            "6194f41f9fb0c665d5490e75",
+            "6193d382ed0429009f543e65",
+            "6193d338de3cdf1d2614a6fc",
+            "6193d3149fb0c665d5490e32",
+            "6193d3cded0429009f543e6a",
+            "6193d3be7c6c7b169525f0da",
+            "6193d5d4f8ee7e52e4210a1b",
+            "619621a4de3cdf1d2614a7a7",
+            "619624b26db0f2477964e6b0",
+            "6196255558ef8c428c287d1c"
+        ]
+    },
+    "6193d3149fb0c665d5490e32": {
+        "itemProperties": {
+            "Weight": 0.092,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 1
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6193d338de3cdf1d2614a6fc": {
+        "itemProperties": {
+            "Weight": 0.099,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -2
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6193d382ed0429009f543e65": {
+        "itemProperties": {
+            "Weight": 0.409,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 3
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "61963a852d2c397d660036ad",
+            "6194f2912d2c397d6600348d",
+            "6194f2df645b5d229654ad77",
+            "6194f35c18a3974e5e7421e6",
+            "6194f3286db0f2477964e67d"
+        ]
+    },
+    "6193d3be7c6c7b169525f0da": {
+        "itemProperties": {
+            "Weight": 0.017,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 2
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6193d3cded0429009f543e6a": {
+        "itemProperties": {
+            "Weight": 0.013,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 2
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6193d5d4f8ee7e52e4210a1b": {
+        "itemProperties": {
+            "Weight": 0.008,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 2
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6193dcd0f8ee7e52e4210a28": {
+        "itemProperties": {
+            "Weight": 0.08,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 7
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6194ef39de3cdf1d2614a768": {
+        "itemProperties": {
+            "Weight": 0.113,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -2,
+            "Ergonomics": -4,
+            "Velocity": -2.28
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6194efe07c6c7b169525f11b": {
+        "itemProperties": {
+            "Weight": 0.122,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -2,
+            "Ergonomics": -3,
+            "Velocity": -2.18
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5fc4b97bab884124df0cd5e3",
+            "6194f1f918a3974e5e7421e4"
+        ]
+    },
+    "6194eff92d2c397d6600348b": {
+        "itemProperties": {
+            "Weight": 0.141,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -2.5,
+            "Ergonomics": -4,
+            "Velocity": -1.58
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6194f017ed0429009f543eaa": {
+        "itemProperties": {
+            "Weight": 0.163,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 1,
+            "Recoil": -3,
+            "Ergonomics": -6,
+            "Velocity": 2.28
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6194f02d9bb3d20b0946d2f0": {
+        "itemProperties": {
+            "Weight": 0.17,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 2,
+            "Recoil": -4,
+            "Ergonomics": -7,
+            "Velocity": 1.28
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6194f1f918a3974e5e7421e4": {
+        "itemProperties": {
+            "Weight": 0.01,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 1
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6194f2912d2c397d6600348d": {
+        "itemProperties": {
+            "Weight": 0.004,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6194f2df645b5d229654ad77": {
+        "itemProperties": {
+            "Weight": 0.008,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6194f3286db0f2477964e67d": {
+        "itemProperties": {
+            "Weight": 0.005,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6194f35c18a3974e5e7421e6": {
+        "itemProperties": {
+            "Weight": 0.003,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6194f41f9fb0c665d5490e75": {
+        "itemProperties": {
+            "Weight": 0.472,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 3
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "61963a852d2c397d660036ad",
+            "6194f2912d2c397d6600348d",
+            "6194f2df645b5d229654ad77",
+            "6194f35c18a3974e5e7421e6",
+            "6194f3286db0f2477964e67d"
+        ]
+    },
+    "6194f5722d2c397d6600348f": {
+        "itemProperties": {
+            "Weight": 0.44,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -2,
+            "Ergonomics": 3
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "6194f2912d2c397d6600348d",
+            "6194f2df645b5d229654ad77",
+            "6194f35c18a3974e5e7421e6",
+            "6194f3286db0f2477964e67d"
+        ]
+    },
+    "6194f5a318a3974e5e7421eb": {
+        "itemProperties": {
+            "Weight": 0.45,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 3
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "61963a852d2c397d660036ad",
+            "6194f2912d2c397d6600348d",
+            "6194f2df645b5d229654ad77",
+            "6194f35c18a3974e5e7421e6",
+            "6194f3286db0f2477964e67d"
+        ]
+    },
+    "6194f5d418a3974e5e7421ef": {
+        "itemProperties": {
+            "Weight": 0.55,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 5,
+            "Recoil": -4,
+            "Ergonomics": 2
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "6194f2912d2c397d6600348d",
+            "6194f2df645b5d229654ad77",
+            "6194f35c18a3974e5e7421e6",
+            "6194f3286db0f2477964e67d"
+        ]
+    },
+    "619621a4de3cdf1d2614a7a7": {
+        "itemProperties": {
+            "Weight": 0.31,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -10,
+            "Ergonomics": -8
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619624b26db0f2477964e6b0": {
+        "itemProperties": {
+            "Weight": 0.34,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -15,
+            "Ergonomics": -12
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5a800961159bd4315e3a1657",
+            "5cc9c20cd7f00c001336c65d",
+            "5d2369418abbc306c62e0c80",
+            "5b07dd285acfc4001754240d",
+            "56def37dd2720bec348b456a",
+            "5a7b483fe899ef0016170d15",
+            "5a5f1ce64f39f90b401987bc",
+            "560d657b4bdc2da74d8b4572"
+        ]
+    },
+    "6196255558ef8c428c287d1c": {
+        "itemProperties": {
+            "Weight": 0.01,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -1
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5a800961159bd4315e3a1657",
+            "5cc9c20cd7f00c001336c65d",
+            "5d2369418abbc306c62e0c80",
+            "5b07dd285acfc4001754240d",
+            "56def37dd2720bec348b456a",
+            "5a7b483fe899ef0016170d15"
+        ]
+    },
+    "61962b617c6c7b169525f168": {
+        "itemProperties": {
+            "Weight": 0.011,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61962d879bb3d20b0946d385": {
+        "itemProperties": {
+            "Weight": 0.024,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6196364158ef8c428c287d9f": {
+        "itemProperties": {
+            "Weight": 0.015,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "6196365d58ef8c428c287da1": {
+        "itemProperties": {
+            "Weight": 0.015,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619636be6db0f2477964e710": {
+        "itemProperties": {
+            "Weight": 0.016,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61963a852d2c397d660036ad": {
+        "itemProperties": {
+            "Weight": 0.028,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": -2
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "577d141e24597739c5255e01"
+        ]
+    },
+    "61965d9058ef8c428c287e0d": {
+        "itemProperties": {
+            "Weight": 0.224,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 5
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "544909bb4bdc2d6f028b4577",
+            "5d10b49bd7ad1a1a560708b0",
+            "5c06595c0db834001a66af6c",
+            "5a7b483fe899ef0016170d15",
+            "61605d88ffa6e502ac5e7eeb",
+            "5c5952732e2216398b5abda2",
+            "5a800961159bd4315e3a1657",
+            "57fd23e32459772d0805bcf1",
+            "5cc9c20cd7f00c001336c65d",
+            "5d2369418abbc306c62e0c80",
+            "5b07dd285acfc4001754240d",
+            "56def37dd2720bec348b456a",
+            "5a5f1ce64f39f90b401987bc",
+            "560d657b4bdc2da74d8b4572",
+            "5b3a337e5acfc4704b4a19a0",
+            "57d17e212459775a1179a0f5"
+        ]
+    },
+    "619666f4af1f5202c57a952d": {
+        "itemProperties": {
+            "Weight": 0.226,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -1,
+            "Ergonomics": 3
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "544909bb4bdc2d6f028b4577",
+            "5d10b49bd7ad1a1a560708b0",
+            "5c06595c0db834001a66af6c",
+            "5a7b483fe899ef0016170d15",
+            "61605d88ffa6e502ac5e7eeb",
+            "5c5952732e2216398b5abda2",
+            "57cffb66245977632f391a99",
+            "57cffcd624597763133760c5",
+            "57cffcdd24597763f5110006",
+            "57cffce524597763b31685d8",
+            "5b7be4895acfc400170e2dd5",
+            "5b7be47f5acfc400170e2dd2"
+        ]
+    },
+    "6197b229af1f5202c57a9bea": {
+        "itemProperties": {
+            "Weight": 0.127,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -1,
+            "Ergonomics": -1
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "57ade1442459771557167e15",
+            "5a33ca0fc4a282000d72292f",
+            "5c0faeddd174af02a962601f",
+            "5649be884bdc2d79388b4577",
+            "5d120a10d7ad1a4e1026ba85",
+            "5b0800175acfc400153aebd4",
+            "5bb20e58d4351e00320205d7",
+            "5947e98b86f774778f1448bc",
+            "5947eab886f77475961d96c5",
+            "5ef1ba28c64c5d0dfc0571a5",
+            "602e3f1254072b51b239f713",
+            "5c793fb92e221644f31bfb64",
+            "5c793fc42e221600114ca25d",
+            "591aef7986f774139d495f03",
+            "591af10186f774139d495f0e"
+        ]
+    },
+    "619b5db699fb192e7430664f": {
+        "itemProperties": {
+            "Weight": 0.343,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Ergonomics": 9
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5b7be47f5acfc400170e2dd2",
+            "5649a2464bdc2d91118b45a8",
+            "57cffb66245977632f391a99",
+            "57cffcd624597763133760c5",
+            "57cffcdd24597763f5110006",
+            "57cffce524597763b31685d8",
+            "5b7be4895acfc400170e2dd5",
+            "5ba26b01d4351e0085325a51",
+            "5dfa3d950dee1b22f862eae0",
+            "5c17804b2e2216152006c02f",
+            "5fb6567747ce63734e3fa1dc",
+            "5bc09a30d4351e00367fb7c8",
+            "5c18b90d2e2216152142466b",
+            "5fc0fa362770a0045c59c677",
+            "5894a73486f77426d259076c",
+            "55d4af3a4bdc2d972f8b456f"
+        ]
+    },
+    "619b69037b9de8162902673e": {
+        "itemProperties": {
+            "Weight": 0.525,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Recoil": -35,
+            "Ergonomics": 16
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619bc61e86e01e16f839a999": {
+        "itemProperties": {
+            "Weight": 0.05,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619bdd8886e01e16f839a99c": {
+        "itemProperties": {
+            "Weight": 0.05,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619bddc6c9546643a67df6ee": {
+        "itemProperties": {
+            "Weight": 0.05,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619bddffc9546643a67df6f0": {
+        "itemProperties": {
+            "Weight": 0.05,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619bde3dc9546643a67df6f2": {
+        "itemProperties": {
+            "Weight": 0.05,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619bde7fc9546643a67df6f4": {
+        "itemProperties": {
+            "Weight": 0.05,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619bdeb986e01e16f839a99e": {
+        "itemProperties": {
+            "Weight": 0.05,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619bdef8c9546643a67df6f6": {
+        "itemProperties": {
+            "Weight": 0.05,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619bdf9cc9546643a67df6f8": {
+        "itemProperties": {
+            "Weight": 0.05,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619bdfd4c9546643a67df6fa": {
+        "itemProperties": {
+            "Weight": 0.05,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            }
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619cbf476b8a1b37a54eebf8": {
+        "itemProperties": {
+            "Weight": 0.4,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619cbf7d23893217ec30b689": {
+        "itemProperties": {
+            "Weight": 0.7,
+            "grid": {
+                "pockets": [
+                    {
+                        "height": 4,
+                        "width": 4
+                    }
+                ],
+                "totalSize": 16
+            }
+        },
+        "hasGrid": true,
+        "linkedItems": []
+    },
+    "619cbf9e0a7c3a1a2731940a": {
+        "itemProperties": {
+            "Weight": 0.12,
+            "grid": {
+                "pockets": [
+                    {
+                        "height": 4,
+                        "width": 4
+                    }
+                ],
+                "totalSize": 16
+            }
+        },
+        "hasGrid": true,
+        "linkedItems": []
+    },
+    "619cbfccbedcde2f5b3f7bdd": {
+        "itemProperties": {
+            "Weight": 1.5,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619cbfeb6b8a1b37a54eebfa": {
+        "itemProperties": {
+            "Weight": 0.55,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619cc01e0a7c3a1a2731940c": {
+        "itemProperties": {
+            "Weight": 0.25,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "619cf0335771dd3c390269ae": {
+        "itemProperties": {
+            "Weight": 1.5,
+            "grid": {
+                "pockets": [
+                    {
+                        "height": 5,
+                        "width": 5
+                    }
+                ],
+                "totalSize": 25
+            },
+            "speedPenaltyPercent": -2
+        },
+        "hasGrid": true,
+        "linkedItems": []
+    },
+    "619d36da53b4d42ee724fae4": {
+        "itemProperties": {
+            "Weight": 0.1,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "Accuracy": 3,
+            "Recoil": -2,
+            "Velocity": 0.25
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61a64428a8c6aa1b795f0ba1": {
+        "itemProperties": {
+            "Weight": 0.01,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61a6444b8c141d68246e2d2f": {
+        "itemProperties": {
+            "Weight": 0.01,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61a6446f4b5f8b70f451b166": {
+        "itemProperties": {
+            "Weight": 0.01,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61a64492ba05ef10d62adcc1": {
+        "itemProperties": {
+            "Weight": 0.01,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61aa5aed32a4743c3453d319": {
+        "itemProperties": {
+            "Weight": 0.01,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61aa5b518f5e7a39b41416e2": {
+        "itemProperties": {
+            "Weight": 0.01,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61aa5b7db225ac1ead7957c1": {
+        "itemProperties": {
+            "Weight": 0.01,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61aa5ba8018e9821b7368da9": {
+        "itemProperties": {
+            "Weight": 0.01,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61aa81fcb225ac1ead7957c3": {
+        "itemProperties": {
+            "Weight": 0.01,
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
