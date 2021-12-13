@@ -6,6 +6,7 @@ import {
 import Supporter from '../supporter';
 import {ReactComponent as GithubIcon} from '../supporter/Github.svg';
 import {ReactComponent as DiscordIcon} from '../supporter/Discord.svg';
+import PatreonButton from '../patreon-button';
 
 import './index.css';
 
@@ -38,15 +39,7 @@ function Footer() {
             <h3>
                 {t('Supporters')}
             </h3>
-            <p
-                className = 'become-supporter-wrapper'
-            >
-                <a
-                    href="https://www.patreon.com/bePatron?u=26501878&redirect_uri=https%3A%2F%2Ftarkov-tools.com"
-                >
-                    {t('Become a patron')}
-                </a>
-            </p>
+            <PatreonButton />
             <Supporter
                 name = {'The Hideout'}
                 patreon

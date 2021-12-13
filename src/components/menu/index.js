@@ -8,6 +8,7 @@ import {mdiCogOutline} from '@mdi/js';
 
 import MenuItem from './MenuItem';
 import MenuIcon from './MenuIcon.jsx';
+import PatreonButton from '../patreon-button';
 
 import ammoData from '../../data/ammo.json';
 import mapData from '../../data/maps.json';
@@ -47,6 +48,19 @@ const Menu = () => {
                     className = 'icon-with-text'
                 />
             </Link>
+            <PatreonButton
+                onlyLarge
+                text = 'Support on Patreon'
+                wrapperStyle = {{
+                    margin: '0',
+                }}
+                linkStyle = {{
+                    borderRadius: '5px',
+                    color: '#fff',
+                    padding: '5px 20px',
+                    margin: '0 20px 0 0 ',
+                }}
+            />
             <MenuIcon
                 onClick = {handleMenuClick}
             />
