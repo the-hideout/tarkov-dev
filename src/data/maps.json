@@ -30,6 +30,13 @@
         "displayText": "Labs"
     },
     {
+        "key": "lighthouse",
+        "displayText": "Lighthouse",
+        "source": "/u/RyIock",
+        "sourceLink": "https://www.reddit.com/user/RyIock/"
+
+    },
+    {
         "key": "reserve",
         "displayText": "Reserve",
         "source": "/u/LowEffortSaltBox",
