@@ -97,7 +97,7 @@ function Settings() {
         });
 
         for(const module of modulesWithLevels){
-            if(!module.name){
+            if(!module?.name){
                 continue;
             }
 
