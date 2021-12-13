@@ -1983,7 +1983,8 @@
                 "Top",
                 "Nape",
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": [
@@ -11047,7 +11048,8 @@
             "DeafStrength": "High",
             "headSegments": [
                 "Top"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": [
@@ -11245,7 +11247,8 @@
                 "Ears",
                 "Eyes",
                 "Jaws"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -12479,7 +12482,8 @@
             "grid": {
                 "pockets": [],
                 "totalSize": 0
-            }
+            },
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15418,7 +15422,8 @@
                 "z": 80
             },
             "DeafStrength": "None",
-            "headSegments": []
+            "headSegments": [],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15731,7 +15736,8 @@
                 "Top",
                 "Nape",
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15762,7 +15768,8 @@
                 "Top",
                 "Nape",
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": [
@@ -15854,7 +15861,8 @@
                 "Top",
                 "Nape",
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": [
@@ -15887,7 +15895,8 @@
                 "Top",
                 "Nape",
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": [
@@ -20374,7 +20383,8 @@
                 "Ears",
                 "Eyes",
                 "Jaws"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20478,7 +20488,8 @@
                 "z": 80
             },
             "DeafStrength": "None",
-            "headSegments": []
+            "headSegments": [],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -23058,7 +23069,8 @@
                 "z": 80
             },
             "DeafStrength": "None",
-            "headSegments": []
+            "headSegments": [],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25387,7 +25399,8 @@
                 "Top",
                 "Nape",
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25447,7 +25460,8 @@
                 "Top",
                 "Nape",
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": [
@@ -25572,7 +25586,8 @@
                 "Top",
                 "Nape",
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -26525,7 +26540,8 @@
                 "Top",
                 "Nape",
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": [
@@ -29621,7 +29637,8 @@
                 "Top",
                 "Nape",
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": [
@@ -34664,7 +34681,8 @@
                 "Top",
                 "Nape",
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": [
@@ -36280,7 +36298,8 @@
                 "Top",
                 "Nape",
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -37127,7 +37146,8 @@
             "DeafStrength": "Low",
             "headSegments": [
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -37218,7 +37238,8 @@
             "DeafStrength": "Low",
             "headSegments": [
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -40553,7 +40574,8 @@
                 "Top",
                 "Nape",
                 "Ears"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": [
@@ -45530,7 +45552,8 @@
                 "Ears",
                 "Eyes",
                 "Jaws"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -45563,7 +45586,8 @@
                 "Ears",
                 "Eyes",
                 "Jaws"
-            ]
+            ],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -47046,7 +47070,8 @@
                 "z": 80
             },
             "DeafStrength": "None",
-            "headSegments": []
+            "headSegments": [],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
@@ -48153,7 +48178,8 @@
                 "z": 80
             },
             "DeafStrength": "None",
-            "headSegments": []
+            "headSegments": [],
+            "BlocksEarpiece": true
         },
         "hasGrid": false,
         "linkedItems": []
