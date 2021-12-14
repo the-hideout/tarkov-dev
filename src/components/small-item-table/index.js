@@ -80,20 +80,17 @@ function SmallItemTable(props) {
                 avg24hPrice: itemData.avg24hPrice,
                 lastLowPrice: itemData.lastLowPrice,
                 // iconLink: `https://assets.tarkov-tools.com/${itemData.id}-icon.jpg`,
-                iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+                iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                 itemLink: `/item/${itemData.normalizedName}`,
                 instaProfit: itemData.lastLowPrice ? (itemData.traderPrice - itemData.lastLowPrice) : 0,
                 traderName: itemData.traderName,
                 traderPrice: itemData.traderPrice,
+                types: itemData.types,
             }
+        })
+        .filter(item => {
+            return !item.types.includes('disabled');
         });
-        // .filter(item => {
-        //     if(!nameFilter){
-        //         return true;
-        //     }
-
-        //     return item.name.toLowerCase().includes(nameFilter) || item.shortName.toLowerCase().includes(nameFilter);
-        // });
 
         if(nameFilter){
             const options = {
