@@ -81,12 +81,13 @@ function ItemTable(props) {
             const options = {
                 includeScore: true,
                 keys: ['name', 'shortName'],
-              }
+                distance: 1000,
+            };
 
-              const fuse = new Fuse(returnData, options);
-              const result = fuse.search(nameFilter);
+            const fuse = new Fuse(returnData, options);
+            const result = fuse.search(nameFilter);
 
-              returnData = result.sort((a, b) => b.score - a.score).map(resultObject => resultObject.item);
+            returnData = result.sort((a, b) => b.score - a.score).map(resultObject => resultObject.item);
         }
 
         return returnData;

@@ -99,7 +99,8 @@ function SmallItemTable(props) {
             const options = {
                 includeScore: true,
                 keys: ['name'],
-            }
+                distance: 1000,
+            };
 
             const fuse = new Fuse(returnData, options);
             const result = fuse.search(nameFilter);
