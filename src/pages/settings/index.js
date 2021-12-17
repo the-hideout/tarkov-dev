@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
@@ -60,6 +60,16 @@ function Settings() {
         return state.hideout.status;
     });
 
+    const refs = {
+        'booze-generator': useRef(null),
+        'intelligence-center': useRef(null),
+        'lavatory': useRef(null),
+        'medstation': useRef(null),
+        'nutrition-unit': useRef(null),
+        'water-collector': useRef(null),
+        'workbench': useRef(null),
+    };
+
     useEffect(() => {
         let timer = false;
         if (hideoutLoadingStatus === 'idle') {
@@ -90,7 +100,15 @@ function Settings() {
     }, [useTarkovTracker, dispatch, tarkovTrackerAPIKey]);
 
     useEffect(() => {
-        const maxLevels = {};
+        const maxLevels = {
+            'booze-generator': 0,
+            'intelligence-center': 0,
+            'lavatory': 0,
+            'medstation': 0,
+            'nutrition-unit': 0,
+            'water-collector': 0,
+            'workbench': 0,
+        };
 
         const modulesWithLevels = tarkovTrackerModules.map(moduleId => {
             return Object.values(hideoutModules).find(currentModule => currentModule.id === moduleId);
@@ -123,7 +141,20 @@ function Settings() {
             }))
         }
 
-    }, [tarkovTrackerModules, hideoutModules, dispatch]);
+        if(useTarkovTracker){
+            for(const stationKey in maxLevels){
+                if(!refs[stationKey]){
+                    continue;
+                }
+
+                refs[stationKey].current.setValue({
+                    value: maxLevels[stationKey],
+                    label: maxLevels[stationKey] ? maxLevels[stationKey].toString() : 'Not buitl',
+                });
+            }
+        }
+
+    }, [tarkovTrackerModules, hideoutModules, dispatch, useTarkovTracker]);
 
     return <div
         className = {'page-wrapper'}
@@ -271,6 +302,7 @@ function Settings() {
                                 }))
                             }}
                             classNamePrefix = "select"
+                            ref = {refs[stationKey]}
                         />
                 </div>
                 </Tippy>
