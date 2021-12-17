@@ -16,6 +16,9 @@ import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
 import { selectAllStations, selectAllSkills } from '../../features/settings/settingsSlice';
 import CenterCell from '../center-cell';
+import {
+    fetchTarkovTrackerProgress,
+} from '../../features/settings/settingsSlice';
 
 import './index.css';
 import RewardCell from '../reward-cell';
@@ -66,6 +69,28 @@ function CraftTable(props) {
     const bartersStatus = useSelector((state) => {
         return state.barters.status;
     });
+
+    const tarkovTrackerAPIKey = useSelector((state) => state.settings.tarkovTrackerAPIKey);
+    const progressStatus = useSelector((state) => {
+        return state.settings.progressStatus;
+    });
+
+    useEffect(() => {
+        let tarkovTrackerProgressInterval = false;
+        if (progressStatus === 'idle') {
+            dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
+        }
+
+        if (!tarkovTrackerProgressInterval) {
+            tarkovTrackerProgressInterval = setInterval(() => {
+                dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
+            }, 30000);
+        }
+
+        return () => {
+            clearInterval(tarkovTrackerProgressInterval);
+        }
+    }, [progressStatus, dispatch, tarkovTrackerAPIKey]);
 
     useEffect(() => {
         let timer = false;
