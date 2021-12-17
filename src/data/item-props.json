@@ -202,21 +202,6 @@
         "hasGrid": false,
         "linkedItems": []
     },
-    "54490a4d4bdc2dbc018b4573": {
-        "itemProperties": {
-            "Weight": 0.184,
-            "grid": {
-                "pockets": [],
-                "totalSize": 0
-            },
-            "Accuracy": -1,
-            "Recoil": -1,
-            "Ergonomics": -2,
-            "Velocity": 0.75
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
     "54491bb74bdc2d09088b4567": {
         "itemProperties": {
             "Weight": 0.45,
@@ -341,30 +326,6 @@
         "linkedItems": [
             "58d268fc86f774111273f8c2"
         ]
-    },
-    "544a3d0a4bdc2d1b388b4567": {
-        "itemProperties": {
-            "Weight": 0.51,
-            "grid": {
-                "pockets": [],
-                "totalSize": 0
-            },
-            "Ergonomics": -1
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
-    "544a3f024bdc2d1d388b4568": {
-        "itemProperties": {
-            "Weight": 0.528,
-            "grid": {
-                "pockets": [],
-                "totalSize": 0
-            },
-            "Ergonomics": -4
-        },
-        "hasGrid": false,
-        "linkedItems": []
     },
     "544a5caa4bdc2d1a388b4568": {
         "itemProperties": {
@@ -638,7 +599,6 @@
             "559ba5b34bdc2d1f1a8b4582",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -662,7 +622,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -740,17 +699,6 @@
         "hasGrid": false,
         "linkedItems": []
     },
-    "5580239d4bdc2de7118b4583": {
-        "itemProperties": {
-            "Weight": 0.151,
-            "grid": {
-                "pockets": [],
-                "totalSize": 0
-            }
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
     "55802d5f4bdc2dac148b458e": {
         "itemProperties": {
             "Weight": 0.138,
@@ -814,7 +762,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -838,7 +785,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -1312,7 +1258,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -1437,21 +1382,6 @@
             "Recoil": -9,
             "Loudness": -20,
             "Ergonomics": -16,
-            "Velocity": 0.75
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
-    "55d617094bdc2d89028b4568": {
-        "itemProperties": {
-            "Weight": 0.51,
-            "grid": {
-                "pockets": [],
-                "totalSize": 0
-            },
-            "Accuracy": -1,
-            "Recoil": -1,
-            "Ergonomics": -2,
             "Velocity": 0.75
         },
         "hasGrid": false,
@@ -1871,7 +1801,6 @@
             "59ccfdba86f7747f2109a587",
             "5cf656f2d7f00c06585fb6eb",
             "5d4aab30a4b9365435358c55",
-            "5648b62b4bdc2d9d488b4585",
             "5ac72e945acfc43f3b691116",
             "5ac7655e5acfc40016339a19",
             "5649aa744bdc2ded0b8b457e",
@@ -2292,21 +2221,6 @@
             "5d10b49bd7ad1a1a560708b0"
         ]
     },
-    "5648b62b4bdc2d9d488b4585": {
-        "itemProperties": {
-            "Weight": 1.4,
-            "grid": {
-                "pockets": [],
-                "totalSize": 0
-            },
-            "Recoil": -1,
-            "Ergonomics": -2
-        },
-        "hasGrid": false,
-        "linkedItems": [
-            "5656eb674bdc2d35148b457c"
-        ]
-    },
     "5649a2464bdc2d91118b45a8": {
         "itemProperties": {
             "Weight": 0.04,
@@ -2419,7 +2333,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -2443,7 +2356,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -2696,14 +2608,6 @@
         "hasGrid": true,
         "linkedItems": []
     },
-    "5671446a4bdc2d97058b4569": {
-        "itemProperties": {
-            "Weight": 0.01,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
     "5672c92d4bdc2d180f8b4567": {
         "itemProperties": {
             "Weight": 0.01,
@@ -2766,22 +2670,6 @@
             "grid": false
         },
         "hasGrid": false,
-        "linkedItems": []
-    },
-    "5675838d4bdc2d95058b456e": {
-        "itemProperties": {
-            "Weight": 1,
-            "grid": {
-                "pockets": [
-                    {
-                        "height": 4,
-                        "width": 3
-                    }
-                ],
-                "totalSize": 12
-            }
-        },
-        "hasGrid": true,
         "linkedItems": []
     },
     "5696686a4bdc2da3298b456a": {
@@ -4615,38 +4503,6 @@
         "hasGrid": false,
         "linkedItems": []
     },
-    "57518f7724597720a31c09ab": {
-        "itemProperties": {
-            "Weight": 0.01,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
-    "57518fd424597720c85dbaaa": {
-        "itemProperties": {
-            "Weight": 0.01,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
-    "5751916f24597720a27126df": {
-        "itemProperties": {
-            "Weight": 0.01,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
-    "5751961824597720a31c09ac": {
-        "itemProperties": {
-            "Weight": 0.01,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
     "5751a25924597722c463c472": {
         "itemProperties": {
             "Weight": 0.043,
@@ -5301,7 +5157,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -7140,7 +6995,6 @@
             "5888988e24597752fe43a6fa",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -7164,7 +7018,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -7603,7 +7456,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -7627,7 +7479,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -8309,14 +8160,6 @@
         "hasGrid": false,
         "linkedItems": []
     },
-    "590de4a286f77423d9312a32": {
-        "itemProperties": {
-            "Weight": 0.1,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
     "590de71386f774347051a052": {
         "itemProperties": {
             "Weight": 1.1,
@@ -8328,30 +8171,6 @@
     "590de7e986f7741b096e5f32": {
         "itemProperties": {
             "Weight": 2,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
-    "591094e086f7747caa7bb2ef": {
-        "itemProperties": {
-            "Weight": 18,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
-    "5910959486f7747d96753485": {
-        "itemProperties": {
-            "Weight": 4,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
-    "5910968f86f77425cf569c32": {
-        "itemProperties": {
-            "Weight": 7,
             "grid": false
         },
         "hasGrid": false,
@@ -8547,7 +8366,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -8762,7 +8580,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -8786,7 +8603,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -9469,7 +9285,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -9577,7 +9392,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -9601,7 +9415,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -9910,7 +9723,7 @@
                 "single",
                 "fullauto"
             ],
-            "RecoilForceUp": 194,
+            "RecoilForceUp": 189,
             "RecoilForceBack": 448,
             "ammoCaliber": "Caliber762x39"
         },
@@ -9924,7 +9737,6 @@
             "59ccfdba86f7747f2109a587",
             "5cf656f2d7f00c06585fb6eb",
             "5d4aab30a4b9365435358c55",
-            "5648b62b4bdc2d9d488b4585",
             "59d64fc686f774171b243fe2",
             "5a0d716f1526d8000d26b1e2",
             "5f633f68f5750b524b45f112",
@@ -10508,7 +10320,7 @@
             "weapFireType": [
                 "single"
             ],
-            "RecoilForceUp": 193,
+            "RecoilForceUp": 188,
             "RecoilForceBack": 448,
             "ammoCaliber": "Caliber762x39"
         },
@@ -10522,7 +10334,6 @@
             "59ccfdba86f7747f2109a587",
             "5cf656f2d7f00c06585fb6eb",
             "5d4aab30a4b9365435358c55",
-            "5648b62b4bdc2d9d488b4585",
             "59d64fc686f774171b243fe2",
             "5a0d716f1526d8000d26b1e2",
             "5f633f68f5750b524b45f112",
@@ -10767,7 +10578,6 @@
             "59ccfdba86f7747f2109a587",
             "5cf656f2d7f00c06585fb6eb",
             "5d4aab30a4b9365435358c55",
-            "5648b62b4bdc2d9d488b4585",
             "59e8a00d86f7742ad93b569c",
             "5a9fbb74a2750c0032157181",
             "619b69037b9de8162902673e",
@@ -11625,7 +11435,7 @@
                 "single",
                 "fullauto"
             ],
-            "RecoilForceUp": 195,
+            "RecoilForceUp": 190,
             "RecoilForceBack": 448,
             "ammoCaliber": "Caliber762x39"
         },
@@ -11639,7 +11449,6 @@
             "59ccfdba86f7747f2109a587",
             "5cf656f2d7f00c06585fb6eb",
             "5d4aab30a4b9365435358c55",
-            "5648b62b4bdc2d9d488b4585",
             "59d64fc686f774171b243fe2",
             "5a0d716f1526d8000d26b1e2",
             "5f633f68f5750b524b45f112",
@@ -11927,7 +11736,7 @@
                 "single",
                 "fullauto"
             ],
-            "RecoilForceUp": 193,
+            "RecoilForceUp": 188,
             "RecoilForceBack": 448,
             "ammoCaliber": "Caliber762x39"
         },
@@ -11941,7 +11750,6 @@
             "59ccfdba86f7747f2109a587",
             "5cf656f2d7f00c06585fb6eb",
             "5d4aab30a4b9365435358c55",
-            "5648b62b4bdc2d9d488b4585",
             "59d64fc686f774171b243fe2",
             "5a0d716f1526d8000d26b1e2",
             "5f633f68f5750b524b45f112",
@@ -13216,7 +13024,6 @@
             "5a34fae7c4a2826c6e06d760",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -14278,7 +14085,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -14864,7 +14670,6 @@
             "5c1bc7752e221602b1779b34",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -14935,7 +14740,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -14959,7 +14763,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -16166,7 +15969,6 @@
             "5c1bc7752e221602b1779b34",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -16528,7 +16330,6 @@
             "59ccfdba86f7747f2109a587",
             "5cf656f2d7f00c06585fb6eb",
             "5d4aab30a4b9365435358c55",
-            "5648b62b4bdc2d9d488b4585",
             "5ac72e945acfc43f3b691116",
             "5ac7655e5acfc40016339a19",
             "5649aa744bdc2ded0b8b457e",
@@ -16799,7 +16600,7 @@
                 "single",
                 "fullauto"
             ],
-            "RecoilForceUp": 195,
+            "RecoilForceUp": 190,
             "RecoilForceBack": 448,
             "ammoCaliber": "Caliber762x39"
         },
@@ -16813,7 +16614,6 @@
             "59ccfdba86f7747f2109a587",
             "5cf656f2d7f00c06585fb6eb",
             "5d4aab30a4b9365435358c55",
-            "5648b62b4bdc2d9d488b4585",
             "59d64fc686f774171b243fe2",
             "5a0d716f1526d8000d26b1e2",
             "5f633f68f5750b524b45f112",
@@ -17012,7 +16812,6 @@
             "59ccfdba86f7747f2109a587",
             "5cf656f2d7f00c06585fb6eb",
             "5d4aab30a4b9365435358c55",
-            "5648b62b4bdc2d9d488b4585",
             "5ac72e945acfc43f3b691116",
             "5ac7655e5acfc40016339a19",
             "5649aa744bdc2ded0b8b457e",
@@ -17168,7 +16967,6 @@
             "59ccfdba86f7747f2109a587",
             "5cf656f2d7f00c06585fb6eb",
             "5d4aab30a4b9365435358c55",
-            "5648b62b4bdc2d9d488b4585",
             "5ac72e615acfc43f67248aa0",
             "5ac72e725acfc400180ae701",
             "5f633f791b231926f2329f13",
@@ -17333,7 +17131,7 @@
                 "single",
                 "fullauto"
             ],
-            "RecoilForceUp": 174,
+            "RecoilForceUp": 177,
             "RecoilForceBack": 422,
             "ammoCaliber": "Caliber762x39"
         },
@@ -17347,7 +17145,6 @@
             "59ccfdba86f7747f2109a587",
             "5cf656f2d7f00c06585fb6eb",
             "5d4aab30a4b9365435358c55",
-            "5648b62b4bdc2d9d488b4585",
             "5ac72e7d5acfc40016339a02",
             "5ac72e895acfc43b321d4bd5",
             "5f633f791b231926f2329f13",
@@ -17441,7 +17238,7 @@
                 "single",
                 "fullauto"
             ],
-            "RecoilForceUp": 186,
+            "RecoilForceUp": 181,
             "RecoilForceBack": 422,
             "ammoCaliber": "Caliber762x39"
         },
@@ -18169,7 +17966,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -18226,7 +18022,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -18296,7 +18091,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -18365,7 +18159,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -18548,39 +18341,6 @@
             },
             "Recoil": -38,
             "Ergonomics": 7
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
-    "5ae083b25acfc4001a5fc702": {
-        "itemProperties": {
-            "Weight": 0.686,
-            "grid": {
-                "pockets": [],
-                "totalSize": 0
-            },
-            "MaxDurability": 100,
-            "Ergonomics": 50,
-            "Velocity": -4.54,
-            "bFirerate": 30,
-            "weapFireType": [
-                "single"
-            ],
-            "RecoilForceUp": 650,
-            "RecoilForceBack": 325,
-            "ammoCaliber": "Caliber9x18PM"
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
-    "5ae089fb5acfc408fb13989b": {
-        "itemProperties": {
-            "Weight": 0.005,
-            "grid": {
-                "pockets": [],
-                "totalSize": 0
-            },
-            "Ergonomics": 1
         },
         "hasGrid": false,
         "linkedItems": []
@@ -18843,14 +18603,6 @@
     "5af0561e86f7745f5f3ad6ac": {
         "itemProperties": {
             "Weight": 0.3,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
-    "5af056f186f7746da511291f": {
-        "itemProperties": {
-            "Weight": 12,
             "grid": false
         },
         "hasGrid": false,
@@ -19192,7 +18944,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -20801,7 +20552,7 @@
     },
     "5b44d22286f774172b0c9de8": {
         "itemProperties": {
-            "Weight": 4.1,
+            "Weight": 7.1,
             "grid": {
                 "pockets": [],
                 "totalSize": 0
@@ -21773,14 +21524,6 @@
         "hasGrid": false,
         "linkedItems": []
     },
-    "5b9b9020e7ef6f5716480215": {
-        "itemProperties": {
-            "Weight": 0.01,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
     "5ba26383d4351e00334c93d9": {
         "itemProperties": {
             "Weight": 1.62,
@@ -21824,7 +21567,6 @@
             "5894a81786f77427140b8347",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -22058,7 +21800,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -22082,7 +21823,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -22694,7 +22434,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -23184,7 +22923,6 @@
             "5894a81786f77427140b8347",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -23521,7 +23259,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -23545,7 +23282,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -23708,7 +23444,6 @@
             "59ccfdba86f7747f2109a587",
             "5cf656f2d7f00c06585fb6eb",
             "5d4aab30a4b9365435358c55",
-            "5648b62b4bdc2d9d488b4585",
             "5ac72e945acfc43f3b691116",
             "5ac7655e5acfc40016339a19",
             "5649aa744bdc2ded0b8b457e",
@@ -23808,7 +23543,6 @@
             "59ccfdba86f7747f2109a587",
             "5cf656f2d7f00c06585fb6eb",
             "5d4aab30a4b9365435358c55",
-            "5648b62b4bdc2d9d488b4585",
             "5ac72e945acfc43f3b691116",
             "5ac7655e5acfc40016339a19",
             "5649aa744bdc2ded0b8b457e",
@@ -24306,7 +24040,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -24330,7 +24063,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -24864,7 +24596,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -24888,7 +24619,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -25111,7 +24841,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -25135,7 +24864,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -25176,12 +24904,6 @@
             "619b5db699fb192e7430664f",
             "5b2cfa535acfc432ff4db7a0",
             "5ae30db85acfc408fb139a05",
-            "5c9a25172e2216000f20314e",
-            "55f84c3c4bdc2d5f408b4576",
-            "588b56d02459771481110ae2",
-            "5c9a26332e2216001219ea70",
-            "5ea16ada09aa976f2e7a51be",
-            "5ea16acdfadf1d18c87b0784",
             "55d459824bdc2d892f8b4573",
             "5d122e7bd7ad1a07102d6d7f",
             "5d123102d7ad1a004e475fe5",
@@ -25193,7 +24915,6 @@
             "6034e3e20ddce744014cb878",
             "6034e3d953a60014f970617b",
             "6034e3cb0ddce744014cb870",
-            "5c6d5d8b2e221644fc630b39",
             "5d00e0cbd7ad1a6c6566a42d",
             "5d00f63bd7ad1a59283b1c1e",
             "6087e0336d0bd7580617bb7a",
@@ -25529,22 +25250,6 @@
         "hasGrid": false,
         "linkedItems": []
     },
-    "5c0a5f6c86f774753654890e": {
-        "itemProperties": {
-            "Weight": 15,
-            "grid": {
-                "pockets": [
-                    {
-                        "height": 12,
-                        "width": 20
-                    }
-                ],
-                "totalSize": 240
-            }
-        },
-        "hasGrid": true,
-        "linkedItems": []
-    },
     "5c0a840b86f7742ffa4f2482": {
         "itemProperties": {
             "Weight": 23,
@@ -25675,7 +25380,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -25699,7 +25403,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -26175,7 +25878,7 @@
     },
     "5c0e655586f774045612eeb2": {
         "itemProperties": {
-            "Weight": 5,
+            "Weight": 6.8,
             "grid": {
                 "pockets": [],
                 "totalSize": 0
@@ -27496,7 +27199,6 @@
             "5c48a2852e221602b21d5923",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -28176,7 +27878,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -28200,7 +27901,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -28330,7 +28030,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -28354,7 +28053,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -29262,7 +28960,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -29286,7 +28983,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -29974,7 +29670,6 @@
             "5cdaa99dd7f00c002412d0b2",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -30369,7 +30064,6 @@
             "5cc7012ae4a949001252b43e",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -30495,7 +30189,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -30764,14 +30457,6 @@
         "hasGrid": false,
         "linkedItems": []
     },
-    "5cd157cfd7f00c0011791f36": {
-        "itemProperties": {
-            "Weight": 0.07,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
     "5cda9bcfd7f00c0c0b53e900": {
         "itemProperties": {
             "Weight": 0.08,
@@ -30968,7 +30653,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -30992,7 +30676,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -32042,7 +31725,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -32066,7 +31748,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -33204,7 +32885,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -33228,7 +32908,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -33276,7 +32955,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -33300,7 +32978,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -33347,7 +33024,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -33371,7 +33047,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -33827,7 +33502,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -33851,7 +33525,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -33892,12 +33565,6 @@
             "619b5db699fb192e7430664f",
             "5b2cfa535acfc432ff4db7a0",
             "5ae30db85acfc408fb139a05",
-            "5c9a25172e2216000f20314e",
-            "55f84c3c4bdc2d5f408b4576",
-            "588b56d02459771481110ae2",
-            "5c9a26332e2216001219ea70",
-            "5ea16ada09aa976f2e7a51be",
-            "5ea16acdfadf1d18c87b0784",
             "55d459824bdc2d892f8b4573",
             "5d122e7bd7ad1a07102d6d7f",
             "5d123102d7ad1a004e475fe5",
@@ -33909,7 +33576,6 @@
             "6034e3e20ddce744014cb878",
             "6034e3d953a60014f970617b",
             "6034e3cb0ddce744014cb870",
-            "5c6d5d8b2e221644fc630b39",
             "5d00e0cbd7ad1a6c6566a42d",
             "5d00f63bd7ad1a59283b1c1e",
             "6087e0336d0bd7580617bb7a",
@@ -35270,7 +34936,6 @@
             "5dcbe9431e1f4616d354987e",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -35516,7 +35181,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -35540,7 +35204,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -35633,7 +35296,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -36032,7 +35694,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -36056,7 +35717,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -36162,7 +35822,7 @@
     },
     "5df8a2ca86f7740bfe6df777": {
         "itemProperties": {
-            "Weight": 4.1,
+            "Weight": 5.4,
             "grid": {
                 "pockets": [],
                 "totalSize": 0
@@ -36423,7 +36083,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -36447,7 +36106,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -36737,7 +36395,6 @@
             "5c5952732e2216398b5abda2",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "57adff4f24597737f373b6e6",
             "5c0517910db83400232ffee5",
@@ -36897,7 +36554,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -36921,7 +36577,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -37581,7 +37236,7 @@
     },
     "5e4abb5086f77406975c9342": {
         "itemProperties": {
-            "Weight": 8.6,
+            "Weight": 9.7,
             "grid": {
                 "pockets": [],
                 "totalSize": 0
@@ -37999,7 +37654,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -38023,7 +37677,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -38097,7 +37750,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -38121,7 +37773,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -38612,14 +38263,6 @@
     "5e85aa1a988a8701445df1f5": {
         "itemProperties": {
             "Weight": 0.08,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
-    "5e85aac65505fa48730d8af2": {
-        "itemProperties": {
-            "Weight": 0.06,
             "grid": false
         },
         "hasGrid": false,
@@ -39315,14 +38958,6 @@
         "hasGrid": false,
         "linkedItems": []
     },
-    "5ede47641cf3836a88318df1": {
-        "itemProperties": {
-            "Weight": 0.22,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
     "5ede7a8229445733cb4c18e2": {
         "itemProperties": {
             "Weight": 0.01,
@@ -39385,7 +39020,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -40030,7 +39664,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -40054,7 +39687,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -40729,7 +40361,6 @@
             "5c1bc7752e221602b1779b34",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -41039,14 +40670,6 @@
         "hasGrid": false,
         "linkedItems": []
     },
-    "5f647fd3f6e4ab66c82faed6": {
-        "itemProperties": {
-            "Weight": 0.08,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
     "5f745ee30acaeb0d490d8c5b": {
         "itemProperties": {
             "Weight": 0.01,
@@ -41150,7 +40773,6 @@
             "5894a81786f77427140b8347",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -41805,7 +41427,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -41829,7 +41450,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -42193,7 +41813,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -42217,7 +41836,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -42312,7 +41930,6 @@
             "5fc3e466187fea44d52eda90",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -42443,7 +42060,6 @@
             "5894a81786f77427140b8347",
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -42694,7 +42310,7 @@
     },
     "5fd4c474dd870108a754b241": {
         "itemProperties": {
-            "Weight": 6.2,
+            "Weight": 7.7,
             "grid": {
                 "pockets": [],
                 "totalSize": 0
@@ -43129,7 +42745,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -43153,7 +42768,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -43190,13 +42804,6 @@
             "603372f153a60014f970616d",
             "603373004e02ce1eaa358814",
             "5b2cfa535acfc432ff4db7a0",
-            "5c9a25172e2216000f20314e",
-            "55f84c3c4bdc2d5f408b4576",
-            "588b56d02459771481110ae2",
-            "5c9a26332e2216001219ea70",
-            "5ea16ada09aa976f2e7a51be",
-            "5ea16acdfadf1d18c87b0784",
-            "5a329052c4a28200741e22d3",
             "5d122e7bd7ad1a07102d6d7f",
             "5d123102d7ad1a004e475fe5",
             "5d4405f0a4b9361e6a4e6bd9",
@@ -43205,7 +42812,6 @@
             "6034e3e20ddce744014cb878",
             "6034e3d953a60014f970617b",
             "6034e3cb0ddce744014cb870",
-            "5c6d5d8b2e221644fc630b39",
             "6087e0336d0bd7580617bb7a",
             "595cfa8b86f77427437e845b",
             "595cf16b86f77427440c32e2",
@@ -43885,7 +43491,7 @@
     },
     "6038b4b292ec1c3103795a0b": {
         "itemProperties": {
-            "Weight": 8.6,
+            "Weight": 9.7,
             "grid": {
                 "pockets": [],
                 "totalSize": 0
@@ -43912,7 +43518,7 @@
     },
     "6038b4ca92ec1c3103795a0d": {
         "itemProperties": {
-            "Weight": 8.6,
+            "Weight": 9.7,
             "grid": {
                 "pockets": [],
                 "totalSize": 0
@@ -44220,7 +43826,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -44244,7 +43849,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -44658,7 +44262,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -44824,7 +44427,7 @@
     },
     "607f20859ee58b18e41ecd90": {
         "itemProperties": {
-            "Weight": 7,
+            "Weight": 5,
             "grid": {
                 "pockets": [],
                 "totalSize": 0
@@ -45001,7 +44604,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -46378,7 +45980,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -46402,7 +46003,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -46484,7 +46084,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -46508,7 +46107,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -46838,7 +46436,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -46862,7 +46459,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -47723,7 +47319,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -47747,7 +47342,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -47829,8 +47423,8 @@
                 "single",
                 "fullauto"
             ],
-            "RecoilForceUp": 160,
-            "RecoilForceBack": 468,
+            "RecoilForceUp": 157,
+            "RecoilForceBack": 458,
             "ammoCaliber": "Caliber556x45NATO"
         },
         "hasGrid": false,
@@ -47938,7 +47532,6 @@
         "linkedItems": [
             "57ac965c24597706be5f975c",
             "57aca93d2459771f2c7e26db",
-            "544a3f024bdc2d1d388b4568",
             "544a3a774bdc2d3a388b4567",
             "5d2dc3e548f035404a1a4798",
             "57adff4f24597737f373b6e6",
@@ -47962,7 +47555,6 @@
             "570fd721d2720bc5458b4596",
             "57ae0171245977343c27bfcf",
             "5dfe6104585a0c3e995c7b82",
-            "544a3d0a4bdc2d1b388b4567",
             "5d1b5e94d7ad1a2b865a96b0",
             "609bab8b455afd752b2e6138",
             "58d39d3d86f77445bb794ae7",
@@ -48044,8 +47636,8 @@
                 "single",
                 "fullauto"
             ],
-            "RecoilForceUp": 160,
-            "RecoilForceBack": 468,
+            "RecoilForceUp": 157,
+            "RecoilForceBack": 458,
             "ammoCaliber": "Caliber556x45NATO"
         },
         "hasGrid": false,
@@ -49127,14 +48719,6 @@
         "linkedItems": []
     },
     "61a6444b8c141d68246e2d2f": {
-        "itemProperties": {
-            "Weight": 0.01,
-            "grid": false
-        },
-        "hasGrid": false,
-        "linkedItems": []
-    },
-    "61a6446f4b5f8b70f451b166": {
         "itemProperties": {
             "Weight": 0.01,
             "grid": false
