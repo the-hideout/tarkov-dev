@@ -32,6 +32,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk('settings/fetchTarkov
     const progressData = await response.json();
 
     returnData.quests = progressData.quests;
+    returnData.flea = progressData.level >= 15 ? true : false;
 
     const bodyQuery = JSON.stringify({query: `{
         hideoutModules {
