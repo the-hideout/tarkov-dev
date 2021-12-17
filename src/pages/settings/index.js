@@ -98,8 +98,7 @@ function Settings() {
                 });
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [useTarkovTracker, allStations]);
+    }, [useTarkovTracker, allStations, refs]);
 
     return <div
         className = {'page-wrapper'}
