@@ -3,12 +3,12 @@ import Switch from "react-switch";
 import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 
-import ItemGrid from '../components/item-grid/';
-import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
-import Traders from '../data/traders.json';
-import { selectAllItems, fetchItems } from '../features/items/itemsSlice';
+import ItemGrid from '../../components/item-grid';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import Traders from '../../data/traders.json';
+import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 
-import quests from '../data/quests.json';
+import quests from '../../data/quests.json';
 
 function ItemTracker() {
     const [questData, setQuestData] = useStateWithLocalStorage('quests', quests.data);
@@ -116,7 +116,7 @@ function ItemTracker() {
                 return <ItemGrid
                     key = {`loot-group-${questData.questId}`}
                     name = {questData.name || questData.questId}
-                    subtitle = {Traders[questData.traderId].name}
+                    subtitle = {Traders[questData.traderId].locale.en}
                     items = {questItems}
                     extraTitleProps = {
                         <button

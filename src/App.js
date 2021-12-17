@@ -28,7 +28,7 @@ import LootTier from './pages/LootTier.jsx';
 import Barters from './pages/barters';
 import About from './pages/about/';
 import Maps from './pages/maps/';
-import ItemTracker from './pages/ItemTracker';
+import ItemTracker from './pages/item-tracker/';
 import Guides from './pages/guides/';
 import Glasses from './pages/guides/Glasses';
 import Armor from './pages/guides/Armor';
