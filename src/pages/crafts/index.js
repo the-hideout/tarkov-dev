@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet';
 
+
 import CraftsTable from '../../components/crafts-table';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import {
@@ -29,9 +30,10 @@ const stations = [
 
 function Crafts() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
-    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [freeFuel, setFreeFuel] = useState(false);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedStation', 'top');
+
 
     return [
         <Helmet
