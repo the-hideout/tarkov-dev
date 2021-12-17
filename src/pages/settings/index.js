@@ -20,7 +20,6 @@ import {
     toggleTarkovTracker,
     // selectCompletedQuests,
 } from '../../features/settings/settingsSlice';
-import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
 import capitalizeFirst from '../../modules/capitalize-first';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes';
 
@@ -50,15 +49,8 @@ function Settings() {
     const progressStatus = useSelector((state) => {
         return state.settings.progressStatus;
     });
-    const tarkovTrackerModules = useSelector((state) => {
-        return state.settings.tarkovTrackerModules;
-    });
     // const completedQuests = useSelector(selectCompletedQuests);
     const tarkovTrackerAPIKey = useSelector((state) => state.settings.tarkovTrackerAPIKey);
-    const hideoutModules = useSelector(selectAllHideoutModules);
-    const hideoutLoadingStatus = useSelector((state) => {
-        return state.hideout.status;
-    });
 
     const refs = {
         'booze-generator': useRef(null),
@@ -71,25 +63,19 @@ function Settings() {
     };
 
     useEffect(() => {
-        let timer = false;
-        if (hideoutLoadingStatus === 'idle') {
-            dispatch(fetchHideout());
+        let tarkovTrackerProgressInterval = false;
+        if (progressStatus === 'idle') {
+            dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
         }
 
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchHideout());
-            }, 600000);
+        if (!tarkovTrackerProgressInterval) {
+            tarkovTrackerProgressInterval = setInterval(() => {
+                dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
+            }, 30000);
         }
 
         return () => {
-            clearInterval(timer);
-        }
-    }, [hideoutLoadingStatus, dispatch]);
-
-    useEffect(() => {
-        if (progressStatus === 'idle') {
-          dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
+            clearInterval(tarkovTrackerProgressInterval);
         }
     }, [progressStatus, dispatch, tarkovTrackerAPIKey]);
 
@@ -100,62 +86,19 @@ function Settings() {
     }, [useTarkovTracker, dispatch, tarkovTrackerAPIKey]);
 
     useEffect(() => {
-        const maxLevels = {
-            'booze-generator': 0,
-            'intelligence-center': 0,
-            'lavatory': 0,
-            'medstation': 0,
-            'nutrition-unit': 0,
-            'water-collector': 0,
-            'workbench': 0,
-        };
-
-        const modulesWithLevels = tarkovTrackerModules.map(moduleId => {
-            return Object.values(hideoutModules).find(currentModule => currentModule.id === moduleId);
-        });
-
-        for(const module of modulesWithLevels){
-            if(!module?.name){
-                continue;
-            }
-
-            const moduleKey = module.name.toLowerCase().replace(/\s/g, '-');
-
-            if(!maxLevels[moduleKey]){
-                maxLevels[moduleKey] = module.level;
-
-                continue;
-            }
-
-            if(maxLevels[moduleKey] > module.level){
-                continue;
-            }
-
-            maxLevels[moduleKey] = module.level;
-        }
-
-        for(const moduleKey in maxLevels){
-            dispatch(setStationOrTraderLevel({
-                target: moduleKey,
-                value: maxLevels[moduleKey],
-            }))
-        }
-
         if(useTarkovTracker){
-            for(const stationKey in maxLevels){
+            for(const stationKey in allStations){
                 if(!refs[stationKey]){
                     continue;
                 }
 
                 refs[stationKey].current.setValue({
-                    value: maxLevels[stationKey],
-                    label: maxLevels[stationKey] ? maxLevels[stationKey].toString() : 'Not buitl',
+                    value: allStations[stationKey],
+                    label: allStations[stationKey] ? allStations[stationKey].toString() : 'Not built',
                 });
             }
         }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tarkovTrackerModules, hideoutModules, dispatch, useTarkovTracker]);
+    }, [useTarkovTracker, allStations]);
 
     return <div
         className = {'page-wrapper'}

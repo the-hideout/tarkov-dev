@@ -5,11 +5,22 @@ import {
 
 export const fetchTarkovTrackerProgress = createAsyncThunk('settings/fetchTarkovTrackerProgress', async (apiKey) => {
     if(!apiKey){
-        return {
-            quests: {},
-            hideout: {},
-        };
+        return false;
     }
+
+    const returnData = {
+        flea: false,
+        hideout: {
+            'booze-generator': 0,
+            'intelligence-center': 0,
+            'lavatory': 0,
+            'medstation': 0,
+            'nutrition-unit': 0,
+            'water-collector': 0,
+            'workbench': 0,
+        },
+        quests: {},
+    };
 
     const response = await fetch('https://tarkovtracker.io/api/v1/progress', {
         method: 'GET',
@@ -20,7 +31,58 @@ export const fetchTarkovTrackerProgress = createAsyncThunk('settings/fetchTarkov
 
     const progressData = await response.json();
 
-    return progressData;
+    returnData.quests = progressData.quests;
+
+    const bodyQuery = JSON.stringify({query: `{
+        hideoutModules {
+            id
+            name
+            level
+        }
+    }`
+    });
+
+    const apiResponse = await fetch('https://tarkov-tools.com/graphql', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: bodyQuery,
+    });
+
+    const hideoutData = await apiResponse.json();
+    const builtModules = [];
+
+    for(const moduleId in progressData.hideout){
+        if(!progressData.hideout[moduleId].complete){
+            continue;
+        }
+
+        builtModules.push(hideoutData.data.hideoutModules.find(currentModule => currentModule.id.toString() === moduleId.toString()));
+    }
+
+    for(const module of builtModules){
+        if(!module?.name){
+            continue;
+        }
+
+        const moduleKey = module.name.toLowerCase().replace(/\s/g, '-');
+
+        if(!returnData.hideout[moduleKey]){
+            returnData.hideout[moduleKey] = module.level;
+
+            continue;
+        }
+
+        if(returnData.hideout[moduleKey] > module.level){
+            continue;
+        }
+
+        returnData.hideout[moduleKey] = module.level;
+    }
+
+    return returnData;
 });
 
 const settingsSlice = createSlice({
@@ -74,9 +136,20 @@ const settingsSlice = createSlice({
         },
         [fetchTarkovTrackerProgress.fulfilled]: (state, action) => {
             state.progressStatus = 'succeeded';
-            state.completedQuests = state.completedQuests.concat(Object.keys(action.payload.quests));
-            state.hasFlea = action.payload.level > 15 ? true : false;
-            state.tarkovTrackerModules = Object.keys(action.payload.hideout).map(Number);
+
+            if(action.payload){
+                state.completedQuests = state.completedQuests.concat(Object.keys(action.payload.quests));
+                state.hasFlea = action.payload.flea;
+
+                for(const stationKey in action.payload.hideout){
+                    settingsSlice.caseReducers.setStationOrTraderLevel(state, {
+                        payload: {
+                            target: stationKey,
+                            value: action.payload.hideout[stationKey],
+                        },
+                    });
+                }
+            }
         },
         [fetchTarkovTrackerProgress.rejected]: (state, action) => {
             state.progressStatus = 'failed';
