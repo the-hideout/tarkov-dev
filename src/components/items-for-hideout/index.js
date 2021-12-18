@@ -54,7 +54,9 @@ function ItemsForHideout(props) {
         <div className="table-wrapper">
             <table className="hideout-item-list">
                 <thead>
-                    <tr>
+                    <tr
+                        className = 'hideout-item-list-row'
+                    >
                         <th>{t('Hideout Module')}</th>
                         <th>{t('Item')}</th>
                     </tr>

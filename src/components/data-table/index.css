@@ -34,10 +34,12 @@
     border-bottom: 4px solid #1b1919;
 }
 
+th:first-child,
 td.data-cell:first-child {
     border-left: 4px solid #1b1919;
 }
 
+th:first-child,
 td.data-cell:last-child {
     border-right: 4px solid #1b1919;
 }

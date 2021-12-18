@@ -24,7 +24,7 @@
     padding: 20px 0;
 }
 
-.quest-list tbody tr {
+.quest-list tr {
     border-left: 4px solid #1b1919;
     border-right: 4px solid #1b1919;
 }
