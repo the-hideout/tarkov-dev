@@ -1,3 +1,13 @@
+.hideout-item-list thead {
+    background: rgba(0, 0, 0, 0.4);
+    position: sticky;
+    top: 0;
+}
+
+.hideout-item-list th {
+    padding: 20px 0;
+}
+
 .hideout-item-list {
     border-collapse: collapse;
     width: 100%;

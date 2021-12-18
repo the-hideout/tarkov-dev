@@ -14,6 +14,16 @@
     max-width: 64px;
 }
 
+.quest-list thead {
+    background: rgba(0, 0, 0, 0.4);
+    position: sticky;
+    top: 0;
+}
+
+.quest-list th {
+    padding: 20px 0;
+}
+
 .quest-list tbody tr {
     border-left: 4px solid #1b1919;
     border-right: 4px solid #1b1919;
