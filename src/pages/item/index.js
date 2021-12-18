@@ -201,58 +201,60 @@ function Item() {
                             Sell for
                         </h2>
                         <div className={'information-grid'}>
-                        <Tippy
-                            placement = 'bottom'
-                            content={
-                            <div>
-                                <div
-                                    className = 'tooltip-calculation'
-                                >
-                                    Best price to sell for <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice) : formatPrice(currentItemData.bestPrice)}</div>
-                                </div>
-                                <div
-                                    className = 'tooltip-calculation'
-                                >
-                                    Fee <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPriceFee)}</div>
-                                </div>
-                                <div
-                                    className = 'tooltip-calculation'
-                                >
-                                    Profit <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice - fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}</div>
-                                </div>
-                            </div>
-                        }>
-                            <div
-                                className = {`text-and-image-information-wrapper ${traderIsBest ? '' : 'best-profit'}`}
+                        {!currentItemData.types.includes('noFlea') &&
+                            <Tippy
+                                placement = 'bottom'
+                                content={
+                                <div>
+                                    <div
+                                        className = 'tooltip-calculation'
+                                    >
+                                        Best price to sell for <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice) : formatPrice(currentItemData.bestPrice)}</div>
+                                    </div>
+                                    <div
+                                        className = 'tooltip-calculation'
+                                    >
+                                        Fee <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPriceFee)}</div>
+                                    </div>
+                                    <div
+                                        className = 'tooltip-calculation'
+                                    >
+                                        Profit <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice - fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}</div>
+                                    </div>
+                                </div>}
                             >
-                                <img
-                                    alt = 'Flea market'
-                                    height = '86'
-                                    width = '86'
-                                    src = {`${ process.env.PUBLIC_URL }/images/flea-market-icon.jpg`}
-                                    // title = {`Sell ${currentItemData.name} on the Flea market`}
-                                />
                                 <div
-                                    className = 'price-wrapper'
+                                    className = {`text-and-image-information-wrapper ${traderIsBest ? '' : 'best-profit'}`}
                                 >
-                                    {!useFleaPrice && <Tippy
-                                        placement = 'bottom'
-                                        content={ <div>This item is currently being sold for {formatPrice(currentItemData.lastLowPrice)} on the Flea Market.
-                                However, due to how fees are calculated you're better off selling for {formatPrice(currentItemData.bestPrice)}</div>}
-                                        >
-                                            <img
-                                                alt = 'Warning'
-                                                className = 'warning-icon'
-                                                src = {warningIcon}
-                                            />
-                                        </Tippy>
-                                    }
-                                    <span>
-                                        {formatPrice(useFleaPrice ? currentItemData.lastLowPrice : currentItemData.bestPrice)}
-                                    </span>
+                                    <img
+                                        alt = 'Flea market'
+                                        height = '86'
+                                        width = '86'
+                                        src = {`${ process.env.PUBLIC_URL }/images/flea-market-icon.jpg`}
+                                        // title = {`Sell ${currentItemData.name} on the Flea market`}
+                                    />
+                                    <div
+                                        className = 'price-wrapper'
+                                    >
+                                        {!useFleaPrice && <Tippy
+                                            placement = 'bottom'
+                                            content={ <div>This item is currently being sold for {formatPrice(currentItemData.lastLowPrice)} on the Flea Market.
+                                    However, due to how fees are calculated you're better off selling for {formatPrice(currentItemData.bestPrice)}</div>}
+                                            >
+                                                <img
+                                                    alt = 'Warning'
+                                                    className = 'warning-icon'
+                                                    src = {warningIcon}
+                                                />
+                                            </Tippy>
+                                        }
+                                        <span>
+                                            {formatPrice(useFleaPrice ? currentItemData.lastLowPrice : currentItemData.bestPrice)}
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </Tippy>
+                            </Tippy>
+                        }
                         {!currentItemData.types.includes('noFlea') && <div
                             className = {`text-and-image-information-wrapper price-info-wrapper`}
                         >
