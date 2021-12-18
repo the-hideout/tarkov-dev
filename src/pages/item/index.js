@@ -253,7 +253,7 @@ function Item() {
                                 </div>
                             </div>
                         </Tippy>
-                        <div
+                        {!currentItemData.types.includes('noFlea') && <div
                             className = {`text-and-image-information-wrapper price-info-wrapper`}
                         >
                             <div
@@ -269,7 +269,7 @@ function Item() {
                                     Highest scanned price last 24h: {formatPrice(currentItemData.high24hPrice)}
                                 </div>
                             </div>
-                        </div>
+                        </div>}
                         {currentItemData.traderPrices && currentItemData.traderPrices.length > 0 &&
                             <div
                                 className = {`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''} first-trader-price`}
