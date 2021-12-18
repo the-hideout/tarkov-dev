@@ -62,7 +62,27 @@ function ItemsForHideout(props) {
                 <tbody>
                     {data.map((item, k) => {
                         return (<tr key={k} className="hideout-item-list-row">
-                            <td className="hideout-item-list-column">{item.moduleName} (Level: {item.level}) </td>
+                            <td
+                                className="hideout-item-list-column"
+                            >
+                                <div
+                                    className= 'hideout-name-wrapper'
+                                >
+                                    <img
+                                        className = 'quest-giver-image'
+                                        src={`${ process.env.PUBLIC_URL }/images/${item.moduleName.toLowerCase().replace(/\s/, '-')}-icon.png`}
+                                        alt={item.moduleName}
+                                    />
+                                    <div>
+                                        <div>
+                                            {item.moduleName}
+                                        </div>
+                                        <div>
+                                            Level {item.level}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                             <td className="hideout-item-list-column">
 
                                 <div className="hideout-item-wrapper">

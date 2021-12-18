@@ -19,13 +19,19 @@
     width: 70%;
 }
 
+.hideout-name-wrapper {
+    align-items: center;
+    display: flex;
+}
+
 .hideout-item-wrapper {
+    align-items: center;
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 5px;
 }
 
 .hideout-item-image-wrapper {
+    font-size: 0;
     margin-right: 10px;
 }
 
