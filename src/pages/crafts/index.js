@@ -90,7 +90,7 @@ function Crafts() {
                             </div>
                         }
                         selected = {selectedStation === 'top'}
-                        content = {'All'}
+                        content = {'Best'}
                         onClick={setSelectedStation.bind(undefined, 'top')}
                     />
                  </ButtonGroupFilter>
