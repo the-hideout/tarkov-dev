@@ -64,26 +64,24 @@ function Settings() {
 
     useEffect(() => {
         let tarkovTrackerProgressInterval = false;
-        if (progressStatus === 'idle') {
+        if (useTarkovTracker && progressStatus === 'idle') {
             dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
         }
 
-        if (!tarkovTrackerProgressInterval) {
+        if (!tarkovTrackerProgressInterval && useTarkovTracker) {
             tarkovTrackerProgressInterval = setInterval(() => {
                 dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
             }, 30000);
         }
 
+        if(tarkovTrackerProgressInterval && !useTarkovTracker){
+            clearInterval(tarkovTrackerProgressInterval);
+        }
+
         return () => {
             clearInterval(tarkovTrackerProgressInterval);
         }
-    }, [progressStatus, dispatch, tarkovTrackerAPIKey]);
-
-    useEffect(() => {
-        if(useTarkovTracker){
-            dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
-        }
-    }, [useTarkovTracker, dispatch, tarkovTrackerAPIKey]);
+    }, [progressStatus, dispatch, tarkovTrackerAPIKey, useTarkovTracker]);
 
     useEffect(() => {
         if(useTarkovTracker){
