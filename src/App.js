@@ -42,6 +42,7 @@ import Settings from './pages/settings';
 import Suppressors from './pages/guides/Suppressors';
 import makeID from './modules/make-id';
 import Loading from './components/loading';
+import Nightbot from './pages/nightbot';
 
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
 // import APIDocs from './pages/api-docs';
@@ -525,6 +526,23 @@ return (
                         key = 'api-docs-wrapper'
                     >
                         <APIDocs />
+                    </Suspense>,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/nightbot/'}
+                element = {[
+                    <Suspense
+                        fallback={<Loading />}
+                        key = 'nightbot-docs-wrapper'
+                    >
+                        <Nightbot />
                     </Suspense>,
                     <ID
                         key = 'connection-wrapper'
