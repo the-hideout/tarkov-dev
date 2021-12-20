@@ -160,7 +160,7 @@ function Footer() {
             </p>
             <p>
                 <Link
-                    to = {'/streamelement/'}
+                    to = {'/streamelements/'}
                 >
                     StreamElements integration
                 </Link>
