@@ -67,6 +67,9 @@ function StreamElements() {
                 src = {`${process.env.PUBLIC_URL}/images/streamelements-3.jpg`}
             />
         </p>
+        <p>
+            Big thanks to <a href="https://www.twitch.tv/PhreakinPhil">PhreakinPhil</a> for feedback
+        </p>
     </div>;
 };
 
