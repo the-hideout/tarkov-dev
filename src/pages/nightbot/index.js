@@ -26,6 +26,7 @@ function Nightbot() {
                 </li>
             </ul>
             <img
+                alt = {'Nightbot step 1'}
                 src = {`${process.env.PUBLIC_URL}/images/nightbot-1.jpg`}
             />
         </p>
@@ -42,6 +43,7 @@ function Nightbot() {
                 </li>
             </ul>
             <img
+                alt = {'Nightbot step 2'}
                 src = {`${process.env.PUBLIC_URL}/images/nightbot-2.jpg`}
             />
         </p>
@@ -61,6 +63,7 @@ function Nightbot() {
                 </li>
             </ul>
             <img
+                alt = {'Nightbot step 3'}
                 src = {`${process.env.PUBLIC_URL}/images/nightbot-3.jpg`}
             />
         </p>
