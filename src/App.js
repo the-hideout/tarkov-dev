@@ -43,6 +43,7 @@ import Suppressors from './pages/guides/Suppressors';
 import makeID from './modules/make-id';
 import Loading from './components/loading';
 import Nightbot from './pages/nightbot';
+import StreamElements from './pages/stream-elements';
 
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
 // import APIDocs from './pages/api-docs';
@@ -543,6 +544,23 @@ return (
                         key = 'nightbot-docs-wrapper'
                     >
                         <Nightbot />
+                    </Suspense>,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/streamelements/'}
+                element = {[
+                    <Suspense
+                        fallback={<Loading />}
+                        key = 'streamelements-docs-wrapper'
+                    >
+                        <StreamElements />
                     </Suspense>,
                     <ID
                         key = 'connection-wrapper'
