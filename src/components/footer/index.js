@@ -32,6 +32,31 @@ function Footer() {
                     <DiscordIcon /> Discord server
                 </a>
             </p>
+            <h3>
+                {t('External resources')}
+            </h3>
+            <p>
+                <a
+                    href="https://developertracker.com/escape-from-tarkov/"
+                >
+                    Escape from Tarkov Dev tracker
+                </a>
+            </p>
+            <p>
+                <a href="https://tarkovbitcoinprice.com/">
+                    Tarkov Bitcoin Price
+                </a>
+            </p>
+            <p>
+                <a href="https://github.com/RatScanner/RatScanner">
+                    RatScanner
+                </a>
+            </p>
+            <p>
+                <a href="https://tarkovtracker.io/">
+                    TarkovTracker
+                </a>
+            </p>
         </div>
         <div
             className = 'footer-section-wrapper'
@@ -127,27 +152,20 @@ function Footer() {
                 </Link>
             </p>
             <p>
-                <a
-                    href="https://developertracker.com/escape-from-tarkov/"
+                <Link
+                    to = {'/nightbot/'}
                 >
-                    Escape from Tarkov Dev tracker
-                </a>
+                    Nightbot integration
+                </Link>
             </p>
             <p>
-                <a href="https://tarkovbitcoinprice.com/">
-                    Tarkov Bitcoin Price
-                </a>
+                <Link
+                    to = {'/streamelement/'}
+                >
+                    StreamElements integration
+                </Link>
             </p>
-            <p>
-                <a href="https://github.com/RatScanner/RatScanner">
-                    RatScanner
-                </a>
-            </p>
-            <p>
-                <a href="https://tarkovtracker.io/">
-                    TarkovTracker
-                </a>
-            </p>
+
         </div>
         <div
             className = 'copyright-wrapper'
