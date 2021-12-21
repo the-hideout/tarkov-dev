@@ -8,7 +8,7 @@ function Nightbot() {
             Tarkov Tools Nightbot integration
         </h1>
         <p>
-            You can add command to your nigthbot to get price check in your twitch / youtube channel chat
+            You can add command to your nightbot to get price check in your twitch / youtube channel chat
         </p>
         <h2>
             Instructions
