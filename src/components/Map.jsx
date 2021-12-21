@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 import {
     useParams,
 } from 'react-router-dom';
@@ -41,6 +41,14 @@ function Map() {
         };
     });
 
+    
+    const ref = useRef();
+
+    useEffect(() => {
+        console.log(ref?.current);
+        ref?.current?.resetTransform();
+    }, [currentMap]);
+
     if(!maps[currentMap]){
         return <ErrorPage />;
     }
@@ -68,6 +76,7 @@ function Map() {
                 sourceLink = {sourceLink}
             />
             <TransformWrapper
+                ref={ref}
                 initialScale={1}
                 centerOnInit = {true}
                 wheel = {{
@@ -90,5 +99,4 @@ function Map() {
         </div>
     ];
 }
-
 export default Map;
