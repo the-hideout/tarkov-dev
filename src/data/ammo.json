@@ -1,10 +1,10 @@
 {
-    "updated": "2021-06-30T10:30:44.305Z",
+    "updated": "2021-12-22T03:40:42.755Z",
     "data": [
         {
             "type": "9x18 mm",
             "name": "9x18mm PM RG028 gzh",
-            "shortName": "RG028 gzh",
+            "shortName": "RG028",
             "damage": 65,
             "penetration": 13,
             "armorDamage": 26,
@@ -16,8 +16,8 @@
         },
         {
             "type": "9x18 mm",
-            "name": "9x18 mm PM PS gs PPO",
-            "shortName": "PS gs PPO",
+            "name": "9x18mm PM PS gs PPO",
+            "shortName": "PS PPO",
             "damage": 55,
             "penetration": 6,
             "armorDamage": 16,
@@ -29,7 +29,7 @@
         },
         {
             "type": "7.62x51 mm",
-            "name": "7.62x51 mm M62",
+            "name": "7.62x51mm M62 Tracer",
             "shortName": "M62",
             "damage": 79,
             "penetration": 44,
@@ -42,8 +42,8 @@
         },
         {
             "type": "9x18 mm",
-            "name": "9x18 mm PM 9 BZT gzh",
-            "shortName": "9 BZT gzh",
+            "name": "9x18mm PM BZhT gzh",
+            "shortName": "BZhT",
             "damage": 53,
             "penetration": 18,
             "armorDamage": 28,
@@ -55,8 +55,8 @@
         },
         {
             "type": "9x18 mm",
-            "name": "9x18 mm PM PMM",
-            "shortName": "PMM",
+            "name": "9x18mm PMM PstM gzh",
+            "shortName": "PstM",
             "damage": 58,
             "penetration": 24,
             "armorDamage": 33,
@@ -68,8 +68,8 @@
         },
         {
             "type": "9x18 mm",
-            "name": "9x18 mm PM SP8 gzh",
-            "shortName": "SP8 gzh",
+            "name": "9x18mm PM SP8 gzh",
+            "shortName": "SP8",
             "damage": 67,
             "penetration": 1,
             "armorDamage": 2,
@@ -81,8 +81,8 @@
         },
         {
             "type": "9x18 mm",
-            "name": "9x18 mm PM 9 P gzh",
-            "shortName": "9 P gzh",
+            "name": "9x18mm PM P gzh",
+            "shortName": "P",
             "damage": 50,
             "penetration": 5,
             "armorDamage": 16,
@@ -94,7 +94,7 @@
         },
         {
             "type": "9x18 mm",
-            "name": "9x18 mm PM PSV",
+            "name": "9x18mm PM PSV",
             "shortName": "PSV",
             "damage": 69,
             "penetration": 3,
@@ -107,8 +107,8 @@
         },
         {
             "type": "9x18 mm",
-            "name": "9x18 mm PM Pst gzh",
-            "shortName": "Pst gzh",
+            "name": "9x18mm PM Pst gzh",
+            "shortName": "Pst",
             "damage": 50,
             "penetration": 12,
             "armorDamage": 26,
@@ -133,8 +133,8 @@
         },
         {
             "type": "9x18 mm",
-            "name": "9x18 mm PM PSO gzh",
-            "shortName": "PSO gzh",
+            "name": "9x18mm PM PSO gzh",
+            "shortName": "PSO",
             "damage": 54,
             "penetration": 5,
             "armorDamage": 13,
@@ -146,8 +146,8 @@
         },
         {
             "type": "9x19 mm",
-            "name": "9x19 mm Pst gzh",
-            "shortName": "Pst gzh",
+            "name": "9x19mm Pst gzh",
+            "shortName": "Pst",
             "damage": 54,
             "penetration": 20,
             "armorDamage": 33,
@@ -159,7 +159,7 @@
         },
         {
             "type": "5.56x45 mm",
-            "name": "5.56x45 mm M856",
+            "name": "5.56x45mm M856",
             "shortName": "M856",
             "damage": 55,
             "penetration": 23,
@@ -172,8 +172,8 @@
         },
         {
             "type": "9x18 mm",
-            "name": "9x18 mm PM SP7 gzh",
-            "shortName": "SP7 gzh",
+            "name": "9x18mm PM SP7 gzh",
+            "shortName": "SP7",
             "damage": 77,
             "penetration": 2,
             "armorDamage": 5,
@@ -185,7 +185,7 @@
         },
         {
             "type": "5.56x45 mm",
-            "name": "5.56x45 mm M995",
+            "name": "5.56x45mm M995",
             "shortName": "M995",
             "damage": 40,
             "penetration": 53,
@@ -198,7 +198,7 @@
         },
         {
             "type": "5.56x45 mm",
-            "name": "5.56x45 mm M856A1",
+            "name": "5.56x45mm M856A1",
             "shortName": "M856A1",
             "damage": 51,
             "penetration": 37,
@@ -211,10 +211,10 @@
         },
         {
             "type": "5.56x45 mm",
-            "name": "5.56x45 mm M855A1",
+            "name": "5.56x45mm M855A1",
             "shortName": "M855A1",
-            "damage": 45,
-            "penetration": 43,
+            "damage": 46,
+            "penetration": 45,
             "armorDamage": 52,
             "id": "54527ac44bdc2d36668b4567",
             "symbol": {
@@ -224,7 +224,7 @@
         },
         {
             "type": "9x18 mm",
-            "name": "9x18 mm PM PBM",
+            "name": "9x18mm PM PBM gzh",
             "shortName": "PBM",
             "damage": 40,
             "penetration": 28,
@@ -237,10 +237,10 @@
         },
         {
             "type": "5.45x39 mm",
-            "name": "5.45x39 mm PS",
+            "name": "5.45x39mm PS gs",
             "shortName": "PS",
             "damage": 50,
-            "penetration": 25,
+            "penetration": 27,
             "armorDamage": 35,
             "id": "56dff3afd2720bba668b4567",
             "symbol": {
@@ -250,7 +250,7 @@
         },
         {
             "type": "7.62x54R",
-            "name": "7.62x54R SNB",
+            "name": "7.62x54mm R SNB gzh",
             "shortName": "SNB",
             "damage": 75,
             "penetration": 62,
@@ -263,8 +263,8 @@
         },
         {
             "type": "9x18 mm",
-            "name": "9x18 mm PM PRS gs",
-            "shortName": "PRS gs",
+            "name": "9x18mm PM PRS gs",
+            "shortName": "PRS",
             "damage": 58,
             "penetration": 6,
             "armorDamage": 16,
@@ -276,8 +276,8 @@
         },
         {
             "type": "9x19 mm",
-            "name": "9x19 mm PSO gzh",
-            "shortName": "PSO gzh",
+            "name": "9x19mm PSO gzh",
+            "shortName": "PSO",
             "damage": 59,
             "penetration": 10,
             "armorDamage": 32,
@@ -289,7 +289,7 @@
         },
         {
             "type": "7.62x51 mm",
-            "name": "7.62x51 mm M80",
+            "name": "7.62x51mm M80",
             "shortName": "M80",
             "damage": 80,
             "penetration": 41,
@@ -302,8 +302,8 @@
         },
         {
             "type": "5.56x45 mm",
-            "name": "5.56x45 mm Mk 255 Mod 0",
-            "shortName": "Mk255 Mod0",
+            "name": "5.56x45mm MK 255 Mod 0 (RRLP)",
+            "shortName": "RRLP",
             "damage": 60,
             "penetration": 17,
             "armorDamage": 32,
@@ -315,8 +315,8 @@
         },
         {
             "type": "7.62x54R",
-            "name": "7.62x54R LPS Gzh",
-            "shortName": "LPS Gzh",
+            "name": "7.62x54mm R LPS gzh",
+            "shortName": "LPS",
             "damage": 81,
             "penetration": 42,
             "armorDamage": 78,
@@ -328,7 +328,7 @@
         },
         {
             "type": "5.45x39 mm",
-            "name": "5.45x39 mm PRS",
+            "name": "5.45x39mm PRS gs",
             "shortName": "PRS",
             "damage": 60,
             "penetration": 14,
@@ -341,7 +341,7 @@
         },
         {
             "type": "5.45x39 mm",
-            "name": "5.45x39 mm BT",
+            "name": "5.45x39mm BT gs",
             "shortName": "BT",
             "damage": 44,
             "penetration": 37,
@@ -380,7 +380,7 @@
         },
         {
             "type": "5.45x39 mm",
-            "name": "5.45x39 mm SP",
+            "name": "5.45x39mm SP",
             "shortName": "SP",
             "damage": 68,
             "penetration": 11,
@@ -393,8 +393,8 @@
         },
         {
             "type": "5.56x45 mm",
-            "name": "5.56x45 mm 55 HP",
-            "shortName": "55 HP",
+            "name": "5.56x45mm HP",
+            "shortName": "HP",
             "damage": 75,
             "penetration": 9,
             "armorDamage": 22,
@@ -406,8 +406,8 @@
         },
         {
             "type": "9x18 mm",
-            "name": "9x18 mm PM PPT gzh",
-            "shortName": "PPT gzh",
+            "name": "9x18mm PM PPT gzh",
+            "shortName": "PPT",
             "damage": 59,
             "penetration": 8,
             "armorDamage": 22,
@@ -419,7 +419,7 @@
         },
         {
             "type": "5.45x39 mm",
-            "name": "5.45x39 mm HP",
+            "name": "5.45x39mm HP",
             "shortName": "HP",
             "damage": 74,
             "penetration": 11,
@@ -432,7 +432,7 @@
         },
         {
             "type": "5.56x45 mm",
-            "name": "5.56x45 mm M855",
+            "name": "5.56x45mm M855",
             "shortName": "M855",
             "damage": 50,
             "penetration": 28,
@@ -445,8 +445,8 @@
         },
         {
             "type": "5.45x39 mm",
-            "name": "5.45x39 mm 7N39 \"Igolnik\"",
-            "shortName": "7N39",
+            "name": "5.45x39mm PPBS gs \"Igolnik\"",
+            "shortName": "PPBS",
             "damage": 37,
             "penetration": 62,
             "armorDamage": 60,
@@ -458,7 +458,7 @@
         },
         {
             "type": ".366",
-            "name": ".366 ТКМ Geksa",
+            "name": ".366 TKM Geksa",
             "shortName": "Geksa",
             "damage": 110,
             "penetration": 14,
@@ -471,7 +471,7 @@
         },
         {
             "type": ".366",
-            "name": ".366 ТКМ FMJ",
+            "name": ".366 TKM FMJ",
             "shortName": "FMJ",
             "damage": 98,
             "penetration": 23,
@@ -484,8 +484,8 @@
         },
         {
             "type": "9x19 mm",
-            "name": "9x19 mm Green Tracer",
-            "shortName": "GT",
+            "name": "9x19mm T gzh",
+            "shortName": "T",
             "damage": 58,
             "penetration": 14,
             "armorDamage": 33,
@@ -511,7 +511,7 @@
         {
             "type": "7.62x25 mm",
             "name": "7.62x25mm TT Pst gzh",
-            "shortName": "Pst gzh",
+            "shortName": "Pst",
             "damage": 50,
             "penetration": 25,
             "armorDamage": 36,
@@ -524,7 +524,7 @@
         {
             "type": "7.62x25 mm",
             "name": "7.62x25mm TT P gl",
-            "shortName": "P gl",
+            "shortName": "P",
             "damage": 58,
             "penetration": 14,
             "armorDamage": 32,
@@ -536,8 +536,8 @@
         },
         {
             "type": "20 Gauge",
-            "name": "20x70 7.5mm Buckshot",
-            "shortName": "7.5 20c",
+            "name": "20/70 7.5mm buckshot",
+            "shortName": "7.5mm",
             "damage": 25,
             "penetration": 3,
             "armorDamage": 14,
@@ -549,7 +549,7 @@
         },
         {
             "type": ".366",
-            "name": ".366 ТКМ EKO",
+            "name": ".366 TKM EKO",
             "shortName": "EKO",
             "damage": 73,
             "penetration": 30,
@@ -575,7 +575,7 @@
         },
         {
             "type": "7.62x39 mm",
-            "name": "7.62x39 mm PS",
+            "name": "7.62x39mm PS gzh",
             "shortName": "PS",
             "damage": 57,
             "penetration": 32,
@@ -588,7 +588,7 @@
         },
         {
             "type": "5.45x39 mm",
-            "name": "5.45x39 mm US",
+            "name": "5.45x39mm US gs",
             "shortName": "US",
             "damage": 65,
             "penetration": 15,
@@ -614,7 +614,7 @@
         },
         {
             "type": "7.62x39 mm",
-            "name": "7.62x39 mm HP",
+            "name": "7.62x39mm HP",
             "shortName": "HP",
             "damage": 87,
             "penetration": 15,
@@ -627,8 +627,8 @@
         },
         {
             "type": "5.56x45 mm",
-            "name": "5.56x45 mm 55 FMJ",
-            "shortName": "55 FMJ",
+            "name": "5.56x45mm FMJ",
+            "shortName": "FMJ",
             "damage": 52,
             "penetration": 24,
             "armorDamage": 33,
@@ -653,10 +653,10 @@
         },
         {
             "type": "5.45x39 mm",
-            "name": "5.45x39 mm BP",
+            "name": "5.45x39mm BP gs",
             "shortName": "BP",
-            "damage": 48,
-            "penetration": 32,
+            "damage": 49,
+            "penetration": 35,
             "armorDamage": 41,
             "id": "56dfef82d2720bbd668b4567",
             "symbol": {
@@ -666,7 +666,7 @@
         },
         {
             "type": "5.45x39 mm",
-            "name": "5.45x39 mm BS",
+            "name": "5.45x39mm BS gs",
             "shortName": "BS",
             "damage": 40,
             "penetration": 51,
@@ -679,7 +679,7 @@
         },
         {
             "type": "7.62x39 mm",
-            "name": "7.62x39 mm US",
+            "name": "7.62x39mm US gzh",
             "shortName": "US",
             "damage": 56,
             "penetration": 29,
@@ -692,8 +692,8 @@
         },
         {
             "type": "7.62x39 mm",
-            "name": "7.62x39 mm T45M",
-            "shortName": "T45M",
+            "name": "7.62x39mm T-45M1 gzh",
+            "shortName": "T-45M1",
             "damage": 62,
             "penetration": 30,
             "armorDamage": 46,
@@ -705,8 +705,8 @@
         },
         {
             "type": "20 Gauge",
-            "name": "20/70 Star Slug",
-            "shortName": "20/70 Slug",
+            "name": "20/70 Star slug",
+            "shortName": "Star",
             "damage": 154,
             "penetration": 16,
             "armorDamage": 42,
@@ -718,7 +718,7 @@
         },
         {
             "type": "5.45x39 mm",
-            "name": "5.45x39 mm T",
+            "name": "5.45x39mm T gs",
             "shortName": "T",
             "damage": 57,
             "penetration": 20,
@@ -731,7 +731,7 @@
         },
         {
             "type": "7.62x39 mm",
-            "name": "7.62x39 mm BP",
+            "name": "7.62x39mm BP gzh",
             "shortName": "BP",
             "damage": 58,
             "penetration": 47,
@@ -745,7 +745,7 @@
         {
             "type": "7.62x25 mm",
             "name": "7.62x25mm TT PT gzh",
-            "shortName": "PT gzh",
+            "shortName": "PT",
             "damage": 55,
             "penetration": 18,
             "armorDamage": 34,
@@ -757,7 +757,7 @@
         },
         {
             "type": "7.62x51 mm",
-            "name": "7.62x51 mm M61",
+            "name": "7.62x51mm M61",
             "shortName": "M61",
             "damage": 70,
             "penetration": 64,
@@ -770,8 +770,8 @@
         },
         {
             "type": "9x18 mm",
-            "name": "9x18 mm PM PPe gzh",
-            "shortName": "PPe gzh",
+            "name": "9x18mm PM Ppe gzh",
+            "shortName": "Ppe",
             "damage": 61,
             "penetration": 7,
             "armorDamage": 15,
@@ -783,8 +783,8 @@
         },
         {
             "type": "7.62x54R",
-            "name": "7.62x54R 7N1 Sniper cartridge",
-            "shortName": "7N1",
+            "name": "7.62x54mm R PS gzh",
+            "shortName": "PS",
             "damage": 86,
             "penetration": 45,
             "armorDamage": 84,
@@ -809,10 +809,10 @@
         },
         {
             "type": "5.45x39 mm",
-            "name": "5.45x39 mm FMJ",
+            "name": "5.45x39mm FMJ",
             "shortName": "FMJ",
-            "damage": 54,
-            "penetration": 20,
+            "damage": 56,
+            "penetration": 21,
             "armorDamage": 30,
             "id": "56dff0bed2720bb0668b4567",
             "symbol": {
@@ -822,8 +822,8 @@
         },
         {
             "type": "5.56x45 mm",
-            "name": "5.56x45mm Warmage",
-            "shortName": "WG",
+            "name": "5.56x45mm Warmageddon",
+            "shortName": "Warmage",
             "damage": 85,
             "penetration": 3,
             "armorDamage": 14,
@@ -835,10 +835,10 @@
         },
         {
             "type": "5.45x39 mm",
-            "name": "5.45x39 mm PP",
+            "name": "5.45x39mm PP gs",
             "shortName": "PP",
-            "damage": 46,
-            "penetration": 30,
+            "damage": 48,
+            "penetration": 33,
             "armorDamage": 32,
             "id": "56dff2ced2720bb4668b4567",
             "symbol": {
@@ -848,8 +848,8 @@
         },
         {
             "type": "9x21 mm",
-            "name": "9x21 mm SP10",
-            "shortName": "SP10",
+            "name": "9x21mm PS gzh",
+            "shortName": "PS",
             "damage": 49,
             "penetration": 35,
             "armorDamage": 46,
@@ -861,8 +861,8 @@
         },
         {
             "type": "9x21 mm",
-            "name": "9x21 mm SP11",
-            "shortName": "SP11",
+            "name": "9x21mm P gzh",
+            "shortName": "P",
             "damage": 65,
             "penetration": 18,
             "armorDamage": 44,
@@ -874,7 +874,7 @@
         },
         {
             "type": "9x19 mm",
-            "name": "9x19 mm RIP",
+            "name": "9x19mm RIP",
             "shortName": "RIP",
             "damage": 102,
             "penetration": 2,
@@ -887,7 +887,7 @@
         },
         {
             "type": "9x19 mm",
-            "name": "9x19 mm AP 6.3",
+            "name": "9x19mm AP 6.3",
             "shortName": "AP 6.3",
             "damage": 52,
             "penetration": 30,
@@ -900,7 +900,7 @@
         },
         {
             "type": "9x19 mm",
-            "name": "9x19 mm Luger CCI",
+            "name": "9x19mm Luger CCI",
             "shortName": "Luger CCI",
             "damage": 70,
             "penetration": 10,
@@ -913,7 +913,7 @@
         },
         {
             "type": "9x39 mm",
-            "name": "9x39 mm 7N12 BP",
+            "name": "9x39mm BP gs",
             "shortName": "BP",
             "damage": 60,
             "penetration": 55,
@@ -926,8 +926,8 @@
         },
         {
             "type": "9x21 mm",
-            "name": "9x21 mm SP12",
-            "shortName": "SP12",
+            "name": "9x21mm PE gzh",
+            "shortName": "PE",
             "damage": 80,
             "penetration": 15,
             "armorDamage": 63,
@@ -939,7 +939,7 @@
         },
         {
             "type": "9x39 mm",
-            "name": "9x39 mm 7N9 SPP",
+            "name": "9x39mm SPP gs",
             "shortName": "SPP",
             "damage": 64,
             "penetration": 50,
@@ -952,7 +952,7 @@
         },
         {
             "type": "9x39 mm",
-            "name": "9x39 mm SP-5",
+            "name": "9x39mm SP-5 gs",
             "shortName": "SP-5",
             "damage": 68,
             "penetration": 38,
@@ -965,7 +965,7 @@
         },
         {
             "type": "9x39 mm",
-            "name": "9x39 mm SP-6",
+            "name": "9x39mm SP-6 gs",
             "shortName": "SP-6",
             "damage": 58,
             "penetration": 46,
@@ -978,8 +978,8 @@
         },
         {
             "type": "9x21 mm",
-            "name": "9x21 mm SP13",
-            "shortName": "SP13",
+            "name": "9x21mm BT gzh",
+            "shortName": "BT",
             "damage": 63,
             "penetration": 39,
             "armorDamage": 47,
@@ -991,7 +991,7 @@
         },
         {
             "type": "12.7x55 mm",
-            "name": "12.7x55 mm PS12",
+            "name": "12.7x55mm PS12",
             "shortName": "PS12",
             "damage": 115,
             "penetration": 28,
@@ -1004,7 +1004,7 @@
         },
         {
             "type": "12.7x55 mm",
-            "name": "12.7x55 mm PS12A",
+            "name": "12.7x55mm PS12A",
             "shortName": "PS12A",
             "damage": 165,
             "penetration": 10,
@@ -1017,8 +1017,8 @@
         },
         {
             "type": "12 Gauge Shot",
-            "name": "12/70 8.5 mm \"Magnum\" Buckshot",
-            "shortName": "8.5 12c",
+            "name": "12/70 8.5mm Magnum buckshot",
+            "shortName": "Magnum",
             "damage": 50,
             "penetration": 2,
             "armorDamage": 26,
@@ -1030,8 +1030,8 @@
         },
         {
             "type": "12 Gauge Shot",
-            "name": "12x70 7mm Buckshot",
-            "shortName": "7mm 12c",
+            "name": "12/70 7mm buckshot",
+            "shortName": "7mm",
             "damage": 39,
             "penetration": 3,
             "armorDamage": 26,
@@ -1043,8 +1043,8 @@
         },
         {
             "type": "12 Gauge Shot",
-            "name": "12/70 5.25mm Buckshot",
-            "shortName": "5.25 12c",
+            "name": "12/70 5.25mm buckshot",
+            "shortName": "5.25mm",
             "damage": 37,
             "penetration": 1,
             "armorDamage": 15,
@@ -1056,7 +1056,7 @@
         },
         {
             "type": "12.7x55 mm",
-            "name": "12.7x55 mm PS12B",
+            "name": "12.7x55mm PS12B",
             "shortName": "PS12B",
             "damage": 102,
             "penetration": 46,
@@ -1069,8 +1069,8 @@
         },
         {
             "type": "12 Gauge Shot",
-            "name": "12x70 6.5 mm \"Express\" Buckshot",
-            "shortName": "6.5 12c",
+            "name": "12/70 6.5mm Express buckshot",
+            "shortName": "Express",
             "damage": 35,
             "penetration": 3,
             "armorDamage": 26,
@@ -1082,8 +1082,8 @@
         },
         {
             "type": "12 Gauge Shot",
-            "name": "12/70 Flechette",
-            "shortName": "Flech.",
+            "name": "12/70 flechette",
+            "shortName": "Flechette",
             "damage": 25,
             "penetration": 31,
             "armorDamage": 26,
@@ -1095,7 +1095,7 @@
         },
         {
             "type": "12 Gauge Slug",
-            "name": "12/70 FTX Custom LIte Slug",
+            "name": "12/70 FTX Custom Lite slug",
             "shortName": "FTX",
             "damage": 183,
             "penetration": 20,
@@ -1108,7 +1108,7 @@
         },
         {
             "type": "12 Gauge Slug",
-            "name": "12/70 AP-20 Slug",
+            "name": "12/70 AP-20 armor-piercing slug",
             "shortName": "AP-20",
             "damage": 164,
             "penetration": 37,
@@ -1121,8 +1121,8 @@
         },
         {
             "type": "12 Gauge Slug",
-            "name": "12x70 RIP",
-            "shortName": "12x70 RIP",
+            "name": "12/70 RIP",
+            "shortName": "RIP",
             "damage": 265,
             "penetration": 2,
             "armorDamage": 11,
@@ -1134,8 +1134,8 @@
         },
         {
             "type": "20 Gauge",
-            "name": "20/70 7.3mm Buckshot",
-            "shortName": "7.3 20c",
+            "name": "20/70 7.3mm buckshot",
+            "shortName": "7.3mm",
             "damage": 23,
             "penetration": 3,
             "armorDamage": 13,
@@ -1147,8 +1147,8 @@
         },
         {
             "type": "12 Gauge Slug",
-            "name": "12/70 Dual Sabot Slug",
-            "shortName": "2-Sabot",
+            "name": "12/70 Dual Sabot slug",
+            "shortName": "DualSabot",
             "damage": 85,
             "penetration": 17,
             "armorDamage": 65,
@@ -1160,8 +1160,8 @@
         },
         {
             "type": "20 Gauge",
-            "name": "20/70 Devastator Slug",
-            "shortName": "Dev.",
+            "name": "20/70 Devastator slug",
+            "shortName": "Devastator",
             "damage": 198,
             "penetration": 5,
             "armorDamage": 13,
@@ -1173,8 +1173,8 @@
         },
         {
             "type": "12 Gauge Slug",
-            "name": "12/70 Grizzly 40 Slug ",
-            "shortName": "Grizzly",
+            "name": "12/70 Grizzly 40 slug",
+            "shortName": "Grizzly 40",
             "damage": 190,
             "penetration": 12,
             "armorDamage": 48,
@@ -1186,7 +1186,7 @@
         },
         {
             "type": "5.7x28 mm",
-            "name": "5.7x28 mm L191",
+            "name": "5.7x28mm L191",
             "shortName": "L191",
             "damage": 58,
             "penetration": 33,
@@ -1199,7 +1199,7 @@
         },
         {
             "type": "5.7x28 mm",
-            "name": "5.7x28 mm SS198LF",
+            "name": "5.7x28mm SS198LF",
             "shortName": "SS198LF",
             "damage": 74,
             "penetration": 10,
@@ -1212,8 +1212,8 @@
         },
         {
             "type": "12 Gauge Slug",
-            "name": "12x70 shell with .50 BMG bullet",
-            "shortName": ".50 12c",
+            "name": "12/70 makeshift .50 BMG slug",
+            "shortName": ".50 BMG",
             "damage": 197,
             "penetration": 26,
             "armorDamage": 57,
@@ -1225,7 +1225,7 @@
         },
         {
             "type": "5.7x28 mm",
-            "name": "5.7x28 mm SS197SR",
+            "name": "5.7x28mm SS197SR",
             "shortName": "SS197SR",
             "damage": 62,
             "penetration": 20,
@@ -1238,8 +1238,8 @@
         },
         {
             "type": "12 Gauge Slug",
-            "name": "12/70 \"Poleva-6u\" Slug",
-            "shortName": "P-6u 12c",
+            "name": "12/70 \"Poleva-6u\" slug",
+            "shortName": "Poleva-6u",
             "damage": 150,
             "penetration": 20,
             "armorDamage": 50,
@@ -1251,8 +1251,8 @@
         },
         {
             "type": "12 Gauge Slug",
-            "name": "12/70 \"Poleva-3\" Slug",
-            "shortName": "P-3 12c",
+            "name": "12/70 \"Poleva-3\" slug",
+            "shortName": "Poleva-3",
             "damage": 140,
             "penetration": 17,
             "armorDamage": 40,
@@ -1264,8 +1264,8 @@
         },
         {
             "type": "20 Gauge",
-            "name": "20/70 6.2mm Buckshot",
-            "shortName": "6.2 20k",
+            "name": "20/70 6.2mm buckshot",
+            "shortName": "6.2mm",
             "damage": 22,
             "penetration": 2,
             "armorDamage": 13,
@@ -1277,8 +1277,8 @@
         },
         {
             "type": "20 Gauge",
-            "name": "20/70 5.6mm Buckshot",
-            "shortName": "5.6 20c",
+            "name": "20/70 5.6mm buckshot",
+            "shortName": "5.6mm",
             "damage": 26,
             "penetration": 1,
             "armorDamage": 12,
@@ -1290,8 +1290,8 @@
         },
         {
             "type": "20 Gauge",
-            "name": "20/70 Slug \"Poleva-3\"",
-            "shortName": "P-3 20c",
+            "name": "20/70 \"Poleva-3\" slug",
+            "shortName": "Poleva-3",
             "damage": 120,
             "penetration": 14,
             "armorDamage": 35,
@@ -1303,8 +1303,8 @@
         },
         {
             "type": "20 Gauge",
-            "name": "20/70 Slug Poleva-6u",
-            "shortName": "P-6u 20c",
+            "name": "20/70 \"Poleva-6u\" slug",
+            "shortName": "Poleva-6u",
             "damage": 135,
             "penetration": 17,
             "armorDamage": 40,
@@ -1316,7 +1316,7 @@
         },
         {
             "type": "5.7x28 mm",
-            "name": "5.7x28 mm SS190",
+            "name": "5.7x28mm SS190",
             "shortName": "SS190",
             "damage": 49,
             "penetration": 37,
@@ -1329,10 +1329,10 @@
         },
         {
             "type": ".45",
-            "name": ".45 ACP FMJ",
-            "shortName": ".45 FMJ",
-            "damage": 69,
-            "penetration": 23,
+            "name": ".45 ACP Match FMJ",
+            "shortName": "FMJ",
+            "damage": 76,
+            "penetration": 25,
             "armorDamage": 36,
             "id": "5e81f423763d9f754677bf2e",
             "symbol": {
@@ -1342,7 +1342,7 @@
         },
         {
             "type": "5.7x28 mm",
-            "name": "5.7x28 mm SB193",
+            "name": "5.7x28mm SB193",
             "shortName": "SB193",
             "damage": 54,
             "penetration": 35,
@@ -1355,8 +1355,8 @@
         },
         {
             "type": "7.62x51 mm",
-            "name": "7.62x51 mm BPZ FMJ",
-            "shortName": "BPZ FMJ",
+            "name": "7.62x51mm BCP FMJ",
+            "shortName": "BCP FMJ",
             "damage": 88,
             "penetration": 31,
             "armorDamage": 33,
@@ -1368,8 +1368,8 @@
         },
         {
             "type": "7.62x51 mm",
-            "name": "7.62x51 mm TPZ SP",
-            "shortName": "TPZ SP",
+            "name": "7.62x51mm TCW SP",
+            "shortName": "TCW SP",
             "damage": 60,
             "penetration": 36,
             "armorDamage": 40,
@@ -1381,8 +1381,8 @@
         },
         {
             "type": "7.62x54R",
-            "name": "7.62x54R 7BT1",
-            "shortName": "7BT1",
+            "name": "7.62x54mm R BT gzh",
+            "shortName": "BT",
             "damage": 78,
             "penetration": 59,
             "armorDamage": 87,
@@ -1394,8 +1394,8 @@
         },
         {
             "type": "7.62x54R",
-            "name": "7.62x54R 7N37",
-            "shortName": "7N37",
+            "name": "7.62x54mm R BS gs",
+            "shortName": "BS",
             "damage": 72,
             "penetration": 70,
             "armorDamage": 88,
@@ -1407,8 +1407,8 @@
         },
         {
             "type": "7.62x54R",
-            "name": "7.62x54R T-46M",
-            "shortName": "T46M",
+            "name": "7.62x54mm R T-46M gzh",
+            "shortName": "T-46M",
             "damage": 82,
             "penetration": 41,
             "armorDamage": 83,
@@ -1421,8 +1421,8 @@
         {
             "type": ".45",
             "name": ".45 ACP Lasermatch FMJ",
-            "shortName": ".45 LM",
-            "damage": 74,
+            "shortName": "Lasermatch",
+            "damage": 80,
             "penetration": 19,
             "armorDamage": 37,
             "id": "5efb0d4f4bc50b58e81710f3",
@@ -1433,8 +1433,8 @@
         },
         {
             "type": ".366",
-            "name": ".366 AP",
-            "shortName": "366 AP",
+            "name": ".366 TKM AP-M",
+            "shortName": "AP-M",
             "damage": 90,
             "penetration": 42,
             "armorDamage": 60,
@@ -1446,7 +1446,7 @@
         },
         {
             "type": "7.62x51 mm",
-            "name": "7.62x51 mm M993",
+            "name": "7.62x51mm M993",
             "shortName": "M993",
             "damage": 67,
             "penetration": 70,
@@ -1459,8 +1459,8 @@
         },
         {
             "type": "9x19 mm",
-            "name": "9x19 mm 7N31",
-            "shortName": "7N31",
+            "name": "9x19mm PBP gzh",
+            "shortName": "PBP",
             "damage": 52,
             "penetration": 39,
             "armorDamage": 55,
@@ -1472,8 +1472,8 @@
         },
         {
             "type": "23x75 mm",
-            "name": "23x75mm \"Barricade\"",
-            "shortName": "Barr.",
+            "name": "23x75mm \"Barrikada\" slug",
+            "shortName": "Barrikada",
             "damage": 192,
             "penetration": 39,
             "armorDamage": 75,
@@ -1485,8 +1485,8 @@
         },
         {
             "type": "23x75 mm",
-            "name": "23x75mm Shrapnel 10",
-            "shortName": "Shrap.10",
+            "name": "23x75mm \"Shrapnel-10\" buckshot",
+            "shortName": "Shrap-10",
             "damage": 87,
             "penetration": 11,
             "armorDamage": 20,
@@ -1498,8 +1498,8 @@
         },
         {
             "type": "23x75 mm",
-            "name": "23x75mm Shrapnel-25",
-            "shortName": "Shr.25",
+            "name": "23x75mm \"Shrapnel-25\" buckshot",
+            "shortName": "Shrap-25",
             "damage": 78,
             "penetration": 10,
             "armorDamage": 20,
@@ -1512,10 +1512,10 @@
         {
             "type": ".45",
             "name": ".45 ACP AP",
-            "shortName": ".45 AP",
+            "shortName": "AP",
             "damage": 70,
-            "penetration": 36,
-            "armorDamage": 43,
+            "penetration": 38,
+            "armorDamage": 48,
             "id": "5efb0cabfb3e451d70735af5",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1525,8 +1525,8 @@
         {
             "type": ".45",
             "name": ".45 ACP Hydra-Shok",
-            "shortName": ".45 HS",
-            "damage": 95,
+            "shortName": "HydraShok",
+            "damage": 105,
             "penetration": 13,
             "armorDamage": 30,
             "id": "5efb0fc6aeb21837e749c801",
@@ -1537,9 +1537,9 @@
         },
         {
             "type": ".45",
-            "name": ".45 RIP",
-            "shortName": ".45 RIP",
-            "damage": 127,
+            "name": ".45 ACP RIP",
+            "shortName": "RIP",
+            "damage": 137,
             "penetration": 3,
             "armorDamage": 12,
             "id": "5ea2a8e200685063ec28c05a",
@@ -1550,8 +1550,8 @@
         },
         {
             "type": "12 Gauge Slug",
-            "name": "12x70 Led slug",
-            "shortName": "12x70 Slug",
+            "name": "12/70 lead slug",
+            "shortName": "Slug",
             "damage": 167,
             "penetration": 15,
             "armorDamage": 55,
@@ -1563,7 +1563,7 @@
         },
         {
             "type": "12 Gauge Slug",
-            "name": "12/70 HP Slug Copper Sabot Premier",
+            "name": "12/70 Copper Sabot Premier HP slug",
             "shortName": "CSP",
             "damage": 206,
             "penetration": 14,
@@ -1576,8 +1576,8 @@
         },
         {
             "type": "12 Gauge Slug",
-            "name": "12/70 HP Slug \"SuperFormance\"",
-            "shortName": "SF",
+            "name": "12/70 SuperFormance HP slug",
+            "shortName": "SFormance",
             "damage": 220,
             "penetration": 5,
             "armorDamage": 12,
@@ -1589,7 +1589,7 @@
         },
         {
             "type": "5.7x28 mm",
-            "name": "5.7x28 mm R37.F",
+            "name": "5.7x28mm R37.F",
             "shortName": "R37.F",
             "damage": 98,
             "penetration": 8,
@@ -1602,7 +1602,7 @@
         },
         {
             "type": "5.7x28 mm",
-            "name": "5.7x28 mm R37.X",
+            "name": "5.7x28mm R37.X",
             "shortName": "R37.X",
             "damage": 81,
             "penetration": 11,
@@ -1615,10 +1615,10 @@
         },
         {
             "type": ".300 Blackout",
-            "name": ".300 BPZ AAC Blackout",
-            "shortName": "BPZ",
+            "name": ".300 Blackout BCP FMJ",
+            "shortName": "BCP FMJ",
             "damage": 60,
-            "penetration": 28,
+            "penetration": 29,
             "armorDamage": 36,
             "id": "5fbe3ffdf8b6a877a729ea82",
             "symbol": {
@@ -1628,11 +1628,11 @@
         },
         {
             "type": ".300 Blackout",
-            "name": ".300 AAC Blackout AP",
+            "name": ".300 Blackout AP",
             "shortName": "AP",
-            "damage": 55,
-            "penetration": 44,
-            "armorDamage": 60,
+            "damage": 51,
+            "penetration": 45,
+            "armorDamage": 65,
             "id": "5fd20ff893a8961fc660a954",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1641,7 +1641,7 @@
         },
         {
             "type": "7.62x51 mm",
-            "name": "7.62x51 mm Ultra Nosler",
+            "name": "7.62x51mm Ultra Nosler",
             "shortName": "Ultra Nosler",
             "damage": 107,
             "penetration": 15,
@@ -1680,8 +1680,8 @@
         },
         {
             "type": ".338 Lapua Magnum",
-            "name": ".338 UPZ Lapua Magnum",
-            "shortName": ".338 UPZ",
+            "name": ".338 Lapua Magnum UCW",
+            "shortName": "UCW",
             "damage": 142,
             "penetration": 32,
             "armorDamage": 70,
@@ -1706,7 +1706,7 @@
         },
         {
             "type": "9x19 mm",
-            "name": "9x19 mm QuakeMaker",
+            "name": "9x19mm QuakeMaker",
             "shortName": "QuakeMaker",
             "damage": 85,
             "penetration": 8,
@@ -1719,10 +1719,10 @@
         },
         {
             "type": "5.56x45 mm",
-            "name": "5.56x45 mm Mk 318 Mod 0 (SOST)",
+            "name": "5.56x45mm MK 318 Mod 0 (SOST)",
             "shortName": "SOST",
-            "damage": 65,
-            "penetration": 21,
+            "damage": 67,
+            "penetration": 20,
             "armorDamage": 35,
             "id": "60194943740c5d77f6705eea",
             "symbol": {
@@ -1732,7 +1732,7 @@
         },
         {
             "type": "5.56x45 mm",
-            "name": "5.56x45 mm SSA AP",
+            "name": "5.56x45mm SSA AP",
             "shortName": "SSA AP",
             "damage": 36,
             "penetration": 56,
@@ -1745,8 +1745,8 @@
         },
         {
             "type": "7.62x39 mm",
-            "name": "7.62x39 mm MAI AP",
-            "shortName": "7.62 AP",
+            "name": "7.62x39mm MAI AP",
+            "shortName": "MAI AP",
             "damage": 47,
             "penetration": 58,
             "armorDamage": 76,
