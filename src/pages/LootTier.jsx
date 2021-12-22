@@ -320,6 +320,9 @@ function LootTier(props) {
         }
     }, [filters, setFilters]);
 
+    
+
+
     return [
         <Helmet
             key = {'loot-tier-helmet'}
@@ -361,6 +364,7 @@ function LootTier(props) {
                     isMulti
                     options = {filterOptions}
                     onChange = {handleFilterChange}
+                    
                 />
                 <InputFilter
                     defaultValue = {minPrice || ''}

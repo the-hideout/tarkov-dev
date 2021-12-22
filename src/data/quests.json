@@ -1,9 +1,9 @@
 {
-    "updated": "2021-07-08T09:45:03.709Z",
+    "updated": "2021-12-22T03:40:44.424Z",
     "data": [
         {
             "questId": 0,
-            "traderId": "54cb50c76803fa8b248b4571",
+            "traderId": "prapor",
             "name": "Debut",
             "items": [
                 {
@@ -15,7 +15,7 @@
         },
         {
             "questId": 1,
-            "traderId": "54cb50c76803fa8b248b4571",
+            "traderId": "prapor",
             "name": "Checking",
             "items": [
                 {
@@ -27,11 +27,16 @@
         },
         {
             "questId": 3,
-            "traderId": "54cb50c76803fa8b248b4571",
+            "traderId": "prapor",
             "name": "Delivery from the past",
             "items": [
                 {
                     "id": "5780d0532459777a5108b9a2",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "Secure case for documents 0022",
                     "count": 1,
                     "foundInRaid": false
                 }
@@ -39,7 +44,7 @@
         },
         {
             "questId": 5,
-            "traderId": "54cb50c76803fa8b248b4571",
+            "traderId": "prapor",
             "name": "Bad rep evidence",
             "items": [
                 {
@@ -51,7 +56,7 @@
         },
         {
             "questId": 6,
-            "traderId": "54cb50c76803fa8b248b4571",
+            "traderId": "prapor",
             "name": "Ice cream cones",
             "items": [
                 {
@@ -63,7 +68,7 @@
         },
         {
             "questId": 8,
-            "traderId": "54cb50c76803fa8b248b4571",
+            "traderId": "prapor",
             "name": "Shaking up teller",
             "items": [
                 {
@@ -75,7 +80,7 @@
         },
         {
             "questId": 14,
-            "traderId": "54cb50c76803fa8b248b4571",
+            "traderId": "prapor",
             "name": "The Punisher - Part 2",
             "items": [
                 {
@@ -87,7 +92,7 @@
         },
         {
             "questId": 16,
-            "traderId": "54cb50c76803fa8b248b4571",
+            "traderId": "prapor",
             "name": "The Punisher - Part 4",
             "items": [
                 {
@@ -99,7 +104,7 @@
         },
         {
             "questId": 17,
-            "traderId": "54cb50c76803fa8b248b4571",
+            "traderId": "prapor",
             "name": "The Punisher - Part 5",
             "items": [
                 {
@@ -121,7 +126,7 @@
         },
         {
             "questId": 18,
-            "traderId": "54cb50c76803fa8b248b4571",
+            "traderId": "prapor",
             "name": "The Punisher - Part 6",
             "items": [
                 {
@@ -138,7 +143,7 @@
         },
         {
             "questId": 19,
-            "traderId": "54cb57776803fa99248b456e",
+            "traderId": "therapist",
             "name": "Shortage",
             "items": [
                 {
@@ -150,7 +155,7 @@
         },
         {
             "questId": 20,
-            "traderId": "54cb57776803fa99248b456e",
+            "traderId": "therapist",
             "name": "Sanitary Standards - Part 1",
             "items": [
                 {
@@ -162,7 +167,7 @@
         },
         {
             "questId": 21,
-            "traderId": "54cb57776803fa99248b456e",
+            "traderId": "therapist",
             "name": "Sanitary Standards - Part 2",
             "items": [
                 {
@@ -174,7 +179,7 @@
         },
         {
             "questId": 22,
-            "traderId": "54cb57776803fa99248b456e",
+            "traderId": "therapist",
             "name": "Painkiller",
             "items": [
                 {
@@ -186,7 +191,7 @@
         },
         {
             "questId": 23,
-            "traderId": "54cb57776803fa99248b456e",
+            "traderId": "therapist",
             "name": "Pharmacist",
             "items": [
                 {
@@ -198,7 +203,7 @@
         },
         {
             "questId": 26,
-            "traderId": "54cb57776803fa99248b456e",
+            "traderId": "therapist",
             "name": "General wares",
             "items": [
                 {
@@ -210,7 +215,7 @@
         },
         {
             "questId": 27,
-            "traderId": "54cb57776803fa99248b456e",
+            "traderId": "therapist",
             "name": "Car repair",
             "items": [
                 {
@@ -227,7 +232,7 @@
         },
         {
             "questId": 29,
-            "traderId": "54cb57776803fa99248b456e",
+            "traderId": "therapist",
             "name": "Health Care Privacy - Part 2",
             "items": [
                 {
@@ -238,8 +243,20 @@
             ]
         },
         {
+            "questId": 32,
+            "traderId": "therapist",
+            "name": "Health Care Privacy - Part 5",
+            "items": [
+                {
+                    "id": "590c5a7286f7747884343aea",
+                    "count": 3,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
             "questId": 34,
-            "traderId": "54cb57776803fa99248b456e",
+            "traderId": "therapist",
             "name": "Private clinic",
             "items": [
                 {
@@ -256,7 +273,7 @@
         },
         {
             "questId": 36,
-            "traderId": "58330581ace78e27b8b10cee",
+            "traderId": "skier",
             "name": "Supplier",
             "items": [
                 {
@@ -273,7 +290,7 @@
         },
         {
             "questId": 37,
-            "traderId": "58330581ace78e27b8b10cee",
+            "traderId": "skier",
             "name": "The Extortionist",
             "items": [
                 {
@@ -285,7 +302,7 @@
         },
         {
             "questId": 38,
-            "traderId": "58330581ace78e27b8b10cee",
+            "traderId": "skier",
             "name": "What's on the flash drive?",
             "items": [
                 {
@@ -297,7 +314,7 @@
         },
         {
             "questId": 39,
-            "traderId": "58330581ace78e27b8b10cee",
+            "traderId": "skier",
             "name": "Golden swag",
             "items": [
                 {
@@ -309,12 +326,17 @@
                     "id": "5913611c86f77479e0084092",
                     "count": 1,
                     "foundInRaid": false
+                },
+                {
+                    "id": "Gilded Zibbo lighter",
+                    "count": 1,
+                    "foundInRaid": false
                 }
             ]
         },
         {
             "questId": 40,
-            "traderId": "58330581ace78e27b8b10cee",
+            "traderId": "skier",
             "name": "Chemical - Part 1",
             "items": [
                 {
@@ -326,7 +348,7 @@
         },
         {
             "questId": 41,
-            "traderId": "58330581ace78e27b8b10cee",
+            "traderId": "skier",
             "name": "Chemical - Part 2",
             "items": [
                 {
@@ -338,8 +360,8 @@
         },
         {
             "questId": 44,
-            "traderId": "58330581ace78e27b8b10cee",
-            "name": "\"Vitamins\" - Part 1",
+            "traderId": "skier",
+            "name": "Vitamins - Part 1",
             "items": [
                 {
                     "id": "5a0dc95c86f77452440fc675",
@@ -355,8 +377,8 @@
         },
         {
             "questId": 45,
-            "traderId": "58330581ace78e27b8b10cee",
-            "name": "\"Vitamins\" - Part 2",
+            "traderId": "skier",
+            "name": "Vitamins - Part 2",
             "items": [
                 {
                     "id": "59e7715586f7742ee5789605",
@@ -372,7 +394,7 @@
         },
         {
             "questId": 46,
-            "traderId": "58330581ace78e27b8b10cee",
+            "traderId": "skier",
             "name": "Friend from the West - Part 1",
             "items": [
                 {
@@ -384,7 +406,7 @@
         },
         {
             "questId": 47,
-            "traderId": "58330581ace78e27b8b10cee",
+            "traderId": "skier",
             "name": "Friend from the West - Part 2",
             "items": [
                 {
@@ -396,7 +418,7 @@
         },
         {
             "questId": 48,
-            "traderId": "58330581ace78e27b8b10cee",
+            "traderId": "skier",
             "name": "Lend lease - Part 1",
             "items": [
                 {
@@ -416,7 +438,7 @@
         },
         {
             "questId": 49,
-            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "traderId": "peacekeeper",
             "name": "Lend lease - Part 2",
             "items": [
                 {
@@ -432,8 +454,69 @@
             ]
         },
         {
+            "questId": 52,
+            "traderId": "skier",
+            "name": "Chumming",
+            "items": [
+                {
+                    "id": "5734758f24597738025ee253",
+                    "count": 3,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5734758f24597738025ee253",
+                    "count": 3,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5734758f24597738025ee253",
+                    "count": 3,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": 55,
+            "traderId": "skier",
+            "name": "Bullshit",
+            "items": [
+                {
+                    "id": "False flash drive",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "59faf7ca86f7740dbe19f6c2",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "55801eed4bdc2d89578b4588",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": 57,
+            "traderId": "peacekeeper",
+            "name": "Fishing Gear",
+            "items": [
+                {
+                    "id": "55801eed4bdc2d89578b4588",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "544fb5454bdc2df8738b456a",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
             "questId": 61,
-            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "traderId": "peacekeeper",
             "name": "Humanitarian Supplies",
             "items": [
                 {
@@ -445,7 +528,7 @@
         },
         {
             "questId": 63,
-            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "traderId": "peacekeeper",
             "name": "The Cult - Part 2",
             "items": [
                 {
@@ -457,7 +540,7 @@
         },
         {
             "questId": 66,
-            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "traderId": "peacekeeper",
             "name": "Spa Tour - Part 3",
             "items": [
                 {
@@ -484,7 +567,7 @@
         },
         {
             "questId": 67,
-            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "traderId": "peacekeeper",
             "name": "Spa Tour - Part 4",
             "items": [
                 {
@@ -499,7 +582,7 @@
         },
         {
             "questId": 69,
-            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "traderId": "peacekeeper",
             "name": "Spa Tour - Part 6",
             "items": [
                 {
@@ -511,7 +594,7 @@
         },
         {
             "questId": 70,
-            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "traderId": "peacekeeper",
             "name": "Spa Tour - Part 7",
             "items": [
                 {
@@ -538,7 +621,7 @@
         },
         {
             "questId": 71,
-            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "traderId": "peacekeeper",
             "name": "Cargo X - Part 1",
             "items": [
                 {
@@ -553,7 +636,7 @@
         },
         {
             "questId": 78,
-            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "traderId": "peacekeeper",
             "name": "Wet Job - Part 5",
             "items": [
                 {
@@ -568,7 +651,7 @@
         },
         {
             "questId": 99,
-            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "traderId": "mechanic",
             "name": "Signal - Part 2",
             "items": [
                 {
@@ -594,8 +677,25 @@
             ]
         },
         {
+            "questId": 104,
+            "traderId": "mechanic",
+            "name": "Farming - Part 1",
+            "items": [
+                {
+                    "id": "590c2e1186f77425357b6124",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "590c2e1186f77425357b6124",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
             "questId": 105,
-            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "traderId": "mechanic",
             "name": "Farming - Part 2",
             "items": [
                 {
@@ -617,7 +717,7 @@
         },
         {
             "questId": 106,
-            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "traderId": "mechanic",
             "name": "Farming - Part 3",
             "items": [
                 {
@@ -629,7 +729,7 @@
         },
         {
             "questId": 107,
-            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "traderId": "mechanic",
             "name": "Farming - Part 4",
             "items": [
                 {
@@ -646,7 +746,7 @@
         },
         {
             "questId": 108,
-            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "traderId": "mechanic",
             "name": "Import",
             "items": [
                 {
@@ -663,7 +763,7 @@
         },
         {
             "questId": 109,
-            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "traderId": "mechanic",
             "name": "Fertilizers",
             "items": [
                 {
@@ -680,7 +780,7 @@
         },
         {
             "questId": 114,
-            "traderId": "5ac3b934156ae10c4430e83c",
+            "traderId": "ragman",
             "name": "Dressed to kill",
             "items": [
                 {
@@ -697,7 +797,7 @@
         },
         {
             "questId": 116,
-            "traderId": "5ac3b934156ae10c4430e83c",
+            "traderId": "ragman",
             "name": "Database - Part 2",
             "items": [
                 {
@@ -708,8 +808,35 @@
             ]
         },
         {
+            "questId": 117,
+            "traderId": "ragman",
+            "name": "Gratitude",
+            "items": [
+                {
+                    "id": "5ab8f4ff86f77431c60d91ba",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5ab8f85d86f7745cd93a1cf5",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5aa2b9aee5b5b00015693121",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5aa2b923e5b5b000137b7589",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
             "questId": 119,
-            "traderId": "5ac3b934156ae10c4430e83c",
+            "traderId": "ragman",
             "name": "Supervisor",
             "items": [
                 {
@@ -720,8 +847,30 @@
             ]
         },
         {
+            "questId": 120,
+            "traderId": "ragman",
+            "name": "Hot Delivery",
+            "items": [
+                {
+                    "id": "5645bcc04bdc2d363b8b4572",
+                    "count": 2,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5a7c4850e899ef00150be885",
+                    "count": 2,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5ab8e79e86f7742d8b372e78",
+                    "count": 2,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
             "questId": 124,
-            "traderId": "5ac3b934156ae10c4430e83c",
+            "traderId": "ragman",
             "name": "Sew it good - Part 1",
             "items": [
                 {
@@ -738,7 +887,7 @@
         },
         {
             "questId": 125,
-            "traderId": "5ac3b934156ae10c4430e83c",
+            "traderId": "ragman",
             "name": "Sew it good - Part 2",
             "items": [
                 {
@@ -755,7 +904,7 @@
         },
         {
             "questId": 126,
-            "traderId": "5ac3b934156ae10c4430e83c",
+            "traderId": "ragman",
             "name": "Sew it good - Part 3",
             "items": [
                 {
@@ -772,7 +921,7 @@
         },
         {
             "questId": 127,
-            "traderId": "5ac3b934156ae10c4430e83c",
+            "traderId": "ragman",
             "name": "Sew it good - Part 4",
             "items": [
                 {
@@ -789,7 +938,7 @@
         },
         {
             "questId": 130,
-            "traderId": "5ac3b934156ae10c4430e83c",
+            "traderId": "ragman",
             "name": "The Blood of War - Part 2",
             "items": [
                 {
@@ -801,7 +950,7 @@
         },
         {
             "questId": 132,
-            "traderId": "5ac3b934156ae10c4430e83c",
+            "traderId": "ragman",
             "name": "Living high is not a crime - Part 1",
             "items": [
                 {
@@ -828,7 +977,7 @@
         },
         {
             "questId": 133,
-            "traderId": "5ac3b934156ae10c4430e83c",
+            "traderId": "ragman",
             "name": "Living high is not a crime - Part 2",
             "items": [
                 {
@@ -845,7 +994,7 @@
         },
         {
             "questId": 135,
-            "traderId": "5c0647fdd443bc2504c2d371",
+            "traderId": "jaeger",
             "name": "Acquaintance",
             "items": [
                 {
@@ -866,8 +1015,35 @@
             ]
         },
         {
+            "questId": 137,
+            "traderId": "jaeger",
+            "name": "The survivalist path - Thrifty",
+            "items": [
+                {
+                    "id": "590c5d4b86f774784e1b9c45",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5448fee04bdc2dbc018b4567",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "590c5d4b86f774784e1b9c45",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5448fee04bdc2dbc018b4567",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
             "questId": 152,
-            "traderId": "54cb57776803fa99248b456e",
+            "traderId": "therapist",
             "name": "Colleagues - Part 2",
             "items": [
                 {
@@ -879,7 +1055,7 @@
         },
         {
             "questId": 153,
-            "traderId": "54cb57776803fa99248b456e",
+            "traderId": "therapist",
             "name": "Colleagues - Part 3",
             "items": [
                 {
@@ -906,7 +1082,7 @@
         },
         {
             "questId": 155,
-            "traderId": "5c0647fdd443bc2504c2d371",
+            "traderId": "jaeger",
             "name": "Ambulance",
             "items": [
                 {
@@ -923,7 +1099,7 @@
         },
         {
             "questId": 161,
-            "traderId": "5c0647fdd443bc2504c2d371",
+            "traderId": "jaeger",
             "name": "Fishing place",
             "items": [
                 {
@@ -935,7 +1111,7 @@
         },
         {
             "questId": 162,
-            "traderId": "5c0647fdd443bc2504c2d371",
+            "traderId": "jaeger",
             "name": "Huntsman path - The trophy",
             "items": [
                 {
@@ -947,8 +1123,8 @@
         },
         {
             "questId": 164,
-            "traderId": "5c0647fdd443bc2504c2d371",
-            "name": "Huntsman path - Sell-out",
+            "traderId": "jaeger",
+            "name": "Huntsman path - Sellout",
             "items": [
                 {
                     "id": "5c0e874186f7745dc7616606",
@@ -959,7 +1135,7 @@
         },
         {
             "questId": 165,
-            "traderId": "5c0647fdd443bc2504c2d371",
+            "traderId": "jaeger",
             "name": "Huntsman path - Woods keeper",
             "items": [
                 {
@@ -971,7 +1147,7 @@
         },
         {
             "questId": 169,
-            "traderId": "54cb57776803fa99248b456e",
+            "traderId": "therapist",
             "name": "Operation Aquarius - Part 1",
             "items": [
                 {
@@ -983,7 +1159,7 @@
         },
         {
             "questId": 172,
-            "traderId": "54cb50c76803fa8b248b4571",
+            "traderId": "prapor",
             "name": "Regulated materials",
             "items": [
                 {
@@ -1000,7 +1176,7 @@
         },
         {
             "questId": 174,
-            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "traderId": "peacekeeper",
             "name": "Mentor",
             "items": [
                 {
@@ -1012,7 +1188,7 @@
         },
         {
             "questId": 175,
-            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "traderId": "mechanic",
             "name": "Bad habit",
             "items": [
                 {
@@ -1034,7 +1210,7 @@
         },
         {
             "questId": 177,
-            "traderId": "5c0647fdd443bc2504c2d371",
+            "traderId": "jaeger",
             "name": "Shady Business",
             "items": [
                 {
@@ -1046,7 +1222,7 @@
         },
         {
             "questId": 182,
-            "traderId": "5ac3b934156ae10c4430e83c",
+            "traderId": "ragman",
             "name": "Textile - Part 1",
             "items": [
                 {
@@ -1068,7 +1244,7 @@
         },
         {
             "questId": 183,
-            "traderId": "5ac3b934156ae10c4430e83c",
+            "traderId": "ragman",
             "name": "Textile - Part 2",
             "items": [
                 {
@@ -1090,8 +1266,8 @@
         },
         {
             "questId": 187,
-            "traderId": "5a7c2eca46aef81a7ca2145d",
-            "name": "The chemistry closet",
+            "traderId": "mechanic",
+            "name": "Chemistry closet",
             "items": [
                 {
                     "id": "5eff09cd30a7dc22fd1ddfed",
@@ -1102,7 +1278,7 @@
         },
         {
             "questId": 188,
-            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "traderId": "peacekeeper",
             "name": "Samples",
             "items": [
                 {
@@ -1144,7 +1320,7 @@
         },
         {
             "questId": 189,
-            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "traderId": "peacekeeper",
             "name": "TerraGroup employee",
             "items": [
                 {
@@ -1156,7 +1332,7 @@
         },
         {
             "questId": 195,
-            "traderId": "579dc571d53a0658a154fbec",
+            "traderId": "fence",
             "name": "Collector",
             "items": [
                 {
@@ -1278,7 +1454,7 @@
         },
         {
             "questId": 197,
-            "traderId": "54cb57776803fa99248b456e",
+            "traderId": "therapist",
             "name": "An apple a day - keeps the doctor away",
             "items": [
                 {
@@ -1290,7 +1466,7 @@
         },
         {
             "questId": 199,
-            "traderId": "54cb50c76803fa8b248b4571",
+            "traderId": "prapor",
             "name": "No offence",
             "items": [
                 {
@@ -1302,7 +1478,7 @@
         },
         {
             "questId": 200,
-            "traderId": "54cb57776803fa99248b456e",
+            "traderId": "therapist",
             "name": "Trust regain",
             "items": [
                 {
@@ -1329,7 +1505,7 @@
         },
         {
             "questId": 201,
-            "traderId": "58330581ace78e27b8b10cee",
+            "traderId": "skier",
             "name": "Loyalty buyout",
             "items": [
                 {
@@ -1341,8 +1517,8 @@
         },
         {
             "questId": 202,
-            "traderId": "54cb57776803fa99248b456e",
-            "name": "Hippocratic Vow",
+            "traderId": "therapist",
+            "name": "Hippocratic Oath",
             "items": [
                 {
                     "id": "5696686a4bdc2da3298b456a",
@@ -1352,8 +1528,25 @@
             ]
         },
         {
+            "questId": 203,
+            "traderId": "therapist",
+            "name": "Disease history",
+            "items": [
+                {
+                    "id": "5d947d4e86f774447b415895",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5d947d3886f774447b415893",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
             "questId": 205,
-            "traderId": "5a7c2eca46aef81a7ca2145d",
+            "traderId": "mechanic",
             "name": "Surplus Goods",
             "items": [
                 {
@@ -1365,7 +1558,7 @@
         },
         {
             "questId": 207,
-            "traderId": "5935c25fb3acc3127c3d8cd9",
+            "traderId": "peacekeeper",
             "name": "Revision",
             "items": [
                 {
@@ -1377,7 +1570,7 @@
         },
         {
             "questId": 209,
-            "traderId": "5ac3b934156ae10c4430e83c",
+            "traderId": "ragman",
             "name": "Inventory check",
             "items": [
                 {
@@ -1399,12 +1592,129 @@
         },
         {
             "questId": 213,
-            "traderId": "5c0647fdd443bc2504c2d371",
-            "name": "Tagilla",
+            "traderId": "jaeger",
+            "name": "Huntsman Path - Factory Chief",
             "items": [
                 {
                     "id": "60a7acf20c5cb24b01346648",
                     "count": 1,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": 218,
+            "traderId": "skier",
+            "name": "Night Sweep",
+            "items": [
+                {
+                    "id": "5fc64ea372b0dd78d51159dc",
+                    "count": 12,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": 220,
+            "traderId": "therapist",
+            "name": "Crisis",
+            "items": [
+                {
+                    "id": "5c052e6986f7746b207bc3c9",
+                    "count": 5,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5af0534a86f7743b6f354284",
+                    "count": 5,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5c0530ee86f774697952d952",
+                    "count": 5,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5d1b3a5d86f774252167ba22",
+                    "count": 20,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": 222,
+            "traderId": "fence",
+            "name": "The Choice",
+            "items": [
+                {
+                    "id": "59db794186f77448bc595262",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": 226,
+            "traderId": "ragman",
+            "name": "Booze",
+            "items": [
+                {
+                    "id": "5d40407c86f774318526545a",
+                    "count": 10,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5d403f9186f7743cac3f229b",
+                    "count": 10,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5d1b33a686f7742523398398",
+                    "count": 3,
+                    "foundInRaid": true
+                }
+            ]
+        },
+        {
+            "questId": 227,
+            "traderId": "mechanic",
+            "name": "The Courier",
+            "items": [
+                {
+                    "id": "5a1eaa87fcdbcb001865f75e",
+                    "count": 1,
+                    "foundInRaid": false
+                },
+                {
+                    "id": "5a1eaa87fcdbcb001865f75e",
+                    "count": 1,
+                    "foundInRaid": false
+                }
+            ]
+        },
+        {
+            "questId": 228,
+            "traderId": "peacekeeper",
+            "name": "Special Equipment",
+            "items": [
+                {
+                    "id": "5c05300686f7746dce784e5d",
+                    "count": 5,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5c052fb986f7746b2101e909",
+                    "count": 5,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5c05308086f7746b2101e90b",
+                    "count": 5,
+                    "foundInRaid": true
+                },
+                {
+                    "id": "5c052f6886f7746b1e3db148",
+                    "count": 5,
                     "foundInRaid": true
                 }
             ]
