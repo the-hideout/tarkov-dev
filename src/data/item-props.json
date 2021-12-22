@@ -22354,7 +22354,7 @@
                 "fullauto"
             ],
             "RecoilForceUp": 156,
-            "RecoilForceBack": 423,
+            "RecoilForceBack": 413,
             "ammoCaliber": "Caliber556x45NATO"
         },
         "hasGrid": false,
@@ -47423,7 +47423,7 @@
                 "single",
                 "fullauto"
             ],
-            "RecoilForceUp": 152,
+            "RecoilForceUp": 157,
             "RecoilForceBack": 458,
             "ammoCaliber": "Caliber556x45NATO"
         },
@@ -47636,7 +47636,7 @@
                 "single",
                 "fullauto"
             ],
-            "RecoilForceUp": 152,
+            "RecoilForceUp": 157,
             "RecoilForceBack": 458,
             "ammoCaliber": "Caliber556x45NATO"
         },
