@@ -283,7 +283,7 @@ function Armor(props) {
                 onChange = {handleArmorClassChange}
             />
             <InputFilter
-                defaultValue = {maxPrice || ''}
+                defaultValue = {maxPrice || ''}
                 label = 'Max price'
                 type = {'number'}
                 placeholder = {'max price'}

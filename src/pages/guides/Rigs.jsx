@@ -53,7 +53,7 @@ function Backpacks(props) {
         [items]
     );
 
-    let maxSlots = Math.max(...displayItems.map(displayItem => displayItem.itemProperties.grid?.totalSize || 0));
+    let maxSlots = Math.max(...displayItems.map(displayItem => displayItem.itemProperties.grid?.totalSize || 0));
     if(maxSlots === Infinity){
         maxSlots = 1;
     }

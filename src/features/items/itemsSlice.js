@@ -83,7 +83,7 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
     return itemData.data.itemsByType.map((rawItem) => {
         let grid = false;
 
-        rawItem.itemProperties = itemProps[rawItem.id]?.itemProperties || {};
+        rawItem.itemProperties = itemProps[rawItem.id]?.itemProperties || {};
         rawItem.linkedItems = itemProps[rawItem.id]?.linkedItems || {};
 
         if(itemProps[rawItem.id]?.hasGrid){
@@ -106,7 +106,7 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
 
             if(gridPockets.length > 1){
                 grid.height = Math.max(...gridPockets.map(pocket => pocket.row + pocket.height));
-                grid.width = Math.max(...gridPockets.map(pocket => pocket.col + pocket.width)); 
+                grid.width = Math.max(...gridPockets.map(pocket => pocket.col + pocket.width));
             }
 
             // Rigs we haven't configured shouldn't break
@@ -148,8 +148,8 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
             slots: rawItem.width * rawItem.height,
             // iconLink: `https://assets.tarkov-tools.com/${rawItem.id}-icon.jpg`,
             iconLink: rawItem.iconLink,
-            traderPrice: bestTraderPrice?.price || 0,
-            traderName: bestTraderPrice?.trader?.name || '?',
+            traderPrice: bestTraderPrice?.price || 0,
+            traderName: bestTraderPrice?.trader?.name || '?',
             ...bestPrice(rawItem),
             grid: grid,
             notes: NOTES[rawItem.id],

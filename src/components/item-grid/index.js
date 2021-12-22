@@ -6,7 +6,7 @@ import formatPrice from '../../modules/format-price';
 import './index.css';
 
 const getSubtitle = (text, minPrice, maxPrice, t) => {
-    if(minPrice || maxPrice){
+    if(minPrice || maxPrice){
         return <div
             className = "item-group-subtitle-wrapper"
         >
@@ -34,11 +34,11 @@ function ItemGrid(props) {
     let maxPrice = false;
 
     for(const item of props.items){
-        if(!minPrice || item.pricePerSlot < minPrice){
+        if(!minPrice || item.pricePerSlot < minPrice){
             minPrice = item.pricePerSlot;
         }
 
-        if(!maxPrice || item.pricePerSlot > maxPrice){
+        if(!maxPrice || item.pricePerSlot > maxPrice){
             maxPrice = item.pricePerSlot;
         }
     }

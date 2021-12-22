@@ -86,7 +86,7 @@ const formatter = (key, value) => {
         ];
     }
 
-    if(key === 'RecoilForceBack' || key === 'RecoilForceUp'){
+    if(key === 'RecoilForceBack' || key === 'RecoilForceUp'){
         return [
             defaultFormat(key).replace(' force', ''),
             value,

@@ -88,7 +88,7 @@ const getStatsString = (itemProperties) => {
         return '';
     }
 
-    return `${itemProperties.speedPenaltyPercent || 0}% / ${itemProperties.mousePenalty || 0}% / ${itemProperties.weaponErgonomicPenalty || 0}`
+    return `${itemProperties.speedPenaltyPercent || 0}% / ${itemProperties.mousePenalty || 0}% / ${itemProperties.weaponErgonomicPenalty || 0}`
 };
 
 function Helmets(props) {
@@ -339,7 +339,7 @@ function Helmets(props) {
                 />
                 <InputFilter
                     label = 'Max price'
-                    defaultValue = {maxPrice || ''}
+                    defaultValue = {maxPrice || ''}
                     type = {'number'}
                     placeholder = {'max price'}
                     onChange = {e => setMaxPrice(Number(e.target.value))}

@@ -115,7 +115,7 @@ function ItemTracker() {
 
                 return <ItemGrid
                     key = {`loot-group-${questData.questId}`}
-                    name = {questData.name || questData.questId}
+                    name = {questData.name || questData.questId}
                     subtitle = {Traders[questData.traderId].locale.en}
                     items = {questItems}
                     extraTitleProps = {

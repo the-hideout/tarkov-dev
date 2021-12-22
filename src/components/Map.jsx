@@ -29,7 +29,7 @@ function Map() {
     }
 
     useEffect(() => {
-        let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
+        let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
         if(viewableHeight < 100){
             viewableHeight = window.innerHeight;
         }

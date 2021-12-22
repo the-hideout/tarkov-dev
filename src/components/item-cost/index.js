@@ -30,7 +30,7 @@ function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSour
             />
             <span>
                 {count}
-            </span> X {formatPrice(price)} = {formatPrice(count * (alternatePrice || price))}
+            </span> X {formatPrice(price)} = {formatPrice(count * (alternatePrice || price))}
         </div>;
     }
 
@@ -72,7 +72,7 @@ function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSour
                 />
                 <span>
                     {count}
-                </span> X {formatPrice(price)} = {formatPrice(count * (alternatePrice || price))}
+                </span> X {formatPrice(price)} = {formatPrice(count * (alternatePrice || price))}
             </div>
         </Tippy>
     }
@@ -86,7 +86,7 @@ function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSour
             />
             <span>
                 {count}
-            </span> X {formatPrice(price)} = {formatPrice(count * (alternatePrice || price))}
+            </span> X {formatPrice(price)} = {formatPrice(count * (alternatePrice || price))}
         </div>
     }
 

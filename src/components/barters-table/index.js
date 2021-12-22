@@ -233,7 +233,7 @@ function BartersTable(props) {
             const bestTraderValue = Math.max(...barterRow.rewardItems[0].item.traderPrices.map(priceObject => priceObject.price));
             const bestTrade = barterRow.rewardItems[0].item.traderPrices.find(traderPrice => traderPrice.price === bestTraderValue);
 
-            if((bestTrade && bestTrade.price > tradeData.reward.value) || (bestTrade && !includeFlea)){
+            if((bestTrade && bestTrade.price > tradeData.reward.value) || (bestTrade && !includeFlea)){
                 // console.log(barterRow.rewardItems[0].item.traderPrices);
                 tradeData.reward.value = bestTrade.price;
                 tradeData.reward.sellTo = bestTrade.trader.name;

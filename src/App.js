@@ -137,7 +137,7 @@ function App() {
             connect();
         }
 
-        return () => {
+        return () => {
             // socket.terminate();
         };
     }, [socketEnabled, sessionID, navigate, dispatch]);

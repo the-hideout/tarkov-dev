@@ -62,7 +62,7 @@ function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraR
             prepareRow(row);
             const tableProps = row.getRowProps();
 
-            tableProps.className = `${row.isExpanded || row.depth === 1 ? 'expanded' : ''}`
+            tableProps.className = `${row.isExpanded || row.depth === 1 ? 'expanded' : ''}`
             return (
                 <tr
                     {

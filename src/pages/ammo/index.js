@@ -114,7 +114,7 @@ function Ammo() {
 
     const listState = useMemo(() => {
         const returnData = formattedData.filter(ammo =>
-            !selectedLegendName || selectedLegendName.length === 0 || selectedLegendName.includes(ammo.type)
+            !selectedLegendName || selectedLegendName.length === 0 || selectedLegendName.includes(ammo.type)
         ).map((ammo) => {
             ammo.name = ammo.shortName;
             ammo = {
@@ -146,7 +146,7 @@ function Ammo() {
 
     const handleLegendClick = useCallback((event, { datum: { name } }) => {
         let newSelectedAmmo = [...selectedLegendName];
-        const metaKey = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
+        const metaKey = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
 
         if(newSelectedAmmo.includes(name) && metaKey){
             newSelectedAmmo.splice(newSelectedAmmo.indexOf(name), 1);
