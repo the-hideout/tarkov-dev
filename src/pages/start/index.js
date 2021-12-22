@@ -28,7 +28,7 @@ import './index.css';
 
 function Start(props) {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
-    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
 
     const handleNameFilterChange = useCallback((e) => {
         if (typeof window !== 'undefined') {
