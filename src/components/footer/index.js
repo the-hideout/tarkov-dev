@@ -8,6 +8,8 @@ import {ReactComponent as GithubIcon} from '../supporter/Github.svg';
 import {ReactComponent as DiscordIcon} from '../supporter/Discord.svg';
 import PatreonButton from '../patreon-button';
 
+import contributors from '../../data/contributors.json';
+
 import './index.css';
 
 function Footer() {
@@ -113,30 +115,21 @@ function Footer() {
                 patreon
                 github
             />
-            <Supporter
-                name = {'MypowerHD'}
-                patreon
-            />
-            <Supporter
-                name = {'lipowskm'}
-                github
-            />
-            <Supporter
-                name = {'Hiltuska'}
-                github
-            />
-            <Supporter
-                name = {'khamer'}
-                github
-            />
-            <Supporter
-                name = {'Akiyamov'}
-                github
-            />
-            <Supporter
-                name = {'tiddle'}
-                github
-            />
+            {
+                contributors.map((contributor) => {
+                    const { login, html_url } = contributor;
+
+                    if(login === 'kokarn' || login === 'Gyran' || login === 'thaddeus'){
+                        return null;
+                    }
+
+                    return <Supporter
+                        name = {login}
+                        github
+                        link = {html_url}
+                    />;
+                })
+            }
         </div>
         <div
             className = 'footer-section-wrapper'
