@@ -124,14 +124,11 @@ const selectFilterStyle = {
         color: '#E5E5E5',
 
     }),
-    //TODO I think I am unable to use options because they dont exist yet
-    options: (provided, state) => {
-        const color = state.isFocused ? '#292626' : '#E5E5E5';
+    option: (provided, state) => {
+        const color = '#E5E5E5';
         const backgroundColor = "#292626";
         return { ...provided, color, backgroundColor };
     }
-
-
 };
 
 function SelectFilter({ defaultValue, options, onChange, isMulti = false, label, tooltip, tooltipDisabled, onMenuOpen, onMenuClose, wide, parentRef }) {
