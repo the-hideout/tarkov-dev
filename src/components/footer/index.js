@@ -68,11 +68,6 @@ function Footer() {
             </h3>
             <PatreonButton />
             <Supporter
-                name = {'The Hideout'}
-                patreon
-                link = 'https://play.google.com/store/apps/details?id=com.austinhodak.thehideout'
-            />
-            <Supporter
                 name = {'MIST3RKK'}
                 patreon
             />
@@ -87,7 +82,6 @@ function Footer() {
             <Supporter
                 name = {'Thaddeus'}
                 patreon
-                github
                 link = 'https://tarkovtracker.io/'
             />
             <Supporter
@@ -100,11 +94,6 @@ function Footer() {
                 patreon
                 github
                 link = 'https://tarkov.guru/'
-            />
-            <Supporter
-                name = {'tarkov-gunsmith'}
-                patreon
-                link = 'https://tarkov-gunsmith.com/'
             />
             <Supporter
                 name = {'Veldmuus'}
