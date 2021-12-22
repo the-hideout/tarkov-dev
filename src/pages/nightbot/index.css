@@ -1,0 +1,17 @@
+.nightbot-page-wrapper {
+    max-width: 900px;
+}
+
+.nightbot-page-wrapper img {
+    max-width: 100%;
+}
+
+.nightbot-page-wrapper pre {
+    white-space: pre-wrap;
+}
+
+@media screen and (min-width: 900px) {
+    .nightbot-page-wrapper pre {
+        white-space: pre;
+    }
+}

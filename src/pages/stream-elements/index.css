@@ -1,0 +1,17 @@
+.stream-elements-page-wrapper {
+    max-width: 900px;
+}
+
+.stream-elements-page-wrapper img {
+    max-width: 100%;
+}
+
+.stream-elements-page-wrapper pre {
+    white-space: pre-wrap;
+}
+
+@media screen and (min-width: 900px) {
+    .stream-elements-page-wrapper pre {
+        white-space: pre;
+    }
+}
