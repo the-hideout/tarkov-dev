@@ -7,8 +7,7 @@ import Supporter from '../supporter';
 import {ReactComponent as GithubIcon} from '../supporter/Github.svg';
 import {ReactComponent as DiscordIcon} from '../supporter/Discord.svg';
 import PatreonButton from '../patreon-button';
-
-import contributors from '../../data/contributors.json';
+import supporters from '../../supporters';
 
 import './index.css';
 
@@ -67,55 +66,17 @@ function Footer() {
                 {t('Supporters')}
             </h3>
             <PatreonButton />
-            <Supporter
-                name = {'MIST3RKK'}
-                patreon
-            />
-            <Supporter
-                name = {'teebles'}
-                patreon
-            />
-            <Supporter
-                name = {'Trontus'}
-                patreon
-            />
-            <Supporter
-                name = {'Thaddeus'}
-                patreon
-                link = 'https://tarkovtracker.io/'
-            />
-            <Supporter
-                name = {'RatScanner'}
-                patreon
-                link = 'https://ratscanner.com/'
-            />
-            <Supporter
-                name = {'Razzmatazz'}
-                patreon
-                github
-                link = 'https://tarkov.guru/'
-            />
-            <Supporter
-                name = {'Veldmuus'}
-                patreon
-            />
-            <Supporter
-                name = {'Gyran'}
-                patreon
-                github
-            />
             {
-                contributors.map((contributor) => {
-                    const { login, html_url } = contributor;
-
-                    if(login === 'kokarn' || login === 'Gyran' || login === 'thaddeus'){
+                supporters.map((supporter) => {
+                    if(supporter.name === 'kokarn'){
                         return null;
                     }
 
                     return <Supporter
-                        name = {login}
-                        github
-                        link = {html_url}
+                        name = {supporter.name}
+                        github = {supporter.github}
+                        patreon = {supporter.patreon}
+                        link = {supporter.link}
                     />;
                 })
             }
