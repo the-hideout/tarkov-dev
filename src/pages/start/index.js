@@ -76,6 +76,7 @@ function Start(props) {
                     maxItems = {20}
                     nameFilter = {nameFilter}
                     defaultRandom = {true}
+                    instaProfit
                 />
             </div>
             <div

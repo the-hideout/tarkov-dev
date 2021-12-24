@@ -45,7 +45,7 @@ function shuffleArray(array) {
 }
 
 function SmallItemTable(props) {
-    const {maxItems, nameFilter, defaultRandom} = props;
+    const {maxItems, nameFilter, defaultRandom, typeFilter, instaProfit} = props;
     const dispatch = useDispatch();
     const items = useSelector(selectAllItems);
     const itemStatus = useSelector((state) => {
@@ -105,98 +105,109 @@ function SmallItemTable(props) {
             returnData = result.map(resultObject => resultObject.item);
         }
 
+        if(typeFilter){
+            returnData = returnData.filter(item => item.types.includes(typeFilter));
+        }
+
         if(defaultRandom && !nameFilter){
             shuffleArray(returnData);
         }
 
         return returnData;
     },
-        [nameFilter, defaultRandom, items]
+        [nameFilter, defaultRandom, items, typeFilter]
     );
 
     const columns = useMemo(
-        () => [
-            {
-                Header: t('Name'),
-                accessor: 'name',
-                Cell: (allData) => {
-                    // allData.row.original.itemLink
-                    return <div
-                        className = 'small-item-table-name-wrapper'
-                    >
-                        <div
-                            className = 'small-item-table-image-wrapper'
-                        ><img
-                            alt = ''
-                            className = 'table-image'
-                            height = '64'
-                            loading = 'lazy'
-                            src = { allData.row.original.iconLink }
-                            width = '64'
-                        /></div>
-                        <div>
-                            <Link
-                                className = 'craft-reward-item-title'
-                                to = {allData.row.original.itemLink}
-                            >
-                                {allData.row.original.name}
-                            </Link>
-                        </div>
-                    </div>
-                },
-            },
-            {
-                Header: t('Trader'),
-                accessor: d => Number(d.traderPrice),
-                Cell: traderPriceCell,
-                id: 'traderPrice',
-            },
-            {
-                Header: t('Flea'),
-                accessor: d => Number(d.lastLowPrice),
-                Cell: ({value}) => {
-                    return <ValueCell
-                        value = {value}
-                        noValue = {
+        () => {
+            const useColumns = [
+                {
+                    Header: t('Name'),
+                    accessor: 'name',
+                    Cell: (allData) => {
+                        // allData.row.original.itemLink
+                        return <div
+                            className = 'small-item-table-name-wrapper'
+                        >
                             <div
-                                className = 'center-content'
-                            >
-                                <Tippy
-                                    placement = 'bottom'
-                                    content={'No flea price seen in the past 24 hours'}
+                                className = 'small-item-table-image-wrapper'
+                            ><img
+                                alt = ''
+                                className = 'table-image'
+                                height = '64'
+                                loading = 'lazy'
+                                src = { allData.row.original.iconLink }
+                                width = '64'
+                            /></div>
+                            <div>
+                                <Link
+                                    className = 'craft-reward-item-title'
+                                    to = {allData.row.original.itemLink}
                                 >
-                                    <Icon
-                                        path={mdiClockAlertOutline}
-                                        size={1}
-                                        className = 'icon-with-text'
-                                    />
-                                </Tippy>
+                                    {allData.row.original.name}
+                                </Link>
                             </div>
+                        </div>
+                    },
+                },
+                {
+                    Header: t('Trader'),
+                    accessor: d => Number(d.traderPrice),
+                    Cell: traderPriceCell,
+                    id: 'traderPrice',
+                },
+                {
+                    Header: t('Flea'),
+                    accessor: d => Number(d.lastLowPrice),
+                    Cell: ({value}) => {
+                        return <ValueCell
+                            value = {value}
+                            noValue = {
+                                <div
+                                    className = 'center-content'
+                                >
+                                    <Tippy
+                                        placement = 'bottom'
+                                        content={'No flea price seen in the past 24 hours'}
+                                    >
+                                        <Icon
+                                            path={mdiClockAlertOutline}
+                                            size={1}
+                                            className = 'icon-with-text'
+                                        />
+                                    </Tippy>
+                                </div>
+                            }
+                        />;
+                    },
+                    id: 'fleaPrice',
+                },
+            ];
+
+            if(instaProfit){
+                useColumns.push({
+                    Header: t('InstaProfit'),
+                    accessor: d => Number(d.instaProfit),
+                    Cell: ValueCell,
+                    id: 'instaProfit',
+                    sortDescFirst: true,
+                    sortType: (a, b) => {
+                        if(a.values.instaProfit > b.values.instaProfit){
+                            return 1;
                         }
-                    />;
-                },
-                id: 'fleaPrice',
-            },
-            {
-                Header: t('InstaProfit'),
-                accessor: d => Number(d.instaProfit),
-                Cell: ValueCell,
-                id: 'instaProfit',
-                sortDescFirst: true,
-                sortType: (a, b) => {
-                    if(a.values.instaProfit > b.values.instaProfit){
-                        return 1;
-                    }
 
-                    if(a.values.instaProfit < b.values.instaProfit){
-                        return -1;
-                    }
+                        if(a.values.instaProfit < b.values.instaProfit){
+                            return -1;
+                        }
 
-                    return 0;
-                },
-            },
-        ],
-        [t]
+                        return 0;
+                    },
+                })
+            }
+
+            return useColumns;
+        },
+        [t, instaProfit]
     );
 
     if(data.length <= 0){
