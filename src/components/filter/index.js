@@ -171,7 +171,7 @@ function SelectFilter({ defaultValue, options, onChange, isMulti = false, label,
     </ConditionalWrapper>;
 };
 
-function InputFilter({ defaultValue, type, placeholder, onChange, label }) {
+function InputFilter({ defaultValue, type = 'text', placeholder, onChange, label }) {
     return <label
         className={'single-filter-wrapper'}
     >
