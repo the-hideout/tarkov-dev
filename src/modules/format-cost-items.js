@@ -30,10 +30,10 @@ function getBarterPrice(item, barters) {
 function getCheapestItemPrice(item, barters, useFlea = true) {
     let bestPrice = {};
 
-    if(useFlea && item[priceToUse] > 0){
-        bestPrice.source = 'fleaMarket';
-        bestPrice.price = item[priceToUse];
-    }
+    // if(useFlea && item[priceToUse] > 0){
+    //     bestPrice.source = 'fleaMarket';
+    //     bestPrice.price = item[priceToUse];
+    // }
 
     if(!item.buyFor){
         console.log(item);
