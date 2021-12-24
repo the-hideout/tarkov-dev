@@ -44,6 +44,13 @@ import makeID from './modules/make-id';
 import Loading from './components/loading';
 import Nightbot from './pages/nightbot';
 import StreamElements from './pages/stream-elements';
+import Guns from './pages/guides/guns';
+import Mods from './pages/guides/mods';
+import BarterItems from './pages/guides/barter-items';
+import Grenades from './pages/guides/grenades';
+import Headsets from './pages/guides/headsets';
+import Keys from './pages/guides/keys';
+import Provisions from './pages/guides/provisions';
 
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
 // import APIDocs from './pages/api-docs';
@@ -439,6 +446,111 @@ return (
                     <Suppressors
                         sessionID = {sessionID}
                         key = 'suppressors-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/gear/guns'}
+                element = {[
+                    <Guns
+                        sessionID = {sessionID}
+                        key = 'guns-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/gear/mods'}
+                element = {[
+                    <Mods
+                        sessionID = {sessionID}
+                        key = 'mods-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/gear/barter-items'}
+                element = {[
+                    <BarterItems
+                        sessionID = {sessionID}
+                        key = 'barter-items-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/gear/grenades'}
+                element = {[
+                    <Grenades
+                        sessionID = {sessionID}
+                        key = 'grenades-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/gear/headsets'}
+                element = {[
+                    <Headsets
+                        sessionID = {sessionID}
+                        key = 'headsets-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/gear/keys'}
+                element = {[
+                    <Keys
+                        sessionID = {sessionID}
+                        key = 'keys-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/gear/provisions'}
+                element = {[
+                    <Provisions
+                        sessionID = {sessionID}
+                        key = 'provisions-wrapper'
                     />,
                     <ID
                         key = 'connection-wrapper'

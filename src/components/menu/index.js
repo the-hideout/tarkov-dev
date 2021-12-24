@@ -147,6 +147,11 @@ const Menu = () => {
                             onClick = {setIsOpen.bind(this, false)}
                         />
                         <MenuItem
+                            displayText = {t('Barter Items')}
+                            to = {`/gear/barter-items`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
                             displayText = {t('Helmets')}
                             to = {`/gear/helmets`}
                             onClick = {setIsOpen.bind(this, false)}
@@ -154,6 +159,36 @@ const Menu = () => {
                         <MenuItem
                             displayText = {t('Glasses')}
                             to = {`/gear/glasses`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {t('Grenades')}
+                            to = {`/gear/grenades`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {t('Guns')}
+                            to = {`/gear/guns`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {t('Headsets')}
+                            to = {`/gear/headsets`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {t('Keys')}
+                            to = {`/gear/keys`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {t('Mods')}
+                            to = {`/gear/mods`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {t('Provisions')}
+                            to = {`/gear/provisions`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
                         <MenuItem
