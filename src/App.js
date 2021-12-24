@@ -29,28 +29,28 @@ import Barters from './pages/barters';
 import About from './pages/about/';
 import Maps from './pages/maps/';
 import ItemTracker from './pages/item-tracker/';
-import Guides from './pages/guides/';
-import Glasses from './pages/guides/Glasses';
-import Armor from './pages/guides/Armor';
-import Helmets from './pages/guides/Helmets';
-import Backpacks from './pages/guides/Backpacks';
+import Guides from './pages/items/';
+import Glasses from './pages/items/Glasses';
+import Armor from './pages/items/Armor';
+import Helmets from './pages/items/Helmets';
+import Backpacks from './pages/items/Backpacks';
 import Crafts from './pages/crafts';
 import Item from './pages/item';
 import Start from './pages/start';
-import Rigs from './pages/guides/Rigs';
+import Rigs from './pages/items/Rigs';
 import Settings from './pages/settings';
-import Suppressors from './pages/guides/Suppressors';
+import Suppressors from './pages/items/Suppressors';
 import makeID from './modules/make-id';
 import Loading from './components/loading';
 import Nightbot from './pages/nightbot';
 import StreamElements from './pages/stream-elements';
-import Guns from './pages/guides/guns';
-import Mods from './pages/guides/mods';
-import BarterItems from './pages/guides/barter-items';
-import Grenades from './pages/guides/grenades';
-import Headsets from './pages/guides/headsets';
-import Keys from './pages/guides/keys';
-import Provisions from './pages/guides/provisions';
+import Guns from './pages/items/guns';
+import Mods from './pages/items/mods';
+import BarterItems from './pages/items/barter-items';
+import Grenades from './pages/items/grenades';
+import Headsets from './pages/items/headsets';
+import Keys from './pages/items/keys';
+import Provisions from './pages/items/provisions';
 
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
 // import APIDocs from './pages/api-docs';
@@ -351,7 +351,7 @@ return (
                 ]}
             />
             <Route
-                path={'/gear/'}
+                path={'/items/'}
                 element = {[
                     <Guides
                         key = 'gear-wrapper'
@@ -365,7 +365,7 @@ return (
                 ]}
             />
             <Route
-                path="/gear/helmets"
+                path="/items/helmets"
                 element = {[
                     <Helmets
                         sessionID = {sessionID}
@@ -381,7 +381,7 @@ return (
             />
 
             <Route
-                path="/gear/glasses"
+                path="/items/glasses"
                 element = {[
                     <Glasses
                         sessionID = {sessionID}
@@ -396,7 +396,7 @@ return (
                 ]}
             />
             <Route
-                path={'/gear/armor'}
+                path={'/items/armor'}
                 element = {[
                     <Armor
                         sessionID = {sessionID}
@@ -411,7 +411,7 @@ return (
                 ]}
             />
             <Route
-                path={'/gear/backpacks'}
+                path={'/items/backpacks'}
                 element = {[
                     <Backpacks
                         sessionID = {sessionID}
@@ -426,7 +426,7 @@ return (
                 ]}
             />
             <Route
-                path={'/gear/rigs'}
+                path={'/items/rigs'}
                 element = {[
                     <Rigs
                         sessionID = {sessionID}
@@ -441,7 +441,7 @@ return (
                 ]}
             />
             <Route
-                path={'/gear/suppressors'}
+                path={'/items/suppressors'}
                 element = {[
                     <Suppressors
                         sessionID = {sessionID}
@@ -456,7 +456,7 @@ return (
                 ]}
             />
             <Route
-                path={'/gear/guns'}
+                path={'/items/guns'}
                 element = {[
                     <Guns
                         sessionID = {sessionID}
@@ -471,7 +471,7 @@ return (
                 ]}
             />
             <Route
-                path={'/gear/mods'}
+                path={'/items/mods'}
                 element = {[
                     <Mods
                         sessionID = {sessionID}
@@ -486,7 +486,7 @@ return (
                 ]}
             />
             <Route
-                path={'/gear/barter-items'}
+                path={'/items/barter-items'}
                 element = {[
                     <BarterItems
                         sessionID = {sessionID}
@@ -501,7 +501,7 @@ return (
                 ]}
             />
             <Route
-                path={'/gear/grenades'}
+                path={'/items/grenades'}
                 element = {[
                     <Grenades
                         sessionID = {sessionID}
@@ -516,7 +516,7 @@ return (
                 ]}
             />
             <Route
-                path={'/gear/headsets'}
+                path={'/items/headsets'}
                 element = {[
                     <Headsets
                         sessionID = {sessionID}
@@ -531,7 +531,7 @@ return (
                 ]}
             />
             <Route
-                path={'/gear/keys'}
+                path={'/items/keys'}
                 element = {[
                     <Keys
                         sessionID = {sessionID}
@@ -546,7 +546,7 @@ return (
                 ]}
             />
             <Route
-                path={'/gear/provisions'}
+                path={'/items/provisions'}
                 element = {[
                     <Provisions
                         sessionID = {sessionID}

@@ -22,6 +22,13 @@ import {
     mdiSunglasses,
     mdiTshirtCrewOutline,
     mdiBottleWine,
+    mdiPliers,
+    mdiGasCylinder,
+    mdiPistol,
+    mdiHeadset,
+    mdiKeyVariant,
+    mdiMagazineRifle,
+    mdiFoodForkDrink,
 } from '@mdi/js';
 
 import './index.css';
@@ -179,8 +186,16 @@ function Start(props) {
                         </li>;
                     })}
                 </ul>
+                <h3>
+                    {/* <Icon
+                        path={mdiMap}
+                        size={1}
+                        className = 'icon-with-text'
+                    /> */}
+                    Items
+                </h3>
                 <Link
-                    to = {`/gear/armor`}
+                    to = {`/items/armor`}
                 >
                     <h2>
                         <Icon
@@ -190,16 +205,9 @@ function Start(props) {
                         />
                         Armor
                     </h2>
-                    <img
-                        alt = {'Armor table'}
-                        className = 'link-image'
-                        height = '140'
-                        src = {`${process.env.PUBLIC_URL}/images/armor-table-thumbnail.jpg`}
-                        width = '256'
-                    />
                 </Link>
                 <Link
-                    to = {`/gear/backpacks`}
+                    to = {`/items/backpacks`}
                 >
                     <h2>
                         <Icon
@@ -209,16 +217,21 @@ function Start(props) {
                         />
                         Backpacks
                     </h2>
-                    <img
-                        alt = {'Backpacks table'}
-                        className = 'link-image'
-                        height = '140'
-                        src = {`${process.env.PUBLIC_URL}/images/backpacks-table-thumbnail.jpg`}
-                        width = '256'
-                    />
                 </Link>
                 <Link
-                    to = {`/gear/helmets`}
+                    to = {`/items/barter-items`}
+                >
+                    <h2>
+                        <Icon
+                            path={mdiPliers}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Barter Items
+                    </h2>
+                </Link>
+                <Link
+                    to = {`/items/helmets`}
                 >
                     <h2>
                         <Icon
@@ -228,16 +241,9 @@ function Start(props) {
                         />
                         Helmets
                     </h2>
-                    <img
-                        alt = {'Helmets table'}
-                        className = 'link-image'
-                        height = '140'
-                        src = {`${process.env.PUBLIC_URL}/images/helmets-table-thumbnail.jpg`}
-                        width = '256'
-                    />
                 </Link>
                 <Link
-                    to = {`/gear/glasses`}
+                    to = {`/items/glasses`}
                 >
                     <h2>
                         <Icon
@@ -247,16 +253,81 @@ function Start(props) {
                         />
                         Glasses
                     </h2>
-                    <img
-                        alt = {'Glasses table'}
-                        className = 'link-image'
-                        height = '140'
-                        src = {`${process.env.PUBLIC_URL}/images/glasses-table-thumbnail.jpg`}
-                        width = '256'
-                    />
                 </Link>
                 <Link
-                    to = {`/gear/rigs`}
+                    to = {`/items/grenades`}
+                >
+                    <h2>
+                        <Icon
+                            path={mdiGasCylinder}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Grenades
+                    </h2>
+                </Link>
+                <Link
+                    to = {`/items/guns`}
+                >
+                    <h2>
+                        <Icon
+                            path={mdiPistol}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Guns
+                    </h2>
+                </Link>
+                <Link
+                    to = {`/items/headsets`}
+                >
+                    <h2>
+                        <Icon
+                            path={mdiHeadset}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Headsets
+                    </h2>
+                </Link>
+                <Link
+                    to = {`/items/keys`}
+                >
+                    <h2>
+                        <Icon
+                            path={mdiKeyVariant}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Keys
+                    </h2>
+                </Link>
+                <Link
+                    to = {`/items/mods`}
+                >
+                    <h2>
+                        <Icon
+                            path={mdiMagazineRifle}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Mods
+                    </h2>
+                </Link>
+                <Link
+                    to = {`/items/provisions`}
+                >
+                    <h2>
+                        <Icon
+                            path={mdiFoodForkDrink}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Provisions
+                    </h2>
+                </Link>
+                <Link
+                    to = {`/items/rigs`}
                 >
                     <h2>
                         <Icon
@@ -266,16 +337,9 @@ function Start(props) {
                         />
                         Rigs
                     </h2>
-                    <img
-                        alt = {'Rigs table'}
-                        className = 'link-image'
-                        height = '140'
-                        src = {`${process.env.PUBLIC_URL}/images/rigs-table-thumbnail.jpg`}
-                        width = '256'
-                    />
                 </Link>
                 <Link
-                    to = {`/gear/suppressors`}
+                    to = {`/items/suppressors`}
                 >
                     <h2>
                         <Icon
@@ -285,13 +349,6 @@ function Start(props) {
                         />
                         Suppressors
                     </h2>
-                    <img
-                        alt = {'Suppressors table'}
-                        className = 'link-image'
-                        height = '140'
-                        src = {`${process.env.PUBLIC_URL}/images/suppressors-table-thumbnail.jpg`}
-                        width = '256'
-                    />
                 </Link>
             </div>
         </div>,

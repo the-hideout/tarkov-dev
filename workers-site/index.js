@@ -1,5 +1,15 @@
 import { getAssetFromKV, mapRequestToAsset } from '@cloudflare/kv-asset-handler';
 
+const gearRedirects = {
+    "/gear/": "/items/",
+    "/gear/armor": "/items/armor",
+    "/gear/backpacks": "/items/backpacks",
+    "/gear/helmets": "/items/helmets",
+    "/gear/glasses": "/items/glasses",
+    "/gear/rigs": "/items/rigs",
+    "/gear/suppressors": "/items/suppressors",
+};
+
 const redirects = {
     "/item/cyclon-accumulator-battery": "/item/cyclon-rechargeable-battery",
     "/item/piece-of-plexiglas": "/item/plexiglass-piece",
@@ -2049,7 +2059,7 @@ const redirects = {
     "/item/9x39mm-pab-9": "/item/9x39mm-pab-9-gs",
     "/item/300-aac-blackout-v-max": "/item/300-blackout-v-max",
     "/item/300-aac-blackout-m62-tracer": "/item/300-blackout-m62-tracer",
-    "/item/lighthouse-convenience-store-storage-room": "/item/convenience-store-storage-room"
+    "/item/lighthouse-convenience-store-storage-room": "/item/convenience-store-storage-room",
 };
 
 /**
@@ -2087,6 +2097,10 @@ async function handleEvent(event) {
 
   if(redirects[url.pathname]){
     return Response.redirect(`https://tarkov-tools.com${redirects[url.pathname]}`, 301);
+  }
+
+  if(gearRedirects[url.pathname]){
+    return Response.redirect(`https://tarkov-tools.com${gearRedirects[url.pathname]}`, 301);
   }
 
   /**
