@@ -29,28 +29,29 @@ import Barters from './pages/barters';
 import About from './pages/about/';
 import Maps from './pages/maps/';
 import ItemTracker from './pages/item-tracker/';
-import Guides from './pages/items/';
-import Glasses from './pages/items/Glasses';
-import Armor from './pages/items/Armor';
-import Helmets from './pages/items/Helmets';
-import Backpacks from './pages/items/Backpacks';
 import Crafts from './pages/crafts';
 import Item from './pages/item';
 import Start from './pages/start';
-import Rigs from './pages/items/Rigs';
 import Settings from './pages/settings';
-import Suppressors from './pages/items/Suppressors';
 import makeID from './modules/make-id';
 import Loading from './components/loading';
 import Nightbot from './pages/nightbot';
 import StreamElements from './pages/stream-elements';
-import Guns from './pages/items/guns';
-import Mods from './pages/items/mods';
+
+import Items from './pages/items/';
+import Armor from './pages/items/armor';
+import Backpacks from './pages/items/backpacks';
 import BarterItems from './pages/items/barter-items';
+import Glasses from './pages/items/glasses';
 import Grenades from './pages/items/grenades';
+import Guns from './pages/items/guns';
 import Headsets from './pages/items/headsets';
+import Helmets from './pages/items/helmets';
 import Keys from './pages/items/keys';
+import Mods from './pages/items/mods';
 import Provisions from './pages/items/provisions';
+import Rigs from './pages/items/rigs';
+import Suppressors from './pages/items/suppressors';
 
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
 // import APIDocs from './pages/api-docs';
@@ -353,8 +354,8 @@ return (
             <Route
                 path={'/items/'}
                 element = {[
-                    <Guides
-                        key = 'gear-wrapper'
+                    <Items
+                        key = 'items-wrapper'
                     />,
                     <ID
                         key = 'connection-wrapper'

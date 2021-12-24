@@ -2,10 +2,10 @@ import {useMemo, useEffect} from 'react';
 import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 
-import DataTable from '../../components/data-table';
-import formatPrice from '../../modules/format-price';
-import ID from '../../components/ID.jsx';
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
+import DataTable from '../../../components/data-table';
+import formatPrice from '../../../modules/format-price';
+import ID from '../../../components/ID.jsx';
+import { selectAllItems, fetchItems } from '../../../features/items/itemsSlice';
 
 const centerCell = ({ value }) => {
     return <div

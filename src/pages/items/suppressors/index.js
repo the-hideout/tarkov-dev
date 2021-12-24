@@ -2,12 +2,12 @@ import {useMemo, useEffect, useState, useRef} from 'react';
 import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 
-import ItemsTable from '../../components/item-table';
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
+import ItemsTable from '../../../components/item-table';
+import { selectAllItems, fetchItems } from '../../../features/items/itemsSlice';
 import {
     Filter,
     SelectFilter,
-} from '../../components/filter';
+} from '../../../components/filter';
 
 const getGuns = (items, targetItem) => {
     let parentItems = []

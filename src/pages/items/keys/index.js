@@ -6,8 +6,6 @@ import { Filter, InputFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 
-import './index.css';
-
 function Keys() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
@@ -45,7 +43,7 @@ function Keys() {
                 className = 'data-table-filters-wrapper'
             >
                 <h1>
-                    Escape from Tarkov Barter Items
+                    Escape from Tarkov Keys
                 </h1>
             </div>
             <Filter

@@ -2,13 +2,13 @@ import {useMemo, useEffect} from 'react';
 import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 
-import DataTable from '../../components/data-table';
-import formatPrice from '../../modules/format-price';
-import ID from '../../components/ID.jsx';
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
-import ArrowIcon from '../../components/data-table/Arrow.js';
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
-import {Filter, ToggleFilter, SliderFilter, InputFilter} from '../../components/filter';
+import DataTable from '../../../components/data-table';
+import formatPrice from '../../../modules/format-price';
+import ID from '../../../components/ID.jsx';
+import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
+import ArrowIcon from '../../../components/data-table/Arrow.js';
+import { selectAllItems, fetchItems } from '../../../features/items/itemsSlice';
+import {Filter, ToggleFilter, SliderFilter, InputFilter} from '../../../components/filter';
 
 const materialDestructabilityMap = {
     'Aramid': 0.25,

@@ -1,23 +1,27 @@
-import {useMemo, useEffect, useState} from 'react';
+import {useMemo, useEffect} from 'react';
 import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 
-import CanvasGrid from '../../components/canvas-grid';
-import DataTable from '../../components/data-table';
-import ID from '../../components/ID.jsx';
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
-import ValueCell from '../../components/value-cell';
-import {Filter, ToggleFilter, SliderFilter} from '../../components/filter';
-import CenterCell from '../../components/center-cell';
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import CanvasGrid from '../../../components/canvas-grid';
+import DataTable from '../../../components/data-table';
+import ID from '../../../components/ID.jsx';
+import { selectAllItems, fetchItems } from '../../../features/items/itemsSlice';
+import ValueCell from '../../../components/value-cell';
 
-const marks = {
-    0: 25,
-    5: 20,
-    10: 15,
-    15: 10,
-    20: 5,
-    25: 0,
+const centerCell = ({ value }) => {
+    return <div
+        className = 'center-content'
+    >
+        { value }
+    </div>;
+};
+
+const centerNowrapCell = ({ value }) => {
+    return <div
+        className = 'center-content nowrap-content'
+    >
+        { value }
+    </div>;
 };
 
 function Backpacks(props) {
@@ -26,10 +30,6 @@ function Backpacks(props) {
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
-    const [includeArmoredRigs, setIncludeArmoredRigs] = useStateWithLocalStorage('includeArmoredRigs', true);
-    const [minSlots, setMinSlots] = useStateWithLocalStorage('minSlots', 1);
-    const [has3Slot, setHas3Slot] = useState(false);
-    const [has4Slot, setHas4Slot] = useState(false);
 
     useEffect(() => {
         let timer = false;
@@ -49,18 +49,9 @@ function Backpacks(props) {
     }, [itemStatus, dispatch]);
 
     const displayItems = useMemo(
-        () => items.filter(item => item.types.includes('rig')),
+        () => items.filter(item => item.types.includes('backpack')),
         [items]
     );
-
-    let maxSlots = Math.max(...displayItems.map(displayItem => displayItem.itemProperties.grid?.totalSize || 0));
-    if(maxSlots === Infinity){
-        maxSlots = 1;
-    }
-
-    const handleMinSlotsChange = (newValueLabel) => {
-        setMinSlots(maxSlots - newValueLabel);
-    };
 
     const columns = useMemo(
         () => [
@@ -113,27 +104,22 @@ function Backpacks(props) {
             {
                 Header: 'Grid slots',
                 accessor: 'slots',
-                Cell: CenterCell,
+                Cell: centerCell,
             },
             {
                 Header: 'Inner size',
                 accessor: 'size',
-                Cell: CenterCell,
+                Cell: centerCell,
             },
             {
                 Header: 'Weight',
                 accessor: 'weight',
-                Cell: ({value}) => {
-                    return <CenterCell
-                        value = {value}
-                        nowrap
-                    />;
-                },
+                Cell: centerNowrapCell,
             },
             {
                 Header: 'Slot ratio',
                 accessor: 'ratio',
-                Cell: CenterCell,
+                Cell: centerCell,
             },
             {
                 Header: 'Price',
@@ -157,34 +143,6 @@ function Backpacks(props) {
             itemName = match[1].trim();
         }
 
-        if(!includeArmoredRigs && item.types.includes('armor')){
-            return false;
-        }
-
-        if(item.itemProperties.grid?.totalSize < minSlots){
-            return false;
-        }
-
-        if(has3Slot){
-            const isValid = item.grid?.pockets?.find((pocket) => {
-                return pocket.width === 1 && pocket.height === 3;
-            });
-
-            if(!isValid){
-                return false;
-            }
-        }
-
-        if(has4Slot){
-            const isValid = item.grid?.pockets?.find((pocket) => {
-                return pocket.width === 2 && pocket.height === 2;
-            });
-
-            if(!isValid){
-                return false;
-            }
-        }
-
         return {
             grid: item.grid,
             id: item.id,
@@ -201,7 +159,7 @@ function Backpacks(props) {
             notes: item.notes,
         };
     })
-    .filter(Boolean), [displayItems, includeArmoredRigs, minSlots, has3Slot, has4Slot])
+    .filter(Boolean), [displayItems])
 
     return [<Helmet
         key = {'backpacks-table'}
@@ -225,37 +183,9 @@ function Backpacks(props) {
             className = 'data-table-filters-wrapper'
         >
             <h1>
-                Escape from Tarkov rigs table
+                Escape from Tarkov backpacks chart
             </h1>
         </div>
-        <Filter
-            center
-        >
-            <ToggleFilter
-                label = 'Armored rigs?'
-                onChange = {e => setIncludeArmoredRigs(!includeArmoredRigs)}
-                checked = {includeArmoredRigs}
-            />
-            <SliderFilter
-                defaultValue = {25 - minSlots}
-                label = 'Min. slots'
-                min = {0}
-                max = {25}
-                marks = {marks}
-                reverse
-                onChange = {handleMinSlotsChange}
-            />
-            <ToggleFilter
-                label = '3-slot'
-                onChange = {e => setHas3Slot(!has3Slot)}
-                checked = {has3Slot}
-            />
-            <ToggleFilter
-                label = '4-slot'
-                onChange = {e => setHas4Slot(!has4Slot)}
-                checked = {has4Slot}
-            />
-        </Filter>
         <DataTable
             columns={columns}
             data={data}
