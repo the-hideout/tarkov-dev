@@ -107,8 +107,6 @@ dist
 .idea
 
 build
-src/data/ammo.json
-src/data/traders.json
 tarkov-tools/*
 !public/manifest.json
 all-en.json
@@ -118,7 +116,4 @@ all-fr.json
 all-ru.json
 quests-raw.json
 bsg-all-raw.json
-src/data/ammo.json
-src/data/contributors.json
 .gitignore
-public/data/item-props.min.json
