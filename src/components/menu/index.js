@@ -142,11 +142,6 @@ const Menu = () => {
                             onClick = {setIsOpen.bind(this, false)}
                         />
                         <MenuItem
-                            displayText = {t('Helmets')}
-                            to = {`/items/helmets`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
                             displayText = {t('Glasses')}
                             to = {`/items/glasses`}
                             onClick = {setIsOpen.bind(this, false)}
@@ -164,6 +159,11 @@ const Menu = () => {
                         <MenuItem
                             displayText = {t('Headsets')}
                             to = {`/items/headsets`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {t('Helmets')}
+                            to = {`/items/helmets`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
                         <MenuItem
