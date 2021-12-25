@@ -48773,5 +48773,232 @@
         },
         "hasGrid": false,
         "linkedItems": []
+    },
+    "61b9e1aaef9a1b5d6a79899a": {
+        "itemProperties": {
+            "Weight": 2.2,
+            "grid": {
+                "pockets": [
+                    {
+                        "height": 7,
+                        "width": 5
+                    }
+                ],
+                "totalSize": 35
+            },
+            "speedPenaltyPercent": -28
+        },
+        "hasGrid": true,
+        "linkedItems": []
+    },
+    "61bc85697113f767765c7fe7": {
+        "itemProperties": {
+            "Weight": 7.2,
+            "grid": {
+                "pockets": [
+                    {
+                        "height": 2,
+                        "width": 1
+                    },
+                    {
+                        "height": 2,
+                        "width": 1
+                    },
+                    {
+                        "height": 2,
+                        "width": 1
+                    },
+                    {
+                        "height": 2,
+                        "width": 1
+                    },
+                    {
+                        "height": 2,
+                        "width": 1
+                    },
+                    {
+                        "height": 2,
+                        "width": 1
+                    },
+                    {
+                        "height": 1,
+                        "width": 1
+                    },
+                    {
+                        "height": 1,
+                        "width": 1
+                    }
+                ],
+                "totalSize": 14
+            },
+            "MaxDurability": 40,
+            "armorClass": 4,
+            "speedPenaltyPercent": -7,
+            "mousePenalty": -5,
+            "weaponErgonomicPenalty": -7,
+            "armorZone": [
+                "Chest"
+            ],
+            "ArmorMaterial": "UHMWPE"
+        },
+        "hasGrid": true,
+        "linkedItems": []
+    },
+    "61bca7cda0eae612383adf57": {
+        "itemProperties": {
+            "Weight": 0.8,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "MaxDurability": 65,
+            "armorClass": "3",
+            "mousePenalty": -2,
+            "armorZone": [
+                "Head"
+            ],
+            "ArmorMaterial": "Combined",
+            "RicochetParams": {
+                "x": 0.9,
+                "y": 0.5,
+                "z": 75
+            },
+            "DeafStrength": "None",
+            "headSegments": [
+                "Top",
+                "Nape"
+            ]
+        },
+        "hasGrid": false,
+        "linkedItems": [
+            "5a16b672fcdbcb001912fa83",
+            "5a16b7e1fcdbcb00165aa6c9",
+            "5c0558060db834001b735271",
+            "5a16b8a9fcdbcb00165aa6ca",
+            "5a398b75c4a282000a51a266",
+            "5a398ab9c4a282000c5a9842"
+        ]
+    },
+    "61bcc89aef0f505f0c6cd0fc": {
+        "itemProperties": {
+            "Weight": 6.5,
+            "grid": {
+                "pockets": [
+                    {
+                        "height": 3,
+                        "width": 1
+                    },
+                    {
+                        "height": 3,
+                        "width": 1
+                    },
+                    {
+                        "height": 3,
+                        "width": 1
+                    },
+                    {
+                        "height": 1,
+                        "width": 1
+                    },
+                    {
+                        "height": 1,
+                        "width": 1
+                    },
+                    {
+                        "height": 1,
+                        "width": 1
+                    },
+                    {
+                        "height": 1,
+                        "width": 1
+                    },
+                    {
+                        "height": 2,
+                        "width": 2
+                    }
+                ],
+                "totalSize": 17
+            },
+            "MaxDurability": 45,
+            "armorClass": 4,
+            "speedPenaltyPercent": -6,
+            "mousePenalty": -4,
+            "weaponErgonomicPenalty": -3,
+            "armorZone": [
+                "Chest",
+                "Stomach"
+            ],
+            "ArmorMaterial": "Aluminium"
+        },
+        "hasGrid": true,
+        "linkedItems": []
+    },
+    "61bf7b6302b3924be92fa8c3": {
+        "itemProperties": {
+            "Weight": 0.45,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61bf7c024770ee6f9c6b8b53": {
+        "itemProperties": {
+            "Weight": 0.25,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61bf83814088ec1a363d7097": {
+        "itemProperties": {
+            "Weight": 0.36,
+            "grid": false
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61c18d83b00456371a66814b": {
+        "itemProperties": {
+            "Weight": 0.15,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "armorClass": "0",
+            "armorZone": [],
+            "ArmorMaterial": "UHMWPE",
+            "RicochetParams": {
+                "x": 0,
+                "y": 0,
+                "z": 80
+            },
+            "BlindnessProtection": 0.45,
+            "DeafStrength": "None",
+            "headSegments": []
+        },
+        "hasGrid": false,
+        "linkedItems": []
+    },
+    "61c18db6dfd64163ea78fbb4": {
+        "itemProperties": {
+            "Weight": 0.15,
+            "grid": {
+                "pockets": [],
+                "totalSize": 0
+            },
+            "MaxDurability": 10,
+            "armorClass": "0",
+            "armorZone": [],
+            "ArmorMaterial": "UHMWPE",
+            "RicochetParams": {
+                "x": 0,
+                "y": 0,
+                "z": 80
+            },
+            "DeafStrength": "None",
+            "headSegments": []
+        },
+        "hasGrid": false,
+        "linkedItems": []
     }
 }
