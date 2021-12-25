@@ -6,9 +6,6 @@ import {
 } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
-import Icon from '@mdi/react';
-import { mdiLock } from '@mdi/js';
-import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import Graph from '../../components/Graph.jsx';
@@ -17,12 +14,10 @@ import DataTable from '../../components/data-table';
 import CenterCell from '../../components/center-cell';
 import ValueCell from '../../components/value-cell';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
-import formatPrice from '../../modules/format-price';
-import capitalizeTheFirstLetterOfEachWord from '../../modules/capitalize-first';
 import getRublePrice from '../../modules/get-ruble-price.js';
+import TraderPriceCell from '../../components/trader-price-cell';
 
 import rawData from '../../data/ammo.json';
-import './index.css';
 
 const MAX_DAMAGE = 170;
 const MAX_PENETRATION = 70;
@@ -225,58 +220,7 @@ function Ammo() {
                 Header: t('Trader price'),
                 accessor: 'trader',
                 sortType: traderPriceSort,
-                Cell: ({value}) => {
-                    if(!value){
-                        return null;
-                    }
-
-                    let printString = `${formatPrice(value.price, value.currency)}`;
-                    let questLocked = false;
-                    let loyaltyString = '';
-
-                    for(const requirement of value.requirements){
-                        if(requirement.type === 'loyaltyLevel'){
-                            loyaltyString = `LL${requirement.value}`;
-                        }
-
-                        if(requirement.type === 'questCompleted'){
-                            questLocked = true;
-                        }
-                    }
-
-                    if(questLocked) {
-                        printString = <div >
-                            {printString}
-                            <Tippy
-                                content = {'Locked behind a quest'}
-                            >
-                                <div
-                                    className = 'trader-unlock-wrapper'
-                                >
-                                    <Icon
-                                        path={mdiLock}
-                                        size={1}
-                                        className = 'icon-with-text'
-                                    />
-                                    {`${capitalizeTheFirstLetterOfEachWord(value.source)} ${loyaltyString}`}
-                                </div>
-                            </Tippy>
-                        </div>;
-                    } else {
-                        printString = <div>
-                            {printString}
-                            <div
-                                className = 'trader-unlock-wrapper'
-                            >
-                                {`${capitalizeTheFirstLetterOfEachWord(value.source)} ${loyaltyString}`}
-                            </div>
-                        </div>;
-                    }
-
-                    return <CenterCell>
-                        {printString}
-                    </CenterCell>;
-                },
+                Cell: TraderPriceCell,
             },
         ],
         [t, traderPriceSort]
