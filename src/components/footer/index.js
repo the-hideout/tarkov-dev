@@ -73,6 +73,7 @@ function Footer() {
                     }
 
                     return <Supporter
+                        key = {`supporter-${supporter.name}`}
                         name = {supporter.name}
                         github = {supporter.github}
                         patreon = {supporter.patreon}
