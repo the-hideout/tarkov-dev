@@ -75,7 +75,7 @@ function SmallItemTable(props) {
 
     const data = useMemo(() => {
         let returnData = items.map((itemData) => {
-            return {
+            const formattedItem = {
                 id: itemData.id,
                 name: itemData.name,
                 shortName: itemData.shortName,
@@ -84,12 +84,20 @@ function SmallItemTable(props) {
                 lastLowPrice: itemData.lastLowPrice,
                 // iconLink: `https://assets.tarkov-tools.com/${itemData.id}-icon.jpg`,
                 iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+                instaProfit: 0,
                 itemLink: `/item/${itemData.normalizedName}`,
-                instaProfit: itemData.lastLowPrice ? (itemData.traderPrice - itemData.lastLowPrice) : 0,
                 traderName: itemData.traderName,
                 traderPrice: itemData.traderPrice,
                 types: itemData.types,
+            };
+
+            const buyOnFleaPrice = itemData.buyFor.find(buyPrice => buyPrice.source === 'flea-market');
+
+            if(buyOnFleaPrice){
+                formattedItem.instaProfit = itemData.traderPrice - buyOnFleaPrice.price;
             }
+
+            return formattedItem;
         })
         .filter(item => {
             return !item.types.includes('disabled');
