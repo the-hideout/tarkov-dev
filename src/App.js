@@ -49,6 +49,7 @@ import Headsets from './pages/items/headsets';
 import Helmets from './pages/items/helmets';
 import Keys from './pages/items/keys';
 import Mods from './pages/items/mods';
+import PistolGrips from './pages/items/pistol-grips';
 import Provisions from './pages/items/provisions';
 import Rigs from './pages/items/rigs';
 import Suppressors from './pages/items/suppressors';
@@ -477,6 +478,21 @@ return (
                     <Mods
                         sessionID = {sessionID}
                         key = 'mods-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/items/pistol-grips'}
+                element = {[
+                    <PistolGrips
+                        sessionID = {sessionID}
+                        key = 'pistol-grips-wrapper'
                     />,
                     <ID
                         key = 'connection-wrapper'

@@ -176,7 +176,12 @@ const Menu = () => {
                             to = {`/items/mods`}
                             onClick = {setIsOpen.bind(this, false)}
                         />
-                            <MenuItem
+                        <MenuItem
+                            displayText = {t('Pistol Grips')}
+                            to = {`/items/pistol-grips`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
                             displayText = {t('Provisions')}
                             to = {`/items/provisions`}
                             onClick = {setIsOpen.bind(this, false)}
