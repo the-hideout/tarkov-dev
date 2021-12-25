@@ -9,16 +9,29 @@ import capitalizeTheFirstLetterOfEachWord from '../../modules/capitalize-first';
 
 import './index.css';
 
-function TraderPriceCell({value}) {
-    if(!value){
+function TraderPriceCell(props) {
+    if(!props){
         return null;
     }
 
-    let printString = `${formatPrice(value.price, value.currency)}`;
+    const trader = props.row.original.buyFor?.map((buyFor) => {
+        if(buyFor.source === 'flea-market'){
+            return false;
+        }
+
+        return buyFor;
+    })
+    .filter(Boolean)[0];
+
+    if(!trader){
+        return null;
+    }
+
+    let printString = `${formatPrice(trader.price, trader.currency)}`;
     let questLocked = false;
     let loyaltyString = '';
 
-    for(const requirement of value.requirements){
+    for(const requirement of trader.requirements){
         if(requirement.type === 'loyaltyLevel'){
             loyaltyString = `LL${requirement.value}`;
         }
@@ -42,7 +55,7 @@ function TraderPriceCell({value}) {
                         size={1}
                         className = 'icon-with-text'
                     />
-                    {`${capitalizeTheFirstLetterOfEachWord(value.source)} ${loyaltyString}`}
+                    {`${capitalizeTheFirstLetterOfEachWord(trader.source)} ${loyaltyString}`}
                 </div>
             </Tippy>
         </div>;
@@ -52,7 +65,7 @@ function TraderPriceCell({value}) {
             <div
                 className = 'trader-unlock-wrapper'
             >
-                {`${capitalizeTheFirstLetterOfEachWord(value.source)} ${loyaltyString}`}
+                {`${capitalizeTheFirstLetterOfEachWord(trader.source)} ${loyaltyString}`}
             </div>
         </div>;
     }

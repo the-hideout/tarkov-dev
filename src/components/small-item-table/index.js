@@ -17,10 +17,11 @@ import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import ValueCell from '../value-cell';
+import TraderPriceCell from '../trader-price-cell';
 
 import './index.css';
 
-function traderPriceCell(datum) {
+function traderSellCell(datum) {
     if(datum.row.original.traderName === '?'){
         return null;
     }
@@ -48,7 +49,7 @@ function shuffleArray(array) {
 }
 
 function SmallItemTable(props) {
-    const {maxItems, nameFilter, defaultRandom, typeFilter, instaProfit} = props;
+    const {maxItems, nameFilter, defaultRandom, typeFilter, instaProfit, traderPrice} = props;
     const dispatch = useDispatch();
     const items = useSelector(selectAllItems);
     const itemStatus = useSelector((state) => {
@@ -89,6 +90,7 @@ function SmallItemTable(props) {
                 traderName: itemData.traderName,
                 traderPrice: itemData.traderPrice,
                 types: itemData.types,
+                buyFor: itemData.buyFor,
             };
 
             const buyOnFleaPrice = itemData.buyFor.find(buyPrice => buyPrice.source === 'flea-market');
@@ -162,9 +164,9 @@ function SmallItemTable(props) {
                     },
                 },
                 {
-                    Header: t('Trader'),
+                    Header: t('Trader sell'),
                     accessor: d => Number(d.traderPrice),
-                    Cell: traderPriceCell,
+                    Cell: traderSellCell,
                     id: 'traderPrice',
                 },
                 {
@@ -237,9 +239,30 @@ function SmallItemTable(props) {
                 })
             }
 
+            if(traderPrice){
+                useColumns.push({
+                    Header: t('Trader buy'),
+                    accessor: d => Number(d.instaProfit),
+                    Cell: TraderPriceCell,
+                    id: 'traderBuyCell',
+                    sortDescFirst: true,
+                    sortType: (a, b) => {
+                        if(a.values.instaProfit > b.values.instaProfit){
+                            return 1;
+                        }
+
+                        if(a.values.instaProfit < b.values.instaProfit){
+                            return -1;
+                        }
+
+                        return 0;
+                    },
+                })
+            }
+
             return useColumns;
         },
-        [t, instaProfit]
+        [t, instaProfit, traderPrice]
     );
 
     if(data.length <= 0){

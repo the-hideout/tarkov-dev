@@ -254,6 +254,7 @@ function PistolGrips(props) {
         <ItemsTable
             columns = {columns}
             items = {displayItems}
+            traderPrice
         />
     </div>
     ];
