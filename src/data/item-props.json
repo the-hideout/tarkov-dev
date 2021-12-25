@@ -10719,7 +10719,7 @@
     },
     "59e763f286f7742ee57895da": {
         "itemProperties": {
-            "Weight": 1.5,
+            "Weight": 2.9,
             "grid": {
                 "pockets": [
                     {
@@ -16406,7 +16406,7 @@
     },
     "5ab8ebf186f7742d8b372e80": {
         "itemProperties": {
-            "Weight": 3.1,
+            "Weight": 5.1,
             "grid": {
                 "pockets": [
                     {
@@ -22354,7 +22354,7 @@
                 "fullauto"
             ],
             "RecoilForceUp": 156,
-            "RecoilForceBack": 413,
+            "RecoilForceBack": 423,
             "ammoCaliber": "Caliber556x45NATO"
         },
         "hasGrid": false,
@@ -26144,7 +26144,7 @@
     },
     "5c0e774286f77468413cc5b2": {
         "itemProperties": {
-            "Weight": 1.2,
+            "Weight": 2.5,
             "grid": {
                 "pockets": [
                     {
@@ -35920,7 +35920,7 @@
     },
     "5df8a4d786f77412672a1e3b": {
         "itemProperties": {
-            "Weight": 3.3,
+            "Weight": 5.3,
             "grid": {
                 "pockets": [
                     {
@@ -47423,7 +47423,7 @@
                 "single",
                 "fullauto"
             ],
-            "RecoilForceUp": 157,
+            "RecoilForceUp": 152,
             "RecoilForceBack": 458,
             "ammoCaliber": "Caliber556x45NATO"
         },
@@ -47636,7 +47636,7 @@
                 "single",
                 "fullauto"
             ],
-            "RecoilForceUp": 157,
+            "RecoilForceUp": 152,
             "RecoilForceBack": 458,
             "ammoCaliber": "Caliber556x45NATO"
         },
