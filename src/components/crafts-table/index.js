@@ -71,17 +71,18 @@ function CraftTable(props) {
     });
 
     const tarkovTrackerAPIKey = useSelector((state) => state.settings.tarkovTrackerAPIKey);
+    const useTarkovTracker = useSelector((state) => state.settings.useTarkovTracker);
     const progressStatus = useSelector((state) => {
         return state.settings.progressStatus;
     });
 
     useEffect(() => {
         let tarkovTrackerProgressInterval = false;
-        if (progressStatus === 'idle') {
+        if (progressStatus === 'idle' && useTarkovTracker) {
             dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
         }
 
-        if (!tarkovTrackerProgressInterval) {
+        if (!tarkovTrackerProgressInterval && useTarkovTracker) {
             tarkovTrackerProgressInterval = setInterval(() => {
                 dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
             }, 30000);
@@ -90,7 +91,7 @@ function CraftTable(props) {
         return () => {
             clearInterval(tarkovTrackerProgressInterval);
         }
-    }, [progressStatus, dispatch, tarkovTrackerAPIKey]);
+    }, [progressStatus, dispatch, tarkovTrackerAPIKey, useTarkovTracker]);
 
     useEffect(() => {
         let timer = false;
