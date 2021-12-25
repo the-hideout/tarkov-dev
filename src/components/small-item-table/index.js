@@ -5,7 +5,10 @@ import {
 } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react'
-import { mdiClockAlertOutline } from '@mdi/js';
+import {
+    mdiClockAlertOutline,
+    mdiCloseOctagon,
+} from '@mdi/js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import Fuse from 'fuse.js'
@@ -159,9 +162,30 @@ function SmallItemTable(props) {
                 {
                     Header: t('Flea'),
                     accessor: d => Number(d.lastLowPrice),
-                    Cell: ({value}) => {
+                    Cell: (allData) => {
+                        if(allData.row.original.types.includes('noFlea')){
+                            return <ValueCell
+                                value = {allData.value}
+                                noValue = {
+                                    <div
+                                        className = 'center-content'
+                                    >
+                                        <Tippy
+                                            placement = 'bottom'
+                                            content={'This item can\'t be sold on the Flea Market'}
+                                        >
+                                            <Icon
+                                                path={mdiCloseOctagon}
+                                                size={1}
+                                                className = 'icon-with-text'
+                                            />
+                                        </Tippy>
+                                    </div>
+                                }
+                            />;
+                        }
                         return <ValueCell
-                            value = {value}
+                            value = {allData.value}
                             noValue = {
                                 <div
                                     className = 'center-content'
