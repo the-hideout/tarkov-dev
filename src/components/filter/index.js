@@ -105,30 +105,37 @@ function ToggleFilter({ label, onChange, checked, tooltipContent, disabled }) {
 };
 
 const selectFilterStyle = {
-
     menu: (provided) => ({
         ...provided,
-
         backgroundColor: '#292626',
-        border: '2px solid #9a8866'
-
+        border: '2px solid #9a8866',
     }),
     control: (provided) => ({
         ...provided,
         backgroundColor: '#292626',
-        border: '2px solid #9a8866'
-
+        border: '2px solid #9a8866',
     }),
     menuList: (provided) => ({
         ...provided,
         color: '#E5E5E5',
-
     }),
     option: (provided, state) => {
         const color = '#E5E5E5';
         const backgroundColor = "#292626";
-        return { ...provided, color, backgroundColor };
-    }
+
+        return { ...provided,
+            color,
+            backgroundColor,
+        };
+    },
+    singleValue: (provided, state) => {
+        const color = '#c7c5b3';
+
+        return {
+            ...provided,
+            color,
+        };
+    },
 };
 
 function SelectFilter({ defaultValue, options, onChange, isMulti = false, label, tooltip, tooltipDisabled, onMenuOpen, onMenuClose, wide, parentRef }) {
