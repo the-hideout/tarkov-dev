@@ -162,6 +162,8 @@ function PistolGrips(props) {
                         return false;
                     });
 
+                subItem.costPerErgo = subItem.avg24hPrice / subItem.itemProperties.Ergonomics;
+
                 return subItem;
             })
         ,
@@ -183,12 +185,13 @@ function PistolGrips(props) {
             key: 'itemProperties.Ergonomics',
         },
         {
-            title: 'Recoil',
-            key: 'itemProperties.Recoil',
-        },
-        {
             title: 'Price',
             key: 'avg24hPrice',
+            type: 'price',
+        },
+        {
+            title: 'Cost per ergo',
+            key: 'costPerErgo',
             type: 'price',
         },
     ];
