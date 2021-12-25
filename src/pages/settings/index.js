@@ -54,6 +54,7 @@ function Settings() {
 
     const refs = {
         'booze-generator': useRef(null),
+        'christmas-tree': useRef(null),
         'intelligence-center': useRef(null),
         'lavatory': useRef(null),
         'medstation': useRef(null),
@@ -216,7 +217,7 @@ function Settings() {
                     },
                 ];
 
-                if(stationKey === 'booze-generator'){
+                if(stationKey === 'booze-generator' || stationKey === 'christmas-tree'){
                     selectOptions = [...selectOptions.slice(0, 2)];
                 }
 

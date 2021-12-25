@@ -20,6 +20,7 @@ import './index.css';
 
 const stations = [
     'booze-generator',
+    'christmas-tree',
     'intelligence-center',
     'lavatory',
     'medstation',

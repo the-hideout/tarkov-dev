@@ -12,6 +12,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk('settings/fetchTarkov
         flea: false,
         hideout: {
             'booze-generator': 0,
+            'christmas-tree': 0,
             'intelligence-center': 0,
             'lavatory': 0,
             'medstation': 0,
@@ -101,6 +102,7 @@ const settingsSlice = createSlice({
         ragman: JSON.parse(localStorage.getItem('ragman')) || 4,
         jaeger: Number.isInteger(JSON.parse(localStorage.getItem('jaeger'))) ? JSON.parse(localStorage.getItem('jaeger')) : 4,
         'booze-generator': Number.isInteger(JSON.parse(localStorage.getItem('booze-generator'))) ? JSON.parse(localStorage.getItem('booze-generator')) : 1,
+        'christmas-tree': Number.isInteger(JSON.parse(localStorage.getItem('christmas-tree'))) ? JSON.parse(localStorage.getItem('christmas-tree')) : 1,
         'intelligence-center': Number.isInteger(JSON.parse(localStorage.getItem('intelligence-center'))) ? JSON.parse(localStorage.getItem('intelligence-center')) : 3,
         lavatory: Number.isInteger(JSON.parse(localStorage.getItem('lavatory'))) ? JSON.parse(localStorage.getItem('lavatory')) : 3,
         medstation: Number.isInteger(JSON.parse(localStorage.getItem('medstation'))) ? JSON.parse(localStorage.getItem('medstation')) : 3,
@@ -175,6 +177,7 @@ export const selectAllTraders = (state) => {
 export const selectAllStations = (state) => {
     return {
         'booze-generator': state.settings['booze-generator'],
+        'christmas-tree': state.settings['christmas-tree'],
         'intelligence-center': state.settings['intelligence-center'],
         lavatory: state.settings.lavatory,
         medstation: state.settings.medstation,
