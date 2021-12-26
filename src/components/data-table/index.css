@@ -39,7 +39,7 @@ td.data-cell:first-child {
     border-left: 4px solid #1b1919;
 }
 
-th:first-child,
+th:last-child,
 td.data-cell:last-child {
     border-right: 4px solid #1b1919;
 }
