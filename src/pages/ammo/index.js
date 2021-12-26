@@ -212,7 +212,7 @@ function Ammo() {
                 Cell: CenterCell,
             },
             {
-                Header: t('Price'),
+                Header: t('Flea Price'),
                 accessor: 'lastLowPrice',
                 Cell: ValueCell,
             },
