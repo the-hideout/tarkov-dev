@@ -45,8 +45,8 @@ jobs:
       env:
         CLOUDFLARE_ZONE: 1ef934527384406eb8a376100875e27b
 
-        CLOUDFLARE_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        # CLOUDFLARE_TOKEN: ${{ secrets.CF_API_TOKEN }}
         # ...or:
-        # CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
-        # CLOUDFLARE_KEY: ${{ secrets.CF_API_TOKEN }}
+        CLOUDFLARE_EMAIL: kokarn@gmail.com
+        CLOUDFLARE_KEY: ${{ secrets.CF_API_TOKEN }}
         PURGE_URLS: '["https://tarkov-tools.com/data/item-grids.min.json", "https://tarkov-tools.com/data/item-props.min.json"]'
