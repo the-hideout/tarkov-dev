@@ -236,7 +236,7 @@ function SmallItemTable(props) {
 
                         return 0;
                     },
-                })
+                });
             }
 
             if(traderPrice){
@@ -245,19 +245,7 @@ function SmallItemTable(props) {
                     accessor: d => Number(d.instaProfit),
                     Cell: TraderPriceCell,
                     id: 'traderBuyCell',
-                    sortDescFirst: true,
-                    sortType: (a, b) => {
-                        if(a.values.instaProfit > b.values.instaProfit){
-                            return 1;
-                        }
-
-                        if(a.values.instaProfit < b.values.instaProfit){
-                            return -1;
-                        }
-
-                        return 0;
-                    },
-                })
+                });
             }
 
             return useColumns;
