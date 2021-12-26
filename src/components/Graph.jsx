@@ -211,7 +211,7 @@ const Graph = props => {
                     dy = {-3}
                 />}
                 labels={({ datum }) => {
-                    return datum.name;
+                    return datum.chartName;
                 }}
                 size={1}
                 activeSize={5}

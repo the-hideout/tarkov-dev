@@ -111,7 +111,7 @@ function Ammo() {
         const returnData = formattedData.filter(ammo =>
             !selectedLegendName || selectedLegendName.length === 0 || selectedLegendName.includes(ammo.type)
         ).map((ammo) => {
-            ammo.name = ammo.shortName;
+            ammo.chartName = ammo.name;
             ammo = {
                 ...ammo,
                 ...items.find(item => ammo.id === item.id),
@@ -132,7 +132,7 @@ function Ammo() {
 
             return {
                 ...ammo,
-                name: `${ammo.name} (${ammo.fragChance * 100} %)`,
+                chartName: `${ammo.chartName} (${ammo.fragChance * 100} %)`,
             };
         });
 
