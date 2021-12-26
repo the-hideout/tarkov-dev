@@ -116,7 +116,7 @@ function Ammo() {
                 ...ammo,
                 ...items.find(item => ammo.id === item.id),
             };
-
+            ammo.fragChance = `${ammo.fragChance * 100}%`;
             ammo.trader = ammo.buyFor?.map((buyFor) => {
                 if(buyFor.source === 'flea-market'){
                     return false;
@@ -132,7 +132,7 @@ function Ammo() {
 
             return {
                 ...ammo,
-                chartName: `${ammo.chartName} (${ammo.fragChance * 100} %)`,
+                chartName: `${ammo.chartName} (${ammo.fragChance})`,
             };
         });
 
@@ -214,6 +214,11 @@ function Ammo() {
             {
                 Header: t('Armor damage'),
                 accessor: 'armorDamage',
+                Cell: CenterCell,
+            },
+            {
+                Header: t('Fragmentation chance'),
+                accessor: 'fragChance',
                 Cell: CenterCell,
             },
             {
