@@ -21,6 +21,7 @@ import {
     mdiKeyVariant,
     mdiMagazineRifle,
     mdiFoodForkDrink,
+    mdiHandPointingLeft,
 } from '@mdi/js';
 
 function Guides(props) {
@@ -244,6 +245,25 @@ function Guides(props) {
                     <img
                         alt = {'Mods table'}
                         src = {`${process.env.PUBLIC_URL}/images/mods-table-thumbnail.jpg`}
+                    />
+                </Link>
+                <Link
+                    to = {`/items/pistol-grips`}
+                    className = 'screen-link'
+                >
+                    <h2
+                        className = 'center-title'
+                    >
+                        <Icon
+                            path={mdiHandPointingLeft}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Pistol Grips
+                    </h2>
+                    <img
+                        alt = {'Pistol grips'}
+                        src = {`${process.env.PUBLIC_URL}/images/pistol-grips-table-thumbnail.jpg`}
                     />
                 </Link>
                 <Link

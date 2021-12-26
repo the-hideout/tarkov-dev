@@ -29,6 +29,7 @@ import {
     mdiKeyVariant,
     mdiMagazineRifle,
     mdiFoodForkDrink,
+    mdiHandPointingLeft,
 } from '@mdi/js';
 
 import './index.css';
@@ -312,6 +313,18 @@ function Start(props) {
                             className = 'icon-with-text'
                         />
                         Mods
+                    </h2>
+                </Link>
+                <Link
+                    to = {`/items/pistol-grips`}
+                >
+                    <h2>
+                        <Icon
+                            path={mdiHandPointingLeft}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Pistol Grips
                     </h2>
                 </Link>
                 <Link
