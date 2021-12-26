@@ -185,7 +185,7 @@ function PistolGrips(props) {
             key: 'itemProperties.Ergonomics',
         },
         {
-            title: 'Price',
+            title: 'Flea Price',
             key: 'avg24hPrice',
             type: 'price',
         },
