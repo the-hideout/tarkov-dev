@@ -212,6 +212,11 @@ function Ammo() {
                 Cell: CenterCell,
             },
             {
+                Header: t('Armor damage'),
+                accessor: 'armorDamage',
+                Cell: CenterCell,
+            },
+            {
                 Header: t('Flea Price'),
                 accessor: 'lastLowPrice',
                 Cell: ValueCell,
