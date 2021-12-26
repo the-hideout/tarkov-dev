@@ -39,3 +39,14 @@ jobs:
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
         SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+
+    - name: Purge generated files
+      uses: jakejarvis/cloudflare-purge-action@master
+      env:
+        CLOUDFLARE_ZONE: 1ef934527384406eb8a376100875e27b
+
+        CLOUDFLARE_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        # ...or:
+        # CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
+        # CLOUDFLARE_KEY: ${{ secrets.CF_API_TOKEN }}
+        PURGE_URLS: '["https://tarkov-tools.com/data/item-grids.min.json", "https://tarkov-tools.com/data/item-props.min.json"]'
