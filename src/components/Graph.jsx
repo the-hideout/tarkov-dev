@@ -108,14 +108,14 @@ const LegendLabel = props => {
     return <VictoryLabel {...props} style={style} />;
 };
 
-const getChestLine = xMax => {
-    if(xMax < 86){
+const getMarkerLine = (xMax, xTarget, label) => {
+    if(xMax < xTarget + 1){
         return false;
     }
 
     return <VictoryLine
         style={styles.annotionLine}
-        labels={["Chest HP"]}
+        labels={[label]}
         labelComponent={
             <VictoryLabel
                 textAnchor = 'middle'
@@ -123,7 +123,7 @@ const getChestLine = xMax => {
                 dx = {xMax / 2}
             />
         }
-        x={() => 85}
+        x={() => xTarget}
     />
 };
 
@@ -257,7 +257,22 @@ const Graph = props => {
                 y={9}
             />
             {
-                getChestLine(props.xMax)
+                getMarkerLine(props.xMax, 85, 'PMC & Scav Thorax HP')
+            }
+            {
+                getMarkerLine(props.xMax, 145, 'Reshala Thorax HP')
+            }
+            {
+                getMarkerLine(props.xMax, 160, 'Raider Thorax HP')
+            }
+                        {
+                getMarkerLine(props.xMax, 180, 'Shturman Thorax HP')
+            }
+            {
+                getMarkerLine(props.xMax, 200, 'Cultist Priest Thorax HP')
+            }
+            {
+                getMarkerLine(props.xMax, 220, 'Cultist Warrior Thorax HP')
             }
             {
                 getArmorLabel(1, props.yMax, props.xMax)
