@@ -10,6 +10,7 @@ import ArrowIcon from '../../components/data-table/Arrow.js';
 
 import DataTable from '../data-table';
 import ValueCell from '../value-cell';
+import TraderPriceCell from '../trader-price-cell';
 // import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 
 import './index.css';
@@ -61,7 +62,7 @@ const imageCell = ({value}) => {
 };
 
 function ItemTable(props) {
-    const {maxItems, nameFilter, items, columns} = props;
+    const {maxItems, nameFilter, items, columns, traderPrice} = props;
     // const dispatch = useDispatch();
     // const itemStatus = useSelector((state) => {
     //     return state.items.status;
@@ -96,14 +97,27 @@ function ItemTable(props) {
     );
 
     let displayColumns = useMemo(
-        () => columns.map(({title, key, type}) => {
-            return {
-                Header: t(title),
-                accessor: key,
-                Cell: getCell(type),
-            };
-        }),
-        [t, columns]
+        () => {
+            const displayColumns = columns.map(({title, key, type}) => {
+                return {
+                    Header: t(title),
+                    accessor: key,
+                    Cell: getCell(type),
+                };
+            });
+
+            if(traderPrice){
+                displayColumns.push({
+                    Header: t('Trader buy'),
+                    accessor: d => Number(d.instaProfit),
+                    Cell: TraderPriceCell,
+                    id: 'traderBuyCell',
+                });
+            }
+
+            return displayColumns;
+        },
+        [t, columns, traderPrice]
     );
 
     displayColumns = [
