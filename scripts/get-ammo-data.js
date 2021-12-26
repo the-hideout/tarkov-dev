@@ -66,7 +66,7 @@ const formatRow = function formatRow(row){
         damage: Number(row.ballistics.damage),
         penetration: Number(row.ballistics.penetrationPower),
         armorDamage: Number(row.ballistics.armorDamage),
-        fragChance: row.ballistics.fragChance,
+        fragChance: row.ballistics.fragmentationChance,
         id: row.id.toString(),
     };
 

@@ -132,7 +132,7 @@ function Ammo() {
 
             return {
                 ...ammo,
-                name: `${ammo.name} (${ammo.fragChance})`,
+                name: `${ammo.name} (${ammo.fragChance * 100} %)`,
             };
         });
 
