@@ -102,7 +102,7 @@ function ItemsForHideout(props) {
                                     >
                                         {item.item.name}
                                         <div className='amount-wrapper'>
-                                            Amount: {item.quantity}
+                                            Amount: {new Intl.NumberFormat().format(item.quantity)}
                                         </div>
                                     </div>
                                 </div>
