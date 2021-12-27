@@ -285,7 +285,6 @@ function Armor(props) {
             <InputFilter
                 defaultValue = {maxPrice || ''}
                 label = 'Max price'
-                type = {'number'}
                 placeholder = {'max price'}
                 onChange = {e => setMaxPrice(Number(e.target.value))}
             />

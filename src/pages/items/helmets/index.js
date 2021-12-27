@@ -340,7 +340,6 @@ function Helmets(props) {
                 <InputFilter
                     label = 'Max price'
                     defaultValue = {maxPrice || ''}
-                    type = {'number'}
                     placeholder = {'max price'}
                     onChange = {e => setMaxPrice(Number(e.target.value))}
                 />
