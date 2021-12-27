@@ -12,23 +12,18 @@
     background-color: #292626;
     border: 1px solid #000;
     display: flex;
-    flex-basis: 100%;
-    padding: 15px 10px;
-    text-align: center;
+    flex-basis: calc(50% - 2.5px);
+    padding: 10px 20px;
 }
 
-.property-wrapper div:first-child {
-    border-right: 1px dashed #000;
-}
-
-.property-wrapper div {
-    padding: 0px 5px;
-    width: 50%;
+.property-key-wrapper {
+    color: #636363;
+    font-size: 14px;
 }
 
 @media screen and (min-width: 780px) {
     .property-wrapper {
-        flex-basis: 33%;
+        flex-basis: 10%;
         white-space: nowrap;
     }
 }

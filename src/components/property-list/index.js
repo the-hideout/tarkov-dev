@@ -3,7 +3,7 @@ import propertyFormatter from '../../modules/property-format';
 import './index.css';
 
 const skipProps = [
-    'grid',
+    'Grid',
 ];
 
 function PropertyList({properties}) {
@@ -11,9 +11,17 @@ function PropertyList({properties}) {
         return null;
     }
 
-    const allEntries = Object.entries(properties);
+    let allProperties = [];
 
-    allEntries.sort((a, b) => {
+    for(const key in properties){
+        allProperties.push(
+            propertyFormatter(key, properties[key])
+        );
+    }
+
+    console.log(allProperties);
+
+    allProperties.sort((a, b) => {
         return a[0].localeCompare(b[0]);
     });
 
@@ -21,26 +29,26 @@ function PropertyList({properties}) {
         className = 'property-list'
     >
         {
-            allEntries.map((propertyObject) =>  {
+            allProperties.map((propertyObject) =>  {
                 if(skipProps.includes(propertyObject[0])){
                     return null;
                 }
 
-                const [key, value] = propertyFormatter(...propertyObject);
-
-                if(value.length === 0){
+                if(propertyObject[1].length === 0){
                     return null;
                 }
 
                 return <div
                     className = 'property-wrapper'
-                    key = {key}
+                    key = {propertyObject[0]}
                 >
                     <div>
-                        {key}
-                    </div>
-                    <div>
-                        {value}
+                        {propertyObject[1]}
+                        <div
+                            className='property-key-wrapper'
+                        >
+                            {propertyObject[0]}
+                        </div>
                     </div>
                 </div>;
             })
