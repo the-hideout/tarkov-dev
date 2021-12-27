@@ -9,5 +9,10 @@
         "title": "Tarkov Guru",
         "link": "https://tarkov.guru",
         "text": "Look up item prices, barter costs, and hideout craft profit. Set your hideout and trader progress to see only the barters and crafts that are available to you. Discord bot for quick lookup of item prices."
+    },
+    {
+        "title": "Totov Builder",
+        "link": "https://www.totovbuilder.com",
+        "text": "Totov Builder helps you create your weapon builds, choose your PMC equipment and easily visualize the price, weight and stats of your entire loadout. Manage your budget efficiently by tracing every ruble you put into your loadouts."
     }
 ]
