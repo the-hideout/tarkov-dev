@@ -146,7 +146,7 @@ function Backpacks(props) {
         return {
             grid: item.grid,
             id: item.id,
-            image: `https://assets.tarkov-tools.com/${item.id}-icon.jpg`,
+            image: item.iconLink || 'https://tarkov-tools.com/images/unknown-item-icon.jpg',
             name: itemName,
             price: item.avg24hPrice,
             pricePerSlot: Math.floor(item.avg24hPrice / item.slots),
