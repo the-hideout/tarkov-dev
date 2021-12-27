@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 
 function CanvasGrid(props) {
-    const canvas = useRef();
+    const canvas = useRef(null);
     let boxes = [];
 
     boxes = boxes.concat(props.grid?.map((pocket) => {
@@ -18,12 +18,21 @@ function CanvasGrid(props) {
     // initialize the canvas context
     useEffect(() => {
         const canvasEle = canvas.current;
+
+        if(!canvasEle){
+            return true;
+        }
+
         canvasEle.width = canvasEle.clientWidth;
         canvasEle.height = canvasEle.clientHeight;
 
         const ctx = canvasEle.getContext("2d");
         boxes.map(info => drawPocket(info, ctx));
     });
+
+    if(!props.height || !props.width){
+        return null;
+    }
 
     if(!boxes){
         return null;
