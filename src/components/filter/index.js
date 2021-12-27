@@ -119,23 +119,15 @@ const selectFilterStyle = {
         ...provided,
         color: '#E5E5E5',
     }),
-    option: (provided, state) => {
-        const color = '#E5E5E5';
-        const backgroundColor = "#292626";
-
-        return { ...provided,
-            color,
-            backgroundColor,
-        };
-    },
-    singleValue: (provided, state) => {
-        const color = '#c7c5b3';
-
-        return {
+    option: (provided) => ({
+        ...provided,
+        color: '#E5E5E5',
+        backgroundColor: "#292626",
+    }),
+    singleValue: (provided) => ({
             ...provided,
-            color,
-        };
-    },
+            color: '#c7c5b3',
+    }),
 };
 
 function SelectFilter({ defaultValue, options, onChange, isMulti = false, label, tooltip, tooltipDisabled, onMenuOpen, onMenuClose, wide, parentRef }) {
