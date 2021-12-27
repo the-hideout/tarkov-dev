@@ -19,8 +19,6 @@ function PropertyList({properties}) {
         );
     }
 
-    console.log(allProperties);
-
     allProperties.sort((a, b) => {
         return a[0].localeCompare(b[0]);
     });
