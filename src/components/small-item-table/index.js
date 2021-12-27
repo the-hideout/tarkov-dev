@@ -226,6 +226,14 @@ function SmallItemTable(props) {
                     id: 'instaProfit',
                     sortDescFirst: true,
                     sortType: (a, b) => {
+                        if(a.values.instaProfit === 0){
+                            return -1;
+                        }
+
+                        if(b.values.instaProfit === 0){
+                            return 1;
+                        }
+
                         if(a.values.instaProfit > b.values.instaProfit){
                             return 1;
                         }
