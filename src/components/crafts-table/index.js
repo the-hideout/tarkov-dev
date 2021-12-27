@@ -227,7 +227,7 @@ function CraftTable(props) {
                     itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
                     value: craftRow.rewardItems[0].item[priceToUse],
                     source: `${station} (level ${level})`,
-                    iconLink: craftRow.rewardItems[0].item.iconLink,
+                    iconLink: craftRow.rewardItems[0].item.iconLink || 'https://tarkov-tools.com/images/unknown-item-icon.jpg',
                     count: craftRow.rewardItems[0].count,
                 },
             };

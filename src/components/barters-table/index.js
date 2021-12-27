@@ -225,7 +225,7 @@ function BartersTable(props) {
                     name: barterRow.rewardItems[0].item.name,
                     value: barterRow.rewardItems[0].item[priceToUse],
                     source: barterRow.source,
-                    iconLink: barterRow.rewardItems[0].item.iconLink,
+                    iconLink: barterRow.rewardItems[0].item.iconLink || 'https://tarkov-tools.com/images/unknown-item-icon.jpg',
                     itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,
                 },
             };

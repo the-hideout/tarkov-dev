@@ -105,7 +105,7 @@ const formatCostItems = (itemsList, hidMan, barters, freeFuel = false, useFlea =
             price: calculationPrice,
             priceSource: bestPrice.source,
             alternatePriceSource: bestPrice.barter,
-            iconLink: requiredItem.item.iconLink,
+            iconLink: requiredItem.item.iconLink || 'https://tarkov-tools.com/images/unknown-item-icon.jpg',
             wikiLink: requiredItem.item.wikiLink,
             itemLink: `/item/${requiredItem.item.normalizedName}`,
         };
