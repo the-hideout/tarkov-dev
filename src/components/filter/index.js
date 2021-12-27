@@ -109,6 +109,7 @@ const selectFilterStyle = {
         ...provided,
         backgroundColor: '#292626',
         border: '2px solid #9a8866',
+        borderRadius: 0,
     }),
     control: (provided) => ({
         ...provided,
@@ -119,15 +120,17 @@ const selectFilterStyle = {
     menuList: (provided) => ({
         ...provided,
         color: '#E5E5E5',
+        borderRadius: 0,
     }),
     option: (provided) => ({
         ...provided,
         color: '#E5E5E5',
         backgroundColor: "#292626",
+        borderRadius: 0,
     }),
     singleValue: (provided) => ({
-            ...provided,
-            color: '#c7c5b3',
+        ...provided,
+        color: '#c7c5b3',
     }),
 };
 
