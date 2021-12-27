@@ -117,3 +117,5 @@ all-ru.json
 quests-raw.json
 bsg-all-raw.json
 .gitignore
+public/data/item-grids.min.json
+public/data/item-props.min.json
