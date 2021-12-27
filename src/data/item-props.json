@@ -96,8 +96,7 @@
     "5447ac644bdc2d6c208b4567": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber556x45NATO"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -528,14 +527,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Combined"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -550,14 +542,7 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.1,
-            "DeafStrength": "None",
-            "headSegments": []
+            "BlindnessProtection": 0.1
         },
         "hasGrid": false,
         "linkedItems": []
@@ -1753,8 +1738,7 @@
     "560d75f54bdc2da74d8b4573": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber762x54R"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -1902,11 +1886,6 @@
                 "Head"
             ],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0.8,
-                "y": 0.3,
-                "z": 70
-            },
             "DeafStrength": "High",
             "headSegments": [
                 "Top",
@@ -2008,14 +1987,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Aramid"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -2530,8 +2502,7 @@
     "5649ed104bdc2d3d1c8b458b": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber762x39"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3465,14 +3436,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3487,14 +3451,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3509,14 +3466,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3531,14 +3481,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3970,8 +3913,7 @@
     "573722e82459776104581c21": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3979,8 +3921,7 @@
     "573724b42459776125652ac2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3988,8 +3929,7 @@
     "5737250c2459776125652acc": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -3997,8 +3937,7 @@
     "5737256c2459776125652acd": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4006,8 +3945,7 @@
     "573725b0245977612125bae2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4015,8 +3953,7 @@
     "5737260b24597761224311f2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4024,8 +3961,7 @@
     "5737266524597761006c6a8c": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4033,8 +3969,7 @@
     "573726d824597765d96be361": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4042,8 +3977,7 @@
     "5737273924597765dd374461": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4051,8 +3985,7 @@
     "573727c624597765cc785b5b": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4060,8 +3993,7 @@
     "5737280e24597765cc785b5c": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4069,8 +4001,7 @@
     "5737287724597765e1625ae2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4078,8 +4009,7 @@
     "573728cc24597765cc785b5d": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4087,8 +4017,7 @@
     "573728f324597765e5728561": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4096,8 +4025,7 @@
     "5737292724597765e5728562": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4105,8 +4033,7 @@
     "57372a7f24597766fe0de0c1": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4114,8 +4041,7 @@
     "57372ac324597767001bc261": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4123,8 +4049,7 @@
     "57372b832459776701014e41": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4132,8 +4057,7 @@
     "57372bad245977670b7cd242": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4141,8 +4065,7 @@
     "57372bd3245977670b7cd243": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4150,8 +4073,7 @@
     "57372c21245977670937c6c2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4159,8 +4081,7 @@
     "57372c56245977685e584582": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4168,8 +4089,7 @@
     "57372c89245977685d4159b1": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4177,8 +4097,7 @@
     "57372d1b2459776862260581": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4186,8 +4105,7 @@
     "57372d4c245977685a3da2a1": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4195,8 +4113,7 @@
     "57372db0245977685d4159b2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4204,8 +4121,7 @@
     "57372deb245977685d4159b3": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4213,8 +4129,7 @@
     "57372e1924597768553071c1": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4222,8 +4137,7 @@
     "57372e4a24597768553071c2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4231,8 +4145,7 @@
     "57372e73245977685d4159b4": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4240,8 +4153,7 @@
     "57372e94245977685648d3e1": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4249,8 +4161,7 @@
     "57372ebf2459776862260582": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4258,8 +4169,7 @@
     "57372ee1245977685d4159b5": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4267,8 +4177,7 @@
     "57372f2824597769a270a191": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4276,8 +4185,7 @@
     "57372f5c24597769917c0131": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4285,8 +4193,7 @@
     "57372f7d245977699b53e301": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4294,8 +4201,7 @@
     "57372fc52459776998772ca1": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4303,8 +4209,7 @@
     "5737300424597769942d5a01": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4312,8 +4217,7 @@
     "5737330a2459776af32363a1": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4321,8 +4225,7 @@
     "5737339e2459776af261abeb": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4330,8 +4233,7 @@
     "573733c72459776b0b7b51b0": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -4339,8 +4241,7 @@
     "5739d41224597779c3645501": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -10705,14 +10606,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Aramid"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -10778,14 +10672,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -10800,14 +10687,7 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.1,
-            "DeafStrength": "None",
-            "headSegments": []
+            "BlindnessProtection": 0.1
         },
         "hasGrid": false,
         "linkedItems": []
@@ -10822,14 +10702,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -10850,11 +10723,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0.2,
-                "y": 0.01,
-                "z": 90
-            },
             "DeafStrength": "High",
             "headSegments": [
                 "Top"
@@ -10876,14 +10744,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -11045,11 +10906,6 @@
                 "Head"
             ],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
             "DeafStrength": "Low",
             "headSegments": [
                 "Top",
@@ -12175,11 +12031,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.5,
-                "z": 70
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -12212,16 +12063,7 @@
             "armorZone": [
                 "Head"
             ],
-            "ArmorMaterial": "Glass",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes"
-            ]
+            "ArmorMaterial": "Glass"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -12241,17 +12083,7 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "RicochetParams": {
-                "x": 0.7,
-                "y": 0.3,
-                "z": 55
-            },
-            "BlindnessProtection": 0.1,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ]
+            "BlindnessProtection": 0.1
         },
         "hasGrid": false,
         "linkedItems": []
@@ -12290,8 +12122,7 @@
             "grid": {
                 "pockets": [],
                 "totalSize": 0
-            },
-            "BlocksEarpiece": true
+            }
         },
         "hasGrid": false,
         "linkedItems": []
@@ -12309,16 +12140,7 @@
             "armorZone": [
                 "Head"
             ],
-            "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": [
-                "Jaws"
-            ]
+            "ArmorMaterial": "Aramid"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -12335,16 +12157,7 @@
             "armorZone": [
                 "Head"
             ],
-            "ArmorMaterial": "Aluminium",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 70
-            },
-            "DeafStrength": "Low",
-            "headSegments": [
-                "Ears"
-            ]
+            "ArmorMaterial": "Aluminium"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -12361,14 +12174,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -13254,14 +13060,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -13276,14 +13075,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -14458,11 +14250,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Aluminium",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 75
-            },
             "DeafStrength": "Low",
             "headSegments": [
                 "Top",
@@ -15174,14 +14961,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15196,14 +14976,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15218,15 +14991,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": [],
-            "BlocksEarpiece": true
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15241,14 +15006,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15263,14 +15021,7 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.2,
-            "DeafStrength": "None",
-            "headSegments": []
+            "BlindnessProtection": 0.2
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15285,14 +15036,7 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.15,
-            "DeafStrength": "None",
-            "headSegments": []
+            "BlindnessProtection": 0.15
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15307,14 +15051,7 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.25,
-            "DeafStrength": "None",
-            "headSegments": []
+            "BlindnessProtection": 0.25
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15329,14 +15066,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15351,14 +15081,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15373,14 +15096,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15464,11 +15180,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Aluminium",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 75
-            },
             "DeafStrength": "Low",
             "headSegments": [
                 "Top",
@@ -15498,11 +15209,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 75
-            },
             "DeafStrength": "Low",
             "headSegments": [
                 "Top",
@@ -15529,11 +15235,6 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0.7,
-                "y": 0.2,
-                "z": 70
-            },
             "DeafStrength": "High",
             "headSegments": [
                 "Top",
@@ -15561,11 +15262,6 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 70
-            },
             "DeafStrength": "High",
             "headSegments": [
                 "Top",
@@ -15594,17 +15290,7 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.7,
-                "y": 0.4,
-                "z": 70
-            },
-            "BlindnessProtection": 0.25,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ]
+            "BlindnessProtection": 0.25
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15623,17 +15309,7 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "RicochetParams": {
-                "x": 0.8,
-                "y": 0.3,
-                "z": 55
-            },
-            "BlindnessProtection": 0.1,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ]
+            "BlindnessProtection": 0.1
         },
         "hasGrid": false,
         "linkedItems": []
@@ -15654,11 +15330,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.8,
-                "y": 0.3,
-                "z": 75
-            },
             "DeafStrength": "High",
             "headSegments": [
                 "Top",
@@ -15688,11 +15359,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.7,
-                "y": 0.3,
-                "z": 75
-            },
             "DeafStrength": "High",
             "headSegments": [
                 "Top",
@@ -16261,14 +15927,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Aluminium",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Aluminium"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -16289,14 +15948,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Ceramic",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Ceramic"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -16463,14 +16115,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -16485,14 +16130,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -16507,14 +16145,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -16529,14 +16160,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -16768,17 +16392,7 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.15,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ]
+            "BlindnessProtection": 0.15
         },
         "hasGrid": false,
         "linkedItems": []
@@ -17577,11 +17191,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.5,
-                "z": 70
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -19846,11 +19455,6 @@
                 "Head"
             ],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 75
-            },
             "DeafStrength": "Low",
             "headSegments": [
                 "Top",
@@ -19877,11 +19481,6 @@
                 "Head"
             ],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 75
-            },
             "DeafStrength": "Low",
             "headSegments": [
                 "Top",
@@ -19908,11 +19507,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 75
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -19938,11 +19532,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 75
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -19962,14 +19551,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -19984,14 +19566,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20006,14 +19581,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20028,14 +19596,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20050,14 +19611,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20072,14 +19626,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20094,14 +19641,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20122,11 +19662,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 75
-            },
             "DeafStrength": "High",
             "headSegments": [
                 "Top",
@@ -20153,11 +19688,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 70
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Eyes",
@@ -20177,14 +19707,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20210,14 +19733,7 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.1,
-            "DeafStrength": "None",
-            "headSegments": []
+            "BlindnessProtection": 0.1
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20232,15 +19748,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": [],
-            "BlocksEarpiece": true
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20260,11 +19768,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0.8,
-                "y": 0.3,
-                "z": 75
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -20294,14 +19797,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20480,14 +19976,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Titan",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Titan"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20510,14 +19999,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Titan",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Titan"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20538,14 +20020,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Titan",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Titan"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20566,14 +20041,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Combined"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -20592,17 +20060,7 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "RicochetParams": {
-                "x": 0.7,
-                "y": 0.4,
-                "z": 55
-            },
-            "BlindnessProtection": 0.1,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ]
+            "BlindnessProtection": 0.1
         },
         "hasGrid": false,
         "linkedItems": []
@@ -22779,14 +22237,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -22801,15 +22252,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": [],
-            "BlocksEarpiece": true
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -22824,14 +22267,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -22846,14 +22282,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -22868,14 +22297,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -24683,14 +24105,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -24789,11 +24204,6 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 50
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -25110,11 +24520,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0.2,
-                "y": 0.01,
-                "z": 65
-            },
             "DeafStrength": "High",
             "headSegments": [
                 "Top",
@@ -25140,17 +24545,7 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0.8,
-                "y": 0.3,
-                "z": 70
-            },
-            "BlindnessProtection": 0.35,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ]
+            "BlindnessProtection": 0.35
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25171,11 +24566,6 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0.8,
-                "y": 0.3,
-                "z": 80
-            },
             "DeafStrength": "High",
             "headSegments": [
                 "Top",
@@ -25281,11 +24671,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0.2,
-                "y": 0.01,
-                "z": 60
-            },
             "DeafStrength": "High",
             "headSegments": [
                 "Top",
@@ -25307,14 +24692,7 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.15,
-            "DeafStrength": "None",
-            "headSegments": []
+            "BlindnessProtection": 0.15
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25656,14 +25034,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Ceramic",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Ceramic"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25724,14 +25095,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Ceramic",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Ceramic"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25752,14 +25116,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25780,14 +25137,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Ceramic",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Ceramic"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25808,14 +25158,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "ArmoredSteel"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25836,14 +25179,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25864,14 +25200,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Ceramic",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Ceramic"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25891,14 +25220,7 @@
             "armorZone": [
                 "Chest"
             ],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -25917,16 +25239,7 @@
             "armorZone": [
                 "Head"
             ],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 50
-            },
-            "DeafStrength": "None",
-            "headSegments": [
-                "Top"
-            ]
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -26202,17 +25515,7 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0.8,
-                "y": 0.3,
-                "z": 70
-            },
-            "BlindnessProtection": 0.35,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ]
+            "BlindnessProtection": 0.35
         },
         "hasGrid": false,
         "linkedItems": []
@@ -26233,11 +25536,6 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0.8,
-                "y": 0.3,
-                "z": 80
-            },
             "DeafStrength": "High",
             "headSegments": [
                 "Top",
@@ -26399,8 +25697,7 @@
     "5c11279ad174af029d64592b": {
         "itemProperties": {
             "Weight": 0.24,
-            "grid": false,
-            "ammoCaliber": "Caliber556x45NATO"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -26408,8 +25705,7 @@
     "5c1127bdd174af44217ab8b9": {
         "itemProperties": {
             "Weight": 0.28,
-            "grid": false,
-            "ammoCaliber": "Caliber9x18PM"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -26417,8 +25713,7 @@
     "5c1127d0d174af29be75cf68": {
         "itemProperties": {
             "Weight": 0.22,
-            "grid": false,
-            "ammoCaliber": "Caliber12g"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -26426,8 +25721,7 @@
     "5c1260dc86f7746b106e8748": {
         "itemProperties": {
             "Weight": 0.19,
-            "grid": false,
-            "ammoCaliber": "Caliber9x39"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -26443,8 +25737,7 @@
     "5c12619186f7743f871c8a32": {
         "itemProperties": {
             "Weight": 0.19,
-            "grid": false,
-            "ammoCaliber": "Caliber9x39"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -26460,8 +25753,7 @@
     "5c1262a286f7743f8a69aab2": {
         "itemProperties": {
             "Weight": 0.5,
-            "grid": false,
-            "ammoCaliber": "Caliber556x45NATO"
+            "grid": false
         },
         "hasGrid": false,
         "linkedItems": []
@@ -26593,17 +25885,7 @@
             "armorZone": [
                 "Head"
             ],
-            "ArmorMaterial": "Aluminium",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 70
-            },
-            "DeafStrength": "Low",
-            "headSegments": [
-                "Ears",
-                "Jaws"
-            ]
+            "ArmorMaterial": "Aluminium"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -26620,16 +25902,7 @@
             "armorZone": [
                 "Head"
             ],
-            "ArmorMaterial": "Aluminium",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 70
-            },
-            "DeafStrength": "Low",
-            "headSegments": [
-                "Ears"
-            ]
+            "ArmorMaterial": "Aluminium"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -26649,11 +25922,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.5,
-                "z": 75
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -26706,14 +25974,7 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.15,
-            "DeafStrength": "None",
-            "headSegments": []
+            "BlindnessProtection": 0.15
         },
         "hasGrid": false,
         "linkedItems": []
@@ -26728,14 +25989,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -29323,11 +28577,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 50
-            },
             "DeafStrength": "High",
             "headSegments": [
                 "Top",
@@ -29356,17 +28605,7 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "RicochetParams": {
-                "x": 0.7,
-                "y": 0.4,
-                "z": 55
-            },
-            "BlindnessProtection": 0.1,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ]
+            "BlindnessProtection": 0.1
         },
         "hasGrid": false,
         "linkedItems": []
@@ -29387,14 +28626,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Combined"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -29417,14 +28649,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Combined"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -34157,11 +33382,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.5,
-                "z": 70
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -34193,11 +33413,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.5,
-                "z": 70
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -34223,14 +33438,7 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.3,
-            "DeafStrength": "None",
-            "headSegments": []
+            "BlindnessProtection": 0.3
         },
         "hasGrid": false,
         "linkedItems": []
@@ -34287,14 +33495,7 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.15,
-            "DeafStrength": "None",
-            "headSegments": []
+            "BlindnessProtection": 0.15
         },
         "hasGrid": false,
         "linkedItems": []
@@ -34309,14 +33510,7 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.25,
-            "DeafStrength": "None",
-            "headSegments": []
+            "BlindnessProtection": 0.25
         },
         "hasGrid": false,
         "linkedItems": []
@@ -34337,11 +33531,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.5,
-                "z": 70
-            },
             "DeafStrength": "High",
             "headSegments": [
                 "Top",
@@ -34374,17 +33563,7 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "RicochetParams": {
-                "x": 0.7,
-                "y": 0.4,
-                "z": 70
-            },
-            "BlindnessProtection": 0.1,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ]
+            "BlindnessProtection": 0.1
         },
         "hasGrid": false,
         "linkedItems": []
@@ -34399,14 +33578,7 @@
             "MaxDurability": 1,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 0
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Aramid"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -34425,16 +33597,7 @@
             "armorZone": [
                 "Head"
             ],
-            "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 50
-            },
-            "DeafStrength": "None",
-            "headSegments": [
-                "LowerNape"
-            ]
+            "ArmorMaterial": "Combined"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -34862,14 +34025,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -35836,14 +34992,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Titan",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Titan"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -35948,11 +35097,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 75
-            },
             "DeafStrength": "Low",
             "headSegments": [
                 "Top",
@@ -36729,11 +35873,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.5,
-                "z": 65
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -36765,17 +35904,7 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "RicochetParams": {
-                "x": 0.7,
-                "y": 0.4,
-                "z": 55
-            },
-            "BlindnessProtection": 0.1,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ]
+            "BlindnessProtection": 0.1
         },
         "hasGrid": false,
         "linkedItems": []
@@ -36792,17 +35921,7 @@
             "armorZone": [
                 "Head"
             ],
-            "ArmorMaterial": "Aluminium",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 70
-            },
-            "DeafStrength": "Low",
-            "headSegments": [
-                "Ears"
-            ],
-            "BlocksEarpiece": true
+            "ArmorMaterial": "Aluminium"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -36853,11 +35972,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.5,
-                "z": 65
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -36884,17 +35998,7 @@
             "armorZone": [
                 "Head"
             ],
-            "ArmorMaterial": "Aluminium",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 70
-            },
-            "DeafStrength": "Low",
-            "headSegments": [
-                "Ears"
-            ],
-            "BlocksEarpiece": true
+            "ArmorMaterial": "Aluminium"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -36914,17 +36018,7 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "RicochetParams": {
-                "x": 0.7,
-                "y": 0.4,
-                "z": 55
-            },
-            "BlindnessProtection": 0.1,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ]
+            "BlindnessProtection": 0.1
         },
         "hasGrid": false,
         "linkedItems": []
@@ -37249,14 +36343,7 @@
             "armorZone": [
                 "Chest"
             ],
-            "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "ArmoredSteel"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -37444,11 +36531,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.5,
-                "z": 70
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -37502,14 +36584,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -37524,14 +36599,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -37815,14 +36883,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -37837,14 +36898,7 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.3,
-            "DeafStrength": "None",
-            "headSegments": []
+            "BlindnessProtection": 0.3
         },
         "hasGrid": false,
         "linkedItems": []
@@ -37859,14 +36913,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -38430,14 +37477,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "ArmoredSteel"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -38610,19 +37650,7 @@
             "armorZone": [
                 "Head"
             ],
-            "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 50
-            },
-            "BlindnessProtection": 0.2,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Top",
-                "Eyes",
-                "Jaws"
-            ]
+            "ArmorMaterial": "Aramid"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -38644,11 +37672,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.5,
-                "z": 40
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -38804,11 +37827,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.5,
-                "z": 70
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -38836,17 +37854,7 @@
             "armorZone": [
                 "Head"
             ],
-            "ArmorMaterial": "Ceramic",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 50
-            },
-            "DeafStrength": "None",
-            "headSegments": [
-                "Top",
-                "Nape"
-            ]
+            "ArmorMaterial": "Ceramic"
         },
         "hasGrid": false,
         "linkedItems": [
@@ -39998,14 +39006,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "ArmoredSteel"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -40076,11 +39077,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.5,
-                "z": 75
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -40112,16 +39108,7 @@
             "armorZone": [
                 "Head"
             ],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 45
-            },
-            "DeafStrength": "None",
-            "headSegments": [
-                "Top"
-            ]
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -40139,16 +39126,7 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.15,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes"
-            ]
+            "BlindnessProtection": 0.15
         },
         "hasGrid": false,
         "linkedItems": []
@@ -40166,16 +39144,7 @@
             "armorZone": [
                 "Head"
             ],
-            "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": [
-                "Jaws"
-            ]
+            "ArmorMaterial": "Aramid"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -40196,11 +39165,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Titan",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 65
-            },
             "DeafStrength": "High",
             "headSegments": [
                 "Top",
@@ -40229,17 +39193,7 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.7,
-                "y": 0.4,
-                "z": 70
-            },
-            "BlindnessProtection": 0.3,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes",
-                "Jaws"
-            ]
+            "BlindnessProtection": 0.3
         },
         "hasGrid": false,
         "linkedItems": []
@@ -40265,14 +39219,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -40287,14 +39234,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -40309,14 +39249,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -40688,14 +39621,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -40710,14 +39636,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -42323,14 +41242,7 @@
             "armorZone": [
                 "Chest"
             ],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -42459,14 +41371,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Combined"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -43074,16 +41979,7 @@
                 "Head"
             ],
             "ArmorMaterial": "Glass",
-            "RicochetParams": {
-                "x": 0.7,
-                "y": 0.3,
-                "z": 55
-            },
-            "BlindnessProtection": 0.1,
-            "DeafStrength": "None",
-            "headSegments": [
-                "Eyes"
-            ]
+            "BlindnessProtection": 0.1
         },
         "hasGrid": false,
         "linkedItems": []
@@ -43311,14 +42207,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -43333,14 +42222,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -43355,14 +42237,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -43377,14 +42252,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -43399,14 +42267,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -43421,14 +42282,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -43504,14 +42358,7 @@
             "armorZone": [
                 "Chest"
             ],
-            "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "ArmoredSteel"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -43531,14 +42378,7 @@
             "armorZone": [
                 "Chest"
             ],
-            "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "ArmoredSteel"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -43650,14 +42490,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -44413,14 +43246,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -44441,14 +43267,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Aramid"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -44698,14 +43517,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Combined"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -44818,14 +43630,7 @@
                 "Chest",
                 "Stomach"
             ],
-            "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "Combined"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -45114,14 +43919,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -45142,12 +43940,6 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 70
-            },
-            "BlindnessProtection": 0.7,
             "DeafStrength": "Low",
             "headSegments": [
                 "Top",
@@ -45176,12 +43968,6 @@
                 "Head"
             ],
             "ArmorMaterial": "ArmoredSteel",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.4,
-                "z": 70
-            },
-            "BlindnessProtection": 0.7,
             "DeafStrength": "Low",
             "headSegments": [
                 "Top",
@@ -45255,14 +44041,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -45279,16 +44058,7 @@
             "armorZone": [
                 "Head"
             ],
-            "ArmorMaterial": "Aramid",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 1
-            },
-            "DeafStrength": "None",
-            "headSegments": [
-                "Top"
-            ]
+            "ArmorMaterial": "Aramid"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -46659,15 +45429,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": [],
-            "BlocksEarpiece": true
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -46682,14 +45444,7 @@
             "MaxDurability": 100,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -47763,15 +46518,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": [],
-            "BlocksEarpiece": true
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
@@ -48858,11 +47605,6 @@
                 "Head"
             ],
             "ArmorMaterial": "Combined",
-            "RicochetParams": {
-                "x": 0.9,
-                "y": 0.5,
-                "z": 75
-            },
             "DeafStrength": "None",
             "headSegments": [
                 "Top",
@@ -48967,14 +47709,7 @@
             "armorClass": "0",
             "armorZone": [],
             "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "BlindnessProtection": 0.45,
-            "DeafStrength": "None",
-            "headSegments": []
+            "BlindnessProtection": 0.45
         },
         "hasGrid": false,
         "linkedItems": []
@@ -48989,14 +47724,7 @@
             "MaxDurability": 10,
             "armorClass": "0",
             "armorZone": [],
-            "ArmorMaterial": "UHMWPE",
-            "RicochetParams": {
-                "x": 0,
-                "y": 0,
-                "z": 80
-            },
-            "DeafStrength": "None",
-            "headSegments": []
+            "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": false,
         "linkedItems": []
