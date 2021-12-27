@@ -73,8 +73,7 @@ const arrayChunk = (inputArray, chunkLength) => {
 function LootTier(props) {
     const [numberFilter, setNumberFilter] = useState(DEFAULT_MAX_ITEMS);
     const [minPrice, setMinPrice] = useStateWithLocalStorage('minPrice', 0);
-    // const [includeFlea, setIncludeFlea] = useState(true);
-    const [includeFlea, setIncludeFlea] = useStateWithLocalStorage('includeFlea', false);
+    const hasFlea = useSelector((state) => state.settings.hasFlea);
     const [includeMarked, setIncludeMarked] = useStateWithLocalStorage('includeMarked', false);
     const [groupByType, setGroupByType] = useStateWithLocalStorage('groupByType', false);
     const [filters, setFilters] = useStateWithLocalStorage('filters', {
@@ -134,7 +133,7 @@ function LootTier(props) {
     const itemData = useMemo(() => {
         return items
             .map((item) => {
-                if(!includeFlea){
+                if(!hasFlea){
                     return {
                         ...item,
                         sellTo: item.traderName,
@@ -162,7 +161,7 @@ function LootTier(props) {
 
                 return true;
             });
-    }, [includeFlea, items]);
+    }, [hasFlea, items]);
 
     const typeFilteredItems = useMemo(() => {
         const innerTypeFilteredItems = itemData
@@ -320,7 +319,7 @@ function LootTier(props) {
         }
     }, [filters, setFilters]);
 
-    
+
 
 
     return [
@@ -343,11 +342,6 @@ function LootTier(props) {
         >
             <Filter>
                 <ToggleFilter
-                    label = {'Include Flea'}
-                    onChange = {e => setIncludeFlea(!includeFlea)}
-                    checked = {includeFlea}
-                />
-                <ToggleFilter
                     label = {'Include Marked'}
                     onChange = {e => setIncludeMarked(!includeMarked)}
                     checked = {includeMarked}
@@ -364,7 +358,7 @@ function LootTier(props) {
                     isMulti
                     options = {filterOptions}
                     onChange = {handleFilterChange}
-                    
+
                 />
                 <InputFilter
                     defaultValue = {minPrice || ''}
