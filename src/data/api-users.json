@@ -1,0 +1,13 @@
+[
+    {
+        "title": "Rat Scanner",
+        "link": "https://ratscanner.com",
+        "text": "Rat Scanner allows you to scan items and provides you with realtime data about them. Items can be scanned instantly at any time!",
+        "imageType": "gif"
+    },
+    {
+        "title": "Tarkov Guru",
+        "link": "https://tarkov.guru",
+        "text": "Look up item prices, barter costs, and hideout craft profit. Set your hideout and trader progress to see only the barters and crafts that are available to you. Discord bot for quick lookup of item prices."
+    }
+]
