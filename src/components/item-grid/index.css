@@ -148,6 +148,7 @@
 .grid-item-3x4,
 .grid-item-4x3,
 .grid-item-4x4,
+.grid-item-4x5,
 .grid-item-5x5,
 .grid-item-4x8 {
     height: calc(2 * var(--grid-base));
@@ -156,8 +157,8 @@
     grid-column-end: span 2;
 }
 
-.grid-item-3x2,
 .grid-item-2x3,
+.grid-item-3x2,
 .grid-item-5x2,
 .grid-item-5x3 {
     height: calc(2 * var(--grid-base));
