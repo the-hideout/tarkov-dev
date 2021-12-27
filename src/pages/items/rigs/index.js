@@ -210,7 +210,7 @@ function Backpacks(props) {
             charSet='utf-8'
         />
         <title>
-            Escape from Tarkov Helmet backpacks chart
+            Escape from Tarkov Helmet Backpacks
         </title>
         <meta
             name = 'description'
