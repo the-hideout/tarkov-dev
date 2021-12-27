@@ -1,0 +1,40 @@
+.api-users-page-wrapper {
+    max-width: 900px;
+}
+
+.api-users-page-wrapper img {
+    max-height: 150px;
+    max-width: 100%;
+}
+
+.api-users-page-wrapper pre {
+    white-space: pre-wrap;
+}
+
+.api-user-wrapper {
+    align-items: center;
+    background-color: #292626;
+    border: 1px solid #1b1919;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    padding: 10px 0;
+}
+
+.api-user-wrapper h2 {
+    text-align: center;
+    width: 100%;
+}
+
+.api-user-data-wrapper {
+    font-size: 14px;
+    padding: 10px 30px;
+    text-align: center;
+    width: 50%;
+}
+
+@media screen and (min-width: 900px) {
+    .api-users-page-wrapper pre {
+        white-space: pre;
+    }
+}

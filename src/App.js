@@ -37,6 +37,7 @@ import makeID from './modules/make-id';
 import Loading from './components/loading';
 import Nightbot from './pages/nightbot';
 import StreamElements from './pages/stream-elements';
+import ApiUsers from './pages/api-users';
 
 import Items from './pages/items/';
 import Armor from './pages/items/armor';
@@ -690,6 +691,23 @@ return (
                         key = 'streamelements-docs-wrapper'
                     >
                         <StreamElements />
+                    </Suspense>,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/api-users/'}
+                element = {[
+                    <Suspense
+                        fallback={<Loading />}
+                        key = 'api-users-wrapper'
+                    >
+                        <ApiUsers />
                     </Suspense>,
                     <ID
                         key = 'connection-wrapper'

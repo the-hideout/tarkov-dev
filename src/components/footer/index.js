@@ -109,7 +109,13 @@ function Footer() {
                     StreamElements integration
                 </Link>
             </p>
-
+            <p>
+                <Link
+                    to = {'/api-users/'}
+                >
+                    API Users
+                </Link>
+            </p>
         </div>
         <div
             className = 'copyright-wrapper'
