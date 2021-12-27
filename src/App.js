@@ -24,7 +24,7 @@ import useStateWithLocalStorage from './hooks/useStateWithLocalStorage';
 
 import Ammo from './pages/ammo';
 import Control from './pages/control';
-import LootTier from './pages/LootTier.jsx';
+import LootTiers from './pages/loot-tiers';
 import Barters from './pages/barters';
 import About from './pages/about/';
 import Maps from './pages/maps/';
@@ -297,7 +297,7 @@ return (
             <Route
                 path={"/barter"}
                 element = {[
-                    <LootTier
+                    <LootTiers
                         sessionID = {sessionID}
                         key = 'loot-tier-wrapper'
                     />,
@@ -312,7 +312,7 @@ return (
             <Route
                 path={"/loot-tier/:currentLoot"}
                 element = {[
-                    <LootTier
+                    <LootTiers
                         sessionID = {sessionID}
                         key = 'loot-tier-wrapper'
                     />,
@@ -326,7 +326,7 @@ return (
             <Route
                 path={"/loot-tier"}
                 element = {[
-                    <LootTier
+                    <LootTiers
                         sessionID = {sessionID}
                         key = 'loot-tier-wrapper'
                     />,

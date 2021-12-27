@@ -4,12 +4,12 @@ import {Helmet} from 'react-helmet';
 import debounce from 'lodash.debounce';
 import { useSelector, useDispatch } from 'react-redux';
 
-import QueueBrowserTask from '../modules/queue-browser-task';
-import ID from '../components/ID.jsx';
-import ItemGrid from '../components/item-grid/';
-import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
-import { selectAllItems, fetchItems } from '../features/items/itemsSlice';
-import { Filter, ToggleFilter, SelectFilter, InputFilter } from '../components/filter';
+import QueueBrowserTask from '../../modules/queue-browser-task';
+import ID from '../../components/ID.jsx';
+import ItemGrid from '../../components/item-grid';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
+import { Filter, ToggleFilter, SelectFilter, InputFilter } from '../../components/filter';
 
 const defaultGroupNames = [
     'S',
