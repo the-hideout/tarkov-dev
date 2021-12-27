@@ -114,6 +114,7 @@ const selectFilterStyle = {
         ...provided,
         backgroundColor: '#292626',
         border: '2px solid #9a8866',
+        borderRadius: 0,
     }),
     menuList: (provided) => ({
         ...provided,
