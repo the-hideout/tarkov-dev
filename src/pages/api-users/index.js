@@ -12,13 +12,8 @@ function ApiUsers() {
             Want to be included on this page? Join the <a href="https://discord.gg/B2xM8WZyVv">Discord</a> and tell us about what you've made!
         </p>
         {
-            apiUsers.map((apiUser, index) => {
+            apiUsers.map((apiUser) => {
                 const projectKey = apiUser.title.toLowerCase().replace(/\s/g, '-');
-                const firstContent = apiUser.text;
-                const secondContent = (<img
-                    alt = {apiUser.title}
-                    src = {`${process.env.PUBLIC_URL}/images/api-users/${projectKey}.${apiUser.imageType || 'png'}`}
-                />);
                 return <div
                     className='api-user-wrapper'
                     key={`api-user-${projectKey}`}
@@ -33,12 +28,16 @@ function ApiUsers() {
                     <div
                         className='api-user-data-wrapper'
                     >
-                        {index % 2 === 0 ? firstContent : secondContent}
+                        {apiUser.text}
                     </div>
                     <div
                         className='api-user-data-wrapper'
                     >
-                        {index % 2 === 0 ?  secondContent : firstContent}
+                        <img
+                            alt = {apiUser.title}
+                            loading = 'lazy'
+                            src = {`${process.env.PUBLIC_URL}/images/api-users/${projectKey}.${apiUser.imageType || 'png'}`}
+                        />
                     </div>
                 </div>
 
