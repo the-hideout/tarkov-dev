@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Switch from 'react-switch';
 import Select from 'react-select';
-import Slider from 'rc-slider';
+import Slider, {Range} from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -63,6 +63,52 @@ function SliderFilter({ label, defaultValue, min, max, marks, onChange, reverse 
                 backgroundColor: '#048802',
                 borderColor: '#048802',
             }}
+            reverse={reverse}
+            style={{
+                top: '-7px',
+                width: '170px',
+            }}
+        />
+    </div>;
+};
+
+function RangeFilter({ label, defaultValue, min, max, marks, onChange, reverse = false }) {
+    return <div
+        className={'filter-slider-wrapper'}
+    >
+        <div
+            className={'filter-slider-label'}
+        >
+            {label}
+        </div>
+        <Range
+            allowCross = {false}
+            defaultValue={defaultValue}
+            min={min}
+            max={max}
+            marks={marks}
+            onChange={onChange}
+            trackStyle={[{
+                backgroundColor: '#048802',
+            }]}
+            // railStyle={{
+            //     backgroundColor: '#048802',
+            // }}
+            handleStyle={[{
+                backgroundColor: '#048802',
+                borderColor: '#048802',
+            },{
+                backgroundColor: '#048802',
+                borderColor: '#048802',
+            }]}
+            activeDotStyle={{
+                backgroundColor: '#048802',
+                borderColor: '#048802',
+            }}
+            // dotStyle={{
+            //     backgroundColor: '#048802',
+            //     borderColor: '#048802',
+            // }}
             reverse={reverse}
             style={{
                 top: '-7px',
@@ -228,5 +274,6 @@ export {
     InputFilter,
     SliderFilter,
     ButtonGroupFilter,
-    ButtonGroupFilterButton
+    ButtonGroupFilterButton,
+    RangeFilter,
 };

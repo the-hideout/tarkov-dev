@@ -8,7 +8,7 @@ import formatPrice from '../../../modules/format-price';
 import ID from '../../../components/ID.jsx';
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
 import { selectAllItems, fetchItems } from '../../../features/items/itemsSlice';
-import {Filter, ToggleFilter, InputFilter, SliderFilter} from '../../../components/filter';
+import {Filter, ToggleFilter, InputFilter, RangeFilter} from '../../../components/filter';
 
 const materialDestructabilityMap = {
     'Aramid': 0.25,
@@ -77,17 +77,18 @@ const getArmorZoneString = (armorZones) => {
 };
 
 const marks = {
-    1: 6,
-    2: 5,
-    3: 4,
-    4: 3,
-    5: 2,
-    6: 1,
+    1:1,
+    2:2,
+    3:3,
+    4:4,
+    5:5,
+    6:6,
 };
 
 function Armor(props) {
     const [includeRigs, setIncludeRigs] = useStateWithLocalStorage('includeRigs', true);
-    const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage('minArmorClass', 6);
+    const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage('minArmorClass', 1);
+    const [maxArmorClass, setMaxArmorClass] = useStateWithLocalStorage('maxArmorClass', 6);
     const [maxPrice, setMaxPrice] = useStateWithLocalStorage('armorMaxPrice', 9999999);
     const dispatch = useDispatch();
     const items = useSelector(selectAllItems);
@@ -211,7 +212,11 @@ function Armor(props) {
             return false;
         }
 
-        if(item.itemProperties.armorClass < (7 - minArmorClass)){
+        if(item.itemProperties.armorClass < minArmorClass){
+            return false;
+        }
+
+        if(item.itemProperties.armorClass > maxArmorClass){
             return false;
         }
 
@@ -241,10 +246,11 @@ function Armor(props) {
             itemLink: `/item/${item.normalizedName}`,
         };
     })
-    .filter(Boolean), [includeRigs, minArmorClass, maxPrice, displayItems]);
+    .filter(Boolean), [includeRigs, minArmorClass, maxPrice, displayItems, maxArmorClass]);
 
-    const handleArmorClassChange = (newValueLabel) => {
-        setMinArmorClass(newValueLabel);
+    const handleArmorClassChange = ([min, max]) => {
+        setMinArmorClass(min);
+        setMaxArmorClass(max);
     };
 
     return [<Helmet
@@ -273,13 +279,12 @@ function Armor(props) {
                 onChange = {e => setIncludeRigs(!includeRigs)}
                 checked = {includeRigs}
             />
-            <SliderFilter
-                defaultValue = {minArmorClass}
+            <RangeFilter
+                defaultValue = {[minArmorClass, maxArmorClass]}
                 label = 'Min armor class'
                 min = {1}
                 max = {6}
                 marks = {marks}
-                reverse
                 onChange = {handleArmorClassChange}
             />
             <InputFilter
