@@ -116,6 +116,13 @@ function Footer() {
                     API Users
                 </Link>
             </p>
+            <p>
+                <a
+                    href = {'https://discordapp.com/oauth2/authorize?client_id=925298399371231242&scope=bot'}
+                >
+                    Discord bot for your Discord
+                </a>
+            </p>
         </div>
         <div
             className = 'copyright-wrapper'
