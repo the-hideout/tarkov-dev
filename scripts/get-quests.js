@@ -15,9 +15,12 @@ const getTraderId = (id) => {
 }
 
 (async () => {
+    console.log('Loading quests');
+    console.time('quests');
     const data = await got('https://raw.githack.com/TarkovTracker/tarkovdata/master/quests.json', {
         responseType: 'json',
     });
+    console.timeEnd('quests');
 
     const questData = {
         updated: new Date(),
