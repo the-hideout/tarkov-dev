@@ -221,6 +221,11 @@ function Item() {
                                     >
                                         Profit <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice - fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}</div>
                                     </div>
+                                    <div
+                                        className = 'tooltip-calculation'
+                                    >
+                                        Calculated over the average for the last 24 hours
+                                    </div>
                                 </div>}
                             >
                                 <div
