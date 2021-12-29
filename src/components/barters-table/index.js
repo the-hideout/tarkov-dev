@@ -24,6 +24,7 @@ function BartersTable(props) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const includeFlea = useSelector((state) => state.settings.hasFlea);
+    const hasJaeger = useSelector((state) => state.settings.jaeger);
     const traders = useSelector(selectAllTraders);
     const skippedByLevelRef = useRef();
 
@@ -205,6 +206,10 @@ function BartersTable(props) {
                     return previousSellForObject;
                 }
 
+                if(sellForObject.source === 'jaeger' && !hasJaeger){
+                    return previousSellForObject;
+                }
+
                 if(previousSellForObject.price > sellForObject.price){
                     return previousSellForObject;
                 }
@@ -230,7 +235,14 @@ function BartersTable(props) {
                 },
             };
 
-            const bestTraderValue = Math.max(...barterRow.rewardItems[0].item.traderPrices.map(priceObject => priceObject.price));
+            const bestTraderValue = Math.max(...barterRow.rewardItems[0].item.traderPrices.map(priceObject => {
+                if(!hasJaeger && priceObject.trader.name === 'Jaeger'){
+                    return 0;
+                }
+
+                return priceObject.price
+            }));
+
             const bestTrade = barterRow.rewardItems[0].item.traderPrices.find(traderPrice => traderPrice.price === bestTraderValue);
 
             if((bestTrade && bestTrade.price > tradeData.reward.value) || (bestTrade && !includeFlea)){
@@ -285,7 +297,7 @@ function BartersTable(props) {
             return true;
 	    });
     },
-        [nameFilter, selectedTrader, barters, includeFlea, itemFilter, traders]
+        [nameFilter, selectedTrader, barters, includeFlea, itemFilter, traders, hasJaeger]
     );
 
     let extraRow = false;
