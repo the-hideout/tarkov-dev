@@ -189,7 +189,7 @@ const selectFilterStyle = {
         ...provided,
         backgroundColor: "#E5E5E5",
         color: '#E5E5E5',
-        borderRadius: '5px'
+
 
     }),
 
