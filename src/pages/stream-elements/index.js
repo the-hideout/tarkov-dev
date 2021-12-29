@@ -54,7 +54,10 @@ function StreamElements() {
             <li>
                 Message:
                 <pre>
-                    $(urlfetch https://tarkov-tools.com/webhook/stream-elements?q=$(querystring))
+                    {
+                        // eslint-disable-next-line no-template-curly-in-string
+                        '${urlfetch https://tarkov-tools.com/webhook/stream-elements?q=${queryencode ${1:}}}'
+                    }
                 </pre>
             </li>
             <li>
