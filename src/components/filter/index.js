@@ -191,7 +191,6 @@ const selectFilterStyle = {
         color: '#E5E5E5',
         borderRadius: '5px'
 
-
     }),
 
 };
