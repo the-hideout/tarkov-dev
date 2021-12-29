@@ -1,5 +1,5 @@
 {
-    "updated": "2021-12-22T03:40:42.755Z",
+    "updated": "2021-12-29T06:37:21.714Z",
     "data": [
         {
             "type": "9x18 mm",
@@ -8,6 +8,7 @@
             "damage": 65,
             "penetration": 13,
             "armorDamage": 26,
+            "fragChance": 0.02,
             "id": "573720e02459776143012541",
             "symbol": {
                 "fill": "tomato",
@@ -21,6 +22,7 @@
             "damage": 55,
             "penetration": 6,
             "armorDamage": 16,
+            "fragChance": 0.25,
             "id": "57371f2b24597761224311f1",
             "symbol": {
                 "fill": "tomato",
@@ -34,6 +36,7 @@
             "damage": 79,
             "penetration": 44,
             "armorDamage": 75,
+            "fragChance": 0.14,
             "id": "5a608bf24f39f98ffc77720e",
             "symbol": {
                 "fill": "tomato",
@@ -47,6 +50,7 @@
             "damage": 53,
             "penetration": 18,
             "armorDamage": 28,
+            "fragChance": 0.17,
             "id": "573718ba2459775a75491131",
             "symbol": {
                 "fill": "tomato",
@@ -60,6 +64,7 @@
             "damage": 58,
             "penetration": 24,
             "armorDamage": 33,
+            "fragChance": 0.17,
             "id": "57371aab2459775a77142f22",
             "symbol": {
                 "fill": "tomato",
@@ -73,6 +78,7 @@
             "damage": 67,
             "penetration": 1,
             "armorDamage": 2,
+            "fragChance": 0.6,
             "id": "5737218f245977612125ba51",
             "symbol": {
                 "fill": "tomato",
@@ -86,6 +92,7 @@
             "damage": 50,
             "penetration": 5,
             "armorDamage": 16,
+            "fragChance": 0.25,
             "id": "573719762459775a626ccbc1",
             "symbol": {
                 "fill": "tomato",
@@ -99,6 +106,7 @@
             "damage": 69,
             "penetration": 3,
             "armorDamage": 5,
+            "fragChance": 0.4,
             "id": "5737207f24597760ff7b25f2",
             "symbol": {
                 "fill": "tomato",
@@ -112,6 +120,7 @@
             "damage": 50,
             "penetration": 12,
             "armorDamage": 26,
+            "fragChance": 0.2,
             "id": "5737201124597760fc4431f1",
             "symbol": {
                 "fill": "tomato",
@@ -125,6 +134,7 @@
             "damage": 60,
             "penetration": 11,
             "armorDamage": 29,
+            "fragChance": 0.25,
             "id": "5735ff5c245977640e39ba7e",
             "symbol": {
                 "fill": "tomato",
@@ -138,6 +148,7 @@
             "damage": 54,
             "penetration": 5,
             "armorDamage": 13,
+            "fragChance": 0.35,
             "id": "57371f8d24597761006c6a81",
             "symbol": {
                 "fill": "tomato",
@@ -151,6 +162,7 @@
             "damage": 54,
             "penetration": 20,
             "armorDamage": 33,
+            "fragChance": 0.15,
             "id": "56d59d3ad2720bdb418b4577",
             "symbol": {
                 "fill": "tomato",
@@ -164,6 +176,7 @@
             "damage": 55,
             "penetration": 23,
             "armorDamage": 34,
+            "fragChance": 0.328,
             "id": "59e68f6f86f7746c9f75e846",
             "symbol": {
                 "fill": "tomato",
@@ -177,6 +190,7 @@
             "damage": 77,
             "penetration": 2,
             "armorDamage": 5,
+            "fragChance": 0.02,
             "id": "57372140245977611f70ee91",
             "symbol": {
                 "fill": "tomato",
@@ -190,6 +204,7 @@
             "damage": 40,
             "penetration": 53,
             "armorDamage": 58,
+            "fragChance": 0.32,
             "id": "59e690b686f7746c9f75e848",
             "symbol": {
                 "fill": "tomato",
@@ -203,6 +218,7 @@
             "damage": 51,
             "penetration": 37,
             "armorDamage": 52,
+            "fragChance": 0.328,
             "id": "59e6906286f7746c9f75e847",
             "symbol": {
                 "fill": "tomato",
@@ -216,6 +232,7 @@
             "damage": 46,
             "penetration": 45,
             "armorDamage": 52,
+            "fragChance": 0.34,
             "id": "54527ac44bdc2d36668b4567",
             "symbol": {
                 "fill": "tomato",
@@ -229,6 +246,7 @@
             "damage": 40,
             "penetration": 28,
             "armorDamage": 30,
+            "fragChance": 0.16,
             "id": "573719df2459775a626ccbc2",
             "symbol": {
                 "fill": "tomato",
@@ -242,6 +260,7 @@
             "damage": 50,
             "penetration": 27,
             "armorDamage": 35,
+            "fragChance": 0.4,
             "id": "56dff3afd2720bba668b4567",
             "symbol": {
                 "fill": "yellow",
@@ -255,6 +274,7 @@
             "damage": 75,
             "penetration": 62,
             "armorDamage": 87,
+            "fragChance": 0.08,
             "id": "560d61e84bdc2da74d8b4571",
             "symbol": {
                 "fill": "yellow",
@@ -268,6 +288,7 @@
             "damage": 58,
             "penetration": 6,
             "armorDamage": 16,
+            "fragChance": 0.3,
             "id": "57371eb62459776125652ac1",
             "symbol": {
                 "fill": "tomato",
@@ -281,6 +302,7 @@
             "damage": 59,
             "penetration": 10,
             "armorDamage": 32,
+            "fragChance": 0.25,
             "id": "58864a4f2459770fcc257101",
             "symbol": {
                 "fill": "tomato",
@@ -294,6 +316,7 @@
             "damage": 80,
             "penetration": 41,
             "armorDamage": 66,
+            "fragChance": 0.17,
             "id": "58dd3ad986f77403051cba8f",
             "symbol": {
                 "fill": "tomato",
@@ -307,6 +330,7 @@
             "damage": 60,
             "penetration": 17,
             "armorDamage": 32,
+            "fragChance": 0.03,
             "id": "59e6918f86f7746c9f75e849",
             "symbol": {
                 "fill": "tomato",
@@ -320,6 +344,7 @@
             "damage": 81,
             "penetration": 42,
             "armorDamage": 78,
+            "fragChance": 0.18,
             "id": "5887431f2459777e1612938f",
             "symbol": {
                 "fill": "yellow",
@@ -333,6 +358,7 @@
             "damage": 60,
             "penetration": 14,
             "armorDamage": 28,
+            "fragChance": 0.3,
             "id": "56dff338d2720bbd668b4569",
             "symbol": {
                 "fill": "yellow",
@@ -346,6 +372,7 @@
             "damage": 44,
             "penetration": 37,
             "armorDamage": 49,
+            "fragChance": 0.164,
             "id": "56dff061d2720bb5668b4567",
             "symbol": {
                 "fill": "yellow",
@@ -359,6 +386,7 @@
             "damage": 35,
             "penetration": 53,
             "armorDamage": 46,
+            "fragChance": 0.1,
             "id": "5ba26835d4351e0035628ff5",
             "symbol": {
                 "fill": "yellow",
@@ -372,6 +400,7 @@
             "damage": 64,
             "penetration": 8,
             "armorDamage": 28,
+            "fragChance": 0.35,
             "id": "573601b42459776410737435",
             "symbol": {
                 "fill": "tomato",
@@ -385,6 +414,7 @@
             "damage": 68,
             "penetration": 11,
             "armorDamage": 34,
+            "fragChance": 0.45,
             "id": "56dff421d2720b5f5a8b4567",
             "symbol": {
                 "fill": "yellow",
@@ -398,6 +428,7 @@
             "damage": 75,
             "penetration": 9,
             "armorDamage": 22,
+            "fragChance": 0.7,
             "id": "59e6927d86f77411da468256",
             "symbol": {
                 "fill": "tomato",
@@ -411,6 +442,7 @@
             "damage": 59,
             "penetration": 8,
             "armorDamage": 22,
+            "fragChance": 0.166,
             "id": "57371e4124597760ff7b25f1",
             "symbol": {
                 "fill": "tomato",
@@ -424,6 +456,7 @@
             "damage": 74,
             "penetration": 11,
             "armorDamage": 20,
+            "fragChance": 0.35,
             "id": "56dff216d2720bbd668b4568",
             "symbol": {
                 "fill": "yellow",
@@ -437,6 +470,7 @@
             "damage": 50,
             "penetration": 28,
             "armorDamage": 37,
+            "fragChance": 0.4,
             "id": "54527a984bdc2d4e668b4567",
             "symbol": {
                 "fill": "tomato",
@@ -450,6 +484,7 @@
             "damage": 37,
             "penetration": 62,
             "armorDamage": 60,
+            "fragChance": 0.02,
             "id": "5c0d5e4486f77478390952fe",
             "symbol": {
                 "fill": "yellow",
@@ -463,6 +498,7 @@
             "damage": 110,
             "penetration": 14,
             "armorDamage": 38,
+            "fragChance": 0.45,
             "id": "59e6658b86f77411d949b250",
             "symbol": {
                 "fill": "yellow",
@@ -476,6 +512,7 @@
             "damage": 98,
             "penetration": 23,
             "armorDamage": 48,
+            "fragChance": 0.25,
             "id": "59e6542b86f77411dc52a77a",
             "symbol": {
                 "fill": "yellow",
@@ -489,6 +526,7 @@
             "damage": 58,
             "penetration": 14,
             "armorDamage": 33,
+            "fragChance": 0.15,
             "id": "5c3df7d588a4501f290594e5",
             "symbol": {
                 "fill": "tomato",
@@ -502,6 +540,7 @@
             "damage": 65,
             "penetration": 18,
             "armorDamage": 39,
+            "fragChance": 0.5,
             "id": "5ba26812d4351e003201fef1",
             "symbol": {
                 "fill": "yellow",
@@ -515,6 +554,7 @@
             "damage": 50,
             "penetration": 25,
             "armorDamage": 36,
+            "fragChance": 0.2,
             "id": "573603562459776430731618",
             "symbol": {
                 "fill": "tomato",
@@ -528,6 +568,7 @@
             "damage": 58,
             "penetration": 14,
             "armorDamage": 32,
+            "fragChance": 0.25,
             "id": "5736026a245977644601dc61",
             "symbol": {
                 "fill": "tomato",
@@ -541,6 +582,7 @@
             "damage": 25,
             "penetration": 3,
             "armorDamage": 14,
+            "fragChance": 0,
             "id": "5a38ebd9c4a282000d722a5b",
             "symbol": {
                 "fill": "yellow",
@@ -554,6 +596,7 @@
             "damage": 73,
             "penetration": 30,
             "armorDamage": 40,
+            "fragChance": 0.2,
             "id": "59e655cb86f77411dc52a77b",
             "symbol": {
                 "fill": "yellow",
@@ -567,6 +610,7 @@
             "damage": 66,
             "penetration": 7,
             "armorDamage": 27,
+            "fragChance": 0.35,
             "id": "573602322459776445391df1",
             "symbol": {
                 "fill": "tomato",
@@ -580,6 +624,7 @@
             "damage": 57,
             "penetration": 32,
             "armorDamage": 52,
+            "fragChance": 0.25,
             "id": "5656d7c34bdc2d9d198b4587",
             "symbol": {
                 "fill": "green",
@@ -593,6 +638,7 @@
             "damage": 65,
             "penetration": 15,
             "armorDamage": 34,
+            "fragChance": 0.1,
             "id": "56dff4ecd2720b5f5a8b4568",
             "symbol": {
                 "fill": "yellow",
@@ -606,6 +652,7 @@
             "damage": 58,
             "penetration": 12,
             "armorDamage": 32,
+            "fragChance": 0.25,
             "id": "5735fdcd2459776445391d61",
             "symbol": {
                 "fill": "tomato",
@@ -619,6 +666,7 @@
             "damage": 87,
             "penetration": 15,
             "armorDamage": 35,
+            "fragChance": 0.2625,
             "id": "59e4d3d286f774176a36250a",
             "symbol": {
                 "fill": "green",
@@ -632,6 +680,7 @@
             "damage": 52,
             "penetration": 24,
             "armorDamage": 33,
+            "fragChance": 0.5,
             "id": "59e6920f86f77411d82aa167",
             "symbol": {
                 "fill": "tomato",
@@ -645,6 +694,7 @@
             "damage": 43,
             "penetration": 40,
             "armorDamage": 41,
+            "fragChance": 0.2,
             "id": "5ba2678ad4351e44f824b344",
             "symbol": {
                 "fill": "yellow",
@@ -658,6 +708,7 @@
             "damage": 49,
             "penetration": 35,
             "armorDamage": 41,
+            "fragChance": 0.16,
             "id": "56dfef82d2720bbd668b4567",
             "symbol": {
                 "fill": "yellow",
@@ -671,6 +722,7 @@
             "damage": 40,
             "penetration": 51,
             "armorDamage": 57,
+            "fragChance": 0.17,
             "id": "56dff026d2720bb8668b4567",
             "symbol": {
                 "fill": "yellow",
@@ -684,6 +736,7 @@
             "damage": 56,
             "penetration": 29,
             "armorDamage": 42,
+            "fragChance": 0.075,
             "id": "59e4d24686f7741776641ac7",
             "symbol": {
                 "fill": "green",
@@ -697,6 +750,7 @@
             "damage": 62,
             "penetration": 30,
             "armorDamage": 46,
+            "fragChance": 0.12,
             "id": "59e4cf5286f7741778269d8a",
             "symbol": {
                 "fill": "green",
@@ -710,6 +764,7 @@
             "damage": 154,
             "penetration": 16,
             "armorDamage": 42,
+            "fragChance": 0.1,
             "id": "5d6e6a05a4b93618084f58d0",
             "symbol": {
                 "fill": "yellow",
@@ -723,6 +778,7 @@
             "damage": 57,
             "penetration": 20,
             "armorDamage": 38,
+            "fragChance": 0.16,
             "id": "56dff4a2d2720bbd668b456a",
             "symbol": {
                 "fill": "yellow",
@@ -736,6 +792,7 @@
             "damage": 58,
             "penetration": 47,
             "armorDamage": 63,
+            "fragChance": 0.12,
             "id": "59e0d99486f7744a32234762",
             "symbol": {
                 "fill": "green",
@@ -749,6 +806,7 @@
             "damage": 55,
             "penetration": 18,
             "armorDamage": 34,
+            "fragChance": 0.166,
             "id": "573603c924597764442bd9cb",
             "symbol": {
                 "fill": "tomato",
@@ -762,6 +820,7 @@
             "damage": 70,
             "penetration": 64,
             "armorDamage": 83,
+            "fragChance": 0.13,
             "id": "5a6086ea4f39f99cd479502f",
             "symbol": {
                 "fill": "tomato",
@@ -775,6 +834,7 @@
             "damage": 61,
             "penetration": 7,
             "armorDamage": 15,
+            "fragChance": 0.35,
             "id": "57371b192459775a9f58a5e0",
             "symbol": {
                 "fill": "tomato",
@@ -788,6 +848,7 @@
             "damage": 86,
             "penetration": 45,
             "armorDamage": 84,
+            "fragChance": 0.083,
             "id": "59e77a2386f7742ee578960a",
             "symbol": {
                 "fill": "yellow",
@@ -801,6 +862,7 @@
             "damage": 45,
             "penetration": 36,
             "armorDamage": 46,
+            "fragChance": 0.2,
             "id": "5ba26844d4351e00334c9475",
             "symbol": {
                 "fill": "yellow",
@@ -814,6 +876,7 @@
             "damage": 56,
             "penetration": 21,
             "armorDamage": 30,
+            "fragChance": 0.25,
             "id": "56dff0bed2720bb0668b4567",
             "symbol": {
                 "fill": "yellow",
@@ -827,6 +890,7 @@
             "damage": 85,
             "penetration": 3,
             "armorDamage": 14,
+            "fragChance": 0.9,
             "id": "5c0d5ae286f7741e46554302",
             "symbol": {
                 "fill": "tomato",
@@ -840,6 +904,7 @@
             "damage": 48,
             "penetration": 33,
             "armorDamage": 32,
+            "fragChance": 0.17,
             "id": "56dff2ced2720bb4668b4567",
             "symbol": {
                 "fill": "yellow",
@@ -853,6 +918,7 @@
             "damage": 49,
             "penetration": 35,
             "armorDamage": 46,
+            "fragChance": 0.2,
             "id": "5a269f97c4a282000b151807",
             "symbol": {
                 "fill": "green",
@@ -866,6 +932,7 @@
             "damage": 65,
             "penetration": 18,
             "armorDamage": 44,
+            "fragChance": 0.3,
             "id": "5a26abfac4a28232980eabff",
             "symbol": {
                 "fill": "green",
@@ -879,6 +946,7 @@
             "damage": 102,
             "penetration": 2,
             "armorDamage": 11,
+            "fragChance": 1,
             "id": "5c0d56a986f774449d5de529",
             "symbol": {
                 "fill": "tomato",
@@ -892,6 +960,7 @@
             "damage": 52,
             "penetration": 30,
             "armorDamage": 48,
+            "fragChance": 0.05,
             "id": "5c925fa22e221601da359b7b",
             "symbol": {
                 "fill": "tomato",
@@ -905,6 +974,7 @@
             "damage": 70,
             "penetration": 10,
             "armorDamage": 38,
+            "fragChance": 0.25,
             "id": "5a3c16fe86f77452b62de32a",
             "symbol": {
                 "fill": "tomato",
@@ -918,6 +988,7 @@
             "damage": 60,
             "penetration": 55,
             "armorDamage": 68,
+            "fragChance": 0.1,
             "id": "5c0d688c86f77413ae3407b2",
             "symbol": {
                 "fill": "green",
@@ -931,6 +1002,7 @@
             "damage": 80,
             "penetration": 15,
             "armorDamage": 63,
+            "fragChance": 0.35,
             "id": "5a26ac06c4a282000c5a90a8",
             "symbol": {
                 "fill": "green",
@@ -944,6 +1016,7 @@
             "damage": 64,
             "penetration": 50,
             "armorDamage": 56,
+            "fragChance": 0.2,
             "id": "5c0d668f86f7747ccb7f13b2",
             "symbol": {
                 "fill": "green",
@@ -957,6 +1030,7 @@
             "damage": 68,
             "penetration": 38,
             "armorDamage": 52,
+            "fragChance": 0.2,
             "id": "57a0dfb82459774d3078b56c",
             "symbol": {
                 "fill": "green",
@@ -970,6 +1044,7 @@
             "damage": 58,
             "penetration": 46,
             "armorDamage": 60,
+            "fragChance": 0.1,
             "id": "57a0e5022459774d1673f889",
             "symbol": {
                 "fill": "green",
@@ -983,6 +1058,7 @@
             "damage": 63,
             "penetration": 39,
             "armorDamage": 47,
+            "fragChance": 0.2,
             "id": "5a26ac0ec4a28200741e1e18",
             "symbol": {
                 "fill": "green",
@@ -996,6 +1072,7 @@
             "damage": 115,
             "penetration": 28,
             "armorDamage": 60,
+            "fragChance": 0.3,
             "id": "5cadf6ddae9215051e1c23b2",
             "symbol": {
                 "fill": "green",
@@ -1009,6 +1086,7 @@
             "damage": 165,
             "penetration": 10,
             "armorDamage": 22,
+            "fragChance": 0.7,
             "id": "5cadf6e5ae921500113bb973",
             "symbol": {
                 "fill": "green",
@@ -1022,6 +1100,7 @@
             "damage": 50,
             "penetration": 2,
             "armorDamage": 26,
+            "fragChance": 0,
             "id": "5d6e6806a4b936088465b17e",
             "symbol": {
                 "fill": "green",
@@ -1035,6 +1114,7 @@
             "damage": 39,
             "penetration": 3,
             "armorDamage": 26,
+            "fragChance": 0,
             "id": "560d5e524bdc2d25448b4571",
             "symbol": {
                 "fill": "green",
@@ -1048,6 +1128,7 @@
             "damage": 37,
             "penetration": 1,
             "armorDamage": 15,
+            "fragChance": 0,
             "id": "5d6e6772a4b936088465b17c",
             "symbol": {
                 "fill": "green",
@@ -1061,6 +1142,7 @@
             "damage": 102,
             "penetration": 46,
             "armorDamage": 57,
+            "fragChance": 0.3,
             "id": "5cadf6eeae921500134b2799",
             "symbol": {
                 "fill": "green",
@@ -1074,6 +1156,7 @@
             "damage": 35,
             "penetration": 3,
             "armorDamage": 26,
+            "fragChance": 0,
             "id": "5d6e67fba4b9361bc73bc779",
             "symbol": {
                 "fill": "green",
@@ -1087,6 +1170,7 @@
             "damage": 25,
             "penetration": 31,
             "armorDamage": 26,
+            "fragChance": 0,
             "id": "5d6e6911a4b9361bd5780d52",
             "symbol": {
                 "fill": "green",
@@ -1100,6 +1184,7 @@
             "damage": 183,
             "penetration": 20,
             "armorDamage": 50,
+            "fragChance": 0.1,
             "id": "5d6e68e6a4b9361c140bcfe0",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1113,6 +1198,7 @@
             "damage": 164,
             "penetration": 37,
             "armorDamage": 65,
+            "fragChance": 0.03,
             "id": "5d6e68a8a4b9360b6c0d54e2",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1126,6 +1212,7 @@
             "damage": 265,
             "penetration": 2,
             "armorDamage": 11,
+            "fragChance": 1,
             "id": "5c0d591486f7744c505b416f",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1139,6 +1226,7 @@
             "damage": 23,
             "penetration": 3,
             "armorDamage": 13,
+            "fragChance": 0,
             "id": "5d6e69c7a4b9360b6c0d54e4",
             "symbol": {
                 "fill": "yellow",
@@ -1152,6 +1240,7 @@
             "damage": 85,
             "penetration": 17,
             "armorDamage": 65,
+            "fragChance": 0.1,
             "id": "5d6e68dea4b9361bcc29e659",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1165,6 +1254,7 @@
             "damage": 198,
             "penetration": 5,
             "armorDamage": 13,
+            "fragChance": 1,
             "id": "5d6e6a5fa4b93614ec501745",
             "symbol": {
                 "fill": "yellow",
@@ -1178,6 +1268,7 @@
             "damage": 190,
             "penetration": 12,
             "armorDamage": 48,
+            "fragChance": 0.12,
             "id": "5d6e6869a4b9361c140bcfde",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1191,6 +1282,7 @@
             "damage": 58,
             "penetration": 33,
             "armorDamage": 41,
+            "fragChance": 0.2,
             "id": "5cc80f53e4a949000e1ea4f8",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1204,6 +1296,7 @@
             "damage": 74,
             "penetration": 10,
             "armorDamage": 15,
+            "fragChance": 0.8,
             "id": "5cc80f79e4a949033c7343b2",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1217,6 +1310,7 @@
             "damage": 197,
             "penetration": 26,
             "armorDamage": 57,
+            "fragChance": 0.05,
             "id": "5d6e68c4a4b9361b93413f79",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1230,6 +1324,7 @@
             "damage": 62,
             "penetration": 20,
             "armorDamage": 22,
+            "fragChance": 0.5,
             "id": "5cc80f8fe4a949033b0224a2",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1243,6 +1338,7 @@
             "damage": 150,
             "penetration": 20,
             "armorDamage": 50,
+            "fragChance": 0.15,
             "id": "5d6e689ca4b9361bc8618956",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1256,6 +1352,7 @@
             "damage": 140,
             "penetration": 17,
             "armorDamage": 40,
+            "fragChance": 0.2,
             "id": "5d6e6891a4b9361bd473feea",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1269,6 +1366,7 @@
             "damage": 22,
             "penetration": 2,
             "armorDamage": 13,
+            "fragChance": 0,
             "id": "5d6e69b9a4b9361bc8618958",
             "symbol": {
                 "fill": "yellow",
@@ -1282,6 +1380,7 @@
             "damage": 26,
             "penetration": 1,
             "armorDamage": 12,
+            "fragChance": 0,
             "id": "5d6e695fa4b936359b35d852",
             "symbol": {
                 "fill": "yellow",
@@ -1295,6 +1394,7 @@
             "damage": 120,
             "penetration": 14,
             "armorDamage": 35,
+            "fragChance": 0.2,
             "id": "5d6e6a53a4b9361bd473feec",
             "symbol": {
                 "fill": "yellow",
@@ -1308,6 +1408,7 @@
             "damage": 135,
             "penetration": 17,
             "armorDamage": 40,
+            "fragChance": 0.15,
             "id": "5d6e6a42a4b9364f07165f52",
             "symbol": {
                 "fill": "yellow",
@@ -1321,6 +1422,7 @@
             "damage": 49,
             "penetration": 37,
             "armorDamage": 43,
+            "fragChance": 0.2,
             "id": "5cc80f38e4a949001152b560",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1334,6 +1436,7 @@
             "damage": 76,
             "penetration": 25,
             "armorDamage": 36,
+            "fragChance": 0.01,
             "id": "5e81f423763d9f754677bf2e",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1347,6 +1450,7 @@
             "damage": 54,
             "penetration": 35,
             "armorDamage": 37,
+            "fragChance": 0.2,
             "id": "5cc80f67e4a949035e43bbba",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1360,6 +1464,7 @@
             "damage": 88,
             "penetration": 31,
             "armorDamage": 33,
+            "fragChance": 0.25,
             "id": "5e023e53d4353e3302577c4c",
             "symbol": {
                 "fill": "tomato",
@@ -1373,6 +1478,7 @@
             "damage": 60,
             "penetration": 36,
             "armorDamage": 40,
+            "fragChance": 0.2,
             "id": "5e023e6e34d52a55c3304f71",
             "symbol": {
                 "fill": "tomato",
@@ -1386,6 +1492,7 @@
             "damage": 78,
             "penetration": 59,
             "armorDamage": 87,
+            "fragChance": 0.081,
             "id": "5e023d34e8a400319a28ed44",
             "symbol": {
                 "fill": "yellow",
@@ -1399,6 +1506,7 @@
             "damage": 72,
             "penetration": 70,
             "armorDamage": 88,
+            "fragChance": 0.083,
             "id": "5e023d48186a883be655e551",
             "symbol": {
                 "fill": "yellow",
@@ -1412,6 +1520,7 @@
             "damage": 82,
             "penetration": 41,
             "armorDamage": 83,
+            "fragChance": 0.18,
             "id": "5e023cf8186a883be655e54f",
             "symbol": {
                 "fill": "yellow",
@@ -1425,6 +1534,7 @@
             "damage": 80,
             "penetration": 19,
             "armorDamage": 37,
+            "fragChance": 0.01,
             "id": "5efb0d4f4bc50b58e81710f3",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1438,6 +1548,7 @@
             "damage": 90,
             "penetration": 42,
             "armorDamage": 60,
+            "fragChance": 0.01,
             "id": "5f0596629e22f464da6bbdd9",
             "symbol": {
                 "fill": "yellow",
@@ -1451,6 +1562,7 @@
             "damage": 67,
             "penetration": 70,
             "armorDamage": 85,
+            "fragChance": 0.13,
             "id": "5efb0c1bd79ff02a1f5e68d9",
             "symbol": {
                 "fill": "tomato",
@@ -1464,6 +1576,7 @@
             "damage": 52,
             "penetration": 39,
             "armorDamage": 55,
+            "fragChance": 0.05,
             "id": "5efb0da7a29a85116f6ea05f",
             "symbol": {
                 "fill": "tomato",
@@ -1477,6 +1590,7 @@
             "damage": 192,
             "penetration": 39,
             "armorDamage": 75,
+            "fragChance": 0.2,
             "id": "5e85aa1a988a8701445df1f5",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1490,6 +1604,7 @@
             "damage": 87,
             "penetration": 11,
             "armorDamage": 20,
+            "fragChance": 0,
             "id": "5e85a9a6eacf8c039e4e2ac1",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1503,6 +1618,7 @@
             "damage": 78,
             "penetration": 10,
             "armorDamage": 20,
+            "fragChance": 0,
             "id": "5f647f31b6238e5dd066e196",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1516,6 +1632,7 @@
             "damage": 70,
             "penetration": 38,
             "armorDamage": 48,
+            "fragChance": 0.01,
             "id": "5efb0cabfb3e451d70735af5",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1529,6 +1646,7 @@
             "damage": 105,
             "penetration": 13,
             "armorDamage": 30,
+            "fragChance": 0.5,
             "id": "5efb0fc6aeb21837e749c801",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1542,6 +1660,7 @@
             "damage": 137,
             "penetration": 3,
             "armorDamage": 12,
+            "fragChance": 1,
             "id": "5ea2a8e200685063ec28c05a",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1555,6 +1674,7 @@
             "damage": 167,
             "penetration": 15,
             "armorDamage": 55,
+            "fragChance": 0.2,
             "id": "58820d1224597753c90aeb13",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1568,6 +1688,7 @@
             "damage": 206,
             "penetration": 14,
             "armorDamage": 46,
+            "fragChance": 0.38,
             "id": "5d6e68b3a4b9361bca7e50b5",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1581,6 +1702,7 @@
             "damage": 220,
             "penetration": 5,
             "armorDamage": 12,
+            "fragChance": 0.39,
             "id": "5d6e68d1a4b93622fe60e845",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1594,6 +1716,7 @@
             "damage": 98,
             "penetration": 8,
             "armorDamage": 7,
+            "fragChance": 1,
             "id": "5cc86832d7f00c000d3a6e6c",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1607,6 +1730,7 @@
             "damage": 81,
             "penetration": 11,
             "armorDamage": 14,
+            "fragChance": 0.7,
             "id": "5cc86840d7f00c002412c56c",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1620,6 +1744,7 @@
             "damage": 60,
             "penetration": 29,
             "armorDamage": 36,
+            "fragChance": 0.3,
             "id": "5fbe3ffdf8b6a877a729ea82",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1633,6 +1758,7 @@
             "damage": 51,
             "penetration": 45,
             "armorDamage": 65,
+            "fragChance": 0.1,
             "id": "5fd20ff893a8961fc660a954",
             "symbol": {
                 "fill": "rgb(71, 121, 152)",
@@ -1646,6 +1772,7 @@
             "damage": 107,
             "penetration": 15,
             "armorDamage": 20,
+            "fragChance": 0.7,
             "id": "5e023e88277cce2b522ff2b1",
             "symbol": {
                 "fill": "tomato",
@@ -1659,6 +1786,7 @@
             "damage": 115,
             "penetration": 79,
             "armorDamage": 89,
+            "fragChance": 0.13,
             "id": "5fc382a9d724d907e2077dab",
             "symbol": {
                 "fill": "rgb(181, 59, 209)",
@@ -1672,6 +1800,7 @@
             "damage": 122,
             "penetration": 47,
             "armorDamage": 83,
+            "fragChance": 0.2,
             "id": "5fc275cf85fd526b824a571a",
             "symbol": {
                 "fill": "rgb(181, 59, 209)",
@@ -1685,6 +1814,7 @@
             "damage": 142,
             "penetration": 32,
             "armorDamage": 70,
+            "fragChance": 0.6,
             "id": "5fc382c1016cce60e8341b20",
             "symbol": {
                 "fill": "rgb(181, 59, 209)",
@@ -1698,6 +1828,7 @@
             "damage": 196,
             "penetration": 18,
             "armorDamage": 55,
+            "fragChance": 0.5,
             "id": "5fc382b6d6fa9c00c571bbc3",
             "symbol": {
                 "fill": "rgb(181, 59, 209)",
@@ -1711,6 +1842,7 @@
             "damage": 85,
             "penetration": 8,
             "armorDamage": 22,
+            "fragChance": 0.1,
             "id": "5efb0e16aeb21837e749c7ff",
             "symbol": {
                 "fill": "tomato",
@@ -1724,6 +1856,7 @@
             "damage": 67,
             "penetration": 20,
             "armorDamage": 35,
+            "fragChance": 0.15,
             "id": "60194943740c5d77f6705eea",
             "symbol": {
                 "fill": "tomato",
@@ -1737,6 +1870,7 @@
             "damage": 36,
             "penetration": 56,
             "armorDamage": 64,
+            "fragChance": 0.2,
             "id": "601949593ae8f707c4608daa",
             "symbol": {
                 "fill": "tomato",
@@ -1750,10 +1884,81 @@
             "damage": 47,
             "penetration": 58,
             "armorDamage": 76,
+            "fragChance": 0.05,
             "id": "601aa3d2b2bcb34913271e6d",
             "symbol": {
                 "fill": "green",
                 "type": "Plus"
+            }
+        },
+        {
+            "type": "5.45x39 mm",
+            "name": "5.45x39mm 7N40",
+            "shortName": "7N40",
+            "damage": 52,
+            "penetration": 44,
+            "armorDamage": 50,
+            "fragChance": 0.02,
+            "id": "61962b617c6c7b169525f168",
+            "symbol": {
+                "fill": "yellow",
+                "type": "Plus"
+            }
+        },
+        {
+            "type": "9x39 mm",
+            "name": "9x39mm PAB-9 gs",
+            "shortName": "PAB-9",
+            "damage": 62,
+            "penetration": 48,
+            "armorDamage": 72,
+            "fragChance": 0.1,
+            "id": "61962d879bb3d20b0946d385",
+            "symbol": {
+                "fill": "green",
+                "type": "TriangleUp"
+            }
+        },
+        {
+            "type": ".300 Blackout",
+            "name": ".300 Blackout V-Max",
+            "shortName": "V-Max",
+            "damage": 72,
+            "penetration": 20,
+            "armorDamage": 25,
+            "fragChance": 0.25,
+            "id": "6196364158ef8c428c287d9f",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": ".300 Blackout",
+            "name": ".300 Blackout Whisper",
+            "shortName": "Whisper",
+            "damage": 90,
+            "penetration": 14,
+            "armorDamage": 18,
+            "fragChance": 0.35,
+            "id": "6196365d58ef8c428c287da1",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Diamond"
+            }
+        },
+        {
+            "type": ".300 Blackout",
+            "name": ".300 Blackout M62 Tracer",
+            "shortName": "M62",
+            "damage": 54,
+            "penetration": 34,
+            "armorDamage": 40,
+            "fragChance": 0.2,
+            "id": "619636be6db0f2477964e710",
+            "symbol": {
+                "fill": "rgb(71, 121, 152)",
+                "type": "Diamond"
             }
         }
     ]

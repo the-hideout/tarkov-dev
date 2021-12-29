@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Switch from 'react-switch';
 import Select from 'react-select';
-import Slider, {Range} from 'rc-slider';
+import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -82,7 +82,7 @@ function RangeFilter({ label, defaultValue, min, max, marks, onChange, reverse =
             {label}
         </div>
         <Range
-            allowCross = {false}
+            allowCross={false}
             defaultValue={defaultValue}
             min={min}
             max={max}
@@ -97,7 +97,7 @@ function RangeFilter({ label, defaultValue, min, max, marks, onChange, reverse =
             handleStyle={[{
                 backgroundColor: '#048802',
                 borderColor: '#048802',
-            },{
+            }, {
                 backgroundColor: '#048802',
                 borderColor: '#048802',
             }]}
@@ -172,12 +172,26 @@ const selectFilterStyle = {
         ...provided,
         color: '#E5E5E5',
         backgroundColor: "#292626",
+
+
         borderRadius: 0,
+        "&:hover": {
+            backgroundColor: "#9a8866",
+            color: '#292626',
+            fontweight: 700
+        }
     }),
     singleValue: (provided) => ({
         ...provided,
         color: '#c7c5b3',
     }),
+    multiValue: (provided) => ({
+        ...provided,
+        backgroundColor: "#E5E5E5",
+        color: '#E5E5E5',
+
+    }),
+
 };
 
 function SelectFilter({ defaultValue, options, onChange, isMulti = false, label, tooltip, tooltipDisabled, onMenuOpen, onMenuClose, wide, parentRef }) {
