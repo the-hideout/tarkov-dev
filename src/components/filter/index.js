@@ -190,7 +190,6 @@ const selectFilterStyle = {
         backgroundColor: "#E5E5E5",
         color: '#E5E5E5',
 
-
     }),
 
 };
