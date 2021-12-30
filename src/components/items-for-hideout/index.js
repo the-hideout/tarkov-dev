@@ -34,8 +34,19 @@ function ItemsForHideout(props) {
     // Data manipulation section
     const data = useMemo(() => {
         return hideout.reduce((acc, curr) => {
-            acc.push(...curr.itemRequirements.filter(c => c.item.id === itemFilter).map(c => {
-                return { moduleName: curr.name, level: curr.level, ...c };
+            acc.push(...curr.itemRequirements.filter(c => {
+                if(!c){
+                    return false;
+                }
+
+                return c.item.id === itemFilter;
+            })
+            .map(c => {
+                return {
+                    ...c,
+                    moduleName: curr.name,
+                    level: curr.level,
+                };
             }));
 
             return acc;
