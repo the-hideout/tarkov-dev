@@ -20,6 +20,7 @@ import Loading from '../../components/loading';
 import LoyaltyLevelIcon from '../../components/loyalty-level-icon';
 import PropertyList from '../../components/property-list';
 import ItemsForHideout from '../../components/items-for-hideout';
+import PriceGraph from '../../components/price-graph';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
@@ -28,7 +29,6 @@ import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import Quests from '../../Quests';
 
 import './index.css';
-
 
 const CraftsTable = React.lazy(() => import('../../components/crafts-table'));
 
@@ -379,6 +379,18 @@ function Item() {
                         </div>
                     </div> }
                 </div>
+                {!currentItemData.types.includes('noFlea') &&
+                    <div
+                        className='price-history-wrapper'
+                    >
+                        <h2>
+                            Flea price last 7 days
+                        </h2>
+                        <PriceGraph
+                            itemId = {currentItemData.id}
+                        />
+                    </div>
+                }
                 <h2>
                     Stats
                 </h2>

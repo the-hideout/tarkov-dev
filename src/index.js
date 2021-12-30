@@ -6,8 +6,11 @@ import { Integrations } from '@sentry/tracing';
 import store from './store';
 import { Provider } from 'react-redux';
 import {BrowserRouter as Router} from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 import ScrollToTop from './components/scroll-to-top';
+
+const queryClient = new QueryClient()
 
 if(window.location.hostname !== 'localhost' && window.location.protocol !== 'file:'){
     Sentry.init({
@@ -26,7 +29,9 @@ ReactDOM.render((
     >
         <Router>
             <ScrollToTop />
-            <App />
+            <QueryClientProvider client={queryClient}>
+                <App />
+            </QueryClientProvider>
         </Router>
     </Provider>
 ), document.getElementById('root'));
