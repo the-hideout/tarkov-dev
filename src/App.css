@@ -30,20 +30,35 @@ iframe {
 	width: 100%;
 }
 
+input,
+select,
+button {
+    border-radius: 0;
+}
+
+button,
+input[type="submit"] {
+    background-color: #9a8866;
+	border: 0;
+	color: #000;
+    height: 40px;
+    margin-left: auto;
+    padding: 0;
+    width: 28%;
+}
+
 input[type='text'],
 input[type='number'] {
-	border: none;
-	border-radius: 0px;
 	padding: 12px;
 	max-height: 40px;
 
 	border: 2px solid #9a8866;
-	background-color: #292626;
+    background-color: #292626;
 	color: #c7c5b3;
 }
+
 input[type='text']:focus,
 input[type='number']:focus {
-	border-radius: 0;
 	outline: none;
 	border: 2px solid #c7c5b3;
 }
@@ -64,13 +79,6 @@ select {
 a {
 	color: #9a8866;
 	text-decoration: none;
-}
-
-button {
-	background-color: #9a8866;
-	border: 0;
-	border-radius: 4px;
-	color: #000;
 }
 
 cite {

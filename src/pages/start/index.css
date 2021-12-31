@@ -17,20 +17,9 @@
 	max-width: 1200px;
 	width: 100%;
 	padding: 24px 10px;
-	border: 2px solid #9a8866;
-	border-radius: 0;
 
 	/* #1b1919 */
 	font-size: 20px;
-
-	background-color: #292626;
-	color: #c7c5b3;
-}
-
-.start-wrapper input[type='text']:focus {
-	border-radius: 0;
-	outline: none;
-	border: 2px solid #c7c5b3;
 }
 
 .start-section-wrapper {

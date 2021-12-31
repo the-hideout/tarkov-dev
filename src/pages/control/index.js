@@ -14,6 +14,48 @@ const ammoTypes = [...new Set(ammoData.data.map((ammoData) => {
     return ammoData.type
 }))].sort();
 
+const selectFilterStyle = {
+    menu: (provided) => ({
+        ...provided,
+        backgroundColor: '#292626',
+        border: '2px solid #9a8866',
+        borderRadius: 0,
+    }),
+    control: (provided) => ({
+        ...provided,
+        backgroundColor: '#292626',
+        border: '2px solid #9a8866',
+        borderRadius: 0,
+    }),
+    menuList: (provided) => ({
+        ...provided,
+        color: '#E5E5E5',
+        borderRadius: 0,
+    }),
+    option: (provided) => ({
+        ...provided,
+        color: '#E5E5E5',
+        backgroundColor: "#292626",
+
+
+        borderRadius: 0,
+        "&:hover": {
+            backgroundColor: "#9a8866",
+            color: '#292626',
+            fontweight: 700
+        }
+    }),
+    singleValue: (provided) => ({
+        ...provided,
+        color: '#c7c5b3',
+    }),
+    multiValue: (provided) => ({
+        ...provided,
+        backgroundColor: "#E5E5E5",
+        color: '#E5E5E5',
+
+    }),
+};
 
 function Control(props) {
     const dispatch = useDispatch();
@@ -168,6 +210,7 @@ function Control(props) {
                 classNamePrefix = "select"
                 // onMenuClose = {onMenuClose}
                 // onMenuOpen = {onMenuOpen}
+                styles={selectFilterStyle}
         />
         {/* <div
             className = {'control-section'}

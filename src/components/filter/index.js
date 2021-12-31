@@ -191,7 +191,6 @@ const selectFilterStyle = {
         color: '#E5E5E5',
 
     }),
-
 };
 
 function SelectFilter({ defaultValue, options, onChange, isMulti = false, label, tooltip, tooltipDisabled, onMenuOpen, onMenuClose, wide, parentRef }) {

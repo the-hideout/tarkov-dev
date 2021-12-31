@@ -15,7 +15,6 @@
 
 .control-wrapper input,
 .control-wrapper select {
-    border: 0;
     height: 40px;
     width: 100%;
 }
@@ -27,14 +26,6 @@
 
 .control-section select {
     width: 70%;
-}
-
-.control-section button {
-    border: 0;
-    height: 40px;
-    margin-left: auto;
-    padding: 0;
-    width: 28%;
 }
 
 .control-section .full-width {
@@ -57,15 +48,10 @@
 
 .connection-wrapper input,
 .connection-wrapper select {
-    border: 0;
     height: 40px;
     text-overflow: ellipsis;
     text-transform: uppercase;
     width: calc(50% - 2px);
-}
-
-.connection-wrapper input[type="submit"] {
-    border-radius: 4px;
 }
 
 .connection-wrapper input[type="submit"]:active {
