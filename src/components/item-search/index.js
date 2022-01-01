@@ -15,7 +15,7 @@ import './index.css';
 
 function ItemSearch({defaultValue, onChange, placeholder, autoFocus, showDropdown}) {
     const items = useSelector(selectAllItems);
-    const [nameFilter, setNameFilter] = useState('');
+    const [nameFilter, setNameFilter] = useState(defaultValue || '');
     const [cursor, setCursor] = useState(0);
     const downPress = useKeyPress('ArrowDown');
     const upPress = useKeyPress('ArrowUp');
@@ -115,7 +115,7 @@ function ItemSearch({defaultValue, onChange, placeholder, autoFocus, showDropdow
     >
         <input
             type="text"
-            defaultValue = {defaultValue || nameFilter}
+            // defaultValue = {defaultValue || nameFilter}
             onChange = {handleNameFilterChange}
             placeholder = {placeholder}
             value={nameFilter}
