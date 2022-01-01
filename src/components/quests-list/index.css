@@ -36,6 +36,8 @@
     padding: 5px 15px;
 }
 
-.quest-list td:first-child {
+.quest-list-extra-row {
+    height: 69px;
+    text-align: center;
 }
 

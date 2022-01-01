@@ -50,6 +50,11 @@
     border: 1px solid #4a5154;
 }
 
+.hideout-item-list-extra-row {
+    height: 69px;
+    text-align: center;
+}
+
 .amount-wrapper {
     color: #636363;
 }

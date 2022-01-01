@@ -55,10 +55,16 @@ function ItemsForHideout(props) {
 
     // Visual rendering section
 
-    if (data.length <= 0) {
-        return <div>
-            {t('None')}
-        </div>
+    // if (data.length <= 0) {
+    //     return <div>
+    //         {t('None')}
+    //     </div>
+    // }
+
+    let extraRow = false;
+
+    if(data.length <= 0){
+        extraRow = t('No hideout modules requires this item');
     }
 
     return (
@@ -73,6 +79,16 @@ function ItemsForHideout(props) {
                     </tr>
                 </thead>
                 <tbody>
+                    {extraRow && <tr
+                        className="hideout-item-list-row hideout-item-list-extra-row"
+                    >
+                        <td
+                            colSpan={2}
+                            className="hideout-item-list-column"
+                        >
+                            {extraRow}
+                        </td>
+                    </tr>}
                     {data.map((item, k) => {
                         return (<tr key={k} className="hideout-item-list-row">
                             <td
@@ -97,7 +113,6 @@ function ItemsForHideout(props) {
                                 </div>
                             </td>
                             <td className="hideout-item-list-column">
-
                                 <div className="hideout-item-wrapper">
                                     <div
                                         className='hideout-item-image-wrapper'

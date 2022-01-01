@@ -4,10 +4,10 @@ import QuestItemsCell from '../quest-items-cell';
 import './index.css';
 
 const getQuestList = (questList, t) => {
-    if(questList.length === 0){
-        return <div>
-            {t('None')}
-        </div>
+    let extraRow = false;
+
+    if(questList.length <= 0){
+        extraRow = t('No quest requires this item');
     }
 
     return (
@@ -20,6 +20,15 @@ const getQuestList = (questList, t) => {
                     </tr>
                 </thead>
                 <tbody>
+                    {extraRow && <tr
+                        className='quest-list-extra-row'
+                    >
+                        <td
+                            colSpan={2}
+                        >
+                            {extraRow}
+                        </td>
+                    </tr>}
                     {questList.map((questData) => {
                         return <tr
                             key = {`quest-list-${questData.name}`}
