@@ -10,6 +10,7 @@ import ItemGrid from '../../components/item-grid';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import { Filter, ToggleFilter, SelectFilter, InputFilter } from '../../components/filter';
+import capitalizeFirst from '../../modules/capitalize-first';
 
 const defaultGroupNames = [
     'S',
@@ -319,9 +320,6 @@ function LootTier(props) {
         }
     }, [filters, setFilters]);
 
-
-
-
     return [
         <Helmet
             key = {'loot-tier-helmet'}
@@ -375,7 +373,7 @@ function LootTier(props) {
             {itemChunks.map((items, index) =>
                 <ItemGrid
                     key = {`barter-group-${groupNames[index]}`}
-                    name = {groupNames[index]}
+                    name = {capitalizeFirst(groupNames[index])}
                     items = {items}
                 />
             )}
