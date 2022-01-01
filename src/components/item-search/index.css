@@ -1,0 +1,33 @@
+.item-search {
+    position: relative;
+}
+
+.item-search input[type="text"] {
+	font-size: 20px;
+	margin-bottom: 20px;
+	max-width: 1200px;
+	padding: 24px 10px;
+	width: 100%;
+}
+
+.item-list-wrapper {
+    background-color: #1b1919;
+    position: absolute;
+    top: 56px;
+    width: 100%;
+}
+
+.search-result-wrapper {
+    align-items: center;
+    display: flex;
+    padding: 5px 10px;
+}
+
+.search-result-wrapper.active {
+    background-color: #fff;
+}
+
+.search-result-wrapper img {
+    margin-right: 10px;
+    max-width: 32px;
+}

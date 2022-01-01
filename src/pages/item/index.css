@@ -1,6 +1,7 @@
 .item-page-wrapper {
     margin: 0 auto 100px auto;
     max-width: 1200px;
+    padding-top: 10px;
     position: relative;
 }
 
@@ -53,7 +54,7 @@
 
 .information-grid h1,
 .icon-and-link-wrapper {
-    margin: 20px 0 0 0;
+    margin: 10px 0 0 0;
 }
 
 .tooltip-calculation {
@@ -128,6 +129,10 @@
 }
 
 @media screen and (min-width: 900px) {
+    .item-page-wrapper {
+        padding-top: 20px;
+    }
+
     .text-and-image-information-wrapper.price-info-wrapper {
         flex-basis: auto;
         flex-grow: 1;
@@ -135,6 +140,11 @@
 
     .icon-and-link-wrapper img {
         max-height: 200px;
+    }
+
+    .information-grid h1,
+    .icon-and-link-wrapper {
+        margin: 20px 0 0 0;
     }
 
     .trader-wrapper {

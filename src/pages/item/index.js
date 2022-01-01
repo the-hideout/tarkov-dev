@@ -21,6 +21,7 @@ import LoyaltyLevelIcon from '../../components/loyalty-level-icon';
 import PropertyList from '../../components/property-list';
 import ItemsForHideout from '../../components/items-for-hideout';
 import PriceGraph from '../../components/price-graph';
+import ItemSearch from '../../components/item-search';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
@@ -163,6 +164,10 @@ function Item() {
             <div
                 className = {'item-page-wrapper'}
             >
+                <ItemSearch
+                    placeholder={'Search item'}
+                    showDropdown
+                />
                 <div
                     className = 'information-grid'
                 >

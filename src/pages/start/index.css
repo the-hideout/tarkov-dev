@@ -12,16 +12,6 @@
 	list-style: none;
 }
 
-.start-wrapper input[type='text'] {
-	margin-bottom: 20px;
-	max-width: 1200px;
-	width: 100%;
-	padding: 24px 10px;
-
-	/* #1b1919 */
-	font-size: 20px;
-}
-
 .start-section-wrapper {
 	background-color: #292626;
 	border: 4px solid #1b1919;

@@ -7,6 +7,7 @@ import {
 import QueueBrowserTask from '../../modules/queue-browser-task';
 import mapData from '../../data/maps.json';
 import SmallItemTable from '../../components/small-item-table';
+import ItemSearch from '../../components/item-search';
 
 import Icon from '@mdi/react'
 import {
@@ -38,14 +39,12 @@ function Start(props) {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
 
-    const handleNameFilterChange = useCallback((e) => {
+    const handleNameFilterChange = useCallback((value) => {
         if (typeof window !== 'undefined') {
-            const name = e.target.value.toLowerCase();
-
             // schedule this for the next loop so that the UI
             // has time to update but we do the filtering as soon as possible
             QueueBrowserTask.task(() => {
-                setNameFilter(name);
+                setNameFilter(value);
             });
         }
     }, [setNameFilter]);
@@ -73,8 +72,7 @@ function Start(props) {
                 {/* <h3>
                     Items
                 </h3> */}
-                <input
-                    type="text"
+                <ItemSearch
                     defaultValue = {nameFilter}
                     onChange = {handleNameFilterChange}
                     placeholder = 'Search...'
