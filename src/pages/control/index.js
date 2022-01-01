@@ -146,6 +146,9 @@ function Control(props) {
         className="control-wrapper"
         key = ''
     >
+        <h1>
+            Remote Control
+        </h1>
         <div
             className = {'control-section'}
         >
