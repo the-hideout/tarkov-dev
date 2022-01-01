@@ -1,12 +1,13 @@
 
 .filter-wrapper {
+    left: 0;
     line-height: 24px;
     max-height: 0px;
     overflow: hidden;
     padding: 0;
     position: fixed;
+    right: 0;
     top: 0;
-    left: 0;
     transition: max-height 0.3s ease;
     z-index: 1;
     /* border-bottom: 2px solid #000;
