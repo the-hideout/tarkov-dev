@@ -165,7 +165,6 @@ function Item() {
                 className = {'item-page-wrapper'}
             >
                 <ItemSearch
-                    placeholder={'Search item'}
                     showDropdown
                 />
                 <div

@@ -73,9 +73,7 @@ function Start(props) {
                     Items
                 </h3> */}
                 <ItemSearch
-                    defaultValue = {nameFilter}
                     onChange = {handleNameFilterChange}
-                    placeholder = 'Search...'
                     autoFocus = {true}
                 />
                 <SmallItemTable

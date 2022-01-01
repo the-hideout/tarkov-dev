@@ -3,8 +3,6 @@ import {
 } from 'react-router-dom';
 import {Helmet} from 'react-helmet';
 
-import './index.css';
-
 import Icon from '@mdi/react'
 import {
     mdiHanger,
@@ -23,6 +21,10 @@ import {
     mdiFoodForkDrink,
     mdiHandPointingLeft,
 } from '@mdi/js';
+
+import ItemSearch from '../../components/item-search';
+
+import './index.css';
 
 function Guides(props) {
     return [
@@ -54,6 +56,9 @@ function Guides(props) {
                 />
                 Escape from Tarkov Items
             </h1>
+            <ItemSearch
+                showDropdown
+            />
             <div
                 className = 'guides-list-wrapper'
             >

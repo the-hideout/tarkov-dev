@@ -13,7 +13,7 @@ import useKeyPress from '../../hooks/useKeyPress';
 
 import './index.css';
 
-function ItemSearch({defaultValue, onChange, placeholder, autoFocus, showDropdown}) {
+function ItemSearch({defaultValue, onChange, placeholder = 'Search item...', autoFocus, showDropdown}) {
     const items = useSelector(selectAllItems);
     const [nameFilter, setNameFilter] = useState(defaultValue || '');
     const [cursor, setCursor] = useState(0);
