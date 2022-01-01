@@ -22,6 +22,11 @@ function PriceGraph({itemId}) {
             })
             .then(response => response.json() )
     );
+    let height = VictoryTheme.material.height;
+
+    if(window.innerWidth < 760){
+        height = 1280;
+    }
 
     const dataQuery = JSON.stringify({query: `{
         historicalItemPrices(id:"${itemId}"){
@@ -49,6 +54,7 @@ function PriceGraph({itemId}) {
     })
 
     return <VictoryChart
+        height = {height}
         width = {1280}
         padding = {{top: 20, left: 15, right: -100, bottom: 30}}
         minDomain={{y: 0}}
