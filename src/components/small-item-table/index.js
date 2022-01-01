@@ -11,7 +11,7 @@ import {
 } from '@mdi/js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-import Fuse from 'fuse.js'
+import Fuse from 'fuse.js';
 
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
