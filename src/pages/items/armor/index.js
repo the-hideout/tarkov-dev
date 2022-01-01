@@ -271,6 +271,13 @@ function Armor(props) {
         className="display-wrapper"
         key = {'display-wrapper'}
     >
+        <div
+            className = 'data-table-filters-wrapper'
+        >
+            <h1>
+                Escape from Tarkov armors
+            </h1>
+        </div>
         <Filter
             center
         >

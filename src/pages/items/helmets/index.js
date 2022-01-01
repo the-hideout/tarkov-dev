@@ -320,6 +320,13 @@ function Helmets(props) {
         className="display-wrapper"
         key = {'display-wrapper'}
     >
+        <div
+            className = 'data-table-filters-wrapper'
+        >
+            <h1>
+                Escape from Tarkov helmets
+            </h1>
+        </div>
         <Filter
             center
         >
