@@ -321,36 +321,37 @@ function Helmets(props) {
         key = {'display-wrapper'}
     >
         <div
-            className = 'data-table-filters-wrapper'
+            className='page-headline-wrapper'
         >
             <h1>
                 Escape from Tarkov helmets
             </h1>
+            <Filter
+                center
+            >
+                    <ToggleFilter
+                        label = 'Show blocking headset'
+                        onChange = {e => setIncludeBlockingHeadset(!includeBlockingHeadset)}
+                        checked = {includeBlockingHeadset}
+                    />
+                    <SliderFilter
+                        defaultValue = {minArmorClass}
+                        label = 'Min armor class'
+                        min = {1}
+                        max = {6}
+                        marks = {marks}
+                        reverse
+                        onChange = {handleArmorClassChange}
+                    />
+                    <InputFilter
+                        defaultValue = {maxPrice || ''}
+                        label = 'Max price'
+                        onChange = {e => setMaxPrice(Number(e.target.value))}
+                        placeholder = {'max price'}
+                        type='number'
+                    />
+            </Filter>
         </div>
-        <Filter
-            center
-        >
-                <ToggleFilter
-                    label = 'Show blockin headset'
-                    onChange = {e => setIncludeBlockingHeadset(!includeBlockingHeadset)}
-                    checked = {includeBlockingHeadset}
-                />
-                <SliderFilter
-                    defaultValue = {minArmorClass}
-                    label = 'Min armor class'
-                    min = {1}
-                    max = {6}
-                    marks = {marks}
-                    reverse
-                    onChange = {handleArmorClassChange}
-                />
-                <InputFilter
-                    label = 'Max price'
-                    defaultValue = {maxPrice || ''}
-                    placeholder = {'max price'}
-                    onChange = {e => setMaxPrice(Number(e.target.value))}
-                />
-        </Filter>
         <DataTable
             columns={columns}
             data={data}

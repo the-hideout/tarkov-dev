@@ -361,6 +361,7 @@ function LootTier(props) {
                 <InputFilter
                     defaultValue = {minPrice || ''}
                     placeholder = {'min value'}
+                    type = {'number'}
                     onChange = {minPriceHandler}
                 />
                 <InputFilter

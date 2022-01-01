@@ -243,9 +243,9 @@ function InputFilter({ defaultValue, type = 'text', placeholder, onChange, label
             {label}
         </span>
         <input
-            className='filter-input'
+            className={`filter-input ${type}`}
             defaultValue={defaultValue}
-            type={type}
+            type={'text'}
             placeholder={placeholder}
             onChange={onChange}
         />

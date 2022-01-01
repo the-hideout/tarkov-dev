@@ -215,42 +215,42 @@ function PistolGrips(props) {
         key = {'display-wrapper'}
     >
         <div
-            className = 'data-table-filters-wrapper'
+            className='page-headline-wrapper'
         >
             <h1>
                 Escape from Tarkov Pistol Grips
             </h1>
-        </div>
-        <Filter
-            center
-        >
-            <SelectFilter
-                label = 'Filter by gun'
-                options = {activeGuns.map((activeGun) => {
-                    return {
-                        label: activeGun.name,
-                        value: activeGun.id,
-                    };
-                })}
-                onChange = {(event) => {
-                    if(!event){
-                        return true;
-                    }
+            <Filter
+                center
+            >
+                <SelectFilter
+                    label = 'Filter by gun'
+                    options = {activeGuns.map((activeGun) => {
+                        return {
+                            label: activeGun.name,
+                            value: activeGun.id,
+                        };
+                    })}
+                    onChange = {(event) => {
+                        if(!event){
+                            return true;
+                        }
 
-                    setSelectedGun(activeGuns.find(activeGun => activeGun.id === event.value))
-                }}
-                parentRef = {selectInputRef}
-                wide
-            />
-            {selectedGun && <img
-                alt = {`${selectedGun.name}-icon`}
-                onClick = {() => {
-                    selectInputRef.current?.clearValue();
-                    setSelectedGun(false);
-                }}
-                src = {selectedGun.iconLink}
-            />}
-        </Filter>
+                        setSelectedGun(activeGuns.find(activeGun => activeGun.id === event.value))
+                    }}
+                    parentRef = {selectInputRef}
+                    wide
+                />
+                {selectedGun && <img
+                    alt = {`${selectedGun.name}-icon`}
+                    onClick = {() => {
+                        selectInputRef.current?.clearValue();
+                        setSelectedGun(false);
+                    }}
+                    src = {selectedGun.iconLink}
+                />}
+            </Filter>
+        </div>
         <ItemsTable
             columns = {columns}
             items = {displayItems}

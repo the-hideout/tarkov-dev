@@ -272,35 +272,36 @@ function Armor(props) {
         key = {'display-wrapper'}
     >
         <div
-            className = 'data-table-filters-wrapper'
+            className='page-headline-wrapper'
         >
             <h1>
                 Escape from Tarkov armors
             </h1>
+            <Filter
+                center
+            >
+                <ToggleFilter
+                    label = 'Include rigs'
+                    onChange = {e => setIncludeRigs(!includeRigs)}
+                    checked = {includeRigs}
+                />
+                <RangeFilter
+                    defaultValue = {[minArmorClass, maxArmorClass]}
+                    label = 'Min armor class'
+                    min = {1}
+                    max = {6}
+                    marks = {marks}
+                    onChange = {handleArmorClassChange}
+                />
+                <InputFilter
+                    defaultValue = {maxPrice || ''}
+                    label = 'Max price'
+                    onChange = {e => setMaxPrice(Number(e.target.value))}
+                    placeholder = {'max price'}
+                    type='number'
+                />
+            </Filter>
         </div>
-        <Filter
-            center
-        >
-            <ToggleFilter
-                label = 'Include rigs'
-                onChange = {e => setIncludeRigs(!includeRigs)}
-                checked = {includeRigs}
-            />
-            <RangeFilter
-                defaultValue = {[minArmorClass, maxArmorClass]}
-                label = 'Min armor class'
-                min = {1}
-                max = {6}
-                marks = {marks}
-                onChange = {handleArmorClassChange}
-            />
-            <InputFilter
-                defaultValue = {maxPrice || ''}
-                label = 'Max price'
-                placeholder = {'max price'}
-                onChange = {e => setMaxPrice(Number(e.target.value))}
-            />
-        </Filter>
         <DataTable
             columns = {columns}
             data = {data}

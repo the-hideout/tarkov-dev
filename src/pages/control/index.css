@@ -32,6 +32,11 @@
     width: 100%;
 }
 
+.control-section button {
+    margin-left: auto;
+    width: 28%;
+}
+
 .info-wrapper {
     margin-top: auto;
     padding: 20px;

@@ -40,21 +40,21 @@ function Provisions() {
             key = {'display-wrapper'}
         >
             <div
-                className = 'data-table-filters-wrapper'
+                className='page-headline-wrapper'
             >
                 <h1>
                     Escape from Tarkov Provisions
                 </h1>
+                <Filter
+                    center
+                >
+                    <InputFilter
+                        defaultValue = {nameFilter}
+                        onChange = {handleNameFilterChange}
+                        placeholder = 'Search...'
+                    />
+                </Filter>
             </div>
-            <Filter
-                center
-            >
-                <InputFilter
-                    defaultValue = {nameFilter}
-                    onChange = {handleNameFilterChange}
-                    placeholder = 'Search...'
-                />
-            </Filter>
 
             <SmallItemTable
                 nameFilter = {nameFilter}

@@ -108,8 +108,8 @@
 .button-group-wrapper {
     border: 1px solid #1b1919;
     display: flex;
-    flex-flow: wrap;
-    margin-right: 10px;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .button-group-button {
@@ -117,7 +117,7 @@
     background-color: #292626;
     color: #c7c5b3;
     height: 40px;
-    width: 50px;
+    width: 40px;
     outline: none;
 }
 
@@ -142,6 +142,12 @@
 }
 
 @media screen and (min-width: 710px){
+    .button-group-wrapper {
+        margin-right: 10px;
+        gap: 10px;
+        width: auto;
+    }
+
     .filter-content-wrapper {
         background: none;
     }

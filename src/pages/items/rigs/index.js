@@ -222,40 +222,40 @@ function Backpacks(props) {
         key = {'display-wrapper'}
     >
         <div
-            className = 'data-table-filters-wrapper'
+            className='page-headline-wrapper'
         >
             <h1>
                 Escape from Tarkov rigs table
             </h1>
+            <Filter
+                center
+            >
+                <ToggleFilter
+                    label = 'Armored rigs?'
+                    onChange = {e => setIncludeArmoredRigs(!includeArmoredRigs)}
+                    checked = {includeArmoredRigs}
+                />
+                <SliderFilter
+                    defaultValue = {25 - minSlots}
+                    label = 'Min. slots'
+                    min = {0}
+                    max = {25}
+                    marks = {marks}
+                    reverse
+                    onChange = {handleMinSlotsChange}
+                />
+                <ToggleFilter
+                    label = '3-slot'
+                    onChange = {e => setHas3Slot(!has3Slot)}
+                    checked = {has3Slot}
+                />
+                <ToggleFilter
+                    label = '4-slot'
+                    onChange = {e => setHas4Slot(!has4Slot)}
+                    checked = {has4Slot}
+                />
+            </Filter>
         </div>
-        <Filter
-            center
-        >
-            <ToggleFilter
-                label = 'Armored rigs?'
-                onChange = {e => setIncludeArmoredRigs(!includeArmoredRigs)}
-                checked = {includeArmoredRigs}
-            />
-            <SliderFilter
-                defaultValue = {25 - minSlots}
-                label = 'Min. slots'
-                min = {0}
-                max = {25}
-                marks = {marks}
-                reverse
-                onChange = {handleMinSlotsChange}
-            />
-            <ToggleFilter
-                label = '3-slot'
-                onChange = {e => setHas3Slot(!has3Slot)}
-                checked = {has3Slot}
-            />
-            <ToggleFilter
-                label = '4-slot'
-                onChange = {e => setHas4Slot(!has4Slot)}
-                checked = {has4Slot}
-            />
-        </Filter>
         <DataTable
             columns={columns}
             data={data}

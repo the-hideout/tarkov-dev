@@ -42,9 +42,7 @@ input[type="submit"] {
 	border: 0;
 	color: #000;
     height: 40px;
-    margin-left: auto;
     padding: 0;
-    width: 28%;
 }
 
 input[type='text'],
@@ -63,7 +61,7 @@ input[type='number']:focus {
 	border: 2px solid #c7c5b3;
 }
 
-input[type='number'] {
+input[type="text"].number {
 	width: 80px;
 }
 
@@ -255,6 +253,20 @@ cite {
 	font-size: 14px;
 }
 
+.page-headline-wrapper {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    white-space: nowrap;
+}
+
+.page-headline-wrapper h1 {
+    flex-grow: 1;
+    text-align: center;
+    white-space: initial;
+}
+
 @media screen and (min-width: 710px) {
 	.id-wrapper {
 		display: block;
@@ -263,6 +275,11 @@ cite {
 	.control-wrapper {
 		display: none;
 	}
+
+    .page-headline-wrapper h1 {
+        flex-grow: 1;
+        text-align: left;
+    }
 }
 
 @media screen and (min-width: 1200px) {

@@ -180,7 +180,7 @@ function Backpacks(props) {
         key = {'display-wrapper'}
     >
         <div
-            className = 'data-table-filters-wrapper'
+            className='page-headline-wrapper'
         >
             <h1>
                 Escape from Tarkov backpacks chart
