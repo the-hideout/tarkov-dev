@@ -7,6 +7,7 @@ import Icon from '@mdi/react';
 import {
     mdiCogOutline,
     mdiRemote,
+    mdiHeartFlash,
 } from '@mdi/js';
 
 import MenuItem from './MenuItem';
@@ -65,9 +66,10 @@ const Menu = () => {
             </Link>
             <PatreonButton
                 onlyLarge
-                text = 'Support on Patreon'
                 wrapperStyle = {{
-                    margin: '0',
+                    position: 'relative',
+                    margin: 0,
+                    bottom: 9,
                 }}
                 linkStyle = {{
                     borderRadius: '5px',
@@ -75,7 +77,14 @@ const Menu = () => {
                     padding: '5px 20px',
                     margin: '0 20px 0 0 ',
                 }}
-            />
+            >
+                Support on Patreon
+                <Icon
+                    path={mdiHeartFlash}
+                    size={1}
+                    className = 'icon-with-text'
+                />
+            </PatreonButton>
             <MenuIcon
                 onClick = {handleMenuClick}
             />
