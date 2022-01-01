@@ -120,7 +120,8 @@ const getMarkerLine = (xMax, xTarget, label) => {
             <VictoryLabel
                 textAnchor = 'middle'
                 verticalAnchor = 'middle'
-                dx = {xMax / 2}
+                dx = {xMax - 40}
+                dy = {-3}
             />
         }
         x={() => xTarget}
