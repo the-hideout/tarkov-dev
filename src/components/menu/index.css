@@ -189,11 +189,11 @@ li.desktop-settings-link {
     }
 
     .mobile-icon,
-    .mobile-settings-link {
+    .mobile-only-link {
         display: none;
     }
 
-    li.desktop-settings-link {
+    li.desktop-only-link {
         display: block;
     }
 

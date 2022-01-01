@@ -40,8 +40,20 @@ const Menu = () => {
                 Tarkov Tools
             </Link>
             <Link
+                aria-label="Remote control"
+                className = 'mobile-only-link'
+                to = '/control/'
+                onClick = {setIsOpen.bind(this, false)}
+            >
+                <Icon
+                    path={mdiRemote}
+                    size={1}
+                    className = 'icon-with-text'
+                />
+            </Link>
+            <Link
                 aria-label="Settings"
-                className = 'mobile-settings-link'
+                className = 'mobile-only-link'
                 to = '/settings/'
                 onClick = {setIsOpen.bind(this, false)}
             >
@@ -233,7 +245,7 @@ const Menu = () => {
                     </Link>
                 </li>
                 <li
-                    className = "submenu-wrapper"
+                    className = "submenu-wrapper desktop-only-link"
                 >
                     <Link
                         aria-label="Remote control"
@@ -248,7 +260,7 @@ const Menu = () => {
                     </Link>
                 </li>
                 <li
-                    className = "submenu-wrapper desktop-settings-link"
+                    className = "submenu-wrapper desktop-only-link"
                 >
                     <Link
                         aria-label="Settings"
