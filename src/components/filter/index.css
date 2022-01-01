@@ -151,7 +151,7 @@
     }
 
     .filter-wrapper {
-        max-height: inherit;
+        transform: scaleY(1);
         overflow: initial;
         position: static;
     }
