@@ -4,7 +4,10 @@ import {
 } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
-import {mdiCogOutline} from '@mdi/js';
+import {
+    mdiCogOutline,
+    mdiRemote,
+} from '@mdi/js';
 
 import MenuItem from './MenuItem';
 import MenuIcon from './MenuIcon.jsx';
@@ -208,16 +211,7 @@ const Menu = () => {
                         {t('Loot tiers')}
                     </Link>
                 </li>
-                <li
-                    className = "submenu-wrapper"
-                >
-                    <Link
-                        to = '/control/'
-                        onClick = {setIsOpen.bind(this, false)}
-                    >
-                        {t('Remote')}
-                    </Link>
-                </li>
+
                 <li
                     className = "submenu-wrapper"
                 >
@@ -236,6 +230,21 @@ const Menu = () => {
                         onClick = {setIsOpen.bind(this, false)}
                     >
                         {t('Hideout profit')}
+                    </Link>
+                </li>
+                <li
+                    className = "submenu-wrapper"
+                >
+                    <Link
+                        aria-label="Remote control"
+                        to = '/control/'
+                        onClick = {setIsOpen.bind(this, false)}
+                    >
+                        <Icon
+                            path={mdiRemote}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
                     </Link>
                 </li>
                 <li
