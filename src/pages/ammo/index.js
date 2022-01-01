@@ -111,7 +111,13 @@ function Ammo() {
         const returnData = formattedData.filter(ammo =>
             !selectedLegendName || selectedLegendName.length === 0 || selectedLegendName.includes(ammo.type)
         ).map((ammo) => {
-            ammo.chartName = ammo.name;
+            ammo.chartName = ammo.name
+                .replace(ammo.type, '')
+                .replace(ammo.type.replace(' mm', 'mm'), '')
+                .replace('20/70', '')
+                .replace('12/70', '')
+                .trim();
+
             ammo = {
                 ...ammo,
                 ...items.find(item => ammo.id === item.id),
