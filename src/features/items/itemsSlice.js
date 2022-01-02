@@ -46,20 +46,20 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
                     source
                     price
                     requirements {
-                      type
-                      value
+                        type
+                        value
                     }
                     currency
-                  }
-                  buyFor {
+                }
+                buyFor {
                     source
                     price
                     currency
                     requirements {
-                      type
-                      value
+                        type
+                        value
                     }
-                  }
+                }
             }
         }`
     });
