@@ -233,7 +233,7 @@ function Item() {
                                 </div>}
                             >
                                 <div
-                                    className = {`text-and-image-information-wrapper ${traderIsBest ? '' : 'best-profit'}`}
+                                    className = {`text-and-image-information-wrapper flea-wrapper ${traderIsBest ? '' : 'best-profit'}`}
                                 >
                                     <img
                                         alt = 'Flea market'

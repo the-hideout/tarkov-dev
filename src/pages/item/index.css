@@ -104,16 +104,16 @@
     color: #c7c5b3;
 }
 
-.best-profit {
+.flea-wrapper {
     display: block;
 }
 
-.best-profit img {
+.flea-wrapper img {
     height: 86px;
     width: 86px;
 }
 
-.best-profit .price-wrapper {
+.flea-wrapper .price-wrapper {
     text-align: center;
 }
 
@@ -146,7 +146,7 @@
     justify-content: space-between;
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 700px) {
     .item-page-wrapper {
         padding-top: 20px;
     }
