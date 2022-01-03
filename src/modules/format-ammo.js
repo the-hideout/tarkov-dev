@@ -17,16 +17,10 @@ const caliberMap = {
     'Caliber9x19PARA': '9x19 mm',
     'Caliber9x21': '9x21 mm',
     'Caliber9x39': '9x39 mm',
+    'Caliber20g': '20 Gauge',
+    'Caliber12g': '12 Gauge Shot'
 };
 
 module.exports = (caliber) => {
-    if (caliber === 'Caliber12g'){
-        return '12 Gauge Shot';
-    }
-
-    if(caliber === 'Caliber20g'){
-        return '20 Gauge';
-    }
-
-    return caliberMap[caliber] || caliber.replace('Caliber', '');
+    return caliberMap[caliber] ?? caliber.replace('Caliber', '');
 };
