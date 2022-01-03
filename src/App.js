@@ -55,6 +55,8 @@ import Provisions from './pages/items/provisions';
 import Rigs from './pages/items/rigs';
 import Suppressors from './pages/items/suppressors';
 
+import Prapor from './pages/traders/prapor';
+
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
 // import APIDocs from './pages/api-docs';
 
@@ -569,6 +571,21 @@ return (
                     <Provisions
                         sessionID = {sessionID}
                         key = 'provisions-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/traders/prapor'}
+                element = {[
+                    <Prapor
+                        sessionID = {sessionID}
+                        key = 'prapor-wrapper'
                     />,
                     <ID
                         key = 'connection-wrapper'

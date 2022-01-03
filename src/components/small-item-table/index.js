@@ -49,7 +49,17 @@ function shuffleArray(array) {
 }
 
 function SmallItemTable(props) {
-    const {maxItems, nameFilter, defaultRandom, typeFilter, instaProfit, traderPrice} = props;
+    const {
+        maxItems,
+        nameFilter,
+        defaultRandom,
+        typeFilter,
+        instaProfit,
+        traderPrice,
+        traderFilter,
+        loyaltyLevelFilter,
+        traderValue,
+    } = props;
     const dispatch = useDispatch();
     const items = useSelector(selectAllItems);
     const itemStatus = useSelector((state) => {
@@ -113,13 +123,28 @@ function SmallItemTable(props) {
             returnData = returnData.filter(item => item.types.includes(typeFilter));
         }
 
+        if(traderFilter){
+            returnData = returnData.filter(item => {
+                item.buyFor = item.buyFor.filter(buy => buy.source === traderFilter);
+
+                if(!loyaltyLevelFilter){
+                    return item.buyFor[0];
+                }
+
+                if(!item.buyFor[0]){
+                    return false;
+                }
+
+                return item.buyFor[0].requirements[0].value === loyaltyLevelFilter;
+            });
+        }
         if(defaultRandom && !nameFilter){
             shuffleArray(returnData);
         }
 
         return returnData;
     },
-        [nameFilter, defaultRandom, items, typeFilter]
+        [nameFilter, defaultRandom, items, typeFilter, traderFilter, loyaltyLevelFilter]
     );
 
     const columns = useMemo(
@@ -153,12 +178,6 @@ function SmallItemTable(props) {
                             </div>
                         </div>
                     },
-                },
-                {
-                    Header: t('Trader sell'),
-                    accessor: d => Number(d.traderPrice),
-                    Cell: traderSellCell,
-                    id: 'traderPrice',
                 },
                 {
                     Header: t('Flea'),
@@ -209,6 +228,15 @@ function SmallItemTable(props) {
                 },
             ];
 
+            if(traderValue){
+                useColumns.splice(1, 0, {
+                    Header: t('Trader sell'),
+                    accessor: d => Number(d.traderPrice),
+                    Cell: traderSellCell,
+                    id: 'traderPrice',
+                });
+            }
+
             if(instaProfit){
                 useColumns.push({
                     Header: t('InstaProfit'),
@@ -249,7 +277,7 @@ function SmallItemTable(props) {
 
             return useColumns;
         },
-        [t, instaProfit, traderPrice]
+        [t, instaProfit, traderPrice, traderValue]
     );
 
     if(data.length <= 0){

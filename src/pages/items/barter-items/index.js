@@ -59,6 +59,7 @@ function BarterItems() {
             <SmallItemTable
                 nameFilter = {nameFilter}
                 typeFilter = 'barter'
+                traderValue
             />
         </div>,
     ];
