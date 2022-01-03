@@ -122,7 +122,7 @@ function Ammo() {
                 ...ammo,
                 ...items.find(item => ammo.id === item.id),
             };
-            ammo.fragChance = `${ammo.fragChance * 100}%`;
+            ammo.fragChance = `${Math.floor(ammo.fragChance * 100)}%`;
             ammo.trader = ammo.buyFor?.map((buyFor) => {
                 if(buyFor.source === 'flea-market'){
                     return false;
