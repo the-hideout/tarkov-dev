@@ -11,13 +11,13 @@ import {
 } from '@mdi/js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-import Fuse from 'fuse.js';
 
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import ValueCell from '../value-cell';
 import TraderPriceCell from '../trader-price-cell';
+import itemSearch from '../../modules/item-search';
 
 import './index.css';
 
@@ -106,16 +106,7 @@ function SmallItemTable(props) {
         });
 
         if(nameFilter){
-            const options = {
-                includeScore: true,
-                keys: ['name'],
-                distance: 1000,
-            };
-
-            const fuse = new Fuse(returnData, options);
-            const result = fuse.search(nameFilter);
-
-            returnData = result.map(resultObject => resultObject.item);
+            returnData = itemSearch(returnData, nameFilter);
         }
 
         if(typeFilter){

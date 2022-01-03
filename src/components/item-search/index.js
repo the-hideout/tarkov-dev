@@ -6,10 +6,9 @@ import {
     useLocation,
 } from "react-router-dom";
 
-import Fuse from 'fuse.js';
-
 import { selectAllItems } from '../../features/items/itemsSlice';
 import useKeyPress from '../../hooks/useKeyPress';
+import itemSearch from '../../modules/item-search';
 
 import './index.css';
 
@@ -79,17 +78,8 @@ function ItemSearch({defaultValue, onChange, placeholder = 'Search item...', aut
             return !item.types.includes('disabled');
         });
 
-        if(nameFilter){
-            const options = {
-                includeScore: true,
-                keys: ['name'],
-                distance: 1000,
-            };
-
-            const fuse = new Fuse(returnData, options);
-            const result = fuse.search(nameFilter);
-
-            returnData = result.map(resultObject => resultObject.item);
+        if(nameFilter && nameFilter.length > 0){
+            returnData = itemSearch(returnData, nameFilter);
         }
 
         return returnData;
