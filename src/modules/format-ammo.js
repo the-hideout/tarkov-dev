@@ -7,7 +7,7 @@ const caliberMap = {
     'Caliber46x30': '4.6x30 mm',
     'Caliber545x39': '5.45x39 mm',
     'Caliber57x28': '5.7x28 mm',
-    'Caliber762x25TT': '7.62x25 mm',
+    'Caliber762x25TT': '7.62x25 mm TT',
     'Caliber762x35': '.300 Blackout',
     'Caliber762x39': '7.62x39 mm',
     'Caliber762x51': '7.62x51 mm',
