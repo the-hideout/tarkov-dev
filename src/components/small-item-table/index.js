@@ -280,15 +280,17 @@ function SmallItemTable(props) {
         [t, instaProfit, traderPrice, traderValue]
     );
 
+
+    let extraRow = false;
+
     if(data.length <= 0){
-        return <div>
-            {t('None')}
-        </div>;
+        extraRow = t('No items');
     }
 
     return <DataTable
         className = 'small-data-table'
         columns = {columns}
+        extraRow={extraRow}
         key = 'small-item-table'
         data = {data}
         // sortBy = {'profit'}
