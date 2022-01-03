@@ -1,7 +1,7 @@
 const caliberMap = {
     'Caliber366TKM': '.366',
     'Caliber556x45NATO': '5.56x45 mm',
-    'Caliber1143x23ACP': '.45',
+    'Caliber1143x23ACP': '.45 ACP',
     'Caliber127x55': '12.7x55 mm',
     'Caliber23x75': '23x75 mm',
     'Caliber46x30': '4.6x30 mm',
