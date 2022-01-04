@@ -146,13 +146,13 @@ const getArmorLabel = (tier, yMax, xMax) => {
     />
 };
 
+const chartAnimate = { duration: 500 };
 const Graph = props => {
     const navigate = useNavigate();
     const handleOnClick = (id) => navigate(`/item/${id.toString()}`);
 
     return (
         <VictoryChart
-            animate={{duration: 200}}
             domainPadding={10}
             padding={{
                 top: 10,
@@ -194,6 +194,7 @@ const Graph = props => {
                 dataComponent = {<Symbol
                     link = {true}
                 />}
+                animate={chartAnimate}
                 events={[
                     {
                       target: "labels",
