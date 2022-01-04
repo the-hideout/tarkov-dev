@@ -22,5 +22,5 @@ const caliberMap = {
 };
 
 module.exports = (caliber) => {
-    return caliberMap[caliber] ?? caliber.replace('Caliber', '');
+    return caliberMap[caliber] || caliber.replace('Caliber', '');
 };
