@@ -62,10 +62,12 @@ function Jaeger() {
                                 </div>
                             }
                             selected = { selectedTable === 'level' }
-                            content = { 'Level' }
+                            content = { 'Spending' }
                             type = 'text'
                             onClick={setSelectedTable.bind(undefined, 'level')}
                         />
+                    </ButtonGroupFilter>
+                    <ButtonGroupFilter>
                         <ButtonGroupFilterButton
                             tooltipContent={
                                 <div>
