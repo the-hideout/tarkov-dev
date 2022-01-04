@@ -142,6 +142,10 @@ function SmallItemTable(props) {
                     item.instaProfit = item.bestSell?.price - item.buyOnFleaPrice.price;
                 }
 
+                if(traderBuybackFilter){
+                    return true;
+                }
+
                 if(!loyaltyLevelFilter){
                     return item.buyFor[0];
                 }
