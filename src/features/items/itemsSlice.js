@@ -60,6 +60,12 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
                         value
                     }
                 }
+                containsItems {
+                    count
+                    item {
+                        id
+                    }
+                }
             }
         }`
     });
@@ -80,7 +86,7 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
             .then(response => response.json()),
     ]);
 
-    return itemData.data.itemsByType.map((rawItem) => {
+    const allItems = itemData.data.itemsByType.map((rawItem) => {
         let grid = false;
 
         rawItem.itemProperties = itemProps[rawItem.id]?.itemProperties || {};
@@ -115,10 +121,6 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
             }
         }
 
-        const bestTraderPrice = rawItem.traderPrices.sort((a, b) => {
-            return b.price - a.price;
-        }).shift();
-
         rawItem.buyFor = rawItem.buyFor.sort((a, b) => {
             return getRublePrice(a.price, a.currency) - getRublePrice(b.price, b.currency);
         });
@@ -148,8 +150,6 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
             slots: rawItem.width * rawItem.height,
             // iconLink: `https://assets.tarkov-tools.com/${rawItem.id}-icon.jpg`,
             iconLink: rawItem.iconLink,
-            traderPrice: bestTraderPrice?.price || 0,
-            traderName: bestTraderPrice?.trader?.name || '?',
             ...bestPrice(rawItem),
             grid: grid,
             notes: NOTES[rawItem.id],
@@ -161,6 +161,61 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
             }),
         };
     });
+
+    const itemMap = {};
+
+    for(const item of allItems){
+        itemMap[item.id] = item;
+    }
+
+    for(const item of allItems){
+        if(item.types.includes('gun') && item.containsItems){
+            item.traderPrices = item.traderPrices.map((localTraderPrice) => {
+                if(localTraderPrice.source === 'fleaMarket'){
+                    return localTraderPrice;
+                }
+
+                localTraderPrice.price = item.containsItems.reduce((previousValue, currentValue) => {
+                    const partPrice = itemMap[currentValue.item.id].traderPrices.find(innerTraderPrice => innerTraderPrice.name === localTraderPrice.name);
+
+                    if(!partPrice){
+                        return previousValue;
+                    }
+
+                    return partPrice.price + previousValue;
+                }, localTraderPrice.price);
+
+                return localTraderPrice;
+            });
+
+            item.sellFor = item.sellFor.map((sellFor) => {
+                if(sellFor.source === 'fleaMarket'){
+                    return sellFor;
+                }
+
+                sellFor.price = item.containsItems.reduce((previousValue, currentValue) => {
+                    const partPrice = itemMap[currentValue.item.id].sellFor.find(innerSellFor => innerSellFor.source === sellFor.source);
+
+                    if(!partPrice){
+                        return previousValue;
+                    }
+
+                    return partPrice.price + previousValue;
+                }, sellFor.price);
+
+                return sellFor;
+            });
+        }
+
+        const bestTraderPrice = item.traderPrices.sort((a, b) => {
+            return b.price - a.price;
+        }).shift();
+
+        item.traderPrice = bestTraderPrice?.price || 0;
+        item.traderName = bestTraderPrice?.trader || '?';
+    }
+
+    return allItems;
 });
 
 const itemsSlice = createSlice({
