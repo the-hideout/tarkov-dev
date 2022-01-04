@@ -56,6 +56,7 @@ import Rigs from './pages/items/rigs';
 import Suppressors from './pages/items/suppressors';
 
 import Prapor from './pages/traders/prapor';
+import Jaeger from './pages/traders/jaeger';
 
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
 // import APIDocs from './pages/api-docs';
@@ -586,6 +587,21 @@ return (
                     <Prapor
                         sessionID = {sessionID}
                         key = 'prapor-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/traders/jaeger'}
+                element = {[
+                    <Jaeger
+                        sessionID = {sessionID}
+                        key = 'jaeger-wrapper'
                     />,
                     <ID
                         key = 'connection-wrapper'

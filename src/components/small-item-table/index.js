@@ -22,7 +22,7 @@ import itemSearch from '../../modules/item-search';
 import './index.css';
 
 function traderSellCell(datum) {
-    if(datum.row.original.traderName === '?'){
+    if(!datum.row.original.bestSell?.source || datum.row.original.bestSell.source === '?'){
         return null;
     }
 
@@ -30,15 +30,15 @@ function traderSellCell(datum) {
         className = 'trader-price-content'
     >
         <img
-            alt = {datum.row.original.traderName}
+            alt = {datum.row.original.bestSell.source}
             className = 'trader-icon'
             loading='lazy'
             height = '40'
-            src={`${process.env.PUBLIC_URL}/images/${datum.row.original.traderName?.toLowerCase()}-icon.jpg`}
-            title = {datum.row.original.traderName}
+            src={`${process.env.PUBLIC_URL}/images/${datum.row.original.bestSell.source?.toLowerCase()}-icon.jpg`}
+            title = {datum.row.original.bestSell.source}
             width = '40'
         />
-        {formatPrice(datum.row.values.traderPrice)}
+        {formatPrice(datum.row.original.bestSell.price)}
     </div>;
 };
 
@@ -60,6 +60,8 @@ function SmallItemTable(props) {
         traderFilter,
         loyaltyLevelFilter,
         traderValue,
+        traderBuybackFilter,
+        traderBuyback,
     } = props;
     const dispatch = useDispatch();
     const items = useSelector(selectAllItems);
@@ -102,12 +104,16 @@ function SmallItemTable(props) {
                 traderPrice: itemData.traderPrice,
                 types: itemData.types,
                 buyFor: itemData.buyFor,
+                sellFor: itemData.sellFor,
+                bestSell: {
+                    source: itemData.traderName,
+                    price: itemData.traderPrice,
+                },
+                buyOnFleaPrice: itemData.buyFor.find(buyPrice => buyPrice.source === 'flea-market'),
             };
 
-            const buyOnFleaPrice = itemData.buyFor.find(buyPrice => buyPrice.source === 'flea-market');
-
-            if(buyOnFleaPrice){
-                formattedItem.instaProfit = itemData.traderPrice - buyOnFleaPrice.price;
+            if(formattedItem.buyOnFleaPrice){
+                formattedItem.instaProfit = itemData.traderPrice - formattedItem.buyOnFleaPrice.price;
             }
 
             return formattedItem;
@@ -127,6 +133,14 @@ function SmallItemTable(props) {
         if(traderFilter){
             returnData = returnData.filter(item => {
                 item.buyFor = item.buyFor.filter(buy => buy.source === traderFilter);
+                item.sellFor = item.sellFor?.filter(sell => sell.source === traderFilter);
+                item.bestSell = item.sellFor?.sort((a, b) => {
+                    return b.price - a.price;
+                })[0];
+
+                if(item.buyOnFleaPrice){
+                    item.instaProfit = item.bestSell?.price - item.buyOnFleaPrice.price;
+                }
 
                 if(!loyaltyLevelFilter){
                     return item.buyFor[0];
@@ -139,13 +153,30 @@ function SmallItemTable(props) {
                 return item.buyFor[0].requirements[0].value === loyaltyLevelFilter;
             });
         }
+
+        if(traderBuybackFilter){
+            returnData = returnData
+                .filter(item => item.instaProfit !== 0)
+                .filter(item => item.lastLowPrice && item.lastLowPrice > 0)
+                .filter(item => item.bestSell && item.bestSell.price > 500)
+                .map(item => {
+                    return {
+                        ...item,
+                        buyback: item.bestSell?.price / item.lastLowPrice,
+                    };
+                })
+                .sort((a, b) => {
+                    return b.buyback - a.buyback;
+                });
+        }
+
         if(defaultRandom && !nameFilter){
             shuffleArray(returnData);
         }
 
         return returnData;
     },
-        [nameFilter, defaultRandom, items, typeFilter, traderFilter, loyaltyLevelFilter]
+        [nameFilter, defaultRandom, items, typeFilter, traderFilter, loyaltyLevelFilter, traderBuybackFilter]
     );
 
     const columns = useMemo(
@@ -232,7 +263,7 @@ function SmallItemTable(props) {
             if(traderValue){
                 useColumns.splice(1, 0, {
                     Header: t('Trader sell'),
-                    accessor: d => Number(d.traderPrice),
+                    accessor: d => Number(d.bestSell?.price),
                     Cell: traderSellCell,
                     id: 'traderPrice',
                 });
@@ -241,29 +272,30 @@ function SmallItemTable(props) {
             if(instaProfit){
                 useColumns.push({
                     Header: t('InstaProfit'),
-                    accessor: d => Number(d.instaProfit),
+                    accessor: 'instaProfit',
                     Cell: ValueCell,
                     id: 'instaProfit',
                     sortDescFirst: true,
-                    sortType: (a, b) => {
-                        if(a.values.instaProfit === 0){
-                            return -1;
-                        }
+                    sortType: 'basic',
+                    // sortType: (a, b) => {
+                    //     if(a.values.instaProfit === 0){
+                    //         return -1;
+                    //     }
 
-                        if(b.values.instaProfit === 0){
-                            return 1;
-                        }
+                    //     if(b.values.instaProfit === 0){
+                    //         return 1;
+                    //     }
 
-                        if(a.values.instaProfit > b.values.instaProfit){
-                            return 1;
-                        }
+                    //     if(a.values.instaProfit > b.values.instaProfit){
+                    //         return 1;
+                    //     }
 
-                        if(a.values.instaProfit < b.values.instaProfit){
-                            return -1;
-                        }
+                    //     if(a.values.instaProfit < b.values.instaProfit){
+                    //         return -1;
+                    //     }
 
-                        return 0;
-                    },
+                    //     return 0;
+                    // },
                 });
             }
 
@@ -276,11 +308,30 @@ function SmallItemTable(props) {
                 });
             }
 
+            if(traderBuyback){
+                useColumns.push({
+                    Header: t('Buyback ratio'),
+                    accessor: 'buyback',
+                    Cell: ({value}) => {
+                        // allData.row.original.itemLink
+                        return <div
+                            className = 'center-content'
+                        >
+                            {`${(Math.round(value * 100) / 100).toFixed(2)}%`}
+                        </div>
+                    },
+                    id: 'buyback',
+                    sortDescFirst: true,
+                    sortType: 'basic',
+                });
+            }
+
             return useColumns;
         },
-        [t, instaProfit, traderPrice, traderValue]
+        [t, instaProfit, traderPrice, traderValue, traderBuyback]
     );
 
+    // console.log(data.length);
 
     let extraRow = false;
 

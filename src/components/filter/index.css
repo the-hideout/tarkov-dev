@@ -121,6 +121,11 @@
     outline: none;
 }
 
+.button-group-text-button {
+    padding: 0 10px;
+    width: auto;
+}
+
 .button-group-button img {
     max-height: 100%;
 }

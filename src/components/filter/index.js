@@ -14,13 +14,13 @@ const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
 };
 
-function ButtonGroupFilterButton({ tooltipContent, onClick, content, selected }) {
+function ButtonGroupFilterButton({ tooltipContent, onClick, content, selected, type = 'image' }) {
     return <Tippy
         placement='top'
         content={tooltipContent}
     >
         <button
-            className={`button-group-button ${selected ? 'selected' : ''}`}
+            className={`button-group-button button-group-${type}-button ${selected ? 'selected' : ''}`}
 
             onClick={onClick}
         >

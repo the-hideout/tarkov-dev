@@ -58,6 +58,17 @@ function Prapor() {
                         <ButtonGroupFilterButton
                             tooltipContent={
                                 <div>
+                                    {'Items with the best cash back prices for leveling when buying from flea'}
+                                </div>
+                            }
+                            selected = { selectedTable === 'level' }
+                            content = { 'Level' }
+                            type = 'text'
+                            onClick={setSelectedTable.bind(undefined, 'level')}
+                        />
+                        <ButtonGroupFilterButton
+                            tooltipContent={
+                                <div>
                                     {'Unlocks at Loyalty Level 1'}
                                 </div>
                             }
@@ -107,7 +118,14 @@ function Prapor() {
                 nameFilter = {nameFilter}
                 traderFilter = 'prapor'
                 loyaltyLevelFilter = {Number.isInteger(selectedTable) ? selectedTable : false}
-                traderPrice
+                traderPrice = {selectedTable === 'level' ? false : true}
+                traderValue
+                traderBuyback = {selectedTable === 'level' ? true : false}
+                traderBuybackFilter = {selectedTable === 'level' ? true : false}
+
+
+                // instaProfit = {selectedTable === 'instaProfit' ? true : false}
+                // maxItems = {selectedTable === 'instaProfit' ? 50 : false}
             />
         </div>,
     ];
