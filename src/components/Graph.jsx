@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import {useCallback, useMemo} from 'react';
 import {
     VictoryChart,
     VictoryScatter,
@@ -110,12 +110,13 @@ const LegendLabel = props => {
 
 const getMarkerLine = (xMax, xTarget, label) => {
     if(xMax < xTarget + 1){
-        return false;
+        return null;
     }
 
     return <VictoryLine
         style={styles.annotionLine}
         labels={[label]}
+        key={label}
         labelComponent={
             <VictoryLabel
                 textAnchor = 'middle'
@@ -130,7 +131,7 @@ const getMarkerLine = (xMax, xTarget, label) => {
 
 const getArmorLabel = (tier, yMax, xMax) => {
     if(tier * 10 > yMax){
-        return false;
+        return null;
     }
 
     return <VictoryLabel
@@ -146,30 +147,60 @@ const getArmorLabel = (tier, yMax, xMax) => {
     />
 };
 
+const xTickValues = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240];
+const yTickValues = [10, 20, 30, 40, 50, 60, 70];
+
 const chartAnimate = { duration: 500 };
+const chartPadding = { top: 10, bottom: 20, right: 50, left: 20 };
+const chartMinDomain = { y: 0, x: 0 };
+const chartMaxDomain = { y: MAX_PENETRATION, x: MAX_DAMAGE };
+
 const Graph = props => {
+    const {xMax, yMax, listState} = props;
+
     const navigate = useNavigate();
-    const handleOnClick = (id) => navigate(`/item/${id.toString()}`);
+
+    const handleLabelClick = useCallback((event, data) => {
+        navigate(`/item/${data.datum.id.toString()}`);
+    }, [navigate])
+
+    const markerLines = useMemo(() => {
+        return [
+            getMarkerLine(xMax, 85, 'PMC & Scav Thorax HP'),
+            getMarkerLine(xMax, 145, 'Reshala Thorax HP'),
+            getMarkerLine(xMax, 160, 'Raider Thorax HP'),
+            getMarkerLine(xMax, 180, 'Shturman Thorax HP'),
+            getMarkerLine(xMax, 200, 'Cultist Priest Thorax HP'),
+            getMarkerLine(xMax, 220, 'Cultist Warrior Thorax HP'),
+            getArmorLabel(1, yMax, xMax),
+            getArmorLabel(2, yMax, xMax),
+            getArmorLabel(3, yMax, xMax),
+            getArmorLabel(4, yMax, xMax),
+            getArmorLabel(5, yMax, xMax),
+            getArmorLabel(6, yMax, xMax),
+        ].filter(Boolean);
+    }, [xMax, yMax]);
+
+    const scatterData = useMemo(() => {
+        return listState.map((ls) => {
+            return {
+                x: ls.displayDamage,
+                y: ls.displayPenetration,
+                label: ls.chartName,
+                symbol: ls.symbol,
+                id: ls.id,
+            };
+        })
+    }, [listState])
 
     return (
         <VictoryChart
             domainPadding={10}
-            padding={{
-                top: 10,
-                bottom: 20,
-                right: 50,
-                left: 20,
-            }}
+            padding={chartPadding}
             height={180}
             theme={VictoryTheme.material}
-            minDomain = {{
-                y: 0,
-                x: 0,
-            }}
-            maxDomain = {{
-                y: MAX_PENETRATION,
-                x: MAX_DAMAGE,
-            }}
+            minDomain={chartMinDomain}
+            maxDomain={chartMaxDomain}
             containerComponent={
                 <VictoryContainer
                   style={{
@@ -181,13 +212,13 @@ const Graph = props => {
             <VictoryAxis
                 axisLabelComponent={<VictoryLabel x={177}/>}
                 label = 'Damage'
-                tickValues={[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240]}
+                tickValues={xTickValues}
                 style = {styles.xaxis}
             />
             <VictoryAxis
                 dependentAxis
                 label = 'Penetration'
-                tickValues={[10, 20, 30, 40, 50, 60, 70]}
+                tickValues={yTickValues}
                 style = {styles.yaxis}
             />
             <VictoryScatter
@@ -199,9 +230,7 @@ const Graph = props => {
                     {
                       target: "labels",
                       eventHandlers: {
-                        onClick: (evt, data) => {
-                            handleOnClick(data.datum.id);
-                        }
+                        onClick: handleLabelClick
                       }
                     }
                   ]}
@@ -212,14 +241,9 @@ const Graph = props => {
                 labelComponent={<VictoryLabel
                     dy = {-3}
                 />}
-                labels={({ datum }) => {
-                    return datum.chartName;
-                }}
                 size={1}
                 activeSize={5}
-                data={props.listState}
-                x="displayDamage"
-                y="displayPenetration"
+                data={scatterData}
             />
             {/* <VictoryScatter
                 dataComponent = {<Symbol />}
@@ -258,42 +282,7 @@ const Graph = props => {
                 x={308}
                 y={9}
             />
-            {
-                getMarkerLine(props.xMax, 85, 'PMC & Scav Thorax HP')
-            }
-            {
-                getMarkerLine(props.xMax, 145, 'Reshala Thorax HP')
-            }
-            {
-                getMarkerLine(props.xMax, 160, 'Raider Thorax HP')
-            }
-                        {
-                getMarkerLine(props.xMax, 180, 'Shturman Thorax HP')
-            }
-            {
-                getMarkerLine(props.xMax, 200, 'Cultist Priest Thorax HP')
-            }
-            {
-                getMarkerLine(props.xMax, 220, 'Cultist Warrior Thorax HP')
-            }
-            {
-                getArmorLabel(1, props.yMax, props.xMax)
-            }
-            {
-                getArmorLabel(2, props.yMax, props.xMax)
-            }
-            {
-                getArmorLabel(3, props.yMax, props.xMax)
-            }
-            {
-                getArmorLabel(4, props.yMax, props.xMax)
-            }
-            {
-                getArmorLabel(5, props.yMax, props.xMax)
-            }
-            {
-                getArmorLabel(6, props.yMax, props.xMax)
-            }
+            { markerLines }
         </VictoryChart>
     );
 }
