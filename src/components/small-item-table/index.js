@@ -321,7 +321,7 @@ function SmallItemTable(props) {
                         return <div
                             className = 'center-content'
                         >
-                            {`${(Math.round(value * 100) / 100).toFixed(2)}%`}
+                            {`${Math.floor((Math.round(value * 100) / 100) * 100)}%`}
                         </div>
                     },
                     id: 'buyback',
