@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import {
     useParams,
     useNavigate,
@@ -242,16 +242,14 @@ function Ammo() {
         [t, traderPriceSort]
     );
 
-    return [
+    return <React.Fragment>
         <div
             className = {'updated-label'}
-            key = {'ammo-updated-label'}
         >
             {`Ammo updated: ${new Date(rawData.updated).toLocaleDateString()}`}
-        </div>,
+        </div>
         <div
             className = 'page-wrapper'
-            key = 'ammo-graph-wrapper'
         >
             <Graph
                 listState = {listState}
@@ -261,13 +259,12 @@ function Ammo() {
                 xMax = {MAX_DAMAGE}
                 yMax = {MAX_PENETRATION}
             />
-        </div>,
+        </div>
         <DataTable
             columns = {columns}
-            key = 'ammo-table'
             data = {listState}
         />
-    ];
+    </React.Fragment>;
 }
 
 export default Ammo;
