@@ -56,6 +56,11 @@ import Rigs from './pages/items/rigs';
 import Suppressors from './pages/items/suppressors';
 
 import Prapor from './pages/traders/prapor';
+import Therapist from './pages/traders/therapist';
+import Skier from './pages/traders/skier';
+import Peacekeeper from './pages/traders/peacekeeper';
+import Mechanic from './pages/traders/mechanic';
+import Ragman from './pages/traders/ragman';
 import Jaeger from './pages/traders/jaeger';
 
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
@@ -587,6 +592,81 @@ return (
                     <Prapor
                         sessionID = {sessionID}
                         key = 'prapor-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/traders/therapist'}
+                element = {[
+                    <Therapist
+                        sessionID = {sessionID}
+                        key = 'therapist-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/traders/skier'}
+                element = {[
+                    <Skier
+                        sessionID = {sessionID}
+                        key = 'skier-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/traders/peacekeeper'}
+                element = {[
+                    <Peacekeeper
+                        sessionID = {sessionID}
+                        key = 'peacekeeper-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/traders/mechanic'}
+                element = {[
+                    <Mechanic
+                        sessionID = {sessionID}
+                        key = 'mechanic-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/traders/ragman'}
+                element = {[
+                    <Ragman
+                        sessionID = {sessionID}
+                        key = 'ragman-wrapper'
                     />,
                     <ID
                         key = 'connection-wrapper'
