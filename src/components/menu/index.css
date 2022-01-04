@@ -75,7 +75,6 @@
     border-radius: 3px;
     font-size: 30px;
     flex-grow: 1;
-    margin: 0 30px 0 10px;
     padding: 1px 8px;
 }
 
@@ -177,6 +176,12 @@
 
 li.desktop-only-link {
     display: none;
+}
+
+@media only screen and (min-width: 700px) {
+    .branding {
+        margin: 0 30px 0 10px;
+    }
 }
 
 @media only screen and (min-width: 950px) {
