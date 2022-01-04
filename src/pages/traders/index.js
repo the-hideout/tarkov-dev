@@ -5,21 +5,7 @@ import {Helmet} from 'react-helmet';
 
 import Icon from '@mdi/react'
 import {
-    mdiHanger,
-    mdiTshirtCrew,
-    mdiBagPersonal,
-    mdiRacingHelmet,
-    mdiSunglasses,
-    mdiTshirtCrewOutline,
-    mdiBottleWine,
-    mdiPliers,
-    mdiGasCylinder,
-    mdiPistol,
-    mdiHeadset,
-    mdiKeyVariant,
-    mdiMagazineRifle,
-    mdiFoodForkDrink,
-    mdiHandPointingLeft,
+    mdiAccountGroup,
 } from '@mdi/js';
 
 import './index.css';
@@ -48,7 +34,7 @@ function Traders(props) {
                 className = 'center-title'
             >
                 <Icon
-                    path={mdiHanger}
+                    path={mdiAccountGroup}
                     size={1.5}
                     className = 'icon-with-text'
                 />
