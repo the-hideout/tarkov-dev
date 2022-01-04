@@ -1,0 +1,14 @@
+.traders-list-wrapper {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-between;
+}
+
+.traders-list-wrapper img {
+    height: 128px;
+    width: 128px;
+}
+
+@media screen and (min-width: 700px) {
+
+}

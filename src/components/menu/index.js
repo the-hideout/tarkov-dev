@@ -226,6 +226,52 @@ const Menu = () => {
                     className = "submenu-wrapper"
                 >
                     <Link
+                        to = '/traders'
+                    >
+                        {t('Traders')}
+                    </Link>
+                    <ul>
+                        <MenuItem
+                            displayText = {t('Prapor')}
+                            to = {`/traders/prapor`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {t('Therapist')}
+                            to = {`/traders/therapist`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {t('Skier')}
+                            to = {`/traders/skier`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {t('Peacekeeper')}
+                            to = {`/traders/peacekeeper`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {t('Mechanic')}
+                            to = {`/traders/mechanic`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {t('Ragman')}
+                            to = {`/traders/ragman`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
+                            displayText = {t('Jaeger')}
+                            to = {`/traders/jaeger`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                    </ul>
+                </li>
+                <li
+                    className = "submenu-wrapper"
+                >
+                    <Link
                         to = '/loot-tier/'
                         onClick = {setIsOpen.bind(this, false)}
                     >

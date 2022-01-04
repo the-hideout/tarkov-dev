@@ -62,6 +62,7 @@ import Peacekeeper from './pages/traders/peacekeeper';
 import Mechanic from './pages/traders/mechanic';
 import Ragman from './pages/traders/ragman';
 import Jaeger from './pages/traders/jaeger';
+import Traders from './pages/traders';
 
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
 // import APIDocs from './pages/api-docs';
@@ -577,6 +578,21 @@ return (
                     <Provisions
                         sessionID = {sessionID}
                         key = 'provisions-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/traders'}
+                element = {[
+                    <Traders
+                        sessionID = {sessionID}
+                        key = 'traders-wrapper'
                     />,
                     <ID
                         key = 'connection-wrapper'
