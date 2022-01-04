@@ -8,6 +8,7 @@ import QueueBrowserTask from '../../modules/queue-browser-task';
 import mapData from '../../data/maps.json';
 import SmallItemTable from '../../components/small-item-table';
 import ItemSearch from '../../components/item-search';
+import ServerStatus from '../../components/server-status';
 
 import Icon from '@mdi/react'
 import {
@@ -96,7 +97,7 @@ function Start(props) {
                         </li>;
                     })}
                 </ul> */}
-
+                <ServerStatus />
                 <Link
                     to = {`/ammo/`}
                 >
