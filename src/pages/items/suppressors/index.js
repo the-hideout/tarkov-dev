@@ -244,6 +244,7 @@ function Suppressors(props) {
                         selectInputRef.current?.clearValue();
                         setSelectedGun(false);
                     }}
+                    loading='lazy'
                     src = {selectedGun.iconLink}
                 />}
             </Filter>

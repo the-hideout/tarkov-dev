@@ -45,6 +45,7 @@ function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSour
                 >
                     <img
                         alt = {t('Icon')}
+                        loading='lazy'
                         src = {`https://assets.tarkov-tools.com/${alternatePriceSource.requiredItems[0].item.id}-icon.jpg`}
                     />
                     <div
@@ -68,6 +69,7 @@ function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSour
                 <img
                     alt = {t('Barter')}
                     className = 'barter-icon'
+                    loading='lazy'
                     src = {`${ process.env.PUBLIC_URL }/images/icon-barter.png`}
                 />
                 <span>
@@ -82,6 +84,7 @@ function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSour
             <img
                 alt = {t(priceSource)}
                 className = 'barter-icon'
+                loading='lazy'
                 src = {`${ process.env.PUBLIC_URL }/images/${priceSource}-icon.jpg`}
             />
             <span>

@@ -98,9 +98,10 @@ function ItemsForHideout(props) {
                                     className= 'hideout-name-wrapper'
                                 >
                                     <img
-                                        className = 'quest-giver-image'
-                                        src={`${ process.env.PUBLIC_URL }/images/${item.moduleName.toLowerCase().replace(/\s/, '-')}-icon.png`}
                                         alt={item.moduleName}
+                                        className = 'quest-giver-image'
+                                        loading='lazy'
+                                        src={`${ process.env.PUBLIC_URL }/images/${item.moduleName.toLowerCase().replace(/\s/, '-')}-icon.png`}
                                     />
                                     <div>
                                         <div>

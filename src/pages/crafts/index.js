@@ -78,6 +78,7 @@ function Crafts() {
                             selected = { stationName === selectedStation }
                             content = { <img
                                 alt = {stationName}
+                                loading='lazy'
                                 title = {stationName}
                                 src={`${process.env.PUBLIC_URL}/images/${stationName}-icon.png`}
                             /> }

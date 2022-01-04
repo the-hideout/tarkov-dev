@@ -247,6 +247,7 @@ function PistolGrips(props) {
                         selectInputRef.current?.clearValue();
                         setSelectedGun(false);
                     }}
+                    loading='lazy'
                     src = {selectedGun.iconLink}
                 />}
             </Filter>

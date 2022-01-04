@@ -78,6 +78,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Armor table'}
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/armor-table-thumbnail.jpg`}
                     />
                 </Link>
@@ -97,6 +98,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Backpacks table'}
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/backpacks-table-thumbnail.jpg`}
                     />
                 </Link>
@@ -116,6 +118,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Barter Items table'}
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/barter-items-table-thumbnail.jpg`}
                     />
                 </Link>
@@ -135,6 +138,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Helmet table'}
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/helmets-table-thumbnail.jpg`}
                     />
                 </Link>
@@ -154,6 +158,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Glasses table'}
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/glasses-table-thumbnail.jpg`}
                     />
                 </Link>
@@ -173,6 +178,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Grenades table'}
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/grenades-table-thumbnail.jpg`}
                     />
                 </Link>
@@ -192,6 +198,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Guns table'}
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/guns-table-thumbnail.jpg`}
                     />
                 </Link>
@@ -211,6 +218,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Headsets table'}
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/headsets-table-thumbnail.jpg`}
                     />
                 </Link>
@@ -230,6 +238,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Keys table'}
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/keys-table-thumbnail.jpg`}
                     />
                 </Link>
@@ -249,6 +258,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Mods table'}
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/mods-table-thumbnail.jpg`}
                     />
                 </Link>
@@ -268,6 +278,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Pistol grips'}
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/pistol-grips-table-thumbnail.jpg`}
                     />
                 </Link>
@@ -287,6 +298,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Glasses table'}
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/glasses-table-thumbnail.jpg`}
                     />
                 </Link>
@@ -306,6 +318,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Rigs table'}
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/rigs-table-thumbnail.jpg`}
                     />
                 </Link>
@@ -325,6 +338,7 @@ function Guides(props) {
                     </h2>
                     <img
                         alt = {'Suppressors table'}
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/suppressors-table-thumbnail.jpg`}
                     />
                 </Link>

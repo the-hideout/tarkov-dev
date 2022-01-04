@@ -113,6 +113,7 @@ function Start(props) {
                         alt = 'Ammo chart'
                         className = 'link-image'
                         height = '140'
+                        loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/ammo-chart-thumbnail.jpg`}
                         width = '256'
                     />

@@ -55,6 +55,7 @@ function Item(props) {
 
         <img
             alt = {props.name}
+            loading='lazy'
             src = {imgSrc}
         />
     </a>

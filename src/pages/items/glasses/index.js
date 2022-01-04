@@ -55,8 +55,9 @@ function Glasses(props) {
                         <img
                             alt = ''
                             className = 'table-image'
-                            src = { value }
                             height = '64'
+                            loading='lazy'
+                            src = { value }
                             width = '64'
                         />
                     </div>

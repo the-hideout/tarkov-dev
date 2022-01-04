@@ -32,6 +32,7 @@ function traderSellCell(datum) {
         <img
             alt = {datum.row.original.traderName}
             className = 'trader-icon'
+            loading='lazy'
             height = '40'
             src={`${process.env.PUBLIC_URL}/images/${datum.row.original.traderName?.toLowerCase()}-icon.jpg`}
             title = {datum.row.original.traderName}

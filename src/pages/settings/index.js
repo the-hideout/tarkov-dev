@@ -172,6 +172,7 @@ function Settings() {
                     >
                         <img
                             alt = {`${traderKey}-icon`}
+                            loading='lazy'
                             src = {`${process.env.PUBLIC_URL}/images/${traderKey}-icon.jpg`}
                         />
                         <Select
@@ -231,6 +232,7 @@ function Settings() {
                     >
                         <img
                             alt = {`${stationKey}-icon`}
+                            loading='lazy'
                             src = {`${process.env.PUBLIC_URL}/images/${camelcaseToDashes(stationKey)}-icon.png`}
                         />
                         <Select
@@ -271,6 +273,7 @@ function Settings() {
                     >
                         <img
                             alt = {`${skillKey}-icon`}
+                            loading='lazy'
                             src = {`${process.env.PUBLIC_URL}/images/${camelcaseToDashes(skillKey)}-icon.png`}
                         />
                         <Select

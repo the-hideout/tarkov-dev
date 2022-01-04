@@ -126,6 +126,7 @@ function ItemSearch({defaultValue, onChange, placeholder = 'Search item...', aut
                     >
                         <img
                             alt = {`${item.name}`}
+                            loading='lazy'
                             src = {item.iconLink}
                         />
                         {item.name}

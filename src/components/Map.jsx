@@ -87,6 +87,7 @@ function Map() {
                     >
                         <img
                             alt = {`Map of ${ displayText }`}
+                            loading='lazy'
                             className = 'map-image'
                             title = {infoString}
                             src = {`${ process.env.PUBLIC_URL }${ image }`}

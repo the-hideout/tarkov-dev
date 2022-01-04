@@ -33,7 +33,7 @@ function Maps() {
             <h1
                 className = 'center-title'
             >
-                <Icon 
+                <Icon
                     path={mdiMap}
                     size={1.5}
                     className = 'icon-with-text'
@@ -59,6 +59,7 @@ function Maps() {
                                 <img
                                     alt = {`Map of ${ displayText }`}
                                     className = 'map-image'
+                                    loading='lazy'
                                     title = {`Map of ${ displayText }`}
                                     src = {`${ process.env.PUBLIC_URL }/maps/${key}.jpg`}
                                 />

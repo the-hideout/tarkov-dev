@@ -193,6 +193,7 @@ function Ammo() {
                     return <CenterCell>
                         <img
                             alt = {`${props.row.original.name} icon`}
+                            loading='lazy'
                             src = {props.value}
                         />
                     </CenterCell>;

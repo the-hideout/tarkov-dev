@@ -73,6 +73,7 @@ function Barters() {
                             selected = {traderName === selectedTrader}
                             content = {<img
                                 alt = {traderName}
+                                loading='lazy'
                                 title = {traderName}
                                 src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
                             />}

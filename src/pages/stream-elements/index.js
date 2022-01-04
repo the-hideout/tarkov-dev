@@ -27,6 +27,7 @@ function StreamElements() {
         <p>
             <img
                 alt = 'StreamElements step 1'
+                loading='lazy'
                 src = {`${process.env.PUBLIC_URL}/images/streamelements-1.jpg`}
             />
         </p>
@@ -44,6 +45,7 @@ function StreamElements() {
         <p>
             <img
                 alt = 'StreamElements step 2'
+                loading='lazy'
                 src = {`${process.env.PUBLIC_URL}/images/streamelements-2.jpg`}
             />
         </p>
@@ -67,6 +69,7 @@ function StreamElements() {
         <p>
             <img
                 alt = 'StreamElements part 3'
+                loading='lazy'
                 src = {`${process.env.PUBLIC_URL}/images/streamelements-3.jpg`}
             />
         </p>

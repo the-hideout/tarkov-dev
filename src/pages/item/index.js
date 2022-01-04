@@ -185,8 +185,9 @@ function Item() {
                             width = {currentItemData.grid.width}
                         />}
                         {currentItemData.gridImageLink && <img
-                            className = {'item-image'}
                             alt = {currentItemData.name}
+                            className = {'item-image'}
+                            loading='lazy'
                             src = {currentItemData.gridImageLink}
                         /> }
                         {currentItemData.wikiLink &&
@@ -237,6 +238,7 @@ function Item() {
                                 >
                                     <img
                                         alt = 'Flea market'
+                                        loading='lazy'
                                         height = '86'
                                         width = '86'
                                         src = {`${ process.env.PUBLIC_URL }/images/flea-market-icon.jpg`}
@@ -252,6 +254,7 @@ function Item() {
                                             >
                                                 <img
                                                     alt = 'Warning'
+                                                    loading='lazy'
                                                     className = 'warning-icon'
                                                     src = {warningIcon}
                                                 />
@@ -288,6 +291,7 @@ function Item() {
                                 <img
                                     alt = {currentItemData.traderName}
                                     height = '86'
+                                    loading='lazy'
                                     width = '86'
                                     src = {`${ process.env.PUBLIC_URL }/images/${currentItemData.traderName.toLowerCase()}-icon.jpg`}
                                     // title = {`Sell ${currentItemData.name} on the Flea market`}
@@ -309,6 +313,7 @@ function Item() {
                                 <img
                                     alt = {traderName}
                                     height = '86'
+                                    loading='lazy'
                                     width = '86'
                                     src = {`${ process.env.PUBLIC_URL }/images/${traderName}-icon.jpg`}
                                     // title = {`Sell ${currentItemData.name} on the Flea market`}
@@ -366,6 +371,7 @@ function Item() {
                                     <img
                                         alt = {buyPrice.requirements.source}
                                         height = '86'
+                                        loading='lazy'
                                         width = '86'
                                         src = {`${ process.env.PUBLIC_URL }/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
                                     />

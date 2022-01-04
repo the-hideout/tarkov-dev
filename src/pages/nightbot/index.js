@@ -27,6 +27,7 @@ function Nightbot() {
         <p>
             <img
                 alt = {'Nightbot step 1'}
+                loading='lazy'
                 src = {`${process.env.PUBLIC_URL}/images/nightbot-1.jpg`}
             />
         </p>
@@ -44,6 +45,7 @@ function Nightbot() {
         <p>
             <img
                 alt = {'Nightbot step 2'}
+                loading='lazy'
                 src = {`${process.env.PUBLIC_URL}/images/nightbot-2.jpg`}
             />
         </p>
@@ -64,6 +66,7 @@ function Nightbot() {
         <p>
             <img
                 alt = {'Nightbot step 3'}
+                loading='lazy'
                 src = {`${process.env.PUBLIC_URL}/images/nightbot-3.jpg`}
             />
         </p>

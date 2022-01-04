@@ -55,6 +55,7 @@ const imageCell = ({value}) => {
     >
         <img
             alt = ''
+            loading='lazy'
             className = 'table-image'
             src = { value }
         />

@@ -9,6 +9,7 @@ function ItemIcon(props) {
     if(typeof parsedText === 'string'){
         sellTo = <img
             alt = {parsedText}
+            loading='lazy'
             src = {`${ process.env.PUBLIC_URL }/images/${ parsedText.replace(/\s/g, '-').toLowerCase() }-icon.jpg`}
             title = {parsedText}
         />;
