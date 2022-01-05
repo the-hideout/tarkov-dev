@@ -38,12 +38,14 @@
     {
         "key": "lighthouse",
         "displayText": "Lighthouse",
-        "source": "Jindouz"
+        "source": "Jindouz",
+        "sourceLink": "https://www.reddit.com/user/Jindouz"
     },
     {
         "key": "lighthouse-landscape",
         "displayText": "Lighthouse - Landscape",
-        "source": "Jindouz"
+        "source": "Jindouz",
+        "sourceLink": "https://www.reddit.com/user/Jindouz"
     },
     {
         "key": "reserve",
@@ -68,6 +70,7 @@
     {
         "key": "woods",
         "displayText": "Woods",
-        "source": "Jindouz"
+        "source": "Jindouz",
+        "sourceLink": "https://www.reddit.com/user/Jindouz"
     }
 ]
