@@ -3,6 +3,7 @@ import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import {
     useParams,
     useNavigate,
+    Link,
 } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
@@ -202,6 +203,15 @@ function Ammo() {
             {
                 Header: t('Name'),
                 accessor: 'name',
+                Cell: (props) => {
+                    return <div>
+                        <Link
+                            to = {`/item/${props.cell.row.original.normalizedName}`}
+                        >
+                            {props.value}
+                        </Link>
+                    </div>;
+                },
             },
             {
                 Header: t('Caliber'),
