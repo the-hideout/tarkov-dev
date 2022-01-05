@@ -1,5 +1,11 @@
 [
     {
+        "title": "Database app for Tarkov",
+        "link": "https://tarkov.page.link/link",
+        "text": "Database app for Tarkov with feature: The Flea Market, Quest Tracker, Items to Keep for Quest/Hideout, Ballistics, Craft Profit Calculator, Barter Save Calculator, Map",
+        "imageType": "jpg"
+    },
+    {
         "title": "Rat Scanner",
         "link": "https://ratscanner.com",
         "text": "Rat Scanner allows you to scan items and provides you with realtime data about them. Items can be scanned instantly at any time!",
