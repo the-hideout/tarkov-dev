@@ -14,7 +14,7 @@ import QueueBrowserTask from '../../../modules/queue-browser-task';
 function Peacekeeper() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
-    const [selectedTable, setSelectedTable] = useStateWithLocalStorage('peacekeeperSelectedTable', 1);
+    const [selectedTable, setSelectedTable] = useStateWithLocalStorage('peacekeeperSelectedTable', 'level');
 
     const handleNameFilterChange = useCallback((e) => {
         if (typeof window !== 'undefined') {

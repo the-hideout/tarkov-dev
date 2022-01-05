@@ -14,7 +14,7 @@ import QueueBrowserTask from '../../../modules/queue-browser-task';
 function Skier() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
-    const [selectedTable, setSelectedTable] = useStateWithLocalStorage('skierSelectedTable', 1);
+    const [selectedTable, setSelectedTable] = useStateWithLocalStorage('skierSelectedTable', 'level');
 
     const handleNameFilterChange = useCallback((e) => {
         if (typeof window !== 'undefined') {

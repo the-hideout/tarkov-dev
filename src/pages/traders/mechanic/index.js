@@ -14,7 +14,7 @@ import QueueBrowserTask from '../../../modules/queue-browser-task';
 function Mechanic() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
-    const [selectedTable, setSelectedTable] = useStateWithLocalStorage('mechanicSelectedTable', 1);
+    const [selectedTable, setSelectedTable] = useStateWithLocalStorage('mechanicSelectedTable', 'level');
 
     const handleNameFilterChange = useCallback((e) => {
         if (typeof window !== 'undefined') {
