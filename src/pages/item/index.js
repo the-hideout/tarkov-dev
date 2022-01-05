@@ -3,6 +3,7 @@ import {Helmet} from 'react-helmet';
 import {
     useParams,
     Navigate,
+    Link,
 } from "react-router-dom";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -288,14 +289,18 @@ function Item() {
                             <div
                                 className = {`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''} first-trader-price`}
                             >
-                                <img
-                                    alt = {currentItemData.traderName}
-                                    height = '86'
-                                    loading='lazy'
-                                    width = '86'
-                                    src = {`${ process.env.PUBLIC_URL }/images/${currentItemData.traderName.toLowerCase()}-icon.jpg`}
-                                    // title = {`Sell ${currentItemData.name} on the Flea market`}
-                                />
+                                <Link
+                                    to={`/traders/${currentItemData.traderName.toLowerCase()}`}
+                                >
+                                    <img
+                                        alt = {currentItemData.traderName}
+                                        height = '86'
+                                        loading='lazy'
+                                        width = '86'
+                                        src = {`${ process.env.PUBLIC_URL }/images/${currentItemData.traderName.toLowerCase()}-icon.jpg`}
+                                        // title = {`Sell ${currentItemData.name} on the Flea market`}
+                                    />
+                                </Link>
                                 <div
                                     className = 'price-wrapper'
                                 >
@@ -310,14 +315,28 @@ function Item() {
                                 className = {`text-and-image-information-wrapper`}
                                 key = {`${currentItemData.id}-trader-price-${traderName}`}
                             >
-                                <img
-                                    alt = {traderName}
-                                    height = '86'
-                                    loading='lazy'
-                                    width = '86'
-                                    src = {`${ process.env.PUBLIC_URL }/images/${traderName}-icon.jpg`}
-                                    // title = {`Sell ${currentItemData.name} on the Flea market`}
-                                />
+                                {traderName !== 'fence' && <Link
+                                        to={`/traders/${traderName}`}
+                                    >
+                                        <img
+                                            alt = {traderName}
+                                            height = '86'
+                                            loading='lazy'
+                                            width = '86'
+                                            src = {`${ process.env.PUBLIC_URL }/images/${traderName}-icon.jpg`}
+                                            // title = {`Sell ${currentItemData.name} on the Flea market`}
+                                        />
+                                    </Link>
+                                }
+                                {traderName === 'fence' && <img
+                                        alt = {traderName}
+                                        height = '86'
+                                        loading='lazy'
+                                        width = '86'
+                                        src = {`${ process.env.PUBLIC_URL }/images/${traderName}-icon.jpg`}
+                                        // title = {`Sell ${currentItemData.name} on the Flea market`}
+                                    />
+                                }
                                 <div
                                     className = 'price-wrapper'
                                 >
@@ -354,27 +373,39 @@ function Item() {
                                         loyaltyLevel = {loyaltyLevel}
                                     />}
                                     {buyPrice.requirements.find(requirement => requirement.type === 'questCompleted') &&
-                                    <Tippy
-                                        content = {'Locked behind a quest'}
-                                    >
-                                        <div
-                                            className = 'quest-icon-wrapper'
+                                        <Tippy
+                                            content = {'Locked behind a quest'}
                                         >
-                                            <Icon
-                                                path={mdiLock}
-                                                size={1}
-                                                className = 'icon-with-text'
-                                            />
-                                        </div>
-                                    </Tippy>
+                                            <div
+                                                className = 'quest-icon-wrapper'
+                                            >
+                                                <Icon
+                                                    path={mdiLock}
+                                                    size={1}
+                                                    className = 'icon-with-text'
+                                                />
+                                            </div>
+                                        </Tippy>
                                     }
-                                    <img
-                                        alt = {buyPrice.requirements.source}
-                                        height = '86'
-                                        loading='lazy'
-                                        width = '86'
-                                        src = {`${ process.env.PUBLIC_URL }/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
-                                    />
+                                    {buyPrice.source !== 'flea-market' && <Link
+                                            to={`/traders/${buyPrice.source.toLowerCase()}`}
+                                        >
+                                            <img
+                                                alt = {buyPrice.requirements.source}
+                                                height = '86'
+                                                loading='lazy'
+                                                width = '86'
+                                                src = {`${ process.env.PUBLIC_URL }/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
+                                            />
+                                        </Link>
+                                    }
+                                    {buyPrice.source === 'flea-market' && <img
+                                            alt = {buyPrice.requirements.source}
+                                            height = '86'
+                                            loading='lazy'
+                                            width = '86'
+                                            src = {`${ process.env.PUBLIC_URL }/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
+                                    />}
                                 </div>
                                 <div
                                     className = {`price-wrapper ${index === 0 ? 'best-profit' : ''}`}
