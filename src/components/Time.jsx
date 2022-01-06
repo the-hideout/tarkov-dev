@@ -70,11 +70,7 @@ export function formatFuture(ms) {
 };
 
 const getSource = (props) => {
-    if(!props.source){
-        return false;
-    }
-
-    return [
+    const overlayItem = [
         <div
             key = {`${props.currentMap}-duration`}
         >
@@ -85,12 +81,17 @@ const getSource = (props) => {
         >
             Players: {props.players}
         </div>,
-        <div
+    ];
+
+    if(props.source){
+        overlayItem.push(<div
             key = {`${props.currentMap}-attribution`}
         >
             By: <a href={props.sourceLink}>{props.source}</a>
-        </div>
-    ];
+        </div>);
+    }
+
+    return overlayItem;
 };
 
 function Time(props) {
