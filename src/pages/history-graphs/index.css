@@ -1,0 +1,26 @@
+.history-graphs-page-wrapper {
+    max-width: 100%;
+}
+
+.history-graphs-page-wrapper h1 {
+    text-align: center;
+}
+
+.history-wrapper {
+    display: inline-block;
+    height: 500px;
+    width: 50%;
+}
+
+.history-wrapper iframe {
+    height: 100%;
+    width: 100%;
+}
+
+.history-wrapper h2 {
+    text-align: center;
+}
+
+.attribution-wrapper {
+    text-align: center;
+}

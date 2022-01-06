@@ -64,6 +64,8 @@ import Ragman from './pages/traders/ragman';
 import Jaeger from './pages/traders/jaeger';
 import Traders from './pages/traders';
 
+import HistoryGraphs from './pages/history-graphs';
+
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
 // import APIDocs from './pages/api-docs';
 
@@ -837,6 +839,23 @@ return (
                         key = 'api-users-wrapper'
                     >
                         <ApiUsers />
+                    </Suspense>,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/history-graphs'}
+                element = {[
+                    <Suspense
+                        fallback={<Loading />}
+                        key = 'history-graphs-wrapper'
+                    >
+                        <HistoryGraphs />
                     </Suspense>,
                     <ID
                         key = 'connection-wrapper'
