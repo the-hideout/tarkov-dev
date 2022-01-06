@@ -113,7 +113,7 @@ cite {
 	background-color: rgba(0, 0, 0, 0.5);
 	padding: 10px 20px;
 	position: absolute;
-	right: 0;
+	right: -10px;
 	top: 0;
 	z-index: 5;
 	text-align: right;
