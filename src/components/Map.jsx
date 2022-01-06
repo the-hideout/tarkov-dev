@@ -51,7 +51,7 @@ function Map() {
         return <ErrorPage />;
     }
 
-    const { displayText, image, source, sourceLink } = maps[currentMap];
+    const { displayText, image, source, sourceLink, duration, players } = maps[currentMap];
     const infoString = `Escape from Tarkov ${displayText} map`;
 
     return [
@@ -70,6 +70,8 @@ function Map() {
         <div>
             <Time
                 currentMap = {currentMap}
+                duration = {duration}
+                players = {players}
                 source = {source}
                 sourceLink = {sourceLink}
             />

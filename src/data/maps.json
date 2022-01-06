@@ -3,74 +3,104 @@
         "key": "customs",
         "displayText": "Customs",
         "source": "/u/LowEffortSaltBox",
-        "sourceLink": "https://twitter.com/re3mr"
+        "sourceLink": "https://twitter.com/re3mr",
+        "duration": "35 min",
+        "players": "9-12"
     },
     {
         "key": "customs-2d",
         "displayText": "Customs - 2D",
-        "source": "TacticalOtter"
+        "source": "TacticalOtter",
+        "duration": "35 min",
+        "players": "9-12"
     },
     {
         "key": "customs-monkix3",
-        "displayText": "Customs - MONKIMONKIMONKI"
+        "displayText": "Customs - MONKIMONKIMONKI",
+        "duration": "35 min",
+        "players": "9-12"
     },
     {
         "key": "dorms",
-        "displayText": "Customs - Dorms"
+        "displayText": "Customs - Dorms",
+        "duration": "35 min",
+        "players": "9-12"
     },
     {
         "key": "factory",
         "displayText": "Factory",
-        "source": "/u/JohnnyTushonka"
+        "source": "/u/JohnnyTushonka",
+        "duration": "20 min / 25 min",
+        "players": "5-6"
     },
     {
         "key": "interchange",
-        "displayText": "Interchange"
+        "displayText": "Interchange",
+        "duration": "45 min",
+        "players": "10-14"
     },
     {
         "key": "interchange-stashes",
-        "displayText": "Interchange - Stashes"
+        "displayText": "Interchange - Stashes",
+        "duration": "45 min",
+        "players": "10-14"
     },
     {
         "key": "labs",
-        "displayText": "Labs"
+        "displayText": "Labs",
+        "duration": "40 min",
+        "players": "6-10"
     },
     {
         "key": "lighthouse",
         "displayText": "Lighthouse",
         "source": "Jindouz",
-        "sourceLink": "https://www.reddit.com/user/Jindouz"
+        "sourceLink": "https://www.reddit.com/user/Jindouz",
+        "duration": "40 min",
+        "players": "9-12"
     },
     {
         "key": "lighthouse-landscape",
         "displayText": "Lighthouse - Landscape",
         "source": "Jindouz",
-        "sourceLink": "https://www.reddit.com/user/Jindouz"
+        "sourceLink": "https://www.reddit.com/user/Jindouz",
+        "duration": "40 min",
+        "players": "9-12"
     },
     {
         "key": "reserve",
         "displayText": "Reserve",
         "source": "/u/LowEffortSaltBox",
-        "sourceLink": "https://twitter.com/re3mr"
+        "sourceLink": "https://twitter.com/re3mr",
+        "duration": "40 min",
+        "players": "9-12"
     },
     {
         "key": "underground",
         "displayText": "Reserve - Underground",
         "source": "/u/LowEffortSaltBox",
-        "sourceLink": "https://twitter.com/re3mr"
+        "sourceLink": "https://twitter.com/re3mr",
+        "duration": "40 min",
+        "players": "9-12"
     },
     {
         "key": "shoreline",
-        "displayText": "Shoreline"
+        "displayText": "Shoreline",
+        "duration": "50 min",
+        "players": "10-13"
     },
     {
         "key": "resort",
-        "displayText": "Shoreline - Resort"
+        "displayText": "Shoreline - Resort",
+        "duration": "50 min",
+        "players": "10-13"
     },
     {
         "key": "woods",
         "displayText": "Woods",
         "source": "Jindouz",
-        "sourceLink": "https://www.reddit.com/user/Jindouz"
+        "sourceLink": "https://www.reddit.com/user/Jindouz",
+        "duration": "40 min",
+        "players": "9-14"
     }
 ]

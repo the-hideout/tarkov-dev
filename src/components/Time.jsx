@@ -74,9 +74,13 @@ const getSource = (props) => {
         return false;
     }
 
-    return (<div>
-        By: <a href={props.sourceLink}>{props.source}</a>
-    </div>);
+    return [
+        <div>Duration: {props.duration}</div>,
+        <div>Players: {props.players}</div>,
+        <div>
+            By: <a href={props.sourceLink}>{props.source}</a>
+        </div>
+    ];
 };
 
 function Time(props) {
