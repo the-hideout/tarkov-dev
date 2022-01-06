@@ -75,9 +75,19 @@ const getSource = (props) => {
     }
 
     return [
-        <div>Duration: {props.duration}</div>,
-        <div>Players: {props.players}</div>,
-        <div>
+        <div
+            key = {`${props.currentMap}-duration`}
+        >
+            Duration: {props.duration}
+        </div>,
+        <div
+            key = {`${props.currentMap}-players`}
+        >
+            Players: {props.players}
+        </div>,
+        <div
+            key = {`${props.currentMap}-attribution`}
+        >
             By: <a href={props.sourceLink}>{props.source}</a>
         </div>
     ];
