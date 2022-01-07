@@ -121,6 +121,7 @@ function Jaeger() {
                 traderFilter = 'jaeger'
                 loyaltyLevelFilter = {Number.isInteger(selectedTable) ? selectedTable : false}
                 traderPrice = {selectedTable === 'level' ? false : true}
+                fleaValue
                 traderValue
                 fleaPrice
                 traderBuyback = {selectedTable === 'level' ? true : false}

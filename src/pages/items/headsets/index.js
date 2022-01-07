@@ -58,6 +58,7 @@ function Headsets() {
             <SmallItemTable
                 nameFilter = {nameFilter}
                 typeFilter = 'headphones'
+                fleaValue
                 traderValue
                 traderPrice
             />

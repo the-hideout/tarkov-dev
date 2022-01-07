@@ -71,6 +71,7 @@ function SmallItemTable(props) {
         slotRatio,
         pricePerSlot,
         barterPrice,
+        fleaValue,
     } = props;
     const dispatch = useDispatch();
     const {t} = useTranslation();
@@ -266,7 +267,10 @@ function SmallItemTable(props) {
                         </div>
                     },
                 },
-                {
+            ];
+
+            if(fleaValue){
+                useColumns.push({
                     Header: t('Sell to Flea'),
                     accessor: d => Number(d.lastLowPrice),
                     Cell: (allData) => {
@@ -312,8 +316,8 @@ function SmallItemTable(props) {
                         />;
                     },
                     id: 'fleaSellPrice',
-                },
-            ];
+                })
+            }
 
             if(fleaPrice){
                 useColumns.push({
@@ -362,7 +366,7 @@ function SmallItemTable(props) {
                         />;
                     },
                     id: 'fleaBuyPrice',
-                })
+                });
             }
 
             if(barterPrice){
@@ -375,7 +379,7 @@ function SmallItemTable(props) {
                         />;
                     },
                     id: 'barterPrice',
-                })
+                });
             }
 
             if(traderValue){
@@ -449,7 +453,7 @@ function SmallItemTable(props) {
                     Header: 'Grid slots',
                     accessor: 'slots',
                     Cell: CenterCell,
-                })
+                });
             }
 
             if(innerSize){
@@ -457,7 +461,7 @@ function SmallItemTable(props) {
                     Header: 'Inner size',
                     accessor: 'size',
                     Cell: CenterCell,
-                })
+                });
             }
 
             if(slotRatio){
@@ -465,7 +469,7 @@ function SmallItemTable(props) {
                     Header: 'Slot ratio',
                     accessor: 'ratio',
                     Cell: CenterCell,
-                })
+                });
             }
 
             if(pricePerSlot){
@@ -473,12 +477,12 @@ function SmallItemTable(props) {
                     Header: 'Price per slot',
                     accessor: 'pricePerSlot',
                     Cell: ValueCell,
-                })
+                });
             }
 
             return useColumns;
         },
-        [t, instaProfit, traderPrice, traderValue, traderBuyback, fleaPrice, gridSlots, innerSize, slotRatio, pricePerSlot, barterPrice]
+        [t, instaProfit, traderPrice, traderValue, traderBuyback, fleaPrice, gridSlots, innerSize, slotRatio, pricePerSlot, barterPrice, fleaValue]
     );
 
     // console.log(data.length);

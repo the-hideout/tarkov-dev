@@ -59,6 +59,7 @@ function Guns() {
             <SmallItemTable
                 nameFilter = {nameFilter}
                 typeFilter = 'gun'
+                fleaValue
                 traderValue
                 traderPrice
             />

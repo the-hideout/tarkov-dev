@@ -59,6 +59,7 @@ function Mods() {
             <SmallItemTable
                 nameFilter = {nameFilter}
                 typeFilter = 'mods'
+                fleaValue
                 traderValue
                 traderPrice
             />

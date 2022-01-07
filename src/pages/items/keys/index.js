@@ -59,6 +59,7 @@ function Keys() {
             <SmallItemTable
                 nameFilter = {nameFilter}
                 typeFilter = 'keys'
+                fleaValue
                 traderValue
             />
         </div>,
