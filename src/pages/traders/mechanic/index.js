@@ -122,6 +122,7 @@ function Mechanic() {
                 loyaltyLevelFilter = {Number.isInteger(selectedTable) ? selectedTable : false}
                 traderPrice = {selectedTable === 'level' ? false : true}
                 traderValue
+                fleaPrice
                 traderBuyback = {selectedTable === 'level' ? true : false}
                 traderBuybackFilter = {selectedTable === 'level' ? true : false}
 

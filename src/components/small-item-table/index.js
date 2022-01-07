@@ -62,6 +62,7 @@ function SmallItemTable(props) {
         traderValue,
         traderBuybackFilter,
         traderBuyback,
+        fleaPrice,
     } = props;
     const dispatch = useDispatch();
     const items = useSelector(selectAllItems);
@@ -163,10 +164,11 @@ function SmallItemTable(props) {
                 .filter(item => item.instaProfit !== 0)
                 .filter(item => item.lastLowPrice && item.lastLowPrice > 0)
                 .filter(item => item.bestSell && item.bestSell.price > 500)
+                .filter(item => item.buyOnFleaPrice)
                 .map(item => {
                     return {
                         ...item,
-                        buyback: item.bestSell?.price / item.lastLowPrice,
+                        buyback: item.bestSell?.price / item.buyOnFleaPrice.price,
                     };
                 })
                 .sort((a, b) => {
@@ -216,7 +218,7 @@ function SmallItemTable(props) {
                     },
                 },
                 {
-                    Header: t('Flea'),
+                    Header: t('Sell to Flea'),
                     accessor: d => Number(d.lastLowPrice),
                     Cell: (allData) => {
                         if(allData.row.original.types.includes('noFlea')){
@@ -260,13 +262,63 @@ function SmallItemTable(props) {
                             }
                         />;
                     },
-                    id: 'fleaPrice',
+                    id: 'fleaSellPrice',
                 },
             ];
 
+            if(fleaPrice){
+                useColumns.push({
+                    Header: t('Buy on Flea'),
+                    accessor: d => Number(d.buyOnFleaPrice?.price),
+                    Cell: (allData) => {
+                        if(allData.row.original.types.includes('noFlea')){
+                            return <ValueCell
+                                value = {allData.value}
+                                noValue = {
+                                    <div
+                                        className = 'center-content'
+                                    >
+                                        <Tippy
+                                            placement = 'bottom'
+                                            content={'This item can\'t be sold on the Flea Market'}
+                                        >
+                                            <Icon
+                                                path={mdiCloseOctagon}
+                                                size={1}
+                                                className = 'icon-with-text'
+                                            />
+                                        </Tippy>
+                                    </div>
+                                }
+                            />;
+                        }
+                        return <ValueCell
+                            value = {allData.value}
+                            noValue = {
+                                <div
+                                    className = 'center-content'
+                                >
+                                    <Tippy
+                                        placement = 'bottom'
+                                        content={'No flea price seen in the past 24 hours'}
+                                    >
+                                        <Icon
+                                            path={mdiClockAlertOutline}
+                                            size={1}
+                                            className = 'icon-with-text'
+                                        />
+                                    </Tippy>
+                                </div>
+                            }
+                        />;
+                    },
+                    id: 'fleaBuyPrice',
+                })
+            }
+
             if(traderValue){
                 useColumns.splice(1, 0, {
-                    Header: t('Trader sell'),
+                    Header: t('Sell to Trader'),
                     accessor: d => Number(d.bestSell?.price),
                     Cell: traderSellCell,
                     id: 'traderPrice',
@@ -332,7 +384,7 @@ function SmallItemTable(props) {
 
             return useColumns;
         },
-        [t, instaProfit, traderPrice, traderValue, traderBuyback]
+        [t, instaProfit, traderPrice, traderValue, traderBuyback, fleaPrice]
     );
 
     // console.log(data.length);
