@@ -10,31 +10,12 @@ import SmallItemTable from '../../components/small-item-table';
 import ItemSearch from '../../components/item-search';
 import ServerStatus from '../../components/server-status';
 
-import Icon from '@mdi/react'
-import {
-    mdiAmmunition,
-    mdiHammerWrench,
-    mdiFinance,
-    mdiAccountSwitch,
-    mdiProgressWrench,
-    mdiMap,
-    mdiTshirtCrew,
-    mdiBagPersonal,
-    mdiRacingHelmet,
-    mdiSunglasses,
-    mdiTshirtCrewOutline,
-    mdiBottleWine,
-    mdiPliers,
-    mdiGasCylinder,
-    mdiPistol,
-    mdiHeadset,
-    mdiKeyVariant,
-    mdiMagazineRifle,
-    mdiFoodForkDrink,
-    mdiHandPointingLeft,
-} from '@mdi/js';
+import Icon from '@mdi/react';
+import * as Icons from '@mdi/js';
 
 import './index.css';
+
+import categoryPages from '../../data/category-pages.json';
 
 function Start(props) {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
@@ -104,7 +85,7 @@ function Start(props) {
                 >
                     <h2>
                         <Icon
-                            path={mdiAmmunition}
+                            path={Icons.mdiAmmunition}
                             size={1}
                             rotate={90}
                             className = 'icon-with-text'
@@ -122,7 +103,7 @@ function Start(props) {
                 </Link>
                 <h3>
                     <Icon
-                        path={mdiHammerWrench}
+                        path={Icons.mdiHammerWrench}
                         size={1}
                         className = 'icon-with-text'
                     />
@@ -134,7 +115,7 @@ function Start(props) {
                             to = '/loot-tier/'
                         >
                             <Icon
-                                path={mdiFinance}
+                                path={Icons.mdiFinance}
                                 size={1}
                                 className = 'icon-with-text'
                             />
@@ -146,7 +127,7 @@ function Start(props) {
                             to = '/barters/'
                         >
                             <Icon
-                                path={mdiAccountSwitch}
+                                path={Icons.mdiAccountSwitch}
                                 size={1}
                                 className = 'icon-with-text'
                             />
@@ -158,7 +139,7 @@ function Start(props) {
                             to = '/hideout-profit/'
                         >
                             <Icon
-                                path={mdiProgressWrench}
+                                path={Icons.mdiProgressWrench}
                                 size={1}
                                 className = 'icon-with-text'
                             />
@@ -168,7 +149,7 @@ function Start(props) {
                 </ul>
                 <h3>
                     <Icon
-                        path={mdiMap}
+                        path={Icons.mdiMap}
                         size={1}
                         className = 'icon-with-text'
                     />
@@ -195,174 +176,20 @@ function Start(props) {
                     /> */}
                     Items
                 </h3>
-                <Link
-                    to = {`/items/armor`}
-                >
-                    <h2>
-                        <Icon
-                            path={mdiTshirtCrew}
-                            size={1}
-                            className = 'icon-with-text'
-                        />
-                        Armor
-                    </h2>
-                </Link>
-                <Link
-                    to = {`/items/backpacks`}
-                >
-                    <h2>
-                        <Icon
-                            path={mdiBagPersonal}
-                            size={1}
-                            className = 'icon-with-text'
-                        />
-                        Backpacks
-                    </h2>
-                </Link>
-                <Link
-                    to = {`/items/barter-items`}
-                >
-                    <h2>
-                        <Icon
-                            path={mdiPliers}
-                            size={1}
-                            className = 'icon-with-text'
-                        />
-                        Barter Items
-                    </h2>
-                </Link>
-                <Link
-                    to = {`/items/helmets`}
-                >
-                    <h2>
-                        <Icon
-                            path={mdiRacingHelmet}
-                            size={1}
-                            className = 'icon-with-text'
-                        />
-                        Helmets
-                    </h2>
-                </Link>
-                <Link
-                    to = {`/items/glasses`}
-                >
-                    <h2>
-                        <Icon
-                            path={mdiSunglasses}
-                            size={1}
-                            className = 'icon-with-text'
-                        />
-                        Glasses
-                    </h2>
-                </Link>
-                <Link
-                    to = {`/items/grenades`}
-                >
-                    <h2>
-                        <Icon
-                            path={mdiGasCylinder}
-                            size={1}
-                            className = 'icon-with-text'
-                        />
-                        Grenades
-                    </h2>
-                </Link>
-                <Link
-                    to = {`/items/guns`}
-                >
-                    <h2>
-                        <Icon
-                            path={mdiPistol}
-                            size={1}
-                            className = 'icon-with-text'
-                        />
-                        Guns
-                    </h2>
-                </Link>
-                <Link
-                    to = {`/items/headsets`}
-                >
-                    <h2>
-                        <Icon
-                            path={mdiHeadset}
-                            size={1}
-                            className = 'icon-with-text'
-                        />
-                        Headsets
-                    </h2>
-                </Link>
-                <Link
-                    to = {`/items/keys`}
-                >
-                    <h2>
-                        <Icon
-                            path={mdiKeyVariant}
-                            size={1}
-                            className = 'icon-with-text'
-                        />
-                        Keys
-                    </h2>
-                </Link>
-                <Link
-                    to = {`/items/mods`}
-                >
-                    <h2>
-                        <Icon
-                            path={mdiMagazineRifle}
-                            size={1}
-                            className = 'icon-with-text'
-                        />
-                        Mods
-                    </h2>
-                </Link>
-                <Link
-                    to = {`/items/pistol-grips`}
-                >
-                    <h2>
-                        <Icon
-                            path={mdiHandPointingLeft}
-                            size={1}
-                            className = 'icon-with-text'
-                        />
-                        Pistol Grips
-                    </h2>
-                </Link>
-                <Link
-                    to = {`/items/provisions`}
-                >
-                    <h2>
-                        <Icon
-                            path={mdiFoodForkDrink}
-                            size={1}
-                            className = 'icon-with-text'
-                        />
-                        Provisions
-                    </h2>
-                </Link>
-                <Link
-                    to = {`/items/rigs`}
-                >
-                    <h2>
-                        <Icon
-                            path={mdiTshirtCrewOutline}
-                            size={1}
-                            className = 'icon-with-text'
-                        />
-                        Rigs
-                    </h2>
-                </Link>
-                <Link
-                    to = {`/items/suppressors`}
-                >
-                    <h2>
-                        <Icon
-                            path={mdiBottleWine}
-                            size={1}
-                            className = 'icon-with-text'
-                        />
-                        Suppressors
-                    </h2>
-                </Link>
+                {categoryPages.map( (categoryPage) => {
+                    return <Link
+                        to = {`/items/${categoryPage.key}`}
+                    >
+                        <h2>
+                            <Icon
+                                path={Icons[categoryPage.icon]}
+                                size={1}
+                                className = 'icon-with-text'
+                            />
+                            {categoryPage.displayText}
+                        </h2>
+                    </Link>
+                })}
             </div>
         </div>,
     ];

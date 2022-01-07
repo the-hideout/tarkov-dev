@@ -1,0 +1,77 @@
+[
+    {
+        "key": "armor",
+        "displayText": "Armor",
+        "icon": "mdiTshirtCrew"
+    },
+    {
+        "key": "backpacks",
+        "displayText": "Backpacks",
+        "icon": "mdiBagPersonal"
+    },
+    {
+        "key": "barter-items",
+        "displayText": "Barter items",
+        "icon": "mdiPliers"
+    },
+    {
+        "key": "containers",
+        "displayText": "Containers",
+        "icon": "mdiArchive"
+    },
+    {
+        "key": "helmets",
+        "displayText": "Helmets",
+        "icon": "mdiRacingHelmet"
+    },
+    {
+        "key": "glasses",
+        "displayText": "Glasses",
+        "icon": "mdiSunglasses"
+    },
+    {
+        "key": "grenades",
+        "displayText": "Grenades",
+        "icon": "mdiGasCylinder"
+    },
+    {
+        "key": "guns",
+        "displayText": "Guns",
+        "icon": "mdiPistol"
+    },
+    {
+        "key": "headsets",
+        "displayText": "Headsets",
+        "icon": "mdiHeadset"
+    },
+    {
+        "key": "keys",
+        "displayText": "Keys",
+        "icon": "mdiKeyVariant"
+    },
+    {
+        "key": "mods",
+        "displayText": "Mods",
+        "icon": "mdiMagazineRifle"
+    },
+    {
+        "key": "pistol-grips",
+        "displayText": "Pistol Grips",
+        "icon": "mdiHandPointingLeft"
+    },
+    {
+        "key": "provisions",
+        "displayText": "Provisions",
+        "icon": "mdiFoodForkDrink"
+    },
+    {
+        "key": "rigs",
+        "displayText": "Rigs",
+        "icon": "mdiTshirtCrewOutline"
+    },
+    {
+        "key": "suppressors",
+        "displayText": "Suppressors",
+        "icon": "mdiBottleWine"
+    }
+]

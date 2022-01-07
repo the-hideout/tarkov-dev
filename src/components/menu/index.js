@@ -16,6 +16,7 @@ import PatreonButton from '../patreon-button';
 
 import ammoData from '../../data/ammo.json';
 import mapData from '../../data/maps.json';
+import itemsData from '../../data/category-pages.json';
 
 import './index.css';
 
@@ -150,81 +151,14 @@ const Menu = () => {
                         {t('Items')}
                     </Link>
                     <ul>
-                        <MenuItem
-                            displayText = {t('Armor')}
-                            to = {`/items/armor`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {t('Backpacks')}
-                            to = {`/items/backpacks`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {t('Barter Items')}
-                            to = {`/items/barter-items`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {t('Containers')}
-                            to = {`/items/containers`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {t('Glasses')}
-                            to = {`/items/glasses`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {t('Grenades')}
-                            to = {`/items/grenades`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {t('Guns')}
-                            to = {`/items/guns`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {t('Headsets')}
-                            to = {`/items/headsets`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {t('Helmets')}
-                            to = {`/items/helmets`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {t('Keys')}
-                            to = {`/items/keys`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {t('Mods')}
-                            to = {`/items/mods`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {t('Pistol Grips')}
-                            to = {`/items/pistol-grips`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {t('Provisions')}
-                            to = {`/items/provisions`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {t('Rigs')}
-                            to = {`/items/rigs`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
-                        <MenuItem
-                            displayText = {t('Suppressors')}
-                            to = {`/items/suppressors`}
-                            onClick = {setIsOpen.bind(this, false)}
-                        />
+                        {itemsData.map(categoryPage =>
+                            <MenuItem
+                                displayText = {categoryPage.displayText}
+                                key = {categoryPage.key}
+                                to = {`/items/${categoryPage.key}`}
+                                onClick = {setIsOpen.bind(this, false)}
+                            />
+                        )}
                     </ul>
                 </li>
                 <li
