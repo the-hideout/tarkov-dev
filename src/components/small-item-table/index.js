@@ -18,6 +18,9 @@ import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import ValueCell from '../value-cell';
 import TraderPriceCell from '../trader-price-cell';
 import itemSearch from '../../modules/item-search';
+import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
+import CenterCell from '../center-cell';
+import { getCheapestItemPriceWithBarters } from '../../modules/format-cost-items';
 
 import './index.css';
 
@@ -63,13 +66,41 @@ function SmallItemTable(props) {
         traderBuybackFilter,
         traderBuyback,
         fleaPrice,
+        gridSlots,
+        innerSize,
+        slotRatio,
+        pricePerSlot,
+        barterPrice,
     } = props;
     const dispatch = useDispatch();
+    const {t} = useTranslation();
+
     const items = useSelector(selectAllItems);
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
-    const {t} = useTranslation();
+
+    const barters = useSelector(selectAllBarters);
+    const bartersStatus = useSelector((state) => {
+        return state.barters.status;
+    });
+
+    useEffect(() => {
+        let timer = false;
+        if (bartersStatus === 'idle') {
+            dispatch(fetchBarters());
+        }
+
+        if(!timer){
+            timer = setInterval(() => {
+                dispatch(fetchBarters());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        }
+    }, [bartersStatus, dispatch]);
 
     useEffect(() => {
         let timer = false;
@@ -111,10 +142,25 @@ function SmallItemTable(props) {
                     price: itemData.traderPrice,
                 },
                 buyOnFleaPrice: itemData.buyFor.find(buyPrice => buyPrice.source === 'flea-market'),
+                barters: barters.filter(barter => barter.rewardItems[0].item.id === itemData.id),
+                grid: itemData.grid,
+                pricePerSlot: Math.floor(itemData.avg24hPrice / itemData.itemProperties.grid?.totalSize),
+                ratio: (itemData.itemProperties.grid?.totalSize / itemData.slots).toFixed(2),
+                size: itemData.itemProperties.grid?.totalSize,
+                notes: itemData.notes,
+                slots: itemData.slots,
             };
 
             if(formattedItem.buyOnFleaPrice){
                 formattedItem.instaProfit = itemData.traderPrice - formattedItem.buyOnFleaPrice.price;
+            }
+
+            if(formattedItem.barters.length > 0){
+                formattedItem.barterPrice = getCheapestItemPriceWithBarters(itemData, formattedItem.barters);
+
+                if(!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice){
+                    formattedItem.pricePerSlot = Math.floor(formattedItem.barterPrice.price / itemData.itemProperties.grid?.totalSize);
+                }
             }
 
             return formattedItem;
@@ -176,13 +222,15 @@ function SmallItemTable(props) {
                 });
         }
 
+        // console.log(returnData);
+
         if(defaultRandom && !nameFilter){
             shuffleArray(returnData);
         }
 
         return returnData;
     },
-        [nameFilter, defaultRandom, items, typeFilter, traderFilter, loyaltyLevelFilter, traderBuybackFilter]
+        [nameFilter, defaultRandom, items, typeFilter, traderFilter, loyaltyLevelFilter, traderBuybackFilter, barters]
     );
 
     const columns = useMemo(
@@ -213,6 +261,7 @@ function SmallItemTable(props) {
                                 >
                                     {allData.row.original.name}
                                 </Link>
+                                {allData.row.original.notes ? <cite>{allData.row.original.notes}</cite> : ''}
                             </div>
                         </div>
                     },
@@ -316,6 +365,19 @@ function SmallItemTable(props) {
                 })
             }
 
+            if(barterPrice){
+                useColumns.push({
+                    Header: t('Barter'),
+                    accessor: d => Number(d.barterPrice?.price),
+                    Cell: ({value}) => {
+                        return <ValueCell
+                            value = {value}
+                        />;
+                    },
+                    id: 'barterPrice',
+                })
+            }
+
             if(traderValue){
                 useColumns.splice(1, 0, {
                     Header: t('Sell to Trader'),
@@ -382,9 +444,41 @@ function SmallItemTable(props) {
                 });
             }
 
+            if(gridSlots){
+                useColumns.push({
+                    Header: 'Grid slots',
+                    accessor: 'slots',
+                    Cell: CenterCell,
+                })
+            }
+
+            if(innerSize){
+                useColumns.push({
+                    Header: 'Inner size',
+                    accessor: 'size',
+                    Cell: CenterCell,
+                })
+            }
+
+            if(slotRatio){
+                useColumns.push({
+                    Header: 'Slot ratio',
+                    accessor: 'ratio',
+                    Cell: CenterCell,
+                })
+            }
+
+            if(pricePerSlot){
+                useColumns.push({
+                    Header: 'Price per slot',
+                    accessor: 'pricePerSlot',
+                    Cell: ValueCell,
+                })
+            }
+
             return useColumns;
         },
-        [t, instaProfit, traderPrice, traderValue, traderBuyback, fleaPrice]
+        [t, instaProfit, traderPrice, traderValue, traderBuyback, fleaPrice, gridSlots, innerSize, slotRatio, pricePerSlot, barterPrice]
     );
 
     // console.log(data.length);
