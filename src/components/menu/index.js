@@ -166,6 +166,11 @@ const Menu = () => {
                             onClick = {setIsOpen.bind(this, false)}
                         />
                         <MenuItem
+                            displayText = {t('Containers')}
+                            to = {`/items/containers`}
+                            onClick = {setIsOpen.bind(this, false)}
+                        />
+                        <MenuItem
                             displayText = {t('Glasses')}
                             to = {`/items/glasses`}
                             onClick = {setIsOpen.bind(this, false)}

@@ -15,6 +15,23 @@ const initialState = {
 const NOTES = {
     '5e4abc6786f77406812bd572': 'Can only keep medical items',
     '60a2828e8689911a226117f9': `Can't store Pillbox, Day Pack, LK 3F or MBSS inside`,
+    '5c093e3486f77430cb02e593': 'Dogtags',
+    '619cbf9e0a7c3a1a2731940a': 'Keycards',
+    '619cbf7d23893217ec30b689': 'Injectors',
+    '5aafbde786f774389d0cbc0f': 'Ammounition',
+    '59fb023c86f7746d0d4b423c': 'Weapons & mods',
+    '5b6d9ce188a4501afc1b2b25': 'Weapons & mods',
+    '5c127c4486f7745625356c13': 'Magazines',
+    '5e2af55f86f7746d4159f07c': 'Grenades',
+    '5aafbcd986f7745e590fff23': 'Meds, injectors & medical barter items',
+    '59fb016586f7746d0d4b423a': 'Currency, GP coins, Physical bitcoins',
+    '590c60fc86f77412b13fddcf': 'Currency, Diary, Folder with intelligence, GP coin, Keys & Keycards, Maps, Physical bitcoin, SAS drive, Secure Flash drive, Slim diary, SSD drive, Tech manual, Veritas guitar pick',
+    '567143bf4bdc2d1a0f8b4567': 'pistols & pistol magazines',
+    '5d235bb686f77443f4331278': 'Chain with Prokill medallion, Currency, Dogtag, Gold skull ring, GP coin, Keys & Keycards, Physical bitcoin, Secure Flash drive, Veritas guitar pick',
+    '5783c43d2459774bbe137486': 'Currency',
+    '60b0f6c058e0b0481a09ad11': 'Currency',
+    '5b7c710788a4506dec015957': 'Barter items',
+    '619bc61e86e01e16f839a999': 'Keys',
 };
 
 export const fetchItems = createAsyncThunk('items/fetchItems', async () => {

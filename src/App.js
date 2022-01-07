@@ -43,6 +43,7 @@ import Items from './pages/items/';
 import Armor from './pages/items/armor';
 import Backpacks from './pages/items/backpacks';
 import BarterItems from './pages/items/barter-items';
+import Containers from './pages/items/containers';
 import Glasses from './pages/items/glasses';
 import Grenades from './pages/items/grenades';
 import Guns from './pages/items/guns';
@@ -520,6 +521,21 @@ return (
                     <BarterItems
                         sessionID = {sessionID}
                         key = 'barter-items-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/items/containers'}
+                element = {[
+                    <Containers
+                        sessionID = {sessionID}
+                        key = 'containers-wrapper'
                     />,
                     <ID
                         key = 'connection-wrapper'
