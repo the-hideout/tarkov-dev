@@ -59,9 +59,16 @@ function getCheapestItemPrice(item, barters, useFlea = true) {
     });
 
     const barter = getBarterPrice(item, barters);
+    let barterTotalCost = false;
 
-    if(barter && barter.requiredItems[0].item[priceToUse] < bestPrice.price){
-        bestPrice.price = barter.requiredItems[0].item[priceToUse] * barter.requiredItems[0].count;
+    if(barter){
+        barterTotalCost = barter.requiredItems.reduce((accumulatedPrice, requiredItem) => {
+            return accumulatedPrice + (requiredItem.item[priceToUse] * requiredItem.count);
+        }, 0);
+    }
+
+    if(barter && barterTotalCost && barterTotalCost < bestPrice.price){
+        bestPrice.price = barterTotalCost;
         bestPrice.source = 'barter';
         bestPrice.barter = barter;
     }
@@ -98,7 +105,7 @@ const formatCostItems = (itemsList, hidMan, barters, freeFuel = false, useFlea =
             calculationPrice = 0;
         }
 
-        return {
+        const returnData = {
             id: requiredItem.item.id,
             count: requiredItem.count === 0.66 ? (requiredItem.count - (requiredItem.count *(hidMan*0.5)/100)).toFixed(2) : requiredItem.count,
             name: requiredItem.item.name,
@@ -109,6 +116,8 @@ const formatCostItems = (itemsList, hidMan, barters, freeFuel = false, useFlea =
             wikiLink: requiredItem.item.wikiLink,
             itemLink: `/item/${requiredItem.item.normalizedName}`,
         };
+
+        return returnData;
     });
 };
 
