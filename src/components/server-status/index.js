@@ -25,7 +25,7 @@ function ServerStatus() {
         }
     }`});
 
-    if(status !== 'success'){
+    if(status !== 'success' || !data.data.status){
         return null;
     }
 
