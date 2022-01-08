@@ -285,7 +285,7 @@ function Item() {
                                 </div>
                             </div>
                         </div>}
-                        {currentItemData.traderPrices && currentItemData.traderPrices.length > 0 &&
+                        {currentItemData.traderName &&
                             <div
                                 className = {`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''} first-trader-price`}
                             >
