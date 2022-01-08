@@ -1,4 +1,4 @@
-import Loader from 'react-loader-spinner';
+import {Bars} from 'react-loader-spinner';
 
 import ID from '../ID.jsx';
 
@@ -13,12 +13,12 @@ function Loading(props) {
             <div
                 className = 'loader-wrapper'
             >
-                <Loader
-                    type="Puff"
+                <Bars
+                    arialLabel="loading-indicator"
                     color="#9a8866"
                     height={100}
-                    width={100}
                     timeout={3000} //3 secs
+                    width={100}
                 />
             </div>
         </div>,
