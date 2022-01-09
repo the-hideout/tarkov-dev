@@ -87,7 +87,7 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
 
     const craftsData = await response.json();
 
-    return craftsData.data.crafts;
+    return craftsData.data.crafts.filter(craft => !craft.source.toLowerCase().includes('christmas'));
 });
 
 const craftsSlice = createSlice({
