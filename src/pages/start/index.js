@@ -178,6 +178,7 @@ function Start(props) {
                 </h3>
                 {categoryPages.map( (categoryPage) => {
                     return <Link
+                        key = {`start-link-to-${categoryPage.key}`}
                         to = {`/items/${categoryPage.key}`}
                     >
                         <h2>
