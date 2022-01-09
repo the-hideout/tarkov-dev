@@ -1,6 +1,8 @@
 import { useQuery } from 'react-query';
-
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
 import './index.css';
+
 
 function ServerStatus() {
     const { status, data } = useQuery(`server-status`, () =>
@@ -22,6 +24,12 @@ function ServerStatus() {
                 message
                 status
             }
+            messages {
+                time
+                type
+                content
+                solveTime
+            }
         }
     }`});
 
@@ -36,19 +44,24 @@ function ServerStatus() {
     return <div
         className={`server-status-wrapper`}
     >
-        <a
-            href = 'https://status.escapefromtarkov.com/'
+        <Tippy
+            placement='top'
+            content={data.data.status.messages[0]?.content}
         >
-            {`Tarkov server status`}
-            <div
-                className={`status-indicator  status-${data.data.status.generalStatus.status}`}
-            />
-            <div
-                className='server-status-message-wrapper'
+            <a
+                href = 'https://status.escapefromtarkov.com/'
             >
-                {data.data.status.generalStatus.message}
-            </div>
-        </a>
+                {`Tarkov server status`}
+                <div
+                    className={`status-indicator status-${data.data.status.generalStatus.status}`}
+                />
+                <div
+                    className='server-status-message-wrapper'
+                >
+                    {data.data.status.generalStatus.message}
+                </div>
+            </a>
+        </Tippy>
     </div>;
 }
 
