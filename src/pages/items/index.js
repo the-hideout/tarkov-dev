@@ -36,7 +36,7 @@ function Items(props) {
                 className = 'center-title'
             >
                 <Icon
-                    path={Icons.mdiHanger}
+                    path={Icons.mdiViewGrid}
                     size={1.5}
                     className = 'icon-with-text'
                 />

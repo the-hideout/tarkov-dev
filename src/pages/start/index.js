@@ -177,12 +177,12 @@ function Start(props) {
                     <Link
                         to={'/items'}
                     >
-                    {/* <Icon
-                        path={mdiMap}
-                        size={1}
-                        className = 'icon-with-text'
-                    /> */}
-                    Items
+                        <Icon
+                            path={Icons.mdiViewGrid}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Items
                     </Link>
                 </h3>
                 <ul>
