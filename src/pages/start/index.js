@@ -149,12 +149,16 @@ function Start(props) {
                     </li>
                 </ul>
                 <h3>
-                    <Icon
-                        path={Icons.mdiMap}
-                        size={1}
-                        className = 'icon-with-text'
-                    />
-                    Maps
+                    <Link
+                        to={'/maps'}
+                    >
+                        <Icon
+                            path={Icons.mdiMap}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Maps
+                    </Link>
                 </h3>
                 <ul>
                     {mapData.map(mapData => {
@@ -170,28 +174,35 @@ function Start(props) {
                     })}
                 </ul>
                 <h3>
+                    <Link
+                        to={'/items'}
+                    >
                     {/* <Icon
                         path={mdiMap}
                         size={1}
                         className = 'icon-with-text'
                     /> */}
                     Items
-                </h3>
-                {categoryPages.map( (categoryPage) => {
-                    return <Link
-                        key = {`start-link-to-${categoryPage.key}`}
-                        to = {`/items/${categoryPage.key}`}
-                    >
-                        <h2>
-                            <Icon
-                                path={Icons[categoryPage.icon]}
-                                size={1}
-                                className = 'icon-with-text'
-                            />
-                            {categoryPage.displayText}
-                        </h2>
                     </Link>
-                })}
+                </h3>
+                <ul>
+                    {categoryPages.map( (categoryPage) => {
+                        return <li
+                            key = {`start-link-to-${categoryPage.key}`}
+                        >
+                            <Link
+                                to = {`/items/${categoryPage.key}`}
+                            >
+                                <Icon
+                                    path={Icons[categoryPage.icon]}
+                                    size={1}
+                                    className = 'icon-with-text'
+                                />
+                                {categoryPage.displayText}
+                            </Link>
+                        </li>
+                    })}
+                </ul>
             </div>
         </div>,
     ];
