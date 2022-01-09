@@ -10,13 +10,18 @@
     padding: 10px;
 }
 
-.small-item-table-name-wrapper {
+.small-item-table-description-wrapper {
     align-items: center;
     display: flex;
 }
 
 .small-item-table-image-wrapper {
     margin-right: 10px;
+}
+
+.small-item-table-image-wrapper img {
+    height: 32px;
+    width: 32px;
 }
 
 .small-data-table .table-image {
@@ -31,4 +36,20 @@
     align-items: center;
     display: flex;
     gap: 15px;
+}
+
+.small-item-table-name-wrapper cite {
+    display: none;
+}
+
+
+@media screen and (min-width: 900px) {
+    .small-item-table-image-wrapper img {
+        height: 64px;
+        width: 64px;
+    }
+
+    .small-item-table-name-wrapper cite {
+        display: block;
+    }
 }

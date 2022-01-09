@@ -246,7 +246,7 @@ function SmallItemTable(props) {
                     Cell: (allData) => {
                         // allData.row.original.itemLink
                         return <div
-                            className = 'small-item-table-name-wrapper'
+                            className = 'small-item-table-description-wrapper'
                         >
                             <div
                                 className = 'small-item-table-image-wrapper'
@@ -258,7 +258,9 @@ function SmallItemTable(props) {
                                 src = { allData.row.original.iconLink }
                                 width = '64'
                             /></div>
-                            <div>
+                            <div
+                                className='small-item-table-name-wrapper'
+                            >
                                 <Link
                                     className = 'craft-reward-item-title'
                                     to = {allData.row.original.itemLink}
