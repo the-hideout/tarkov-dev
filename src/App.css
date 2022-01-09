@@ -92,6 +92,7 @@ cite {
 
 .display-wrapper {
 	height: var(--display-height);
+    min-height: 80vh;
 	margin: 0 10px;
 	position: relative;
 }
