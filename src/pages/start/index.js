@@ -65,6 +65,7 @@ function Start(props) {
                     fleaValue
                     traderValue
                     instaProfit
+                    hideBorders
                 />
             </div>
             <div

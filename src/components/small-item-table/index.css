@@ -1,8 +1,8 @@
-.small-data-table td.data-cell:first-child {
+.small-data-table.no-borders td.data-cell:first-child {
     border-left: 0;
 }
 
-.small-data-table td.data-cell:last-child {
+.small-data-table.no-borders td.data-cell:last-child {
     border-right: 0;
 }
 
