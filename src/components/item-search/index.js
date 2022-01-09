@@ -1,12 +1,12 @@
 import { useMemo, useState, useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
     Link,
     useNavigate,
     useLocation,
 } from "react-router-dom";
 
-import { selectAllItems } from '../../features/items/itemsSlice';
+import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import useKeyPress from '../../hooks/useKeyPress';
 import itemSearch from '../../modules/item-search';
 
@@ -14,6 +14,10 @@ import './index.css';
 
 function ItemSearch({defaultValue, onChange, placeholder = 'Search item...', autoFocus, showDropdown}) {
     const items = useSelector(selectAllItems);
+    const itemStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
     const [nameFilter, setNameFilter] = useState(defaultValue || '');
     const [cursor, setCursor] = useState(0);
     const downPress = useKeyPress('ArrowDown');
@@ -21,6 +25,24 @@ function ItemSearch({defaultValue, onChange, placeholder = 'Search item...', aut
     const enterPress = useKeyPress('Enter');
     let navigate = useNavigate();
     let location = useLocation();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        let timer = false;
+        if (itemStatus === 'idle') {
+            dispatch(fetchItems());
+        }
+
+        if(!timer){
+            timer = setInterval(() => {
+                dispatch(fetchItems());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        }
+    }, [itemStatus, dispatch]);
 
     const handleNameFilterChange = useCallback((e) => {
         setNameFilter(e.target.value.toLowerCase());

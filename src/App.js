@@ -66,6 +66,7 @@ import Jaeger from './pages/traders/jaeger';
 import Traders from './pages/traders';
 
 import HistoryGraphs from './pages/history-graphs';
+import ErrorPage from './components/error-page';
 
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
 // import APIDocs from './pages/api-docs';
@@ -902,6 +903,10 @@ return (
                         send = {send}
                     />
                 ]}
+            />
+            <Route
+                path="*"
+                element={<ErrorPage />}
             />
         </Routes>
     {/* </Suspense> */}

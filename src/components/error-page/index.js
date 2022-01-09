@@ -2,6 +2,7 @@ import {Helmet} from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import ID from '../ID.jsx';
+import ItemSearch from '../item-search/index.js';
 
 import './index.css';
 
@@ -21,12 +22,15 @@ function ErrorPage(props) {
             />
         </Helmet>,
         <div
-            className="display-wrapper error-page"
+            className="page-wrapper error-page"
             key = {'display-wrapper'}
         >
             <h1>
                 {t(`Sorry, that page doesn't exist!`)}
             </h1>
+            <ItemSearch
+                showDropdown
+            />
         </div>,
         <ID
             key = {'session-id'}
