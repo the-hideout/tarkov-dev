@@ -54,7 +54,7 @@ function Settings() {
 
     const refs = {
         'booze-generator': useRef(null),
-        'christmas-tree': useRef(null),
+        // 'christmas-tree': useRef(null),
         'intelligence-center': useRef(null),
         'lavatory': useRef(null),
         'medstation': useRef(null),
