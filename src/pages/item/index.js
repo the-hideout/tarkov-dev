@@ -176,6 +176,17 @@ function Item() {
                         <cite>
                             {currentItemData.shortName}
                         </cite>
+                        {currentItemData.wikiLink &&
+                            <span
+                                className='wiki-link-wrapper'
+                            >
+                                <a
+                                    href={currentItemData.wikiLink}
+                                >
+                                    Wiki
+                                </a>
+                            </span>
+                        }
                     </h1>
                     <div
                         className = 'icon-and-link-wrapper'
@@ -191,13 +202,7 @@ function Item() {
                             loading='lazy'
                             src = {currentItemData.gridImageLink}
                         /> }
-                        {currentItemData.wikiLink &&
-                            <a
-                                href={currentItemData.wikiLink}
-                            >Wiki</a>
-                        }
                     </div>
-
                 </div>
                 <div
                     className = 'trader-wrapper'
@@ -421,15 +426,17 @@ function Item() {
                     </div> }
                 </div>
                 {!currentItemData.types.includes('noFlea') &&
-                    <div
-                        className='price-history-wrapper'
-                    >
+                    <div>
                         <h2>
                             Flea price last 7 days
                         </h2>
-                        <PriceGraph
-                            itemId = {currentItemData.id}
-                        />
+                        <div
+                            className='price-history-wrapper'
+                        >
+                            <PriceGraph
+                                itemId = {currentItemData.id}
+                            />
+                        </div>
                     </div>
                 }
                 <h2>
