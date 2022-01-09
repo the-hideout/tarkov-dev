@@ -9,9 +9,19 @@ import mapData from '../../data/maps.json';
 import SmallItemTable from '../../components/small-item-table';
 import ItemSearch from '../../components/item-search';
 import ServerStatus from '../../components/server-status';
+import ItemIconList from '../../components/item-icon-list';
 
 import Icon from '@mdi/react';
-import * as Icons from '@mdi/js';
+import {
+    mdiAccountGroup,
+    mdiAmmunition,
+    mdiHammerWrench,
+    mdiFinance,
+    mdiAccountSwitch,
+    mdiProgressWrench,
+    mdiMap,
+    mdiViewGrid,
+} from '@mdi/js';
 
 import './index.css';
 
@@ -86,7 +96,7 @@ function Start(props) {
                 >
                     <h2>
                         <Icon
-                            path={Icons.mdiAmmunition}
+                            path={mdiAmmunition}
                             size={1}
                             rotate={90}
                             className = 'icon-with-text'
@@ -104,7 +114,7 @@ function Start(props) {
                 </Link>
                 <h3>
                     <Icon
-                        path={Icons.mdiHammerWrench}
+                        path={mdiHammerWrench}
                         size={1}
                         className = 'icon-with-text'
                     />
@@ -116,7 +126,7 @@ function Start(props) {
                             to = '/loot-tier/'
                         >
                             <Icon
-                                path={Icons.mdiFinance}
+                                path={mdiFinance}
                                 size={1}
                                 className = 'icon-with-text'
                             />
@@ -128,7 +138,7 @@ function Start(props) {
                             to = '/barters/'
                         >
                             <Icon
-                                path={Icons.mdiAccountSwitch}
+                                path={mdiAccountSwitch}
                                 size={1}
                                 className = 'icon-with-text'
                             />
@@ -140,7 +150,7 @@ function Start(props) {
                             to = '/hideout-profit/'
                         >
                             <Icon
-                                path={Icons.mdiProgressWrench}
+                                path={mdiProgressWrench}
                                 size={1}
                                 className = 'icon-with-text'
                             />
@@ -153,7 +163,7 @@ function Start(props) {
                         to={'/maps'}
                     >
                         <Icon
-                            path={Icons.mdiMap}
+                            path={mdiMap}
                             size={1}
                             className = 'icon-with-text'
                         />
@@ -178,7 +188,7 @@ function Start(props) {
                         to={'/items'}
                     >
                         <Icon
-                            path={Icons.mdiViewGrid}
+                            path={mdiViewGrid}
                             size={1}
                             className = 'icon-with-text'
                         />
@@ -194,7 +204,7 @@ function Start(props) {
                                 to = {`/items/${categoryPage.key}`}
                             >
                                 <Icon
-                                    path={Icons[categoryPage.icon]}
+                                    path={ItemIconList(categoryPage.icon)}
                                     size={1}
                                     className = 'icon-with-text'
                                 />
@@ -208,7 +218,7 @@ function Start(props) {
                         to={'/traders'}
                     >
                         <Icon
-                            path={Icons.mdiAccountGroup}
+                            path={mdiAccountGroup}
                             size={1}
                             className = 'icon-with-text'
                         />
@@ -216,7 +226,7 @@ function Start(props) {
                     </Link>
                 </h3>
                 <ul
-                    className='traders-list'
+                    className=''
                 >
                     <li>
                         <Link

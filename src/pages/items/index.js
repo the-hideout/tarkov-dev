@@ -3,10 +3,13 @@ import {
 } from 'react-router-dom';
 import {Helmet} from 'react-helmet';
 
-import Icon from '@mdi/react'
-import * as Icons from '@mdi/js';
+import Icon from '@mdi/react';
+import {
+    mdiViewGrid,
+} from '@mdi/js';
 
 import ItemSearch from '../../components/item-search';
+import ItemIconList from '../../components/item-icon-list';
 
 import itemsData from '../../data/category-pages.json';
 
@@ -36,7 +39,7 @@ function Items(props) {
                 className = 'center-title'
             >
                 <Icon
-                    path={Icons.mdiViewGrid}
+                    path={mdiViewGrid}
                     size={1.5}
                     className = 'icon-with-text'
                 />
@@ -58,7 +61,7 @@ function Items(props) {
                             className = 'center-title'
                         >
                             <Icon
-                                path={Icons[categoryPage.icon]}
+                                path={ItemIconList(categoryPage.icon)}
                                 size={1}
                                 className = 'icon-with-text'
                             />
