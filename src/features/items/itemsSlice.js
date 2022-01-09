@@ -31,7 +31,7 @@ const NOTES = {
     '5783c43d2459774bbe137486': 'Currency',
     '60b0f6c058e0b0481a09ad11': 'Currency',
     '5b7c710788a4506dec015957': 'Barter items',
-    '619bc61e86e01e16f839a999': 'Keys',
+    '59fafd4b86f7745ca07e1232': 'Keys',
 };
 
 export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
