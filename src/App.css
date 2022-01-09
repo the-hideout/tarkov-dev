@@ -97,8 +97,9 @@ cite {
 }
 
 .page-wrapper {
-	max-width: 1200px;
 	margin: 0 10px;
+	max-width: 1200px;
+    min-height: 80vh;
 }
 
 .updated-label {
