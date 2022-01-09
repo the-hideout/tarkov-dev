@@ -26,7 +26,7 @@ const NOTES = {
     '5aafbcd986f7745e590fff23': 'Meds, injectors & medical barter items',
     '59fb016586f7746d0d4b423a': 'Currency, GP coins, Physical bitcoins',
     '590c60fc86f77412b13fddcf': 'Currency, Diary, Folder with intelligence, GP coin, Keys & Keycards, Maps, Physical bitcoin, SAS drive, Secure Flash drive, Slim diary, SSD drive, Tech manual, Veritas guitar pick',
-    '567143bf4bdc2d1a0f8b4567': 'pistols & pistol magazines',
+    '567143bf4bdc2d1a0f8b4567': 'Pistols, pistol magazines & ammunition',
     '5d235bb686f77443f4331278': 'Chain with Prokill medallion, Currency, Dogtag, Gold skull ring, GP coin, Keys & Keycards, Physical bitcoin, Secure Flash drive, Veritas guitar pick',
     '5783c43d2459774bbe137486': 'Currency',
     '60b0f6c058e0b0481a09ad11': 'Currency',
