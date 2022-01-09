@@ -15,9 +15,13 @@
 }
 
 .status-1 {
-    background-color: #d42929;
+    background-color: #90c1eb;
 }
 
 .status-2 {
     background-color: #ca8a00;
+}
+
+.status-3 {
+    background-color: #d42929;
 }
