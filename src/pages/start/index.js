@@ -203,6 +203,106 @@ function Start(props) {
                         </li>
                     })}
                 </ul>
+                <h3>
+                    <Link
+                        to={'/traders'}
+                    >
+                        <Icon
+                            path={Icons.mdiAccountGroup}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                        Traders
+                    </Link>
+                </h3>
+                <ul
+                    className='traders-list'
+                >
+                    <li>
+                        <Link
+                            to = {`/traders/prapor`}
+                        >
+                            <img
+                                alt='Prapor icon'
+                                className='trader-icon'
+                                src={`${process.env.PUBLIC_URL}/images/prapor-icon.jpg`}
+                            />
+                            Prapor
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to = {`/traders/therapist`}
+                        >
+                            <img
+                                alt='Therapist icon'
+                                className='trader-icon'
+                                src={`${process.env.PUBLIC_URL}/images/therapist-icon.jpg`}
+                            />
+                            Therapist
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to = {`/traders/skier`}
+                        >
+                            <img
+                                alt='Skier icon'
+                                className='trader-icon'
+                                src={`${process.env.PUBLIC_URL}/images/skier-icon.jpg`}
+                            />
+                            Skier
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to = {`/traders/peacekeeper`}
+                        >
+                            <img
+                                alt='Peacekeeper icon'
+                                className='trader-icon'
+                                src={`${process.env.PUBLIC_URL}/images/peacekeeper-icon.jpg`}
+                            />
+                            Peacekeeper
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to = {`/traders/mechanic`}
+                        >
+                            <img
+                                alt='Prapor icon'
+                                className='trader-icon'
+                                src={`${process.env.PUBLIC_URL}/images/mechanic-icon.jpg`}
+                            />
+                            Mechanic
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to = {`/traders/ragman`}
+                        >
+                            <img
+                                alt='Ragman icon'
+                                className='trader-icon'
+                                src={`${process.env.PUBLIC_URL}/images/ragman-icon.jpg`}
+                            />
+                            Ragman
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to = {`/traders/jaeger`}
+                        >
+                            <img
+                                alt='Jaeger icon'
+                                className='trader-icon'
+                                src={`${process.env.PUBLIC_URL}/images/jaeger-icon.jpg`}
+                            />
+                            Jaeger
+                        </Link>
+                    </li>
+                </ul>
             </div>
         </div>,
     ];

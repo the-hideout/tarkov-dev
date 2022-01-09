@@ -1,3 +1,7 @@
+.server-status-wrapper {
+    text-align: center;
+}
+
 .server-status-wrapper a {
     color: #c7c5b3;
 }
