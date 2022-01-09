@@ -72,6 +72,7 @@ function SmallItemTable(props) {
         pricePerSlot,
         barterPrice,
         fleaValue,
+        hideBorders,
     } = props;
     const dispatch = useDispatch();
     const {t} = useTranslation();
@@ -494,7 +495,7 @@ function SmallItemTable(props) {
     }
 
     return <DataTable
-        className = 'small-data-table'
+        className = {`small-data-table ${hideBorders ? 'no-borders': ''}`}
         columns = {columns}
         extraRow={extraRow}
         key = 'small-item-table'
