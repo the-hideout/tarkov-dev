@@ -122,7 +122,18 @@ function SmallItemTable(props) {
     }, [itemStatus, dispatch]);
 
     const data = useMemo(() => {
-        let returnData = items.map((itemData) => {
+        let returnData = items
+        .filter(item => {
+            return !item.types.includes('disabled');
+        })
+        .filter(item => {
+            if(!typeFilter){
+                return true;
+            }
+
+            return item.types.includes(typeFilter);
+        })
+        .map((itemData) => {
             const formattedItem = {
                 id: itemData.id,
                 name: itemData.name,
@@ -167,16 +178,9 @@ function SmallItemTable(props) {
 
             return formattedItem;
         })
-        .filter(item => {
-            return !item.types.includes('disabled');
-        });
 
         if(nameFilter){
             returnData = itemSearch(returnData, nameFilter);
-        }
-
-        if(typeFilter){
-            returnData = returnData.filter(item => item.types.includes(typeFilter));
         }
 
         if(traderFilter){
@@ -223,8 +227,6 @@ function SmallItemTable(props) {
                     return b.buyback - a.buyback;
                 });
         }
-
-        // console.log(returnData);
 
         if(defaultRandom && !nameFilter){
             shuffleArray(returnData);
