@@ -16,6 +16,11 @@
     margin-left: 0;
 }
 
+.ammo-link-wrapper {
+    display: block;
+    text-align: center;
+}
+
 .start-section-wrapper {
 	background-color: #292626;
 	border: 4px solid #1b1919;
@@ -37,18 +42,21 @@
 }
 
 .start-section-wrapper li a {
-    display: inline-block;
+    display: flex;
     padding: 5px 0;
 }
 
 .traders-list a {
-    display: flex;
     align-items: center;
 }
 
 .start-section-wrapper .trader-icon {
     height: 24px;
     width: 24px;
+}
+
+.traders-list .trader-icon {
+    margin-right: 10px;
 }
 
 @media screen and (min-width: 1220px) {

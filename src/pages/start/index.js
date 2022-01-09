@@ -92,6 +92,7 @@ function Start(props) {
                 </ul> */}
                 <ServerStatus />
                 <Link
+                    className='ammo-link-wrapper'
                     to = {`/ammo/`}
                 >
                     <h2>
@@ -226,7 +227,7 @@ function Start(props) {
                     </Link>
                 </h3>
                 <ul
-                    className=''
+                    className='traders-list'
                 >
                     <li>
                         <Link
