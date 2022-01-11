@@ -78,6 +78,7 @@ function Start(props) {
                     traderValue
                     instaProfit
                     hideBorders
+                    noData
                 />
             </div>
             <div

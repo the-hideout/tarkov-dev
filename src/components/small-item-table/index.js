@@ -73,6 +73,7 @@ function SmallItemTable(props) {
         barterPrice,
         fleaValue,
         hideBorders,
+        noData,
     } = props;
     const dispatch = useDispatch();
     const {t} = useTranslation();
@@ -106,11 +107,11 @@ function SmallItemTable(props) {
 
     useEffect(() => {
         let timer = false;
-        if (itemStatus === 'idle') {
+        if (itemStatus === 'idle' && !noData) {
             dispatch(fetchItems());
         }
 
-        if(!timer){
+        if(!timer && !noData){
             timer = setInterval(() => {
                 dispatch(fetchItems());
             }, 600000);
@@ -119,7 +120,8 @@ function SmallItemTable(props) {
         return () => {
             clearInterval(timer);
         }
-    }, [itemStatus, dispatch]);
+    }, [itemStatus, dispatch, noData]);
+
 
     const data = useMemo(() => {
         let returnData = items
