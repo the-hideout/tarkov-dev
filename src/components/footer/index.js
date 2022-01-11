@@ -30,7 +30,7 @@ function Footer() {
             </p>
             <p>
                 {t('If you wanna have a chat, ask questions or request features, we have a')} <a href="https://discord.gg/B2xM8WZyVv">
-                    <DiscordIcon /> Discord server
+                    <DiscordIcon /> {t('Discord server')}
                 </a>
             </p>
             <h3>
@@ -92,42 +92,42 @@ function Footer() {
                 <Link
                     to = {'/api/'}
                 >
-                    Tarkov Tools API
+                    {t('Tarkov Tools API')}
                 </Link>
             </p>
             <p>
                 <Link
                     to = {'/nightbot/'}
                 >
-                    Nightbot integration
+                    {t('Nightbot integration')}
                 </Link>
             </p>
             <p>
                 <Link
                     to = {'/streamelements/'}
                 >
-                    StreamElements integration
+                    {t('StreamElements integration')}
                 </Link>
             </p>
             <p>
                 <Link
                     to = {'/api-users/'}
                 >
-                    API Users
+                    {t('API Users')}
                 </Link>
             </p>
             <p>
                 <a
                     href = {'https://discord.com/api/oauth2/authorize?client_id=925298399371231242&permissions=309237664832&scope=bot%20applications.commands'}
                 >
-                    Discord bot for your Discord
+                    {t('Discord bot for your Discord')}
                 </a>
             </p>
         </div>
         <div
             className = 'copyright-wrapper'
         >
-            Game content and materials are trademarks and copyrights of Battlestate Games and its licensors. All rights reserved.
+            {t('Game content and materials are trademarks and copyrights of Battlestate Games and its licensors. All rights reserved.')}
         </div>
     </div>;
 };

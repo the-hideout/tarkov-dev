@@ -1,17 +1,20 @@
+import { useTranslation } from 'react-i18next';
+
 import './index.css';
 
 function HistoryGraphs() {
+    const {t} = useTranslation();
     return <div
         className = {'page-wrapper history-graphs-page-wrapper'}
     >
         <h1>
-            12.12 KEYS - MARKET PRICING HISTORY
+            {t('12.12 KEYS - MARKET PRICING HISTORY')}
         </h1>
         <div
             className='history-wrapper'
         >
             <h2>
-                Labs
+                {t('Labs')}
             </h2>
             <iframe
                 title='history graphs'
@@ -22,7 +25,7 @@ function HistoryGraphs() {
             className='history-wrapper'
         >
             <h2>
-                Interchange
+                {t('Interchange')}
             </h2>
             <iframe
                 title='history graphs'
@@ -33,7 +36,7 @@ function HistoryGraphs() {
             className='history-wrapper'
         >
             <h2>
-                Shoreline
+                {t('Shoreline')}
             </h2>
             <iframe
                 title='history graphs'
@@ -44,7 +47,7 @@ function HistoryGraphs() {
             className='history-wrapper'
         >
             <h2>
-                Reserve
+                {t('Reserve')}
             </h2>
             <iframe
                 title='history graphs'
@@ -54,7 +57,7 @@ function HistoryGraphs() {
         <p
             className='attribution-wrapper'
         >
-            Graphs made by Drufus
+            {t('Graphs made by')} Drufus
         </p>
     </div>;
 };

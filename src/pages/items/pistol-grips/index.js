@@ -1,6 +1,7 @@
 import {useMemo, useEffect, useState, useRef} from 'react';
 import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import ItemsTable from '../../../components/item-table';
 import { selectAllItems, fetchItems } from '../../../features/items/itemsSlice';
@@ -72,6 +73,7 @@ function PistolGrips(props) {
         return state.items.status;
     });
     const selectInputRef = useRef(null);
+    const {t} = useTranslation();
 
     useEffect(() => {
         let timer = false;
@@ -176,21 +178,21 @@ function PistolGrips(props) {
             type: 'image',
         },
         {
-            title: 'Name',
+            title: t('Name'),
             key: 'name',
             type: 'name',
         },
         {
-            title: 'Ergonomics',
+            title: t('Ergonomics'),
             key: 'itemProperties.Ergonomics',
         },
         {
-            title: 'Flea Price',
+            title: t('Flea Price'),
             key: 'avg24hPrice',
             type: 'price',
         },
         {
-            title: 'Cost per ergo',
+            title: t('Cost per ergo'),
             key: 'costPerErgo',
             type: 'price',
         },
@@ -203,7 +205,7 @@ function PistolGrips(props) {
             charSet='utf-8'
         />
         <title>
-            Escape from Tarkov Pistol Grips
+            {t('Escape from Tarkov Pistol Grips')}
         </title>
         <meta
             name = 'description'
@@ -218,13 +220,13 @@ function PistolGrips(props) {
             className='page-headline-wrapper'
         >
             <h1>
-                Escape from Tarkov Pistol Grips
+                {t('Escape from Tarkov Pistol Grips')}
             </h1>
             <Filter
                 center
             >
                 <SelectFilter
-                    label = 'Filter by gun'
+                    label = {t('Filter by gun')}
                     options = {activeGuns.map((activeGun) => {
                         return {
                             label: activeGun.name,

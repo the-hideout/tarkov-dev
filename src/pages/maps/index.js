@@ -2,15 +2,16 @@ import {
     Link
 } from 'react-router-dom';
 import {Helmet} from 'react-helmet';
-
-import './index.css';
-
+import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react'
 import { mdiMap } from '@mdi/js';
+
+import './index.css';
 
 import rawMapData from '../../data/maps.json';
 
 function Maps() {
+    const {t} = useTranslation();
     return [
         <Helmet
             key = {'loot-tier-helmet'}
@@ -19,7 +20,7 @@ function Maps() {
                 charSet='utf-8'
             />
             <title>
-                Escape from Tarkov Maps
+                {t('Escape from Tarkov Maps')}
             </title>
             <meta
                 name = 'description'
@@ -38,7 +39,7 @@ function Maps() {
                     size={1.5}
                     className = 'icon-with-text'
                 />
-                Escape from Tarkov Maps
+                {t('Escape from Tarkov Maps')}
             </h1>
             <div
                 className = 'maps-wrapper'

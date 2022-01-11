@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import dayjsUtc from 'dayjs/plugin/utc'
+import dayjsUtc from 'dayjs/plugin/utc';
+import {useTranslation} from 'react-i18next';
 
 import useDate from '../hooks/useDate';
 
@@ -69,17 +70,19 @@ export function formatFuture(ms) {
     return text;
 };
 
-const getSource = (props) => {
+function MapSource(props) {
+    const {t} = useTranslation();
+
     const overlayItem = [
         <div
             key = {`${props.currentMap}-duration`}
         >
-            Duration: {props.duration}
+            {t('Duration')}: {props.duration}
         </div>,
         <div
             key = {`${props.currentMap}-players`}
         >
-            Players: {props.players}
+            {t('Players')}: {props.players}
         </div>,
     ];
 
@@ -87,7 +90,7 @@ const getSource = (props) => {
         overlayItem.push(<div
             key = {`${props.currentMap}-attribution`}
         >
-            By: <a href={props.sourceLink}>{props.source}</a>
+            {t('By')}: <a href={props.sourceLink}>{props.source}</a>
         </div>);
     }
 
@@ -107,21 +110,19 @@ function Time(props) {
             <div>
                 03:28:00
             </div>
-            {getSource(props)}
+            <MapSource
+                {...props}
+            />
         </div>;
     }
 
     if(props?.currentMap === 'labs'){
-        const source = getSource(props);
-
-        if(!source){
-            return null;
-        }
-
         return <div
             className = 'time-wrapper'
         >
-            {getSource(props)}
+            <MapSource
+                {...props}
+            />
         </div>;
     }
 
@@ -137,8 +138,10 @@ function Time(props) {
         <div>
             {dayjs.utc(tarkovTime2).format('HH:mm:ss')}
         </div>
-        {getSource(props)}
+        <MapSource
+            {...props}
+        />
     </div>;
-}
+};
 
 export default Time;

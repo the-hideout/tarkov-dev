@@ -1,55 +1,73 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as atomOneDark, twilight as monokai } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import {useTranslation} from 'react-i18next';
 
 import './index.css';
 
 function APIDocs() {
+    const {t} = useTranslation();
     return <div
         className = {'page-wrapper api-docs-page-wrapper'}
     >
         <h1>
-            Tarkov Tools API
+            {t('Tarkov Tools API')}
         </h1>
         <h2>
-            About
+            {t('About')}
         </h2>
         <p>
-            The API is available on <a href="https://tarkov-tools.com/graphql">https://tarkov-tools.com/graphql</a> with a playground on <a href="https://tarkov-tools.com/___graphql">https://tarkov-tools.com/___graphql</a>.
-            It's written in graphql and we try our hardest to follow spec and never change or deprecate anything.
+            {t('The API is available on')} <a href="https://tarkov-tools.com/graphql">https://tarkov-tools.com/graphql</a> with a playground on <a href="https://tarkov-tools.com/___graphql">https://tarkov-tools.com/___graphql</a>.
+            {t('It\'s written in graphql and we try our hardest to follow spec and never change or deprecate anything.')}
         </p>
         <h2>
-            FAQ
+            {t('FAQ')}
         </h2>
         <p>
-            <h3>Is it free?</h3>
-            Yes. It does however cost money for us to run and maintain, so please consider supporting us on <a href="https://www.patreon.com/bePatron?u=26501878&redirect_uri=https%3A%2F%2Ftarkov-tools.com"> Patreon</a>
+            <h3>
+                {t('Is it free?')}
+            </h3>
+            {t('Yes. It does however cost money for us to run and maintain, so please consider supporting us on')} <a href="https://www.patreon.com/bePatron?u=26501878&redirect_uri=https%3A%2F%2Ftarkov-tools.com"> Patreon</a>
         </p>
         <p>
-            <h3>Is there a rate limit?</h3>
-            No
+            <h3>
+                {t('Is there a rate limit?')}
+            </h3>
+            {t('No')}
         </p>
         <p>
-            <h3>Wait... really?</h3>
-            Yeah. It's actually better if you <i>don't</i> limit your requests to get as fresh data as possible
+            <h3>
+                {t('Wait... really?')}
+            </h3>
+            {t('Yeah. It\'s actually better if you')} <i>{t('don\'t')}</i> {t('limit your requests to get as fresh data as possible')}
         </p>
         <p>
-            <h3>Where is the data from?</h3>
-            We source data from multiple places to build an API as complete as possible. We use data from:
+            <h3>
+                {t('Where is the data from?')}
+            </h3>
+            {t('We source data from multiple places to build an API as complete as possible. We use data from:')}
             <ul>
-                <li><a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki">Escape from Tarkov Wiki</a></li>
-                <li><a href="https://github.com/TarkovTracker/tarkovdata/">TarkovTracker/tarkovdata</a></li>
-                <li>Directly from the game</li>
-                <li>Our network of scanners</li>
+                <li>
+                    <a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki">Escape from Tarkov Wiki</a>
+                </li>
+                <li>
+                    <a href="https://github.com/TarkovTracker/tarkovdata/">TarkovTracker/tarkovdata</a>
+                </li>
+                <li>
+                    {t('Directly from the game')}
+                </li>
+                <li>
+                    {t('Our network of scanners')}
+                </li>
             </ul>
         </p>
         <h2>
-            Examples
+            {t('Examples')}
         </h2>
         <div
             className = 'example-wrapper'
         >
             <h3>
-                Browser JS example
+                Browser JS {t('example')}
             </h3>
             <SyntaxHighlighter
                 language = 'javascript'
@@ -77,7 +95,7 @@ function APIDocs() {
             className = 'example-wrapper'
         >
             <h3>
-                Node JS example
+                Node JS {t('example')}
             </h3>
             <SyntaxHighlighter
                 language = 'javascript'
@@ -102,7 +120,7 @@ request('https://tarkov-tools.com/graphql', query).then((data) => console.log(da
             className = 'example-wrapper'
         >
             <h3>
-                Python example
+                Python {t('example')}
             </h3>
             <SyntaxHighlighter
                 language = 'python'
@@ -134,7 +152,7 @@ result = run_query(new_query)
             className = 'example-wrapper'
         >
             <h3>
-                CLI example
+                CLI {t('example')}
             </h3>
             <SyntaxHighlighter
                 language = 'bash'
@@ -149,7 +167,7 @@ https://tarkov-tools.com/graphql`}
             className = 'example-wrapper'
         >
             <h3>
-                PHP example
+                PHP {t('example')}
             </h3>
             <SyntaxHighlighter
                 language = 'php'

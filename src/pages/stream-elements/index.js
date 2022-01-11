@@ -1,27 +1,30 @@
+import { useTranslation } from 'react-i18next';
+
 import './index.css';
 
 function StreamElements() {
+    const {t} = useTranslation();
     return <div
         className = {'page-wrapper stream-elements-page-wrapper'}
     >
         <h1>
-            Tarkov Tools StreamElements integration
+            {t('Tarkov Tools StreamElements integration')}
         </h1>
         <p>
-            You can add command to your StreamElements bot to get price check in your twitch / youtube channel chat
+            {t('You can add command to your StreamElements bot to get price check in your twitch / youtube channel chat')}
         </p>
         <h2>
-            Instructions
+            {t('Instructions')}
         </h2>
         <ul>
             <li>
-                Register at <a href="https://streamelements.com/">streamelements.com</a> using your twitch / youtube account
+                {t('Register at')} <a href="https://streamelements.com/">streamelements.com</a> {t('using your twitch / youtube account')}
             </li>
             <li>
-                Go to dashboard <a href="https://streamelements.com/dashboard">streamelements.com/dashboard</a>
+                {t('Go to dashboard')} <a href="https://streamelements.com/dashboard">streamelements.com/dashboard</a>
             </li>
             <li>
-                Click the "Join Channel" button
+                {t('Click the "Join Channel" button')}
             </li>
         </ul>
         <p>
@@ -33,13 +36,13 @@ function StreamElements() {
         </p>
         <ul>
             <li>
-                Make bot - moderator, just type /mod streamelements in your chat
+                {t('Make bot - moderator, just type /mod streamelements in your chat')}
             </li>
             <li>
-                Go to custom commands <a href="https://streamelements.com/dashboard/bot/commands/custom">streamelements.com/dashboard/bot/commands/custom</a>
+                {t('Go to custom commands')} <a href="https://streamelements.com/dashboard/bot/commands/custom">streamelements.com/dashboard/bot/commands/custom</a>
             </li>
             <li>
-                Press the "Add new command" button
+                {t('Press the "Add new command" button')}
             </li>
         </ul>
         <p>
@@ -51,10 +54,10 @@ function StreamElements() {
         </p>
         <ul>
             <li>
-                Command: !p or anything you like
+                {t('Command: !p or anything you like')}
             </li>
             <li>
-                Message:
+                {t('Message:')}
                 <pre>
                     {
                         // eslint-disable-next-line no-template-curly-in-string
@@ -63,7 +66,7 @@ function StreamElements() {
                 </pre>
             </li>
             <li>
-                Press "Activate Command"
+                {t('Press "Activate Command"')}
             </li>
         </ul>
         <p>
@@ -74,7 +77,7 @@ function StreamElements() {
             />
         </p>
         <p>
-            Big thanks to <a href="https://www.twitch.tv/PhreakinPhil">PhreakinPhil</a> for feedback
+            {t('Big thanks to')} <a href="https://www.twitch.tv/PhreakinPhil">PhreakinPhil</a> {t('for feedback')}
         </p>
     </div>;
 };

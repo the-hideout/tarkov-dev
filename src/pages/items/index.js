@@ -2,6 +2,7 @@ import {
     Link
 } from 'react-router-dom';
 import {Helmet} from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import {
@@ -16,6 +17,7 @@ import itemsData from '../../data/category-pages.json';
 import './index.css';
 
 function Items(props) {
+    const {t} = useTranslation();
     return [
         <Helmet
             key = {'loot-tier-helmet'}
@@ -24,7 +26,7 @@ function Items(props) {
                 charSet='utf-8'
             />
             <title>
-                Escape from Tarkov Items
+                {t('Escape from Tarkov Items')}
             </title>
             <meta
                 name = 'description'
@@ -43,7 +45,7 @@ function Items(props) {
                     size={1.5}
                     className = 'icon-with-text'
                 />
-                Escape from Tarkov Items
+                {t('Escape from Tarkov Items')}
             </h1>
             <ItemSearch
                 showDropdown

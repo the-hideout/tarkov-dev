@@ -1,6 +1,7 @@
 import {useMemo, useEffect} from 'react';
 import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import DataTable from '../../../components/data-table';
 import formatPrice from '../../../modules/format-price';
@@ -103,6 +104,7 @@ function Helmets(props) {
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
+    const {t} = useTranslation();
 
     useEffect(() => {
         let timer = false;
@@ -172,37 +174,37 @@ function Helmets(props) {
                 },
             },
             {
-                Header: 'Name',
+                Header: t('Name'),
                 accessor: 'name',
                 Cell: linkCell,
             },
             {
-                Header: 'Armor Class',
+                Header: t('Armor Class'),
                 accessor: 'armorClass',
                 Cell: centerCell,
             },
             {
-                Header: 'Zones',
+                Header: t('Zones'),
                 accessor: 'armorZone',
                 Cell: centerCell,
             },
             {
-                Header: 'Ricochet chance',
+                Header: t('Ricochet chance'),
                 accessor: 'ricochetChance',
                 Cell: centerCell,
             },
             {
-                Header: 'Sound supression',
+                Header: t('Sound supression'),
                 accessor: 'deafenStrength',
                 Cell: centerCell,
             },
             {
-                Header: 'Blocks headphones',
+                Header: t('Blocks headphones'),
                 accessor: 'blocksHeadphones',
                 Cell: centerCell,
             },
             {
-                Header: 'Max Durability',
+                Header: t('Max Durability'),
                 accessor: 'maxDurability',
                 Cell: centerCell,
             },
@@ -221,9 +223,9 @@ function Helmets(props) {
                     return <div
                         className = 'center-content'
                     >
-                        Stats
+                        {t('Status')}
                         <div>
-                            Mov/Turn/Ergo
+                            {t('Mov/Turn/Ergo')}
                         </div>
                     </div>
                 },
@@ -231,12 +233,12 @@ function Helmets(props) {
                 Cell: centerNowrapCell,
             },
             {
-                Header: 'Current Price',
+                Header: t('Current Price'),
                 accessor: 'price',
                 Cell: centerCell,
             },
         ],
-        []
+        [t]
     )
 
     const data = useMemo(() => displayItems.map((item) => {
@@ -310,7 +312,7 @@ function Helmets(props) {
             charSet='utf-8'
         />
         <title>
-            Escape from Tarkov Helmet chart
+            {t('Escape from Tarkov helmets')}
         </title>
         <meta
             name = 'description'
@@ -325,19 +327,19 @@ function Helmets(props) {
             className='page-headline-wrapper'
         >
             <h1>
-                Escape from Tarkov helmets
+                {t('Escape from Tarkov helmets')}
             </h1>
             <Filter
                 center
             >
                     <ToggleFilter
-                        label = 'Show blocking headset'
+                        label = {t('Show blocking headset')}
                         onChange = {e => setIncludeBlockingHeadset(!includeBlockingHeadset)}
                         checked = {includeBlockingHeadset}
                     />
                     <SliderFilter
                         defaultValue = {minArmorClass}
-                        label = 'Min armor class'
+                        label = {t('Min armor class')}
                         min = {1}
                         max = {6}
                         marks = {marks}
@@ -346,9 +348,9 @@ function Helmets(props) {
                     />
                     <InputFilter
                         defaultValue = {maxPrice || ''}
-                        label = 'Max price'
+                        label = {t('Max price')}
                         onChange = {e => setMaxPrice(Number(e.target.value))}
-                        placeholder = {'max price'}
+                        placeholder = {t('Max price')}
                         type='number'
                     />
             </Filter>

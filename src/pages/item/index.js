@@ -10,6 +10,7 @@ import 'tippy.js/dist/tippy.css'; // optional
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from '@mdi/react'
 import { mdiLock } from '@mdi/js';
+import { useTranslation } from 'react-i18next';
 
 // import CraftsTable from '../../components/crafts-table';
 import BartersTable from '../../components/barters-table';
@@ -67,6 +68,7 @@ function Item() {
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
+    const {t} = useTranslation();
 
     useEffect(() => {
         let timer = false;
@@ -183,7 +185,7 @@ function Item() {
                                 <a
                                     href={currentItemData.wikiLink}
                                 >
-                                    Wiki
+                                    {t('Wiki')}
                                 </a>
                             </span>
                         }
@@ -209,7 +211,7 @@ function Item() {
                 >
                     <div>
                         <h2>
-                            Sell for
+                            {t('Sell for')}
                         </h2>
                         <div className={'information-grid'}>
                         {!currentItemData.types.includes('noFlea') &&
@@ -220,22 +222,22 @@ function Item() {
                                     <div
                                         className = 'tooltip-calculation'
                                     >
-                                        Best price to sell for <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice) : formatPrice(currentItemData.bestPrice)}</div>
+                                        {t('Best price to sell for')} <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice) : formatPrice(currentItemData.bestPrice)}</div>
                                     </div>
                                     <div
                                         className = 'tooltip-calculation'
                                     >
-                                        Fee <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPriceFee)}</div>
+                                        {t('Fee')} <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPriceFee)}</div>
                                     </div>
                                     <div
                                         className = 'tooltip-calculation'
                                     >
-                                        Profit <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice - fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}</div>
+                                        {t('Profit')} <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice - fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}</div>
                                     </div>
                                     <div
                                         className = 'tooltip-calculation'
                                     >
-                                        Calculated over the average for the last 24 hours
+                                        {t('Calculated over the average for the last 24 hours')}
                                     </div>
                                 </div>}
                             >
@@ -255,8 +257,8 @@ function Item() {
                                     >
                                         {!useFleaPrice && <Tippy
                                             placement = 'bottom'
-                                            content={ <div>This item is currently being sold for {formatPrice(currentItemData.lastLowPrice)} on the Flea Market.
-                                    However, due to how fees are calculated you're better off selling for {formatPrice(currentItemData.bestPrice)}</div>}
+                                            content={ <div>{t('This item is currently being sold for')} {formatPrice(currentItemData.lastLowPrice)} {t('on the Flea Market.')}
+                                    {t('However, due to how fees are calculated you\'re better off selling for')} {formatPrice(currentItemData.bestPrice)}</div>}
                                             >
                                                 <img
                                                     alt = 'Warning'
@@ -280,13 +282,13 @@ function Item() {
                                 className = 'price-wrapper'
                             >
                                 <div>
-                                    Change vs yesterday: {currentItemData.changeLast48h} %
+                                    {t('Change vs yesterday')}: {currentItemData.changeLast48h} %
                                 </div>
                                 <div>
-                                    Lowest scanned price last 24h: {formatPrice(currentItemData.low24hPrice)}
+                                    {t('Lowest scanned price last 24h')}: {formatPrice(currentItemData.low24hPrice)}
                                 </div>
                                 <div>
-                                    Highest scanned price last 24h: {formatPrice(currentItemData.high24hPrice)}
+                                    {t('Highest scanned price last 24h')}: {formatPrice(currentItemData.high24hPrice)}
                                 </div>
                             </div>
                         </div>}
@@ -360,7 +362,7 @@ function Item() {
                     </div>
                     {currentItemData.buyFor && currentItemData.buyFor.length > 0 && <div>
                         <h2>
-                            Buy for
+                            {t('Buy for')}
                         </h2>
                         <div
                             className = 'information-grid single-line-grid'
@@ -428,7 +430,7 @@ function Item() {
                 {!currentItemData.types.includes('noFlea') &&
                     <div>
                         <h2>
-                            Flea price last 7 days
+                            {t('Flea price last 7 days')}
                         </h2>
                         <div
                             className='price-history-wrapper'
@@ -440,14 +442,14 @@ function Item() {
                     </div>
                 }
                 <h2>
-                    Stats
+                    {t('Stats')}
                 </h2>
                 <PropertyList
                     properties = {currentItemData.itemProperties}
                 />
                 <div>
                     <h2>
-                        Barters with {currentItemData.name}
+                        {t('Barters with')} {currentItemData.name}
                     </h2>
                     <BartersTable
                         itemFilter = {currentItemData.id}
@@ -455,9 +457,9 @@ function Item() {
                 </div>
                 <div>
                     <h2>
-                        Crafts with {currentItemData.name}
+                        {t('Crafts with')} {currentItemData.name}
                     </h2>
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<div>{t('Loading...')}</div>}>
                         <CraftsTable
                             itemFilter = {currentItemData.id}
                         />
@@ -465,9 +467,9 @@ function Item() {
                 </div>
                 <div>
                     <h2>
-                        Hideout modules needing {currentItemData.name}
+                        {t('Hideout modules needing')} {currentItemData.name}
                     </h2>
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<div>{t('Loading...')}</div>}>
                         <ItemsForHideout
                             itemFilter = {currentItemData.id}
                         />
@@ -476,9 +478,6 @@ function Item() {
                 <QuestsList
                     itemQuests = {itemQuests}
                 />
-                {/* <pre>
-                    {JSON.stringify(currentItemData, null, 4)}
-                </pre> */}
             </div>
         </div>,
     ];

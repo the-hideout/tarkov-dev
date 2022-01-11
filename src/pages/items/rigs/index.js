@@ -1,6 +1,7 @@
 import {useMemo, useEffect, useState} from 'react';
 import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import CanvasGrid from '../../../components/canvas-grid';
 import DataTable from '../../../components/data-table';
@@ -30,6 +31,7 @@ function Backpacks(props) {
     const [minSlots, setMinSlots] = useStateWithLocalStorage('minSlots', 1);
     const [has3Slot, setHas3Slot] = useState(false);
     const [has4Slot, setHas4Slot] = useState(false);
+    const {t} = useTranslation();
 
     useEffect(() => {
         let timer = false;
@@ -82,7 +84,7 @@ function Backpacks(props) {
                 },
             },
             {
-                Header: 'Grid',
+                Header: t('Grid'),
                 accessor: 'grid',
                 Cell: ({value}) => {
                     return <div>
@@ -95,7 +97,7 @@ function Backpacks(props) {
                 },
             },
             {
-                Header: 'Name',
+                Header: t('Name'),
                 accessor: 'name',
                 Cell: (cellData) => {
                     const fullItemData = cellData.data.find(cellItem => cellItem.name === cellData.value);
@@ -112,17 +114,17 @@ function Backpacks(props) {
                 },
             },
             {
-                Header: 'Grid slots',
+                Header: t('Grid slots'),
                 accessor: 'slots',
                 Cell: CenterCell,
             },
             {
-                Header: 'Inner size',
+                Header: t('Inner size'),
                 accessor: 'size',
                 Cell: CenterCell,
             },
             {
-                Header: 'Weight',
+                Header: t('Weight'),
                 accessor: 'weight',
                 Cell: ({value}) => {
                     return <CenterCell
@@ -132,22 +134,22 @@ function Backpacks(props) {
                 },
             },
             {
-                Header: 'Slot ratio',
+                Header: t('Slot ratio'),
                 accessor: 'ratio',
                 Cell: CenterCell,
             },
             {
-                Header: 'Price',
+                Header: t('Price'),
                 accessor: 'price',
                 Cell: ValueCell,
             },
             {
-                Header: 'Price per slot',
+                Header: t('Price per slot'),
                 accessor: 'pricePerSlot',
                 Cell: ValueCell,
             },
         ],
-        []
+        [t]
     )
 
     const data = useMemo(() => displayItems.map((item) => {
@@ -211,7 +213,7 @@ function Backpacks(props) {
             charSet='utf-8'
         />
         <title>
-            Escape from Tarkov Helmet Backpacks
+            {t('Escape from Tarkov Rigs')}
         </title>
         <meta
             name = 'description'
@@ -226,19 +228,19 @@ function Backpacks(props) {
             className='page-headline-wrapper'
         >
             <h1>
-                Escape from Tarkov rigs table
+                {t('Escape from Tarkov Rigs')}
             </h1>
             <Filter
                 center
             >
                 <ToggleFilter
-                    label = 'Armored rigs?'
+                    label = {t('Armored rigs?')}
                     onChange = {e => setIncludeArmoredRigs(!includeArmoredRigs)}
                     checked = {includeArmoredRigs}
                 />
                 <SliderFilter
                     defaultValue = {25 - minSlots}
-                    label = 'Min. slots'
+                    label = {t('Min. slots')}
                     min = {0}
                     max = {25}
                     marks = {marks}
@@ -246,12 +248,12 @@ function Backpacks(props) {
                     onChange = {handleMinSlotsChange}
                 />
                 <ToggleFilter
-                    label = '3-slot'
+                    label = {t('3-slot')}
                     onChange = {e => setHas3Slot(!has3Slot)}
                     checked = {has3Slot}
                 />
                 <ToggleFilter
-                    label = '4-slot'
+                    label = {t('4-slot')}
                     onChange = {e => setHas4Slot(!has4Slot)}
                     checked = {has4Slot}
                 />

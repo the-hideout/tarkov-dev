@@ -2,6 +2,7 @@ import {useMemo, useCallback, useEffect} from 'react';
 import Switch from "react-switch";
 import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import ItemGrid from '../../components/item-grid';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
@@ -20,6 +21,7 @@ function ItemTracker() {
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
+    const {t} = useTranslation();
 
     useEffect(() => {
         let timer = false;
@@ -122,12 +124,12 @@ function ItemTracker() {
                         <button
                             onClick = {handleDoneClick.bind(this, questData.questId)}
                         >
-                            Collected
+                            {t('Collected')}
                         </button>
                     }
                 />
             })
-    }, [onlyFoundInRaid, handleItemClick, questData, handleDoneClick, items]);
+    }, [onlyFoundInRaid, handleItemClick, questData, handleDoneClick, items, t]);
 
     return [
         <Helmet>
@@ -176,7 +178,7 @@ function ItemTracker() {
                         <span
                             className = {'filter-toggle-label'}
                         >
-                            Only show Find in Raid
+                            {t('Only show Find in Raid')}
                         </span>
                         <Switch
                             className = {'filter-toggle'}
@@ -190,7 +192,7 @@ function ItemTracker() {
                         <button
                             onClick = {() => setQuestData(quests.data)}
                         >
-                            Reset all tracking
+                            {t('Reset all tracking')}
                         </button>
                     </label>
                 </div>

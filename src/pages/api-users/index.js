@@ -1,15 +1,18 @@
+import { useTranslation } from 'react-i18next';
+
 import apiUsers from '../../data/api-users.json';
 import './index.css';
 
 function ApiUsers() {
+    const {t} = useTranslation();
     return <div
         className = {'page-wrapper api-users-page-wrapper'}
     >
         <h1>
-            Tarkov Tools API Users
+            {t('Tarkov Tools API Users')}
         </h1>
         <p>
-            Want to be included on this page? Join the <a href="https://discord.gg/B2xM8WZyVv">Discord</a> and tell us about what you've made!
+            {t('Want to be included on this page? Join the')} <a href="https://discord.gg/B2xM8WZyVv">Discord</a> {t('and tell us about what you\'ve made!')}
         </p>
         {
             apiUsers.map((apiUser) => {

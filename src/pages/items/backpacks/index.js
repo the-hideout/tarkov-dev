@@ -1,6 +1,7 @@
 import {useMemo, useEffect} from 'react';
 import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import CanvasGrid from '../../../components/canvas-grid';
 import DataTable from '../../../components/data-table';
@@ -30,6 +31,7 @@ function Backpacks(props) {
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
+    const {t} = useTranslation();
 
     useEffect(() => {
         let timer = false;
@@ -73,7 +75,7 @@ function Backpacks(props) {
                 },
             },
             {
-                Header: 'Grid',
+                Header: t('Grid'),
                 accessor: 'grid',
                 Cell: ({value}) => {
                     return <div>
@@ -86,7 +88,7 @@ function Backpacks(props) {
                 },
             },
             {
-                Header: 'Name',
+                Header: t('Name'),
                 accessor: 'name',
                 Cell: (cellData) => {
                     const fullItemData = cellData.data.find(cellItem => cellItem.name === cellData.value);
@@ -103,37 +105,37 @@ function Backpacks(props) {
                 },
             },
             {
-                Header: 'Grid slots',
+                Header: t('Grid slots'),
                 accessor: 'slots',
                 Cell: centerCell,
             },
             {
-                Header: 'Inner size',
+                Header: t('Inner size'),
                 accessor: 'size',
                 Cell: centerCell,
             },
             {
-                Header: 'Weight',
+                Header: t('Weight'),
                 accessor: 'weight',
                 Cell: centerNowrapCell,
             },
             {
-                Header: 'Slot ratio',
+                Header: t('Slot ratio'),
                 accessor: 'ratio',
                 Cell: centerCell,
             },
             {
-                Header: 'Price',
+                Header: t('Price'),
                 accessor: 'price',
                 Cell: ValueCell,
             },
             {
-                Header: 'Price per slot',
+                Header: t('Price per slot'),
                 accessor: 'pricePerSlot',
                 Cell: ValueCell,
             },
         ],
-        []
+        [t]
     )
 
     const data = useMemo(() => displayItems.map((item) => {
@@ -184,7 +186,7 @@ function Backpacks(props) {
             className='page-headline-wrapper'
         >
             <h1>
-                Escape from Tarkov backpacks chart
+                {t('Escape from Tarkov backpacks chart')}
             </h1>
         </div>
         <DataTable

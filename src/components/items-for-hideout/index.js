@@ -108,7 +108,7 @@ function ItemsForHideout(props) {
                                             {item.moduleName}
                                         </div>
                                         <div>
-                                            Level {item.level}
+                                            {t('Level')} {item.level}
                                         </div>
                                     </div>
                                 </div>
@@ -129,7 +129,7 @@ function ItemsForHideout(props) {
                                     >
                                         {item.item.name}
                                         <div className='amount-wrapper'>
-                                            Amount: {new Intl.NumberFormat().format(item.quantity)}
+                                            {t('Amount')}: {new Intl.NumberFormat().format(item.quantity)}
                                         </div>
                                     </div>
                                 </div>

@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 import CraftsTable from '../../components/crafts-table';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
@@ -33,6 +34,7 @@ function Crafts() {
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [freeFuel, setFreeFuel] = useState(false);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedStation', 'top');
+    const {t} = useTranslation();
 
     return [
         <Helmet
@@ -61,7 +63,7 @@ function Crafts() {
                     size={1.5}
                     className = 'icon-with-text'
                 />
-                Hideout Crafts
+                {t('Hideout Crafts')}
             </h1>
             <Filter>
                 <ButtonGroupFilter>
@@ -86,27 +88,27 @@ function Crafts() {
                     <ButtonGroupFilterButton
                         tooltipContent = {
                             <div>
-                                Most profitable craft in each station
+                                {t('Most profitable craft in each station')}
                             </div>
                         }
                         selected = {selectedStation === 'top'}
-                        content = {'Best'}
+                        content = {t('Best')}
                         onClick={setSelectedStation.bind(undefined, 'top')}
                     />
                  </ButtonGroupFilter>
                  <ToggleFilter
                     checked = {freeFuel}
-                    label = {'Empty fuel'}
+                    label = {t('Empty fuel')}
                     onChange = {e => setFreeFuel(!freeFuel)}
                     tooltipContent = {
                         <div>
-                            Sets all fuel prices to 0, as that's more or less the case if you use fuel to power your hideout
+                            {t('Sets all fuel prices to 0, as that\'s more or less the case if you use fuel to power your hideout')}
                         </div>
                     }
                 />
                 <InputFilter
                     defaultValue = {nameFilter || ''}
-                    label = 'Item filter'
+                    label = {t('Item filter')}
                     type = {'text'}
                     placeholder = {'filter on item'}
                     onChange = {e => setNameFilter(e.target.value)}

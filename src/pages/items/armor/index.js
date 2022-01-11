@@ -1,7 +1,7 @@
 import {useMemo, useEffect} from 'react';
 import {Helmet} from 'react-helmet';
-
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import DataTable from '../../../components/data-table';
 import formatPrice from '../../../modules/format-price';
@@ -95,6 +95,7 @@ function Armor(props) {
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
+    const {t} = useTranslation();
 
     useEffect(() => {
         let timer = false;
@@ -146,17 +147,17 @@ function Armor(props) {
                 },
             },
             {
-                Header: 'Name',
+                Header: t('Name'),
                 accessor: 'name',
                 Cell: linkCell,
             },
             {
-                Header: 'Armor Class',
+                Header: t('Armor Class'),
                 accessor: 'armorClass',
                 Cell: centerCell,
             },
             {
-                Header: 'Zones',
+                Header: t('Zones'),
                 accessor: 'armorZone',
                 Cell: centerCell,
             },
@@ -166,17 +167,17 @@ function Armor(props) {
             //     Cell: centerCell,
             // },
             {
-                Header: 'Max Durability',
+                Header: t('Max Durability'),
                 accessor: 'maxDurability',
                 Cell: centerCell,
             },
             {
-                Header: 'Effective Durability',
+                Header: t('Effective Durability'),
                 accessor: 'effectiveDurability',
                 Cell: centerCell,
             },
             {
-                Header: 'Repairability',
+                Header: t('Repairability'),
                 accessor: 'repairability',
                 Cell: centerCell,
             },
@@ -185,9 +186,9 @@ function Armor(props) {
                     return <div
                         className = 'center-content'
                     >
-                        Stats
+                        {t('Stats')}
                         <div>
-                            Mov/Turn/Ergo
+                            {t('Mov/Turn/Ergo')}
                         </div>
                     </div>
                 },
@@ -195,12 +196,12 @@ function Armor(props) {
                 Cell: centerNowrapCell,
             },
             {
-                Header: 'Current Price',
+                Header: t('Current Price'),
                 accessor: 'price',
                 Cell: centerCell,
             },
         ],
-        []
+        [t]
     )
 
     const data = useMemo(() => displayItems.map((item) => {
@@ -276,19 +277,19 @@ function Armor(props) {
             className='page-headline-wrapper'
         >
             <h1>
-                Escape from Tarkov armors
+                {t('Escape from Tarkov armors')}
             </h1>
             <Filter
                 center
             >
                 <ToggleFilter
-                    label = 'Include rigs'
+                    label = {t('Include rigs')}
                     onChange = {e => setIncludeRigs(!includeRigs)}
                     checked = {includeRigs}
                 />
                 <RangeFilter
                     defaultValue = {[minArmorClass, maxArmorClass]}
-                    label = 'Min armor class'
+                    label = {t('Min armor class')}
                     min = {1}
                     max = {6}
                     marks = {marks}
@@ -296,9 +297,9 @@ function Armor(props) {
                 />
                 <InputFilter
                     defaultValue = {maxPrice || ''}
-                    label = 'Max price'
+                    label = {t('Max price')}
                     onChange = {e => setMaxPrice(Number(e.target.value))}
-                    placeholder = {'max price'}
+                    placeholder = {t('Max price')}
                     type='number'
                 />
             </Filter>

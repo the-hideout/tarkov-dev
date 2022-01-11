@@ -1,6 +1,7 @@
 import {useMemo, useEffect, useState, useRef} from 'react';
 import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import ItemsTable from '../../../components/item-table';
 import { selectAllItems, fetchItems } from '../../../features/items/itemsSlice';
@@ -72,6 +73,7 @@ function Suppressors(props) {
         return state.items.status;
     });
     const selectInputRef = useRef(null);
+    const {t} = useTranslation();
 
     useEffect(() => {
         let timer = false;
@@ -174,20 +176,20 @@ function Suppressors(props) {
             type: 'image',
         },
         {
-            title: 'Name',
+            title: t('Name'),
             key: 'name',
             type: 'name',
         },
         {
-            title: 'Ergonomics',
+            title: t('Ergonomics'),
             key: 'itemProperties.Ergonomics',
         },
         {
-            title: 'Recoil',
+            title: t('Recoil'),
             key: 'itemProperties.Recoil',
         },
         {
-            title: 'Price',
+            title: t('Price'),
             key: 'avg24hPrice',
             type: 'price',
         },
@@ -200,7 +202,7 @@ function Suppressors(props) {
             charSet='utf-8'
         />
         <title>
-            Escape from Tarkov suppressors chart
+            {t('Escape from Tarkov Suppressors')}
         </title>
         <meta
             name = 'description'
@@ -215,13 +217,13 @@ function Suppressors(props) {
             className='page-headline-wrapper'
         >
             <h1>
-                Escape from Tarkov Suppressors
+                {t('Escape from Tarkov Suppressors')}
             </h1>
             <Filter
                 center
             >
                 <SelectFilter
-                    label = 'Filter by gun'
+                    label = {t('Filter by gun')}
                     options = {activeGuns.map((activeGun) => {
                         return {
                             label: activeGun.name,

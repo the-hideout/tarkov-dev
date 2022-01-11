@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
+import { useTranslation } from 'react-i18next';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import './index.css';
-
 
 function ServerStatus() {
     const { status, data } = useQuery(`server-status`, () =>
@@ -16,6 +16,7 @@ function ServerStatus() {
             })
             .then(response => response.json() )
     );
+    const {t} = useTranslation();
 
     const dataQuery = JSON.stringify({query: `{
         status {
@@ -51,7 +52,7 @@ function ServerStatus() {
             <a
                 href = 'https://status.escapefromtarkov.com/'
             >
-                {`Tarkov server status`}
+                {t(`Tarkov server status`)}
                 <div
                     className={`status-indicator status-${data.data.status.generalStatus.status}`}
                 />

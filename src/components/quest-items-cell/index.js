@@ -1,6 +1,9 @@
+import {useTranslation} from 'react-i18next';
+
 import './index.css';
 
 function QuestItemsCell({ questItems }) {
+    const {t} = useTranslation();
     return questItems.map((questItem, index) => {
         return <div
             className = 'quest-item-wrapper'
@@ -20,10 +23,10 @@ function QuestItemsCell({ questItems }) {
             >
                 {questItem.name}
                 <div className = 'amount-wrapper'>
-                    Amount: {questItem.amount}
+                    {t('Amount')}: {questItem.amount}
                 </div>
                 <div className = {`found-in-raid-wrapper ${questItem.findInRaid ? 'find-in-raid' : ''}`}>
-                    Found In Raid: {questItem.findInRaid ? 'Yes' : 'No'}
+                    {t('Found In Raid')}: {questItem.findInRaid ? t('Yes') : t('No')}
                 </div>
             </div>
         </div>

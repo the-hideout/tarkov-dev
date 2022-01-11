@@ -93,7 +93,7 @@ function Settings() {
 
                 refs[stationKey].current.setValue({
                     value: allStations[stationKey],
-                    label: allStations[stationKey] ? allStations[stationKey].toString() : 'Not built',
+                    label: allStations[stationKey] ? allStations[stationKey].toString() : t('Not built'),
                 });
             }
         }
@@ -202,7 +202,7 @@ function Settings() {
                 let selectOptions = [
                     {
                         value: 0,
-                        label: 'Not built'
+                        label: t('Not built')
                     },
                     {
                         value: 1,

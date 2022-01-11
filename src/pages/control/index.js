@@ -1,6 +1,7 @@
 import { useRef, useEffect, useMemo } from 'react';
 import Select from 'react-select';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import Connect from './Connect.jsx';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
@@ -64,6 +65,7 @@ function Control(props) {
         return state.items.status;
     });
     const socketConnected = useSelector(state => state.sockets.connected);
+    const {t} = useTranslation();
 
     useEffect(() => {
         let timer = false;
@@ -147,12 +149,12 @@ function Control(props) {
         key = ''
     >
         <h1>
-            Remote Control
+            {t('Remote Control')}
         </h1>
         <div
             className = {'control-section'}
         >
-            <span>View map:</span>
+            <span>{t('View map')}:</span>
             <select
                 disabled = {!socketConnected}
                 name="map"
@@ -172,13 +174,13 @@ function Control(props) {
                 disabled = {!socketConnected}
                 onClick = {handleMapChange}
             >
-                Go
+                {t('Go')}
             </button>
         </div>
         <div
             className = {'control-section'}
         >
-            <span>View caliber:</span>
+            <span>{t('View caliber')}:</span>
             <select
                 disabled = {!socketConnected}
                 multiple
@@ -199,7 +201,7 @@ function Control(props) {
                 disabled = {!socketConnected}
                 onClick = {handleAmmoChange}
             >
-                Go
+                {t('Go')}
             </button>
         </div>
         <Select
@@ -247,7 +249,7 @@ function Control(props) {
             </button>
         </div> */}
         <div className="info-wrapper">
-            Load tarkov-tools in another browser or window to control it from here
+            {t('Load tarkov-tools in another browser or window to control it from here')}
         </div>
         <Connect />
     </div>;

@@ -21,7 +21,6 @@ function ButtonGroupFilterButton({ tooltipContent, onClick, content, selected, t
     >
         <button
             className={`button-group-button button-group-${type}-button ${selected ? 'selected' : ''}`}
-
             onClick={onClick}
         >
             {content}

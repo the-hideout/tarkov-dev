@@ -13,6 +13,7 @@ import {
     VictoryContainer,
 } from 'victory';
 import {useNavigate} from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import Symbol from './Symbol.jsx';
 // import GraphLabel from './GraphLabel';
@@ -164,14 +165,16 @@ const Graph = props => {
         navigate(`/item/${data.datum.id.toString()}`);
     }, [navigate])
 
+    const {t} = useTranslation();
+
     const markerLines = useMemo(() => {
         return [
-            getMarkerLine(xMax, 85, 'PMC & Scav Thorax HP'),
-            getMarkerLine(xMax, 145, 'Reshala Thorax HP'),
-            getMarkerLine(xMax, 160, 'Raider Thorax HP'),
-            getMarkerLine(xMax, 180, 'Shturman Thorax HP'),
-            getMarkerLine(xMax, 200, 'Cultist Priest Thorax HP'),
-            getMarkerLine(xMax, 220, 'Cultist Warrior Thorax HP'),
+            getMarkerLine(xMax, 85, t('PMC & Scav Thorax HP')),
+            getMarkerLine(xMax, 145, t('Reshala Thorax HP')),
+            getMarkerLine(xMax, 160, t('Raider Thorax HP')),
+            getMarkerLine(xMax, 180, t('Shturman Thorax HP')),
+            getMarkerLine(xMax, 200, t('Cultist Priest Thorax HP')),
+            getMarkerLine(xMax, 220, t('Cultist Warrior Thorax HP')),
             getArmorLabel(1, yMax, xMax),
             getArmorLabel(2, yMax, xMax),
             getArmorLabel(3, yMax, xMax),
@@ -179,7 +182,7 @@ const Graph = props => {
             getArmorLabel(5, yMax, xMax),
             getArmorLabel(6, yMax, xMax),
         ].filter(Boolean);
-    }, [xMax, yMax]);
+    }, [xMax, yMax, t]);
 
     const scatterData = useMemo(() => {
         return listState.map((ls) => {
@@ -211,13 +214,13 @@ const Graph = props => {
         >
             <VictoryAxis
                 axisLabelComponent={<VictoryLabel x={177}/>}
-                label = 'Damage'
+                label = {t('Damage')}
                 tickValues={xTickValues}
                 style = {styles.xaxis}
             />
             <VictoryAxis
                 dependentAxis
-                label = 'Penetration'
+                label = {t('Penetration')}
                 tickValues={yTickValues}
                 style = {styles.yaxis}
             />
@@ -266,7 +269,7 @@ const Graph = props => {
                 dataComponent = {<Symbol
                     link = {false}
                 />}
-                title={'Filter by caliber'}
+                title={t('Filter by caliber')}
                 labelComponent={<LegendLabel selectedDatumName={props.selectedLegendName} />}
                 events={[
                     {

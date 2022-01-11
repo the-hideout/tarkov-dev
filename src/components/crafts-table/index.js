@@ -221,7 +221,7 @@ function CraftTable(props) {
                 cost: totalCost,
                 craftTime: craftDuration,
                 reward: {
-                    sellTo: 'Flea Market',
+                    sellTo: t('Flea Market'),
                     name: craftRow.rewardItems[0].item.name,
                     wikiLink: craftRow.rewardItems[0].item.wikiLink,
                     itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
@@ -242,7 +242,7 @@ function CraftTable(props) {
             }
 
             tradeData.profit = (tradeData.reward.value * craftRow.rewardItems[0].count) - totalCost;
-            if(tradeData.reward.sellTo === 'Flea Market'){
+            if(tradeData.reward.sellTo === t('Flea Market')){
                 tradeData.profit = tradeData.profit - (fleaMarketFee(craftRow.rewardItems[0].item.basePrice, craftRow.rewardItems[0].item[priceToUse], craftRow.rewardItems[0].count) * feeReduction);
             }
 
@@ -297,7 +297,7 @@ function CraftTable(props) {
             return true;
         });
     },
-        [nameFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter, stations, skills, feeReduction]
+        [nameFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter, stations, skills, feeReduction, t]
     );
 
     const columns = useMemo(

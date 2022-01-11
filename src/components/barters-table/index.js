@@ -226,7 +226,7 @@ function BartersTable(props) {
                 instaProfit: bestSellTo.price - cost,
                 instaProfitSource: bestSellTo,
                 reward: {
-                    sellTo: 'Flea market',
+                    sellTo: t('Flea market'),
                     name: barterRow.rewardItems[0].item.name,
                     value: barterRow.rewardItems[0].item[priceToUse],
                     source: barterRow.source,
@@ -297,7 +297,7 @@ function BartersTable(props) {
             return true;
 	    });
     },
-        [nameFilter, selectedTrader, barters, includeFlea, itemFilter, traders, hasJaeger]
+        [nameFilter, selectedTrader, barters, includeFlea, itemFilter, traders, hasJaeger, t]
     );
 
     let extraRow = false;

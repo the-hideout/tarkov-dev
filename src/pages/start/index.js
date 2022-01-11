@@ -3,6 +3,7 @@ import {Helmet} from 'react-helmet';
 import {
     Link
 } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
 import mapData from '../../data/maps.json';
@@ -30,6 +31,7 @@ import categoryPages from '../../data/category-pages.json';
 function Start(props) {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const { t } = useTranslation();
 
     const handleNameFilterChange = useCallback((value) => {
         if (typeof window !== 'undefined') {
@@ -47,7 +49,7 @@ function Start(props) {
         >
             <meta charSet="utf-8" />
             <title>
-                {`Tarkov Tools - Escape from Tarkov`}
+                {t(`Tarkov Tools - Escape from Tarkov`)}
             </title>
             <meta
                 name="description"
@@ -102,7 +104,7 @@ function Start(props) {
                             rotate={90}
                             className = 'icon-with-text'
                         />
-                        Ammo chart
+                        {t('Ammo chart')}
                     </h2>
                     <img
                         alt = 'Ammo chart'
@@ -119,7 +121,7 @@ function Start(props) {
                         size={1}
                         className = 'icon-with-text'
                     />
-                    Tools
+                    {t('Tools')}
                 </h3>
                 <ul>
                     <li>
@@ -131,7 +133,7 @@ function Start(props) {
                                 size={1}
                                 className = 'icon-with-text'
                             />
-                            Loot tiers
+                            {t('Loot tiers')}
                         </Link>
                     </li>
                     <li>
@@ -143,7 +145,7 @@ function Start(props) {
                                 size={1}
                                 className = 'icon-with-text'
                             />
-                            Barter trades
+                            {t('Barter trades')}
                         </Link>
                     </li>
                     <li>
@@ -155,7 +157,7 @@ function Start(props) {
                                 size={1}
                                 className = 'icon-with-text'
                             />
-                            Hideout crafts
+                            {t('Hideout crafts')}
                         </Link>
                     </li>
                 </ul>
@@ -168,7 +170,7 @@ function Start(props) {
                             size={1}
                             className = 'icon-with-text'
                         />
-                        Maps
+                        {t('Maps')}
                     </Link>
                 </h3>
                 <ul>
@@ -193,7 +195,7 @@ function Start(props) {
                             size={1}
                             className = 'icon-with-text'
                         />
-                        Items
+                        {t('Items')}
                     </Link>
                 </h3>
                 <ul>
@@ -223,7 +225,7 @@ function Start(props) {
                             size={1}
                             className = 'icon-with-text'
                         />
-                        Traders
+                        {t('Traders')}
                     </Link>
                 </h3>
                 <ul
@@ -238,7 +240,7 @@ function Start(props) {
                                 className='trader-icon'
                                 src={`${process.env.PUBLIC_URL}/images/prapor-icon.jpg`}
                             />
-                            Prapor
+                            {t('Prapor')}
                         </Link>
                     </li>
                     <li>
@@ -250,7 +252,7 @@ function Start(props) {
                                 className='trader-icon'
                                 src={`${process.env.PUBLIC_URL}/images/therapist-icon.jpg`}
                             />
-                            Therapist
+                            {t('Therapist')}
                         </Link>
                     </li>
                     <li>
@@ -262,7 +264,7 @@ function Start(props) {
                                 className='trader-icon'
                                 src={`${process.env.PUBLIC_URL}/images/skier-icon.jpg`}
                             />
-                            Skier
+                            {t('Skier')}
                         </Link>
                     </li>
                     <li>
@@ -274,7 +276,7 @@ function Start(props) {
                                 className='trader-icon'
                                 src={`${process.env.PUBLIC_URL}/images/peacekeeper-icon.jpg`}
                             />
-                            Peacekeeper
+                            {t('Peacekeeper')}
                         </Link>
                     </li>
                     <li>
@@ -286,7 +288,7 @@ function Start(props) {
                                 className='trader-icon'
                                 src={`${process.env.PUBLIC_URL}/images/mechanic-icon.jpg`}
                             />
-                            Mechanic
+                            {t('Mechanic')}
                         </Link>
                     </li>
                     <li>
@@ -298,7 +300,7 @@ function Start(props) {
                                 className='trader-icon'
                                 src={`${process.env.PUBLIC_URL}/images/ragman-icon.jpg`}
                             />
-                            Ragman
+                            {t('Ragman')}
                         </Link>
                     </li>
                     <li>
@@ -310,7 +312,7 @@ function Start(props) {
                                 className='trader-icon'
                                 src={`${process.env.PUBLIC_URL}/images/jaeger-icon.jpg`}
                             />
-                            Jaeger
+                            {t('Jaeger')}
                         </Link>
                     </li>
                 </ul>

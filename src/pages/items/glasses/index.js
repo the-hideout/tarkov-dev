@@ -1,6 +1,7 @@
 import {useMemo, useEffect} from 'react';
 import {Helmet} from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import DataTable from '../../../components/data-table';
 import formatPrice from '../../../modules/format-price';
@@ -21,6 +22,7 @@ function Glasses(props) {
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
+    const {t} = useTranslation();
 
     useEffect(() => {
         let timer = false;
@@ -64,16 +66,16 @@ function Glasses(props) {
                 },
             },
             {
-                Header: 'Name',
+                Header: t('Name'),
                 accessor: 'name',
             },
             {
-                Header: 'Armor Class',
+                Header: t('Armor Class'),
                 accessor: 'armorClass',
                 Cell: centerCell,
             },
             {
-                Header: 'Blindness protection',
+                Header: t('Blindness protection'),
                 accessor: 'blindness',
                 Cell: centerCell,
             },
@@ -82,9 +84,9 @@ function Glasses(props) {
                     return <div
                         className = 'center-content'
                     >
-                        Stats
+                        {t('Status')}
                         <div>
-                            Turn/Ergo
+                            {t('Turn/Ergo')}
                         </div>
                     </div>
                 },
@@ -92,12 +94,12 @@ function Glasses(props) {
                 Cell: centerCell,
             },
             {
-                Header: 'Price',
+                Header: t('Price'),
                 accessor: 'price',
                 Cell: centerCell,
             },
         ],
-        []
+        [t]
     )
 
     const data = useMemo(() => displayItems.map((item) => {
@@ -126,7 +128,7 @@ function Glasses(props) {
             charSet='utf-8'
         />
         <title>
-            Escape from Tarkov Helmet glasses chart
+            {t('Escape from Tarkov Glasses chart')}
         </title>
         <meta
             name = 'description'
@@ -141,7 +143,7 @@ function Glasses(props) {
             className='page-headline-wrapper'
         >
             <h1>
-                Escape from Tarkov glasses chart
+                {t('Escape from Tarkov glasses chart')}
             </h1>
         </div>
         <DataTable

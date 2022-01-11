@@ -79,7 +79,7 @@ const Menu = () => {
                     margin: '0 20px 0 0 ',
                 }}
             >
-                Support on Patreon
+                {t('Support on Patreon')}
                 <Icon
                     path={mdiHeartFlash}
                     size={1}

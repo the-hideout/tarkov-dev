@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Helmet} from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 import BartersTable from '../../components/barters-table';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage'
@@ -30,6 +31,7 @@ function Barters() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [selectedTrader, setSelectedTrader] = useStateWithLocalStorage('selectedTrader', 'all');
+    const {t} = useTranslation();
 
     return [
         <Helmet
@@ -58,7 +60,7 @@ function Barters() {
                     size={1.5}
                     className = 'icon-with-text'
                 />
-                Barter profits
+                {t('Barter profits')}
             </h1>
             <Filter>
                 <ButtonGroupFilter>
@@ -83,19 +85,19 @@ function Barters() {
                     <ButtonGroupFilterButton
                         tooltipContent = {
                             <div>
-                                Show all barters
+                                {t('Show all barters')}
                             </div>
                         }
                         selected = {selectedTrader === 'all'}
-                        content = {'All'}
+                        content = {t('All')}
                         onClick = {setSelectedTrader.bind(undefined, 'all')}
                     />
                 </ButtonGroupFilter>
                 <InputFilter
                     defaultValue = {nameFilter || ''}
-                    label = 'Item filter'
+                    label = {t('Item filter')}
                     type = {'text'}
-                    placeholder = {'filter on item'}
+                    placeholder = {t('filter on item')}
                     onChange = {e => setNameFilter(e.target.value)}
                 />
             </Filter>

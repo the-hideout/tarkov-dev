@@ -9,6 +9,9 @@ import {Helmet} from "react-helmet";
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import './i18n';
+import {
+    useTranslation
+} from 'react-i18next';
 
 import Map from './components/Map.jsx';
 import ID from './components/ID.jsx';
@@ -26,7 +29,7 @@ import Ammo from './pages/ammo';
 import Control from './pages/control';
 import LootTiers from './pages/loot-tiers';
 import Barters from './pages/barters';
-import About from './pages/about/';
+// import About from './pages/about/';
 import Maps from './pages/maps/';
 import ItemTracker from './pages/item-tracker/';
 import Crafts from './pages/crafts';
@@ -82,6 +85,7 @@ function App() {
     const controlId = useSelector(state => state.sockets.controlId);
     let navigate = useNavigate();
     const dispatch = useDispatch();
+    const {t} = useTranslation();
 
     useEffect(() => {
         const handleDisplayMessage = (rawMessage) => {
@@ -190,10 +194,12 @@ return (
     >
     <Helmet>
         <meta charSet="utf-8" />
-        <title>Tarkov Tools</title>
+        <title>
+            Tarkov Tools
+        </title>
         <meta
             name="description"
-            content="Visualization of all ammo types in Escape from Tarkov, along with maps and other great tools"
+            content={t('Visualization of all ammo types in Escape from Tarkov, along with maps and other great tools')}
         />
     </Helmet>
     <Menu />
@@ -236,10 +242,12 @@ return (
                     >
                         <Helmet>
                             <meta charSet="utf-8" />
-                            <title>Tarkov Ammo Chart</title>
+                            <title>
+                                Tarkov Ammo Chart
+                            </title>
                             <meta
                                 name="description"
-                                content="Visualization of all ammo types in Escape from Tarkov"
+                                content={t('Visualization of all ammo types in Escape from Tarkov')}
                             />
                         </Helmet>
                         <Ammo />
@@ -261,10 +269,12 @@ return (
                     >
                         <Helmet>
                             <meta charSet="utf-8" />
-                            <title>Tarkov Ammo Chart</title>
+                            <title>
+                                Tarkov Ammo Chart
+                            </title>
                             <meta
                                 name="description"
-                                content="Visualization of all ammo types in Escape from Tarkov"
+                                content={t('Visualization of all ammo types in Escape from Tarkov')}
                             />
                         </Helmet>
                         <Ammo />
@@ -783,7 +793,7 @@ return (
                     />
                 ]}
             />
-            <Route
+            {/* <Route
                 path={'/about/'}
                 element = {[
                     <About
@@ -796,7 +806,7 @@ return (
                         onClick = {e => dispatch(enableConnection())}
                     />
                 ]}
-            />
+            /> */}
             <Route
                 path={'/api/'}
                 element = {[

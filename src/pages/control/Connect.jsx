@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {enableConnection, setControlId} from '../../features/sockets/socketsSlice';
+import {useTranslation} from 'react-i18next';
 
  function Connect() {
     const [connectionText, setConnectionText] = useState('Connect');
@@ -12,6 +13,7 @@ import {enableConnection, setControlId} from '../../features/sockets/socketsSlic
     let navigate = useNavigate();
     const inputRef = useRef(null);
     const dispatch = useDispatch();
+    const {t} = useTranslation();
 
     const handleIDChange = (event) => {
         const tempConnectID = event.target.value.trim().toUpperCase().substring(0, 4);
@@ -25,7 +27,7 @@ import {enableConnection, setControlId} from '../../features/sockets/socketsSlic
             return true;
         }
 
-        setConnectionText(`Connected to ${controlId}`);
+        setConnectionText(`${t('Connected to')} ${controlId}`);
         dispatch(enableConnection());
 
         navigate(`/control/`);
@@ -39,7 +41,7 @@ import {enableConnection, setControlId} from '../../features/sockets/socketsSlic
             minLength = "4"
             name = "session-id"
             onChange = {handleIDChange}
-            placeholder = "id to control"
+            placeholder = {t('id to control')}
             ref = {inputRef}
             type = "text"
         />

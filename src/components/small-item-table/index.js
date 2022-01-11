@@ -288,7 +288,7 @@ function SmallItemTable(props) {
                                     >
                                         <Tippy
                                             placement = 'bottom'
-                                            content={'This item can\'t be sold on the Flea Market'}
+                                            content={t('This item can\'t be sold on the Flea Market')}
                                         >
                                             <Icon
                                                 path={mdiCloseOctagon}
@@ -308,7 +308,7 @@ function SmallItemTable(props) {
                                 >
                                     <Tippy
                                         placement = 'bottom'
-                                        content={'No flea price seen in the past 24 hours'}
+                                        content={t('No flea price seen in the past 24 hours')}
                                     >
                                         <Icon
                                             path={mdiClockAlertOutline}
@@ -338,7 +338,7 @@ function SmallItemTable(props) {
                                     >
                                         <Tippy
                                             placement = 'bottom'
-                                            content={'This item can\'t be sold on the Flea Market'}
+                                            content={t('This item can\'t be sold on the Flea Market')}
                                         >
                                             <Icon
                                                 path={mdiCloseOctagon}
@@ -358,7 +358,7 @@ function SmallItemTable(props) {
                                 >
                                     <Tippy
                                         placement = 'bottom'
-                                        content={'No flea price seen in the past 24 hours'}
+                                        content={t('No flea price seen in the past 24 hours')}
                                     >
                                         <Icon
                                             path={mdiClockAlertOutline}
@@ -455,7 +455,7 @@ function SmallItemTable(props) {
 
             if(gridSlots){
                 useColumns.push({
-                    Header: 'Grid slots',
+                    Header: t('Grid slots'),
                     accessor: 'slots',
                     Cell: CenterCell,
                 });
@@ -463,7 +463,7 @@ function SmallItemTable(props) {
 
             if(innerSize){
                 useColumns.push({
-                    Header: 'Inner size',
+                    Header: t('Inner size'),
                     accessor: 'size',
                     Cell: CenterCell,
                 });
@@ -471,7 +471,7 @@ function SmallItemTable(props) {
 
             if(slotRatio){
                 useColumns.push({
-                    Header: 'Slot ratio',
+                    Header: t('Slot ratio'),
                     accessor: 'ratio',
                     Cell: CenterCell,
                 });
@@ -479,7 +479,7 @@ function SmallItemTable(props) {
 
             if(pricePerSlot){
                 useColumns.push({
-                    Header: 'Price per slot',
+                    Header: t('Price per slot'),
                     accessor: 'pricePerSlot',
                     Cell: ValueCell,
                 });

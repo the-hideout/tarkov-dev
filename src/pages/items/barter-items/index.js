@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
-
 import {Helmet} from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 import { Filter, InputFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
@@ -9,6 +9,7 @@ import QueueBrowserTask from '../../../modules/queue-browser-task';
 function BarterItems() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const {t} = useTranslation();
 
     const handleNameFilterChange = useCallback((e) => {
         if (typeof window !== 'undefined') {
@@ -43,7 +44,7 @@ function BarterItems() {
                 className='page-headline-wrapper'
             >
                 <h1>
-                    Escape from Tarkov Barter Items
+                    {t('Escape from Tarkov Barter Items')}
                 </h1>
                 <Filter
                     center
@@ -51,7 +52,7 @@ function BarterItems() {
                     <InputFilter
                         defaultValue = {nameFilter}
                         onChange = {handleNameFilterChange}
-                        placeholder = 'Search...'
+                        placeholder = {t('Search...')}
                     />
                 </Filter>
             </div>

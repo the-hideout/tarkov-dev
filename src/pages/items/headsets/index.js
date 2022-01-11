@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
-
 import {Helmet} from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 import { Filter, InputFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
@@ -9,6 +9,7 @@ import QueueBrowserTask from '../../../modules/queue-browser-task';
 function Headsets() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const {t} = useTranslation();
 
     const handleNameFilterChange = useCallback((e) => {
         if (typeof window !== 'undefined') {
@@ -28,7 +29,7 @@ function Headsets() {
         >
             <meta charSet="utf-8" />
             <title>
-                {`Tarkov Tools - Escape from Tarkov`}
+                {t('Escape from Tarkov Headsets')}
             </title>
             <meta
                 name="description"
@@ -43,7 +44,7 @@ function Headsets() {
                 className='page-headline-wrapper'
             >
                 <h1>
-                    Escape from Tarkov Headsets
+                    {t('Escape from Tarkov Headsets')}
                 </h1>
                 <Filter
                     center
@@ -51,7 +52,7 @@ function Headsets() {
                     <InputFilter
                         defaultValue = {nameFilter}
                         onChange = {handleNameFilterChange}
-                        placeholder = 'Search...'
+                        placeholder = {t('Search...')}
                     />
                 </Filter>
             </div>

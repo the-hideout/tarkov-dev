@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import {Helmet} from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
 import {
@@ -15,6 +16,7 @@ function Skier() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [selectedTable, setSelectedTable] = useStateWithLocalStorage('skierSelectedTable', 'level');
+    const {t} = useTranslation();
 
     const handleNameFilterChange = useCallback((e) => {
         if (typeof window !== 'undefined') {
@@ -34,7 +36,7 @@ function Skier() {
         >
             <meta charSet="utf-8" />
             <title>
-                {`Tarkov Tools - Escape from Tarkov`}
+                {t('Escape from Tarkov Skier items')}
             </title>
             <meta
                 name="description"
@@ -49,7 +51,7 @@ function Skier() {
                 className='page-headline-wrapper'
             >
                 <h1>
-                    Escape from Tarkov Skier items
+                    {t('Escape from Tarkov Skier items')}
                 </h1>
                 <Filter
                     center
@@ -58,11 +60,11 @@ function Skier() {
                         <ButtonGroupFilterButton
                             tooltipContent={
                                 <div>
-                                    {'Items with the best cash back prices for leveling when buying from flea'}
+                                    {t('Items with the best cash back prices for leveling when buying from flea')}
                                 </div>
                             }
                             selected = { selectedTable === 'level' }
-                            content = { 'Spending' }
+                            content = { t('Spending') }
                             type = 'text'
                             onClick={setSelectedTable.bind(undefined, 'level')}
                         />
@@ -71,7 +73,7 @@ function Skier() {
                         <ButtonGroupFilterButton
                             tooltipContent={
                                 <div>
-                                    {'Unlocks at Loyalty Level 1'}
+                                    {`${t('Unlocks at Loyalty Level')} 1`}
                                 </div>
                             }
                             selected = { selectedTable === 1 }
@@ -81,7 +83,7 @@ function Skier() {
                         <ButtonGroupFilterButton
                             tooltipContent={
                                 <div>
-                                    {'Unlocks at Loyalty Level 2'}
+                                    {`${t('Unlocks at Loyalty Level')} 2`}
                                 </div>
                             }
                             selected = { selectedTable === 2 }
@@ -91,7 +93,7 @@ function Skier() {
                         <ButtonGroupFilterButton
                             tooltipContent={
                                 <div>
-                                    {'Unlocks at Loyalty Level 3'}
+                                    {`${t('Unlocks at Loyalty Level')} 3`}
                                 </div>
                             }
                             selected = { selectedTable === 3 }
@@ -101,7 +103,7 @@ function Skier() {
                         <ButtonGroupFilterButton
                             tooltipContent={
                                 <div>
-                                    {'Unlocks at Loyalty Level 4'}
+                                    {`${t('Unlocks at Loyalty Level')} 4`}
                                 </div>
                             }
                             selected = { selectedTable === 4 }
@@ -112,7 +114,7 @@ function Skier() {
                     <InputFilter
                         defaultValue = {nameFilter}
                         onChange = {handleNameFilterChange}
-                        placeholder = 'Search...'
+                        placeholder = {t('Search...')}
                     />
                 </Filter>
             </div>

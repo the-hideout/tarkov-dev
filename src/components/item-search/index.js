@@ -5,6 +5,7 @@ import {
     useNavigate,
     useLocation,
 } from "react-router-dom";
+import {useTranslation} from 'react-i18next';
 
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import useKeyPress from '../../hooks/useKeyPress';
@@ -12,11 +13,12 @@ import itemSearch from '../../modules/item-search';
 
 import './index.css';
 
-function ItemSearch({defaultValue, onChange, placeholder = 'Search item...', autoFocus, showDropdown}) {
+function ItemSearch({defaultValue, onChange, placeholder, autoFocus, showDropdown}) {
     const items = useSelector(selectAllItems);
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
+    const { t } = useTranslation();
 
     const [nameFilter, setNameFilter] = useState(defaultValue || '');
     const [cursor, setCursor] = useState(0);
@@ -26,6 +28,10 @@ function ItemSearch({defaultValue, onChange, placeholder = 'Search item...', aut
     let navigate = useNavigate();
     let location = useLocation();
     const dispatch = useDispatch();
+
+    if(!placeholder){
+        placeholder = t('Search item...');
+    }
 
     useEffect(() => {
         let timer = false;

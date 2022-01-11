@@ -1,19 +1,22 @@
+import { useTranslation } from 'react-i18next';
+
 import Supporter from '../../components/supporter';
 
 import './index.css';
 
 function About() {
+    const {t} = useTranslation();
     return <div
         className = {'page-wrapper'}
     >
         <h1>
-            About
+            {t('About')}
         </h1>
         <h2>
-            Open source
+            {t('Open source')}
         </h2>
         <p>
-            The whole platform is open source, and the code is available on <a href="https://github.com/kokarn/tarkov-tools">
+            {t('The whole platform is open source, and the code is available on')} <a href="https://github.com/kokarn/tarkov-tools">
                 GitHub
             </a>
         </p>
@@ -27,25 +30,25 @@ function About() {
             </a>
         </p>
         <h2>
-            Discussions & feedback
+            {t('Discussions & feedback')}
         </h2>
         <p>
-            If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/B2xM8WZyVv">
+            {t('If you wanna have a chat, ask questions or request features, we have a')} <a href="https://discord.gg/B2xM8WZyVv">
                 Discord
-            </a> server
+            </a> {t('server')}
         </p>
         <h2>
-            Support
+            {t('Support')}
         </h2>
         <p>
-            The best way to support is either by becoming a <a
+            {t('The best way to support is either by becoming a')} <a
                 href = 'https://www.patreon.com/kokarn'
             >
                 Patreon
-            </a> supporter or by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site
+            </a> {t('supporter or by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site')}
         </p>
         <h3>
-            Current supporters
+            {t('Current supporters')}
         </h3>
         <Supporter
             name = {'Gyran'}

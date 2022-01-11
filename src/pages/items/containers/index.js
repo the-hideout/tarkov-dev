@@ -1,9 +1,11 @@
 import {Helmet} from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 import ID from '../../../components/ID.jsx';
 import SmallItemTable from '../../../components/small-item-table';
 
 function Containers(props) {
+    const {t} = useTranslation();
     return [<Helmet
         key = {'containers-table'}
     >
@@ -11,7 +13,7 @@ function Containers(props) {
             charSet='utf-8'
         />
         <title>
-            Escape from Tarkov containers
+            {t('Escape from Tarkov containers')}
         </title>
         <meta
             name = 'description'
@@ -26,7 +28,7 @@ function Containers(props) {
             className='page-headline-wrapper'
         >
             <h1>
-                Escape from Tarkov containers
+                {t('Escape from Tarkov containers')}
             </h1>
         </div>
         <SmallItemTable

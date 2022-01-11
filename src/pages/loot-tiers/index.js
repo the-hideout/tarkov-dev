@@ -1,8 +1,8 @@
 import { useState, useCallback, useMemo, useEffect } from 'react';
-
 import {Helmet} from 'react-helmet';
 import debounce from 'lodash.debounce';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
 import ID from '../../components/ID.jsx';
@@ -95,6 +95,7 @@ function LootTier(props) {
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
+    const {t} = useTranslation();
 
     useEffect(() => {
         let timer = false;
@@ -325,7 +326,9 @@ function LootTier(props) {
             key = {'loot-tier-helmet'}
         >
             <meta charSet="utf-8" />
-            <title>Tarkov loot tiers</title>
+            <title>
+                {t('Escape from Tarkov loot tiers')}
+            </title>
             <meta
                 name="description"
                 content="Visualization of all different valuable loot"
@@ -340,12 +343,12 @@ function LootTier(props) {
         >
             <Filter>
                 <ToggleFilter
-                    label = {'Include Marked'}
+                    label = {t('Include Marked')}
                     onChange = {e => setIncludeMarked(!includeMarked)}
                     checked = {includeMarked}
                 />
                 <ToggleFilter
-                    label = {'Group by type'}
+                    label = {t('Group by type')}
                     onChange = {e => setGroupByType(!groupByType)}
                     checked = {groupByType}
                 />
@@ -360,14 +363,14 @@ function LootTier(props) {
                 />
                 <InputFilter
                     defaultValue = {minPrice || ''}
-                    placeholder = {'min value'}
+                    placeholder = {t('Min value')}
                     type = {'number'}
                     onChange = {minPriceHandler}
                 />
                 <InputFilter
                     defaultValue = {filters.name || ''}
                     type = {'text'}
-                    placeholder = {'btc, graphics e.t.c'}
+                    placeholder = {t('btc, graphics e.t.c')}
                     onChange={handleFilterNameChange}
                 />
             </Filter>
