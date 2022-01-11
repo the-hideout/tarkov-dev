@@ -237,5 +237,14 @@
   "Items with the best cash back prices for leveling when buying from flea": "Items with the best cash back prices for leveling when buying from flea",
   "Spending": "Spending",
   "Unlocks at Loyalty Level": "Unlocks at Loyalty Level",
-  "Escape from Tarkov Mechanic items": "Escape from Tarkov Mechanic items"
+  "Escape from Tarkov Mechanic items": "Escape from Tarkov Mechanic items",
+  "Tarkov Tools Moobot integration": "Tarkov Tools Moobot integration",
+  "You can add command to your moobot to get price check in your twitch chat": "You can add command to your moobot to get price check in your twitch chat",
+  "using your twitch account": "using your twitch account",
+  "Go to Custom commands": "Go to Custom commands",
+  "Set what you want the command to be. Common is \"p\" or \"price\"": "Set what you want the command to be. Common is \"p\" or \"price\"",
+  "Press the \"Create\" button": "Press the \"Create\" button",
+  "In response choose URL Fetch - Full (plain) response": "In response choose URL Fetch - Full (plain) response",
+  "and after insert \"Command arguments\"": "and after insert \"Command arguments\"",
+  "Now press \"Save\" button": "Now press \"Save\" button"
 }

@@ -111,6 +111,13 @@ function Footer() {
             </p>
             <p>
                 <Link
+                    to = {'/moobot'}
+                >
+                    {t('Moobot integration')}
+                </Link>
+            </p>
+            <p>
+                <Link
                     to = {'/api-users/'}
                 >
                     {t('API Users')}

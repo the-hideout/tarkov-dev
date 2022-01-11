@@ -41,6 +41,7 @@ import Loading from './components/loading';
 import Nightbot from './pages/nightbot';
 import StreamElements from './pages/stream-elements';
 import ApiUsers from './pages/api-users';
+import Moobot from './pages/moobot';
 
 import Items from './pages/items/';
 import Armor from './pages/items/armor';
@@ -849,6 +850,23 @@ return (
                         key = 'streamelements-docs-wrapper'
                     >
                         <StreamElements />
+                    </Suspense>,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/moobot'}
+                element = {[
+                    <Suspense
+                        fallback={<Loading />}
+                        key = 'moobot-docs-wrapper'
+                    >
+                        <Moobot />
                     </Suspense>,
                     <ID
                         key = 'connection-wrapper'

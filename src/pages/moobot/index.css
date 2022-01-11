@@ -1,0 +1,17 @@
+.moobot-page-wrapper {
+    max-width: 900px;
+}
+
+.moobot-page-wrapper img {
+    max-width: 100%;
+}
+
+.moobot-page-wrapper pre {
+    white-space: pre-wrap;
+}
+
+@media screen and (min-width: 900px) {
+    .moobot-page-wrapper pre {
+        white-space: pre;
+    }
+}
