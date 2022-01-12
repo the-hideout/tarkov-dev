@@ -164,7 +164,7 @@
     .filter-wrapper {
         transform: scaleY(1);
         overflow: initial;
-        position: static;
+        position: relative;
     }
 
     .filter-content-wrapper {
