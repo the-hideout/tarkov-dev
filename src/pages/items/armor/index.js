@@ -89,7 +89,7 @@ function Armor(props) {
     const [includeRigs, setIncludeRigs] = useStateWithLocalStorage('includeRigs', true);
     const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage('minArmorClass', 1);
     const [maxArmorClass, setMaxArmorClass] = useStateWithLocalStorage('maxArmorClass', 6);
-    const [maxPrice, setMaxPrice] = useStateWithLocalStorage('armorMaxPrice', 9999999);
+    const [maxPrice, setMaxPrice] = useStateWithLocalStorage('armorMaxPrice', '');
     const dispatch = useDispatch();
     const items = useSelector(selectAllItems);
     const itemStatus = useSelector((state) => {
@@ -222,7 +222,7 @@ function Armor(props) {
             return false;
         }
 
-        if(item.avg24hPrice > maxPrice){
+        if(maxPrice && item.avg24hPrice > maxPrice){
             return false;
         }
 

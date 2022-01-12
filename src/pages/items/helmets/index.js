@@ -95,7 +95,7 @@ const getStatsString = (itemProperties) => {
 function Helmets(props) {
     const [includeBlockingHeadset, setIncludeBlockingHeadset] = useStateWithLocalStorage('includeBlockingHeadset', true);
     const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage('minHelmetArmorClass', 6);
-    const [maxPrice, setMaxPrice] = useStateWithLocalStorage('helmetMaxPrice', 9999999);
+    const [maxPrice, setMaxPrice] = useStateWithLocalStorage('helmetMaxPrice', '');
     const handleArmorClassChange = (newValueLabel) => {
         setMinArmorClass(newValueLabel);
     };
@@ -254,7 +254,7 @@ function Helmets(props) {
             return false;
         }
 
-        if(item.avg24hPrice > maxPrice){
+        if(maxPrice && item.avg24hPrice > maxPrice){
             return false;
         }
 
