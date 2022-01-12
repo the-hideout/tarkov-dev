@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
-import ID from '../../components/ID.jsx';
 import ItemGrid from '../../components/item-grid';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
@@ -382,10 +381,6 @@ function LootTier(props) {
                 />
             )}
         </div>,
-        <ID
-            key = {'session-id'}
-            sessionID = {props.sessionID}
-        />
     ];
 };
 
