@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 
 import CanvasGrid from '../../../components/canvas-grid';
 import DataTable from '../../../components/data-table';
-import ID from '../../../components/ID.jsx';
 import { selectAllItems, fetchItems } from '../../../features/items/itemsSlice';
 import ValueCell from '../../../components/value-cell';
 
@@ -197,10 +196,6 @@ function Backpacks(props) {
             autoResetSortBy = {false}
         />
     </div>,
-    <ID
-        key = {'session-id'}
-        sessionID = {props.sessionID}
-    />
     ];
 };
 

@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 
 import DataTable from '../../../components/data-table';
 import formatPrice from '../../../modules/format-price';
-import ID from '../../../components/ID.jsx';
 import { selectAllItems, fetchItems } from '../../../features/items/itemsSlice';
 
 const centerCell = ({ value }) => {
@@ -151,10 +150,6 @@ function Glasses(props) {
             data={data}
         />
     </div>,
-    <ID
-        key = {'session-id'}
-        sessionID = {props.sessionID}
-    />
     ];
 };
 

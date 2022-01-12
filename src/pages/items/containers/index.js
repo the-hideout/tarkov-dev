@@ -1,7 +1,6 @@
 import {Helmet} from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
-import ID from '../../../components/ID.jsx';
 import SmallItemTable from '../../../components/small-item-table';
 
 function Containers(props) {
@@ -41,10 +40,6 @@ function Containers(props) {
             barterPrice
         />
     </div>,
-    <ID
-        key = {'session-id'}
-        sessionID = {props.sessionID}
-    />
     ];
 };
 
