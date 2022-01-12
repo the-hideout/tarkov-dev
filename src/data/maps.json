@@ -54,6 +54,14 @@
     {
         "key": "lighthouse",
         "displayText": "Lighthouse",
+        "source": "/u/LowEffortSaltBox",
+        "sourceLink": "https://twitter.com/re3mr",
+        "duration": "40 min",
+        "players": "9-12"
+    },
+    {
+        "key": "lighthouse-2d",
+        "displayText": "Lighthouse - 2D",
         "source": "tarkov-tools & Jindouz",
         "duration": "40 min",
         "players": "9-12"
