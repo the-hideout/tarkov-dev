@@ -40,7 +40,7 @@ function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraR
         columns,
         data,
         initialState: {
-            pageSize: maxItems,
+            pageSize: maxItems || 10,
             sortBy: initialSortBy,
         },
         autoResetSortBy: autoResetSortBy,
