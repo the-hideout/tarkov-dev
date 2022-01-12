@@ -28,7 +28,7 @@ function Backpacks(props) {
         return state.items.status;
     });
     const [includeArmoredRigs, setIncludeArmoredRigs] = useStateWithLocalStorage('includeArmoredRigs', true);
-    const [minSlots, setMinSlots] = useStateWithLocalStorage('minSlots', 1);
+    const [minSlots, setMinSlots] = useStateWithLocalStorage('minSlots', 0);
     const [has3Slot, setHas3Slot] = useState(false);
     const [has4Slot, setHas4Slot] = useState(false);
     const {t} = useTranslation();
