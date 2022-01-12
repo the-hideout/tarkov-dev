@@ -63,6 +63,8 @@ function Guns() {
                 fleaValue
                 traderValue
                 traderPrice
+                maxItems = {50}
+                autoScroll
             />
         </div>,
     ];

@@ -62,6 +62,8 @@ function BarterItems() {
                 typeFilter = 'barter'
                 fleaValue
                 traderValue
+                maxItems = {50}
+                autoScroll
             />
         </div>,
     ];

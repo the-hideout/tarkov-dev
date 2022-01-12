@@ -74,6 +74,7 @@ function SmallItemTable(props) {
         fleaValue,
         hideBorders,
         noData,
+        autoScroll = false,
     } = props;
     const dispatch = useDispatch();
     const {t} = useTranslation();
@@ -506,11 +507,10 @@ function SmallItemTable(props) {
         extraRow={extraRow}
         key = 'small-item-table'
         data = {data}
-        // sortBy = {'profit'}
-        // sortByDesc = {true}
         autoResetSortBy = {false}
         maxItems = {maxItems}
         nameFilter = {nameFilter}
+        autoScroll={autoScroll}
     />
 }
 

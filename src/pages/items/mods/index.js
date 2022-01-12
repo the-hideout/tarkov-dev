@@ -63,6 +63,8 @@ function Mods() {
                 fleaValue
                 traderValue
                 traderPrice
+                autoScroll
+                maxItems = {50}
             />
         </div>,
     ];

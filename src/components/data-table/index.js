@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useTable, useSortBy, useExpanded, usePagination } from 'react-table';
+import { useInView } from 'react-intersection-observer';
 // import {ReactComponent as ArrowIcon} from './Arrow.js';
 import ArrowIcon from './Arrow.js';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 import './index.css';
 
-function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraRow, nameFilter }) {
+function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraRow, nameFilter, autoScroll }) {
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
 
@@ -18,6 +19,9 @@ function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraR
         return Header.toLowerCase().replace(/\s/, '-').replace(/[^a-z-]/g, '');
     }).join(',');
     const [ initialSortBy, storageSetSortBy ] = useStateWithLocalStorage(storageKey, []);
+    const { ref, inView } = useInView({
+        threshold: 0,
+    });
 
     const {
         setSortBy,
@@ -27,9 +31,11 @@ function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraR
         page,
         rows,
         prepareRow,
+        setPageSize,
         state: {
             sortBy: sortByState,
         } = {},
+        state,
     } = useTable({
         columns,
         data,
@@ -50,6 +56,13 @@ function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraR
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nameFilter]);
+
+    useEffect(() => {
+        if(autoScroll && inView && data.length > state.pageSize){
+            setPageSize(state.pageSize + 50)
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [inView, autoScroll]);
 
     const getRows = () => {
         let rowContainer = rows;
@@ -136,6 +149,9 @@ function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraR
                             {extraRow}
                         </td>
                     </tr>}
+                    <tr
+                        ref={ref}
+                    ></tr>
                 </tbody>
             </table>
         </div>
