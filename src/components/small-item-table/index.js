@@ -52,6 +52,48 @@ function shuffleArray(array) {
     }
 }
 
+const getArmorZoneString = (armorZones) => {
+    return armorZones?.map((zoneName) => {
+        if(zoneName === 'Chest'){
+            return 'Thorax';
+        }
+
+        if(zoneName === 'LeftArm'){
+            return false;
+        }
+
+        if(zoneName === 'RightArm'){
+            return 'Arms';
+        }
+
+        return zoneName;
+    })
+    .filter(Boolean)
+    .join(', ');
+};
+
+const materialDestructabilityMap = {
+    'Aramid': 0.25,
+    'Combined': 0.5,
+    'UHMWPE': 0.45,
+    'Titan': 0.55,
+    'Aluminium': 0.6,
+    'ArmoredSteel': 0.7,
+    'Ceramic': 0.8,
+    'Glass': 0.8,
+};
+
+const materialRepairabilityMap = {
+    'Aramid': 4,
+    'Combined': 3,
+    'UHMWPE': 6,
+    'Titan': 4,
+    'Aluminium': 4,
+    'ArmoredSteel': 5,
+    'Ceramic': 2,
+    'Glass': 1,
+};
+
 function SmallItemTable(props) {
     const {
         maxItems,
@@ -75,6 +117,17 @@ function SmallItemTable(props) {
         hideBorders,
         noData,
         autoScroll = false,
+        armorClass,
+        armorZones,
+        maxDurability,
+        effectiveDurability,
+        repairability,
+        stats,
+        typeLimit,
+        excludeTypeFilter,
+        minPropertyFilter,
+        maxPropertyFilter,
+        maxPrice,
     } = props;
     const dispatch = useDispatch();
     const {t} = useTranslation();
@@ -134,7 +187,61 @@ function SmallItemTable(props) {
                 return true;
             }
 
-            return item.types.includes(typeFilter);
+            let typeFilterList = typeFilter;
+
+            if(typeFilter && !Array.isArray(typeFilter)){
+                typeFilterList = [typeFilterList];
+            }
+
+            return item.types.some(itemType => typeFilterList.includes(itemType));
+        })
+        .filter(item => {
+            if(!typeLimit){
+                return true;
+            }
+
+            let typeLimitList = typeLimit;
+
+            if(typeLimit && !Array.isArray(typeLimit)){
+                typeLimitList = [typeLimitList];
+            }
+
+            return typeLimitList.every(itemType => item.types.includes(itemType));
+        })
+        .filter(item => {
+            if(!excludeTypeFilter){
+                return true;
+            }
+
+            let excludeTypeFilterList = excludeTypeFilter;
+
+            if(excludeTypeFilter && !Array.isArray(excludeTypeFilter)){
+                excludeTypeFilterList = [excludeTypeFilterList];
+            }
+
+            return !item.types.some(itemType => excludeTypeFilterList.includes(itemType));
+        })
+        .filter(item => {
+            if(!minPropertyFilter){
+                return true;
+            }
+
+            if(item.itemProperties[minPropertyFilter.property] < minPropertyFilter.value){
+                return false;
+            }
+
+            return true;
+        })
+        .filter(item => {
+            if(!maxPropertyFilter){
+                return true;
+            }
+
+            if(item.itemProperties[maxPropertyFilter.property] > maxPropertyFilter.value){
+                return false;
+            }
+
+            return true;
         })
         .map((itemData) => {
             const formattedItem = {
@@ -165,6 +272,12 @@ function SmallItemTable(props) {
                 size: itemData.itemProperties.grid?.totalSize,
                 notes: itemData.notes,
                 slots: itemData.slots,
+                armorClass: `${itemData.itemProperties.armorClass}/6`,
+                armorZone: getArmorZoneString(itemData.itemProperties.armorZone),
+                maxDurability: itemData.itemProperties.MaxDurability,
+                effectiveDurability: Math.floor(itemData.itemProperties.MaxDurability / materialDestructabilityMap[itemData.itemProperties.ArmorMaterial]),
+                repairability: `${materialRepairabilityMap[itemData.itemProperties.ArmorMaterial]}/6`,
+                stats: `${itemData.itemProperties.speedPenaltyPercent}% / ${itemData.itemProperties.mousePenalty}% / ${itemData.itemProperties.weaponErgonomicPenalty}`,
             };
 
             if(formattedItem.buyOnFleaPrice){
@@ -181,6 +294,17 @@ function SmallItemTable(props) {
 
             return formattedItem;
         })
+        .filter(item => {
+            if(!maxPrice){
+                return true;
+            }
+
+            if(item.avg24hPrice > maxPrice){
+                return false;
+            }
+
+            return true;
+        });
 
         if(nameFilter){
             returnData = itemSearch(returnData, nameFilter);
@@ -237,7 +361,7 @@ function SmallItemTable(props) {
 
         return returnData;
     },
-        [nameFilter, defaultRandom, items, typeFilter, traderFilter, loyaltyLevelFilter, traderBuybackFilter, barters]
+        [nameFilter, defaultRandom, items, typeFilter, traderFilter, loyaltyLevelFilter, traderBuybackFilter, barters, excludeTypeFilter, typeLimit, minPropertyFilter, maxPropertyFilter, maxPrice]
     );
 
     const columns = useMemo(
@@ -488,9 +612,69 @@ function SmallItemTable(props) {
                 });
             }
 
+            if(armorClass){
+                useColumns.push({
+                    Header: t('Armor Class'),
+                    accessor: 'armorClass',
+                    Cell: CenterCell,
+                });
+            }
+
+            if(armorZones){
+                useColumns.push({
+                    Header: t('Zones'),
+                    accessor: 'armorZone',
+                    Cell: CenterCell,
+                });
+            }
+
+            if(maxDurability){
+                useColumns.push(            {
+                    Header: t('Max Durability'),
+                    accessor: 'maxDurability',
+                    Cell: CenterCell,
+                });
+            }
+
+            if(effectiveDurability){
+                useColumns.push({
+                    Header: t('Effective Durability'),
+                    accessor: 'effectiveDurability',
+                    Cell: CenterCell,
+                });
+            }
+
+            if(repairability){
+                useColumns.push({
+                    Header: t('Repairability'),
+                    accessor: 'repairability',
+                    Cell: CenterCell,
+                });
+            }
+
+            if(stats){
+                useColumns.push({
+                    Header: <div
+                        className = 'center-content'
+                    >
+                        {t('Stats')}
+                        <div>
+                            {t('Mov/Turn/Ergo')}
+                        </div>
+                    </div>,
+                    accessor: 'stats',
+                    Cell: ({value}) => {
+                        return <CenterCell
+                            value={value}
+                            nowrap
+                        />;
+                    },
+                });
+            }
+
             return useColumns;
         },
-        [t, instaProfit, traderPrice, traderValue, traderBuyback, fleaPrice, gridSlots, innerSize, slotRatio, pricePerSlot, barterPrice, fleaValue]
+        [t, instaProfit, traderPrice, traderValue, traderBuyback, fleaPrice, gridSlots, innerSize, slotRatio, pricePerSlot, barterPrice, fleaValue, armorClass, armorZones, maxDurability, effectiveDurability, repairability, stats]
     );
 
     // console.log(data.length);
