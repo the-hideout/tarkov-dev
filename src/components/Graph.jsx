@@ -42,7 +42,8 @@ const styles = {
     },
     yaxis: {
         tickLabels: {
-            fontSize: 5,
+            fill: '#fff',
+            fontSize: 4,
         },
         grid: {
             stroke: '#555',
@@ -51,6 +52,9 @@ const styles = {
             fontSize: 4,
             padding: 5,
             fill: '#ccc',
+        },
+        ticks: {
+            size: 0,
         },
     },
     scatter: {
@@ -130,34 +134,34 @@ const getMarkerLine = (xMax, xTarget, label) => {
     />
 };
 
-const getArmorLabel = (tier, yMax, xMax) => {
-    if(tier * 10 > yMax){
-        return null;
-    }
+// const getArmorLabel = (tier, yMax, xMax) => {
+//     if(tier * 10 > yMax){
+//         return null;
+//     }
 
-    return <VictoryLabel
-        key = {`class-${tier}-label`}
-        text = {`Class ${tier}`}
-        style = {styles.classLabel}
-        datum = {{
-            x: xMax / 100,
-            y: tier * 10 + 1,
-        }}
-        textAnchor = "start"
-        verticalAnchor = "end"
-    />
-};
+//     return <VictoryLabel
+//         key = {`class-${tier}-label`}
+//         text = {`Class ${tier}`}
+//         style = {styles.classLabel}
+//         datum = {{
+//             x: xMax / 100,
+//             y: tier * 10 + 1,
+//         }}
+//         textAnchor = "start"
+//         verticalAnchor = "end"
+//     />
+// };
 
 const xTickValues = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240];
 const yTickValues = [10, 20, 30, 40, 50, 60, 70];
 
 const chartAnimate = { duration: 500 };
-const chartPadding = { top: 10, bottom: 20, right: 50, left: 20 };
+const chartPadding = { top: 10, bottom: 20, right: 50, left: 10 };
 const chartMinDomain = { y: 0, x: 0 };
 const chartMaxDomain = { y: MAX_PENETRATION, x: MAX_DAMAGE };
 
 const Graph = props => {
-    const {xMax, yMax, listState} = props;
+    const {xMax, listState} = props;
 
     const navigate = useNavigate();
 
@@ -175,14 +179,14 @@ const Graph = props => {
             getMarkerLine(xMax, 180, t('Shturman Thorax HP')),
             getMarkerLine(xMax, 200, t('Cultist Priest Thorax HP')),
             getMarkerLine(xMax, 220, t('Cultist Warrior Thorax HP')),
-            getArmorLabel(1, yMax, xMax),
-            getArmorLabel(2, yMax, xMax),
-            getArmorLabel(3, yMax, xMax),
-            getArmorLabel(4, yMax, xMax),
-            getArmorLabel(5, yMax, xMax),
-            getArmorLabel(6, yMax, xMax),
+            // getArmorLabel(1, yMax, xMax),
+            // getArmorLabel(2, yMax, xMax),
+            // getArmorLabel(3, yMax, xMax),
+            // getArmorLabel(4, yMax, xMax),
+            // getArmorLabel(5, yMax, xMax),
+            // getArmorLabel(6, yMax, xMax),
         ].filter(Boolean);
-    }, [xMax, yMax, t]);
+    }, [xMax, t]);
 
     const scatterData = useMemo(() => {
         return listState.map((ls) => {
@@ -220,6 +224,11 @@ const Graph = props => {
             />
             <VictoryAxis
                 dependentAxis
+                tickFormat={(t) => t === 70 ? '' : `Class ${t / 10}`}
+                tickLabelComponent={<VictoryLabel
+                    dx={24}
+                    dy={-4}
+                />}
                 label = {t('Penetration')}
                 tickValues={yTickValues}
                 style = {styles.yaxis}
@@ -282,7 +291,7 @@ const Graph = props => {
                 gutter={10}
                 orientation="vertical"
                 style={styles.legend}
-                x={308}
+                x={312}
                 y={9}
             />
             { markerLines }
