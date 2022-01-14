@@ -11,6 +11,7 @@ import {
 } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
+import TraderResetTime from '../../../components/trader-reset-time';
 
 function Peacekeeper() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
@@ -52,6 +53,11 @@ function Peacekeeper() {
             >
                 <h1>
                     {t('Escape from Tarkov Peacekeeper items')}
+                    <cite>
+                        <TraderResetTime
+                            trader = 'peacekeeper'
+                        />
+                    </cite>
                 </h1>
                 <Filter
                     center

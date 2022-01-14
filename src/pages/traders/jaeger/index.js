@@ -11,6 +11,7 @@ import {
 } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
+import TraderResetTime from '../../../components/trader-reset-time';
 
 function Jaeger() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
@@ -52,6 +53,11 @@ function Jaeger() {
             >
                 <h1>
                     {t('Escape from Tarkov Jaeger items')}
+                    <cite>
+                        <TraderResetTime
+                            trader = 'jaeger'
+                        />
+                    </cite>
                 </h1>
                 <Filter
                     center

@@ -11,6 +11,7 @@ import {
 } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
+import TraderResetTime from '../../../components/trader-reset-time';
 
 function Prapor() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
@@ -52,6 +53,11 @@ function Prapor() {
             >
                 <h1>
                     {t('Escape from Tarkov Prapor items')}
+                    <cite>
+                        <TraderResetTime
+                            trader = 'prapor'
+                        />
+                    </cite>
                 </h1>
                 <Filter
                     center
