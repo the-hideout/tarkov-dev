@@ -42,12 +42,33 @@ function ServerStatus() {
         return 'No data';
     }
 
+    if(data.data.status.messages[0]?.content && !data.data.status.messages[0]?.solveTime){
+        return <div
+            className={`server-status-wrapper`}
+        >
+            <Tippy
+                placement='top'
+                content={data.data.status.messages[0]?.content}
+            >
+                <a
+                    href = 'https://status.escapefromtarkov.com/'
+                >
+                    {t(`Tarkov server status`)}
+                    <div
+                        className={`status-indicator status-${data.data.status.generalStatus.status}`}
+                    />
+                    <div
+                        className='server-status-message-wrapper'
+                    >
+                        {data.data.status.generalStatus.message}
+                    </div>
+                </a>
+            </Tippy>
+        </div>
+    }
+
     return <div
-        className={`server-status-wrapper`}
-    >
-        <Tippy
-            placement='top'
-            content={data.data.status.messages[0]?.content}
+            className={`server-status-wrapper`}
         >
             <a
                 href = 'https://status.escapefromtarkov.com/'
@@ -62,7 +83,6 @@ function ServerStatus() {
                     {data.data.status.generalStatus.message}
                 </div>
             </a>
-        </Tippy>
     </div>;
 }
 
