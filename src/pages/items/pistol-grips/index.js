@@ -11,7 +11,7 @@ import {
 } from '../../../components/filter';
 
 const getGuns = (items, targetItem) => {
-    let parentItems = []
+    let parentItems = [];
     const currentParentItems = items.filter(innerItem => innerItem.linkedItems.includes(targetItem.id));
 
     for(const parentItem of currentParentItems){
