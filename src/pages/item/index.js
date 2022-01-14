@@ -25,9 +25,11 @@ import ItemsForHideout from '../../components/items-for-hideout';
 import PriceGraph from '../../components/price-graph';
 import ItemSearch from '../../components/item-search';
 
+
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
+import bestPrice from '../../modules/best-price';
 
 import Quests from '../../Quests';
 
@@ -138,6 +140,13 @@ function Item() {
 
     if(!currentItemData && (itemStatus === 'succeeded' || itemStatus === 'failed')){
         return <ErrorPage />;
+    }
+
+    if(!currentItemData.bestPrice){
+        currentItemData = {
+            ...currentItemData,
+            ...bestPrice(currentItemData),
+        };
     }
 
     const traderIsBest = currentItemData.traderPrice > currentItemData.lastLowPrice - fleaFee(currentItemData.avg24hPrice, currentItemData.basePrice) ? true : false;
@@ -258,7 +267,7 @@ function Item() {
                                         {!useFleaPrice && <Tippy
                                             placement = 'bottom'
                                             content={ <div>{t('This item is currently being sold for')} {formatPrice(currentItemData.lastLowPrice)} {t('on the Flea Market.')}
-                                    {t('However, due to how fees are calculated you\'re better off selling for')} {formatPrice(currentItemData.bestPrice)}</div>}
+                                     {t(' However, due to how fees are calculated you\'re better off selling for')} {formatPrice(currentItemData.bestPrice)}</div>}
                                             >
                                                 <img
                                                     alt = 'Warning'

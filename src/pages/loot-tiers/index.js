@@ -143,7 +143,7 @@ function LootTier(props) {
                 }
 
                 let sellTo = 'Flea Market';
-                const fleaPrice = item.bestPrice - item.bestPriceFee;
+                const fleaPrice = item.avg24hPrice - item.fee;
 
                 if(fleaPrice <= item.traderPrice){
                     sellTo = item.traderName;

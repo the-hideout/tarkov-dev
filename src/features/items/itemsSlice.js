@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
 import calculateFee from '../../modules/flea-market-fee';
-import bestPrice from '../../modules/best-price';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes';
 import getRublePrice from '../../modules/get-ruble-price';
 
@@ -167,7 +166,6 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
             slots: rawItem.width * rawItem.height,
             // iconLink: `https://assets.tarkov-tools.com/${rawItem.id}-icon.jpg`,
             iconLink: rawItem.iconLink,
-            ...bestPrice(rawItem),
             grid: grid,
             notes: NOTES[rawItem.id],
             traderPrices: rawItem.traderPrices.map(traderPrice => {
