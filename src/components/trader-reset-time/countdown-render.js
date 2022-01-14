@@ -1,7 +1,7 @@
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 function CountdownRender(props) {
-    const t = useTranslation();
+    // const t = useTranslation();
 
     if (props.completed) {
         return <span
