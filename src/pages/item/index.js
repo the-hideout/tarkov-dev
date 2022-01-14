@@ -152,6 +152,57 @@ function Item() {
     const traderIsBest = currentItemData.traderPrice > currentItemData.lastLowPrice - fleaFee(currentItemData.avg24hPrice, currentItemData.basePrice) ? true : false;
     const useFleaPrice = currentItemData.avg24hPrice <= currentItemData.bestPrice;
 
+    let fleaTooltip = <div>
+        <div
+            className = 'tooltip-calculation'
+        >
+            {t('Best price to sell for')} <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice) : formatPrice(currentItemData.bestPrice)}</div>
+        </div>
+        <div
+            className = 'tooltip-calculation'
+        >
+            {t('Fee')} <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPriceFee)}</div>
+        </div>
+        <div
+            className = 'tooltip-calculation'
+        >
+            {t('Profit')} <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice - fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}</div>
+        </div>
+        <div
+            className = 'tooltip-calculation'
+        >
+            {t('Calculated over the average for the last 24 hours')}
+        </div>
+    </div>
+
+    if(!useFleaPrice) {
+        fleaTooltip = <div>
+            <div
+                className = 'tooltip-calculation'
+            >
+                {t('Best price to sell for')} <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice) : formatPrice(currentItemData.bestPrice)}</div>
+            </div>
+            <div
+                className = 'tooltip-calculation'
+            >
+                {t('Fee')} <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPriceFee)}</div>
+            </div>
+            <div
+                className = 'tooltip-calculation'
+            >
+                {t('Profit')} <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice - fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}</div>
+            </div>
+            <div
+                className = 'tooltip-calculation'
+            >
+                {t('Calculated over the average for the last 24 hours')}
+            </div>
+
+            {t('This item is currently being sold for')} {formatPrice(currentItemData.avg24hPrice)} {t('on the Flea Market.')}
+            {t(' However, due to how fees are calculated you\'re better off selling for')} {formatPrice(currentItemData.bestPrice)}
+        </div>
+    }
+
     return [
         <Helmet
             key = {'loot-tier-helmet'}
@@ -226,29 +277,7 @@ function Item() {
                         {!currentItemData.types.includes('noFlea') &&
                             <Tippy
                                 placement = 'bottom'
-                                content={
-                                <div>
-                                    <div
-                                        className = 'tooltip-calculation'
-                                    >
-                                        {t('Best price to sell for')} <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice) : formatPrice(currentItemData.bestPrice)}</div>
-                                    </div>
-                                    <div
-                                        className = 'tooltip-calculation'
-                                    >
-                                        {t('Fee')} <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPriceFee)}</div>
-                                    </div>
-                                    <div
-                                        className = 'tooltip-calculation'
-                                    >
-                                        {t('Profit')} <div className = 'tooltip-price-wrapper'>{useFleaPrice ? formatPrice(currentItemData.lastLowPrice - fleaFee(currentItemData.lastLowPrice, currentItemData.basePrice)) : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}</div>
-                                    </div>
-                                    <div
-                                        className = 'tooltip-calculation'
-                                    >
-                                        {t('Calculated over the average for the last 24 hours')}
-                                    </div>
-                                </div>}
+                                content={fleaTooltip}
                             >
                                 <div
                                     className = {`text-and-image-information-wrapper flea-wrapper ${traderIsBest ? '' : 'best-profit'}`}
@@ -264,18 +293,12 @@ function Item() {
                                     <div
                                         className = 'price-wrapper'
                                     >
-                                        {!useFleaPrice && <Tippy
-                                            placement = 'bottom'
-                                            content={ <div>{t('This item is currently being sold for')} {formatPrice(currentItemData.lastLowPrice)} {t('on the Flea Market.')}
-                                     {t(' However, due to how fees are calculated you\'re better off selling for')} {formatPrice(currentItemData.bestPrice)}</div>}
-                                            >
-                                                <img
-                                                    alt = 'Warning'
-                                                    loading='lazy'
-                                                    className = 'warning-icon'
-                                                    src = {warningIcon}
-                                                />
-                                            </Tippy>
+                                        {!useFleaPrice && <img
+                                                alt = 'Warning'
+                                                loading='lazy'
+                                                className = 'warning-icon'
+                                                src = {warningIcon}
+                                            />
                                         }
                                         <span>
                                             {formatPrice(useFleaPrice ? currentItemData.lastLowPrice : currentItemData.bestPrice)}
