@@ -198,7 +198,7 @@ function Item() {
                 {t('Calculated over the average for the last 24 hours')}
             </div>
 
-            {t('This item is currently being sold for')} {formatPrice(currentItemData.avg24hPrice)} {t('on the Flea Market.')}
+            {t('This item was sold for')} {formatPrice(currentItemData.avg24hPrice)} {t('on average in the last 24h on the Flea Market.')}
             {t(' However, due to how fees are calculated you\'re better off selling for')} {formatPrice(currentItemData.bestPrice)}
         </div>
     }
