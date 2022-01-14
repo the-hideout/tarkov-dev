@@ -2,24 +2,22 @@ import { useQuery } from 'react-query';
 import Countdown from 'react-countdown';
 // import { useTranslation } from 'react-i18next';
 
+import './index.css';
+
 const Renderer = (props) => {
     // const t = useTranslation();
     if (props.completed) {
-        return <span
-            className = 'countdown-wrapper'
-        >
+        return <span>
             Restock right now
         </span>;
     }
 
-    return <span
-        className = 'countdown-wrapper'
-    >
-        Restock in {props.formatted.hours}:{props.formatted.minutes}:{props.formatted.seconds}
+    return <span>
+        <span className='countdown-text-wrapper'>Restock in</span> {props.formatted.hours}:{props.formatted.minutes}:{props.formatted.seconds}
     </span>;
 };
 
-function TraderResetTime({trader}) {
+function TraderResetTime({trader, center = false}) {
     const { status, data } = useQuery(`server-status`, () =>
         fetch('https://tarkov-tools.com/graphql', {
                 method: 'POST',
@@ -47,7 +45,9 @@ function TraderResetTime({trader}) {
         return 'No data';
     }
 
-    return <div>
+    return <div
+        className={`countdown-wrapper ${center ? 'center' : ''}`}
+    >
         <Countdown
             date={data.data.traderResetTimes.find(resetTime => resetTime.name === trader).resetTimestamp}
             renderer={Renderer}

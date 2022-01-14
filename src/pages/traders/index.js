@@ -2,11 +2,12 @@ import {
     Link
 } from 'react-router-dom';
 import {Helmet} from 'react-helmet';
-
 import Icon from '@mdi/react'
 import {
     mdiAccountGroup,
 } from '@mdi/js';
+
+import TraderResetTime from '../../components/trader-reset-time';
 
 import './index.css';
 
@@ -57,6 +58,10 @@ function Traders(props) {
                         loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/prapor-icon.jpg`}
                     />
+                    <TraderResetTime
+                        center
+                        trader = 'prapor'
+                    />
                 </Link>
                 <Link
                     to = {`/traders/therapist`}
@@ -71,6 +76,10 @@ function Traders(props) {
                         alt = {'Therapist'}
                         loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/therapist-icon.jpg`}
+                    />
+                    <TraderResetTime
+                        center
+                        trader = 'therapist'
                     />
                 </Link>
                 <Link
@@ -87,6 +96,10 @@ function Traders(props) {
                         loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/skier-icon.jpg`}
                     />
+                    <TraderResetTime
+                        center
+                        trader = 'skier'
+                    />
                 </Link>
                 <Link
                     to = {`/traders/peacekeeper`}
@@ -101,6 +114,10 @@ function Traders(props) {
                         alt = {'Peacekeeper'}
                         loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/peacekeeper-icon.jpg`}
+                    />
+                    <TraderResetTime
+                        center
+                        trader = 'peacekeeper'
                     />
                 </Link>
                 <Link
@@ -117,6 +134,10 @@ function Traders(props) {
                         loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/mechanic-icon.jpg`}
                     />
+                    <TraderResetTime
+                        center
+                        trader = 'mechanic'
+                    />
                 </Link>
                 <Link
                     to = {`/traders/ragman`}
@@ -132,6 +153,10 @@ function Traders(props) {
                         loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/ragman-icon.jpg`}
                     />
+                    <TraderResetTime
+                        center
+                        trader = 'ragman'
+                    />
                 </Link>
                 <Link
                     to = {`/traders/jaeger`}
@@ -146,6 +171,10 @@ function Traders(props) {
                         alt = {'Jaeger'}
                         loading='lazy'
                         src = {`${process.env.PUBLIC_URL}/images/jaeger-icon.jpg`}
+                    />
+                    <TraderResetTime
+                        center
+                        trader = 'jaeger'
                     />
                 </Link>
             </div>
