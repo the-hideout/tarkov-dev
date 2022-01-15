@@ -49,8 +49,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "prebuild": "node scripts/get-ammo-data.js && node scripts/get-traders.js && node scripts/get-quests.js && node scripts/update-props.js && node scripts/get-contributors.js",
-    "postbuild": "node scripts/build-redirects.js && node scripts/build-sitemap.js",
+    "prebuild": "node scripts/get-ammo-data.js && node scripts/get-traders.js && node scripts/get-quests.js && node scripts/update-props.js && node scripts/get-contributors.js && node scripts/build-sitemap.js",
+    "postbuild": "node scripts/build-redirects.js",
     "stage": "npx rimraf build && npm run build && npx serve build",
     "get-quests": "node scripts/get-quests.js"
   },
