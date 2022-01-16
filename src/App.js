@@ -19,25 +19,18 @@ import Menu from './components/menu';
 import Footer from './components/footer';
 
 import {setConnectionStatus, enableConnection} from './features/sockets/socketsSlice';
-
-import Debug from './components/Debug';
-
-// import rawMapData from './data/maps.json';
 import useStateWithLocalStorage from './hooks/useStateWithLocalStorage';
+import makeID from './modules/make-id';
 
 import Ammo from './pages/ammo';
 import Control from './pages/control';
 import LootTiers from './pages/loot-tiers';
 import Barters from './pages/barters';
-// import About from './pages/about/';
 import Maps from './pages/maps/';
-import ItemTracker from './pages/item-tracker/';
 import Crafts from './pages/crafts';
 import Item from './pages/item';
 import Start from './pages/start';
 import Settings from './pages/settings';
-import makeID from './modules/make-id';
-import Loading from './components/loading';
 import Nightbot from './pages/nightbot';
 import StreamElements from './pages/stream-elements';
 import ApiUsers from './pages/api-users';
@@ -70,7 +63,12 @@ import Jaeger from './pages/traders/jaeger';
 import Traders from './pages/traders';
 
 import HistoryGraphs from './pages/history-graphs';
+import ItemTracker from './pages/item-tracker/';
+// import About from './pages/about/';
+
 import ErrorPage from './components/error-page';
+import Loading from './components/loading';
+import Debug from './components/Debug';
 
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
 // import APIDocs from './pages/api-docs';
