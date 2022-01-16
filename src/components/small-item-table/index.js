@@ -12,14 +12,16 @@ import {
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
+import ValueCell from '../value-cell';
+import TraderPriceCell from '../trader-price-cell';
+import CenterCell from '../center-cell';
+import ItemNameCell from '../item-name-cell';
+
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
-import ValueCell from '../value-cell';
-import TraderPriceCell from '../trader-price-cell';
 import itemSearch from '../../modules/item-search';
 import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
-import CenterCell from '../center-cell';
 import { getCheapestItemPriceWithBarters } from '../../modules/format-cost-items';
 
 import './index.css';
@@ -370,34 +372,7 @@ function SmallItemTable(props) {
                 {
                     Header: t('Name'),
                     accessor: 'name',
-                    Cell: (allData) => {
-                        // allData.row.original.itemLink
-                        return <div
-                            className = 'small-item-table-description-wrapper'
-                        >
-                            <div
-                                className = 'small-item-table-image-wrapper'
-                            ><img
-                                alt = ''
-                                className = 'table-image'
-                                height = '64'
-                                loading = 'lazy'
-                                src = { allData.row.original.iconLink }
-                                width = '64'
-                            /></div>
-                            <div
-                                className='small-item-table-name-wrapper'
-                            >
-                                <Link
-                                    className = 'craft-reward-item-title'
-                                    to = {allData.row.original.itemLink}
-                                >
-                                    {allData.row.original.name}
-                                </Link>
-                                {allData.row.original.notes ? <cite>{allData.row.original.notes}</cite> : ''}
-                            </div>
-                        </div>
-                    },
+                    Cell: ItemNameCell,
                 },
             ];
 
