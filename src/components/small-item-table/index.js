@@ -1,8 +1,5 @@
 import {useMemo, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-    Link,
-} from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react'
 import {
@@ -16,6 +13,7 @@ import ValueCell from '../value-cell';
 import TraderPriceCell from '../trader-price-cell';
 import CenterCell from '../center-cell';
 import ItemNameCell from '../item-name-cell';
+import FleaPriceCell from '../flea-price-cell';
 
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
@@ -177,7 +175,6 @@ function SmallItemTable(props) {
             clearInterval(timer);
         }
     }, [itemStatus, dispatch, noData]);
-
 
     const data = useMemo(() => {
         let returnData = items
@@ -430,48 +427,7 @@ function SmallItemTable(props) {
                 useColumns.push({
                     Header: t('Buy on Flea'),
                     accessor: d => Number(d.buyOnFleaPrice?.price),
-                    Cell: (allData) => {
-                        if(allData.row.original.types.includes('noFlea')){
-                            return <ValueCell
-                                value = {allData.value}
-                                noValue = {
-                                    <div
-                                        className = 'center-content'
-                                    >
-                                        <Tippy
-                                            placement = 'bottom'
-                                            content={t('This item can\'t be sold on the Flea Market')}
-                                        >
-                                            <Icon
-                                                path={mdiCloseOctagon}
-                                                size={1}
-                                                className = 'icon-with-text'
-                                            />
-                                        </Tippy>
-                                    </div>
-                                }
-                            />;
-                        }
-                        return <ValueCell
-                            value = {allData.value}
-                            noValue = {
-                                <div
-                                    className = 'center-content'
-                                >
-                                    <Tippy
-                                        placement = 'bottom'
-                                        content={t('No flea price seen in the past 24 hours')}
-                                    >
-                                        <Icon
-                                            path={mdiClockAlertOutline}
-                                            size={1}
-                                            className = 'icon-with-text'
-                                        />
-                                    </Tippy>
-                                </div>
-                            }
-                        />;
-                    },
+                    Cell: FleaPriceCell,
                     id: 'fleaBuyPrice',
                 });
             }
