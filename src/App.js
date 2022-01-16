@@ -64,6 +64,7 @@ import Traders from './pages/traders';
 
 import HistoryGraphs from './pages/history-graphs';
 import ItemTracker from './pages/item-tracker/';
+import Hideout from './pages/hideout';
 // import About from './pages/about/';
 
 import ErrorPage from './components/error-page';
@@ -900,6 +901,20 @@ return (
                     >
                         <HistoryGraphs />
                     </Suspense>,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/hideout'}
+                element = {[
+                    <Hideout
+                        key = 'hideout-wrapper'
+                    />,
                     <ID
                         key = 'connection-wrapper'
                         sessionID = {sessionID}
