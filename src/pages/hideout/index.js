@@ -132,9 +132,9 @@ function Hideout() {
                     return null;
                 }
 
-                // console.log(hideoutModule);
-
-                return <div>
+                return <div
+                    key = {`hideout-module-cost-${hideoutModule.name}-${hideoutModule.level}`}
+                >
                     <h2>
                         {hideoutModule.name} {hideoutModule.level}
                     </h2>
@@ -148,7 +148,6 @@ function Hideout() {
                     />
                 </div>
             })}
-
         </div>,
     ];
 };
