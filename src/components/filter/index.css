@@ -108,6 +108,7 @@
 .button-group-wrapper {
     border: 1px solid #1b1919;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
 }
