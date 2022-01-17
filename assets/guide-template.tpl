@@ -23,7 +23,7 @@ function GUIDE_FUNCTION_NAME() {
             />
         </Helmet>,
         <div
-            className = {'page-wrapper'}
+            className = 'guide-page-wrapper'
             key = 'GUIDE_NAME-page-wrapper'
         >
             <ReactMarkdown
