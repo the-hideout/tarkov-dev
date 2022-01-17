@@ -67,13 +67,14 @@ import ItemTracker from './pages/item-tracker/';
 import Hideout from './pages/hideout';
 // import About from './pages/about/';
 
+import Guides from './pages/guides';
+
 import ErrorPage from './components/error-page';
 import Loading from './components/loading';
 import Debug from './components/Debug';
 
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
 // import APIDocs from './pages/api-docs';
-
 
 const socketServer = `wss://tarkov-tools-live.herokuapp.com`;
 
@@ -941,6 +942,14 @@ return (
                 path={'/control'}
                 element = {[
                     <Control
+                        send = {send}
+                    />
+                ]}
+            />
+            <Route
+                path={'/guides/:guideKey'}
+                element = {[
+                    <Guides
                         send = {send}
                     />
                 ]}
