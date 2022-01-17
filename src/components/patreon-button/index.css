@@ -20,7 +20,7 @@
 .become-supporter-wrapper a.alternate-style {
     padding: 5px 20px;
     margin-right: 20px;
-    border-radius: 5px;
+    border-radius: 0;
 }
 
 .become-supporter-wrapper svg {

@@ -73,7 +73,7 @@ const Menu = () => {
                     bottom: 9,
                 }}
                 linkStyle = {{
-                    borderRadius: '5px',
+                    // borderRadius: '5px',
                     color: '#fff',
                     padding: '5px 20px',
                     margin: '0 20px 0 0 ',

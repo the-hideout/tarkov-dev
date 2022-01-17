@@ -14,7 +14,7 @@
 .navigation a,
 .navigation button {
     border: 0;
-    border-radius: 3px;
+    border-radius: 0;
     color: #9a8866;
     text-align: left;
     text-decoration: none;
@@ -72,7 +72,7 @@
 }
 
 .branding {
-    border-radius: 3px;
+    border-radius: 0;
     font-size: 30px;
     flex-grow: 1;
     padding: 1px 8px;
@@ -84,7 +84,7 @@
 
 .menu .submenu-wrapper {
     background-color: #000;
-    border-radius: 3px;
+    border-radius: 0;
     font-size: 20px;
     position: relative;
     margin: auto 10px 0 0;
@@ -114,7 +114,7 @@
 }
 
 .menu .submenu-wrapper ul a {
-    border-radius: 3px;
+    border-radius: 0;
     margin: 0 10px;
     padding: 1px 8px;
 }
@@ -141,7 +141,7 @@
 }
 
 .external-link {
-    border-radius: 3px;
+    border-radius: 0;
     margin: 0 10px;
     padding: 1px 8px;
 }
@@ -163,7 +163,7 @@
 
 .supporters-wrapper {
     background-color: #000;
-    border-radius: 3px;
+    border-radius: 0;
     color: #fff;
     cursor: default;
     display: none;
