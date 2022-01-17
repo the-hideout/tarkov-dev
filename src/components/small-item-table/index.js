@@ -342,7 +342,7 @@ function SmallItemTable(props) {
                 .filter(item => item.instaProfit !== 0)
                 .filter(item => item.lastLowPrice && item.lastLowPrice > 0)
                 .filter(item => item.bestSell && item.bestSell.price > 500)
-                .filter(item => item.buyOnFleaPrice)
+                .filter(item => item.buyOnFleaPrice && item.buyOnFleaPrice.price > 0)
                 .map(item => {
                     return {
                         ...item,
