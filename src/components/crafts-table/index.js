@@ -238,11 +238,17 @@ function CraftTable(props) {
                 tradeData.reward.sellTo = bestTrade.trader.name;
             }
 
+            if(!craftRow.rewardItems[0].item.types.includes('noFlea')){
+                tradeData.reward.value = craftRow.rewardItems[0].item.avg24hPrice;
+                tradeData.reward.sellTo = t('Flea Market');
+                tradeData.fleaThroughput = Math.floor(craftRow.rewardItems[0].item.avg24hPrice * craftRow.rewardItems[0].count / (craftDuration / 3600));
+            }
+
             tradeData.profit = (tradeData.reward.value * craftRow.rewardItems[0].count) - totalCost;
             if(tradeData.reward.sellTo === t('Flea Market')){
                 tradeData.profit = tradeData.profit - (fleaMarketFee(craftRow.rewardItems[0].item.basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.rewardItems[0].count) * feeReduction);
-                tradeData.fleaThroughput = Math.floor(craftRow.rewardItems[0].avg24hPrice * craftRow.rewardItems[0].count / (craftDuration / 3600));
             }
+
 
             if(tradeData.profit === Infinity){
                 tradeData.profit = 0;

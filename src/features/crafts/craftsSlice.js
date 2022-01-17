@@ -37,6 +37,7 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
                 price
                 currency
               }
+              types
             }
             count
           }
