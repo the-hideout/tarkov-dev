@@ -4,6 +4,7 @@
 	height: auto;
 	justify-content: space-between;
 	flex-flow: wrap;
+    max-width: 1200px;
 }
 
 .start-wrapper ul {
