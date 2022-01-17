@@ -1,5 +1,11 @@
 [
     {
+        "title": "Battle Buddy",
+        "link": "https://play.google.com/store/apps/details?id=com.veritas.battlebuddy",
+        "text": "The unofficial Escape from Tarkov companion app, brought to you by Veritas with help from his community, is just what every PMC needs by their side before, during, and after their raids!",
+        "imageType": "jpg"
+    },
+    {
         "title": "Database app for Tarkov",
         "link": "https://tarkov.page.link/link",
         "text": "Database app for Tarkov with feature: The Flea Market, Quest Tracker, Items to Keep for Quest/Hideout, Ballistics, Craft Profit Calculator, Barter Save Calculator, Map",
