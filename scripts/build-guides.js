@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+console.time('build-guides');
+
 const templateString = fs.readFileSync(path.join(__dirname, '..', 'assets', 'guide-template.tpl'), 'utf8');
 const allGuides = fs.readdirSync(path.join(__dirname, '..', 'assets', 'guides'));
 
@@ -17,3 +19,5 @@ for(const guide of allGuides){
 
     fs.writeFileSync(path.join(__dirname, '..', 'src', 'pages', 'guides', `${guideName}.js`), guideString);
 }
+
+console.timeEnd('build-guides');
