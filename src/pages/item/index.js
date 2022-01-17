@@ -269,7 +269,7 @@ function Item() {
                 <div
                     className = 'trader-wrapper'
                 >
-                    <div>
+                    {currentItemData.sellFor && currentItemData.sellFor.length > 0 && <div>
                         <h2>
                             {t('Sell for')}
                         </h2>
@@ -391,7 +391,7 @@ function Item() {
                             </div>
                         })}
                         </div>
-                    </div>
+                    </div> }
                     {currentItemData.buyFor && currentItemData.buyFor.length > 0 && <div>
                         <h2>
                             {t('Buy for')}
