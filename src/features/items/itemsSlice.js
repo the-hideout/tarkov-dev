@@ -159,6 +159,12 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
             };
         });
 
+        // This change is reflected right away
+        if(rawItem.types.includes('noFlea')){
+            rawItem.sellFor = rawItem.sellFor.filter(sellFor => sellFor.source !== 'flea-market');
+            rawItem.buyFor = rawItem.buyFor.filter(buyFor => buyFor.source !== 'flea-market');
+        }
+
         return {
             ...rawItem,
             fee: calculateFee(rawItem.avg24hPrice, rawItem.basePrice),
