@@ -1,11 +1,12 @@
 import ReactMarkdown from 'react-markdown';
 import {Helmet} from 'react-helmet';
+import remarkGfm from 'remark-gfm'
 
 import EmItemTag from '../../components/em-item-tag';
 
-const guideMarkdownString = `GUIDE_CONTENT_GOES_HERE`;
+const guideContent = `GUIDE_CONTENT_GOES_HERE`;
 
-function GUIDE_NAME() {
+function GUIDE_FUNCTION_NAME() {
     return [
         <Helmet
             key = {'GUIDE_NAME-helmet'}
@@ -30,11 +31,14 @@ function GUIDE_NAME() {
                     // Rewrite `em`s (`*like so*`) to `i` with a red foreground color.
                     em: EmItemTag,
                 }}
+                remarkPlugins={[
+                    remarkGfm,
+                ]}
             >
-                {guideMarkdownString}
+                {guideContent}
             </ReactMarkdown>
         </div>,
     ];
 };
 
-export default GUIDE_NAME;
+export default GUIDE_FUNCTION_NAME;

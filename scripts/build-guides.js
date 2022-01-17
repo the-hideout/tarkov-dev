@@ -8,12 +8,14 @@ const allGuides = fs.readdirSync(path.join(__dirname, '..', 'assets', 'guides'))
 
 for(const guide of allGuides){
     const guideName = guide.replace('.md', '');
+    const guideFunctionName = guideName.replace(/-/g, '');
 
     let guideContent = fs.readFileSync(path.join(__dirname, '..', 'assets', 'guides', guide), 'utf8');
 
     guideContent = guideContent.replace(/`/g, '\\`');
 
     const guideString = templateString
+        .replace(/GUIDE_FUNCTION_NAME/g, guideFunctionName)
         .replace(/GUIDE_NAME/g, guideName)
         .replace('GUIDE_CONTENT_GOES_HERE', guideContent);
 
