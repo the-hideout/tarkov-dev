@@ -23,8 +23,6 @@ import {
 import './index.css';
 import RewardCell from '../reward-cell';
 
-const priceToUse = 'lastLowPrice';
-
 dayjs.extend(duration);
 
 function getDurationDisplay(time) {
@@ -221,14 +219,13 @@ function CraftTable(props) {
                 cost: totalCost,
                 craftTime: craftDuration,
                 reward: {
-                    sellTo: t('Flea Market'),
                     name: craftRow.rewardItems[0].item.name,
                     wikiLink: craftRow.rewardItems[0].item.wikiLink,
                     itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
-                    value: craftRow.rewardItems[0].item[priceToUse],
                     source: `${station} (level ${level})`,
                     iconLink: craftRow.rewardItems[0].item.iconLink || 'https://tarkov-tools.com/images/unknown-item-icon.jpg',
                     count: craftRow.rewardItems[0].count,
+                    value: 0,
                 },
             };
 
@@ -243,7 +240,8 @@ function CraftTable(props) {
 
             tradeData.profit = (tradeData.reward.value * craftRow.rewardItems[0].count) - totalCost;
             if(tradeData.reward.sellTo === t('Flea Market')){
-                tradeData.profit = tradeData.profit - (fleaMarketFee(craftRow.rewardItems[0].item.basePrice, craftRow.rewardItems[0].item[priceToUse], craftRow.rewardItems[0].count) * feeReduction);
+                tradeData.profit = tradeData.profit - (fleaMarketFee(craftRow.rewardItems[0].item.basePrice, craftRow.rewardItems[0].item.avg24hPrice, craftRow.rewardItems[0].count) * feeReduction);
+                tradeData.fleaThroughput = Math.floor(craftRow.rewardItems[0].avg24hPrice * craftRow.rewardItems[0].count / (craftDuration / 3600));
             }
 
             if(tradeData.profit === Infinity){
@@ -252,7 +250,6 @@ function CraftTable(props) {
 
             tradeData.profitPerHour = Math.floor(tradeData.profit / (craftDuration / 3600));
 
-            tradeData.fleaThroughput = Math.floor(craftRow.rewardItems[0].item[priceToUse] * craftRow.rewardItems[0].count / (craftDuration / 3600));
 
             // If the reward has no value, it's not available for purchase
             if(tradeData.reward.value === 0){
