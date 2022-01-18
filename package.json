@@ -28,7 +28,7 @@
     "react-i18next": "^11.11.0",
     "react-intersection-observer": "^8.33.1",
     "react-loader-spinner": "^5.0.5",
-    "react-markdown": "^7.1.2",
+    "react-markdown": "^8.0.0",
     "react-query": "^3.34.7",
     "react-redux": "^7.2.4",
     "react-router-dom": "^6.0.2",
