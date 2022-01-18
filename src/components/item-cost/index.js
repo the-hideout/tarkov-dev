@@ -6,8 +6,6 @@ import { useTranslation } from 'react-i18next';
 import BarterToolip from '../barter-tooltip';
 import formatPrice from '../../modules/format-price';
 
-import './index.css';
-
 const TRADERS = [
     'prapor',
     'therapist',

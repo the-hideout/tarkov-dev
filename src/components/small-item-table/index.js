@@ -14,6 +14,7 @@ import TraderPriceCell from '../trader-price-cell';
 import CenterCell from '../center-cell';
 import ItemNameCell from '../item-name-cell';
 import FleaPriceCell from '../flea-price-cell';
+import BarterToolip from '../barter-tooltip';
 
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
@@ -463,10 +464,31 @@ function SmallItemTable(props) {
                 useColumns.push({
                     Header: t('Barter'),
                     accessor: d => Number(d.barterPrice?.price),
-                    Cell: ({value}) => {
-                        return <ValueCell
-                            value = {value}
-                        />;
+                    Cell: (props) => {
+                        // return <ValueCell
+                        //     value = {props.value}
+                        // />;
+                        /*
+                        For some reason this
+                        */
+                        return <Tippy
+                            placement = 'bottom'
+                            // followCursor = {'horizontal'}
+                            // showOnCreate = {true}
+                            interactive = {true}
+                            content={<BarterToolip
+                                source = {props.row.original.barters[0]?.source}
+                                requiredItems={props.row.original.barters[0]?.requiredItems}
+                            />
+                            }
+                            // plugins={[followCursor]}
+                        >
+                            <div
+                                className = 'center-content'
+                            >
+                                {props.value ? formatPrice(props.value) : '-'}
+                            </div>
+                        </Tippy>
                     },
                     id: 'barterPrice',
                     sortType: (a, b, columnId, desc) => {

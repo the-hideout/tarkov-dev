@@ -12,6 +12,11 @@
     width: 100%;
 }
 
+.cost-with-barter-wrapper .reward-image-wrapper img {
+    height: 48px;
+    width: 48px;
+}
+
 .cost-with-barter-wrapper .cost-item-wrappper {
     margin-bottom: 10px;
 }
