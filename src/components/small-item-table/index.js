@@ -21,7 +21,7 @@ import formatPrice from '../../modules/format-price';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import itemSearch from '../../modules/item-search';
 import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
-import { getCheapestItemPriceWithBarters } from '../../modules/format-cost-items';
+import { getCheapestBarter } from '../../modules/format-cost-items';
 
 import './index.css';
 
@@ -285,7 +285,7 @@ function SmallItemTable(props) {
             }
 
             if(formattedItem.barters.length > 0){
-                formattedItem.barterPrice = getCheapestItemPriceWithBarters(itemData, formattedItem.barters);
+                formattedItem.barterPrice = getCheapestBarter(itemData, formattedItem.barters);
 
                 if(!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice){
                     formattedItem.pricePerSlot = Math.floor(formattedItem.barterPrice.price / itemData.itemProperties.grid?.totalSize);

@@ -58,6 +58,26 @@ function getItemBarters(item, barters) {
     return false;
 };
 
+function getCheapestBarter(item, barters, useFlea = true) {
+    const barter = getItemBarters(item, barters);
+    let barterTotalCost = false;
+    let bestPrice = {};
+
+    if(barter){
+        barterTotalCost = barter.requiredItems.reduce((accumulatedPrice, requiredItem) => {
+            return accumulatedPrice + (getCheapestItemPrice(requiredItem.item, useFlea).price * requiredItem.count);
+        }, 0);
+    }
+
+    if(barter && barterTotalCost){
+        bestPrice.price = barterTotalCost;
+        bestPrice.source = 'barter';
+        bestPrice.barter = barter;
+    }
+
+    return bestPrice;
+};
+
 function getCheapestItemPriceWithBarters(item, barters, useFlea = true) {
     const bestPrice = getCheapestItemPrice(item, useFlea);
 
@@ -128,6 +148,7 @@ const formatCostItems = (itemsList, hideoutManagementSkillLevel, barters, freeFu
 export {
     getItemBarters,
     getCheapestItemPriceWithBarters,
+    getCheapestBarter,
 };
 
 export default formatCostItems;
