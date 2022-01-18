@@ -3,6 +3,8 @@ import {
 } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
+import RewardImage from "../reward-image";
+
 import formatPrice from "../../modules/format-price";
 import './index.css';
 
@@ -12,20 +14,10 @@ function RewardCell({count, iconLink, itemLink, name, source, value, sellTo, bar
     return <div
         className = 'reward-wrapper'
     >
-        <div
-            className = 'reward-image-wrapper'
-        >{count && <span
-            className = 'reward-count-wrapper'
-        >
-            {count}
-        </span>}<img
-                alt = ''
-                className = 'table-image'
-                loading = 'lazy'
-                height = '64'
-                width = '64'
-                src = { iconLink }
-            /></div>
+        <RewardImage
+            count={count}
+            iconLink={iconLink}
+        />
         <div
             className = 'reward-info-wrapper'
         >

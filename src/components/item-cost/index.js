@@ -3,6 +3,7 @@ import {followCursor} from 'tippy.js';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useTranslation } from 'react-i18next';
 
+import BarterToolip from '../barter-tooltip';
 import formatPrice from '../../modules/format-price';
 
 import './index.css';
@@ -39,29 +40,11 @@ function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSour
             placement = 'bottom'
             followCursor = {'horizontal'}
             // showOnCreate = {true}
-            content={
-                <div
-                    className = 'cost-with-barter-wrapper'
-                >
-                    <img
-                        alt = {t('Icon')}
-                        loading='lazy'
-                        src = {`https://assets.tarkov-tools.com/${alternatePriceSource.requiredItems[0].item.id}-icon.jpg`}
-                    />
-                    <div
-                        className = 'cost-barter-details-wrapper'
-                    >
-                        <div>
-                            {alternatePriceSource.requiredItems[0].count} X {alternatePriceSource.requiredItems[0].item.name}
-                        </div>
-                        <div>
-                            {formatPrice(alternatePriceSource.requiredItems[0].item.avg24hPrice)}
-                        </div>
-                        <div>
-                            {alternatePriceSource.source}
-                        </div>
-                    </div>
-                </div>
+            interactive = {true}
+            content={<BarterToolip
+                source = {alternatePriceSource.source}
+                requiredItems={alternatePriceSource.requiredItems}
+            />
             }
             plugins={[followCursor]}
         >

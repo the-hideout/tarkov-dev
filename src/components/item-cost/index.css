@@ -1,11 +1,25 @@
 .cost-with-barter-wrapper {
     display: flex;
-}
-
-.cost-with-barter-wrapper img {
-    margin-right: 10px;
+    flex-wrap: wrap;
 }
 
 .cost-barter-details-wrapper > div {
     line-height: 20px;
+}
+
+.cost-with-barter-wrapper h3 {
+    text-align: center;
+    width: 100%;
+}
+
+.cost-with-barter-wrapper .cost-item-wrappper {
+    margin-bottom: 10px;
+}
+
+.cost-barter-details-wrapper a {
+    font-size: 16px;
+}
+
+.cost-barter-details-wrapper .price-wrapper {
+    white-space: nowrap;
 }

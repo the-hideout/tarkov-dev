@@ -269,6 +269,10 @@ cite {
     white-space: initial;
 }
 
+div.tippy-box {
+    color: #c7c5b3;
+}
+
 @media screen and (min-width: 710px) {
 	.id-wrapper {
 		display: block;

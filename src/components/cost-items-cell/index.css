@@ -2,7 +2,6 @@
 .cost-item-wrapper {
     align-items: center;
     display: flex;
-    justify-content: center;
     position: relative;
     width: 100%;
 }
@@ -31,8 +30,8 @@
 }
 
 .cost-item-wrapper img {
-    /* height: 34px; */
-    width: 34px;
+    /* height: 34px;
+    width: 34px; */
     border: 1px solid #4a5154;
 }
 
