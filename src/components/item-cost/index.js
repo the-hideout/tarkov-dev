@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import formatPrice from '../../modules/format-price';
 
-const priceToUse = 'lastLowPrice';
+import './index.css';
 
 const TRADERS = [
     'prapor',
@@ -55,7 +55,7 @@ function ItemCost({count, price, alternatePrice, alternatePriceSource, priceSour
                             {alternatePriceSource.requiredItems[0].count} X {alternatePriceSource.requiredItems[0].item.name}
                         </div>
                         <div>
-                            {formatPrice(alternatePriceSource.requiredItems[0].item[priceToUse])}
+                            {formatPrice(alternatePriceSource.requiredItems[0].item.avg24hPrice)}
                         </div>
                         <div>
                             {alternatePriceSource.source}
