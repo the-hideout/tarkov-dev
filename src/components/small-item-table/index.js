@@ -429,6 +429,33 @@ function SmallItemTable(props) {
                     accessor: d => Number(d.buyOnFleaPrice?.price),
                     Cell: FleaPriceCell,
                     id: 'fleaBuyPrice',
+                    sortType: (a, b, columnId, desc) => {
+                        if(a.values.fleaBuyPrice === 0 || isNaN(a.values.fleaBuyPrice)){
+                            if(desc){
+                                return -1;
+                            }
+
+                            return 1;
+                        }
+
+                        if(b.values.fleaBuyPrice === 0 || isNaN(b.values.fleaBuyPrice)){
+                            if(desc){
+                                return 1;
+                            }
+
+                            return -1;
+                        }
+
+                        if(a.values.fleaBuyPrice > b.values.fleaBuyPrice){
+                            return -1;
+                        }
+
+                        if(a.values.fleaBuyPrice < b.values.fleaBuyPrice){
+                            return 1;
+                        }
+
+                        return 0;
+                    },
                 });
             }
 
@@ -442,6 +469,33 @@ function SmallItemTable(props) {
                         />;
                     },
                     id: 'barterPrice',
+                    sortType: (a, b, columnId, desc) => {
+                        if(a.values.barterPrice === 0 || isNaN(a.values.barterPrice)){
+                            if(desc){
+                                return -1;
+                            }
+
+                            return 1;
+                        }
+
+                        if(b.values.barterPrice === 0 || isNaN(b.values.barterPrice)){
+                            if(desc){
+                                return 1;
+                            }
+
+                            return -1;
+                        }
+
+                        if(a.values.barterPrice > b.values.barterPrice){
+                            return -1;
+                        }
+
+                        if(a.values.barterPrice < b.values.barterPrice){
+                            return 1;
+                        }
+
+                        return 0;
+                    },
                 });
             }
 
@@ -462,13 +516,21 @@ function SmallItemTable(props) {
                     id: 'instaProfit',
                     sortDescFirst: true,
                     // sortType: 'basic',
-                    sortType: (a, b) => {
+                    sortType: (a, b, columnId, desc) => {
                         if(a.values.instaProfit === 0){
-                            return -1;
+                            if(desc){
+                                return -1;
+                            }
+
+                            return 1;
                         }
 
                         if(b.values.instaProfit === 0){
-                            return 1;
+                            if(desc){
+                                return 1;
+                            }
+
+                            return -1;
                         }
 
                         if(a.values.instaProfit > b.values.instaProfit){
