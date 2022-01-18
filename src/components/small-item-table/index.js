@@ -279,7 +279,7 @@ function SmallItemTable(props) {
                 stats: `${itemData.itemProperties.speedPenaltyPercent}% / ${itemData.itemProperties.mousePenalty}% / ${itemData.itemProperties.weaponErgonomicPenalty}`,
             };
 
-            if(formattedItem.buyOnFleaPrice){
+            if(formattedItem.buyOnFleaPrice && formattedItem.buyOnFleaPrice.price > 0){
                 formattedItem.instaProfit = itemData.traderPrice - formattedItem.buyOnFleaPrice.price;
             }
 
