@@ -251,7 +251,7 @@ function InputFilter({ defaultValue, type = 'text', placeholder, onChange, label
     </label>;
 }
 
-function Filter({ center, children }) {
+function Filter({ center, children, fullWidth }) {
     const [showFilter, setShowFilter] = useState(false);
     return [
         <div
@@ -262,7 +262,7 @@ function Filter({ center, children }) {
             <FilterIcon />
         </div>,
         <div
-            className={`filter-wrapper ${showFilter ? 'open' : ''} ${center ? 'filter-wrapper-center' : ''}`}
+            className={`filter-wrapper ${showFilter ? 'open' : ''} ${center ? 'filter-wrapper-center' : ''} ${fullWidth ? 'full-width' : ''}`}
             key='page-filter'
         >
             <div

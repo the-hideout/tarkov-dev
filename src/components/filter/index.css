@@ -2,6 +2,8 @@
 .filter-wrapper {
     left: 0;
     line-height: 24px;
+    margin: 0 auto;
+    max-width: 1200px;
     overflow: hidden;
     padding: 0;
     position: fixed;
@@ -11,6 +13,10 @@
     transform: scaleY(0);
     transition: transform 0.26s ease;
     z-index: 1;
+}
+
+.filter-wrapper.full-width {
+    max-width: 100%;
 }
 
 .filter-content-wrapper {

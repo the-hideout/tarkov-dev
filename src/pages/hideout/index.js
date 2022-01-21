@@ -13,6 +13,8 @@ import {
 } from '../../components/filter';
 import capitalizeTheFirstLetterOfEachWord from '../../modules/capitalize-first';
 
+import './index.css';
+
 const stations = [
     'air-filtering-unit',
     'bitcoin-farm',
@@ -87,7 +89,9 @@ function Hideout() {
                     {t('Escape from Tarkov Hideout')}
                 </h1>
             </div>
-            <Filter>
+            <Filter
+                center
+            >
                 <ButtonGroupFilter>
                     {stations.map((stationName) => {
                         return <ButtonGroupFilterButton
@@ -133,6 +137,7 @@ function Hideout() {
                 }
 
                 return <div
+                    className='hideout-module-wrapper'
                     key = {`hideout-module-cost-${hideoutModule.name}-${hideoutModule.level}`}
                 >
                     <h2>

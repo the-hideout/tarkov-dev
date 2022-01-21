@@ -340,7 +340,9 @@ function LootTier(props) {
             }}
             key = {'display-wrapper'}
         >
-            <Filter>
+            <Filter
+                fullWidth
+            >
                 <ToggleFilter
                     label = {t('Include Marked')}
                     onChange = {e => setIncludeMarked(!includeMarked)}
