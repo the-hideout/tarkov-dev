@@ -2,6 +2,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as atomOneDark, twilight as monokai } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import {useTranslation} from 'react-i18next';
 import {Link} from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 import './index.css';
 
@@ -74,10 +75,63 @@ function APIDocs() {
         <h2>
             {t('Examples')}
         </h2>
+        <ul>
+            <li>
+                <HashLink
+                    to="#browser-js"
+                >
+                    Browser JS
+                </HashLink>
+            </li>
+            <li>
+                <HashLink
+                    to="#node-js"
+                >
+                    Node JS
+                </HashLink>
+            </li>
+            <li>
+                <HashLink
+                    to="#python"
+                >
+                    Python
+                </HashLink>
+            </li>
+            <li>
+                <HashLink
+                    to="#cli"
+                >
+                    CLI
+                </HashLink>
+            </li>
+            <li>
+                <HashLink
+                    to="#php"
+                >
+                    PHP
+                </HashLink>
+            </li>
+            <li>
+                <HashLink
+                    to="#java-11"
+                >
+                    Java 11
+                </HashLink>
+            </li>
+            <li>
+                <HashLink
+                    to="#csharp"
+                >
+                    C#
+                </HashLink>
+            </li>
+        </ul>
         <div
             className = 'example-wrapper'
         >
-            <h3>
+            <h3
+                id = 'browser-js'
+            >
                 Browser JS {t('example')}
             </h3>
             <SyntaxHighlighter
@@ -105,7 +159,9 @@ function APIDocs() {
         <div
             className = 'example-wrapper'
         >
-            <h3>
+            <h3
+                id = 'node-js'
+            >
                 Node JS {t('example')}
             </h3>
             <SyntaxHighlighter
@@ -130,7 +186,9 @@ request('https://tarkov-tools.com/graphql', query).then((data) => console.log(da
         <div
             className = 'example-wrapper'
         >
-            <h3>
+            <h3
+                id = 'python'
+            >
                 Python {t('example')}
             </h3>
             <SyntaxHighlighter
@@ -162,7 +220,9 @@ result = run_query(new_query)
         <div
             className = 'example-wrapper'
         >
-            <h3>
+            <h3
+                id = 'cli'
+            >
                 CLI {t('example')}
             </h3>
             <SyntaxHighlighter
@@ -177,7 +237,9 @@ https://tarkov-tools.com/graphql`}
         <div
             className = 'example-wrapper'
         >
-            <h3>
+            <h3
+                id = 'php'
+            >
                 PHP {t('example')}
             </h3>
             <SyntaxHighlighter
@@ -206,7 +268,9 @@ return json_decode($data, true);`}
         <div
             className = 'example-wrapper'
         >
-            <h3>
+            <h3
+                id = 'java-11'
+            >
                 Java 11's HttpClient {t('example')}
                 <cite>
                     Contributed by <Link

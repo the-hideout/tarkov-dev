@@ -32,6 +32,7 @@
     "react-query": "^3.34.7",
     "react-redux": "^7.2.4",
     "react-router-dom": "^6.0.2",
+    "react-router-hash-link": "^2.4.3",
     "react-scripts": "^5.0.0",
     "react-select": "^5.1.0",
     "react-switch": "^6.0.0",
