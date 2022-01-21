@@ -1,4 +1,7 @@
 import { useTranslation } from 'react-i18next';
+import {
+    Link
+} from 'react-router-dom';
 
 import QuestItemsCell from '../quest-items-cell';
 import './index.css';
@@ -34,20 +37,28 @@ const getQuestList = (questList, t) => {
                             key = {`quest-list-${questData.name}`}
                         >
                             <td>
-                                <a
-                                    className = "quest-name-wrapper"
-                                    href = {`https://tarkovtracker.io/quest/${questData.id}/`}
+                                <div
+                                    className='quest-link-wrapper'
                                 >
-                                    <img
-                                        alt={questData.giver.locale.en}
-                                        loading='lazy'
-                                        className = 'quest-giver-image'
-                                        src={`${ process.env.PUBLIC_URL }/images/${questData.giver.locale.en.toLowerCase()}-icon.jpg`}
-                                    />
-                                    <div>
-                                        {questData.name}
-                                    </div>
-                                </a>
+                                    <Link
+                                        to = {`/traders/${questData.giver.locale.en.toLowerCase()}`}
+                                    >
+                                        <img
+                                            alt={questData.giver.locale.en}
+                                            loading='lazy'
+                                            className = 'quest-giver-image'
+                                            src={`${ process.env.PUBLIC_URL }/images/${questData.giver.locale.en.toLowerCase()}-icon.jpg`}
+                                        />
+                                    </Link>
+                                    <a
+                                        className = "quest-name-wrapper"
+                                        href = {`https://tarkovtracker.io/quest/${questData.id}/`}
+                                    >
+                                        <div>
+                                            {questData.name}
+                                        </div>
+                                    </a>
+                                </div>
                             </td>
                             <td>
                                 <QuestItemsCell
