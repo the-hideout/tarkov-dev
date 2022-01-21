@@ -1,6 +1,7 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as atomOneDark, twilight as monokai } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import {useTranslation} from 'react-i18next';
+import {Link} from 'react-router-dom';
 
 import './index.css';
 
@@ -207,6 +208,11 @@ return json_decode($data, true);`}
         >
             <h3>
                 Java 11's HttpClient {t('example')}
+                <cite>
+                    Contributed by <Link
+                        to='https://github.com/HeyBanditoz'
+                    >Banditoz</Link>
+                </cite>
             </h3>
             <SyntaxHighlighter
                 language = 'java'
