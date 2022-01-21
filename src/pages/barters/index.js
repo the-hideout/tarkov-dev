@@ -9,6 +9,7 @@ import {
     InputFilter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
+    ToggleFilter,
 } from '../../components/filter';
 import capitalizeTheFirstLetterOfEachWord from '../../modules/capitalize-first';
 
@@ -31,6 +32,7 @@ function Barters() {
     const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [selectedTrader, setSelectedTrader] = useStateWithLocalStorage('selectedTrader', 'all');
+    const [hideDogtags, setHideDogtags] = useStateWithLocalStorage('hideDogtagBarters', true);
     const {t} = useTranslation();
 
     return [
@@ -63,6 +65,16 @@ function Barters() {
                 {t('Barter profits')}
             </h1>
             <Filter>
+                <ToggleFilter
+                    checked = {hideDogtags}
+                    label = {t('Hide dogtags')}
+                    onChange = {e => setHideDogtags(!hideDogtags)}
+                    tooltipContent = {
+                        <div>
+                            {t('Dogtags are very hard to calulcate values for as they depend on level. Most calculations with them are wrong')}
+                        </div>
+                    }
+                />
                 <ButtonGroupFilter>
                     {traders.map((traderName) => {
                         return <ButtonGroupFilterButton
@@ -106,6 +118,7 @@ function Barters() {
             nameFilter = {nameFilter}
             selectedTrader = {selectedTrader}
             key = 'barters-page-barters-table'
+            removeDogtags = {hideDogtags}
         />
     ];
 };

@@ -20,7 +20,7 @@ import './index.css';
 const priceToUse = 'lastLowPrice';
 
 function BartersTable(props) {
-    const { selectedTrader, nameFilter, itemFilter} = props;
+    const { selectedTrader, nameFilter, itemFilter, removeDogtags } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const includeFlea = useSelector((state) => state.settings.hasFlea);
@@ -183,6 +183,18 @@ function BartersTable(props) {
                 }
             }
 
+            if(removeDogtags){
+                for(const requiredItem of barterRow.requiredItems){
+                    if(requiredItem === null){
+                        continue;
+                    }
+
+                    if(requiredItem.item.name.toLowerCase().replace(/\s/g, '').includes('dogtag')){
+                        return false;
+                    }
+                }
+            }
+
             // let hasZeroCostItem = false;
             let [trader, level] = barterRow.source.split('LL');
 
@@ -297,7 +309,7 @@ function BartersTable(props) {
             return true;
 	    });
     },
-        [nameFilter, selectedTrader, barters, includeFlea, itemFilter, traders, hasJaeger, t]
+        [nameFilter, selectedTrader, barters, includeFlea, itemFilter, traders, hasJaeger, t, removeDogtags]
     );
 
     let extraRow = false;
