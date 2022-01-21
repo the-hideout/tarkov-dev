@@ -10,6 +10,8 @@ import {
 
 import formatPrice from '../../modules/format-price';
 
+import './index.css';
+
 function PriceGraph({itemId}) {
     const { status, data } = useQuery(`historical-price-${itemId}`, () =>
         fetch('https://tarkov-tools.com/graphql', {
@@ -53,37 +55,42 @@ function PriceGraph({itemId}) {
         return true;
     })
 
-    return <VictoryChart
-        height = {height}
-        width = {1280}
-        padding = {{top: 20, left: 15, right: -100, bottom: 30}}
-        minDomain={{y: 0}}
-        maxDomain={{y: max + (max * 0.1)}}
-        theme={VictoryTheme.material}
-        containerComponent={
-            <VictoryVoronoiContainer
-                labels={({ datum }) => `${formatPrice(datum.y)}`}
-            />
-        }
+    return <div
+        className='price-history-wrapper'
     >
-        <VictoryLine
-            padding = {{right: -120}}
-            scale = {{
-                x: 'time',
-                y: 'linear'
-            }}
-            style={{
-                data: { stroke: "#c43a31" },
-                parent: { border: "1px solid #ccc"}
-            }}
-            data={data.data.historicalItemPrices.map(pricePoint => {
-                return {
-                    x: new Date(Number(pricePoint.timestamp)),
-                    y: pricePoint.price,
-                };
-            })}
-        />
-    </VictoryChart>;
+
+        <VictoryChart
+            height = {height}
+            width = {1280}
+            padding = {{top: 20, left: 15, right: -100, bottom: 30}}
+            minDomain={{y: 0}}
+            maxDomain={{y: max + (max * 0.1)}}
+            theme={VictoryTheme.material}
+            containerComponent={
+                <VictoryVoronoiContainer
+                    labels={({ datum }) => `${formatPrice(datum.y)}`}
+                />
+            }
+        >
+            <VictoryLine
+                padding = {{right: -120}}
+                scale = {{
+                    x: 'time',
+                    y: 'linear'
+                }}
+                style={{
+                    data: { stroke: "#c43a31" },
+                    parent: { border: "1px solid #ccc"}
+                }}
+                data={data.data.historicalItemPrices.map(pricePoint => {
+                    return {
+                        x: new Date(Number(pricePoint.timestamp)),
+                        y: pricePoint.price,
+                    };
+                })}
+            />
+        </VictoryChart>
+    </div>;
 }
 
 export default PriceGraph;

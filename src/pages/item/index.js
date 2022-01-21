@@ -464,13 +464,9 @@ function Item() {
                         <h2>
                             {t('Flea price last 7 days')}
                         </h2>
-                        <div
-                            className='price-history-wrapper'
-                        >
-                            <PriceGraph
-                                itemId = {currentItemData.id}
-                            />
-                        </div>
+                        <PriceGraph
+                            itemId = {currentItemData.id}
+                        />
                     </div>
                 }
                 <h2>
