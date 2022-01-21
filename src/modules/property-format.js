@@ -107,6 +107,24 @@ const formatter = (key, value) => {
         ];
     }
 
+    if(key === 'headSegments'){
+        let displayKey = defaultFormat(key);
+
+        return [
+            displayKey,
+            value.map(defaultFormat).join(', '),
+        ];
+    }
+
+    if(key === 'BlocksEarpiece'){
+        let displayKey = defaultFormat(key);
+
+        return [
+            displayKey,
+            value ? 'Yes' : 'No',
+        ];
+    }
+
     return [
         defaultFormat(key),
         value,
