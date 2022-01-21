@@ -15,32 +15,42 @@ function APIDocs() {
         <h2>
             {t('About')}
         </h2>
-        <p>
+        <div
+            className='section-text-wrapper'
+        >
             {t('The API is available on')} <a href="https://tarkov-tools.com/graphql">https://tarkov-tools.com/graphql</a> with a playground on <a href="https://tarkov-tools.com/___graphql">https://tarkov-tools.com/___graphql</a>.
             {t('It\'s written in graphql and we try our hardest to follow spec and never change or deprecate anything.')}
-        </p>
+        </div>
         <h2>
             {t('FAQ')}
         </h2>
-        <p>
+        <div
+            className='section-text-wrapper'
+        >
             <h3>
                 {t('Is it free?')}
             </h3>
             {t('Yes. It does however cost money for us to run and maintain, so please consider supporting us on')} <a href="https://www.patreon.com/bePatron?u=26501878&redirect_uri=https%3A%2F%2Ftarkov-tools.com"> Patreon</a>
-        </p>
-        <p>
+        </div>
+        <div
+            className='section-text-wrapper'
+        >
             <h3>
                 {t('Is there a rate limit?')}
             </h3>
             {t('No')}
-        </p>
-        <p>
+        </div>
+        <div
+            className='section-text-wrapper'
+        >
             <h3>
                 {t('Wait... really?')}
             </h3>
             {t('Yeah. It\'s actually better if you')} <i>{t('don\'t')}</i> {t('limit your requests to get as fresh data as possible')}
-        </p>
-        <p>
+        </div>
+        <div
+            className='section-text-wrapper'
+        >
             <h3>
                 {t('Where is the data from?')}
             </h3>
@@ -59,7 +69,7 @@ function APIDocs() {
                     {t('Our network of scanners')}
                 </li>
             </ul>
-        </p>
+        </div>
         <h2>
             {t('Examples')}
         </h2>

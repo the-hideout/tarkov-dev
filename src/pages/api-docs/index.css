@@ -2,3 +2,7 @@
     margin: auto;
     max-width: 900px;
 }
+
+.section-text-wrapper {
+    margin: 10px 0;
+}
