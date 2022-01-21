@@ -254,6 +254,41 @@ class Scratch {
 `}
             </SyntaxHighlighter>
         </div>
+        <div
+            className = 'example-wrapper'
+        >
+            <h3
+                id = 'csharp'
+            >
+                C# {t('example')}
+                <cite>
+                    Contributed by BambusBo
+                </cite>
+            </h3>
+            <SyntaxHighlighter
+                language = 'csharp'
+                style = {atomOneDark}
+            >
+                {`var data = new Dictionary<string, string>()
+{
+    {"query", "{itemsByName(name: \\"m855a1\\") { id name shortName }}"}
+};
+
+using (var httpClient = new HttpClient())
+{
+
+    //Http response message
+    var httpResponse = await httpClient.PostAsJsonAsync("https://tarkov-tools.com/graphql", data);
+
+    //Response content
+    var responseContent = await httpResponse.Content.ReadAsStringAsync();
+
+    //Print response
+    Debug.WriteLine(responseContent);
+
+}`}
+            </SyntaxHighlighter>
+        </div>
     </div>;
 };
 
