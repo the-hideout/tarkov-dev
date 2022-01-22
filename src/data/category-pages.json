@@ -20,11 +20,6 @@
         "icon": "mdiArchive"
     },
     {
-        "key": "helmets",
-        "displayText": "Helmets",
-        "icon": "mdiRacingHelmet"
-    },
-    {
         "key": "glasses",
         "displayText": "Glasses",
         "icon": "mdiSunglasses"
@@ -43,6 +38,11 @@
         "key": "headsets",
         "displayText": "Headsets",
         "icon": "mdiHeadset"
+    },
+    {
+        "key": "helmets",
+        "displayText": "Helmets",
+        "icon": "mdiRacingHelmet"
     },
     {
         "key": "keys",
