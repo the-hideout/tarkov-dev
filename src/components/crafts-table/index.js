@@ -48,7 +48,7 @@ function getDurationDisplay(time) {
 };
 
 function CraftTable(props) {
-    const {selectedStation, freeFuel, nameFilter, itemFilter} = props;
+    const {selectedStation, freeFuel, nameFilter, itemFilter, showAll} = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const includeFlea = useSelector((state) => state.settings.hasFlea);
@@ -201,9 +201,14 @@ function CraftTable(props) {
                 return false;
             }
 
-            if(level > stations[station.toLowerCase().replace(/\s/g, '-')]){
+            if(showAll) {
+                skippedByLevelRef.current = false;
+            }
+
+            if(!showAll && level > stations[station.toLowerCase().replace(/\s/g, '-')]){
                 //setSkippedByLevel(true);
                 skippedByLevelRef.current = true;
+
                 return false;
             }
 
@@ -300,7 +305,7 @@ function CraftTable(props) {
             return true;
         });
     },
-        [nameFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter, stations, skills, feeReduction, t]
+        [nameFilter, selectedStation, freeFuel, crafts, barters, includeFlea, itemFilter, stations, skills, feeReduction, t, showAll]
     );
 
     const columns = useMemo(

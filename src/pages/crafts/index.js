@@ -34,6 +34,7 @@ function Crafts() {
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [freeFuel, setFreeFuel] = useState(false);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedStation', 'top');
+    const [showAll, setShowAll] = useState(false);
     const {t} = useTranslation();
 
     return [
@@ -66,6 +67,16 @@ function Crafts() {
                 {t('Hideout Crafts')}
             </h1>
             <Filter>
+                <ToggleFilter
+                    checked = {showAll}
+                    label = {t('Ignore settings')}
+                    onChange = {e => setShowAll(!showAll)}
+                    tooltipContent = {
+                        <div>
+                            {t('Shows all crafts regardless of what you have set in your settings')}
+                        </div>
+                    }
+                />
                 <ButtonGroupFilter>
                     {stations.map((stationName) => {
                         return <ButtonGroupFilterButton
@@ -118,6 +129,7 @@ function Crafts() {
         <CraftsTable
             nameFilter = {nameFilter}
             freeFuel = {freeFuel}
+            showAll = {showAll}
             selectedStation = {selectedStation}
             key = 'crafts-page-crafts-table'
         />

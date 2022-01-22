@@ -1,4 +1,4 @@
-import React, { Suspense, useMemo, useEffect } from 'react';
+import React, { Suspense, useMemo, useEffect, useState } from 'react';
 import {Helmet} from 'react-helmet';
 import {
     useParams,
@@ -24,7 +24,7 @@ import PropertyList from '../../components/property-list';
 import ItemsForHideout from '../../components/items-for-hideout';
 import PriceGraph from '../../components/price-graph';
 import ItemSearch from '../../components/item-search';
-
+import {Filter, ToggleFilter} from '../../components/filter';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
@@ -71,6 +71,7 @@ function Item() {
         return state.items.status;
     });
     const {t} = useTranslation();
+    const [showAll, setShowAll] = useState(false)
 
     useEffect(() => {
         let timer = false;
@@ -484,12 +485,29 @@ function Item() {
                     />
                 </div>
                 <div>
-                    <h2>
-                        {t('Crafts with')} {currentItemData.name}
-                    </h2>
+                    <div
+                        className='item-crafts-headline-wrapper'
+                    >
+                        <h2>
+                            {t('Crafts with')} {currentItemData.name}
+                        </h2>
+                        <Filter>
+                            <ToggleFilter
+                                checked = {showAll}
+                                label = {t('Ignore settings')}
+                                onChange = {e => setShowAll(!showAll)}
+                                tooltipContent = {
+                                    <div>
+                                        {t('Shows all crafts regardless of what you have set in your settings')}
+                                    </div>
+                                }
+                            />
+                        </Filter>
+                    </div>
                     <Suspense fallback={<div>{t('Loading...')}</div>}>
                         <CraftsTable
                             itemFilter = {currentItemData.id}
+                            showAll = {showAll}
                         />
                     </Suspense>
                 </div>
