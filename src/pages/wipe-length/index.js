@@ -10,6 +10,9 @@ import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 // import { VictoryBar, VictoryChart, VictoryTheme } from 'victory';
 
+// number or wipes to use when calculating the average
+const CountLastNumWipesForAverage = Infinity;
+
 const wipeDetails = wipeDetailsJson.map((wipeDetailJson) => {
   return {
     ...wipeDetailJson,
@@ -46,13 +49,17 @@ for (let i = 0; i < wipeDetails.length; i += 1) {
 
 
 // calculate average wipe length
+
 const calculateAverage = (wipeDatas) => {
   const endedWipes = wipeDatas.filter(({ ongoing }) => !ongoing);
+  endedWipes.sort((a, b) => b.start.getTime() - a.start.getTime());
+  const calculateUsingWipes = endedWipes.slice(0, CountLastNumWipesForAverage)
+
   let sum = 0;
-  for (const endedWipe of endedWipes) {
+  for (const endedWipe of calculateUsingWipes) {
     sum += endedWipe.lengthDays;
   };
-  const average = sum / endedWipes.length;
+  const average = sum / calculateUsingWipes.length;
 
   return Math.floor(average);
 }
@@ -60,7 +67,7 @@ const calculateAverage = (wipeDatas) => {
 const lengthDaysAverage = calculateAverage(data);
 
 data.push({
-  name: 'Average',
+  name: `Average${Number.isFinite(CountLastNumWipesForAverage) ? ` last ${CountLastNumWipesForAverage} wipes` : '' }`,
   lengthDays: lengthDaysAverage,
 })
 
