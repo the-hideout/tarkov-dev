@@ -8,7 +8,7 @@ import './index.css';
 import DataTable from '../../components/data-table';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
-import { VictoryBar, VictoryChart, VictoryTheme } from 'victory';
+// import { VictoryBar, VictoryChart, VictoryTheme } from 'victory';
 
 const wipeDetails = wipeDetailsJson.map((wipeDetailJson) => {
   return {
@@ -107,14 +107,14 @@ const WipeLength = (props) => {
   }, [t]);
 
 
-  const graphData = useMemo(() => {
-    return data.map(({start, lengthDays}) => {
-      return {
-        x: dayjs(start).format('YYYY-MM-DD'),
-        y: lengthDays
-      }
-    })
-  }, []);
+  // const graphData = useMemo(() => {
+  //   return data.map(({start, lengthDays}) => {
+  //     return {
+  //       x: dayjs(start).format('YYYY-MM-DD'),
+  //       y: lengthDays
+  //     }
+  //   })
+  // }, []);
 
 
   return <React.Fragment>
