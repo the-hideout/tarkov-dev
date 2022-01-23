@@ -187,11 +187,11 @@ function Helmets(props) {
                 accessor: 'armorZone',
                 Cell: centerCell,
             },
-            {
-                Header: t('Ricochet chance'),
-                accessor: 'ricochetChance',
-                Cell: centerCell,
-            },
+            // {
+            //     Header: t('Ricochet chance'),
+            //     accessor: 'ricochetChance',
+            //     Cell: centerCell,
+            // },
             {
                 Header: t('Sound supression'),
                 accessor: 'deafenStrength',
