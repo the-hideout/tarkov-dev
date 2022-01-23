@@ -1,7 +1,9 @@
 .wipe-length-cell {
-  display: flex;
   align-items: center;
+  display: flex;
+  justify-content: center;
 }
+
 .wipe-length-bar-wrapper {
   /* display: inline-block; */
   height: 10px;

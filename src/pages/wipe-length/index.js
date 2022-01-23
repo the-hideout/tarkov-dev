@@ -1,13 +1,14 @@
 import {Helmet} from 'react-helmet';
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import dayjs from 'dayjs';
 
+import DataTable from '../../components/data-table';
+import CenterCell from '../../components/center-cell';
 
 import wipeDetailsJson from '../../data/wipe-details.json'
 
 import './index.css';
-import DataTable from '../../components/data-table';
-import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
 // import { VictoryBar, VictoryChart, VictoryTheme } from 'victory';
 
 // number or wipes to use when calculating the average
@@ -89,8 +90,10 @@ const WipeLength = (props) => {
           if (start) {
             return dayjs(start).format('YYYY-MM-DD')
           }
+
           return '';
         },
+        Cell: CenterCell,
         id: 'start',
       },
       {
@@ -104,6 +107,7 @@ const WipeLength = (props) => {
           }
           return '';
         },
+        Cell: CenterCell,
         id: 'end',
       },
       {
@@ -148,7 +152,9 @@ const WipeLength = (props) => {
           />
       </Helmet>
       <div className={'page-wrapper'}>
-        <h1 className='center-title'>Escpae from Tarkov wipe length</h1>
+        <h1 className='center-title'>
+            {t('Escape from Tarkov Wipe Length')}
+        </h1>
         <DataTable
           columns={columns}
           data={data}
