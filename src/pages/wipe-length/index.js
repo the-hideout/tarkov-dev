@@ -102,6 +102,16 @@ const WipeLength = (props) => {
       {
         Header: t('Wipe length'),
         accessor: 'lengthDays',
+        Cell: (props) => {
+          const {value} = props;
+
+          return <div className='wipe-length-cell'>
+            <div className='wipe-length-bar-wrapper'>
+              <div className='wipe-length-bar' style={{width: `${Math.min(100, (value / lengthDaysAverage) * 100)}%`}} />
+            </div>
+            {t('{{count}} days', {count: value})}
+          </div>;
+        }
       }
     ]
   }, [t]);
