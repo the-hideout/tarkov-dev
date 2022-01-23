@@ -7,7 +7,7 @@ import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 import './index.css';
 
-function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraRow, nameFilter, autoScroll }) {
+function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraRow, nameFilter, autoScroll, disableSortBy }) {
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
 
@@ -44,6 +44,7 @@ function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraR
             sortBy: initialSortBy,
         },
         autoResetSortBy: autoResetSortBy,
+        disableSortBy,
     }, useSortBy, useExpanded, usePagination);
 
     useEffect(() => {

@@ -65,6 +65,7 @@ import Traders from './pages/traders';
 import HistoryGraphs from './pages/history-graphs';
 import ItemTracker from './pages/item-tracker/';
 import Hideout from './pages/hideout';
+import WipeLength from './pages/wipe-length';
 // import About from './pages/about/';
 
 import Guides from './pages/guides';
@@ -915,6 +916,20 @@ return (
                 element = {[
                     <Hideout
                         key = 'hideout-wrapper'
+                    />,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path={'/wipe-length'}
+                element = {[
+                    <WipeLength
+                        key = 'wipe-length-wrapper'
                     />,
                     <ID
                         key = 'connection-wrapper'
