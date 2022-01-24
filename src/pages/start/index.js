@@ -23,6 +23,7 @@ import {
     mdiMap,
     mdiViewGrid,
     mdiDiscord,
+    mdiHome,
 } from '@mdi/js';
 
 import './index.css';
@@ -175,6 +176,18 @@ function Start(props) {
                             />
                             {t('Discord bot')}
                         </a>
+                    </li>
+                    <li>
+                        <Link
+                            to = '/hideout'
+                        >
+                            <Icon
+                                path={mdiHome}
+                                size={1}
+                                className = 'icon-with-text'
+                            />
+                            {t('Hideout build costs')}
+                        </Link>
                     </li>
                 </ul>
                 <h3>
