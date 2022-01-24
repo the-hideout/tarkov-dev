@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Macy Creech",
+        "tier": "api-users"
+    },
+    {
+        "uid": "2786284",
+        "name": "The Hideout",
+        "link": "https://play.google.com/store/apps/details?id=com.austinhodak.thehideout&hl=en_US&gl=US"
+    },
+    {
+        "uid": "13444262",
+        "link": "https://tarkovtracker.io/"
+    },
+    {
+        "name": "RatScanner",
+        "link": "https://ratscanner.com/"
+    },
+    {
+        "uid": "42126798",
+        "link": "https://tarkov.guru/"
+    },
+    {
+        "uid": "50971873",
+        "link": "https://www.totovbuilder.com/"
+    }
+]
