@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
-
-import Supporter from '../../components/supporter';
+import SupportersList from '../../components/supporters-list';
 
 import './index.css';
 
@@ -18,16 +17,7 @@ function About() {
         <p>
             {t('The whole platform is open source, and the code is available on')} <a href="https://github.com/kokarn/tarkov-tools">
                 GitHub
-            </a>
-        </p>
-        <p>
-            <a href="https://travis-ci.com/github/kokarn/tarkov-tools">
-                <img
-                    alt="Build status"
-                    loading='lazy'
-                    src="https://travis-ci.com/kokarn/tarkov-tools.svg?branch=master"
-                />
-            </a>
+            </a>.
         </p>
         <h2>
             {t('Discussions & feedback')}
@@ -48,70 +38,39 @@ function About() {
             </a> {t('supporter or by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site')}
         </p>
         <h3>
-            {t('Current supporters')}
+            {t('Gold supporters')}
         </h3>
-        <Supporter
-            name = {'Gyran'}
-            patreon
-            github
-        />
-        <Supporter
-            name = {'teebles'}
-            patreon
-        />
-        <Supporter
-            name = {'Trontus'}
-            patreon
-        />
-        <Supporter
-            name = {'Thaddeus'}
-            patreon
-            github
-            link = 'https://tarkovtracker.io/'
-        />
-        <Supporter
-            name = {'RatScanner'}
-            patreon
-            link = 'https://ratscanner.com/'
-        />
-        <Supporter
-            name = {'Razzmatazz'}
-            patreon
-            github
-        />
-        <Supporter
-            name = {'MrWelshLlama'}
-            patreon
-        />
-        <h2>
-            Cool resources
-        </h2>
-        <p>
-            <a
-                href="https://developertracker.com/escape-from-tarkov/"
-            >
-                Escape from Tarkov Dev tracker
-            </a>
-        </p>
-        <p>
-            <a href="https://tarkovbitcoinprice.com/">
-                Tarkov Bitcoin Price
-            </a>
-        </p>
-        <p>
-            <a href="https://github.com/RatScanner/RatScanner">
-                RatScanner
-            </a>
-        </p>
-        <h2>
-            External resources
-        </h2>
-        <p>
-            Pricing data is from our <a href="https://tarkov-tools.com/___graphql">API</a>
-        </p>
-        <p>
-            Some icons are linked from the amazing <a href="https://github.com/RatScanner/EfTIcons">EFTIcons library</a>
-        </p>
+            <SupportersList
+                tierFilter={'Gold supporter'}
+            />
+        <h3>
+            {t('Silver supporters')}
+        </h3>
+            <SupportersList
+                tierFilter={'Silver supporter'}
+            />
+        <h3>
+            {t('Godly thing supporters')}
+        </h3>
+            <SupportersList
+                tierFilter={'God among supporters'}
+            />
+        <h3>
+            {t('Supporters')}
+        </h3>
+            <SupportersList
+                tierFilter={'Basic+'}
+            />
+            <SupportersList
+                tierFilter={'Basic'}
+                type={'inline'}
+            />
+        <h3>
+            {t('Contributors')}
+        </h3>
+            <SupportersList
+                typeFilter={'github'}
+            />
     </div>;
 };
 

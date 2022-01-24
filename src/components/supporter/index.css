@@ -12,6 +12,10 @@
     flex-grow: 1;
 }
 
+.supporter-wrapper.inline {
+    display: inline-block;
+}
+
 .supporter-wrapper svg {
     margin-left: 5px;
 }

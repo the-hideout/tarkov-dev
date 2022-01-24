@@ -66,7 +66,7 @@ import HistoryGraphs from './pages/history-graphs';
 import ItemTracker from './pages/item-tracker/';
 import Hideout from './pages/hideout';
 import WipeLength from './pages/wipe-length';
-// import About from './pages/about/';
+import About from './pages/about/';
 
 import Guides from './pages/guides';
 
@@ -795,8 +795,8 @@ return (
                     />
                 ]}
             />
-            {/* <Route
-                path={'/about/'}
+            <Route
+                path={'/about'}
                 element = {[
                     <About
                         key = 'about-wrapper'
@@ -808,7 +808,7 @@ return (
                         onClick = {e => dispatch(enableConnection())}
                     />
                 ]}
-            /> */}
+            />
             <Route
                 path={'/api/'}
                 element = {[

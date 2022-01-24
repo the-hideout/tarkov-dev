@@ -19,7 +19,7 @@ function Supporter(props) {
     }
 
     return <div
-        className = {'supporter-wrapper'}
+        className = {`supporter-wrapper ${props.inline ? 'inline' : ''}`}
     >
         {props.link && <a
             href = {props.link}
