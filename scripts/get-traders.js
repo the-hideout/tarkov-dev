@@ -5,7 +5,7 @@ const got = require('got');
 (async () => {
     console.log('Loading traders');
     console.time('traders');
-    const data = await got('https://raw.githack.com/TarkovTracker/tarkovdata/master/traders.json', {
+    const data = await got('https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/traders.json', {
         responseType: 'json',
     });
     console.timeEnd('traders');

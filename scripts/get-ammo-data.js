@@ -49,7 +49,7 @@ const skipTypes = [
 ];
 
 const URLS = [
-    'https://raw.githack.com/TarkovTracker/tarkovdata/master/ammunition.json',
+    'https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/ammunition.json',
 ];
 
 let typeCache = [];
