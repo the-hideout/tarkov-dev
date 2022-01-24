@@ -115,17 +115,23 @@ function Item() {
                     return false;
                 }
 
-                questData.objectives = questData.objectives.filter(({ targetId }) => targetId === currentItemData?.id)
+                return true;
+            })
+            .map((questData) => {
+                const questDataCopy = {
+                    ...questData,
+                };
+                questDataCopy.objectives = questDataCopy.objectives.filter(({ targetId }) => targetId === currentItemData?.id)
 
-                questData.objectives.forEach(objectiveData => {
+                questDataCopy.objectives.forEach(objectiveData => {
                     if (objectiveData.targetId === currentItemData?.id) {
                         objectiveData.iconLink = currentItemData.iconLink;
                         objectiveData.name = currentItemData.name;
                     }
-                })
+                });
 
-                return true;
-            });
+                return questDataCopy;
+            })
     }, [currentItemData]);
 
     if(redirect){
@@ -488,21 +494,21 @@ function Item() {
                     <div
                         className='item-crafts-headline-wrapper'
                     >
-                        <h2>
-                            {t('Crafts with')} {currentItemData.name}
-                        </h2>
-                        <Filter>
-                            <ToggleFilter
-                                checked = {showAll}
-                                label = {t('Ignore settings')}
-                                onChange = {e => setShowAll(!showAll)}
-                                tooltipContent = {
-                                    <div>
-                                        {t('Shows all crafts regardless of what you have set in your settings')}
-                                    </div>
-                                }
-                            />
-                        </Filter>
+                    <h2>
+                        {t('Crafts with')} {currentItemData.name}
+                    </h2>
+                    <Filter>
+                        <ToggleFilter
+                            checked = {showAll}
+                            label = {t('Ignore settings')}
+                            onChange = {e => setShowAll(!showAll)}
+                            tooltipContent = {
+                                <div>
+                                    {t('Shows all crafts regardless of what you have set in your settings')}
+                                </div>
+                            }
+                        />
+                    </Filter>
                     </div>
                     <Suspense fallback={<div>{t('Loading...')}</div>}>
                         <CraftsTable
