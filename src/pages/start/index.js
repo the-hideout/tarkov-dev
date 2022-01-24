@@ -22,6 +22,7 @@ import {
     mdiProgressWrench,
     mdiMap,
     mdiViewGrid,
+    mdiDiscord,
 } from '@mdi/js';
 
 import './index.css';
@@ -124,7 +125,9 @@ function Start(props) {
                     />
                     {t('Tools')}
                 </h3>
-                <ul>
+                <ul
+                    className='tools-list'
+                >
                     <li>
                         <Link
                             to = '/loot-tier/'
@@ -160,6 +163,18 @@ function Start(props) {
                             />
                             {t('Hideout crafts')}
                         </Link>
+                    </li>
+                    <li>
+                        <a
+                            href = {'https://discord.com/api/oauth2/authorize?client_id=925298399371231242&permissions=309237664832&scope=bot%20applications.commands'}
+                        >
+                            <Icon
+                                path={mdiDiscord}
+                                size={1}
+                                className = 'icon-with-text'
+                            />
+                            {t('Discord bot')}
+                        </a>
                     </li>
                 </ul>
                 <h3>

@@ -60,6 +60,11 @@
     margin-right: 10px;
 }
 
+.tools-list li a {
+    align-items: center;
+    display: flex;
+}
+
 @media screen and (min-width: 1220px) {
 	.start-section-wrapper img {
 		max-width: 256px;
