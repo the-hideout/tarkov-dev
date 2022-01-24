@@ -18650,8 +18650,8 @@
                 "single",
                 "fullauto"
             ],
-            "RecoilForceUp": 350,
-            "RecoilForceBack": 600,
+            "RecoilForceUp": 325,
+            "RecoilForceBack": 540,
             "ammoCaliber": "Caliber762x51"
         },
         "hasGrid": false,
@@ -34265,14 +34265,14 @@
                 "totalSize": 0
             },
             "MaxDurability": 100,
-            "Ergonomics": 36,
+            "Ergonomics": 41,
             "Velocity": 5.9,
             "bFirerate": 30,
             "weapFireType": [
                 "single"
             ],
-            "RecoilForceUp": 245,
-            "RecoilForceBack": 585,
+            "RecoilForceUp": 235,
+            "RecoilForceBack": 540,
             "ammoCaliber": "Caliber366TKM"
         },
         "hasGrid": false,
