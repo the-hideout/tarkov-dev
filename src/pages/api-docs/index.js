@@ -125,6 +125,13 @@ function APIDocs() {
                     C#
                 </HashLink>
             </li>
+            <li>
+                <HashLink
+                    to="#go"
+                >
+                    Golang
+                </HashLink>
+            </li>
         </ul>
         <div
             className = 'example-wrapper'
@@ -350,6 +357,57 @@ using (var httpClient = new HttpClient())
     //Print response
     Debug.WriteLine(responseContent);
 
+}`}
+            </SyntaxHighlighter>
+        </div>
+        <div
+            className = 'example-wrapper'
+        >
+            <h3
+                id = 'go'
+            >
+                Go {t('example')}
+                <cite>
+                    Contributed by <Link
+                        to='https://github.com/HeyBanditoz'
+                    >Banditoz</Link>
+                </cite>
+            </h3>
+            <SyntaxHighlighter
+                language = 'go'
+                style = {atomOneDark}
+            >
+                {`package main
+
+import (
+    "fmt"
+    "io"
+    "log"
+    "net/http"
+    "strings"
+)
+
+func main() {
+    body := strings.NewReader(\`{"query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }"}\`)
+    req, err := http.NewRequest("POST", "https://tarkov-tools.com/graphql", body)
+    if err != nil {
+        log.Fatalln(err)
+    }
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Accept", "application/json")
+
+    resp, err := http.DefaultClient.Do(req)
+    if err != nil {
+        log.Fatalln(err)
+    }
+    bodyBytes, err := io.ReadAll(resp.Body)
+    if err != nil {
+        log.Fatalln(err)
+    }
+    bodyString := string(bodyBytes)
+    fmt.Println(bodyString)
+
+    defer resp.Body.Close()
 }`}
             </SyntaxHighlighter>
         </div>
