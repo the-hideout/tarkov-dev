@@ -289,33 +289,21 @@ return json_decode($data, true);`}
                 language = 'java'
                 style = {atomOneDark}
             >
-                {`import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.IOException;
+                {`import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Map;
 
 class Scratch {
     public static void main(String[] args) throws IOException, InterruptedException {
-        ObjectMapper om = new ObjectMapper();
         HttpClient client = HttpClient.newBuilder().build();
-        String query = """
-                    {
-                      itemsByName(name: "m855a1") {
-                        id
-                        name
-                        shortName
-                      }
-                    }""";
-        String jsonQuery = om.writeValueAsString(Map.of("query", query)); // properly escapes
+        String query = "{\\"query\\": \\"{ itemsByName(name: \\\\\\"m855a1\\\\\\") {id name shortName } }\\"}";
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://tarkov-tools.com/graphql"))
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(jsonQuery))
+                .POST(HttpRequest.BodyPublishers.ofString(query))
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         String jsonString = response.body();
