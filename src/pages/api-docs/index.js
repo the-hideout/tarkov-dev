@@ -125,6 +125,13 @@ function APIDocs() {
                     C#
                 </HashLink>
             </li>
+            <li>
+                <HashLink
+                    to="#go"
+                >
+                    Golang
+                </HashLink>
+            </li>
         </ul>
         <div
             className = 'example-wrapper'
@@ -195,12 +202,14 @@ request('https://tarkov-tools.com/graphql', query).then((data) => console.log(da
                 language = 'python'
                 style = {monokai}
             >
-                {`def run_query(query):
-response = requests.post('https://tarkov-tools.com/graphql', json={'query': query})
-if response.status_code == 200:
-    return response.json()
-else:
-    raise Exception("Query failed to run by returning code of {}. {}".format(response.status_code, query))
+                {`import requests
+
+def run_query(query):
+    response = requests.post('https://tarkov-tools.com/graphql', json={'query': query})
+    if response.status_code == 200:
+        return response.json()
+    else:
+        raise Exception("Query failed to run by returning code of {}. {}".format(response.status_code, query))
 
 
 new_query = """
@@ -214,7 +223,7 @@ new_query = """
 """
 
 result = run_query(new_query)
-                print(result)`}
+print(result)`}
             </SyntaxHighlighter>
         </div>
         <div
@@ -282,33 +291,21 @@ return json_decode($data, true);`}
                 language = 'java'
                 style = {atomOneDark}
             >
-                {`import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.IOException;
+                {`import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Map;
 
 class Scratch {
     public static void main(String[] args) throws IOException, InterruptedException {
-        ObjectMapper om = new ObjectMapper();
         HttpClient client = HttpClient.newBuilder().build();
-        String query = """
-                    {
-                      itemsByName(name: "m855a1") {
-                        id
-                        name
-                        shortName
-                      }
-                    }""";
-        String jsonQuery = om.writeValueAsString(Map.of("query", query)); // properly escapes
+        String query = "{\\"query\\": \\"{ itemsByName(name: \\\\\\"m855a1\\\\\\") {id name shortName } }\\"}";
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://tarkov-tools.com/graphql"))
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(jsonQuery))
+                .POST(HttpRequest.BodyPublishers.ofString(query))
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         String jsonString = response.body();
@@ -350,6 +347,57 @@ using (var httpClient = new HttpClient())
     //Print response
     Debug.WriteLine(responseContent);
 
+}`}
+            </SyntaxHighlighter>
+        </div>
+        <div
+            className = 'example-wrapper'
+        >
+            <h3
+                id = 'go'
+            >
+                Go {t('example')}
+                <cite>
+                    Contributed by <Link
+                        to='https://github.com/HeyBanditoz'
+                    >Banditoz</Link>
+                </cite>
+            </h3>
+            <SyntaxHighlighter
+                language = 'go'
+                style = {atomOneDark}
+            >
+                {`package main
+
+import (
+    "fmt"
+    "io"
+    "log"
+    "net/http"
+    "strings"
+)
+
+func main() {
+    body := strings.NewReader(\`{"query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }"}\`)
+    req, err := http.NewRequest("POST", "https://tarkov-tools.com/graphql", body)
+    if err != nil {
+        log.Fatalln(err)
+    }
+    req.Header.Set("Content-Type", "application/json")
+    req.Header.Set("Accept", "application/json")
+
+    resp, err := http.DefaultClient.Do(req)
+    if err != nil {
+        log.Fatalln(err)
+    }
+    bodyBytes, err := io.ReadAll(resp.Body)
+    if err != nil {
+        log.Fatalln(err)
+    }
+    bodyString := string(bodyBytes)
+    fmt.Println(bodyString)
+
+    defer resp.Body.Close()
 }`}
             </SyntaxHighlighter>
         </div>
