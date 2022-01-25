@@ -39,14 +39,15 @@ for(const line of lines){
 
 patrons = patrons.slice(0,  -1);
 
-const outputData = patrons.map(patron => {
-
+let outputData = patrons.map(patron => {
     return {
-        ...currentData.find(data => data.uid === patron['User ID']),
         name: patron.Name.trim(),
         uid: patron['User ID'],
         tier: patron.Tier || pledeToTier(patron['Pledge Amount']),
+        ...currentData.find(data => data.uid === patron['User ID']),
     };
 });
+
+outputData = outputData.concat(currentData.filter(patron => !patron.uid));
 
 fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'patreons.json'), JSON.stringify(outputData, null, 4));

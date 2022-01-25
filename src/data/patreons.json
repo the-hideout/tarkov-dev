@@ -35,10 +35,10 @@
         "tier": "Basic+"
     },
     {
-        "uid": "50971873",
-        "link": "https://www.totovbuilder.com/",
         "name": "Kefff",
-        "tier": "Basic+"
+        "uid": "50971873",
+        "tier": "Basic+",
+        "link": "https://www.totovbuilder.com/"
     },
     {
         "name": "Kazuki Yamamoto",
@@ -56,27 +56,28 @@
         "tier": "Basic+"
     },
     {
+        "name": "The Hideout",
         "uid": "2786284",
-        "name": "Legend",
-        "link": "https://play.google.com/store/apps/details?id=com.austinhodak.thehideout&hl=en_US&gl=US",
-        "tier": "God among supporters"
+        "tier": "God among supporters",
+        "link": "https://play.google.com/store/apps/details?id=com.austinhodak.thehideout&hl=en_US&gl=US"
     },
     {
-        "uid": "42126798",
-        "link": "https://tarkov.guru/",
         "name": "Razzmatazz",
-        "tier": "Basic+"
+        "uid": "42126798",
+        "tier": "Basic+",
+        "link": "https://tarkov.guru/"
     },
     {
-        "name": "Blight",
+        "name": "RatScanner",
         "uid": "31804233",
-        "tier": "Basic+"
+        "tier": "Basic+",
+        "link": "https://ratscanner.com/"
     },
     {
-        "uid": "13444262",
-        "link": "https://tarkovtracker.io/",
         "name": "Thaddeus",
-        "tier": "Basic+"
+        "uid": "13444262",
+        "tier": "Basic+",
+        "link": "https://tarkovtracker.io/"
     },
     {
         "name": "Trontus Games",
@@ -97,5 +98,9 @@
         "name": "Gustav Ahlberg",
         "uid": "40724846",
         "tier": "Basic"
+    },
+    {
+        "name": "Macy Creech",
+        "tier": "api-users"
     }
 ]
