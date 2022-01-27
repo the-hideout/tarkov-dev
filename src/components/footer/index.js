@@ -33,6 +33,13 @@ function Footer() {
                     <DiscordIcon /> {t('Discord server')}
                 </a>
             </p>
+            <p>
+                <Link
+                    to='/about'
+                >
+                    {t('About tarkov-tools')}
+                </Link>
+            </p>
             <h3>
                 {t('External resources')}
             </h3>
@@ -69,6 +76,10 @@ function Footer() {
             {
                 supporters.map((supporter) => {
                     if(supporter.name === 'kokarn'){
+                        return null;
+                    }
+
+                    if(!supporter.patreon){
                         return null;
                     }
 
