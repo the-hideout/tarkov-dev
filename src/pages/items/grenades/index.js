@@ -25,7 +25,7 @@ function Grenades() {
 
     return [
         <Helmet
-            key = {'barter-items-helmet'}
+            key = {'grenades-helmet'}
         >
             <meta charSet="utf-8" />
             <title>
