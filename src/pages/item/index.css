@@ -12,7 +12,7 @@
 
 .icon-and-link-wrapper {
     align-items: flex-start;
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     justify-content: flex-end;
     flex-grow: 1;
@@ -35,8 +35,9 @@
 }
 
 .information-grid {
-    display: flex;
     justify-content: space-between;
+    display: flex;
+    flex-flow: wrap;
     gap: 10px;
 }
 
@@ -56,9 +57,19 @@
     font-size: initial;
 }
 
-.information-grid h1,
+.main-information-grid h1 {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-information-grid h1 cite {
+    width: 100%;
+}
+
+.main-information-grid h1,
 .icon-and-link-wrapper {
-    margin: 10px 0;
+    margin: 0 0 10px 0;
 }
 
 .tooltip-calculation {
@@ -165,6 +176,10 @@
         /* margin-top: 70px; */
     }
 
+    .icon-and-link-wrapper {
+        display: flex;
+    }
+
     .text-and-image-information-wrapper {
         display: block;
     }
@@ -187,11 +202,19 @@
         max-height: 200px;
     }
 
+    .main-information-grid {
+        display: flex;
+    }
+
     .information-grid {
         flex-wrap: nowrap;
     }
 
-    .information-grid h1,
+    .main-information-grid h1 img {
+        display: none;
+    }
+
+    .main-information-grid h1,
     .icon-and-link-wrapper {
         margin: 20px 0 ;
     }

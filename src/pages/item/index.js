@@ -239,17 +239,25 @@ function Item() {
                     showDropdown
                 />
                 <div
-                    className = 'information-grid'
+                    className = 'main-information-grid'
                 >
                     <div
                         className='item-information-wrapper'
                     >
                         <h1>
-                            {currentItemData.name}
-                            <cite>
-                                {currentItemData.shortName}
-                            </cite>
+                            <div>
+                                {currentItemData.name}
+                            </div>
+                            <img
+                                alt = {currentItemData.name}
+                                className = {'item-image'}
+                                loading='lazy'
+                                src = {currentItemData.iconLink}
+                            />
                         </h1>
+                        <cite>
+                            {currentItemData.shortName}
+                        </cite>
                         {currentItemData.wikiLink &&
                             <span
                                 className='wiki-link-wrapper'
@@ -280,7 +288,7 @@ function Item() {
                             className = {'item-image'}
                             loading='lazy'
                             src = {currentItemData.gridImageLink}
-                        /> }
+                        />}
                     </div>
                 </div>
                 <div
