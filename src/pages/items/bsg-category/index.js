@@ -5,6 +5,8 @@ import {
     useParams,
 } from 'react-router-dom';
 
+import ErrorPage from '../../../components/error-page';
+
 import { Filter, InputFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
@@ -33,7 +35,7 @@ function BsgCategory() {
     }, [setNameFilter]);
 
     if(!bsgCategoryData){
-        return 'No data';
+        return <ErrorPage />;
     }
 
     return [
