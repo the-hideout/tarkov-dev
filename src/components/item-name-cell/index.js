@@ -76,7 +76,7 @@ function ItemNameCell(props) {
                 {props.row.original.name}
             </Link>
             {props.row.original.notes ? <cite>{props.row.original.notes}</cite> : ''}
-            {props.row.original.canHoldItems && <cite>
+            {props.showContainedItems && props.row.original.canHoldItems && <cite>
                 Can hold:
                 <ItemLinks
                     parentItem = {props.row.original}

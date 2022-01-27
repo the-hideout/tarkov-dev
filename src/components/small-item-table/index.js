@@ -132,6 +132,7 @@ function SmallItemTable(props) {
         maxPropertyFilter,
         maxPrice,
         bsgCategoryFilter,
+        showContainedItems,
     } = props;
     const dispatch = useDispatch();
     const {t} = useTranslation();
@@ -395,7 +396,12 @@ function SmallItemTable(props) {
                 {
                     Header: t('Name'),
                     accessor: 'name',
-                    Cell: ItemNameCell,
+                    Cell: (props) => {
+                        return <ItemNameCell
+                            {...props}
+                            showContainedItems = {showContainedItems}
+                        />;
+                    },
                 },
             ];
 
@@ -714,7 +720,7 @@ function SmallItemTable(props) {
 
             return useColumns;
         },
-        [t, instaProfit, traderPrice, traderValue, traderBuyback, fleaPrice, gridSlots, innerSize, slotRatio, pricePerSlot, barterPrice, fleaValue, armorClass, armorZones, maxDurability, effectiveDurability, repairability, stats]
+        [t, instaProfit, traderPrice, traderValue, traderBuyback, fleaPrice, gridSlots, innerSize, slotRatio, pricePerSlot, barterPrice, fleaValue, armorClass, armorZones, maxDurability, effectiveDurability, repairability, stats, showContainedItems]
     );
 
     // console.log(data.length);

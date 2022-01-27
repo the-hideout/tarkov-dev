@@ -38,6 +38,7 @@ function Containers(props) {
             slotRatio
             pricePerSlot
             barterPrice
+            showContainedItems
         />
     </div>,
     ];
