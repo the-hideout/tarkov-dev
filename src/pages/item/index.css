@@ -36,7 +36,6 @@
 
 .information-grid {
     display: flex;
-    flex-flow: wrap;
     justify-content: space-between;
     gap: 10px;
 }
@@ -186,6 +185,10 @@
 
     .icon-and-link-wrapper img {
         max-height: 200px;
+    }
+
+    .information-grid {
+        flex-wrap: nowrap;
     }
 
     .information-grid h1,
