@@ -35,7 +35,7 @@ function SupportersList({tierFilter, typeFilter, type}) {
     return [
         validSupporters.map((supporter) => {
             return <Supporter
-                key = {`supporter-${supporter.name}`}
+                key = {`supporter-${supporter.name}-${typeFilter}`}
                 name = {supporter.name}
                 // github = {supporter.github}
                 // patreon = {supporter.patreon}
