@@ -43,6 +43,7 @@ const ItemLinks = ({itemList, parentItem}) => {
         }
 
         return <span
+            className='contained-item-link-wrapper'
             key = {`item-link-${parentItem.id}-${item?.id || currentCategoryData._id}`}
         >
             <Link
@@ -81,7 +82,11 @@ function ItemNameCell(props) {
             </Link>
             {props.row.original.notes ? <cite>{props.row.original.notes}</cite> : ''}
             {props.showContainedItems && props.row.original.canHoldItems && <cite>
-                Can hold:
+                <span
+                    className='contained-item-title-wrapper'
+                >
+                    Can hold:
+                </span>
                 <ItemLinks
                     parentItem = {props.row.original}
                     itemList={props.row.original.canHoldItems}
