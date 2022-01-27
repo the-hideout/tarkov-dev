@@ -59,7 +59,7 @@
 
 .information-grid h1,
 .icon-and-link-wrapper {
-    margin: 10px 0 0 0;
+    margin: 10px 0;
 }
 
 .tooltip-calculation {
@@ -190,7 +190,7 @@
 
     .information-grid h1,
     .icon-and-link-wrapper {
-        margin: 20px 0 0 0;
+        margin: 20px 0 ;
     }
 
     .trader-wrapper {

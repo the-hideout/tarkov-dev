@@ -25,6 +25,7 @@ import ItemsForHideout from '../../components/items-for-hideout';
 import PriceGraph from '../../components/price-graph';
 import ItemSearch from '../../components/item-search';
 import {Filter, ToggleFilter} from '../../components/filter';
+import ContainedItemsList from '../../components/contained-items-list';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
@@ -240,11 +241,15 @@ function Item() {
                 <div
                     className = 'information-grid'
                 >
-                    <h1>
-                        {currentItemData.name}
-                        <cite>
-                            {currentItemData.shortName}
-                        </cite>
+                    <div
+                        className='item-information-wrapper'
+                    >
+                        <h1>
+                            {currentItemData.name}
+                            <cite>
+                                {currentItemData.shortName}
+                            </cite>
+                        </h1>
                         {currentItemData.wikiLink &&
                             <span
                                 className='wiki-link-wrapper'
@@ -256,7 +261,12 @@ function Item() {
                                 </a>
                             </span>
                         }
-                    </h1>
+                        {currentItemData.canHoldItems &&
+                            <ContainedItemsList
+                                item = {currentItemData}
+                            />
+                        }
+                    </div>
                     <div
                         className = 'icon-and-link-wrapper'
                     >
