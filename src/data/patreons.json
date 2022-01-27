@@ -1,8 +1,13 @@
 [
     {
+        "name": "Roman Buser",
+        "uid": "3287171",
+        "tier": "Basic"
+    },
+    {
         "name": "morten kristensen",
         "uid": "8470988",
-        "tier": "Basic+"
+        "tier": "Advanced"
     },
     {
         "name": "Spooky Black",
@@ -12,12 +17,12 @@
     {
         "name": "Ed",
         "uid": "26371010",
-        "tier": "Basic+"
+        "tier": "Advanced"
     },
     {
         "name": "Andreas Martin",
         "uid": "14916426",
-        "tier": "Basic+"
+        "tier": "Advanced"
     },
     {
         "name": "Brian Green",
@@ -32,12 +37,12 @@
     {
         "name": "Hayden",
         "uid": "57975864",
-        "tier": "Basic+"
+        "tier": "Advanced"
     },
     {
         "name": "Kefff",
         "uid": "50971873",
-        "tier": "Basic+",
+        "tier": "Advanced",
         "link": "https://www.totovbuilder.com/"
     },
     {
@@ -48,7 +53,7 @@
     {
         "name": "MIST3RKK",
         "uid": "13286809",
-        "tier": "Basic+"
+        "tier": "Advanced"
     },
     {
         "name": "Veldmuus",
@@ -58,7 +63,7 @@
     {
         "name": "The Hideout",
         "uid": "2786284",
-        "tier": "God among supporters",
+        "tier": "Expert",
         "link": "https://play.google.com/store/apps/details?id=com.austinhodak.thehideout&hl=en_US&gl=US"
     },
     {
