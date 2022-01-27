@@ -1,18 +1,18 @@
 [
     {
-        "name": "Roman Buser",
-        "uid": "3287171",
-        "tier": "Basic"
+        "name": "Macy Creech",
+        "tier": "api-users"
+    },
+    {
+        "name": "The Hideout",
+        "uid": "2786284",
+        "tier": "Expert",
+        "link": "https://play.google.com/store/apps/details?id=com.austinhodak.thehideout&hl=en_US&gl=US"
     },
     {
         "name": "morten kristensen",
         "uid": "8470988",
         "tier": "Advanced"
-    },
-    {
-        "name": "Spooky Black",
-        "uid": "37352990",
-        "tier": "Basic"
     },
     {
         "name": "Ed",
@@ -23,16 +23,6 @@
         "name": "Andreas Martin",
         "uid": "14916426",
         "tier": "Advanced"
-    },
-    {
-        "name": "Brian Green",
-        "uid": "6373400",
-        "tier": "Basic"
-    },
-    {
-        "name": "Tarkov Roulette",
-        "uid": "66852316",
-        "tier": "Basic"
     },
     {
         "name": "Hayden",
@@ -46,11 +36,6 @@
         "link": "https://www.totovbuilder.com/"
     },
     {
-        "name": "Kazuki Yamamoto",
-        "uid": "63942381",
-        "tier": "Basic"
-    },
-    {
         "name": "MIST3RKK",
         "uid": "13286809",
         "tier": "Advanced"
@@ -58,41 +43,60 @@
     {
         "name": "Veldmuus",
         "uid": "13943551",
-        "tier": "Basic+"
-    },
-    {
-        "name": "The Hideout",
-        "uid": "2786284",
-        "tier": "Expert",
-        "link": "https://play.google.com/store/apps/details?id=com.austinhodak.thehideout&hl=en_US&gl=US"
+        "tier": "Advanced"
     },
     {
         "name": "Razzmatazz",
         "uid": "42126798",
-        "tier": "Basic+",
+        "tier": "Advanced",
         "link": "https://tarkov.guru/"
     },
     {
         "name": "RatScanner",
         "uid": "31804233",
-        "tier": "Basic+",
+        "tier": "Advanced",
         "link": "https://ratscanner.com/"
     },
     {
         "name": "Thaddeus",
         "uid": "13444262",
-        "tier": "Basic+",
+        "tier": "Advanced",
         "link": "https://tarkovtracker.io/"
     },
     {
         "name": "Trontus Games",
         "uid": "7637556",
-        "tier": "Basic+"
+        "tier": "Advanced"
     },
     {
         "name": "teebles",
         "uid": "29679591",
-        "tier": "Basic+"
+        "tier": "Advanced"
+    },
+    {
+        "name": "Roman Buser",
+        "uid": "3287171",
+        "tier": "Basic"
+    },
+    {
+        "name": "Spooky Black",
+        "uid": "37352990",
+        "tier": "Basic"
+    },
+    {
+        "name": "Brian Green",
+        "uid": "6373400",
+        "tier": "Basic"
+    },
+    {
+        "name": "Tarkov Roulette",
+        "uid": "66852316",
+        "tier": "Basic"
+    },
+    {
+        "name": "Kazuki Yamamoto",
+        "uid": "63942381",
+        "tier": "Basic"
     },
     {
         "name": "Miguel Loadge",
@@ -100,12 +104,8 @@
         "tier": "Basic"
     },
     {
-        "name": "Gustav Ahlberg",
+        "name": "Gyran",
         "uid": "40724846",
         "tier": "Basic"
-    },
-    {
-        "name": "Macy Creech",
-        "tier": "api-users"
     }
 ]
