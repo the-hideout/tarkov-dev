@@ -38,6 +38,10 @@ const ItemLinks = ({itemList, parentItem}) => {
             return null;
         }
 
+        if(item && item.types.includes('disabled')){
+            return null;
+        }
+
         return <span
             key = {`item-link-${parentItem.id}-${item?.id || currentCategoryData._id}`}
         >
