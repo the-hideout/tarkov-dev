@@ -157,6 +157,7 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
                     trader: traderPrice.trader.name,
                 };
             }),
+            canHoldItems: itemProps[rawItem.id]?.canHoldItems,
         };
     });
 
