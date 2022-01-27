@@ -22,8 +22,20 @@ const ItemLinks = ({itemList, parentItem}) => {
         const currentCategoryData = categoryData[itemOrCategoryId];
         let item = false;
 
+        if(itemOrCategoryId === '54009119af1c881c07000029'){
+            // Special case for items that can contain all items
+
+            return null;
+        }
+
         if(!currentCategoryData){
             item = items.find(item => item.id === itemOrCategoryId);
+        }
+
+        if(!item && !currentCategoryData){
+            console.log(itemOrCategoryId);
+
+            return null;
         }
 
         return <span
