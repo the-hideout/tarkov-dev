@@ -13,7 +13,7 @@ import categoryData from '../../data/category-data.json';
 const ContainedItemsList = ({item}) => {
     const items = useSelector(selectAllItems);
 
-    if(!item.canHoldItems){
+    if(!item.canHoldItems || (item.canHoldItems.length === 1 && item.canHoldItems[0] === '54009119af1c881c07000029')){
         return null;
     }
 
