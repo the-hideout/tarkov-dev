@@ -1,0 +1,579 @@
+{
+    "5422acb9af1c889c16000029": {
+        "_id": "5422acb9af1c889c16000029",
+        "_name": "Weapon",
+        "_parent": "566162e44bdc2d3f298b4573",
+        "urlName": "weapons"
+    },
+    "543be5664bdc2dd4348b4569": {
+        "_id": "543be5664bdc2dd4348b4569",
+        "_name": "Meds",
+        "_parent": "54009119af1c881c07000029",
+        "urlName": "meds"
+    },
+    "543be5cb4bdc2deb348b4568": {
+        "_id": "543be5cb4bdc2deb348b4568",
+        "_name": "AmmoBox",
+        "_parent": "5661632d4bdc2d903d8b456b",
+        "urlName": "ammo-boxes"
+    },
+    "543be5dd4bdc2deb348b4569": {
+        "_id": "543be5dd4bdc2deb348b4569",
+        "_name": "Money",
+        "_parent": "5661632d4bdc2d903d8b456b",
+        "urlName": "money"
+    },
+    "543be5e94bdc2df1348b4568": {
+        "_id": "543be5e94bdc2df1348b4568",
+        "_name": "Key",
+        "_parent": "54009119af1c881c07000029",
+        "urlName": "keys"
+    },
+    "543be5f84bdc2dd4348b456a": {
+        "_id": "543be5f84bdc2dd4348b456a",
+        "_name": "Equipment",
+        "_parent": "566162e44bdc2d3f298b4573",
+        "urlName": "equipment"
+    },
+    "543be6564bdc2df4348b4568": {
+        "_id": "543be6564bdc2df4348b4568",
+        "_name": "ThrowWeap",
+        "_parent": "54009119af1c881c07000029",
+        "urlName": "throw-weapons"
+    },
+    "543be6674bdc2df1348b4569": {
+        "_id": "543be6674bdc2df1348b4569",
+        "_name": "FoodDrink",
+        "_parent": "54009119af1c881c07000029",
+        "urlName": "food-drink",
+        "displayName": "Food and drink"
+    },
+    "5447b5cf4bdc2d65278b4567": {
+        "_id": "5447b5cf4bdc2d65278b4567",
+        "_name": "Pistol",
+        "_parent": "5422acb9af1c889c16000029",
+        "urlName": "pistols"
+    },
+    "5447b5e04bdc2d62278b4567": {
+        "_id": "5447b5e04bdc2d62278b4567",
+        "_name": "Smg",
+        "_parent": "5422acb9af1c889c16000029",
+        "urlName": "smgs"
+    },
+    "5447b5f14bdc2d61278b4567": {
+        "_id": "5447b5f14bdc2d61278b4567",
+        "_name": "AssaultRifle",
+        "_parent": "5422acb9af1c889c16000029",
+        "urlName": "assault-rifles"
+    },
+    "5447b5fc4bdc2d87278b4567": {
+        "_id": "5447b5fc4bdc2d87278b4567",
+        "_name": "AssaultCarbine",
+        "_parent": "5422acb9af1c889c16000029",
+        "urlName": "assault-carbines"
+    },
+    "5447b6094bdc2dc3278b4567": {
+        "_id": "5447b6094bdc2dc3278b4567",
+        "_name": "Shotgun",
+        "_parent": "5422acb9af1c889c16000029",
+        "urlName": "shotguns"
+    },
+    "5447b6194bdc2d67278b4567": {
+        "_id": "5447b6194bdc2d67278b4567",
+        "_name": "MarksmanRifle",
+        "_parent": "5422acb9af1c889c16000029",
+        "urlName": "marksman-rifles"
+    },
+    "5447b6254bdc2dc3278b4568": {
+        "_id": "5447b6254bdc2dc3278b4568",
+        "_name": "SniperRifle",
+        "_parent": "5422acb9af1c889c16000029",
+        "urlName": "sniper-rifles"
+    },
+    "5447bed64bdc2d97278b4568": {
+        "_id": "5447bed64bdc2d97278b4568",
+        "_name": "MachineGun",
+        "_parent": "5422acb9af1c889c16000029",
+        "urlName": "machine-guns"
+    },
+    "5447bedf4bdc2d87278b4568": {
+        "_id": "5447bedf4bdc2d87278b4568",
+        "_name": "GrenadeLauncher",
+        "_parent": "5422acb9af1c889c16000029",
+        "urlName": "grenade-launchers"
+    },
+    "5447bee84bdc2dc3278b4569": {
+        "_id": "5447bee84bdc2dc3278b4569",
+        "_name": "SpecialWeapon",
+        "_parent": "5422acb9af1c889c16000029",
+        "urlName": "special-weapons"
+    },
+    "5447e0e74bdc2d3c308b4567": {
+        "_id": "5447e0e74bdc2d3c308b4567",
+        "_name": "SpecItem",
+        "_parent": "54009119af1c881c07000029",
+        "urlName": "special-items"
+    },
+    "5447e1d04bdc2dff2f8b4567": {
+        "_id": "5447e1d04bdc2dff2f8b4567",
+        "_name": "Knife",
+        "_parent": "54009119af1c881c07000029",
+        "urlName": "knives"
+    },
+    "5448bc234bdc2d3c308b4569": {
+        "_id": "5448bc234bdc2d3c308b4569",
+        "_name": "Magazine",
+        "_parent": "55802f3e4bdc2de7118b4584",
+        "urlName": "magazines"
+    },
+    "5448e5284bdc2dcb718b4567": {
+        "_id": "5448e5284bdc2dcb718b4567",
+        "_name": "Vest",
+        "_parent": "566168634bdc2d144c8b456c",
+        "urlName": "vests"
+    },
+    "5448e53e4bdc2d60728b4567": {
+        "_id": "5448e53e4bdc2d60728b4567",
+        "_name": "Backpack",
+        "_parent": "566168634bdc2d144c8b456c",
+        "urlName": "backpacks"
+    },
+    "5448e54d4bdc2dcc718b4568": {
+        "_id": "5448e54d4bdc2dcc718b4568",
+        "_name": "Armor",
+        "_parent": "57bef4c42459772e8d35a53b",
+        "urlName": "armors"
+    },
+    "5448e5724bdc2ddf718b4568": {
+        "_id": "5448e5724bdc2ddf718b4568",
+        "_name": "Visors",
+        "_parent": "57bef4c42459772e8d35a53b",
+        "urlName": "visors"
+    },
+    "5448e8d04bdc2ddf718b4569": {
+        "_id": "5448e8d04bdc2ddf718b4569",
+        "_name": "Food",
+        "_parent": "543be6674bdc2df1348b4569",
+        "urlName": "foods"
+    },
+    "5448e8d64bdc2dce718b4568": {
+        "_id": "5448e8d64bdc2dce718b4568",
+        "_name": "Drink",
+        "_parent": "543be6674bdc2df1348b4569",
+        "urlName": "drinks"
+    },
+    "5448eb774bdc2d0a728b4567": {
+        "_id": "5448eb774bdc2d0a728b4567",
+        "_name": "BarterItem",
+        "_parent": "54009119af1c881c07000029",
+        "urlName": "barter-items"
+    },
+    "5448ecbe4bdc2d60728b4568": {
+        "_id": "5448ecbe4bdc2d60728b4568",
+        "_name": "Info",
+        "_parent": "54009119af1c881c07000029",
+        "urlName": "info-items"
+    },
+    "5448f39d4bdc2d0a728b4568": {
+        "_id": "5448f39d4bdc2d0a728b4568",
+        "_name": "MedKit",
+        "_parent": "543be5664bdc2dd4348b4569",
+        "urlName": "med-kits"
+    },
+    "5448f3a14bdc2d27728b4569": {
+        "_id": "5448f3a14bdc2d27728b4569",
+        "_name": "Drugs",
+        "_parent": "543be5664bdc2dd4348b4569",
+        "urlName": "drugs"
+    },
+    "5448f3a64bdc2d60728b456a": {
+        "_id": "5448f3a64bdc2d60728b456a",
+        "_name": "Stimulator",
+        "_parent": "543be5664bdc2dd4348b4569",
+        "urlName": "stimulators"
+    },
+    "5448f3ac4bdc2dce718b4569": {
+        "_id": "5448f3ac4bdc2dce718b4569",
+        "_name": "Medical",
+        "_parent": "543be5664bdc2dd4348b4569",
+        "urlName": "medical-items"
+    },
+    "5448fe124bdc2da5018b4567": {
+        "_id": "5448fe124bdc2da5018b4567",
+        "_name": "Mod",
+        "_parent": "566162e44bdc2d3f298b4573",
+        "urlName": "mods"
+    },
+    "5448fe394bdc2d0d028b456c": {
+        "_id": "5448fe394bdc2d0d028b456c",
+        "_name": "Muzzle",
+        "_parent": "550aa4154bdc2dd8348b456b",
+        "urlName": "muzzles"
+    },
+    "5448fe7a4bdc2d6f028b456b": {
+        "_id": "5448fe7a4bdc2d6f028b456b",
+        "_name": "Sights",
+        "_parent": "550aa4154bdc2dd8348b456b",
+        "urlName": "sights"
+    },
+    "5485a8684bdc2da71d8b4567": {
+        "_id": "5485a8684bdc2da71d8b4567",
+        "_name": "Ammo",
+        "_parent": "5661632d4bdc2d903d8b456b",
+        "urlName": "ammo"
+    },
+    "550aa4154bdc2dd8348b456b": {
+        "_id": "550aa4154bdc2dd8348b456b",
+        "_name": "FunctionalMod",
+        "_parent": "5448fe124bdc2da5018b4567",
+        "urlName": "functional-mods"
+    },
+    "550aa4af4bdc2dd4348b456e": {
+        "_id": "550aa4af4bdc2dd4348b456e",
+        "_name": "Compensator",
+        "_parent": "5448fe394bdc2d0d028b456c",
+        "urlName": "compensators"
+    },
+    "550aa4bf4bdc2dd6348b456b": {
+        "_id": "550aa4bf4bdc2dd6348b456b",
+        "_name": "FlashHider",
+        "_parent": "5448fe394bdc2d0d028b456c",
+        "urlName": "flash-hiders"
+    },
+    "550aa4cd4bdc2dd8348b456c": {
+        "_id": "550aa4cd4bdc2dd8348b456c",
+        "_name": "Silencer",
+        "_parent": "5448fe394bdc2d0d028b456c",
+        "urlName": "silencers"
+    },
+    "550aa4dd4bdc2dc9348b4569": {
+        "_id": "550aa4dd4bdc2dc9348b4569",
+        "_name": "MuzzleCombo",
+        "_parent": "5448fe394bdc2d0d028b456c",
+        "urlName": "muzzle-combos"
+    },
+    "550ad14d4bdc2dd5348b456c": {
+        "_id": "550ad14d4bdc2dd5348b456c",
+        "_name": "Pms",
+        "_parent": "5448fe394bdc2d0d028b456c",
+        "urlName": "pms"
+    },
+    "555ef6e44bdc2de9068b457e": {
+        "_id": "555ef6e44bdc2de9068b457e",
+        "_name": "Barrel",
+        "_parent": "55802f4a4bdc2ddb688b4569",
+        "urlName": "barrels"
+    },
+    "55802f3e4bdc2de7118b4584": {
+        "_id": "55802f3e4bdc2de7118b4584",
+        "_name": "GearMod",
+        "_parent": "5448fe124bdc2da5018b4567",
+        "urlName": "gear-mods"
+    },
+    "55802f4a4bdc2ddb688b4569": {
+        "_id": "55802f4a4bdc2ddb688b4569",
+        "_name": "MasterMod",
+        "_parent": "5448fe124bdc2da5018b4567",
+        "urlName": "master-mods"
+    },
+    "55818a104bdc2db9688b4569": {
+        "_id": "55818a104bdc2db9688b4569",
+        "_name": "Handguard",
+        "_parent": "55802f4a4bdc2ddb688b4569",
+        "urlName": "handguards"
+    },
+    "55818a304bdc2db5418b457d": {
+        "_id": "55818a304bdc2db5418b457d",
+        "_name": "Receiver",
+        "_parent": "55802f4a4bdc2ddb688b4569",
+        "urlName": "receivers"
+    },
+    "55818a594bdc2db9688b456a": {
+        "_id": "55818a594bdc2db9688b456a",
+        "_name": "Stock",
+        "_parent": "55802f3e4bdc2de7118b4584",
+        "urlName": "stocks"
+    },
+    "55818a604bdc2db5418b457e": {
+        "_id": "55818a604bdc2db5418b457e",
+        "_name": "Shaft",
+        "_parent": "55802f3e4bdc2de7118b4584",
+        "urlName": "shafts"
+    },
+    "55818a684bdc2ddd698b456d": {
+        "_id": "55818a684bdc2ddd698b456d",
+        "_name": "PistolGrip",
+        "_parent": "55802f4a4bdc2ddb688b4569",
+        "urlName": "pistol-grips"
+    },
+    "55818a6f4bdc2db9688b456b": {
+        "_id": "55818a6f4bdc2db9688b456b",
+        "_name": "Charge",
+        "_parent": "55802f3e4bdc2de7118b4584",
+        "urlName": "charges"
+    },
+    "55818ac54bdc2d5b648b456e": {
+        "_id": "55818ac54bdc2d5b648b456e",
+        "_name": "IronSight",
+        "_parent": "5448fe7a4bdc2d6f028b456b",
+        "urlName": "iron-sights"
+    },
+    "55818acf4bdc2dde698b456b": {
+        "_id": "55818acf4bdc2dde698b456b",
+        "_name": "CompactCollimator",
+        "_parent": "5448fe7a4bdc2d6f028b456b",
+        "urlName": "compact-collimators"
+    },
+    "55818ad54bdc2ddc698b4569": {
+        "_id": "55818ad54bdc2ddc698b4569",
+        "_name": "Collimator",
+        "_parent": "5448fe7a4bdc2d6f028b456b",
+        "urlName": "collimators"
+    },
+    "55818add4bdc2d5b648b456f": {
+        "_id": "55818add4bdc2d5b648b456f",
+        "_name": "AssaultScope",
+        "_parent": "5448fe7a4bdc2d6f028b456b",
+        "urlName": "assault-scopes"
+    },
+    "55818ae44bdc2dde698b456c": {
+        "_id": "55818ae44bdc2dde698b456c",
+        "_name": "OpticScope",
+        "_parent": "5448fe7a4bdc2d6f028b456b",
+        "urlName": "optical-scopes"
+    },
+    "55818aeb4bdc2ddc698b456a": {
+        "_id": "55818aeb4bdc2ddc698b456a",
+        "_name": "SpecialScope",
+        "_parent": "5448fe7a4bdc2d6f028b456b",
+        "urlName": "special-scopse"
+    },
+    "55818af64bdc2d5b648b4570": {
+        "_id": "55818af64bdc2d5b648b4570",
+        "_name": "Foregrip",
+        "_parent": "550aa4154bdc2dd8348b456b",
+        "urlName": "foregrips"
+    },
+    "55818afb4bdc2dde698b456d": {
+        "_id": "55818afb4bdc2dde698b456d",
+        "_name": "Bipod",
+        "_parent": "550aa4154bdc2dd8348b456b",
+        "urlName": "bipods"
+    },
+    "55818b014bdc2ddc698b456b": {
+        "_id": "55818b014bdc2ddc698b456b",
+        "_name": "Launcher",
+        "_parent": "55802f3e4bdc2de7118b4584",
+        "urlName": "launchers"
+    },
+    "55818b084bdc2d5b648b4571": {
+        "_id": "55818b084bdc2d5b648b4571",
+        "_name": "Flashlight",
+        "_parent": "550aa4154bdc2dd8348b456b",
+        "urlName": "flashlights"
+    },
+    "55818b0e4bdc2dde698b456e": {
+        "_id": "55818b0e4bdc2dde698b456e",
+        "_name": "LightLaser",
+        "_parent": "550aa4154bdc2dd8348b456b",
+        "urlName": "light-laser"
+    },
+    "55818b164bdc2ddc698b456c": {
+        "_id": "55818b164bdc2ddc698b456c",
+        "_name": "TacticalCombo",
+        "_parent": "550aa4154bdc2dd8348b456b",
+        "urlName": "tactical-combo"
+    },
+    "55818b1d4bdc2d5b648b4572": {
+        "_id": "55818b1d4bdc2d5b648b4572",
+        "_name": "RailCovers",
+        "_parent": "550aa4154bdc2dd8348b456b",
+        "urlName": "rail-covers"
+    },
+    "55818b224bdc2dde698b456f": {
+        "_id": "55818b224bdc2dde698b456f",
+        "_name": "Mount",
+        "_parent": "55802f3e4bdc2de7118b4584",
+        "urlName": "mounts"
+    },
+    "5645bcb74bdc2ded0b8b4578": {
+        "_id": "5645bcb74bdc2ded0b8b4578",
+        "_name": "Headphones",
+        "_parent": "543be5f84bdc2dd4348b456a",
+        "urlName": "headphones"
+    },
+    "566162e44bdc2d3f298b4573": {
+        "_id": "566162e44bdc2d3f298b4573",
+        "_name": "CompoundItem",
+        "_parent": "54009119af1c881c07000029",
+        "urlName": "compound-items"
+    },
+    "5661632d4bdc2d903d8b456b": {
+        "_id": "5661632d4bdc2d903d8b456b",
+        "_name": "StackableItem",
+        "_parent": "54009119af1c881c07000029",
+        "urlName": "stackable-items"
+    },
+    "566168634bdc2d144c8b456c": {
+        "_id": "566168634bdc2d144c8b456c",
+        "_name": "SearchableItem",
+        "_parent": "566162e44bdc2d3f298b4573",
+        "urlName": "searchable-items"
+    },
+    "567849dd4bdc2d150f8b456e": {
+        "_id": "567849dd4bdc2d150f8b456e",
+        "_name": "Map",
+        "_parent": "54009119af1c881c07000029",
+        "urlName": "maps"
+    },
+    "56ea9461d2720b67698b456f": {
+        "_id": "56ea9461d2720b67698b456f",
+        "_name": "Gasblock",
+        "_parent": "550aa4154bdc2dd8348b456b",
+        "urlName": "gasblocks"
+    },
+    "57864a3d24597754843f8721": {
+        "_id": "57864a3d24597754843f8721",
+        "_name": "Jewelry",
+        "_parent": "5448eb774bdc2d0a728b4567",
+        "urlName": "jewelry"
+    },
+    "57864a66245977548f04a81f": {
+        "_id": "57864a66245977548f04a81f",
+        "_name": "Electronics",
+        "_parent": "5448eb774bdc2d0a728b4567",
+        "urlName": "electronics"
+    },
+    "57864ada245977548638de91": {
+        "_id": "57864ada245977548638de91",
+        "_name": "BuildingMaterial",
+        "_parent": "5448eb774bdc2d0a728b4567",
+        "urlName": "building-materials"
+    },
+    "57864bb7245977548b3b66c2": {
+        "_id": "57864bb7245977548b3b66c2",
+        "_name": "Tool",
+        "_parent": "5448eb774bdc2d0a728b4567",
+        "urlName": "tools"
+    },
+    "57864c322459775490116fbf": {
+        "_id": "57864c322459775490116fbf",
+        "_name": "HouseholdGoods",
+        "_parent": "5448eb774bdc2d0a728b4567",
+        "urlName": "household-goods"
+    },
+    "57864c8c245977548867e7f1": {
+        "_id": "57864c8c245977548867e7f1",
+        "_name": "MedicalSupplies",
+        "_parent": "5448eb774bdc2d0a728b4567",
+        "urlName": "medical-supplies"
+    },
+    "57864e4c24597754843f8723": {
+        "_id": "57864e4c24597754843f8723",
+        "_name": "Lubricant",
+        "_parent": "5448eb774bdc2d0a728b4567",
+        "urlName": "lubricants"
+    },
+    "57864ee62459775490116fc1": {
+        "_id": "57864ee62459775490116fc1",
+        "_name": "Battery",
+        "_parent": "5448eb774bdc2d0a728b4567",
+        "urlName": "batteries"
+    },
+    "5795f317245977243854e041": {
+        "_id": "5795f317245977243854e041",
+        "_name": "SimpleContainer",
+        "_parent": "566162e44bdc2d3f298b4573",
+        "urlName": "simple-containers"
+    },
+    "57bef4c42459772e8d35a53b": {
+        "_id": "57bef4c42459772e8d35a53b",
+        "_name": "ArmoredEquipment",
+        "_parent": "543be5f84bdc2dd4348b456a",
+        "urlName": "armored-equipment"
+    },
+    "590c745b86f7743cc433c5f2": {
+        "_id": "590c745b86f7743cc433c5f2",
+        "_name": "Other",
+        "_parent": "5448eb774bdc2d0a728b4567",
+        "urlName": "other"
+    },
+    "5a2c3a9486f774688b05e574": {
+        "_id": "5a2c3a9486f774688b05e574",
+        "_name": "NightVision",
+        "_parent": "55818aeb4bdc2ddc698b456a",
+        "urlName": "night-vision"
+    },
+    "5a341c4086f77401f2541505": {
+        "_id": "5a341c4086f77401f2541505",
+        "_name": "Headwear",
+        "_parent": "57bef4c42459772e8d35a53b",
+        "urlName": "headwears"
+    },
+    "5a341c4686f77469e155819e": {
+        "_id": "5a341c4686f77469e155819e",
+        "_name": "FaceCover",
+        "_parent": "57bef4c42459772e8d35a53b",
+        "urlName": "face-covers"
+    },
+    "5a74651486f7744e73386dd1": {
+        "_id": "5a74651486f7744e73386dd1",
+        "_name": "AuxiliaryMod",
+        "_parent": "550aa4154bdc2dd8348b456b",
+        "urlName": "auxiliary-mods"
+    },
+    "5b3f15d486f77432d0509248": {
+        "_id": "5b3f15d486f77432d0509248",
+        "_name": "ArmBand",
+        "_parent": "543be5f84bdc2dd4348b456a",
+        "urlName": "armbands"
+    },
+    "5c164d2286f774194c5e69fa": {
+        "_id": "5c164d2286f774194c5e69fa",
+        "_name": "Keycard",
+        "_parent": "543be5e94bdc2df1348b4568",
+        "urlName": "keycards"
+    },
+    "5c99f98d86f7745c314214b3": {
+        "_id": "5c99f98d86f7745c314214b3",
+        "_name": "KeyMechanical",
+        "_parent": "543be5e94bdc2df1348b4568",
+        "urlName": "mechanical-keys"
+    },
+    "5d21f59b6dbe99052b54ef83": {
+        "_id": "5d21f59b6dbe99052b54ef83",
+        "_name": "ThermalVision",
+        "_parent": "55818aeb4bdc2ddc698b456a",
+        "urlName": "thermals"
+    },
+    "5d650c3e815116009f6201d2": {
+        "_id": "5d650c3e815116009f6201d2",
+        "_name": "Fuel",
+        "_parent": "57864e4c24597754843f8723",
+        "urlName": "fuel"
+    },
+    "5f4fbaaca5573a5ac31db429": {
+        "_id": "5f4fbaaca5573a5ac31db429",
+        "_name": "Compass",
+        "_parent": "5447e0e74bdc2d3c308b4567",
+        "urlName": "compasses"
+    },
+    "610720f290b75a49ff2e5e25": {
+        "_id": "610720f290b75a49ff2e5e25",
+        "_name": "CylinderMagazine",
+        "_parent": "5448bc234bdc2d3c308b4569",
+        "urlName": "cylinder-magazines"
+    },
+    "61605ddea09d851a0a0c1bbc": {
+        "_id": "61605ddea09d851a0a0c1bbc",
+        "_name": "PortableRangeFinder",
+        "_parent": "5447e0e74bdc2d3c308b4567",
+        "urlName": "portable-range-finders"
+    },
+    "617f1ef5e8b54b0998387733": {
+        "_id": "617f1ef5e8b54b0998387733",
+        "_name": "Revolver",
+        "_parent": "5422acb9af1c889c16000029",
+        "urlName": "revolvers"
+    }
+}

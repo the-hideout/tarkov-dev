@@ -272,7 +272,29 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5448eb774bdc2d0a728b4567",
+            "543be5f84bdc2dd4348b456a",
+            "5448fe124bdc2da5018b4567",
+            "60b0f6c058e0b0481a09ad11",
+            "619cbf9e0a7c3a1a2731940a",
+            "619cbf7d23893217ec30b689",
+            "59fafd4b86f7745ca07e1232",
+            "5d235bb686f77443f4331278",
+            "5c093e3486f77430cb02e593",
+            "590c60fc86f77412b13fddcf",
+            "5783c43d2459774bbe137486",
+            "543be6674bdc2df1348b4569",
+            "5448ecbe4bdc2d60728b4568",
+            "543be5e94bdc2df1348b4568",
+            "5447e1d04bdc2dff2f8b4567",
+            "567849dd4bdc2d150f8b456e",
+            "543be5664bdc2dd4348b4569",
+            "5447e0e74bdc2d3c308b4567",
+            "5661632d4bdc2d903d8b456b",
+            "543be5cb4bdc2deb348b4568"
+        ]
     },
     "544a378f4bdc2d30388b4567": {
         "itemProperties": {
@@ -394,7 +416,10 @@
             "ArmorMaterial": "Combined"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "544a5cde4bdc2d39388b456b": {
         "itemProperties": {
@@ -410,7 +435,10 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "544fb25a4bdc2dfb738b4567": {
         "itemProperties": {
@@ -507,7 +535,10 @@
             "speedPenaltyPercent": -15
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "545cdb794bdc2d3a198b456a": {
         "itemProperties": {
@@ -1969,7 +2000,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5648a7494bdc2d9d488b4583": {
         "itemProperties": {
@@ -2577,7 +2611,13 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5448bc234bdc2d3c308b4569",
+            "5447b5cf4bdc2d65278b4567",
+            "5485a8684bdc2da71d8b4567",
+            "543be5cb4bdc2deb348b4568"
+        ]
     },
     "5672c92d4bdc2d180f8b4567": {
         "itemProperties": {
@@ -3056,7 +3096,10 @@
             "speedPenaltyPercent": -8
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "56e33634d2720bd8058b456b": {
         "itemProperties": {
@@ -3073,7 +3116,10 @@
             "speedPenaltyPercent": -8
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "56e33680d2720be2748b4576": {
         "itemProperties": {
@@ -3089,7 +3135,10 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "56ea6fafd2720b844b8b4593": {
         "itemProperties": {
@@ -3424,7 +3473,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "572b7d8524597762b472f9d1": {
         "itemProperties": {
@@ -3500,7 +3552,28 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5448eb774bdc2d0a728b4567",
+            "543be5f84bdc2dd4348b456a",
+            "5448fe124bdc2da5018b4567",
+            "619cbf9e0a7c3a1a2731940a",
+            "619cbf7d23893217ec30b689",
+            "59fafd4b86f7745ca07e1232",
+            "5d235bb686f77443f4331278",
+            "5c093e3486f77430cb02e593",
+            "590c60fc86f77412b13fddcf",
+            "5783c43d2459774bbe137486",
+            "543be6674bdc2df1348b4569",
+            "5448ecbe4bdc2d60728b4568",
+            "543be5e94bdc2df1348b4568",
+            "5447e1d04bdc2dff2f8b4567",
+            "567849dd4bdc2d150f8b456e",
+            "543be5664bdc2dd4348b4569",
+            "5447e0e74bdc2d3c308b4567",
+            "5661632d4bdc2d903d8b456b",
+            "543be5cb4bdc2deb348b4568"
+        ]
     },
     "5733279d245977289b77ec24": {
         "itemProperties": {
@@ -4919,7 +4992,11 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5c164d2286f774194c5e69fa",
+            "543be5dd4bdc2deb348b4569"
+        ]
     },
     "579204f224597773d619e051": {
         "itemProperties": {
@@ -6554,7 +6631,29 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5448eb774bdc2d0a728b4567",
+            "543be5f84bdc2dd4348b456a",
+            "5448fe124bdc2da5018b4567",
+            "60b0f6c058e0b0481a09ad11",
+            "619cbf9e0a7c3a1a2731940a",
+            "619cbf7d23893217ec30b689",
+            "59fafd4b86f7745ca07e1232",
+            "5d235bb686f77443f4331278",
+            "5c093e3486f77430cb02e593",
+            "590c60fc86f77412b13fddcf",
+            "5783c43d2459774bbe137486",
+            "543be6674bdc2df1348b4569",
+            "5448ecbe4bdc2d60728b4568",
+            "543be5e94bdc2df1348b4568",
+            "5447e1d04bdc2dff2f8b4567",
+            "567849dd4bdc2d150f8b456e",
+            "543be5664bdc2dd4348b4569",
+            "5447e0e74bdc2d3c308b4567",
+            "5661632d4bdc2d903d8b456b",
+            "543be5cb4bdc2deb348b4568"
+        ]
     },
     "5857a8bc2459772bad15db29": {
         "itemProperties": {
@@ -6570,7 +6669,29 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5448eb774bdc2d0a728b4567",
+            "543be5f84bdc2dd4348b456a",
+            "5448fe124bdc2da5018b4567",
+            "60b0f6c058e0b0481a09ad11",
+            "619cbf9e0a7c3a1a2731940a",
+            "619cbf7d23893217ec30b689",
+            "59fafd4b86f7745ca07e1232",
+            "5d235bb686f77443f4331278",
+            "5c093e3486f77430cb02e593",
+            "590c60fc86f77412b13fddcf",
+            "5783c43d2459774bbe137486",
+            "543be6674bdc2df1348b4569",
+            "5448ecbe4bdc2d60728b4568",
+            "543be5e94bdc2df1348b4568",
+            "5447e1d04bdc2dff2f8b4567",
+            "567849dd4bdc2d150f8b456e",
+            "543be5664bdc2dd4348b4569",
+            "5447e0e74bdc2d3c308b4567",
+            "5661632d4bdc2d903d8b456b",
+            "543be5cb4bdc2deb348b4568"
+        ]
     },
     "587de4282459771bca0ec90b": {
         "itemProperties": {
@@ -7995,7 +8116,17 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "59faff1d86f7746c51718c9c",
+            "5d235b4d86f7742e017bc88a",
+            "5f745ee30acaeb0d490d8c5b",
+            "619cbf9e0a7c3a1a2731940a",
+            "5448ecbe4bdc2d60728b4568",
+            "543be5e94bdc2df1348b4568",
+            "567849dd4bdc2d150f8b456e",
+            "543be5dd4bdc2deb348b4569"
+        ]
     },
     "590c621186f774138d11ea29": {
         "itemProperties": {
@@ -8628,7 +8759,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "592c2d1a86f7746dbe2af32a": {
         "itemProperties": {
@@ -8670,7 +8804,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5937ee6486f77408994ba448": {
         "itemProperties": {
@@ -9906,7 +10043,29 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5448eb774bdc2d0a728b4567",
+            "543be5f84bdc2dd4348b456a",
+            "5448fe124bdc2da5018b4567",
+            "60b0f6c058e0b0481a09ad11",
+            "619cbf9e0a7c3a1a2731940a",
+            "619cbf7d23893217ec30b689",
+            "59fafd4b86f7745ca07e1232",
+            "5d235bb686f77443f4331278",
+            "5c093e3486f77430cb02e593",
+            "590c60fc86f77412b13fddcf",
+            "5783c43d2459774bbe137486",
+            "543be6674bdc2df1348b4569",
+            "5448ecbe4bdc2d60728b4568",
+            "543be5e94bdc2df1348b4568",
+            "5447e1d04bdc2dff2f8b4567",
+            "567849dd4bdc2d150f8b456e",
+            "543be5664bdc2dd4348b4569",
+            "5447e0e74bdc2d3c308b4567",
+            "5661632d4bdc2d903d8b456b",
+            "543be5cb4bdc2deb348b4568"
+        ]
     },
     "59db7e1086f77448be30ddf3": {
         "itemProperties": {
@@ -10626,7 +10785,10 @@
             "speedPenaltyPercent": -28
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "59e7643b86f7742cbf2c109a": {
         "itemProperties": {
@@ -10660,7 +10822,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "59e7708286f7742cbd762753": {
         "itemProperties": {
@@ -11120,7 +11285,10 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5c99f98d86f7745c314214b3"
+        ]
     },
     "59faff1d86f7746c51718c9c": {
         "itemProperties": {
@@ -11144,7 +11312,12 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "59faff1d86f7746c51718c9c",
+            "5d235b4d86f7742e017bc88a",
+            "543be5dd4bdc2deb348b4569"
+        ]
     },
     "59fb023c86f7746d0d4b423c": {
         "itemProperties": {
@@ -11160,7 +11333,13 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5448fe124bdc2da5018b4567",
+            "5422acb9af1c889c16000029",
+            "5485a8684bdc2da71d8b4567",
+            "543be5cb4bdc2deb348b4568"
+        ]
     },
     "59fb042886f7746c5005a7b2": {
         "itemProperties": {
@@ -11176,7 +11355,40 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5448eb774bdc2d0a728b4567",
+            "543be5f84bdc2dd4348b456a",
+            "5645bcb74bdc2ded0b8b4578",
+            "5448fe124bdc2da5018b4567",
+            "5448e53e4bdc2d60728b4567",
+            "5448e5284bdc2dcb718b4567",
+            "60b0f6c058e0b0481a09ad11",
+            "5aafbde786f774389d0cbc0f",
+            "619cbf9e0a7c3a1a2731940a",
+            "5c093db286f7740a1b2617e3",
+            "5e2af55f86f7746d4159f07c",
+            "619cbf7d23893217ec30b689",
+            "59fafd4b86f7745ca07e1232",
+            "5d235bb686f77443f4331278",
+            "5c127c4486f7745625356c13",
+            "5aafbcd986f7745e590fff23",
+            "59fb016586f7746d0d4b423a",
+            "5c093e3486f77430cb02e593",
+            "59fb023c86f7746d0d4b423c",
+            "590c60fc86f77412b13fddcf",
+            "5783c43d2459774bbe137486",
+            "5422acb9af1c889c16000029",
+            "543be6674bdc2df1348b4569",
+            "5448ecbe4bdc2d60728b4568",
+            "543be5e94bdc2df1348b4568",
+            "5447e1d04bdc2dff2f8b4567",
+            "567849dd4bdc2d150f8b456e",
+            "543be5664bdc2dd4348b4569",
+            "5447e0e74bdc2d3c308b4567",
+            "5661632d4bdc2d903d8b456b",
+            "543be6564bdc2df4348b4568"
+        ]
     },
     "59fb137a86f7740adb646af1": {
         "itemProperties": {
@@ -15530,7 +15742,11 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "57864c8c245977548867e7f1",
+            "543be5664bdc2dd4348b4569"
+        ]
     },
     "5aafbde786f774389d0cbc0f": {
         "itemProperties": {
@@ -15546,7 +15762,11 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5485a8684bdc2da71d8b4567",
+            "543be5cb4bdc2deb348b4568"
+        ]
     },
     "5ab24ef9e5b5b00fe93c9209": {
         "itemProperties": {
@@ -15851,7 +16071,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5ab8dced86f774646209ec87": {
         "itemProperties": {
@@ -15909,7 +16132,10 @@
             "ArmorMaterial": "Titan"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5ab8e4ed86f7742d8e50c7fa": {
         "itemProperties": {
@@ -16071,7 +16297,10 @@
             "speedPenaltyPercent": -20
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5ab8ee7786f7742d8f33f0b9": {
         "itemProperties": {
@@ -16087,7 +16316,10 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5ab8f04f86f774585f4237d8": {
         "itemProperties": {
@@ -16103,7 +16335,10 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5ab8f20c86f7745cdb629fb2": {
         "itemProperties": {
@@ -19841,7 +20076,10 @@
             "speedPenaltyPercent": -10
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5b44c8ea86f7742d1627baf1": {
         "itemProperties": {
@@ -19887,7 +20125,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5b44cad286f77402a54ae7e5": {
         "itemProperties": {
@@ -19956,7 +20197,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5b44cd8b86f774503d30cba2": {
         "itemProperties": {
@@ -20144,7 +20388,13 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5448fe124bdc2da5018b4567",
+            "5422acb9af1c889c16000029",
+            "5485a8684bdc2da71d8b4567",
+            "543be5cb4bdc2deb348b4568"
+        ]
     },
     "5b7be1125acfc4001876c0e5": {
         "itemProperties": {
@@ -20641,7 +20891,12 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5448eb774bdc2d0a728b4567",
+            "5448ecbe4bdc2d60728b4568",
+            "5447e0e74bdc2d3c308b4567"
+        ]
     },
     "5b7d37845acfc400170e2f87": {
         "itemProperties": {
@@ -24594,7 +24849,27 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5448eb774bdc2d0a728b4567",
+            "5448fe124bdc2da5018b4567",
+            "60b0f6c058e0b0481a09ad11",
+            "619cbf9e0a7c3a1a2731940a",
+            "619cbf7d23893217ec30b689",
+            "59fafd4b86f7745ca07e1232",
+            "5d235bb686f77443f4331278",
+            "5c093e3486f77430cb02e593",
+            "590c60fc86f77412b13fddcf",
+            "5783c43d2459774bbe137486",
+            "543be6674bdc2df1348b4569",
+            "5448ecbe4bdc2d60728b4568",
+            "543be5e94bdc2df1348b4568",
+            "5447e1d04bdc2dff2f8b4567",
+            "567849dd4bdc2d150f8b456e",
+            "543be5664bdc2dd4348b4569",
+            "5447e0e74bdc2d3c308b4567",
+            "5661632d4bdc2d903d8b456b"
+        ]
     },
     "5c093db286f7740a1b2617e3": {
         "itemProperties": {
@@ -24610,7 +24885,13 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5af0484c86f7740f02001f7f",
+            "5e54f6af86f7742199090bf3",
+            "5bc9be8fd4351e00334cae6e",
+            "543be6674bdc2df1348b4569"
+        ]
     },
     "5c093e3486f77430cb02e593": {
         "itemProperties": {
@@ -24626,7 +24907,11 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "59f32bb586f774757e1e8442",
+            "59f32c3b86f77472a31742f0"
+        ]
     },
     "5c0a2cec0db834001b7ce47d": {
         "itemProperties": {
@@ -24654,7 +24939,41 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5448eb774bdc2d0a728b4567",
+            "543be5f84bdc2dd4348b456a",
+            "5645bcb74bdc2ded0b8b4578",
+            "567143bf4bdc2d1a0f8b4567",
+            "5448fe124bdc2da5018b4567",
+            "5448e53e4bdc2d60728b4567",
+            "5448e5284bdc2dcb718b4567",
+            "60b0f6c058e0b0481a09ad11",
+            "5aafbde786f774389d0cbc0f",
+            "619cbf9e0a7c3a1a2731940a",
+            "5c093db286f7740a1b2617e3",
+            "5e2af55f86f7746d4159f07c",
+            "619cbf7d23893217ec30b689",
+            "59fafd4b86f7745ca07e1232",
+            "5d235bb686f77443f4331278",
+            "5c127c4486f7745625356c13",
+            "5aafbcd986f7745e590fff23",
+            "59fb016586f7746d0d4b423a",
+            "5c093e3486f77430cb02e593",
+            "59fb023c86f7746d0d4b423c",
+            "590c60fc86f77412b13fddcf",
+            "5783c43d2459774bbe137486",
+            "5422acb9af1c889c16000029",
+            "543be6674bdc2df1348b4569",
+            "5448ecbe4bdc2d60728b4568",
+            "543be5e94bdc2df1348b4568",
+            "5447e1d04bdc2dff2f8b4567",
+            "567849dd4bdc2d150f8b456e",
+            "543be5664bdc2dd4348b4569",
+            "5447e0e74bdc2d3c308b4567",
+            "5661632d4bdc2d903d8b456b",
+            "543be6564bdc2df4348b4568"
+        ]
     },
     "5c0d2727d174af02a012cf58": {
         "itemProperties": {
@@ -24970,7 +25289,10 @@
             "ArmorMaterial": "Titan"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5c0e446786f7742013381639": {
         "itemProperties": {
@@ -25016,7 +25338,10 @@
             "ArmorMaterial": "Ceramic"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5c0e51be86f774598e797894": {
         "itemProperties": {
@@ -25334,7 +25659,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5c0e722886f7740458316a57": {
         "itemProperties": {
@@ -25396,7 +25724,10 @@
             "ArmorMaterial": "ArmoredSteel"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5c0e746986f7741453628fe5": {
         "itemProperties": {
@@ -25453,7 +25784,10 @@
             "ArmorMaterial": "ArmoredSteel"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5c0e774286f77468413cc5b2": {
         "itemProperties": {
@@ -25470,7 +25804,10 @@
             "speedPenaltyPercent": -30
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5c0e805e86f774683f3dd637": {
         "itemProperties": {
@@ -25499,7 +25836,10 @@
             "speedPenaltyPercent": -5
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5c0e842486f77443a74d2976": {
         "itemProperties": {
@@ -25594,7 +25934,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5c0fa877d174af02a012e1cf": {
         "itemProperties": {
@@ -25796,7 +26139,10 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5448bc234bdc2d3c308b4569"
+        ]
     },
     "5c13cd2486f774072c757944": {
         "itemProperties": {
@@ -28542,7 +28888,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5ca20d5986f774331e7c9602": {
         "itemProperties": {
@@ -28559,7 +28908,10 @@
             "speedPenaltyPercent": -2
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5ca20ee186f774799474abc2": {
         "itemProperties": {
@@ -31927,7 +32279,19 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "59faff1d86f7746c51718c9c",
+            "5d235b4d86f7742e017bc88a",
+            "5f745ee30acaeb0d490d8c5b",
+            "5c1267ee86f77416ec610f72",
+            "5d235a5986f77443f6329bc6",
+            "59f32bb586f774757e1e8442",
+            "59f32c3b86f77472a31742f0",
+            "590c621186f774138d11ea29",
+            "543be5e94bdc2df1348b4568",
+            "543be5dd4bdc2deb348b4569"
+        ]
     },
     "5d2369418abbc306c62e0c80": {
         "itemProperties": {
@@ -33170,7 +33534,10 @@
             "ArmorMaterial": "Titan"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5d5d85c586f774279a21cbdb": {
         "itemProperties": {
@@ -33224,7 +33591,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5d5d87f786f77427997cfaef": {
         "itemProperties": {
@@ -33305,7 +33675,10 @@
             "ArmorMaterial": "Combined"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5d5d8ca986f7742798716522": {
         "itemProperties": {
@@ -33331,7 +33704,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5d5d940f86f7742797262046": {
         "itemProperties": {
@@ -33364,7 +33740,10 @@
             "speedPenaltyPercent": -8
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5d5e7d28a4b936645d161203": {
         "itemProperties": {
@@ -35082,7 +35461,10 @@
             "speedPenaltyPercent": -45
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5df8a58286f77412631087ed": {
         "itemProperties": {
@@ -36286,7 +36668,19 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5e2af51086f7746d3f3c3402",
+            "5656eb674bdc2d35148b457c",
+            "5ede474b0c226a66f5402622",
+            "5ede475b549eed7c6d5c18fb",
+            "5ede4739e0350d05467f73e8",
+            "5f0c892565703e5c461894e9",
+            "5ede47405b097655935d7d16",
+            "5ede475339ee016e8c534742",
+            "5ede47641cf3836a88318df1",
+            "543be6564bdc2df4348b4568"
+        ]
     },
     "5e32f56fcb6d5863cc5e5ee4": {
         "itemProperties": {
@@ -36376,7 +36770,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5e4abc6786f77406812bd572": {
         "itemProperties": {
@@ -36392,7 +36789,11 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "57864c8c245977548867e7f1",
+            "543be5664bdc2dd4348b4569"
+        ]
     },
     "5e4abfed86f77406a2713cf7": {
         "itemProperties": {
@@ -36448,7 +36849,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5e4ac41886f77406a511c9a8": {
         "itemProperties": {
@@ -36513,7 +36917,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5e4bfc1586f774264f7582d3": {
         "itemProperties": {
@@ -37459,7 +37866,10 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5e9dacf986f774054d6b89f4": {
         "itemProperties": {
@@ -37526,7 +37936,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5e9dcf5986f7746c417435b3": {
         "itemProperties": {
@@ -37542,7 +37955,10 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5ea02bb600685063ec28bfa1": {
         "itemProperties": {
@@ -38946,7 +39362,10 @@
             "speedPenaltyPercent": -3
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5f5e467b0bc58666c37e7821": {
         "itemProperties": {
@@ -38963,7 +39382,10 @@
             "speedPenaltyPercent": -10
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5f5e46b96bdad616ad46d613": {
         "itemProperties": {
@@ -38988,7 +39410,10 @@
             "speedPenaltyPercent": -23
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5f5f41476bdad616ad46d631": {
         "itemProperties": {
@@ -39059,7 +39484,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5f60b34a41e30a4ab12a6947": {
         "itemProperties": {
@@ -41275,7 +41703,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5fd4c5477a8d854fa0105061": {
         "itemProperties": {
@@ -41305,7 +41736,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5fd4c60f875c30179f5d04c2": {
         "itemProperties": {
@@ -41359,7 +41793,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "5fd8d28367cb5e077335170f": {
         "itemProperties": {
@@ -42035,7 +42472,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "6034d0230ca681766b6a0fb5": {
         "itemProperties": {
@@ -42065,7 +42505,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "6034d103ca006d2dca39b3f0": {
         "itemProperties": {
@@ -42082,7 +42525,10 @@
             "speedPenaltyPercent": -6
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "6034d2d697633951dc245ea6": {
         "itemProperties": {
@@ -42107,7 +42553,10 @@
             "speedPenaltyPercent": -8
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "6034e3cb0ddce744014cb870": {
         "itemProperties": {
@@ -42341,7 +42790,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "6038b4b292ec1c3103795a0b": {
         "itemProperties": {
@@ -42398,7 +42850,10 @@
             "speedPenaltyPercent": -6
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "60391a8b3364dc22b04d0ce5": {
         "itemProperties": {
@@ -42478,7 +42933,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "6040de02647ad86262233012": {
         "itemProperties": {
@@ -43565,7 +44023,10 @@
             "ArmorMaterial": "Titan"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "60a23797a37c940de7062d02": {
         "itemProperties": {
@@ -43594,7 +44055,10 @@
             "speedPenaltyPercent": -5
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "60a2828e8689911a226117f9": {
         "itemProperties": {
@@ -43610,7 +44074,10 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "60a283193cb70855c43a381d": {
         "itemProperties": {
@@ -43700,7 +44167,10 @@
             "ArmorMaterial": "Combined"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "60a3c70cde5f453f634816a3": {
         "itemProperties": {
@@ -43779,7 +44249,10 @@
             "ArmorMaterial": "Aluminium"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "60a621c49c197e4e8c4455e6": {
         "itemProperties": {
@@ -43843,7 +44316,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "60a6220e953894617404b00a": {
         "itemProperties": {
@@ -43907,7 +44383,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "60a7acf20c5cb24b01346648": {
         "itemProperties": {
@@ -44002,7 +44481,11 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5c164d2286f774194c5e69fa",
+            "543be5dd4bdc2deb348b4569"
+        ]
     },
     "60b0f7057897d47c5b04ab94": {
         "itemProperties": {
@@ -46646,7 +47129,10 @@
             "speedPenaltyPercent": -2
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "618cfae774bb2d036a049e7c": {
         "itemProperties": {
@@ -46663,7 +47149,10 @@
             "speedPenaltyPercent": -3
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "619256e5f8af2c1a4e1f5d92": {
         "itemProperties": {
@@ -47384,7 +47873,11 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "544fb3f34bdc2d03748b456a",
+            "5448f3a64bdc2d60728b456a"
+        ]
     },
     "619cbf9e0a7c3a1a2731940a": {
         "itemProperties": {
@@ -47400,7 +47893,10 @@
             }
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "5c164d2286f774194c5e69fa"
+        ]
     },
     "619cbfccbedcde2f5b3f7bdd": {
         "itemProperties": {
@@ -47441,7 +47937,10 @@
             "speedPenaltyPercent": -2
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "619d36da53b4d42ee724fae4": {
         "itemProperties": {
@@ -47536,7 +48035,10 @@
             "speedPenaltyPercent": -28
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "61bc85697113f767765c7fe7": {
         "itemProperties": {
@@ -47589,7 +48091,10 @@
             "ArmorMaterial": "UHMWPE"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "61bca7cda0eae612383adf57": {
         "itemProperties": {
@@ -47673,7 +48178,10 @@
             "ArmorMaterial": "Aluminium"
         },
         "hasGrid": true,
-        "linkedItems": []
+        "linkedItems": [],
+        "canHoldItems": [
+            "54009119af1c881c07000029"
+        ]
     },
     "61bf7b6302b3924be92fa8c3": {
         "itemProperties": {

@@ -52,6 +52,7 @@ import PistolGrips from './pages/items/pistol-grips';
 import Provisions from './pages/items/provisions';
 import Rigs from './pages/items/rigs';
 import Suppressors from './pages/items/suppressors';
+import BsgCategory from './pages/items/bsg-category';
 
 import Prapor from './pages/traders/prapor';
 import Therapist from './pages/traders/therapist';
@@ -966,6 +967,23 @@ return (
                 element = {[
                     <Guides
                         send = {send}
+                    />
+                ]}
+            />
+            <Route
+                path="/items/:bsgCategoryName"
+                element = {[
+                    <div
+                        className="display-wrapper"
+                        key = 'bsg-category-items-wrapper'
+                    >
+                        <BsgCategory />
+                    </div>,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
                     />
                 ]}
             />

@@ -23,6 +23,8 @@ import itemSearch from '../../modules/item-search';
 import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
 import { getCheapestBarter } from '../../modules/format-cost-items';
 
+import categoryData from '../../data/category-data.json';
+
 import './index.css';
 
 function traderSellCell(datum) {
@@ -129,6 +131,7 @@ function SmallItemTable(props) {
         minPropertyFilter,
         maxPropertyFilter,
         maxPrice,
+        bsgCategoryFilter,
     } = props;
     const dispatch = useDispatch();
     const {t} = useTranslation();
@@ -243,6 +246,27 @@ function SmallItemTable(props) {
 
             return true;
         })
+        .filter(item => {
+            if(!bsgCategoryFilter) {
+                return true;
+            }
+
+            if(item.bsgCategoryId === bsgCategoryFilter){
+                return true;
+            }
+
+            for(const bsgCategoryId in categoryData){
+                if(categoryData[bsgCategoryId]._parent !== bsgCategoryFilter){
+                    continue;
+                }
+
+                if(item.bsgCategoryId === bsgCategoryId){
+                    return true;
+                }
+            }
+
+            return false;
+        })
         .map((itemData) => {
             const formattedItem = {
                 id: itemData.id,
@@ -278,6 +302,7 @@ function SmallItemTable(props) {
                 effectiveDurability: Math.floor(itemData.itemProperties.MaxDurability / materialDestructabilityMap[itemData.itemProperties.ArmorMaterial]),
                 repairability: `${materialRepairabilityMap[itemData.itemProperties.ArmorMaterial]}/6`,
                 stats: `${itemData.itemProperties.speedPenaltyPercent}% / ${itemData.itemProperties.mousePenalty}% / ${itemData.itemProperties.weaponErgonomicPenalty}`,
+                canHoldItems: itemData.canHoldItems,
             };
 
             if(formattedItem.buyOnFleaPrice && formattedItem.buyOnFleaPrice.price > 0){
@@ -361,7 +386,7 @@ function SmallItemTable(props) {
 
         return returnData;
     },
-        [nameFilter, defaultRandom, items, typeFilter, traderFilter, loyaltyLevelFilter, traderBuybackFilter, barters, excludeTypeFilter, typeLimit, minPropertyFilter, maxPropertyFilter, maxPrice]
+        [nameFilter, defaultRandom, items, typeFilter, traderFilter, loyaltyLevelFilter, traderBuybackFilter, barters, excludeTypeFilter, typeLimit, minPropertyFilter, maxPropertyFilter, maxPrice, bsgCategoryFilter]
     );
 
     const columns = useMemo(
