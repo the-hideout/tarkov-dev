@@ -17,12 +17,18 @@ for(const contributor of contributors){
             github: true,
         }
 
+        if(supporters[contributor.login.toLowerCase()].link) {
+            continue;
+        }
+
+        supporters[contributor.login.toLowerCase()].link = contributor.html_url;
+
         continue;
     }
 
     supporters[contributor.login.toLowerCase()] = {
         name: contributor.login,
-        link: contributor.html_link,
+        link: contributor.html_url,
         github: true,
     }
 }

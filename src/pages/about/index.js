@@ -50,17 +50,20 @@ function About() {
                 tierFilter={'Silver supporter'}
             />
         <h3>
-            {t('Godly thing supporters')}
+            {t('Expert supporters')}
         </h3>
             <SupportersList
-                tierFilter={'God among supporters'}
+                tierFilter={'Expert'}
             />
         <h3>
-            {t('Supporters')}
+            {t('Advanced Supporters')}
         </h3>
             <SupportersList
-                tierFilter={'Basic+'}
+                tierFilter={'Advanced'}
             />
+        <h3>
+            {t('Basic Supporters')}
+        </h3>
             <SupportersList
                 tierFilter={'Basic'}
                 type={'inline'}
@@ -70,6 +73,7 @@ function About() {
         </h3>
             <SupportersList
                 typeFilter={'github'}
+                type={'inline'}
             />
     </div>;
 };
