@@ -26,7 +26,7 @@ function BartersTable(props) {
     const includeFlea = useSelector((state) => state.settings.hasFlea);
     const hasJaeger = useSelector((state) => state.settings.jaeger);
     const traders = useSelector(selectAllTraders);
-    const skippedByLevelRef = useRef();
+    const skippedByLevelRef = useRef(false);
 
     const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
@@ -119,196 +119,195 @@ function BartersTable(props) {
 
     const data = useMemo(() => {
         let addedTraders = [];
+        skippedByLevelRef.current = false;
 
-        return barters.map((barterRow) => {
-            let cost = 0;
+        return barters
+            .filter(barter => {
+                if(!barter.rewardItems[0]){
+                    console.log(barter);
+                    return false;
+                }
 
-            if(!barterRow.rewardItems[0]){
-                console.log(barterRow);
-                return false;
-            }
+                return true;
+            })
+            .filter(barter => {
+                if(!itemFilter){
+                    return true;
+                }
 
-            if(itemFilter){
-                let matchesFilter = false;
-                for(const requiredItem of barterRow.requiredItems){
+                for(const requiredItem of barter.requiredItems){
                     if(requiredItem === null){
                         continue;
                     }
 
                     if(requiredItem.item.id === itemFilter){
-                        matchesFilter = true;
-
-                        break;
+                        return true;
                     }
                 }
 
-                for(const rewardItem of barterRow.rewardItems){
+                for(const rewardItem of barter.rewardItems){
                     if(rewardItem.item.id === itemFilter){
-                        matchesFilter = true;
-
-                        break;
+                        return true;
                     }
                 }
 
-                if(!matchesFilter){
+                return false;
+            })
+            .filter(barter => {
+                let [trader, level] = barter.source.split('LL');
+
+                level = parseInt(level);
+                trader = trader.trim();
+
+                if(!nameFilter && selectedTrader && selectedTrader !== 'all' && selectedTrader !== trader.toLowerCase().replace(/\s/g, '-')){
                     return false;
                 }
-            }
 
-            if(nameFilter?.length > 0){
-                let matchesFilter = false;
+                if(level > traders[trader.toLowerCase()]){
+                    skippedByLevelRef.current = true;
+                    return false;
+                }
+
+                return true;
+            })
+            .filter(barter => {
+                if(!nameFilter || nameFilter.length <= 0){
+                    return true;
+                }
+
                 const findString = nameFilter.toLowerCase().replace(/\s/g, '');
-                for(const requiredItem of barterRow.requiredItems){
+                for(const requiredItem of barter.requiredItems){
                     if(requiredItem === null){
                         continue;
                     }
 
                     if(requiredItem.item.name.toLowerCase().replace(/\s/g, '').includes(findString)){
-                        matchesFilter = true;
-
-                        break;
+                        return true;
                     }
                 }
 
-                for(const rewardItem of barterRow.rewardItems){
+                for(const rewardItem of barter.rewardItems){
                     if(rewardItem.item.name.toLowerCase().replace(/\s/g, '').includes(findString)){
-                        matchesFilter = true;
-
-                        break;
+                        return true;
                     }
                 }
 
-                if(!matchesFilter){
+                return true;
+            })
+            .map((barterRow) => {
+                let cost = 0;
+
+                if(removeDogtags){
+                    for(const requiredItem of barterRow.requiredItems){
+                        if(requiredItem === null){
+                            continue;
+                        }
+
+                        if(requiredItem.item.name.toLowerCase().replace(/\s/g, '').includes('dogtag')){
+                            return false;
+                        }
+                    }
+                }
+
+                const costItems = formatCostItems(barterRow.requiredItems, 1, barters, false, includeFlea);
+                costItems.map(costItem => cost = cost + costItem.price * costItem.count);
+
+                const bestSellTo = barterRow.rewardItems[0].item.sellFor.reduce((previousSellForObject, sellForObject) => {
+                    if(sellForObject.source === 'fleaMarket'){
+                        return previousSellForObject;
+                    }
+
+                    if(sellForObject.source === 'jaeger' && !hasJaeger){
+                        return previousSellForObject;
+                    }
+
+                    if(previousSellForObject.price > sellForObject.price){
+                        return previousSellForObject;
+                    }
+
+                    return sellForObject;
+                }, {
+                    source: 'unknown',
+                    price: 0,
+                });
+
+                const tradeData = {
+                    costItems: costItems,
+                    cost: cost,
+                    instaProfit: bestSellTo.price - cost,
+                    instaProfitSource: bestSellTo,
+                    reward: {
+                        sellTo: t('Flea market'),
+                        name: barterRow.rewardItems[0].item.name,
+                        value: barterRow.rewardItems[0].item[priceToUse],
+                        source: barterRow.source,
+                        iconLink: barterRow.rewardItems[0].item.iconLink || 'https://tarkov-tools.com/images/unknown-item-icon.jpg',
+                        itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,
+                    },
+                };
+
+                const bestTraderValue = Math.max(...barterRow.rewardItems[0].item.traderPrices.map(priceObject => {
+                    if(!hasJaeger && priceObject.trader.name === 'Jaeger'){
+                        return 0;
+                    }
+
+                    return priceObject.price
+                }));
+
+                const bestTrade = barterRow.rewardItems[0].item.traderPrices.find(traderPrice => traderPrice.price === bestTraderValue);
+
+                if((bestTrade && bestTrade.price > tradeData.reward.value) || (bestTrade && !includeFlea)){
+                    // console.log(barterRow.rewardItems[0].item.traderPrices);
+                    tradeData.reward.value = bestTrade.price;
+                    tradeData.reward.sellTo = bestTrade.trader.name;
+                }
+
+                tradeData.savings = tradeData.reward.value - cost;
+
+                // If the reward has no value, it's not available for purchase
+                if(tradeData.reward.value === 0){
+                    tradeData.reward.value = tradeData.cost;
+                    tradeData.reward.barterOnly = true;
+                    tradeData.savings = 0;
+                }
+
+                // if(hasZeroCostItem){
+                //     return false;
+                // }
+
+                return tradeData;
+            })
+            .filter(Boolean)
+            .sort((itemA, itemB) => {
+                if(itemB.savings > itemA.savings){
+                    return -1;
+                };
+
+                if(itemB.savings < itemA.savings){
+                    return 1;
+                }
+
+                return 0;
+            })
+            .filter((barter) => {
+
+                if(selectedTrader !== 'all'){
+                    return true;
+                }
+
+                if(selectedTrader === 'all'){
+                    return true;
+                }
+
+                if(addedTraders.includes(barter.reward.source)){
                     return false;
                 }
-            }
 
-            if(removeDogtags){
-                for(const requiredItem of barterRow.requiredItems){
-                    if(requiredItem === null){
-                        continue;
-                    }
+                addedTraders.push(barter.reward.source);
 
-                    if(requiredItem.item.name.toLowerCase().replace(/\s/g, '').includes('dogtag')){
-                        return false;
-                    }
-                }
-            }
-
-            // let hasZeroCostItem = false;
-            let [trader, level] = barterRow.source.split('LL');
-
-            level = parseInt(level);
-            trader = trader.trim();
-
-            if(!nameFilter && selectedTrader && selectedTrader !== 'all' && selectedTrader !== trader.toLowerCase().replace(/\s/g, '-')){
-                return false;
-            }
-
-            if(level > traders[trader.toLowerCase()]){
-                skippedByLevelRef.current = true;
-                return false;
-		    }
-
-            const costItems = formatCostItems(barterRow.requiredItems, 1, barters, false, includeFlea);
-            costItems.map(costItem => cost = cost + costItem.price * costItem.count);
-
-            const bestSellTo = barterRow.rewardItems[0].item.sellFor.reduce((previousSellForObject, sellForObject) => {
-                if(sellForObject.source === 'fleaMarket'){
-                    return previousSellForObject;
-                }
-
-                if(sellForObject.source === 'jaeger' && !hasJaeger){
-                    return previousSellForObject;
-                }
-
-                if(previousSellForObject.price > sellForObject.price){
-                    return previousSellForObject;
-                }
-
-                return sellForObject;
-            }, {
-                source: 'unknown',
-                price: 0,
+                return true;
             });
-
-            const tradeData = {
-                costItems: costItems,
-                cost: cost,
-                instaProfit: bestSellTo.price - cost,
-                instaProfitSource: bestSellTo,
-                reward: {
-                    sellTo: t('Flea market'),
-                    name: barterRow.rewardItems[0].item.name,
-                    value: barterRow.rewardItems[0].item[priceToUse],
-                    source: barterRow.source,
-                    iconLink: barterRow.rewardItems[0].item.iconLink || 'https://tarkov-tools.com/images/unknown-item-icon.jpg',
-                    itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,
-                },
-            };
-
-            const bestTraderValue = Math.max(...barterRow.rewardItems[0].item.traderPrices.map(priceObject => {
-                if(!hasJaeger && priceObject.trader.name === 'Jaeger'){
-                    return 0;
-                }
-
-                return priceObject.price
-            }));
-
-            const bestTrade = barterRow.rewardItems[0].item.traderPrices.find(traderPrice => traderPrice.price === bestTraderValue);
-
-            if((bestTrade && bestTrade.price > tradeData.reward.value) || (bestTrade && !includeFlea)){
-                // console.log(barterRow.rewardItems[0].item.traderPrices);
-                tradeData.reward.value = bestTrade.price;
-                tradeData.reward.sellTo = bestTrade.trader.name;
-            }
-
-            tradeData.savings = tradeData.reward.value - cost;
-
-            // If the reward has no value, it's not available for purchase
-            if(tradeData.reward.value === 0){
-                tradeData.reward.value = tradeData.cost;
-                tradeData.reward.barterOnly = true;
-                tradeData.savings = 0;
-            }
-
-            // if(hasZeroCostItem){
-            //     return false;
-            // }
-
-            return tradeData;
-        })
-        .filter(Boolean)
-        .sort((itemA, itemB) => {
-            if(itemB.savings > itemA.savings){
-                return -1;
-            };
-
-            if(itemB.savings < itemA.savings){
-                return 1;
-            }
-
-            return 0;
-        })
-        .filter((barter) => {
-
-            if(selectedTrader !== 'all'){
-                return true;
-		    }
-
-            if(selectedTrader === 'all'){
-                return true;
-			}
-
-            if(addedTraders.includes(barter.reward.source)){
-                return false;
-		    }
-
-            addedTraders.push(barter.reward.source);
-
-            return true;
-	    });
-    },
+        },
         [nameFilter, selectedTrader, barters, includeFlea, itemFilter, traders, hasJaeger, t, removeDogtags]
     );
 
