@@ -31,3 +31,19 @@
     margin-right: 10px;
     max-width: 32px;
 }
+
+.search-tip-wrapper {
+    display: none;
+    pointer-events: none;
+}
+
+@media screen and (min-width: 700px) {
+    .search-tip-wrapper {
+        border: 2px solid #9a8866;
+        display: block;
+        padding: 6px 10px;
+        position: absolute;
+        right: 8px;
+        top: 8px;
+    }
+}

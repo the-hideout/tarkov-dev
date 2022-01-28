@@ -1,4 +1,4 @@
-import { useMemo, useState, useCallback, useEffect } from 'react';
+import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     Link,
@@ -6,6 +6,7 @@ import {
     useLocation,
 } from "react-router-dom";
 import {useTranslation} from 'react-i18next';
+import {useHotkeys} from 'react-hotkeys-hook';
 
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import useKeyPress from '../../hooks/useKeyPress';
@@ -22,16 +23,29 @@ function ItemSearch({defaultValue, onChange, placeholder, autoFocus, showDropdow
 
     const [nameFilter, setNameFilter] = useState(defaultValue || '');
     const [cursor, setCursor] = useState(0);
+    const [isFocused, setIsFocused] = useState(false);
     const downPress = useKeyPress('ArrowDown');
     const upPress = useKeyPress('ArrowUp');
     const enterPress = useKeyPress('Enter');
     let navigate = useNavigate();
     let location = useLocation();
     const dispatch = useDispatch();
+    const inputRef = useRef(null);
 
     if(!placeholder){
         placeholder = t('Search item...');
     }
+
+    useHotkeys('ctrl+q', () => {
+        if(inputRef?.current.scrollIntoView){
+            inputRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            });
+        }
+
+        inputRef?.current.focus();
+    });
 
     useEffect(() => {
         let timer = false;
@@ -132,6 +146,7 @@ function ItemSearch({defaultValue, onChange, placeholder, autoFocus, showDropdow
         setNameFilter('');
     }, [location]);
 
+
     return <div
         className="item-search"
     >
@@ -142,7 +157,17 @@ function ItemSearch({defaultValue, onChange, placeholder, autoFocus, showDropdow
             placeholder = {placeholder}
             value={nameFilter}
             autoFocus = {autoFocus}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            ref={inputRef}
         />
+        {!isFocused &&
+            <div
+                className='search-tip-wrapper'
+            >
+                ctrl+q
+            </div>
+        }
         {showDropdown && <div
                 className='item-list-wrapper'
             >
