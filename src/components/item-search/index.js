@@ -71,6 +71,10 @@ function ItemSearch({defaultValue, onChange, placeholder, autoFocus, showDropdow
         }
     }, [upPress]);
 
+    if(autoFocus && window.matchMedia('(max-width: 600px)').matches){
+        autoFocus = false;
+    }
+
     const data = useMemo(() => {
         if(!nameFilter){
             return [];
