@@ -74,8 +74,10 @@ function ItemSearch({defaultValue, onChange, placeholder, autoFocus, showDropdow
 
     const handleNameFilterChange = useCallback((e) => {
         setNameFilter(e.target.value.toLowerCase());
-        debouncedOnchange(e.target.value.toLowerCase());
-    }, [setNameFilter, debouncedOnchange]);
+        if(onChange){
+            debouncedOnchange(e.target.value.toLowerCase());
+        }
+    }, [setNameFilter, debouncedOnchange, onChange]);
 
     useEffect(() => {
         if (downPress) {
