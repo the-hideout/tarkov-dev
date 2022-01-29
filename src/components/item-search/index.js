@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import {useTranslation} from 'react-i18next';
 import {useHotkeys} from 'react-hotkeys-hook';
+import debounce from 'lodash.debounce';
 
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import useKeyPress from '../../hooks/useKeyPress';
@@ -64,12 +65,18 @@ function ItemSearch({defaultValue, onChange, placeholder, autoFocus, showDropdow
         }
     }, [itemStatus, dispatch]);
 
+
+    const debouncedOnchange = useRef(
+        debounce((newValue) => {
+            console.log(newValue);
+            onChange(newValue);
+        }, 300)
+    ).current;
+
     const handleNameFilterChange = useCallback((e) => {
         setNameFilter(e.target.value.toLowerCase());
-        if(onChange){
-            onChange(e.target.value);
-        }
-    }, [setNameFilter, onChange]);
+        debouncedOnchange(e.target.value.toLowerCase());
+    }, [setNameFilter, debouncedOnchange]);
 
     useEffect(() => {
         if (downPress) {
@@ -145,7 +152,6 @@ function ItemSearch({defaultValue, onChange, placeholder, autoFocus, showDropdow
         setCursor(0);
         setNameFilter('');
     }, [location]);
-
 
     return <div
         className="item-search"
