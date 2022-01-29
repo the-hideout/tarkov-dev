@@ -2,8 +2,8 @@
     {
         "key": "customs",
         "displayText": "Customs",
-        "source": "/u/LowEffortSaltBox",
-        "sourceLink": "https://twitter.com/re3mr",
+        "source": "re3mr",
+        "sourceLink": "https://reemr.se",
         "duration": "35 min",
         "players": "9-12"
     },
@@ -54,8 +54,8 @@
     {
         "key": "lighthouse",
         "displayText": "Lighthouse",
-        "source": "/u/LowEffortSaltBox",
-        "sourceLink": "https://twitter.com/re3mr",
+        "source": "re3mr",
+        "sourceLink": "https://reemr.se",
         "duration": "40 min",
         "players": "9-12"
     },
@@ -77,16 +77,16 @@
     {
         "key": "reserve",
         "displayText": "Reserve",
-        "source": "/u/LowEffortSaltBox",
-        "sourceLink": "https://twitter.com/re3mr",
+        "source": "re3mr",
+        "sourceLink": "https://reemr.se",
         "duration": "40 min",
         "players": "9-12"
     },
     {
         "key": "underground",
         "displayText": "Reserve - Underground",
-        "source": "/u/LowEffortSaltBox",
-        "sourceLink": "https://twitter.com/re3mr",
+        "source": "re3mr",
+        "sourceLink": "https://reemr.se",
         "duration": "40 min",
         "players": "9-12"
     },
