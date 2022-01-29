@@ -502,21 +502,25 @@ function Item() {
                     properties = {currentItemData.itemProperties}
                 />
                 <div>
-                    <h2>
-                        {t('Barters with')} {currentItemData.name}
-                    </h2>
-                    <Filter>
-                        <ToggleFilter
-                            checked = {showAllBarters}
-                            label = {t('Ignore settings')}
-                            onChange = {e => setShowAllBarters(!showAllBarters)}
-                            tooltipContent = {
-                                <div>
-                                    {t('Shows all crafts regardless of what you have set in your settings')}
-                                </div>
-                            }
-                        />
-                    </Filter>
+                    <div
+                        className='item-barters-headline-wrapper'
+                    >
+                        <h2>
+                            {t('Barters with')} {currentItemData.name}
+                        </h2>
+                        <Filter>
+                            <ToggleFilter
+                                checked = {showAllBarters}
+                                label = {t('Ignore settings')}
+                                onChange = {e => setShowAllBarters(!showAllBarters)}
+                                tooltipContent = {
+                                    <div>
+                                        {t('Shows all crafts regardless of what you have set in your settings')}
+                                    </div>
+                                }
+                            />
+                        </Filter>
+                    </div>
                     <BartersTable
                         itemFilter = {currentItemData.id}
                         showAll = {showAllBarters}
@@ -526,21 +530,21 @@ function Item() {
                     <div
                         className='item-crafts-headline-wrapper'
                     >
-                    <h2>
-                        {t('Crafts with')} {currentItemData.name}
-                    </h2>
-                    <Filter>
-                        <ToggleFilter
-                            checked = {showAllCrafts}
-                            label = {t('Ignore settings')}
-                            onChange = {e => setShowAllCrafts(!showAllCrafts)}
-                            tooltipContent = {
-                                <div>
-                                    {t('Shows all crafts regardless of what you have set in your settings')}
-                                </div>
-                            }
-                        />
-                    </Filter>
+                        <h2>
+                            {t('Crafts with')} {currentItemData.name}
+                        </h2>
+                        <Filter>
+                            <ToggleFilter
+                                checked = {showAllCrafts}
+                                label = {t('Ignore settings')}
+                                onChange = {e => setShowAllCrafts(!showAllCrafts)}
+                                tooltipContent = {
+                                    <div>
+                                        {t('Shows all crafts regardless of what you have set in your settings')}
+                                    </div>
+                                }
+                            />
+                        </Filter>
                     </div>
                     <Suspense fallback={<div>{t('Loading...')}</div>}>
                         <CraftsTable

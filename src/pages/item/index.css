@@ -157,12 +157,14 @@
     justify-content: space-between;
 }
 
-.item-crafts-headline-wrapper {
+.item-crafts-headline-wrapper,
+.item-barters-headline-wrapper {
     align-items: center;
     display: flex;
 }
 
-.item-crafts-headline-wrapper h2 {
+.item-crafts-headline-wrapper h2,
+.item-barters-headline-wrapper h2 {
     flex-grow: 1;
     margin: 0;
 }

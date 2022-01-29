@@ -20,7 +20,7 @@ import './index.css';
 const priceToUse = 'lastLowPrice';
 
 function BartersTable(props) {
-    const { selectedTrader, nameFilter, itemFilter, removeDogtags } = props;
+    const { selectedTrader, nameFilter, itemFilter, removeDogtags, showAll} = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const includeFlea = useSelector((state) => state.settings.hasFlea);
@@ -163,7 +163,11 @@ function BartersTable(props) {
                     return false;
                 }
 
-                if(level > traders[trader.toLowerCase()]){
+                if(showAll) {
+                    skippedByLevelRef.current = false;
+                }
+
+                if(!showAll && level > traders[trader.toLowerCase()]){
                     skippedByLevelRef.current = true;
                     return false;
                 }
@@ -308,7 +312,7 @@ function BartersTable(props) {
                 return true;
             });
         },
-        [nameFilter, selectedTrader, barters, includeFlea, itemFilter, traders, hasJaeger, t, removeDogtags]
+        [nameFilter, selectedTrader, barters, includeFlea, itemFilter, traders, hasJaeger, t, removeDogtags, showAll]
     );
 
     let extraRow = false;
