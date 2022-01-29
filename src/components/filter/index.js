@@ -140,6 +140,7 @@ function ToggleFilter({ label, onChange, checked, tooltipContent, disabled }) {
                 {label}
             </span>
             <Switch
+                borderRadius={0}
                 className={'filter-toggle'}
                 onChange={onChange}
                 checked={checked}
