@@ -135,12 +135,19 @@ function Footer() {
                 </Link>
             </p>
             <p>
-                <a
+                {/* <a
                     href = {'https://discord.com/api/oauth2/authorize?client_id=925298399371231242&permissions=309237664832&scope=bot%20applications.commands'}
-                >
-                    {t('Discord bot for your Discord')}
-                </a>
+                > */}
+                    {t('Discord bot for your Discord - Currently full')}
+                {/* </a> */}
             </p>
+            <p>
+            <a
+                href = {'https://discord.gg/B2xM8WZyVv'}
+            >
+                {t('Join the bot waitlist via our Discord')}
+            </a>
+        </p>
         </div>
         <div
             className = 'copyright-wrapper'
