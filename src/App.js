@@ -7,11 +7,13 @@ import {
 } from "react-router-dom";
 import {Helmet} from "react-helmet";
 import { useDispatch, useSelector } from 'react-redux';
-import './App.css';
-import './i18n';
 import {
     useTranslation
 } from 'react-i18next';
+
+import './App.css';
+import './i18n';
+import loadPolyfills from './modules/polyfills';
 
 import Map from './components/Map.jsx';
 import ID from './components/ID.jsx';
@@ -68,6 +70,7 @@ import ItemTracker from './pages/item-tracker/';
 import Hideout from './pages/hideout';
 import WipeLength from './pages/wipe-length';
 import About from './pages/about/';
+import GunBuilder from './pages/gun-builder';
 
 import Guides from './pages/guides';
 
@@ -81,6 +84,8 @@ const APIDocs = React.lazy(() => import('./pages/api-docs'));
 const socketServer = `wss://tarkov-tools-live.herokuapp.com`;
 
 let socket = false;
+
+loadPolyfills();
 
 function App() {
     const [sessionID] = useStateWithLocalStorage('sessionId', makeID(4));
@@ -978,6 +983,23 @@ return (
                         key = 'bsg-category-items-wrapper'
                     >
                         <BsgCategory />
+                    </div>,
+                    <ID
+                        key = 'connection-wrapper'
+                        sessionID = {sessionID}
+                        socketEnabled = {socketEnabled}
+                        onClick = {e => dispatch(enableConnection())}
+                    />
+                ]}
+            />
+            <Route
+                path="/gun-builder"
+                element = {[
+                    <div
+                        className="display-wrapper"
+                        key = 'gun-builder-wrapper'
+                    >
+                        <GunBuilder />
                     </div>,
                     <ID
                         key = 'connection-wrapper'
