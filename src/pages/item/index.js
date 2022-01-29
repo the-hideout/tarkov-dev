@@ -72,7 +72,8 @@ function Item() {
         return state.items.status;
     });
     const {t} = useTranslation();
-    const [showAll, setShowAll] = useState(false)
+    const [showAllCrafts, setShowAllCrafts] = useState(false)
+    const [showAllBarters, setShowAllBarters] = useState(false)
 
     useEffect(() => {
         let timer = false;
@@ -504,8 +505,21 @@ function Item() {
                     <h2>
                         {t('Barters with')} {currentItemData.name}
                     </h2>
+                    <Filter>
+                        <ToggleFilter
+                            checked = {showAllBarters}
+                            label = {t('Ignore settings')}
+                            onChange = {e => setShowAllBarters(!showAllBarters)}
+                            tooltipContent = {
+                                <div>
+                                    {t('Shows all crafts regardless of what you have set in your settings')}
+                                </div>
+                            }
+                        />
+                    </Filter>
                     <BartersTable
                         itemFilter = {currentItemData.id}
+                        showAll = {showAllBarters}
                     />
                 </div>
                 <div>
@@ -517,9 +531,9 @@ function Item() {
                     </h2>
                     <Filter>
                         <ToggleFilter
-                            checked = {showAll}
+                            checked = {showAllCrafts}
                             label = {t('Ignore settings')}
-                            onChange = {e => setShowAll(!showAll)}
+                            onChange = {e => setShowAllCrafts(!showAllCrafts)}
                             tooltipContent = {
                                 <div>
                                     {t('Shows all crafts regardless of what you have set in your settings')}
@@ -531,7 +545,7 @@ function Item() {
                     <Suspense fallback={<div>{t('Loading...')}</div>}>
                         <CraftsTable
                             itemFilter = {currentItemData.id}
-                            showAll = {showAll}
+                            showAll = {showAllCrafts}
                         />
                     </Suspense>
                 </div>
