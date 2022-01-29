@@ -68,7 +68,6 @@ function ItemSearch({defaultValue, onChange, placeholder, autoFocus, showDropdow
 
     const debouncedOnchange = useRef(
         debounce((newValue) => {
-            console.log(newValue);
             onChange(newValue);
         }, 300)
     ).current;
