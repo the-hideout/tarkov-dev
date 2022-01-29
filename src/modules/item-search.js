@@ -1,24 +1,31 @@
 import Fuse from 'fuse.js';
 
+const formatName = (name) => {
+    return name
+        .toLowerCase()
+        .replace(/(\w)\s{1}/g, "$1")
+        .trim();
+};
+
 const itemSearch = (items, searchString) => {
-    let formattedSearchString = searchString.trim().toLowerCase();
+    let formattedSearchString = formatName(searchString)
 
     if(!formattedSearchString){
         return items;
     }
 
-    let matches = items.filter(item => item.shortName.toLowerCase() === formattedSearchString);
+    let matches = items.filter(item => formatName(item.shortName) === formattedSearchString);
 
     // console.log(`Length after shortname ${matches.length}`);
 
     if(!matches || matches.length === 0){
         // console.log('Checking for name match');
-        matches = items.filter(item => item.name.toLowerCase().includes(formattedSearchString));
+        matches = items.filter(item => formatName(item.name).includes(formattedSearchString));
     }
 
     if(!matches || matches.length === 0){
         // console.log('Checking for shortName match');
-        matches = items.filter(item => item.shortName.toLowerCase().includes(formattedSearchString));
+        matches = items.filter(item => formatName(item.shortName).includes(formattedSearchString));
     }
 
     if(!matches || matches.length === 0){
