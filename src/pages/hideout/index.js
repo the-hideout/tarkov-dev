@@ -40,7 +40,7 @@ const stations = [
 ];
 
 function Hideout() {
-    const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedStation', 'all');
+    const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedHideoutStation', 'all');
     const {t} = useTranslation();
     const dispatch = useDispatch();
     const hideout = useSelector(selectAllHideoutModules);
