@@ -143,6 +143,9 @@ function ToggleFilter({ label, onChange, checked, tooltipContent, disabled }) {
                 borderRadius={0}
                 className={'filter-toggle'}
                 onChange={onChange}
+                // onColor='#008800'
+                height={20}
+                width={40}
                 checked={checked}
                 disabled={disabled}
             />
