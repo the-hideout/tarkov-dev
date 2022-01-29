@@ -70,7 +70,7 @@ import ItemTracker from './pages/item-tracker/';
 import Hideout from './pages/hideout';
 import WipeLength from './pages/wipe-length';
 import About from './pages/about/';
-import GunBuilder from './pages/gun-builder';
+// import GunBuilder from './pages/gun-builder';
 
 import Guides from './pages/guides';
 
@@ -992,7 +992,7 @@ return (
                     />
                 ]}
             />
-            <Route
+            {/* <Route
                 path="/gun-builder"
                 element = {[
                     <div
@@ -1008,7 +1008,7 @@ return (
                         onClick = {e => dispatch(enableConnection())}
                     />
                 ]}
-            />
+            /> */}
             <Route
                 path="*"
                 element={<ErrorPage />}
