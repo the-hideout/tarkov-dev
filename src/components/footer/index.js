@@ -143,7 +143,7 @@ function Footer() {
             </p>
             <p>
             <a
-                href = {'https://discord.gg/B2xM8WZyVv'}
+                href = {'https://discord.gg/g9BGCuQGgp'}
             >
                 {t('Join the bot waitlist via our Discord')}
             </a>

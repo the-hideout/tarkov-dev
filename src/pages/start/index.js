@@ -177,7 +177,7 @@ function Start(props) {
                             {t('Discord bot - Currently full')}
                         {/* </a> */}
                         <a
-                            href = {'https://discord.gg/B2xM8WZyVv'}
+                            href = {'https://discord.gg/g9BGCuQGgp'}
                         >
                             <Icon
                                 path={mdiDiscord}
