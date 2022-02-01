@@ -196,7 +196,7 @@ function BartersTable(props) {
                     }
                 }
 
-                return true;
+                return false;
             })
             .map((barterRow) => {
                 let cost = 0;
