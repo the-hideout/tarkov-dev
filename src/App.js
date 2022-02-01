@@ -88,12 +88,20 @@ let socket = false;
 loadPolyfills();
 
 function App() {
+    const connectToId = new URLSearchParams(window.location.search).get('connection');
+    if(connectToId){
+        localStorage.setItem('sessionId', JSON.stringify(connectToId));
+    }
     const [sessionID] = useStateWithLocalStorage('sessionId', makeID(4));
     const socketEnabled = useSelector(state => state.sockets.enabled);
     const controlId = useSelector(state => state.sockets.controlId);
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const {t} = useTranslation();
+
+    if(connectToId){
+        dispatch(enableConnection());
+    }
 
     useEffect(() => {
         const handleDisplayMessage = (rawMessage) => {
