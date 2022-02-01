@@ -114,6 +114,7 @@ const settingsSlice = createSlice({
         completedQuests: [],
         useTarkovTracker: JSON.parse(localStorage.getItem('useTarkovTracker')) || false,
         tarkovTrackerModules: [],
+        'hideRemoteControl': JSON.parse(localStorage.getItem('hide-remote-control')) || false,
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {

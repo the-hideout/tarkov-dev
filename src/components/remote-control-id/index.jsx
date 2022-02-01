@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import './index.css';
 
@@ -11,6 +12,8 @@ const Sides = {
 function ID(props) {
     const [side, setSide] = useState(Sides.Left);
     const {t} = useTranslation();
+
+    const hide = useSelector((state) => state.settings.hideRemoteControl);
 
     let sideClass;
     let sideButtonContent;
@@ -28,6 +31,10 @@ function ID(props) {
     const handleSwitchSideClick = useCallback(() => {
         setSide(otherSide)
     }, [setSide, otherSide]);
+
+    if (hide) {
+        return null;
+    }
 
     return <div
         className={`id-wrapper ${ sideClass }`}
