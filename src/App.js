@@ -16,7 +16,7 @@ import './i18n';
 import loadPolyfills from './modules/polyfills';
 
 import Map from './components/Map.jsx';
-import ID from './components/ID.jsx';
+import ID from './components/remote-control-id';
 import Menu from './components/menu';
 import Footer from './components/footer';
 

@@ -1,6 +1,6 @@
 import {Bars} from 'react-loader-spinner';
 
-import ID from '../ID.jsx';
+import ID from '../remote-control-id';
 
 import './index.css';
 

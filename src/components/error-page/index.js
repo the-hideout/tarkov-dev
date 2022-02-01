@@ -1,7 +1,7 @@
 import {Helmet} from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
-import ID from '../ID.jsx';
+import ID from '../remote-control-id';
 import ItemSearch from '../item-search/index.js';
 
 import './index.css';
