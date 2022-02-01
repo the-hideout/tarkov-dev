@@ -7,14 +7,14 @@
 .navigation {
     align-items: center;
     display: flex;
-    flex-wrap: wrap;
     font-size: 40px;
+    gap: 10px;
 }
 
 .navigation a,
 .navigation button {
-    border: 0;
     border-radius: 0;
+    border: 0;
     color: #9a8866;
     text-align: left;
     text-decoration: none;
@@ -22,10 +22,13 @@
 }
 
 .menu {
+    align-items: center;
     display: none;
     font-size: 34px;
+    gap: 20px;
+    justify-content: end;
     line-height: 1;
-    margin: 0 0 7px;
+    margin: 0;
     padding: 0;
     text-decoration: none;
     text-transform: uppercase;
@@ -36,35 +39,28 @@
     display: block;
     padding: 20px;
     position: absolute;
-    margin: 0;
-    top: 52px;
+    top: 72px;
     z-index: 10;
 }
 
 .menu ul {
-    margin: 0;
-    padding: 0;
     list-style-type: none;
 }
 
 .menu a,
 .menu li,
 .menu span {
-    padding: 0;
     display: block;
     text-align: right;
-    margin-top: auto;
 }
 
 .mobile-icon {
     font-size: 0;
-    margin-left: auto;
 }
 
 .mobile-icon svg {
     fill: #9a8866;
     height: 54px;
-    padding: 3px 8px;
 }
 
 .App.connected .menu {
@@ -73,9 +69,17 @@
 
 .branding {
     border-radius: 0;
-    font-size: 30px;
-    flex-grow: 1;
-    padding: 1px 8px;
+    font-size: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+
+    font-size: 40px;
+    margin-left: 10px;
+}
+
+.branding img {
+    height: 42px;
 }
 
 .menu button {
@@ -87,7 +91,6 @@
     border-radius: 0;
     font-size: 20px;
     position: relative;
-    margin: auto 10px 0 0;
 }
 
 .menu .submenu-wrapper ul {
@@ -97,8 +100,7 @@
     display: none;
     left: 0;
     list-style: none;
-    margin: 0;
-    padding: 10px 0;
+    padding: 10px;
     position: absolute;
     z-index: 2;
 }
@@ -110,13 +112,10 @@
 
 .submenu-wrapper input {
     cursor: pointer;
-    margin: 0 0 0 18px;
 }
 
 .menu .submenu-wrapper ul a {
     border-radius: 0;
-    margin: 0 10px;
-    padding: 1px 8px;
 }
 
 .menu a:hover,
@@ -137,19 +136,14 @@
 
 .menu li:hover button {
     cursor: pointer;
-    /* text-decoration: underline; */
 }
 
 .external-link {
     border-radius: 0;
-    margin: 0 10px;
-    padding: 1px 8px;
 }
 
 .menu .last-link {
     position: relative;
-    margin-left: auto;
-    margin-top: auto;
 }
 
 .menu svg {
@@ -167,7 +161,6 @@
     color: #fff;
     cursor: default;
     display: none;
-    padding: 10px 20px;
     position: absolute;
     right: 0;
     top: 28px;
@@ -176,21 +169,17 @@
 
 li.desktop-only-link {
     display: none;
+    position: relative;
+    bottom: 2px;
 }
 
-@media only screen and (min-width: 700px) {
-    .branding {
-        margin: 0 30px 0 10px;
-    }
+.menu li.only-large {
+    display: none;
 }
 
-@media only screen and (min-width: 950px) {
-    .navigation {
-        align-items: end;
-    }
-
+@media only screen and (min-width: 1100px) {
     .branding {
-        font-size: 40px;
+        margin-right: 0;
     }
 
     .mobile-icon,
@@ -205,15 +194,16 @@ li.desktop-only-link {
     .menu {
         display: flex;
         font-size: 20px;
-        width: auto;
+        /* width: auto; */
     }
 
     .menu > li {
         border-width: 0 1px 0 0;
     }
+}
 
-    .menu a,
-    .menu span {
-        padding: 1px 8px;
+@media screen and (min-width: 1400px){
+    .menu li.only-large {
+        display: flex;
     }
-  }
+}

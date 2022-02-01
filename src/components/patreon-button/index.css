@@ -26,9 +26,3 @@
 .become-supporter-wrapper svg {
     margin-right: 0;
 }
-
-@media screen and (min-width: 1400px){
-    .become-supporter-wrapper.only-large {
-        display: block;
-    }
-}

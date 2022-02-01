@@ -8,10 +8,10 @@ import {
     mdiCogOutline,
     mdiRemote,
     mdiHeartFlash,
+    mdiMenu,
 } from '@mdi/js';
 
 import MenuItem from './MenuItem';
-import MenuIcon from './MenuIcon.jsx';
 import PatreonButton from '../patreon-button';
 
 import ammoData from '../../data/ammo.json';
@@ -40,6 +40,10 @@ const Menu = () => {
                 to = '/'
             >
                 Tarkov Tools
+                {/* <img
+                    alt='Tarkov Tools'
+                    src={`${process.env.PUBLIC_URL}/logo.svg`}
+                /> */}
             </Link>
             <Link
                 aria-label="Remote control"
@@ -65,33 +69,36 @@ const Menu = () => {
                     className = 'icon-with-text'
                 />
             </Link>
-            <PatreonButton
-                onlyLarge
-                wrapperStyle = {{
-                    position: 'relative',
-                    margin: 0,
-                    bottom: 9,
-                }}
-                linkStyle = {{
-                    // borderRadius: '5px',
-                    color: '#fff',
-                    padding: '5px 20px',
-                    margin: '0 20px 0 0 ',
-                }}
-            >
-                {t('Support on Patreon')}
-                <Icon
-                    path={mdiHeartFlash}
-                    size={1}
-                    className = 'icon-with-text'
-                />
-            </PatreonButton>
-            <MenuIcon
+            <Icon
+                path={mdiMenu}
+                size={3}
+                className = 'mobile-icon'
                 onClick = {handleMenuClick}
             />
             <ul
                 className = {`menu${isOpen ? ' open': ''}`}
             >
+                <li
+                    className='only-large'
+                >
+                    <PatreonButton
+                        wrapperStyle = {{
+                            margin: 0,
+                        }}
+                        linkStyle = {{
+                            color: '#fff',
+                            padding: '5px 20px',
+                            alignItems: 'center',
+                        }}
+                    >
+                        {t('Support on Patreon')}
+                        <Icon
+                            path={mdiHeartFlash}
+                            size={1}
+                            className = 'icon-with-text'
+                        />
+                    </PatreonButton>
+                </li>
                 <li
                     className = "submenu-wrapper"
                 >
@@ -248,8 +255,9 @@ const Menu = () => {
                     >
                         <Icon
                             path={mdiRemote}
-                            size={1}
+                            // size={1}
                             className = 'icon-with-text'
+                            size={'20px'}
                         />
                     </Link>
                 </li>
@@ -263,7 +271,7 @@ const Menu = () => {
                     >
                         <Icon
                             path={mdiCogOutline}
-                            size={1}
+                            size={'20px'}
                             className = 'icon-with-text'
                         />
                     </Link>
