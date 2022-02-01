@@ -1,7 +1,6 @@
 import {Helmet} from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
-import ID from '../remote-control-id';
 import ItemSearch from '../item-search/index.js';
 
 import './index.css';
@@ -31,11 +30,7 @@ function ErrorPage(props) {
             <ItemSearch
                 showDropdown
             />
-        </div>,
-        <ID
-            key = {'session-id'}
-            sessionID = {props.sessionID}
-        />
+        </div>
     ];
 };
 
