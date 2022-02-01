@@ -204,7 +204,8 @@ function App() {
         }));
     }, [controlId]);
 
-    const remoteControlSessionElement = <RemoteControlId
+    const hideRemoteControlId = useSelector((state) => state.settings.hideRemoteControl);
+    const remoteControlSessionElement = hideRemoteControlId ? null : <RemoteControlId
         key = 'connection-wrapper'
         sessionID = {sessionID}
         socketEnabled = {socketEnabled}
