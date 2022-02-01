@@ -11,6 +11,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Icon from '@mdi/react'
 import { mdiLock } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 // import CraftsTable from '../../components/crafts-table';
 import BartersTable from '../../components/barters-table';
@@ -35,6 +37,8 @@ import bestPrice from '../../modules/best-price';
 import Quests from '../../Quests';
 
 import './index.css';
+
+dayjs.extend(relativeTime);
 
 const CraftsTable = React.lazy(() => import('../../components/crafts-table'));
 
@@ -347,6 +351,11 @@ function Item() {
                                 </div>
                                 <div>
                                     {t('Highest scanned price last 24h')}: {formatPrice(currentItemData.high24hPrice)}
+                                </div>
+                                <div
+                                    title = {dayjs(currentItemData.updated).format('YYYY-MM-DD HH:mm:ss')}
+                                >
+                                    {t('Updated')}: {dayjs(currentItemData.updated).fromNow()}
                                 </div>
                             </div>
                         </div>}
