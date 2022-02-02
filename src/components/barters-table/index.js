@@ -1,14 +1,15 @@
-import {useMemo, useEffect, useRef} from 'react';
+import { useMemo, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import {
-    Link,
-} from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import DataTable from '../../components/data-table';
 // import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
-import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
-import {selectAllTraders} from '../../features/settings/settingsSlice';
+import {
+    selectAllBarters,
+    fetchBarters,
+} from '../../features/barters/bartersSlice';
+import { selectAllTraders } from '../../features/settings/settingsSlice';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
@@ -20,7 +21,8 @@ import './index.css';
 const priceToUse = 'lastLowPrice';
 
 function BartersTable(props) {
-    const { selectedTrader, nameFilter, itemFilter, removeDogtags, showAll} = props;
+    const { selectedTrader, nameFilter, itemFilter, removeDogtags, showAll } =
+        props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const includeFlea = useSelector((state) => state.settings.hasFlea);
@@ -39,7 +41,7 @@ function BartersTable(props) {
             dispatch(fetchBarters());
         }
 
-        if(!timer){
+        if (!timer) {
             timer = setInterval(() => {
                 dispatch(fetchBarters());
             }, 600000);
@@ -47,7 +49,7 @@ function BartersTable(props) {
 
         return () => {
             clearInterval(timer);
-        }
+        };
     }, [bartersStatus, dispatch]);
 
     const columns = useMemo(
@@ -55,19 +57,15 @@ function BartersTable(props) {
             {
                 Header: t('Reward'),
                 accessor: 'reward',
-                Cell: ({value}) => {
-                    return <RewardCell
-                        {...value}
-                    />;
+                Cell: ({ value }) => {
+                    return <RewardCell {...value} />;
                 },
             },
             {
                 Header: t('Cost'),
                 accessor: 'costItems',
-                Cell: ({value}) => {
-                    return <CostItemsCell
-                        costItems = {value}
-                    />;
+                Cell: ({ value }) => {
+                    return <CostItemsCell costItems={value} />;
                 },
             },
             {
@@ -77,19 +75,16 @@ function BartersTable(props) {
             },
             {
                 Header: t('Estimated savings'),
-                accessor: d=>Number(d.savings),
-                Cell: ({value}) => {
-                    return <ValueCell
-                        value = {value}
-                        highlightProfit
-                    />;
+                accessor: (d) => Number(d.savings),
+                Cell: ({ value }) => {
+                    return <ValueCell value={value} highlightProfit />;
                 },
                 sortType: (a, b) => {
-                    if(a.value > b.value){
+                    if (a.value > b.value) {
                         return 1;
                     }
 
-                    if(a.value < b.value){
+                    if (a.value < b.value) {
                         return -1;
                     }
 
@@ -100,21 +95,20 @@ function BartersTable(props) {
                 Header: t('instaProfit'),
                 accessor: 'instaProfit',
                 Cell: (props) => {
-                    return <ValueCell
-                        value = {props.value}
-                        highlightProfit
-                    >
-                        <div
-                            className = 'duration-wrapper'
-                        >
-                            {capitalizeFirst(props.row.original.instaProfitSource.source)}
-                        </div>
-                    </ValueCell>;
+                    return (
+                        <ValueCell value={props.value} highlightProfit>
+                            <div className="duration-wrapper">
+                                {capitalizeFirst(
+                                    props.row.original.instaProfitSource.source,
+                                )}
+                            </div>
+                        </ValueCell>
+                    );
                 },
                 sortType: 'basic',
             },
         ],
-        [t]
+        [t],
     );
 
     const data = useMemo(() => {
@@ -122,76 +116,91 @@ function BartersTable(props) {
         skippedByLevelRef.current = false;
 
         return barters
-            .filter(barter => {
-                if(!barter.rewardItems[0]){
+            .filter((barter) => {
+                if (!barter.rewardItems[0]) {
                     console.log(barter);
                     return false;
                 }
 
                 return true;
             })
-            .filter(barter => {
-                if(!itemFilter){
+            .filter((barter) => {
+                if (!itemFilter) {
                     return true;
                 }
 
-                for(const requiredItem of barter.requiredItems){
-                    if(requiredItem === null){
+                for (const requiredItem of barter.requiredItems) {
+                    if (requiredItem === null) {
                         continue;
                     }
 
-                    if(requiredItem.item.id === itemFilter){
+                    if (requiredItem.item.id === itemFilter) {
                         return true;
                     }
                 }
 
-                for(const rewardItem of barter.rewardItems){
-                    if(rewardItem.item.id === itemFilter){
+                for (const rewardItem of barter.rewardItems) {
+                    if (rewardItem.item.id === itemFilter) {
                         return true;
                     }
                 }
 
                 return false;
             })
-            .filter(barter => {
+            .filter((barter) => {
                 let [trader, level] = barter.source.split('LL');
 
                 level = parseInt(level);
                 trader = trader.trim();
 
-                if(!nameFilter && selectedTrader && selectedTrader !== 'all' && selectedTrader !== trader.toLowerCase().replace(/\s/g, '-')){
+                if (
+                    !nameFilter &&
+                    selectedTrader &&
+                    selectedTrader !== 'all' &&
+                    selectedTrader !== trader.toLowerCase().replace(/\s/g, '-')
+                ) {
                     return false;
                 }
 
-                if(showAll) {
+                if (showAll) {
                     skippedByLevelRef.current = false;
                 }
 
-                if(!showAll && level > traders[trader.toLowerCase()]){
+                if (!showAll && level > traders[trader.toLowerCase()]) {
                     skippedByLevelRef.current = true;
                     return false;
                 }
 
                 return true;
             })
-            .filter(barter => {
-                if(!nameFilter || nameFilter.length <= 0){
+            .filter((barter) => {
+                if (!nameFilter || nameFilter.length <= 0) {
                     return true;
                 }
 
                 const findString = nameFilter.toLowerCase().replace(/\s/g, '');
-                for(const requiredItem of barter.requiredItems){
-                    if(requiredItem === null){
+                for (const requiredItem of barter.requiredItems) {
+                    if (requiredItem === null) {
                         continue;
                     }
 
-                    if(requiredItem.item.name.toLowerCase().replace(/\s/g, '').includes(findString)){
+                    if (
+                        requiredItem.item.name
+                            .toLowerCase()
+                            .replace(/\s/g, '')
+                            .includes(findString)
+                    ) {
                         return true;
                     }
                 }
 
-                for(const rewardItem of barter.rewardItems){
-                    if(rewardItem.item.name.toLowerCase().replace(/\s/g, '').includes(findString)){
+                for (const rewardItem of barter.rewardItems) {
+                    if (
+                        rewardItem.item.name
+                            .toLowerCase()
+                            .replace(/\s/g, '')
+                            .includes(findString)
+                    ) {
                         return true;
                     }
                 }
@@ -201,39 +210,56 @@ function BartersTable(props) {
             .map((barterRow) => {
                 let cost = 0;
 
-                if(removeDogtags){
-                    for(const requiredItem of barterRow.requiredItems){
-                        if(requiredItem === null){
+                if (removeDogtags) {
+                    for (const requiredItem of barterRow.requiredItems) {
+                        if (requiredItem === null) {
                             continue;
                         }
 
-                        if(requiredItem.item.name.toLowerCase().replace(/\s/g, '').includes('dogtag')){
+                        if (
+                            requiredItem.item.name
+                                .toLowerCase()
+                                .replace(/\s/g, '')
+                                .includes('dogtag')
+                        ) {
                             return false;
                         }
                     }
                 }
 
-                const costItems = formatCostItems(barterRow.requiredItems, 1, barters, false, includeFlea);
-                costItems.map(costItem => cost = cost + costItem.price * costItem.count);
+                const costItems = formatCostItems(
+                    barterRow.requiredItems,
+                    1,
+                    barters,
+                    false,
+                    includeFlea,
+                );
+                costItems.map(
+                    (costItem) =>
+                        (cost = cost + costItem.price * costItem.count),
+                );
 
-                const bestSellTo = barterRow.rewardItems[0].item.sellFor.reduce((previousSellForObject, sellForObject) => {
-                    if(sellForObject.source === 'fleaMarket'){
-                        return previousSellForObject;
-                    }
+                const bestSellTo = barterRow.rewardItems[0].item.sellFor.reduce(
+                    (previousSellForObject, sellForObject) => {
+                        if (sellForObject.source === 'fleaMarket') {
+                            return previousSellForObject;
+                        }
 
-                    if(sellForObject.source === 'jaeger' && !hasJaeger){
-                        return previousSellForObject;
-                    }
+                        if (sellForObject.source === 'jaeger' && !hasJaeger) {
+                            return previousSellForObject;
+                        }
 
-                    if(previousSellForObject.price > sellForObject.price){
-                        return previousSellForObject;
-                    }
+                        if (previousSellForObject.price > sellForObject.price) {
+                            return previousSellForObject;
+                        }
 
-                    return sellForObject;
-                }, {
-                    source: 'unknown',
-                    price: 0,
-                });
+                        return sellForObject;
+                    },
+                    {
+                        source: 'unknown',
+                        price: 0,
+                    },
+                );
 
                 const tradeData = {
                     costItems: costItems,
@@ -245,22 +271,37 @@ function BartersTable(props) {
                         name: barterRow.rewardItems[0].item.name,
                         value: barterRow.rewardItems[0].item[priceToUse],
                         source: barterRow.source,
-                        iconLink: barterRow.rewardItems[0].item.iconLink || 'https://tarkov-tools.com/images/unknown-item-icon.jpg',
+                        iconLink:
+                            barterRow.rewardItems[0].item.iconLink ||
+                            'https://tarkov-tools.com/images/unknown-item-icon.jpg',
                         itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,
                     },
                 };
 
-                const bestTraderValue = Math.max(...barterRow.rewardItems[0].item.traderPrices.map(priceObject => {
-                    if(!hasJaeger && priceObject.trader.name === 'Jaeger'){
-                        return 0;
-                    }
+                const bestTraderValue = Math.max(
+                    ...barterRow.rewardItems[0].item.traderPrices.map(
+                        (priceObject) => {
+                            if (
+                                !hasJaeger &&
+                                priceObject.trader.name === 'Jaeger'
+                            ) {
+                                return 0;
+                            }
 
-                    return priceObject.price
-                }));
+                            return priceObject.price;
+                        },
+                    ),
+                );
 
-                const bestTrade = barterRow.rewardItems[0].item.traderPrices.find(traderPrice => traderPrice.price === bestTraderValue);
+                const bestTrade =
+                    barterRow.rewardItems[0].item.traderPrices.find(
+                        (traderPrice) => traderPrice.price === bestTraderValue,
+                    );
 
-                if((bestTrade && bestTrade.price > tradeData.reward.value) || (bestTrade && !includeFlea)){
+                if (
+                    (bestTrade && bestTrade.price > tradeData.reward.value) ||
+                    (bestTrade && !includeFlea)
+                ) {
                     // console.log(barterRow.rewardItems[0].item.traderPrices);
                     tradeData.reward.value = bestTrade.price;
                     tradeData.reward.sellTo = bestTrade.trader.name;
@@ -269,7 +310,7 @@ function BartersTable(props) {
                 tradeData.savings = tradeData.reward.value - cost;
 
                 // If the reward has no value, it's not available for purchase
-                if(tradeData.reward.value === 0){
+                if (tradeData.reward.value === 0) {
                     tradeData.reward.value = tradeData.cost;
                     tradeData.reward.barterOnly = true;
                     tradeData.savings = 0;
@@ -283,27 +324,26 @@ function BartersTable(props) {
             })
             .filter(Boolean)
             .sort((itemA, itemB) => {
-                if(itemB.savings > itemA.savings){
+                if (itemB.savings > itemA.savings) {
                     return -1;
-                };
+                }
 
-                if(itemB.savings < itemA.savings){
+                if (itemB.savings < itemA.savings) {
                     return 1;
                 }
 
                 return 0;
             })
             .filter((barter) => {
-
-                if(selectedTrader !== 'all'){
+                if (selectedTrader !== 'all') {
                     return true;
                 }
 
-                if(selectedTrader === 'all'){
+                if (selectedTrader === 'all') {
                     return true;
                 }
 
-                if(addedTraders.includes(barter.reward.source)){
+                if (addedTraders.includes(barter.reward.source)) {
                     return false;
                 }
 
@@ -311,44 +351,53 @@ function BartersTable(props) {
 
                 return true;
             });
-        },
-        [nameFilter, selectedTrader, barters, includeFlea, itemFilter, traders, hasJaeger, t, removeDogtags, showAll]
-    );
+    }, [
+        nameFilter,
+        selectedTrader,
+        barters,
+        includeFlea,
+        itemFilter,
+        traders,
+        hasJaeger,
+        t,
+        removeDogtags,
+        showAll,
+    ]);
 
     let extraRow = false;
 
-    if(data.length <= 0){
+    if (data.length <= 0) {
         extraRow = t('No barters available for selected filters');
     }
 
-    if(data.length <= 0 && skippedByLevelRef.current){
-        extraRow = <div>
-            {t('No barters available for selected filters but some were hidden by ')}
-            <Link
-                to = '/settings/'
-            >
-                {t('your settings')}
-            </Link>
-        </div>;
+    if (data.length <= 0 && skippedByLevelRef.current) {
+        extraRow = (
+            <div>
+                {t(
+                    'No barters available for selected filters but some were hidden by ',
+                )}
+                <Link to="/settings/">{t('your settings')}</Link>
+            </div>
+        );
     }
 
-    if(data.length > 0 && skippedByLevelRef.current){
-        extraRow = <div>
-            {t('Some barters hidden by ')}
-            <Link
-                to = '/settings/'
-            >
-                {t('your settings')}
-            </Link>
-        </div>;
+    if (data.length > 0 && skippedByLevelRef.current) {
+        extraRow = (
+            <div>
+                {t('Some barters hidden by ')}
+                <Link to="/settings/">{t('your settings')}</Link>
+            </div>
+        );
     }
 
-    return <DataTable
-        columns={columns}
-        extraRow = {extraRow}
-        key = 'barters-table'
-        data={data}
-    />;
-};
+    return (
+        <DataTable
+            columns={columns}
+            extraRow={extraRow}
+            key="barters-table"
+            data={data}
+        />
+    );
+}
 
 export default BartersTable;

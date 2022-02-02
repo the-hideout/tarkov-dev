@@ -1,12 +1,12 @@
 import { Component } from 'react';
-import {Navigate} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import shapes from './points';
 
 const SIZE = 2;
 
 class Symbol extends Component {
-    constructor(){
+    constructor() {
         super();
 
         this.state = {
@@ -14,30 +14,27 @@ class Symbol extends Component {
         };
 
         this.handleOnClick = () => {
-            if(this.props.link === false){
+            if (this.props.link === false) {
                 return true;
             }
 
             this.setState({
-                redirect: true
+                redirect: true,
             });
-        }
+        };
     }
 
     render() {
         if (this.state.redirect) {
-            return <Navigate
-                replace
-                to = {`/item/${this.props.datum.id}`}
-            />;
+            return <Navigate replace to={`/item/${this.props.datum.id}`} />;
         }
 
-        const {x, y, datum} = this.props;
+        const { x, y, datum } = this.props;
         const PointComponent = shapes[datum.symbol.type];
 
         return (
             <PointComponent
-                onClick = {this.handleOnClick}
+                onClick={this.handleOnClick}
                 width={SIZE}
                 height={SIZE}
                 fill={datum.symbol.fill}

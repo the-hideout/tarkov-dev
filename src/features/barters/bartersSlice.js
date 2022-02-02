@@ -7,8 +7,11 @@ const initialState = {
     error: null,
 };
 
-export const fetchBarters = createAsyncThunk('barters/fetchBarters', async () => {
-    const bodyQuery = JSON.stringify({query: `{
+export const fetchBarters = createAsyncThunk(
+    'barters/fetchBarters',
+    async () => {
+        const bodyQuery = JSON.stringify({
+            query: `{
         barters {
           rewardItems {
             item {
@@ -67,46 +70,46 @@ export const fetchBarters = createAsyncThunk('barters/fetchBarters', async () =>
           }
           source
         }
-    }`
-    });
+    }`,
+        });
 
-    const response = await fetch('https://tarkov-tools.com/graphql', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        },
-        body: bodyQuery,
-    });
+        const response = await fetch('https://tarkov-tools.com/graphql', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+            body: bodyQuery,
+        });
 
-    const bartersData = await response.json();
+        const bartersData = await response.json();
 
-    return bartersData.data.barters;
-
-});
+        return bartersData.data.barters;
+    },
+);
 
 const bartersSlice = createSlice({
     name: 'barters',
     initialState,
     reducers: {
         toggleItem: (state, action) => {
-            let newBarters = [
-                ...state.barters,
-            ];
+            let newBarters = [...state.barters];
 
             newBarters = newBarters.map((barter) => {
-                barter.requiredItems = barter.requiredItems.map((requiredItem) => {
-                    if(requiredItem.item.id === action.payload.itemId){
-                        if(requiredItem.count === 0){
-                            requiredItem.count = requiredItem.originalCount;
-                        } else {
-                            requiredItem.originalCount = requiredItem.count;
-                            requiredItem.count = 0;
+                barter.requiredItems = barter.requiredItems.map(
+                    (requiredItem) => {
+                        if (requiredItem.item.id === action.payload.itemId) {
+                            if (requiredItem.count === 0) {
+                                requiredItem.count = requiredItem.originalCount;
+                            } else {
+                                requiredItem.originalCount = requiredItem.count;
+                                requiredItem.count = 0;
+                            }
                         }
-                    }
 
-                    return requiredItem;
-                });
+                        return requiredItem;
+                    },
+                );
 
                 return barter;
             });
@@ -121,7 +124,7 @@ const bartersSlice = createSlice({
         [fetchBarters.fulfilled]: (state, action) => {
             state.status = 'succeeded';
 
-            if(!equal(state.barters, action.payload)){
+            if (!equal(state.barters, action.payload)) {
                 state.barters = action.payload;
             }
         },
@@ -132,9 +135,7 @@ const bartersSlice = createSlice({
     },
 });
 
-export const {
-    toggleItem,
-} = bartersSlice.actions;
+export const { toggleItem } = bartersSlice.actions;
 
 export default bartersSlice.reducer;
 

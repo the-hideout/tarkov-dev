@@ -6,12 +6,12 @@ module.exports = (itemData) => {
     let bestPrice = itemData.avg24hPrice;
     let bestPriceFee = currentFee;
 
-    for(let i = itemData.avg24hPrice - 1000; i > 0; i = i - 1000){
+    for (let i = itemData.avg24hPrice - 1000; i > 0; i = i - 1000) {
         const newFee = calculateFee(i, itemData.basePrice);
 
         const newProfit = i - newFee;
 
-        if(newProfit <= bestProfit){
+        if (newProfit <= bestProfit) {
             break;
         }
 

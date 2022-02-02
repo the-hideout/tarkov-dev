@@ -6,9 +6,9 @@ class Circle extends Component {
             <svg
                 {...this.props}
                 viewBox="0 0 200 200"
-                xmlns="http://www.w3.org/2000/svg" 
+                xmlns="http://www.w3.org/2000/svg"
             >
-                <path 
+                <path
                     d="
                         M 100, 100
                         m -75, 0
@@ -19,6 +19,6 @@ class Circle extends Component {
             </svg>
         );
     }
-};
+}
 
 export default Circle;

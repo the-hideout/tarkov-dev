@@ -7,18 +7,35 @@ import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 import './index.css';
 
-function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraRow, nameFilter, autoScroll, disableSortBy }) {
+function DataTable({
+    columns,
+    data,
+    autoResetSortBy,
+    className,
+    maxItems,
+    extraRow,
+    nameFilter,
+    autoScroll,
+    disableSortBy,
+}) {
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
 
-    const storageKey = columns.map(({ Header }) => {
-        if(!Header || typeof Header !== 'string'){
-            return '';
-        }
+    const storageKey = columns
+        .map(({ Header }) => {
+            if (!Header || typeof Header !== 'string') {
+                return '';
+            }
 
-        return Header.toLowerCase().replace(/\s/, '-').replace(/[^a-z-]/g, '');
-    }).join(',');
-    const [ initialSortBy, storageSetSortBy ] = useStateWithLocalStorage(storageKey, []);
+            return Header.toLowerCase()
+                .replace(/\s/, '-')
+                .replace(/[^a-z-]/g, '');
+        })
+        .join(',');
+    const [initialSortBy, storageSetSortBy] = useStateWithLocalStorage(
+        storageKey,
+        [],
+    );
     const { ref, inView } = useInView({
         threshold: 0,
     });
@@ -32,43 +49,46 @@ function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraR
         rows,
         prepareRow,
         setPageSize,
-        state: {
-            sortBy: sortByState,
-        } = {},
+        state: { sortBy: sortByState } = {},
         state,
-    } = useTable({
-        columns,
-        data,
-        initialState: {
-            pageSize: maxItems || 10,
-            sortBy: initialSortBy,
+    } = useTable(
+        {
+            columns,
+            data,
+            initialState: {
+                pageSize: maxItems || 10,
+                sortBy: initialSortBy,
+            },
+            autoResetSortBy: autoResetSortBy,
+            disableSortBy,
         },
-        autoResetSortBy: autoResetSortBy,
-        disableSortBy,
-    }, useSortBy, useExpanded, usePagination);
+        useSortBy,
+        useExpanded,
+        usePagination,
+    );
 
     useEffect(() => {
         storageSetSortBy(sortByState);
     }, [storageSetSortBy, sortByState]);
 
     useEffect(() => {
-        if(nameFilter && sortByState[0]?.id === 'name'){
+        if (nameFilter && sortByState[0]?.id === 'name') {
             setSortBy([]);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nameFilter]);
 
     useEffect(() => {
-        if(autoScroll && inView && data.length > state.pageSize){
-            setPageSize(state.pageSize + 50)
+        if (autoScroll && inView && data.length > state.pageSize) {
+            setPageSize(state.pageSize + 50);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inView, autoScroll]);
 
     const getRows = () => {
         let rowContainer = rows;
 
-        if(maxItems){
+        if (maxItems) {
             rowContainer = page;
         }
 
@@ -76,62 +96,64 @@ function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraR
             prepareRow(row);
             const tableProps = row.getRowProps();
 
-            tableProps.className = `${row.isExpanded || row.depth === 1 ? 'expanded' : ''}`
+            tableProps.className = `${
+                row.isExpanded || row.depth === 1 ? 'expanded' : ''
+            }`;
             return (
-                <tr
-                    {
-                        ...tableProps
-                    }
-                >
-                    {row.cells.map(cell => {
-                        return <td
-                            className = {'data-cell'}
-                            {
-                                ...cell.getCellProps()
-                            }
-                        >
-                            {cell.render('Cell')}
-                        </td>
+                <tr {...tableProps}>
+                    {row.cells.map((cell) => {
+                        return (
+                            <td
+                                className={'data-cell'}
+                                {...cell.getCellProps()}
+                            >
+                                {cell.render('Cell')}
+                            </td>
+                        );
                     })}
                 </tr>
-            )
-        })
+            );
+        });
     };
 
     // Render the UI for your table
     return (
-        <div
-        className = 'table-wrapper'
-        >
-            <table
-                className = {`data-table ${className}`}
-                {
-                    ...getTableProps()
-                }
-            >
+        <div className="table-wrapper">
+            <table className={`data-table ${className}`} {...getTableProps()}>
                 <thead>
-                    {headerGroups.map(headerGroup => (
-                        <tr {
-                            ...headerGroup.getHeaderGroupProps()
-                            }
-                        >
-                            {headerGroup.headers.map(column => (
-                                <th {
-                                    ...column.getHeaderProps(column.getSortByToggleProps())
-                                }>
-                                    <span
-                                        className = {'header-text'}
-                                    >
+                    {headerGroups.map((headerGroup) => (
+                        <tr {...headerGroup.getHeaderGroupProps()}>
+                            {headerGroup.headers.map((column) => (
+                                <th
+                                    {...column.getHeaderProps(
+                                        column.getSortByToggleProps(),
+                                    )}
+                                >
+                                    <span className={'header-text'}>
                                         {column.render('Header')}
                                     </span>
                                     {/* Add a sort direction indicator */}
                                     <div
-                                        className = {'header-sort-icon'}
-                                        style = {{
-                                            // marginLeft: '2px',
-                                        }}
+                                        className={'header-sort-icon'}
+                                        style={
+                                            {
+                                                // marginLeft: '2px',
+                                            }
+                                        }
                                     >
-                                        {column.isSorted ? column.isSortedDesc ? <ArrowIcon/> : <ArrowIcon className = {'arrow-up'} /> : <div className = { 'arrow-placeholder' } />}
+                                        {column.isSorted ? (
+                                            column.isSortedDesc ? (
+                                                <ArrowIcon />
+                                            ) : (
+                                                <ArrowIcon
+                                                    className={'arrow-up'}
+                                                />
+                                            )
+                                        ) : (
+                                            <div
+                                                className={'arrow-placeholder'}
+                                            />
+                                        )}
                                     </div>
                                 </th>
                             ))}
@@ -139,20 +161,18 @@ function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraR
                     ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                    {
-                        getRows()
-                    }
-                    {extraRow && <tr>
-                        <td
-                            className = 'data-cell table-extra-row'
-                            colSpan = {999}
-                        >
-                            {extraRow}
-                        </td>
-                    </tr>}
-                    <tr
-                        ref={ref}
-                    ></tr>
+                    {getRows()}
+                    {extraRow && (
+                        <tr>
+                            <td
+                                className="data-cell table-extra-row"
+                                colSpan={999}
+                            >
+                                {extraRow}
+                            </td>
+                        </tr>
+                    )}
+                    <tr ref={ref}></tr>
                 </tbody>
             </table>
         </div>
@@ -160,5 +180,3 @@ function DataTable({ columns, data, autoResetSortBy, className, maxItems, extraR
 }
 
 export default DataTable;
-
-

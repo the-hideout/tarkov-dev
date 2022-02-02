@@ -1,7 +1,6 @@
-
 .item-group-wrapper {
     border: 1px solid #1b1919;
-    background-color: #292626;
+    background-color: #2a2828;
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 10px;
@@ -42,7 +41,7 @@
 }
 
 .item-group-wrapper.big {
-    font-size: 40px;;
+    font-size: 40px;
 }
 
 .item-group-subtitle-wrapper {
@@ -55,7 +54,7 @@
 .item-group-items {
     display: grid;
     grid-auto-rows: var(--grid-base);
-    grid-template-columns: repeat( auto-fill, minmax(var(--grid-base), 1fr ) );
+    grid-template-columns: repeat(auto-fill, minmax(var(--grid-base), 1fr));
     margin: auto;
     width: 90vw;
 }
@@ -75,7 +74,7 @@
 }
 
 .sell-to-icon {
-    background-color: rgba(0,0,0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     border-top-left-radius: 3px;
     bottom: 1px;
     color: #c7c5b3;
@@ -94,7 +93,7 @@
 }
 
 .grid-item-tooltip {
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     color: #fff;
     font-size: 12px;
     opacity: 0;
@@ -174,13 +173,13 @@
     grid-column-end: span 4;
 }
 
-@media screen and (min-width: 1920px){
+@media screen and (min-width: 1920px) {
     .item-group-wrapper {
         --grid-base: 60px;
     }
 }
 
-@media screen and (min-width: 710px){
+@media screen and (min-width: 710px) {
     .item-group-title {
         width: 10vw;
     }

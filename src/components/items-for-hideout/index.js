@@ -1,7 +1,10 @@
 import { useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
+import {
+    selectAllHideoutModules,
+    fetchHideout,
+} from '../../features/hideout/hideoutSlice';
 
 import './index.css';
 
@@ -28,26 +31,29 @@ function ItemsForHideout(props) {
 
         return () => {
             clearInterval(timer);
-        }
+        };
     }, [hideoutStatus, dispatch]);
 
     // Data manipulation section
     const data = useMemo(() => {
         return hideout.reduce((acc, curr) => {
-            acc.push(...curr.itemRequirements.filter(c => {
-                if(!c){
-                    return false;
-                }
+            acc.push(
+                ...curr.itemRequirements
+                    .filter((c) => {
+                        if (!c) {
+                            return false;
+                        }
 
-                return c.item.id === itemFilter;
-            })
-            .map(c => {
-                return {
-                    ...c,
-                    moduleName: curr.name,
-                    level: curr.level,
-                };
-            }));
+                        return c.item.id === itemFilter;
+                    })
+                    .map((c) => {
+                        return {
+                            ...c,
+                            moduleName: curr.name,
+                            level: curr.level,
+                        };
+                    }),
+            );
 
             return acc;
         }, []);
@@ -63,7 +69,7 @@ function ItemsForHideout(props) {
 
     let extraRow = false;
 
-    if(data.length <= 0){
+    if (data.length <= 0) {
         extraRow = t('No hideout modules requires this item');
     }
 
@@ -71,75 +77,74 @@ function ItemsForHideout(props) {
         <div className="table-wrapper">
             <table className="hideout-item-list">
                 <thead>
-                    <tr
-                        className = 'hideout-item-list-row'
-                    >
+                    <tr className="hideout-item-list-row">
                         <th>{t('Hideout Module')}</th>
                         <th>{t('Item')}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {extraRow && <tr
-                        className="hideout-item-list-row hideout-item-list-extra-row"
-                    >
-                        <td
-                            colSpan={2}
-                            className="hideout-item-list-column"
-                        >
-                            {extraRow}
-                        </td>
-                    </tr>}
-                    {data.map((item, k) => {
-                        return (<tr key={k} className="hideout-item-list-row">
+                    {extraRow && (
+                        <tr className="hideout-item-list-row hideout-item-list-extra-row">
                             <td
+                                colSpan={2}
                                 className="hideout-item-list-column"
                             >
-                                <div
-                                    className= 'hideout-name-wrapper'
-                                >
-                                    <img
-                                        alt={item.moduleName}
-                                        className = 'quest-giver-image'
-                                        loading='lazy'
-                                        src={`${ process.env.PUBLIC_URL }/images/${item.moduleName.toLowerCase().replace(/\s/, '-')}-icon.png`}
-                                    />
-                                    <div>
+                                {extraRow}
+                            </td>
+                        </tr>
+                    )}
+                    {data.map((item, k) => {
+                        return (
+                            <tr key={k} className="hideout-item-list-row">
+                                <td className="hideout-item-list-column">
+                                    <div className="hideout-name-wrapper">
+                                        <img
+                                            alt={item.moduleName}
+                                            className="quest-giver-image"
+                                            loading="lazy"
+                                            src={`${
+                                                process.env.PUBLIC_URL
+                                            }/images/${item.moduleName
+                                                .toLowerCase()
+                                                .replace(/\s/, '-')}-icon.png`}
+                                        />
                                         <div>
-                                            {item.moduleName}
-                                        </div>
-                                        <div>
-                                            {t('Level')} {item.level}
+                                            <div>{item.moduleName}</div>
+                                            <div>
+                                                {t('Level')} {item.level}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td className="hideout-item-list-column">
-                                <div className="hideout-item-wrapper">
-                                    <div
-                                        className='hideout-item-image-wrapper'
-                                    ><img
-                                            alt={item.item.name}
-                                            loading='lazy'
-                                            height='34'
-                                            width='34'
-                                            src={item.item.iconLink}
-                                        /></div>
-                                    <div
-                                        className='hideout-item-text-wrapper'
-                                    >
-                                        {item.item.name}
-                                        <div className='amount-wrapper'>
-                                            {t('Amount')}: {new Intl.NumberFormat().format(item.quantity)}
+                                </td>
+                                <td className="hideout-item-list-column">
+                                    <div className="hideout-item-wrapper">
+                                        <div className="hideout-item-image-wrapper">
+                                            <img
+                                                alt={item.item.name}
+                                                loading="lazy"
+                                                height="34"
+                                                width="34"
+                                                src={item.item.iconLink}
+                                            />
+                                        </div>
+                                        <div className="hideout-item-text-wrapper">
+                                            {item.item.name}
+                                            <div className="amount-wrapper">
+                                                {t('Amount')}:{' '}
+                                                {new Intl.NumberFormat().format(
+                                                    item.quantity,
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>)
+                                </td>
+                            </tr>
+                        );
                     })}
                 </tbody>
             </table>
         </div>
-    )
+    );
 }
 
 export default ItemsForHideout;

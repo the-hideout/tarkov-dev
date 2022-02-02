@@ -4,44 +4,47 @@ import Supporter from '../../components/supporter';
 
 import supporters from '../../supporters';
 
-function SupportersList({tierFilter, typeFilter, type}) {
-    const {t} = useTranslation();
+function SupportersList({ tierFilter, typeFilter, type }) {
+    const { t } = useTranslation();
 
     let validSupporters = supporters.filter((supporter) => {
-        if(supporter.name === 'kokarn'){
+        if (supporter.name === 'kokarn') {
             return false;
         }
 
-        if(tierFilter && supporter.tier !== tierFilter){
+        if (tierFilter && supporter.tier !== tierFilter) {
             return false;
         }
 
-        if(typeFilter && !supporter[typeFilter]){
+        if (typeFilter && !supporter[typeFilter]) {
             return false;
         }
 
         return true;
     });
 
-    if(validSupporters.length === 0){
-        return <p>
-            <a href="https://www.patreon.com/kokarn"
-            >
-                {t('Be the first!')}
-            </a>
-        </p>
+    if (validSupporters.length === 0) {
+        return (
+            <p>
+                <a href="https://www.patreon.com/kokarn">
+                    {t('Be the first!')}
+                </a>
+            </p>
+        );
     }
 
     return [
         validSupporters.map((supporter) => {
-            return <Supporter
-                key = {`supporter-${supporter.name}-${typeFilter}`}
-                name = {supporter.name}
-                // github = {supporter.github}
-                // patreon = {supporter.patreon}
-                link = {supporter.link}
-                inline = {type === 'inline'}
-            />;
+            return (
+                <Supporter
+                    key={`supporter-${supporter.name}-${typeFilter}`}
+                    name={supporter.name}
+                    // github = {supporter.github}
+                    // patreon = {supporter.patreon}
+                    link={supporter.link}
+                    inline={type === 'inline'}
+                />
+            );
         }),
     ];
 }

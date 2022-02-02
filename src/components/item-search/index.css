@@ -2,11 +2,11 @@
     position: relative;
 }
 
-.item-search input[type="text"] {
-	font-size: 20px;
-	margin-bottom: 20px;
-	padding: 24px 10px;
-	width: 100%;
+.item-search input[type='text'] {
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding: 24px 10px;
+    width: 100%;
 }
 
 .item-list-wrapper {

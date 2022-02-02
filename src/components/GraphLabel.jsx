@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-    VictoryLabel,
-    VictoryTooltip,
-} from 'victory';
+import { VictoryLabel, VictoryTooltip } from 'victory';
 
 class GraphLabel extends React.Component {
     static defaultEvents = VictoryTooltip.defaultEvents;
@@ -10,10 +7,7 @@ class GraphLabel extends React.Component {
     render() {
         return (
             <g>
-                <VictoryLabel {
-                    ...this.props
-                }
-                />
+                <VictoryLabel {...this.props} />
                 <VictoryTooltip
                     {...this.props}
                     // x={0}
@@ -25,7 +19,7 @@ class GraphLabel extends React.Component {
                     width={10}
                     height={10}
                     flyoutStyle={{
-                        fill: "black",
+                        fill: 'black',
                     }}
                 />
             </g>

@@ -1,4 +1,3 @@
-
 .property-list {
     display: flex;
     flex-flow: wrap;
@@ -9,7 +8,7 @@
 
 .property-wrapper {
     align-items: center;
-    background-color: #292626;
+    background-color: #2a2828;
     border: 1px solid #1b1919;
     display: flex;
     flex-basis: calc(50% - 2.5px);

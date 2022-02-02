@@ -203,7 +203,7 @@ li.desktop-only-link {
     }
 }
 
-@media screen and (min-width: 1400px){
+@media screen and (min-width: 1400px) {
     .menu li.only-large {
         display: flex;
     }

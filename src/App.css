@@ -1,33 +1,35 @@
 :root {
-	--display-height: auto;
+    --display-height: auto;
 }
 
 body {
-	background-color: #292626;
-	background-image: url('images/background.png');
-	color: #c7c5b3;
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-		'Droid Sans', 'Helvetica Neue', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    background-color: #292626;
+    background-image: url('images/background.png');
+    color: #c7c5b3;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
 }
 
 body * {
-	font-family: 'bender', Helvetica, sans-serif;
-	box-sizing: border-box;
+    font-family: 'bender', Helvetica, sans-serif;
+    box-sizing: border-box;
 }
 
 iframe {
-	border: 0;
-	height: 100%;
-	width: 100%;
+    border: 0;
+    height: 100%;
+    width: 100%;
 }
 
 input,
@@ -37,124 +39,125 @@ button {
 }
 
 button,
-input[type="submit"] {
+input[type='submit'] {
     background-color: #9a8866;
-	border: 0;
-	color: #000;
+    border: 0;
+    color: #000;
     height: 40px;
     padding: 0;
 }
 
 input[type='text'],
 input[type='number'] {
-	padding: 12px;
-	max-height: 40px;
+    padding: 12px;
+    max-height: 40px;
 
-	border: 2px solid #9a8866;
+    border: 2px solid #9a8866;
     background-color: #292626;
-	color: #c7c5b3;
+    color: #c7c5b3;
 }
 
 input[type='text']:focus,
 input[type='number']:focus {
-	outline: none;
-	border: 2px solid #c7c5b3;
+    outline: none;
+    border: 2px solid #c7c5b3;
 }
 
-input[type="text"].number {
-	width: 80px;
+input[type='text'].number {
+    width: 80px;
 }
 
 input[name='session-id'] {
-	padding-left: 20px;
+    padding-left: 20px;
 }
 
 select {
-	padding: 10px;
-	margin-bottom: 2vh;
+    padding: 10px;
+    margin-bottom: 2vh;
 }
 
 a {
-	color: #9a8866;
-	text-decoration: none;
+    color: #9a8866;
+    text-decoration: none;
 }
 
 cite {
-	display: block;
-	font-size: 14px;
+    display: block;
+    font-size: 14px;
 }
 
 .display-wrapper {
-	height: var(--display-height);
+    height: var(--display-height);
     min-height: 80vh;
-	margin: 0 10px;
-	position: relative;
+    margin: 0 10px;
+    position: relative;
 }
 
 .page-wrapper {
-	margin: 0 10px;
-	max-width: 1200px;
+    margin: 0 10px;
+    max-width: 1200px;
     min-height: 80vh;
 }
 
 .updated-label {
-	color: #ccc;
-	font-size: 10px;
-	left: 4px;
-	position: absolute;
-	top: 2px;
+    color: #ccc;
+    font-size: 10px;
+    left: 4px;
+    position: absolute;
+    top: 2px;
 }
 
 .time-wrapper {
-	background-color: rgba(0, 0, 0, 0.5);
-	padding: 10px 20px;
-	position: absolute;
-	right: -10px;
-	top: 0;
-	z-index: 5;
-	text-align: right;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    position: absolute;
+    right: -10px;
+    top: 0;
+    z-index: 5;
+    text-align: right;
 }
 
 .time-wrapper a {
-	color: inherit;
+    color: inherit;
 }
 
 .time-wrapper div {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
 }
 
 .map-image-wrapper {
-	height: var(--display-height);
-	width: 98vw;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    height: var(--display-height);
+    width: 98vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .map-image {
-	max-height: 100%;
-	max-width: 100%;
-	object-fit: contain;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
 }
 
 .icon-with-text {
-	vertical-align: middle;
-	margin-right: 8px;
-	margin-left: 8px;
+    vertical-align: middle;
+    margin-right: 8px;
+    margin-left: 8px;
 }
 
 .center-title {
-	text-align: center;
+    text-align: center;
 }
 
 .screen-link {
-	margin-left: 8px;
-	margin-right: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
 }
 
 .price-wrapper {
-	color: #636363;
-	font-size: 14px;
+    color: #636363;
+    font-size: 14px;
 }
 
 .page-headline-wrapper {
@@ -176,9 +179,9 @@ div.tippy-box {
 }
 
 @media screen and (min-width: 710px) {
-	.control-wrapper {
-		display: none;
-	}
+    .control-wrapper {
+        display: none;
+    }
 
     .page-headline-wrapper h1 {
         flex-grow: 1;
@@ -187,14 +190,14 @@ div.tippy-box {
 }
 
 @media screen and (min-width: 1200px) {
-	.page-wrapper {
-		margin: 0 auto;
-	}
+    .page-wrapper {
+        margin: 0 auto;
+    }
 }
 
 @media screen and (min-width: 1800px) {
-	.page-wrapper {
-		margin: 0 auto;
-		max-width: 1600px;
-	}
+    .page-wrapper {
+        margin: 0 auto;
+        max-width: 1600px;
+    }
 }

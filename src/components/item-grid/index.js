@@ -6,26 +6,22 @@ import formatPrice from '../../modules/format-price';
 import './index.css';
 
 const getSubtitle = (text, minPrice, maxPrice, t) => {
-    if(minPrice || maxPrice){
-        return <div
-            className = "item-group-subtitle-wrapper"
-        >
-            <div>
-                {`${formatPrice(minPrice)} - ${formatPrice(maxPrice)}` }
-                <div className="note">
-                    {t('per slot')}
+    if (minPrice || maxPrice) {
+        return (
+            <div className="item-group-subtitle-wrapper">
+                <div>
+                    {`${formatPrice(minPrice)} - ${formatPrice(maxPrice)}`}
+                    <div className="note">{t('per slot')}</div>
                 </div>
             </div>
-        </div>;
+        );
     }
 
-    return <div
-        className = "item-group-subtitle-wrapper"
-    >
-        <div>
-            {text}
+    return (
+        <div className="item-group-subtitle-wrapper">
+            <div>{text}</div>
         </div>
-    </div>;
+    );
 };
 
 function ItemGrid(props) {
@@ -33,12 +29,12 @@ function ItemGrid(props) {
     let minPrice = false;
     let maxPrice = false;
 
-    for(const item of props.items){
-        if(!minPrice || item.pricePerSlot < minPrice){
+    for (const item of props.items) {
+        if (!minPrice || item.pricePerSlot < minPrice) {
             minPrice = item.pricePerSlot;
         }
 
-        if(!maxPrice || item.pricePerSlot > maxPrice){
+        if (!maxPrice || item.pricePerSlot > maxPrice) {
             maxPrice = item.pricePerSlot;
         }
     }
@@ -48,47 +44,37 @@ function ItemGrid(props) {
 
     let className = 'item-group-wrapper';
 
-    if(props.name.length <= 2){
+    if (props.name.length <= 2) {
         className = `${className} big`;
     }
 
-    return <div
-            className = {className}
-        >
-            <div
-                className = "item-group-title"
-            >
-                <div
-                    className = "barter-class-wrapper"
-                >
-                    {props.name}
-                </div>
-                { getSubtitle(props.subtitle, minPrice, maxPrice, t) }
-                { props.extraTitleProps }
+    return (
+        <div className={className}>
+            <div className="item-group-title">
+                <div className="barter-class-wrapper">{props.name}</div>
+                {getSubtitle(props.subtitle, minPrice, maxPrice, t)}
+                {props.extraTitleProps}
             </div>
-            <div
-                className = "item-group-items"
-            >
-                {props.items.map(item =>
+            <div className="item-group-items">
+                {props.items.map((item) => (
                     <Item
-                        key = {`${props.name}-${item.id}`}
-                        onClick = {item.onClick}
-                        count = {item.count}
-                        name = {item.name}
-                        pricePerSlot = {item.pricePerSlot}
-                        sellTo = {item.sellTo}
-                        slots = {item.gridImageLink ? item.slots : 1}
-                        src = {item.gridImageLink || item.fallbackImageLink}
-                        itemLink = {`/item/${item.normalizedName}`}
-                        height = {item.gridImageLink ? item.height : 1}
-                        width = {item.gridImageLink ? item.width : 1}
-                        item = {item}
+                        key={`${props.name}-${item.id}`}
+                        onClick={item.onClick}
+                        count={item.count}
+                        name={item.name}
+                        pricePerSlot={item.pricePerSlot}
+                        sellTo={item.sellTo}
+                        slots={item.gridImageLink ? item.slots : 1}
+                        src={item.gridImageLink || item.fallbackImageLink}
+                        itemLink={`/item/${item.normalizedName}`}
+                        height={item.gridImageLink ? item.height : 1}
+                        width={item.gridImageLink ? item.width : 1}
+                        item={item}
                     />
-                )}
+                ))}
             </div>
         </div>
+    );
 }
 
 export default ItemGrid;
-
-

@@ -59,7 +59,7 @@
     width: calc(50% - 2px);
 }
 
-.connection-wrapper input[type="submit"]:active {
+.connection-wrapper input[type='submit']:active {
     position: relative;
     top: 1px;
 }

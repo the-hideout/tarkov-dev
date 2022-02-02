@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {Helmet} from 'react-helmet';
+import { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import CraftsTable from '../../components/crafts-table';
@@ -13,7 +13,7 @@ import {
 } from '../../components/filter';
 import capitalizeTheFirstLetterOfEachWord from '../../modules/capitalize-first';
 
-import Icon from '@mdi/react'
+import Icon from '@mdi/react';
 import { mdiProgressWrench } from '@mdi/js';
 
 import './index.css';
@@ -30,110 +30,117 @@ const stations = [
 ];
 
 function Crafts() {
-    const defaultQuery = new URLSearchParams(window.location.search).get('search');
+    const defaultQuery = new URLSearchParams(window.location.search).get(
+        'search',
+    );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [freeFuel, setFreeFuel] = useState(false);
-    const [selectedStation, setSelectedStation] = useStateWithLocalStorage('selectedStation', 'top');
+    const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
+        'selectedStation',
+        'top',
+    );
     const [showAll, setShowAll] = useState(false);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     return [
-        <Helmet
-            key = {'loot-tier-helmet'}
-        >
+        <Helmet key={'loot-tier-helmet'}>
+            <meta charSet="utf-8" />
+            <title>Escape from Tarkov Hideout craft profits</title>
             <meta
-                charSet='utf-8'
-            />
-            <title>
-                Escape from Tarkov Hideout craft profits
-            </title>
-            <meta
-                name = 'description'
-                content = 'Escape from Tarkov Hideout craft profits'
+                name="description"
+                content="Escape from Tarkov Hideout craft profits"
             />
         </Helmet>,
-        <div
-            className = 'crafts-headline-wrapper'
-            key = 'crafts-filters'
-        >
-            <h1
-                className = 'crafts-page-title'
-            >
+        <div className="crafts-headline-wrapper" key="crafts-filters">
+            <h1 className="crafts-page-title">
                 <Icon
                     path={mdiProgressWrench}
                     size={1.5}
-                    className = 'icon-with-text'
+                    className="icon-with-text"
                 />
                 {t('Hideout Crafts')}
             </h1>
             <Filter>
                 <ToggleFilter
-                    checked = {showAll}
-                    label = {t('Ignore settings')}
-                    onChange = {e => setShowAll(!showAll)}
-                    tooltipContent = {
+                    checked={showAll}
+                    label={t('Ignore settings')}
+                    onChange={(e) => setShowAll(!showAll)}
+                    tooltipContent={
                         <div>
-                            {t('Shows all crafts regardless of what you have set in your settings')}
+                            {t(
+                                'Shows all crafts regardless of what you have set in your settings',
+                            )}
                         </div>
                     }
                 />
                 <ButtonGroupFilter>
                     {stations.map((stationName) => {
-                        return <ButtonGroupFilterButton
-                            key = {`station-tooltip-${stationName}`}
-                            tooltipContent={
-                                <div>
-                                    {capitalizeTheFirstLetterOfEachWord(stationName.replace('-', ' '))}
-                                </div>
-                            }
-                            selected = { stationName === selectedStation }
-                            content = { <img
-                                alt = {stationName}
-                                loading='lazy'
-                                title = {stationName}
-                                src={`${process.env.PUBLIC_URL}/images/${stationName}-icon.png`}
-                            /> }
-                            onClick={setSelectedStation.bind(undefined, stationName)}
-                        />
+                        return (
+                            <ButtonGroupFilterButton
+                                key={`station-tooltip-${stationName}`}
+                                tooltipContent={
+                                    <div>
+                                        {capitalizeTheFirstLetterOfEachWord(
+                                            stationName.replace('-', ' '),
+                                        )}
+                                    </div>
+                                }
+                                selected={stationName === selectedStation}
+                                content={
+                                    <img
+                                        alt={stationName}
+                                        loading="lazy"
+                                        title={stationName}
+                                        src={`${process.env.PUBLIC_URL}/images/${stationName}-icon.png`}
+                                    />
+                                }
+                                onClick={setSelectedStation.bind(
+                                    undefined,
+                                    stationName,
+                                )}
+                            />
+                        );
                     })}
                     <ButtonGroupFilterButton
-                        tooltipContent = {
+                        tooltipContent={
                             <div>
                                 {t('Most profitable craft in each station')}
                             </div>
                         }
-                        selected = {selectedStation === 'top'}
-                        content = {t('Best')}
+                        selected={selectedStation === 'top'}
+                        content={t('Best')}
                         onClick={setSelectedStation.bind(undefined, 'top')}
                     />
-                 </ButtonGroupFilter>
-                 <ToggleFilter
-                    checked = {freeFuel}
-                    label = {t('Empty fuel')}
-                    onChange = {e => setFreeFuel(!freeFuel)}
-                    tooltipContent = {
+                </ButtonGroupFilter>
+                <ToggleFilter
+                    checked={freeFuel}
+                    label={t('Empty fuel')}
+                    onChange={(e) => setFreeFuel(!freeFuel)}
+                    tooltipContent={
                         <div>
-                            {t('Sets all fuel prices to 0, as that\'s more or less the case if you use fuel to power your hideout')}
+                            {t(
+                                "Sets all fuel prices to 0, as that's more or less the case if you use fuel to power your hideout",
+                            )}
                         </div>
                     }
                 />
                 <InputFilter
-                    defaultValue = {nameFilter || ''}
-                    label = {t('Item filter')}
-                    type = {'text'}
-                    placeholder = {'filter on item'}
-                    onChange = {e => setNameFilter(e.target.value)}
+                    defaultValue={nameFilter || ''}
+                    label={t('Item filter')}
+                    type={'text'}
+                    placeholder={'filter on item'}
+                    onChange={(e) => setNameFilter(e.target.value)}
                 />
             </Filter>
         </div>,
         <CraftsTable
-            nameFilter = {nameFilter}
-            freeFuel = {freeFuel}
-            showAll = {showAll}
-            selectedStation = {selectedStation}
-            key = 'crafts-page-crafts-table'
-        />
+            nameFilter={nameFilter}
+            freeFuel={freeFuel}
+            showAll={showAll}
+            selectedStation={selectedStation}
+            key="crafts-page-crafts-table"
+        />,
     ];
-};
+}
 
 export default Crafts;

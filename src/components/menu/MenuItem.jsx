@@ -1,28 +1,26 @@
-import {useState, useEffect} from 'react';
-import {
-    Link,
-    useNavigate,
-    useMatch,
-} from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useMatch } from 'react-router-dom';
 
 function MenuItem(props) {
     const routeMatch = useMatch('/ammo/:currentAmmo');
     let currentAmmo = '';
-    if(routeMatch){
+    if (routeMatch) {
         currentAmmo = routeMatch.params.currentAmmo;
     }
     let ammoTypes = currentAmmo?.split(',');
-    if(!ammoTypes){
+    if (!ammoTypes) {
         ammoTypes = [];
     }
 
-    const [checked, setChecked] = useState(ammoTypes.includes(props.displayText));
+    const [checked, setChecked] = useState(
+        ammoTypes.includes(props.displayText),
+    );
     const navigate = useNavigate();
 
     const handleChange = (event) => {
         setChecked(event.currentTarget.checked);
 
-        if(!event.currentTarget.checked){
+        if (!event.currentTarget.checked) {
             ammoTypes.splice(ammoTypes.indexOf(event.currentTarget.value), 1);
         } else {
             ammoTypes.push(event.currentTarget.value);
@@ -33,41 +31,40 @@ function MenuItem(props) {
     };
 
     useEffect(() => {
-        if(currentAmmo){
+        if (currentAmmo) {
             setChecked(currentAmmo.split(',').includes(props.displayText));
         }
     }, [currentAmmo, props.displayText]);
 
     const handleClick = (event) => {
-        if(props.onClick){
+        if (props.onClick) {
             props.onClick();
         }
     };
 
     const getCheckbox = () => {
-        if(!props.checkbox){
+        if (!props.checkbox) {
             return false;
         }
 
-        return <input
-            checked = {checked}
-            onChange = {handleChange}
-            type="checkbox"
-            value={props.displayText}
-        />;
-    }
+        return (
+            <input
+                checked={checked}
+                onChange={handleChange}
+                type="checkbox"
+                value={props.displayText}
+            />
+        );
+    };
 
-    return <li>
-        {getCheckbox()}
-        <Link
-            to = {props.to}
-            onClick = {handleClick}
-        >
-            {props.displayText}
-        </Link>
-    </li>;
+    return (
+        <li>
+            {getCheckbox()}
+            <Link to={props.to} onClick={handleClick}>
+                {props.displayText}
+            </Link>
+        </li>
+    );
 }
 
 export default MenuItem;
-
-

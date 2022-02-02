@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo, useEffect } from 'react';
-import {Helmet} from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import debounce from 'lodash.debounce';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -8,18 +8,15 @@ import QueueBrowserTask from '../../modules/queue-browser-task';
 import ItemGrid from '../../components/item-grid';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
-import { Filter, ToggleFilter, SelectFilter, InputFilter } from '../../components/filter';
+import {
+    Filter,
+    ToggleFilter,
+    SelectFilter,
+    InputFilter,
+} from '../../components/filter';
 import capitalizeFirst from '../../modules/capitalize-first';
 
-const defaultGroupNames = [
-    'S',
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-];
+const defaultGroupNames = ['S', 'A', 'B', 'C', 'D', 'E', 'F'];
 
 const filterOptions = [
     {
@@ -60,7 +57,7 @@ const arrayChunk = (inputArray, chunkLength) => {
     return inputArray.reduce((resultArray, item, index) => {
         const chunkIndex = Math.floor(index / chunkLength);
 
-        if(!resultArray[chunkIndex]) {
+        if (!resultArray[chunkIndex]) {
             resultArray[chunkIndex] = []; // start a new chunk
         }
 
@@ -74,13 +71,19 @@ function LootTier(props) {
     const [numberFilter, setNumberFilter] = useState(DEFAULT_MAX_ITEMS);
     const [minPrice, setMinPrice] = useStateWithLocalStorage('minPrice', 0);
     const hasFlea = useSelector((state) => state.settings.hasFlea);
-    const [includeMarked, setIncludeMarked] = useStateWithLocalStorage('includeMarked', false);
-    const [groupByType, setGroupByType] = useStateWithLocalStorage('groupByType', false);
+    const [includeMarked, setIncludeMarked] = useStateWithLocalStorage(
+        'includeMarked',
+        false,
+    );
+    const [groupByType, setGroupByType] = useStateWithLocalStorage(
+        'groupByType',
+        false,
+    );
     const [filters, setFilters] = useStateWithLocalStorage('filters', {
         name: '',
         types: filterOptions
-            .map(filter => {
-                if(filter.default){
+            .map((filter) => {
+                if (filter.default) {
                     return filter.value;
                 }
 
@@ -94,7 +97,7 @@ function LootTier(props) {
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         let timer = false;
@@ -102,7 +105,7 @@ function LootTier(props) {
             dispatch(fetchItems());
         }
 
-        if(!timer){
+        if (!timer) {
             timer = setInterval(() => {
                 dispatch(fetchItems());
             }, 600000);
@@ -110,23 +113,26 @@ function LootTier(props) {
 
         return () => {
             clearInterval(timer);
-        }
+        };
     }, [itemStatus, dispatch]);
 
     const handleFilterChange = (selectedFilters) => {
         QueueBrowserTask.task(() => {
             setFilters({
                 ...filters,
-                types: selectedFilters?.map((selectedValue) => {
-                    return selectedValue.value;
-                }) || filterOptions.map(filter => {
-                    if(filter.default){
-                        return filter.value;
-                    }
+                types:
+                    selectedFilters?.map((selectedValue) => {
+                        return selectedValue.value;
+                    }) ||
+                    filterOptions
+                        .map((filter) => {
+                            if (filter.default) {
+                                return filter.value;
+                            }
 
-                    return false;
-                })
-                .filter(Boolean),
+                            return false;
+                        })
+                        .filter(Boolean),
             });
         });
     };
@@ -134,7 +140,7 @@ function LootTier(props) {
     const itemData = useMemo(() => {
         return items
             .map((item) => {
-                if(!hasFlea){
+                if (!hasFlea) {
                     return {
                         ...item,
                         sellTo: item.traderName,
@@ -145,18 +151,20 @@ function LootTier(props) {
                 let sellTo = 'Flea Market';
                 const fleaPrice = item.avg24hPrice - item.fee;
 
-                if(fleaPrice <= item.traderPrice){
+                if (fleaPrice <= item.traderPrice) {
                     sellTo = item.traderName;
                 }
 
                 return {
                     ...item,
                     sellTo: sellTo,
-                    pricePerSlot: Math.floor(Math.max(fleaPrice, item.traderPrice) / item.slots),
+                    pricePerSlot: Math.floor(
+                        Math.max(fleaPrice, item.traderPrice) / item.slots,
+                    ),
                 };
             })
             .filter((item) => {
-                if(item.types.includes('unLootable')){
+                if (item.types.includes('unLootable')) {
                     return false;
                 }
 
@@ -165,28 +173,26 @@ function LootTier(props) {
     }, [hasFlea, items]);
 
     const typeFilteredItems = useMemo(() => {
-        const innerTypeFilteredItems = itemData
-            .filter((item) => {
-                if (!includeMarked && item.types.includes('markedOnly')) {
-                    return false;
-                }
+        const innerTypeFilteredItems = itemData.filter((item) => {
+            if (!includeMarked && item.types.includes('markedOnly')) {
+                return false;
+            }
 
-                const intersection = item.types.filter((type) =>
-                    filters.types?.includes(type),
-                );
+            const intersection = item.types.filter((type) =>
+                filters.types?.includes(type),
+            );
 
-                // No categories matching
-                if(intersection.length === 0){
-                    return false;
-                }
+            // No categories matching
+            if (intersection.length === 0) {
+                return false;
+            }
 
-                if(minPrice && item.pricePerSlot < minPrice){
-                    return false;
-                }
+            if (minPrice && item.pricePerSlot < minPrice) {
+                return false;
+            }
 
-                return true;
-            })
-
+            return true;
+        });
 
         return innerTypeFilteredItems;
     }, [filters.types, includeMarked, itemData, minPrice]);
@@ -224,7 +230,7 @@ function LootTier(props) {
         const newValue = Number(event.target.value);
         setMinPrice(newValue);
 
-        if(newValue > 0){
+        if (newValue > 0) {
             setNumberFilter(99999);
         } else {
             setNumberFilter(DEFAULT_MAX_ITEMS);
@@ -238,10 +244,7 @@ function LootTier(props) {
         );
     }, [filteredItems, numberFilter]);
 
-    const {
-        groupNames,
-        itemChunks,
-    } = useMemo(() => {
+    const { groupNames, itemChunks } = useMemo(() => {
         let innerGroupNames;
         let innerItemChunks;
 
@@ -277,7 +280,7 @@ function LootTier(props) {
 
             innerItemChunks = Object.values(chunkMap);
         } else {
-            innerGroupNames = defaultGroupNames
+            innerGroupNames = defaultGroupNames;
 
             innerItemChunks = arrayChunk(
                 selectedItems,
@@ -305,29 +308,28 @@ function LootTier(props) {
         };
     }, [filters.types, groupByType, selectedItems]);
 
-    const handleFilterNameChange = useCallback((e) => {
-        if (typeof window !== 'undefined') {
-            const name = e.target.value.toLowerCase();
+    const handleFilterNameChange = useCallback(
+        (e) => {
+            if (typeof window !== 'undefined') {
+                const name = e.target.value.toLowerCase();
 
-            // schedule this for the next loop so that the UI
-            // has time to update but we do the filtering as soon as possible
-            QueueBrowserTask.task(() => {
-                setFilters({
-                    ...filters,
-                    name,
+                // schedule this for the next loop so that the UI
+                // has time to update but we do the filtering as soon as possible
+                QueueBrowserTask.task(() => {
+                    setFilters({
+                        ...filters,
+                        name,
+                    });
                 });
-            });
-        }
-    }, [filters, setFilters]);
+            }
+        },
+        [filters, setFilters],
+    );
 
     return [
-        <Helmet
-            key = {'loot-tier-helmet'}
-        >
+        <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>
-                {t('Escape from Tarkov loot tiers')}
-            </title>
+            <title>{t('Escape from Tarkov loot tiers')}</title>
             <meta
                 name="description"
                 content="Visualization of all different valuable loot"
@@ -335,57 +337,54 @@ function LootTier(props) {
         </Helmet>,
         <div
             className="display-wrapper"
-            style = {{
+            style={{
                 height: 'auto',
             }}
-            key = {'display-wrapper'}
+            key={'display-wrapper'}
         >
-            <Filter
-                fullWidth
-            >
+            <Filter fullWidth>
                 <ToggleFilter
-                    label = {t('Include Marked')}
-                    onChange = {e => setIncludeMarked(!includeMarked)}
-                    checked = {includeMarked}
+                    label={t('Include Marked')}
+                    onChange={(e) => setIncludeMarked(!includeMarked)}
+                    checked={includeMarked}
                 />
                 <ToggleFilter
-                    label = {t('Group by type')}
-                    onChange = {e => setGroupByType(!groupByType)}
-                    checked = {groupByType}
+                    label={t('Group by type')}
+                    onChange={(e) => setGroupByType(!groupByType)}
+                    checked={groupByType}
                 />
                 <SelectFilter
-                    defaultValue = {filters.types?.map(filter => {
-                        return filterOptions.find(defaultFilter => defaultFilter.value === filter);
+                    defaultValue={filters.types?.map((filter) => {
+                        return filterOptions.find(
+                            (defaultFilter) => defaultFilter.value === filter,
+                        );
                     })}
                     isMulti
-                    options = {filterOptions}
-                    onChange = {handleFilterChange}
-
+                    options={filterOptions}
+                    onChange={handleFilterChange}
                 />
                 <InputFilter
-                    defaultValue = {minPrice || ''}
-                    placeholder = {t('Min value')}
-                    type = {'number'}
-                    onChange = {minPriceHandler}
+                    defaultValue={minPrice || ''}
+                    placeholder={t('Min value')}
+                    type={'number'}
+                    onChange={minPriceHandler}
                 />
                 <InputFilter
-                    defaultValue = {filters.name || ''}
-                    type = {'text'}
-                    placeholder = {t('btc, graphics e.t.c')}
+                    defaultValue={filters.name || ''}
+                    type={'text'}
+                    placeholder={t('btc, graphics e.t.c')}
                     onChange={handleFilterNameChange}
                 />
             </Filter>
-            {itemChunks.map((items, index) =>
+            {itemChunks.map((items, index) => (
                 <ItemGrid
-                    key = {`barter-group-${groupNames[index]}`}
-                    name = {capitalizeFirst(groupNames[index])}
-                    items = {items}
+                    key={`barter-group-${groupNames[index]}`}
+                    name={capitalizeFirst(groupNames[index])}
+                    items={items}
                 />
-            )}
+            ))}
         </div>,
     ];
-};
+}
 
 export default LootTier;
-
-

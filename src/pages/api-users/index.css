@@ -9,7 +9,7 @@
 
 .api-user-wrapper {
     align-items: center;
-    background-color: #292626;
+    background-color: #2a2828;
     border: 1px solid #1b1919;
     display: flex;
     flex-wrap: wrap;
@@ -22,7 +22,7 @@
     width: 100%;
 }
 
-.api-user-wrapper:nth-child(2n){
+.api-user-wrapper:nth-child(2n) {
     flex-direction: row-reverse;
 }
 
@@ -32,7 +32,7 @@
     width: 100%;
 }
 
-.api-user-data-wrapper:nth-child(3){
+.api-user-data-wrapper:nth-child(3) {
     text-align: center;
     order: -1;
 }
@@ -43,7 +43,7 @@
         width: 50%;
     }
 
-    .api-user-data-wrapper:nth-child(3){
+    .api-user-data-wrapper:nth-child(3) {
         order: 1;
     }
 }

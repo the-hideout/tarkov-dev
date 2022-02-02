@@ -5,7 +5,7 @@ const CURRENCY_MULTIPLIER = {
 };
 
 const getRublePrice = (itemPrice, currency) => {
-    if(!CURRENCY_MULTIPLIER[currency]){
+    if (!CURRENCY_MULTIPLIER[currency]) {
         return itemPrice;
     }
 

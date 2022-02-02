@@ -18,7 +18,8 @@
     {
         "fill": "tomato",
         "type": "Diamond"
-    },{
+    },
+    {
         "fill": "yellow",
         "type": "Plus"
     },
@@ -45,7 +46,8 @@
     {
         "fill": "green",
         "type": "Circle"
-    },{
+    },
+    {
         "fill": "green",
         "type": "TriangleUp"
     },
@@ -60,7 +62,8 @@
     {
         "fill": "rgb(71, 121, 152)",
         "type": "Plus"
-    },{
+    },
+    {
         "fill": "rgb(71, 121, 152)",
         "type": "Circle"
     },
@@ -79,7 +82,8 @@
     {
         "fill": "rgb(181, 59, 209)",
         "type": "Plus"
-    },{
+    },
+    {
         "fill": "rgb(181, 59, 209)",
         "type": "Circle"
     },

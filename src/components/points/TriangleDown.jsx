@@ -6,7 +6,7 @@ class TriangleUp extends Component {
             <svg
                 {...this.props}
                 viewBox="0 0 300 300"
-                xmlns="http://www.w3.org/2000/svg" 
+                xmlns="http://www.w3.org/2000/svg"
             >
                 <path
                     d="M0 0
@@ -17,6 +17,6 @@ class TriangleUp extends Component {
             </svg>
         );
     }
-};
+}
 
 export default TriangleUp;

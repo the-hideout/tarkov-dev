@@ -1,7 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import {
-    Link
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import QuestItemsCell from '../quest-items-cell';
 import './index.css';
@@ -9,7 +7,7 @@ import './index.css';
 const getQuestList = (questList, t) => {
     let extraRow = false;
 
-    if(questList.length <= 0){
+    if (questList.length <= 0) {
         extraRow = t('No quest requires this item');
     }
 
@@ -23,49 +21,43 @@ const getQuestList = (questList, t) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {extraRow && <tr
-                        className='quest-list-extra-row'
-                    >
-                        <td
-                            colSpan={2}
-                        >
-                            {extraRow}
-                        </td>
-                    </tr>}
-                    {questList.map((questData) => {
-                        return <tr
-                            key = {`quest-list-${questData.name}`}
-                        >
-                            <td>
-                                <div
-                                    className='quest-link-wrapper'
-                                >
-                                    <Link
-                                        to = {`/traders/${questData.giver.locale.en.toLowerCase()}`}
-                                    >
-                                        <img
-                                            alt={questData.giver.locale.en}
-                                            loading='lazy'
-                                            className = 'quest-giver-image'
-                                            src={`${ process.env.PUBLIC_URL }/images/${questData.giver.locale.en.toLowerCase()}-icon.jpg`}
-                                        />
-                                    </Link>
-                                    <a
-                                        className = "quest-name-wrapper"
-                                        href = {`https://tarkovtracker.io/quest/${questData.id}/`}
-                                    >
-                                        <div>
-                                            {questData.name}
-                                        </div>
-                                    </a>
-                                </div>
-                            </td>
-                            <td>
-                                <QuestItemsCell
-                                    questItems = {questData.objectives}
-                                />
-                            </td>
+                    {extraRow && (
+                        <tr className="quest-list-extra-row">
+                            <td colSpan={2}>{extraRow}</td>
                         </tr>
+                    )}
+                    {questList.map((questData) => {
+                        return (
+                            <tr key={`quest-list-${questData.name}`}>
+                                <td>
+                                    <div className="quest-link-wrapper">
+                                        <Link
+                                            to={`/traders/${questData.giver.locale.en.toLowerCase()}`}
+                                        >
+                                            <img
+                                                alt={questData.giver.locale.en}
+                                                loading="lazy"
+                                                className="quest-giver-image"
+                                                src={`${
+                                                    process.env.PUBLIC_URL
+                                                }/images/${questData.giver.locale.en.toLowerCase()}-icon.jpg`}
+                                            />
+                                        </Link>
+                                        <a
+                                            className="quest-name-wrapper"
+                                            href={`https://tarkovtracker.io/quest/${questData.id}/`}
+                                        >
+                                            <div>{questData.name}</div>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <QuestItemsCell
+                                        questItems={questData.objectives}
+                                    />
+                                </td>
+                            </tr>
+                        );
                     })}
                 </tbody>
             </table>
@@ -74,17 +66,15 @@ const getQuestList = (questList, t) => {
 };
 
 function QuestsList(props) {
-    const {itemQuests} = props;
-    const {t} = useTranslation();
+    const { itemQuests } = props;
+    const { t } = useTranslation();
 
-    return <div>
-        <h2>
-            {t('Quests')}
-        </h2>
-        {
-            getQuestList(itemQuests, t)
-        }
-    </div>
-};
+    return (
+        <div>
+            <h2>{t('Quests')}</h2>
+            {getQuestList(itemQuests, t)}
+        </div>
+    );
+}
 
 export default QuestsList;

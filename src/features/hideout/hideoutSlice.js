@@ -7,8 +7,11 @@ const initialState = {
     error: null,
 };
 
-export const fetchHideout = createAsyncThunk('hideout/fetchHideout', async () => {
-    const bodyQuery = JSON.stringify({query: `{
+export const fetchHideout = createAsyncThunk(
+    'hideout/fetchHideout',
+    async () => {
+        const bodyQuery = JSON.stringify({
+            query: `{
         hideoutModules {
             id
             name
@@ -22,23 +25,23 @@ export const fetchHideout = createAsyncThunk('hideout/fetchHideout', async () =>
                 }
             }
         }
-    }`
-    });
+    }`,
+        });
 
-    const response = await fetch('https://tarkov-tools.com/graphql', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        },
-        body: bodyQuery,
-    });
+        const response = await fetch('https://tarkov-tools.com/graphql', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+            body: bodyQuery,
+        });
 
-    const hideoutData = await response.json();
+        const hideoutData = await response.json();
 
-    return hideoutData.data.hideoutModules;
-
-});
+        return hideoutData.data.hideoutModules;
+    },
+);
 
 const hideoutSlice = createSlice({
     name: 'hideout',
@@ -51,7 +54,7 @@ const hideoutSlice = createSlice({
         [fetchHideout.fulfilled]: (state, action) => {
             state.status = 'succeeded';
 
-            if(!equal(state.hideout, action.payload)){
+            if (!equal(state.hideout, action.payload)) {
                 state.hideout = action.payload;
             }
         },
@@ -64,4 +67,6 @@ const hideoutSlice = createSlice({
 
 export default hideoutSlice.reducer;
 
-export const selectAllHideoutModules = (state) => { return state.hideout.hideout; }
+export const selectAllHideoutModules = (state) => {
+    return state.hideout.hideout;
+};

@@ -22,6 +22,7 @@
     "i18next-browser-languagedetector": "^6.1.2",
     "intersection-observer": "^0.12.0",
     "lodash.debounce": "^4.0.8",
+    "prettier": "^2.5.1",
     "rc-slider": "^9.7.1",
     "react": "^17.0.1",
     "react-countdown": "^2.3.2",
@@ -53,6 +54,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "eject": "react-scripts eject",
     "prebuild": "node scripts/get-ammo-data.js && node scripts/get-traders.js && node scripts/get-quests.js && node scripts/update-props.js && node scripts/get-contributors.js && node scripts/build-sitemap.js && node scripts/build-guides.js",
     "postbuild": "node scripts/build-redirects.js",
@@ -73,5 +75,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "tabWidth": 4
   }
 }

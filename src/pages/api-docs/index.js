@@ -1,151 +1,105 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark as atomOneDark, twilight as monokai } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import {useTranslation} from 'react-i18next';
-import {Link} from 'react-router-dom';
+import {
+    atomDark as atomOneDark,
+    twilight as monokai,
+} from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
 import './index.css';
 
 function APIDocs() {
-    const {t} = useTranslation();
-    return <div
-        className = {'page-wrapper api-docs-page-wrapper'}
-    >
-        <h1>
-            {t('Tarkov Tools API')}
-        </h1>
-        <h2>
-            {t('About')}
-        </h2>
-        <div
-            className='section-text-wrapper'
-        >
-            {t('The API is available on')} <a href="https://tarkov-tools.com/graphql">https://tarkov-tools.com/graphql</a> with a playground on <a href="https://tarkov-tools.com/___graphql">https://tarkov-tools.com/___graphql</a>.
-            {t('It\'s written in graphql and we try our hardest to follow spec and never change or deprecate anything.')}
-        </div>
-        <h2>
-            {t('FAQ')}
-        </h2>
-        <div
-            className='section-text-wrapper'
-        >
-            <h3>
-                {t('Is it free?')}
-            </h3>
-            {t('Yes. It does however cost money for us to run and maintain, so please consider supporting us on')} <a href="https://www.patreon.com/bePatron?u=26501878&redirect_uri=https%3A%2F%2Ftarkov-tools.com"> Patreon</a>
-        </div>
-        <div
-            className='section-text-wrapper'
-        >
-            <h3>
-                {t('Is there a rate limit?')}
-            </h3>
-            {t('No')}
-        </div>
-        <div
-            className='section-text-wrapper'
-        >
-            <h3>
-                {t('Wait... really?')}
-            </h3>
-            {t('Yeah. It\'s actually better if you')} <i>{t('don\'t')}</i> {t('limit your requests to get as fresh data as possible')}
-        </div>
-        <div
-            className='section-text-wrapper'
-        >
-            <h3>
-                {t('Where is the data from?')}
-            </h3>
-            {t('We source data from multiple places to build an API as complete as possible. We use data from:')}
+    const { t } = useTranslation();
+    return (
+        <div className={'page-wrapper api-docs-page-wrapper'}>
+            <h1>{t('Tarkov Tools API')}</h1>
+            <h2>{t('About')}</h2>
+            <div className="section-text-wrapper">
+                {t('The API is available on')}{' '}
+                <a href="https://tarkov-tools.com/graphql">
+                    https://tarkov-tools.com/graphql
+                </a>{' '}
+                with a playground on{' '}
+                <a href="https://tarkov-tools.com/___graphql">
+                    https://tarkov-tools.com/___graphql
+                </a>
+                .
+                {t(
+                    "It's written in graphql and we try our hardest to follow spec and never change or deprecate anything.",
+                )}
+            </div>
+            <h2>{t('FAQ')}</h2>
+            <div className="section-text-wrapper">
+                <h3>{t('Is it free?')}</h3>
+                {t(
+                    'Yes. It does however cost money for us to run and maintain, so please consider supporting us on',
+                )}{' '}
+                <a href="https://www.patreon.com/bePatron?u=26501878&redirect_uri=https%3A%2F%2Ftarkov-tools.com">
+                    {' '}
+                    Patreon
+                </a>
+            </div>
+            <div className="section-text-wrapper">
+                <h3>{t('Is there a rate limit?')}</h3>
+                {t('No')}
+            </div>
+            <div className="section-text-wrapper">
+                <h3>{t('Wait... really?')}</h3>
+                {t("Yeah. It's actually better if you")} <i>{t("don't")}</i>{' '}
+                {t('limit your requests to get as fresh data as possible')}
+            </div>
+            <div className="section-text-wrapper">
+                <h3>{t('Where is the data from?')}</h3>
+                {t(
+                    'We source data from multiple places to build an API as complete as possible. We use data from:',
+                )}
+                <ul>
+                    <li>
+                        <a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki">
+                            Escape from Tarkov Wiki
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/TarkovTracker/tarkovdata/">
+                            TarkovTracker/tarkovdata
+                        </a>
+                    </li>
+                    <li>{t('Directly from the game')}</li>
+                    <li>{t('Our network of scanners')}</li>
+                </ul>
+            </div>
+            <h2>{t('Examples')}</h2>
             <ul>
                 <li>
-                    <a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki">Escape from Tarkov Wiki</a>
+                    <HashLink to="#browser-js">Browser JS</HashLink>
                 </li>
                 <li>
-                    <a href="https://github.com/TarkovTracker/tarkovdata/">TarkovTracker/tarkovdata</a>
+                    <HashLink to="#node-js">Node JS</HashLink>
                 </li>
                 <li>
-                    {t('Directly from the game')}
+                    <HashLink to="#python">Python</HashLink>
                 </li>
                 <li>
-                    {t('Our network of scanners')}
+                    <HashLink to="#cli">CLI</HashLink>
+                </li>
+                <li>
+                    <HashLink to="#php">PHP</HashLink>
+                </li>
+                <li>
+                    <HashLink to="#java-11">Java 11</HashLink>
+                </li>
+                <li>
+                    <HashLink to="#csharp">C#</HashLink>
+                </li>
+                <li>
+                    <HashLink to="#go">Golang</HashLink>
                 </li>
             </ul>
-        </div>
-        <h2>
-            {t('Examples')}
-        </h2>
-        <ul>
-            <li>
-                <HashLink
-                    to="#browser-js"
-                >
-                    Browser JS
-                </HashLink>
-            </li>
-            <li>
-                <HashLink
-                    to="#node-js"
-                >
-                    Node JS
-                </HashLink>
-            </li>
-            <li>
-                <HashLink
-                    to="#python"
-                >
-                    Python
-                </HashLink>
-            </li>
-            <li>
-                <HashLink
-                    to="#cli"
-                >
-                    CLI
-                </HashLink>
-            </li>
-            <li>
-                <HashLink
-                    to="#php"
-                >
-                    PHP
-                </HashLink>
-            </li>
-            <li>
-                <HashLink
-                    to="#java-11"
-                >
-                    Java 11
-                </HashLink>
-            </li>
-            <li>
-                <HashLink
-                    to="#csharp"
-                >
-                    C#
-                </HashLink>
-            </li>
-            <li>
-                <HashLink
-                    to="#go"
-                >
-                    Golang
-                </HashLink>
-            </li>
-        </ul>
-        <div
-            className = 'example-wrapper'
-        >
-            <h3
-                id = 'browser-js'
-            >
-                Browser JS {t('example')}
-            </h3>
-            <SyntaxHighlighter
-                language = 'javascript'
-                style = {atomOneDark}
-            >
-                {`fetch('https://tarkov-tools.com/graphql', {
+            <div className="example-wrapper">
+                <h3 id="browser-js">Browser JS {t('example')}</h3>
+                <SyntaxHighlighter language="javascript" style={atomOneDark}>
+                    {`fetch('https://tarkov-tools.com/graphql', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -161,21 +115,12 @@ function APIDocs() {
 })
   .then(r => r.json())
   .then(data => console.log('data returned:', data));`}
-            </SyntaxHighlighter>
-        </div>
-        <div
-            className = 'example-wrapper'
-        >
-            <h3
-                id = 'node-js'
-            >
-                Node JS {t('example')}
-            </h3>
-            <SyntaxHighlighter
-                language = 'javascript'
-                style = {atomOneDark}
-            >
-                {`import { request, gql } from 'graphql-request'
+                </SyntaxHighlighter>
+            </div>
+            <div className="example-wrapper">
+                <h3 id="node-js">Node JS {t('example')}</h3>
+                <SyntaxHighlighter language="javascript" style={atomOneDark}>
+                    {`import { request, gql } from 'graphql-request'
 
 const query = gql\`
 {
@@ -188,21 +133,12 @@ const query = gql\`
 \`
 
 request('https://tarkov-tools.com/graphql', query).then((data) => console.log(data))`}
-            </SyntaxHighlighter>
-        </div>
-        <div
-            className = 'example-wrapper'
-        >
-            <h3
-                id = 'python'
-            >
-                Python {t('example')}
-            </h3>
-            <SyntaxHighlighter
-                language = 'python'
-                style = {monokai}
-            >
-                {`import requests
+                </SyntaxHighlighter>
+            </div>
+            <div className="example-wrapper">
+                <h3 id="python">Python {t('example')}</h3>
+                <SyntaxHighlighter language="python" style={monokai}>
+                    {`import requests
 
 def run_query(query):
     response = requests.post('https://tarkov-tools.com/graphql', json={'query': query})
@@ -224,38 +160,21 @@ new_query = """
 
 result = run_query(new_query)
 print(result)`}
-            </SyntaxHighlighter>
-        </div>
-        <div
-            className = 'example-wrapper'
-        >
-            <h3
-                id = 'cli'
-            >
-                CLI {t('example')}
-            </h3>
-            <SyntaxHighlighter
-                language = 'bash'
-            >
-                {`curl -X POST \
+                </SyntaxHighlighter>
+            </div>
+            <div className="example-wrapper">
+                <h3 id="cli">CLI {t('example')}</h3>
+                <SyntaxHighlighter language="bash">
+                    {`curl -X POST \
 -H "Content-Type: application/json" \
 -d '{"query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }"}' \
 https://tarkov-tools.com/graphql`}
-            </SyntaxHighlighter>
-        </div>
-        <div
-            className = 'example-wrapper'
-        >
-            <h3
-                id = 'php'
-            >
-                PHP {t('example')}
-            </h3>
-            <SyntaxHighlighter
-                language = 'php'
-                style = {atomOneDark}
-            >
-                {`$headers = ['Content-Type: application/json'];
+                </SyntaxHighlighter>
+            </div>
+            <div className="example-wrapper">
+                <h3 id="php">PHP {t('example')}</h3>
+                <SyntaxHighlighter language="php" style={atomOneDark}>
+                    {`$headers = ['Content-Type: application/json'];
 
 $query = '{
   itemsByName(name: "m855a1") {
@@ -272,26 +191,20 @@ $data = @file_get_contents('https://tarkov-tools.com/graphql', false, stream_con
   ]
 ]));
 return json_decode($data, true);`}
-            </SyntaxHighlighter>
-        </div>
-        <div
-            className = 'example-wrapper'
-        >
-            <h3
-                id = 'java-11'
-            >
-                Java 11's HttpClient {t('example')}
-                <cite>
-                    Contributed by <Link
-                        to='https://github.com/HeyBanditoz'
-                    >Banditoz</Link>
-                </cite>
-            </h3>
-            <SyntaxHighlighter
-                language = 'java'
-                style = {atomOneDark}
-            >
-                {`import java.io.IOException;
+                </SyntaxHighlighter>
+            </div>
+            <div className="example-wrapper">
+                <h3 id="java-11">
+                    Java 11's HttpClient {t('example')}
+                    <cite>
+                        Contributed by{' '}
+                        <Link to="https://github.com/HeyBanditoz">
+                            Banditoz
+                        </Link>
+                    </cite>
+                </h3>
+                <SyntaxHighlighter language="java" style={atomOneDark}>
+                    {`import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -313,24 +226,15 @@ class Scratch {
     }
 }
 `}
-            </SyntaxHighlighter>
-        </div>
-        <div
-            className = 'example-wrapper'
-        >
-            <h3
-                id = 'csharp'
-            >
-                C# {t('example')}
-                <cite>
-                    Contributed by BambusBo
-                </cite>
-            </h3>
-            <SyntaxHighlighter
-                language = 'csharp'
-                style = {atomOneDark}
-            >
-                {`var data = new Dictionary<string, string>()
+                </SyntaxHighlighter>
+            </div>
+            <div className="example-wrapper">
+                <h3 id="csharp">
+                    C# {t('example')}
+                    <cite>Contributed by BambusBo</cite>
+                </h3>
+                <SyntaxHighlighter language="csharp" style={atomOneDark}>
+                    {`var data = new Dictionary<string, string>()
 {
     {"query", "{itemsByName(name: \\"m855a1\\") { id name shortName }}"}
 };
@@ -348,26 +252,20 @@ using (var httpClient = new HttpClient())
     Debug.WriteLine(responseContent);
 
 }`}
-            </SyntaxHighlighter>
-        </div>
-        <div
-            className = 'example-wrapper'
-        >
-            <h3
-                id = 'go'
-            >
-                Go {t('example')}
-                <cite>
-                    Contributed by <Link
-                        to='https://github.com/HeyBanditoz'
-                    >Banditoz</Link>
-                </cite>
-            </h3>
-            <SyntaxHighlighter
-                language = 'go'
-                style = {atomOneDark}
-            >
-                {`package main
+                </SyntaxHighlighter>
+            </div>
+            <div className="example-wrapper">
+                <h3 id="go">
+                    Go {t('example')}
+                    <cite>
+                        Contributed by{' '}
+                        <Link to="https://github.com/HeyBanditoz">
+                            Banditoz
+                        </Link>
+                    </cite>
+                </h3>
+                <SyntaxHighlighter language="go" style={atomOneDark}>
+                    {`package main
 
 import (
     "fmt"
@@ -399,9 +297,10 @@ func main() {
 
     defer resp.Body.Close()
 }`}
-            </SyntaxHighlighter>
+                </SyntaxHighlighter>
+            </div>
         </div>
-    </div>;
-};
+    );
+}
 
 export default APIDocs;

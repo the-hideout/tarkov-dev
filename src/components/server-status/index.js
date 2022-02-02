@@ -7,18 +7,18 @@ import './index.css';
 function ServerStatus() {
     const { status, data } = useQuery(`server-status`, () =>
         fetch('https://tarkov-tools.com/graphql', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: dataQuery,
-            })
-            .then(response => response.json() )
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+            body: dataQuery,
+        }).then((response) => response.json()),
     );
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
-    const dataQuery = JSON.stringify({query: `{
+    const dataQuery = JSON.stringify({
+        query: `{
         status {
             generalStatus {
                 name
@@ -32,58 +32,54 @@ function ServerStatus() {
                 solveTime
             }
         }
-    }`});
+    }`,
+    });
 
-    if(status !== 'success' || !data.data.status){
+    if (status !== 'success' || !data.data.status) {
         return null;
     }
 
-    if(status === 'success' && data.data.status.length === 0){
+    if (status === 'success' && data.data.status.length === 0) {
         return 'No data';
     }
 
-    if(data.data.status.messages[0]?.content && !data.data.status.messages[0]?.solveTime){
-        return <div
-            className={`server-status-wrapper`}
-        >
-            <Tippy
-                placement='top'
-                content={data.data.status.messages[0]?.content}
-            >
-                <a
-                    href = 'https://status.escapefromtarkov.com/'
+    if (
+        data.data.status.messages[0]?.content &&
+        !data.data.status.messages[0]?.solveTime
+    ) {
+        return (
+            <div className={`server-status-wrapper`}>
+                <Tippy
+                    placement="top"
+                    content={data.data.status.messages[0]?.content}
                 >
-                    {t(`Tarkov server status`)}
-                    <div
-                        className={`status-indicator status-${data.data.status.generalStatus.status}`}
-                    />
-                    <div
-                        className='server-status-message-wrapper'
-                    >
-                        {data.data.status.generalStatus.message}
-                    </div>
-                </a>
-            </Tippy>
-        </div>
+                    <a href="https://status.escapefromtarkov.com/">
+                        {t(`Tarkov server status`)}
+                        <div
+                            className={`status-indicator status-${data.data.status.generalStatus.status}`}
+                        />
+                        <div className="server-status-message-wrapper">
+                            {data.data.status.generalStatus.message}
+                        </div>
+                    </a>
+                </Tippy>
+            </div>
+        );
     }
 
-    return <div
-            className={`server-status-wrapper`}
-        >
-            <a
-                href = 'https://status.escapefromtarkov.com/'
-            >
+    return (
+        <div className={`server-status-wrapper`}>
+            <a href="https://status.escapefromtarkov.com/">
                 {t(`Tarkov server status`)}
                 <div
                     className={`status-indicator status-${data.data.status.generalStatus.status}`}
                 />
-                <div
-                    className='server-status-message-wrapper'
-                >
+                <div className="server-status-message-wrapper">
                     {data.data.status.generalStatus.message}
                 </div>
             </a>
-    </div>;
+        </div>
+    );
 }
 
 export default ServerStatus;

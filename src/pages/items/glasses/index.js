@@ -1,5 +1,5 @@
-import {useMemo, useEffect} from 'react';
-import {Helmet} from 'react-helmet';
+import { useMemo, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -8,11 +8,7 @@ import formatPrice from '../../../modules/format-price';
 import { selectAllItems, fetchItems } from '../../../features/items/itemsSlice';
 
 const centerCell = ({ value }) => {
-    return <div
-        className = 'center-content'
-    >
-        { value }
-    </div>
+    return <div className="center-content">{value}</div>;
 };
 
 function Glasses(props) {
@@ -21,7 +17,7 @@ function Glasses(props) {
     const itemStatus = useSelector((state) => {
         return state.items.status;
     });
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         let timer = false;
@@ -29,7 +25,7 @@ function Glasses(props) {
             dispatch(fetchItems());
         }
 
-        if(!timer){
+        if (!timer) {
             timer = setInterval(() => {
                 dispatch(fetchItems());
             }, 600000);
@@ -37,12 +33,12 @@ function Glasses(props) {
 
         return () => {
             clearInterval(timer);
-        }
+        };
     }, [itemStatus, dispatch]);
 
     const displayItems = useMemo(
-        () => items.filter(item => item.types.includes('glasses')),
-        [items]
+        () => items.filter((item) => item.types.includes('glasses')),
+        [items],
     );
 
     const columns = useMemo(
@@ -50,18 +46,18 @@ function Glasses(props) {
             {
                 accessor: 'image',
                 Cell: ({ value }) => {
-                    return <div
-                        className = 'center-content'
-                    >
-                        <img
-                            alt = ''
-                            className = 'table-image'
-                            height = '64'
-                            loading='lazy'
-                            src = { value }
-                            width = '64'
-                        />
-                    </div>
+                    return (
+                        <div className="center-content">
+                            <img
+                                alt=""
+                                className="table-image"
+                                height="64"
+                                loading="lazy"
+                                src={value}
+                                width="64"
+                            />
+                        </div>
+                    );
                 },
             },
             {
@@ -80,14 +76,12 @@ function Glasses(props) {
             },
             {
                 Header: ({ value }) => {
-                    return <div
-                        className = 'center-content'
-                    >
-                        {t('Status')}
-                        <div>
-                            {t('Turn/Ergo')}
+                    return (
+                        <div className="center-content">
+                            {t('Status')}
+                            <div>{t('Turn/Ergo')}</div>
                         </div>
-                    </div>
+                    );
                 },
                 accessor: 'stats',
                 Cell: centerCell,
@@ -98,59 +92,55 @@ function Glasses(props) {
                 Cell: centerCell,
             },
         ],
-        [t]
-    )
+        [t],
+    );
 
-    const data = useMemo(() => displayItems.map((item) => {
-        const match = item.name.match(/(.*)\s\(\d.+?$/);
-        let itemName = item.name;
+    const data = useMemo(
+        () =>
+            displayItems
+                .map((item) => {
+                    const match = item.name.match(/(.*)\s\(\d.+?$/);
+                    let itemName = item.name;
 
-        if(match){
-            itemName = match[1].trim();
-        }
+                    if (match) {
+                        itemName = match[1].trim();
+                    }
 
-        return {
-            name: itemName,
-            armorClass: `${item.itemProperties.armorClass}/6`,
-            blindness: `${(item.itemProperties.BlindnessProtection || 0) * 100}%`,
-            stats: `${item.itemProperties.mousePenalty || 0}% / ${item.itemProperties.weaponErgonomicPenalty || 0}`,
-            image: item.iconLink || 'https://tarkov-tools.com/images/unknown-item-icon.jpg',
-            price: `${formatPrice(item.avg24hPrice)}`,
-        };
-    })
-    .filter(Boolean), [displayItems])
+                    return {
+                        name: itemName,
+                        armorClass: `${item.itemProperties.armorClass}/6`,
+                        blindness: `${
+                            (item.itemProperties.BlindnessProtection || 0) * 100
+                        }%`,
+                        stats: `${item.itemProperties.mousePenalty || 0}% / ${
+                            item.itemProperties.weaponErgonomicPenalty || 0
+                        }`,
+                        image:
+                            item.iconLink ||
+                            'https://tarkov-tools.com/images/unknown-item-icon.jpg',
+                        price: `${formatPrice(item.avg24hPrice)}`,
+                    };
+                })
+                .filter(Boolean),
+        [displayItems],
+    );
 
-    return [<Helmet
-        key = {'glasses-table'}
-    >
-        <meta
-            charSet='utf-8'
-        />
-        <title>
-            {t('Escape from Tarkov Glasses chart')}
-        </title>
-        <meta
-            name = 'description'
-            content = 'All glasses in Escape from Tarkov sortable by price, armor class etc'
-        />
-    </Helmet>,
-    <div
-        className="display-wrapper"
-        key = {'display-wrapper'}
-    >
-        <div
-            className='page-headline-wrapper'
-        >
-            <h1>
-                {t('Escape from Tarkov glasses chart')}
-            </h1>
-        </div>
-        <DataTable
-            columns={columns}
-            data={data}
-        />
-    </div>,
+    return [
+        <Helmet key={'glasses-table'}>
+            <meta charSet="utf-8" />
+            <title>{t('Escape from Tarkov Glasses chart')}</title>
+            <meta
+                name="description"
+                content="All glasses in Escape from Tarkov sortable by price, armor class etc"
+            />
+        </Helmet>,
+        <div className="display-wrapper" key={'display-wrapper'}>
+            <div className="page-headline-wrapper">
+                <h1>{t('Escape from Tarkov glasses chart')}</h1>
+            </div>
+            <DataTable columns={columns} data={data} />
+        </div>,
     ];
-};
+}
 
 export default Glasses;

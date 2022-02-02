@@ -3,32 +3,38 @@ import Fuse from 'fuse.js';
 const formatName = (name) => {
     return name
         .toLowerCase()
-        .replace(/(\w)\s{1}/g, "$1")
+        .replace(/(\w)\s{1}/g, '$1')
         .trim();
 };
 
 const itemSearch = (items, searchString) => {
-    let formattedSearchString = formatName(searchString)
+    let formattedSearchString = formatName(searchString);
 
-    if(!formattedSearchString){
+    if (!formattedSearchString) {
         return items;
     }
 
-    let matches = items.filter(item => formatName(item.shortName) === formattedSearchString);
+    let matches = items.filter(
+        (item) => formatName(item.shortName) === formattedSearchString,
+    );
 
     // console.log(`Length after shortname ${matches.length}`);
 
-    if(!matches || matches.length === 0){
+    if (!matches || matches.length === 0) {
         // console.log('Checking for name match');
-        matches = items.filter(item => formatName(item.name).includes(formattedSearchString));
+        matches = items.filter((item) =>
+            formatName(item.name).includes(formattedSearchString),
+        );
     }
 
-    if(!matches || matches.length === 0){
+    if (!matches || matches.length === 0) {
         // console.log('Checking for shortName match');
-        matches = items.filter(item => formatName(item.shortName).includes(formattedSearchString));
+        matches = items.filter((item) =>
+            formatName(item.shortName).includes(formattedSearchString),
+        );
     }
 
-    if(!matches || matches.length === 0){
+    if (!matches || matches.length === 0) {
         // console.log('Doing fuse search');
         const options = {
             includeScore: true,
@@ -41,7 +47,7 @@ const itemSearch = (items, searchString) => {
 
         // console.log(result);
 
-        matches = result.map(resultObject => resultObject.item);
+        matches = result.map((resultObject) => resultObject.item);
     }
 
     return matches;

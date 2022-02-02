@@ -8,7 +8,8 @@ const initialState = {
 };
 
 export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
-    const bodyQuery = JSON.stringify({query: `{
+    const bodyQuery = JSON.stringify({
+        query: `{
         crafts {
           rewardItems {
             item {
@@ -74,21 +75,23 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
           source
           duration
         }
-    }`
+    }`,
     });
 
     const response = await fetch('https://tarkov-tools.com/graphql', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
+            Accept: 'application/json',
         },
         body: bodyQuery,
     });
 
     const craftsData = await response.json();
 
-    return craftsData.data.crafts.filter(craft => !craft.source.toLowerCase().includes('christmas'));
+    return craftsData.data.crafts.filter(
+        (craft) => !craft.source.toLowerCase().includes('christmas'),
+    );
 });
 
 const craftsSlice = createSlice({
@@ -96,25 +99,25 @@ const craftsSlice = createSlice({
     initialState,
     reducers: {
         toggleItem: (state, action) => {
-            let newCrafts = [
-                ...state.crafts,
-            ];
+            let newCrafts = [...state.crafts];
 
             console.log(action.payload.itemId);
 
             newCrafts = newCrafts.map((craft) => {
-                craft.requiredItems = craft.requiredItems.map((requiredItem) => {
-                    if(requiredItem.item.id === action.payload.itemId){
-                        if(requiredItem.count === 0){
-                            requiredItem.count = requiredItem.originalCount;
-                        } else {
-                            requiredItem.originalCount = requiredItem.count;
-                            requiredItem.count = 0;
+                craft.requiredItems = craft.requiredItems.map(
+                    (requiredItem) => {
+                        if (requiredItem.item.id === action.payload.itemId) {
+                            if (requiredItem.count === 0) {
+                                requiredItem.count = requiredItem.originalCount;
+                            } else {
+                                requiredItem.originalCount = requiredItem.count;
+                                requiredItem.count = 0;
+                            }
                         }
-                    }
 
-                    return requiredItem;
-                });
+                        return requiredItem;
+                    },
+                );
 
                 return craft;
             });
@@ -129,7 +132,7 @@ const craftsSlice = createSlice({
         [fetchCrafts.fulfilled]: (state, action) => {
             state.status = 'succeeded';
 
-            if(!equal(state.crafts, action.payload)){
+            if (!equal(state.crafts, action.payload)) {
                 state.crafts = action.payload;
             }
         },
@@ -140,9 +143,7 @@ const craftsSlice = createSlice({
     },
 });
 
-export const {
-    toggleItem,
-} = craftsSlice.actions;
+export const { toggleItem } = craftsSlice.actions;
 
 export default craftsSlice.reducer;
 

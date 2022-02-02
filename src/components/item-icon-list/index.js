@@ -50,7 +50,7 @@ const map = {
     mdiBottleWine,
 };
 
-function ItemIconList (key) {
+function ItemIconList(key) {
     return map[key];
 }
 

@@ -1,4 +1,4 @@
-import {useCallback, useMemo} from 'react';
+import { useCallback, useMemo } from 'react';
 import {
     VictoryChart,
     VictoryScatter,
@@ -12,7 +12,7 @@ import {
     // VictoryVoronoiContainer,
     VictoryContainer,
 } from 'victory';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import Symbol from './Symbol.jsx';
@@ -65,7 +65,7 @@ const styles = {
     },
     legend: {
         border: {
-            stroke: "black",
+            stroke: 'black',
             fill: '#292525',
             width: 37,
         },
@@ -77,24 +77,24 @@ const styles = {
         title: {
             fill: '#ccc',
             fontSize: 4,
-            padding: 2
+            padding: 2,
         },
     },
     annotionLine: {
         data: {
-            stroke: "#888",
+            stroke: '#888',
             strokeWidth: 0.5,
             strokeDasharray: 1,
         },
         labels: {
             angle: -90,
-            fill: "#ccc",
+            fill: '#ccc',
             fontSize: 3,
-        }
+        },
     },
 };
 
-const LegendLabel = props => {
+const LegendLabel = (props) => {
     const { selectedDatumName, datum } = props;
     const style = useMemo(() => {
         let style = props.style;
@@ -102,8 +102,8 @@ const LegendLabel = props => {
         if (selectedDatumName.includes(datum.name)) {
             style = {
                 ...props.style,
-                textDecoration: "underline",
-                fill: "#fff"
+                textDecoration: 'underline',
+                fill: '#fff',
             };
         }
 
@@ -114,24 +114,26 @@ const LegendLabel = props => {
 };
 
 const getMarkerLine = (xMax, xTarget, label) => {
-    if(xMax < xTarget + 1){
+    if (xMax < xTarget + 1) {
         return null;
     }
 
-    return <VictoryLine
-        style={styles.annotionLine}
-        labels={[label]}
-        key={label}
-        labelComponent={
-            <VictoryLabel
-                textAnchor = 'middle'
-                verticalAnchor = 'middle'
-                dx = {xMax - 40}
-                dy = {-3}
-            />
-        }
-        x={() => xTarget}
-    />
+    return (
+        <VictoryLine
+            style={styles.annotionLine}
+            labels={[label]}
+            key={label}
+            labelComponent={
+                <VictoryLabel
+                    textAnchor="middle"
+                    verticalAnchor="middle"
+                    dx={xMax - 40}
+                    dy={-3}
+                />
+            }
+            x={() => xTarget}
+        />
+    );
 };
 
 // const getArmorLabel = (tier, yMax, xMax) => {
@@ -152,7 +154,10 @@ const getMarkerLine = (xMax, xTarget, label) => {
 //     />
 // };
 
-const xTickValues = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240];
+const xTickValues = [
+    10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170,
+    180, 190, 200, 210, 220, 230, 240,
+];
 const yTickValues = [10, 20, 30, 40, 50, 60, 70];
 
 const chartAnimate = { duration: 500 };
@@ -160,16 +165,19 @@ const chartPadding = { top: 10, bottom: 20, right: 50, left: 10 };
 const chartMinDomain = { y: 0, x: 0 };
 const chartMaxDomain = { y: MAX_PENETRATION, x: MAX_DAMAGE };
 
-const Graph = props => {
-    const {xMax, listState} = props;
+const Graph = (props) => {
+    const { xMax, listState } = props;
 
     const navigate = useNavigate();
 
-    const handleLabelClick = useCallback((event, data) => {
-        navigate(`/item/${data.datum.id.toString()}`);
-    }, [navigate])
+    const handleLabelClick = useCallback(
+        (event, data) => {
+            navigate(`/item/${data.datum.id.toString()}`);
+        },
+        [navigate],
+    );
 
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const markerLines = useMemo(() => {
         return [
@@ -197,8 +205,8 @@ const Graph = props => {
                 symbol: ls.symbol,
                 id: ls.id,
             };
-        })
-    }, [listState])
+        });
+    }, [listState]);
 
     return (
         <VictoryChart
@@ -210,49 +218,42 @@ const Graph = props => {
             maxDomain={chartMaxDomain}
             containerComponent={
                 <VictoryContainer
-                  style={{
-                    touchAction: "auto"
-                  }}
+                    style={{
+                        touchAction: 'auto',
+                    }}
                 />
-              }
+            }
         >
             <VictoryAxis
-                axisLabelComponent={<VictoryLabel x={177}/>}
-                label = {t('Damage')}
+                axisLabelComponent={<VictoryLabel x={177} />}
+                label={t('Damage')}
                 tickValues={xTickValues}
-                style = {styles.xaxis}
+                style={styles.xaxis}
             />
             <VictoryAxis
                 dependentAxis
-                tickFormat={(t) => t === 70 ? '' : `Class ${t / 10}`}
-                tickLabelComponent={<VictoryLabel
-                    dx={24}
-                    dy={-4}
-                />}
-                label = {t('Penetration')}
+                tickFormat={(t) => (t === 70 ? '' : `Class ${t / 10}`)}
+                tickLabelComponent={<VictoryLabel dx={24} dy={-4} />}
+                label={t('Penetration')}
                 tickValues={yTickValues}
-                style = {styles.yaxis}
+                style={styles.yaxis}
             />
             <VictoryScatter
-                dataComponent = {<Symbol
-                    link = {true}
-                />}
+                dataComponent={<Symbol link={true} />}
                 animate={chartAnimate}
                 events={[
                     {
-                      target: "labels",
-                      eventHandlers: {
-                        onClick: handleLabelClick
-                      }
-                    }
-                  ]}
+                        target: 'labels',
+                        eventHandlers: {
+                            onClick: handleLabelClick,
+                        },
+                    },
+                ]}
                 style={styles.scatter}
                 // labelComponent={<GraphLabel
                 //     dy={-3}
                 // />}
-                labelComponent={<VictoryLabel
-                    dy = {-3}
-                />}
+                labelComponent={<VictoryLabel dy={-3} />}
                 size={1}
                 activeSize={5}
                 data={scatterData}
@@ -275,18 +276,18 @@ const Graph = props => {
             /> */}
             <VictoryLegend
                 data={props.legendData}
-                dataComponent = {<Symbol
-                    link = {false}
-                />}
+                dataComponent={<Symbol link={false} />}
                 title={t('Filter by caliber')}
-                labelComponent={<LegendLabel selectedDatumName={props.selectedLegendName} />}
+                labelComponent={
+                    <LegendLabel selectedDatumName={props.selectedLegendName} />
+                }
                 events={[
                     {
-                        target: "labels",
+                        target: 'labels',
                         eventHandlers: {
-                            onClick: props.handleLegendClick
-                        }
-                    }
+                            onClick: props.handleLegendClick,
+                        },
+                    },
                 ]}
                 gutter={10}
                 orientation="vertical"
@@ -294,9 +295,9 @@ const Graph = props => {
                 x={312}
                 y={9}
             />
-            { markerLines }
+            {markerLines}
         </VictoryChart>
     );
-}
+};
 
 export default Graph;
