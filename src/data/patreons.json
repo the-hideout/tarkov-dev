@@ -74,6 +74,11 @@
         "tier": "Advanced"
     },
     {
+        "name": "T Smith",
+        "uid": "39063944",
+        "tier": "Basic"
+    },
+    {
         "name": "Roman Buser",
         "uid": "3287171",
         "tier": "Basic"
