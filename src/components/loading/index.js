@@ -1,11 +1,9 @@
 import {Bars} from 'react-loader-spinner';
 
-import ID from '../ID.jsx';
-
 import './index.css';
 
 function Loading(props) {
-    return [
+    return (
         <div
             className="display-wrapper"
             key = {'display-wrapper'}
@@ -21,12 +19,8 @@ function Loading(props) {
                     width={100}
                 />
             </div>
-        </div>,
-        <ID
-            key = {'session-id'}
-            sessionID = {props.sessionID}
-        />
-    ];
+        </div>
+    );
 };
 
 export default Loading;

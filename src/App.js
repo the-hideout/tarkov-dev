@@ -16,7 +16,7 @@ import './i18n';
 import loadPolyfills from './modules/polyfills';
 
 import Map from './components/Map.jsx';
-import ID from './components/ID.jsx';
+import RemoteControlId from './components/remote-control-id';
 import Menu from './components/menu';
 import Footer from './components/footer';
 
@@ -204,6 +204,14 @@ function App() {
         }));
     }, [controlId]);
 
+    const hideRemoteControlId = useSelector((state) => state.settings.hideRemoteControl);
+    const remoteControlSessionElement = hideRemoteControlId ? null : <RemoteControlId
+        key = 'connection-wrapper'
+        sessionID = {sessionID}
+        socketEnabled = {socketEnabled}
+        onClick = {e => dispatch(enableConnection())}
+        />;
+
 return (
     <div
         className = 'App'
@@ -227,12 +235,7 @@ return (
                     <Start
                         key = 'start-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />]
+                    remoteControlSessionElement]
                 }
             />
             <Route
@@ -241,12 +244,7 @@ return (
                     <Start
                         key = 'start-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />]
+                    remoteControlSessionElement]
                 }
             />
             <Route
@@ -268,12 +266,7 @@ return (
                         </Helmet>
                         <Ammo />
                     </div>,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -295,12 +288,7 @@ return (
                         </Helmet>
                         <Ammo />
                     </div>,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -309,12 +297,7 @@ return (
                     <Maps
                         key = 'maps-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -326,12 +309,7 @@ return (
                     >
                         <Map />
                     </div>,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -341,12 +319,7 @@ return (
                         sessionID = {sessionID}
                         key = 'loot-tier-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -356,11 +329,7 @@ return (
                         sessionID = {sessionID}
                         key = 'loot-tier-wrapper'
                     />,
-                    <ID
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement,
                 ]}
             />
             <Route
@@ -370,12 +339,7 @@ return (
                         sessionID = {sessionID}
                         key = 'loot-tier-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -384,12 +348,7 @@ return (
                     <Barters
                         key = 'barters-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -398,12 +357,7 @@ return (
                     <Items
                         key = 'items-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -413,12 +367,7 @@ return (
                         sessionID = {sessionID}
                         key = 'helmets-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
 
@@ -429,12 +378,7 @@ return (
                         sessionID = {sessionID}
                         key = 'glasses-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -444,12 +388,7 @@ return (
                         sessionID = {sessionID}
                         key = 'armor-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -459,12 +398,7 @@ return (
                         sessionID = {sessionID}
                         key = 'backpacks-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -474,12 +408,7 @@ return (
                         sessionID = {sessionID}
                         key = 'rigs-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -489,12 +418,7 @@ return (
                         sessionID = {sessionID}
                         key = 'suppressors-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -504,12 +428,7 @@ return (
                         sessionID = {sessionID}
                         key = 'guns-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -519,12 +438,7 @@ return (
                         sessionID = {sessionID}
                         key = 'mods-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -534,12 +448,7 @@ return (
                         sessionID = {sessionID}
                         key = 'pistol-grips-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -549,12 +458,7 @@ return (
                         sessionID = {sessionID}
                         key = 'barter-items-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -564,12 +468,7 @@ return (
                         sessionID = {sessionID}
                         key = 'containers-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -579,12 +478,7 @@ return (
                         sessionID = {sessionID}
                         key = 'grenades-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -594,12 +488,7 @@ return (
                         sessionID = {sessionID}
                         key = 'headsets-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -609,12 +498,7 @@ return (
                         sessionID = {sessionID}
                         key = 'keys-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -624,12 +508,7 @@ return (
                         sessionID = {sessionID}
                         key = 'provisions-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -639,12 +518,7 @@ return (
                         sessionID = {sessionID}
                         key = 'traders-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -654,12 +528,7 @@ return (
                         sessionID = {sessionID}
                         key = 'prapor-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -669,12 +538,7 @@ return (
                         sessionID = {sessionID}
                         key = 'therapist-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -684,12 +548,7 @@ return (
                         sessionID = {sessionID}
                         key = 'skier-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -699,12 +558,7 @@ return (
                         sessionID = {sessionID}
                         key = 'peacekeeper-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -714,12 +568,7 @@ return (
                         sessionID = {sessionID}
                         key = 'mechanic-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -729,12 +578,7 @@ return (
                         sessionID = {sessionID}
                         key = 'ragman-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -744,12 +588,7 @@ return (
                         sessionID = {sessionID}
                         key = 'jaeger-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -758,12 +597,7 @@ return (
                     <Crafts
                         key = 'hideout-profit-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -772,12 +606,7 @@ return (
                     <ItemTracker
                         key = 'item-tracker-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -787,12 +616,7 @@ return (
                         sessionID = {sessionID}
                         key = 'specific-item-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -801,12 +625,7 @@ return (
                     <Debug
                         key = 'debug-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -815,12 +634,7 @@ return (
                     <About
                         key = 'about-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -832,12 +646,7 @@ return (
                     >
                         <APIDocs />
                     </Suspense>,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -849,12 +658,7 @@ return (
                     >
                         <Nightbot />
                     </Suspense>,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -866,12 +670,7 @@ return (
                     >
                         <StreamElements />
                     </Suspense>,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -883,12 +682,7 @@ return (
                     >
                         <Moobot />
                     </Suspense>,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -900,12 +694,7 @@ return (
                     >
                         <ApiUsers />
                     </Suspense>,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -917,12 +706,7 @@ return (
                     >
                         <HistoryGraphs />
                     </Suspense>,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -931,12 +715,7 @@ return (
                     <Hideout
                         key = 'hideout-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -945,12 +724,7 @@ return (
                     <WipeLength
                         key = 'wipe-length-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -959,12 +733,7 @@ return (
                     <Settings
                         key = 'settings-wrapper'
                     />,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             <Route
@@ -992,12 +761,7 @@ return (
                     >
                         <BsgCategory />
                     </div>,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             />
             {/* <Route
@@ -1009,17 +773,12 @@ return (
                     >
                         <GunBuilder />
                     </div>,
-                    <ID
-                        key = 'connection-wrapper'
-                        sessionID = {sessionID}
-                        socketEnabled = {socketEnabled}
-                        onClick = {e => dispatch(enableConnection())}
-                    />
+                    remoteControlSessionElement
                 ]}
             /> */}
             <Route
                 path="*"
-                element={<ErrorPage />}
+                element={[<ErrorPage />, remoteControlSessionElement]}
             />
         </Routes>
     {/* </Suspense> */}
