@@ -66,7 +66,7 @@ const styles = {
     legend: {
         border: {
             stroke: 'black',
-            fill: '#292525',
+            fill: '#2d2d2f',
             width: 37,
         },
         labels: {

@@ -1,11 +1,12 @@
-.navigation,
-.menu {
-    background-color: #000;
-    color: #9a8866;
+.menu,
+.navigation {
+    background-color: #2d2d2f;
 }
 
 .navigation {
     align-items: center;
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.20);
+    color: #9a8866;
     display: flex;
     font-size: 40px;
     gap: 10px;
@@ -17,7 +18,7 @@
     border: 0;
     color: #9a8866;
     text-align: left;
-    text-decoration: none;
+    /* text-decoration: none; */
     white-space: nowrap;
     padding: 2px 5px;
 }
@@ -37,6 +38,7 @@
 }
 
 .menu.open {
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.20);
     display: block;
     padding: 20px;
     position: absolute;
@@ -71,12 +73,12 @@
 .branding {
     border-radius: 0;
     font-size: 0;
-    margin-top: 10px;
     margin-bottom: 10px;
-    margin-right: auto;
-
-    font-size: 40px;
     margin-left: 10px;
+    margin-right: auto;
+    margin-top: 10px;
+
+    /* font-size: 40px; */
 }
 
 .branding img {
@@ -88,14 +90,14 @@
 }
 
 .menu .submenu-wrapper {
-    background-color: #000;
+    /* background-color: #000; */
     border-radius: 0;
     font-size: 20px;
     position: relative;
 }
 
 .menu .submenu-wrapper ul {
-    background-color: #000;
+    background-color: #2d2d2f;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     display: none;
@@ -104,6 +106,8 @@
     padding: 10px;
     position: absolute;
     z-index: 2;
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.20);
+    top: 25px;
 }
 
 .submenu-wrapper li {
@@ -122,13 +126,15 @@
 .menu a:hover,
 .menu button:hover,
 .menu .submenu-wrapper:hover {
-    color: #000;
     cursor: pointer;
-    background-color: #9a8866;
 }
 
 .menu .submenu-wrapper:hover > a {
     color: #000;
+    color: #bdbbaa;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 1px;
 }
 
 .menu .submenu-wrapper:hover ul {

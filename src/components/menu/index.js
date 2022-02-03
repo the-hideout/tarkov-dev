@@ -31,11 +31,11 @@ const Menu = () => {
     return (
         <nav key="main-navigation" className="navigation">
             <Link className="branding" to="/">
-                Tarkov Tools
-                {/* <img
+                {/* Tarkov Tools */}
+                <img
                     alt='Tarkov Tools'
                     src={`${process.env.PUBLIC_URL}/logo.svg`}
-                /> */}
+                />
             </Link>
             <Link
                 aria-label="Remote control"

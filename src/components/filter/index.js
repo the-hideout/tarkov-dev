@@ -165,13 +165,13 @@ function ToggleFilter({ label, onChange, checked, tooltipContent, disabled }) {
 const selectFilterStyle = {
     menu: (provided) => ({
         ...provided,
-        backgroundColor: '#2a2828',
+        backgroundColor: '#2d2d2f',
         border: '2px solid #9a8866',
         borderRadius: 0,
     }),
     control: (provided) => ({
         ...provided,
-        backgroundColor: '#2a2828',
+        backgroundColor: '#2d2d2f',
         border: '2px solid #9a8866',
         borderRadius: 0,
     }),
@@ -183,12 +183,12 @@ const selectFilterStyle = {
     option: (provided) => ({
         ...provided,
         color: '#E5E5E5',
-        backgroundColor: '#2a2828',
+        backgroundColor: '#2d2d2f',
 
         borderRadius: 0,
         '&:hover': {
             backgroundColor: '#9a8866',
-            color: '#2a2828',
+            color: '#2d2d2f',
             fontweight: 700,
         },
     }),

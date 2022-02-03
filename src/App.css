@@ -3,8 +3,8 @@
 }
 
 body {
-    background-color: #292626;
-    background-image: url('images/background.png');
+    background-color: #2d2d2f;
+    background-image: url('images/background-1.png');
     color: #c7c5b3;
     margin: 0;
     padding: 0;
@@ -53,7 +53,7 @@ input[type='number'] {
     max-height: 40px;
 
     border: 2px solid #9a8866;
-    background-color: #292626;
+    background-color: #2d2d2f;
     color: #c7c5b3;
 }
 
@@ -79,6 +79,10 @@ select {
 a {
     color: #9a8866;
     text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 cite {
