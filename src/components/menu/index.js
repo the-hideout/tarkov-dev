@@ -33,7 +33,7 @@ const Menu = () => {
             <Link className="branding" to="/">
                 {/* Tarkov Tools */}
                 <img
-                    alt='Tarkov Tools'
+                    alt="Tarkov Tools"
                     src={`${process.env.PUBLIC_URL}/logo.svg`}
                 />
             </Link>

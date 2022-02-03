@@ -5,7 +5,7 @@
 
 .navigation {
     align-items: center;
-    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.20);
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
     color: #9a8866;
     display: flex;
     font-size: 40px;
@@ -38,7 +38,7 @@
 }
 
 .menu.open {
-    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.20);
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
     display: block;
     padding: 20px;
     position: absolute;
@@ -106,7 +106,7 @@
     padding: 10px;
     position: absolute;
     z-index: 2;
-    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.20);
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
     top: 25px;
 }
 
