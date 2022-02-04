@@ -445,8 +445,26 @@ function Item() {
                                                     />
                                                 </Link>
                                                 <div className="price-wrapper">
-                                                    {formatPrice(
-                                                        currentItemData.traderPrice,
+                                                    {currentItemData.traderName ===
+                                                    'Peacekeeper' ? (
+                                                        <Tippy
+                                                            content={formatPrice(
+                                                                currentItemData.traderPrice,
+                                                            )}
+                                                            placement="bottom"
+                                                        >
+                                                            <div>
+                                                                {formatPrice(
+                                                                    currentItemData.traderPrice /
+                                                                        128,
+                                                                    'USD',
+                                                                )}
+                                                            </div>
+                                                        </Tippy>
+                                                    ) : (
+                                                        formatPrice(
+                                                            currentItemData.traderPrice,
+                                                        )
                                                     )}
                                                 </div>
                                             </div>
