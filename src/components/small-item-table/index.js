@@ -15,6 +15,7 @@ import BarterToolip from '../barter-tooltip';
 
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
+import formatUSDAndRUB from '../../modules/format-USD-RUB';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import itemSearch from '../../modules/item-search';
 import {
@@ -48,7 +49,10 @@ function traderSellCell(datum) {
                 title={datum.row.original.bestSell.source}
                 width="40"
             />
-            {formatPrice(datum.row.original.bestSell.price)}
+            {datum.row.original.bestSell.source === 'peacekeeper' ||
+            datum.row.original.bestSell.source === 'Peacekeeper'
+                ? formatUSDAndRUB(datum.row.original.bestSell.price)
+                : formatPrice(datum.row.original.bestSell.price)}
         </div>
     );
 }
