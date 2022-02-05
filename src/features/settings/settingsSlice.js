@@ -100,8 +100,6 @@ const localStorageReadJson = (key, defaultValue) => {
     try {
         const value = localStorage.getItem(key);
 
-        console.log('read', { key, value });
-
         if (typeof value === 'string') {
             return JSON.parse(value);
         }
