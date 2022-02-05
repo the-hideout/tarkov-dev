@@ -187,6 +187,13 @@ const settingsSlice = createSlice({
                 JSON.stringify(action.payload),
             );
         },
+        toggleHideRemoteControl: (state, action) => {
+            state.hideRemoteControl = !state.hideRemoteControl;
+            localStorage.setItem(
+                'hide-remote-control',
+                JSON.stringify(state.hideRemoteControl),
+            );
+        },
     },
     extraReducers: {
         [fetchTarkovTrackerProgress.pending]: (state, action) => {
@@ -260,6 +267,7 @@ export const {
     toggleFlea,
     setStationOrTraderLevel,
     toggleTarkovTracker,
+    toggleHideRemoteControl,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;
