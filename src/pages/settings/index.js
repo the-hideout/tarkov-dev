@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
@@ -15,6 +15,7 @@ import {
     setTarkovTrackerAPIKey,
     fetchTarkovTrackerProgress,
     toggleTarkovTracker,
+    toggleHideRemoteControl,
     // selectCompletedQuests,
 } from '../../features/settings/settingsSlice';
 import capitalizeFirst from '../../modules/capitalize-first';
@@ -102,6 +103,13 @@ function Settings() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [useTarkovTracker, allStations]);
+
+    const hideRemoteControlValue = useSelector(
+        (state) => state.settings.hideRemoteControl,
+    );
+    const handleHideRemoteValueToggle = useCallback(() => {
+        dispatch(toggleHideRemoteControl());
+    }, [dispatch]);
 
     return (
         <div className={'page-wrapper'}>
@@ -312,6 +320,13 @@ function Settings() {
                         </Tippy>
                     );
                 })}
+            </div>
+            <div className="settings-group-wrapper">
+                <ToggleFilter
+                    label={t('Hide remote control')}
+                    onChange={handleHideRemoteValueToggle}
+                    checked={hideRemoteControlValue}
+                />
             </div>
         </div>
     );
