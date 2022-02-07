@@ -34,7 +34,7 @@ function ItemCost({
                     className="barter-icon"
                     src={`${process.env.PUBLIC_URL}/images/flea-market-icon.jpg`}
                 />
-                <span>{count}</span> X {formatPrice(price)} ={' '}
+                {count + ' x ' + formatPrice(price) + ' = '}
                 {formatPrice(count * (alternatePrice || price))}
             </div>
         );
@@ -62,7 +62,7 @@ function ItemCost({
                         loading="lazy"
                         src={`${process.env.PUBLIC_URL}/images/icon-barter.png`}
                     />
-                    <span>{count}</span> X {formatPrice(price)} ={' '}
+                    {count + ' x ' + formatPrice(price) + ' = '}
                     {formatPrice(count * (alternatePrice || price))}
                 </div>
             </Tippy>
@@ -78,7 +78,7 @@ function ItemCost({
                     loading="lazy"
                     src={`${process.env.PUBLIC_URL}/images/${priceSource}-icon.jpg`}
                 />
-                <span>{count}</span> X {formatPrice(price)} ={' '}
+                {count + ' x ' + formatPrice(price) + ' = '}
                 {formatPrice(count * (alternatePrice || price))}
             </div>
         );

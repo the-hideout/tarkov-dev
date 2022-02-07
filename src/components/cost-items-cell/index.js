@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import ItemCost from '../item-cost';
+import RewardImage from '../reward-image';
 import './index.css';
 import { toggleItem as toggleCraftItem } from '../../features/crafts/craftsSlice';
 import { toggleItem as toggleBarterItem } from '../../features/barters/bartersSlice';
@@ -36,12 +37,11 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                         }}
                     >
                         <div className="cost-image-wrapper">
-                            <img
-                                alt={costItem.name}
-                                loading="lazy"
+                            <RewardImage
+                                count={costItem.count}
+                                iconLink={`https://assets.tarkov-tools.com/${costItem.id}-icon.jpg`}
                                 height="34"
                                 width="34"
-                                src={costItem.iconLink}
                             />
                         </div>
                         <div className="cost-item-text-wrapper">

@@ -96,6 +96,27 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
     },
 );
 
+const localStorageReadJson = (key, defaultValue) => {
+    try {
+        const value = localStorage.getItem(key);
+
+        if (typeof value === 'string') {
+            return JSON.parse(value);
+        }
+    } catch (error) {
+        /* noop */
+    }
+
+    return defaultValue;
+};
+const localStorageWriteJson = (key, value) => {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+        /* noop */
+    }
+};
+
 const settingsSlice = createSlice({
     name: 'settings',
     initialState: {
@@ -158,8 +179,7 @@ const settingsSlice = createSlice({
         useTarkovTracker:
             JSON.parse(localStorage.getItem('useTarkovTracker')) || false,
         tarkovTrackerModules: [],
-        hideRemoteControl:
-            JSON.parse(localStorage.getItem('hide-remote-control')) || false,
+        hideRemoteControl: localStorageReadJson('hide-remote-control', false),
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
@@ -185,6 +205,13 @@ const settingsSlice = createSlice({
             localStorage.setItem(
                 'useTarkovTracker',
                 JSON.stringify(action.payload),
+            );
+        },
+        toggleHideRemoteControl: (state, action) => {
+            state.hideRemoteControl = !state.hideRemoteControl;
+            localStorageWriteJson(
+                'hide-remote-control',
+                state.hideRemoteControl,
             );
         },
     },
@@ -260,6 +287,7 @@ export const {
     toggleFlea,
     setStationOrTraderLevel,
     toggleTarkovTracker,
+    toggleHideRemoteControl,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;
