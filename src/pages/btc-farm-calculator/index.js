@@ -13,6 +13,7 @@ import {
 } from './data';
 import { getDurationDisplay } from '../../modules/format-duration';
 import BtcGraph from './graph';
+import { useMemo } from 'react';
 
 const BitcoinItemId = '59faff1d86f7746c51718c9c';
 const GraphicCardItemId = '57347ca924597744596b4e71';
@@ -29,6 +30,41 @@ const BtcFarmCalculator = () => {
     const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
 
     const selectedData = ProduceBitcoinData[graphicCardsCount];
+
+    const infoData = useMemo(() => {
+        const innerData = [];
+
+        if (selectedData) {
+            innerData.push({
+                label: t('Bitcoins/h'),
+                text: selectedData.btcPerHour.toFixed(3),
+            });
+            innerData.push({
+                label: t('Time to produce 1 bitcoin'),
+                text: getDurationDisplay(selectedData.msToProduceBTC),
+            });
+
+            if (bitcoinItem) {
+                innerData.push({
+                    label: t('Estimated profit/h'),
+                    text: formatPrice(
+                        bitcoinItem.sellFor?.[0].price *
+                            selectedData.btcPerHour,
+                    ),
+                });
+                innerData.push({
+                    label: t('Estimated profit/day'),
+                    text: formatPrice(
+                        bitcoinItem.sellFor?.[0].price *
+                            selectedData.btcPerHour *
+                            24,
+                    ),
+                });
+            }
+        }
+
+        return innerData;
+    }, [selectedData, t, bitcoinItem]);
 
     return (
         <div className={'page-wrapper'}>
@@ -56,7 +92,7 @@ const BtcFarmCalculator = () => {
                 max={MaxNumGraphicsCards}
             />
 
-            {Boolean(selectedData) && (
+            {infoData.length > 0 && (
                 <div>
                     {Boolean(bitcoinItem) && (
                         <img
@@ -66,36 +102,13 @@ const BtcFarmCalculator = () => {
                             src={bitcoinItem.iconLink}
                         />
                     )}
-                    <div>
-                        {t(
-                            'Bitcoins per hour {{time, number(minimumFractionDigits: 2)}}',
-                            {
-                                time: selectedData.btcPerHour,
-                            },
-                        )}
-                    </div>
-                    <div>
-                        {t(
-                            'Time to produce {{count}} bitcoin {{durationStr}}',
-                            {
-                                count: 1,
-                                durationStr: getDurationDisplay(
-                                    selectedData.msToProduceBTC,
-                                ),
-                            },
-                        )}
-                    </div>
-                    {Boolean(bitcoinItem) && (
-                        <>
-                            <div>
-                                {t('Profit per hour')}{' '}
-                                {formatPrice(
-                                    bitcoinItem.sellFor?.[0].price *
-                                        selectedData.btcPerHour,
-                                )}
+                    {infoData.map(({ label, text }) => {
+                        return (
+                            <div key={label}>
+                                {label} {text}
                             </div>
-                        </>
-                    )}
+                        );
+                    })}
                 </div>
             )}
 
