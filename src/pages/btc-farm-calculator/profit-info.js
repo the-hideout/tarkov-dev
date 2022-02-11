@@ -9,9 +9,7 @@ import { getDurationDisplay } from '../../modules/format-duration';
 
 const { useTranslation } = require('react-i18next');
 
-const ShowDays = 100;
-
-const ProfitInfo = ({ profitForNumCards = [1, 10, 25, 50] }) => {
+const ProfitInfo = ({ profitForNumCards, showDays = 100 }) => {
     const { t } = useTranslation();
 
     const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
@@ -33,7 +31,7 @@ const ProfitInfo = ({ profitForNumCards = [1, 10, 25, 50] }) => {
 
             let profitDay;
             const values = [];
-            for (let day = 0; day <= ShowDays; day = day + 1) {
+            for (let day = 0; day <= showDays; day = day + 1) {
                 const revenue = btcRevenuePerDay * day;
                 const profit = revenue - graphicCardsCost;
 
@@ -57,7 +55,7 @@ const ProfitInfo = ({ profitForNumCards = [1, 10, 25, 50] }) => {
                 btcRevenuePerHour,
             };
         });
-    }, [bitcoinItem, graphicCardItem, profitForNumCards]);
+    }, [bitcoinItem, graphicCardItem, profitForNumCards, showDays]);
 
     if (data.length <= 0) {
         return null;
