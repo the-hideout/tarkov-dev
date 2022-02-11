@@ -5,6 +5,7 @@ import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 import { InputFilter } from '../../components/filter';
 import formatPrice from '../../modules/format-price';
+import Loading from '../../components/loading';
 
 import {
     BitcoinItemId,
@@ -26,8 +27,12 @@ const BtcFarmCalculator = () => {
     const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
     const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
 
-    const btcSellPrice = bitcoinItem.sellFor?.[0].price ?? 0;
-    const graphicsCardBuyPrice = graphicCardItem.buyFor?.[0].price ?? 0;
+    if (!bitcoinItem || !graphicCardItem) {
+        return <Loading />;
+    }
+
+    const btcSellPrice = bitcoinItem?.sellFor?.[0].price ?? 0;
+    const graphicsCardBuyPrice = graphicCardItem?.buyFor?.[0].price ?? 0;
 
     return (
         <div className={'page-wrapper'}>
