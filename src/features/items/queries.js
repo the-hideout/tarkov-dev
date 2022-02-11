@@ -1,5 +1,4 @@
 import { useQuery } from 'react-query';
-import equal from 'fast-deep-equal';
 
 import calculateFee from '../../modules/flea-market-fee';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes';
