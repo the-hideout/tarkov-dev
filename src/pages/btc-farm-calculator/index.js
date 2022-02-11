@@ -2,8 +2,7 @@ import { useTranslation } from 'react-i18next';
 import './index.css';
 import { useItemByIdQuery } from '../../features/items/queries';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
-import duration from 'dayjs/plugin/duration';
-import dayjs from 'dayjs';
+
 import { InputFilter } from '../../components/filter';
 import {
     VictoryAxis,
@@ -14,7 +13,7 @@ import {
 } from 'victory';
 import formatPrice from '../../modules/format-price';
 
-dayjs.extend(duration);
+import { getDurationDisplay } from '../../modules/format-duration';
 
 const BitcoinItemId = '59faff1d86f7746c51718c9c';
 const GraphicCardItemId = '57347ca924597744596b4e71';
@@ -25,27 +24,6 @@ const calculateMSToProduceBTC = (numCards) => {
     return (145000 / (1 + (numCards - 1) * 0.041225)) * 1000;
 };
 
-function getDurationDisplay(time) {
-    let format = '';
-
-    if (dayjs.duration(time).seconds() > 0) {
-        format = `s[s] ${format}`;
-    }
-
-    if (dayjs.duration(time).minutes() > 0) {
-        format = `mm[m] ${format}`;
-    }
-
-    if (dayjs.duration(time).hours() > 0) {
-        format = `H[h] ${format}`;
-    }
-
-    if (dayjs.duration(time).days() > 0) {
-        format = `D[d] ${format}`;
-    }
-
-    return dayjs.duration(time).format(format);
-}
 
 const ProduceBitcoinData = {};
 for (
