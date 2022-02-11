@@ -28,8 +28,6 @@ const BtcFarmCalculator = () => {
     const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
     const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
 
-    console.log({ bitcoinItem, graphicCardsCount, graphicCardItem });
-
     const selectedData = ProduceBitcoinData[graphicCardsCount];
 
     return (
@@ -51,7 +49,7 @@ const BtcFarmCalculator = () => {
                 onChange={(event) => {
                     const parsed = parseInt(event.target.value, 10);
                     if (Number.isFinite(parsed)) {
-                        setGraphicCardsCount(parseInt(event.target.value, 10));
+                        setGraphicCardsCount(parsed);
                     }
                 }}
                 min={MinNumGraphicsCards}
