@@ -7,16 +7,16 @@ import { InputFilter } from '../../components/filter';
 import formatPrice from '../../modules/format-price';
 
 import {
+    BitcoinItemId,
+    GraphicCardItemId,
     MaxNumGraphicsCards,
     MinNumGraphicsCards,
     ProduceBitcoinData,
 } from './data';
 import { getDurationDisplay } from '../../modules/format-duration';
-import BtcGraph from './graph';
+// import BtcGraph from './graph';
+import ProfitInfo from './profit-info';
 import { useMemo } from 'react';
-
-const BitcoinItemId = '59faff1d86f7746c51718c9c';
-const GraphicCardItemId = '57347ca924597744596b4e71';
 
 const BtcFarmCalculator = () => {
     const { t } = useTranslation();
@@ -111,8 +111,8 @@ const BtcFarmCalculator = () => {
                     })}
                 </div>
             )}
-
-            <BtcGraph />
+            <ProfitInfo />
+            {/* <BtcGraph /> */}
         </div>
     );
 };

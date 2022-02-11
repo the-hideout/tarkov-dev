@@ -3,6 +3,9 @@ const calculateMSToProduceBTC = (numCards) => {
     return (145000 / (1 + (numCards - 1) * 0.041225)) * 1000;
 };
 
+export const BitcoinItemId = '59faff1d86f7746c51718c9c';
+export const GraphicCardItemId = '57347ca924597744596b4e71';
+
 export const MaxNumGraphicsCards = 50;
 export const MinNumGraphicsCards = 1;
 
