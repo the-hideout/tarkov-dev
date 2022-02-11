@@ -11,12 +11,9 @@ import {
     GraphicCardItemId,
     MaxNumGraphicsCards,
     MinNumGraphicsCards,
-    ProduceBitcoinData,
 } from './data';
-import { getDurationDisplay } from '../../modules/format-duration';
 import BtcGraph from './graph';
 import ProfitInfo from './profit-info';
-import { useMemo } from 'react';
 
 const BtcFarmCalculator = () => {
     const { t } = useTranslation();
@@ -29,54 +26,23 @@ const BtcFarmCalculator = () => {
     const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
     const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
 
-    const selectedData = ProduceBitcoinData[graphicCardsCount];
-
-    const infoData = useMemo(() => {
-        const innerData = [];
-
-        if (selectedData) {
-            innerData.push({
-                label: t('Bitcoins/h'),
-                text: selectedData.btcPerHour.toFixed(3),
-            });
-            innerData.push({
-                label: t('Time to produce 1 bitcoin'),
-                text: getDurationDisplay(selectedData.msToProduceBTC),
-            });
-
-            if (bitcoinItem) {
-                innerData.push({
-                    label: t('Estimated profit/h'),
-                    text: formatPrice(
-                        bitcoinItem.sellFor?.[0].price *
-                            selectedData.btcPerHour,
-                    ),
-                });
-                innerData.push({
-                    label: t('Estimated profit/day'),
-                    text: formatPrice(
-                        bitcoinItem.sellFor?.[0].price *
-                            selectedData.btcPerHour *
-                            24,
-                    ),
-                });
-            }
-        }
-
-        return innerData;
-    }, [selectedData, t, bitcoinItem]);
+    const btcSellPrice = bitcoinItem.sellFor?.[0].price ?? 0;
+    const graphicsCardBuyPrice = graphicCardItem.buyFor?.[0].price ?? 0;
 
     return (
         <div className={'page-wrapper'}>
             <h1>{t('Bitcoin Farm Calculator')}</h1>
 
             {Boolean(graphicCardItem) && (
-                <img
-                    alt={graphicCardItem.name}
-                    className={'item-image'}
-                    loading="lazy"
-                    src={graphicCardItem.iconLink}
-                />
+                <div>
+                    <img
+                        alt={graphicCardItem.name}
+                        className={'item-image'}
+                        loading="lazy"
+                        src={graphicCardItem.iconLink}
+                    />
+                    {formatPrice(graphicsCardBuyPrice)}
+                </div>
             )}
             <InputFilter
                 label={t('Graphic cards count')}
@@ -92,26 +58,20 @@ const BtcFarmCalculator = () => {
                 max={MaxNumGraphicsCards}
             />
 
-            {infoData.length > 0 && (
+            {Boolean(bitcoinItem) && (
                 <div>
-                    {Boolean(bitcoinItem) && (
-                        <img
-                            alt={bitcoinItem.name}
-                            className={'item-image'}
-                            loading="lazy"
-                            src={bitcoinItem.iconLink}
-                        />
-                    )}
-                    {infoData.map(({ label, text }) => {
-                        return (
-                            <div key={label}>
-                                {label} {text}
-                            </div>
-                        );
-                    })}
+                    <img
+                        alt={bitcoinItem.name}
+                        className={'item-image'}
+                        loading="lazy"
+                        src={bitcoinItem.iconLink}
+                    />
+                    {formatPrice(btcSellPrice)}
                 </div>
             )}
-            <ProfitInfo />
+            <ProfitInfo
+                profitForNumCards={[graphicCardsCount, 1, 10, 25, 50]}
+            />
             <BtcGraph />
         </div>
     );

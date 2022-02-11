@@ -5,6 +5,7 @@ import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
 import CenterCell from '../../components/center-cell';
 import { useMemo } from 'react';
+import { getDurationDisplay } from '../../modules/format-duration';
 
 const { useTranslation } = require('react-i18next');
 
@@ -27,6 +28,7 @@ const ProfitInfo = ({ profitForNumCards = [1, 10, 25, 50] }) => {
             const data = ProduceBitcoinData[graphicCardsCount];
 
             const graphicCardsCost = graphicsCardBuyPrice * graphicCardsCount;
+            const btcRevenuePerHour = btcSellPrice * data.btcPerHour;
             const btcRevenuePerDay = btcSellPrice * data.btcPerHour * 24;
 
             let profitDay;
@@ -46,11 +48,13 @@ const ProfitInfo = ({ profitForNumCards = [1, 10, 25, 50] }) => {
             }
 
             return {
+                ...data,
                 graphicCardsCount,
                 values,
                 profitDay,
                 graphicCardsCost,
                 btcRevenuePerDay,
+                btcRevenuePerHour,
             };
         });
     }, [bitcoinItem, graphicCardItem, profitForNumCards]);
@@ -69,10 +73,16 @@ const ProfitInfo = ({ profitForNumCards = [1, 10, 25, 50] }) => {
                         Header: t('Num graphic cards'),
                         accessor: 'graphicCardsCount',
                     },
+
                     {
-                        Header: t('Total cost of graphic cards'),
-                        accessor: ({ graphicCardsCost }) =>
-                            formatPrice(graphicCardsCost),
+                        Header: t('Time to produce 1 bitcoin'),
+                        accessor: ({ msToProduceBTC }) =>
+                            getDurationDisplay(msToProduceBTC),
+                        Cell: CenterCell,
+                    },
+                    {
+                        Header: t('BTC/day'),
+                        accessor: ({ btcPerDay }) => btcPerDay.toFixed(4),
                         Cell: CenterCell,
                     },
                     {
@@ -84,6 +94,12 @@ const ProfitInfo = ({ profitForNumCards = [1, 10, 25, 50] }) => {
                     {
                         Header: t('Profit after days'),
                         accessor: 'profitDay',
+                        Cell: CenterCell,
+                    },
+                    {
+                        Header: t('Total cost of graphic cards'),
+                        accessor: ({ graphicCardsCost }) =>
+                            formatPrice(graphicCardsCost),
                         Cell: CenterCell,
                     },
                 ]}

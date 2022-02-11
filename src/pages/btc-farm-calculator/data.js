@@ -18,11 +18,13 @@ for (
     const msToProduceBTC = calculateMSToProduceBTC(count);
     const hoursToProduceBTC = msToProduceBTC / 60 / 60 / 1000;
     const btcPerHour = 1 / hoursToProduceBTC;
+    const btcPerDay = btcPerHour * 24;
 
     ProduceBitcoinData[count] = {
         count,
         msToProduceBTC,
         hoursToProduceBTC,
         btcPerHour,
+        btcPerDay,
     };
 }
