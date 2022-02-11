@@ -14,7 +14,7 @@ import {
     ProduceBitcoinData,
 } from './data';
 import { getDurationDisplay } from '../../modules/format-duration';
-// import BtcGraph from './graph';
+import BtcGraph from './graph';
 import ProfitInfo from './profit-info';
 import { useMemo } from 'react';
 
@@ -112,7 +112,7 @@ const BtcFarmCalculator = () => {
                 </div>
             )}
             <ProfitInfo />
-            {/* <BtcGraph /> */}
+            <BtcGraph />
         </div>
     );
 };
