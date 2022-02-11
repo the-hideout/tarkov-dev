@@ -13,35 +13,15 @@ import {
 } from 'victory';
 import formatPrice from '../../modules/format-price';
 
+import {
+    MaxNumGraphicsCards,
+    MinNumGraphicsCards,
+    ProduceBitcoinData,
+} from './data';
 import { getDurationDisplay } from '../../modules/format-duration';
 
 const BitcoinItemId = '59faff1d86f7746c51718c9c';
 const GraphicCardItemId = '57347ca924597744596b4e71';
-const MaxNumGraphicsCards = 50;
-const MinNumGraphicsCards = 1;
-
-const calculateMSToProduceBTC = (numCards) => {
-    return (145000 / (1 + (numCards - 1) * 0.041225)) * 1000;
-};
-
-
-const ProduceBitcoinData = {};
-for (
-    let count = MinNumGraphicsCards;
-    count <= MaxNumGraphicsCards;
-    count = count + 1
-) {
-    const msToProduceBTC = calculateMSToProduceBTC(count);
-    const hoursToProduceBTC = msToProduceBTC / 60 / 60 / 1000;
-    const btcPerHour = 1 / hoursToProduceBTC;
-
-    ProduceBitcoinData[count] = {
-        count,
-        msToProduceBTC,
-        hoursToProduceBTC,
-        btcPerHour,
-    };
-}
 
 const BtcFarmCalculator = () => {
     const { t } = useTranslation();
@@ -116,7 +96,7 @@ const BtcFarmCalculator = () => {
                     {Boolean(bitcoinItem) && (
                         <>
                             <div>
-                                {t('Profit per hour (not counting fuel)')}{' '}
+                                {t('Profit per hour')}{' '}
                                 {formatPrice(
                                     bitcoinItem.sellFor?.[0].price *
                                         selectedData.btcPerHour,
