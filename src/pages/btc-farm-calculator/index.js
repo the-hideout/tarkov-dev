@@ -4,13 +4,6 @@ import { useItemByIdQuery } from '../../features/items/queries';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 import { InputFilter } from '../../components/filter';
-import {
-    VictoryAxis,
-    VictoryChart,
-    VictoryLine,
-    VictoryTheme,
-    VictoryVoronoiContainer,
-} from 'victory';
 import formatPrice from '../../modules/format-price';
 
 import {
@@ -19,6 +12,7 @@ import {
     ProduceBitcoinData,
 } from './data';
 import { getDurationDisplay } from '../../modules/format-duration';
+import BtcGraph from './graph';
 
 const BitcoinItemId = '59faff1d86f7746c51718c9c';
 const GraphicCardItemId = '57347ca924597744596b4e71';
@@ -107,27 +101,7 @@ const BtcFarmCalculator = () => {
                 </div>
             )}
 
-            <VictoryChart
-                theme={VictoryTheme.material}
-                height={200}
-                containerComponent={
-                    <VictoryVoronoiContainer
-                        labels={({ datum }) =>
-                            `${datum.count}: ${getDurationDisplay(
-                                datum.msToProduceBTC,
-                            )}`
-                        }
-                    />
-                }
-            >
-                <VictoryLine
-                    data={Object.values(ProduceBitcoinData)}
-                    x="count"
-                    y="hoursToProduceBTC"
-                />
-                <VictoryAxis label={t('num graphic cards')} />
-                <VictoryAxis label={t('hours')} dependentAxis />
-            </VictoryChart>
+            <BtcGraph />
         </div>
     );
 };
