@@ -9,7 +9,7 @@ import { getDurationDisplay } from '../../modules/format-duration';
 
 const { useTranslation } = require('react-i18next');
 
-const ProfitInfo = ({ profitForNumCards, showDays = 100 }) => {
+const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay }) => {
     const { t } = useTranslation();
 
     const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
@@ -26,18 +26,19 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100 }) => {
             const data = ProduceBitcoinData[graphicCardsCount];
 
             const graphicCardsCost = graphicsCardBuyPrice * graphicCardsCount;
-            const btcRevenuePerHour = btcSellPrice * data.btcPerHour;
-            const btcRevenuePerDay = btcSellPrice * data.btcPerHour * 24;
+            const btcRevenuePerDay = data.btcPerDay * btcSellPrice;
+            const btcProfitPerDay = btcRevenuePerDay - fuelPricePerDay;
 
-            let profitDay;
+            let profitableDay;
+            if (btcProfitPerDay > 0) {
+                profitableDay = Math.ceil(graphicCardsCost / btcProfitPerDay);
+            }
+
             const values = [];
             for (let day = 0; day <= showDays; day = day + 1) {
+                const fuelCost = fuelPricePerDay * day;
                 const revenue = btcRevenuePerDay * day;
-                const profit = revenue - graphicCardsCost;
-
-                if (profit > 0 && profitDay === undefined) {
-                    profitDay = day;
-                }
+                const profit = revenue - graphicCardsCost - fuelCost;
 
                 values.push({
                     x: day,
@@ -49,13 +50,20 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100 }) => {
                 ...data,
                 graphicCardsCount,
                 values,
-                profitDay,
+                profitableDay,
                 graphicCardsCost,
                 btcRevenuePerDay,
-                btcRevenuePerHour,
+                fuelPricePerDay,
+                btcProfitPerDay,
             };
         });
-    }, [bitcoinItem, graphicCardItem, profitForNumCards, showDays]);
+    }, [
+        bitcoinItem,
+        graphicCardItem,
+        fuelPricePerDay,
+        profitForNumCards,
+        showDays,
+    ]);
 
     if (data.length <= 0) {
         return null;
@@ -84,14 +92,14 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100 }) => {
                         Cell: CenterCell,
                     },
                     {
-                        Header: t('Estimated revenue/day'),
-                        accessor: ({ btcRevenuePerDay }) =>
-                            formatPrice(btcRevenuePerDay),
+                        Header: t('Estimated profit/day'),
+                        accessor: ({ btcProfitPerDay }) =>
+                            formatPrice(btcProfitPerDay),
                         Cell: CenterCell,
                     },
                     {
-                        Header: t('Profit after days'),
-                        accessor: 'profitDay',
+                        Header: t('Profitable after days'),
+                        accessor: 'profitableDay',
                         Cell: CenterCell,
                     },
                     {
@@ -107,11 +115,11 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100 }) => {
                 {data.map(({ graphicCardsCount, values }, index) => (
                     <VictoryLine key={graphicCardsCount} data={values} />
                 ))}
-                {data.map(({ profitDay, graphicCardsCount }) => {
+                {data.map(({ profitableDay, graphicCardsCount }) => {
                     return (
                         <VictoryAxis
-                            axisValue={profitDay}
-                            label={profitDay}
+                            axisValue={profitableDay}
+                            label={profitableDay}
                             key={graphicCardsCount}
                         />
                     );

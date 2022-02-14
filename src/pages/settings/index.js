@@ -23,7 +23,7 @@ import camelcaseToDashes from '../../modules/camelcase-to-dashes';
 
 import './index.css';
 
-function getNumericSelect(min, max) {
+export function getNumericSelect(min, max) {
     let returnOptions = [];
 
     for (let i = min; i <= max; i = i + 1) {
