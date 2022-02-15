@@ -18,6 +18,7 @@ import {
 // import BtcGraph from './graph';
 import ProfitInfo from './profit-info';
 import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
+import capitalizeFirst from '../../modules/capitalize-first';
 
 const BtcFarmCalculator = () => {
     const { t } = useTranslation();
@@ -43,7 +44,6 @@ const BtcFarmCalculator = () => {
     return (
         <div className={'page-wrapper'}>
             <h1>{t('Bitcoin Farm Calculator')}</h1>
-
             {Boolean(graphicCardItem) && (
                 <div>
                     <img
@@ -52,7 +52,8 @@ const BtcFarmCalculator = () => {
                         loading="lazy"
                         src={graphicCardItem.iconLink}
                     />
-                    {formatPrice(graphicsCardBuy.price)}
+                    Buy for {formatPrice(graphicsCardBuy.price)} from{' '}
+                    {capitalizeFirst(graphicsCardBuy.source)}
                 </div>
             )}
 
@@ -64,7 +65,8 @@ const BtcFarmCalculator = () => {
                         loading="lazy"
                         src={bitcoinItem.iconLink}
                     />
-                    {formatPrice(btcSell.price)}
+                    Sell for {formatPrice(btcSell.price)} to{' '}
+                    {capitalizeFirst(btcSell.source)}
                 </div>
             )}
             <div className="settings-group-wrapper">
