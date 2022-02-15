@@ -1,6 +1,9 @@
 import { useSelector } from 'react-redux';
 import { useItemByIdQuery } from '../../features/items/queries';
-import { selectAllSkills } from '../../features/settings/settingsSlice';
+import {
+    selectAllSkills,
+    selectAllStations,
+} from '../../features/settings/settingsSlice';
 
 // https://escapefromtarkov.fandom.com/wiki/Hideout
 const calculateMSToProduceBTC = (numCards) => {
@@ -67,8 +70,9 @@ export const getMinBuyFor = (item) => {
     return min;
 };
 
-export const useFuelPricePerDay = ({ solarPower = false } = {}) => {
+export const useFuelPricePerDay = () => {
     const skills = useSelector(selectAllSkills);
+    const stations = useSelector(selectAllStations);
 
     const { data: metalFuelTankItem } = useItemByIdQuery(MetalFuelTankItemId);
     const { data: expeditionaryFuelTankItem } = useItemByIdQuery(
@@ -94,7 +98,7 @@ export const useFuelPricePerDay = ({ solarPower = false } = {}) => {
     );
     durationMs = durationMs / (1 - skillFuelDecreasedConsumptionRate);
 
-    if (solarPower) {
+    if (stations['solar-power'] === 1) {
         durationMs = durationMs * 2;
     }
 

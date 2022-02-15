@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import Select from 'react-select';
 import './index.css';
 import { useItemByIdQuery } from '../../features/items/queries';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
@@ -18,47 +17,7 @@ import {
 } from './data';
 import BtcGraph from './graph';
 import ProfitInfo from './profit-info';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-    selectAllSkills,
-    setStationOrTraderLevel,
-} from '../../features/settings/settingsSlice';
-import { getNumericSelect } from '../settings';
-import Tippy from '@tippyjs/react';
-
-const SkillSetting = (props) => {
-    const { skillKey } = props;
-    const dispatch = useDispatch();
-    const skills = useSelector(selectAllSkills);
-
-    const options = getNumericSelect(0, 51);
-
-    return (
-        <Tippy placement="top" content={'Hideout Managment'}>
-            <div className="trader-level-wrapper">
-                <img
-                    alt={`${skillKey}-icon`}
-                    loading="lazy"
-                    src={`${process.env.PUBLIC_URL}/images/${skillKey}-icon.png`}
-                />
-                <Select
-                    defaultValue={options[skills[skillKey]]}
-                    options={options}
-                    className="basic-multi-select"
-                    onChange={(event) => {
-                        dispatch(
-                            setStationOrTraderLevel({
-                                target: skillKey,
-                                value: event.value,
-                            }),
-                        );
-                    }}
-                    classNamePrefix="select"
-                />
-            </div>
-        </Tippy>
-    );
-};
+import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
 
 const BtcFarmCalculator = () => {
     const { t } = useTranslation();
@@ -69,15 +28,10 @@ const BtcFarmCalculator = () => {
     );
     const [calculateWithFuelCost, setCalculateWithFuelCost] =
         useStateWithLocalStorage('btc-farm-calculate-with-fuel-cost', false);
-    // move to settings
-    const [hasBuiltSolarPower, setHasBuiltSolarPower] =
-        useStateWithLocalStorage('btc-farm-calculate-solar-power', false);
 
     const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
     const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
-    const fuelPricePerDay = useFuelPricePerDay({
-        solarPower: hasBuiltSolarPower,
-    });
+    const fuelPricePerDay = useFuelPricePerDay();
 
     if (!bitcoinItem || !graphicCardItem) {
         return <Loading />;
@@ -101,19 +55,6 @@ const BtcFarmCalculator = () => {
                     {formatPrice(graphicsCardBuy.price)}
                 </div>
             )}
-            <InputFilter
-                label={t('Graphic cards count')}
-                defaultValue={graphicCardsCount?.toString() ?? ''}
-                type="number"
-                onChange={(event) => {
-                    const parsed = parseInt(event.target.value, 10);
-                    if (Number.isFinite(parsed)) {
-                        setGraphicCardsCount(parsed);
-                    }
-                }}
-                min={MinNumGraphicsCards}
-                max={MaxNumGraphicsCards}
-            />
 
             {Boolean(bitcoinItem) && (
                 <div>
@@ -126,19 +67,36 @@ const BtcFarmCalculator = () => {
                     {formatPrice(btcSell.price)}
                 </div>
             )}
-            <ToggleFilter
-                label={t('Solar Power built')}
-                checked={hasBuiltSolarPower}
-                onChange={() => setHasBuiltSolarPower((prev) => !prev)}
-            />
-            <SkillSetting skillKey={'hideout-managment'} />
-            <ToggleFilter
-                label={t('Use fuel cost, {{price}}/day', {
-                    price: formatPrice(fuelPricePerDay),
-                })}
-                checked={calculateWithFuelCost}
-                onChange={() => setCalculateWithFuelCost((prev) => !prev)}
-            />
+            <div className="settings-group-wrapper">
+                <InputFilter
+                    label={t('Graphic cards count')}
+                    defaultValue={graphicCardsCount?.toString() ?? ''}
+                    type="number"
+                    onChange={(event) => {
+                        const parsed = parseInt(event.target.value, 10);
+                        if (Number.isFinite(parsed)) {
+                            setGraphicCardsCount(parsed);
+                        }
+                    }}
+                    min={MinNumGraphicsCards}
+                    max={MaxNumGraphicsCards}
+                />
+                <StationSkillTraderSetting
+                    stateKey={'hideout-managment'}
+                    type="skill"
+                />
+                <StationSkillTraderSetting
+                    stateKey={'solar-power'}
+                    type="station"
+                />
+                <ToggleFilter
+                    label={t('Use fuel cost, {{price}}/day', {
+                        price: formatPrice(fuelPricePerDay),
+                    })}
+                    checked={calculateWithFuelCost}
+                    onChange={() => setCalculateWithFuelCost((prev) => !prev)}
+                />
+            </div>
 
             <ProfitInfo
                 fuelPricePerDay={calculateWithFuelCost ? fuelPricePerDay : 0}
