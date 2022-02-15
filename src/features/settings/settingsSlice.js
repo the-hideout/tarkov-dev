@@ -18,6 +18,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
                 'nutrition-unit': 0,
                 'water-collector': 0,
                 workbench: 0,
+                'solar-power': 0,
             },
             quests: {},
         };
@@ -172,6 +173,7 @@ const settingsSlice = createSlice({
         )
             ? JSON.parse(localStorage.getItem('workbench'))
             : 3,
+        'solar-power': localStorageReadJson('solar-power', 0),
         crafting: JSON.parse(localStorage.getItem('crafting')) || 0,
         'hideout-managment':
             JSON.parse(localStorage.getItem('hideout-managment')) || 0,
@@ -268,6 +270,7 @@ export const selectAllStations = (state) => {
         'nutrition-unit': state.settings['nutrition-unit'],
         'water-collector': state.settings['water-collector'],
         workbench: state.settings.workbench,
+        'solar-power': state.settings['solar-power'],
     };
 };
 

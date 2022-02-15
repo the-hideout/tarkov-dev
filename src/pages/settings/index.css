@@ -10,16 +10,6 @@
     width: 100%;
 }
 
-.trader-level-wrapper {
-    text-align: center;
-    display: flex;
-}
-
-.trader-level-wrapper img {
-    margin-right: 10px;
-    width: 39px;
-}
-
 .toggle-wrapper {
     display: flex;
     align-items: center;
