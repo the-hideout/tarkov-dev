@@ -15,7 +15,7 @@ import {
     MinNumGraphicsCards,
     useFuelPricePerDay,
 } from './data';
-import BtcGraph from './graph';
+// import BtcGraph from './graph';
 import ProfitInfo from './profit-info';
 import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
 
@@ -102,7 +102,7 @@ const BtcFarmCalculator = () => {
                 fuelPricePerDay={calculateWithFuelCost ? fuelPricePerDay : 0}
                 profitForNumCards={[graphicCardsCount, 1, 10, 25, 50]}
             />
-            <BtcGraph />
+            {/* <BtcGraph /> */}
         </div>
     );
 };

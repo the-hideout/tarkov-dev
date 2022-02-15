@@ -1,4 +1,3 @@
-import { VictoryAxis, VictoryChart, VictoryLine, VictoryTheme } from 'victory';
 import { useItemByIdQuery } from '../../features/items/queries';
 import { BitcoinItemId, GraphicCardItemId, ProduceBitcoinData } from './data';
 import DataTable from '../../components/data-table';
@@ -6,6 +5,7 @@ import formatPrice from '../../modules/format-price';
 import CenterCell from '../../components/center-cell';
 import { useMemo } from 'react';
 import { getDurationDisplay } from '../../modules/format-duration';
+// import ProfitableGraph from './profitable-graph';
 
 const { useTranslation } = require('react-i18next');
 
@@ -111,20 +111,7 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay }) => {
                 ]}
             />
 
-            <VictoryChart theme={VictoryTheme.material} height={200}>
-                {data.map(({ graphicCardsCount, values }, index) => (
-                    <VictoryLine key={graphicCardsCount} data={values} />
-                ))}
-                {data.map(({ profitableDay, graphicCardsCount }) => {
-                    return (
-                        <VictoryAxis
-                            axisValue={profitableDay}
-                            label={profitableDay}
-                            key={graphicCardsCount}
-                        />
-                    );
-                })}
-            </VictoryChart>
+            {/* <ProfitableGraph data={data} /> */}
         </>
     );
 };
