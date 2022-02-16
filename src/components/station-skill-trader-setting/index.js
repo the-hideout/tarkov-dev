@@ -117,7 +117,7 @@ const StationSkillTraderSetting = React.forwardRef((props, ref) => {
                 camelcaseToDashes(stateKey).replace(/-/g, ' '),
             )}
         >
-            <div className="wrapper">
+            <div className="station-skill-trader-setting-wrapper">
                 <img
                     alt={`${stateKey}-icon`}
                     loading="lazy"
