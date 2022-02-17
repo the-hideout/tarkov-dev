@@ -84,7 +84,18 @@ const formatter = (key, value) => {
         return [displayKey, value ? 'Yes' : 'No'];
     }
 
-    return [defaultFormat(key), value];
+    const displayKey = defaultFormat(key);
+    if (Array.isArray(value)) {
+        return [displayKey, value.join(', ')];
+    }
+
+    // if the value is an object, return an empty array meaning that we
+    // can't format that value
+    if (typeof value === 'object') {
+        return [displayKey, undefined];
+    }
+
+    return [displayKey, value];
 };
 
 export default formatter;

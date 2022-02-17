@@ -1,41 +1,36 @@
+import { useMemo } from 'react';
 import propertyFormatter from '../../modules/property-format';
 
 import './index.css';
 
-const skipProps = ['Grid'];
+const skipProps = ['grid', 'ConflictingItems'];
 
 function PropertyList({ properties }) {
-    if (!properties) {
-        return null;
-    }
+    const data = useMemo(
+        () =>
+            Object.entries(properties ?? {})
+                .filter(([property, value]) => {
+                    return !skipProps.includes(property);
+                })
+                .map(([property, value]) => {
+                    return propertyFormatter(property, value);
+                })
+                .filter(([property, value]) => value !== undefined)
+                .filter(([property, value]) => value?.length !== 0)
+                .sort((a, b) => a[0].localeCompare(b[0])),
 
-    let allProperties = [];
-
-    for (const key in properties) {
-        allProperties.push(propertyFormatter(key, properties[key]));
-    }
-
-    allProperties.sort((a, b) => {
-        return a[0].localeCompare(b[0]);
-    });
+        [properties],
+    );
 
     return (
         <div className="property-list">
-            {allProperties.map((propertyObject) => {
-                if (skipProps.includes(propertyObject[0])) {
-                    return null;
-                }
-
-                if (propertyObject[1].length === 0) {
-                    return null;
-                }
-
+            {data.map(([property, value]) => {
                 return (
-                    <div className="property-wrapper" key={propertyObject[0]}>
+                    <div className="property-wrapper" key={property}>
                         <div>
-                            {propertyObject[1]}
+                            {value}
                             <div className="property-key-wrapper">
-                                {propertyObject[0]}
+                                {property}
                             </div>
                         </div>
                     </div>
