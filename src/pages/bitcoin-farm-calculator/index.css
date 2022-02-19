@@ -1,0 +1,12 @@
+.included-items-wrapper {
+    display: flex;
+    margin-top: 20px;
+}
+
+.page-headline-wrapper {
+    align-items: center;
+    display: flex;
+    margin: auto;
+    max-width: 1200px;
+    white-space: nowrap;
+}
