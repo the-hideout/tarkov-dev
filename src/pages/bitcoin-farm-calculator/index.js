@@ -23,7 +23,7 @@ import StationSkillTraderSetting from '../../components/station-skill-trader-set
 import capitalizeFirst from '../../modules/capitalize-first';
 
 const BitcoinFarmCalculator = () => {
-   const { t } = useTranslation();
+    const { t } = useTranslation();
 
     const [graphicCardsCount, setGraphicCardsCount] = useStateWithLocalStorage(
         'num-graphic-cards',
@@ -45,18 +45,14 @@ const BitcoinFarmCalculator = () => {
 
     const graphicsCardsList = [1, 10, 25, 50];
 
-    if(!graphicsCardsList.includes(graphicCardsCount)){
+    if (!graphicsCardsList.includes(graphicCardsCount)) {
         graphicsCardsList.unshift(graphicCardsCount);
     }
 
     return (
         <div className={'page-wrapper'}>
-            <div
-                className='page-headline-wrapper'
-            >
-                <h1>
-                    {t('Bitcoin Farm Calculator')}
-                </h1>
+            <div className="page-headline-wrapper">
+                <h1>{t('Bitcoin Farm Calculator')}</h1>
                 <Filter>
                     <InputFilter
                         label={t('Graphic cards count')}
@@ -84,7 +80,9 @@ const BitcoinFarmCalculator = () => {
                             price: formatPrice(fuelPricePerDay),
                         })}
                         checked={calculateWithFuelCost}
-                        onChange={() => setCalculateWithFuelCost((prev) => !prev)}
+                        onChange={() =>
+                            setCalculateWithFuelCost((prev) => !prev)
+                        }
                     />
                 </Filter>
             </div>
@@ -92,27 +90,29 @@ const BitcoinFarmCalculator = () => {
                 fuelPricePerDay={calculateWithFuelCost ? fuelPricePerDay : 0}
                 profitForNumCards={graphicsCardsList}
             />
-            <div
-                className='included-items-wrapper'
-            >
+            <div className="included-items-wrapper">
                 {Boolean(graphicCardItem) && (
                     <RewardCell
-                        count = {1}
-                        iconLink = {graphicCardItem.iconLink}
-                        itemLink = {`/item/${graphicCardItem.normalizedName}`}
-                        name = {graphicCardItem.name}
-                        value = {graphicsCardBuy.price}
-                        sellTo = {capitalizeFirst(graphicsCardBuy.source.replace(/-/g, ' '))}
+                        count={1}
+                        iconLink={graphicCardItem.iconLink}
+                        itemLink={`/item/${graphicCardItem.normalizedName}`}
+                        name={graphicCardItem.name}
+                        value={graphicsCardBuy.price}
+                        sellTo={capitalizeFirst(
+                            graphicsCardBuy.source.replace(/-/g, ' '),
+                        )}
                     />
                 )}
                 {Boolean(bitcoinItem) && (
                     <RewardCell
-                        count = {1}
-                        iconLink = {bitcoinItem.iconLink}
-                        itemLink = {`/item/${bitcoinItem.normalizedName}`}
-                        name = {bitcoinItem.name}
-                        value = {btcSell.price}
-                        sellTo = {capitalizeFirst(btcSell.source.replace(/-/g, ' '))}
+                        count={1}
+                        iconLink={bitcoinItem.iconLink}
+                        itemLink={`/item/${bitcoinItem.normalizedName}`}
+                        name={bitcoinItem.name}
+                        value={btcSell.price}
+                        sellTo={capitalizeFirst(
+                            btcSell.source.replace(/-/g, ' '),
+                        )}
                     />
                 )}
             </div>
