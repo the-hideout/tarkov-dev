@@ -20,7 +20,8 @@ import ProfitInfo from './profit-info';
 import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
 import capitalizeFirst from '../../modules/capitalize-first';
 
-const BtcFarmCalculator = () => {itcoin   const { t } = useTranslation();
+const BitcoinFarmCalculator = () => {
+   const { t } = useTranslation();
 
     const [graphicCardsCount, setGraphicCardsCount] = useStateWithLocalStorage(
         'num-graphic-cards',
