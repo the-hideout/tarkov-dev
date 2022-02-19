@@ -24,6 +24,10 @@
     height: 69px;
 }
 
+.data-table tbody tr.last-row {
+    height: 1px;
+}
+
 .data-table th {
     padding: 20px 5px 10px;
 }

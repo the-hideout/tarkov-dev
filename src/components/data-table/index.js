@@ -172,7 +172,10 @@ function DataTable({
                             </td>
                         </tr>
                     )}
-                    <tr ref={ref}></tr>
+                    <tr
+                        className='last-row'
+                        ref={ref}
+                    />
                 </tbody>
             </table>
         </div>
