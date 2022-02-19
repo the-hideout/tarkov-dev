@@ -22,6 +22,7 @@ import {
     mdiViewGrid,
     mdiDiscord,
     mdiHome,
+    mdiCalendarClock,
 } from '@mdi/js';
 
 import './index.css';
@@ -177,6 +178,16 @@ function Start(props) {
                                 className="icon-with-text"
                             />
                             {t('Hideout build costs')}
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/wipe-length">
+                            <Icon
+                                path={mdiCalendarClock}
+                                size={1}
+                                className="icon-with-text"
+                            />
+                            {t('Wipe length')}
                         </Link>
                     </li>
                 </ul>
