@@ -1,16 +1,13 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import Select from 'react-select';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css'; // optional
 
 import { InputFilter, ToggleFilter } from '../../components/filter';
+import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
 import {
     selectAllTraders,
     selectAllStations,
     toggleFlea,
-    setStationOrTraderLevel,
     selectAllSkills,
     setTarkovTrackerAPIKey,
     fetchTarkovTrackerProgress,
@@ -18,12 +15,10 @@ import {
     toggleHideRemoteControl,
     // selectCompletedQuests,
 } from '../../features/settings/settingsSlice';
-import capitalizeFirst from '../../modules/capitalize-first';
-import camelcaseToDashes from '../../modules/camelcase-to-dashes';
 
 import './index.css';
 
-function getNumericSelect(min, max) {
+export function getNumericSelect(min, max) {
     let returnOptions = [];
 
     for (let i = min; i <= max; i = i + 1) {
@@ -63,6 +58,7 @@ function Settings() {
         'nutrition-unit': useRef(null),
         'water-collector': useRef(null),
         workbench: useRef(null),
+        'solar-power': useRef(null),
     };
 
     useEffect(() => {
@@ -147,177 +143,41 @@ function Settings() {
             <div className="settings-group-wrapper">
                 <h2>{t('Traders')}</h2>
                 {Object.keys(allTraders).map((traderKey) => {
-                    let selectOptions = getNumericSelect(1, 4);
-
-                    if (traderKey === 'jaeger') {
-                        selectOptions.unshift({
-                            value: 0,
-                            label: 'Locked',
-                        });
-                    }
-
-                    if (traderKey === 'fence') {
-                        selectOptions.unshift({
-                            value: 0,
-                            label: '0',
-                        });
-                        selectOptions = [...selectOptions.slice(0, 2)];
-                    }
-
-                    const selectedOption = selectOptions.find(
-                        (selectOption) => {
-                            return selectOption.value === allTraders[traderKey];
-                        },
-                    );
-
                     return (
-                        <Tippy
-                            key={`${traderKey}-level`}
-                            placement="top"
-                            content={capitalizeFirst(traderKey)}
-                        >
-                            <div className="trader-level-wrapper">
-                                <img
-                                    alt={`${traderKey}-icon`}
-                                    loading="lazy"
-                                    src={`${process.env.PUBLIC_URL}/images/${traderKey}-icon.jpg`}
-                                />
-                                <Select
-                                    defaultValue={selectedOption}
-                                    name="colors"
-                                    options={selectOptions}
-                                    className="basic-multi-select"
-                                    onChange={(event) => {
-                                        dispatch(
-                                            setStationOrTraderLevel({
-                                                target: traderKey,
-                                                value: event.value,
-                                            }),
-                                        );
-                                    }}
-                                    classNamePrefix="select"
-                                />
-                            </div>
-                        </Tippy>
+                        <StationSkillTraderSetting
+                            key={traderKey}
+                            type="trader"
+                            stateKey={traderKey}
+                            ref={refs[traderKey]}
+                        />
                     );
                 })}
             </div>
             <div className="settings-group-wrapper">
                 <h2>{t('Stations')}</h2>
                 {Object.keys(allStations).map((stationKey) => {
-                    let selectOptions = [
-                        {
-                            value: 0,
-                            label: t('Not built'),
-                        },
-                        {
-                            value: 1,
-                            label: '1',
-                        },
-                        {
-                            value: 2,
-                            label: '2',
-                        },
-                        {
-                            value: 3,
-                            label: '3',
-                        },
-                    ];
-
-                    if (
-                        stationKey === 'booze-generator' ||
-                        stationKey === 'christmas-tree'
-                    ) {
-                        selectOptions = [...selectOptions.slice(0, 2)];
-                    }
-
                     return (
-                        <Tippy
-                            placement="top"
-                            key={`${stationKey}-level`}
-                            content={capitalizeFirst(
-                                camelcaseToDashes(stationKey).replace(
-                                    /-/g,
-                                    ' ',
-                                ),
-                            )}
-                        >
-                            <div className="trader-level-wrapper">
-                                <img
-                                    alt={`${stationKey}-icon`}
-                                    loading="lazy"
-                                    src={`${
-                                        process.env.PUBLIC_URL
-                                    }/images/${camelcaseToDashes(
-                                        stationKey,
-                                    )}-icon.png`}
-                                />
-                                <Select
-                                    defaultValue={
-                                        selectOptions[allStations[stationKey]]
-                                    }
-                                    isDisabled={useTarkovTracker}
-                                    name="colors"
-                                    options={selectOptions}
-                                    className="basic-multi-select"
-                                    onChange={(event) => {
-                                        dispatch(
-                                            setStationOrTraderLevel({
-                                                target: stationKey,
-                                                value: event.value,
-                                            }),
-                                        );
-                                    }}
-                                    classNamePrefix="select"
-                                    ref={refs[stationKey]}
-                                />
-                            </div>
-                        </Tippy>
+                        <StationSkillTraderSetting
+                            key={stationKey}
+                            type="station"
+                            stateKey={stationKey}
+                            ref={refs[stationKey]}
+                            isDisabled={useTarkovTracker}
+                        />
                     );
                 })}
             </div>
             <div className="settings-group-wrapper">
                 <h2>{t('Skills')}</h2>
                 {Object.keys(allSkills).map((skillKey) => {
-                    let selectOptions = getNumericSelect(0, 51);
-
                     return (
-                        <Tippy
-                            placement="top"
-                            key={`${skillKey}-level`}
-                            content={capitalizeFirst(
-                                camelcaseToDashes(skillKey).replace(/-/g, ' '),
-                            )}
-                        >
-                            <div className="trader-level-wrapper">
-                                <img
-                                    alt={`${skillKey}-icon`}
-                                    loading="lazy"
-                                    src={`${
-                                        process.env.PUBLIC_URL
-                                    }/images/${camelcaseToDashes(
-                                        skillKey,
-                                    )}-icon.png`}
-                                />
-                                <Select
-                                    defaultValue={
-                                        selectOptions[allSkills[skillKey]]
-                                    }
-                                    name="colors"
-                                    options={selectOptions}
-                                    className="basic-multi-select"
-                                    onChange={(event) => {
-                                        dispatch(
-                                            setStationOrTraderLevel({
-                                                target: skillKey,
-                                                value: event.value,
-                                            }),
-                                        );
-                                    }}
-                                    classNamePrefix="select"
-                                />
-                            </div>
-                        </Tippy>
+                        <StationSkillTraderSetting
+                            key={skillKey}
+                            type="skill"
+                            stateKey={skillKey}
+                            ref={refs[skillKey]}
+                            isDisabled={useTarkovTracker}
+                        />
                     );
                 })}
             </div>

@@ -261,6 +261,8 @@ function InputFilter({
     placeholder,
     onChange,
     label,
+    min,
+    max,
 }) {
     return (
         <label className={'single-filter-wrapper'}>
@@ -268,9 +270,11 @@ function InputFilter({
             <input
                 className={`filter-input ${type}`}
                 defaultValue={defaultValue}
-                type={'text'}
+                type={type}
                 placeholder={placeholder}
                 onChange={onChange}
+                min={min}
+                max={max}
             />
         </label>
     );
