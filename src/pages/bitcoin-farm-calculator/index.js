@@ -3,7 +3,7 @@ import './index.css';
 import { useItemByIdQuery } from '../../features/items/queries';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
-import { InputFilter, ToggleFilter } from '../../components/filter';
+import { Filter, InputFilter, ToggleFilter } from '../../components/filter';
 import formatPrice from '../../modules/format-price';
 import Loading from '../../components/loading';
 
@@ -50,32 +50,7 @@ const BitcoinFarmCalculator = () => {
     return (
         <div className={'page-wrapper'}>
             <h1>{t('Bitcoin Farm Calculator')}</h1>
-            {Boolean(graphicCardItem) && (
-                <div>
-                    <img
-                        alt={graphicCardItem.name}
-                        className={'item-image'}
-                        loading="lazy"
-                        src={graphicCardItem.iconLink}
-                    />
-                    Buy for {formatPrice(graphicsCardBuy.price)} from{' '}
-                    {capitalizeFirst(graphicsCardBuy.source)}
-                </div>
-            )}
-
-            {Boolean(bitcoinItem) && (
-                <div>
-                    <img
-                        alt={bitcoinItem.name}
-                        className={'item-image'}
-                        loading="lazy"
-                        src={bitcoinItem.iconLink}
-                    />
-                    Sell for {formatPrice(btcSell.price)} to{' '}
-                    {capitalizeFirst(btcSell.source)}
-                </div>
-            )}
-            <div className="settings-group-wrapper">
+            <Filter>
                 <InputFilter
                     label={t('Graphic cards count')}
                     defaultValue={graphicCardsCount?.toString() ?? ''}
