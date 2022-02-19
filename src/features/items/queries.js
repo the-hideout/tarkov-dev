@@ -4,6 +4,7 @@ import doFetchItems from './do-fetch-items';
 export const useItemsQuery = (queryOptions) => {
     const itemsQuery = useQuery('items', () => doFetchItems(), {
         refetchInterval: 600000,
+        placeholderData: [],
         ...queryOptions,
     });
 
@@ -13,6 +14,16 @@ export const useItemsQuery = (queryOptions) => {
 export const useItemByIdQuery = (itemId, queryOptions) => {
     const itemQuery = useItemsQuery({
         select: (items) => items.find((item) => item.id === itemId),
+        ...queryOptions,
+    });
+
+    return itemQuery;
+};
+
+export const useItemByNameQuery = (itemName, queryOptions) => {
+    const itemQuery = useItemsQuery({
+        select: (items) =>
+            items.find((item) => item.normalizedName === itemName),
         ...queryOptions,
     });
 
