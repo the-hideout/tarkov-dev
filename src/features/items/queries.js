@@ -29,3 +29,12 @@ export const useItemByNameQuery = (itemName, queryOptions) => {
 
     return itemQuery;
 };
+
+export const useItemsWithTypeQuery = (type, queryOptions) => {
+    const itemsQuery = useItemsQuery({
+        select: (items) => items.filter((item) => item.types.includes(type)),
+        ...queryOptions,
+    });
+
+    return itemsQuery;
+};
