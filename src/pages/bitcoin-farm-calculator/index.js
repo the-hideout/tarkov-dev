@@ -41,6 +41,12 @@ const BitcoinFarmCalculator = () => {
     const btcSell = getMaxSellFor(bitcoinItem);
     const graphicsCardBuy = getMaxSellFor(graphicCardItem);
 
+    const graphicsCardsList = [1, 10, 25, 50];
+
+    if(!graphicsCardsList.includes(graphicCardsCount)){
+        graphicsCardsList.unshift(graphicCardsCount);
+    }
+
     return (
         <div className={'page-wrapper'}>
             <h1>{t('Bitcoin Farm Calculator')}</h1>
@@ -102,7 +108,7 @@ const BitcoinFarmCalculator = () => {
 
             <ProfitInfo
                 fuelPricePerDay={calculateWithFuelCost ? fuelPricePerDay : 0}
-                profitForNumCards={[graphicCardsCount, 1, 10, 25, 50]}
+                profitForNumCards={graphicsCardsList}
             />
             {/* <BtcGraph /> */}
         </div>
