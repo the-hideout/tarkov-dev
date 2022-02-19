@@ -52,7 +52,7 @@ import Provisions from './pages/items/provisions';
 import Rigs from './pages/items/rigs';
 import Suppressors from './pages/items/suppressors';
 import BsgCategory from './pages/items/bsg-category';
-import BtcFarmCalculator from './pages/btc-farm-calculator';
+import BitcoinFarmCalculator from './pages/bitcoin-farm-calculator';
 
 import Prapor from './pages/traders/prapor';
 import Therapist from './pages/traders/therapist';
@@ -669,9 +669,9 @@ function App() {
                     ]}
                 />
                 <Route
-                    path={'/btc-farm-calculator'}
+                    path={'/bitcoin-farm-calculator'}
                     element={[
-                        <BtcFarmCalculator key="btc-farm-calculator" />,
+                        <BitcoinFarmCalculator key="bitcoin-farm-calculator" />,
                         remoteControlSessionElement,
                     ]}
                 />
