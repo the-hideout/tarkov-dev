@@ -1,15 +1,14 @@
 import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useHotkeys } from 'react-hotkeys-hook';
 import debounce from 'lodash.debounce';
 
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import useKeyPress from '../../hooks/useKeyPress';
 import itemSearch from '../../modules/item-search';
 
 import './index.css';
+import { useItemsQuery } from '../../features/items/queries';
 
 function ItemSearch({
     defaultValue,
@@ -18,10 +17,7 @@ function ItemSearch({
     autoFocus,
     showDropdown,
 }) {
-    const items = useSelector(selectAllItems);
-    const itemStatus = useSelector((state) => {
-        return state.items.status;
-    });
+    const { data: items } = useItemsQuery();
     const { t } = useTranslation();
 
     const [nameFilter, setNameFilter] = useState(defaultValue || '');
@@ -32,7 +28,6 @@ function ItemSearch({
     const enterPress = useKeyPress('Enter');
     let navigate = useNavigate();
     let location = useLocation();
-    const dispatch = useDispatch();
     const inputRef = useRef(null);
 
     if (!placeholder) {
@@ -49,23 +44,6 @@ function ItemSearch({
 
         inputRef?.current.focus();
     });
-
-    useEffect(() => {
-        let timer = false;
-        if (itemStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemStatus, dispatch]);
 
     const debouncedOnchange = useRef(
         debounce((newValue) => {

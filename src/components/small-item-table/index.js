@@ -15,7 +15,6 @@ import BarterToolip from '../barter-tooltip';
 
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import itemSearch from '../../modules/item-search';
 import {
     selectAllBarters,
@@ -26,6 +25,7 @@ import { getCheapestBarter } from '../../modules/format-cost-items';
 import categoryData from '../../data/category-data.json';
 
 import './index.css';
+import { useItemsQuery } from '../../features/items/queries';
 
 function traderSellCell(datum) {
     if (
@@ -140,7 +140,6 @@ function SmallItemTable(props) {
         barterPrice,
         fleaValue,
         hideBorders,
-        noData,
         autoScroll = false,
         armorClass,
         armorZones,
@@ -159,10 +158,7 @@ function SmallItemTable(props) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
-    const items = useSelector(selectAllItems);
-    const itemStatus = useSelector((state) => {
-        return state.items.status;
-    });
+    const { data: items } = useItemsQuery();
 
     const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
@@ -185,23 +181,6 @@ function SmallItemTable(props) {
             clearInterval(timer);
         };
     }, [bartersStatus, dispatch]);
-
-    useEffect(() => {
-        let timer = false;
-        if (itemStatus === 'idle' && !noData) {
-            dispatch(fetchItems());
-        }
-
-        if (!timer && !noData) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemStatus, dispatch, noData]);
 
     const data = useMemo(() => {
         let returnData = items

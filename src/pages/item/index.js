@@ -1,9 +1,8 @@
-import React, { Suspense, useMemo, useEffect, useState } from 'react';
+import React, { Suspense, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-import { useSelector, useDispatch } from 'react-redux';
 import Icon from '@mdi/react';
 import { mdiLock } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
@@ -27,12 +26,15 @@ import ContainedItemsList from '../../components/contained-items-list';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import bestPrice from '../../modules/best-price';
 
 import Quests from '../../Quests';
 
 import './index.css';
+import {
+    useItemByNameQuery,
+    useItemByIdQuery,
+} from '../../features/items/queries';
 
 dayjs.extend(relativeTime);
 
@@ -60,44 +62,15 @@ function TraderPrice({ currency, price }) {
 
 function Item() {
     const { itemName } = useParams();
-    const dispatch = useDispatch();
-    const items = useSelector(selectAllItems);
-    const itemStatus = useSelector((state) => {
-        return state.items.status;
-    });
     const { t } = useTranslation();
     const [showAllCrafts, setShowAllCrafts] = useState(false);
     const [showAllBarters, setShowAllBarters] = useState(false);
 
-    useEffect(() => {
-        let timer = false;
-        if (itemStatus === 'idle') {
-            dispatch(fetchItems());
-        }
+    const { data: currentItemByNameData, status: itemStatus } =
+        useItemByNameQuery(itemName);
+    const { data: currentItemByIdData } = useItemByIdQuery(itemName);
 
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemStatus, dispatch]);
-
-    let currentItemData = items.find((item) => {
-        return item.normalizedName === itemName;
-    });
-    let redirect = false;
-
-    if (!currentItemData) {
-        currentItemData = items.find((item) => item.id === itemName);
-
-        if (currentItemData) {
-            redirect = true;
-        }
-    }
+    let currentItemData = currentItemByNameData;
 
     const itemQuests = useMemo(() => {
         return Quests.filter((questData) => {
@@ -129,9 +102,14 @@ function Item() {
         });
     }, [currentItemData]);
 
-    if (redirect) {
+    // if the name we got from the params are the id of the item, redirect
+    // to a nice looking path
+    if (currentItemByIdData) {
         return (
-            <Navigate to={`/item/${currentItemData.normalizedName}`} replace />
+            <Navigate
+                to={`/item/${currentItemByIdData.normalizedName}`}
+                replace
+            />
         );
     }
 
