@@ -122,7 +122,7 @@ function Item() {
 
     if (
         !currentItemData &&
-        (itemStatus === 'succeeded' || itemStatus === 'failed')
+        (itemStatus === 'success' || itemStatus === 'failed')
     ) {
         return <ErrorPage />;
     }
