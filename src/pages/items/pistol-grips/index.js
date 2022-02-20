@@ -1,11 +1,13 @@
-import { useMemo, useEffect, useState, useRef } from 'react';
+import { useMemo, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet';
-import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import ItemsTable from '../../../components/item-table';
-import { selectAllItems, fetchItems } from '../../../features/items/itemsSlice';
 import { Filter, SelectFilter } from '../../../components/filter';
+import {
+    useItemsQuery,
+    useItemsWithTypeQuery,
+} from '../../../features/items/queries';
 
 const getGuns = (items, targetItem) => {
     let parentItems = [];
@@ -66,44 +68,24 @@ const getAttachmentPoints = (items, targetItem) => {
 
 function PistolGrips(props) {
     const [selectedGun, setSelectedGun] = useState(false);
-    const dispatch = useDispatch();
-    const items = useSelector(selectAllItems);
-    const itemStatus = useSelector((state) => {
-        return state.items.status;
-    });
+
+    const { data: items } = useItemsQuery();
+    const { data: pistolGripItems } = useItemsWithTypeQuery('pistolGrip');
+
     const selectInputRef = useRef(null);
     const { t } = useTranslation();
 
-    useEffect(() => {
-        let timer = false;
-        if (itemStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemStatus, dispatch]);
-
     const allItems = useMemo(
         () =>
-            items
-                .filter((item) => item.types.includes('pistolGrip'))
-                .map((item) => {
-                    return {
-                        ...item,
-                        fitsTo: getGuns(items, item),
-                        subRows: getAttachmentPoints(items, item),
-                    };
-                }),
+            pistolGripItems.map((item) => {
+                return {
+                    ...item,
+                    fitsTo: getGuns(items, item),
+                    subRows: getAttachmentPoints(items, item),
+                };
+            }),
 
-        [items],
+        [pistolGripItems, items],
     );
 
     const activeGuns = useMemo(() => {
