@@ -2,7 +2,6 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import Graph from '../../components/Graph.jsx';
@@ -10,10 +9,9 @@ import useKeyPress from '../../hooks/useKeyPress';
 import DataTable from '../../components/data-table';
 import CenterCell from '../../components/center-cell';
 import ValueCell from '../../components/value-cell';
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import getRublePrice from '../../modules/get-ruble-price.js';
 import TraderPriceCell from '../../components/trader-price-cell';
-
+import { useItemsQuery } from '../../features/items/queries';
 import rawData from '../../data/ammo.json';
 
 const MAX_DAMAGE = 170;
@@ -71,28 +69,7 @@ function Ammo() {
         useState(currentAmmoList);
     const shiftPress = useKeyPress('Shift');
     const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const items = useSelector(selectAllItems);
-    const itemStatus = useSelector((state) => {
-        return state.items.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (itemStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemStatus, dispatch]);
+    const { data: items } = useItemsQuery();
 
     useEffect(() => {
         if (currentAmmo === []) {

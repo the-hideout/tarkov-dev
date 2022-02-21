@@ -1,15 +1,14 @@
-import { useMemo, useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import CanvasGrid from '../../../components/canvas-grid';
 import DataTable from '../../../components/data-table';
-import { selectAllItems, fetchItems } from '../../../features/items/itemsSlice';
 import ValueCell from '../../../components/value-cell';
 import { Filter, ToggleFilter, SliderFilter } from '../../../components/filter';
 import CenterCell from '../../../components/center-cell';
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
+import { useItemsQuery } from '../../../features/items/queries';
 
 const marks = {
     0: 25,
@@ -21,34 +20,14 @@ const marks = {
 };
 
 function Backpacks(props) {
-    const dispatch = useDispatch();
-    const items = useSelector(selectAllItems);
-    const itemStatus = useSelector((state) => {
-        return state.items.status;
-    });
+    const { data: items } = useItemsQuery();
+
     const [includeArmoredRigs, setIncludeArmoredRigs] =
         useStateWithLocalStorage('includeArmoredRigs', true);
     const [minSlots, setMinSlots] = useStateWithLocalStorage('minSlots', 0);
     const [has3Slot, setHas3Slot] = useState(false);
     const [has4Slot, setHas4Slot] = useState(false);
     const { t } = useTranslation();
-
-    useEffect(() => {
-        let timer = false;
-        if (itemStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemStatus, dispatch]);
 
     const displayItems = useMemo(
         () => items.filter((item) => item.types.includes('rig')),

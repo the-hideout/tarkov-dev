@@ -1,15 +1,14 @@
-import { useMemo, useCallback, useEffect } from 'react';
+import { useMemo, useCallback } from 'react';
 import Switch from 'react-switch';
 import { Helmet } from 'react-helmet';
-import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import ItemGrid from '../../components/item-grid';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import Traders from '../../data/traders.json';
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 
 import quests from '../../data/quests.json';
+import { useItemsQuery } from '../../features/items/queries';
 
 function ItemTracker() {
     const [questData, setQuestData] = useStateWithLocalStorage(
@@ -22,29 +21,8 @@ function ItemTracker() {
         'onlyFoundInRaid',
         true,
     );
-    const dispatch = useDispatch();
-    const items = useSelector(selectAllItems);
-    const itemStatus = useSelector((state) => {
-        return state.items.status;
-    });
+    const { data: items } = useItemsQuery();
     const { t } = useTranslation();
-
-    useEffect(() => {
-        let timer = false;
-        if (itemStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemStatus, dispatch]);
 
     const handleItemClick = useCallback(
         (item, event) => {

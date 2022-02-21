@@ -1,19 +1,21 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import { Helmet } from 'react-helmet';
-import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import DataTable from '../../../components/data-table';
 import formatPrice from '../../../modules/format-price';
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
 import ArrowIcon from '../../../components/data-table/Arrow.js';
-import { selectAllItems, fetchItems } from '../../../features/items/itemsSlice';
 import {
     Filter,
     ToggleFilter,
     SliderFilter,
     InputFilter,
 } from '../../../components/filter';
+import {
+    useItemsQuery,
+    useItemsWithTypeQuery,
+} from '../../../features/items/queries';
 
 const materialDestructabilityMap = {
     Aramid: 0.25,
@@ -104,34 +106,9 @@ function Helmets(props) {
     const handleArmorClassChange = (newValueLabel) => {
         setMinArmorClass(newValueLabel);
     };
-    const dispatch = useDispatch();
-    const items = useSelector(selectAllItems);
-    const itemStatus = useSelector((state) => {
-        return state.items.status;
-    });
+    const { data: items } = useItemsQuery();
+    const { data: displayItems } = useItemsWithTypeQuery('helmet');
     const { t } = useTranslation();
-
-    useEffect(() => {
-        let timer = false;
-        if (itemStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemStatus, dispatch]);
-
-    const displayItems = useMemo(
-        () => items.filter((item) => item.types.includes('helmet')),
-        [items],
-    );
 
     const columns = useMemo(
         () => [

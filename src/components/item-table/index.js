@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -9,7 +8,6 @@ import ArrowIcon from '../../components/data-table/Arrow.js';
 import DataTable from '../data-table';
 import ValueCell from '../value-cell';
 import TraderPriceCell from '../trader-price-cell';
-// import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 
 import './index.css';
 
@@ -53,17 +51,7 @@ const imageCell = ({ value }) => {
 
 function ItemTable(props) {
     const { maxItems, nameFilter, items, columns, traderPrice } = props;
-    // const dispatch = useDispatch();
-    // const itemStatus = useSelector((state) => {
-    //     return state.items.status;
-    // });
     const { t } = useTranslation();
-
-    // useEffect(() => {
-    //     if (itemStatus === 'idle') {
-    //       dispatch(fetchItems());
-    //     }
-    //   }, [itemStatus, dispatch]);
 
     const data = useMemo(() => {
         let returnData = items;

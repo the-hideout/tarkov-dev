@@ -1,40 +1,18 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import { Helmet } from 'react-helmet';
-import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import DataTable from '../../../components/data-table';
 import formatPrice from '../../../modules/format-price';
-import { selectAllItems, fetchItems } from '../../../features/items/itemsSlice';
+import { useItemsQuery } from '../../../features/items/queries';
 
 const centerCell = ({ value }) => {
     return <div className="center-content">{value}</div>;
 };
 
 function Glasses(props) {
-    const dispatch = useDispatch();
-    const items = useSelector(selectAllItems);
-    const itemStatus = useSelector((state) => {
-        return state.items.status;
-    });
+    const { data: items } = useItemsQuery();
     const { t } = useTranslation();
-
-    useEffect(() => {
-        let timer = false;
-        if (itemStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemStatus, dispatch]);
 
     const displayItems = useMemo(
         () => items.filter((item) => item.types.includes('glasses')),

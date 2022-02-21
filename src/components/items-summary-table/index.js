@@ -10,13 +10,13 @@ import CenterCell from '../center-cell';
 import FleaPriceCell from '../flea-price-cell';
 import ValueCell from '../value-cell';
 
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import {
     selectAllBarters,
     fetchBarters,
 } from '../../features/barters/bartersSlice';
 
 import formatPrice from '../../modules/format-price';
+import { useItemsQuery } from '../../features/items/queries';
 
 // import './index.css';
 
@@ -25,10 +25,7 @@ function ItemsSummaryTable(props) {
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
-    const items = useSelector(selectAllItems);
-    const itemStatus = useSelector((state) => {
-        return state.items.status;
-    });
+    const { data: items } = useItemsQuery();
 
     const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
@@ -55,23 +52,6 @@ function ItemsSummaryTable(props) {
             clearInterval(timer);
         };
     }, [bartersStatus, dispatch]);
-
-    useEffect(() => {
-        let timer = false;
-        if (itemStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemStatus, dispatch]);
 
     const data = useMemo(() => {
         let returnData = items

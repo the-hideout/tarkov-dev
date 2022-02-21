@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
-import { selectAllItems } from '../../features/items/itemsSlice';
 import formatCategoryName from '../../modules/format-category-name';
 
 import categoryData from '../../data/category-data.json';
+import { useItemsQuery } from '../../features/items/queries';
 
 const ContainedItemsList = ({ item }) => {
-    const items = useSelector(selectAllItems);
+    const { data: items } = useItemsQuery();
 
     if (
         !item.canHoldItems ||

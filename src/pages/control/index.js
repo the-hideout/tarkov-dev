@@ -1,15 +1,15 @@
-import { useRef, useEffect, useMemo } from 'react';
+import { useRef, useMemo } from 'react';
 import Select from 'react-select';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import Connect from './Connect.jsx';
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 
 import ammoData from '../../data/ammo.json';
 import mapData from '../../data/maps.json';
 
 import './index.css';
+import { useItemsQuery } from '../../features/items/queries.js';
 
 const ammoTypes = [
     ...new Set(
@@ -61,30 +61,10 @@ const selectFilterStyle = {
 };
 
 function Control(props) {
-    const dispatch = useDispatch();
-    const items = useSelector(selectAllItems);
-    const itemStatus = useSelector((state) => {
-        return state.items.status;
-    });
+    const { data: items } = useItemsQuery();
+
     const socketConnected = useSelector((state) => state.sockets.connected);
     const { t } = useTranslation();
-
-    useEffect(() => {
-        let timer = false;
-        if (itemStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemStatus, dispatch]);
 
     const itemList = useMemo(() => {
         return items

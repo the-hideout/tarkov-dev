@@ -1,13 +1,12 @@
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 import debounce from 'lodash.debounce';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
 import ItemGrid from '../../components/item-grid';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import {
     Filter,
     ToggleFilter,
@@ -15,6 +14,7 @@ import {
     InputFilter,
 } from '../../components/filter';
 import capitalizeFirst from '../../modules/capitalize-first';
+import { useItemsQuery } from '../../features/items/queries';
 
 const defaultGroupNames = ['S', 'A', 'B', 'C', 'D', 'E', 'F'];
 
@@ -92,29 +92,8 @@ function LootTier(props) {
             .filter(Boolean),
     });
 
-    const dispatch = useDispatch();
-    const items = useSelector(selectAllItems);
-    const itemStatus = useSelector((state) => {
-        return state.items.status;
-    });
+    const { data: items } = useItemsQuery();
     const { t } = useTranslation();
-
-    useEffect(() => {
-        let timer = false;
-        if (itemStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemStatus, dispatch]);
 
     const handleFilterChange = (selectedFilters) => {
         QueueBrowserTask.task(() => {
