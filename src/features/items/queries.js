@@ -5,6 +5,8 @@ export const useItemsQuery = (queryOptions) => {
     const itemsQuery = useQuery('items', () => doFetchItems(), {
         refetchInterval: 600000,
         placeholderData: [],
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
         ...queryOptions,
     });
 
