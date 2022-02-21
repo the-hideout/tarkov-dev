@@ -15,7 +15,6 @@ import QuestsList from '../../components/quests-list';
 import CanvasGrid from '../../components/canvas-grid';
 import warningIcon from '../../images/icon-warning.png';
 import ErrorPage from '../../components/error-page';
-import Loading from '../../components/loading';
 import LoyaltyLevelIcon from '../../components/loyalty-level-icon';
 import PropertyList from '../../components/property-list';
 import ItemsForHideout from '../../components/items-for-hideout';
