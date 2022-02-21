@@ -21,7 +21,10 @@ function PriceGraph({ itemId }) {
                 Accept: 'application/json',
             },
             body: dataQuery,
-        }).then((response) => response.json()),
+        }).then((response) => response.json()), {
+            refetchOnMount: false,
+            refetchOnWindowFocus: false,
+        }
     );
     let height = VictoryTheme.material.height;
 

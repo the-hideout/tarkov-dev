@@ -28,7 +28,10 @@ function TraderResetTime({ trader, center = false }) {
                 Accept: 'application/json',
             },
             body: dataQuery,
-        }).then((response) => response.json()),
+        }).then((response) => response.json()), {
+            refetchOnMount: false,
+            refetchOnWindowFocus: false,
+        }
     );
 
     const dataQuery = JSON.stringify({

@@ -14,6 +14,10 @@ function ServerStatus() {
             },
             body: dataQuery,
         }).then((response) => response.json()),
+        {
+            refetchOnMount: false,
+            refetchOnWindowFocus: false,
+        }
     );
     const { t } = useTranslation();
 
