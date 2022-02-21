@@ -58,7 +58,8 @@
     "eject": "react-scripts eject",
     "prebuild": "node scripts/get-ammo-data.js && node scripts/get-traders.js && node scripts/get-quests.js && node scripts/update-props.js && node scripts/get-contributors.js && node scripts/build-sitemap.js && node scripts/build-guides.js",
     "postbuild": "node scripts/build-redirects.js",
-    "stage": "npx rimraf build && npm run build && npx serve build",
+    "stage": "npx rimraf build && npm run build && npm run preview",
+    "preview": "npx serve build -l 3001 -s",
     "get-quests": "node scripts/get-quests.js"
   },
   "eslintConfig": {
