@@ -40,6 +40,25 @@ dayjs.extend(relativeTime);
 
 const CraftsTable = React.lazy(() => import('../../components/crafts-table'));
 
+const loadingData = {
+    name: 'Loading...',
+    types: [],
+    iconLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+    sellFor: [
+        {
+            source: 'fleaMarket',
+            price: 0,
+        },
+    ],
+    buyFor: [
+        {
+            source: 'flea-market',
+            price: 0,
+            requirements: [],
+        },
+    ],
+};
+
 function TraderPrice({ currency, price }) {
     if (currency === 'USD') {
         return (
@@ -117,7 +136,7 @@ function Item() {
         !currentItemData &&
         (itemStatus === 'idle' || itemStatus === 'loading')
     ) {
-        return <Loading />;
+        currentItemData = loadingData;
     }
 
     if (
@@ -268,6 +287,8 @@ function Item() {
                                 alt={currentItemData.name}
                                 className={'item-image'}
                                 loading="lazy"
+                                height={62}
+                                width={62}
                                 src={currentItemData.iconLink}
                             />
                         </h1>
@@ -323,7 +344,6 @@ function Item() {
                                             >
                                                 <img
                                                     alt="Flea market"
-                                                    loading="lazy"
                                                     height="86"
                                                     width="86"
                                                     src={`${process.env.PUBLIC_URL}/images/flea-market-icon.jpg`}
@@ -413,7 +433,6 @@ function Item() {
                                                             currentItemData.traderName
                                                         }
                                                         height="86"
-                                                        loading="lazy"
                                                         width="86"
                                                         src={`${
                                                             process.env
