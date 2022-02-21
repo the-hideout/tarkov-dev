@@ -29,13 +29,13 @@ const ContainedItemsList = ({ item }) => {
         if (!firstCategory) {
             const firstItem = items.find((item) => item.id === a);
 
-            firstTitle = firstItem.normalizedName;
+            firstTitle = firstItem?.normalizedName;
         }
 
         if (!secondCategory) {
             const secondItem = items.find((item) => item.id === b);
 
-            secondTitle = secondItem.normalizedName;
+            secondTitle = secondItem?.normalizedName;
         }
 
         if (!firstTitle || !secondTitle) {
