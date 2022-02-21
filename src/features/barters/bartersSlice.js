@@ -1,5 +1,20 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
+import { useQuery } from 'react-query';
+
+import doFetchBarters from './do-fetch-barters';
+
+export const useBartersQuery = (queryOptions) => {
+    const bartersQuery = useQuery('barters', () => doFetchBarters(), {
+        refetchInterval: 600000,
+        placeholderData: [],
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        ...queryOptions,
+    });
+
+    return bartersQuery;
+};
 
 const initialState = {
     barters: [],
@@ -9,83 +24,7 @@ const initialState = {
 
 export const fetchBarters = createAsyncThunk(
     'barters/fetchBarters',
-    async () => {
-        const bodyQuery = JSON.stringify({
-            query: `{
-        barters {
-          rewardItems {
-            item {
-              id
-              name
-              normalizedName
-              iconLink
-              imageLink
-              wikiLink
-              avg24hPrice
-              lastLowPrice
-              traderPrices {
-                  price
-                  trader {
-                      name
-                  }
-              }
-              buyFor {
-                source
-                price
-                currency
-              }
-              sellFor {
-                source
-                price
-                currency
-              }
-            }
-            count
-          }
-          requiredItems {
-            item {
-              id
-              name
-              normalizedName
-              iconLink
-              imageLink
-              wikiLink
-              avg24hPrice
-              lastLowPrice
-              traderPrices {
-                price
-              }
-              buyFor {
-                source
-                price
-                currency
-              }
-              sellFor {
-                source
-                price
-                currency
-              }
-            }
-            count
-          }
-          source
-        }
-    }`,
-        });
-
-        const response = await fetch('https://tarkov-tools.com/graphql', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-            body: bodyQuery,
-        });
-
-        const bartersData = await response.json();
-
-        return bartersData.data.barters;
-    },
+    () => doFetchBarters(),
 );
 
 const bartersSlice = createSlice({

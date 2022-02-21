@@ -1,5 +1,4 @@
-import { useMemo, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
 
@@ -10,48 +9,22 @@ import CenterCell from '../center-cell';
 import FleaPriceCell from '../flea-price-cell';
 import ValueCell from '../value-cell';
 
-import {
-    selectAllBarters,
-    fetchBarters,
-} from '../../features/barters/bartersSlice';
-
 import formatPrice from '../../modules/format-price';
 import { useItemsQuery } from '../../features/items/queries';
+import { useBartersQuery } from '../../features/barters/bartersSlice';
 
 // import './index.css';
 
 function ItemsSummaryTable(props) {
     const { includeItems } = props;
     const { t } = useTranslation();
-    const dispatch = useDispatch();
 
     const { data: items } = useItemsQuery();
-
-    const barters = useSelector(selectAllBarters);
-    const bartersStatus = useSelector((state) => {
-        return state.barters.status;
-    });
+    const { data: barters } = useBartersQuery();
 
     const includeItemIds = useMemo(() => {
         return includeItems.map((includeItem) => includeItem.id);
     }, [includeItems]);
-
-    useEffect(() => {
-        let timer = false;
-        if (bartersStatus === 'idle') {
-            dispatch(fetchBarters());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchBarters());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [bartersStatus, dispatch]);
 
     const data = useMemo(() => {
         let returnData = items
