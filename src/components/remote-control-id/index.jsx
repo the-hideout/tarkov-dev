@@ -43,7 +43,7 @@ function ID(props) {
             <div className="update-label">
                 {t('ID for remote control')}
                 <span className="session-question">
-                    ?
+                    <span>?</span>
                     <div className="session-popup">
                         {t(
                             'Go to tarkov tools with another browser and enter this ID to control this page from there',

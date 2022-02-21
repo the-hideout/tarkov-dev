@@ -8,6 +8,7 @@
     "@mdi/js": "^6.1.95",
     "@mdi/react": "^1.4.0",
     "@reduxjs/toolkit": "^1.5.1",
+    "@sayari/eslint-plugin": "^0.0.1-rc.4",
     "@sentry/react": "^6.0.2",
     "@sentry/tracing": "^6.0.2",
     "@testing-library/jest-dom": "^5.14.1",
@@ -63,7 +64,10 @@
     "get-quests": "node scripts/get-quests.js"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "plugin:@sayari/recommended"
+    ]
   },
   "browserslist": {
     "production": [
