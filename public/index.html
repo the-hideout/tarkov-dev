@@ -44,17 +44,18 @@
     <meta name="monetization" content="$ilp.uphold.com/aJ7DYdH6Nbpf">
     <link rel="preconnect" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://www.google-analytics.com">
+    <link rel="preconnect" href="https://assets.tarkov-tools.com" crossorigin>
+    <link rel="dns-prefetch" href="https://assets.tarkov-tools.com" >
   </head>
   <body>
     <div id="root"></div>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3953312-31"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    <script defer src="%PUBLIC_URL%/gtag.js"></script>
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-3953312-31"></script>
+    <!-- //     window.dataLayer = window.dataLayer || [];
+    //     function gtag(){dataLayer.push(arguments);}
+    //     gtag('js', new Date());
 
-        gtag('config', 'UA-3953312-31');
-    </script>
+    //     gtag('config', 'UA-3953312-31'); -->
   </body>
 </html>
