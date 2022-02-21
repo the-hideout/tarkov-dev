@@ -2,12 +2,14 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Icon from '@mdi/react';
 import { mdiAccountGroup } from '@mdi/js';
+import { useTranslation } from 'react-i18next';
 
 import TraderResetTime from '../../components/trader-reset-time';
 
 import './index.css';
 
 function Traders(props) {
+    const {t} = useTranslation();
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
