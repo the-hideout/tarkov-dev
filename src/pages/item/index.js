@@ -449,14 +449,14 @@ function Item() {
                                         )}
                                     {currentItemData.traderPrices &&
                                         currentItemData.traderPrices.map(
-                                            (traderPrice) => {
+                                            (traderPrice, traderPriceIndex) => {
                                                 const traderName =
                                                     traderPrice.trader.toLowerCase();
 
                                                 return (
                                                     <div
                                                         className={`text-and-image-information-wrapper`}
-                                                        key={`${currentItemData.id}-trader-price-${traderName}`}
+                                                        key={`${currentItemData.id}-trader-price-${traderName}-${traderPriceIndex}`}
                                                     >
                                                         {traderName !==
                                                             'fence' && (
@@ -532,7 +532,7 @@ function Item() {
                                             return (
                                                 <div
                                                     className={`text-and-image-information-wrapper`}
-                                                    key={`${currentItemData.id}-trader-price-${buyPrice.source}`}
+                                                    key={`${currentItemData.id}-trader-price-${buyPrice.source}-${index}`}
                                                 >
                                                     <div className="source-wrapper">
                                                         {buyPrice.source !==
