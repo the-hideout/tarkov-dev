@@ -19,15 +19,15 @@ function QuestItemsCell({ questItems }) {
                 <div className="quest-item-text-wrapper">
                     {questItem.name}
                     <div className="amount-wrapper">
-                        {t('Amount')}: {questItem.amount}
+                        {t('Amount')}<span>:</span> {questItem.amount}
                     </div>
                     <div
                         className={`found-in-raid-wrapper ${
                             questItem.findInRaid ? 'find-in-raid' : ''
                         }`}
                     >
-                        {t('Found In Raid')}:{' '}
-                        {questItem.findInRaid ? t('Yes') : t('No')}
+                        {t('Found In Raid')}<span>:</span>{' '}
+                        <span>{questItem.findInRaid ? t('Yes') : t('No')}</span>
                     </div>
                 </div>
             </div>

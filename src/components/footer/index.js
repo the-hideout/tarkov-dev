@@ -21,7 +21,7 @@ function Footer() {
                         'The whole platform is open source, and the code is available on',
                     )}{' '}
                     <a href="https://github.com/kokarn/tarkov-tools">
-                        <GithubIcon /> GitHub
+                        <GithubIcon /> <span>GitHub</span>
                     </a>
                 </p>
                 <p>

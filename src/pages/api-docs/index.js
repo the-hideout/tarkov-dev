@@ -20,11 +20,11 @@ function APIDocs() {
                 <a href="https://tarkov-tools.com/graphql">
                     https://tarkov-tools.com/graphql
                 </a>{' '}
-                with a playground on{' '}
+                <span>with a playground on</span>{' '}
                 <a href="https://tarkov-tools.com/___graphql">
                     https://tarkov-tools.com/___graphql
                 </a>
-                .
+                <span>.</span>
                 {t(
                     "It's written in graphql and we try our hardest to follow spec and never change or deprecate anything.",
                 )}
@@ -195,9 +195,9 @@ return json_decode($data, true);`}
             </div>
             <div className="example-wrapper">
                 <h3 id="java-11">
-                    Java 11's HttpClient {t('example')}
+                    <span>Java 11's HttpClient {t('example')}</span>
                     <cite>
-                        Contributed by{' '}
+                        <span>Contributed by{' '}</span>
                         <Link to="https://github.com/HeyBanditoz">
                             Banditoz
                         </Link>
@@ -230,7 +230,7 @@ class Scratch {
             </div>
             <div className="example-wrapper">
                 <h3 id="csharp">
-                    C# {t('example')}
+                    <span>C# {t('example')}</span>
                     <cite>Contributed by BambusBo</cite>
                 </h3>
                 <SyntaxHighlighter language="csharp" style={atomOneDark}>
@@ -256,9 +256,9 @@ using (var httpClient = new HttpClient())
             </div>
             <div className="example-wrapper">
                 <h3 id="go">
-                    Go {t('example')}
+                    <span>Go {t('example')}</span>
                     <cite>
-                        Contributed by{' '}
+                        <span>Contributed by{' '}</span>
                         <Link to="https://github.com/HeyBanditoz">
                             Banditoz
                         </Link>

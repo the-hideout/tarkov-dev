@@ -29,7 +29,7 @@ function RewardCell({
                 </div>
                 <div className="source-wrapper">{source}</div>
                 <div className="price-wrapper">
-                    {formatPrice(value)} @ {sellTo}
+                    {formatPrice(value)} <span>@</span> {sellTo}
                     {barterOnly && <span> ({t('Barter only')})</span>}
                 </div>
             </div>

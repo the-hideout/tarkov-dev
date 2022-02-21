@@ -13,7 +13,7 @@ const Renderer = (props) => {
     return (
         <span>
             <span className="countdown-text-wrapper">Restock in</span>{' '}
-            {props.formatted.hours}:{props.formatted.minutes}:
+            <span>{props.formatted.hours}:{props.formatted.minutes}:</span>
             {props.formatted.seconds}
         </span>
     );

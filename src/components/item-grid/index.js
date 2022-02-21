@@ -10,7 +10,7 @@ const getSubtitle = (text, minPrice, maxPrice, t) => {
         return (
             <div className="item-group-subtitle-wrapper">
                 <div>
-                    {`${formatPrice(minPrice)} - ${formatPrice(maxPrice)}`}
+                    <span>{`${formatPrice(minPrice)} - ${formatPrice(maxPrice)}`}</span>
                     <div className="note">{t('per slot')}</div>
                 </div>
             </div>

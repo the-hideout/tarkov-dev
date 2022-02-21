@@ -53,9 +53,9 @@ function TraderPriceCell(props) {
                             size={1}
                             className="icon-with-text"
                         />
-                        {`${capitalizeTheFirstLetterOfEachWord(
+                        <span>{`${capitalizeTheFirstLetterOfEachWord(
                             trader.source,
-                        )} ${loyaltyString}`}
+                        )} ${loyaltyString}`}</span>
                     </div>
                 </Tippy>
             </div>

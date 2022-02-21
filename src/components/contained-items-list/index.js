@@ -92,7 +92,7 @@ const ContainedItemsList = ({ item }) => {
                                 ? formatCategoryName(currentCategoryData)
                                 : linkedItem.name}
                         </Link>
-                        {item.canHoldItems.length > index + 1 ? ',' : ''}
+                        <span>{item.canHoldItems.length > index + 1 ? ',' : ''}</span>
                     </span>
                 );
             })}
