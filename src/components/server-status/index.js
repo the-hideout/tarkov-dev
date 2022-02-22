@@ -5,19 +5,21 @@ import 'tippy.js/dist/tippy.css'; // optional
 import './index.css';
 
 function ServerStatus() {
-    const { status, data } = useQuery(`server-status`, () =>
-        fetch('https://tarkov-tools.com/graphql', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-            body: dataQuery,
-        }).then((response) => response.json()),
+    const { status, data } = useQuery(
+        `server-status`,
+        () =>
+            fetch('https://tarkov-tools.com/graphql', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+                body: dataQuery,
+            }).then((response) => response.json()),
         {
             refetchOnMount: false,
             refetchOnWindowFocus: false,
-        }
+        },
     );
     const { t } = useTranslation();
 

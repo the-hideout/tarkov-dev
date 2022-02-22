@@ -13,7 +13,8 @@ function About() {
                 {t(
                     'The whole platform is open source, and the code is available on',
                 )}{' '}
-                <a href="https://github.com/kokarn/tarkov-tools">GitHub</a><span>.</span>
+                <a href="https://github.com/kokarn/tarkov-tools">GitHub</a>
+                <span>.</span>
             </p>
             <h2>{t('Discussions & feedback')}</h2>
             <p>

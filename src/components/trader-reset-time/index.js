@@ -13,25 +13,30 @@ const Renderer = (props) => {
     return (
         <span>
             <span className="countdown-text-wrapper">Restock in</span>{' '}
-            <span>{props.formatted.hours}:{props.formatted.minutes}:</span>
+            <span>
+                {props.formatted.hours}:{props.formatted.minutes}:
+            </span>
             {props.formatted.seconds}
         </span>
     );
 };
 
 function TraderResetTime({ trader, center = false }) {
-    const { status, data } = useQuery(`server-status`, () =>
-        fetch('https://tarkov-tools.com/graphql', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-            body: dataQuery,
-        }).then((response) => response.json()), {
+    const { status, data } = useQuery(
+        `server-status`,
+        () =>
+            fetch('https://tarkov-tools.com/graphql', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+                body: dataQuery,
+            }).then((response) => response.json()),
+        {
             refetchOnMount: false,
             refetchOnWindowFocus: false,
-        }
+        },
     );
 
     const dataQuery = JSON.stringify({

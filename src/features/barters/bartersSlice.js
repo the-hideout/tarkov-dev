@@ -22,9 +22,8 @@ const initialState = {
     error: null,
 };
 
-export const fetchBarters = createAsyncThunk(
-    'barters/fetchBarters',
-    () => doFetchBarters(),
+export const fetchBarters = createAsyncThunk('barters/fetchBarters', () =>
+    doFetchBarters(),
 );
 
 const bartersSlice = createSlice({

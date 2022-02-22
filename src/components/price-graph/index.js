@@ -13,18 +13,21 @@ import formatPrice from '../../modules/format-price';
 import './index.css';
 
 function PriceGraph({ itemId }) {
-    const { status, data } = useQuery(`historical-price-${itemId}`, () =>
-        fetch('https://tarkov-tools.com/graphql', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-            body: dataQuery,
-        }).then((response) => response.json()), {
+    const { status, data } = useQuery(
+        `historical-price-${itemId}`,
+        () =>
+            fetch('https://tarkov-tools.com/graphql', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+                body: dataQuery,
+            }).then((response) => response.json()),
+        {
             refetchOnMount: false,
             refetchOnWindowFocus: false,
-        }
+        },
     );
     let height = VictoryTheme.material.height;
 

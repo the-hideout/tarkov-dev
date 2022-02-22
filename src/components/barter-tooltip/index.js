@@ -45,7 +45,8 @@ function BarterToolip({ source, requiredItems }) {
                                     src={`${process.env.PUBLIC_URL}/images/flea-market-icon.jpg`}
                                 />
                                 {requiredItem.count} <span>X</span>{' '}
-                                {formatPrice(requiredItem.item.avg24hPrice)} <span>=</span>{' '}
+                                {formatPrice(requiredItem.item.avg24hPrice)}{' '}
+                                <span>=</span>{' '}
                                 {formatPrice(
                                     requiredItem.count *
                                         requiredItem.item.avg24hPrice,

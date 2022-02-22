@@ -197,7 +197,7 @@ return json_decode($data, true);`}
                 <h3 id="java-11">
                     <span>Java 11's HttpClient {t('example')}</span>
                     <cite>
-                        <span>Contributed by{' '}</span>
+                        <span>Contributed by </span>
                         <Link to="https://github.com/HeyBanditoz">
                             Banditoz
                         </Link>
@@ -258,7 +258,7 @@ using (var httpClient = new HttpClient())
                 <h3 id="go">
                     <span>Go {t('example')}</span>
                     <cite>
-                        <span>Contributed by{' '}</span>
+                        <span>Contributed by </span>
                         <Link to="https://github.com/HeyBanditoz">
                             Banditoz
                         </Link>
