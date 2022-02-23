@@ -1,39 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
 import TarkovGunBuilder from 'tarkov-gun-builder';
 
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
+import { useItemsQuery } from '../../features/items/queries';
 
 import './index.css';
 
 function GunBuilder() {
     const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const items = useSelector(selectAllItems);
-    const itemStatus = useSelector((state) => {
-        return state.items.status;
-    });
     const [gamePresets, setGamePresets] = useState({});
     const [defaultPresets, setDefaultPresets] = useState([]);
-
-    useEffect(() => {
-        let timer = false;
-        if (itemStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemStatus, dispatch]);
+    const { data: items } = useItemsQuery();
 
     useEffect(() => {
         fetch(`${process.env.PUBLIC_URL}/data/globals.min.json`)
@@ -41,7 +19,7 @@ function GunBuilder() {
             .then((presets) => {
                 setGamePresets(presets);
             });
-    });
+    }, []);
 
     useEffect(() => {
         fetch(`${process.env.PUBLIC_URL}/data/item_presets.min.json`)
@@ -49,7 +27,7 @@ function GunBuilder() {
             .then((presets) => {
                 setDefaultPresets(presets);
             });
-    });
+    }, []);
 
     return [
         <Helmet key={'gun-builder-helmet'}>
