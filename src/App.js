@@ -700,17 +700,17 @@ function App() {
                     ]}
                 />
                 <Route
-                path="/gun-builder"
-                element = {[
-                    <div
-                        className="display-wrapper"
-                        key = 'gun-builder-wrapper'
-                    >
-                        <GunBuilder />
-                    </div>,
-                    remoteControlSessionElement
-                ]}
-            />
+                    path="/gun-builder"
+                    element={[
+                        <div
+                            className="display-wrapper"
+                            key="gun-builder-wrapper"
+                        >
+                            <GunBuilder />
+                        </div>,
+                        remoteControlSessionElement,
+                    ]}
+                />
                 <Route
                     path="*"
                     element={[<ErrorPage />, remoteControlSessionElement]}
