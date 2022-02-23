@@ -47,6 +47,7 @@
     "remark-gfm": "^3.0.1",
     "resize-observer-polyfill": "^1.5.1",
     "source-map-explorer": "^2.5.2",
+    "tarkov-gun-builder": "^1.1.2",
     "victory": "^36.0.0"
   },
   "scripts": {
