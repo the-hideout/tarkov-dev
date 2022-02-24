@@ -150,23 +150,17 @@ function Start(props) {
                         </Link>
                     </li>
                     <li>
-                        {/* <a
-                            href = {'https://discord.com/api/oauth2/authorize?client_id=925298399371231242&permissions=309237664832&scope=bot%20applications.commands'}
-                        > */}
-                        <Icon
-                            path={mdiDiscord}
-                            size={1}
-                            className="icon-with-text"
-                        />
-                        {t('Discord bot - Currently full')}
-                        {/* </a> */}
-                        <a href={'https://discord.gg/g9BGCuQGgp'}>
+                        <a
+                            href={
+                                'https://discord.com/api/oauth2/authorize?client_id=925298399371231242&permissions=309237664832&scope=bot%20applications.commands'
+                            }
+                        >
                             <Icon
                                 path={mdiDiscord}
                                 size={1}
                                 className="icon-with-text"
                             />
-                            {t('Join the waitlist via our Discord')}
+                            {t('Discord bot')}
                         </a>
                     </li>
                     <li>

@@ -98,15 +98,12 @@ function Footer() {
                     <Link to={'/api-users/'}>{t('API Users')}</Link>
                 </p>
                 <p>
-                    {/* <a
-                    href = {'https://discord.com/api/oauth2/authorize?client_id=925298399371231242&permissions=309237664832&scope=bot%20applications.commands'}
-                > */}
-                    {t('Discord bot for your Discord - Currently full')}
-                    {/* </a> */}
-                </p>
-                <p>
-                    <a href={'https://discord.gg/g9BGCuQGgp'}>
-                        {t('Join the bot waitlist via our Discord')}
+                    <a
+                        href={
+                            'https://discord.com/api/oauth2/authorize?client_id=925298399371231242&permissions=309237664832&scope=bot%20applications.commands'
+                        }
+                    >
+                        {t('Discord bot for your Discord')}
                     </a>
                 </p>
             </div>
