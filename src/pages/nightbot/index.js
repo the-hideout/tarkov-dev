@@ -30,8 +30,9 @@ function Nightbot() {
             <p>
                 <img
                     alt={'Nightbot step 1'}
-                    loading="lazy"
+                    height={452}
                     src={`${process.env.PUBLIC_URL}/images/nightbot-1.jpg`}
+                    width={900}
                 />
             </p>
             <ul>
@@ -51,8 +52,10 @@ function Nightbot() {
             <p>
                 <img
                     alt={'Nightbot step 2'}
+                    height={375}
                     loading="lazy"
                     src={`${process.env.PUBLIC_URL}/images/nightbot-2.jpg`}
+                    width={900}
                 />
             </p>
             <ul>
@@ -70,7 +73,9 @@ function Nightbot() {
                 <img
                     alt={'Nightbot step 3'}
                     loading="lazy"
+                    height={579}
                     src={`${process.env.PUBLIC_URL}/images/nightbot-3.jpg`}
+                    width={900}
                 />
             </p>
             <p>

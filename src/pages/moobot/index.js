@@ -23,8 +23,9 @@ function Moobot() {
             <p>
                 <img
                     alt={'Moobot step 1'}
-                    loading="lazy"
+                    height={361}
                     src={`${process.env.PUBLIC_URL}/images/moobot-1.jpg`}
+                    width={900}
                 />
             </p>
             <ul>
@@ -39,7 +40,9 @@ function Moobot() {
                 <img
                     alt={'Moobot step 2'}
                     loading="lazy"
+                    height={469}
                     src={`${process.env.PUBLIC_URL}/images/moobot-2.jpg`}
+                    width={900}
                 />
             </p>
             <ul>
@@ -53,9 +56,11 @@ function Moobot() {
             </ul>
             <p>
                 <img
-                    alt={'Moobot step 4'}
+                    alt={'Moobot step 3'}
                     loading="lazy"
+                    height={551}
                     src={`${process.env.PUBLIC_URL}/images/moobot-3.jpg`}
+                    width={900}
                 />
             </p>
             <ul>
@@ -63,9 +68,11 @@ function Moobot() {
             </ul>
             <p>
                 <img
-                    alt={'Moobot step 5'}
+                    alt={'Moobot step 4'}
                     loading="lazy"
+                    height={286}
                     src={`${process.env.PUBLIC_URL}/images/moobot-4.jpg`}
+                    width={900}
                 />
             </p>
             <p>

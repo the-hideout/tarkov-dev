@@ -4,6 +4,7 @@
 
 .stream-elements-page-wrapper img {
     max-width: 100%;
+    height: auto;
 }
 
 .stream-elements-page-wrapper pre {

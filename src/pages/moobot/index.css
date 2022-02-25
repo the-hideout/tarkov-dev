@@ -4,6 +4,7 @@
 
 .moobot-page-wrapper img {
     max-width: 100%;
+    height: auto;
 }
 
 .moobot-page-wrapper pre {

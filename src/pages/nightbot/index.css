@@ -4,6 +4,7 @@
 
 .nightbot-page-wrapper img {
     max-width: 100%;
+    height: auto;
 }
 
 .nightbot-page-wrapper pre {
