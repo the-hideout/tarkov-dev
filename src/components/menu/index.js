@@ -34,7 +34,9 @@ const Menu = () => {
                 {/* Tarkov Tools */}
                 <img
                     alt="Tarkov Tools"
+                    height={42}
                     src={`${process.env.PUBLIC_URL}/logo.svg`}
+                    width={127}
                 />
             </Link>
             <Link
