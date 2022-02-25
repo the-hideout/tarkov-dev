@@ -121,7 +121,9 @@ const StationSkillTraderSetting = React.forwardRef((props, ref) => {
                 <img
                     alt={`${stateKey}-icon`}
                     loading="lazy"
+                    height={39}
                     src={`${process.env.PUBLIC_URL}/images/${stateKey}-icon.${iconExt}`}
+                    width={39}
                 />
                 <Select
                     defaultValue={selectedOption}
