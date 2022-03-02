@@ -191,6 +191,7 @@ const doFetchItems = async (...a) => {
             }),
             canHoldItems: itemProps[rawItem.id]?.canHoldItems,
             equipmentSlots: itemProps[rawItem.id]?.slots || [],
+            allowedAmmoIds: itemProps[rawItem.id]?.allowedAmmoIds,
         };
     });
 
