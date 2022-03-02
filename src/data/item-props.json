@@ -256,7 +256,19 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e6920f86f77411d82aa167",
+            "59e6927d86f77411da468256",
+            "54527a984bdc2d4e668b4567",
+            "54527ac44bdc2d36668b4567",
+            "59e68f6f86f7746c9f75e846",
+            "59e6906286f7746c9f75e847",
+            "59e690b686f7746c9f75e848",
+            "59e6918f86f7746c9f75e849",
+            "60194943740c5d77f6705eea",
+            "601949593ae8f707c4608daa",
+            "5c0d5ae286f7741e46554302"
+        ]
     },
     "5447ac644bdc2d6c208b4567": {
         "itemProperties": {
@@ -327,7 +339,22 @@
                 "_proto": "55d30c394bdc2dae468b4577"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "573718ba2459775a75491131",
+            "573719df2459775a626ccbc2",
+            "57371aab2459775a77142f22",
+            "57371b192459775a9f58a5e0",
+            "57371e4124597760ff7b25f1",
+            "57371eb62459776125652ac1",
+            "57371f8d24597761006c6a81",
+            "5737201124597760fc4431f1",
+            "5737207f24597760ff7b25f2",
+            "57371f2b24597761224311f1",
+            "573719762459775a626ccbc1",
+            "573720e02459776143012541",
+            "57372140245977611f70ee91",
+            "5737218f245977612125ba51"
+        ]
     },
     "5448be9a4bdc2dfd2f8b456a": {
         "itemProperties": {
@@ -608,7 +635,24 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "560d5e524bdc2d25448b4571",
+            "5d6e6772a4b936088465b17c",
+            "5d6e67fba4b9361bc73bc779",
+            "5d6e6806a4b936088465b17e",
+            "5d6e68dea4b9361bcc29e659",
+            "5d6e6911a4b9361bd5780d52",
+            "5c0d591486f7744c505b416f",
+            "58820d1224597753c90aeb13",
+            "5d6e68c4a4b9361b93413f79",
+            "5d6e68a8a4b9360b6c0d54e2",
+            "5d6e68e6a4b9361c140bcfe0",
+            "5d6e6869a4b9361c140bcfde",
+            "5d6e68b3a4b9361bca7e50b5",
+            "5d6e6891a4b9361bd473feea",
+            "5d6e689ca4b9361bc8618956",
+            "5d6e68d1a4b93622fe60e845"
+        ]
     },
     "544a11ac4bdc2d470e8b456a": {
         "itemProperties": {
@@ -1275,7 +1319,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5e023d34e8a400319a28ed44",
+            "5e023d48186a883be655e551",
+            "5e023cf8186a883be655e54f",
+            "59e77a2386f7742ee578960a",
+            "5887431f2459777e1612938f",
+            "560d61e84bdc2da74d8b4571"
+        ]
     },
     "5580223e4bdc2d1c128b457f": {
         "itemProperties": {
@@ -1347,7 +1398,24 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "560d5e524bdc2d25448b4571",
+            "5d6e6772a4b936088465b17c",
+            "5d6e67fba4b9361bc73bc779",
+            "5d6e6806a4b936088465b17e",
+            "5d6e68dea4b9361bcc29e659",
+            "5d6e6911a4b9361bd5780d52",
+            "5c0d591486f7744c505b416f",
+            "58820d1224597753c90aeb13",
+            "5d6e68c4a4b9361b93413f79",
+            "5d6e68a8a4b9360b6c0d54e2",
+            "5d6e68e6a4b9361c140bcfe0",
+            "5d6e6869a4b9361c140bcfde",
+            "5d6e68b3a4b9361bca7e50b5",
+            "5d6e6891a4b9361bd473feea",
+            "5d6e689ca4b9361bc8618956",
+            "5d6e68d1a4b93622fe60e845"
+        ]
     },
     "558022b54bdc2dac148b458d": {
         "itemProperties": {
@@ -4272,7 +4340,21 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5c0d5e4486f77478390952fe",
+            "61962b617c6c7b169525f168",
+            "56dfef82d2720bbd668b4567",
+            "56dff026d2720bb8668b4567",
+            "56dff061d2720bb5668b4567",
+            "56dff0bed2720bb0668b4567",
+            "56dff216d2720bbd668b4568",
+            "56dff2ced2720bb4668b4567",
+            "56dff338d2720bbd668b4569",
+            "56dff3afd2720bba668b4567",
+            "56dff421d2720b5f5a8b4567",
+            "56dff4a2d2720bbd668b456a",
+            "56dff4ecd2720b5f5a8b4568"
+        ]
     },
     "5645bc214bdc2d363b8b4571": {
         "itemProperties": {
@@ -6017,7 +6099,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "56d59948d2720bb7418b4582": {
         "itemProperties": {
@@ -6335,7 +6426,24 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "560d5e524bdc2d25448b4571",
+            "5d6e6772a4b936088465b17c",
+            "5d6e67fba4b9361bc73bc779",
+            "5d6e6806a4b936088465b17e",
+            "5d6e68dea4b9361bcc29e659",
+            "5d6e6911a4b9361bd5780d52",
+            "5c0d591486f7744c505b416f",
+            "58820d1224597753c90aeb13",
+            "5d6e68c4a4b9361b93413f79",
+            "5d6e68a8a4b9360b6c0d54e2",
+            "5d6e68e6a4b9361c140bcfe0",
+            "5d6e6869a4b9361c140bcfde",
+            "5d6e68b3a4b9361bca7e50b5",
+            "5d6e6891a4b9361bd473feea",
+            "5d6e689ca4b9361bc8618956",
+            "5d6e68d1a4b93622fe60e845"
+        ]
     },
     "56deec93d2720bec348b4568": {
         "itemProperties": {
@@ -6668,7 +6776,22 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "573718ba2459775a75491131",
+            "573719df2459775a626ccbc2",
+            "57371aab2459775a77142f22",
+            "57371b192459775a9f58a5e0",
+            "57371e4124597760ff7b25f1",
+            "57371eb62459776125652ac1",
+            "57371f8d24597761006c6a81",
+            "5737201124597760fc4431f1",
+            "5737207f24597760ff7b25f2",
+            "57371f2b24597761224311f1",
+            "573719762459775a626ccbc1",
+            "573720e02459776143012541",
+            "57372140245977611f70ee91",
+            "5737218f245977612125ba51"
+        ]
     },
     "56e05a6ed2720bd0748b4567": {
         "itemProperties": {
@@ -7252,7 +7375,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5735ff5c245977640e39ba7e",
+            "573601b42459776410737435",
+            "573602322459776445391df1",
+            "5736026a245977644601dc61",
+            "573603562459776430731618",
+            "573603c924597764442bd9cb",
+            "5735fdcd2459776445391d61"
+        ]
     },
     "571a26d524597720680fbe8a": {
         "itemProperties": {
@@ -8603,7 +8734,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e0d99486f7744a32234762",
+            "59e4d3d286f774176a36250a",
+            "5656d7c34bdc2d9d198b4587",
+            "59e4cf5286f7741778269d8a",
+            "59e4d24686f7741776641ac7",
+            "601aa3d2b2bcb34913271e6d"
+        ]
     },
     "574dad8024597745964bf05c": {
         "itemProperties": {
@@ -9100,7 +9238,24 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "560d5e524bdc2d25448b4571",
+            "5d6e6772a4b936088465b17c",
+            "5d6e67fba4b9361bc73bc779",
+            "5d6e6806a4b936088465b17e",
+            "5d6e68dea4b9361bcc29e659",
+            "5d6e6911a4b9361bd5780d52",
+            "5c0d591486f7744c505b416f",
+            "58820d1224597753c90aeb13",
+            "5d6e68c4a4b9361b93413f79",
+            "5d6e68a8a4b9360b6c0d54e2",
+            "5d6e68e6a4b9361c140bcfe0",
+            "5d6e6869a4b9361c140bcfde",
+            "5d6e68b3a4b9361bca7e50b5",
+            "5d6e6891a4b9361bd473feea",
+            "5d6e689ca4b9361bc8618956",
+            "5d6e68d1a4b93622fe60e845"
+        ]
     },
     "576167ab2459773cad038c43": {
         "itemProperties": {
@@ -9284,7 +9439,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "576a5ed62459771e9c2096cb": {
         "itemProperties": {
@@ -9776,7 +9940,13 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5c0d688c86f77413ae3407b2",
+            "61962d879bb3d20b0946d385",
+            "57a0dfb82459774d3078b56c",
+            "57a0e5022459774d1673f889",
+            "5c0d668f86f7747ccb7f13b2"
+        ]
     },
     "57838c962459774a1651ec63": {
         "itemProperties": {
@@ -10017,7 +10187,22 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "573718ba2459775a75491131",
+            "573719df2459775a626ccbc2",
+            "57371aab2459775a77142f22",
+            "57371b192459775a9f58a5e0",
+            "57371e4124597760ff7b25f1",
+            "57371eb62459776125652ac1",
+            "57371f8d24597761006c6a81",
+            "5737201124597760fc4431f1",
+            "5737207f24597760ff7b25f2",
+            "57371f2b24597761224311f1",
+            "573719762459775a626ccbc1",
+            "573720e02459776143012541",
+            "57372140245977611f70ee91",
+            "5737218f245977612125ba51"
+        ]
     },
     "5798a2832459774b53341029": {
         "itemProperties": {
@@ -10641,7 +10826,13 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5c0d688c86f77413ae3407b2",
+            "61962d879bb3d20b0946d385",
+            "57a0dfb82459774d3078b56c",
+            "57a0e5022459774d1673f889",
+            "5c0d668f86f7747ccb7f13b2"
+        ]
     },
     "57c44dd02459772d2e0ae249": {
         "itemProperties": {
@@ -11404,7 +11595,21 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "573718ba2459775a75491131",
+            "573719df2459775a626ccbc2",
+            "57371b192459775a9f58a5e0",
+            "57371e4124597760ff7b25f1",
+            "57371eb62459776125652ac1",
+            "57371f8d24597761006c6a81",
+            "5737201124597760fc4431f1",
+            "5737207f24597760ff7b25f2",
+            "57371f2b24597761224311f1",
+            "573719762459775a626ccbc1",
+            "573720e02459776143012541",
+            "57372140245977611f70ee91",
+            "5737218f245977612125ba51"
+        ]
     },
     "57d14e1724597714010c3f4b": {
         "itemProperties": {
@@ -11790,7 +11995,21 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5c0d5e4486f77478390952fe",
+            "61962b617c6c7b169525f168",
+            "56dfef82d2720bbd668b4567",
+            "56dff026d2720bb8668b4567",
+            "56dff061d2720bb5668b4567",
+            "56dff0bed2720bb0668b4567",
+            "56dff216d2720bbd668b4568",
+            "56dff2ced2720bb4668b4567",
+            "56dff338d2720bbd668b4569",
+            "56dff3afd2720bba668b4567",
+            "56dff421d2720b5f5a8b4567",
+            "56dff4a2d2720bbd668b456a",
+            "56dff4ecd2720b5f5a8b4568"
+        ]
     },
     "57dc324a24597759501edc20": {
         "itemProperties": {
@@ -12122,7 +12341,21 @@
                 "_proto": "55d30c394bdc2dae468b4577"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "573718ba2459775a75491131",
+            "573719df2459775a626ccbc2",
+            "57371b192459775a9f58a5e0",
+            "57371e4124597760ff7b25f1",
+            "57371eb62459776125652ac1",
+            "57371f8d24597761006c6a81",
+            "5737201124597760fc4431f1",
+            "5737207f24597760ff7b25f2",
+            "57371f2b24597761224311f1",
+            "573719762459775a626ccbc1",
+            "573720e02459776143012541",
+            "57372140245977611f70ee91",
+            "5737218f245977612125ba51"
+        ]
     },
     "57f3c7e024597738ea4ba286": {
         "itemProperties": {
@@ -12267,7 +12500,22 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "573718ba2459775a75491131",
+            "573719df2459775a626ccbc2",
+            "57371aab2459775a77142f22",
+            "57371b192459775a9f58a5e0",
+            "57371e4124597760ff7b25f1",
+            "57371eb62459776125652ac1",
+            "57371f8d24597761006c6a81",
+            "5737201124597760fc4431f1",
+            "5737207f24597760ff7b25f2",
+            "57371f2b24597761224311f1",
+            "573719762459775a626ccbc1",
+            "573720e02459776143012541",
+            "57372140245977611f70ee91",
+            "5737218f245977612125ba51"
+        ]
     },
     "57fd23e32459772d0805bcf1": {
         "itemProperties": {
@@ -13616,7 +13864,21 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5c0d5e4486f77478390952fe",
+            "61962b617c6c7b169525f168",
+            "56dfef82d2720bbd668b4567",
+            "56dff026d2720bb8668b4567",
+            "56dff061d2720bb5668b4567",
+            "56dff0bed2720bb0668b4567",
+            "56dff216d2720bbd668b4568",
+            "56dff2ced2720bb4668b4567",
+            "56dff338d2720bbd668b4569",
+            "56dff3afd2720bba668b4567",
+            "56dff421d2720b5f5a8b4567",
+            "56dff4a2d2720bbd668b456a",
+            "56dff4ecd2720b5f5a8b4568"
+        ]
     },
     "5839a40f24597726f856b511": {
         "itemProperties": {
@@ -13911,7 +14173,21 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5c0d5e4486f77478390952fe",
+            "61962b617c6c7b169525f168",
+            "56dfef82d2720bbd668b4567",
+            "56dff026d2720bb8668b4567",
+            "56dff061d2720bb5668b4567",
+            "56dff0bed2720bb0668b4567",
+            "56dff216d2720bbd668b4568",
+            "56dff2ced2720bb4668b4567",
+            "56dff338d2720bbd668b4569",
+            "56dff3afd2720bba668b4567",
+            "56dff421d2720b5f5a8b4567",
+            "56dff4a2d2720bbd668b456a",
+            "56dff4ecd2720b5f5a8b4568"
+        ]
     },
     "5839a7742459773cf9693481": {
         "itemProperties": {
@@ -14295,7 +14571,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e0d99486f7744a32234762",
+            "59e4d3d286f774176a36250a",
+            "5656d7c34bdc2d9d198b4587",
+            "59e4cf5286f7741778269d8a",
+            "59e4d24686f7741776641ac7",
+            "601aa3d2b2bcb34913271e6d"
+        ]
     },
     "587e0531245977466077a0f7": {
         "itemProperties": {
@@ -14976,7 +15259,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a6086ea4f39f99cd479502f",
+            "5a608bf24f39f98ffc77720e",
+            "58dd3ad986f77403051cba8f",
+            "5e023e53d4353e3302577c4c",
+            "5efb0c1bd79ff02a1f5e68d9",
+            "5e023e6e34d52a55c3304f71",
+            "5e023e88277cce2b522ff2b1"
+        ]
     },
     "5888945a2459774bf43ba385": {
         "itemProperties": {
@@ -15701,7 +15992,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "58949dea86f77409483e16a8": {
         "itemProperties": {
@@ -17784,7 +18084,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "5926c0df86f77462f647f764": {
         "itemProperties": {
@@ -19643,7 +19952,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "5998517986f7746017232f7e": {
         "itemProperties": {
@@ -21118,7 +21436,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e0d99486f7744a32234762",
+            "59e4d3d286f774176a36250a",
+            "5656d7c34bdc2d9d198b4587",
+            "59e4cf5286f7741778269d8a",
+            "59e4d24686f7741776641ac7",
+            "601aa3d2b2bcb34913271e6d"
+        ]
     },
     "59d625f086f774661516605d": {
         "itemProperties": {
@@ -22352,7 +22677,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e0d99486f7744a32234762",
+            "59e4d3d286f774176a36250a",
+            "5656d7c34bdc2d9d198b4587",
+            "59e4cf5286f7741778269d8a",
+            "59e4d24686f7741776641ac7",
+            "601aa3d2b2bcb34913271e6d"
+        ]
     },
     "59e61eb386f77440d64f5daf": {
         "itemProperties": {
@@ -22942,7 +23274,12 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e655cb86f77411dc52a77b",
+            "59e6542b86f77411dc52a77a",
+            "59e6658b86f77411d949b250",
+            "5f0596629e22f464da6bbdd9"
+        ]
     },
     "59e68f6f86f7746c9f75e846": {
         "itemProperties": {
@@ -23692,7 +24029,12 @@
                 "_proto": "55d30c394bdc2dae468b4577"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a269f97c4a282000b151807",
+            "5a26abfac4a28232980eabff",
+            "5a26ac06c4a282000c5a90a8",
+            "5a26ac0ec4a28200741e1e18"
+        ]
     },
     "59f99a7d86f7745b134aa97b": {
         "itemProperties": {
@@ -23951,7 +24293,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "59f9d81586f7744c7506ee62": {
         "itemProperties": {
@@ -24763,7 +25114,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e0d99486f7744a32234762",
+            "59e4d3d286f774176a36250a",
+            "5656d7c34bdc2d9d198b4587",
+            "59e4cf5286f7741778269d8a",
+            "59e4d24686f7741776641ac7",
+            "601aa3d2b2bcb34913271e6d"
+        ]
     },
     "59ff3b6a86f77477562ff5ed": {
         "itemProperties": {
@@ -25498,7 +25856,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e0d99486f7744a32234762",
+            "59e4d3d286f774176a36250a",
+            "5656d7c34bdc2d9d198b4587",
+            "59e4cf5286f7741778269d8a",
+            "59e4d24686f7741776641ac7",
+            "601aa3d2b2bcb34913271e6d"
+        ]
     },
     "5a0ec6d286f7742c0b518fb5": {
         "itemProperties": {
@@ -26419,7 +26784,22 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "573718ba2459775a75491131",
+            "573719df2459775a626ccbc2",
+            "57371aab2459775a77142f22",
+            "57371b192459775a9f58a5e0",
+            "57371e4124597760ff7b25f1",
+            "57371eb62459776125652ac1",
+            "57371f8d24597761006c6a81",
+            "5737201124597760fc4431f1",
+            "5737207f24597760ff7b25f2",
+            "57371f2b24597761224311f1",
+            "573719762459775a626ccbc1",
+            "573720e02459776143012541",
+            "57372140245977611f70ee91",
+            "5737218f245977612125ba51"
+        ]
     },
     "5a17fb03fcdbcbcae668728f": {
         "itemProperties": {
@@ -28156,7 +28536,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a6086ea4f39f99cd479502f",
+            "5a608bf24f39f98ffc77720e",
+            "58dd3ad986f77403051cba8f",
+            "5e023e53d4353e3302577c4c",
+            "5efb0c1bd79ff02a1f5e68d9",
+            "5e023e6e34d52a55c3304f71",
+            "5e023e88277cce2b522ff2b1"
+        ]
     },
     "5a37ca54c4a282000d72296a": {
         "itemProperties": {
@@ -28348,7 +28736,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a38ebd9c4a282000d722a5b",
+            "5d6e695fa4b936359b35d852",
+            "5d6e69b9a4b9361bc8618958",
+            "5d6e69c7a4b9360b6c0d54e4",
+            "5d6e6a5fa4b93614ec501745",
+            "5d6e6a53a4b9361bd473feec",
+            "5d6e6a42a4b9364f07165f52",
+            "5d6e6a05a4b93618084f58d0"
+        ]
     },
     "5a38ebd9c4a282000d722a5b": {
         "itemProperties": {
@@ -29827,7 +30224,24 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "560d5e524bdc2d25448b4571",
+            "5d6e6772a4b936088465b17c",
+            "5d6e67fba4b9361bc73bc779",
+            "5d6e6806a4b936088465b17e",
+            "5d6e68dea4b9361bcc29e659",
+            "5d6e6911a4b9361bd5780d52",
+            "5c0d591486f7744c505b416f",
+            "58820d1224597753c90aeb13",
+            "5d6e68c4a4b9361b93413f79",
+            "5d6e68a8a4b9360b6c0d54e2",
+            "5d6e68e6a4b9361c140bcfe0",
+            "5d6e6869a4b9361c140bcfde",
+            "5d6e68b3a4b9361bca7e50b5",
+            "5d6e6891a4b9361bd473feea",
+            "5d6e689ca4b9361bc8618956",
+            "5d6e68d1a4b93622fe60e845"
+        ]
     },
     "5a787ebcc5856700142fdd98": {
         "itemProperties": {
@@ -31132,7 +31546,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "5a7afa25e899ef00135e31b0": {
         "itemProperties": {
@@ -34240,7 +34663,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a6086ea4f39f99cd479502f",
+            "5a608bf24f39f98ffc77720e",
+            "58dd3ad986f77403051cba8f",
+            "5e023e53d4353e3302577c4c",
+            "5efb0c1bd79ff02a1f5e68d9",
+            "5e023e6e34d52a55c3304f71",
+            "5e023e88277cce2b522ff2b1"
+        ]
     },
     "5aafbcd986f7745e590fff23": {
         "itemProperties": {
@@ -35576,7 +36007,21 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5c0d5e4486f77478390952fe",
+            "61962b617c6c7b169525f168",
+            "56dfef82d2720bbd668b4567",
+            "56dff026d2720bb8668b4567",
+            "56dff061d2720bb5668b4567",
+            "56dff0bed2720bb0668b4567",
+            "56dff216d2720bbd668b4568",
+            "56dff2ced2720bb4668b4567",
+            "56dff338d2720bbd668b4569",
+            "56dff3afd2720bba668b4567",
+            "56dff421d2720b5f5a8b4567",
+            "56dff4a2d2720bbd668b456a",
+            "56dff4ecd2720b5f5a8b4568"
+        ]
     },
     "5ab8ebf186f7742d8b372e80": {
         "itemProperties": {
@@ -36171,7 +36616,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e0d99486f7744a32234762",
+            "59e4d3d286f774176a36250a",
+            "5656d7c34bdc2d9d198b4587",
+            "59e4cf5286f7741778269d8a",
+            "59e4d24686f7741776641ac7",
+            "601aa3d2b2bcb34913271e6d"
+        ]
     },
     "5abcc328d8ce8700194394f3": {
         "itemProperties": {
@@ -36337,7 +36789,22 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "573718ba2459775a75491131",
+            "573719df2459775a626ccbc2",
+            "57371aab2459775a77142f22",
+            "57371b192459775a9f58a5e0",
+            "57371e4124597760ff7b25f1",
+            "57371eb62459776125652ac1",
+            "57371f8d24597761006c6a81",
+            "5737201124597760fc4431f1",
+            "5737207f24597760ff7b25f2",
+            "57371f2b24597761224311f1",
+            "573719762459775a626ccbc1",
+            "573720e02459776143012541",
+            "57372140245977611f70ee91",
+            "5737218f245977612125ba51"
+        ]
     },
     "5abcd472d8ce8700166032ae": {
         "itemProperties": {
@@ -36757,7 +37224,21 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5c0d5e4486f77478390952fe",
+            "61962b617c6c7b169525f168",
+            "56dfef82d2720bbd668b4567",
+            "56dff026d2720bb8668b4567",
+            "56dff061d2720bb5668b4567",
+            "56dff0bed2720bb0668b4567",
+            "56dff216d2720bbd668b4568",
+            "56dff2ced2720bb4668b4567",
+            "56dff338d2720bbd668b4569",
+            "56dff3afd2720bba668b4567",
+            "56dff421d2720b5f5a8b4567",
+            "56dff4a2d2720bbd668b456a",
+            "56dff4ecd2720b5f5a8b4568"
+        ]
     },
     "5ac50c185acfc400163398d4": {
         "itemProperties": {
@@ -37192,7 +37673,19 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e6920f86f77411d82aa167",
+            "59e6927d86f77411da468256",
+            "54527a984bdc2d4e668b4567",
+            "54527ac44bdc2d36668b4567",
+            "59e68f6f86f7746c9f75e846",
+            "59e6906286f7746c9f75e847",
+            "59e690b686f7746c9f75e848",
+            "59e6918f86f7746c9f75e849",
+            "60194943740c5d77f6705eea",
+            "601949593ae8f707c4608daa",
+            "5c0d5ae286f7741e46554302"
+        ]
     },
     "5ac66d015acfc400180ae6e4": {
         "itemProperties": {
@@ -37520,7 +38013,19 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e6920f86f77411d82aa167",
+            "59e6927d86f77411da468256",
+            "54527a984bdc2d4e668b4567",
+            "54527ac44bdc2d36668b4567",
+            "59e68f6f86f7746c9f75e846",
+            "59e6906286f7746c9f75e847",
+            "59e690b686f7746c9f75e848",
+            "59e6918f86f7746c9f75e849",
+            "60194943740c5d77f6705eea",
+            "601949593ae8f707c4608daa",
+            "5c0d5ae286f7741e46554302"
+        ]
     },
     "5ac66d2e5acfc43b321d4b53": {
         "itemProperties": {
@@ -37888,7 +38393,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e0d99486f7744a32234762",
+            "59e4d3d286f774176a36250a",
+            "5656d7c34bdc2d9d198b4587",
+            "59e4cf5286f7741778269d8a",
+            "59e4d24686f7741776641ac7",
+            "601aa3d2b2bcb34913271e6d"
+        ]
     },
     "5ac66d725acfc43b321d4b60": {
         "itemProperties": {
@@ -38248,7 +38760,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e0d99486f7744a32234762",
+            "59e4d3d286f774176a36250a",
+            "5656d7c34bdc2d9d198b4587",
+            "59e4cf5286f7741778269d8a",
+            "59e4d24686f7741776641ac7",
+            "601aa3d2b2bcb34913271e6d"
+        ]
     },
     "5ac66d9b5acfc4001633997a": {
         "itemProperties": {
@@ -38602,7 +39121,21 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5c0d5e4486f77478390952fe",
+            "61962b617c6c7b169525f168",
+            "56dfef82d2720bbd668b4567",
+            "56dff026d2720bb8668b4567",
+            "56dff061d2720bb5668b4567",
+            "56dff0bed2720bb0668b4567",
+            "56dff216d2720bbd668b4568",
+            "56dff2ced2720bb4668b4567",
+            "56dff338d2720bbd668b4569",
+            "56dff3afd2720bba668b4567",
+            "56dff421d2720b5f5a8b4567",
+            "56dff4a2d2720bbd668b456a",
+            "56dff4ecd2720b5f5a8b4568"
+        ]
     },
     "5ac72e475acfc400180ae6fe": {
         "itemProperties": {
@@ -40824,7 +41357,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5e023d34e8a400319a28ed44",
+            "5e023d48186a883be655e551",
+            "5e023cf8186a883be655e54f",
+            "59e77a2386f7742ee578960a",
+            "5887431f2459777e1612938f",
+            "560d61e84bdc2da74d8b4571"
+        ]
     },
     "5ae096d95acfc400185c2c81": {
         "itemProperties": {
@@ -42503,7 +43043,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a6086ea4f39f99cd479502f",
+            "5a608bf24f39f98ffc77720e",
+            "58dd3ad986f77403051cba8f",
+            "5e023e53d4353e3302577c4c",
+            "5efb0c1bd79ff02a1f5e68d9",
+            "5e023e6e34d52a55c3304f71",
+            "5e023e88277cce2b522ff2b1"
+        ]
     },
     "5b0bc22d5acfc47a8607f085": {
         "itemProperties": {
@@ -42720,7 +43268,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "5b1fa9ea5acfc40018633c0a": {
         "itemProperties": {
@@ -44041,7 +44598,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5735ff5c245977640e39ba7e",
+            "573601b42459776410737435",
+            "573602322459776445391df1",
+            "5736026a245977644601dc61",
+            "573603562459776430731618",
+            "573603c924597764442bd9cb",
+            "5735fdcd2459776445391d61"
+        ]
     },
     "5b3b99265acfc4704b4a1afb": {
         "itemProperties": {
@@ -47910,7 +48475,12 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5ba26812d4351e003201fef1",
+            "5ba26835d4351e0035628ff5",
+            "5ba2678ad4351e44f824b344",
+            "5ba26844d4351e00334c9475"
+        ]
     },
     "5ba264f6d4351e0034777d52": {
         "itemProperties": {
@@ -49937,7 +50507,19 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e6920f86f77411d82aa167",
+            "59e6927d86f77411da468256",
+            "54527a984bdc2d4e668b4567",
+            "54527ac44bdc2d36668b4567",
+            "59e68f6f86f7746c9f75e846",
+            "59e6906286f7746c9f75e847",
+            "59e690b686f7746c9f75e848",
+            "59e6918f86f7746c9f75e849",
+            "60194943740c5d77f6705eea",
+            "601949593ae8f707c4608daa",
+            "5c0d5ae286f7741e46554302"
+        ]
     },
     "5bbdb811d4351e45020113c7": {
         "itemProperties": {
@@ -51087,7 +51669,12 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5ba26812d4351e003201fef1",
+            "5ba26835d4351e0035628ff5",
+            "5ba2678ad4351e44f824b344",
+            "5ba26844d4351e00334c9475"
+        ]
     },
     "5bd704e7209c4d00d7167c31": {
         "itemProperties": {
@@ -52076,7 +52663,21 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5c0d5e4486f77478390952fe",
+            "61962b617c6c7b169525f168",
+            "56dfef82d2720bbd668b4567",
+            "56dff026d2720bb8668b4567",
+            "56dff061d2720bb5668b4567",
+            "56dff0bed2720bb0668b4567",
+            "56dff216d2720bbd668b4568",
+            "56dff2ced2720bb4668b4567",
+            "56dff338d2720bbd668b4569",
+            "56dff3afd2720bba668b4567",
+            "56dff421d2720b5f5a8b4567",
+            "56dff4a2d2720bbd668b456a",
+            "56dff4ecd2720b5f5a8b4568"
+        ]
     },
     "5bf3e03b0db834001d2c4a9c": {
         "itemProperties": {
@@ -52411,7 +53012,21 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5c0d5e4486f77478390952fe",
+            "61962b617c6c7b169525f168",
+            "56dfef82d2720bbd668b4567",
+            "56dff026d2720bb8668b4567",
+            "56dff061d2720bb5668b4567",
+            "56dff0bed2720bb0668b4567",
+            "56dff216d2720bbd668b4568",
+            "56dff2ced2720bb4668b4567",
+            "56dff338d2720bbd668b4569",
+            "56dff3afd2720bba668b4567",
+            "56dff421d2720b5f5a8b4567",
+            "56dff4a2d2720bbd668b456a",
+            "56dff4ecd2720b5f5a8b4568"
+        ]
     },
     "5bf3e0490db83400196199af": {
         "itemProperties": {
@@ -52724,7 +53339,21 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5c0d5e4486f77478390952fe",
+            "61962b617c6c7b169525f168",
+            "56dfef82d2720bbd668b4567",
+            "56dff026d2720bb8668b4567",
+            "56dff061d2720bb5668b4567",
+            "56dff0bed2720bb0668b4567",
+            "56dff216d2720bbd668b4568",
+            "56dff2ced2720bb4668b4567",
+            "56dff338d2720bbd668b4569",
+            "56dff3afd2720bba668b4567",
+            "56dff421d2720b5f5a8b4567",
+            "56dff4a2d2720bbd668b456a",
+            "56dff4ecd2720b5f5a8b4568"
+        ]
     },
     "5bf3f59f0db834001a6fa060": {
         "itemProperties": {
@@ -52848,7 +53477,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5e023d34e8a400319a28ed44",
+            "5e023d48186a883be655e551",
+            "5e023cf8186a883be655e54f",
+            "59e77a2386f7742ee578960a",
+            "5887431f2459777e1612938f",
+            "560d61e84bdc2da74d8b4571"
+        ]
     },
     "5bfd35380db83400232fe5cc": {
         "itemProperties": {
@@ -53638,7 +54274,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a6086ea4f39f99cd479502f",
+            "5a608bf24f39f98ffc77720e",
+            "58dd3ad986f77403051cba8f",
+            "5e023e53d4353e3302577c4c",
+            "5efb0c1bd79ff02a1f5e68d9",
+            "5e023e6e34d52a55c3304f71",
+            "5e023e88277cce2b522ff2b1"
+        ]
     },
     "5bfea7ad0db834001c38f1ee": {
         "itemProperties": {
@@ -55918,7 +56562,19 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e6920f86f77411d82aa167",
+            "59e6927d86f77411da468256",
+            "54527a984bdc2d4e668b4567",
+            "54527ac44bdc2d36668b4567",
+            "59e68f6f86f7746c9f75e846",
+            "59e6906286f7746c9f75e847",
+            "59e690b686f7746c9f75e848",
+            "59e6918f86f7746c9f75e849",
+            "60194943740c5d77f6705eea",
+            "601949593ae8f707c4608daa",
+            "5c0d5ae286f7741e46554302"
+        ]
     },
     "5c07c9660db834001a66b588": {
         "itemProperties": {
@@ -58820,7 +59476,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5e023d34e8a400319a28ed44",
+            "5e023d48186a883be655e551",
+            "5e023cf8186a883be655e54f",
+            "59e77a2386f7742ee578960a",
+            "5887431f2459777e1612938f",
+            "560d61e84bdc2da74d8b4571"
+        ]
     },
     "5c471b5d2e221602b21d4e14": {
         "itemProperties": {
@@ -59445,7 +60108,19 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e6920f86f77411d82aa167",
+            "59e6927d86f77411da468256",
+            "54527a984bdc2d4e668b4567",
+            "54527ac44bdc2d36668b4567",
+            "59e68f6f86f7746c9f75e846",
+            "59e6906286f7746c9f75e847",
+            "59e690b686f7746c9f75e848",
+            "59e6918f86f7746c9f75e849",
+            "60194943740c5d77f6705eea",
+            "601949593ae8f707c4608daa",
+            "5c0d5ae286f7741e46554302"
+        ]
     },
     "5c48a14f2e2216152006edd7": {
         "itemProperties": {
@@ -60020,7 +60695,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a6086ea4f39f99cd479502f",
+            "5a608bf24f39f98ffc77720e",
+            "58dd3ad986f77403051cba8f",
+            "5e023e53d4353e3302577c4c",
+            "5efb0c1bd79ff02a1f5e68d9",
+            "5e023e6e34d52a55c3304f71",
+            "5e023e88277cce2b522ff2b1"
+        ]
     },
     "5c5039be2e221602b177c9ff": {
         "itemProperties": {
@@ -65840,7 +66523,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "5cadc1c6ae9215000f2775a4": {
         "itemProperties": {
@@ -66537,7 +67229,11 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5cadf6ddae9215051e1c23b2",
+            "5cadf6e5ae921500113bb973",
+            "5cadf6eeae921500134b2799"
+        ]
     },
     "5caf1041ae92157c28402e3f": {
         "itemProperties": {
@@ -67939,7 +68635,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5cc80f53e4a949000e1ea4f8",
+            "5cc86832d7f00c000d3a6e6c",
+            "5cc86840d7f00c002412c56c",
+            "5cc80f67e4a949035e43bbba",
+            "5cc80f38e4a949001152b560",
+            "5cc80f8fe4a949033b0224a2",
+            "5cc80f79e4a949033c7343b2"
+        ]
     },
     "5cc86832d7f00c000d3a6e6c": {
         "itemProperties": {
@@ -74841,7 +75545,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "5d2f213448f0355009199284": {
         "itemProperties": {
@@ -75116,7 +75829,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5cc80f53e4a949000e1ea4f8",
+            "5cc86832d7f00c000d3a6e6c",
+            "5cc86840d7f00c002412c56c",
+            "5cc80f67e4a949035e43bbba",
+            "5cc80f38e4a949001152b560",
+            "5cc80f8fe4a949033b0224a2",
+            "5cc80f79e4a949033c7343b2"
+        ]
     },
     "5d3eb44aa4b93650d64e4979": {
         "itemProperties": {
@@ -75618,7 +76339,19 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e6920f86f77411d82aa167",
+            "59e6927d86f77411da468256",
+            "54527a984bdc2d4e668b4567",
+            "54527ac44bdc2d36668b4567",
+            "59e68f6f86f7746c9f75e846",
+            "59e6906286f7746c9f75e847",
+            "59e690b686f7746c9f75e848",
+            "59e6918f86f7746c9f75e849",
+            "60194943740c5d77f6705eea",
+            "601949593ae8f707c4608daa",
+            "5c0d5ae286f7741e46554302"
+        ]
     },
     "5d4405aaa4b9361e6a4e6bd3": {
         "itemProperties": {
@@ -77444,7 +78177,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5cc80f53e4a949000e1ea4f8",
+            "5cc86832d7f00c000d3a6e6c",
+            "5cc86840d7f00c002412c56c",
+            "5cc80f67e4a949035e43bbba",
+            "5cc80f38e4a949001152b560",
+            "5cc80f8fe4a949033b0224a2",
+            "5cc80f79e4a949033c7343b2"
+        ]
     },
     "5d6d2e22a4b9361bd5780d05": {
         "itemProperties": {
@@ -78569,7 +79310,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a6086ea4f39f99cd479502f",
+            "5a608bf24f39f98ffc77720e",
+            "58dd3ad986f77403051cba8f",
+            "5e023e53d4353e3302577c4c",
+            "5efb0c1bd79ff02a1f5e68d9",
+            "5e023e6e34d52a55c3304f71",
+            "5e023e88277cce2b522ff2b1"
+        ]
     },
     "5dcbd6b46ec07c0c4347a564": {
         "itemProperties": {
@@ -78934,7 +79683,12 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e655cb86f77411dc52a77b",
+            "59e6542b86f77411dc52a77a",
+            "59e6658b86f77411d949b250",
+            "5f0596629e22f464da6bbdd9"
+        ]
     },
     "5de653abf76fdc1ce94a5a2a": {
         "itemProperties": {
@@ -79326,7 +80080,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "5de8e67c4a9f347bc92edbd7": {
         "itemProperties": {
@@ -79962,7 +80725,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a6086ea4f39f99cd479502f",
+            "5a608bf24f39f98ffc77720e",
+            "58dd3ad986f77403051cba8f",
+            "5e023e53d4353e3302577c4c",
+            "5efb0c1bd79ff02a1f5e68d9",
+            "5e023e6e34d52a55c3304f71",
+            "5e023e88277cce2b522ff2b1"
+        ]
     },
     "5df256570dee1b22f862e9c4": {
         "itemProperties": {
@@ -80945,7 +81716,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a6086ea4f39f99cd479502f",
+            "5a608bf24f39f98ffc77720e",
+            "58dd3ad986f77403051cba8f",
+            "5e023e53d4353e3302577c4c",
+            "5efb0c1bd79ff02a1f5e68d9",
+            "5e023e6e34d52a55c3304f71",
+            "5e023e88277cce2b522ff2b1"
+        ]
     },
     "5df8e053bb49d91fb446d6a6": {
         "itemProperties": {
@@ -82550,7 +83329,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "5e0090f7e9dc277128008b93": {
         "itemProperties": {
@@ -85030,7 +85818,13 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5e81f423763d9f754677bf2e",
+            "5efb0cabfb3e451d70735af5",
+            "5efb0fc6aeb21837e749c801",
+            "5efb0d4f4bc50b58e81710f3",
+            "5ea2a8e200685063ec28c05a"
+        ]
     },
     "5e81c4ca763d9f754677befa": {
         "itemProperties": {
@@ -85419,7 +86213,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5ede474b0c226a66f5402622",
+            "5ede475b549eed7c6d5c18fb",
+            "5ede4739e0350d05467f73e8",
+            "5f0c892565703e5c461894e9",
+            "5ede47405b097655935d7d16",
+            "5ede475339ee016e8c534742",
+            "5ede47641cf3836a88318df1"
+        ]
     },
     "5e81edc13397a21db957f6a1": {
         "itemProperties": {
@@ -85663,7 +86465,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5e85aa1a988a8701445df1f5",
+            "5e85aac65505fa48730d8af2",
+            "5e85a9a6eacf8c039e4e2ac1",
+            "5f647f31b6238e5dd066e196",
+            "5e85a9f4add9fe03027d9bf1",
+            "5f647fd3f6e4ab66c82faed6"
+        ]
     },
     "5e848d1c264f7c180b5e35a9": {
         "itemProperties": {
@@ -85945,7 +86754,24 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "560d5e524bdc2d25448b4571",
+            "5d6e6772a4b936088465b17c",
+            "5d6e67fba4b9361bc73bc779",
+            "5d6e6806a4b936088465b17e",
+            "5d6e68dea4b9361bcc29e659",
+            "5d6e6911a4b9361bd5780d52",
+            "5c0d591486f7744c505b416f",
+            "58820d1224597753c90aeb13",
+            "5d6e68c4a4b9361b93413f79",
+            "5d6e68a8a4b9360b6c0d54e2",
+            "5d6e68e6a4b9361c140bcfe0",
+            "5d6e6869a4b9361c140bcfde",
+            "5d6e68b3a4b9361bca7e50b5",
+            "5d6e6891a4b9361bd473feea",
+            "5d6e689ca4b9361bc8618956",
+            "5d6e68d1a4b93622fe60e845"
+        ]
     },
     "5e87071478f43e51ca2de5e1": {
         "itemProperties": {
@@ -88689,7 +89515,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a6086ea4f39f99cd479502f",
+            "5a608bf24f39f98ffc77720e",
+            "58dd3ad986f77403051cba8f",
+            "5e023e53d4353e3302577c4c",
+            "5efb0c1bd79ff02a1f5e68d9",
+            "5e023e6e34d52a55c3304f71",
+            "5e023e88277cce2b522ff2b1"
+        ]
     },
     "5f2aa43ba9b91d26f20ae6d2": {
         "itemProperties": {
@@ -89404,7 +90238,13 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5e81f423763d9f754677bf2e",
+            "5efb0cabfb3e451d70735af5",
+            "5efb0fc6aeb21837e749c801",
+            "5efb0d4f4bc50b58e81710f3",
+            "5ea2a8e200685063ec28c05a"
+        ]
     },
     "5f3e76d86cda304dcc634054": {
         "itemProperties": {
@@ -91504,7 +92344,13 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5e81f423763d9f754677bf2e",
+            "5efb0cabfb3e451d70735af5",
+            "5efb0fc6aeb21837e749c801",
+            "5efb0d4f4bc50b58e81710f3",
+            "5ea2a8e200685063ec28c05a"
+        ]
     },
     "5fb651b52b1b027b1f50bcff": {
         "itemProperties": {
@@ -92905,7 +93751,13 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5fbe3ffdf8b6a877a729ea82",
+            "5fd20ff893a8961fc660a954",
+            "619636be6db0f2477964e710",
+            "6196364158ef8c428c287d9f",
+            "6196365d58ef8c428c287da1"
+        ]
     },
     "5fbcc3e4d6fa9c00c571bb58": {
         "itemProperties": {
@@ -93501,7 +94353,12 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5fc382a9d724d907e2077dab",
+            "5fc275cf85fd526b824a571a",
+            "5fc382c1016cce60e8341b20",
+            "5fc382b6d6fa9c00c571bbc3"
+        ]
     },
     "5fc23426900b1d5091531e15": {
         "itemProperties": {
@@ -94338,7 +95195,13 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5e81f423763d9f754677bf2e",
+            "5efb0cabfb3e451d70735af5",
+            "5efb0fc6aeb21837e749c801",
+            "5efb0d4f4bc50b58e81710f3",
+            "5ea2a8e200685063ec28c05a"
+        ]
     },
     "5fc3e466187fea44d52eda90": {
         "itemProperties": {
@@ -94756,7 +95619,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "5fc4b97bab884124df0cd5e3": {
         "itemProperties": {
@@ -95715,7 +96587,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "602e3f1254072b51b239f713": {
         "itemProperties": {
@@ -96605,7 +97486,16 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5efb0da7a29a85116f6ea05f",
+            "5c3df7d588a4501f290594e5",
+            "58864a4f2459770fcc257101",
+            "56d59d3ad2720bdb418b4577",
+            "5c925fa22e221601da359b7b",
+            "5a3c16fe86f77452b62de32a",
+            "5efb0e16aeb21837e749c7ff",
+            "5c0d56a986f774449d5de529"
+        ]
     },
     "6033fa48ffd42c541047f728": {
         "itemProperties": {
@@ -97873,7 +98763,14 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e0d99486f7744a32234762",
+            "59e4d3d286f774176a36250a",
+            "5656d7c34bdc2d9d198b4587",
+            "59e4cf5286f7741778269d8a",
+            "59e4d24686f7741776641ac7",
+            "601aa3d2b2bcb34913271e6d"
+        ]
     },
     "60658776f2cb2e02a42ace2b": {
         "itemProperties": {
@@ -98952,7 +99849,24 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "560d5e524bdc2d25448b4571",
+            "5d6e6772a4b936088465b17c",
+            "5d6e67fba4b9361bc73bc779",
+            "5d6e6806a4b936088465b17e",
+            "5d6e68dea4b9361bcc29e659",
+            "5d6e6911a4b9361bd5780d52",
+            "5c0d591486f7744c505b416f",
+            "58820d1224597753c90aeb13",
+            "5d6e68c4a4b9361b93413f79",
+            "5d6e68a8a4b9360b6c0d54e2",
+            "5d6e68e6a4b9361c140bcfe0",
+            "5d6e6869a4b9361c140bcfde",
+            "5d6e68b3a4b9361bca7e50b5",
+            "5d6e6891a4b9361bd473feea",
+            "5d6e689ca4b9361bc8618956",
+            "5d6e68d1a4b93622fe60e845"
+        ]
     },
     "606ee5c81246154cad35d65e": {
         "itemProperties": {
@@ -102463,7 +103377,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a6086ea4f39f99cd479502f",
+            "5a608bf24f39f98ffc77720e",
+            "58dd3ad986f77403051cba8f",
+            "5e023e53d4353e3302577c4c",
+            "5efb0c1bd79ff02a1f5e68d9",
+            "5e023e6e34d52a55c3304f71",
+            "5e023e88277cce2b522ff2b1"
+        ]
     },
     "6165ac8c290d254f5e6b2f6c": {
         "itemProperties": {
@@ -104819,7 +105741,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a6086ea4f39f99cd479502f",
+            "5a608bf24f39f98ffc77720e",
+            "58dd3ad986f77403051cba8f",
+            "5e023e53d4353e3302577c4c",
+            "5efb0c1bd79ff02a1f5e68d9",
+            "5e023e6e34d52a55c3304f71",
+            "5e023e88277cce2b522ff2b1"
+        ]
     },
     "617aa4dd8166f034d57de9c5": {
         "itemProperties": {
@@ -105663,7 +106593,15 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5a6086ea4f39f99cd479502f",
+            "5a608bf24f39f98ffc77720e",
+            "58dd3ad986f77403051cba8f",
+            "5e023e53d4353e3302577c4c",
+            "5efb0c1bd79ff02a1f5e68d9",
+            "5e023e6e34d52a55c3304f71",
+            "5e023e88277cce2b522ff2b1"
+        ]
     },
     "6183b0711cb55961fa0fdcad": {
         "itemProperties": {
@@ -106749,7 +107687,19 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e6920f86f77411d82aa167",
+            "59e6927d86f77411da468256",
+            "54527a984bdc2d4e668b4567",
+            "54527ac44bdc2d36668b4567",
+            "59e68f6f86f7746c9f75e846",
+            "59e6906286f7746c9f75e847",
+            "59e690b686f7746c9f75e848",
+            "59e6918f86f7746c9f75e849",
+            "60194943740c5d77f6705eea",
+            "601949593ae8f707c4608daa",
+            "5c0d5ae286f7741e46554302"
+        ]
     },
     "618407a850224f204c1da549": {
         "itemProperties": {
@@ -107343,7 +108293,19 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "59e6920f86f77411d82aa167",
+            "59e6927d86f77411da468256",
+            "54527a984bdc2d4e668b4567",
+            "54527ac44bdc2d36668b4567",
+            "59e68f6f86f7746c9f75e846",
+            "59e6906286f7746c9f75e847",
+            "59e690b686f7746c9f75e848",
+            "59e6918f86f7746c9f75e849",
+            "60194943740c5d77f6705eea",
+            "601949593ae8f707c4608daa",
+            "5c0d5ae286f7741e46554302"
+        ]
     },
     "618a431df1eb8e24b8741deb": {
         "itemProperties": {
@@ -108059,7 +109021,13 @@
                 "_proto": "55d30c4c4bdc2db4468b457e"
             }
         ],
-        "allowedAmmoIds": []
+        "allowedAmmoIds": [
+            "5e81f423763d9f754677bf2e",
+            "5efb0cabfb3e451d70735af5",
+            "5efb0fc6aeb21837e749c801",
+            "5efb0d4f4bc50b58e81710f3",
+            "5ea2a8e200685063ec28c05a"
+        ]
     },
     "6193d3149fb0c665d5490e32": {
         "itemProperties": {
