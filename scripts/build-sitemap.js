@@ -61,7 +61,7 @@ const addPath = (sitemap, url) => {
         sitemap = addPath(sitemap, `/items/${itemType.key}`);
     }
 
-    const allItems = await got('https://tarkov-tools.com/graphql?query={%20itemsByType(type:%20any){%20normalizedName%20}%20}', {
+    const allItems = await got('https://api.thehideout.io/graphql?query={%20itemsByType(type:%20any){%20normalizedName%20}%20}', {
         responseType: 'json',
     });
 

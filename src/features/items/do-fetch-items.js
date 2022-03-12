@@ -63,7 +63,7 @@ const QueryBody = JSON.stringify({
 
 const doFetchItems = async (...a) => {
     const [itemData, itemGrids, itemProps] = await Promise.all([
-        fetch('https://tarkov-tools.com/graphql', {
+        fetch('https://api.thehideout.io/graphql', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

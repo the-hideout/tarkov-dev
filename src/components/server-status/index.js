@@ -8,7 +8,7 @@ function ServerStatus() {
     const { status, data } = useQuery(
         `server-status`,
         () =>
-            fetch('https://tarkov-tools.com/graphql', {
+            fetch('https://api.thehideout.io/graphql', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

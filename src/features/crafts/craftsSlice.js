@@ -78,7 +78,7 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
     }`,
     });
 
-    const response = await fetch('https://tarkov-tools.com/graphql', {
+    const response = await fetch('https://api.thehideout.io/graphql', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

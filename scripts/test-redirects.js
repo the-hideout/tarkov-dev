@@ -8,7 +8,7 @@ const redirects = require('../workers-site/redirects.json');
 (async () => {
     let liveNames = [];
     try {
-        const response = await got.post('https://tarkov-tools.com/graphql', {
+        const response = await got.post('https://api.thehideout.io/graphql', {
             body: JSON.stringify({query: `{
                 itemsByType(type: any){
                     normalizedName
