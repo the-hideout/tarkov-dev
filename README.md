@@ -1,9 +1,5 @@
 # Tarkov Tools
 
-[![Build Status](https://img.shields.io/github/workflow/status/kokarn/tarkov-tools/Deploy?style=flat-square)](https://github.com/kokarn/tarkov-tools/actions/workflows/deploy.yml)
-[![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dkokarn%26type%3Dpatrons&style=flat)](https://patreon.com/kokarn)
-![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m785748655-5631dd88e9569d8faf253651)
-
 ## If you wanna help out, please do!
 
 I'm always looking for anybody contributing anything from simple spelling errors, icon updates, fixes for small css bugs or just posting issues to keep track of what needs to be done.
