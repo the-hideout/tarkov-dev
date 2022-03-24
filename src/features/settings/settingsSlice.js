@@ -48,7 +48,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
     }`,
         });
 
-        const apiResponse = await fetch('https://api.thehideout.io/graphql', {
+        const apiResponse = await fetch('https://api.tarkov.dev/graphql', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

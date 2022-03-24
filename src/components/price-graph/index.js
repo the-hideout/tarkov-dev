@@ -16,7 +16,7 @@ function PriceGraph({ itemId }) {
     const { status, data } = useQuery(
         `historical-price-${itemId}`,
         () =>
-            fetch('https://api.thehideout.io/graphql', {
+            fetch('https://api.tarkov.dev/graphql', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

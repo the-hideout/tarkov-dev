@@ -25,7 +25,7 @@ function TraderResetTime({ trader, center = false }) {
     const { status, data } = useQuery(
         `server-status`,
         () =>
-            fetch('https://api.thehideout.io/graphql', {
+            fetch('https://api.tarkov.dev/graphql', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
