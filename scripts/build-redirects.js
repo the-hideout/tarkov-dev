@@ -7,7 +7,7 @@ const got = require('got');
     let redirects;
 
     try {
-        const response = await got('https://tarkov-data-manager.herokuapp.com/data/redirects.json', {
+        const response = await got('https://manager.tarkov.dev/data/redirects.json', {
             responseType: 'json',
         });
 
