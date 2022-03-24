@@ -52,7 +52,7 @@ function Start(props) {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t(`The Hideout - Escape from Tarkov`)}</title>
+            <title>{t(`Tarkov.dev - Escape from Tarkov`)}</title>
             <meta
                 name="description"
                 content={`All the relevant information about Escape from Tarkov`}

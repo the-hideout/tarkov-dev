@@ -10,7 +10,7 @@ function ApiUsers() {
             <h1>{t('Tarkov Tools API Users')}</h1>
             <p>
                 {t('Want to be included on this page? Join the')}{' '}
-                <a href="https://discord.gg/B2xM8WZyVv">Discord</a>{' '}
+                <a href="https://discord.gg/XPAsKGHSzH">Discord</a>{' '}
                 {t("and tell us about what you've made!")}
             </p>
             {apiUsers.map((apiUser) => {

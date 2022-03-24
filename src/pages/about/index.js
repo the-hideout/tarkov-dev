@@ -21,7 +21,7 @@ function About() {
                 {t(
                     'If you wanna have a chat, ask questions or request features, we have a',
                 )}{' '}
-                <a href="https://discord.gg/B2xM8WZyVv">Discord</a>{' '}
+                <a href="https://discord.gg/XPAsKGHSzH">Discord</a>{' '}
                 {t('server')}
             </p>
             <h2>{t('Support')}</h2>

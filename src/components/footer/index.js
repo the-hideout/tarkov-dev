@@ -28,7 +28,7 @@ function Footer() {
                     {t(
                         'If you wanna have a chat, ask questions or request features, we have a',
                     )}{' '}
-                    <a href="https://discord.gg/B2xM8WZyVv">
+                    <a href="https://discord.gg/XPAsKGHSzH">
                         <DiscordIcon /> {t('Discord server')}
                     </a>
                 </p>
@@ -42,11 +42,6 @@ function Footer() {
                     </a>
                 </p>
                 <p>
-                    <a href="https://tarkovbitcoinprice.com/">
-                        Tarkov Bitcoin Price
-                    </a>
-                </p>
-                <p>
                     <a href="https://github.com/RatScanner/RatScanner">
                         RatScanner
                     </a>
@@ -55,7 +50,7 @@ function Footer() {
                     <a href="https://tarkovtracker.io/">TarkovTracker</a>
                 </p>
             </div>
-            <div className="footer-section-wrapper">
+            {/* <div className="footer-section-wrapper">
                 <h3>{t('Supporters')}</h3>
                 <PatreonButton />
                 {supporters.map((supporter) => {
@@ -77,7 +72,7 @@ function Footer() {
                         />
                     );
                 })}
-            </div>
+            </div> */}
             <div className="footer-section-wrapper">
                 <h3>{t('Resources')}</h3>
                 <p>
