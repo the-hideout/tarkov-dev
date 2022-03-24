@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
-import { mdiCogOutline, mdiRemote, mdiHeartFlash, mdiMenu } from '@mdi/js';
+import { mdiCogOutline, mdiRemote, mdiHeartFlash, mdiMenu, mdiHandHeart } from '@mdi/js';
 
 import MenuItem from './MenuItem';
 import PatreonButton from '../patreon-button';
+import UkraineButton from '../ukraine-button';
 
 import ammoData from '../../data/ammo.json';
 import mapData from '../../data/maps.json';
@@ -66,6 +67,26 @@ const Menu = () => {
                 onClick={handleMenuClick}
             />
             <ul className={`menu${isOpen ? ' open' : ''}`}>
+                <li className="only-large">
+                    <UkraineButton
+                        wrapperStyle={{
+                            margin: 0,
+                        }}
+                        linkStyle={{
+                            color: '#fff',
+                            padding: '5px 20px',
+                            alignItems: 'center',
+                        }}
+                    >
+                        {t('Support Ukraine')}
+                        <Icon
+                            path={mdiHandHeart}
+                            size={1}
+                            color="yellow"
+                            className="icon-with-text"
+                        />
+                    </UkraineButton>
+                </li>
                 <li className="only-large">
                     <PatreonButton
                         wrapperStyle={{

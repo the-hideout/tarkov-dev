@@ -1,0 +1,29 @@
+.ukraine-wrapper {
+    text-align: center;
+}
+
+.ukraine-wrapper.only-large {
+    display: none;
+}
+
+.ukraine-wrapper a {
+    color: #fff;
+    font-size: 0.875rem;
+    font-family: 'America', 'GT America', 'Lato', 'Helvetica Neue', 'Helvetica',
+        'Arial', sans-serif;
+    background-color: rgb(0, 52, 173);
+    border-radius: 20px;
+    padding: 10px 40px;
+    text-align: center;
+    display: inline-block;
+}
+
+.ukraine-wrapper a.alternate-style {
+    padding: 5px 20px;
+    margin-right: 20px;
+    border-radius: 0;
+}
+
+.ukraine-wrapper svg {
+    margin-right: 0;
+}
