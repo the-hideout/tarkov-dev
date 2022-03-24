@@ -37,8 +37,10 @@ Most data can be updated just by running
 
 ### History
 
-After reading the great post about [a single visualization for all ammo types](https://www.reddit.com/r/EscapefromTarkov/comments/ebvizg/ammo_table_visualized_on_one_graph/) I decided to create one where it automatically updates depending on the ["official" spreadsheet](https://docs.google.com/spreadsheets/d/1l_8zSZg-viVTZ2bavMEIIKhix6mFTXuVHWcNKZgBrjQ/htmlview?sle=true).
+After reading the great post about [a single visualization for all ammo types](https://www.reddit.com/r/EscapefromTarkov/comments/ebvizg/ammo_table_visualized_on_one_graph/) kokarn decided to create one where it automatically updates depending on the ["official" spreadsheet](https://docs.google.com/spreadsheets/d/1l_8zSZg-viVTZ2bavMEIIKhix6mFTXuVHWcNKZgBrjQ/htmlview?sle=true).
 
-Then after a lot of feedback from the community I realized that was crap and switched to the one provided by the glorious [NoFoodAfterMidnight](https://www.twitch.tv/nofoodaftermidnight)s [spreadsheet](https://docs.google.com/spreadsheets/u/0/d/1jjWcIue0_PCsbLQAiL5VrIulPK8SzM5jjiCMx9zUuvE)
+Then after a lot of feedback from the community kokarn realized that was crap and switched to the one provided by the glorious [NoFoodAfterMidnight](https://www.twitch.tv/nofoodaftermidnight)s [spreadsheet](https://docs.google.com/spreadsheets/u/0/d/1jjWcIue0_PCsbLQAiL5VrIulPK8SzM5jjiCMx9zUuvE)
 
 Since then it has evolved quite a long way, with a [Flea Market Price API](https://tarkov.dev/___graphql), [Gear guides](https://tarkov.dev.com/gear/) and so much more.
+
+After kokarn decided to no longer support his Tarkov Tools project, Tarkov.dev was forked from his repo. Much love and respect to kokarn for all the work he put into Tarkov Tools!
