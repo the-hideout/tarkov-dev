@@ -8,6 +8,7 @@ import PatreonButton from '../patreon-button';
 import supporters from '../../supporters';
 
 import './index.css';
+import UkraineButton from '../ukraine-button';
 
 function Footer() {
     const { t } = useTranslation();
@@ -15,7 +16,7 @@ function Footer() {
     return (
         <div className={'footer-wrapper'}>
             <div className="footer-section-wrapper about-section-wrapper">
-                <h3>{t('Tarkov Tools')}</h3>
+                <h3>{t('Tarkov.dev')}</h3>
                 <p>
                     {t(
                         'The whole platform is open source, and the code is available on',
@@ -50,33 +51,35 @@ function Footer() {
                     <a href="https://tarkovtracker.io/">TarkovTracker</a>
                 </p>
             </div>
-            {/* <div className="footer-section-wrapper">
+            <div className="footer-section-wrapper">
                 <h3>{t('Supporters')}</h3>
-                <PatreonButton />
-                {supporters.map((supporter) => {
-                    if (supporter.name === 'kokarn') {
-                        return null;
-                    }
+                <p>We are not currently accepting patrons but encourage everyone who can to donate to Ukraine using the button below.</p>
+                <UkraineButton />
 
-                    if (!supporter.patreon) {
-                        return null;
-                    }
+                {/*{supporters.map((supporter) => {*/}
+                {/*    if (supporter.name === 'kokarn') {*/}
+                {/*        return null;*/}
+                {/*    }*/}
 
-                    return (
-                        <Supporter
-                            key={`supporter-${supporter.name}`}
-                            name={supporter.name}
-                            github={supporter.github}
-                            patreon={supporter.patreon}
-                            link={supporter.link}
-                        />
-                    );
-                })}
-            </div> */}
+                {/*    if (!supporter.patreon) {*/}
+                {/*        return null;*/}
+                {/*    }*/}
+
+                {/*    return (*/}
+                {/*        <Supporter*/}
+                {/*            key={`supporter-${supporter.name}`}*/}
+                {/*            name={supporter.name}*/}
+                {/*            github={supporter.github}*/}
+                {/*            patreon={supporter.patreon}*/}
+                {/*            link={supporter.link}*/}
+                {/*        />*/}
+                {/*    );*/}
+                {/*})}*/}
+            </div>
             <div className="footer-section-wrapper">
                 <h3>{t('Resources')}</h3>
                 <p>
-                    <Link to={'/api/'}>{t('Tarkov Tools API')}</Link>
+                    <Link to={'/api/'}>{t('Tarkov.dev API')}</Link>
                 </p>
                 <p>
                     <Link to={'/nightbot/'}>{t('Nightbot integration')}</Link>

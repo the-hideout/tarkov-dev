@@ -16,12 +16,14 @@
     padding: 10px 40px;
     text-align: center;
     display: inline-block;
+    box-shadow: 0 2px 4px black;
 }
 
 .ukraine-wrapper a.alternate-style {
     padding: 5px 20px;
     margin-right: 20px;
-    border-radius: 0;
+    border-radius: 20px;
+    box-shadow: 10px 10px;
 }
 
 .ukraine-wrapper svg {

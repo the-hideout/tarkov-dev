@@ -46,7 +46,7 @@ function ID(props) {
                     <span>?</span>
                     <div className="session-popup">
                         {t(
-                            'Go to tarkov tools with another browser and enter this ID to control this page from there',
+                            'Go to Tarkov.dev with another browser and enter this ID to control this page from there',
                         )}
                     </div>
                 </span>

@@ -2,7 +2,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
-import { mdiCogOutline, mdiRemote, mdiHeartFlash, mdiMenu, mdiHandHeart } from '@mdi/js';
+import {
+    mdiCogOutline,
+    mdiRemote,
+    mdiHeartFlash,
+    mdiMenu,
+    mdiHandHeart,
+} from '@mdi/js';
 
 import MenuItem from './MenuItem';
 import PatreonButton from '../patreon-button';
@@ -32,9 +38,9 @@ const Menu = () => {
     return (
         <nav key="main-navigation" className="navigation">
             <Link className="branding" to="/">
-                {/* Tarkov Tools */}
+                {/* Tarkov.dev */}
                 <img
-                    alt="Tarkov Tools"
+                    alt="Tarkov.dev"
                     height={42}
                     src={`${process.env.PUBLIC_URL}/logo.svg`}
                     width={127}
@@ -87,7 +93,7 @@ const Menu = () => {
                         />
                     </UkraineButton>
                 </li>
-                <li className="only-large">
+                {/*<li className="only-large">
                     <PatreonButton
                         wrapperStyle={{
                             margin: 0,
@@ -105,7 +111,7 @@ const Menu = () => {
                             className="icon-with-text"
                         />
                     </PatreonButton>
-                </li>
+                </li>*/}
                 <li className="submenu-wrapper">
                     <Link to="/" onClick={setIsOpen.bind(this, false)}>
                         {t('Home')}

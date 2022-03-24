@@ -7,7 +7,7 @@ function ApiUsers() {
     const { t } = useTranslation();
     return (
         <div className={'page-wrapper api-users-page-wrapper'}>
-            <h1>{t('Tarkov Tools API Users')}</h1>
+            <h1>{t('Tarkov.dev API Users')}</h1>
             <p>
                 {t('Want to be included on this page? Join the')}{' '}
                 <a href="https://discord.gg/XPAsKGHSzH">Discord</a>{' '}

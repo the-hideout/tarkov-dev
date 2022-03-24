@@ -229,7 +229,7 @@ function App() {
         <div className="App">
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>Tarkov Tools</title>
+                <title>Tarkov.dev</title>
                 <meta
                     name="description"
                     content={t(
