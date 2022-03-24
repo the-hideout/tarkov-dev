@@ -52,4 +52,4 @@ jobs:
         # ...or:
         # CLOUDFLARE_EMAIL: kokarn@gmail.com
         # CLOUDFLARE_KEY: ${{ secrets.CF_API_TOKEN }}
-        PURGE_URLS: '["https://tarkov-tools.com/data/item-grids.min.json", "https://tarkov-tools.com/data/item-props.min.json", "https://tarkov-tools.com/maps/shoreline.jpg"]'
+        PURGE_URLS: '["https://tarkov.dev/data/item-grids.min.json", "https://tarkov.dev/data/item-props.min.json", "https://tarkov.dev/maps/shoreline.jpg"]'

@@ -272,7 +272,7 @@ function Item() {
             />
             <link
                 rel="canonical"
-                href={`https://tarkov-tools.com/item/${currentItemData.normalizedName}`}
+                href={`https://tarkov.dev/item/${currentItemData.normalizedName}`}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>

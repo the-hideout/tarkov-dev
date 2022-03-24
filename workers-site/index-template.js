@@ -46,11 +46,11 @@ async function handleEvent(event) {
   };
 
   if(redirects[url.pathname]){
-    return Response.redirect(`https://tarkov-tools.com${redirects[url.pathname]}`, 301);
+    return Response.redirect(`https://tarkov.dev${redirects[url.pathname]}`, 301);
   }
 
   if(gearRedirects[url.pathname]){
-    return Response.redirect(`https://tarkov-tools.com${gearRedirects[url.pathname]}`, 301);
+    return Response.redirect(`https://tarkov.dev${gearRedirects[url.pathname]}`, 301);
   }
 
   /**

@@ -39,7 +39,7 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                         <div className="cost-image-wrapper">
                             <RewardImage
                                 count={costItem.count}
-                                iconLink={`https://assets.tarkov-tools.com/${costItem.id}-icon.jpg`}
+                                iconLink={`https://assets.tarkov.dev/${costItem.id}-icon.jpg`}
                                 height="34"
                                 width="34"
                             />

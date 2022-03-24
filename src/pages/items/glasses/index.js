@@ -95,7 +95,7 @@ function Glasses(props) {
                         }`,
                         image:
                             item.iconLink ||
-                            'https://tarkov-tools.com/images/unknown-item-icon.jpg',
+                            'https://tarkov.dev/images/unknown-item-icon.jpg',
                         price: `${formatPrice(item.avg24hPrice)}`,
                     };
                 })

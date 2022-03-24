@@ -180,7 +180,7 @@ const formatCostItems = (
             alternatePriceSource: bestPrice.barter,
             iconLink:
                 requiredItem.item.iconLink ||
-                'https://tarkov-tools.com/images/unknown-item-icon.jpg',
+                'https://tarkov.dev/images/unknown-item-icon.jpg',
             wikiLink: requiredItem.item.wikiLink,
             itemLink: `/item/${requiredItem.item.normalizedName}`,
         };

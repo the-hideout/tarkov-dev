@@ -20,7 +20,7 @@ function Footer() {
                     {t(
                         'The whole platform is open source, and the code is available on',
                     )}{' '}
-                    <a href="https://github.com/kokarn/tarkov-tools">
+                    <a href="https://github.com/the-hideout/tarkov-tools">
                         <GithubIcon /> <span>GitHub</span>
                     </a>
                 </p>
@@ -33,7 +33,7 @@ function Footer() {
                     </a>
                 </p>
                 <p>
-                    <Link to="/about">{t('About tarkov-tools')}</Link>
+                    <Link to="/about">{t('About tarkov.dev')}</Link>
                 </p>
                 <h3>{t('External resources')}</h3>
                 <p>
