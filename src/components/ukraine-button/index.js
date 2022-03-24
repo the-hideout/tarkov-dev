@@ -2,24 +2,24 @@ import { useTranslation } from 'react-i18next';
 
 import './index.css';
 
-function PatreonButton({ onlyLarge, linkStyle, wrapperStyle, text, children }) {
+function UkraineButton({ onlyLarge, linkStyle, wrapperStyle, text, children }) {
     const { t } = useTranslation();
 
     return (
         <p
-            className={`become-supporter-wrapper ${
+            className={`ukraine-wrapper ${
                 onlyLarge ? 'only-large' : ''
             }`}
             style={wrapperStyle}
         >
             <a
-                href="https://www.patreon.com/bePatron?u=26501878&redirect_uri=https%3A%2F%2Ftarkov.dev"
+                href="https://www.icrc.org/en/donate/ukraine"
                 style={linkStyle}
             >
-                {children ? children : t('Become a patron')}
+                {children ? children : t('Support Ukraine')}
             </a>
         </p>
     );
 }
 
-export default PatreonButton;
+export default UkraineButton;

@@ -291,7 +291,7 @@ function Helmets(props) {
                         price: formatPrice(item.avg24hPrice),
                         image:
                             item.iconLink ||
-                            'https://tarkov-tools.com/images/unknown-item-icon.jpg',
+                            'https://tarkov.dev/images/unknown-item-icon.jpg',
                         wikiLink: item.wikiLink,
                         itemLink: `/item/${item.normalizedName}`,
                         subRows: item.linkedItems.map((linkedItemId) => {
@@ -336,7 +336,7 @@ function Helmets(props) {
                                     linkedItem.itemProperties,
                                 ),
                                 price: formatPrice(linkedItem.avg24hPrice),
-                                image: `https://assets.tarkov-tools.com/${linkedItem.id}-icon.jpg`,
+                                image: `https://assets.tarkov.dev/${linkedItem.id}-icon.jpg`,
                                 wikiLink: linkedItem.wikiLink,
                                 itemLink: `/item/${linkedItem.normalizedName}`,
                             };

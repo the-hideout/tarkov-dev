@@ -17,12 +17,12 @@ function APIDocs() {
             <h2>{t('About')}</h2>
             <div className="section-text-wrapper">
                 {t('The API is available on')}{' '}
-                <a href="https://tarkov-tools.com/graphql">
-                    https://tarkov-tools.com/graphql
+                <a href="https://api.tarkov.dev/graphql">
+                    https://api.tarkov.dev/graphql
                 </a>{' '}
                 <span>with a playground on</span>{' '}
-                <a href="https://tarkov-tools.com/___graphql">
-                    https://tarkov-tools.com/___graphql
+                <a href="https://api.tarkov.dev/___graphql">
+                    https://api.tarkov.dev/___graphql
                 </a>
                 <span>.</span>
                 {t(
@@ -35,7 +35,7 @@ function APIDocs() {
                 {t(
                     'Yes. It does however cost money for us to run and maintain, so please consider supporting us on',
                 )}{' '}
-                <a href="https://www.patreon.com/bePatron?u=26501878&redirect_uri=https%3A%2F%2Ftarkov-tools.com">
+                <a href="https://www.patreon.com/bePatron?u=26501878&redirect_uri=https%3A%2F%2Ftarkov.dev">
                     {' '}
                     Patreon
                 </a>
@@ -99,7 +99,7 @@ function APIDocs() {
             <div className="example-wrapper">
                 <h3 id="browser-js">Browser JS {t('example')}</h3>
                 <SyntaxHighlighter language="javascript" style={atomOneDark}>
-                    {`fetch('https://tarkov-tools.com/graphql', {
+                    {`fetch('https://api.tarkov.dev/graphql', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -132,7 +132,7 @@ const query = gql\`
 }
 \`
 
-request('https://tarkov-tools.com/graphql', query).then((data) => console.log(data))`}
+request('https://api.tarkov.dev/graphql', query).then((data) => console.log(data))`}
                 </SyntaxHighlighter>
             </div>
             <div className="example-wrapper">
@@ -141,7 +141,7 @@ request('https://tarkov-tools.com/graphql', query).then((data) => console.log(da
                     {`import requests
 
 def run_query(query):
-    response = requests.post('https://tarkov-tools.com/graphql', json={'query': query})
+    response = requests.post('https://api.tarkov.dev/graphql', json={'query': query})
     if response.status_code == 200:
         return response.json()
     else:
@@ -168,7 +168,7 @@ print(result)`}
                     {`curl -X POST \
 -H "Content-Type: application/json" \
 -d '{"query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }"}' \
-https://tarkov-tools.com/graphql`}
+https://api.tarkov.dev/graphql`}
                 </SyntaxHighlighter>
             </div>
             <div className="example-wrapper">
@@ -183,7 +183,7 @@ $query = '{
     shortName
   }
 }';
-$data = @file_get_contents('https://tarkov-tools.com/graphql', false, stream_context_create([
+$data = @file_get_contents('https://api.tarkov.dev/graphql', false, stream_context_create([
   'http' => [
     'method' => 'POST',
     'header' => $headers,
@@ -215,7 +215,7 @@ class Scratch {
         HttpClient client = HttpClient.newBuilder().build();
         String query = "{\\"query\\": \\"{ itemsByName(name: \\\\\\"m855a1\\\\\\") {id name shortName } }\\"}";
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://tarkov-tools.com/graphql"))
+                .uri(URI.create("https://api.tarkov.dev/graphql"))
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(query))
@@ -243,7 +243,7 @@ using (var httpClient = new HttpClient())
 {
 
     //Http response message
-    var httpResponse = await httpClient.PostAsJsonAsync("https://tarkov-tools.com/graphql", data);
+    var httpResponse = await httpClient.PostAsJsonAsync("https://api.tarkov.dev/graphql", data);
 
     //Response content
     var responseContent = await httpResponse.Content.ReadAsStringAsync();
@@ -277,7 +277,7 @@ import (
 
 func main() {
     body := strings.NewReader(\`{"query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }"}\`)
-    req, err := http.NewRequest("POST", "https://tarkov-tools.com/graphql", body)
+    req, err := http.NewRequest("POST", "https://api.tarkov.dev/graphql", body)
     if err != nil {
         log.Fatalln(err)
     }

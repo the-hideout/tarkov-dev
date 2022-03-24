@@ -38,7 +38,7 @@ const standardPaths = [
 const addPath = (sitemap, url) => {
     return `${sitemap}
     <url>
-        <loc>https://tarkov-tools.com${url}</loc>
+        <loc>https://tarkov.dev${url}</loc>
         <changefreq>hourly</changefreq>
     </url>`;
 }

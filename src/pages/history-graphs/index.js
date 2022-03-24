@@ -11,28 +11,28 @@ function HistoryGraphs() {
                 <h2>{t('Labs')}</h2>
                 <iframe
                     title="history graphs"
-                    src="https://assets.tarkov-tools.com/history-graphs/labs.html"
+                    src="https://assets.tarkov.dev/history-graphs/labs.html"
                 />
             </div>
             <div className="history-wrapper">
                 <h2>{t('Interchange')}</h2>
                 <iframe
                     title="history graphs"
-                    src="https://assets.tarkov-tools.com/history-graphs/interchange.html"
+                    src="https://assets.tarkov.dev/history-graphs/interchange.html"
                 />
             </div>
             <div className="history-wrapper">
                 <h2>{t('Shoreline')}</h2>
                 <iframe
                     title="history graphs"
-                    src="https://assets.tarkov-tools.com/history-graphs/shoreline.html"
+                    src="https://assets.tarkov.dev/history-graphs/shoreline.html"
                 />
             </div>
             <div className="history-wrapper">
                 <h2>{t('Reserve')}</h2>
                 <iframe
                     title="history graphs"
-                    src="https://assets.tarkov-tools.com/history-graphs/reserve.html"
+                    src="https://assets.tarkov.dev/history-graphs/reserve.html"
                 />
             </div>
             <p className="attribution-wrapper">{t('Graphs made by')} Drufus</p>

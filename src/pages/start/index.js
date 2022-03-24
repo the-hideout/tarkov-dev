@@ -152,7 +152,7 @@ function Start(props) {
                     <li>
                         <a
                             href={
-                                'https://discord.com/api/oauth2/authorize?client_id=925298399371231242&permissions=309237664832&scope=bot%20applications.commands'
+                                'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'
                             }
                         >
                             <Icon

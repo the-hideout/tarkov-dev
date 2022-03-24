@@ -4,9 +4,9 @@ const path = require('path');
 const got = require('got');
 
 const repositories = [
-    'kokarn/tarkov-tools',
-    'kokarn/tarkov-tools-discord-bot',
-    'kokarn/tarkov-data-api',
+    'the-hideout/tarkov-tools',
+    'the-hideout/stash',
+    'the-hideout/tarkov-data-api',
     'TarkovTracker/tarkovdata',
 ];
 

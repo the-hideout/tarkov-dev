@@ -1,37 +1,39 @@
 # Tarkov Tools
 
-## If you wanna help out, please do!
+## If you wanna help out, please do
 
 I'm always looking for anybody contributing anything from simple spelling errors, icon updates, fixes for small css bugs or just posting issues to keep track of what needs to be done.
 
 ## Other parts of the site that you can also help out with
-[Tarkov Tools Discord Bot](https://github.com/kokarn/tarkov-tools-discord-bot)
+
+[Tarkov Tools Discord Bot](https://github.com/the-hideout/stash)
 The official tarkov tools discord bot
 
-[Tarkov Tools API](https://github.com/kokarn/tarkov-data-api)
+[Tarkov Tools API](https://github.com/the-hideout/tarkov-data-api)
 The API that powers everything
 
 [Tarkov Data](https://github.com/TarkovTracker/tarkovdata/)
 Open source structured data source
 
-[Tarkov image Generator](https://github.com/kokarn/tarkov-image-generator)
+[Tarkov image Generator](https://github.com/the-hideout/tarkov-image-generator)
 Tool to generate images from the local Icon Cache
-
 
 ## Running in development
 
 Everything should be pretty straightforward.
 
 ### Step 1: Install dependencies
+
 `npm install`
 
 ### Step 2: Start development server
+
 `npm start`
 
 ## Updating data
+
 Most data can be updated just by running
 `npm run prebuild`
-
 
 ### History
 
@@ -39,4 +41,4 @@ After reading the great post about [a single visualization for all ammo types](h
 
 Then after a lot of feedback from the community I realized that was crap and switched to the one provided by the glorious [NoFoodAfterMidnight](https://www.twitch.tv/nofoodaftermidnight)s [spreadsheet](https://docs.google.com/spreadsheets/u/0/d/1jjWcIue0_PCsbLQAiL5VrIulPK8SzM5jjiCMx9zUuvE)
 
-Since then it has evolved quite a long way, with a [Flea Market Price API](https://tarkov-tools.com/___graphql), [Gear guides](https://tarkov-tools.com/gear/) and so much more.
+Since then it has evolved quite a long way, with a [Flea Market Price API](https://tarkov.dev/___graphql), [Gear guides](https://tarkov.dev.com/gear/) and so much more.

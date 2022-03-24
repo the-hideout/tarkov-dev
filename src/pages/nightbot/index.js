@@ -64,7 +64,7 @@ function Nightbot() {
                     {t('Message:')}
                     <pre>
                         $(urlfetch
-                        https://tarkov-tools.com/webhook/nightbot?q=$(querystring))
+                        https://tarkov.dev/webhook/nightbot?q=$(querystring))
                     </pre>
                 </li>
                 <li>{t('Press "Submit"')}</li>
