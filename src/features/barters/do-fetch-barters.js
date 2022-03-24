@@ -62,7 +62,7 @@ const doFetchBarters = async () => {
         }`,
     });
 
-    const response = await fetch('https://api.thehideout.io/graphql', {
+    const response = await fetch('https://api.tarkov.dev/graphql', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
