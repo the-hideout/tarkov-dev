@@ -6,7 +6,7 @@ function Moobot() {
     const { t } = useTranslation();
     return (
         <div className={'page-wrapper moobot-page-wrapper'}>
-            <h1>{t('Tarkov Tools Moobot integration')}</h1>
+            <h1>{t('Tarkov.dev Moobot integration')}</h1>
             <p>
                 {t(
                     'You can add command to your moobot to get price check in your twitch chat',

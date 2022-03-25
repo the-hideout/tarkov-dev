@@ -2,7 +2,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
-import { mdiCogOutline, mdiRemote, mdiHeartFlash, mdiMenu, mdiHandHeart } from '@mdi/js';
+import {
+    mdiCogOutline,
+    mdiRemote,
+    mdiHeartFlash,
+    mdiMenu,
+    mdiHandHeart,
+} from '@mdi/js';
 
 import MenuItem from './MenuItem';
 import PatreonButton from '../patreon-button';
@@ -32,12 +38,11 @@ const Menu = () => {
     return (
         <nav key="main-navigation" className="navigation">
             <Link className="branding" to="/">
-                {/* Tarkov Tools */}
+                {/* Tarkov.dev */}
                 <img
-                    alt="Tarkov Tools"
-                    height={42}
-                    src={`${process.env.PUBLIC_URL}/logo.svg`}
-                    width={127}
+                    alt="Tarkov.dev"
+                    height={36}
+                    src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.png`}
                 />
             </Link>
             <Link
@@ -68,26 +73,9 @@ const Menu = () => {
             />
             <ul className={`menu${isOpen ? ' open' : ''}`}>
                 <li className="only-large">
-                    <UkraineButton
-                        wrapperStyle={{
-                            margin: 0,
-                        }}
-                        linkStyle={{
-                            color: '#fff',
-                            padding: '5px 20px',
-                            alignItems: 'center',
-                        }}
-                    >
-                        {t('Support Ukraine')}
-                        <Icon
-                            path={mdiHandHeart}
-                            size={1}
-                            color="yellow"
-                            className="icon-with-text"
-                        />
-                    </UkraineButton>
+                    <UkraineButton/>
                 </li>
-                <li className="only-large">
+                {/*<li className="only-large">
                     <PatreonButton
                         wrapperStyle={{
                             margin: 0,
@@ -105,7 +93,7 @@ const Menu = () => {
                             className="icon-with-text"
                         />
                     </PatreonButton>
-                </li>
+                </li>*/}
                 <li className="submenu-wrapper">
                     <Link to="/" onClick={setIsOpen.bind(this, false)}>
                         {t('Home')}

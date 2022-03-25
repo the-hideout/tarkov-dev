@@ -13,7 +13,7 @@ function APIDocs() {
     const { t } = useTranslation();
     return (
         <div className={'page-wrapper api-docs-page-wrapper'}>
-            <h1>{t('Tarkov Tools API')}</h1>
+            <h1>{t('Tarkov.dev API')}</h1>
             <h2>{t('About')}</h2>
             <div className="section-text-wrapper">
                 {t('The API is available on')}{' '}
@@ -24,7 +24,7 @@ function APIDocs() {
                 <a href="https://api.tarkov.dev/___graphql">
                     https://api.tarkov.dev/___graphql
                 </a>
-                <span>.</span>
+                <span>. </span>
                 {t(
                     "It's written in graphql and we try our hardest to follow spec and never change or deprecate anything.",
                 )}
@@ -33,12 +33,8 @@ function APIDocs() {
             <div className="section-text-wrapper">
                 <h3>{t('Is it free?')}</h3>
                 {t(
-                    'Yes. It does however cost money for us to run and maintain, so please consider supporting us on',
+                    'Yes',
                 )}{' '}
-                <a href="https://www.patreon.com/bePatron?u=26501878&redirect_uri=https%3A%2F%2Ftarkov.dev">
-                    {' '}
-                    Patreon
-                </a>
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Is there a rate limit?')}</h3>

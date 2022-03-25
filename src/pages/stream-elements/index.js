@@ -6,7 +6,7 @@ function StreamElements() {
     const { t } = useTranslation();
     return (
         <div className={'page-wrapper stream-elements-page-wrapper'}>
-            <h1>{t('Tarkov Tools StreamElements integration')}</h1>
+            <h1>{t('Tarkov.dev StreamElements integration')}</h1>
             <p>
                 {t(
                     'You can add command to your StreamElements bot to get price check in your twitch / youtube channel chat',

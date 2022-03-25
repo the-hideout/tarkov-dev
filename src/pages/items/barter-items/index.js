@@ -31,7 +31,7 @@ function BarterItems() {
     return [
         <Helmet key={'barter-items-helmet'}>
             <meta charSet="utf-8" />
-            <title>{`The Hideout - Escape from Tarkov`}</title>
+            <title>{`Tarkov.dev - Escape from Tarkov`}</title>
             <meta
                 name="description"
                 content={`All the relevant information about Escape from Tarkov`}

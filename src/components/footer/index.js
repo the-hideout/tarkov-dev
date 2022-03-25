@@ -8,6 +8,7 @@ import PatreonButton from '../patreon-button';
 import supporters from '../../supporters';
 
 import './index.css';
+import UkraineButton from '../ukraine-button';
 
 function Footer() {
     const { t } = useTranslation();
@@ -15,7 +16,7 @@ function Footer() {
     return (
         <div className={'footer-wrapper'}>
             <div className="footer-section-wrapper about-section-wrapper">
-                <h3>{t('Tarkov Tools')}</h3>
+                <h3>{t('Tarkov.dev')}</h3>
                 <p>
                     {t(
                         'The whole platform is open source, and the code is available on',
@@ -28,7 +29,7 @@ function Footer() {
                     {t(
                         'If you wanna have a chat, ask questions or request features, we have a',
                     )}{' '}
-                    <a href="https://discord.gg/B2xM8WZyVv">
+                    <a href="https://discord.gg/XPAsKGHSzH">
                         <DiscordIcon /> {t('Discord server')}
                     </a>
                 </p>
@@ -42,11 +43,6 @@ function Footer() {
                     </a>
                 </p>
                 <p>
-                    <a href="https://tarkovbitcoinprice.com/">
-                        Tarkov Bitcoin Price
-                    </a>
-                </p>
-                <p>
                     <a href="https://github.com/RatScanner/RatScanner">
                         RatScanner
                     </a>
@@ -57,31 +53,41 @@ function Footer() {
             </div>
             <div className="footer-section-wrapper">
                 <h3>{t('Supporters')}</h3>
-                <PatreonButton />
-                {supporters.map((supporter) => {
-                    if (supporter.name === 'kokarn') {
-                        return null;
-                    }
+                <p>
+                    We are not currently accepting patrons but encourage
+                    everyone who can to donate to Ukraine using the button
+                    below.
+                </p>
+                <UkraineButton
+                    linkStyle={{
+                        width: '100%',
+                    }}
+                />
 
-                    if (!supporter.patreon) {
-                        return null;
-                    }
+                {/*{supporters.map((supporter) => {*/}
+                {/*    if (supporter.name === 'kokarn') {*/}
+                {/*        return null;*/}
+                {/*    }*/}
 
-                    return (
-                        <Supporter
-                            key={`supporter-${supporter.name}`}
-                            name={supporter.name}
-                            github={supporter.github}
-                            patreon={supporter.patreon}
-                            link={supporter.link}
-                        />
-                    );
-                })}
+                {/*    if (!supporter.patreon) {*/}
+                {/*        return null;*/}
+                {/*    }*/}
+
+                {/*    return (*/}
+                {/*        <Supporter*/}
+                {/*            key={`supporter-${supporter.name}`}*/}
+                {/*            name={supporter.name}*/}
+                {/*            github={supporter.github}*/}
+                {/*            patreon={supporter.patreon}*/}
+                {/*            link={supporter.link}*/}
+                {/*        />*/}
+                {/*    );*/}
+                {/*})}*/}
             </div>
             <div className="footer-section-wrapper">
                 <h3>{t('Resources')}</h3>
                 <p>
-                    <Link to={'/api/'}>{t('Tarkov Tools API')}</Link>
+                    <Link to={'/api/'}>{t('Tarkov.dev API')}</Link>
                 </p>
                 <p>
                     <Link to={'/nightbot/'}>{t('Nightbot integration')}</Link>
@@ -94,9 +100,9 @@ function Footer() {
                 <p>
                     <Link to={'/moobot'}>{t('Moobot integration')}</Link>
                 </p>
-                <p>
-                    <Link to={'/api-users/'}>{t('API Users')}</Link>
-                </p>
+                {/*<p>*/}
+                {/*    <Link to={'/api-users/'}>{t('API Users')}</Link>*/}
+                {/*</p>*/}
                 <p>
                     <a
                         href={
@@ -106,6 +112,11 @@ function Footer() {
                         {t('Discord bot for your Discord')}
                     </a>
                 </p>
+            </div>
+            <div className="copyright-wrapper">
+                {t(
+                    'Tarkov.dev is a fork of the now shut-down tarkov-tools.com | Big thanks to kokarn for all his work building Tarkov Tools and the community around it.',
+                )}
             </div>
             <div className="copyright-wrapper">
                 {t(

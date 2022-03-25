@@ -6,7 +6,7 @@ function Nightbot() {
     const { t } = useTranslation();
     return (
         <div className={'page-wrapper nightbot-page-wrapper'}>
-            <h1>{t('Tarkov Tools Nightbot integration')}</h1>
+            <h1>{t('Tarkov.dev Nightbot integration')}</h1>
             <p>
                 {t(
                     'You can add command to your nightbot to get price check in your twitch / youtube channel chat',
