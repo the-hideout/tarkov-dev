@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import Supporter from '../supporter';
+// import Supporter from '../supporter';
 import { ReactComponent as GithubIcon } from '../supporter/Github.svg';
 import { ReactComponent as DiscordIcon } from '../supporter/Discord.svg';
-import PatreonButton from '../patreon-button';
-import supporters from '../../supporters';
+// import PatreonButton from '../patreon-button';
+// import supporters from '../../supporters';
 
 import './index.css';
 import UkraineButton from '../ukraine-button';
