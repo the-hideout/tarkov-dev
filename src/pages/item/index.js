@@ -291,7 +291,7 @@ function Item() {
                                 src={currentItemData.iconLink}
                             />
                         </h1>
-                        <cite>{currentItemData.shortName}</cite>
+                        <cite className="item-short-name-wrapper">{currentItemData.shortName}</cite>
                         {currentItemData.wikiLink && (
                             <span className="wiki-link-wrapper">
                                 <a href={currentItemData.wikiLink}>

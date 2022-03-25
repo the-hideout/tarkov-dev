@@ -54,7 +54,11 @@
 }
 
 .wiki-link-wrapper {
-    font-size: initial;
+    font-size: x-large;
+}
+
+.item-short-name-wrapper {
+    font-size: x-large;
 }
 
 .main-information-grid h1 {
