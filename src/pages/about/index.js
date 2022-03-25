@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import SupportersList from '../../components/supporters-list';
+// import SupportersList from '../../components/supporters-list';
 
 import './index.css';
 
