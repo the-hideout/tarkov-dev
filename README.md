@@ -1,46 +1,46 @@
-# Tarkov Tools
+# tarkov.dev 💻
 
-## If you wanna help out, please do
+[![ci](https://github.com/the-hideout/tarkov-dev/actions/workflows/ci.yml/badge.svg)](https://github.com/the-hideout/tarkov-dev/actions/workflows/ci.yml)
 
-I'm always looking for anybody contributing anything from simple spelling errors, icon updates, fixes for small css bugs or just posting issues to keep track of what needs to be done.
+This is the source code for the official [tarkov.dev](https://tarkov.dev) website.
 
-## Other parts of the site that you can also help out with
+View Escape from Tarkov information about items, barters, trades, flea market prices, quests, maps, and so much more!
 
-[Tarkov Tools Discord Bot](https://github.com/the-hideout/stash)
-The official tarkov tools discord bot
+![homepage](docs/assets/homepage.png)
 
-[Tarkov Tools API](https://github.com/the-hideout/tarkov-data-api)
-The API that powers everything
+## Local Development 🔨
 
-[Tarkov Data](https://github.com/TarkovTracker/tarkovdata/)
-Open source structured data source
+To build and test the site locally just follow the steps below:
 
-[Tarkov image Generator](https://github.com/the-hideout/tarkov-image-generator)
-Tool to generate images from the local Icon Cache
+1. Install dependencies:
 
-## Running in development
+    ```bash
+    npm install
+    ````
 
-Everything should be pretty straightforward.
+1. Start development server:
 
-### Step 1: Install dependencies
+    ```bash
+    npm start
+    ```
 
-`npm install`
+1. Access the site: [localhost:3000](http://localhost:3000/) 🎉
 
-### Step 2: Start development server
+> Note: You can update data with: `npm run prebuild`
 
-`npm start`
+## History 📚
 
-## Updating data
+This project ([tarkov-dev](https://github.com/the-hideout/tarkov-dev)) is a fork of [tarkov-tools.com](https://github.com/kokarn/tarkov-tools). The original creator [@kokarn](https://github.com/kokarn) decided to shut the site down. In the spirit of opensource, a group of developers came together to revive the site in order to continue providing a great website for the Tarkov community and an API to power further development for creators. This project is now 100% opensource and developer first. Our GitHub Organization ([the-hideout](https://github.com/the-hideout)) contains all the repos which power the API, this website, the community Discord bot, server infrastructure, and much more! We are passionate about opensource and love pull requests to improve our ecosystem for all.
 
-Most data can be updated just by running
-`npm run prebuild`
+## We ❤️ Pull Requests
 
-### History
+We love pull request and contributors looking to improve this project! Anything from simple spelling errors, icon updates, fixes for small css bugs or just posting issues to keep track of what needs to be done is greatly appreciated.
 
-After reading the great post about [a single visualization for all ammo types](https://www.reddit.com/r/EscapefromTarkov/comments/ebvizg/ammo_table_visualized_on_one_graph/) kokarn decided to create one where it automatically updates depending on the ["official" spreadsheet](https://docs.google.com/spreadsheets/d/1l_8zSZg-viVTZ2bavMEIIKhix6mFTXuVHWcNKZgBrjQ/htmlview?sle=true).
+## Other Parts of the Ecosystem 🌎
 
-Then after a lot of feedback from the community kokarn realized that was crap and switched to the one provided by the glorious [NoFoodAfterMidnight](https://www.twitch.tv/nofoodaftermidnight)s [spreadsheet](https://docs.google.com/spreadsheets/u/0/d/1jjWcIue0_PCsbLQAiL5VrIulPK8SzM5jjiCMx9zUuvE)
-
-Since then it has evolved quite a long way, with a [Flea Market Price API](https://tarkov.dev/___graphql), [Gear guides](https://tarkov.dev.com/gear/) and so much more.
-
-After kokarn decided to no longer support his Tarkov Tools project, Tarkov.dev was forked from his repo. Much love and respect to kokarn for all the work he put into Tarkov Tools!
+- [Stash](https://github.com/the-hideout/stash) - The official tarkov.dev Discord bot
+- [Tarkov Data API](https://github.com/the-hideout/tarkov-data-api) - The GraphQL API that powers everything
+- [Tarkov Data](https://github.com/TarkovTracker/tarkovdata/) - Open source structured data for Escape from Tarkov
+- [Tarkov Image Generator](https://github.com/the-hideout/tarkov-image-generator) - Tool to generate images from the local icon cache
+- [Tarkov Crons](https://github.com/the-hideout/tarkov-crons) - Cron jobs that sync database information to our Cloudflare workers for the GraphQL API
+- [Status](https://github.com/the-hideout/status) - The official status page for tarkov.dev, api.tarkov.dev, and much more
