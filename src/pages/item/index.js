@@ -291,7 +291,7 @@ function Item() {
                                 src={currentItemData.iconLink}
                             />
                         </h1>
-                        <cite>{currentItemData.shortName}</cite>
+                        <cite className="item-short-name-wrapper">{currentItemData.shortName}</cite>
                         {currentItemData.wikiLink && (
                             <span className="wiki-link-wrapper">
                                 <a href={currentItemData.wikiLink}>
@@ -367,53 +367,6 @@ function Item() {
                                                 </div>
                                             </div>
                                         </Tippy>
-                                    )}
-                                    {!currentItemData.types.includes(
-                                        'noFlea',
-                                    ) && (
-                                        <div
-                                            className={`text-and-image-information-wrapper price-info-wrapper`}
-                                        >
-                                            <div className="price-wrapper">
-                                                <div>
-                                                    {t('Change vs yesterday')}:{' '}
-                                                    {
-                                                        currentItemData.changeLast48h
-                                                    }{' '}
-                                                    %
-                                                </div>
-                                                <div>
-                                                    {t(
-                                                        'Lowest scanned price last 24h',
-                                                    )}
-                                                    :{' '}
-                                                    {formatPrice(
-                                                        currentItemData.low24hPrice,
-                                                    )}
-                                                </div>
-                                                <div>
-                                                    {t(
-                                                        'Highest scanned price last 24h',
-                                                    )}
-                                                    :{' '}
-                                                    {formatPrice(
-                                                        currentItemData.high24hPrice,
-                                                    )}
-                                                </div>
-                                                <div
-                                                    title={dayjs(
-                                                        currentItemData.updated,
-                                                    ).format(
-                                                        'YYYY-MM-DD HH:mm:ss',
-                                                    )}
-                                                >
-                                                    {t('Updated')}:{' '}
-                                                    {dayjs(
-                                                        currentItemData.updated,
-                                                    ).fromNow()}
-                                                </div>
-                                            </div>
-                                        </div>
                                     )}
                                     {currentItemData.traderName &&
                                         currentItemData.traderPrice !== 0 && (
@@ -650,6 +603,54 @@ function Item() {
                     <div>
                         <h2>{t('Flea price last 7 days')}</h2>
                         <PriceGraph itemId={currentItemData.id} />
+                        <br></br>
+                        {!currentItemData.types.includes(
+                                        'noFlea',
+                                    ) && (
+                                        <div
+                                            className={`text-and-image-information-wrapper price-info-wrapper`}
+                                        >
+                                            <div className="price-wrapper price-wrapper-bright">
+                                                <div>
+                                                    {t('Change vs yesterday')}:{' '}
+                                                    {
+                                                        currentItemData.changeLast48h
+                                                    }{' '}
+                                                    %
+                                                </div>
+                                                <div>
+                                                    {t(
+                                                        'Lowest scanned price last 24h',
+                                                    )}
+                                                    :{' '}
+                                                    {formatPrice(
+                                                        currentItemData.low24hPrice,
+                                                    )}
+                                                </div>
+                                                <div>
+                                                    {t(
+                                                        'Highest scanned price last 24h',
+                                                    )}
+                                                    :{' '}
+                                                    {formatPrice(
+                                                        currentItemData.high24hPrice,
+                                                    )}
+                                                </div>
+                                                <div
+                                                    title={dayjs(
+                                                        currentItemData.updated,
+                                                    ).format(
+                                                        'YYYY-MM-DD HH:mm:ss',
+                                                    )}
+                                                >
+                                                    {t('Updated')}:{' '}
+                                                    {dayjs(
+                                                        currentItemData.updated,
+                                                    ).fromNow()}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
                     </div>
                 )}
                 <h2>{t('Stats')}</h2>

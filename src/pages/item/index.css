@@ -54,7 +54,11 @@
 }
 
 .wiki-link-wrapper {
-    font-size: initial;
+    font-size: x-large;
+}
+
+.item-short-name-wrapper {
+    font-size: x-large;
 }
 
 .main-information-grid h1 {
@@ -116,6 +120,10 @@
 
 .text-and-image-information-wrapper.best-profit .price-wrapper,
 .best-profit {
+    color: #c7c5b3;
+}
+
+.price-wrapper-bright {
     color: #c7c5b3;
 }
 
