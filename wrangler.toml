@@ -1,9 +1,9 @@
 name = "tarkov.dev"
 type = "webpack"
-account_id = "66766e138fce1ac1d2ef95953e037f4e"
+account_id = "424ad63426a1ae47d559873f929eb9fc"
 workers_dev = false
 route = "tarkov.dev/*"
-zone_id = "1ef934527384406eb8a376100875e27b"
+zone_id = "a17204c79af55fcf05e4975f66e2490e"
 
 [site]
 bucket = "./build"
