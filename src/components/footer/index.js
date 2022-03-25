@@ -19,9 +19,9 @@ function Footer() {
                 <h3>{t('Tarkov.dev')}</h3>
                 <p>
                     {t(
-                        'The whole platform is open source, and the code is available on',
+                        'The whole platform is open source and focused around developers. All code is available on',
                     )}{' '}
-                    <a href="https://github.com/the-hideout/tarkov-tools">
+                    <a href="https://github.com/the-hideout/tarkov-dev">
                         <GithubIcon /> <span>GitHub</span>
                     </a>
                 </p>
