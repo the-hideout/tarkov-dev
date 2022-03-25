@@ -34,7 +34,7 @@ This project ([tarkov-dev](https://github.com/the-hideout/tarkov-dev)) is a fork
 
 ## We ❤️ Pull Requests
 
-We love pull request and contributors looking to improve this project! Anything from simple spelling errors, icon updates, fixes for small css bugs or just posting issues to keep track of what needs to be done is greatly appreciated.
+We love pull requests and contributors looking to improve this project! Anything from simple spelling errors, icon updates, fixes for small css bugs or just posting issues to keep track of what needs to be done is greatly appreciated.
 
 ## Other Parts of the Ecosystem 🌎
 
