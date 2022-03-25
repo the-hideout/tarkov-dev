@@ -5,13 +5,13 @@ import Icon from '@mdi/react';
 import {
     mdiCogOutline,
     mdiRemote,
-    mdiHeartFlash,
+    // mdiHeartFlash,
     mdiMenu,
-    mdiHandHeart,
+    // mdiHandHeart,
 } from '@mdi/js';
 
 import MenuItem from './MenuItem';
-import PatreonButton from '../patreon-button';
+// import PatreonButton from '../patreon-button';
 import UkraineButton from '../ukraine-button';
 
 import ammoData from '../../data/ammo.json';
