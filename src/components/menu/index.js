@@ -41,9 +41,8 @@ const Menu = () => {
                 {/* Tarkov.dev */}
                 <img
                     alt="Tarkov.dev"
-                    height={42}
-                    src={`${process.env.PUBLIC_URL}/logo.svg`}
-                    width={127}
+                    height={36}
+                    src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.png`}
                 />
             </Link>
             <Link
@@ -74,24 +73,7 @@ const Menu = () => {
             />
             <ul className={`menu${isOpen ? ' open' : ''}`}>
                 <li className="only-large">
-                    <UkraineButton
-                        wrapperStyle={{
-                            margin: 0,
-                        }}
-                        linkStyle={{
-                            color: '#fff',
-                            padding: '5px 20px',
-                            alignItems: 'center',
-                        }}
-                    >
-                        {t('Support Ukraine')}
-                        <Icon
-                            path={mdiHandHeart}
-                            size={1}
-                            color="yellow"
-                            className="icon-with-text"
-                        />
-                    </UkraineButton>
+                    <UkraineButton/>
                 </li>
                 {/*<li className="only-large">
                     <PatreonButton

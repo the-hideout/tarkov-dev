@@ -4,9 +4,12 @@
   "private": true,
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
     "@kokarn/react-zoom-pan-pinch": "^2.1.4",
     "@mdi/js": "^6.1.95",
     "@mdi/react": "^1.4.0",
+    "@mui/material": "^5.5.2",
     "@reduxjs/toolkit": "^1.5.1",
     "@sayari/eslint-plugin": "^0.0.1-rc.4",
     "@sentry/react": "^6.0.2",

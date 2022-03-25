@@ -53,8 +53,16 @@ function Footer() {
             </div>
             <div className="footer-section-wrapper">
                 <h3>{t('Supporters')}</h3>
-                <p>We are not currently accepting patrons but encourage everyone who can to donate to Ukraine using the button below.</p>
-                <UkraineButton />
+                <p>
+                    We are not currently accepting patrons but encourage
+                    everyone who can to donate to Ukraine using the button
+                    below.
+                </p>
+                <UkraineButton
+                    linkStyle={{
+                        width: '100%',
+                    }}
+                />
 
                 {/*{supporters.map((supporter) => {*/}
                 {/*    if (supporter.name === 'kokarn') {*/}
@@ -104,6 +112,11 @@ function Footer() {
                         {t('Discord bot for your Discord')}
                     </a>
                 </p>
+            </div>
+            <div className="copyright-wrapper">
+                {t(
+                    'Tarkov.dev is a fork of the now shut-down tarkov-tools.com | Big thanks to kokarn for all his work building Tarkov Tools and the community around it.',
+                )}
             </div>
             <div className="copyright-wrapper">
                 {t(
