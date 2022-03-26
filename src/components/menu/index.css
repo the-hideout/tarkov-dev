@@ -30,7 +30,7 @@
     gap: 10px;
     justify-content: end;
     line-height: 1;
-    margin: 0;
+    margin-top: -10px;
     padding: 0;
     text-decoration: none;
     text-transform: uppercase;
@@ -197,6 +197,7 @@ li.desktop-only-link {
     .menu {
         display: flex;
         font-size: 20px;
+        margin: 0;
         /* width: auto; */
     }
 

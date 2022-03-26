@@ -9,6 +9,9 @@ import 'tippy.js/dist/tippy.css'; // optional
 import FilterIcon from '../FilterIcon.jsx';
 
 import './index.css';
+import { Fab } from '@mui/material';
+import { mdiTune } from '@mdi/js';
+import Icon from '@mdi/react';
 
 const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
@@ -288,7 +291,14 @@ function Filter({ center, children, fullWidth }) {
             key="filter-toggle-icon"
             onClick={(e) => setShowFilter(!showFilter)}
         >
-            <FilterIcon />
+            <Fab
+                style={{ backgroundColor: '#9a8866' }}
+                aria-label="add"
+                key="filter-toggle-icon"
+                onClick={(e) => setShowFilter(!showFilter)}
+            >
+                <Icon path={mdiTune} size={1} className="icon-with-text" />
+            </Fab>
         </div>,
         <div
             className={`filter-wrapper ${showFilter ? 'open' : ''} ${
