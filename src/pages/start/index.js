@@ -91,7 +91,7 @@ function Start(props) {
                     })}
                 </ul> */}
                 <ServerStatus />
-                <Link className="ammo-link-wrapper" to={`/ammo/`}>
+                {/*<Link className="ammo-link-wrapper" to={`/ammo/`}>
                     <h2>
                         <Icon
                             path={mdiAmmunition}
@@ -109,7 +109,7 @@ function Start(props) {
                         src={`${process.env.PUBLIC_URL}/images/ammo-chart-thumbnail.jpg`}
                         width="256"
                     />
-                </Link>
+                </Link>*/}
                 <h3>
                     <Icon
                         path={mdiHammerWrench}
@@ -119,6 +119,16 @@ function Start(props) {
                     {t('Tools')}
                 </h3>
                 <ul className="tools-list">
+                    <li>
+                        <Link to="/ammo/">
+                            <Icon
+                                path={mdiAmmunition}
+                                size={1}
+                                className="icon-with-text"
+                            />
+                            {t('Ammo Chart')}
+                        </Link>
+                    </li>
                     <li>
                         <Link to="/loot-tier/">
                             <Icon

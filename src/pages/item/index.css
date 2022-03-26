@@ -54,7 +54,7 @@
 }
 
 .wiki-link-wrapper {
-    font-size: x-large;
+    font-size: larger;
 }
 
 .item-short-name-wrapper {
@@ -177,6 +177,10 @@
     margin: 0;
 }
 
+/*.item-information-wrapper h1 {*/
+/*    padding: 0 0 0 0;*/
+/*}*/
+
 @media screen and (min-width: 700px) {
     .item-page-wrapper {
         padding-top: 20px;
@@ -226,7 +230,7 @@
 
     .main-information-grid h1,
     .icon-and-link-wrapper {
-        margin: 20px 0;
+        margin: 0 0;
     }
 
     .trader-wrapper {

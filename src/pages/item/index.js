@@ -281,7 +281,10 @@ function Item() {
                 <div className="main-information-grid">
                     <div className="item-information-wrapper">
                         <h1>
-                            <div>{currentItemData.name}</div>
+                            <div style={{
+                                fontSize: 36,
+                                fontWeight: 'bold',
+                            }}>{currentItemData.name}</div>
                             <img
                                 alt={currentItemData.name}
                                 className={'item-image'}
@@ -602,7 +605,8 @@ function Item() {
                 {!currentItemData.types.includes('noFlea') && (
                     <div>
                         <h2>{t('Flea price last 7 days')}</h2>
-                        <PriceGraph itemId={currentItemData.id} />
+                        <PriceGraph itemId={currentItemData.id} itemChange24={currentItemData.changeLast48h} />
+
                         <br></br>
                         {!currentItemData.types.includes(
                                         'noFlea',
