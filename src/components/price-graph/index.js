@@ -12,7 +12,7 @@ import formatPrice from '../../modules/format-price';
 
 import './index.css';
 
-function PriceGraph({ itemId }) {
+function PriceGraph({ itemId, itemChange24 }) {
     const { status, data } = useQuery(
         `historical-price-${itemId}`,
         () =>
@@ -84,7 +84,7 @@ function PriceGraph({ itemId }) {
                         y: 'linear',
                     }}
                     style={{
-                        data: { stroke: '#c43a31' },
+                        data: { stroke: itemChange24 < 0.0 ? '#c43a31' : '#3b9c3a' },
                         parent: { border: '1px solid #ccc' },
                     }}
                     data={data.data.historicalItemPrices.map((pricePoint) => {

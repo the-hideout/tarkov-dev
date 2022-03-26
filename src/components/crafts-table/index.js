@@ -25,7 +25,7 @@ import { fetchTarkovTrackerProgress } from '../../features/settings/settingsSlic
 
 import './index.css';
 import RewardCell from '../reward-cell';
-import { getDurationDisplay } from '../../modules/format-duration';
+import { getDurationDisplay, getFinishDisplay } from '../../modules/format-duration';
 
 function CraftTable(props) {
     const { selectedStation, freeFuel, nameFilter, itemFilter, showAll } =
@@ -382,13 +382,16 @@ function CraftTable(props) {
                 },
             },
             {
-                Header: t('Duration'),
+                Header: t('Duration\nFinishes'),
                 accessor: 'craftTime',
                 Cell: ({ value }) => {
                     return (
                         <CenterCell nowrap>
                             <div className="duration-wrapper">
                                 {getDurationDisplay(value * 1000)}
+                            </div>
+                            <div className="duration-wrapper">
+                                {getFinishDisplay(value * 1000)}
                             </div>
                         </CenterCell>
                     );
