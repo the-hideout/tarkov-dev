@@ -8,14 +8,18 @@ function ItemNameCell(props) {
     return (
         <div className="small-item-table-description-wrapper">
             <div className="small-item-table-image-wrapper">
-                <img
-                    alt=""
-                    className="table-image"
-                    height="64"
-                    loading="lazy"
-                    src={props.row.original.iconLink}
-                    width="64"
-                />
+                 <Link
+                     to={props.row.original.itemLink}
+                     className="small-item-table-image-link">
+                     <img
+                         alt=""
+                         className="table-image"
+                         height="64"
+                         loading="lazy"
+                         src={props.row.original.iconLink}
+                         width="64"
+                     />
+                 </Link>
             </div>
             <div className="small-item-table-name-wrapper">
                 <Link
