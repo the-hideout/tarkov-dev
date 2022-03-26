@@ -167,6 +167,7 @@
 
 .item-crafts-headline-wrapper,
 .item-barters-headline-wrapper {
+    margin-top: 20px;
     align-items: center;
     display: flex;
 }
