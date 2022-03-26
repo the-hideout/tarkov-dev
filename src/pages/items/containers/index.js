@@ -8,7 +8,7 @@ function Containers(props) {
     return [
         <Helmet key={'containers-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov containers')}</title>
+            <title>{t('Containers')}</title>
             <meta
                 name="description"
                 content="All containers in Escape from Tarkov sortable by price, slot-ratio, size etc"
@@ -16,7 +16,7 @@ function Containers(props) {
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
-                <h1>{t('Escape from Tarkov containers')}</h1>
+                <h1>{t('Containers')}</h1>
             </div>
             <SmallItemTable
                 typeFilter="container"

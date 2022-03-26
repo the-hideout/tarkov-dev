@@ -64,7 +64,7 @@ function Map() {
 
     const { displayText, image, source, sourceLink, duration, players } =
         maps[currentMap];
-    const infoString = `Escape from Tarkov ${displayText} map`;
+    const infoString = `${displayText} Map`;
 
     return [
         <Helmet>

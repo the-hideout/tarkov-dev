@@ -42,7 +42,7 @@ function Prapor() {
     return [
         <Helmet key={'prapor-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov Prapor items')}</title>
+            <title>{t('Prapor Items')}</title>
             <meta
                 name="description"
                 content={`All the relevant information about Escape from Tarkov`}
@@ -51,7 +51,7 @@ function Prapor() {
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {t('Escape from Tarkov Prapor items')}
+                    {t('Prapor Items')}
                     <cite>
                         <TraderResetTime trader="prapor" />
                     </cite>

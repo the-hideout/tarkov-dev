@@ -145,7 +145,7 @@ function Backpacks(props) {
     return [
         <Helmet key={'backpacks-table'}>
             <meta charSet="utf-8" />
-            <title>Escape from Tarkov Helmet backpacks chart</title>
+            <title>Helmet Backpacks Chart</title>
             <meta
                 name="description"
                 content="All backpacks in Escape from Tarkov sortable by price, size etc"
@@ -153,7 +153,7 @@ function Backpacks(props) {
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
-                <h1>{t('Escape from Tarkov backpacks chart')}</h1>
+                <h1>{t('Backpacks Chart')}</h1>
             </div>
             <DataTable
                 columns={columns}

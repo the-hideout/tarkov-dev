@@ -42,7 +42,7 @@ function Mechanic() {
     return [
         <Helmet key={'mechanic-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov Mechanic items')}</title>
+            <title>{t('Mechanic Items')}</title>
             <meta
                 name="description"
                 content={`All the relevant information about Escape from Tarkov`}
@@ -51,7 +51,7 @@ function Mechanic() {
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {t('Escape from Tarkov Mechanic items')}
+                    {t('Mechanic Items')}
                     <cite>
                         <TraderResetTime trader="mechanic" />
                     </cite>

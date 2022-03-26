@@ -26,7 +26,7 @@ function Traders(props) {
                     size={1.5}
                     className="icon-with-text"
                 />
-                {t('Escape from Tarkov Traders')}
+                {t('Traders')}
             </h1>
             <div className="traders-list-wrapper">
                 <Link to={`/traders/prapor`} className="screen-link">

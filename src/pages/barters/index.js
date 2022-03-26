@@ -46,10 +46,10 @@ function Barters() {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>Escape from Tarkov barter profits</title>
+            <title>Barter Profits</title>
             <meta
                 name="description"
-                content="Escape from Tarkov barter profits"
+                content="Barter Profits"
             />
         </Helmet>,
         <div className="barters-headline-wrapper" key="barters-headline">
@@ -59,7 +59,7 @@ function Barters() {
                     size={1.5}
                     className="icon-with-text"
                 />
-                {t('Barter profits')}
+                {t('Barter Profits')}
             </h1>
             <Filter>
                 <ToggleFilter
