@@ -81,35 +81,7 @@ function Start(props) {
                 />
             </div>
             <div className="start-section-wrapper">
-                {/* <h3>
-                    Ammo types
-                </h3>
-                <ul>
-                    {ammoTypes.map(ammoType => {
-                        return <li>
-                        </li>;
-                    })}
-                </ul> */}
                 <ServerStatus />
-                {/*<Link className="ammo-link-wrapper" to={`/ammo/`}>
-                    <h2>
-                        <Icon
-                            path={mdiAmmunition}
-                            size={1}
-                            rotate={90}
-                            className="icon-with-text"
-                        />
-                        {t('Ammo chart')}
-                    </h2>
-                    <img
-                        alt="Ammo chart"
-                        className="link-image"
-                        height="140"
-                        loading="lazy"
-                        src={`${process.env.PUBLIC_URL}/images/ammo-chart-thumbnail.jpg`}
-                        width="256"
-                    />
-                </Link>*/}
                 <h3>
                     <Icon
                         path={mdiHammerWrench}
