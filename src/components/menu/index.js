@@ -41,8 +41,9 @@ const Menu = () => {
                 {/* Tarkov.dev */}
                 <img
                     alt="Tarkov.dev"
-                    height={36}
-                    src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.png`}
+                    height={30}
+                    src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.svg`}
+                    style={{ marginTop: 5, marginBottom: 5 }}
                 />
             </Link>
             <Link
