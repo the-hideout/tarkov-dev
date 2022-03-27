@@ -6,8 +6,6 @@ import 'rc-slider/assets/index.css';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
-import FilterIcon from '../FilterIcon.jsx';
-
 import './index.css';
 import { Fab } from '@mui/material';
 import { mdiTune } from '@mdi/js';
