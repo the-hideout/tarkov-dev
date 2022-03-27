@@ -30,7 +30,7 @@ To build and test the site locally just follow the steps below:
 
 ## History 📚
 
-This project ([tarkov-dev](https://github.com/the-hideout/tarkov-dev)) is a fork of [tarkov-tools.com](https://github.com/kokarn/tarkov-tools). The original creator [@kokarn](https://github.com/kokarn) decided to shut the site down. In the spirit of opensource, a group of developers came together to revive the site in order to continue providing a great website for the Tarkov community and an API to power further development for creators. This project is now 100% opensource and developer first. Our GitHub Organization ([the-hideout](https://github.com/the-hideout)) contains all the repos which power the API, this website, the community Discord bot, server infrastructure, and much more! We are passionate about opensource and love pull requests to improve our ecosystem for all.
+This project ([tarkov-dev](https://github.com/the-hideout/tarkov-dev)) is a fork of [tarkov-tools.com](https://github.com/kokarn/tarkov-tools). The original creator [@kokarn](https://github.com/kokarn) decided to shut the site down. In the spirit of opensource, a group of developers came together to revive the site in order to continue providing a great website for the Tarkov community and an API to power further development for creators. This project is now 100% opensource (see infrastructure section below) and developer first. Our GitHub Organization ([the-hideout](https://github.com/the-hideout)) contains all the repos which power the API, this website, the community Discord bot, server infrastructure, and much more! We are passionate about opensource and love pull requests to improve our ecosystem for all.
 
 ## We ❤️ Pull Requests
 
@@ -44,3 +44,7 @@ We love pull requests and contributors looking to improve this project! Anything
 - [Tarkov Image Generator](https://github.com/the-hideout/tarkov-image-generator) - Tool to generate images from the local icon cache
 - [Tarkov Crons](https://github.com/the-hideout/tarkov-crons) - Cron jobs that sync database information to our Cloudflare workers for the GraphQL API
 - [Status](https://github.com/the-hideout/status) - The official status page for tarkov.dev, api.tarkov.dev, and much more
+
+## Infrastructure 🧱
+
+To learn more about the infrastructure, components, and opensource pieces of this project, check out our [infrastructure documentation](https://github.com/the-hideout/.github/blob/main/profile/docs/infrastructure.md#opensource-notice-)
