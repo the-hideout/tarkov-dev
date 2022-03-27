@@ -134,7 +134,7 @@ function Settings() {
                         (state) => state.settings.tarkovTrackerAPIKey,
                     )}
                     type="text"
-                    placeholder={t('TarkovTracker API Token')}
+                    placeholder={t('API Token')}
                     onChange={(event) => {
                         dispatch(setTarkovTrackerAPIKey(event.target.value));
                     }}

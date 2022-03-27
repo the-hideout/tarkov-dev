@@ -37,21 +37,16 @@ const Menu = () => {
 
     return (
         <nav key="main-navigation" className="navigation">
-            <Link
-                aria-label="Settings"
-                className="mobile-only-link"
-                to="/settings/"
+            <Icon
+                path={mdiMenu}
+                size={1}
+                className="mobile-icon"
                 onClick={handleMenuClick}
-            >
-                <Icon
-                    path={mdiMenu}
-                    size={1}
-                    className="icon-with-text"
-                    style={{
-                        marginRight: 0
-                    }}
-                />
-            </Link>
+                style={{
+                    marginRight: 0,
+                    marginLeft: 20,
+                }}
+            />
             <Link className="branding" to="/">
                 {/* Tarkov.dev */}
                 <img
