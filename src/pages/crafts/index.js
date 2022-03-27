@@ -45,10 +45,10 @@ function Crafts() {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>Escape from Tarkov Hideout craft profits</title>
+            <title>Hideout Craft Profits</title>
             <meta
                 name="description"
-                content="Escape from Tarkov Hideout craft profits"
+                content="Hideout Craft Profits"
             />
         </Helmet>,
         <div className="crafts-headline-wrapper" key="crafts-filters">

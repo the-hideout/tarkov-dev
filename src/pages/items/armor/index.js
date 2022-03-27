@@ -52,7 +52,7 @@ function Armor(props) {
     return [
         <Helmet key={'armor-table'}>
             <meta charSet="utf-8" />
-            <title>Escape from Tarkov Armor chart</title>
+            <title>Armor chart</title>
             <meta
                 name="description"
                 content="All armor in Escape from Tarkov sortable by price, repairability, armor class etc"
@@ -60,7 +60,7 @@ function Armor(props) {
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
-                <h1>{t('Escape from Tarkov armors')}</h1>
+                <h1>{t('Armors')}</h1>
                 <Filter center>
                     <ToggleFilter
                         label={t('Include rigs')}

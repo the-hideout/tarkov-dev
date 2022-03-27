@@ -42,7 +42,7 @@ function Ragman() {
     return [
         <Helmet key={'ragman-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov Ragman items')}</title>
+            <title>{t('Ragman Items')}</title>
             <meta
                 name="description"
                 content={`All the relevant information about Escape from Tarkov`}
@@ -51,7 +51,7 @@ function Ragman() {
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {t('Escape from Tarkov Ragman items')}
+                    {t('Ragman Items')}
                     <cite>
                         <TraderResetTime trader="ragman" />
                     </cite>

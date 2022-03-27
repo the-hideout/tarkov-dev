@@ -47,10 +47,6 @@
 
 .filter-toggle-icon-wrapper {
     bottom: 20px;
-    border-radius: 0;
-    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.6);
-    background-color: #9a8866;
-    height: 6vh;
     position: fixed;
     right: 20px;
     width: 6vh;

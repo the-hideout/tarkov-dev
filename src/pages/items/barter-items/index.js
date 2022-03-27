@@ -39,7 +39,7 @@ function BarterItems() {
         </Helmet>,
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
-                <h1>{t('Escape from Tarkov Barter Items')}</h1>
+                <h1>{t('Barter Items')}</h1>
                 <Filter center>
                     <InputFilter
                         defaultValue={nameFilter}

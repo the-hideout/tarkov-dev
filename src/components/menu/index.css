@@ -30,7 +30,7 @@
     gap: 10px;
     justify-content: end;
     line-height: 1;
-    margin: 0;
+    margin-top: -10px;
     padding: 0;
     text-decoration: none;
     text-transform: uppercase;
@@ -40,7 +40,7 @@
 .menu.open {
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
     display: block;
-    padding: 20px 20px 20px 0;
+    padding: 20px 20px 20px 20px;
     position: absolute;
     top: 72px;
     z-index: 10;
@@ -54,7 +54,7 @@
 .menu li,
 .menu span {
     display: block;
-    text-align: right;
+    text-align: left;
 }
 
 .mobile-icon {
@@ -197,6 +197,7 @@ li.desktop-only-link {
     .menu {
         display: flex;
         font-size: 20px;
+        margin: 0;
         /* width: auto; */
     }
 

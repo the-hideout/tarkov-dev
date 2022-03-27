@@ -141,7 +141,7 @@ function ItemTracker() {
     return [
         <Helmet>
             <meta charSet="utf-8" />
-            <title>Escape from Tarkov item tracker</title>
+            <title>Item Tracker</title>
             <meta
                 name="description"
                 content="Track what items you need to find in Raid for Escape from Tarkov quests"

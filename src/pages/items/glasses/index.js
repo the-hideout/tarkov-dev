@@ -106,7 +106,7 @@ function Glasses(props) {
     return [
         <Helmet key={'glasses-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov Glasses chart')}</title>
+            <title>{t('Glasses Chart')}</title>
             <meta
                 name="description"
                 content="All glasses in Escape from Tarkov sortable by price, armor class etc"

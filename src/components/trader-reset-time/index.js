@@ -22,8 +22,17 @@ const Renderer = (props) => {
 };
 
 function TraderResetTime({ trader, center = false }) {
+    const dataQuery = JSON.stringify({
+        query: `{
+        traderResetTimes {
+            name
+            resetTimestamp
+        }
+    }`,
+    });
+
     const { status, data } = useQuery(
-        `server-status`,
+        `traderTimer`,
         () =>
             fetch('https://api.tarkov.dev/graphql', {
                 method: 'POST',
@@ -38,15 +47,6 @@ function TraderResetTime({ trader, center = false }) {
             refetchOnWindowFocus: false,
         },
     );
-
-    const dataQuery = JSON.stringify({
-        query: `{
-        traderResetTimes {
-            name
-            resetTimestamp
-        }
-    }`,
-    });
 
     if (status !== 'success' || !data.data.traderResetTimes) {
         return null;

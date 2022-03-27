@@ -42,7 +42,7 @@ function Skier() {
     return [
         <Helmet key={'skier-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov Skier items')}</title>
+            <title>{t('Skier Items')}</title>
             <meta
                 name="description"
                 content={`All the relevant information about Escape from Tarkov`}
@@ -51,7 +51,7 @@ function Skier() {
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {t('Escape from Tarkov Skier items')}
+                    {t('Skier Items')}
                     <cite>
                         <TraderResetTime trader="skier" />
                     </cite>

@@ -37,6 +37,16 @@ const Menu = () => {
 
     return (
         <nav key="main-navigation" className="navigation">
+            <Icon
+                path={mdiMenu}
+                size={1}
+                className="mobile-icon"
+                onClick={handleMenuClick}
+                style={{
+                    marginRight: 0,
+                    marginLeft: 20,
+                }}
+            />
             <Link className="branding" to="/">
                 {/* Tarkov.dev */}
                 <img
@@ -66,12 +76,6 @@ const Menu = () => {
                     className="icon-with-text"
                 />
             </Link>
-            <Icon
-                path={mdiMenu}
-                size={3}
-                className="mobile-icon"
-                onClick={handleMenuClick}
-            />
             <ul className={`menu${isOpen ? ' open' : ''}`}>
                 <li className="only-large">
                     <UkraineButton/>

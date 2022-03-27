@@ -42,7 +42,7 @@ function Peacekeeper() {
     return [
         <Helmet key={'peacekeeper-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov Peacekeeper items')}</title>
+            <title>{t('Peacekeeper Items')}</title>
             <meta
                 name="description"
                 content={`All the relevant information about Escape from Tarkov`}
@@ -51,7 +51,7 @@ function Peacekeeper() {
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {t('Escape from Tarkov Peacekeeper items')}
+                    {t('Peacekeeper Items')}
                     <cite>
                         <TraderResetTime trader="peacekeeper" />
                     </cite>

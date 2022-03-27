@@ -2,8 +2,8 @@
     display: flex;
     flex-flow: wrap;
     gap: 5px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .property-wrapper {
