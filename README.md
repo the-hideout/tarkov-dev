@@ -36,6 +36,16 @@ This project ([tarkov-dev](https://github.com/the-hideout/tarkov-dev)) is a fork
 
 We love pull requests and contributors looking to improve this project! Anything from simple spelling errors, icon updates, fixes for small css bugs or just posting issues to keep track of what needs to be done is greatly appreciated.
 
+### Deployment 🚀
+
+Deploying your changes to production is easy! Just do the following:
+
+1. Open a pull request with your changes
+1. Make sure CI is passing
+1. View and verify your changes in the development environment that will be auto-commented on your pull request
+1. Obtain a review from a [reviewer](https://github.com/orgs/the-hideout/teams/reviewers)
+1. Merge your pull request and your changes will be auto-deployed to production! ✨
+
 ## Other Parts of the Ecosystem 🌎
 
 - [Stash](https://github.com/the-hideout/stash) - The official tarkov.dev Discord bot

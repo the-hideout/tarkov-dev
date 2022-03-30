@@ -1,5 +1,10 @@
 [
     {
+        "title": "Stash",
+        "link": "https://github.com/the-hideout/stash",
+        "text": "The Hideout's official Escape from Tarkov Discord bot"
+    },
+    {
         "title": "Battle Buddy",
         "link": "https://play.google.com/store/apps/details?id=com.veritas.battlebuddy",
         "text": "The unofficial Escape from Tarkov companion app, brought to you by Veritas with help from his community, is just what every PMC needs by their side before, during, and after their raids!",
@@ -52,5 +57,10 @@
         "title": "Totov Builder",
         "link": "https://www.totovbuilder.com",
         "text": "Totov Builder helps you create your weapon builds, choose your PMC equipment and easily visualize the price, weight and stats of your entire loadout. Manage your budget efficiently by tracing every ruble you put into your loadouts."
+    },
+    {
+        "title": "Errbot",
+        "link": "https://github.com/GrantBirki/errbot",
+        "text": "An all purpose Discord chatbot that integrates with Escape from Tarkov"
     }
 ]
