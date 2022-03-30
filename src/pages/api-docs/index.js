@@ -38,12 +38,9 @@ function APIDocs() {
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Is there a rate limit?')}</h3>
-                {t('No')}
-            </div>
-            <div className="section-text-wrapper">
-                <h3>{t('Wait... really?')}</h3>
-                {t("Yeah. It's actually better if you")} <i>{t("don't")}</i>{' '}
-                {t('limit your requests to get as fresh data as possible')}
+                {t('Yes, but we do not expect legitimate usage to trigger the limit. Just use common sense.')}
+                <div></div>
+                {t('Price data is updated every 5 minutes, so there\'s really no need to query faster than that.')}
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Where is the data from?')}</h3>
