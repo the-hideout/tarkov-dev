@@ -42,6 +42,12 @@ function APIDocs() {
                 {t('Price data is updated every 5 minutes, so there\'s really no need to query faster than that.')}
             </div>
             <div className="section-text-wrapper">
+                <h3>{t('What about caching?')}</h3>
+                {t('Since our data is updated every 5 minutes, we also cache all graphql queries for 5 minutes as well.')}
+                <div></div>
+                {t('This helps to greatly reduce the load on our servers while making your requests speedy quick!')}
+            </div>
+            <div className="section-text-wrapper">
                 <h3>{t('Where is the data from?')}</h3>
                 {t(
                     'We source data from multiple places to build an API as complete as possible. We use data from:',
