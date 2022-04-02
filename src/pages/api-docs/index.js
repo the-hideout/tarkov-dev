@@ -88,6 +88,9 @@ function APIDocs() {
                 <li>
                     <HashLink to="#go">Golang</HashLink>
                 </li>
+                <li>
+                    <HashLink to="#">Ruby</HashLink>
+                </li>
             </ul>
             <div className="example-wrapper">
                 <h3 id="browser-js">Browser JS {t('example')}</h3>
@@ -130,7 +133,7 @@ request('https://api.tarkov.dev/graphql', query).then((data) => console.log(data
             </div>
             <div className="example-wrapper">
                 <h3 id="python">Python {t('example')}</h3>
-                <SyntaxHighlighter language="python" style={monokai}>
+                <SyntaxHighlighter language="python" style={atomOneDark}>
                     {`import requests
 
 def run_query(query):
@@ -156,8 +159,29 @@ print(result)`}
                 </SyntaxHighlighter>
             </div>
             <div className="example-wrapper">
+                <h3 id="ruby">Ruby {t('example')}</h3>
+                <SyntaxHighlighter language="ruby" style={atomOneDark}>
+                    {`fetch('https://api.tarkov.dev/graphql', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  },
+  body: JSON.stringify({query: \`{
+    itemsByName(name: "m855a1") {
+        id
+        name
+        shortName
+    }
+}\`})
+})
+  .then(r => r.json())
+  .then(data => console.log('data returned:', data));`}
+                </SyntaxHighlighter>
+            </div>
+            <div className="example-wrapper">
                 <h3 id="cli">CLI {t('example')}</h3>
-                <SyntaxHighlighter language="bash">
+                <SyntaxHighlighter language="bash" style={atomOneDark}>
                     {`curl -X POST \
 -H "Content-Type: application/json" \
 -d '{"query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }"}' \
