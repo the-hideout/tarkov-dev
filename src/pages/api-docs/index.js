@@ -1,7 +1,6 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
-    atomDark as atomOneDark,
-    twilight as monokai,
+    atomDark as atomOneDark
 } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -74,6 +73,9 @@ function APIDocs() {
                     <HashLink to="#python">Python</HashLink>
                 </li>
                 <li>
+                    <HashLink to="#ruby">Ruby</HashLink>
+                </li>
+                <li>
                     <HashLink to="#cli">CLI</HashLink>
                 </li>
                 <li>
@@ -87,9 +89,6 @@ function APIDocs() {
                 </li>
                 <li>
                     <HashLink to="#go">Golang</HashLink>
-                </li>
-                <li>
-                    <HashLink to="#">Ruby</HashLink>
                 </li>
             </ul>
             <div className="example-wrapper">
@@ -160,23 +159,37 @@ print(result)`}
             </div>
             <div className="example-wrapper">
                 <h3 id="ruby">Ruby {t('example')}</h3>
+                <cite>
+                    <span>Contributed by </span>
+                    <Link to="https://github.com/GrantBirki">
+                        GrantBirki
+                    </Link>
+                </cite>
                 <SyntaxHighlighter language="ruby" style={atomOneDark}>
-                    {`fetch('https://api.tarkov.dev/graphql', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  },
-  body: JSON.stringify({query: \`{
-    itemsByName(name: "m855a1") {
-        id
-        name
-        shortName
-    }
-}\`})
-})
-  .then(r => r.json())
-  .then(data => console.log('data returned:', data));`}
+                    {`# frozen_string_literal: true
+
+require 'net/http'
+require 'uri'
+require 'json'
+
+uri = URI.parse("https://api.tarkov.dev/graphql")
+
+header = { "Content-Type": "application/json" }
+query = { "query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }" }
+
+# Create the HTTP object
+http = Net::HTTP.new(uri.host, uri.port)
+http.use_ssl = true
+request = Net::HTTP::Post.new(uri.request_uri, header)
+request.body = query.to_json
+
+# Send the request
+response = http.request(request)
+
+# Display request results
+puts response.code
+puts response.message
+puts response.body`}
                 </SyntaxHighlighter>
             </div>
             <div className="example-wrapper">
