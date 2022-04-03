@@ -1,7 +1,6 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
-    atomDark as atomOneDark,
-    twilight as monokai,
+    atomDark as atomOneDark
 } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -43,6 +42,12 @@ function APIDocs() {
                 {t('Price data is updated every 5 minutes, so there\'s really no need to query faster than that.')}
             </div>
             <div className="section-text-wrapper">
+                <h3>{t('What about caching?')}</h3>
+                {t('Since our data is updated every 5 minutes, we also cache all graphql queries for 5 minutes as well.')}
+                <div></div>
+                {t('This helps to greatly reduce the load on our servers while making your requests speedy quick!')}
+            </div>
+            <div className="section-text-wrapper">
                 <h3>{t('Where is the data from?')}</h3>
                 {t(
                     'We source data from multiple places to build an API as complete as possible. We use data from:',
@@ -72,6 +77,9 @@ function APIDocs() {
                 </li>
                 <li>
                     <HashLink to="#python">Python</HashLink>
+                </li>
+                <li>
+                    <HashLink to="#ruby">Ruby</HashLink>
                 </li>
                 <li>
                     <HashLink to="#cli">CLI</HashLink>
@@ -130,7 +138,7 @@ request('https://api.tarkov.dev/graphql', query).then((data) => console.log(data
             </div>
             <div className="example-wrapper">
                 <h3 id="python">Python {t('example')}</h3>
-                <SyntaxHighlighter language="python" style={monokai}>
+                <SyntaxHighlighter language="python" style={atomOneDark}>
                     {`import requests
 
 def run_query(query):
@@ -156,8 +164,43 @@ print(result)`}
                 </SyntaxHighlighter>
             </div>
             <div className="example-wrapper">
+                <h3 id="ruby">Ruby {t('example')}</h3>
+                <cite>
+                    <span>Contributed by </span>
+                    <Link to="https://github.com/GrantBirki">
+                        GrantBirki
+                    </Link>
+                </cite>
+                <SyntaxHighlighter language="ruby" style={atomOneDark}>
+                    {`# frozen_string_literal: true
+
+require 'net/http'
+require 'uri'
+require 'json'
+
+uri = URI.parse("https://api.tarkov.dev/graphql")
+
+header = { "Content-Type": "application/json" }
+query = { "query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }" }
+
+# Create the HTTP object
+http = Net::HTTP.new(uri.host, uri.port)
+http.use_ssl = true
+request = Net::HTTP::Post.new(uri.request_uri, header)
+request.body = query.to_json
+
+# Send the request
+response = http.request(request)
+
+# Display request results
+puts response.code
+puts response.message
+puts response.body`}
+                </SyntaxHighlighter>
+            </div>
+            <div className="example-wrapper">
                 <h3 id="cli">CLI {t('example')}</h3>
-                <SyntaxHighlighter language="bash">
+                <SyntaxHighlighter language="bash" style={atomOneDark}>
                     {`curl -X POST \
 -H "Content-Type: application/json" \
 -d '{"query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }"}' \
