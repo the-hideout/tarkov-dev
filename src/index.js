@@ -17,7 +17,7 @@ if (
     window.location.protocol !== 'file:'
 ) {
     Sentry.init({
-        dsn: process.env.SENTRY_DSN,
+        dsn: "https://042050af77074111a620487037525e25@o1189140.ingest.sentry.io/6309398",
         integrations: [new BrowserTracing()],
         tracesSampleRate: 1.0,
         // release: process.env.npm_package_version,
