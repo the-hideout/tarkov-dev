@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom';
 import App from './App';
 // import * as serviceWorker from './serviceWorker';
-import * as Sentry from '@sentry/react';
-import { Integrations } from '@sentry/tracing';
+import * as Sentry from "@sentry/react";
+import { BrowserTracing } from "@sentry/tracing";
 import store from './store';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -18,7 +18,7 @@ if (
 ) {
     Sentry.init({
         dsn: process.env.SENTRY_DSN,
-        integrations: [new Integrations.BrowserTracing()],
+        integrations: [new BrowserTracing()],
         tracesSampleRate: 1.0,
         // release: process.env.npm_package_version,
     });
