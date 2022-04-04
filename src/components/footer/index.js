@@ -65,8 +65,12 @@ function Footer() {
                 />
                 <h3>Item Data</h3>
                 <p>
-                    Thanks to the folks at <a href="https://tarkov-changes.com/" target="_blank">Tarkov-Changes</a> 
-                    for providing fresh data on EFT item attribtues and hideout crafts!
+                    {t(
+                        'Fresh data on EFT item attribtues and hideout crafts courtesy of',
+                    )}{' '}
+                    <a href="https://tarkov-changes.com" target="_blank>
+                        <span>Tarkov-Changes</span>
+                    </a>
                 </p>
 
                 {/*{supporters.map((supporter) => {*/}
