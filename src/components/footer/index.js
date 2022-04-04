@@ -68,7 +68,7 @@ function Footer() {
                     {t(
                         'Fresh data on EFT item attribtues and hideout crafts courtesy of',
                     )}{' '}
-                    <a href="https://tarkov-changes.com" target="_blank>
+                    <a href="https://tarkov-changes.com" target="_blank">
                         <span>Tarkov-Changes</span>
                     </a>
                 </p>
