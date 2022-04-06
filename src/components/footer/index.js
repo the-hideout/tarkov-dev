@@ -63,6 +63,15 @@ function Footer() {
                         width: '100%',
                     }}
                 />
+                <h3>Item Data</h3>
+                <p>
+                    {t(
+                        'Fresh data on EFT item attribtues and hideout crafts courtesy of',
+                    )}{' '}
+                    <a href="https://tarkov-changes.com">
+                        <span>Tarkov-Changes</span>
+                    </a>
+                </p>
 
                 {/*{supporters.map((supporter) => {*/}
                 {/*    if (supporter.name === 'kokarn') {*/}
