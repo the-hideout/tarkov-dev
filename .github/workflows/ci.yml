@@ -56,14 +56,14 @@ jobs:
     steps:
       - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # pin@v2
 
-      - name: Create Sentry release
-        uses: getsentry/action-release@744e4b262278339b79fb39c8922efcae71e98e39 # pin@v1
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: tarkov-dev
-          SENTRY_PROJECT: tarkovdev
-        with:
-          environment: production
+      # - name: Create Sentry release
+      #   uses: getsentry/action-release@744e4b262278339b79fb39c8922efcae71e98e39 # pin@v1
+      #   env:
+      #     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      #     SENTRY_ORG: tarkov-dev
+      #     SENTRY_PROJECT: tarkovdev
+      #   with:
+      #     environment: production
 
       - name: CDN Purge
         uses: jakejarvis/cloudflare-purge-action@eee6dba0236093358f25bb1581bd615dc8b3d8e3 # pin@v0.3.0
