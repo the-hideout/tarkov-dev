@@ -149,7 +149,7 @@ function ToggleFilter({ label, onChange, checked, tooltipContent, disabled }) {
             <label className={'single-filter-wrapper'}>
                 <span className={'single-filter-label'}>{label}</span>
                 <Switch
-                    borderRadius={0}
+                    borderRadius={5}
                     className={'filter-toggle'}
                     onChange={onChange}
                     // onColor='#008800'
