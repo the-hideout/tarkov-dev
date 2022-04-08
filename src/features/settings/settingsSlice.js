@@ -48,7 +48,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
     }`,
         });
 
-        const apiResponse = await fetch('https://api.tarkov.dev/graphql', {
+        const apiResponse = await fetch('https://prod-api-tarkov-dev.graphcdn.app/graphql', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

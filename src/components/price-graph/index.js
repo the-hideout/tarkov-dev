@@ -16,7 +16,7 @@ function PriceGraph({ itemId, itemChange24 }) {
     const { status, data } = useQuery(
         `historical-price-${itemId}`,
         () =>
-            fetch('https://api.tarkov.dev/graphql', {
+            fetch('https://prod-api-tarkov-dev.graphcdn.app/graphql', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

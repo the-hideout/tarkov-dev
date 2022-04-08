@@ -34,7 +34,7 @@ function TraderResetTime({ trader, center = false }) {
     const { status, data } = useQuery(
         `traderTimer`,
         () =>
-            fetch('https://api.tarkov.dev/graphql', {
+            fetch('https://prod-api-tarkov-dev.graphcdn.app/graphql', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ const redirects = require('../workers-site/redirects.json');
 (async () => {
     let liveNames = [];
     try {
-        const response = await got.post('https://api.tarkov.dev/graphql', {
+        const response = await got.post('https://prod-api-tarkov-dev.graphcdn.app/graphql', {
             body: JSON.stringify({query: `{
                 itemsByType(type: any){
                     normalizedName

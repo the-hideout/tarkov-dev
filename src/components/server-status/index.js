@@ -8,7 +8,7 @@ function ServerStatus() {
     const { status, data } = useQuery(
         `server-status`,
         () =>
-            fetch('https://api.tarkov.dev/graphql', {
+            fetch('https://prod-api-tarkov-dev.graphcdn.app/graphql', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

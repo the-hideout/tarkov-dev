@@ -28,7 +28,7 @@ export const fetchHideout = createAsyncThunk(
     }`,
         });
 
-        const response = await fetch('https://api.tarkov.dev/graphql', {
+        const response = await fetch('https://prod-api-tarkov-dev.graphcdn.app/graphql', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
