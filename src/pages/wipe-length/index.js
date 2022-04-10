@@ -9,7 +9,6 @@ import CenterCell from '../../components/center-cell';
 import wipeDetailsJson from '../../data/wipe-details.json';
 
 import './index.css';
-// import { VictoryBar, VictoryChart, VictoryTheme } from 'victory';
 
 // number or wipes to use when calculating the average
 const CountLastNumWipesForAverage = Infinity;
@@ -50,7 +49,6 @@ for (let i = 0; i < wipeDetails.length; i += 1) {
 }
 
 // calculate average wipe length
-
 const calculateAverage = (wipeDatas) => {
     const endedWipes = wipeDatas.filter(({ ongoing }) => !ongoing);
     endedWipes.sort((a, b) => b.start.getTime() - a.start.getTime());
@@ -70,14 +68,15 @@ const calculateAverage = (wipeDatas) => {
 
 const lengthDaysAverage = calculateAverage(data);
 
-data.push({
-    name: `Average${
-        Number.isFinite(CountLastNumWipesForAverage)
-            ? ` last ${CountLastNumWipesForAverage} wipes`
-            : ''
-    }`,
-    lengthDays: lengthDaysAverage,
-});
+// Add average wipe length to the table
+// data.push({
+//     name: `Average${
+//         Number.isFinite(CountLastNumWipesForAverage)
+//             ? ` last ${CountLastNumWipesForAverage} wipes`
+//             : ''
+//     }`,
+//     lengthDays: lengthDaysAverage,
+// });
 
 data.reverse();
 
@@ -166,15 +165,12 @@ const WipeLength = (props) => {
                 <h1 className="center-title">
                     {t('Escape from Tarkov Wipe Length')}
                 </h1>
-                <DataTable columns={columns} data={data} disableSortBy={true} />
-                {/* <VictoryChart
-          theme={VictoryTheme.material}
-        >
-          <VictoryBar
-            horizontal={true}
-            data={graphData}
-          />
-        </VictoryChart> */}
+                <div className="center-title">
+                <h3>Average Wipe Length</h3>
+                <p>{t(lengthDaysAverage)} Days 📆</p>
+                </div>
+                <DataTable columns={columns} data={data} disableSortBy={false} />
+                {}
             </div>
         </React.Fragment>
     );
