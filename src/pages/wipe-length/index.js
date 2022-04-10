@@ -9,7 +9,6 @@ import CenterCell from '../../components/center-cell';
 import wipeDetailsJson from '../../data/wipe-details.json';
 
 import './index.css';
-// import { VictoryBar, VictoryChart, VictoryTheme } from 'victory';
 
 // number or wipes to use when calculating the average
 const CountLastNumWipesForAverage = Infinity;
@@ -166,15 +165,7 @@ const WipeLength = (props) => {
                 <h1 className="center-title">
                     {t('Escape from Tarkov Wipe Length')}
                 </h1>
-                <DataTable columns={columns} data={data} disableSortBy={true} />
-                {/* <VictoryChart
-          theme={VictoryTheme.material}
-        >
-          <VictoryBar
-            horizontal={true}
-            data={graphData}
-          />
-        </VictoryChart> */}
+                {}
             </div>
         </React.Fragment>
     );
