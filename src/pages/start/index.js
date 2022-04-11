@@ -55,7 +55,7 @@ function Start(props) {
             <title>{t(`Tarkov.dev - Escape from Tarkov`)}</title>
             <meta
                 name="description"
-                content={`All the relevant information about Escape from Tarkov`}
+                content={`Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, and more with tarkov.dev! A free, community made, and opensource ecosystem of Escape from Tarkov tools and guides.`}
             />
         </Helmet>,
         <div
