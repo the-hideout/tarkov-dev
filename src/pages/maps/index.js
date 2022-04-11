@@ -14,7 +14,7 @@ function Maps() {
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('Escape from Tarkov Maps')}</title>
-            <meta name="description" content="Escape from Tarkov Maps" />
+            <meta name="description" content="Escape from Tarkov maps and loot locations" />
         </Helmet>,
         <div className={'page-wrapper'} key="map-page-wrapper">
             <h1 className="center-title">
