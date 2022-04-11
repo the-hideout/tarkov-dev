@@ -233,7 +233,7 @@ function App() {
                 <meta
                     name="description"
                     content={t(
-                        'Visualization of all ammo types in Escape from Tarkov, along with maps and other great tools',
+                        'Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, spending guides, and more with tarkov.dev! A free, community made, and opensource ecosystem of Escape from Tarkov tools and guides.',
                     )}
                 />
             </Helmet>
