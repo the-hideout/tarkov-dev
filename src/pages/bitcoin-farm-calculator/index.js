@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 
 import './index.css';
 import { useItemByIdQuery } from '../../features/items/queries';
@@ -49,7 +50,12 @@ const BitcoinFarmCalculator = () => {
         graphicsCardsList.unshift(graphicCardsCount);
     }
 
-    return (
+    return [
+        <Helmet key={'loot-tier-helmet'}>
+            <meta charSet="utf-8" />
+            <title>{t('Bitcoin Farm Price Calculator')}</title>
+            <meta name="description" content="Escape from Tarkov Bitcoin farm price and profit calculator" />
+        </Helmet>,
         <div className={'page-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>{t('Bitcoin Farm Calculator')}</h1>
@@ -118,7 +124,7 @@ const BitcoinFarmCalculator = () => {
             </div>
             {/* <BtcGraph /> */}
         </div>
-    );
+    ];
 };
 
 export default BitcoinFarmCalculator;
