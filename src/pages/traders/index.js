@@ -16,7 +16,7 @@ function Traders(props) {
             <title>Escape from Tarkov Traders</title>
             <meta
                 name="description"
-                content="Escape from Tarkov Trader items, unlocks and spending guides"
+                content="Escape from Tarkov Trader items, barters, unlocks and spending guides"
             />
         </Helmet>,
         <div className={'page-wrapper'} key="traders-page-wrapper">
