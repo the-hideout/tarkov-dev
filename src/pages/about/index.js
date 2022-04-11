@@ -1,11 +1,17 @@
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 // import SupportersList from '../../components/supporters-list';
 
 import './index.css';
 
 function About() {
     const { t } = useTranslation();
-    return (
+    return [
+        <Helmet key={'loot-tier-helmet'}>
+            <meta charSet="utf-8" />
+            <title>{t('About the tarkov.dev project')}</title>
+            <meta name="description" content="Learn more about the-hideout and tarkov.dev. A free, community made, opensource Escape from Tarkov ecosystem! Use our tools to help you play the game, or build your own projects with our free API." />
+        </Helmet>,
         <div className={'page-wrapper'}>
             <h1>{t('About')}</h1>
             <h2>{t('Open source')}</h2>
@@ -75,7 +81,7 @@ function About() {
             <h3>{t('Contributors')}</h3>
             <SupportersList typeFilter={'github'} type={'inline'} /> */}
         </div>
-    );
+    ];
 }
 
 export default About;
