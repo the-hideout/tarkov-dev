@@ -212,7 +212,7 @@ function Control(props) {
         </div> */}
             <div className="info-wrapper">
                 {t(
-                    'Load tarkov-tools in another browser or window to control it from here',
+                    'Load tarkov.dev in another browser or window to control it from here',
                 )}
             </div>
             <Connect />
