@@ -79,7 +79,7 @@ const Menu = () => {
             </Link>
             <ul className={`menu${isOpen ? ' open' : ''}`}>
                 <li className="only-large">
-                    <UkraineButton/>
+                    <UkraineButton />
                 </li>
                 {/*<li className="only-large">
                     <PatreonButton

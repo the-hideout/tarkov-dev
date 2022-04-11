@@ -47,10 +47,7 @@ function Barters() {
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
             <title>Barter Profits</title>
-            <meta
-                name="description"
-                content="Barter Profits"
-            />
+            <meta name="description" content="Barter Profits" />
         </Helmet>,
         <div className="barters-headline-wrapper" key="barters-headline">
             <h1 className="barters-page-title">

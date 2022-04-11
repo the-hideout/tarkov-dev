@@ -4,10 +4,7 @@ import { useTranslation } from 'react-i18next';
 import TarkovGunBuilder from 'tarkov-gun-builder';
 
 import { useItemsQuery } from '../../features/items/queries';
-import {
-    Filter,
-    ToggleFilter
-} from '../../components/filter';
+import { Filter, ToggleFilter } from '../../components/filter';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 import './index.css';
@@ -17,7 +14,10 @@ function GunBuilder() {
     const [gamePresets, setGamePresets] = useState({});
     const [defaultPresets, setDefaultPresets] = useState([]);
     const { data: items } = useItemsQuery();
-    const [showOnlyTrader, setShowOnlyTrader] = useStateWithLocalStorage('showOnlyTraderModsInBuilder', false);
+    const [showOnlyTrader, setShowOnlyTrader] = useStateWithLocalStorage(
+        'showOnlyTraderModsInBuilder',
+        false,
+    );
 
     useEffect(() => {
         fetch(`${process.env.PUBLIC_URL}/data/globals.min.json`)
@@ -41,17 +41,17 @@ function GunBuilder() {
                 return item.buyFor.length > 0;
             })
             .filter((item) => {
-                if(!showOnlyTrader){
+                if (!showOnlyTrader) {
                     return true;
                 }
 
                 // At least one trader price
-                if(item.buyFor.length > 1){
+                if (item.buyFor.length > 1) {
                     return true;
                 }
 
                 // One price that's not from flea market
-                if(item.buyFor[0].source !== 'flea-market'){
+                if (item.buyFor[0].source !== 'flea-market') {
                     return true;
                 }
 

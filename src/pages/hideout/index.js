@@ -136,7 +136,7 @@ function Hideout() {
                     selectedStation &&
                     selectedStation !== 'all' &&
                     hideoutModule.name.toLowerCase().replace(/ /g, '-') !==
-                    selectedStation
+                        selectedStation
                 ) {
                     return null;
                 }

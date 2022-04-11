@@ -54,7 +54,10 @@ const BitcoinFarmCalculator = () => {
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('Bitcoin Farm Price Calculator')}</title>
-            <meta name="description" content="Escape from Tarkov Bitcoin farm price and profit calculator" />
+            <meta
+                name="description"
+                content="Escape from Tarkov Bitcoin farm price and profit calculator"
+            />
         </Helmet>,
         <div className={'page-wrapper'}>
             <div className="page-headline-wrapper">
@@ -123,7 +126,7 @@ const BitcoinFarmCalculator = () => {
                 )}
             </div>
             {/* <BtcGraph /> */}
-        </div>
+        </div>,
     ];
 };
 

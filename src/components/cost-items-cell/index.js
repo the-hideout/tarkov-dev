@@ -16,8 +16,9 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                 return (
                     <div
                         key={`cost-item-${itemIndex}`}
-                        className={`cost-item-wrapper ${costItem.count === 0 ? 'disabled' : ''
-                            }`}
+                        className={`cost-item-wrapper ${
+                            costItem.count === 0 ? 'disabled' : ''
+                        }`}
                         onClick={(event) => {
                             // Don't hook A's
                             if (event.target.nodeName === 'A') {

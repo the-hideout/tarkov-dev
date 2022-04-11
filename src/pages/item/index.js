@@ -285,10 +285,14 @@ function Item() {
                 <div className="main-information-grid">
                     <div className="item-information-wrapper">
                         <h1>
-                            <div style={{
-                                fontSize: 36,
-                                fontWeight: 'bold',
-                            }}>{currentItemData.name}</div>
+                            <div
+                                style={{
+                                    fontSize: 36,
+                                    fontWeight: 'bold',
+                                }}
+                            >
+                                {currentItemData.name}
+                            </div>
                             <img
                                 alt={currentItemData.name}
                                 className={'item-image'}
@@ -298,7 +302,9 @@ function Item() {
                                 src={currentItemData.iconLink}
                             />
                         </h1>
-                        <cite className="item-short-name-wrapper">{currentItemData.shortName}</cite>
+                        <cite className="item-short-name-wrapper">
+                            {currentItemData.shortName}
+                        </cite>
                         {currentItemData.wikiLink && (
                             <span className="wiki-link-wrapper">
                                 <a href={currentItemData.wikiLink}>
@@ -609,48 +615,34 @@ function Item() {
                 {!currentItemData.types.includes('noFlea') && (
                     <div>
                         <h2>{t('Flea price last 7 days')}</h2>
-                        <PriceGraph itemId={currentItemData.id} itemChange24={currentItemData.changeLast48h} />
-                        <br/>
+                        <PriceGraph
+                            itemId={currentItemData.id}
+                            itemChange24={currentItemData.changeLast48h}
+                        />
+                        <br />
                         <div
                             className={`text-and-image-information-wrapper price-info-wrapper`}
                         >
                             <div className="price-wrapper price-wrapper-bright">
                                 <div>
                                     {t('Change vs yesterday')}:{' '}
-                                    {
-                                        currentItemData.changeLast48h
-                                    }{' '}
-                                    %
+                                    {currentItemData.changeLast48h} %
                                 </div>
                                 <div>
-                                    {t(
-                                        'Lowest scanned price last 24h',
-                                    )}
-                                    :{' '}
-                                    {formatPrice(
-                                        currentItemData.low24hPrice,
-                                    )}
+                                    {t('Lowest scanned price last 24h')}:{' '}
+                                    {formatPrice(currentItemData.low24hPrice)}
                                 </div>
                                 <div>
-                                    {t(
-                                        'Highest scanned price last 24h',
-                                    )}
-                                    :{' '}
-                                    {formatPrice(
-                                        currentItemData.high24hPrice,
-                                    )}
+                                    {t('Highest scanned price last 24h')}:{' '}
+                                    {formatPrice(currentItemData.high24hPrice)}
                                 </div>
                                 <div
                                     title={dayjs(
                                         currentItemData.updated,
-                                    ).format(
-                                        'YYYY-MM-DD HH:mm:ss',
-                                    )}
+                                    ).format('YYYY-MM-DD HH:mm:ss')}
                                 >
                                     {t('Updated')}:{' '}
-                                    {dayjs(
-                                        currentItemData.updated,
-                                    ).fromNow()}
+                                    {dayjs(currentItemData.updated).fromNow()}
                                 </div>
                             </div>
                         </div>

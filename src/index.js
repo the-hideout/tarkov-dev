@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 // import * as serviceWorker from './serviceWorker';
-import * as Sentry from "@sentry/react";
-import { BrowserTracing } from "@sentry/tracing";
+import * as Sentry from '@sentry/react';
+import { BrowserTracing } from '@sentry/tracing';
 import App from './App';
 import store from './store';
 import { Provider } from 'react-redux';
@@ -17,12 +17,11 @@ if (
     window.location.protocol !== 'file:'
 ) {
     Sentry.init({
-        dsn: "https://4850423d8b93481d90de92ea48af9497@o1189140.ingest.sentry.io/6309411",
+        dsn: 'https://4850423d8b93481d90de92ea48af9497@o1189140.ingest.sentry.io/6309411',
         integrations: [new BrowserTracing()],
         tracesSampleRate: 1.0,
         release: process.env.npm_package_version,
     });
-
 }
 
 ReactDOM.render(
