@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import {
     atomDark as atomOneDark
@@ -10,7 +11,12 @@ import './index.css';
 
 function APIDocs() {
     const { t } = useTranslation();
-    return (
+    return [
+        <Helmet key={'loot-tier-helmet'}>
+            <meta charSet="utf-8" />
+            <title>{t('API Documentation')}</title>
+            <meta name="description" content="Escape from Tarkov's community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT." />
+        </Helmet>,
         <div className={'page-wrapper api-docs-page-wrapper'}>
             <h1>{t('Tarkov.dev API')}</h1>
             <h2>{t('About')}</h2>
@@ -336,7 +342,7 @@ func main() {
                 </SyntaxHighlighter>
             </div>
         </div>
-    );
+    ];
 }
 
 export default APIDocs;
