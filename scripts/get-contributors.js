@@ -4,7 +4,7 @@ const path = require('path');
 const got = require('got');
 
 const repositories = [
-    'the-hideout/tarkov-tools',
+    'the-hideout/tarkov-dev',
     'the-hideout/stash',
     'the-hideout/tarkov-data-api',
     'TarkovTracker/tarkovdata',
