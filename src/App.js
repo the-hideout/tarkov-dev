@@ -248,13 +248,6 @@ function App() {
                     ]}
                 />
                 <Route
-                    path={'/tarkov-tools'}
-                    element={[
-                        <Start key="start-wrapper" />,
-                        remoteControlSessionElement,
-                    ]}
-                />
-                <Route
                     path={'/ammo'}
                     element={[
                         <div className="display-wrapper" key="ammo-wrapper">
