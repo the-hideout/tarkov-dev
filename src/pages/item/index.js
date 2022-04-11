@@ -86,6 +86,10 @@ function Item() {
 
     const { data: currentItemByNameData, status: itemStatus } =
         useItemByNameQuery(itemName);
+    // TODO: This function needs to be greatly improved.
+    //  it currently only needs to get a single item via its ID but it
+    //  queries all items via graphql and then searches for said item.
+    //  This is slow and does a lot of extra processing that is not needed
     const { data: currentItemByIdData } = useItemByIdQuery(itemName);
 
     let currentItemData = currentItemByNameData;
