@@ -1,6 +1,9 @@
 import contributors from './data/contributors.json';
 import patreons from './data/patreons.json';
 
+// Helper module that shows the list of supportors for the tarkov.dev project
+// Supports include contributors to the-hideout/tarkov-dev repo and patreons
+
 const supporters = {};
 
 for (const patreon of patreons) {
