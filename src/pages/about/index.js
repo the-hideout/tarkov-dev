@@ -12,7 +12,7 @@ function About() {
             <title>{t('About the tarkov.dev project')}</title>
             <meta
                 name="description"
-                content="Learn more about the-hideout and tarkov.dev. A free, community made, opensource Escape from Tarkov ecosystem! Use our tools to help you play the game, or build your own projects with our free API."
+                content="Learn more about the-hideout and tarkov.dev. A free, community made, open source Escape from Tarkov ecosystem! Use our tools to help you play the game, or build your own projects with our free API."
             />
         </Helmet>,
         <div className={'page-wrapper'}>
@@ -68,13 +68,13 @@ function About() {
                 {t('The original creator')}{' '}
                 <a href="https://github.com/kokarn">@kokarn</a>{' '}
                 {t(
-                    'decided to shut the site down. In the spirit of opensource, a group of developers came together to revive the site in order to continue providing a great website for the Tarkov community and an API to power further development for creators. This project is now 100% opensource and developer first. Our GitHub Organization',
+                    'decided to shut the site down. In the spirit of open source, a group of developers came together to revive the site in order to continue providing a great website for the Tarkov community and an API to power further development for creators. This project is now 100% open source and developer first. Our GitHub Organization',
                 )}
                 {' ('}
                 <a href="https://github.com/the-hideout">the-hideout</a>
                 {') '}
                 {t(
-                    'contains all the repos which power the API, this website, the community Discord bot, server infrastructure, and much more! We are passionate about opensource and love pull requests to improve our ecosystem for all.',
+                    'contains all the repos which power the API, this website, the community Discord bot, server infrastructure, and much more! We are passionate about open source and love pull requests to improve our ecosystem for all.',
                 )}{' '}
             </p>
             <h2>{t('Core Contributors')}</h2>
