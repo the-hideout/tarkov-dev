@@ -10,48 +10,72 @@ const initialState = {
 export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
     const bodyQuery = JSON.stringify({
         query: `{
-            crafts {
-              rewardItems {
-                item {
-                  id
-                  basePrice
-                  name
-                  normalizedName
-                  iconLink
-                  wikiLink
-                  avg24hPrice
-                  traderPrices {
-                      price
-                      trader {
-                          name
-                      }
+        crafts {
+          rewardItems {
+            item {
+              id
+              basePrice
+              name
+              normalizedName
+              iconLink
+              imageLink
+              wikiLink
+              avg24hPrice
+              lastLowPrice
+              traderPrices {
+                  price
+                  trader {
+                      name
                   }
-                  types
-                }
-                count
               }
-              requiredItems {
-                item {
-                  id
-                  basePrice
-                  name
-                  normalizedName
-                  iconLink
-                  wikiLink
-                  avg24hPrice
-                  traderPrices {
-                    price
-                    trader {
-                        name
-                    }
-                  }
-                }
-                count
+              buyFor {
+                source
+                price
+                currency
               }
-              source
-              duration
+              sellFor {
+                source
+                price
+                currency
+              }
+              types
             }
-        }`,
+            count
+          }
+          requiredItems {
+            item {
+              id
+              basePrice
+              name
+              normalizedName
+              iconLink
+              imageLink
+              wikiLink
+              avg24hPrice
+              lastLowPrice
+              traderPrices {
+                price
+                trader {
+                    name
+                }
+              }
+              buyFor {
+                source
+                price
+                currency
+              }
+              sellFor {
+                source
+                price
+                currency
+              }
+            }
+            count
+          }
+          source
+          duration
+        }
+    }`,
     });
 
     const response = await fetch('https://api.tarkov.dev/graphql', {
