@@ -77,7 +77,7 @@ function Hideout() {
             <title>{t('Hideout')}</title>
             <meta
                 name="description"
-                content={`All the relevant information about Escape from Tarkov`}
+                content={`All the relevant information about the Escape from Tarkov Hideout`}
             />
         </Helmet>,
         <div className="page-wrapper" key={'display-wrapper'}>

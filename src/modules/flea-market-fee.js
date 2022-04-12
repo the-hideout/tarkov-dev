@@ -1,4 +1,5 @@
 // https://escapefromtarkov.gamepedia.com/Trading#Flea_Market
+
 module.exports = (basePrice, sellPrice, count = 1) => {
     let V0 = basePrice;
     let VR = sellPrice;

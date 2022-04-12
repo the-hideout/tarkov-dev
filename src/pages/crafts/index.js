@@ -48,7 +48,7 @@ function Crafts() {
             <title>Hideout Craft Profits</title>
             <meta
                 name="description"
-                content="Hideout Craft Profits"
+                content="Escape from Tarkov Hideout Craft Profits"
             />
         </Helmet>,
         <div className="crafts-headline-wrapper" key="crafts-filters">

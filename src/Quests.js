@@ -1,5 +1,4 @@
 import rawData from './data/quests.json';
-
 import Traders from './data/traders.json';
 
 export const QuestObjective = {

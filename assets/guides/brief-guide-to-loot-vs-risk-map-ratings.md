@@ -1,4 +1,5 @@
 # Brief guide to Loot vs Risk map ratings
+
 by [/u/BiosTheo](https://www.reddit.com/user/BiosTheo/)
 
 A couple things before we get into this:

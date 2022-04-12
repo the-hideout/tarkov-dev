@@ -838,8 +838,6 @@ function SmallItemTable(props) {
         showContainedItems,
     ]);
 
-    // console.log(data.length);
-
     let extraRow = false;
 
     if (data.length <= 0) {
