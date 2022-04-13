@@ -45,7 +45,7 @@ function Peacekeeper() {
             <title>{t('Peacekeeper Items')}</title>
             <meta
                 name="description"
-                content={`All the relevant information about Escape from Tarkov`}
+                content={`All Peacekeeper items and barters in Escape from Tarkov`}
             />
         </Helmet>,
         <div className="page-wrapper" key={'display-wrapper'}>

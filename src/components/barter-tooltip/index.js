@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import RewardImage from '../reward-image';
-
 import formatPrice from '../../modules/format-price';
 
 import './index.css';

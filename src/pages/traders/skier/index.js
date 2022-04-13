@@ -45,7 +45,7 @@ function Skier() {
             <title>{t('Skier Items')}</title>
             <meta
                 name="description"
-                content={`All the relevant information about Escape from Tarkov`}
+                content={`All Skier items and barters in Escape from Tarkov`}
             />
         </Helmet>,
         <div className="page-wrapper" key={'display-wrapper'}>

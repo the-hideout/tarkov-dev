@@ -45,7 +45,7 @@ function Mechanic() {
             <title>{t('Mechanic Items')}</title>
             <meta
                 name="description"
-                content={`All the relevant information about Escape from Tarkov`}
+                content={`All Mechanic items and barters in Escape from Tarkov`}
             />
         </Helmet>,
         <div className="page-wrapper" key={'display-wrapper'}>

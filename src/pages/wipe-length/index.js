@@ -166,10 +166,14 @@ const WipeLength = (props) => {
                     {t('Escape from Tarkov Wipe Length')}
                 </h1>
                 <div className="center-title">
-                <h3>Average Wipe Length</h3>
-                <p>{t(lengthDaysAverage)} Days 📆</p>
+                    <h3>Average Wipe Length</h3>
+                    <p>{t(lengthDaysAverage)} Days 📆</p>
                 </div>
-                <DataTable columns={columns} data={data} disableSortBy={false} />
+                <DataTable
+                    columns={columns}
+                    data={data}
+                    disableSortBy={false}
+                />
                 {}
             </div>
         </React.Fragment>

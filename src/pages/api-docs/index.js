@@ -1,7 +1,6 @@
+import { Helmet } from 'react-helmet';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import {
-    atomDark as atomOneDark
-} from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { atomDark as atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
@@ -10,7 +9,15 @@ import './index.css';
 
 function APIDocs() {
     const { t } = useTranslation();
-    return (
+    return [
+        <Helmet key={'loot-tier-helmet'}>
+            <meta charSet="utf-8" />
+            <title>{t('API Documentation')}</title>
+            <meta
+                name="description"
+                content="Escape from Tarkov's community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT."
+            />
+        </Helmet>,
         <div className={'page-wrapper api-docs-page-wrapper'}>
             <h1>{t('Tarkov.dev API')}</h1>
             <h2>{t('About')}</h2>
@@ -31,21 +38,27 @@ function APIDocs() {
             <h2>{t('FAQ')}</h2>
             <div className="section-text-wrapper">
                 <h3>{t('Is it free?')}</h3>
-                {t(
-                    'Yes',
-                )}{' '}
+                {t('Yes')}{' '}
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Is there a rate limit?')}</h3>
-                {t('Yes, but we do not expect legitimate usage to trigger the limit. Just use common sense.')}
+                {t(
+                    'Yes, but we do not expect legitimate usage to trigger the limit. Just use common sense.',
+                )}
                 <div></div>
-                {t('Price data is updated every 5 minutes, so there\'s really no need to query faster than that.')}
+                {t(
+                    "Price data is updated every 5 minutes, so there's really no need to query faster than that.",
+                )}
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('What about caching?')}</h3>
-                {t('Since our data is updated every 5 minutes, we also cache all graphql queries for 5 minutes as well.')}
+                {t(
+                    'Since our data is updated every 5 minutes, we also cache all graphql queries for 5 minutes as well.',
+                )}
                 <div></div>
-                {t('This helps to greatly reduce the load on our servers while making your requests speedy quick!')}
+                {t(
+                    'This helps to greatly reduce the load on our servers while making your requests speedy quick!',
+                )}
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Where is the data from?')}</h3>
@@ -167,9 +180,7 @@ print(result)`}
                 <h3 id="ruby">Ruby {t('example')}</h3>
                 <cite>
                     <span>Contributed by </span>
-                    <Link to="https://github.com/GrantBirki">
-                        GrantBirki
-                    </Link>
+                    <Link to="https://github.com/GrantBirki">GrantBirki</Link>
                 </cite>
                 <SyntaxHighlighter language="ruby" style={atomOneDark}>
                     {`# frozen_string_literal: true
@@ -335,8 +346,8 @@ func main() {
 }`}
                 </SyntaxHighlighter>
             </div>
-        </div>
-    );
+        </div>,
+    ];
 }
 
 export default APIDocs;

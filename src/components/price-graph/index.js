@@ -84,7 +84,9 @@ function PriceGraph({ itemId, itemChange24 }) {
                         y: 'linear',
                     }}
                     style={{
-                        data: { stroke: itemChange24 < 0.0 ? '#c43a31' : '#3b9c3a' },
+                        data: {
+                            stroke: itemChange24 < 0.0 ? '#c43a31' : '#3b9c3a',
+                        },
                         parent: { border: '1px solid #ccc' },
                     }}
                     data={data.data.historicalItemPrices.map((pricePoint) => {
