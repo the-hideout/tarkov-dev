@@ -208,6 +208,14 @@ const Menu = () => {
                         {t('Hideout profit')}
                     </Link>
                 </li>
+                <li className="submenu-wrapper">
+                    <Link
+                        to="/api/"
+                        onClick={setIsOpen.bind(this, false)}
+                    >
+                        {t('API')}
+                    </Link>
+                </li>
                 <li className="submenu-wrapper desktop-only-link">
                     <Link
                         aria-label="Remote control"
