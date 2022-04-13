@@ -180,7 +180,7 @@ print(result)`}
                 <h3 id="ruby">Ruby {t('example')}</h3>
                 <cite>
                     <span>Contributed by </span>
-                    <Link to="https://github.com/GrantBirki">GrantBirki</Link>
+                    <a href="https://github.com/GrantBirki">GrantBirki</a>
                 </cite>
                 <SyntaxHighlighter language="ruby" style={atomOneDark}>
                     {`# frozen_string_literal: true
@@ -245,9 +245,7 @@ return json_decode($data, true);`}
                     <span>Java 11's HttpClient {t('example')}</span>
                     <cite>
                         <span>Contributed by </span>
-                        <Link to="https://github.com/HeyBanditoz">
-                            Banditoz
-                        </Link>
+                        <a href="https://github.com/HeyBanditoz">HeyBanditoz</a>
                     </cite>
                 </h3>
                 <SyntaxHighlighter language="java" style={atomOneDark}>
@@ -306,9 +304,7 @@ using (var httpClient = new HttpClient())
                     <span>Go {t('example')}</span>
                     <cite>
                         <span>Contributed by </span>
-                        <Link to="https://github.com/HeyBanditoz">
-                            Banditoz
-                        </Link>
+                        <a href="https://github.com/HeyBanditoz">HeyBanditoz</a>
                     </cite>
                 </h3>
                 <SyntaxHighlighter language="go" style={atomOneDark}>
