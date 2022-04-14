@@ -9,7 +9,7 @@ const ammoData = require('../src/data/ammo.json');
 
 const standardPaths = [
     '',
-    // 'about',
+    'about',
     '/ammo',
     '/api',
     '/api-users',
