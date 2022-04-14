@@ -10,6 +10,10 @@ import { ReactComponent as DiscordIcon } from '../supporter/Discord.svg';
 import './index.css';
 import UkraineButton from '../ukraine-button';
 
+import rawVersion from '../../data/version.json';
+
+const version = rawVersion.version.slice(0, 7);
+
 function Footer() {
     const { t } = useTranslation();
 
@@ -131,6 +135,10 @@ function Footer() {
                 {t(
                     'Game content and materials are trademarks and copyrights of Battlestate Games and its licensors. All rights reserved.',
                 )}
+            </div>
+            <div className="copyright-wrapper">
+                {'version: '}
+                <a href="https://github.com/the-hideout/tarkov-dev/commits/main">{version}</a>
             </div>
         </div>
     );
