@@ -5,7 +5,7 @@ const got = require('got');
 
 const COMMIT_URL = 'https://api.github.com/repos/the-hideout/tarkov-dev/commits/main';
 
-const getVersion = async function getVersion(){
+const getVersion = async function getVersion() {
     console.time(`Get version url ${COMMIT_URL}`);
     try {
         const response = await got(COMMIT_URL, {
@@ -15,7 +15,7 @@ const getVersion = async function getVersion(){
         console.timeEnd(`Get version url ${COMMIT_URL}`);
 
         return response;
-    } catch (responseError){
+    } catch (responseError) {
         console.timeEnd(`Get version url ${COMMIT_URL}`);
         console.error(responseError);
     }
@@ -24,17 +24,26 @@ const getVersion = async function getVersion(){
 };
 
 (async () => {
-    let response = false;
+    try {
+        let response = false;
 
-    response = await getVersion();
+        response = await getVersion();
 
-    console.log(response.sha);
+        console.log(response.sha);
 
-    const version = {
-        version: response.sha,
+        const version = {
+            version: response.sha,
+        }
+
+        console.time('Write new data');
+        fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'version.json'), JSON.stringify(version, null, 4));
+        console.timeEnd('Write new data');
+    } catch (error) {
+        console.error(error);
+        fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'version.json'), JSON.stringify(
+            {
+                version: 'unknown'
+            }, null, 4
+        ));
     }
-
-    console.time('Write new data');
-    fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'version.json'), JSON.stringify(version, null, 4));
-    console.timeEnd('Write new data');
 })()
