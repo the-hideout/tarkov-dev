@@ -1,6 +1,6 @@
 # tarkov.dev 💻
 
-[![ci](https://github.com/the-hideout/tarkov-dev/actions/workflows/ci.yml/badge.svg)](https://github.com/the-hideout/tarkov-dev/actions/workflows/ci.yml)
+[![ci](https://github.com/the-hideout/tarkov-dev/actions/workflows/ci.yml/badge.svg)](https://github.com/the-hideout/tarkov-dev/actions/workflows/ci.yml) [![CodeQL](https://github.com/the-hideout/tarkov-dev/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/the-hideout/tarkov-dev/actions/workflows/codeql-analysis.yml)
 
 This is the source code for the official [tarkov.dev](https://tarkov.dev) website.
 
