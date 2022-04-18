@@ -50,6 +50,7 @@ jobs:
 
   deploy:
     if: github.event_name == 'push'
+    environment: production
     runs-on: ubuntu-latest
     needs: [ test ]
 
