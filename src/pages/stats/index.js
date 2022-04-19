@@ -4,45 +4,27 @@ import { useQuery } from 'react-query';
 
 import './index.css';
 
-const twitch_url = "https://dev-api.tarkov.dev/twitch";
+const twitch_url = "https://api.tarkov.dev/twitch";
 
-function GetTwitchViewers() {
-    const { status, data } = useQuery(
-        `twitch-viewers`,
-        () =>
-            fetch(twitch_url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                }
-            }).then((response) => response.json()),
-        {
-            refetchOnMount: false,
-            refetchOnWindowFocus: false,
-        },
-    );
-
-    // var allData = data["data"];
-    // var arrayLength = allData.length;
-
-    // var totalViewers = 0;
-    // for (var i = 0; i < arrayLength; i++) {
-    //     totalViewers += allData[i]["viewer_count"];
-    // }
-
-    console.log(status);
-    console.log(data);
-
-    // Placeholder for now
-    var totalViewers = "123";
-
-    return (
-        <p>{`Total Twitch Viewers: ${totalViewers}`}</p>
-    );
-}
+const fetchTwitchData = async () => {
+    const res = await fetch(twitch_url);
+    return res.json();
+};
 
 function Stats() {
+    const { data, status } = useQuery("twitch-data", fetchTwitchData);
+
+    var totalViewers = 0;
+    if (status === "success") {
+        for (var i = 0; i < data["data"].length; i++) {
+            totalViewers += data["data"][i]["viewer_count"];
+        }
+    } else if (status === "loading") {
+        totalViewers = "Loading...";
+    } else {
+        totalViewers = "error";
+    }
+
     const { t } = useTranslation();
     return [
         <Helmet key={'loot-tier-helmet'}>
@@ -58,7 +40,7 @@ function Stats() {
             <div className="center-title">
                 <h3>Total Twitch.tv viewers</h3>
                 <p>Total Twitch viewers aggregated from top 100 current EFT streamers</p>
-                <h4>{GetTwitchViewers()}</h4>
+                <h4>Twitch Viewers: {totalViewers}</h4>
             </div>
             { }
         </div>,
