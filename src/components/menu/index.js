@@ -216,6 +216,14 @@ const Menu = () => {
                         {t('API')}
                     </Link>
                 </li>
+                <li className="submenu-wrapper">
+                    <Link
+                        to="/stats/"
+                        onClick={setIsOpen.bind(this, false)}
+                    >
+                        {t('stats')}
+                    </Link>
+                </li>
                 <li className="submenu-wrapper desktop-only-link">
                     <Link
                         aria-label="Remote control"
