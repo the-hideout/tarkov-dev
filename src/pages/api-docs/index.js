@@ -41,14 +41,27 @@ function APIDocs() {
                 {t('Yes')}{' '}
             </div>
             <div className="section-text-wrapper">
+                <h3>{t('Is it open source?')}</h3>
+                {t('Of course! All source code can be found in our GitHub repo:')}{' '}
+                <a href="https://github.com/the-hideout/tarkov-data-api">
+                    github.com/the-hideout/tarkov-data-api
+                </a>
+            </div>
+            <div className="section-text-wrapper">
                 <h3>{t('Is there a rate limit?')}</h3>
                 {t(
                     'Yes, but we do not expect legitimate usage to trigger the limit. Just use common sense.',
                 )}
                 <div></div>
                 {t(
-                    "Price data is updated every 5 minutes, so there's really no need to query faster than that.",
+                    "Price data is updated every 5 minutes, so there's really no need to query faster than that. ",
                 )}
+                {t(
+                    "To view an up-to-date definition of our rate-limits, check our Cloudflare GitHub repo where they are defined: ",
+                )}
+                <a href="https://github.com/the-hideout/cloudflare/blob/0ba7430a6a7b8526d8ccfd5b673cb70f0fb9130f/terraform/security.tf#L1-L37">
+                    rate limit definition
+                </a>
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('What about caching?')}</h3>
