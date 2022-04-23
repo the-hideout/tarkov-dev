@@ -20,12 +20,12 @@ import itemsData from '../../data/category-pages.json';
 
 import './index.css';
 
-import MuiAlert from '@material-ui/lab/Alert';
+// import MuiAlert from '@material-ui/lab/Alert';
 
 
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+// function Alert(props) {
+//     return <MuiAlert elevation={6} variant="filled" {...props} />;
+// }
 
 
 const ammoTypes = [
@@ -45,12 +45,14 @@ const Menu = () => {
 
     return (
         <>
-            <div><Alert severity="error">{"This is an error message! Please visit our status page to see additional alerts and information:"} <a href="https://status.tarkov.dev/status/default" style={
+            {/* ALERT BANNER SECTION - uncomment the lines below to enable the alert banner */}
+            {/* <div><Alert severity="error">{"This is an error message! Please visit our status page to see additional alerts and information:"} <a href="https://status.tarkov.dev/status/default" style={
                 {
                     color: '#fff',
                     textDecoration: 'underline',
                 }
-            }>status.tarkov.dev</a></Alert></div>
+            }>status.tarkov.dev</a></Alert></div> */}
+            {/* END ALERT BANNER SECTION */}
             <nav key="main-navigation" className="navigation">
                 <Icon
                     path={mdiMenu}
