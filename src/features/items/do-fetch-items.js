@@ -61,7 +61,7 @@ const QueryBody = JSON.stringify({
     }`,
 });
 
-const doFetchItems = async (...a) => {
+const doFetchItems = async () => {
     const [itemData, itemGrids, itemProps] = await Promise.all([
         fetch('https://api.tarkov.dev/graphql', {
             method: 'POST',
