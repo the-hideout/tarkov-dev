@@ -271,6 +271,12 @@ function Ammo() {
 
     return (
         <React.Fragment>
+            <div style={{
+                textAlign: 'center',
+            }}>
+                <h1>EFT Ammo Chart</h1>
+            </div>
+
             <div className={'updated-label'}>
                 {`Ammo updated: ${new Date(
                     rawData.updated,
@@ -286,6 +292,13 @@ function Ammo() {
                     yMax={MAX_PENETRATION}
                 />
             </div>
+
+            <div style={{
+                textAlign: 'center',
+            }}>
+                <h2>Ammo Statistics Table</h2>
+            </div>
+
             <DataTable columns={columns} data={listState} />
         </React.Fragment>
     );
