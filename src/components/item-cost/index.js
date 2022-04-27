@@ -33,6 +33,7 @@ function ItemCost({
                     alt={t('Flea market')}
                     className="barter-icon"
                     src={`${process.env.PUBLIC_URL}/images/flea-market-icon.jpg`}
+                    loading="lazy"
                 />
                 {count + ' x ' + formatPrice(price) + ' = '}
                 {formatPrice(count * (alternatePrice || price))}

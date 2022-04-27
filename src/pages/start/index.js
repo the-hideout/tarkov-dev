@@ -2,12 +2,10 @@ import { useState, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import React, { lazy, Suspense } from 'react';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
 import mapData from '../../data/maps.json';
-import SmallItemTable from '../../components/small-item-table';
-import ItemSearch from '../../components/item-search';
-import ServerStatus from '../../components/server-status';
 import ItemIconList from '../../components/item-icon-list';
 
 import Icon from '@mdi/react';
@@ -29,7 +27,16 @@ import './index.css';
 
 import categoryPages from '../../data/category-pages.json';
 
-function Start(props) {
+// Lazy loading React component text (fallback)
+// https://web.dev/code-splitting-suspense/?utm_source=lighthouse&utm_medium=wpt
+const renderLoader = () => <p>Loading...</p>;
+
+// Use Lazy and Suspense to load these components
+const ServerStatus = lazy(() => import('../../components/server-status'));
+const SmallItemTable = lazy(() => import('../../components/small-item-table'));
+const ItemSearch = lazy(() => import('../../components/item-search'));
+
+function Start() {
     const defaultQuery = new URLSearchParams(window.location.search).get(
         'search',
     );
@@ -63,25 +70,28 @@ function Start(props) {
             key={'display-wrapper'}
         >
             <div className="start-section-wrapper item-section">
-                {/* <h3>
-                    Items
-                </h3> */}
-                <ItemSearch
-                    onChange={handleNameFilterChange}
-                    autoFocus={true}
-                />
-                <SmallItemTable
-                    maxItems={20}
-                    nameFilter={nameFilter}
-                    defaultRandom={true}
-                    fleaValue
-                    traderValue
-                    instaProfit
-                    hideBorders
-                />
+                <Suspense fallback={renderLoader()}>
+                    <ItemSearch
+                        onChange={handleNameFilterChange}
+                        autoFocus={true}
+                    />
+                </Suspense>
+                <Suspense fallback={renderLoader()}>
+                    <SmallItemTable
+                        maxItems={20}
+                        nameFilter={nameFilter}
+                        defaultRandom={true}
+                        fleaValue
+                        traderValue
+                        instaProfit
+                        hideBorders
+                    />
+                </Suspense>
             </div>
             <div className="start-section-wrapper">
-                <ServerStatus />
+                <Suspense fallback={renderLoader()}>
+                    <ServerStatus />
+                </Suspense>
                 <h3>
                     <Icon
                         path={mdiHammerWrench}
@@ -229,6 +239,7 @@ function Start(props) {
                             <img
                                 alt="Prapor icon"
                                 className="trader-icon"
+                                loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/prapor-icon.jpg`}
                             />
                             {t('Prapor')}
@@ -239,6 +250,7 @@ function Start(props) {
                             <img
                                 alt="Therapist icon"
                                 className="trader-icon"
+                                loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/therapist-icon.jpg`}
                             />
                             {t('Therapist')}
@@ -249,6 +261,7 @@ function Start(props) {
                             <img
                                 alt="Skier icon"
                                 className="trader-icon"
+                                loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/skier-icon.jpg`}
                             />
                             {t('Skier')}
@@ -259,6 +272,7 @@ function Start(props) {
                             <img
                                 alt="Peacekeeper icon"
                                 className="trader-icon"
+                                loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/peacekeeper-icon.jpg`}
                             />
                             {t('Peacekeeper')}
@@ -269,6 +283,7 @@ function Start(props) {
                             <img
                                 alt="Prapor icon"
                                 className="trader-icon"
+                                loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/mechanic-icon.jpg`}
                             />
                             {t('Mechanic')}
@@ -279,6 +294,7 @@ function Start(props) {
                             <img
                                 alt="Ragman icon"
                                 className="trader-icon"
+                                loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/ragman-icon.jpg`}
                             />
                             {t('Ragman')}
@@ -289,6 +305,7 @@ function Start(props) {
                             <img
                                 alt="Jaeger icon"
                                 className="trader-icon"
+                                loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/jaeger-icon.jpg`}
                             />
                             {t('Jaeger')}
@@ -301,11 +318,11 @@ function Start(props) {
                 width: '100%',
             }}>
                 <Link className="branding" to="/">
-                    {/* Tarkov.dev */}
                     <img
                         alt="Tarkov.dev"
                         height={30}
                         width={186}
+                        loading="lazy"
                         src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.svg`}
                         style={{ marginTop: '2.5rem' }}
                     />

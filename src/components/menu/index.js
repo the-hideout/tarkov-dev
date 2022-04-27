@@ -72,6 +72,7 @@ const Menu = () => {
                         width={186}
                         src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.svg`}
                         style={{ marginTop: 5, marginBottom: 5 }}
+                        loading="lazy"
                     />
                 </Link>
                 <Link
