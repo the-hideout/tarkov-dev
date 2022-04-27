@@ -63,9 +63,6 @@ function Start(props) {
             key={'display-wrapper'}
         >
             <div className="start-section-wrapper item-section">
-                {/* <h3>
-                    Items
-                </h3> */}
                 <ItemSearch
                     onChange={handleNameFilterChange}
                     autoFocus={true}
@@ -308,7 +305,6 @@ function Start(props) {
                 width: '100%',
             }}>
                 <Link className="branding" to="/">
-                    {/* Tarkov.dev */}
                     <img
                         alt="Tarkov.dev"
                         height={30}
