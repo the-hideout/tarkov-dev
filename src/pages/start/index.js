@@ -27,8 +27,11 @@ import './index.css';
 
 import categoryPages from '../../data/category-pages.json';
 
+// Lazy loading React component text (fallback)
+// https://web.dev/code-splitting-suspense/?utm_source=lighthouse&utm_medium=wpt
 const renderLoader = () => <p>Loading...</p>;
 
+// Use Lazy and Suspense to load these components
 const ServerStatus = lazy(() => import('../../components/server-status'));
 const SmallItemTable = lazy(() => import('../../components/small-item-table'));
 const ItemSearch = lazy(() => import('../../components/item-search'));
