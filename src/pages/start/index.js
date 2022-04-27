@@ -2,12 +2,11 @@ import { useState, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import React, { lazy, Suspense } from 'react';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
 import mapData from '../../data/maps.json';
-import SmallItemTable from '../../components/small-item-table';
 import ItemSearch from '../../components/item-search';
-import ServerStatus from '../../components/server-status';
 import ItemIconList from '../../components/item-icon-list';
 
 import Icon from '@mdi/react';
@@ -29,6 +28,10 @@ import './index.css';
 
 import categoryPages from '../../data/category-pages.json';
 
+const renderLoader = () => <p>Loading...</p>;
+
+const ServerStatus = lazy(() => import('../../components/server-status'));
+const SmallItemTable = lazy(() => import('../../components/small-item-table'));
 
 function Start() {
     const defaultQuery = new URLSearchParams(window.location.search).get(
@@ -68,18 +71,22 @@ function Start() {
                     onChange={handleNameFilterChange}
                     autoFocus={true}
                 />
-                <SmallItemTable
-                    maxItems={20}
-                    nameFilter={nameFilter}
-                    defaultRandom={true}
-                    fleaValue
-                    traderValue
-                    instaProfit
-                    hideBorders
-                />
+                <Suspense fallback={renderLoader()}>
+                    <SmallItemTable
+                        maxItems={20}
+                        nameFilter={nameFilter}
+                        defaultRandom={true}
+                        fleaValue
+                        traderValue
+                        instaProfit
+                        hideBorders
+                    />
+                </Suspense>
             </div>
             <div className="start-section-wrapper">
-                <ServerStatus />
+                <Suspense fallback={renderLoader()}>
+                    <ServerStatus />
+                </Suspense>
                 <h3>
                     <Icon
                         path={mdiHammerWrench}
