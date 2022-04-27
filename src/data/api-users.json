@@ -62,5 +62,10 @@
         "title": "Errbot",
         "link": "https://github.com/GrantBirki/errbot",
         "text": "An all purpose Discord chatbot that integrates with Escape from Tarkov"
+    },
+    {
+        "title": "TarkovItemBot",
+        "link": "https://github.com/Andrewww1/TarkovItemBot",
+        "text": "A Discord bot providing various statistics and calculations for the game Escape from Tarkov"
     }
 ]
