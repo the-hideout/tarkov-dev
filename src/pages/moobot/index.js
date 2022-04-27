@@ -26,6 +26,7 @@ function Moobot() {
                     height={361}
                     src={`${process.env.PUBLIC_URL}/images/moobot-1.jpg`}
                     width={900}
+                    loading="lazy"
                 />
             </p>
             <ul>

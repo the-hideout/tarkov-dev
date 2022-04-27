@@ -229,6 +229,7 @@ function Start(props) {
                             <img
                                 alt="Prapor icon"
                                 className="trader-icon"
+                                loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/prapor-icon.jpg`}
                             />
                             {t('Prapor')}
@@ -239,6 +240,7 @@ function Start(props) {
                             <img
                                 alt="Therapist icon"
                                 className="trader-icon"
+                                loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/therapist-icon.jpg`}
                             />
                             {t('Therapist')}
@@ -249,6 +251,7 @@ function Start(props) {
                             <img
                                 alt="Skier icon"
                                 className="trader-icon"
+                                loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/skier-icon.jpg`}
                             />
                             {t('Skier')}
@@ -259,6 +262,7 @@ function Start(props) {
                             <img
                                 alt="Peacekeeper icon"
                                 className="trader-icon"
+                                loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/peacekeeper-icon.jpg`}
                             />
                             {t('Peacekeeper')}
@@ -269,6 +273,7 @@ function Start(props) {
                             <img
                                 alt="Prapor icon"
                                 className="trader-icon"
+                                loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/mechanic-icon.jpg`}
                             />
                             {t('Mechanic')}
@@ -279,6 +284,7 @@ function Start(props) {
                             <img
                                 alt="Ragman icon"
                                 className="trader-icon"
+                                loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/ragman-icon.jpg`}
                             />
                             {t('Ragman')}
@@ -289,6 +295,7 @@ function Start(props) {
                             <img
                                 alt="Jaeger icon"
                                 className="trader-icon"
+                                loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/jaeger-icon.jpg`}
                             />
                             {t('Jaeger')}
@@ -306,6 +313,7 @@ function Start(props) {
                         alt="Tarkov.dev"
                         height={30}
                         width={186}
+                        loading="lazy"
                         src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.svg`}
                         style={{ marginTop: '2.5rem' }}
                     />

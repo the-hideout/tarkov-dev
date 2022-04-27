@@ -359,6 +359,7 @@ function Item() {
                                                     height="86"
                                                     width="86"
                                                     src={`${process.env.PUBLIC_URL}/images/flea-market-icon.jpg`}
+                                                    loading="lazy"
                                                     // title = {`Sell ${currentItemData.name} on the Flea market`}
                                                 />
                                                 <div className="price-wrapper">
@@ -399,6 +400,7 @@ function Item() {
                                                         }
                                                         height="86"
                                                         width="86"
+                                                        loading="lazy"
                                                         src={`${
                                                             process.env
                                                                 .PUBLIC_URL

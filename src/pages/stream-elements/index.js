@@ -33,6 +33,7 @@ function StreamElements() {
                     height={487}
                     src={`${process.env.PUBLIC_URL}/images/streamelements-1.jpg`}
                     width={900}
+                    loading="lazy"
                 />
             </p>
             <ul>

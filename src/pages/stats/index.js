@@ -46,6 +46,7 @@ function Stats() {
                     src={TwitchIcon}
                     style={{ height: '3em', width: '3em', display: 'inline' }}
                     alt="Twitch logo"
+                    loading="lazy"
                 />
                 <h3>Twitch - Escape from Tarkov</h3>
                 <p>Total Twitch viewers aggregated from top 100 current EFT streamers</p>

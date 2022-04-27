@@ -33,6 +33,7 @@ function Nightbot() {
                     height={452}
                     src={`${process.env.PUBLIC_URL}/images/nightbot-1.jpg`}
                     width={900}
+                    loading="lazy"
                 />
             </p>
             <ul>
