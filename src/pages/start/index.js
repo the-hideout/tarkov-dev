@@ -29,7 +29,8 @@ import './index.css';
 
 import categoryPages from '../../data/category-pages.json';
 
-function Start(props) {
+
+function Start() {
     const defaultQuery = new URLSearchParams(window.location.search).get(
         'search',
     );
