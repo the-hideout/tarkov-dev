@@ -6,7 +6,6 @@ import React, { lazy, Suspense } from 'react';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
 import mapData from '../../data/maps.json';
-import ItemSearch from '../../components/item-search';
 import ItemIconList from '../../components/item-icon-list';
 
 import Icon from '@mdi/react';
@@ -32,6 +31,7 @@ const renderLoader = () => <p>Loading...</p>;
 
 const ServerStatus = lazy(() => import('../../components/server-status'));
 const SmallItemTable = lazy(() => import('../../components/small-item-table'));
+const ItemSearch = lazy(() => import('../../components/item-search'));
 
 function Start() {
     const defaultQuery = new URLSearchParams(window.location.search).get(
@@ -67,10 +67,12 @@ function Start() {
             key={'display-wrapper'}
         >
             <div className="start-section-wrapper item-section">
-                <ItemSearch
-                    onChange={handleNameFilterChange}
-                    autoFocus={true}
-                />
+                <Suspense fallback={renderLoader()}>
+                    <ItemSearch
+                        onChange={handleNameFilterChange}
+                        autoFocus={true}
+                    />
+                </Suspense>
                 <Suspense fallback={renderLoader()}>
                     <SmallItemTable
                         maxItems={20}
