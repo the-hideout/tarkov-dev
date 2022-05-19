@@ -17,10 +17,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # pin@v2
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # pin@v3.0.2
 
       - name: Cache node modules
-        uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed # pin@v2
+        uses: actions/cache@48af2dc4a9e8278b89d7fa154b955c30c6aaab09 # pin@v3.0.2
         env:
           cache-name: cache-node-modules
         with:
@@ -32,7 +32,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@9ced9a43a244f3ac94f13bfd896db8c8f30da67a # pin@v3.0.0
+        uses: actions/setup-node@17f8bd926464a1afa4c6a11669539e9c1ba77048 # pin@v3.2.0
         with:
           node-version: ${{ matrix.node-version }}
 
