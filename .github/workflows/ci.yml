@@ -69,9 +69,9 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: tarkov-dev
           SENTRY_PROJECT: tarkovdev
-          sourcemaps: ./build/static/
         with:
           environment: production
+          sourcemaps: ./build/static/
 
       - name: CDN Purge
         uses: jakejarvis/cloudflare-purge-action@eee6dba0236093358f25bb1581bd615dc8b3d8e3 # pin@v0.3.0
