@@ -123,14 +123,14 @@ function LootTier(props) {
                     return {
                         ...item,
                         sellTo: item.traderName,
-                        pricePerSlot: Math.floor(item.traderPrice / item.slots),
+                        pricePerSlot: Math.floor(item.traderPriceRUB / item.slots),
                     };
                 }
 
                 let sellTo = 'Flea Market';
                 const fleaPrice = item.avg24hPrice - item.fee;
 
-                if (fleaPrice <= item.traderPrice) {
+                if (fleaPrice <= item.traderPriceRUB) {
                     sellTo = item.traderName;
                 }
 
@@ -138,7 +138,7 @@ function LootTier(props) {
                     ...item,
                     sellTo: sellTo,
                     pricePerSlot: Math.floor(
-                        Math.max(fleaPrice, item.traderPrice) / item.slots,
+                        Math.max(fleaPrice, item.traderPriceRUB) / item.slots,
                     ),
                 };
             })

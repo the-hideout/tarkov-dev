@@ -58,24 +58,16 @@ const loadingData = {
     ],
 };
 
-function TraderPrice({ currency, price }) {
-    if (currency === 'USD') {
+function TraderPrice({ currency, price, priceRUB }) {
+    if (currency !== 'RUB') {
         return (
-            <Tippy content={formatPrice(price * 124)} placement="bottom">
-                <div>{formatPrice(price, 'USD')}</div>
+            <Tippy content={formatPrice(priceRUB)} placement="bottom">
+                <div>{formatPrice(price, currency)}</div>
             </Tippy>
         );
     }
 
-    if (currency === 'EUR') {
-        return (
-            <Tippy content={formatPrice(price * 147)} placement="bottom">
-                <div>{formatPrice(price, 'EUR')}</div>
-            </Tippy>
-        );
-    }
-
-    return formatPrice(price);
+    return formatPrice(priceRUB);
 }
 
 function Item() {
@@ -157,7 +149,7 @@ function Item() {
     }
 
     const traderIsBest =
-        currentItemData.traderPrice >
+        currentItemData.traderPriceRUB >
         currentItemData.lastLowPrice -
             fleaFee(currentItemData.avg24hPrice, currentItemData.basePrice)
             ? true
@@ -409,19 +401,17 @@ function Item() {
                                                     />
                                                 </Link>
                                                 <div className="price-wrapper">
-                                                    {currentItemData.traderName ===
-                                                    'Peacekeeper' ? (
+                                                    {currentItemData.traderCurrency !== 'RUB' ? (
                                                         <Tippy
                                                             content={formatPrice(
-                                                                currentItemData.traderPrice,
+                                                                currentItemData.traderPriceRUB,
                                                             )}
                                                             placement="bottom"
                                                         >
                                                             <div>
                                                                 {formatPrice(
-                                                                    currentItemData.traderPrice /
-                                                                        128,
-                                                                    'USD',
+                                                                    currentItemData.traderPrice,
+                                                                    currentItemData.traderCurrency,
                                                                 )}
                                                             </div>
                                                         </Tippy>
@@ -473,19 +463,17 @@ function Item() {
                                                             />
                                                         )}
                                                         <div className="price-wrapper">
-                                                            {traderName ===
-                                                            'peacekeeper' ? (
+                                                            {traderPrice.currency !== 'RUB' ? (
                                                                 <Tippy
                                                                     content={formatPrice(
-                                                                        traderPrice.price,
+                                                                        traderPrice.priceRUB,
                                                                     )}
                                                                     placement="bottom"
                                                                 >
                                                                     <div>
                                                                         {formatPrice(
-                                                                            traderPrice.price /
-                                                                                124,
-                                                                            'USD',
+                                                                            traderPrice.price,
+                                                                            traderPrice.currency,
                                                                         )}
                                                                     </div>
                                                                 </Tippy>
@@ -603,6 +591,9 @@ function Item() {
                                                             }
                                                             price={
                                                                 buyPrice.price
+                                                            }
+                                                            priceRUB={
+                                                                buyPrice.priceRUB
                                                             }
                                                         />
                                                     </div>

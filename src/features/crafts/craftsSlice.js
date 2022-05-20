@@ -24,6 +24,8 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
               lastLowPrice
               traderPrices {
                   price
+                  currency
+                  priceRUB
                   trader {
                       name
                   }
@@ -31,11 +33,13 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
               buyFor {
                 source
                 price
+                priceRUB
                 currency
               }
               sellFor {
                 source
                 price
+                priceRUB
                 currency
               }
               types
@@ -55,6 +59,8 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
               lastLowPrice
               traderPrices {
                 price
+                currency
+                priceRUB
                 trader {
                     name
                 }
@@ -62,11 +68,13 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
               buyFor {
                 source
                 price
+                priceRUB
                 currency
               }
               sellFor {
                 source
                 price
+                priceRUB
                 currency
               }
             }

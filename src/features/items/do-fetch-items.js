@@ -1,6 +1,5 @@
 import calculateFee from '../../modules/flea-market-fee';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes';
-import getRublePrice from '../../modules/get-ruble-price';
 
 const NOTES = {
     '60a2828e8689911a226117f9': `Can't store Pillbox, Day Pack, LK 3F or MBSS inside`,
@@ -29,6 +28,8 @@ const QueryBody = JSON.stringify({
             updated
             traderPrices {
                 price
+                currency
+                priceRUB
                 trader {
                     name
                 }
@@ -36,6 +37,7 @@ const QueryBody = JSON.stringify({
             sellFor {
                 source
                 price
+                priceRUB
                 requirements {
                     type
                     value
@@ -45,6 +47,7 @@ const QueryBody = JSON.stringify({
             buyFor {
                 source
                 price
+                priceRUB
                 currency
                 requirements {
                     type
@@ -125,10 +128,7 @@ const doFetchItems = async () => {
         }
 
         rawItem.buyFor = rawItem.buyFor.sort((a, b) => {
-            return (
-                getRublePrice(a.price, a.currency) -
-                getRublePrice(b.price, b.currency)
-            );
+            return a.priceRUB - b.priceRUB;
         });
 
         if (!Array.isArray(rawItem.linkedItems)) {
@@ -186,6 +186,8 @@ const doFetchItems = async () => {
             traderPrices: rawItem.traderPrices.map((traderPrice) => {
                 return {
                     price: traderPrice.price,
+                    priceRUB: traderPrice.priceRUB,
+                    currency: traderPrice.currency,
                     trader: traderPrice.trader.name,
                 };
             }),
@@ -258,11 +260,13 @@ const doFetchItems = async () => {
 
         const bestTraderPrice = item.traderPrices
             .sort((a, b) => {
-                return b.price - a.price;
+                return b.priceRUB - a.priceRUB;
             })
             .shift();
 
         item.traderPrice = bestTraderPrice?.price || 0;
+        item.traderPriceRUB = bestTraderPrice?.priceRUB || 0;
+        item.traderCurrency = bestTraderPrice?.currency || 'RUB';
         item.traderName = bestTraderPrice?.trader || '?';
     }
 

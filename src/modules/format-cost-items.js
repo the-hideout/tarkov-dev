@@ -1,5 +1,3 @@
-import getRublePrice from './get-ruble-price';
-
 const fuelIds = [
     '5d1b371186f774253763a656', // Expeditionary fuel tank
     '5d1b36a186f7742523398433', // Metal fuel tank
@@ -15,16 +13,7 @@ function getCheapestItemPrice(item, useFlea) {
     }
 
     item.buyFor.map((priceObject) => {
-        const rublePrice = getRublePrice(
-            priceObject.price,
-            priceObject.currency,
-        );
-
-        if (rublePrice === 0) {
-            return true;
-        }
-
-        if (rublePrice > bestPrice.price) {
+        if (priceObject.priceRUB > bestPrice.price) {
             return true;
         }
 
@@ -33,7 +22,7 @@ function getCheapestItemPrice(item, useFlea) {
         }
 
         bestPrice.source = priceObject.source;
-        bestPrice.price = rublePrice;
+        bestPrice.price = priceObject.priceRUB;
 
         return true;
     });
@@ -121,12 +110,7 @@ function getCheapestItemPriceWithBarters(item, barters, useFlea = true) {
     if (!bestPrice.price) {
         // console.log(`Found no bestPrice for ${item.name}, falling back to trader value`);
         item.sellFor.map((priceObject) => {
-            const rublePrice = getRublePrice(
-                priceObject.price,
-                priceObject.currency,
-            );
-
-            if (rublePrice < bestPrice.price) {
+            if (priceObject.priceRUB < bestPrice.price) {
                 return true;
             }
 
@@ -135,7 +119,7 @@ function getCheapestItemPriceWithBarters(item, barters, useFlea = true) {
             }
 
             bestPrice.source = priceObject.source;
-            bestPrice.price = rublePrice;
+            bestPrice.price = priceObject.priceRUB;
 
             return true;
         });

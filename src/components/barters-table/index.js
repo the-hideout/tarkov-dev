@@ -249,7 +249,7 @@ function BartersTable(props) {
                             return previousSellForObject;
                         }
 
-                        if (previousSellForObject.price > sellForObject.price) {
+                        if (previousSellForObject.priceRUB > sellForObject.priceRUB) {
                             return previousSellForObject;
                         }
 
@@ -264,7 +264,7 @@ function BartersTable(props) {
                 const tradeData = {
                     costItems: costItems,
                     cost: cost,
-                    instaProfit: bestSellTo.price - cost,
+                    instaProfit: bestSellTo.priceRUB - cost,
                     instaProfitSource: bestSellTo,
                     reward: {
                         sellTo: t('Flea market'),
@@ -295,15 +295,15 @@ function BartersTable(props) {
 
                 const bestTrade =
                     barterRow.rewardItems[0].item.traderPrices.find(
-                        (traderPrice) => traderPrice.price === bestTraderValue,
+                        (traderPrice) => traderPrice.priceRUB === bestTraderValue,
                     );
 
                 if (
-                    (bestTrade && bestTrade.price > tradeData.reward.value) ||
+                    (bestTrade && bestTrade.priceRUB > tradeData.reward.value) ||
                     (bestTrade && !includeFlea)
                 ) {
                     // console.log(barterRow.rewardItems[0].item.traderPrices);
-                    tradeData.reward.value = bestTrade.price;
+                    tradeData.reward.value = bestTrade.priceRUB;
                     tradeData.reward.sellTo = bestTrade.trader.name;
                 }
 
