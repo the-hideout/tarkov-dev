@@ -49,21 +49,20 @@ function traderSellCell(datum) {
                 width="40"
             />
 
-            {datum.row.original.bestSell.source === 'peacekeeper' ||
-            datum.row.original.bestSell.source === 'Peacekeeper' ? (
+            {datum.row.original.bestSell.currency !== 'RUB' ? (
                 <Tippy
-                    content={formatPrice(datum.row.original.bestSell.price)}
+                    content={formatPrice(datum.row.original.bestSell.priceRUB)}
                     placement="bottom"
                 >
                     <div>
                         {formatPrice(
-                            datum.row.original.bestSell.price / 128,
-                            'USD',
+                            datum.row.original.bestSell.price,
+                            datum.row.original.bestSell.currency,
                         )}
                     </div>
                 </Tippy>
             ) : (
-                formatPrice(datum.row.original.bestSell.price)
+                formatPrice(datum.row.original.bestSell.priceRUB)
             )}
         </div>
     );
@@ -300,12 +299,16 @@ function SmallItemTable(props) {
                     itemLink: `/item/${itemData.normalizedName}`,
                     traderName: itemData.traderName,
                     traderPrice: itemData.traderPrice,
+                    traderPriceRUB: itemData.traderPriceRUB,
+                    traderCurrency: itemData.traderCurrency,
                     types: itemData.types,
                     buyFor: itemData.buyFor,
                     sellFor: itemData.sellFor,
                     bestSell: {
                         source: itemData.traderName,
                         price: itemData.traderPrice,
+                        priceRUB: itemData.traderPriceRUB,
+                        currency: itemData.traderCurrency
                     },
                     buyOnFleaPrice: itemData.buyFor.find(
                         (buyPrice) => buyPrice.source === 'flea-market',
@@ -350,7 +353,7 @@ function SmallItemTable(props) {
                     formattedItem.buyOnFleaPrice.price > 0
                 ) {
                     formattedItem.instaProfit =
-                        itemData.traderPrice -
+                        itemData.traderPriceRUB -
                         formattedItem.buyOnFleaPrice.price;
                 }
 
@@ -398,12 +401,12 @@ function SmallItemTable(props) {
                     (sell) => sell.source === traderFilter,
                 );
                 item.bestSell = item.sellFor?.sort((a, b) => {
-                    return b.price - a.price;
+                    return b.priceRUB - a.priceRUB;
                 })[0];
 
                 if (item.buyOnFleaPrice) {
                     item.instaProfit =
-                        item.bestSell?.price - item.buyOnFleaPrice.price;
+                        item.bestSell?.priceRUB - item.buyOnFleaPrice.price;
                 }
 
                 if (traderBuybackFilter) {
@@ -428,7 +431,7 @@ function SmallItemTable(props) {
             returnData = returnData
                 .filter((item) => item.instaProfit !== 0)
                 .filter((item) => item.lastLowPrice && item.lastLowPrice > 0)
-                .filter((item) => item.bestSell && item.bestSell.price > 500)
+                .filter((item) => item.bestSell && item.bestSell.priceRUB > 500)
                 .filter(
                     (item) =>
                         item.buyOnFleaPrice && item.buyOnFleaPrice.price > 0,
@@ -437,7 +440,7 @@ function SmallItemTable(props) {
                     return {
                         ...item,
                         buyback:
-                            item.bestSell?.price / item.buyOnFleaPrice.price,
+                            item.bestSell?.priceRUB / item.buyOnFleaPrice.price,
                     };
                 })
                 .sort((a, b) => {
@@ -655,7 +658,7 @@ function SmallItemTable(props) {
         if (traderValue) {
             useColumns.splice(1, 0, {
                 Header: t('Sell to Trader'),
-                accessor: (d) => Number(d.bestSell?.price),
+                accessor: (d) => Number(d.bestSell?.priceRUB),
                 Cell: traderSellCell,
                 id: 'traderPrice',
             });

@@ -105,6 +105,8 @@ function ItemSearch({
                     itemLink: `/item/${itemData.normalizedName}`,
                     traderName: itemData.traderName,
                     traderPrice: itemData.traderPrice,
+                    traderPriceRUB: itemData.traderPriceRUB,
+                    traderCurrency: itemData.traderCurrency,
                     types: itemData.types,
                     buyFor: itemData.buyFor,
                 };
@@ -115,7 +117,7 @@ function ItemSearch({
 
                 if (buyOnFleaPrice) {
                     formattedItem.instaProfit =
-                        itemData.traderPrice - buyOnFleaPrice.price;
+                        itemData.traderPriceRUB - buyOnFleaPrice.price;
                 }
 
                 return formattedItem;

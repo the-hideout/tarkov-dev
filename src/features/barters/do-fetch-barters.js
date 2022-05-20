@@ -13,18 +13,22 @@ const doFetchBarters = async () => {
                 avg24hPrice
                 lastLowPrice
                 traderPrices {
+                    priceRUB
                     price
+                    currency
                     trader {
                         name
                     }
                 }
                 buyFor {
                     source
+                    priceRUB
                     price
                     currency
                 }
                 sellFor {
                     source
+                    priceRUB
                     price
                     currency
                 }
@@ -42,15 +46,22 @@ const doFetchBarters = async () => {
                 avg24hPrice
                 lastLowPrice
                 traderPrices {
+                    priceRUB
                     price
+                    currency
+                    trader {
+                        name
+                    }
                 }
                 buyFor {
                     source
+                    priceRUB
                     price
                     currency
                 }
                 sellFor {
                     source
+                    priceRUB
                     price
                     currency
                 }

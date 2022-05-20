@@ -51,7 +51,7 @@ for (
 export const getMaxSellFor = (item) => {
     let max = undefined;
     for (const sf of item.sellFor) {
-        if (max === undefined || max.price < sf.price) {
+        if (max === undefined || max.priceRUB < sf.priceRUB) {
             max = sf;
         }
     }
@@ -62,7 +62,7 @@ export const getMaxSellFor = (item) => {
 export const getMinBuyFor = (item) => {
     let min = undefined;
     for (const sf of item.buyFor) {
-        if (min === undefined || min.price > sf.price) {
+        if (min === undefined || min.priceRUB > sf.priceRUB) {
             min = sf;
         }
     }
@@ -102,5 +102,5 @@ export const useFuelPricePerDay = () => {
         durationMs = durationMs * 2;
     }
 
-    return (fuelBuyFor.price / durationMs) * 1000 * 60 * 60 * 24;
+    return (fuelBuyFor.priceRUB / durationMs) * 1000 * 60 * 60 * 24;
 };

@@ -261,20 +261,20 @@ function CraftTable(props) {
 
                 const bestTraderValue = Math.max(
                     ...craftRow.rewardItems[0].item.traderPrices.map(
-                        (priceObject) => priceObject.price,
+                        (priceObject) => priceObject.priceRUB,
                     ),
                 );
                 const bestTrade =
                     craftRow.rewardItems[0].item.traderPrices.find(
-                        (traderPrice) => traderPrice.price === bestTraderValue,
+                        (traderPrice) => traderPrice.priceRUB === bestTraderValue,
                     );
 
                 if (
-                    (bestTrade && bestTrade.price > tradeData.reward.value) ||
+                    (bestTrade && bestTrade.priceRUB > tradeData.reward.value) ||
                     (bestTrade && !includeFlea)
                 ) {
                     // console.log(barterRow.rewardItems[0].item.traderPrices);
-                    tradeData.reward.value = bestTrade.price;
+                    tradeData.reward.value = bestTrade.priceRUB;
                     tradeData.reward.sellTo = bestTrade.trader.name;
                 }
 
