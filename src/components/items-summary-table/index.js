@@ -47,7 +47,7 @@ function ItemsSummaryTable(props) {
                     ),
                 };
 
-                let traderPrice = formattedItem.buyFromTraderPrice?.price;
+                let traderPrice = formattedItem.buyFromTraderPrice?.priceRUB;
                 let fleaPrice = formattedItem.buyOnFleaPrice?.price;
 
                 if (traderPrice && fleaPrice && traderPrice < fleaPrice) {

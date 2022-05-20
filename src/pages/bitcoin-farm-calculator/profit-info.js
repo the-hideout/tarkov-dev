@@ -19,8 +19,8 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay }) => {
         if (!bitcoinItem || !graphicCardItem) {
             return [];
         }
-        const btcSellPrice = bitcoinItem.sellFor?.[0].price ?? 0;
-        const graphicsCardBuyPrice = graphicCardItem.buyFor?.[0].price ?? 0;
+        const btcSellPrice = bitcoinItem.sellFor?.[0].priceRUB ?? 0;
+        const graphicsCardBuyPrice = graphicCardItem.buyFor?.[0].priceRUB ?? 0;
 
         return profitForNumCards.map((graphicCardsCount) => {
             const data = ProduceBitcoinData[graphicCardsCount];

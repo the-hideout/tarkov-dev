@@ -9,7 +9,6 @@ import useKeyPress from '../../hooks/useKeyPress';
 import DataTable from '../../components/data-table';
 import CenterCell from '../../components/center-cell';
 import ValueCell from '../../components/value-cell';
-import getRublePrice from '../../modules/get-ruble-price.js';
 import TraderPriceCell from '../../components/trader-price-cell';
 import { useItemsQuery } from '../../features/items/queries';
 import rawData from '../../data/ammo.json';
@@ -164,29 +163,11 @@ function Ammo() {
                 return -1;
             }
 
-            if (
-                getRublePrice(
-                    a.original.trader?.price,
-                    a.original.trader?.currency,
-                ) >
-                getRublePrice(
-                    b.original.trader?.price,
-                    b.original.trader?.currency,
-                )
-            ) {
+            if (a.original.trader?.priceRUB > b.original.trader?.priceRUB) {
                 return 1;
             }
 
-            if (
-                getRublePrice(
-                    a.original.trader?.price,
-                    a.original.trader?.currency,
-                ) <
-                getRublePrice(
-                    b.original.trader?.price,
-                    b.original.trader?.currency,
-                )
-            ) {
+            if (a.original.trader?.priceRUB < b.original.trader?.priceRUB) {
                 return -1;
             }
 

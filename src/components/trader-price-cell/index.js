@@ -28,7 +28,24 @@ function TraderPriceCell(props) {
         return null;
     }
 
-    let printString = `${formatPrice(trader.price, trader.currency)}`;
+    //let printString = `${formatPrice(trader.price, trader.currency)}`;
+    let printString = 
+        trader.currency !== 'RUB' ? (
+            <Tippy
+                content={formatPrice(
+                    trader.priceRUB,
+                )}
+                placement="bottom"
+            >
+                <div>
+                    {formatPrice(
+                        trader.price,
+                        trader.currency,
+                    )}
+                </div>
+            </Tippy>
+        ) : 
+            formatPrice(trader.price);
     let questLocked = false;
     let loyaltyString = '';
 
