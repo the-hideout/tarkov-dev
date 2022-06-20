@@ -77,6 +77,7 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
                 priceRUB
                 currency
               }
+              isTool
             }
             count
           }
