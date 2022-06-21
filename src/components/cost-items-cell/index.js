@@ -10,6 +10,8 @@ import { toggleItem as toggleBarterItem } from '../../features/barters/bartersSl
 function CostItemsCell({ costItems, craftId, barterId }) {
     const dispatch = useDispatch();
 
+    const isTool = costItem.attributes.type === "tool";
+
     return (
         <div className="cost-wrapper">
             {costItems.map((costItem, itemIndex) => {
@@ -42,11 +44,12 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                                 iconLink={`https://assets.tarkov.dev/${costItem.id}-icon.jpg`}
                                 height="34"
                                 width="34"
+                                isTool={isTool}
                             />
                         </div>
                         <div className="cost-item-text-wrapper">
                             <Link to={costItem.itemLink}>{costItem.name}</Link>
-                            <div className={`${costItem.attributes.type !== "tool" ? 'price-wrapper' : 'price-wrapper-tool'}`}>
+                            <div className={`${isTool ? 'price-wrapper-tool' : 'price-wrapper'}`}>
                                 <ItemCost
                                     alternatePrice={costItem.alternatePrice}
                                     alternatePriceSource={
