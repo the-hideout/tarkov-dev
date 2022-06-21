@@ -77,13 +77,13 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
                 priceRUB
                 currency
               }
-              attributes {
-                type
-                name
-                value
-              }
             }
             count
+            attributes {
+              type
+              name
+              value
+            }
           }
           source
           duration

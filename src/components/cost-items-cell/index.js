@@ -15,7 +15,7 @@ function CostItemsCell({ costItems, craftId, barterId }) {
             {costItems.map((costItem, itemIndex) => {
 
                 // Check if the item attribute is a tool
-                const isTool = costItem.attributes.type === "tool";
+                const isTool = costItem.attributes.some(element => element.type === "tool");
             
                 return (
                     <div
