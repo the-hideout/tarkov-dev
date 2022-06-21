@@ -236,7 +236,7 @@ function CraftTable(props) {
                         (craftRow.duration * (skills.crafting * 0.75)) / 100,
                 );
 
-                var costItemsWithoutTools = costItems.filter(costItem => costItem.isTool === false)
+                var costItemsWithoutTools = costItems.filter(costItem => costItem.attributes.type !== "tool")
                 costItemsWithoutTools.map(
                     (costItem) =>
                         (totalCost =
