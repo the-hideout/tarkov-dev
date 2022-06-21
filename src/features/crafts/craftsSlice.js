@@ -119,6 +119,12 @@ const craftsSlice = createSlice({
             newCrafts = newCrafts.map((craft) => {
                 craft.requiredItems = craft.requiredItems.map(
                     (requiredItem) => {
+                        // Filter an item only if it's not a tool
+                        const isTool = costItem.attributes.some(element => element.type === "tool");
+                        if (isTool === true) {
+                            return requiredItem;
+                        }
+
                         if (requiredItem.item.id === action.payload.itemId) {
                             if (requiredItem.count === 0) {
                                 requiredItem.count = requiredItem.originalCount;

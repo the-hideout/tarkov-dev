@@ -24,6 +24,10 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                             costItem.count === 0 ? 'disabled' : ''
                         }`}
                         onClick={(event) => {
+                            // Don't allow to toggle/disable tools
+                            if (isTool === true) {
+                                return true;
+                            }
                             // Don't hook A's
                             if (event.target.nodeName === 'A') {
                                 return true;
