@@ -120,7 +120,7 @@ const craftsSlice = createSlice({
                 craft.requiredItems = craft.requiredItems.map(
                     (requiredItem) => {
                         // Filter an item only if it's not a tool
-                        const isTool = costItem.attributes.some(element => element.type === "tool");
+                        const isTool = requiredItem.attributes.some(element => element.type === "tool");
                         if (isTool === true) {
                             return requiredItem;
                         }
