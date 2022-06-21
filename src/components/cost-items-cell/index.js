@@ -10,11 +10,12 @@ import { toggleItem as toggleBarterItem } from '../../features/barters/bartersSl
 function CostItemsCell({ costItems, craftId, barterId }) {
     const dispatch = useDispatch();
 
-    const isTool = costItem.attributes.type === "tool";
-
     return (
         <div className="cost-wrapper">
             {costItems.map((costItem, itemIndex) => {
+
+                const isTool = costItem.attributes.type === "tool";
+            
                 return (
                     <div
                         key={`cost-item-${itemIndex}`}
