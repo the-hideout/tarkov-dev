@@ -13,10 +13,6 @@ function CostItemsCell({ costItems, craftId, barterId }) {
     return (
         <div className="cost-wrapper">
             {costItems.map((costItem, itemIndex) => {
-
-                // Check if the item attribute is a tool
-                const isTool = costItem.attributes.some(element => element.type === "tool");
-            
                 return (
                     <div
                         key={`cost-item-${itemIndex}`}
@@ -25,7 +21,7 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                         }`}
                         onClick={(event) => {
                             // Don't allow to toggle/disable tools
-                            if (isTool === true) {
+                            if (costItem.isTool === true) {
                                 return true;
                             }
                             // Don't hook A's
@@ -50,12 +46,12 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                                 iconLink={`https://assets.tarkov.dev/${costItem.id}-icon.jpg`}
                                 height="34"
                                 width="34"
-                                isTool={isTool}
+                                isTool={costItem.isTool}
                             />
                         </div>
                         <div className="cost-item-text-wrapper">
                             <Link to={costItem.itemLink}>{costItem.name}</Link>
-                            <div className={`${isTool ? 'price-wrapper-tool' : 'price-wrapper'}`}>
+                            <div className={`${costItem.isTool ? 'price-wrapper-tool' : 'price-wrapper'}`}>
                                 <ItemCost
                                     alternatePrice={costItem.alternatePrice}
                                     alternatePriceSource={

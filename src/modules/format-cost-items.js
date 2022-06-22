@@ -146,6 +146,10 @@ const formatCostItems = (
         if (freeFuel && fuelIds.includes(requiredItem.item.id)) {
             calculationPrice = 0;
         }
+        
+        let isTool = false;
+        if (requiredItem.attributes)
+            isTool = requiredItem.attributes.some(element => element.type === "tool");
 
         const returnData = {
             id: requiredItem.item.id,
@@ -167,6 +171,7 @@ const formatCostItems = (
                 'https://tarkov.dev/images/unknown-item-icon.jpg',
             wikiLink: requiredItem.item.wikiLink,
             itemLink: `/item/${requiredItem.item.normalizedName}`,
+            isTool: isTool,
         };
 
         return returnData;
