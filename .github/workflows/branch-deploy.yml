@@ -55,7 +55,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages publish build/ --project-name=tarkov-dev --commit-hash=$GITHUB_SHA
+          command: pages publish build/ --project-name=tarkov-dev
 
       - name: deploy - prod
         id: prod-deploy
