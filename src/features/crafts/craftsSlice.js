@@ -23,12 +23,12 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
               avg24hPrice
               lastLowPrice
               traderPrices {
-                  price
-                  currency
-                  priceRUB
-                  trader {
-                      name
-                  }
+                price
+                currency
+                priceRUB
+                trader {
+                  name
+                }
               }
               buyFor {
                 source
@@ -62,7 +62,7 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
                 currency
                 priceRUB
                 trader {
-                    name
+                  name
                 }
               }
               buyFor {
@@ -79,6 +79,11 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
               }
             }
             count
+            attributes {
+              type
+              name
+              value
+            }
           }
           source
           duration
@@ -114,6 +119,12 @@ const craftsSlice = createSlice({
             newCrafts = newCrafts.map((craft) => {
                 craft.requiredItems = craft.requiredItems.map(
                     (requiredItem) => {
+                        // Filter an item only if it's not a tool
+                        const isTool = requiredItem.attributes.some(element => element.type === "tool");
+                        if (isTool === true) {
+                            return requiredItem;
+                        }
+
                         if (requiredItem.item.id === action.payload.itemId) {
                             if (requiredItem.count === 0) {
                                 requiredItem.count = requiredItem.originalCount;
