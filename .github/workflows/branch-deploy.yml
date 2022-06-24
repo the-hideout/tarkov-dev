@@ -66,18 +66,19 @@ jobs:
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           command: pages publish build/ --project-name=tarkov-dev --branch=main
 
-      - name: dev-deploy output
-        if: ${{ steps.branch-deploy-dev.outputs.continue == 'true' && steps.branch-deploy-dev.outputs.noop != 'true' }}
-        run: |
-          DEV_OUTPUT="\`\`\`text\n${{ steps.dev-deploy.outputs.stdout }}\n\`\`\`"
-          echo 'DEPLOY_MESSAGE<<EOF' >> $GITHUB_ENV
-          echo "$DEV_OUTPUT" >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+      # Try to save output of the cloudflare jobs
+      # - name: dev-deploy output
+      #   if: ${{ steps.branch-deploy-dev.outputs.continue == 'true' && steps.branch-deploy-dev.outputs.noop != 'true' }}
+      #   run: |
+      #     DEV_OUTPUT="\`\`\`text\n${{ steps.dev-deploy.outputs.stdout }}\n\`\`\`"
+      #     echo 'DEPLOY_MESSAGE<<EOF' >> $GITHUB_ENV
+      #     echo "$DEV_OUTPUT" >> $GITHUB_ENV
+      #     echo 'EOF' >> $GITHUB_ENV
 
-      - name: prod-deploy output
-        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
-        run: |
-          DEV_OUTPUT="\`\`\`text\n${{ steps.prod-deploy.outputs.stdout }}\n\`\`\`"
-          echo 'DEPLOY_MESSAGE<<EOF' >> $GITHUB_ENV
-          echo "$DEV_OUTPUT" >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+      # - name: prod-deploy output
+      #   if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
+      #   run: |
+      #     DEV_OUTPUT="\`\`\`text\n${{ steps.prod-deploy.outputs.stdout }}\n\`\`\`"
+      #     echo 'DEPLOY_MESSAGE<<EOF' >> $GITHUB_ENV
+      #     echo "$DEV_OUTPUT" >> $GITHUB_ENV
+      #     echo 'EOF' >> $GITHUB_ENV
