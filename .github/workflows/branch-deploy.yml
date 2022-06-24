@@ -41,11 +41,11 @@ jobs:
           ref: ${{ steps.branch-deploy-dev.outputs.ref }}
 
       - name: Install
-        if: ${{ steps.branch-deploy.outputs.continue == 'true' }} || ${{ steps.branch-deploy-dev.outputs.continue == 'true' }}
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' || steps.branch-deploy-dev.outputs.continue == 'true' }}
         run: npm ci
 
       - name: Build
-        if: ${{ steps.branch-deploy.outputs.continue == 'true' }} || ${{ steps.branch-deploy-dev.outputs.continue == 'true' }}
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' || steps.branch-deploy-dev.outputs.continue == 'true' }}
         run: npm run build
 
       - name: deploy - dev
