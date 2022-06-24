@@ -63,6 +63,13 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: deploy
+        uses: cloudflare/wrangler-action@4c10c1822abba527d820b29e6333e7f5dac2cabd # pin@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          command: pages publish build/ --project-name=tarkov-dev --branch=main
+
       - name: Create Sentry release
         uses: getsentry/action-release@744e4b262278339b79fb39c8922efcae71e98e39 # pin@v1.1.6
         env:
