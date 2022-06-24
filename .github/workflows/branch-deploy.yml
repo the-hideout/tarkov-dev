@@ -49,17 +49,35 @@ jobs:
         run: npm run build
 
       - name: deploy - dev
+        id: dev-deploy
         if: ${{ steps.branch-deploy-dev.outputs.continue == 'true' && steps.branch-deploy-dev.outputs.noop != 'true' }}
         uses: cloudflare/wrangler-action@4c10c1822abba527d820b29e6333e7f5dac2cabd # pin@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages publish build/ --project-name=tarkov-dev
+          command: pages publish build/ --project-name=tarkov-dev --commit-hash=$GITHUB_SHA
 
       - name: deploy - prod
+        id: prod-deploy
         if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
         uses: cloudflare/wrangler-action@4c10c1822abba527d820b29e6333e7f5dac2cabd # pin@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           command: pages publish build/ --project-name=tarkov-dev --branch=main
+
+      - name: dev-deploy output
+        if: ${{ steps.branch-deploy-dev.outputs.continue == 'true' && steps.branch-deploy-dev.outputs.noop != 'true' }}
+        run: |
+          DEV_OUTPUT="\`\`\`text\n${{ steps.dev-deploy.outputs.stdout }}\n\`\`\`"
+          echo 'DEPLOY_MESSAGE<<EOF' >> $GITHUB_ENV
+          echo "$DEV_OUTPUT" >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+
+      - name: prod-deploy output
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
+        run: |
+          DEV_OUTPUT="\`\`\`text\n${{ steps.prod-deploy.outputs.stdout }}\n\`\`\`"
+          echo 'DEPLOY_MESSAGE<<EOF' >> $GITHUB_ENV
+          echo "$DEV_OUTPUT" >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
