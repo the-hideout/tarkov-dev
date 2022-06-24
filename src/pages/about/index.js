@@ -20,7 +20,7 @@ function About() {
             <h2>{t('Open source')}</h2>
             <p>
                 {t(
-                    'The whole platform is open source and focused around developers. All code is available on',
+                    'The whole platform is open source and focused around developers! All code is available on',
                 )}{' '}
                 <a href="https://github.com/the-hideout/tarkov-dev">GitHub</a>
                 <span>.</span>
