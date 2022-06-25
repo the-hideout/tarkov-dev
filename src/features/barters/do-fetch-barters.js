@@ -37,36 +37,40 @@ const doFetchBarters = async () => {
             }
             requiredItems {
                 item {
-                id
-                name
-                normalizedName
-                iconLink
-                imageLink
-                wikiLink
-                avg24hPrice
-                lastLowPrice
-                traderPrices {
-                    priceRUB
-                    price
-                    currency
-                    trader {
-                        name
+                    id
+                    name
+                    normalizedName
+                    iconLink
+                    imageLink
+                    wikiLink
+                    avg24hPrice
+                    lastLowPrice
+                    traderPrices {
+                        priceRUB
+                        price
+                        currency
+                        trader {
+                            name
+                        }
+                    }
+                    buyFor {
+                        source
+                        priceRUB
+                        price
+                        currency
+                    }
+                    sellFor {
+                        source
+                        priceRUB
+                        price
+                        currency
                     }
                 }
-                buyFor {
-                    source
-                    priceRUB
-                    price
-                    currency
-                }
-                sellFor {
-                    source
-                    priceRUB
-                    price
-                    currency
-                }
-                }
                 count
+                attributes {
+                    name
+                    value
+                }
             }
             source
             }

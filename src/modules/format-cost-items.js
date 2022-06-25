@@ -143,6 +143,14 @@ const formatCostItems = (
         );
         let calculationPrice = bestPrice.price;
 
+        let itemName = requiredItem.item.name;
+        const isDogTag = requiredItem.attributes && requiredItem.attributes.some(att => att.name === 'minLevel');
+        if (isDogTag) {
+            const minLevel = requiredItem.attributes.find(att => att.name === 'minLevel').value;
+            calculationPrice = calculationPrice * minLevel;
+            itemName = `${itemName} ≥ ${minLevel}`;
+        }
+
         if (freeFuel && fuelIds.includes(requiredItem.item.id)) {
             calculationPrice = 0;
         }
@@ -162,7 +170,7 @@ const formatCostItems = (
                               100
                       ).toFixed(2)
                     : requiredItem.count,
-            name: requiredItem.item.name,
+            name: itemName,
             price: calculationPrice,
             priceSource: bestPrice.source,
             alternatePriceSource: bestPrice.barter,
