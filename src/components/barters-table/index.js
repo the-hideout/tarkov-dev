@@ -150,6 +150,13 @@ function BartersTable(props) {
                     if (rewardItem.item.id === itemFilter) {
                         return true;
                     }
+                    if (!rewardItem.item.containsItems) continue;
+                    for (const contained of rewardItem.item.containsItems) {
+                        console.log(contained);
+                        if (contained.item.id === itemFilter) {
+                            return true;
+                        }
+                    }
                 }
 
                 return false;
