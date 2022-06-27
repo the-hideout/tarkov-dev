@@ -18,15 +18,20 @@ jobs:
 
     steps:
 
-      - uses: github/branch-deploy@30278bad08157ca078a7ae2599ac8d284c9a4297 # pin@v2.0.4
+      - uses: github/branch-deploy@01c7896b53789cbdc4d42eb748169bb17749540b # pin@v2.0.5
         id: branch-deploy-dev
         with:
           trigger: ".deploy dev"
           environment: "development"
+          admins: the-hideout/core-contributors
+          admins_pat: ${{ secrets.BRANCH_DEPLOY_ADMINS_PAT }}
 
-      - uses: github/branch-deploy@30278bad08157ca078a7ae2599ac8d284c9a4297 # pin@v2.0.4
+      - uses: github/branch-deploy@01c7896b53789cbdc4d42eb748169bb17749540b # pin@v2.0.5
         if: ${{ steps.branch-deploy-dev.outputs.triggered != 'true' }}
         id: branch-deploy
+        with:
+          admins: the-hideout/core-contributors
+          admins_pat: ${{ secrets.BRANCH_DEPLOY_ADMINS_PAT }}
 
       - name: Checkout - prod
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
