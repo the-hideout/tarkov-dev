@@ -140,10 +140,7 @@ function LootTier(props) {
                     sellTo = item.traderName;
                 }
 
-                if (
-                    item.types.includes('wearable') &&
-                    item.types.includes('gun')
-                )
+                if (item.types.includes('gun'))
                     item.types = item.types.filter(
                         (type) => type !== 'wearable',
                     );
