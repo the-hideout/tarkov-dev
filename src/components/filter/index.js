@@ -204,7 +204,7 @@ const selectFilterStyle = {
     }),
     multiValue: (provided) => ({
         ...provided,
-        backgroundColor: '#998A65',
+        backgroundColor: '#5F553B',
         color: '#E5E5E5',
     }),
 };
