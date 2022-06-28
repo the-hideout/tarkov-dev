@@ -164,6 +164,11 @@ function ToggleFilter({ label, onChange, checked, tooltipContent, disabled }) {
 }
 
 const selectFilterStyle = {
+    multiValueLabel: (provided) => ({
+        ...provided,
+        color: '#E0DFD6',
+        padding: '0.1rem'
+    }),
     menu: (provided) => ({
         ...provided,
         backgroundColor: '#2d2d2f',
@@ -199,7 +204,7 @@ const selectFilterStyle = {
     }),
     multiValue: (provided) => ({
         ...provided,
-        backgroundColor: '#E5E5E5',
+        backgroundColor: '#5F553B',
         color: '#E5E5E5',
     }),
 };
