@@ -119,7 +119,7 @@ function Crafts() {
                     tooltipContent={
                         <div>
                             {t(
-                                "Sets fuel canister cost to 0 for crafts requiring fuel canisters when using empty fuel canisters from generator.",
+                                "Sets fuel canister cost to 0 for crafts requiring fuel canisters when using non-FIR fuel canisters from generator.",
                             )}
                         </div>
                     }
