@@ -49,10 +49,9 @@ const filterOptions = [
         label: 'Wearable',
         default: true,
     },
-
     {
         value: 'gun',
-        label: 'Weapon',
+        label: 'Gun',
         default: true,
     },
 ];
