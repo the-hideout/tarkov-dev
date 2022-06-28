@@ -49,6 +49,12 @@ const filterOptions = [
         label: 'Wearable',
         default: true,
     },
+
+    {
+        value: 'gun',
+        label: 'Weapon',
+        default: true,
+    },
 ];
 
 const DEFAULT_MAX_ITEMS = 244;
@@ -133,6 +139,11 @@ function LootTier(props) {
                 if (fleaPrice <= item.traderPriceRUB) {
                     sellTo = item.traderName;
                 }
+
+                if (item.types.includes('gun'))
+                    item.types = item.types.filter(
+                        (type) => type !== 'wearable',
+                    );
 
                 return {
                     ...item,
