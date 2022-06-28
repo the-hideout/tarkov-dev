@@ -119,7 +119,7 @@ function Crafts() {
                     tooltipContent={
                         <div>
                             {t(
-                                "Sets all fuel prices to 0, as that's more or less the case if you use fuel to power your hideout",
+                                "Sets fuel canister cost to 0 for crafts requiring fuel canisters when using non-FIR fuel canisters from generator.",
                             )}
                         </div>
                     }
