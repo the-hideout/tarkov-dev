@@ -18,39 +18,29 @@ jobs:
 
     steps:
 
-      - uses: github/branch-deploy@30278bad08157ca078a7ae2599ac8d284c9a4297 # pin@v2.0.4
-        id: branch-deploy-dev
-        with:
-          trigger: ".deploy dev"
-          environment: "development"
-
-      - uses: github/branch-deploy@30278bad08157ca078a7ae2599ac8d284c9a4297 # pin@v2.0.4
-        if: ${{ steps.branch-deploy-dev.outputs.triggered != 'true' }}
+      - uses: github/branch-deploy@348f43a4ff59d657daafbdadc95a483462736569 # pin@v2.1.1
         id: branch-deploy
+        with:
+          admins: the-hideout/core-contributors
+          admins_pat: ${{ secrets.BRANCH_DEPLOY_ADMINS_PAT }}
 
-      - name: Checkout - prod
+      - name: Checkout
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         uses: actions/checkout@7884fcad6b5d53d10323aee724dc68d8b9096a2e # pin@v2
         with:
           ref: ${{ steps.branch-deploy.outputs.ref }}
 
-      - name: Checkout - dev
-        if: ${{ steps.branch-deploy-dev.outputs.continue == 'true' }}
-        uses: actions/checkout@7884fcad6b5d53d10323aee724dc68d8b9096a2e # pin@v2
-        with:
-          ref: ${{ steps.branch-deploy-dev.outputs.ref }}
-
       - name: Install
-        if: ${{ steps.branch-deploy.outputs.continue == 'true' || steps.branch-deploy-dev.outputs.continue == 'true' }}
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         run: npm ci
 
       - name: Build
-        if: ${{ steps.branch-deploy.outputs.continue == 'true' || steps.branch-deploy-dev.outputs.continue == 'true' }}
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         run: npm run build
 
       - name: deploy - dev
         id: dev-deploy
-        if: ${{ steps.branch-deploy-dev.outputs.continue == 'true' && steps.branch-deploy-dev.outputs.noop != 'true' }}
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' && steps.branch-deploy.outputs.environment == 'development' }}
         uses: cloudflare/wrangler-action@4c10c1822abba527d820b29e6333e7f5dac2cabd # pin@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
@@ -59,26 +49,9 @@ jobs:
 
       - name: deploy - prod
         id: prod-deploy
-        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' && steps.branch-deploy.outputs.environment == 'production' }}
         uses: cloudflare/wrangler-action@4c10c1822abba527d820b29e6333e7f5dac2cabd # pin@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           command: pages publish build/ --project-name=tarkov-dev --branch=main
-
-      # Try to save output of the cloudflare jobs
-      # - name: dev-deploy output
-      #   if: ${{ steps.branch-deploy-dev.outputs.continue == 'true' && steps.branch-deploy-dev.outputs.noop != 'true' }}
-      #   run: |
-      #     DEV_OUTPUT="\`\`\`text\n${{ steps.dev-deploy.outputs.stdout }}\n\`\`\`"
-      #     echo 'DEPLOY_MESSAGE<<EOF' >> $GITHUB_ENV
-      #     echo "$DEV_OUTPUT" >> $GITHUB_ENV
-      #     echo 'EOF' >> $GITHUB_ENV
-
-      # - name: prod-deploy output
-      #   if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
-      #   run: |
-      #     DEV_OUTPUT="\`\`\`text\n${{ steps.prod-deploy.outputs.stdout }}\n\`\`\`"
-      #     echo 'DEPLOY_MESSAGE<<EOF' >> $GITHUB_ENV
-      #     echo "$DEV_OUTPUT" >> $GITHUB_ENV
-      #     echo 'EOF' >> $GITHUB_ENV
