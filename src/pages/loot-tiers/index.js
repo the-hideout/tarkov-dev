@@ -333,7 +333,7 @@ function LootTier(props) {
         >
             <div style={{ flexDirection: 'column', display: 'flex', flexWrap:'wrap', justifyContent: 'center', alignItems: 'center' }}>
                 <h1 style={{margin: '0.75rem', textAlign: 'center'}}>Loot Tiers</h1>
-                <p style={{margin: '0.75rem', textAlign: 'center'}}>Escape from Tarkov "loot tiers" - Ranking items in the game from most valuable, to least</p>
+                <p style={{margin: '0.75rem', textAlign: 'center'}}>Escape from Tarkov "loot tiers" - Ranking the most valuable items in the game</p>
             </div>
             <Filter fullWidth>
                 <ToggleFilter
