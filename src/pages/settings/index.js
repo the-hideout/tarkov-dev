@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, withTranslation } from 'react-i18next';
+
 
 import { InputFilter, ToggleFilter } from '../../components/filter';
 import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
@@ -17,6 +18,8 @@ import {
 } from '../../features/settings/settingsSlice';
 
 import './index.css';
+
+import i18n from '../../i18n';
 
 export function getNumericSelect(min, max) {
     let returnOptions = [];
@@ -107,6 +110,10 @@ function Settings() {
         dispatch(toggleHideRemoteControl());
     }, [dispatch]);
 
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    }
+
     return (
         <div className={'page-wrapper'}>
             <h1>{t('Settings')}</h1>
@@ -188,8 +195,13 @@ function Settings() {
                     checked={hideRemoteControlValue}
                 />
             </div>
+            <div>
+                <button onClick={() => changeLanguage('de')}>de</button>
+                <button onClick={() => changeLanguage('en')}>en</button>
+                <h1>{t('Welcome to React')}</h1>
+            </div>
         </div>
     );
 }
 
-export default Settings;
+export default withTranslation()(Settings);
