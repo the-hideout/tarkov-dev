@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation, withTranslation } from 'react-i18next';
+import Select from 'react-select';
 
 
 import { InputFilter, ToggleFilter } from '../../components/filter';
@@ -20,6 +21,11 @@ import {
 import './index.css';
 
 import i18n from '../../i18n';
+
+const langOptions = [
+    { value: 'en', label: 'en' },
+    { value: 'de', label: 'de' }
+]
 
 export function getNumericSelect(min, max) {
     let returnOptions = [];
@@ -110,14 +116,34 @@ function Settings() {
         dispatch(toggleHideRemoteControl());
     }, [dispatch]);
 
-    const changeLanguage = (lng) => {
-        i18n.changeLanguage(lng);
-    }
+    // Setup language selector
+    const [language, setLanguage] = useState("id");
+    const handleLangChange = event => {
+        const lang = event.value;
+        setLanguage(lang);
+        i18n.changeLanguage(lang);
+    };
 
     return (
         <div className={'page-wrapper'}>
             <h1>{t('Settings')}</h1>
+            <div className="language-toggle-wrapper settings-group-wrapper">
+                <h2>{t('Language')}</h2>
+                <Select
+                    defaultValue='en'
+                    options={langOptions}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    onChange={(event) => {
+                        handleLangChange({
+                            target: language,
+                            value: event.value,
+                        })
+                    }}
+                />
+            </div>
             <div className={'settings-group-wrapper'}>
+                <h2>{t('General')}</h2>
                 <ToggleFilter
                     label={t('Has flea')}
                     onChange={() => dispatch(toggleFlea(!hasFlea))}
@@ -194,11 +220,6 @@ function Settings() {
                     onChange={handleHideRemoteValueToggle}
                     checked={hideRemoteControlValue}
                 />
-            </div>
-            <div>
-                <button onClick={() => changeLanguage('de')}>de</button>
-                <button onClick={() => changeLanguage('en')}>en</button>
-                <h1>{t('Welcome to React')}</h1>
             </div>
         </div>
     );
