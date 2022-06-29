@@ -131,7 +131,7 @@ function Settings() {
             <div className="language-toggle-wrapper settings-group-wrapper">
                 <h2>{t('Language')}</h2>
                 <Select
-                    defaultValue='en'
+                    placeholder={i18n.language}
                     options={langOptions}
                     className="basic-multi-select"
                     classNamePrefix="select"
