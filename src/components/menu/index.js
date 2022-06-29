@@ -20,12 +20,12 @@ import itemsData from '../../data/category-pages.json';
 
 import './index.css';
 
-// import MuiAlert from '@material-ui/lab/Alert';
-
-
-// function Alert(props) {
-//     return <MuiAlert elevation={6} variant="filled" {...props} />;
-// }
+// Comment / uncomment for banner alert
+import MuiAlert from '@material-ui/lab/Alert';
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+// End of banner alert toggle
 
 
 const ammoTypes = [
@@ -46,12 +46,8 @@ const Menu = () => {
     return (
         <>
             {/* ALERT BANNER SECTION - uncomment the lines below to enable the alert banner */}
-            {/* <div><Alert severity="error">{"This is an error message! Please visit our status page to see additional alerts and information:"} <a href="https://status.tarkov.dev/status/default" style={
-                {
-                    color: '#fff',
-                    textDecoration: 'underline',
-                }
-            }>status.tarkov.dev</a></Alert></div> */}
+            {/* severity can be 'error', 'info' or 'warning' */}
+            <div><Alert severity="info">{"Notice: Flea market scanners are currently being leveled and should be receiving data soon for this latest patch 🎉"}</Alert></div>
             {/* END ALERT BANNER SECTION */}
             <nav key="main-navigation" className="navigation">
                 <Icon
