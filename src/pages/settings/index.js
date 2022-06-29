@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, withTranslation } from 'react-i18next';
+import Select from 'react-select';
+
 
 import { InputFilter, ToggleFilter } from '../../components/filter';
 import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
@@ -17,6 +19,14 @@ import {
 } from '../../features/settings/settingsSlice';
 
 import './index.css';
+
+import i18n from '../../i18n';
+
+// Defined Languages
+const langOptions = [
+    { value: 'en', label: 'en' },
+    { value: 'de', label: 'de' }
+]
 
 export function getNumericSelect(min, max) {
     let returnOptions = [];
@@ -107,10 +117,34 @@ function Settings() {
         dispatch(toggleHideRemoteControl());
     }, [dispatch]);
 
+    // Setup language selector
+    const [language, setLanguage] = useState("id");
+    const handleLangChange = event => {
+        const lang = event.value;
+        setLanguage(lang);
+        i18n.changeLanguage(lang);
+    };
+
     return (
         <div className={'page-wrapper'}>
             <h1>{t('Settings')}</h1>
+            <div className="language-toggle-wrapper settings-group-wrapper">
+                <h2>{t('Language')}</h2>
+                <Select
+                    defaultValue='en'
+                    options={langOptions}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    onChange={(event) => {
+                        handleLangChange({
+                            target: language,
+                            value: event.value,
+                        })
+                    }}
+                />
+            </div>
             <div className={'settings-group-wrapper'}>
+                <h2>{t('General')}</h2>
                 <ToggleFilter
                     label={t('Has flea')}
                     onChange={() => dispatch(toggleFlea(!hasFlea))}
@@ -192,4 +226,4 @@ function Settings() {
     );
 }
 
-export default Settings;
+export default withTranslation()(Settings);
