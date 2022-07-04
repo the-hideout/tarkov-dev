@@ -31,7 +31,7 @@ import {
 } from '../../modules/format-duration';
 
 function CraftTable(props) {
-    const { selectedStation, freeFuel, nameFilter, itemFilter, showAll } =
+    const { selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices } =
         props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -256,7 +256,7 @@ function CraftTable(props) {
                             craftRow.rewardItems[0].item.iconLink ||
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
                         count: craftRow.rewardItems[0].count,
-                        value: 0,
+                        value: 0, 
                     },
                 };
 
@@ -274,17 +274,19 @@ function CraftTable(props) {
                     (bestTrade && bestTrade.priceRUB > tradeData.reward.value) ||
                     (bestTrade && !includeFlea)
                 ) {
-                    // console.log(barterRow.rewardItems[0].item.traderPrices);
                     tradeData.reward.value = bestTrade.priceRUB;
                     tradeData.reward.sellTo = bestTrade.trader.name;
                 }
 
+                const priceToUse = averagePrices === true ? 'avg24hPrice' : 'lastLowPrice';
+
                 if (!craftRow.rewardItems[0].item.types.includes('noFlea')) {
-                    tradeData.reward.value =
-                        craftRow.rewardItems[0].item.avg24hPrice;
+                        tradeData.reward.value =
+                        craftRow.rewardItems[0].item[priceToUse];
+                    
                     tradeData.reward.sellTo = t('Flea Market');
                     tradeData.fleaThroughput = Math.floor(
-                        (craftRow.rewardItems[0].item.avg24hPrice *
+                        (craftRow.rewardItems[0].item[priceToUse] *
                             craftRow.rewardItems[0].count) /
                             (craftDuration / 3600),
                     );
@@ -298,7 +300,7 @@ function CraftTable(props) {
                         tradeData.profit -
                         fleaMarketFee(
                             craftRow.rewardItems[0].item.basePrice,
-                            craftRow.rewardItems[0].item.avg24hPrice,
+                            craftRow.rewardItems[0].item[priceToUse],
                             craftRow.rewardItems[0].count,
                         ) *
                             feeReduction;
@@ -367,6 +369,7 @@ function CraftTable(props) {
         feeReduction,
         t,
         showAll,
+        averagePrices,
     ]);
 
     const columns = useMemo(
