@@ -35,6 +35,10 @@ function Crafts() {
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [freeFuel, setFreeFuel] = useState(false);
+    const [averagePrices, setAveragePrices] = useStateWithLocalStorage(
+        'averageCraftingPrices',
+        true,
+    );
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
         'selectedStation',
         'top',
@@ -69,6 +73,18 @@ function Crafts() {
                         <div>
                             {t(
                                 'Shows all crafts regardless of what you have set in your settings',
+                            )}
+                        </div>
+                    }
+                />
+                <ToggleFilter
+                    checked={averagePrices}
+                    label={t('Average Prices')}
+                    onChange={(e) => setAveragePrices(!averagePrices)}
+                    tooltipContent={
+                        <div>
+                            {t(
+                                'Use average prices from the past 24 hours for profit calculations',
                             )}
                         </div>
                     }
@@ -137,6 +153,7 @@ function Crafts() {
             nameFilter={nameFilter}
             freeFuel={freeFuel}
             showAll={showAll}
+            averagePrices={averagePrices}
             selectedStation={selectedStation}
             key="crafts-page-crafts-table"
         />,
