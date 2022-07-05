@@ -96,9 +96,9 @@ function Crafts() {
                                 key={`station-tooltip-${stationName}`}
                                 tooltipContent={
                                     <div>
-                                        {capitalizeTheFirstLetterOfEachWord(
+                                        {t(capitalizeTheFirstLetterOfEachWord(
                                             stationName.replace('-', ' '),
-                                        )}
+                                        ))}
                                     </div>
                                 }
                                 selected={stationName === selectedStation}

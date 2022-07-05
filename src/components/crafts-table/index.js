@@ -275,7 +275,7 @@ function CraftTable(props) {
                     (bestTrade && !includeFlea)
                 ) {
                     tradeData.reward.value = bestTrade.priceRUB;
-                    tradeData.reward.sellTo = bestTrade.trader.name;
+                    tradeData.reward.sellTo = t(bestTrade.trader.name);
                 }
 
                 const priceToUse = averagePrices === true ? 'avg24hPrice' : 'lastLowPrice';
@@ -389,7 +389,7 @@ function CraftTable(props) {
                 },
             },
             {
-                Header: t('Duration\nFinishes'),
+                Header: t('Duration') + '\n'+ t('Finishes'),
                 accessor: 'craftTime',
                 Cell: ({ value }) => {
                     return (

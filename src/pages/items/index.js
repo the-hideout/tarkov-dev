@@ -46,7 +46,7 @@ function Items(props) {
                                 size={1}
                                 className="icon-with-text"
                             />
-                            {categoryPage.displayText}
+                            {t(categoryPage.displayText)}
                         </h2>
                         <img
                             alt={`${categoryPage.displayText} table`}

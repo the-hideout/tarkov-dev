@@ -99,9 +99,9 @@ function BartersTable(props) {
                     return (
                         <ValueCell value={props.value} highlightProfit>
                             <div className="duration-wrapper">
-                                {capitalizeFirst(
+                                {t(capitalizeFirst(
                                     props.row.original.instaProfitSource.source,
-                                )}
+                                ))}
                             </div>
                         </ValueCell>
                     );
@@ -280,7 +280,7 @@ function BartersTable(props) {
                     instaProfit: bestSellTo.priceRUB - cost,
                     instaProfitSource: bestSellTo,
                     reward: {
-                        sellTo: t('Flea market'),
+                        sellTo: t('Flea Market'),
                         name: barterRow.rewardItems[0].item.name,
                         value: barterRow.rewardItems[0].item[priceToUse],
                         source: barterRow.source,
@@ -319,6 +319,8 @@ function BartersTable(props) {
                     tradeData.reward.value = bestTrade.priceRUB;
                     tradeData.reward.sellTo = bestTrade.trader.name;
                 }
+                
+                tradeData.reward.sellTo = t(tradeData.reward.sellTo)
 
                 tradeData.savings = tradeData.reward.value - cost;
 
