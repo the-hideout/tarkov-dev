@@ -35,6 +35,10 @@ function Crafts() {
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [freeFuel, setFreeFuel] = useState(false);
+    const [averagePrices, setAveragePrices] = useStateWithLocalStorage(
+        'averageCraftingPrices',
+        true,
+    );
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
         'selectedStation',
         'top',
@@ -73,6 +77,18 @@ function Crafts() {
                         </div>
                     }
                 />
+                <ToggleFilter
+                    checked={averagePrices}
+                    label={t('Average Prices')}
+                    onChange={(e) => setAveragePrices(!averagePrices)}
+                    tooltipContent={
+                        <div>
+                            {t(
+                                'Use average prices from the past 24 hours for profit calculations',
+                            )}
+                        </div>
+                    }
+                />
                 <ButtonGroupFilter>
                     {stations.map((stationName) => {
                         return (
@@ -80,9 +96,9 @@ function Crafts() {
                                 key={`station-tooltip-${stationName}`}
                                 tooltipContent={
                                     <div>
-                                        {capitalizeTheFirstLetterOfEachWord(
+                                        {t(capitalizeTheFirstLetterOfEachWord(
                                             stationName.replace('-', ' '),
-                                        )}
+                                        ))}
                                     </div>
                                 }
                                 selected={stationName === selectedStation}
@@ -137,6 +153,7 @@ function Crafts() {
             nameFilter={nameFilter}
             freeFuel={freeFuel}
             showAll={showAll}
+            averagePrices={averagePrices}
             selectedStation={selectedStation}
             key="crafts-page-crafts-table"
         />,

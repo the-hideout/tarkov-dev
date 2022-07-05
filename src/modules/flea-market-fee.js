@@ -3,7 +3,7 @@
 module.exports = (basePrice, sellPrice, count = 1) => {
     let V0 = basePrice;
     let VR = sellPrice;
-    let Ti = 0.05;
+    let Ti = 0.1;
     let Tr = 0.05;
     let P0 = Math.log10(V0 / VR);
     let PR = Math.log10(VR / V0);

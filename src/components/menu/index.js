@@ -152,7 +152,7 @@ const Menu = () => {
                         <ul>
                             {itemsData.map((categoryPage) => (
                                 <MenuItem
-                                    displayText={categoryPage.displayText}
+                                    displayText={t(categoryPage.displayText)}
                                     key={categoryPage.key}
                                     to={`/items/${categoryPage.key}`}
                                     onClick={setIsOpen.bind(this, false)}
