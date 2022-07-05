@@ -372,7 +372,7 @@ function LootTier(props) {
             {itemChunks.map((items, index) => (
                 <ItemGrid
                     key={`barter-group-${groupNames[index]}`}
-                    name={capitalizeFirst(groupNames[index])}
+                    name={t(capitalizeFirst(groupNames[index]))}
                     items={items}
                 />
             ))}

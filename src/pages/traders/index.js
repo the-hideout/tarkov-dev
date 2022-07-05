@@ -30,7 +30,7 @@ function Traders(props) {
             </h1>
             <div className="traders-list-wrapper">
                 <Link to={`/traders/prapor`} className="screen-link">
-                    <h2 className="center-title">Prapor</h2>
+                    <h2 className="center-title">{t('Prapor')}</h2>
                     <img
                         alt={'Prapor'}
                         loading="lazy"
@@ -39,7 +39,7 @@ function Traders(props) {
                     <TraderResetTime center trader="prapor" />
                 </Link>
                 <Link to={`/traders/therapist`} className="screen-link">
-                    <h2 className="center-title">Therapist</h2>
+                    <h2 className="center-title">{t('Therapist')}</h2>
                     <img
                         alt={'Therapist'}
                         loading="lazy"
@@ -48,7 +48,7 @@ function Traders(props) {
                     <TraderResetTime center trader="therapist" />
                 </Link>
                 <Link to={`/traders/skier`} className="screen-link">
-                    <h2 className="center-title">Skier</h2>
+                    <h2 className="center-title">{t('Skier')}</h2>
                     <img
                         alt={'Skier'}
                         loading="lazy"
@@ -57,7 +57,7 @@ function Traders(props) {
                     <TraderResetTime center trader="skier" />
                 </Link>
                 <Link to={`/traders/peacekeeper`} className="screen-link">
-                    <h2 className="center-title">Peacekeeper</h2>
+                    <h2 className="center-title">{t('Peacekeeper')}</h2>
                     <img
                         alt={'Peacekeeper'}
                         loading="lazy"
@@ -66,7 +66,7 @@ function Traders(props) {
                     <TraderResetTime center trader="peacekeeper" />
                 </Link>
                 <Link to={`/traders/mechanic`} className="screen-link">
-                    <h2 className="center-title">Mechanic</h2>
+                    <h2 className="center-title">{t('Mechanic')}</h2>
                     <img
                         alt={'Mechanic'}
                         loading="lazy"
@@ -75,7 +75,7 @@ function Traders(props) {
                     <TraderResetTime center trader="mechanic" />
                 </Link>
                 <Link to={`/traders/ragman`} className="screen-link">
-                    <h2 className="center-title">Ragman</h2>
+                    <h2 className="center-title">{t('Ragman')}</h2>
                     <img
                         alt={'Ragman'}
                         loading="lazy"
@@ -84,7 +84,7 @@ function Traders(props) {
                     <TraderResetTime center trader="ragman" />
                 </Link>
                 <Link to={`/traders/jaeger`} className="screen-link">
-                    <h2 className="center-title">Jaeger</h2>
+                    <h2 className="center-title">{t('Jaeger')}</h2>
                     <img
                         alt={'Jaeger'}
                         loading="lazy"

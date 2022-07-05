@@ -38,7 +38,7 @@ function Footer() {
                     </a>
                 </p>
                 <p>
-                    <Link to="/about">{t('About tarkov.dev')}</Link>
+                    <Link to="/about">{t('About')} tarkov.dev</Link>
                 </p>
                 <h3>{t('External resources')}</h3>
                 <p>
