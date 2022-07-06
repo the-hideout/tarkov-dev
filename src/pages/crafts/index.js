@@ -49,7 +49,7 @@ function Crafts() {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>Hideout Craft Profits</title>
+            <title>{t('Escape from Tarkov')} - {t('Hideout Crafts')}</title>
             <meta
                 name="description"
                 content="Escape from Tarkov Hideout Craft Profits"
@@ -57,11 +57,7 @@ function Crafts() {
         </Helmet>,
         <div className="crafts-headline-wrapper" key="crafts-filters">
             <h1 className="crafts-page-title">
-                <Icon
-                    path={mdiProgressWrench}
-                    size={1.5}
-                    className="icon-with-text"
-                />
+                <Icon path={mdiProgressWrench} size={1.5} className="icon-with-text"/>
                 {t('Hideout Crafts')}
             </h1>
             <Filter>
@@ -79,7 +75,7 @@ function Crafts() {
                 />
                 <ToggleFilter
                     checked={averagePrices}
-                    label={t('Average Prices')}
+                    label={t('Average prices')}
                     onChange={(e) => setAveragePrices(!averagePrices)}
                     tooltipContent={
                         <div>
@@ -96,9 +92,11 @@ function Crafts() {
                                 key={`station-tooltip-${stationName}`}
                                 tooltipContent={
                                     <div>
-                                        {t(capitalizeTheFirstLetterOfEachWord(
-                                            stationName.replace('-', ' '),
-                                        ))}
+                                        {t(
+                                            capitalizeTheFirstLetterOfEachWord(
+                                                stationName.replace('-', ' '),
+                                            ),
+                                        )}
                                     </div>
                                 }
                                 selected={stationName === selectedStation}
@@ -135,7 +133,7 @@ function Crafts() {
                     tooltipContent={
                         <div>
                             {t(
-                                "Sets fuel canister cost to 0 for crafts requiring fuel canisters when using non-FIR fuel canisters from generator.",
+                                'Sets fuel canister cost to 0 for crafts requiring fuel canisters when using non-FIR fuel canisters from generator.',
                             )}
                         </div>
                     }
@@ -144,7 +142,7 @@ function Crafts() {
                     defaultValue={nameFilter || ''}
                     label={t('Item filter')}
                     type={'text'}
-                    placeholder={'filter on item'}
+                    placeholder={t('filter on item')}
                     onChange={(e) => setNameFilter(e.target.value)}
                 />
             </Filter>

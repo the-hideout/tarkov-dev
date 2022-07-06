@@ -65,7 +65,7 @@ function GunBuilder() {
     return [
         <Helmet key={'gun-builder-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov Gun Builder')}</title>
+            <title>{t('Escape from Tarkov')} - {t('Gun Builder')}</title>
             <meta
                 name="description"
                 content={`Build any gun in escape from tarkov`}
@@ -73,7 +73,7 @@ function GunBuilder() {
         </Helmet>,
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
-                <h1>{t('Escape from Tarkov Gun Builder')}</h1>
+                <h1>{t('Escape from Tarkov')} - {t('Gun Builder')}</h1>
                 <Filter>
                     <ToggleFilter
                         checked={showOnlyTrader}

@@ -524,7 +524,7 @@ function Item() {
                                                         ) && (
                                                             <Tippy
                                                                 content={
-                                                                    'Locked behind a quest'
+                                                                    t('Locked behind a quest')
                                                                 }
                                                             >
                                                                 <div className="quest-icon-wrapper">

@@ -251,7 +251,7 @@ function CraftTable(props) {
                         name: craftRow.rewardItems[0].item.name,
                         wikiLink: craftRow.rewardItems[0].item.wikiLink,
                         itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
-                        source: `${station} (level ${level})`,
+                        source: `${t(station)} (${t('Level')} ${level})`,
                         iconLink:
                             craftRow.rewardItems[0].item.iconLink ||
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
@@ -389,7 +389,7 @@ function CraftTable(props) {
                 },
             },
             {
-                Header: t('Duration') + '\n'+ t('Finishes'),
+                Header: t('Duration') + '\n' + t('Finishes'),
                 accessor: 'craftTime',
                 Cell: ({ value }) => {
                     return (

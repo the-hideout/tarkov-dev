@@ -86,7 +86,7 @@ function ItemsSummaryTable(props) {
                 Cell: ItemNameCell,
             },
             {
-                Header: t('Quantity'),
+                Header: t('Amount'),
                 accessor: 'quantity',
                 Cell: CenterCell,
             },
@@ -97,13 +97,13 @@ function ItemsSummaryTable(props) {
                 id: 'fleaBuyPrice',
             },
             {
-                Header: t('Buy from trader'),
+                Header: t('Trader buy'),
                 accessor: (d) => Number(d.instaProfit),
                 Cell: TraderPriceCell,
                 id: 'traderBuyCell',
             },
             {
-                Header: t('Total'),
+                Header: t('Cost'),
                 accessor: 'totalPrice',
                 Cell: ValueCell,
                 id: 'totalPriceCell',
@@ -115,7 +115,7 @@ function ItemsSummaryTable(props) {
 
     const extraRow = (
         <div>
-            Total:{' '}
+            {t('Cost')}:{' '}
             {formatPrice(
                 data.reduce((previousValue, currentValue) => {
                     return previousValue + currentValue.totalPrice;
