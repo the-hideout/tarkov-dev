@@ -1,6 +1,6 @@
 import calculateFee from '../../modules/flea-market-fee';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes';
-import i18n from '../../i18n';
+import { langCode } from '../../modules/lang-helpers';
 
 const NOTES = {
     '60a2828e8689911a226117f9': `Can't store Pillbox, Day Pack, LK 3F or MBSS inside`,
@@ -9,12 +9,7 @@ const NOTES = {
 const doFetchItems = async () => {
 
     // Get the user selected language
-    var language = i18n.language;
-
-    // Convert to two digit language code
-    if (language === 'en-US') {
-        language = 'en';
-    }
+    const language = await langCode();
 
     // Format the query for item fetching
     const QueryBody = JSON.stringify({
