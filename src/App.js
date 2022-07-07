@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import './App.css';
-import './i18n';
+import i18n from './i18n';
 import loadPolyfills from './modules/polyfills';
 
 import Map from './components/Map.jsx';
@@ -228,7 +228,7 @@ function App() {
 
     return (
         <div className="App">
-            <Helmet>
+            <Helmet htmlAttributes={{ lang: i18n.language }}>
                 <meta charSet="utf-8" />
                 <title>Tarkov.dev</title>
                 <meta
