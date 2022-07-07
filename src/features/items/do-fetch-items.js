@@ -1,70 +1,81 @@
 import calculateFee from '../../modules/flea-market-fee';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes';
+import i18n from '../../i18n';
 
 const NOTES = {
     '60a2828e8689911a226117f9': `Can't store Pillbox, Day Pack, LK 3F or MBSS inside`,
 };
 
-const QueryBody = JSON.stringify({
-    query: `{
-        itemsByType(type:any){
-            id
-            bsgCategoryId
-            name
-            shortName
-            basePrice
-            normalizedName
-            types
-            width
-            height
-            avg24hPrice
-            wikiLink
-            changeLast48h
-            low24hPrice
-            high24hPrice
-            lastLowPrice
-            gridImageLink
-            iconLink
-            updated
-            traderPrices {
-                price
-                currency
-                priceRUB
-                trader {
-                    name
-                }
-            }
-            sellFor {
-                source
-                price
-                priceRUB
-                requirements {
-                    type
-                    value
-                }
-                currency
-            }
-            buyFor {
-                source
-                price
-                priceRUB
-                currency
-                requirements {
-                    type
-                    value
-                }
-            }
-            containsItems {
-                count
-                item {
-                    id
-                }
-            }
-        }
-    }`,
-});
-
 const doFetchItems = async () => {
+
+    // Get the user selected language
+    var language = i18n.language;
+
+    // Convert to two digit language code
+    if (language === 'en-US') {
+        language = 'en';
+    }
+
+    // Format the query for item fetching
+    const QueryBody = JSON.stringify({
+        query: `{
+            items(type:any lang: ${language}) {
+                id
+                bsgCategoryId
+                name
+                shortName
+                basePrice
+                normalizedName
+                types
+                width
+                height
+                avg24hPrice
+                wikiLink
+                changeLast48h
+                low24hPrice
+                high24hPrice
+                lastLowPrice
+                gridImageLink
+                iconLink
+                updated
+                traderPrices {
+                    price
+                    currency
+                    priceRUB
+                    trader {
+                        name
+                    }
+                }
+                sellFor {
+                    source
+                    price
+                    priceRUB
+                    requirements {
+                        type
+                        value
+                    }
+                    currency
+                }
+                buyFor {
+                    source
+                    price
+                    priceRUB
+                    currency
+                    requirements {
+                        type
+                        value
+                    }
+                }
+                containsItems {
+                    count
+                    item {
+                        id
+                    }
+                }
+            }
+        }`,
+    });
+
     const [itemData, itemGrids, itemProps] = await Promise.all([
         fetch('https://api.tarkov.dev/graphql', {
             method: 'POST',
@@ -82,7 +93,7 @@ const doFetchItems = async () => {
         ),
     ]);
 
-    const allItems = itemData.data.itemsByType.map((rawItem) => {
+    const allItems = itemData.data.items.map((rawItem) => {
         let grid = false;
 
         rawItem.itemProperties = itemProps[rawItem.id]?.itemProperties || {};
