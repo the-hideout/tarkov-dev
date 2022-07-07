@@ -217,7 +217,7 @@ function Start() {
                                         size={1}
                                         className="icon-with-text"
                                     />
-                                    {categoryPage.displayText}
+                                    {t(categoryPage.displayText)}
                                 </Link>
                             </li>
                         );
