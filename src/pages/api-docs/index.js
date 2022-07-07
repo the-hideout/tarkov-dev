@@ -133,7 +133,7 @@ function APIDocs() {
     'Accept': 'application/json',
   },
   body: JSON.stringify({query: \`{
-    itemsByName(name: "m855a1") {
+    items(name: "m855a1") {
         id
         name
         shortName
@@ -151,7 +151,7 @@ function APIDocs() {
 
 const query = gql\`
 {
-    itemsByName(name: "m855a1") {
+    items(name: "m855a1") {
         id
         name
         shortName
@@ -177,7 +177,7 @@ def run_query(query):
 
 new_query = """
 {
-    itemsByName(name: "m855a1") {
+    items(name: "m855a1") {
         id
         name
         shortName
@@ -205,7 +205,7 @@ require 'json'
 uri = URI.parse("https://api.tarkov.dev/graphql")
 
 header = { "Content-Type": "application/json" }
-query = { "query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }" }
+query = { "query": "{ items(name: \\"m855a1\\") {id name shortName } }" }
 
 # Create the HTTP object
 http = Net::HTTP.new(uri.host, uri.port)
@@ -227,7 +227,7 @@ puts response.body`}
                 <SyntaxHighlighter language="bash" style={atomOneDark}>
                     {`curl -X POST \
 -H "Content-Type: application/json" \
--d '{"query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }"}' \
+-d '{"query": "{ items(name: \\"m855a1\\") {id name shortName } }"}' \
 https://api.tarkov.dev/graphql`}
                 </SyntaxHighlighter>
             </div>
@@ -237,7 +237,7 @@ https://api.tarkov.dev/graphql`}
                     {`$headers = ['Content-Type: application/json'];
 
 $query = '{
-  itemsByName(name: "m855a1") {
+  items(name: "m855a1") {
     id
     name
     shortName
@@ -271,7 +271,7 @@ import java.net.http.HttpResponse;
 class Scratch {
     public static void main(String[] args) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newBuilder().build();
-        String query = "{\\"query\\": \\"{ itemsByName(name: \\\\\\"m855a1\\\\\\") {id name shortName } }\\"}";
+        String query = "{\\"query\\": \\"{ items(name: \\\\\\"m855a1\\\\\\") {id name shortName } }\\"}";
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.tarkov.dev/graphql"))
                 .header("Content-Type", "application/json")
@@ -294,7 +294,7 @@ class Scratch {
                 <SyntaxHighlighter language="csharp" style={atomOneDark}>
                     {`var data = new Dictionary<string, string>()
 {
-    {"query", "{itemsByName(name: \\"m855a1\\") { id name shortName }}"}
+    {"query", "{items(name: \\"m855a1\\") { id name shortName }}"}
 };
 
 using (var httpClient = new HttpClient())
@@ -332,7 +332,7 @@ import (
 )
 
 func main() {
-    body := strings.NewReader(\`{"query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }"}\`)
+    body := strings.NewReader(\`{"query": "{ items(name: \\"m855a1\\") {id name shortName } }"}\`)
     req, err := http.NewRequest("POST", "https://api.tarkov.dev/graphql", body)
     if err != nil {
         log.Fatalln(err)
