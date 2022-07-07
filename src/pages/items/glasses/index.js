@@ -2,6 +2,9 @@ import { useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
+import Icon from '@mdi/react';
+import {mdiSunglasses} from '@mdi/js';
+
 import DataTable from '../../../components/data-table';
 import formatPrice from '../../../modules/format-price';
 import { useItemsQuery } from '../../../features/items/queries';
@@ -43,7 +46,7 @@ function Glasses(props) {
                 accessor: 'name',
             },
             {
-                Header: t('Armor Class'),
+                Header: t('Armor class'),
                 accessor: 'armorClass',
                 Cell: centerCell,
             },
@@ -65,7 +68,7 @@ function Glasses(props) {
                 Cell: centerCell,
             },
             {
-                Header: t('Price'),
+                Header: t('Cost'),
                 accessor: 'price',
                 Cell: centerCell,
             },
@@ -106,7 +109,7 @@ function Glasses(props) {
     return [
         <Helmet key={'glasses-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Glasses Chart')}</title>
+            <title>{t('Escape from Tarkov')} - {t('Glasses chart')}</title>
             <meta
                 name="description"
                 content="All glasses in Escape from Tarkov sortable by price, armor class etc"
@@ -114,7 +117,11 @@ function Glasses(props) {
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
-                <h1>{t('Escape from Tarkov glasses chart')}</h1>
+                <h1>
+                    {t('Escape from Tarkov')} 
+                    <Icon path={mdiSunglasses} size={1.5} className="icon-with-text" /> 
+                    {t('Glasses chart')}
+                </h1>
             </div>
             <DataTable columns={columns} data={data} />
         </div>,

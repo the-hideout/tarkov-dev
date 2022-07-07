@@ -2,6 +2,7 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import Icon from '@mdi/react';
 import { mdiLock } from '@mdi/js';
+import { useTranslation } from 'react-i18next';
 
 import formatPrice from '../../modules/format-price';
 import CenterCell from '../center-cell';
@@ -10,6 +11,7 @@ import capitalizeTheFirstLetterOfEachWord from '../../modules/capitalize-first';
 import './index.css';
 
 function TraderPriceCell(props) {
+    const { t } = useTranslation();
     if (!props) {
         return null;
     }
@@ -63,16 +65,16 @@ function TraderPriceCell(props) {
         printString = (
             <div>
                 {printString}
-                <Tippy content={'Locked behind a quest'}>
+                <Tippy content={t('Locked behind a quest')}>
                     <div className="trader-unlock-wrapper">
                         <Icon
                             path={mdiLock}
                             size={1}
                             className="icon-with-text"
                         />
-                        <span>{`${capitalizeTheFirstLetterOfEachWord(
+                        <span>{`${t(capitalizeTheFirstLetterOfEachWord(
                             trader.source,
-                        )} ${loyaltyString}`}</span>
+                        ))} ${loyaltyString}`}</span>
                     </div>
                 </Tippy>
             </div>
@@ -82,9 +84,9 @@ function TraderPriceCell(props) {
             <div>
                 {printString}
                 <div className="trader-unlock-wrapper">
-                    {`${capitalizeTheFirstLetterOfEachWord(
+                    {`${t(capitalizeTheFirstLetterOfEachWord(
                         trader.source,
-                    )} ${loyaltyString}`}
+                    ))} ${loyaltyString}`}
                 </div>
             </div>
         );

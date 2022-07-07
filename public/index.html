@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html> <!-- HTML5 -->
 <html lang="en">
 
 <head>
@@ -8,20 +8,58 @@
   <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png">
   <link rel="mask-icon" href="%PUBLIC_URL%/safari-pinned-tab.svg" color="#5bbad5">
   <link rel="preload" href="%PUBLIC_URL%/fonts/bender.woff2" as="font" type="font/woff2" crossorigin>
+
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#000000" />
-  <meta name="description"
-    content="Escape from Tarkov - Ammo visualization, loot tiers, profit calculators, community driven API, and much more! Enjoy our best in class EFT toolkit." />
+  <meta name="description" content="Escape from Tarkov - Ammo visualization, loot tiers, profit calculators, community driven API, and much more! Enjoy our best in class EFT toolkit." />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tarkov.dev/">
+  <meta property="og:title" content="Tarkov.dev">
+  <meta property="og:description" content="Escape from Tarkov - Ammo visualization, loot tiers, profit calculators, community driven API, and much more! Enjoy our best in class EFT toolkit.">
+  <meta property="og:image" content="">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://tarkov.dev/">
+  <meta property="twitter:title" content="Tarkov.dev">
+  <meta property="twitter:description" content="Escape from Tarkov - Ammo visualization, loot tiers, profit calculators, community driven API, and much more! Enjoy our best in class EFT toolkit.">
+  <meta property="twitter:image" content="">
+
   <style>
     @font-face {
       font-family: 'bender';
-      src: url('%PUBLIC_URL%/fonts/bender.woff2') format('woff2'),
-        url('%PUBLIC_URL%/fonts/bender.woff') format('woff');
-      font-weight: normal;
+      font-display: block;
       font-style: normal;
+      font-weight: 400;
+      src: local('Bender Regular'),url('%PUBLIC_URL%/fonts/bender.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-family: 'bender';
       font-display: swap;
+      font-style: normal;
+      font-weight: 700;
+      src: local('Bender Bold'),url('%PUBLIC_URL%/fonts/bender-bold.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-family: 'bender';
+      font-display: swap;
+      font-style: italic;
+      font-weight: 400;
+      src: local('Bender Italic'),url('%PUBLIC_URL%/fonts/bender-italic.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-family: 'bender';
+      font-display: swap;
+      font-style: italic;
+      font-weight: 700;
+      src: local('Bender Bold Italic'),url('%PUBLIC_URL%/fonts/bender-bold-italic.woff2') format('woff2');
     }
   </style>
   <!--
@@ -39,7 +77,6 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
   <title>Tarkov.dev</title>
-  <meta name="monetization" content="$ilp.uphold.com/aJ7DYdH6Nbpf">
   <link rel="dns-prefetch" href="https://wombatstats.com">
   <link rel="preconnect" href="https://wombatstats.com">
   <link rel="dns-prefetch" href="https://assets.tarkov.dev">

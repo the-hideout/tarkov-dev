@@ -2,6 +2,9 @@ import { useMemo, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
+import Icon from '@mdi/react';
+import {mdiBottleWine} from '@mdi/js';
+
 import ItemsTable from '../../../components/item-table';
 import { Filter, SelectFilter } from '../../../components/filter';
 import { useItemsQuery } from '../../../features/items/queries';
@@ -163,7 +166,7 @@ function Suppressors(props) {
             key: 'itemProperties.Recoil',
         },
         {
-            title: t('Price'),
+            title: t('Cost'),
             key: 'avg24hPrice',
             type: 'price',
         },
@@ -172,7 +175,7 @@ function Suppressors(props) {
     return [
         <Helmet key={'suppressors-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov Suppressors')}</title>
+            <title>{t('Escape from Tarkov')} - {t('Suppressors')}</title>
             <meta
                 name="description"
                 content="All suppressors in Escape from Tarkov sortable by price, caliber etc"
@@ -180,7 +183,11 @@ function Suppressors(props) {
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
-                <h1>{t('Escape from Tarkov Suppressors')}</h1>
+                <h1>
+                    {t('Escape from Tarkov')}
+                    <Icon path={mdiBottleWine} size={1.5} className="icon-with-text" /> 
+                    {t('Suppressors')}
+                </h1>
                 <Filter center>
                     <SelectFilter
                         label={t('Filter by gun')}

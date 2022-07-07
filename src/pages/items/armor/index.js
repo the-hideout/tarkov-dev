@@ -1,6 +1,9 @@
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
+import Icon from '@mdi/react';
+import {mdiTshirtCrew} from '@mdi/js';
+
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
 import {
     Filter,
@@ -52,7 +55,7 @@ function Armor(props) {
     return [
         <Helmet key={'armor-table'}>
             <meta charSet="utf-8" />
-            <title>Armor chart</title>
+            <title>{t('Escape from Tarkov')} - {t('Armors')}</title>
             <meta
                 name="description"
                 content="All armor in Escape from Tarkov sortable by price, repairability, armor class etc"
@@ -60,7 +63,10 @@ function Armor(props) {
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
-                <h1>{t('Armors')}</h1>
+                <h1>
+                    <Icon path={mdiTshirtCrew} size={1.5} className="icon-with-text" /> 
+                    {t('Armors')}
+                </h1>
                 <Filter center>
                     <ToggleFilter
                         label={t('Include rigs')}
