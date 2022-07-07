@@ -80,6 +80,11 @@ function APIDocs() {
                 )}
                 <ul>
                     <li>
+                        <a href="https://tarkov-changes.com/">
+                            Tarkov Changes
+                        </a>
+                    </li>
+                    <li>
                         <a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki">
                             Escape from Tarkov Wiki
                         </a>
