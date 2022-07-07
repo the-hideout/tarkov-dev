@@ -17,6 +17,7 @@ for (const item of items) {
     const mechanic = translationsParsed.Mechanic.toLowerCase();
     const ragman = translationsParsed.Ragman.toLowerCase();
     const fence = translationsParsed.Fence.toLowerCase();
+    const jaeger = translationsParsed.Jaeger.toLowerCase();
 
     copyFile('public/images/prapor-icon.jpg', `public/images/${prapor}-icon.jpg`, (err) => {
         if (err) 
@@ -58,5 +59,11 @@ for (const item of items) {
         if (err) 
             throw err;
         console.log(`fence-icon.jpg was copied to ${fence}-icon.jpg`);
+    });
+
+    copyFile('public/images/jaeger-icon.jpg', `public/images/${jaeger}-icon.jpg`, (err) => {
+        if (err) 
+            throw err;
+        console.log(`jaeger-icon.jpg was copied to ${jaeger}-icon.jpg`);
     });
 }
