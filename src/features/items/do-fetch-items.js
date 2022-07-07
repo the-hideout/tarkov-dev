@@ -14,7 +14,7 @@ const doFetchItems = async () => {
     // Format the query for item fetching
     const QueryBody = JSON.stringify({
         query: `{
-            items(type:any lang: ${language}) {
+            items(lang: ${language}) {
                 id
                 bsgCategoryId
                 name
