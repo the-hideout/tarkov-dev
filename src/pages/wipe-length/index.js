@@ -158,7 +158,7 @@ const WipeLength = (props) => {
                 <title>{t('Escape from Tarkov')} - {t('Wipe Length')}</title>
                 <meta
                     name="description"
-                    content={t('Escape from Tarkov length of wipes')}
+                    content={t('Escape from Tarkov - Wipe Length Statistics')}
                 />
             </Helmet>
             <div className={'page-wrapper'}>
@@ -166,7 +166,7 @@ const WipeLength = (props) => {
                     {t('Escape from Tarkov')} - {t('Wipe Length')}
                 </h1>
                 <div className="center-title">
-                    <h3>Average Wipe Length</h3>
+                    <h2>Average Wipe Length</h2>
                     <p>{t(lengthDaysAverage)} Days 📆</p>
                 </div>
                 <DataTable

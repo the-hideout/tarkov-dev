@@ -41,15 +41,16 @@ We love pull requests and contributors looking to improve this project! Anything
 Deploying your changes to production is easy! Just do the following:
 
 1. Open a pull request with your changes
-1. Make sure CI is passing
-1. View and verify your changes in the development environment that will be auto-commented on your pull request
-1. Obtain a review from a [reviewer](https://github.com/orgs/the-hideout/teams/reviewers)
-1. Merge your pull request and your changes will be auto-deployed to production! ✨
+1. Make sure CI is passing (a core member of [the-hideout](https://github.com/orgs/the-hideout/teams/core-contributors) will run CI for you)
+1. A core member of [the-hideout](https://github.com/orgs/the-hideout/teams/core-contributors) will run `.deploy to development` to deploy your changes to the development environment for final validation
+1. A review will be recieved from a [reviewer](https://github.com/orgs/the-hideout/teams/reviewers) if all looks good
+1. A core member of [the-hideout](https://github.com/orgs/the-hideout/teams/core-contributors) will run `.deploy` on your pull request to branch deploy your changes to production
+1. If everything goes okay, your PR will be merged and your changes will be auto-deployed to production! ✨
 
 ## Other Parts of the Ecosystem 🌎
 
 - [Stash](https://github.com/the-hideout/stash) - The official tarkov.dev Discord bot
-- [Tarkov Data API](https://github.com/the-hideout/tarkov-data-api) - The GraphQL API that powers everything
+- [Tarkov API](https://github.com/the-hideout/tarkov-api) - The GraphQL API that powers everything
 - [Tarkov Data](https://github.com/TarkovTracker/tarkovdata/) - Open source structured data for Escape from Tarkov
 - [Tarkov Image Generator](https://github.com/the-hideout/tarkov-image-generator) - Tool to generate images from the local icon cache
 - [Tarkov Crons](https://github.com/the-hideout/tarkov-crons) - Cron jobs that sync database information to our Cloudflare workers for the GraphQL API
