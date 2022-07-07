@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import propertyFormatter from '../../modules/property-format';
+import { useTranslation } from 'react-i18next';
 
 import './index.css';
 
@@ -22,6 +23,8 @@ function PropertyList({ properties }) {
         [properties],
     );
 
+    const { t } = useTranslation();
+
     return (
         <div className="property-list">
             {data.map(([property, value]) => {
@@ -30,7 +33,7 @@ function PropertyList({ properties }) {
                         <div>
                             {value}
                             <div className="property-key-wrapper">
-                                {property}
+                                {t(property)}
                             </div>
                         </div>
                     </div>

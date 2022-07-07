@@ -2,6 +2,9 @@ import { useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
+import Icon from '@mdi/react';
+import {mdiBagPersonal} from '@mdi/js';
+
 import CanvasGrid from '../../../components/canvas-grid';
 import DataTable from '../../../components/data-table';
 import ValueCell from '../../../components/value-cell';
@@ -145,7 +148,7 @@ function Backpacks(props) {
     return [
         <Helmet key={'backpacks-table'}>
             <meta charSet="utf-8" />
-            <title>Helmet Backpacks Chart</title>
+            <title>{t('Escape from Tarkov')} - {t('Backpacks Chart')}</title>
             <meta
                 name="description"
                 content="All backpacks in Escape from Tarkov sortable by price, size etc"
@@ -153,7 +156,11 @@ function Backpacks(props) {
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
-                <h1>{t('Backpacks Chart')}</h1>
+                <h1>
+                    {t('Escape from Tarkov')}
+                    <Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" /> 
+                    {t('Backpacks Chart')}
+                </h1>
             </div>
             <DataTable
                 columns={columns}

@@ -93,7 +93,7 @@ function BartersTable(props) {
                 },
             },
             {
-                Header: t('instaProfit'),
+                Header: t('InstaProfit'),
                 accessor: 'instaProfit',
                 Cell: (props) => {
                     return (
@@ -274,6 +274,9 @@ function BartersTable(props) {
                     },
                 );
 
+                let [trader, level] = barterRow.source.split('LL');
+                trader = trader.trim();
+
                 const tradeData = {
                     costItems: costItems,
                     cost: cost,
@@ -283,7 +286,7 @@ function BartersTable(props) {
                         sellTo: t('Flea Market'),
                         name: barterRow.rewardItems[0].item.name,
                         value: barterRow.rewardItems[0].item[priceToUse],
-                        source: barterRow.source,
+                        source: t(trader) + ' LL' + level,
                         iconLink:
                             barterRow.rewardItems[0].item.iconLink ||
                             'https://tarkov.dev/images/unknown-item-icon.jpg',

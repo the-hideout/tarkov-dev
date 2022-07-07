@@ -13,7 +13,7 @@ function Maps() {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov Maps')}</title>
+            <title>{t('Escape from Tarkov')} - {t('Maps')}</title>
             <meta
                 name="description"
                 content="Escape from Tarkov maps and loot locations"
@@ -21,8 +21,9 @@ function Maps() {
         </Helmet>,
         <div className={'page-wrapper'} key="map-page-wrapper">
             <h1 className="center-title">
-                <Icon path={mdiMap} size={1.5} className="icon-with-text" />
-                {t('Escape from Tarkov Maps')}
+                {t('Escape from Tarkov')} 
+                <Icon path={mdiMap} size={1.5} className="icon-with-text" /> 
+                {t('Maps')}
             </h1>
             <div className="maps-wrapper">
                 {rawMapData.map((map) => {
