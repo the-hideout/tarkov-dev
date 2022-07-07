@@ -618,23 +618,27 @@ function Item() {
                         >
                             <div className="price-wrapper price-wrapper-bright">
                                 <div>
-                                    {t('Change vs yesterday')}:{' '}
-                                    {currentItemData.changeLast48h} %
+                                    {t('Change vs yesterday')}
+                                    {': '}
+                                    {currentItemData.changeLast48h} ₽
+                                    {' / '}
+                                    {currentItemData.changeLast48hPercent} %
                                 </div>
                                 <div>
-                                    {t('Lowest scanned price last 24h')}:{' '}
+                                    {t('Lowest scanned price last 24h')}
+                                    {': '}
                                     {formatPrice(currentItemData.low24hPrice)}
                                 </div>
                                 <div>
-                                    {t('Highest scanned price last 24h')}:{' '}
+                                    {t('Highest scanned price last 24h')}
+                                    {': '}
                                     {formatPrice(currentItemData.high24hPrice)}
                                 </div>
                                 <div
-                                    title={dayjs(
-                                        currentItemData.updated,
-                                    ).format('YYYY-MM-DD HH:mm:ss')}
+                                    title={dayjs(currentItemData.updated,).format('YYYY-MM-DD HH:mm:ss')}
                                 >
-                                    {t('Updated')}:{' '}
+                                    {t('Updated')}
+                                    {': '}
                                     {dayjs(currentItemData.updated).fromNow()}
                                 </div>
                             </div>

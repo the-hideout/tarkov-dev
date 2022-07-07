@@ -20,6 +20,7 @@ const QueryBody = JSON.stringify({
             avg24hPrice
             wikiLink
             changeLast48h
+            changeLast48hPercent
             low24hPrice
             high24hPrice
             lastLowPrice
