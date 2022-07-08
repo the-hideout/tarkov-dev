@@ -122,7 +122,7 @@ const settingsSlice = createSlice({
     name: 'settings',
     initialState: {
         progressStatus: 'idle',
-        hasFlea: JSON.parse(localStorage.getItem('useFlea')) || true,
+        hasFlea: JSON.parse(localStorage.getItem('useFlea')) || false,
         tarkovTrackerAPIKey:
             JSON.parse(localStorage.getItem('tarkovTrackerAPIKey')) || '',
         prapor: JSON.parse(localStorage.getItem('prapor')) || 4,
