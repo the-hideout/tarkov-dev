@@ -36,7 +36,7 @@ This project ([tarkov-dev](https://github.com/the-hideout/tarkov-dev)) is a fork
 
 We love pull requests and contributors looking to improve this project! Anything from simple spelling errors, icon updates, fixes for small css bugs or just posting issues to keep track of what needs to be done is greatly appreciated.
 
-### Deployment 🚀
+## Deployment 🚀
 
 Deploying your changes to production is easy! Just do the following:
 
@@ -46,6 +46,12 @@ Deploying your changes to production is easy! Just do the following:
 1. A review will be recieved from a [reviewer](https://github.com/orgs/the-hideout/teams/reviewers) if all looks good
 1. A core member of [the-hideout](https://github.com/orgs/the-hideout/teams/core-contributors) will run `.deploy` on your pull request to branch deploy your changes to production
 1. If everything goes okay, your PR will be merged and your changes will be auto-deployed to production! ✨
+
+## Updating Languages 🌐
+
+To update the supported languages used by the site with the GraphQL API, you will need to edit the following file: [`supported-languages.json`](https://github.com/the-hideout/tarkov-dev/blob/main/src/data/supported-languages.json)
+
+> See this [pull request](https://github.com/the-hideout/tarkov-dev/pull/123) for additional context
 
 ## Other Parts of the Ecosystem 🌎
 
