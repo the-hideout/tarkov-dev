@@ -2,13 +2,6 @@
 import i18n from '../i18n';
 
 export async function langCode() {
-    // Get the user selected language
-    var language = i18n.language;
-
     // Convert to two digit language code
-    if (language === 'en-US') {
-        language = 'en';
-    }
-
-    return language;
+    return i18n.language.replace(/-[a-zA-Z]{2}/, "");
 };
