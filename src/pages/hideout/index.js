@@ -130,11 +130,7 @@ function Hideout() {
                     />
                 </ButtonGroupFilter>
             </Filter>
-            {hideout.map((hideoutModule, index) => {
-                if (hideoutModule.itemRequirements.length === 0) {
-                    return null;
-                }
-
+            {hideout.map((hideoutModule) => {
                 if (hideoutModule.name === 'Christmas Tree') {
                     return null;
                 }
@@ -148,26 +144,32 @@ function Hideout() {
                     return null;
                 }
 
-                return (
-                    <div
-                        className="hideout-module-wrapper"
-                        key={`hideout-module-cost-${hideoutModule.name}-${hideoutModule.level}`}
-                    >
-                        <h2>
-                            {t(capitalizeTheFirstLetterOfEachWord(hideoutModule.name))} {hideoutModule.level}
-                        </h2>
-                        <ItemsSummaryTable
-                            includeItems={hideoutModule.itemRequirements.map(
-                                (itemRequirement) => {
-                                    return {
-                                        ...itemRequirement.item,
-                                        quantity: itemRequirement.quantity,
-                                    };
-                                },
-                            )}
-                        />
-                    </div>
-                );
+                return hideoutModule.levels.map((level) => {
+                    if (level.itemRequirements.length === 0) {
+                        return null;
+                    }
+
+                    return (
+                        <div
+                            className="hideout-module-wrapper"
+                            key={`hideout-module-cost-${hideoutModule.name}-${level.level}`}
+                        >
+                            <h2>
+                                {t(capitalizeTheFirstLetterOfEachWord(hideoutModule.name))} {level.level}
+                            </h2>
+                            <ItemsSummaryTable
+                                includeItems={level.itemRequirements.map(
+                                    (itemRequirement) => {
+                                        return {
+                                            ...itemRequirement.item,
+                                            quantity: itemRequirement.quantity,
+                                        };
+                                    },
+                                )}
+                            />
+                        </div>
+                    );
+                })
             })}
         </div>,
     ];

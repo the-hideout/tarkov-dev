@@ -12,20 +12,22 @@ export const fetchHideout = createAsyncThunk(
     async () => {
         const bodyQuery = JSON.stringify({
             query: `{
-        hideoutModules {
-            id
-            name
-            level
-            itemRequirements {
-            quantity
-                item {
-                    name
+                hideoutStations {
                     id
-                    iconLink
-                }
-            }
-        }
-    }`,
+                    name
+                    levels {
+                        level
+                            itemRequirements {
+                                quantity
+                                item {
+                                    name
+                                    id
+                                    iconLink
+                                }
+                            } 
+                        }
+                    }
+                }`,
         });
 
         const response = await fetch('https://api.tarkov.dev/graphql', {
@@ -39,7 +41,7 @@ export const fetchHideout = createAsyncThunk(
 
         const hideoutData = await response.json();
 
-        return hideoutData.data.hideoutModules;
+        return hideoutData.data.hideoutStations;
     },
 );
 
