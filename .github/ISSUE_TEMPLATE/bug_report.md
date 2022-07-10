@@ -15,23 +15,23 @@ All text inside of these arrow are comments and will not be displayed. They are 
 You may also delete any sections if they do not apply to your issue or you have no input to provide for them
 -->
 
-**Describe the issue**
+## Describe the Issue
 <!-- A clear and concise description of what the issue is -->
 
-**To Reproduce**
+## To Reproduce
 <!-- If you know how to reproduce the issue, please provided detailed steps below -->
 
-**Expected behavior**
+## Expected Behavior
 <!-- A clear and concise description of what you expected to happen -->
 
-**Screenshots**
+## Screenshots
 <!-- If applicable, add screenshots to help explain your problem -->
 
-**Desktop (please complete the following information):**
+## Desktop
  - OS: [e.g. iOS]
  - Browser: [e.g. chrome, safari]
  - Version: [e.g. 22]
  - Language: [e.g. en, es, de, ru]
 
-**Additional context**
+## Additional Context
 <!-- Add any other context about the problem here -->
