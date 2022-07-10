@@ -26,6 +26,10 @@ function ApiMetricsGraph() {
         height = 1280;
     }
 
+    if (status === 'error') {
+        return "⚠️ Error Fetching API Metrics";
+    }
+
     if (status !== 'success') {
         return null;
     }
