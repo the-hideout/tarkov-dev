@@ -4,7 +4,6 @@ import { atomDark as atomOneDark } from 'react-syntax-highlighter/dist/esm/style
 import { useTranslation } from 'react-i18next';
 // import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
-import React, { Suspense } from 'react';
 
 import ApiMetricsGraph from '../../components/api-metrics-graph';
 
@@ -39,9 +38,7 @@ function APIDocs() {
                 )}
             </div>
             <h2>{t('Current API Performance')}</h2>
-            <Suspense fallback={<div>{t('Loading...')}</div>}>
-                <ApiMetricsGraph/>
-            </Suspense>
+            <ApiMetricsGraph />
             <h2>{t('FAQ')}</h2>
             <div className="section-text-wrapper">
                 <h3>{t('Is it free?')}</h3>
@@ -57,16 +54,16 @@ function APIDocs() {
             <div className="section-text-wrapper">
                 <h3>{t('Is there a rate limit?')}</h3>
                 {t(
-                    'Yes, but we do not expect legitimate usage to trigger the limit. Just use common sense.',
+                    'Nope! We currently do not have a rate-limit enabled. That being said, please respect this and do not hammer the API with requests just because you can. Use common sense!',
                 )}
                 <div></div>
                 {t(
                     "Price data is updated every 5 minutes, so there's really no need to query faster than that. ",
                 )}
                 {t(
-                    "To view an up-to-date definition of our rate-limits, check our Cloudflare GitHub repo where they are defined: ",
+                    "To view an up-to-date definition of our rate-limits (or lack there-of), check our Cloudflare GitHub repo where they are defined: ",
                 )}
-                <a href="https://github.com/the-hideout/cloudflare/blob/0ba7430a6a7b8526d8ccfd5b673cb70f0fb9130f/terraform/security.tf#L1-L37">
+                <a href="https://github.com/the-hideout/cloudflare/blob/main/terraform/security.tf">
                     rate limit definition
                 </a>
             </div>

@@ -35,7 +35,7 @@ function ApiMetricsGraph() {
     }
 
     if (status === 'success' && data.heartbeatList["1"] === 0) {
-        return 'No data';
+        return '⚠️ No data';
     }
 
     let max = 0;
