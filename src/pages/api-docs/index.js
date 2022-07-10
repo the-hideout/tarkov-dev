@@ -38,7 +38,7 @@ function APIDocs() {
                 )}
             </div>
             <h2>{t('Current API Performance')}</h2>
-            <ApiMetricsGraph />
+            <ApiMetricsGraph graph={true} />
             <h2>{t('FAQ')}</h2>
             <div className="section-text-wrapper">
                 <h3>{t('Is it free?')}</h3>
