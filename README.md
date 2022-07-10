@@ -65,3 +65,11 @@ To update the supported languages used by the site with the GraphQL API, you wil
 ## Infrastructure 🧱
 
 To learn more about the infrastructure, components, and opensource pieces of this project, check out our [infrastructure documentation](https://github.com/the-hideout/.github/blob/main/profile/docs/infrastructure.md#opensource-notice-)
+
+## Contributors 🧑‍🤝‍🧑
+
+Thank you to all of our awesome contributors! ❤️
+
+<a href="https://github.com/the-hideout/tarkov-dev/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=the-hideout/tarkov-dev" />
+</a>
