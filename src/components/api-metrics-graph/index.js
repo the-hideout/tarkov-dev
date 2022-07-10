@@ -45,7 +45,7 @@ function ApiMetricsGraph() {
 
     return (
         <div className="api-metrics-wrapper">
-            <VictoryLabel text="API Latency in milliseconds" x={225} y={30} />
+            <p>API Latency in milliseconds</p>
             <VictoryChart
                 height={height}
                 width={900}
