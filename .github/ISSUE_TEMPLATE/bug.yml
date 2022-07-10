@@ -1,0 +1,81 @@
+name: Bug Report
+description: File a bug/issue report
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Bug Report 🐛
+        
+        Thanks for taking the time to fill out this bug report!
+
+        Please answer each question below to your best ability. It is okay to leave questions blank if you have to!
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the Issue
+      description: Please describe the bug/issue in detail
+      placeholder: Something is wrong with X when going to page Y
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: A clear and concise description of what you expected to happen
+      placeholder: I expected X to happen when going to page Y
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: To Reproduce
+      description: If you know how to reproduce the issue, please provided detailed steps below
+      placeholder: Go to page Y and click on button Z. Look at the console and see error XYZ
+    validations:
+      required: true
+
+  - type: dropdown
+    id: client
+    attributes:
+      label: Client
+      description: What type of client are you using to reproduce this error?
+      options:
+        - Desktop
+        - Mobile
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      description: What type of web browser are you using to reproduce this error?
+      options:
+        - Chrome
+        - Brave
+        - Firefox
+        - Opera
+        - Safari
+        - Edge
+        - Chromium
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Console Log Output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: console
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Extra Information
+      description: Any extra information, links to issues, screenshots, etc
