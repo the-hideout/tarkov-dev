@@ -3,7 +3,6 @@ import {
     VictoryChart,
     VictoryLine,
     VictoryTheme,
-    VictoryAxis,
     VictoryLabel,
     VictoryVoronoiContainer,
 } from 'victory';
@@ -46,7 +45,7 @@ function ApiMetricsGraph() {
 
     return (
         <div className="api-metrics-wrapper">
-            <VictoryLabel text="API Latency in milliseconds" x={225} y={30}/>
+            <VictoryLabel text="API Latency in milliseconds" x={225} y={30} />
             <VictoryChart
                 height={height}
                 width={900}
@@ -60,7 +59,6 @@ function ApiMetricsGraph() {
                     />
                 }
             >
-                <VictoryAxis dependentAxis tickFormat={(tick) => `${Math.round(tick)}ms`}/>
                 <VictoryLine
                     animate={{
                         duration: 1000,
