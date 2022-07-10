@@ -50,6 +50,8 @@
 	"Nightbot integration": "Интеграция Nightbot",
 	"StreamElements integration": "Интеграция StreamElements",
 	"API Users": "Пользователи API",
+	"API Latency in milliseconds": "Задержка в миллисекундах API",
+    "Current API Performance": "Текущая производительность API",
 	"Discord bot for your Discord": "Discord бот для вашего Discord",
 	"Game content and materials are trademarks and copyrights of Battlestate Games and its licensors. All rights reserved.": "Игровой контент и материалы являются торговыми марками и авторскими правами Battlestate Games и ее лицензиаров. Все права защищены.",
 	"Search item...": "Поиск элемента...",

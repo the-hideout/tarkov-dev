@@ -38,7 +38,7 @@ function APIDocs() {
                     "It's written in graphql and we try our hardest to follow spec and never change or deprecate anything.",
                 )}
             </div>
-            <h2>Current API Performance</h2>
+            <h2>{t('Current API Performance')}</h2>
             <Suspense fallback={<div>{t('Loading...')}</div>}>
                 <ApiMetricsGraph/>
             </Suspense>

@@ -3,9 +3,9 @@ import {
     VictoryChart,
     VictoryLine,
     VictoryTheme,
-    VictoryLabel,
     VictoryVoronoiContainer,
 } from 'victory';
+import { useTranslation } from 'react-i18next';
 
 import './index.css';
 
@@ -17,6 +17,7 @@ const fetchApiData = async () => {
 };
 
 function ApiMetricsGraph() {
+    const { t } = useTranslation();
     const { status, data } = useQuery(`api-metrics`, fetchApiData, { refetchOnMount: false, refetchOnWindowFocus: false });
 
     let height = VictoryTheme.material.height;
@@ -45,7 +46,7 @@ function ApiMetricsGraph() {
 
     return (
         <div className="api-metrics-wrapper">
-            <p>API Latency in milliseconds</p>
+            <p>{t('API Latency in milliseconds')}</p>
             <VictoryChart
                 height={height}
                 width={900}
