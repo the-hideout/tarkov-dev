@@ -39,6 +39,7 @@ function APIDocs() {
             </div>
             <h2>{t('Current API Performance')}</h2>
             <ApiMetricsGraph graph={true} />
+            <p>{'For full API metrics and performance, check out our'} <a href="https://status.tarkov.dev">status page</a></p>
             <h2>{t('FAQ')}</h2>
             <div className="section-text-wrapper">
                 <h3>{t('Is it free?')}</h3>
