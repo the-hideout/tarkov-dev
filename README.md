@@ -1,5 +1,7 @@
 # tarkov.dev 💻
 
+test
+
 [![ci](https://github.com/the-hideout/tarkov-dev/actions/workflows/ci.yml/badge.svg)](https://github.com/the-hideout/tarkov-dev/actions/workflows/ci.yml) [![CodeQL](https://github.com/the-hideout/tarkov-dev/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/the-hideout/tarkov-dev/actions/workflows/codeql-analysis.yml) [![Discord](https://img.shields.io/discord/956236955815907388?color=7388DA&label=Discord)](https://discord.gg/XPAsKGHSzH)
 
 This is the source code for the official [tarkov.dev](https://tarkov.dev) website.
