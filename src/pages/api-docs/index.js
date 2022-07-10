@@ -4,6 +4,9 @@ import { atomDark as atomOneDark } from 'react-syntax-highlighter/dist/esm/style
 import { useTranslation } from 'react-i18next';
 // import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
+import React, { Suspense } from 'react';
+
+import ApiMetricsGraph from '../../components/api-metrics-graph';
 
 import './index.css';
 
@@ -35,6 +38,10 @@ function APIDocs() {
                     "It's written in graphql and we try our hardest to follow spec and never change or deprecate anything.",
                 )}
             </div>
+            <h2>Current API Performance</h2>
+            <Suspense fallback={<div>{t('Loading...')}</div>}>
+                <ApiMetricsGraph/>
+            </Suspense>
             <h2>{t('FAQ')}</h2>
             <div className="section-text-wrapper">
                 <h3>{t('Is it free?')}</h3>
