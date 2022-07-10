@@ -60,7 +60,7 @@ function ApiMetricsGraph({ graph }) {
         return (
             <div className="api-metrics-wrapper">
                 <p>{t('Current Average Latency')}: {average}ms</p>
-                <p>{t('API Latency in milliseconds')}</p>
+                <p>{t('API Latency in milliseconds')}:</p>
                 <VictoryChart
                     height={height}
                     width={900}
@@ -106,9 +106,8 @@ function ApiMetricsGraph({ graph }) {
 
     // If the graph param was not provided, return the latency average as a div
     else {
-        return (
-            <p>{t('Current Average Latency:')} {average}ms</p>
-        )
+        return `${average}ms`
+        
     }
 }
 
