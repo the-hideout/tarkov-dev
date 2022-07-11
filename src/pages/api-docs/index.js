@@ -132,6 +132,9 @@ function APIDocs() {
                 <li>
                     <HashLink to="#go">Golang</HashLink>
                 </li>
+                <li>
+                    <HashLink to="#luvit">Lua (Luvit)</HashLink>
+                </li>
             </ul>
             <div className="example-wrapper">
                 <h3 id="browser-js">Browser JS {t('example')}</h3>
@@ -363,6 +366,32 @@ func main() {
 
     defer resp.Body.Close()
 }`}
+                </SyntaxHighlighter>
+            </div>
+            <div className="example-wrapper">
+                <h3 id="luvit">
+                    <span>Lua (Luvit) {t('example')}</span>
+                    <cite>
+                        <span>Contributed by </span>
+                        <a href="https://github.com/AntwanR942">AntwanR942</a>
+                    </cite>
+                </h3>
+                <SyntaxHighlighter language="lua" style={atomOneDark}>
+                    {`local http = require "coro-http"
+
+coroutine.wrap(function()
+    local query = [[{"query": "{ items(name: "m855a1") {id name shortName } }"}]]
+    local headers = {
+        { "Content-Type", "application/json" },
+        { "Accept", "application/json" }
+    }
+    local res, body = http.request("POST", "https://api.tarkov.dev/graphql", headers, query)
+    if res.code ~= 200 then
+        error(res.message)
+    end
+
+    print(body)
+end)()`}
                 </SyntaxHighlighter>
             </div>
         </div>,
