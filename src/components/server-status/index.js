@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
-import ApiMetricsGraph from '../../components/api-metrics-graph';
+// import ApiMetricsGraph from '../../components/api-metrics-graph';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import './index.css';
@@ -70,7 +70,7 @@ function ServerStatus() {
                         </div>
                     </a>
                 </Tippy>
-                <ApiMetricsGraph graph={false} />
+                {/* <ApiMetricsGraph graph={false} /> */}
             </div>
         );
     }
@@ -86,7 +86,7 @@ function ServerStatus() {
                     {data.data.status.generalStatus.message}
                 </div>
             </a>
-            <p>{t('API Latency')}{': '}<ApiMetricsGraph graph={false} /></p>
+            {/* <p>{t('API Latency')}{': '}<ApiMetricsGraph graph={false} /></p> */}
         </div>
     );
 }
