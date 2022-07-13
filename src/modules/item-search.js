@@ -18,32 +18,31 @@ const itemSearch = (items, searchString) => {
         (item) => formatName(item.shortName) === formattedSearchString,
     );
 
-    if (!matches || matches.length === 0) {
-        matches = items.filter((item) =>
-            formatName(item.name).includes(formattedSearchString),
-        );
-    }
+    let shortMatches = items.filter(
+        (item) => formatName(item.shortName).includes(formattedSearchString),
+    ).map((item) => item.id);
 
-    if (!matches || matches.length === 0) {
-        matches = items.filter((item) =>
-            formatName(item.shortName).includes(formattedSearchString),
-        );
-    }
+    let fullMatches = items.filter(
+        (item) => formatName(item.name).includes(formattedSearchString),
+    ).map((item) => item.id);
 
-    if (!matches || matches.length === 0) {
-        const options = {
-            includeScore: true,
-            keys: ['name'],
-            distance: 1000,
-        };
+    const fuseOptions = {
+        includeScore: true,
+        keys: ['name'],
+        distance: 1000,
+    };
 
-        const fuse = new Fuse(items, options);
-        const result = fuse.search(formattedSearchString);
+    const fuse = new Fuse(items, fuseOptions);
+    const fuseResult = fuse.search(formattedSearchString);
 
-        matches = result.map((resultObject) => resultObject.item);
-    }
+    let fuzzyMatches = fuseResult.map((searchResult) => searchResult.item);
 
-    return matches;
+    let allMatches = [...shortMatches, ...fullMatches, ...fuzzyMatches];
+    //Remove duplicates from allMatches
+    allMatches = allMatches.filter((item, index) => allMatches.indexOf(item) === index);
+
+    //Return items matching ids found in allMatches
+    return items.filter((item) => allMatches.includes(item.id));
 };
 
 export default itemSearch;
