@@ -14,10 +14,6 @@ const itemSearch = (items, searchString) => {
         return items;
     }
 
-    let matches = items.filter(
-        (item) => formatName(item.shortName) === formattedSearchString,
-    );
-
     let shortMatches = items.filter(
         (item) => formatName(item.shortName).includes(formattedSearchString),
     ).map((item) => item.id);
@@ -26,23 +22,23 @@ const itemSearch = (items, searchString) => {
         (item) => formatName(item.name).includes(formattedSearchString),
     ).map((item) => item.id);
 
-    const fuseOptions = {
+    const fuseFullOptions = {
         includeScore: true,
         keys: ['name'],
-        distance: 1000,
+        distance: 100,
     };
 
-    const fuse = new Fuse(items, fuseOptions);
-    const fuseResult = fuse.search(formattedSearchString);
+    const fuseFull = new Fuse(items, fuseFullOptions);
+    const fuseFullResult = fuseFull.search(formattedSearchString);
 
-    let fuzzyMatches = fuseResult.map((searchResult) => searchResult.item);
+    let fuzzyFullMatches = fuseFullResult.map((searchResult) => searchResult.item).map((item) => item.id);
 
-    let allMatches = [...shortMatches, ...fullMatches, ...fuzzyMatches];
-    //Remove duplicates from allMatches
+    let allMatches = [...shortMatches, ...fullMatches, ...fuzzyFullMatches];
+    //Remove duplicates from allMatches while maintaining order
     allMatches = allMatches.filter((item, index) => allMatches.indexOf(item) === index);
 
-    //Return items matching ids found in allMatches
-    return items.filter((item) => allMatches.includes(item.id));
+    // Order items by their id according to the order in allMatches
+    return items.filter((item) => allMatches.includes(item.id)).sort((a, b) => allMatches.indexOf(a.id) - allMatches.indexOf(b.id));
 };
 
 export default itemSearch;
