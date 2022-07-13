@@ -3,6 +3,9 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
+import Icon from '@mdi/react';
+import { mdiHome } from '@mdi/js';
+
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import ItemsSummaryTable from '../../components/items-summary-table';
 import {
@@ -74,7 +77,7 @@ function Hideout() {
     return [
         <Helmet key={'hideout-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Hideout')}</title>
+            <title>{t('Escape from Tarkov')} - {t('Hideout')}</title>
             <meta
                 name="description"
                 content={`All the relevant information about the Escape from Tarkov Hideout`}
@@ -82,7 +85,11 @@ function Hideout() {
         </Helmet>,
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
-                <h1>{t('Hideout')}</h1>
+                <h1>
+                    {t('Escape from Tarkov')}
+                    <Icon path={mdiHome} size={1.5} className="icon-with-text"/>
+                    {t('Hideout')}
+                </h1>
             </div>
             <Filter center>
                 <ButtonGroupFilter>
@@ -92,9 +99,9 @@ function Hideout() {
                                 key={`station-tooltip-${stationName}`}
                                 tooltipContent={
                                     <div>
-                                        {capitalizeTheFirstLetterOfEachWord(
+                                        {t(capitalizeTheFirstLetterOfEachWord(
                                             stationName.replace(/-/g, ' '),
-                                        )}
+                                        ))}
                                     </div>
                                 }
                                 selected={stationName === selectedStation}
@@ -123,11 +130,7 @@ function Hideout() {
                     />
                 </ButtonGroupFilter>
             </Filter>
-            {hideout.map((hideoutModule, index) => {
-                if (hideoutModule.itemRequirements.length === 0) {
-                    return null;
-                }
-
+            {hideout.map((hideoutModule) => {
                 if (hideoutModule.name === 'Christmas Tree') {
                     return null;
                 }
@@ -141,26 +144,32 @@ function Hideout() {
                     return null;
                 }
 
-                return (
-                    <div
-                        className="hideout-module-wrapper"
-                        key={`hideout-module-cost-${hideoutModule.name}-${hideoutModule.level}`}
-                    >
-                        <h2>
-                            {hideoutModule.name} {hideoutModule.level}
-                        </h2>
-                        <ItemsSummaryTable
-                            includeItems={hideoutModule.itemRequirements.map(
-                                (itemRequirement) => {
-                                    return {
-                                        ...itemRequirement.item,
-                                        quantity: itemRequirement.quantity,
-                                    };
-                                },
-                            )}
-                        />
-                    </div>
-                );
+                return hideoutModule.levels.map((level) => {
+                    if (level.itemRequirements.length === 0) {
+                        return null;
+                    }
+
+                    return (
+                        <div
+                            className="hideout-module-wrapper"
+                            key={`hideout-module-cost-${hideoutModule.name}-${level.level}`}
+                        >
+                            <h2>
+                                {t(capitalizeTheFirstLetterOfEachWord(hideoutModule.name))} {level.level}
+                            </h2>
+                            <ItemsSummaryTable
+                                includeItems={level.itemRequirements.map(
+                                    (itemRequirement) => {
+                                        return {
+                                            ...itemRequirement.item,
+                                            quantity: itemRequirement.quantity,
+                                        };
+                                    },
+                                )}
+                            />
+                        </div>
+                    );
+                })
             })}
         </div>,
     ];

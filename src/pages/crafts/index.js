@@ -35,6 +35,10 @@ function Crafts() {
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [freeFuel, setFreeFuel] = useState(false);
+    const [averagePrices, setAveragePrices] = useStateWithLocalStorage(
+        'averageCraftingPrices',
+        true,
+    );
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
         'selectedStation',
         'top',
@@ -45,7 +49,7 @@ function Crafts() {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>Hideout Craft Profits</title>
+            <title>{t('Escape from Tarkov')} - {t('Hideout Crafts')}</title>
             <meta
                 name="description"
                 content="Escape from Tarkov Hideout Craft Profits"
@@ -53,11 +57,7 @@ function Crafts() {
         </Helmet>,
         <div className="crafts-headline-wrapper" key="crafts-filters">
             <h1 className="crafts-page-title">
-                <Icon
-                    path={mdiProgressWrench}
-                    size={1.5}
-                    className="icon-with-text"
-                />
+                <Icon path={mdiProgressWrench} size={1.5} className="icon-with-text"/>
                 {t('Hideout Crafts')}
             </h1>
             <Filter>
@@ -73,6 +73,18 @@ function Crafts() {
                         </div>
                     }
                 />
+                <ToggleFilter
+                    checked={averagePrices}
+                    label={t('Average prices')}
+                    onChange={(e) => setAveragePrices(!averagePrices)}
+                    tooltipContent={
+                        <div>
+                            {t(
+                                'Use average prices from the past 24 hours for profit calculations',
+                            )}
+                        </div>
+                    }
+                />
                 <ButtonGroupFilter>
                     {stations.map((stationName) => {
                         return (
@@ -80,8 +92,10 @@ function Crafts() {
                                 key={`station-tooltip-${stationName}`}
                                 tooltipContent={
                                     <div>
-                                        {capitalizeTheFirstLetterOfEachWord(
-                                            stationName.replace('-', ' '),
+                                        {t(
+                                            capitalizeTheFirstLetterOfEachWord(
+                                                stationName.replace('-', ' '),
+                                            ),
                                         )}
                                     </div>
                                 }
@@ -119,7 +133,7 @@ function Crafts() {
                     tooltipContent={
                         <div>
                             {t(
-                                "Sets fuel canister cost to 0 for crafts requiring fuel canisters when using non-FIR fuel canisters from generator.",
+                                'Sets fuel canister cost to 0 for crafts requiring fuel canisters when using non-FIR fuel canisters from generator.',
                             )}
                         </div>
                     }
@@ -128,7 +142,7 @@ function Crafts() {
                     defaultValue={nameFilter || ''}
                     label={t('Item filter')}
                     type={'text'}
-                    placeholder={'filter on item'}
+                    placeholder={t('filter on item')}
                     onChange={(e) => setNameFilter(e.target.value)}
                 />
             </Filter>
@@ -137,6 +151,7 @@ function Crafts() {
             nameFilter={nameFilter}
             freeFuel={freeFuel}
             showAll={showAll}
+            averagePrices={averagePrices}
             selectedStation={selectedStation}
             key="crafts-page-crafts-table"
         />,

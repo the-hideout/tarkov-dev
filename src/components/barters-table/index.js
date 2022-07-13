@@ -93,15 +93,15 @@ function BartersTable(props) {
                 },
             },
             {
-                Header: t('instaProfit'),
+                Header: t('InstaProfit'),
                 accessor: 'instaProfit',
                 Cell: (props) => {
                     return (
                         <ValueCell value={props.value} highlightProfit>
                             <div className="duration-wrapper">
-                                {capitalizeFirst(
+                                {t(capitalizeFirst(
                                     props.row.original.instaProfitSource.source,
-                                )}
+                                ))}
                             </div>
                         </ValueCell>
                     );
@@ -274,16 +274,19 @@ function BartersTable(props) {
                     },
                 );
 
+                let [trader, level] = barterRow.source.split('LL');
+                trader = trader.trim();
+
                 const tradeData = {
                     costItems: costItems,
                     cost: cost,
                     instaProfit: bestSellTo.priceRUB - cost,
                     instaProfitSource: bestSellTo,
                     reward: {
-                        sellTo: t('Flea market'),
+                        sellTo: t('Flea Market'),
                         name: barterRow.rewardItems[0].item.name,
                         value: barterRow.rewardItems[0].item[priceToUse],
-                        source: barterRow.source,
+                        source: t(trader) + ' LL' + level,
                         iconLink:
                             barterRow.rewardItems[0].item.iconLink ||
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
@@ -319,6 +322,8 @@ function BartersTable(props) {
                     tradeData.reward.value = bestTrade.priceRUB;
                     tradeData.reward.sellTo = bestTrade.trader.name;
                 }
+                
+                tradeData.reward.sellTo = t(tradeData.reward.sellTo)
 
                 tradeData.savings = tradeData.reward.value - cost;
 

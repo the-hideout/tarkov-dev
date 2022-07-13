@@ -17,7 +17,7 @@ function Items(props) {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov Items')}</title>
+            <title>{t('Escape from Tarkov')} - {t('Items')}</title>
             <meta
                 name="description"
                 content="Escape from Tarkov item guides and graphs"
@@ -25,12 +25,9 @@ function Items(props) {
         </Helmet>,
         <div className={'page-wrapper'} key="map-page-wrapper">
             <h1 className="center-title">
-                <Icon
-                    path={mdiViewGrid}
-                    size={1.5}
-                    className="icon-with-text"
-                />
-                {t('Escape from Tarkov Items')}
+                {t('Escape from Tarkov')}
+                <Icon path={mdiViewGrid} size={1.5} className="icon-with-text"/>
+                {t('Items')}
             </h1>
             <ItemSearch showDropdown />
             <div className="guides-list-wrapper">
@@ -46,7 +43,7 @@ function Items(props) {
                                 size={1}
                                 className="icon-with-text"
                             />
-                            {categoryPage.displayText}
+                            {t(categoryPage.displayText)}
                         </h2>
                         <img
                             alt={`${categoryPage.displayText} table`}

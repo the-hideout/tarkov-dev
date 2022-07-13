@@ -122,91 +122,56 @@ const settingsSlice = createSlice({
     name: 'settings',
     initialState: {
         progressStatus: 'idle',
-        hasFlea: JSON.parse(localStorage.getItem('useFlea')) || true,
-        tarkovTrackerAPIKey:
-            JSON.parse(localStorage.getItem('tarkovTrackerAPIKey')) || '',
-        prapor: JSON.parse(localStorage.getItem('prapor')) || 4,
-        therapist: JSON.parse(localStorage.getItem('therapist')) || 4,
-        fence: JSON.parse(localStorage.getItem('fence')) || 0,
-        skier: JSON.parse(localStorage.getItem('skier')) || 4,
-        peacekeeper: JSON.parse(localStorage.getItem('peacekeeper')) || 4,
-        mechanic: JSON.parse(localStorage.getItem('mechanic')) || 4,
-        ragman: JSON.parse(localStorage.getItem('ragman')) || 4,
-        jaeger: Number.isInteger(JSON.parse(localStorage.getItem('jaeger')))
-            ? JSON.parse(localStorage.getItem('jaeger'))
-            : 4,
-        'booze-generator': Number.isInteger(
-            JSON.parse(localStorage.getItem('booze-generator')),
-        )
-            ? JSON.parse(localStorage.getItem('booze-generator'))
-            : 1,
-        'christmas-tree': Number.isInteger(
-            JSON.parse(localStorage.getItem('christmas-tree')),
-        )
-            ? JSON.parse(localStorage.getItem('christmas-tree'))
-            : 1,
-        'intelligence-center': Number.isInteger(
-            JSON.parse(localStorage.getItem('intelligence-center')),
-        )
-            ? JSON.parse(localStorage.getItem('intelligence-center'))
-            : 3,
-        lavatory: Number.isInteger(JSON.parse(localStorage.getItem('lavatory')))
-            ? JSON.parse(localStorage.getItem('lavatory'))
-            : 3,
-        medstation: Number.isInteger(
-            JSON.parse(localStorage.getItem('medstation')),
-        )
-            ? JSON.parse(localStorage.getItem('medstation'))
-            : 3,
-        'nutrition-unit': Number.isInteger(
-            JSON.parse(localStorage.getItem('nutrition-unit')),
-        )
-            ? JSON.parse(localStorage.getItem('nutrition-unit'))
-            : 3,
-        'water-collector': Number.isInteger(
-            JSON.parse(localStorage.getItem('water-collector')),
-        )
-            ? JSON.parse(localStorage.getItem('water-collector'))
-            : 3,
-        workbench: Number.isInteger(
-            JSON.parse(localStorage.getItem('workbench')),
-        )
-            ? JSON.parse(localStorage.getItem('workbench'))
-            : 3,
+        hasFlea: localStorageReadJson('useFlea', true),
+        tarkovTrackerAPIKey: localStorageReadJson('tarkovTrackerAPIKey', ''),
+        prapor: localStorageReadJson('prapor', 4),
+        therapist: localStorageReadJson('therapist', 4),
+        fence: localStorageReadJson('fence', 0),
+        skier: localStorageReadJson('skier', 4),
+        peacekeeper: localStorageReadJson('peacekeeper', 4),
+        mechanic: localStorageReadJson('mechanic', 4),
+        ragman: localStorageReadJson('ragman', 4),
+        jaeger: localStorageReadJson('jaeger', 4),
+        'booze-generator': localStorageReadJson('booze-generator', 1),
+        'christmas-tree': localStorageReadJson('christmas-tree', 1),
+        'intelligence-center': localStorageReadJson('intelligence-center', 3),
+        lavatory: localStorageReadJson('lavatory', 3),
+        medstation: localStorageReadJson('medstation', 3),
+        'nutrition-unit': localStorageReadJson('nutrition-unit', 3),
+        'water-collector': localStorageReadJson('water-collector', 3),
+        workbench: localStorageReadJson('workbench', 3),
         'solar-power': localStorageReadJson('solar-power', 0),
-        crafting: JSON.parse(localStorage.getItem('crafting')) || 0,
-        'hideout-managment':
-            JSON.parse(localStorage.getItem('hideout-managment')) || 0,
+        crafting: localStorageReadJson('crafting', 0),
+        'hideout-managment': localStorageReadJson('hideout-managment', 0),
         completedQuests: [],
-        useTarkovTracker:
-            JSON.parse(localStorage.getItem('useTarkovTracker')) || false,
+        useTarkovTracker: localStorageReadJson('useTarkovTracker', false),
         tarkovTrackerModules: [],
         hideRemoteControl: localStorageReadJson('hide-remote-control', false),
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
             state.tarkovTrackerAPIKey = action.payload;
-            localStorage.setItem(
+            localStorageWriteJson(
                 'tarkovTrackerAPIKey',
-                JSON.stringify(action.payload),
+                action.payload,
             );
         },
         toggleFlea: (state, action) => {
             state.hasFlea = action.payload;
-            localStorage.setItem('useFlea', JSON.stringify(action.payload));
+            localStorageWriteJson('useFlea', action.payload);
         },
         setStationOrTraderLevel: (state, action) => {
             state[action.payload.target] = action.payload.value;
-            localStorage.setItem(
+            localStorageWriteJson(
                 action.payload.target,
-                JSON.stringify(action.payload.value),
+                action.payload.value,
             );
         },
         toggleTarkovTracker: (state, action) => {
             state.useTarkovTracker = action.payload;
-            localStorage.setItem(
+            localStorageWriteJson(
                 'useTarkovTracker',
-                JSON.stringify(action.payload),
+                action.payload,
             );
         },
         toggleHideRemoteControl: (state, action) => {

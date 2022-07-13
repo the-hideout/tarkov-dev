@@ -21,10 +21,10 @@ import itemsData from '../../data/category-pages.json';
 import './index.css';
 
 // Comment / uncomment for banner alert
-import MuiAlert from '@material-ui/lab/Alert';
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+// import MuiAlert from '@material-ui/lab/Alert';
+// function Alert(props) {
+//     return <MuiAlert elevation={6} variant="filled" {...props} />;
+// }
 // End of banner alert toggle
 
 
@@ -47,7 +47,7 @@ const Menu = () => {
         <>
             {/* ALERT BANNER SECTION - uncomment the lines below to enable the alert banner */}
             {/* severity can be 'error', 'info', 'success', or 'warning' */}
-            <div><Alert severity="success">{"🌟 Flea market scanners have been leveled for this patch and all flea market data is now live! 🌟"}</Alert></div>
+            {/* <div><Alert severity="success">{"🌟 Flea market scanners have been leveled for this patch and all flea market data is now live! 🌟"}</Alert></div> */}
             {/* END ALERT BANNER SECTION */}
             <nav key="main-navigation" className="navigation">
                 <Icon
@@ -152,7 +152,7 @@ const Menu = () => {
                         <ul>
                             {itemsData.map((categoryPage) => (
                                 <MenuItem
-                                    displayText={categoryPage.displayText}
+                                    displayText={t(categoryPage.displayText)}
                                     key={categoryPage.key}
                                     to={`/items/${categoryPage.key}`}
                                     onClick={setIsOpen.bind(this, false)}

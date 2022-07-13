@@ -4,6 +4,9 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
 
+import Icon from '@mdi/react';
+import { mdiAmmunition } from '@mdi/js';
+
 import Graph from '../../components/Graph.jsx';
 import useKeyPress from '../../hooks/useKeyPress';
 import DataTable from '../../components/data-table';
@@ -241,7 +244,7 @@ function Ammo() {
                 Cell: ValueCell,
             },
             {
-                Header: t('Trader price'),
+                Header: t('Trader buy'),
                 accessor: 'trader',
                 sortType: traderPriceSort,
                 Cell: TraderPriceCell,
@@ -255,7 +258,11 @@ function Ammo() {
             <div style={{
                 textAlign: 'center',
             }}>
-                <h1>EFT Ammo Chart</h1>
+                <h1>
+                    {t('Escape from Tarkov')}
+                    <Icon path={mdiAmmunition} size={1.5} className="icon-with-text"/>
+                    {t('Ammo Chart')}
+                </h1>
             </div>
 
             <div className={'updated-label'}>

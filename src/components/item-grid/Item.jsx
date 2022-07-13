@@ -1,4 +1,6 @@
 import { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import ItemTooltip from './ItemTooltip';
 import ItemIcon from './ItemIcon';
 
@@ -16,6 +18,7 @@ const sizesNotToRotate = [
 const sizesToAlwaysRotate = ['2x3'];
 
 function Item(props) {
+    const { t } = useTranslation();
     const { item, onClick } = props;
 
     const handleClick = useCallback(
@@ -46,7 +49,7 @@ function Item(props) {
             <ItemTooltip
                 pricePerSlot={props.pricePerSlot}
                 slots={props.slots}
-                sellTo={props.sellTo}
+                sellTo={t(props.sellTo)}
                 name={props.name}
             />
             <ItemIcon

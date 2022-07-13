@@ -2,6 +2,9 @@ import { useCallback, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
+import Icon from '@mdi/react';
+import {mdiPistol} from '@mdi/js';
+
 import { Filter, InputFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
@@ -31,7 +34,7 @@ function Guns() {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov Guns')}</title>
+            <title>{t('Escape from Tarkov')} - {t('Guns')}</title>
             <meta
                 name="description"
                 content={`All the relevant information about Escape from Tarkov`}
@@ -39,7 +42,11 @@ function Guns() {
         </Helmet>,
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
-                <h1>{t('Escape from Tarkov Guns')}</h1>
+                <h1>
+                    {t('Escape from Tarkov')}
+                    <Icon path={mdiPistol} size={1.5} className="icon-with-text" /> 
+                    {t('Guns')}
+                </h1>
                 <Filter center>
                     <InputFilter
                         defaultValue={nameFilter}

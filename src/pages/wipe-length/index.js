@@ -155,18 +155,18 @@ const WipeLength = (props) => {
         <React.Fragment>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>{t('Escape from Tarkov Wipe Length')}</title>
+                <title>{t('Escape from Tarkov')} - {t('Wipe Length')}</title>
                 <meta
                     name="description"
-                    content={t('Escape from Tarkov length of wipes')}
+                    content={t('Escape from Tarkov - Wipe Length Statistics')}
                 />
             </Helmet>
             <div className={'page-wrapper'}>
                 <h1 className="center-title">
-                    {t('Escape from Tarkov Wipe Length')}
+                    {t('Escape from Tarkov')} - {t('Wipe Length')}
                 </h1>
                 <div className="center-title">
-                    <h3>Average Wipe Length</h3>
+                    <h2>Average Wipe Length</h2>
                     <p>{t(lengthDaysAverage)} Days 📆</p>
                 </div>
                 <DataTable

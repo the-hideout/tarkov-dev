@@ -2,6 +2,9 @@ import { useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
+import Icon from '@mdi/react';
+import {mdiTshirtCrewOutline} from '@mdi/js';
+
 import CanvasGrid from '../../../components/canvas-grid';
 import DataTable from '../../../components/data-table';
 import ValueCell from '../../../components/value-cell';
@@ -123,7 +126,7 @@ function Backpacks(props) {
                 Cell: CenterCell,
             },
             {
-                Header: t('Price'),
+                Header: t('Cost'),
                 accessor: 'price',
                 Cell: ValueCell,
             },
@@ -202,7 +205,7 @@ function Backpacks(props) {
     return [
         <Helmet key={'backpacks-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov Rigs')}</title>
+            <title>{t('Escape from Tarkov')} - {t('Rigs')}</title>
             <meta
                 name="description"
                 content="All backpacks in Escape from Tarkov sortable by price, size etc"
@@ -210,7 +213,10 @@ function Backpacks(props) {
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
-                <h1>{t('Escape from Tarkov Rigs')}</h1>
+                <h1>
+                    <Icon path={mdiTshirtCrewOutline} size={1.5} className="icon-with-text" /> 
+                    {t('Rigs')}
+                </h1>
                 <Filter center>
                     <ToggleFilter
                         label={t('Armored rigs?')}

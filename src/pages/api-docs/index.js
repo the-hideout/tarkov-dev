@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 // import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
+import ApiMetricsGraph from '../../components/api-metrics-graph';
+
 import './index.css';
 
 function APIDocs() {
@@ -35,6 +37,9 @@ function APIDocs() {
                     "It's written in graphql and we try our hardest to follow spec and never change or deprecate anything.",
                 )}
             </div>
+            <h2>{t('Current API Performance')}</h2>
+            <ApiMetricsGraph graph={true} />
+            <p>{'For full API metrics and performance, check out our'} <a href="https://status.tarkov.dev">status page</a></p>
             <h2>{t('FAQ')}</h2>
             <div className="section-text-wrapper">
                 <h3>{t('Is it free?')}</h3>
@@ -50,16 +55,16 @@ function APIDocs() {
             <div className="section-text-wrapper">
                 <h3>{t('Is there a rate limit?')}</h3>
                 {t(
-                    'Yes, but we do not expect legitimate usage to trigger the limit. Just use common sense.',
+                    'Nope! We currently do not have a rate-limit enabled. That being said, please respect this and do not hammer the API with requests just because you can. Use common sense!',
                 )}
                 <div></div>
                 {t(
                     "Price data is updated every 5 minutes, so there's really no need to query faster than that. ",
                 )}
                 {t(
-                    "To view an up-to-date definition of our rate-limits, check our Cloudflare GitHub repo where they are defined: ",
+                    "To view an up-to-date definition of our rate-limits (or lack there-of), check our Cloudflare GitHub repo where they are defined: ",
                 )}
-                <a href="https://github.com/the-hideout/cloudflare/blob/0ba7430a6a7b8526d8ccfd5b673cb70f0fb9130f/terraform/security.tf#L1-L37">
+                <a href="https://github.com/the-hideout/cloudflare/blob/main/terraform/security.tf">
                     rate limit definition
                 </a>
             </div>
@@ -79,6 +84,11 @@ function APIDocs() {
                     'We source data from multiple places to build an API as complete as possible. We use data from:',
                 )}
                 <ul>
+                    <li>
+                        <a href="https://tarkov-changes.com/">
+                            Tarkov Changes
+                        </a>
+                    </li>
                     <li>
                         <a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki">
                             Escape from Tarkov Wiki
@@ -122,6 +132,9 @@ function APIDocs() {
                 <li>
                     <HashLink to="#go">Golang</HashLink>
                 </li>
+                <li>
+                    <HashLink to="#luvit">Lua (Luvit)</HashLink>
+                </li>
             </ul>
             <div className="example-wrapper">
                 <h3 id="browser-js">Browser JS {t('example')}</h3>
@@ -133,7 +146,7 @@ function APIDocs() {
     'Accept': 'application/json',
   },
   body: JSON.stringify({query: \`{
-    itemsByName(name: "m855a1") {
+    items(name: "m855a1") {
         id
         name
         shortName
@@ -151,7 +164,7 @@ function APIDocs() {
 
 const query = gql\`
 {
-    itemsByName(name: "m855a1") {
+    items(name: "m855a1") {
         id
         name
         shortName
@@ -177,7 +190,7 @@ def run_query(query):
 
 new_query = """
 {
-    itemsByName(name: "m855a1") {
+    items(name: "m855a1") {
         id
         name
         shortName
@@ -205,7 +218,7 @@ require 'json'
 uri = URI.parse("https://api.tarkov.dev/graphql")
 
 header = { "Content-Type": "application/json" }
-query = { "query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }" }
+query = { "query": "{ items(name: \\"m855a1\\") {id name shortName } }" }
 
 # Create the HTTP object
 http = Net::HTTP.new(uri.host, uri.port)
@@ -227,7 +240,7 @@ puts response.body`}
                 <SyntaxHighlighter language="bash" style={atomOneDark}>
                     {`curl -X POST \
 -H "Content-Type: application/json" \
--d '{"query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }"}' \
+-d '{"query": "{ items(name: \\"m855a1\\") {id name shortName } }"}' \
 https://api.tarkov.dev/graphql`}
                 </SyntaxHighlighter>
             </div>
@@ -237,7 +250,7 @@ https://api.tarkov.dev/graphql`}
                     {`$headers = ['Content-Type: application/json'];
 
 $query = '{
-  itemsByName(name: "m855a1") {
+  items(name: "m855a1") {
     id
     name
     shortName
@@ -271,7 +284,7 @@ import java.net.http.HttpResponse;
 class Scratch {
     public static void main(String[] args) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newBuilder().build();
-        String query = "{\\"query\\": \\"{ itemsByName(name: \\\\\\"m855a1\\\\\\") {id name shortName } }\\"}";
+        String query = "{\\"query\\": \\"{ items(name: \\\\\\"m855a1\\\\\\") {id name shortName } }\\"}";
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.tarkov.dev/graphql"))
                 .header("Content-Type", "application/json")
@@ -294,7 +307,7 @@ class Scratch {
                 <SyntaxHighlighter language="csharp" style={atomOneDark}>
                     {`var data = new Dictionary<string, string>()
 {
-    {"query", "{itemsByName(name: \\"m855a1\\") { id name shortName }}"}
+    {"query", "{items(name: \\"m855a1\\") { id name shortName }}"}
 };
 
 using (var httpClient = new HttpClient())
@@ -332,7 +345,7 @@ import (
 )
 
 func main() {
-    body := strings.NewReader(\`{"query": "{ itemsByName(name: \\"m855a1\\") {id name shortName } }"}\`)
+    body := strings.NewReader(\`{"query": "{ items(name: \\"m855a1\\") {id name shortName } }"}\`)
     req, err := http.NewRequest("POST", "https://api.tarkov.dev/graphql", body)
     if err != nil {
         log.Fatalln(err)
@@ -353,6 +366,32 @@ func main() {
 
     defer resp.Body.Close()
 }`}
+                </SyntaxHighlighter>
+            </div>
+            <div className="example-wrapper">
+                <h3 id="luvit">
+                    <span>Lua (Luvit) {t('example')}</span>
+                    <cite>
+                        <span>Contributed by </span>
+                        <a href="https://github.com/AntwanR942">AntwanR942</a>
+                    </cite>
+                </h3>
+                <SyntaxHighlighter language="lua" style={atomOneDark}>
+                    {`local http = require "coro-http"
+
+coroutine.wrap(function()
+    local query = [[{"query": "{ items(name: "m855a1") {id name shortName } }"}]]
+    local headers = {
+        { "Content-Type", "application/json" },
+        { "Accept", "application/json" }
+    }
+    local res, body = http.request("POST", "https://api.tarkov.dev/graphql", headers, query)
+    if res.code ~= 200 then
+        error(res.message)
+    end
+
+    print(body)
+end)()`}
                 </SyntaxHighlighter>
             </div>
         </div>,

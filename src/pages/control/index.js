@@ -191,7 +191,7 @@ function Control(props) {
                 <option
                     value = 'grid-items'
                 >
-                    {'Barter items'}
+                    {'Barter Items'}
                 </option>
                 <option
                     value = 'mods'

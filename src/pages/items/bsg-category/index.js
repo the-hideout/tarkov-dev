@@ -47,8 +47,7 @@ function BsgCategory() {
         <Helmet key={'barter-items-helmet'}>
             <meta charSet="utf-8" />
             <title>
-                {t('Escape from Tarkov ')}
-                {formatCategoryName(bsgCategoryData)}
+                {t('Escape from Tarkov')} {formatCategoryName(bsgCategoryData)}
             </title>
             <meta
                 name="description"
@@ -58,8 +57,7 @@ function BsgCategory() {
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {t('Escape from Tarkov ')}
-                    {formatCategoryName(bsgCategoryData)}
+                    {t('Escape from Tarkov')} {formatCategoryName(bsgCategoryData)}
                     {/* <cite>
                         {bsgCategoryData._id}
                     </cite> */}
