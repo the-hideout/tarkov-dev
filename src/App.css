@@ -38,6 +38,7 @@ input,
 select,
 button {
     border-radius: 0;
+    font-family: inherit;
 }
 
 button,
