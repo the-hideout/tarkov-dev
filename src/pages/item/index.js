@@ -151,16 +151,16 @@ function Item() {
     const traderIsBest =
         currentItemData.traderPriceRUB >
         currentItemData.lastLowPrice -
-            fleaFee(currentItemData.avg24hPrice, currentItemData.basePrice)
+            fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice)
             ? true
             : false;
     const useFleaPrice =
-        currentItemData.avg24hPrice <= currentItemData.bestPrice;
+        currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
     let fleaTooltip = (
         <div>
             <div className="tooltip-calculation">
-                {t('Best price to sell for')}{' '}
+                {t('Likely sell price')}{' '}
                 <div className="tooltip-price-wrapper">
                     {useFleaPrice
                         ? formatPrice(currentItemData.lastLowPrice)
@@ -173,8 +173,8 @@ function Item() {
                     {useFleaPrice
                         ? formatPrice(
                               fleaFee(
-                                  currentItemData.lastLowPrice,
-                                  currentItemData.basePrice,
+                                    currentItemData.basePrice,
+                                    currentItemData.lastLowPrice,
                               ),
                           )
                         : formatPrice(currentItemData.bestPriceFee)}
@@ -187,8 +187,8 @@ function Item() {
                         ? formatPrice(
                               currentItemData.lastLowPrice -
                                   fleaFee(
-                                      currentItemData.lastLowPrice,
-                                      currentItemData.basePrice,
+                                        currentItemData.basePrice,
+                                        currentItemData.lastLowPrice,
                                   ),
                           )
                         : formatPrice(
@@ -220,8 +220,8 @@ function Item() {
                         {useFleaPrice
                             ? formatPrice(
                                   fleaFee(
-                                      currentItemData.lastLowPrice,
-                                      currentItemData.basePrice,
+                                        currentItemData.basePrice,
+                                        currentItemData.lastLowPrice,
                                   ),
                               )
                             : formatPrice(currentItemData.bestPriceFee)}
@@ -234,8 +234,8 @@ function Item() {
                             ? formatPrice(
                                   currentItemData.lastLowPrice -
                                       fleaFee(
-                                          currentItemData.lastLowPrice,
-                                          currentItemData.basePrice,
+                                            currentItemData.basePrice,
+                                            currentItemData.lastLowPrice,
                                       ),
                               )
                             : formatPrice(
