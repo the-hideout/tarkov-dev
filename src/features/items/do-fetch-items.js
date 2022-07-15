@@ -183,7 +183,7 @@ const doFetchItems = async () => {
 
         return {
             ...rawItem,
-            fee: calculateFee(rawItem.avg24hPrice, rawItem.basePrice),
+            fee: calculateFee(rawItem.basePrice, rawItem.lastLowPrice),
             fallbackImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
             slots: rawItem.width * rawItem.height,
             // iconLink: `https://assets.tarkov.dev/${rawItem.id}-icon.jpg`,

@@ -14,36 +14,31 @@ const itemSearch = (items, searchString) => {
         return items;
     }
 
-    let matches = items.filter(
-        (item) => formatName(item.shortName) === formattedSearchString,
-    );
+    let shortMatches = items.filter(
+        (item) => formatName(item.shortName).includes(formattedSearchString),
+    ).map((item) => item.id);
 
-    if (!matches || matches.length === 0) {
-        matches = items.filter((item) =>
-            formatName(item.name).includes(formattedSearchString),
-        );
-    }
+    let fullMatches = items.filter(
+        (item) => formatName(item.name).includes(formattedSearchString),
+    ).map((item) => item.id);
 
-    if (!matches || matches.length === 0) {
-        matches = items.filter((item) =>
-            formatName(item.shortName).includes(formattedSearchString),
-        );
-    }
+    const fuseFullOptions = {
+        includeScore: true,
+        keys: ['name'],
+        distance: 100,
+    };
 
-    if (!matches || matches.length === 0) {
-        const options = {
-            includeScore: true,
-            keys: ['name'],
-            distance: 1000,
-        };
+    const fuseFull = new Fuse(items, fuseFullOptions);
+    const fuseFullResult = fuseFull.search(formattedSearchString);
 
-        const fuse = new Fuse(items, options);
-        const result = fuse.search(formattedSearchString);
+    let fuzzyFullMatches = fuseFullResult.map((searchResult) => searchResult.item).map((item) => item.id);
 
-        matches = result.map((resultObject) => resultObject.item);
-    }
+    let allMatches = [...shortMatches, ...fullMatches, ...fuzzyFullMatches];
+    //Remove duplicates from allMatches while maintaining order
+    allMatches = allMatches.filter((item, index) => allMatches.indexOf(item) === index);
 
-    return matches;
+    // Order items by their id according to the order in allMatches
+    return items.filter((item) => allMatches.includes(item.id)).sort((a, b) => allMatches.indexOf(a.id) - allMatches.indexOf(b.id));
 };
 
 export default itemSearch;

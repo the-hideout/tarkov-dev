@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 // import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
+import ApiMetricsGraph from '../../components/api-metrics-graph';
+
 import './index.css';
 
 function APIDocs() {
@@ -35,6 +37,9 @@ function APIDocs() {
                     "It's written in graphql and we try our hardest to follow spec and never change or deprecate anything.",
                 )}
             </div>
+            <h2>{t('Current API Performance')}</h2>
+            <ApiMetricsGraph graph={true} />
+            <p>{'For full API metrics and performance, check out our'} <a href="https://status.tarkov.dev">status page</a></p>
             <h2>{t('FAQ')}</h2>
             <div className="section-text-wrapper">
                 <h3>{t('Is it free?')}</h3>
@@ -50,16 +55,16 @@ function APIDocs() {
             <div className="section-text-wrapper">
                 <h3>{t('Is there a rate limit?')}</h3>
                 {t(
-                    'Yes, but we do not expect legitimate usage to trigger the limit. Just use common sense.',
+                    'Nope! We currently do not have a rate-limit enabled. That being said, please respect this and do not hammer the API with requests just because you can. Use common sense!',
                 )}
                 <div></div>
                 {t(
                     "Price data is updated every 5 minutes, so there's really no need to query faster than that. ",
                 )}
                 {t(
-                    "To view an up-to-date definition of our rate-limits, check our Cloudflare GitHub repo where they are defined: ",
+                    "To view an up-to-date definition of our rate-limits (or lack there-of), check our Cloudflare GitHub repo where they are defined: ",
                 )}
-                <a href="https://github.com/the-hideout/cloudflare/blob/0ba7430a6a7b8526d8ccfd5b673cb70f0fb9130f/terraform/security.tf#L1-L37">
+                <a href="https://github.com/the-hideout/cloudflare/blob/main/terraform/security.tf">
                     rate limit definition
                 </a>
             </div>
@@ -126,6 +131,9 @@ function APIDocs() {
                 </li>
                 <li>
                     <HashLink to="#go">Golang</HashLink>
+                </li>
+                <li>
+                    <HashLink to="#luvit">Lua (Luvit)</HashLink>
                 </li>
             </ul>
             <div className="example-wrapper">
@@ -358,6 +366,32 @@ func main() {
 
     defer resp.Body.Close()
 }`}
+                </SyntaxHighlighter>
+            </div>
+            <div className="example-wrapper">
+                <h3 id="luvit">
+                    <span>Lua (Luvit) {t('example')}</span>
+                    <cite>
+                        <span>Contributed by </span>
+                        <a href="https://github.com/AntwanR942">AntwanR942</a>
+                    </cite>
+                </h3>
+                <SyntaxHighlighter language="lua" style={atomOneDark}>
+                    {`local http = require "coro-http"
+
+coroutine.wrap(function()
+    local query = [[{"query": "{ items(name: "m855a1") {id name shortName } }"}]]
+    local headers = {
+        { "Content-Type", "application/json" },
+        { "Accept", "application/json" }
+    }
+    local res, body = http.request("POST", "https://api.tarkov.dev/graphql", headers, query)
+    if res.code ~= 200 then
+        error(res.message)
+    end
+
+    print(body)
+end)()`}
                 </SyntaxHighlighter>
             </div>
         </div>,
