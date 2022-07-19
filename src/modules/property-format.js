@@ -25,6 +25,10 @@ const ammoLinkFormat = (inputString) => {
     return <Link to={`/ammo/${formattedName}`}>{formattedName}</Link>;
 };
 
+const itemLinkFormat = (inputItem) => {
+    return <Link to={`/item/${inputItem.normalizedName}`}>{inputItem.name}</Link>;
+};
+
 const formatter = (key, value) => {
     if (key === 'Weight') {
         return [key, `${value} kg`];
@@ -68,7 +72,7 @@ const formatter = (key, value) => {
         return ['Fire modes', value.map(firingModeFormat).join(', ')];
     }
 
-    if (key === 'ammoCaliber') {
+    if (key === 'caliber') {
         return ['Ammunition', ammoLinkFormat(value)];
     }
 
@@ -82,6 +86,24 @@ const formatter = (key, value) => {
         let displayKey = defaultFormat(key);
 
         return [displayKey, value ? 'Yes' : 'No'];
+    }
+
+    if (key === 'zoomLevels') {
+        let displayKey = defaultFormat(key);
+
+        const zoomLevels = new Set();
+        value.forEach(levels => zoomLevels.add(...levels));
+        return [displayKey, [...zoomLevels].join(', ')];
+    }
+
+    if (key === 'pouches') {
+        let displayKey = defaultFormat(key);
+
+        return [displayKey, value.map(pouch => pouch.width+'x'+pouch.height).join(', ')];
+    }
+
+    if (key === 'baseItem') {
+        return ['Base Item', itemLinkFormat(value)];
     }
 
     const displayKey = defaultFormat(key);
