@@ -24,6 +24,7 @@ const doFetchItems = async () => {
                 types
                 width
                 height
+                weight
                 avg24hPrice
                 wikiLink
                 changeLast48h
