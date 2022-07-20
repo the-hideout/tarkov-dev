@@ -102,6 +102,13 @@ const doFetchItems = async () => {
                         speedPenalty
                         turnPenalty
                     }
+                    ...on ItemPropertiesBackpack {
+                        capacity
+                        pouches {
+                            width
+                            height
+                        }
+                    }
                     ...on ItemPropertiesChestRig {
                         class
                         material {
@@ -118,10 +125,22 @@ const doFetchItems = async () => {
                             height
                         }
                     }
+                    ...on ItemPropertiesContainer {
+                        capacity
+                    }
                     ...on ItemPropertiesFoodDrink {
                         energy
                         hydration
                         units
+                    }
+                    ...on ItemPropertiesGlasses {
+                        class
+                        durability
+                        blindnessProtection
+                        material {
+                            id
+                            name
+                        }
                     }
                     ...on ItemPropertiesGrenade {
                         type
