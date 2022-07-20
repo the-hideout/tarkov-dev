@@ -646,7 +646,7 @@ function Item() {
                     </div>
                 )}
                 <h2 style={{ marginTop: 10 }}>{t('Stats')}</h2>
-                <PropertyList properties={currentItemData.itemProperties} />
+                <PropertyList properties={currentItemData.properties} />
                 <div>
                     <div className="item-barters-headline-wrapper">
                         <h2>

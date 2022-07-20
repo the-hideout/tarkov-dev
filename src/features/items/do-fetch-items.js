@@ -24,6 +24,7 @@ const doFetchItems = async () => {
                 types
                 width
                 height
+                weight
                 avg24hPrice
                 wikiLink
                 changeLast48h
@@ -66,6 +67,177 @@ const doFetchItems = async () => {
                     count
                     item {
                         id
+                    }
+                }
+                properties {
+                    __typename
+                    ...on ItemPropertiesAmmo {
+                        caliber
+                        damage
+                        penetrationPower
+                        armorDamage
+                        fragmentationChance
+                    }
+                    ...on ItemPropertiesArmor {
+                        class
+                        material {
+                            id
+                            name
+                        }
+                        zones
+                        durability
+                        ergoPenalty
+                        speedPenalty
+                        turnPenalty
+                    }
+                    ...on ItemPropertiesArmorAttachment {
+                        class
+                        material {
+                            id
+                            name
+                        }
+                        headZones
+                        durability
+                        ergoPenalty
+                        speedPenalty
+                        turnPenalty
+                    }
+                    ...on ItemPropertiesBackpack {
+                        capacity
+                        pouches {
+                            width
+                            height
+                        }
+                    }
+                    ...on ItemPropertiesChestRig {
+                        class
+                        material {
+                            id
+                            name
+                        }
+                        zones
+                        durability
+                        ergoPenalty
+                        speedPenalty
+                        turnPenalty
+                        pouches {
+                            width
+                            height
+                        }
+                    }
+                    ...on ItemPropertiesContainer {
+                        capacity
+                    }
+                    ...on ItemPropertiesFoodDrink {
+                        energy
+                        hydration
+                        units
+                    }
+                    ...on ItemPropertiesGlasses {
+                        class
+                        durability
+                        blindnessProtection
+                        material {
+                            id
+                            name
+                        }
+                    }
+                    ...on ItemPropertiesGrenade {
+                        type
+                        fuse
+                        maxExplosionDistance
+                        fragments
+                    }
+                    ...on ItemPropertiesHelmet {
+                        class
+                        material {
+                            id
+                            name
+                        }
+                        headZones
+                        durability
+                        ergoPenalty
+                        speedPenalty
+                        turnPenalty
+                        deafening
+                    }
+                    ...on ItemPropertiesKey {
+                        uses
+                    }
+                    ...on ItemPropertiesMagazine {
+                        capacity
+                        malfunctionChance
+                        ergonomics
+                        recoil
+                        capacity
+                        loadModifier
+                        ammoCheckModifier
+                    }
+                    ...on ItemPropertiesMedicalItem {
+                        uses
+                        useTime
+                        cures
+                    }
+                    ...on ItemPropertiesMedKit {
+                        hitpoints
+                        useTime
+                        maxHealPerUse
+                        cures
+                        hpCostLightBleeding
+                        hpCostHeavyBleeding
+                    }
+                    ...on ItemPropertiesPainkiller {
+                        uses
+                        useTime
+                        cures
+                        painkillerDuration
+                        energyImpact
+                        hydrationImpact
+                    }
+                    ...on ItemPropertiesPreset {
+                        baseItem {
+                            name
+                            normalizedName
+                        }
+                        ergonomics
+                        recoilVertical
+                        recoilHorizontal
+                    }
+                    ...on ItemPropertiesScope {
+                        ergonomics
+                        recoil
+                        zoomLevels
+                    }
+                    ...on ItemPropertiesStim {
+                        cures
+                        useTime
+                    }
+                    ...on ItemPropertiesSurgicalKit {
+                        uses
+                        useTime
+                        cures
+                        minLimbHealth
+                        maxLimbHealth
+                    }
+                    ...on ItemPropertiesWeapon {
+                        caliber
+                        effectiveDistance
+                        ergonomics
+                        fireModes
+                        fireRate
+                        recoilVertical
+                        recoilHorizontal
+                        sightingRange
+                        defaultWidth
+                        defaultHeight
+                        defaultErgonomics
+                        defaultRecoilVertical
+                        defaultRecoilHorizontal
+                        defaultWeight
+                    }
+                    ...on ItemPropertiesWeaponMod {
+                        ergonomics
+                        recoil
                     }
                 }
             }
@@ -201,6 +373,10 @@ const doFetchItems = async () => {
             canHoldItems: itemProps[rawItem.id]?.canHoldItems,
             equipmentSlots: itemProps[rawItem.id]?.slots || [],
             allowedAmmoIds: itemProps[rawItem.id]?.allowedAmmoIds,
+            properties: {
+                weight: rawItem.weight,
+                ...rawItem.properties
+            }
         };
     });
 
