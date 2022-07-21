@@ -157,7 +157,8 @@ function SmallItemTable(props) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
-    const { data: items } = useItemsQuery();
+    const result = useItemsQuery();
+    const items = result.data;
 
     const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
@@ -844,7 +845,11 @@ function SmallItemTable(props) {
     let extraRow = false;
 
     if (data.length <= 0) {
-        extraRow = t('No items');
+        if (result.isFetched === false) {
+            extraRow = t('Loading...');
+        } else {
+            extraRow = t('No items');
+        }
     }
 
     return (
