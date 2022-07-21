@@ -4,26 +4,26 @@
         "displayText": "Customs",
         "source": "re3mr",
         "sourceLink": "https://reemr.se",
-        "duration": "35 min",
+        "duration": "40 min",
         "players": "9-12"
     },
     {
         "key": "customs-2d",
         "displayText": "Customs - 2D",
         "source": "TacticalOtter",
-        "duration": "35 min",
+        "duration": "40 min",
         "players": "9-12"
     },
     {
         "key": "customs-monkix3",
         "displayText": "Customs - MONKIMONKIMONKI",
-        "duration": "35 min",
+        "duration": "40 min",
         "players": "9-12"
     },
     {
         "key": "dorms",
         "displayText": "Customs - Dorms",
-        "duration": "35 min",
+        "duration": "40 min",
         "players": "9-12"
     },
     {
@@ -31,24 +31,24 @@
         "displayText": "Factory",
         "source": "/u/JohnnyTushonka",
         "duration": "20 min / 25 min",
-        "players": "5-6"
+        "players": "4-6"
     },
     {
         "key": "interchange",
         "displayText": "Interchange",
-        "duration": "45 min",
+        "duration": "40 min",
         "players": "10-14"
     },
     {
         "key": "interchange-stashes",
         "displayText": "Interchange - Stashes",
-        "duration": "45 min",
+        "duration": "40 min",
         "players": "10-14"
     },
     {
         "key": "labs",
-        "displayText": "Labs",
-        "duration": "40 min",
+        "displayText": "The Lab",
+        "duration": "35 min",
         "players": "6-10"
     },
     {
@@ -93,13 +93,13 @@
     {
         "key": "shoreline",
         "displayText": "Shoreline",
-        "duration": "50 min",
+        "duration": "45 min",
         "players": "10-13"
     },
     {
         "key": "resort",
         "displayText": "Shoreline - Resort",
-        "duration": "50 min",
+        "duration": "45 min",
         "players": "10-13"
     },
     {
