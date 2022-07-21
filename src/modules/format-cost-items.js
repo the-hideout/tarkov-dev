@@ -7,8 +7,6 @@ function getCheapestItemPrice(item, useFlea) {
     let bestPrice = {};
 
     if (!item.buyFor) {
-        console.log(item);
-
         return bestPrice;
     }
 

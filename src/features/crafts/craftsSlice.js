@@ -114,8 +114,6 @@ const craftsSlice = createSlice({
         toggleItem: (state, action) => {
             let newCrafts = [...state.crafts];
 
-            console.log(action.payload.itemId);
-
             newCrafts = newCrafts.map((craft) => {
                 craft.requiredItems = craft.requiredItems.map(
                     (requiredItem) => {
