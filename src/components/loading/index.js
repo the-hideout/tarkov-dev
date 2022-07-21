@@ -2,7 +2,7 @@ import { Bars } from 'react-loader-spinner';
 
 import './index.css';
 
-function Loading(props) {
+function Loading() {
     return (
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="loader-wrapper">

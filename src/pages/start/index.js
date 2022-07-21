@@ -27,6 +27,8 @@ import './index.css';
 
 import categoryPages from '../../data/category-pages.json';
 
+const DISCORD_STASH_INVITE_LINK = 'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'
+
 // Lazy loading React component text (fallback)
 // https://web.dev/code-splitting-suspense/?utm_source=lighthouse&utm_medium=wpt
 const renderLoader = () => <p>Loading...</p>;
@@ -143,9 +145,7 @@ function Start() {
                     </li>
                     <li>
                         <a
-                            href={
-                                'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'
-                            }
+                            href={DISCORD_STASH_INVITE_LINK}
                         >
                             <Icon
                                 path={mdiDiscord}

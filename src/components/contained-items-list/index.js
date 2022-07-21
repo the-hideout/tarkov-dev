@@ -64,8 +64,6 @@ const ContainedItemsList = ({ item }) => {
                 }
 
                 if (!linkedItem && !currentCategoryData) {
-                    console.log(itemOrCategoryId);
-
                     return null;
                 }
 

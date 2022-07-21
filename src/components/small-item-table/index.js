@@ -157,7 +157,11 @@ function SmallItemTable(props) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
-    const { data: items } = useItemsQuery();
+    // Use the primary items API query to fetch all items
+    const result = useItemsQuery();
+
+    // Create a constant of all data returned
+    const items = result.data;
 
     const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
@@ -843,8 +847,15 @@ function SmallItemTable(props) {
 
     let extraRow = false;
 
+    // If there are no items returned by the API, we need to add a row to show
     if (data.length <= 0) {
-        extraRow = t('No items');
+        // If the API query has not yet completed
+        if (result.isFetched === false) {
+            extraRow = t('Loading...');
+        // If the API query has completed, but no items were found
+        } else {
+            extraRow = t('No items');
+        }
     }
 
     return (

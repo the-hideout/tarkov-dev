@@ -119,7 +119,6 @@ function BartersTable(props) {
         return barters
             .filter((barter) => {
                 if (!barter.rewardItems[0]) {
-                    console.log(barter);
                     return false;
                 }
 
