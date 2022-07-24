@@ -135,7 +135,7 @@ function Backpacks(props) {
                         ).toFixed(2),
                         size: item.itemProperties.grid?.totalSize,
                         slots: item.slots,
-                        weight: `${item.itemProperties.Weight} kg`,
+                        weight: `${parseFloat(item.itemProperties.Weight).toFixed(2)} kg`,
                         wikiLink: item.wikiLink,
                         itemLink: `/item/${item.normalizedName}`,
                         notes: item.notes,
