@@ -46,12 +46,18 @@ function Barters() {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Barter Profits')}</title>
+            <title>
+                {t('Escape from Tarkov')} - {t('Barter Profits')}
+            </title>
             <meta name="description" content="Barter Profits" />
         </Helmet>,
         <div className="barters-headline-wrapper" key="barters-headline">
             <h1 className="barters-page-title">
-                <Icon path={mdiAccountSwitch} size={1.5} className="icon-with-text"/>
+                <Icon
+                    path={mdiAccountSwitch}
+                    size={1.5}
+                    className="icon-with-text"
+                />
                 {t('Barter Profits')}
             </h1>
             <Filter>
@@ -74,9 +80,11 @@ function Barters() {
                                 key={`trader-tooltip-${traderName}`}
                                 tooltipContent={
                                     <div>
-                                        {t(capitalizeTheFirstLetterOfEachWord(
-                                            traderName.replace('-', ' '),
-                                        ))}
+                                        {t(
+                                            capitalizeTheFirstLetterOfEachWord(
+                                                traderName.replace('-', ' '),
+                                            ),
+                                        )}
                                     </div>
                                 }
                                 selected={traderName === selectedTrader}

@@ -167,7 +167,7 @@ const selectFilterStyle = {
     multiValueLabel: (provided) => ({
         ...provided,
         color: '#E0DFD6',
-        padding: '0.1rem'
+        padding: '0.1rem',
     }),
     menu: (provided) => ({
         ...provided,

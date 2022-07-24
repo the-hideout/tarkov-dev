@@ -2,8 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation, withTranslation } from 'react-i18next';
 import Select from 'react-select';
-import { motion } from "framer-motion";
-
+import { motion } from 'framer-motion';
 
 import { InputFilter, ToggleFilter } from '../../components/filter';
 import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
@@ -27,8 +26,8 @@ import i18n from '../../i18n';
 const langOptions = [
     { value: 'en', label: 'en' },
     { value: 'de', label: 'de' },
-    { value: 'ru', label: 'ru' }
-]
+    { value: 'ru', label: 'ru' },
+];
 
 export function getNumericSelect(min, max) {
     let returnOptions = [];
@@ -120,8 +119,8 @@ function Settings() {
     }, [dispatch]);
 
     // Setup language selector
-    const [language, setLanguage] = useState("id");
-    const handleLangChange = event => {
+    const [language, setLanguage] = useState('id');
+    const handleLangChange = (event) => {
         const lang = event.value;
         setLanguage(lang);
         i18n.changeLanguage(lang);
@@ -130,10 +129,10 @@ function Settings() {
     // cheeki breeki
     const [isShown, setIsShown] = useState(false);
 
-    let audio = new Audio("/audio/killa.mp3")
-    const handleClick = event => {
-        setIsShown(current => !current);
-        audio.play()
+    let audio = new Audio('/audio/killa.mp3');
+    const handleClick = (event) => {
+        setIsShown((current) => !current);
+        audio.play();
     };
 
     return (
@@ -150,7 +149,7 @@ function Settings() {
                         handleLangChange({
                             target: language,
                             value: event.value,
-                        })
+                        });
                     }}
                 />
             </div>
@@ -235,9 +234,14 @@ function Settings() {
             </div>
             {/* cheeki breeki */}
             <div>
-                <button style={{padding: '.2rem', borderRadius: '4px'}} onClick={handleClick}>cheeki breeki</button>
+                <button
+                    style={{ padding: '.2rem', borderRadius: '4px' }}
+                    onClick={handleClick}
+                >
+                    cheeki breeki
+                </button>
                 {isShown && (
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: 'flex' }}>
                         <motion.div
                             className="block"
                             animate={{ rotate: 360 }}
@@ -263,7 +267,7 @@ function Settings() {
                         <motion.div
                             className="block"
                             animate={{ rotate: 360, scale: 4, x: -100 }}
-                            transition={{ yoyo: Infinity, duration: 0.30 }}
+                            transition={{ yoyo: Infinity, duration: 0.3 }}
                         >
                             <img
                                 alt={'Prapor'}

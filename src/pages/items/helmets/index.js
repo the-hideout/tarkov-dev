@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiRacingHelmet} from '@mdi/js';
+import { mdiRacingHelmet } from '@mdi/js';
 
 import DataTable from '../../../components/data-table';
 import formatPrice from '../../../modules/format-price';
@@ -353,7 +353,9 @@ function Helmets(props) {
     return [
         <Helmet key={'helmet-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Helmets')}</title>
+            <title>
+                {t('Escape from Tarkov')} - {t('Helmets')}
+            </title>
             <meta
                 name="description"
                 content="All helmets in Escape from Tarkov sortable by price, armor class etc"
@@ -362,7 +364,11 @@ function Helmets(props) {
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    <Icon path={mdiRacingHelmet} size={1.5} className="icon-with-text" /> 
+                    <Icon
+                        path={mdiRacingHelmet}
+                        size={1.5}
+                        className="icon-with-text"
+                    />
                     {t('Helmets')}
                 </h1>
                 <Filter center>

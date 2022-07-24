@@ -77,7 +77,9 @@ function Hideout() {
     return [
         <Helmet key={'hideout-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Hideout')}</title>
+            <title>
+                {t('Escape from Tarkov')} - {t('Hideout')}
+            </title>
             <meta
                 name="description"
                 content={`All the relevant information about the Escape from Tarkov Hideout`}
@@ -87,7 +89,11 @@ function Hideout() {
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
-                    <Icon path={mdiHome} size={1.5} className="icon-with-text"/>
+                    <Icon
+                        path={mdiHome}
+                        size={1.5}
+                        className="icon-with-text"
+                    />
                     {t('Hideout')}
                 </h1>
             </div>
@@ -99,9 +105,11 @@ function Hideout() {
                                 key={`station-tooltip-${stationName}`}
                                 tooltipContent={
                                     <div>
-                                        {t(capitalizeTheFirstLetterOfEachWord(
-                                            stationName.replace(/-/g, ' '),
-                                        ))}
+                                        {t(
+                                            capitalizeTheFirstLetterOfEachWord(
+                                                stationName.replace(/-/g, ' '),
+                                            ),
+                                        )}
                                     </div>
                                 }
                                 selected={stationName === selectedStation}
@@ -155,7 +163,12 @@ function Hideout() {
                             key={`hideout-module-cost-${hideoutModule.name}-${level.level}`}
                         >
                             <h2>
-                                {t(capitalizeTheFirstLetterOfEachWord(hideoutModule.name))} {level.level}
+                                {t(
+                                    capitalizeTheFirstLetterOfEachWord(
+                                        hideoutModule.name,
+                                    ),
+                                )}{' '}
+                                {level.level}
                             </h2>
                             <ItemsSummaryTable
                                 includeItems={level.itemRequirements.map(
@@ -169,7 +182,7 @@ function Hideout() {
                             />
                         </div>
                     );
-                })
+                });
             })}
         </div>,
     ];

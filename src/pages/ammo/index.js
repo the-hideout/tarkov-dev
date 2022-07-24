@@ -255,12 +255,18 @@ function Ammo() {
 
     return (
         <React.Fragment>
-            <div style={{
-                textAlign: 'center',
-            }}>
+            <div
+                style={{
+                    textAlign: 'center',
+                }}
+            >
                 <h1>
                     {t('Escape from Tarkov')}
-                    <Icon path={mdiAmmunition} size={1.5} className="icon-with-text"/>
+                    <Icon
+                        path={mdiAmmunition}
+                        size={1.5}
+                        className="icon-with-text"
+                    />
                     {t('Ammo Chart')}
                 </h1>
             </div>
@@ -281,9 +287,11 @@ function Ammo() {
                 />
             </div>
 
-            <div style={{
-                textAlign: 'center',
-            }}>
+            <div
+                style={{
+                    textAlign: 'center',
+                }}
+            >
                 <h2>Ammo Statistics Table</h2>
             </div>
 

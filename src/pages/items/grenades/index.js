@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiGasCylinder} from '@mdi/js';
+import { mdiGasCylinder } from '@mdi/js';
 
 import { Filter, InputFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
@@ -34,7 +34,9 @@ function Grenades() {
     return [
         <Helmet key={'grenades-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Grenades')}</title>
+            <title>
+                {t('Escape from Tarkov')} - {t('Grenades')}
+            </title>
             <meta
                 name="description"
                 content={`All the relevant information about Escape from Tarkov`}
@@ -44,7 +46,11 @@ function Grenades() {
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
-                    <Icon path={mdiGasCylinder} size={1.5} className="icon-with-text" /> 
+                    <Icon
+                        path={mdiGasCylinder}
+                        size={1.5}
+                        className="icon-with-text"
+                    />
                     {t('Grenades')}
                 </h1>
                 <Filter center>

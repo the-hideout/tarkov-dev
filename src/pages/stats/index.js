@@ -6,7 +6,7 @@ import TwitchIcon from '../../components/supporter/Twitch.svg';
 
 import './index.css';
 
-const twitch_url = "https://api.tarkov.dev/twitch";
+const twitch_url = 'https://api.tarkov.dev/twitch';
 
 const fetchTwitchData = async () => {
     const res = await fetch(twitch_url);
@@ -14,20 +14,20 @@ const fetchTwitchData = async () => {
 };
 
 function Stats() {
-    const { data, status } = useQuery("twitch-data", fetchTwitchData);
+    const { data, status } = useQuery('twitch-data', fetchTwitchData);
 
     var totalViewers = 0;
-    if (status === "success") {
-        for (var i = 0; i < data["data"].length; i++) {
-            totalViewers += data["data"][i]["viewer_count"];
+    if (status === 'success') {
+        for (var i = 0; i < data['data'].length; i++) {
+            totalViewers += data['data'][i]['viewer_count'];
         }
-    } else if (status === "loading") {
-        totalViewers = "Loading...";
+    } else if (status === 'loading') {
+        totalViewers = 'Loading...';
     } else {
-        totalViewers = "error";
+        totalViewers = 'error';
     }
 
-    totalViewers = totalViewers.toLocaleString('en-US')
+    totalViewers = totalViewers.toLocaleString('en-US');
 
     const { t } = useTranslation();
     return [
@@ -49,12 +49,18 @@ function Stats() {
                     loading="lazy"
                 />
                 <h3>Twitch - Escape from Tarkov</h3>
-                <p>Total Twitch viewers aggregated from top 100 current EFT streamers</p>
+                <p>
+                    Total Twitch viewers aggregated from top 100 current EFT
+                    streamers
+                </p>
                 <p>Twitch Viewers: {totalViewers} 🟢</p>
-                <br/>
-                <p>More stats to come soon! Consider contributing to see whatever stats about EFT here!</p>
+                <br />
+                <p>
+                    More stats to come soon! Consider contributing to see
+                    whatever stats about EFT here!
+                </p>
             </div>
-            { }
+            {}
         </div>,
     ];
 }

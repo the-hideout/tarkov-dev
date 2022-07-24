@@ -40,21 +40,21 @@ function ItemsForHideout(props) {
             curr.levels.map((level) => {
                 return acc.push(
                     ...level.itemRequirements
-                    .filter((c) => {
-                        if (!c) {
-                            return false;
-                        }
+                        .filter((c) => {
+                            if (!c) {
+                                return false;
+                            }
 
-                        return c.item.id === itemFilter;
-                    })
-                    .map((c) => {
-                        return {
-                            ...c,
-                            moduleName: curr.name,
-                            level: level.level,
-                        };
-                    }),
-                )
+                            return c.item.id === itemFilter;
+                        })
+                        .map((c) => {
+                            return {
+                                ...c,
+                                moduleName: curr.name,
+                                level: level.level,
+                            };
+                        }),
+                );
             });
 
             return acc;

@@ -57,7 +57,8 @@ function BsgCategory() {
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {t('Escape from Tarkov')} {formatCategoryName(bsgCategoryData)}
+                    {t('Escape from Tarkov')}{' '}
+                    {formatCategoryName(bsgCategoryData)}
                     {/* <cite>
                         {bsgCategoryData._id}
                     </cite> */}
