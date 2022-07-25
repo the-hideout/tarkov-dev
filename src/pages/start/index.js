@@ -27,8 +27,7 @@ import './index.css';
 
 import categoryPages from '../../data/category-pages.json';
 
-const DISCORD_STASH_INVITE_LINK =
-    'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands';
+const DISCORD_STASH_INVITE_LINK = 'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'
 
 // Lazy loading React component text (fallback)
 // https://web.dev/code-splitting-suspense/?utm_source=lighthouse&utm_medium=wpt
@@ -145,7 +144,9 @@ function Start() {
                         </Link>
                     </li>
                     <li>
-                        <a href={DISCORD_STASH_INVITE_LINK}>
+                        <a
+                            href={DISCORD_STASH_INVITE_LINK}
+                        >
                             <Icon
                                 path={mdiDiscord}
                                 size={1}
@@ -312,12 +313,10 @@ function Start() {
                     </li>
                 </ul>
             </div>
-            <div
-                style={{
-                    textAlign: 'center',
-                    width: '100%',
-                }}
-            >
+            <div style={{
+                textAlign: 'center',
+                width: '100%',
+            }}>
                 <Link className="branding" to="/">
                     <img
                         alt="Tarkov.dev"
@@ -328,28 +327,12 @@ function Start() {
                         style={{ marginTop: '2.5rem' }}
                     />
                 </Link>
-                <h1
-                    style={{
-                        fontSize: '1.3rem',
-                        marginTop: '1.0rem',
-                        marginBottom: 0,
-                    }}
-                >
-                    tarkov.dev is an open source tool kit for Escape from
-                    Tarkov.
-                </h1>
-                <h2
-                    style={{
-                        fontSize: '1.1rem',
-                        marginTop: '1.0rem',
-                        marginBottom: 0,
-                    }}
-                >
-                    It is designed and maintained by the community to help you
-                    with quests, flea market trading, and improving your game!
-                    The API is also freely available for you to build your own
-                    tools and services related to EFT.
-                </h2>
+                <h1 style={
+                    { fontSize: '1.3rem', marginTop: '1.0rem', marginBottom: 0 }
+                }>tarkov.dev is an open source tool kit for Escape from Tarkov.</h1>
+                <h2 style={
+                    { fontSize: '1.1rem', marginTop: '1.0rem', marginBottom: 0 }
+                }>It is designed and maintained by the community to help you with quests, flea market trading, and improving your game! The API is also freely available for you to build your own tools and services related to EFT.</h2>
             </div>
         </div>,
     ];

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiFinance } from '@mdi/js';
+import {mdiFinance} from '@mdi/js';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
 import ItemGrid from '../../components/item-grid';
@@ -131,9 +131,7 @@ function LootTier(props) {
                     return {
                         ...item,
                         sellTo: item.traderName,
-                        pricePerSlot: Math.floor(
-                            item.traderPriceRUB / item.slots,
-                        ),
+                        pricePerSlot: Math.floor(item.traderPriceRUB / item.slots),
                     };
                 }
 
@@ -323,9 +321,7 @@ function LootTier(props) {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>
-                {t('Escape from Tarkov')} - {t('Loot tiers')}
-            </title>
+            <title>{t('Escape from Tarkov')} - {t('Loot tiers')}</title>
             <meta
                 name="description"
                 content="Visualization of all different valuable loot"
@@ -338,28 +334,13 @@ function LootTier(props) {
             }}
             key={'display-wrapper'}
         >
-            <div
-                style={{
-                    flexDirection: 'column',
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
-                <h1 style={{ margin: '0.75rem', textAlign: 'center' }}>
+            <div style={{ flexDirection: 'column', display: 'flex', flexWrap:'wrap', justifyContent: 'center', alignItems: 'center' }}>
+                <h1 style={{margin: '0.75rem', textAlign: 'center'}}>
                     {t('Escape from Tarkov')}
-                    <Icon
-                        path={mdiFinance}
-                        size={1.5}
-                        className="icon-with-text"
-                    />
+                    <Icon path={mdiFinance} size={1.5} className="icon-with-text" /> 
                     {t('Loot tiers')}
                 </h1>
-                <p style={{ margin: '0.75rem', textAlign: 'center' }}>
-                    Escape from Tarkov "loot tiers" - Ranking the most valuable
-                    items in the game
-                </p>
+                <p style={{margin: '0.75rem', textAlign: 'center'}}>Escape from Tarkov "loot tiers" - Ranking the most valuable items in the game</p>
             </div>
             <Filter fullWidth>
                 <ToggleFilter

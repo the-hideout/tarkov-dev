@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiBottleWine } from '@mdi/js';
+import {mdiBottleWine} from '@mdi/js';
 
 import ItemsTable from '../../../components/item-table';
 import { Filter, SelectFilter } from '../../../components/filter';
@@ -175,9 +175,7 @@ function Suppressors(props) {
     return [
         <Helmet key={'suppressors-table'}>
             <meta charSet="utf-8" />
-            <title>
-                {t('Escape from Tarkov')} - {t('Suppressors')}
-            </title>
+            <title>{t('Escape from Tarkov')} - {t('Suppressors')}</title>
             <meta
                 name="description"
                 content="All suppressors in Escape from Tarkov sortable by price, caliber etc"
@@ -187,11 +185,7 @@ function Suppressors(props) {
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
-                    <Icon
-                        path={mdiBottleWine}
-                        size={1.5}
-                        className="icon-with-text"
-                    />
+                    <Icon path={mdiBottleWine} size={1.5} className="icon-with-text" /> 
                     {t('Suppressors')}
                 </h1>
                 <Filter center>

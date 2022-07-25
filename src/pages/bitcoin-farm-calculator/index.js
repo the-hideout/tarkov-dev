@@ -107,11 +107,9 @@ const BitcoinFarmCalculator = () => {
                         itemLink={`/item/${graphicCardItem.normalizedName}`}
                         name={graphicCardItem.name}
                         value={graphicsCardBuy.priceRUB}
-                        sellTo={t(
-                            capitalizeFirst(
-                                graphicsCardBuy.source.replace(/-/g, ' '),
-                            ),
-                        )}
+                        sellTo={t(capitalizeFirst(
+                            graphicsCardBuy.source.replace(/-/g, ' '),
+                        ))}
                     />
                 )}
                 {Boolean(bitcoinItem) && (
@@ -121,9 +119,9 @@ const BitcoinFarmCalculator = () => {
                         itemLink={`/item/${bitcoinItem.normalizedName}`}
                         name={bitcoinItem.name}
                         value={btcSell.priceRUB}
-                        sellTo={t(
-                            capitalizeFirst(btcSell.source.replace(/-/g, ' ')),
-                        )}
+                        sellTo={t(capitalizeFirst(
+                            btcSell.source.replace(/-/g, ' '),
+                        ))}
                     />
                 )}
             </div>

@@ -151,7 +151,10 @@ const settingsSlice = createSlice({
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
             state.tarkovTrackerAPIKey = action.payload;
-            localStorageWriteJson('tarkovTrackerAPIKey', action.payload);
+            localStorageWriteJson(
+                'tarkovTrackerAPIKey',
+                action.payload,
+            );
         },
         toggleFlea: (state, action) => {
             state.hasFlea = action.payload;
@@ -159,11 +162,17 @@ const settingsSlice = createSlice({
         },
         setStationOrTraderLevel: (state, action) => {
             state[action.payload.target] = action.payload.value;
-            localStorageWriteJson(action.payload.target, action.payload.value);
+            localStorageWriteJson(
+                action.payload.target,
+                action.payload.value,
+            );
         },
         toggleTarkovTracker: (state, action) => {
             state.useTarkovTracker = action.payload;
-            localStorageWriteJson('useTarkovTracker', action.payload);
+            localStorageWriteJson(
+                'useTarkovTracker',
+                action.payload,
+            );
         },
         toggleHideRemoteControl: (state, action) => {
             state.hideRemoteControl = !state.hideRemoteControl;

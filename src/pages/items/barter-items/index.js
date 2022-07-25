@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiPliers } from '@mdi/js';
+import {mdiPliers} from '@mdi/js';
 
 import { Filter, InputFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
@@ -34,9 +34,7 @@ function BarterItems() {
     return [
         <Helmet key={'barter-items-helmet'}>
             <meta charSet="utf-8" />
-            <title>
-                {t('Escape from Tarkov')} - {t('Barter Items')}
-            </title>
+            <title>{t('Escape from Tarkov')} - {t('Barter Items')}</title>
             <meta
                 name="description"
                 content={`All the relevant information about Escape from Tarkov`}
@@ -46,11 +44,7 @@ function BarterItems() {
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
-                    <Icon
-                        path={mdiPliers}
-                        size={1.5}
-                        className="icon-with-text"
-                    />
+                    <Icon path={mdiPliers} size={1.5} className="icon-with-text" /> 
                     {t('Barter Items')}
                 </h1>
                 <Filter center>
