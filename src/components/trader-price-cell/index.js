@@ -31,23 +31,14 @@ function TraderPriceCell(props) {
     }
 
     //let printString = `${formatPrice(trader.price, trader.currency)}`;
-    let printString = 
+    let printString =
         trader.currency !== 'RUB' ? (
-            <Tippy
-                content={formatPrice(
-                    trader.priceRUB,
-                )}
-                placement="bottom"
-            >
-                <div>
-                    {formatPrice(
-                        trader.price,
-                        trader.currency,
-                    )}
-                </div>
+            <Tippy content={formatPrice(trader.priceRUB)} placement="bottom">
+                <div>{formatPrice(trader.price, trader.currency)}</div>
             </Tippy>
-        ) : 
-            formatPrice(trader.price);
+        ) : (
+            formatPrice(trader.price)
+        );
     let questLocked = false;
     let loyaltyString = '';
 
@@ -72,9 +63,9 @@ function TraderPriceCell(props) {
                             size={1}
                             className="icon-with-text"
                         />
-                        <span>{`${t(capitalizeTheFirstLetterOfEachWord(
-                            trader.source,
-                        ))} ${loyaltyString}`}</span>
+                        <span>{`${t(
+                            capitalizeTheFirstLetterOfEachWord(trader.source),
+                        )} ${loyaltyString}`}</span>
                     </div>
                 </Tippy>
             </div>
@@ -84,9 +75,9 @@ function TraderPriceCell(props) {
             <div>
                 {printString}
                 <div className="trader-unlock-wrapper">
-                    {`${t(capitalizeTheFirstLetterOfEachWord(
-                        trader.source,
-                    ))} ${loyaltyString}`}
+                    {`${t(
+                        capitalizeTheFirstLetterOfEachWord(trader.source),
+                    )} ${loyaltyString}`}
                 </div>
             </div>
         );

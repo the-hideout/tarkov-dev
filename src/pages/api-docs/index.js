@@ -39,7 +39,10 @@ function APIDocs() {
             </div>
             <h2>{t('Current API Performance')}</h2>
             <ApiMetricsGraph graph={true} />
-            <p>{'For full API metrics and performance, check out our'} <a href="https://status.tarkov.dev">status page</a></p>
+            <p>
+                {'For full API metrics and performance, check out our'}{' '}
+                <a href="https://status.tarkov.dev">status page</a>
+            </p>
             <h2>{t('FAQ')}</h2>
             <div className="section-text-wrapper">
                 <h3>{t('Is it free?')}</h3>
@@ -47,7 +50,9 @@ function APIDocs() {
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Is it open source?')}</h3>
-                {t('Of course! All source code can be found in our GitHub repo:')}{' '}
+                {t(
+                    'Of course! All source code can be found in our GitHub repo:',
+                )}{' '}
                 <a href="https://github.com/the-hideout/tarkov-data-api">
                     github.com/the-hideout/tarkov-data-api
                 </a>
@@ -62,7 +67,7 @@ function APIDocs() {
                     "Price data is updated every 5 minutes, so there's really no need to query faster than that. ",
                 )}
                 {t(
-                    "To view an up-to-date definition of our rate-limits (or lack there-of), check our Cloudflare GitHub repo where they are defined: ",
+                    'To view an up-to-date definition of our rate-limits (or lack there-of), check our Cloudflare GitHub repo where they are defined: ',
                 )}
                 <a href="https://github.com/the-hideout/cloudflare/blob/main/terraform/security.tf">
                     rate limit definition
@@ -85,9 +90,7 @@ function APIDocs() {
                 )}
                 <ul>
                     <li>
-                        <a href="https://tarkov-changes.com/">
-                            Tarkov Changes
-                        </a>
+                        <a href="https://tarkov-changes.com/">Tarkov Changes</a>
                     </li>
                     <li>
                         <a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki">

@@ -14,13 +14,15 @@ const itemSearch = (items, searchString) => {
         return items;
     }
 
-    let shortMatches = items.filter(
-        (item) => formatName(item.shortName).includes(formattedSearchString),
-    ).map((item) => item.id);
+    let shortMatches = items
+        .filter((item) =>
+            formatName(item.shortName).includes(formattedSearchString),
+        )
+        .map((item) => item.id);
 
-    let fullMatches = items.filter(
-        (item) => formatName(item.name).includes(formattedSearchString),
-    ).map((item) => item.id);
+    let fullMatches = items
+        .filter((item) => formatName(item.name).includes(formattedSearchString))
+        .map((item) => item.id);
 
     const fuseFullOptions = {
         includeScore: true,
@@ -31,14 +33,20 @@ const itemSearch = (items, searchString) => {
     const fuseFull = new Fuse(items, fuseFullOptions);
     const fuseFullResult = fuseFull.search(formattedSearchString);
 
-    let fuzzyFullMatches = fuseFullResult.map((searchResult) => searchResult.item).map((item) => item.id);
+    let fuzzyFullMatches = fuseFullResult
+        .map((searchResult) => searchResult.item)
+        .map((item) => item.id);
 
     let allMatches = [...shortMatches, ...fullMatches, ...fuzzyFullMatches];
     //Remove duplicates from allMatches while maintaining order
-    allMatches = allMatches.filter((item, index) => allMatches.indexOf(item) === index);
+    allMatches = allMatches.filter(
+        (item, index) => allMatches.indexOf(item) === index,
+    );
 
     // Order items by their id according to the order in allMatches
-    return items.filter((item) => allMatches.includes(item.id)).sort((a, b) => allMatches.indexOf(a.id) - allMatches.indexOf(b.id));
+    return items
+        .filter((item) => allMatches.includes(item.id))
+        .sort((a, b) => allMatches.indexOf(a.id) - allMatches.indexOf(b.id));
 };
 
 export default itemSearch;

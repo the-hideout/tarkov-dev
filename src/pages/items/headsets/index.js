@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiHeadset} from '@mdi/js';
+import { mdiHeadset } from '@mdi/js';
 
 import { Filter, InputFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
@@ -34,7 +34,9 @@ function Headsets() {
     return [
         <Helmet key={'barter-items-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Headsets')}</title>
+            <title>
+                {t('Escape from Tarkov')} - {t('Headsets')}
+            </title>
             <meta
                 name="description"
                 content={`All the relevant information about Escape from Tarkov`}
@@ -44,7 +46,11 @@ function Headsets() {
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
-                    <Icon path={mdiHeadset} size={1.5} className="icon-with-text" /> 
+                    <Icon
+                        path={mdiHeadset}
+                        size={1.5}
+                        className="icon-with-text"
+                    />
                     {t('Headsets')}
                 </h1>
                 <Filter center>

@@ -99,9 +99,12 @@ function BartersTable(props) {
                     return (
                         <ValueCell value={props.value} highlightProfit>
                             <div className="duration-wrapper">
-                                {t(capitalizeFirst(
-                                    props.row.original.instaProfitSource.source,
-                                ))}
+                                {t(
+                                    capitalizeFirst(
+                                        props.row.original.instaProfitSource
+                                            .source,
+                                    ),
+                                )}
                             </div>
                         </ValueCell>
                     );
@@ -137,10 +140,16 @@ function BartersTable(props) {
                     if (requiredItem.item.id === itemFilter) {
                         return true;
                     }
-                    if (isBothDogtags(itemFilter) && isAnyDogtag(requiredItem.item.id)) {
+                    if (
+                        isBothDogtags(itemFilter) &&
+                        isAnyDogtag(requiredItem.item.id)
+                    ) {
                         return true;
                     }
-                    if (isBothDogtags(requiredItem.item.id) && isAnyDogtag(itemFilter)) {
+                    if (
+                        isBothDogtags(requiredItem.item.id) &&
+                        isAnyDogtag(itemFilter)
+                    ) {
                         return true;
                     }
                 }
@@ -261,7 +270,10 @@ function BartersTable(props) {
                             return previousSellForObject;
                         }
 
-                        if (previousSellForObject.priceRUB > sellForObject.priceRUB) {
+                        if (
+                            previousSellForObject.priceRUB >
+                            sellForObject.priceRUB
+                        ) {
                             return previousSellForObject;
                         }
 
@@ -310,19 +322,21 @@ function BartersTable(props) {
 
                 const bestTrade =
                     barterRow.rewardItems[0].item.traderPrices.find(
-                        (traderPrice) => traderPrice.priceRUB === bestTraderValue,
+                        (traderPrice) =>
+                            traderPrice.priceRUB === bestTraderValue,
                     );
 
                 if (
-                    (bestTrade && bestTrade.priceRUB > tradeData.reward.value) ||
+                    (bestTrade &&
+                        bestTrade.priceRUB > tradeData.reward.value) ||
                     (bestTrade && !includeFlea)
                 ) {
                     // console.log(barterRow.rewardItems[0].item.traderPrices);
                     tradeData.reward.value = bestTrade.priceRUB;
                     tradeData.reward.sellTo = bestTrade.trader.name;
                 }
-                
-                tradeData.reward.sellTo = t(tradeData.reward.sellTo)
+
+                tradeData.reward.sellTo = t(tradeData.reward.sellTo);
 
                 tradeData.savings = tradeData.reward.value - cost;
 
