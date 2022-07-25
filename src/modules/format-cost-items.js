@@ -142,9 +142,13 @@ const formatCostItems = (
         let calculationPrice = bestPrice.price;
 
         let itemName = requiredItem.item.name;
-        const isDogTag = requiredItem.attributes && requiredItem.attributes.some(att => att.name === 'minLevel');
+        const isDogTag =
+            requiredItem.attributes &&
+            requiredItem.attributes.some((att) => att.name === 'minLevel');
         if (isDogTag) {
-            const minLevel = requiredItem.attributes.find(att => att.name === 'minLevel').value;
+            const minLevel = requiredItem.attributes.find(
+                (att) => att.name === 'minLevel',
+            ).value;
             calculationPrice = calculationPrice * minLevel;
             itemName = `${itemName} ≥ ${minLevel}`;
         }
@@ -152,10 +156,12 @@ const formatCostItems = (
         if (freeFuel && fuelIds.includes(requiredItem.item.id)) {
             calculationPrice = 0;
         }
-        
+
         let isTool = false;
         if (requiredItem.attributes)
-            isTool = requiredItem.attributes.some(element => element.type === "tool");
+            isTool = requiredItem.attributes.some(
+                (element) => element.type === 'tool',
+            );
 
         const returnData = {
             id: requiredItem.item.id,

@@ -173,8 +173,8 @@ function Item() {
                     {useFleaPrice
                         ? formatPrice(
                               fleaFee(
-                                    currentItemData.basePrice,
-                                    currentItemData.lastLowPrice,
+                                  currentItemData.basePrice,
+                                  currentItemData.lastLowPrice,
                               ),
                           )
                         : formatPrice(currentItemData.bestPriceFee)}
@@ -187,8 +187,8 @@ function Item() {
                         ? formatPrice(
                               currentItemData.lastLowPrice -
                                   fleaFee(
-                                        currentItemData.basePrice,
-                                        currentItemData.lastLowPrice,
+                                      currentItemData.basePrice,
+                                      currentItemData.lastLowPrice,
                                   ),
                           )
                         : formatPrice(
@@ -220,8 +220,8 @@ function Item() {
                         {useFleaPrice
                             ? formatPrice(
                                   fleaFee(
-                                        currentItemData.basePrice,
-                                        currentItemData.lastLowPrice,
+                                      currentItemData.basePrice,
+                                      currentItemData.lastLowPrice,
                                   ),
                               )
                             : formatPrice(currentItemData.bestPriceFee)}
@@ -234,8 +234,8 @@ function Item() {
                             ? formatPrice(
                                   currentItemData.lastLowPrice -
                                       fleaFee(
-                                            currentItemData.basePrice,
-                                            currentItemData.lastLowPrice,
+                                          currentItemData.basePrice,
+                                          currentItemData.lastLowPrice,
                                       ),
                               )
                             : formatPrice(
@@ -401,7 +401,8 @@ function Item() {
                                                     />
                                                 </Link>
                                                 <div className="price-wrapper">
-                                                    {currentItemData.traderCurrency !== 'RUB' ? (
+                                                    {currentItemData.traderCurrency !==
+                                                    'RUB' ? (
                                                         <Tippy
                                                             content={formatPrice(
                                                                 currentItemData.traderPriceRUB,
@@ -463,7 +464,8 @@ function Item() {
                                                             />
                                                         )}
                                                         <div className="price-wrapper">
-                                                            {traderPrice.currency !== 'RUB' ? (
+                                                            {traderPrice.currency !==
+                                                            'RUB' ? (
                                                                 <Tippy
                                                                     content={formatPrice(
                                                                         traderPrice.priceRUB,
@@ -523,9 +525,9 @@ function Item() {
                                                                 'questCompleted',
                                                         ) && (
                                                             <Tippy
-                                                                content={
-                                                                    t('Locked behind a quest')
-                                                                }
+                                                                content={t(
+                                                                    'Locked behind a quest',
+                                                                )}
                                                             >
                                                                 <div className="quest-icon-wrapper">
                                                                     <Icon
@@ -620,8 +622,7 @@ function Item() {
                                 <div>
                                     {t('Change vs yesterday')}
                                     {': '}
-                                    {currentItemData.changeLast48h} ₽
-                                    {' / '}
+                                    {currentItemData.changeLast48h} ₽{' / '}
                                     {currentItemData.changeLast48hPercent} %
                                 </div>
                                 <div>
@@ -635,7 +636,9 @@ function Item() {
                                     {formatPrice(currentItemData.high24hPrice)}
                                 </div>
                                 <div
-                                    title={dayjs(currentItemData.updated,).format('YYYY-MM-DD HH:mm:ss')}
+                                    title={dayjs(
+                                        currentItemData.updated,
+                                    ).format('YYYY-MM-DD HH:mm:ss')}
                                 >
                                     {t('Updated')}
                                     {': '}

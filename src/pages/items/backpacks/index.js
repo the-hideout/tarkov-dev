@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiBagPersonal} from '@mdi/js';
+import { mdiBagPersonal } from '@mdi/js';
 
 import CanvasGrid from '../../../components/canvas-grid';
 import DataTable from '../../../components/data-table';
@@ -135,7 +135,9 @@ function Backpacks(props) {
                         ).toFixed(2),
                         size: item.itemProperties.grid?.totalSize,
                         slots: item.slots,
-                        weight: `${parseFloat(item.itemProperties.Weight).toFixed(2)} kg`,
+                        weight: `${parseFloat(
+                            item.itemProperties.Weight,
+                        ).toFixed(2)} kg`,
                         wikiLink: item.wikiLink,
                         itemLink: `/item/${item.normalizedName}`,
                         notes: item.notes,
@@ -148,7 +150,9 @@ function Backpacks(props) {
     return [
         <Helmet key={'backpacks-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Backpacks Chart')}</title>
+            <title>
+                {t('Escape from Tarkov')} - {t('Backpacks Chart')}
+            </title>
             <meta
                 name="description"
                 content="All backpacks in Escape from Tarkov sortable by price, size etc"
@@ -158,7 +162,11 @@ function Backpacks(props) {
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
-                    <Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" /> 
+                    <Icon
+                        path={mdiBagPersonal}
+                        size={1.5}
+                        className="icon-with-text"
+                    />
                     {t('Backpacks Chart')}
                 </h1>
             </div>

@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiHandPointingLeft} from '@mdi/js';
+import { mdiHandPointingLeft } from '@mdi/js';
 
 import ItemsTable from '../../../components/item-table';
 import { Filter, SelectFilter } from '../../../components/filter';
@@ -182,7 +182,9 @@ function PistolGrips(props) {
     return [
         <Helmet key={'pistol-grips-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Pistol Grips')}</title>
+            <title>
+                {t('Escape from Tarkov')} - {t('Pistol Grips')}
+            </title>
             <meta
                 name="description"
                 content="All Pistol grips in Escape from Tarkov sortable by price, caliber etc"
@@ -192,7 +194,11 @@ function PistolGrips(props) {
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
-                    <Icon path={mdiHandPointingLeft} size={1.5} className="icon-with-text" /> 
+                    <Icon
+                        path={mdiHandPointingLeft}
+                        size={1.5}
+                        className="icon-with-text"
+                    />
                     {t('Pistol Grips')}
                 </h1>
                 <Filter center>

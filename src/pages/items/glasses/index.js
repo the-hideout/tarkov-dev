@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiSunglasses} from '@mdi/js';
+import { mdiSunglasses } from '@mdi/js';
 
 import DataTable from '../../../components/data-table';
 import formatPrice from '../../../modules/format-price';
@@ -109,7 +109,9 @@ function Glasses(props) {
     return [
         <Helmet key={'glasses-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Glasses chart')}</title>
+            <title>
+                {t('Escape from Tarkov')} - {t('Glasses chart')}
+            </title>
             <meta
                 name="description"
                 content="All glasses in Escape from Tarkov sortable by price, armor class etc"
@@ -118,8 +120,12 @@ function Glasses(props) {
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {t('Escape from Tarkov')} 
-                    <Icon path={mdiSunglasses} size={1.5} className="icon-with-text" /> 
+                    {t('Escape from Tarkov')}
+                    <Icon
+                        path={mdiSunglasses}
+                        size={1.5}
+                        className="icon-with-text"
+                    />
                     {t('Glasses chart')}
                 </h1>
             </div>
