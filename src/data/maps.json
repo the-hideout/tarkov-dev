@@ -97,6 +97,14 @@
         "players": "10-13"
     },
     {
+        "key": "shoreline-3d",
+        "displayText": "Shoreline 3D",
+        "source": "re3mr",
+        "sourceLink": "https://reemr.se",
+        "duration": "45 min",
+        "players": "10-13"
+    },
+    {
         "key": "resort",
         "displayText": "Shoreline - Resort",
         "duration": "45 min",
