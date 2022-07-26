@@ -27,6 +27,7 @@ import './index.css';
 // }
 // End of banner alert toggle
 
+
 const ammoTypes = [
     ...new Set(
         ammoData.data.map((ammoData) => {
@@ -76,11 +77,7 @@ const Menu = () => {
                     to="/control/"
                     onClick={setIsOpen.bind(this, false)}
                 >
-                    <Icon
-                        path={mdiRemote}
-                        size={1}
-                        className="icon-with-text"
-                    />
+                    <Icon path={mdiRemote} size={1} className="icon-with-text" />
                 </Link>
                 <Link
                     aria-label="Settings"
@@ -213,10 +210,7 @@ const Menu = () => {
                     </li>
 
                     <li className="submenu-wrapper">
-                        <Link
-                            to="/barters/"
-                            onClick={setIsOpen.bind(this, false)}
-                        >
+                        <Link to="/barters/" onClick={setIsOpen.bind(this, false)}>
                             {t('Barter profit')}
                         </Link>
                     </li>
@@ -229,7 +223,10 @@ const Menu = () => {
                         </Link>
                     </li>
                     <li className="submenu-wrapper">
-                        <Link to="/api/" onClick={setIsOpen.bind(this, false)}>
+                        <Link
+                            to="/api/"
+                            onClick={setIsOpen.bind(this, false)}
+                        >
                             {t('API')}
                         </Link>
                     </li>

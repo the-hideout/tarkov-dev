@@ -312,7 +312,7 @@ function SmallItemTable(props) {
                         source: itemData.traderName,
                         price: itemData.traderPrice,
                         priceRUB: itemData.traderPriceRUB,
-                        currency: itemData.traderCurrency,
+                        currency: itemData.traderCurrency
                     },
                     buyOnFleaPrice: itemData.buyFor.find(
                         (buyPrice) => buyPrice.source === 'flea-market',
@@ -852,7 +852,7 @@ function SmallItemTable(props) {
         // If the API query has not yet completed
         if (result.isFetched === false) {
             extraRow = t('Loading...');
-            // If the API query has completed, but no items were found
+        // If the API query has completed, but no items were found
         } else {
             extraRow = t('No items');
         }

@@ -9,8 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 import './index.css';
 
-const API_METRICS_ENDPOINT =
-    'https://status.tarkov.dev/api/status-page/heartbeat/api';
+const API_METRICS_ENDPOINT = 'https://status.tarkov.dev/api/status-page/heartbeat/api'
 
 const fetchApiData = async () => {
     const res = await fetch(API_METRICS_ENDPOINT);
@@ -19,10 +18,7 @@ const fetchApiData = async () => {
 
 function ApiMetricsGraph({ graph }) {
     const { t } = useTranslation();
-    const { status, data } = useQuery(`api-metrics`, fetchApiData, {
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
-    });
+    const { status, data } = useQuery(`api-metrics`, fetchApiData, { refetchOnMount: false, refetchOnWindowFocus: false });
 
     let height = VictoryTheme.material.height;
 
@@ -31,20 +27,20 @@ function ApiMetricsGraph({ graph }) {
     }
 
     if (status === 'error') {
-        return '⚠️ Error Fetching API Metrics';
+        return "⚠️ Error Fetching API Metrics";
     }
 
     if (status !== 'success') {
         return null;
     }
 
-    if (status === 'success' && data.heartbeatList['1'] === 0) {
+    if (status === 'success' && data.heartbeatList["1"] === 0) {
         return '⚠️ No data';
     }
 
     let max = 0;
 
-    data.heartbeatList['1'].map((heartbeat) => {
+    data.heartbeatList["1"].map((heartbeat) => {
         if (heartbeat.ping > max) {
             max = heartbeat.ping;
         }
@@ -54,18 +50,16 @@ function ApiMetricsGraph({ graph }) {
 
     // Loop through each heartbeat and add the latency to a total that is rounded
     let total = 0;
-    for (const heartbeat of data.heartbeatList['1']) {
+    for (const heartbeat of data.heartbeatList["1"]) {
         total += heartbeat.ping;
     }
-    const average = Math.round(total / data.heartbeatList['1'].length);
+    const average = Math.round(total / data.heartbeatList["1"].length);
 
     // If the graph param was used, return the graph and the latency average as a div
     if (graph === true) {
         return (
             <div className="api-metrics-wrapper">
-                <p>
-                    {t('Current Average Latency')}: {average}ms
-                </p>
+                <p>{t('Current Average Latency')}: {average}ms</p>
                 <p>{t('API Latency in milliseconds')}:</p>
                 <VictoryChart
                     height={height}
@@ -76,14 +70,14 @@ function ApiMetricsGraph({ graph }) {
                     theme={VictoryTheme.material}
                     containerComponent={
                         <VictoryVoronoiContainer
-                            labels={({ datum }) => `${datum.y}`}
+                            labels={({ datum }) => `${(datum.y)}`}
                         />
                     }
                 >
                     <VictoryLine
                         animate={{
                             duration: 1000,
-                            onLoad: { duration: 1000 },
+                            onLoad: { duration: 1000 }
                         }}
                         interpolation="natural"
                         padding={{ right: -120 }}
@@ -98,7 +92,7 @@ function ApiMetricsGraph({ graph }) {
                             },
                             parent: { border: '1px solid #ccc' },
                         }}
-                        data={data.heartbeatList['1'].map((heartbeat) => {
+                        data={data.heartbeatList["1"].map((heartbeat) => {
                             return {
                                 x: new Date(heartbeat.time),
                                 y: heartbeat.ping,
@@ -112,7 +106,8 @@ function ApiMetricsGraph({ graph }) {
 
     // If the graph param was not provided, return the latency average as a div
     else {
-        return `${average}ms`;
+        return `${average}ms`
+        
     }
 }
 

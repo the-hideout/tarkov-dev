@@ -49,9 +49,7 @@ function Crafts() {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>
-                {t('Escape from Tarkov')} - {t('Hideout Crafts')}
-            </title>
+            <title>{t('Escape from Tarkov')} - {t('Hideout Crafts')}</title>
             <meta
                 name="description"
                 content="Escape from Tarkov Hideout Craft Profits"
@@ -59,11 +57,7 @@ function Crafts() {
         </Helmet>,
         <div className="crafts-headline-wrapper" key="crafts-filters">
             <h1 className="crafts-page-title">
-                <Icon
-                    path={mdiProgressWrench}
-                    size={1.5}
-                    className="icon-with-text"
-                />
+                <Icon path={mdiProgressWrench} size={1.5} className="icon-with-text"/>
                 {t('Hideout Crafts')}
             </h1>
             <Filter>

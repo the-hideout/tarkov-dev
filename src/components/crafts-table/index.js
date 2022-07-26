@@ -31,14 +31,8 @@ import {
 } from '../../modules/format-duration';
 
 function CraftTable(props) {
-    const {
-        selectedStation,
-        freeFuel,
-        nameFilter,
-        itemFilter,
-        showAll,
-        averagePrices,
-    } = props;
+    const { selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices } =
+        props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const includeFlea = useSelector((state) => state.settings.hasFlea);
@@ -242,9 +236,7 @@ function CraftTable(props) {
                         (craftRow.duration * (skills.crafting * 0.75)) / 100,
                 );
 
-                var costItemsWithoutTools = costItems.filter(
-                    (costItem) => costItem.isTool === false,
-                );
+                var costItemsWithoutTools = costItems.filter(costItem => costItem.isTool === false)
                 costItemsWithoutTools.map(
                     (costItem) =>
                         (totalCost =
@@ -264,7 +256,7 @@ function CraftTable(props) {
                             craftRow.rewardItems[0].item.iconLink ||
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
                         count: craftRow.rewardItems[0].count,
-                        value: 0,
+                        value: 0, 
                     },
                 };
 
@@ -275,26 +267,23 @@ function CraftTable(props) {
                 );
                 const bestTrade =
                     craftRow.rewardItems[0].item.traderPrices.find(
-                        (traderPrice) =>
-                            traderPrice.priceRUB === bestTraderValue,
+                        (traderPrice) => traderPrice.priceRUB === bestTraderValue,
                     );
 
                 if (
-                    (bestTrade &&
-                        bestTrade.priceRUB > tradeData.reward.value) ||
+                    (bestTrade && bestTrade.priceRUB > tradeData.reward.value) ||
                     (bestTrade && !includeFlea)
                 ) {
                     tradeData.reward.value = bestTrade.priceRUB;
                     tradeData.reward.sellTo = t(bestTrade.trader.name);
                 }
 
-                const priceToUse =
-                    averagePrices === true ? 'avg24hPrice' : 'lastLowPrice';
+                const priceToUse = averagePrices === true ? 'avg24hPrice' : 'lastLowPrice';
 
                 if (!craftRow.rewardItems[0].item.types.includes('noFlea')) {
-                    tradeData.reward.value =
+                        tradeData.reward.value =
                         craftRow.rewardItems[0].item[priceToUse];
-
+                    
                     tradeData.reward.sellTo = t('Flea Market');
                     tradeData.fleaThroughput = Math.floor(
                         (craftRow.rewardItems[0].item[priceToUse] *

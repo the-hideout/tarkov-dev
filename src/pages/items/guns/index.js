@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiPistol } from '@mdi/js';
+import {mdiPistol} from '@mdi/js';
 
 import { Filter, InputFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
@@ -34,9 +34,7 @@ function Guns() {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>
-                {t('Escape from Tarkov')} - {t('Guns')}
-            </title>
+            <title>{t('Escape from Tarkov')} - {t('Guns')}</title>
             <meta
                 name="description"
                 content={`All the relevant information about Escape from Tarkov`}
@@ -46,11 +44,7 @@ function Guns() {
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
-                    <Icon
-                        path={mdiPistol}
-                        size={1.5}
-                        className="icon-with-text"
-                    />
+                    <Icon path={mdiPistol} size={1.5} className="icon-with-text" /> 
                     {t('Guns')}
                 </h1>
                 <Filter center>

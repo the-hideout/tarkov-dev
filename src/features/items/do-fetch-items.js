@@ -7,6 +7,7 @@ const NOTES = {
 };
 
 const doFetchItems = async () => {
+
     // Get the user selected language
     const language = await langCode();
 
@@ -374,8 +375,8 @@ const doFetchItems = async () => {
             allowedAmmoIds: itemProps[rawItem.id]?.allowedAmmoIds,
             properties: {
                 weight: rawItem.weight,
-                ...rawItem.properties,
-            },
+                ...rawItem.properties
+            }
         };
     });
 

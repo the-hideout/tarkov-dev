@@ -26,9 +26,7 @@ const ammoLinkFormat = (inputString) => {
 };
 
 const itemLinkFormat = (inputItem) => {
-    return (
-        <Link to={`/item/${inputItem.normalizedName}`}>{inputItem.name}</Link>
-    );
+    return <Link to={`/item/${inputItem.normalizedName}`}>{inputItem.name}</Link>;
 };
 
 const formatter = (key, value) => {
@@ -94,17 +92,14 @@ const formatter = (key, value) => {
         let displayKey = defaultFormat(key);
 
         const zoomLevels = new Set();
-        value.forEach((levels) => zoomLevels.add(...levels));
+        value.forEach(levels => zoomLevels.add(...levels));
         return [displayKey, [...zoomLevels].join(', ')];
     }
 
     if (key === 'pouches') {
         let displayKey = defaultFormat(key);
 
-        return [
-            displayKey,
-            value.map((pouch) => pouch.width + 'x' + pouch.height).join(', '),
-        ];
+        return [displayKey, value.map(pouch => pouch.width+'x'+pouch.height).join(', ')];
     }
 
     if (key === 'baseItem') {
