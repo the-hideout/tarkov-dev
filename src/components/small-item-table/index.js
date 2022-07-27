@@ -169,6 +169,9 @@ function SmallItemTable(props) {
     });
 
     useEffect(() => {
+        if (!barterPrice)
+            return;
+        
         let timer = false;
         if (bartersStatus === 'idle') {
             dispatch(fetchBarters());
@@ -183,7 +186,7 @@ function SmallItemTable(props) {
         return () => {
             clearInterval(timer);
         };
-    }, [bartersStatus, dispatch]);
+    }, [bartersStatus, barterPrice, dispatch]);
 
     const data = useMemo(() => {
         let returnData = items
@@ -609,8 +612,7 @@ function SmallItemTable(props) {
                                         props.row.original.barters[0]?.source
                                     }
                                     requiredItems={
-                                        props.row.original.barters[0]
-                                            ?.requiredItems
+                                        props.row.original.barters[0]?.requiredItems
                                     }
                                 />
                             }
