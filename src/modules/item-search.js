@@ -9,7 +9,7 @@ const formatName = (name) => {
 const itemSearch = (items, searchString) => {
     let formattedSearchString = formatName(searchString);
 
-    if (formattedSearchString.length == 0) {
+    if (formattedSearchString.length === 0) {
         return items;
     }
 

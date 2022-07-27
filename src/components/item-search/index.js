@@ -124,7 +124,7 @@ function ItemSearch({
         }
 
         return returnData;
-    }, [nameFilter, items]);
+    }, [nameFilter, showDropdown, items]);
 
     useEffect(() => {
         if (enterPress && data[cursor]) {
