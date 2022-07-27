@@ -84,7 +84,7 @@ function ItemSearch({
     }
 
     const data = useMemo(() => {
-        if (!nameFilter) {
+        if (!nameFilter || !showDropdown) {
             return [];
         }
 
