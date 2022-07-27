@@ -45,7 +45,7 @@ function ItemSearch({
         inputRef?.current.focus();
     });
 
-    const debouncedOnchange = useRef(
+    const debouncedOnChange = useRef(
         debounce((newValue) => {
             onChange(newValue);
         }, 300),
@@ -55,10 +55,10 @@ function ItemSearch({
         (e) => {
             setNameFilter(e.target.value.toLowerCase());
             if (onChange) {
-                debouncedOnchange(e.target.value.toLowerCase());
+                debouncedOnChange(e.target.value.toLowerCase());
             }
         },
-        [setNameFilter, debouncedOnchange, onChange],
+        [setNameFilter, debouncedOnChange, onChange],
     );
 
     useEffect(() => {
@@ -75,11 +75,7 @@ function ItemSearch({
         }
     }, [upPress]);
 
-    if (
-        autoFocus &&
-        window?.matchMedia &&
-        window.matchMedia('(max-width: 600px)').matches
-    ) {
+    if (autoFocus && window?.matchMedia && window.matchMedia('(max-width: 600px)').matches) {
         autoFocus = false;
     }
 
@@ -98,9 +94,7 @@ function ItemSearch({
                     avg24hPrice: itemData.avg24hPrice,
                     lastLowPrice: itemData.lastLowPrice,
                     // iconLink: `https://assets.tarkov.dev/${itemData.id}-icon.jpg`,
-                    iconLink:
-                        itemData.iconLink ||
-                        `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+                    iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                     instaProfit: 0,
                     itemLink: `/item/${itemData.normalizedName}`,
                     traderName: itemData.traderName,
@@ -116,8 +110,7 @@ function ItemSearch({
                 );
 
                 if (buyOnFleaPrice) {
-                    formattedItem.instaProfit =
-                        itemData.traderPriceRUB - buyOnFleaPrice.price;
+                    formattedItem.instaProfit = itemData.traderPriceRUB - buyOnFleaPrice.price;
                 }
 
                 return formattedItem;
@@ -126,7 +119,7 @@ function ItemSearch({
                 return !item.types.includes('disabled');
             });
 
-        if (nameFilter && nameFilter.length > 0) {
+        if (nameFilter.length > 0) {
             returnData = itemSearch(returnData, nameFilter);
         }
 
