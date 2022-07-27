@@ -91,16 +91,16 @@
         "players": "9-12"
     },
     {
-        "key": "shoreline",
-        "displayText": "Shoreline - 2D",
-        "duration": "45 min",
-        "players": "10-13"
-    },
-    {
         "key": "shoreline-3d",
         "displayText": "Shoreline",
         "source": "re3mr",
         "sourceLink": "https://reemr.se",
+        "duration": "45 min",
+        "players": "10-13"
+    },
+    {
+        "key": "shoreline",
+        "displayText": "Shoreline - 2D",
         "duration": "45 min",
         "players": "10-13"
     },

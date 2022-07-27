@@ -28,10 +28,7 @@ import './index.css';
 import { useItemsQuery } from '../../features/items/queries';
 
 function traderSellCell(datum) {
-    if (
-        !datum.row.original.bestSell?.source ||
-        datum.row.original.bestSell.source === '?'
-    ) {
+    if (!datum.row.original.bestSell?.source || datum.row.original.bestSell.source === '?') {
         return null;
     }
 
@@ -42,9 +39,7 @@ function traderSellCell(datum) {
                 className="trader-icon"
                 loading="lazy"
                 height="40"
-                src={`${
-                    process.env.PUBLIC_URL
-                }/images/${datum.row.original.bestSell.source?.toLowerCase()}-icon.jpg`}
+                src={`${process.env.PUBLIC_URL}/images/${datum.row.original.bestSell.source?.toLowerCase()}-icon.jpg`}
                 title={datum.row.original.bestSell.source}
                 width="40"
             />
@@ -55,10 +50,7 @@ function traderSellCell(datum) {
                     placement="bottom"
                 >
                     <div>
-                        {formatPrice(
-                            datum.row.original.bestSell.price,
-                            datum.row.original.bestSell.currency,
-                        )}
+                        {formatPrice(datum.row.original.bestSell.price, datum.row.original.bestSell.currency)}
                     </div>
                 </Tippy>
             ) : (
@@ -139,7 +131,7 @@ function SmallItemTable(props) {
         barterPrice,
         fleaValue,
         hideBorders,
-        autoScroll = false,
+        autoScroll = true,
         armorClass,
         armorZones,
         maxDurability,
@@ -299,9 +291,7 @@ function SmallItemTable(props) {
                     avg24hPrice: itemData.avg24hPrice,
                     lastLowPrice: itemData.lastLowPrice,
                     // iconLink: `https://assets.tarkov.dev/${itemData.id}-icon.jpg`,
-                    iconLink:
-                        itemData.iconLink ||
-                        `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+                    iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                     instaProfit: 0,
                     itemLink: `/item/${itemData.normalizedName}`,
                     traderName: itemData.traderName,
@@ -321,63 +311,32 @@ function SmallItemTable(props) {
                         (buyPrice) => buyPrice.source === 'flea-market',
                     ),
                     barters: barters.filter(
-                        (barter) =>
-                            barter.rewardItems[0].item.id === itemData.id,
+                        (barter) => barter.rewardItems[0].item.id === itemData.id,
                     ),
                     grid: itemData.grid,
-                    pricePerSlot: Math.floor(
-                        itemData.avg24hPrice /
-                            itemData.itemProperties.grid?.totalSize,
-                    ),
-                    ratio: (
-                        itemData.itemProperties.grid?.totalSize / itemData.slots
-                    ).toFixed(2),
+                    pricePerSlot: Math.floor(itemData.avg24hPrice / itemData.itemProperties.grid?.totalSize),
+                    ratio: (itemData.itemProperties.grid?.totalSize / itemData.slots).toFixed(2),
                     size: itemData.itemProperties.grid?.totalSize,
                     notes: itemData.notes,
                     slots: itemData.slots,
                     armorClass: `${itemData.itemProperties.armorClass}/6`,
-                    armorZone: getArmorZoneString(
-                        itemData.itemProperties.armorZone,
-                    ),
+                    armorZone: getArmorZoneString(itemData.itemProperties.armorZone),
                     maxDurability: itemData.itemProperties.MaxDurability,
-                    effectiveDurability: Math.floor(
-                        itemData.itemProperties.MaxDurability /
-                            materialDestructabilityMap[
-                                itemData.itemProperties.ArmorMaterial
-                            ],
-                    ),
-                    repairability: `${
-                        materialRepairabilityMap[
-                            itemData.itemProperties.ArmorMaterial
-                        ]
-                    }/6`,
+                    effectiveDurability: Math.floor(itemData.itemProperties.MaxDurability / materialDestructabilityMap[itemData.itemProperties.ArmorMaterial]),
+                    repairability: `${materialRepairabilityMap[itemData.itemProperties.ArmorMaterial]}/6`,
                     stats: `${itemData.itemProperties.speedPenaltyPercent}% / ${itemData.itemProperties.mousePenalty}% / ${itemData.itemProperties.weaponErgonomicPenalty}`,
                     canHoldItems: itemData.canHoldItems,
                 };
 
-                if (
-                    formattedItem.buyOnFleaPrice &&
-                    formattedItem.buyOnFleaPrice.price > 0
-                ) {
-                    formattedItem.instaProfit =
-                        itemData.traderPriceRUB -
-                        formattedItem.buyOnFleaPrice.price;
+                if (formattedItem.buyOnFleaPrice && formattedItem.buyOnFleaPrice.price > 0) {
+                    formattedItem.instaProfit = itemData.traderPriceRUB - formattedItem.buyOnFleaPrice.price;
                 }
 
                 if (formattedItem.barters.length > 0) {
-                    formattedItem.barterPrice = getCheapestBarter(
-                        itemData,
-                        formattedItem.barters,
-                    );
+                    formattedItem.barterPrice = getCheapestBarter(itemData, formattedItem.barters);
 
-                    if (
-                        !itemData.avg24hPrice ||
-                        formattedItem.barterPrice.price < itemData.avg24hPrice
-                    ) {
-                        formattedItem.pricePerSlot = Math.floor(
-                            formattedItem.barterPrice.price /
-                                itemData.itemProperties.grid?.totalSize,
-                        );
+                    if (!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice) {
+                        formattedItem.pricePerSlot = Math.floor(formattedItem.barterPrice.price / itemData.itemProperties.grid?.totalSize);
                     }
                 }
 
@@ -412,8 +371,7 @@ function SmallItemTable(props) {
                 })[0];
 
                 if (item.buyOnFleaPrice) {
-                    item.instaProfit =
-                        item.bestSell?.priceRUB - item.buyOnFleaPrice.price;
+                    item.instaProfit = item.bestSell?.priceRUB - item.buyOnFleaPrice.price;
                 }
 
                 if (traderBuybackFilter) {
@@ -440,14 +398,12 @@ function SmallItemTable(props) {
                 .filter((item) => item.lastLowPrice && item.lastLowPrice > 0)
                 .filter((item) => item.bestSell && item.bestSell.priceRUB > 500)
                 .filter(
-                    (item) =>
-                        item.buyOnFleaPrice && item.buyOnFleaPrice.price > 0,
+                    (item) => item.buyOnFleaPrice && item.buyOnFleaPrice.price > 0,
                 )
                 .map((item) => {
                     return {
                         ...item,
-                        buyback:
-                            item.bestSell?.priceRUB / item.buyOnFleaPrice.price,
+                        buyback: item.bestSell?.priceRUB / item.buyOnFleaPrice.price,
                     };
                 })
                 .sort((a, b) => {
@@ -506,9 +462,7 @@ function SmallItemTable(props) {
                                     <div className="center-content">
                                         <Tippy
                                             placement="bottom"
-                                            content={t(
-                                                "This item can't be sold on the Flea Market",
-                                            )}
+                                            content={t("This item can't be sold on the Flea Market")}
                                         >
                                             <Icon
                                                 path={mdiCloseOctagon}
@@ -528,9 +482,7 @@ function SmallItemTable(props) {
                                 <div className="center-content">
                                     <Tippy
                                         placement="bottom"
-                                        content={t(
-                                            'No flea price seen in the past 24 hours',
-                                        )}
+                                        content={t('No flea price seen in the past 24 hours')}
                                     >
                                         <Icon
                                             path={mdiClockAlertOutline}
@@ -554,10 +506,7 @@ function SmallItemTable(props) {
                 Cell: FleaPriceCell,
                 id: 'fleaBuyPrice',
                 sortType: (a, b, columnId, desc) => {
-                    if (
-                        a.values.fleaBuyPrice === 0 ||
-                        isNaN(a.values.fleaBuyPrice)
-                    ) {
+                    if (a.values.fleaBuyPrice === 0 || isNaN(a.values.fleaBuyPrice)) {
                         if (desc) {
                             return -1;
                         }
@@ -565,10 +514,7 @@ function SmallItemTable(props) {
                         return 1;
                     }
 
-                    if (
-                        b.values.fleaBuyPrice === 0 ||
-                        isNaN(b.values.fleaBuyPrice)
-                    ) {
+                    if (b.values.fleaBuyPrice === 0 || isNaN(b.values.fleaBuyPrice)) {
                         if (desc) {
                             return 1;
                         }
@@ -626,10 +572,7 @@ function SmallItemTable(props) {
                 },
                 id: 'barterPrice',
                 sortType: (a, b, columnId, desc) => {
-                    if (
-                        a.values.barterPrice === 0 ||
-                        isNaN(a.values.barterPrice)
-                    ) {
+                    if (a.values.barterPrice === 0 || isNaN(a.values.barterPrice)) {
                         if (desc) {
                             return -1;
                         }
@@ -637,10 +580,7 @@ function SmallItemTable(props) {
                         return 1;
                     }
 
-                    if (
-                        b.values.barterPrice === 0 ||
-                        isNaN(b.values.barterPrice)
-                    ) {
+                    if (b.values.barterPrice === 0 || isNaN(b.values.barterPrice)) {
                         if (desc) {
                             return 1;
                         }
@@ -725,9 +665,7 @@ function SmallItemTable(props) {
                     // allData.row.original.itemLink
                     return (
                         <div className="center-content">
-                            {`${Math.floor(
-                                (Math.round(value * 100) / 100) * 100,
-                            )}%`}
+                            {`${Math.floor((Math.round(value * 100) / 100) * 100)}%`}
                         </div>
                     );
                 },
