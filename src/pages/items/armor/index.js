@@ -109,6 +109,7 @@ function Armor(props) {
                 maxDurability
                 effectiveDurability
                 repairability
+                weight
                 stats
             />
         </div>,

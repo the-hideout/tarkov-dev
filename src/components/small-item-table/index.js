@@ -145,6 +145,7 @@ function SmallItemTable(props) {
         maxPrice,
         bsgCategoryFilter,
         showContainedItems,
+        weight
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -326,6 +327,7 @@ function SmallItemTable(props) {
                     repairability: `${materialRepairabilityMap[itemData.itemProperties.ArmorMaterial]}/6`,
                     stats: `${itemData.itemProperties.speedPenaltyPercent}% / ${itemData.itemProperties.mousePenalty}% / ${itemData.itemProperties.weaponErgonomicPenalty}`,
                     canHoldItems: itemData.canHoldItems,
+                    weight: itemData.weight
                 };
 
                 if (formattedItem.buyOnFleaPrice && formattedItem.buyOnFleaPrice.price > 0) {
@@ -747,6 +749,14 @@ function SmallItemTable(props) {
             });
         }
 
+        if (weight) {
+          useColumns.push({
+            Header: t('Weight (kg)'),
+            accessor: 'weight',
+            Cell: CenterCell,
+          });
+        }
+
         if (stats) {
             useColumns.push({
                 Header: (
@@ -783,6 +793,7 @@ function SmallItemTable(props) {
         repairability,
         stats,
         showContainedItems,
+        weight
     ]);
 
     let extraRow = false;
