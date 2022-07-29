@@ -30,14 +30,6 @@ jobs:
         with:
           ref: ${{ steps.branch-deploy.outputs.ref }}
 
-      - name: Install
-        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
-        run: npm ci
-
-      - name: Build
-        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
-        run: npm run build
-
       - name: deploy - dev
         id: dev-deploy
         if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' && steps.branch-deploy.outputs.environment == 'development' }}
