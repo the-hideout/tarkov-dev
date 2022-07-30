@@ -320,11 +320,11 @@ function SmallItemTable(props) {
                     size: itemData.itemProperties.grid?.totalSize,
                     notes: itemData.notes,
                     slots: itemData.slots,
-                    armorClass: `${itemData.itemProperties.armorClass}/6`,
+                    armorClass: itemData.itemProperties.armorClass,
                     armorZone: getArmorZoneString(itemData.itemProperties.armorZone),
                     maxDurability: itemData.itemProperties.MaxDurability,
                     effectiveDurability: Math.floor(itemData.itemProperties.MaxDurability / materialDestructabilityMap[itemData.itemProperties.ArmorMaterial]),
-                    repairability: `${materialRepairabilityMap[itemData.itemProperties.ArmorMaterial]}/6`,
+                    repairability: materialRepairabilityMap[itemData.itemProperties.ArmorMaterial],
                     stats: `${itemData.itemProperties.speedPenaltyPercent}% / ${itemData.itemProperties.mousePenalty}% / ${itemData.itemProperties.weaponErgonomicPenalty}`,
                     canHoldItems: itemData.canHoldItems,
                     weight: itemData.weight

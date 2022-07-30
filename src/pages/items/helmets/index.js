@@ -268,7 +268,7 @@ function Helmets(props) {
 
                     return {
                         name: itemName,
-                        armorClass: `${item.itemProperties.armorClass}/6`,
+                        armorClass: item.itemProperties.armorClass,
                         armorZone: item.itemProperties.headSegments?.join(', '),
                         material: item.itemProperties.ArmorMaterial,
                         deafenStrength: item.itemProperties.DeafStrength,
@@ -283,7 +283,7 @@ function Helmets(props) {
                             materialRepairabilityMap[
                                 item.itemProperties.ArmorMaterial
                             ]
-                        }/6`,
+                        }`,
                         effectiveDurability: Math.floor(
                             item.itemProperties.MaxDurability /
                                 materialDestructabilityMap[
@@ -304,7 +304,7 @@ function Helmets(props) {
                             return {
                                 name: linkedItem.name,
                                 armorClass: linkedItem.itemProperties.armorClass
-                                    ? `${linkedItem.itemProperties.armorClass}/6`
+                                    ? linkedItem.itemProperties.armorClass
                                     : '',
                                 armorZone:
                                     linkedItem.itemProperties.headSegments?.join(
@@ -323,11 +323,10 @@ function Helmets(props) {
                                 ricochetChance: ricochetMap(
                                     linkedItem.itemProperties.RicochetParams?.x,
                                 ),
-                                repairability: `${
+                                repairability:
                                     materialRepairabilityMap[
                                         linkedItem.itemProperties.ArmorMaterial
-                                    ]
-                                }/6`,
+                                    ],
                                 effectiveDurability: Math.floor(
                                     linkedItem.itemProperties.MaxDurability /
                                         materialDestructabilityMap[

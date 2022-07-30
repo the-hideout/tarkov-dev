@@ -1,6 +1,7 @@
 .cost-with-barter-wrapper {
     display: flex;
     flex-wrap: wrap;
+    margin-block-end: .5em;
 }
 
 .cost-barter-details-wrapper > div {

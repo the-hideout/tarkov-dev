@@ -163,7 +163,7 @@ cite {
 }
 
 .price-wrapper {
-    color: #636363;
+    color: #b0b0b0;
     font-size: 14px;
 }
 
@@ -183,6 +183,11 @@ cite {
 
 div.tippy-box {
     color: #c7c5b3;
+    border-color: #4f4f4f;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 3px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 @media screen and (min-width: 710px) {
