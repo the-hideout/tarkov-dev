@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 import RewardImage from '../reward-image';
 import formatPrice from '../../modules/format-price';
 
+import Icon from '@mdi/react';
+import {
+    mdiAccountSwitch
+} from '@mdi/js';
+
 import './index.css';
 
 function BarterToolip({ source, requiredItems }) {
@@ -15,7 +20,13 @@ function BarterToolip({ source, requiredItems }) {
 
     return (
         <div className="cost-with-barter-wrapper">
+
             <h3>
+                <Icon
+                    path={mdiAccountSwitch}
+                    size={1}
+                    className="icon-with-text"
+                />
                 {t('Barter at')} {source}
             </h3>
             {requiredItems.map((requiredItem) => {
@@ -48,7 +59,7 @@ function BarterToolip({ source, requiredItems }) {
                                 <span>=</span>{' '}
                                 {formatPrice(
                                     requiredItem.count *
-                                        requiredItem.item.avg24hPrice,
+                                    requiredItem.item.avg24hPrice,
                                 )}
                             </div>
                         </div>
