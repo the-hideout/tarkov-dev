@@ -27,7 +27,8 @@ import i18n from '../../i18n';
 const langOptions = [
     { value: 'en', label: 'en' },
     { value: 'de', label: 'de' },
-    { value: 'ru', label: 'ru' }
+    { value: 'ru', label: 'ru' },
+    { value: 'it', label: 'it' },
 ]
 
 export function getNumericSelect(min, max) {
