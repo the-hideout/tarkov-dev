@@ -127,6 +127,17 @@ function LootTier(props) {
     const itemData = useMemo(() => {
         return items
             .map((item) => {
+                if (item.types.includes('gun')) {
+                  // Overrides guns' dimensions using their default height and width.
+                  // Fixes a bug where PPS was calculated using just a weapon receiver.
+                  item.height = item.properties.defaultHeight;
+                  item.width = item.properties.defaultWidth;
+                  item.slots = item.height * item.width;
+
+                  item.types = item.types.filter(
+                    (type) => type !== 'wearable');
+                }
+                
                 if (!hasFlea) {
                     return {
                         ...item,
@@ -141,11 +152,6 @@ function LootTier(props) {
                 if (fleaPrice <= item.traderPriceRUB) {
                     sellTo = item.traderName;
                 }
-
-                if (item.types.includes('gun'))
-                    item.types = item.types.filter(
-                        (type) => type !== 'wearable',
-                    );
 
                 return {
                     ...item,
