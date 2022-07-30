@@ -89,7 +89,7 @@ function Glasses(props) {
 
                     return {
                         name: itemName,
-                        armorClass: `${item.itemProperties.armorClass}/6`,
+                        armorClass: item.itemProperties.armorClass,
                         blindness: `${
                             (item.itemProperties.BlindnessProtection || 0) * 100
                         }%`,
