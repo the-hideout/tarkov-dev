@@ -10,7 +10,7 @@ function BarterToolip({ source, requiredItems }) {
     const { t } = useTranslation();
 
     if (!source || !requiredItems) {
-        return null;
+        return "No barters found for this item";
     }
 
     return (
