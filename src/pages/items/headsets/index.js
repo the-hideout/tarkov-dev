@@ -59,6 +59,8 @@ function Headsets() {
                 nameFilter={nameFilter}
                 typeFilter="headphones"
                 fleaValue
+                weight
+                barterPrice
                 traderValue
                 traderPrice
             />

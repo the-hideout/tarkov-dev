@@ -11,7 +11,7 @@ import TraderPriceCell from '../trader-price-cell';
 import CenterCell from '../center-cell';
 import ItemNameCell from '../item-name-cell';
 import FleaPriceCell from '../flea-price-cell';
-import BarterToolip from '../barter-tooltip';
+import BarterToolTip from '../barter-tooltip';
 
 import DataTable from '../data-table';
 import formatPrice from '../../modules/format-price';
@@ -555,7 +555,7 @@ function SmallItemTable(props) {
                             // showOnCreate = {true}
                             interactive={true}
                             content={
-                                <BarterToolip
+                                <BarterToolTip
                                     source={
                                         props.row.original.barters[0]?.source
                                     }
