@@ -128,15 +128,15 @@ function LootTier(props) {
         return items
             .map((item) => {
                 if (item.types.includes('gun')) {
-                  // Overrides guns' dimensions using their default height and width.
-                  // Fixes a bug where PPS was calculated using just a weapon receiver.
-                  item.height = item.properties.defaultHeight;
-                  item.width = item.properties.defaultWidth;
-                  item.slots = item.height * item.width;
+                    // Overrides guns' dimensions using their default height and width.
+                    // Fixes a bug where PPS was calculated using just a weapon receiver.
+                    item.height = item.properties.defaultHeight;
+                    item.width = item.properties.defaultWidth;
+                    item.slots = item.height * item.width;
 
-                  item.types = item.types.filter(
-                    (type) => type !== 'wearable');
-                }
+                    item.types = item.types.filter(
+                      (type) => type !== 'wearable');
+                  }
                 
                 if (!hasFlea) {
                     return {
