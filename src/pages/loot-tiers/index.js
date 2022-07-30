@@ -136,7 +136,7 @@ function LootTier(props) {
 
                     item.types = item.types.filter(
                       (type) => type !== 'wearable');
-                  }
+                }
                 
                 if (!hasFlea) {
                     return {
