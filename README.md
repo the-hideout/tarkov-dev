@@ -49,7 +49,20 @@ Deploying your changes to production is easy! Just do the following:
 
 ## Updating Languages 🌐
 
-To update the supported languages used by the site with the GraphQL API, you will need to edit the following file: [`supported-languages.json`](https://github.com/the-hideout/tarkov-dev/blob/main/src/data/supported-languages.json)
+There are two *ways* to update languages on the site:
+
+- Updating the core translations (most common)
+- Updating the language that the GraphQL API uses (least common)
+
+### Language Translations
+
+Rather than go into detail here, we have opened a great guide in a GitHub issue for how you can provide translation contributions to tarkov.dev!
+
+> Check out the guide [here](https://github.com/the-hideout/tarkov-dev/issues/175)
+
+### GraphQL API Language Support
+
+To update the supported languages used by the site with the **GraphQL API**, you will need to edit the following file: [`supported-languages.json`](https://github.com/the-hideout/tarkov-dev/blob/main/src/data/supported-languages.json)
 
 > See this [pull request](https://github.com/the-hideout/tarkov-dev/pull/123) for additional context
 
