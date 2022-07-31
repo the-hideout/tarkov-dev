@@ -29,6 +29,10 @@ const langOptions = [
     { value: 'de', label: 'de' },
     { value: 'ru', label: 'ru' },
     { value: 'it', label: 'it' },
+    { value: 'es', label: 'es' },
+    { value: 'fr', label: 'fr' },
+    { value: 'ja', label: 'ja' },
+    { value: 'pl', label: 'pl' },
 ]
 
 export function getNumericSelect(min, max) {
