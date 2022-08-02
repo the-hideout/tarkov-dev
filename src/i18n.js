@@ -5,6 +5,11 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import translationEN from './translations/en/translation.json';
 import translationDE from './translations/de/translation.json';
 import translationRU from './translations/ru/translation.json';
+import translationIT from './translations/it/translation.json';
+import translationES from './translations/es/translation.json';
+import translationFR from './translations/fr/translation.json';
+import translationJA from './translations/ja/translation.json';
+import translationPL from './translations/pl/translation.json';
 
 i18n.use(LanguageDetector)
     .use(initReactI18next) // passes i18n down to react-i18next
@@ -22,6 +27,21 @@ i18n.use(LanguageDetector)
             ru: {
                 translation: translationRU,
             },
+            it: {
+                translation: translationIT,
+            },
+            es: {
+                translation: translationES,
+            },
+            fr: {
+                translation: translationFR,
+            },
+            ja: {
+                translation: translationJA,
+            },
+            pl: {
+                translation: translationPL,
+            }
         },
         // lng: "en", // if you're using a language detector, do not define the lng option
         fallbackLng: 'en',
