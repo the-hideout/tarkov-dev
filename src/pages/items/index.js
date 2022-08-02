@@ -48,7 +48,7 @@ function Items(props) {
                         <img
                             alt={`${categoryPage.displayText} table`}
                             loading="lazy"
-                            src={`${process.env.PUBLIC_URL}/images/${categoryPage.key}-table-thumbnail.jpg`}
+                            src={`${process.env.PUBLIC_URL}/images/items/${categoryPage.key}-table_thumb.jpg`}
                         />
                     </Link>
                 ))}
