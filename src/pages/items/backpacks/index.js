@@ -121,6 +121,13 @@ function Backpacks(props) {
                         itemName = match[1].trim();
                     }
 
+                    // Check if inner and outer grid slots is the same.
+                    // Prevents math rounding errors. (divisions by zero)
+                    let pricePerSlot = 0;
+                    if (!item.itemProperties.grid?.totalSize - item.slots == 0) {
+                      pricePerSlot = Math.floor(item.avg24hPrice / (item.itemProperties.grid?.totalSize - item.slots))
+                    }
+
                     return {
                         grid: item.grid,
                         id: item.id,
@@ -129,7 +136,7 @@ function Backpacks(props) {
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
                         name: itemName,
                         price: item.avg24hPrice,
-                        pricePerSlot: Math.floor(item.avg24hPrice / (item.itemProperties.grid?.totalSize - item.slots)),
+                        pricePerSlot: pricePerSlot,
                         ratio: (
                             item.itemProperties.grid?.totalSize / item.slots
                         ).toFixed(2),

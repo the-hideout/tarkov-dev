@@ -284,6 +284,13 @@ function SmallItemTable(props) {
                 return false;
             })
             .map((itemData) => {
+                // Check if inner and outer grid slots is the same.
+                // Prevents math rounding errors. (divisions by zero)
+                let pricePerSlot = 0;
+                if (itemData.itemProperties.grid?.totalSize - itemData.slots == 0) {
+                  Math.floor(itemData.avg24hPrice / (itemData.itemProperties.grid?.totalSize - itemData.slots))
+                }
+
                 const formattedItem = {
                     id: itemData.id,
                     name: itemData.name,
