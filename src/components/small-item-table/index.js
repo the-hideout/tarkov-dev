@@ -315,7 +315,8 @@ function SmallItemTable(props) {
                         (barter) => barter.rewardItems[0].item.id === itemData.id,
                     ),
                     grid: itemData.grid,
-                    pricePerSlot: Math.floor(itemData.avg24hPrice / (itemData.itemProperties.grid?.totalSize - itemData.slots)),
+                    pricePerSlot: itemData.itemProperties.grid?.totalSize - itemData.slots !==0 ? // Prevents divide by zero errors.
+                                  Math.floor(itemData.avg24hPrice / (itemData.itemProperties.grid?.totalSize - itemData.slots)) : 0,
                     ratio: (itemData.itemProperties.grid?.totalSize / itemData.slots).toFixed(2),
                     size: itemData.itemProperties.grid?.totalSize,
                     notes: itemData.notes,
