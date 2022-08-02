@@ -339,7 +339,8 @@ function SmallItemTable(props) {
                     formattedItem.barterPrice = getCheapestBarter(itemData, formattedItem.barters);
 
                     if (!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice) {
-                        formattedItem.pricePerSlot = Math.floor(formattedItem.barterPrice.price / (itemData.itemProperties.grid?.totalSize - itemData.slots));
+                        formattedItem.pricePerSlot =  itemData.itemProperties.grid?.totalSize - itemData.slots ? // Prevents divide by zero errors.
+                                                      Math.floor(formattedItem.barterPrice.price / (itemData.itemProperties.grid?.totalSize - itemData.slots)) : 0;
                     }
                 }
 
