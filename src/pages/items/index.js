@@ -30,7 +30,7 @@ function Items(props) {
                 {t('Items')}
             </h1>
             <ItemSearch showDropdown />
-            <div className="guides-list-wrapper">
+            <div className="items-list-wrapper">
                 {itemsData.map((categoryPage) => (
                     <Link
                         to={`/items/${categoryPage.key}`}
