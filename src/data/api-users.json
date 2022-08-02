@@ -39,11 +39,6 @@
         "text": "Look up item prices, barter costs, and hideout craft profit. Set your hideout and trader progress to see only the barters and crafts that are available to you. Discord bot for quick lookup of item prices."
     },
     {
-        "title": "Tarkov Handbook Discord Bot",
-        "link": "https://github.com/Andrewww1/TarkovItemBot",
-        "text": "An accurate and fully complete EFT Handbook right in your Discord server and direct messages. Providing detailed, clearly formatted stats for any item and location in the game and helper features like a tax calculator, regardless of type."
-    },
-    {
         "title": "Tarkov Roulette",
         "link": "https://www.tarkov-roulette.com",
         "text": "Tarkov Roulette is a tool that creates random loadouts and challenges for you and your squad"
@@ -66,6 +61,6 @@
     {
         "title": "TarkovItemBot",
         "link": "https://github.com/Andrewww1/TarkovItemBot",
-        "text": "A Discord bot providing various statistics and calculations for the game Escape from Tarkov"
+        "text": "Also known as Tarkov Handbook Discord Bot. A Discord bot providing various statistics and calculations for the game Escape from Tarkov"
     }
 ]
