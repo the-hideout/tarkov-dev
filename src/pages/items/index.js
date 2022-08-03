@@ -30,7 +30,7 @@ function Items(props) {
                 {t('Items')}
             </h1>
             <ItemSearch showDropdown />
-            <div className="guides-list-wrapper">
+            <div className="items-list-wrapper">
                 {itemsData.map((categoryPage) => (
                     <Link
                         to={`/items/${categoryPage.key}`}
@@ -48,7 +48,7 @@ function Items(props) {
                         <img
                             alt={`${categoryPage.displayText} table`}
                             loading="lazy"
-                            src={`${process.env.PUBLIC_URL}/images/${categoryPage.key}-table-thumbnail.jpg`}
+                            src={`${process.env.PUBLIC_URL}/images/items/${categoryPage.key}-table_thumb.jpg`}
                         />
                     </Link>
                 ))}

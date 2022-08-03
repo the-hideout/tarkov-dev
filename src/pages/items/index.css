@@ -1,13 +1,17 @@
-.guides-list-wrapper {
+.items-list-wrapper {
     display: flex;
     justify-content: space-between;
     flex-flow: wrap;
 }
 
-.guides-list-wrapper a {
+.items-list-wrapper a {
     max-width: 30%;
 }
 
-.guides-list-wrapper img {
+.items-list-wrapper img {
     max-width: 100%;
+}
+
+.items-list-wrapper img:hover {
+    outline: 2px solid #9a8866;
 }
