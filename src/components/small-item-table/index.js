@@ -316,7 +316,8 @@ function SmallItemTable(props) {
                     ),
                     grid: itemData.grid,
                     pricePerSlot: itemData.itemProperties.grid?.totalSize - itemData.slots !==0 ? 
-                                  Math.floor(itemData.avg24hPrice / (itemData.itemProperties.grid?.totalSize - itemData.slots)) : 0,
+                                  Math.floor(itemData.avg24hPrice / (itemData.itemProperties.grid?.totalSize - itemData.slots)) : 
+                                  Math.floor(itemData.avg24hPrice / (itemData.slots)),
                     ratio: (itemData.itemProperties.grid?.totalSize / itemData.slots).toFixed(2),
                     size: itemData.itemProperties.grid?.totalSize,
                     notes: itemData.notes,

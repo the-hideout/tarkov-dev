@@ -130,7 +130,8 @@ function Backpacks(props) {
                         name: itemName,
                         price: item.avg24hPrice,
                         pricePerSlot: item.itemProperties.grid?.totalSize - item.slots !==0 ? // Prevents divide by 0 errors.
-                                      Math.floor(item.avg24hPrice / (item.itemProperties.grid?.totalSize - item.slots)) : 0,
+                                      Math.floor(item.avg24hPrice / (item.itemProperties.grid?.totalSize - item.slots)) : 
+                                      Math.floor(item.avg24hPrice / (item.slots)),
                         ratio: (
                             item.itemProperties.grid?.totalSize / item.slots
                         ).toFixed(2),
