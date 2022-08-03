@@ -182,12 +182,31 @@ cite {
 }
 
 div.tippy-box {
+    background-color: #2d2c2e;
     color: #c7c5b3;
     border-color: #4f4f4f;
     border-radius: 4px;
     border-style: solid;
     border-width: 3px;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+div.tippy-box[data-placement^='top'] > .tippy-arrow::before {
+    border-top-color: #4f4f4f;
+    bottom: -10px;
+}
+
+div.tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
+    border-bottom-color: #4f4f4f;
+    top: -10px;
+}
+
+div.tippy-box[data-placement^='left'] > .tippy-arrow::before {
+    border-left-color: #4f4f4f;
+}
+
+div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
+    border-right-color: #4f4f4f;
 }
 
 @media screen and (min-width: 710px) {
