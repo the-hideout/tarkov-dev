@@ -119,6 +119,7 @@ bsg-all-raw.json
 .gitignore
 public/data/item-grids.min.json
 public/data/item-props.min.json
+public/maps/*_thumb.jpg
 src/data/ammo.json
 src/data/contributors.json
 src/data/quests.json
