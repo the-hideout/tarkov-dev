@@ -129,7 +129,8 @@ function Backpacks(props) {
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
                         name: itemName,
                         price: item.avg24hPrice,
-                        pricePerSlot: Math.floor(item.avg24hPrice / item.slots),
+                        pricePerSlot: item.itemProperties.grid?.totalSize - item.slots !==0 ? // Prevents divide by 0 errors.
+                                      Math.floor(item.avg24hPrice / (item.itemProperties.grid?.totalSize - item.slots)) : 0,
                         ratio: (
                             item.itemProperties.grid?.totalSize / item.slots
                         ).toFixed(2),

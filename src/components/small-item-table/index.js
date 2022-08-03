@@ -315,7 +315,8 @@ function SmallItemTable(props) {
                         (barter) => barter.rewardItems[0].item.id === itemData.id,
                     ),
                     grid: itemData.grid,
-                    pricePerSlot: Math.floor(itemData.avg24hPrice / itemData.itemProperties.grid?.totalSize),
+                    pricePerSlot: itemData.itemProperties.grid?.totalSize - itemData.slots !==0 ? 
+                                  Math.floor(itemData.avg24hPrice / (itemData.itemProperties.grid?.totalSize - itemData.slots)) : 0,
                     ratio: (itemData.itemProperties.grid?.totalSize / itemData.slots).toFixed(2),
                     size: itemData.itemProperties.grid?.totalSize,
                     notes: itemData.notes,
@@ -338,7 +339,8 @@ function SmallItemTable(props) {
                     formattedItem.barterPrice = getCheapestBarter(itemData, formattedItem.barters);
 
                     if (!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice) {
-                        formattedItem.pricePerSlot = Math.floor(formattedItem.barterPrice.price / itemData.itemProperties.grid?.totalSize);
+                        formattedItem.pricePerSlot = itemData.itemProperties.grid?.totalSize - itemData.slots !==0 ?
+                                                     Math.floor(formattedItem.barterPrice.price / (itemData.itemProperties.grid?.totalSize - itemData.slots)) : 0;
                     }
                 }
 
