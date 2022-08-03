@@ -37,7 +37,7 @@ function Maps() {
                                     className="map-image"
                                     loading="lazy"
                                     title={`Map of ${displayText}`}
-                                    src={`${process.env.PUBLIC_URL}/maps/${key}.jpg`}
+                                    src={`${process.env.PUBLIC_URL}/maps/${key}_thumb.jpg`}
                                 />
                             </Link>
                         </div>
