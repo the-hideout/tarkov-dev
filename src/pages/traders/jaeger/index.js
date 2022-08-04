@@ -48,7 +48,7 @@ function Jaeger() {
                 content={`All Jaeger items and barters in Escape from Tarkov`}
             />
         </Helmet>,
-        <div className="page-wrapper" key={'display-wrapper'}>
+        <div className="page-wrapper" key={'page-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Jaeger Items')}
@@ -121,6 +121,7 @@ function Jaeger() {
                     />
                 </Filter>
             </div>
+
             <SmallItemTable
                 nameFilter={nameFilter}
                 traderFilter="jaeger"
@@ -138,6 +139,13 @@ function Jaeger() {
                 // instaProfit = {selectedTable === 'instaProfit' ? true : false}
                 // maxItems = {selectedTable === 'instaProfit' ? 50 : false}
             />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"Background:"}<br/>
+                    {"Before the conflict, he worked as a hunter in the Priozersk Natural Reserve under the State Hunting Service. A professional hunter and survival specialist. Even now, he still guards the reserve's hunting grounds from various aggressive individuals."}
+                </p>
+            </div>
         </div>,
     ];
 }

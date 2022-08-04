@@ -48,7 +48,7 @@ function Mechanic() {
                 content={`All Mechanic items and barters in Escape from Tarkov`}
             />
         </Helmet>,
-        <div className="page-wrapper" key={'display-wrapper'}>
+        <div className="page-wrapper" key={'page-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Mechanic Items')}
@@ -121,6 +121,7 @@ function Mechanic() {
                     />
                 </Filter>
             </div>
+
             <SmallItemTable
                 nameFilter={nameFilter}
                 traderFilter="mechanic"
@@ -138,6 +139,13 @@ function Mechanic() {
                 // instaProfit = {selectedTable === 'instaProfit' ? true : false}
                 // maxItems = {selectedTable === 'instaProfit' ? 50 : false}
             />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"Background:"}<br/>
+                    {"A former chemical plant foreman, who from the very beginning of the conflict took to weapon modification, repairs, and maintenance of complex equipment and technology. He prefers clandestine solo living and operates discreetly, while placing complicated and challenging tasks above all else."}
+                </p>
+            </div>
         </div>,
     ];
 }

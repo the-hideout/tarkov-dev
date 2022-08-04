@@ -48,7 +48,7 @@ function Therapist() {
                 content={`All Therapist items and barters in Escape from Tarkov`}
             />
         </Helmet>,
-        <div className="page-wrapper" key={'display-wrapper'}>
+        <div className="page-wrapper" key={'page-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Therapist Items')}
@@ -121,6 +121,7 @@ function Therapist() {
                     />
                 </Filter>
             </div>
+
             <SmallItemTable
                 nameFilter={nameFilter}
                 traderFilter="therapist"
@@ -138,6 +139,13 @@ function Therapist() {
                 // instaProfit = {selectedTable === 'instaProfit' ? true : false}
                 // maxItems = {selectedTable === 'instaProfit' ? 50 : false}
             />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"Background:"}<br/>
+                    {"Head of the Trauma Care Department of the Tarkov Central City Hospital."}
+                </p>
+            </div>
         </div>,
     ];
 }

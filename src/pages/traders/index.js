@@ -93,6 +93,16 @@ function Traders(props) {
                     <TraderResetTime center trader="jaeger" />
                 </Link>
             </div>
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"The backbones of trade in the destroyed, besieged Norvinsk. In Escape from Tarkov, each merchant specialized in a particular kind of products, such as medical supplies, weaponry, or military equipment. Although their prices are typically high, you get what you pay for."}<br/>
+                    <br/>
+                    {"More importantly, you can develop a reputation with each trader through Quests, which will enable you to receive better offers generally and reduce the commission they receive (an additional markup you pay on sales and purchases), among other benefits."}<br/>
+                    <br/>
+                    {"Additionally, traders provide other services like insurance and repairs (allowing you to recover your gear in case of death during a raid)."}
+                </p>
+            </div>
         </div>,
     ];
 }

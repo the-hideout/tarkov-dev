@@ -48,7 +48,7 @@ function Peacekeeper() {
                 content={`All Peacekeeper items and barters in Escape from Tarkov`}
             />
         </Helmet>,
-        <div className="page-wrapper" key={'display-wrapper'}>
+        <div className="page-wrapper" key={'page-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Peacekeeper Items')}
@@ -121,6 +121,7 @@ function Peacekeeper() {
                     />
                 </Filter>
             </div>
+            
             <SmallItemTable
                 nameFilter={nameFilter}
                 traderFilter="peacekeeper"
@@ -138,6 +139,13 @@ function Peacekeeper() {
                 // instaProfit = {selectedTable === 'instaProfit' ? true : false}
                 // maxItems = {selectedTable === 'instaProfit' ? 50 : false}
             />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"Background:"}<br/>
+                    {"UN peacekeeping Force supply officer, based in one of the central checkpoints leading to the Tarkov port zone. The blue helmets have been seen poking their heads into small deals from the very beginning of the conflict, buying everything of value in exchange for western weapons, ammo, and all kinds of military equipment."}
+                </p>
+            </div>
         </div>,
     ];
 }
