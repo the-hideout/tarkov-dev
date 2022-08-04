@@ -25,6 +25,7 @@ function Containers(props) {
                     {t('Containers')}
                 </h1>
             </div>
+
             <SmallItemTable
                 typeFilter="container"
                 fleaPrice
@@ -35,6 +36,12 @@ function Containers(props) {
                 barterPrice
                 showContainedItems
             />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"As their name implies, containers in Escape from Tarkov are items used to hold other things. Some of these items are used to clear up inventory space by acting as storage and taking up less inventory slots however some of them cannot be equipped on the character."}
+                </p>
+            </div>
         </div>,
     ];
 }

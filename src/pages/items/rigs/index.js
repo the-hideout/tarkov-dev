@@ -246,6 +246,7 @@ function Backpacks(props) {
                     />
                 </Filter>
             </div>
+
             <DataTable
                 columns={columns}
                 data={data}
@@ -253,6 +254,12 @@ function Backpacks(props) {
                 sortByDesc={true}
                 autoResetSortBy={false}
             />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"When it comes to carrying and storing ammunition and magazines during your excursions in Escape from Tarkov, chest rigs are crucial. Some even provide you with additional security."}
+                </p>
+            </div>
         </div>,
     ];
 }

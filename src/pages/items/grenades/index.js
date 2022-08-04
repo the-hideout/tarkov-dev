@@ -40,7 +40,7 @@ function Grenades() {
                 content={`All the relevant information about Escape from Tarkov`}
             />
         </Helmet>,
-        <div className="page-wrapper" key={'display-wrapper'}>
+        <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
@@ -63,6 +63,16 @@ function Grenades() {
                 traderValue
                 traderPrice
             />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"There are only a handful distinct types of grenades that may be thrown or launched in Escape from Tarkov, and each one has a unique effect: flash, smokes, high explosive, and fragmentation."}
+                    <br/>
+                    {"Grenades are situational, but when utilized properly, they can have deadly results. Any advantage from high-tier equipment can be fully negated by a single well-thrown grenade, whether it completely blinds the adversary, kills them instantly, or forces them out of cover and into your gunfire."}
+                    <br/>
+                    {"Five factors to think about while using throwable grenades include the fuse time, explosion radius, fragment damage, fragment count, and even the weight of the grenade. With specific uses arising from each component."}
+                </p>
+            </div>
         </div>,
     ];
 }
