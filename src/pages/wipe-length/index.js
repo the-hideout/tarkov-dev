@@ -11,7 +11,7 @@ import wipeDetailsJson from '../../data/wipe-details.json';
 import './index.css';
 
 // number or wipes to use when calculating the average
-const CountLastNumWipesForAverage = Infinity;
+const CountLastNumWipesForAverage = 6; //Infinity;
 
 const wipeDetails = wipeDetailsJson.map((wipeDetailJson) => {
     return {
@@ -166,7 +166,7 @@ const WipeLength = (props) => {
                     {t('Escape from Tarkov')} - {t('Wipe Length')}
                 </h1>
                 <div className="center-title">
-                    <h2>Average Wipe Length</h2>
+                    <h2>Average Wipe Length among last 6 wipes</h2>
                     <p>{t(lengthDaysAverage)} Days 📆</p>
                 </div>
                 <DataTable
