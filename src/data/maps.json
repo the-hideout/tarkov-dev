@@ -83,6 +83,14 @@
         "players": "9-12"
     },
     {
+        "key": "reserve-2d",
+        "displayText": "Reserve - 2D",
+        "source": "Vex",
+        "sourceLink": "https://vexnet.xyz",
+        "duration": "40 min",
+        "players": "9-12"
+    },
+    {
         "key": "underground",
         "displayText": "Reserve - Underground",
         "source": "re3mr",

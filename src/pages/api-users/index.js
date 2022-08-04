@@ -32,11 +32,7 @@ function ApiUsers() {
                             <img
                                 alt={apiUser.title}
                                 loading="lazy"
-                                src={`${
-                                    process.env.PUBLIC_URL
-                                }/images/api-users/${projectKey}.${
-                                    apiUser.imageType || 'png'
-                                }`}
+                                src={`${process.env.PUBLIC_URL}/images/api-users/${projectKey}_thumb.${apiUser.imageType || 'png'}`}
                             />
                         </div>
                     </div>
