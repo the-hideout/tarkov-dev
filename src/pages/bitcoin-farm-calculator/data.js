@@ -93,7 +93,7 @@ export const useFuelPricePerDay = () => {
     // https://escapefromtarkov.fandom.com/wiki/Hideout_management
     // 0.5% per level, but 25% max
     const skillFuelDecreasedConsumptionRate = Math.min(
-        0.005 * skills['hideout-managment'],
+        0.005 * skills['hideout-management'],
         0.25,
     );
     durationMs = durationMs / (1 - skillFuelDecreasedConsumptionRate);
