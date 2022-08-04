@@ -49,74 +49,87 @@ function Barters() {
             <title>{t('Escape from Tarkov')} - {t('Barter Profits')}</title>
             <meta name="description" content="Barter Profits" />
         </Helmet>,
-        <div className="barters-headline-wrapper" key="barters-headline">
-            <h1 className="barters-page-title">
-                <Icon path={mdiAccountSwitch} size={1.5} className="icon-with-text"/>
-                {t('Barter Profits')}
-            </h1>
-            <Filter>
-                <ToggleFilter
-                    checked={hideDogtags}
-                    label={t('Hide dogtags')}
-                    onChange={(e) => setHideDogtags(!hideDogtags)}
-                    tooltipContent={
-                        <div>
-                            {t(
-                                'Dogtags are very hard to calulcate values for as they depend on level. Most calculations with them are wrong',
-                            )}
-                        </div>
-                    }
-                />
-                <ButtonGroupFilter>
-                    {traders.map((traderName) => {
-                        return (
-                            <ButtonGroupFilterButton
-                                key={`trader-tooltip-${traderName}`}
-                                tooltipContent={
-                                    <div>
-                                        {t(capitalizeTheFirstLetterOfEachWord(
-                                            traderName.replace('-', ' '),
-                                        ))}
-                                    </div>
-                                }
-                                selected={traderName === selectedTrader}
-                                content={
-                                    <img
-                                        alt={traderName}
-                                        loading="lazy"
-                                        title={traderName}
-                                        src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
-                                    />
-                                }
-                                onClick={setSelectedTrader.bind(
-                                    undefined,
-                                    traderName,
+        <div className={'page-wrapper'} key="barters-page-wrapper">
+            <div className="barters-headline-wrapper" key="barters-headline">
+                <h1 className="barters-page-title">
+                    <Icon path={mdiAccountSwitch} size={1.5} className="icon-with-text"/>
+                    {t('Barter Profits')}
+                </h1>
+                <Filter>
+                    <ToggleFilter
+                        checked={hideDogtags}
+                        label={t('Hide dogtags')}
+                        onChange={(e) => setHideDogtags(!hideDogtags)}
+                        tooltipContent={
+                            <div>
+                                {t(
+                                    'Dogtags are very hard to calulcate values for as they depend on level. Most calculations with them are wrong',
                                 )}
-                            />
-                        );
-                    })}
-                    <ButtonGroupFilterButton
-                        tooltipContent={<div>{t('Show all barters')}</div>}
-                        selected={selectedTrader === 'all'}
-                        content={t('All')}
-                        onClick={setSelectedTrader.bind(undefined, 'all')}
+                            </div>
+                        }
                     />
-                </ButtonGroupFilter>
-                <InputFilter
-                    defaultValue={nameFilter || ''}
-                    label={t('Item filter')}
-                    type={'text'}
-                    placeholder={t('filter on item')}
-                    onChange={(e) => setNameFilter(e.target.value)}
-                />
-            </Filter>
+                    <ButtonGroupFilter>
+                        {traders.map((traderName) => {
+                            return (
+                                <ButtonGroupFilterButton
+                                    key={`trader-tooltip-${traderName}`}
+                                    tooltipContent={
+                                        <div>
+                                            {t(capitalizeTheFirstLetterOfEachWord(
+                                                traderName.replace('-', ' '),
+                                            ))}
+                                        </div>
+                                    }
+                                    selected={traderName === selectedTrader}
+                                    content={
+                                        <img
+                                            alt={traderName}
+                                            loading="lazy"
+                                            title={traderName}
+                                            src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
+                                        />
+                                    }
+                                    onClick={setSelectedTrader.bind(
+                                        undefined,
+                                        traderName,
+                                    )}
+                                />
+                            );
+                        })}
+                        <ButtonGroupFilterButton
+                            tooltipContent={<div>{t('Show all barters')}</div>}
+                            selected={selectedTrader === 'all'}
+                            content={t('All')}
+                            onClick={setSelectedTrader.bind(undefined, 'all')}
+                        />
+                    </ButtonGroupFilter>
+                    <InputFilter
+                        defaultValue={nameFilter || ''}
+                        label={t('Item filter')}
+                        type={'text'}
+                        placeholder={t('filter on item')}
+                        onChange={(e) => setNameFilter(e.target.value)}
+                    />
+                </Filter>
+            </div>
+
+            <BartersTable
+                nameFilter={nameFilter}
+                selectedTrader={selectedTrader}
+                key="barters-page-barters-table"
+                removeDogtags={hideDogtags}
+            />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"Except for Fence, every trader in Escape from Tarkov offers goods by barter rather than for purchase outright."}<br/>
+                    <br/>
+                    {"In exchange for a variety of inexpensive things, the player can frequently trade them for more valuable objects that can be utilized or sold for a profit or higher level gear at lower loyalty levels."}<br/>
+                    <br/>
+                    {"Be sure to check back after reset for your favorite transactions because the majority of these valued trades have strict limits per trader reset and frequently sell out."}
+                </p>
+            </div>
         </div>,
-        <BartersTable
-            nameFilter={nameFilter}
-            selectedTrader={selectedTrader}
-            key="barters-page-barters-table"
-            removeDogtags={hideDogtags}
-        />,
     ];
 }
 
