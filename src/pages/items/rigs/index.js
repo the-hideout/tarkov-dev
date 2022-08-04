@@ -179,6 +179,10 @@ function Backpacks(props) {
                         }
                     }
 
+                    if (showNetPPS && item.itemProperties.grid?.totalSize === item.slots) {
+                        return false;
+                    }
+
                     return {
                         grid: item.grid,
                         id: item.id,
@@ -188,7 +192,7 @@ function Backpacks(props) {
                         name: itemName,
                         price: item.avg24hPrice,
                         pricePerSlot: showNetPPS ? Math.floor(item.avg24hPrice / (item.itemProperties.grid?.totalSize - item.slots)) 
-                                      : Math.floor(item.avg24hPrice / item.slots),
+                                      : Math.floor(item.avg24hPrice / item.itemProperties.grid?.totalSize),
                         ratio: (
                             item.itemProperties.grid?.totalSize / item.slots
                         ).toFixed(2),
