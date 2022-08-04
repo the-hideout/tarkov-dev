@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
@@ -9,6 +9,7 @@ import CanvasGrid from '../../../components/canvas-grid';
 import DataTable from '../../../components/data-table';
 import ValueCell from '../../../components/value-cell';
 import { useItemsWithTypeQuery } from '../../../features/items/queries';
+import { Filter, ToggleFilter } from '../../../components/filter';
 
 const centerCell = ({ value }) => {
     return <div className="center-content">{value}</div>;
@@ -21,6 +22,7 @@ const centerNowrapCell = ({ value }) => {
 function Backpacks(props) {
     const { data: displayItems } = useItemsWithTypeQuery('backpack');
 
+    const [showNetPPS, setShowNetPPS] = useState(false);
     const { t } = useTranslation();
 
     const columns = useMemo(
@@ -129,9 +131,8 @@ function Backpacks(props) {
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
                         name: itemName,
                         price: item.avg24hPrice,
-                        pricePerSlot: item.itemProperties.grid?.totalSize - item.slots !==0 ? // Prevents divide by 0 errors.
-                                      Math.floor(item.avg24hPrice / (item.itemProperties.grid?.totalSize - item.slots)) : 
-                                      Math.floor(item.avg24hPrice / (item.slots)),
+                        pricePerSlot: showNetPPS ? Math.floor(item.avg24hPrice / (item.itemProperties.grid?.totalSize - item.slots)) 
+                                      : Math.floor(item.avg24hPrice / item.slots),
                         ratio: (
                             item.itemProperties.grid?.totalSize / item.slots
                         ).toFixed(2),
@@ -144,7 +145,7 @@ function Backpacks(props) {
                     };
                 })
                 .filter(Boolean),
-        [displayItems],
+        [displayItems, showNetPPS],
     );
 
     return [
@@ -163,6 +164,13 @@ function Backpacks(props) {
                     <Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" /> 
                     {t('Backpacks Chart')}
                 </h1>
+                <Filter>
+                    <ToggleFilter
+                        label={t('Net Price per Slot?')}
+                        onChange={(e) => setShowNetPPS(!showNetPPS)}
+                        checked={showNetPPS}
+                    />
+                </Filter>
             </div>
             <DataTable
                 columns={columns}

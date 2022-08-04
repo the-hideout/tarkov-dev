@@ -30,6 +30,7 @@ function Backpacks(props) {
     const [minSlots, setMinSlots] = useStateWithLocalStorage('minSlots', 0);
     const [has3Slot, setHas3Slot] = useState(false);
     const [has4Slot, setHas4Slot] = useState(false);
+    const [showNetPPS, setShowNetPPS] = useState(false);
     const { t } = useTranslation();
 
     const displayItems = useMemo(
@@ -186,9 +187,8 @@ function Backpacks(props) {
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
                         name: itemName,
                         price: item.avg24hPrice,
-                        pricePerSlot: item.itemProperties.grid?.totalSize - item.slots !==0 ? // Prevents divide by 0 errors.
-                                      Math.floor(item.avg24hPrice / (item.itemProperties.grid?.totalSize - item.slots)) : 
-                                      Math.floor(item.avg24hPrice / (item.slots)),
+                        pricePerSlot: showNetPPS ? Math.floor(item.avg24hPrice / (item.itemProperties.grid?.totalSize - item.slots)) 
+                                      : Math.floor(item.avg24hPrice / item.slots),
                         ratio: (
                             item.itemProperties.grid?.totalSize / item.slots
                         ).toFixed(2),
@@ -201,7 +201,7 @@ function Backpacks(props) {
                     };
                 })
                 .filter(Boolean),
-        [displayItems, includeArmoredRigs, minSlots, has3Slot, has4Slot],
+        [displayItems, includeArmoredRigs, minSlots, has3Slot, has4Slot, showNetPPS],
     );
 
     return [
@@ -245,6 +245,11 @@ function Backpacks(props) {
                         label={t('4-slot')}
                         onChange={(e) => setHas4Slot(!has4Slot)}
                         checked={has4Slot}
+                    />
+                    <ToggleFilter
+                        label={t('Net Price per Slot?')}
+                        onChange={(e) => setShowNetPPS(!showNetPPS)}
+                        checked={showNetPPS}
                     />
                 </Filter>
             </div>
