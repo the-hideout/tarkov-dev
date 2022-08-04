@@ -255,22 +255,16 @@ function Ammo() {
 
     return (
         <React.Fragment>
-            <div style={{
-                textAlign: 'center',
-            }}>
-                <h1>
-                    {t('Escape from Tarkov')}
-                    <Icon path={mdiAmmunition} size={1.5} className="icon-with-text"/>
-                    {t('Ammo Chart')}
-                </h1>
-            </div>
+            <h1 className="center-title">
+                {t('Escape from Tarkov')}
+                <Icon path={mdiAmmunition} size={1.5} className="icon-with-text"/>
+                {t('Ammo Chart')}
+            </h1>
 
             <div className={'updated-label'}>
-                {`Ammo updated: ${new Date(
-                    rawData.updated,
-                ).toLocaleDateString()}`}
+                {t('Ammo updated:')} {new Date(rawData.updated).toLocaleDateString()}
             </div>
-            <div className="page-wrapper">
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
                 <Graph
                     listState={listState}
                     legendData={legendData}
@@ -280,12 +274,18 @@ function Ammo() {
                     yMax={MAX_PENETRATION}
                 />
             </div>
-
-            <div style={{
-                textAlign: 'center',
-            }}>
-                <h2>Ammo Statistics Table</h2>
+            
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"The wilderness of Tarkov includes a diverse range of ammunition. To combat different opponents, different types of ammunition are needed."}<br/>
+                    <br/>
+                    {"This page contains a list of every type of ammo in Escape from Tarkov. To filter the complete list of available cartridges, click the name of a caliber."}
+                </p>
             </div>
+
+            <h2 className="center-title">
+                {t('Ammo Statistics Table')}
+            </h2>
 
             <DataTable columns={columns} data={listState} />
         </React.Fragment>
