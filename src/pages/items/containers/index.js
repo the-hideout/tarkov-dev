@@ -5,8 +5,11 @@ import Icon from '@mdi/react';
 import {mdiArchive} from '@mdi/js';
 
 import SmallItemTable from '../../../components/small-item-table';
+import { Filter, ToggleFilter } from '../../../components/filter';
+import { useState } from 'react';
 
 function Containers(props) {
+    const [showNetPPS, setShowNetPPS] = useState(false);
     const { t } = useTranslation();
     return [
         <Helmet key={'containers-table'}>
@@ -24,6 +27,13 @@ function Containers(props) {
                     <Icon path={mdiArchive} size={1.5} className="icon-with-text" /> 
                     {t('Containers')}
                 </h1>
+                <Filter>
+                    <ToggleFilter
+                        label={t("Net Price per Slot?")}
+                        onChange={(e) => {setShowNetPPS(!showNetPPS)}}
+                        checked={showNetPPS}
+                    />
+                </Filter>
             </div>
             <SmallItemTable
                 typeFilter="container"
@@ -34,6 +44,7 @@ function Containers(props) {
                 pricePerSlot
                 barterPrice
                 showContainedItems
+                showNetPPS={showNetPPS}
             />
         </div>,
     ];
