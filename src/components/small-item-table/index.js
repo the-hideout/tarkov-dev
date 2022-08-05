@@ -145,7 +145,8 @@ function SmallItemTable(props) {
         maxPrice,
         bsgCategoryFilter,
         showContainedItems,
-        weight
+        weight,
+        showNetPPS
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -315,7 +316,8 @@ function SmallItemTable(props) {
                         (barter) => barter.rewardItems[0].item.id === itemData.id,
                     ),
                     grid: itemData.grid,
-                    pricePerSlot: Math.floor(itemData.avg24hPrice / itemData.itemProperties.grid?.totalSize),
+                    pricePerSlot: showNetPPS ? Math.floor(itemData.avg24hPrice / (itemData.itemProperties.grid?.totalSize - itemData.slots))
+                                  : itemData.avg24hPrice / itemData.itemProperties.grid?.totalSize,
                     ratio: (itemData.itemProperties.grid?.totalSize / itemData.slots).toFixed(2),
                     size: itemData.itemProperties.grid?.totalSize,
                     notes: itemData.notes,
@@ -338,7 +340,8 @@ function SmallItemTable(props) {
                     formattedItem.barterPrice = getCheapestBarter(itemData, formattedItem.barters);
 
                     if (!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice) {
-                        formattedItem.pricePerSlot = Math.floor(formattedItem.barterPrice.price / itemData.itemProperties.grid?.totalSize);
+                        formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.barterPrice.price / (itemData.itemProperties.grid?.totalSize - itemData.slots))
+                                                     : formattedItem.barterPrice.price / itemData.itemProperties.grid?.totalSize;
                     }
                 }
 
@@ -433,6 +436,7 @@ function SmallItemTable(props) {
         maxPropertyFilter,
         maxPrice,
         bsgCategoryFilter,
+        showNetPPS
     ]);
 
     const columns = useMemo(() => {
