@@ -77,7 +77,7 @@ const BitcoinFarmCalculator = () => {
                         max={MaxNumGraphicsCards}
                     />
                     <StationSkillTraderSetting
-                        stateKey={'hideout-managment'}
+                        stateKey={'hideout-management'}
                         type="skill"
                     />
                     <StationSkillTraderSetting

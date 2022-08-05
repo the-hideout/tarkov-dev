@@ -142,7 +142,7 @@ const settingsSlice = createSlice({
         workbench: localStorageReadJson('workbench', 3),
         'solar-power': localStorageReadJson('solar-power', 0),
         crafting: localStorageReadJson('crafting', 0),
-        'hideout-managment': localStorageReadJson('hideout-managment', 0),
+        'hideout-management': localStorageReadJson('hideout-management', 0),
         completedQuests: [],
         useTarkovTracker: localStorageReadJson('useTarkovTracker', false),
         tarkovTrackerModules: [],
@@ -242,7 +242,7 @@ export const selectAllStations = (state) => {
 export const selectAllSkills = (state) => {
     return {
         crafting: state.settings.crafting,
-        'hideout-managment': state.settings['hideout-managment'],
+        'hideout-management': state.settings['hideout-management'],
     };
 };
 
