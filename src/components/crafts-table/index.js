@@ -224,7 +224,7 @@ function CraftTable(props) {
 
                 const costItems = formatCostItems(
                     craftRow.requiredItems,
-                    skills['hideout-managment'],
+                    skills['hideout-management'],
                     barters,
                     freeFuel,
                     includeFlea,
