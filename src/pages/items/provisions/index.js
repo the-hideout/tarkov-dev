@@ -63,6 +63,14 @@ function Provisions() {
                 traderValue
                 traderPrice
             />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"In Escape from Tarkov, provisions are utilized to replenish energy and hydration."}
+                    <br/>
+                    {"Your Metabolism skill level will determine how effective they are."}
+                </p>
+            </div>
         </div>,
     ];
 }

@@ -90,6 +90,7 @@ function Armor(props) {
                     />
                 </Filter>
             </div>
+
             <SmallItemTable
                 typeFilter={'armor'}
                 excludeTypeFilter={includeRigs ? false : 'rig'}
@@ -112,6 +113,12 @@ function Armor(props) {
                 weight
                 stats
             />
+            
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"In the video game Escape from Tarkov, armor vests are worn to lessen bullet damage. Helmets are typically used in addition to them."}
+                </p>
+            </div>
         </div>,
     ];
 }

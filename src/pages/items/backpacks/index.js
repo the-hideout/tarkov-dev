@@ -172,6 +172,7 @@ function Backpacks(props) {
                     />
                 </Filter>
             </div>
+
             <DataTable
                 columns={columns}
                 data={data}
@@ -179,6 +180,12 @@ function Backpacks(props) {
                 sortByDesc={true}
                 autoResetSortBy={false}
             />
+            
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"Backpacks in the Escape from Tarkov game are various-sized containers for carrying your hard-earned riches."}
+                </p>
+            </div>
         </div>,
     ];
 }

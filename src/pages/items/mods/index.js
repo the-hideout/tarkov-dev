@@ -40,7 +40,7 @@ function Mods() {
                 content={`All the relevant information about Escape from Tarkov`}
             />
         </Helmet>,
-        <div className="page-wrapper" key={'display-wrapper'}>
+        <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
@@ -65,6 +65,19 @@ function Mods() {
                 autoScroll
                 maxItems={50}
             />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"In Escape from Tarkov, the performance and functioning of a weapon are controlled by elaborate mechanisms organized into five categories:"}
+                    <ul>
+                        <li>{"Functional Mods"}</li>
+                        <li>{"Muzzle devices (Functional Mods)"}</li>
+                        <li>{"Sights (Functional Mods)"}</li>
+                        <li>{"Gear Mods"}</li>
+                        <li>{"Vital parts"}</li>
+                    </ul>
+                </p>
+            </div>
         </div>,
     ];
 }

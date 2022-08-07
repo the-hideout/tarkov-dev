@@ -224,7 +224,17 @@ function Suppressors(props) {
                     )}
                 </Filter>
             </div>
-            <ItemsTable columns={columns} items={displayItems} />
+
+            <ItemsTable 
+                columns={columns} 
+                items={displayItems} 
+            />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"In Escape from Tarkov, a suppressor is a muzzle device (a functional mod) and can be installed on a weapon to muffle gunshot sound."}
+                </p>
+            </div>
         </div>,
     ];
 }

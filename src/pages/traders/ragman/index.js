@@ -48,7 +48,7 @@ function Ragman() {
                 content={`All Ragman items and barters in Escape from Tarkov`}
             />
         </Helmet>,
-        <div className="page-wrapper" key={'display-wrapper'}>
+        <div className="page-wrapper" key={'page-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Ragman Items')}
@@ -121,6 +121,7 @@ function Ragman() {
                     />
                 </Filter>
             </div>
+
             <SmallItemTable
                 nameFilter={nameFilter}
                 traderFilter="ragman"
@@ -138,6 +139,13 @@ function Ragman() {
                 // instaProfit = {selectedTable === 'instaProfit' ? true : false}
                 // maxItems = {selectedTable === 'instaProfit' ? 50 : false}
             />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"Background:"}<br/>
+                    {"Previously, he worked as a director in a shopping center located in the suburbs of Tarkov. Now dealing in mostly clothing- and gear-related items, anywhere from sunglasses to body armor."}
+                </p>
+            </div>
         </div>,
     ];
 }

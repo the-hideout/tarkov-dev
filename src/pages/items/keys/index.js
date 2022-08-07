@@ -40,7 +40,7 @@ function Keys() {
                 content={`All the relevant information about Escape from Tarkov`}
             />
         </Helmet>,
-        <div className="page-wrapper" key={'display-wrapper'}>
+        <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
@@ -62,6 +62,14 @@ function Keys() {
                 fleaValue
                 traderValue
             />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"Maps, keys, key cards, and other useful objects are included in intelligence items. These will help you stay one step ahead of the competition—or at the very least, know where you are in Escape from Tarkov."}
+                    <br/>
+                    {"The remaining durability of keys and keycards with a limited number of uses is displayed in the bottom right corner of their icons and on their inspection screens."}
+                </p>
+            </div>
         </div>,
     ];
 }

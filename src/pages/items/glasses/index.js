@@ -123,7 +123,17 @@ function Glasses(props) {
                     {t('Glasses chart')}
                 </h1>
             </div>
-            <DataTable columns={columns} data={data} />
+
+            <DataTable 
+                columns={columns} 
+                data={data} 
+            />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"Eyewear in Escape from Tarkov can be used to decrease the number and quantity of raindrops on the players' screens as well as the length of flashbang effects."}
+                </p>
+            </div>
         </div>,
     ];
 }

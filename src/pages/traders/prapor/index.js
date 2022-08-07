@@ -48,7 +48,7 @@ function Prapor() {
                 content={`All Prapor items and barters in Escape from Tarkov`}
             />
         </Helmet>,
-        <div className="page-wrapper" key={'display-wrapper'}>
+        <div className="page-wrapper" key={'page-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Prapor Items')}
@@ -121,6 +121,7 @@ function Prapor() {
                     />
                 </Filter>
             </div>
+
             <SmallItemTable
                 nameFilter={nameFilter}
                 traderFilter="prapor"
@@ -138,6 +139,13 @@ function Prapor() {
                 // instaProfit = {selectedTable === 'instaProfit' ? true : false}
                 // maxItems = {selectedTable === 'instaProfit' ? 50 : false}
             />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"Background:"}<br/>
+                    {"The Warrant officer in charge of supply warehouses on the sustaining base enforcing the Norvinsk region blockade. Secretly supplied the BEAR PMC operators with weapons, ammunition, and various other provisions he had at his disposal during the Contract Wars."}
+                </p>
+            </div>
         </div>,
     ];
 }

@@ -40,7 +40,7 @@ function Headsets() {
                 content={`All the relevant information about Escape from Tarkov`}
             />
         </Helmet>,
-        <div className="page-wrapper" key={'display-wrapper'}>
+        <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
@@ -55,6 +55,7 @@ function Headsets() {
                     />
                 </Filter>
             </div>
+
             <SmallItemTable
                 nameFilter={nameFilter}
                 typeFilter="headphones"
@@ -64,6 +65,12 @@ function Headsets() {
                 traderValue
                 traderPrice
             />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"In Escape from Tarkov, headsets magnify low-frequency noises like footsteps while muzzling impulsive stimuli like gunshots. Different audio profiles are offered by the various models."}
+                </p>
+            </div>
         </div>,
     ];
 }

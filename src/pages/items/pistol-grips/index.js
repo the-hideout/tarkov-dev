@@ -231,6 +231,7 @@ function PistolGrips(props) {
                     )}
                 </Filter>
             </div>
+
             <ItemsTable
                 columns={columns}
                 items={displayItems}
@@ -238,6 +239,12 @@ function PistolGrips(props) {
                 maxItems={50}
                 autoScroll
             />
+
+            <div className="page-wrapper" style={{ minHeight: 0 }}>
+                <p>
+                    {"In Escape from Tarkov a pistol grip is a vital part of a weapon."}
+                </p>
+            </div>
         </div>,
     ];
 }
