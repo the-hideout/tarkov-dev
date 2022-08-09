@@ -1,6 +1,6 @@
 const fs = require('fs/promises');
 
-const Jimp = require('jimp');
+const Jimp = require('jimp-compact');
 
 (async () => {
     console.time('Generating thumbnails');
