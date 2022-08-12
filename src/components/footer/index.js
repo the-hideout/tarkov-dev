@@ -58,9 +58,12 @@ function Footer() {
             <div className="footer-section-wrapper">
                 <h3>{t('Supporters')}</h3>
                 <p>
-                    We are not currently accepting patrons but encourage
-                    everyone who can to donate to Ukraine using the button
-                    below.
+                    <span>
+                        We encourage everyone who can to donate to support the people of 
+                        Ukraine using the button below. If you'd also like to support this
+                        project, you can make a donation and/or become a backer on
+                    </span>{' '}
+                    <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">Open Collective</a><span>.</span>
                 </p>
                 <UkraineButton
                     linkStyle={{
@@ -74,7 +77,7 @@ function Footer() {
                     )}{' '}
                     <a href="https://tarkov-changes.com">
                         <span>Tarkov-Changes</span>
-                    </a>
+                    </a><span>.</span>
                 </p>
 
                 {/*{supporters.map((supporter) => {*/}
