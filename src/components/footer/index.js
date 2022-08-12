@@ -58,7 +58,7 @@ function Footer() {
             <div className="footer-section-wrapper">
                 <h3>{t('Supporters')}</h3>
                 <p>
-                    {t('We encourage everyone who can to donate to support the people of Ukraine using the button below.')}
+                    {t('We encourage everyone who can to donate to support the people of Ukraine using the button below')}
                 </p>
                 <UkraineButton
                     linkStyle={{
@@ -67,7 +67,7 @@ function Footer() {
                 />
                 <p>
                     {t("If you'd also like to support this project, you can make a donation and/or become a backer on")}{' '}
-                    <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">Open Collective</a><span>.</span>
+                    <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">Open Collective</a>
                 </p>
                 <h3>Item Data</h3>
                 <p>
@@ -76,7 +76,7 @@ function Footer() {
                     )}{' '}
                     <a href="https://tarkov-changes.com">
                         <span>Tarkov-Changes</span>
-                    </a><span>.</span>
+                    </a>
                 </p>
 
                 {/*{supporters.map((supporter) => {*/}

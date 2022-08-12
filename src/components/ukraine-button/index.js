@@ -1,9 +1,9 @@
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Button from '@mui/material/Button';
 import './index.css';
 
 function UkraineButton({ onlyLarge, linkStyle, wrapperStyle, text, children }) {
-    // const { t } = useTranslation();
+    const { t } = useTranslation();
 
     return (
         <Button
@@ -12,7 +12,7 @@ function UkraineButton({ onlyLarge, linkStyle, wrapperStyle, text, children }) {
             variant="contained"
             href="https://www.icrc.org/en/donate/ukraine"
         >
-            Support Ukraine
+            {t('Support Ukraine')}
         </Button>
     );
 
