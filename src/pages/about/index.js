@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
 // import SupportersList from '../../components/supporters-list';
 
+import UkraineButton from '../../components/ukraine-button';
+
 import './index.css';
 
 function About() {
@@ -35,12 +37,11 @@ function About() {
             </p>
             <h2>{t('Support')}</h2>
             <p>
-                <a href="https://www.icrc.org/en/donate/ukraine">
-                    {t(
-                        'First and foremost, We would suggest you donate to support the people of Ukraine.',
-                    )}
-                </a>
+                {t(
+                    'We encourage everyone who can to donate to support the people of Ukraine using the button below',
+                )}<span>.</span>
             </p>
+            <UkraineButton/>
             <p>
                 {t("If you'd also like to support this project, you can make a donation and/or become a backer on")}{' '}
                 <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">Open Collective</a><span>.</span>
