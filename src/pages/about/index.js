@@ -35,14 +35,19 @@ function About() {
             </p>
             <h2>{t('Support')}</h2>
             <p>
-                {t(
-                    'Right now, the page is not accepting funding of any kind and instead, we would suggest you donate to support the efforts in Ukraine',
-                )}{' '}
                 <a href="https://www.icrc.org/en/donate/ukraine">
-                    Support Ukraine
-                </a>{' '}
+                    {t(
+                        'First and foremost, We would suggest you donate to support the people of Ukraine.',
+                    )}
+                </a>
+            </p>
+            <p>
+                {t("If you'd also like to support this project, you can make a donation and/or become a backer on")}{' '}
+                <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">Open Collective</a><span>.</span>
+            </p>
+            <p>
                 {t(
-                    'supporter or by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site',
+                    'You can also help by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site.',
                 )}
             </p>
             <h2>{t('API')}</h2>
