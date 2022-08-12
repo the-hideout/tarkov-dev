@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
 // import SupportersList from '../../components/supporters-list';
 
+import UkraineButton from '../../components/ukraine-button';
+
 import './index.css';
 
 function About() {
@@ -36,13 +38,17 @@ function About() {
             <h2>{t('Support')}</h2>
             <p>
                 {t(
-                    'Right now, the page is not accepting funding of any kind and instead, we would suggest you donate to support the efforts in Ukraine',
-                )}{' '}
-                <a href="https://www.icrc.org/en/donate/ukraine">
-                    Support Ukraine
-                </a>{' '}
+                    'We encourage everyone who can to donate to support the people of Ukraine using the button below',
+                )}<span>.</span>
+            </p>
+            <UkraineButton/>
+            <p>
+                {t("If you'd also like to support this project, you can make a donation and/or become a backer on")}{' '}
+                <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">Open Collective</a><span>.</span>
+            </p>
+            <p>
                 {t(
-                    'supporter or by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site',
+                    'You can also help by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site.',
                 )}
             </p>
             <h2>{t('API')}</h2>
@@ -84,7 +90,7 @@ function About() {
                 )}{' '}
                 <ul>
                     <li>
-                        <a href="https://github.com/kokarn">@kokarn</a>{' '}
+                        <a href="https://github.com/kokarn">@kokarn</a>{' (created the original Tarkov-Tools but has no ongoing involvement in this fork) '}
                     </li>
                     <li>
                         <a href="https://github.com/Razzmatazzz">
