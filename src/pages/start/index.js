@@ -58,6 +58,10 @@ function Start() {
         [setNameFilter],
     );
 
+    const loadMore = event => {
+        console.log('clicked')
+    };
+
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
@@ -83,12 +87,19 @@ function Start() {
                         maxItems={20}
                         nameFilter={nameFilter}
                         defaultRandom={true}
+                        autoScroll={false}
                         fleaValue
                         traderValue
                         instaProfit
                         hideBorders
                     />
                 </Suspense>
+
+                {/* Load More Button */}
+                <div className="load-more-wrapper">
+                    <button className="load-more-button" onClick={loadMore}>Load More</button>
+                </div>
+
             </div>
             <div className="start-section-wrapper">
                 <Suspense fallback={renderLoader()}>
