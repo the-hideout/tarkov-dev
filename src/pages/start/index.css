@@ -65,6 +65,25 @@
     display: flex;
 }
 
+.load-more-wrapper {
+    margin-top: 1.25rem;
+    margin-bottom: .5rem;
+    display: block;
+    text-align: center;
+}
+
+.load-more-button {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 5px;
+}
+
+.load-more-button:hover {
+    background-color: #6e5f43;
+    color: white;
+    cursor: pointer;
+  }
+
 @media screen and (min-width: 1220px) {
     .start-section-wrapper img {
         max-width: 256px;
