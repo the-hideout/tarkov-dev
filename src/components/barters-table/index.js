@@ -14,7 +14,6 @@ import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
 import RewardCell from '../reward-cell';
-import capitalizeFirst from '../../modules/capitalize-first';
 import { isAnyDogtag, isBothDogtags } from '../../modules/dogtags';
 
 import './index.css';

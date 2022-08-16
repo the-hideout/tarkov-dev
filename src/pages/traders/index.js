@@ -43,7 +43,7 @@ function Traders(props) {
                             loading="lazy"
                             src={`${process.env.PUBLIC_URL}/images/${trader.normalizedName}-icon.jpg`}
                         />
-                        <TraderResetTime center trader={trader.resetTime} />
+                        <TraderResetTime center timestamp={trader.resetTime} />
                     </Link>
                 ))}
             </div>

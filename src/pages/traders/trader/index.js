@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useAsync } from 'react-async';
-import { useParams, Navigate, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
