@@ -99,9 +99,7 @@ function BartersTable(props) {
                     return (
                         <ValueCell value={props.value} highlightProfit>
                             <div className="duration-wrapper">
-                                {t(capitalizeFirst(
-                                    props.row.original.instaProfitSource.source,
-                                ))}
+                                {props.row.original.instaProfitSource.vendor.name}
                             </div>
                         </ValueCell>
                     );
@@ -160,10 +158,12 @@ function BartersTable(props) {
                 return false;
             })
             .filter((barter) => {
-                let [trader, level] = barter.source.split('LL');
+                let trader = barter.trader.normalizedName;
+                let level = barter.level;
+                /*let [trader, level] = barter.source.split('LL');
 
                 level = parseInt(level);
-                trader = trader.trim();
+                trader = trader.trim();*/
 
                 if (
                     !nameFilter &&
@@ -253,11 +253,11 @@ function BartersTable(props) {
 
                 const bestSellTo = barterRow.rewardItems[0].item.sellFor.reduce(
                     (previousSellForObject, sellForObject) => {
-                        if (sellForObject.source === 'fleaMarket') {
+                        if (sellForObject.vendor.normalizedName === 'flea-market') {
                             return previousSellForObject;
                         }
 
-                        if (sellForObject.source === 'jaeger' && !hasJaeger) {
+                        if (sellForObject.vendor.normalizedName === 'jaeger' && !hasJaeger) {
                             return previousSellForObject;
                         }
 
@@ -273,8 +273,10 @@ function BartersTable(props) {
                     },
                 );
 
-                let [trader, level] = barterRow.source.split('LL');
-                trader = trader.trim();
+                let trader = barterRow.trader.normalizedName;
+                let level = barterRow.level;
+                /*let [trader, level] = barterRow.source.split('LL');
+                trader = trader.trim();*/
 
                 const tradeData = {
                     costItems: costItems,
@@ -283,6 +285,7 @@ function BartersTable(props) {
                     instaProfitSource: bestSellTo,
                     reward: {
                         sellTo: t('Flea Market'),
+                        sellToNormalized: 'flea-market',
                         name: barterRow.rewardItems[0].item.name,
                         value: barterRow.rewardItems[0].item[priceToUse],
                         source: t(trader) + ' LL' + level,
@@ -294,11 +297,12 @@ function BartersTable(props) {
                 };
 
                 const bestTraderValue = Math.max(
-                    ...barterRow.rewardItems[0].item.traderPrices.map(
+                    ...barterRow.rewardItems[0].item.sellFor.map(
                         (priceObject) => {
+                            if (priceObject.vendor.normalizedName === 'flea-market') return 0;
                             if (
                                 !hasJaeger &&
-                                priceObject.trader.name === 'Jaeger'
+                                priceObject.vendor.normalizedName === 'jaeger'
                             ) {
                                 return 0;
                             }
@@ -309,7 +313,7 @@ function BartersTable(props) {
                 );
 
                 const bestTrade =
-                    barterRow.rewardItems[0].item.traderPrices.find(
+                    barterRow.rewardItems[0].item.sellFor.find(
                         (traderPrice) => traderPrice.priceRUB === bestTraderValue,
                     );
 
@@ -317,12 +321,13 @@ function BartersTable(props) {
                     (bestTrade && bestTrade.priceRUB > tradeData.reward.value) ||
                     (bestTrade && !includeFlea)
                 ) {
-                    // console.log(barterRow.rewardItems[0].item.traderPrices);
+                    // console.log(barterRow.rewardItems[0].item.sellTo);
                     tradeData.reward.value = bestTrade.priceRUB;
-                    tradeData.reward.sellTo = bestTrade.trader.name;
+                    tradeData.reward.sellTo = bestTrade.vendor.name;
+                    tradeData.reward.sellToNormalized = bestTrade.vendor.normalizedName;
                 }
                 
-                tradeData.reward.sellTo = t(tradeData.reward.sellTo)
+                //tradeData.reward.sellTo = t(tradeData.reward.sellTo)
 
                 tradeData.savings = tradeData.reward.value - cost;
 

@@ -1,15 +1,21 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { useAsync } from 'react-async';
 import Icon from '@mdi/react';
 import { mdiAccountGroup } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 
 import TraderResetTime from '../../components/trader-reset-time';
+import doFetchTraders from '../../features/traders/do-fetch-traders';
 
 import './index.css';
 
 function Traders(props) {
     const { t } = useTranslation();
+    let traders = [];
+    const req = useAsync({promiseFn: doFetchTraders});
+    if (req.error) return Promise.reject(req.error);
+    if (req.data) traders = req.data;
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
@@ -29,69 +35,17 @@ function Traders(props) {
                 {t('Traders')}
             </h1>
             <div className="traders-list-wrapper">
-                <Link to={`/traders/prapor`} className="screen-link">
-                    <h2 className="center-title">{t('Prapor')}</h2>
-                    <img
-                        alt={'Prapor'}
-                        loading="lazy"
-                        src={`${process.env.PUBLIC_URL}/images/prapor-icon.jpg`}
-                    />
-                    <TraderResetTime center trader="prapor" />
-                </Link>
-                <Link to={`/traders/therapist`} className="screen-link">
-                    <h2 className="center-title">{t('Therapist')}</h2>
-                    <img
-                        alt={'Therapist'}
-                        loading="lazy"
-                        src={`${process.env.PUBLIC_URL}/images/therapist-icon.jpg`}
-                    />
-                    <TraderResetTime center trader="therapist" />
-                </Link>
-                <Link to={`/traders/skier`} className="screen-link">
-                    <h2 className="center-title">{t('Skier')}</h2>
-                    <img
-                        alt={'Skier'}
-                        loading="lazy"
-                        src={`${process.env.PUBLIC_URL}/images/skier-icon.jpg`}
-                    />
-                    <TraderResetTime center trader="skier" />
-                </Link>
-                <Link to={`/traders/peacekeeper`} className="screen-link">
-                    <h2 className="center-title">{t('Peacekeeper')}</h2>
-                    <img
-                        alt={'Peacekeeper'}
-                        loading="lazy"
-                        src={`${process.env.PUBLIC_URL}/images/peacekeeper-icon.jpg`}
-                    />
-                    <TraderResetTime center trader="peacekeeper" />
-                </Link>
-                <Link to={`/traders/mechanic`} className="screen-link">
-                    <h2 className="center-title">{t('Mechanic')}</h2>
-                    <img
-                        alt={'Mechanic'}
-                        loading="lazy"
-                        src={`${process.env.PUBLIC_URL}/images/mechanic-icon.jpg`}
-                    />
-                    <TraderResetTime center trader="mechanic" />
-                </Link>
-                <Link to={`/traders/ragman`} className="screen-link">
-                    <h2 className="center-title">{t('Ragman')}</h2>
-                    <img
-                        alt={'Ragman'}
-                        loading="lazy"
-                        src={`${process.env.PUBLIC_URL}/images/ragman-icon.jpg`}
-                    />
-                    <TraderResetTime center trader="ragman" />
-                </Link>
-                <Link to={`/traders/jaeger`} className="screen-link">
-                    <h2 className="center-title">{t('Jaeger')}</h2>
-                    <img
-                        alt={'Jaeger'}
-                        loading="lazy"
-                        src={`${process.env.PUBLIC_URL}/images/jaeger-icon.jpg`}
-                    />
-                    <TraderResetTime center trader="jaeger" />
-                </Link>
+                {traders.map(trader => (
+                    <Link to={`/traders/${trader.normalizedName}`} className="screen-link">
+                        <h2 className="center-title">{trader.name}</h2>
+                        <img
+                            alt={trader.name}
+                            loading="lazy"
+                            src={`${process.env.PUBLIC_URL}/images/${trader.normalizedName}-icon.jpg`}
+                        />
+                        <TraderResetTime center trader={trader.resetTime} />
+                    </Link>
+                ))}
             </div>
 
             <div className="page-wrapper" style={{ minHeight: 0 }}>

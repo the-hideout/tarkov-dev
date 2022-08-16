@@ -28,16 +28,51 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
                 priceRUB
                 trader {
                   name
+                  normalizedName
                 }
               }
               buyFor {
                 source
+                vendor {
+                  name
+                  normalizedName
+                  __typename
+                  ...on TraderOffer {
+                      trader {
+                          id
+                          name
+                          normalizedName
+                      }
+                      minTraderLevel
+                      taskUnlock {
+                          id
+                          name
+                      }
+                  }
+                }
                 price
                 priceRUB
                 currency
               }
               sellFor {
                 source
+                vendor {
+                  name
+                  normalizedName
+                  __typename
+                  ...on TraderOffer {
+                      trader {
+                          id
+                          name
+                          normalizedName
+                      }
+                      minTraderLevel
+                      taskUnlock {
+                          id
+                          name
+                      }
+                  }
+                }
                 price
                 priceRUB
                 currency
@@ -63,16 +98,51 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
                 priceRUB
                 trader {
                   name
+                  normalizedName
                 }
               }
               buyFor {
                 source
+                vendor {
+                  name
+                  normalizedName
+                  __typename
+                  ...on TraderOffer {
+                      trader {
+                          id
+                          name
+                          normalizedName
+                      }
+                      minTraderLevel
+                      taskUnlock {
+                          id
+                          name
+                      }
+                  }
+                }
                 price
                 priceRUB
                 currency
               }
               sellFor {
                 source
+                vendor {
+                  name
+                  normalizedName
+                  __typename
+                  ...on TraderOffer {
+                      trader {
+                          id
+                          name
+                          normalizedName
+                      }
+                      minTraderLevel
+                      taskUnlock {
+                          id
+                          name
+                      }
+                  }
+                }
                 price
                 priceRUB
                 currency

@@ -261,12 +261,15 @@ function CraftTable(props) {
                 };
 
                 const bestTraderValue = Math.max(
-                    ...craftRow.rewardItems[0].item.traderPrices.map(
-                        (priceObject) => priceObject.priceRUB,
+                    ...craftRow.rewardItems[0].item.sellTo.map(
+                        (priceObject) => {
+                            if (priceObject.vendor.normalizedName === 'flea-market') return 0;
+                            return priceObject.priceRUB
+                        }
                     ),
                 );
                 const bestTrade =
-                    craftRow.rewardItems[0].item.traderPrices.find(
+                    craftRow.rewardItems[0].item.sellFor.find(
                         (traderPrice) => traderPrice.priceRUB === bestTraderValue,
                     );
 

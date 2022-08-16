@@ -41,10 +41,28 @@ const doFetchItems = async () => {
                     priceRUB
                     trader {
                         name
+                        normalizedName
                     }
                 }
                 sellFor {
                     source
+                    vendor {
+                        name
+                        normalizedName
+                        __typename
+                        ...on TraderOffer {
+                            trader {
+                                id
+                                name
+                                normalizedName
+                            }
+                            minTraderLevel
+                            taskUnlock {
+                                id
+                                name
+                            }
+                        }
+                    }
                     price
                     priceRUB
                     requirements {
@@ -55,6 +73,23 @@ const doFetchItems = async () => {
                 }
                 buyFor {
                     source
+                    vendor {
+                        name
+                        normalizedName
+                        __typename
+                        ...on TraderOffer {
+                            trader {
+                                id
+                                name
+                                normalizedName
+                            }
+                            minTraderLevel
+                            taskUnlock {
+                                id
+                                name
+                            }
+                        }
+                    }
                     price
                     priceRUB
                     currency
@@ -362,14 +397,6 @@ const doFetchItems = async () => {
             iconLink: rawItem.iconLink,
             grid: grid,
             notes: NOTES[rawItem.id],
-            traderPrices: rawItem.traderPrices.map((traderPrice) => {
-                return {
-                    price: traderPrice.price,
-                    priceRUB: traderPrice.priceRUB,
-                    currency: traderPrice.currency,
-                    trader: traderPrice.trader.name,
-                };
-            }),
             canHoldItems: itemProps[rawItem.id]?.canHoldItems,
             equipmentSlots: itemProps[rawItem.id]?.slots || [],
             allowedAmmoIds: itemProps[rawItem.id]?.allowedAmmoIds,
@@ -380,12 +407,6 @@ const doFetchItems = async () => {
         };
     });
 
-    const itemMap = {};
-
-    for (const item of allItems) {
-        itemMap[item.id] = item;
-    }
-
     for (const item of allItems) {
         if (item.types.includes('gun') && item.containsItems) {
             item.traderPrices = item.traderPrices.map((localTraderPrice) => {
@@ -395,9 +416,7 @@ const doFetchItems = async () => {
 
                 localTraderPrice.price = item.containsItems.reduce(
                     (previousValue, currentValue) => {
-                        const partPrice = itemMap[
-                            currentValue.item.id
-                        ].traderPrices.find(
+                        const partPrice = allItems.find(it => it.id === currentValue.item.id).traderPrices.find(
                             (innerTraderPrice) =>
                                 innerTraderPrice.name === localTraderPrice.name,
                         );
@@ -415,15 +434,13 @@ const doFetchItems = async () => {
             });
 
             item.sellFor = item.sellFor.map((sellFor) => {
-                if (sellFor.source === 'fleaMarket') {
+                if (sellFor.vendor.normalizedName === 'flea-market') {
                     return sellFor;
                 }
 
                 sellFor.price = item.containsItems.reduce(
                     (previousValue, currentValue) => {
-                        const partPrice = itemMap[
-                            currentValue.item.id
-                        ].sellFor.find(
+                        const partPrice = allItems.find(it => it.id === currentValue.item.id).sellFor.find(
                             (innerSellFor) =>
                                 innerSellFor.source === sellFor.source,
                         );
@@ -450,7 +467,8 @@ const doFetchItems = async () => {
         item.traderPrice = bestTraderPrice?.price || 0;
         item.traderPriceRUB = bestTraderPrice?.priceRUB || 0;
         item.traderCurrency = bestTraderPrice?.currency || 'RUB';
-        item.traderName = bestTraderPrice?.trader || '?';
+        item.traderName = bestTraderPrice?.trader.name || '?';
+        item.traderNormalizedName = bestTraderPrice?.trader.normalizedName || '?';
     }
 
     return allItems;

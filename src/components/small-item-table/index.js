@@ -297,6 +297,7 @@ function SmallItemTable(props) {
                     instaProfit: 0,
                     itemLink: `/item/${itemData.normalizedName}`,
                     traderName: itemData.traderName,
+                    normalizedName: itemData.traderNormalizedName,
                     traderPrice: itemData.traderPrice,
                     traderPriceRUB: itemData.traderPriceRUB,
                     traderCurrency: itemData.traderCurrency,
@@ -305,6 +306,7 @@ function SmallItemTable(props) {
                     sellFor: itemData.sellFor,
                     bestSell: {
                         source: itemData.traderName,
+                        normalizedName: itemData.traderNormalizedName,
                         price: itemData.traderPrice,
                         priceRUB: itemData.traderPriceRUB,
                         currency: itemData.traderCurrency

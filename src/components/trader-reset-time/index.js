@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+//import { useQuery } from 'react-query';
 import Countdown from 'react-countdown';
 // import { useTranslation } from 'react-i18next';
 
@@ -21,8 +21,8 @@ const Renderer = (props) => {
     );
 };
 
-function TraderResetTime({ trader, center = false }) {
-    const dataQuery = JSON.stringify({
+function TraderResetTime({ timestamp, center = false }) {
+    /*const dataQuery = JSON.stringify({
         query: `{
         traderResetTimes {
             name
@@ -54,16 +54,12 @@ function TraderResetTime({ trader, center = false }) {
 
     if (status === 'success' && data.data.traderResetTimes.length === 0) {
         return 'No data';
-    }
+    }*/
 
     return (
         <div className={`countdown-wrapper ${center ? 'center' : ''}`}>
             <Countdown
-                date={
-                    data.data.traderResetTimes.find(
-                        (resetTime) => resetTime.name === trader,
-                    ).resetTimestamp
-                }
+                date={timestamp}
                 renderer={Renderer}
             />
         </div>

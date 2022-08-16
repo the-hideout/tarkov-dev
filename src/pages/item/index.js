@@ -384,7 +384,7 @@ function Item() {
                                                 } first-trader-price`}
                                             >
                                                 <Link
-                                                    to={`/traders/${currentItemData.traderName.toLowerCase()}`}
+                                                    to={`/traders/${currentItemData.traderNormalizedName}`}
                                                 >
                                                     <img
                                                         alt={
@@ -396,7 +396,7 @@ function Item() {
                                                         src={`${
                                                             process.env
                                                                 .PUBLIC_URL
-                                                        }/images/${currentItemData.traderName.toLowerCase()}-icon.jpg`}
+                                                        }/images/${currentItemData.traderNormalizedName}-icon.jpg`}
                                                         // title = {`Sell ${currentItemData.name} on the Flea market`}
                                                     />
                                                 </Link>
@@ -427,7 +427,7 @@ function Item() {
                                         currentItemData.traderPrices.map(
                                             (traderPrice, traderPriceIndex) => {
                                                 const traderName =
-                                                    traderPrice.trader.toLowerCase();
+                                                    traderPrice.trader.normalizedName.toLowerCase();
 
                                                 return (
                                                     <div
