@@ -108,6 +108,7 @@ dist
 
 # VS code
 .vscode/
+.vscode/*
 
 build
 tarkov-tools/*
