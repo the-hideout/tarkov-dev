@@ -36,7 +36,7 @@ function Traders(props) {
             </h1>
             <div className="traders-list-wrapper">
                 {traders.map(trader => (
-                    <Link to={`/traders/${trader.normalizedName}`} className="screen-link">
+                    <Link key={trader.id} to={`/traders/${trader.normalizedName}`} className="screen-link">
                         <h2 className="center-title">{trader.name}</h2>
                         <img
                             alt={trader.name}
