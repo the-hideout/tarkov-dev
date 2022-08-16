@@ -116,7 +116,7 @@ function Trader() {
                                 }
                                 selected={selectedTable === level.level}
                                 content={romanLevels[level.level]}
-                                onClick={setSelectedTable.bind(undefined, 1)}
+                                onClick={setSelectedTable.bind(undefined, level.level)}
                             />
                         ))}
                     </ButtonGroupFilter>
