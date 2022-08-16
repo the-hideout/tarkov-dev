@@ -86,12 +86,9 @@ function About() {
             <h2>{t('Core Contributors')}</h2>
             <p>
                 {t(
-                    'The core contributors to this project (in no particular order) are shown below:',
+                    'The core contributors to this project (in no particular order) are:',
                 )}{' '}
                 <ul>
-                    <li>
-                        <a href="https://github.com/kokarn">@kokarn</a>{' (created the original Tarkov-Tools but is no longer an active contributor in this fork) '}
-                    </li>
                     <li>
                         <a href="https://github.com/Razzmatazzz">
                             @Razzmatazzz
