@@ -114,7 +114,7 @@ function Trader() {
                                         {`${t('Unlocks at Loyalty Level')} ${level.level}`}
                                     </div>
                                 }
-                                selected={selectedTable === 1}
+                                selected={selectedTable === level.level}
                                 content={romanLevels[level.level]}
                                 onClick={setSelectedTable.bind(undefined, 1)}
                             />
