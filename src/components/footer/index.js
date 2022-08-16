@@ -69,12 +69,8 @@ function Footer() {
                 <p>
                     {t("If you'd also like to support this project, you can make a donation and/or become a backer on")}{' '}
                     <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">Open Collective</a>
-
-                    <br></br>
-                    <br></br>
-
-                    <OpenCollectiveButton />
                 </p>
+                <OpenCollectiveButton />
                 <h3>Item Data</h3>
                 <p>
                     {t(
