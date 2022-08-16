@@ -261,7 +261,7 @@ function CraftTable(props) {
                 };
 
                 const bestTraderValue = Math.max(
-                    ...craftRow.rewardItems[0].item.sellTo.map(
+                    ...craftRow.rewardItems[0].item.sellFor.map(
                         (priceObject) => {
                             if (priceObject.vendor.normalizedName === 'flea-market') return 0;
                             return priceObject.priceRUB
@@ -278,7 +278,7 @@ function CraftTable(props) {
                     (bestTrade && !includeFlea)
                 ) {
                     tradeData.reward.value = bestTrade.priceRUB;
-                    tradeData.reward.sellTo = t(bestTrade.trader.name);
+                    tradeData.reward.sellTo = bestTrade.vendor.name;
                 }
 
                 const priceToUse = averagePrices === true ? 'avg24hPrice' : 'lastLowPrice';
