@@ -368,10 +368,10 @@ function SmallItemTable(props) {
         if (traderFilter) {
             returnData = returnData.filter((item) => {
                 item.buyFor = item.buyFor.filter(
-                    (buy) => buy.source === traderFilter,
+                    (buy) => buy.vendor.normalizedName === traderFilter,
                 );
                 item.sellFor = item.sellFor?.filter(
-                    (sell) => sell.source === traderFilter,
+                    (sell) => sell.vendor.normalizedName === traderFilter,
                 );
                 item.bestSell = item.sellFor?.sort((a, b) => {
                     return b.priceRUB - a.priceRUB;
