@@ -130,7 +130,7 @@ function Trader() {
 
             <SmallItemTable
                 nameFilter={nameFilter}
-                traderFilter={trader.name}
+                traderFilter={traderName}
                 loyaltyLevelFilter={
                     Number.isInteger(selectedTable) ? selectedTable : false
                 }
