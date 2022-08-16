@@ -9,6 +9,7 @@ import { ReactComponent as DiscordIcon } from '../supporter/Discord.svg';
 
 import './index.css';
 import UkraineButton from '../ukraine-button';
+import OpenCollectiveButton from '../open-collective-button';
 
 import rawVersion from '../../data/version.json';
 
@@ -68,6 +69,11 @@ function Footer() {
                 <p>
                     {t("If you'd also like to support this project, you can make a donation and/or become a backer on")}{' '}
                     <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">Open Collective</a>
+
+                    <br></br>
+                    <br></br>
+
+                    <OpenCollectiveButton />
                 </p>
                 <h3>Item Data</h3>
                 <p>
@@ -128,7 +134,7 @@ function Footer() {
                     </a>
                 </p>
                 <p>
-                <iframe className='discord' title="discord-iframe" src="https://discord.com/widget?id=956236955815907388&theme=dark" allowtransparency="true" frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                    <iframe className='discord' title="discord-iframe" src="https://discord.com/widget?id=956236955815907388&theme=dark" allowtransparency="true" frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
                 </p>
             </div>
             <div className="copyright-wrapper">
