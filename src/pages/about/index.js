@@ -90,7 +90,7 @@ function About() {
                 )}{' '}
                 <ul>
                     <li>
-                        <a href="https://github.com/kokarn">@kokarn</a>{' (created the original Tarkov-Tools but has no ongoing involvement in this fork) '}
+                        <a href="https://github.com/kokarn">@kokarn</a>{' (created the original Tarkov-Tools but has no ongoing involvement in their fork) '}
                     </li>
                     <li>
                         <a href="https://github.com/Razzmatazzz">
