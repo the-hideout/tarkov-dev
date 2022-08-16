@@ -108,6 +108,7 @@ function Trader() {
                     <ButtonGroupFilter>
                         {trader.levels.map(level => (
                             <ButtonGroupFilterButton
+                                key={level.level}
                                 tooltipContent={
                                     <div>
                                         {`${t('Unlocks at Loyalty Level')} ${level.level}`}
