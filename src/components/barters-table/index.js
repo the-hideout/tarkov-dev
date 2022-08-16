@@ -272,7 +272,6 @@ function BartersTable(props) {
                     },
                 );
 
-                let trader = barterRow.trader.normalizedName;
                 let level = barterRow.level;
                 /*let [trader, level] = barterRow.source.split('LL');
                 trader = trader.trim();*/
@@ -287,7 +286,7 @@ function BartersTable(props) {
                         sellToNormalized: 'flea-market',
                         name: barterRow.rewardItems[0].item.name,
                         value: barterRow.rewardItems[0].item[priceToUse],
-                        source: t(trader) + ' LL' + level,
+                        source: barterRow.trader.name + ' LL' + level,
                         iconLink:
                             barterRow.rewardItems[0].item.iconLink ||
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
