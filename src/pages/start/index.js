@@ -58,6 +58,11 @@ function Start() {
         [setNameFilter],
     );
 
+    const [loadMoreState, setLoadMoreState] = useState(false);
+    const loadMore = event => {
+        setLoadMoreState(current => !current);
+    };
+
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
@@ -79,15 +84,33 @@ function Start() {
                     />
                 </Suspense>
                 <Suspense fallback={renderLoader()}>
-                    <SmallItemTable
+                    {!loadMoreState && [<SmallItemTable
                         maxItems={20}
                         nameFilter={nameFilter}
                         defaultRandom={true}
+                        autoScroll={false}
                         fleaValue
                         traderValue
                         instaProfit
                         hideBorders
-                    />
+                    />,
+                    <div className="load-more-wrapper">
+                        <button id="load-more-button" className="load-more-button" onClick={loadMore}>Load More</button>
+                    </div>
+                    ]}
+
+                    {loadMoreState && (
+                        <SmallItemTable
+                            maxItems={20}
+                            nameFilter={nameFilter}
+                            defaultRandom={true}
+                            autoScroll={true}
+                            fleaValue
+                            traderValue
+                            instaProfit
+                            hideBorders
+                        />
+                    )}
                 </Suspense>
             </div>
             <div className="start-section-wrapper">
