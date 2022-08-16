@@ -173,6 +173,7 @@ const Menu = () => {
                             {traders.map(trader => (
                                 <MenuItem
                                     displayText={trader.name}
+                                    key={`trader-${trader.normalizedName}`}
                                     to={`/traders/${trader.normalizedName}`}
                                     onClick={setIsOpen.bind(this, false)}
                                 />

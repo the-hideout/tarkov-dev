@@ -27,6 +27,7 @@ const descriptions = {
 };
 
 const romanLevels = {
+    0: '0',
     1: 'I',
     2: 'II',
     3: 'III',
