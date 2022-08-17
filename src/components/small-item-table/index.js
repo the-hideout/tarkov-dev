@@ -49,9 +49,9 @@ function traderSellCell(datum) {
                     content={formatPrice(datum.row.original.bestSell.priceRUB)}
                     placement="bottom"
                 >
-                    <div>
+                    <>
                         {formatPrice(datum.row.original.bestSell.price, datum.row.original.bestSell.currency)}
-                    </div>
+                    </>
                 </Tippy>
             ) : (
                 formatPrice(datum.row.original.bestSell.priceRUB)
@@ -766,7 +766,7 @@ function SmallItemTable(props) {
                 Header: (
                     <div className="center-content">
                         {t('Stats')}
-                        <div>{t('Mov/Turn/Ergo')}</div>
+                        <>{t('Mov/Turn/Ergo')}</>
                     </div>
                 ),
                 accessor: 'stats',

@@ -214,7 +214,7 @@ function Helmets(props) {
                     return (
                         <div className="center-content">
                             {t('Status')}
-                            <div>{t('Mov/Turn/Ergo')}</div>
+                            <>{t('Mov/Turn/Ergo')}</>
                         </div>
                     );
                 },

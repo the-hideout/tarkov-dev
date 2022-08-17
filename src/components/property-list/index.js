@@ -30,12 +30,12 @@ function PropertyList({ properties }) {
             {data.map(([property, value]) => {
                 return (
                     <div className="property-wrapper" key={property}>
-                        <div>
+                        <>
                             {value}
                             <div className="property-key-wrapper">
                                 {t(property)}
                             </div>
-                        </div>
+                        </>
                     </div>
                 );
             })}

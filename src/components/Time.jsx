@@ -102,8 +102,8 @@ function Time(props) {
     if (props?.currentMap === 'factory') {
         return (
             <div className="time-wrapper">
-                <div>15:28:00</div>
-                <div>03:28:00</div>
+                <>15:28:00</>
+                <>03:28:00</>
                 <MapSource {...props} />
             </div>
         );
@@ -122,8 +122,8 @@ function Time(props) {
 
     return (
         <div className="time-wrapper">
-            <div>{dayjs.utc(tarkovTime1).format('HH:mm:ss')}</div>
-            <div>{dayjs.utc(tarkovTime2).format('HH:mm:ss')}</div>
+            <>{dayjs.utc(tarkovTime1).format('HH:mm:ss')}</>
+            <>{dayjs.utc(tarkovTime2).format('HH:mm:ss')}</>
             <MapSource {...props} />
         </div>
     );

@@ -64,9 +64,9 @@ function ItemsForHideout(props) {
     // Visual rendering section
 
     // if (data.length <= 0) {
-    //     return <div>
+    //     return <>
     //         {t('None')}
-    //     </div>
+    //     </>
     // }
 
     let extraRow = false;
@@ -110,12 +110,12 @@ function ItemsForHideout(props) {
                                                 .toLowerCase()
                                                 .replace(/\s/, '-')}-icon.png`}
                                         />
-                                        <div>
-                                            <div>{item.moduleName}</div>
-                                            <div>
+                                        <>
+                                            <>{item.moduleName}</>
+                                            <>
                                                 {t('Level')} {item.level}
-                                            </div>
-                                        </div>
+                                            </>
+                                        </>
                                     </div>
                                 </td>
                                 <td className="hideout-item-list-column">

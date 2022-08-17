@@ -12,15 +12,15 @@ function ItemTooltip(props) {
     return (
         <span className={'grid-item-tooltip'}>
             <div className={'grid-item-tooltip-title'}>{props.name}</div>
-            <div>
+            <>
                 {t('Value')}: {formatPrice(props.pricePerSlot * props.slots)}
-            </div>
-            <div>
+            </>
+            <>
                 {t('Per slot')}: {formatPrice(props.pricePerSlot)}
-            </div>
-            <div>
+            </>
+            <>
                 {t('Sell to')}: {props.sellTo}
-            </div>
+            </>
         </span>
     );
 }
