@@ -56,7 +56,7 @@ function About() {
                 {t(
                     'We offer a 100% free and publically accessible API for all your Tarkov development needs - ',
                 )}{' '}
-                <a href="https://github.com/the-hideout/tarkov-data-api">API</a>{' '}
+                <a href="/api/">API</a>{' '}
             </p>
             <h2>{t('History')}</h2>
             <p>
