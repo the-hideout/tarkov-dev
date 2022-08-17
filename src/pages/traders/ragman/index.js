@@ -60,11 +60,11 @@ function Ragman() {
                     <ButtonGroupFilter>
                         <ButtonGroupFilterButton
                             tooltipContent={
-                                <div>
+                                <>
                                     {t(
                                         'Items with the best cash back prices for leveling when buying from flea',
                                     )}
-                                </div>
+                                </>
                             }
                             selected={selectedTable === 'level'}
                             content={t('Spending')}
@@ -75,9 +75,9 @@ function Ragman() {
                     <ButtonGroupFilter>
                         <ButtonGroupFilterButton
                             tooltipContent={
-                                <div>
+                                <>
                                     {`${t('Unlocks at Loyalty Level')} 1`}
-                                </div>
+                                </>
                             }
                             selected={selectedTable === 1}
                             content={'I'}
@@ -85,9 +85,9 @@ function Ragman() {
                         />
                         <ButtonGroupFilterButton
                             tooltipContent={
-                                <div>
+                                <>
                                     {`${t('Unlocks at Loyalty Level')} 2`}
-                                </div>
+                                </>
                             }
                             selected={selectedTable === 2}
                             content={'II'}
@@ -95,9 +95,9 @@ function Ragman() {
                         />
                         <ButtonGroupFilterButton
                             tooltipContent={
-                                <div>
+                                <>
                                     {`${t('Unlocks at Loyalty Level')} 3`}
-                                </div>
+                                </>
                             }
                             selected={selectedTable === 3}
                             content={'III'}
@@ -105,9 +105,9 @@ function Ragman() {
                         />
                         <ButtonGroupFilterButton
                             tooltipContent={
-                                <div>
+                                <>
                                     {`${t('Unlocks at Loyalty Level')} 4`}
-                                </div>
+                                </>
                             }
                             selected={selectedTable === 4}
                             content={'IV'}
