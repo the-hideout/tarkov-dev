@@ -13,7 +13,7 @@ function ItemNameCell(props) {
                     className="small-item-table-image-link"
                 >
                     <img
-                        alt=""
+                        alt={props.row.original.name}
                         className="table-image"
                         height="64"
                         loading="lazy"
