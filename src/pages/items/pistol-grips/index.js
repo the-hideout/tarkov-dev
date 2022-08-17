@@ -146,7 +146,7 @@ function PistolGrips(props) {
                     });
 
                     subItem.costPerErgo =
-                        subItem.avg24hPrice / subItem.itemProperties.Ergonomics;
+                        subItem.avg24hPrice / subItem.properties.ergonomics;
 
                     return subItem;
                 }),
@@ -165,7 +165,7 @@ function PistolGrips(props) {
         },
         {
             title: t('Ergonomics'),
-            key: 'itemProperties.Ergonomics',
+            key: 'properties.ergonomics',
         },
         {
             title: t('Flea Price'),

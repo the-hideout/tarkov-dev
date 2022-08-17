@@ -70,15 +70,19 @@ function shuffleArray(array) {
 const getArmorZoneString = (armorZones) => {
     return armorZones
         ?.map((zoneName) => {
-            if (zoneName === 'Chest') {
+            if (zoneName === 'THORAX') {
                 return 'Thorax';
             }
 
-            if (zoneName === 'LeftArm') {
+            if (zoneName === 'STOMACH') {
+                return 'Stomach';
+            }
+
+            if (zoneName === 'Left Arm') {
                 return false;
             }
 
-            if (zoneName === 'RightArm') {
+            if (zoneName === 'Right Arm') {
                 return 'Arms';
             }
 
@@ -238,7 +242,7 @@ function SmallItemTable(props) {
                 }
 
                 if (
-                    item.itemProperties[minPropertyFilter.property] <
+                    item.properties[minPropertyFilter.property] <
                     minPropertyFilter.value
                 ) {
                     return false;
@@ -252,7 +256,7 @@ function SmallItemTable(props) {
                 }
 
                 if (
-                    item.itemProperties[maxPropertyFilter.property] >
+                    item.properties[maxPropertyFilter.property] >
                     maxPropertyFilter.value
                 ) {
                     return false;
@@ -318,20 +322,20 @@ function SmallItemTable(props) {
                         (barter) => barter.rewardItems[0].item.id === itemData.id,
                     ),
                     grid: itemData.grid,
-                    pricePerSlot: showNetPPS ? Math.floor(itemData.avg24hPrice / (itemData.itemProperties.grid?.totalSize - itemData.slots))
-                                  : itemData.avg24hPrice / itemData.itemProperties.grid?.totalSize,
-                    ratio: (itemData.itemProperties.grid?.totalSize / itemData.slots).toFixed(2),
-                    size: itemData.itemProperties.grid?.totalSize,
+                    pricePerSlot: showNetPPS ? Math.floor(itemData.avg24hPrice / (itemData.properties.capacity - itemData.slots))
+                                  : itemData.avg24hPrice / itemData.properties.capacity,
+                    ratio: (itemData.properties.capacity / itemData.slots).toFixed(2),
+                    size: itemData.properties.capacity,
                     notes: itemData.notes,
                     slots: itemData.slots,
-                    armorClass: itemData.itemProperties.armorClass,
-                    armorZone: getArmorZoneString(itemData.itemProperties.armorZone),
-                    maxDurability: itemData.itemProperties.MaxDurability,
-                    effectiveDurability: Math.floor(itemData.itemProperties.MaxDurability / materialDestructabilityMap[itemData.itemProperties.ArmorMaterial]),
-                    repairability: materialRepairabilityMap[itemData.itemProperties.ArmorMaterial],
-                    stats: `${itemData.itemProperties.speedPenaltyPercent}% / ${itemData.itemProperties.mousePenalty}% / ${itemData.itemProperties.weaponErgonomicPenalty}`,
+                    armorClass: itemData.properties.class,
+                    armorZone: getArmorZoneString(itemData.properties.zones || itemData.properties.headZones),
+                    maxDurability: itemData.properties.durability,
+                    effectiveDurability: Math.floor(itemData.properties.durability / materialDestructabilityMap[itemData.properties.material?.id]),
+                    repairability: materialRepairabilityMap[itemData.properties.material?.id],
+                    stats: `${Math.round(itemData.properties.speedPenalty*100)}% / ${Math.round(itemData.properties.turnPenalty*100)}% / ${itemData.properties.ergoPenalty}`,
                     canHoldItems: itemData.canHoldItems,
-                    weight: itemData.weight
+                    weight: itemData.weight,
                 };
 
                 if (formattedItem.buyOnFleaPrice && formattedItem.buyOnFleaPrice.price > 0) {
@@ -342,8 +346,8 @@ function SmallItemTable(props) {
                     formattedItem.barterPrice = getCheapestBarter(itemData, formattedItem.barters);
 
                     if (!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice) {
-                        formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.barterPrice.price / (itemData.itemProperties.grid?.totalSize - itemData.slots))
-                                                     : formattedItem.barterPrice.price / itemData.itemProperties.grid?.totalSize;
+                        formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.barterPrice.price / (itemData.properties.capacity - itemData.slots))
+                                                     : formattedItem.barterPrice.price / itemData.properties.capacity;
                     }
                 }
 
@@ -718,7 +722,7 @@ function SmallItemTable(props) {
         if (armorClass) {
             useColumns.push({
                 Header: t('Armor class'),
-                accessor: 'armorClass',
+                accessor: 'class',
                 Cell: CenterCell,
             });
         }

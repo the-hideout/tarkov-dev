@@ -83,16 +83,16 @@ const marks = {
 
 const getStatsString = (itemProperties) => {
     if (
-        !itemProperties.speedPenaltyPercent &&
-        !itemProperties.mousePenalty &&
-        !itemProperties.weaponErgonomicPenalty
+        !itemProperties.speedPenalty &&
+        !itemProperties.turnPenalty &&
+        !itemProperties.ergoPenalty
     ) {
         return '';
     }
 
-    return `${itemProperties.speedPenaltyPercent || 0}% / ${
-        itemProperties.mousePenalty || 0
-    }% / ${itemProperties.weaponErgonomicPenalty || 0}`;
+    return `${Math.round(itemProperties.speedPenalty*100) || 0}% / ${
+        Math.round(itemProperties.mousePenalty*100) || 0
+    }% / ${itemProperties.ergoPenalty || 0}`;
 };
 
 function Helmets(props) {
@@ -268,29 +268,29 @@ function Helmets(props) {
 
                     return {
                         name: itemName,
-                        armorClass: item.itemProperties.armorClass,
-                        armorZone: item.itemProperties.headSegments?.join(', '),
-                        material: item.itemProperties.ArmorMaterial,
-                        deafenStrength: item.itemProperties.DeafStrength,
+                        armorClass: item.properties.class,
+                        armorZone: item.properties.headZones?.join(', '),
+                        material: item.properties.material?.name,
+                        deafenStrength: item.properties.deafening,
                         blocksHeadphones: item.itemProperties.BlocksEarpiece
                             ? 'Yes'
                             : 'No',
-                        maxDurability: item.itemProperties.MaxDurability,
+                        maxDurability: item.properties.durability,
                         ricochetChance: ricochetMap(
                             item.itemProperties.RicochetParams?.x,
                         ),
                         repairability: `${
                             materialRepairabilityMap[
-                                item.itemProperties.ArmorMaterial
+                                item.properties.material?.id
                             ]
                         }`,
                         effectiveDurability: Math.floor(
-                            item.itemProperties.MaxDurability /
+                            item.properties.durability /
                                 materialDestructabilityMap[
-                                    item.itemProperties.ArmorMaterial
+                                    item.properties.material?.id
                                 ],
                         ),
-                        stats: getStatsString(item.itemProperties),
+                        stats: getStatsString(item.properties),
                         price: formatPrice(item.avg24hPrice),
                         image:
                             item.iconLink ||

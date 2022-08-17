@@ -145,6 +145,7 @@ const doFetchItems = async () => {
                         }
                     }
                     ...on ItemPropertiesChestRig {
+                        capacity
                         class
                         material {
                             id
@@ -272,6 +273,7 @@ const doFetchItems = async () => {
                     }
                     ...on ItemPropertiesWeaponMod {
                         ergonomics
+                        recoilModifier
                         recoil
                     }
                 }

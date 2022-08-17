@@ -143,6 +143,10 @@ function Suppressors(props) {
                     });
 
                     return subItem;
+                })
+                .map(subItem => {
+                    subItem.recoil = Math.round(subItem.properties.recoilModifier*100)+'%';
+                    return subItem;
                 }),
         [allItems, selectedGun],
     );
@@ -159,11 +163,11 @@ function Suppressors(props) {
         },
         {
             title: t('Ergonomics'),
-            key: 'itemProperties.Ergonomics',
+            key: 'properties.ergonomics',
         },
         {
             title: t('Recoil'),
-            key: 'itemProperties.Recoil',
+            key: 'recoil',
         },
         {
             title: t('Cost'),

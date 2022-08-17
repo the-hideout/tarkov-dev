@@ -95,11 +95,11 @@ function Armor(props) {
                 typeFilter={'armor'}
                 excludeTypeFilter={includeRigs ? false : 'rig'}
                 minPropertyFilter={{
-                    property: 'armorClass',
+                    property: 'class',
                     value: minArmorClass,
                 }}
                 maxPropertyFilter={{
-                    property: 'armorClass',
+                    property: 'class',
                     value: maxArmorClass,
                 }}
                 maxPrice={maxPrice}
