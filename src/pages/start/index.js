@@ -85,6 +85,7 @@ function Start() {
                 </Suspense>
                 <Suspense fallback={renderLoader()}>
                     {!loadMoreState && [<SmallItemTable
+                        key={'small-item-table-initial'}
                         maxItems={20}
                         nameFilter={nameFilter}
                         defaultRandom={true}
@@ -94,13 +95,14 @@ function Start() {
                         instaProfit
                         hideBorders
                     />,
-                    <div className="load-more-wrapper">
+                    <div className="load-more-wrapper" key={"load-more-div"}>
                         <button id="load-more-button" className="load-more-button" onClick={loadMore}>Load More</button>
                     </div>
                     ]}
 
                     {loadMoreState && (
                         <SmallItemTable
+                            key={'load-more-items'}
                             maxItems={20}
                             nameFilter={nameFilter}
                             defaultRandom={true}
@@ -115,7 +117,7 @@ function Start() {
             </div>
             <div className="start-section-wrapper">
                 <Suspense fallback={renderLoader()}>
-                    <ServerStatus />
+                    <ServerStatus key={"server-status"} />
                 </Suspense>
                 <h3>
                     <Icon
@@ -127,7 +129,7 @@ function Start() {
                 </h3>
                 <ul className="tools-list">
                     <li>
-                        <Link to="/ammo/">
+                        <Link to="/ammo/" key={"ammo-page"}>
                             <Icon
                                 path={mdiAmmunition}
                                 size={1}
@@ -137,7 +139,7 @@ function Start() {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/loot-tier/">
+                        <Link to="/loot-tier/" key={"loot-tier-page"}>
                             <Icon
                                 path={mdiFinance}
                                 size={1}
@@ -147,7 +149,7 @@ function Start() {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/barters/">
+                        <Link to="/barters/" key={"barters-page"}>
                             <Icon
                                 path={mdiAccountSwitch}
                                 size={1}
@@ -157,7 +159,7 @@ function Start() {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/hideout-profit/">
+                        <Link to="/hideout-profit/" key={"hideout-profit-page"}>
                             <Icon
                                 path={mdiProgressWrench}
                                 size={1}
@@ -179,7 +181,7 @@ function Start() {
                         </a>
                     </li>
                     <li>
-                        <Link to="/hideout">
+                        <Link to="/hideout" key={"hideout-page"}>
                             <Icon
                                 path={mdiHome}
                                 size={1}
@@ -189,7 +191,7 @@ function Start() {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/wipe-length">
+                        <Link to="/wipe-length" key={"wipe-length-page"}>
                             <Icon
                                 path={mdiCalendarClock}
                                 size={1}
@@ -200,7 +202,7 @@ function Start() {
                     </li>
                 </ul>
                 <h3>
-                    <Link to={'/maps'}>
+                    <Link to={'/maps'} key={"maps-page"}>
                         <Icon
                             path={mdiMap}
                             size={1}
@@ -221,7 +223,7 @@ function Start() {
                     })}
                 </ul>
                 <h3>
-                    <Link to={'/items'}>
+                    <Link to={'/items'} key={"items-page"}>
                         <Icon
                             path={mdiViewGrid}
                             size={1}
@@ -247,7 +249,7 @@ function Start() {
                     })}
                 </ul>
                 <h3>
-                    <Link to={'/traders'}>
+                    <Link to={'/traders'} key={"traders-page"}>
                         <Icon
                             path={mdiAccountGroup}
                             size={1}
@@ -258,7 +260,7 @@ function Start() {
                 </h3>
                 <ul className="traders-list">
                     <li>
-                        <Link to={`/traders/prapor`}>
+                        <Link to={`/traders/prapor`} key={"prapor"}>
                             <img
                                 alt="Prapor icon"
                                 className="trader-icon"
@@ -269,7 +271,7 @@ function Start() {
                         </Link>
                     </li>
                     <li>
-                        <Link to={`/traders/therapist`}>
+                        <Link to={`/traders/therapist`} key={"therapist"}>
                             <img
                                 alt="Therapist icon"
                                 className="trader-icon"
@@ -280,7 +282,7 @@ function Start() {
                         </Link>
                     </li>
                     <li>
-                        <Link to={`/traders/skier`}>
+                        <Link to={`/traders/skier`} key={"skier"}>
                             <img
                                 alt="Skier icon"
                                 className="trader-icon"
@@ -291,7 +293,7 @@ function Start() {
                         </Link>
                     </li>
                     <li>
-                        <Link to={`/traders/peacekeeper`}>
+                        <Link to={`/traders/peacekeeper`} key={"peacekeeper"}>
                             <img
                                 alt="Peacekeeper icon"
                                 className="trader-icon"
@@ -302,7 +304,7 @@ function Start() {
                         </Link>
                     </li>
                     <li>
-                        <Link to={`/traders/mechanic`}>
+                        <Link to={`/traders/mechanic`} key={"mechanic"}>
                             <img
                                 alt="Prapor icon"
                                 className="trader-icon"
@@ -313,7 +315,7 @@ function Start() {
                         </Link>
                     </li>
                     <li>
-                        <Link to={`/traders/ragman`}>
+                        <Link to={`/traders/ragman`} key={"ragman"}>
                             <img
                                 alt="Ragman icon"
                                 className="trader-icon"
@@ -324,7 +326,7 @@ function Start() {
                         </Link>
                     </li>
                     <li>
-                        <Link to={`/traders/jaeger`}>
+                        <Link to={`/traders/jaeger`} key={"jaeger"}>
                             <img
                                 alt="Jaeger icon"
                                 className="trader-icon"
@@ -340,7 +342,7 @@ function Start() {
                 textAlign: 'center',
                 width: '100%',
             }}>
-                <Link className="branding" to="/">
+                <Link className="branding" to="/" key={"branding"}>
                     <img
                         alt="Tarkov.dev"
                         height={30}
