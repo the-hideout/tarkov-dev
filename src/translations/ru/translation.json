@@ -296,5 +296,19 @@
 	"Medstation": "Медблок",
 	"Nutrition Unit": "Пищеблок",
 	"Water Collector": "Водосборник",
-	"Workbench": "Верстак"
+	"Workbench": "Верстак",
+	"We encourage everyone who can to donate to support the people of Ukraine using the button below": "Мы призываем всех, кто может сделать пожертвование, чтобы поддержать народ Украины, используя кнопку ниже",
+	"Support Ukraine": "Поддержите Украину",
+	"If you'd also like to support this project, you can make a donation and/or become a backer on": "Если вы также хотите поддержать этот проект, вы можете сделать пожертвование и/или стать спонсором",
+	"Donate": "Пожертвовать",
+	"You can also help by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site.": "Вы также можете помочь, опубликовав сообщения об ошибках, предложив или внедрив новые функции, улучшив карты или чем-то еще, что, по вашему мнению, может улучшить сайт.",
+	"Item Data": "Данные предмета",
+	"Fresh data on EFT item attribtues and hideout crafts courtesy of": "Свежие данные об атрибутах предметов EFT и укрытий любезно предоставлены",
+	"External resources": "Внешние ресурсы",
+	"We offer a 100% free and publically accessible API for all your Tarkov development needs - ": "Мы предлагаем 100% бесплатный и общедоступный API для всех ваших потребностей в разработке Tarkov - ",
+	"History": "История",
+	"This project is a fork of": "Этот проект является форком",
+	"Tarkov.dev is a fork of the now shut-down tarkov-tools.com | Big thanks to kokarn for all his work building Tarkov Tools and the community around it.": "Tarkov.dev является ответвлением уже закрытого tarkov-tools.com | Большое спасибо kokarn за всю его работу по созданию Tarkov Tools и сообщества вокруг них.",
+	"Core Contributors": "Основные участники",
+	"The core contributors to this project (in no particular order) are:": "Основными участниками этого проекта (в произвольном порядке) являются:"
 }
