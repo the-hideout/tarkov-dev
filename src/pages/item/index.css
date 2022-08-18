@@ -183,6 +183,10 @@
     margin: 0;
 }
 
+.item-h2 {
+    margin-top: 10;
+}
+
 @media screen and (min-width: 700px) {
     .item-page-wrapper {
         padding-top: 20px;

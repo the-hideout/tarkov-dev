@@ -640,7 +640,7 @@ function Item() {
                         </div>
                     </>
                 )}
-                <h2 style={{ marginTop: 10 }}>{t('Stats')}</h2>
+                <h2 className='item-h2'>{t('Stats')}</h2>
                 <PropertyList properties={currentItemData.properties} />
                 <>
                     <div className="item-barters-headline-wrapper">
