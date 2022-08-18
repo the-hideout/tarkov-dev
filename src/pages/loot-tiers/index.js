@@ -19,6 +19,8 @@ import {
 import capitalizeFirst from '../../modules/capitalize-first';
 import { useItemsQuery } from '../../features/items/queries';
 
+import './index.css';
+
 const defaultGroupNames = ['S', 'A', 'B', 'C', 'D', 'E', 'F'];
 
 const filterOptions = [
@@ -340,13 +342,13 @@ function LootTier(props) {
             }}
             key={'display-wrapper'}
         >
-            <div style={{ flexDirection: 'column', display: 'flex', flexWrap:'wrap', justifyContent: 'center', alignItems: 'center' }}>
-                <h1 style={{margin: '0.75rem', textAlign: 'center'}}>
+            <div className='loot-tier-wrapper'>
+                <h1 className='loot-tier-text'>
                     {t('Escape from Tarkov')}
                     <Icon path={mdiFinance} size={1.5} className="icon-with-text" /> 
                     {t('Loot tiers')}
                 </h1>
-                <p style={{margin: '0.75rem', textAlign: 'center'}}>Escape from Tarkov "loot tiers" - Ranking the most valuable items in the game</p>
+                <p className='loot-tier-text'>Escape from Tarkov "loot tiers" - Ranking the most valuable items in the game</p>
             </div>
             <Filter fullWidth>
                 <ToggleFilter
