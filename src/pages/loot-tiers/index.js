@@ -336,10 +336,7 @@ function LootTier(props) {
             />
         </Helmet>,
         <div
-            className="display-wrapper"
-            style={{
-                height: 'auto',
-            }}
+            className="display-wrapper loot-tier-main-wrapper"
             key={'display-wrapper'}
         >
             <div className='loot-tier-wrapper'>
