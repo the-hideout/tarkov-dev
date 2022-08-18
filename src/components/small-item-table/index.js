@@ -766,7 +766,7 @@ function SmallItemTable(props) {
                 Header: (
                     <div className="center-content">
                         {t('Stats')}
-                        <>{t('Mov/Turn/Ergo')}</>
+                        <div>{t('Mov/Turn/Ergo')}</div>
                     </div>
                 ),
                 accessor: 'stats',
