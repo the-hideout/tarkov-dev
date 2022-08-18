@@ -181,7 +181,7 @@ function Backpacks(props) {
                 autoResetSortBy={false}
             />
             
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper items-page-wrapper">
                 <p>
                     {"Backpacks in the Escape from Tarkov game are various-sized containers for carrying your hard-earned riches."}
                 </p>
