@@ -96,10 +96,10 @@ const formatter = (key, value) => {
         return [displayKey, [...zoomLevels].join(', ')];
     }
 
-    if (key === 'pouches') {
+    if (key === 'grids') {
         let displayKey = defaultFormat(key);
 
-        return [displayKey, value.map(pouch => pouch.width+'x'+pouch.height).join(', ')];
+        return [displayKey, value.map(grid => grid.width+'x'+grid.height).join(', ')];
     }
 
     if (key === 'baseItem') {

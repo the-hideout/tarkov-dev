@@ -17,6 +17,10 @@ const doFetchItems = async () => {
             items(lang: ${language}) {
                 id
                 bsgCategoryId
+                categories {
+                    id
+                    name
+                }
                 name
                 shortName
                 basePrice
@@ -118,6 +122,9 @@ const doFetchItems = async () => {
                         material {
                             id
                             name
+                            destructibility
+                            minRepairDegradation
+                            maxRepairDegradation
                         }
                         zones
                         durability
@@ -130,6 +137,9 @@ const doFetchItems = async () => {
                         material {
                             id
                             name
+                            destructibility
+                            minRepairDegradation
+                            maxRepairDegradation
                         }
                         headZones
                         durability
@@ -139,7 +149,7 @@ const doFetchItems = async () => {
                     }
                     ...on ItemPropertiesBackpack {
                         capacity
-                        pouches {
+                        grids {
                             width
                             height
                         }
@@ -150,13 +160,16 @@ const doFetchItems = async () => {
                         material {
                             id
                             name
+                            destructibility
+                            minRepairDegradation
+                            maxRepairDegradation
                         }
                         zones
                         durability
                         ergoPenalty
                         speedPenalty
                         turnPenalty
-                        pouches {
+                        grids {
                             width
                             height
                         }
@@ -176,6 +189,9 @@ const doFetchItems = async () => {
                         material {
                             id
                             name
+                            destructibility
+                            minRepairDegradation
+                            maxRepairDegradation
                         }
                     }
                     ...on ItemPropertiesGrenade {
@@ -189,6 +205,9 @@ const doFetchItems = async () => {
                         material {
                             id
                             name
+                            destructibility
+                            minRepairDegradation
+                            maxRepairDegradation
                         }
                         headZones
                         durability
@@ -196,6 +215,23 @@ const doFetchItems = async () => {
                         speedPenalty
                         turnPenalty
                         deafening
+                        blocksHeadset
+                        slots {
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
+                        }
                     }
                     ...on ItemPropertiesKey {
                         uses
@@ -275,6 +311,22 @@ const doFetchItems = async () => {
                         ergonomics
                         recoilModifier
                         recoil
+                        slots {
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -388,6 +440,15 @@ const doFetchItems = async () => {
                 rawItem.itemProperties.SightingRange;
 
             delete rawItem.itemProperties.SightingRange;
+        }
+
+        if (rawItem.properties?.slots) {
+            for (const slot of rawItem.properties.slots) {
+                slot.filters.allowedCategories = slot.filters.allowedCategories.map(cat => cat.id);
+                slot.filters.allowedItems = slot.filters.allowedItems.map(it => it.id);
+                slot.filters.excludedCategories = slot.filters.excludedCategories.map(cat => cat.id);
+                slot.filters.excludedItems = slot.filters.excludedItems.map(it => it.id);
+            }
         }
 
         return {

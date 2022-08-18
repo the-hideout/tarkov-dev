@@ -92,28 +92,6 @@ const getArmorZoneString = (armorZones) => {
         .join(', ');
 };
 
-const materialDestructabilityMap = {
-    Aramid: 0.25,
-    Combined: 0.5,
-    UHMWPE: 0.45,
-    Titan: 0.55,
-    Aluminium: 0.6,
-    ArmoredSteel: 0.7,
-    Ceramic: 0.8,
-    Glass: 0.8,
-};
-
-const materialRepairabilityMap = {
-    Aramid: 4,
-    Combined: 3,
-    UHMWPE: 6,
-    Titan: 4,
-    Aluminium: 4,
-    ArmoredSteel: 5,
-    Ceramic: 2,
-    Glass: 1,
-};
-
 function SmallItemTable(props) {
     const {
         maxItems,
@@ -331,8 +309,8 @@ function SmallItemTable(props) {
                     armorClass: itemData.properties.class,
                     armorZone: getArmorZoneString(itemData.properties.zones || itemData.properties.headZones),
                     maxDurability: itemData.properties.durability,
-                    effectiveDurability: Math.floor(itemData.properties.durability / materialDestructabilityMap[itemData.properties.material?.id]),
-                    repairability: materialRepairabilityMap[itemData.properties.material?.id],
+                    effectiveDurability: Math.floor(itemData.properties?.durability / itemData.properties?.material?.destructibility),
+                    repairability: (100-Math.round((itemData.properties?.material?.minRepairDegradation + itemData.properties?.material?.maxRepairDegradation)/2*100)),
                     stats: `${Math.round(itemData.properties.speedPenalty*100)}% / ${Math.round(itemData.properties.turnPenalty*100)}% / ${itemData.properties.ergoPenalty}`,
                     canHoldItems: itemData.canHoldItems,
                     weight: itemData.weight,

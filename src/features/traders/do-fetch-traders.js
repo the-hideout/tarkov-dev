@@ -27,7 +27,7 @@ const doFetchTraders = async () => {
             }
         }`,
     });
-console.log('requesting traders')
+
     const response = await fetch('https://api.tarkov.dev/graphql', {
         method: 'POST',
         headers: {

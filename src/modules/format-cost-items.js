@@ -105,8 +105,8 @@ function getCheapestItemPriceWithBarters(item, barters, useFlea = true) {
             barterTotalCost = thisBarterCost;
         }
     }
-
-    if (!bestPrice.price || barterTotalCost < bestPrice.price) {
+ 
+    if (bestBarter && (!bestPrice.price || barterTotalCost < bestPrice.price)) {
         bestPrice.price = barterTotalCost;
         bestPrice.type = 'barter';
         bestPrice.barter = bestBarter;

@@ -89,12 +89,12 @@ function Glasses(props) {
 
                     return {
                         name: itemName,
-                        armorClass: item.itemProperties.armorClass,
+                        armorClass: item.properties.class,
                         blindness: `${
-                            (item.itemProperties.BlindnessProtection || 0) * 100
+                            (item.properties.blindnessProtection || 0) * 100
                         }%`,
-                        stats: `${item.itemProperties.mousePenalty || 0}% / ${
-                            item.itemProperties.weaponErgonomicPenalty || 0
+                        stats: `${item.properties.turnPenalty * 100 || 0}% / ${
+                            item.properties.ergoPenalty || 0
                         }`,
                         image:
                             item.iconLink ||

@@ -81,18 +81,18 @@ const marks = {
     6: 1,
 };
 
-const getStatsString = (itemProperties) => {
+const getStatsString = (properties) => {
     if (
-        !itemProperties.speedPenalty &&
-        !itemProperties.turnPenalty &&
-        !itemProperties.ergoPenalty
+        !properties.speedPenalty &&
+        !properties.turnPenalty &&
+        !properties.ergoPenalty
     ) {
         return '';
     }
 
-    return `${Math.round(itemProperties.speedPenalty*100) || 0}% / ${
-        Math.round(itemProperties.mousePenalty*100) || 0
-    }% / ${itemProperties.ergoPenalty || 0}`;
+    return `${Math.round(properties.speedPenalty*100) || 0}% / ${
+        Math.round(properties.mousePenalty*100) || 0
+    }% / ${properties.ergoPenalty || 0}`;
 };
 
 function Helmets(props) {
@@ -234,22 +234,12 @@ function Helmets(props) {
         () =>
             displayItems
                 .map((item) => {
-                    if (
-                        !materialDestructabilityMap[
-                            item.itemProperties.ArmorMaterial
-                        ]
-                    ) {
-                        console.log(
-                            `Missing ${item.itemProperties.ArmorMaterial}`,
-                        );
-                    }
-
-                    if (item.itemProperties.armorClass < 7 - minArmorClass) {
+                    if (item.properties.class < 7 - minArmorClass) {
                         return false;
                     }
 
                     if (
-                        item.itemProperties.BlocksEarpiece &&
+                        item.properties.blocksHeadset &&
                         !includeBlockingHeadset
                     ) {
                         return false;
@@ -272,18 +262,14 @@ function Helmets(props) {
                         armorZone: item.properties.headZones?.join(', '),
                         material: item.properties.material?.name,
                         deafenStrength: item.properties.deafening,
-                        blocksHeadphones: item.itemProperties.BlocksEarpiece
+                        blocksHeadphones: item.properties.blocksHeadset
                             ? 'Yes'
                             : 'No',
                         maxDurability: item.properties.durability,
                         ricochetChance: ricochetMap(
                             item.itemProperties.RicochetParams?.x,
                         ),
-                        repairability: `${
-                            materialRepairabilityMap[
-                                item.properties.material?.id
-                            ]
-                        }`,
+                        repairability: (100-Math.round((item.properties.material?.minRepairDegradation + item.properties.material?.maxRepairDegradation)/2*100)),
                         effectiveDurability: Math.floor(
                             item.properties.durability /
                                 materialDestructabilityMap[
@@ -297,45 +283,50 @@ function Helmets(props) {
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
                         wikiLink: item.wikiLink,
                         itemLink: `/item/${item.normalizedName}`,
-                        subRows: item.linkedItems.map((linkedItemId) => {
-                            const linkedItem = items.find(
-                                (item) => item.id === linkedItemId,
-                            );
+                        //subRows: item.linkedItems.map((linkedItemId) => {
+                        subRows: items.filter(linkedItem => {
+                            if (!item.properties?.slots) return false;
+                            const cats = linkedItem.categories.map(cat => cat.id);
+                            for (const slot of item.properties.slots) {
+                                const included = cats.some(catId => slot.filters.allowedCategories.includes(catId)) ||
+                                    slot.filters.allowedItems.includes(linkedItem.id);
+                                const excluded = cats.some(catId => slot.filters.excludedCategories.includes(catId)) ||
+                                    slot.filters.excludedItems.includes(linkedItem.id);
+                                if (included && !excluded) return true;
+                            }
+                            return false;
+                        }).map(linkedItem => {
                             return {
                                 name: linkedItem.name,
-                                armorClass: linkedItem.itemProperties.armorClass
-                                    ? linkedItem.itemProperties.armorClass
+                                armorClass: linkedItem.properties.class
+                                    ? linkedItem.properties.class
                                     : '',
                                 armorZone:
-                                    linkedItem.itemProperties.headSegments?.join(
+                                    linkedItem.properties.headZones?.join(
                                         ', ',
                                     ),
                                 material:
-                                    linkedItem.itemProperties.ArmorMaterial,
+                                    linkedItem.properties.material?.name,
                                 deafenStrength:
-                                    linkedItem.itemProperties.DeafStrength,
-                                blocksHeadphones: linkedItem.itemProperties
-                                    .BlocksEarpiece
+                                    linkedItem.properties.deafening,
+                                blocksHeadphones: linkedItem.properties
+                                    .blocksHeadset
                                     ? 'Yes'
                                     : 'No',
                                 maxDurability:
-                                    linkedItem.itemProperties.MaxDurability,
+                                    linkedItem.properties.durability,
                                 ricochetChance: ricochetMap(
                                     linkedItem.itemProperties.RicochetParams?.x,
                                 ),
-                                repairability:
-                                    materialRepairabilityMap[
-                                        linkedItem.itemProperties.ArmorMaterial
-                                    ],
+                                repairability: (100-Math.round((linkedItem.properties.material?.minRepairDegradation + linkedItem.properties.material?.maxRepairDegradation)/2*100)),
                                 effectiveDurability: Math.floor(
-                                    linkedItem.itemProperties.MaxDurability /
+                                    linkedItem.properties.durability /
                                         materialDestructabilityMap[
-                                            linkedItem.itemProperties
-                                                .ArmorMaterial
+                                            linkedItem.properties.material?.id
                                         ],
                                 ),
                                 stats: getStatsString(
-                                    linkedItem.itemProperties,
+                                    linkedItem.properties,
                                 ),
                                 price: formatPrice(linkedItem.avg24hPrice),
                                 image: `https://assets.tarkov.dev/${linkedItem.id}-icon.jpg`,

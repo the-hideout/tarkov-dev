@@ -160,7 +160,7 @@ function Backpacks(props) {
                     }
 
                     if (has3Slot) {
-                        const isValid = item.properties.pouches?.find((pocket) => {
+                        const isValid = item.properties.grids?.find((pocket) => {
                             return pocket.width === 1 && pocket.height === 3;
                         });
 
@@ -170,7 +170,7 @@ function Backpacks(props) {
                     }
 
                     if (has4Slot) {
-                        const isValid = item.properties.pourches?.find((pocket) => {
+                        const isValid = item.properties.grids?.find((pocket) => {
                             return pocket.width === 2 && pocket.height === 2;
                         });
 
