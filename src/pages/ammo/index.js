@@ -16,6 +16,8 @@ import TraderPriceCell from '../../components/trader-price-cell';
 import { useItemsQuery } from '../../features/items/queries';
 import rawData from '../../data/ammo.json';
 
+import './index.css';
+
 const MAX_DAMAGE = 170;
 const MAX_PENETRATION = 70;
 
@@ -264,7 +266,7 @@ function Ammo() {
             <div className={'updated-label'}>
                 {t('Ammo updated:')} {new Date(rawData.updated).toLocaleDateString()}
             </div>
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper ammo-page-wrapper">
                 <Graph
                     listState={listState}
                     legendData={legendData}
@@ -275,7 +277,7 @@ function Ammo() {
                 />
             </div>
             
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper ammo-page-wrapper">
                 <p>
                     {"The wilderness of Tarkov includes a diverse range of ammunition. To combat different opponents, different types of ammunition are needed."}<br/>
                     <br/>
