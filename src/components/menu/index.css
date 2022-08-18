@@ -23,6 +23,11 @@
     padding: 2px 5px;
 }
 
+.logo-padding {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .menu {
     align-items: center;
     display: none;
