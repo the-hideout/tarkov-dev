@@ -140,7 +140,7 @@ function Mechanic() {
                 // maxItems = {selectedTable === 'instaProfit' ? 50 : false}
             />
 
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper trader-page-wrapper">
                 <p>
                     {"Background:"}<br/>
                     {"A former chemical plant foreman, who from the very beginning of the conflict took to weapon modification, repairs, and maintenance of complex equipment and technology. He prefers clandestine solo living and operates discreetly, while placing complicated and challenging tasks above all else."}

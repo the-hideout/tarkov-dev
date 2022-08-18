@@ -140,7 +140,7 @@ function Therapist() {
                 // maxItems = {selectedTable === 'instaProfit' ? 50 : false}
             />
 
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper trader-page-wrapper">
                 <p>
                     {"Background:"}<br/>
                     {"Head of the Trauma Care Department of the Tarkov Central City Hospital."}

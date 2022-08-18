@@ -140,7 +140,7 @@ function Prapor() {
                 // maxItems = {selectedTable === 'instaProfit' ? 50 : false}
             />
 
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper trader-page-wrapper">
                 <p>
                     {"Background:"}<br/>
                     {"The Warrant officer in charge of supply warehouses on the sustaining base enforcing the Norvinsk region blockade. Secretly supplied the BEAR PMC operators with weapons, ammunition, and various other provisions he had at his disposal during the Contract Wars."}

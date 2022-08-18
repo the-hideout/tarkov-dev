@@ -140,7 +140,7 @@ function Peacekeeper() {
                 // maxItems = {selectedTable === 'instaProfit' ? 50 : false}
             />
 
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper trader-page-wrapper">
                 <p>
                     {"Background:"}<br/>
                     {"UN peacekeeping Force supply officer, based in one of the central checkpoints leading to the Tarkov port zone. The blue helmets have been seen poking their heads into small deals from the very beginning of the conflict, buying everything of value in exchange for western weapons, ammo, and all kinds of military equipment."}

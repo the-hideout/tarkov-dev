@@ -140,7 +140,7 @@ function Skier() {
                 // maxItems = {selectedTable === 'instaProfit' ? 50 : false}
             />
 
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper trader-page-wrapper">
                 <p>
                     {"Background:"}<br/>
                     {"Previously a port zone customs terminal employee, who initially oversaw dealings of the terminal's goods. Over the course of the conflict, he put together a gang of thugs in order to grab everything of value that he could lay his hands on in the vicinity of the terminal."}
