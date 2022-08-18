@@ -277,12 +277,7 @@ function Item() {
                 <div className="main-information-grid">
                     <div className="item-information-wrapper">
                         <h1>
-                            <div
-                                style={{
-                                    fontSize: 36,
-                                    fontWeight: 'bold',
-                                }}
-                            >
+                            <div className={'item-font'}>
                                 {currentItemData.name}
                             </div>
                             <img

@@ -10,6 +10,11 @@
     font-size: 24px;
 }
 
+.item-font {
+    font-size: 36;
+    font-weight: bold;
+}
+
 .icon-and-link-wrapper {
     align-items: flex-start;
     display: none;
