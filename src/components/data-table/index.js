@@ -135,11 +135,6 @@ function DataTable({
                                     {/* Add a sort direction indicator */}
                                     <div
                                         className={'header-sort-icon'}
-                                        style={
-                                            {
-                                                // marginLeft: '2px',
-                                            }
-                                        }
                                     >
                                         {column.isSorted ? (
                                             column.isSortedDesc ? (

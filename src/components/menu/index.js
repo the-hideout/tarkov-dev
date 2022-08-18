@@ -55,10 +55,6 @@ const Menu = () => {
                     size={1}
                     className="mobile-icon"
                     onClick={handleMenuClick}
-                    style={{
-                        marginRight: 0,
-                        marginLeft: 20,
-                    }}
                 />
                 <Link className="branding" to="/">
                     {/* Tarkov.dev */}

@@ -64,6 +64,8 @@
 
 .mobile-icon {
     font-size: 0;
+    margin-right: 0;
+    margin-left: 20;
 }
 
 .mobile-icon svg {
