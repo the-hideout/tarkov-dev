@@ -4,6 +4,10 @@
     justify-content: space-between;
 }
 
+.map-page-wrapper {
+    min-height: 0;
+}
+
 .map-wrapper {
     text-align: center;
     width: 30%;
