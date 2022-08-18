@@ -165,7 +165,7 @@ function SmallItemTable(props) {
     useEffect(() => {
         if (!barterPrice)
             return;
-        
+
         let timer = false;
         if (bartersStatus === 'idle') {
             dispatch(fetchBarters());
@@ -317,7 +317,7 @@ function SmallItemTable(props) {
                     ),
                     grid: itemData.grid,
                     pricePerSlot: showNetPPS ? Math.floor(itemData.avg24hPrice / (itemData.itemProperties.grid?.totalSize - itemData.slots))
-                                  : itemData.avg24hPrice / itemData.itemProperties.grid?.totalSize,
+                        : itemData.avg24hPrice / itemData.itemProperties.grid?.totalSize,
                     ratio: (itemData.itemProperties.grid?.totalSize / itemData.slots).toFixed(2),
                     size: itemData.itemProperties.grid?.totalSize,
                     notes: itemData.notes,
@@ -341,7 +341,7 @@ function SmallItemTable(props) {
 
                     if (!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice) {
                         formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.barterPrice.price / (itemData.itemProperties.grid?.totalSize - itemData.slots))
-                                                     : formattedItem.barterPrice.price / itemData.itemProperties.grid?.totalSize;
+                            : formattedItem.barterPrice.price / itemData.itemProperties.grid?.totalSize;
                     }
                 }
 
@@ -568,7 +568,7 @@ function SmallItemTable(props) {
                                     }
                                 />
                             }
-                            // plugins={[followCursor]}
+                        // plugins={[followCursor]}
                         >
                             <div className="center-content">
                                 {props.value ? formatPrice(props.value) : '-'}
@@ -754,11 +754,11 @@ function SmallItemTable(props) {
         }
 
         if (weight) {
-          useColumns.push({
-            Header: t('Weight (kg)'),
-            accessor: 'weight',
-            Cell: CenterCell,
-          });
+            useColumns.push({
+                Header: t('Weight (kg)'),
+                accessor: 'weight',
+                Cell: CenterCell,
+            });
         }
 
         if (stats) {
@@ -766,7 +766,7 @@ function SmallItemTable(props) {
                 Header: (
                     <div className="center-content">
                         {t('Stats')}
-                        <>{t('Mov/Turn/Ergo')}</>
+                        <div>{t('Mov/Turn/Ergo')}</div>
                     </div>
                 ),
                 accessor: 'stats',
@@ -807,7 +807,7 @@ function SmallItemTable(props) {
         // If the API query has not yet completed
         if (result.isFetched === false) {
             extraRow = t('Loading...');
-        // If the API query has completed, but no items were found
+            // If the API query has completed, but no items were found
         } else {
             extraRow = t('No items');
         }
