@@ -122,8 +122,8 @@ function Time(props) {
 
     return (
         <div className="time-wrapper">
-            <>{dayjs.utc(tarkovTime1).format('HH:mm:ss')}</>
-            <>{dayjs.utc(tarkovTime2).format('HH:mm:ss')}</>
+            <div>{dayjs.utc(tarkovTime1).format('HH:mm:ss')}</div>
+            <div>{dayjs.utc(tarkovTime2).format('HH:mm:ss')}</div>
             <MapSource {...props} />
         </div>
     );

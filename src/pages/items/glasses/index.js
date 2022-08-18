@@ -60,7 +60,7 @@ function Glasses(props) {
                     return (
                         <div className="center-content">
                             {t('Status')}
-                            <>{t('Turn/Ergo')}</>
+                            <div>{t('Turn/Ergo')}</div>
                         </div>
                     );
                 },

@@ -110,12 +110,12 @@ function ItemsForHideout(props) {
                                                 .toLowerCase()
                                                 .replace(/\s/, '-')}-icon.png`}
                                         />
-                                        <>
-                                            <>{item.moduleName}</>
-                                            <>
+                                        <div>
+                                            <div>{item.moduleName}</div>
+                                            <div>
                                                 {t('Level')} {item.level}
-                                            </>
-                                        </>
+                                            </div>
+                                        </div>
                                     </div>
                                 </td>
                                 <td className="hideout-item-list-column">
