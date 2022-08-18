@@ -158,7 +158,7 @@ function Crafts() {
                 key="crafts-page-crafts-table"
             />
 
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper crafts-page-wrapper">
                 <p>
                     {"In Escape from Tarkov, crafts allow you create a variety of things. It is accomplished using a variety of hideout modules, including the water collector, workbench, medstation, lavatory, and nutrition unit."}<br/>
                     <br/>
