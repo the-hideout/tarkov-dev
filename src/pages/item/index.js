@@ -96,8 +96,9 @@ function Item() {
                 return objectiveData.item?.id === currentItemData?.id ||
                     objectiveData.containsAll?.some(part => part.id === currentItemData?.id) ||
                     objectiveData.markerItem?.id === currentItemData?.id;
-            });
+            }) || questData.neededKeys.some(taskKey => taskKey.keys.some(key => key.id === currentItemData?.id));
         }).map((questData) => {
+            console.log(questData);
             const questDataCopy = {
                 ...questData,
                 neededItems: []
@@ -128,6 +129,13 @@ function Item() {
                         objectiveInfo.count++;
                     });
                 }
+            });
+            questData.neededKeys.forEach(taskKey => {
+                taskKey.keys.forEach(key => {
+                    if (key.id === currentItemData?.id) {
+                        objectiveInfo.count++;
+                    }
+                });
             });
             if (objectiveInfo.count > 0) questDataCopy.neededItems.push(objectiveInfo);
             return questDataCopy;
