@@ -355,7 +355,9 @@ function Item() {
                             </span>
                         )}
                         {(currentItemData.properties?.grids || currentItemData.properties?.slots) && (
-                            <ContainedItemsList item={currentItemData} />
+                            <div>
+                                <ContainedItemsList item={currentItemData} />
+                            </div>
                         )}
                     </div>
                     <div className="icon-and-link-wrapper">

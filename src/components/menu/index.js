@@ -60,7 +60,7 @@ const Menu = () => {
                         height={30}
                         width={186}
                         src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.svg`}
-                        class={'logo-padding'}
+                        className={'logo-padding'}
                         loading="lazy"
                     />
                 </Link>

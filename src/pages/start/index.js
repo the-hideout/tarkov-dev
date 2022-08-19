@@ -7,6 +7,7 @@ import React, { lazy, Suspense } from 'react';
 import QueueBrowserTask from '../../modules/queue-browser-task';
 import mapData from '../../data/maps.json';
 import ItemIconList from '../../components/item-icon-list';
+import { useTradersQuery } from '../../features/traders/queries';
 
 import Icon from '@mdi/react';
 import {
@@ -44,6 +45,7 @@ function Start() {
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const { t } = useTranslation();
+    const { data: traders } = useTradersQuery();
 
     const handleNameFilterChange = useCallback(
         (value) => {
@@ -259,83 +261,21 @@ function Start() {
                     </Link>
                 </h3>
                 <ul className="traders-list">
-                    <li>
-                        <Link to={`/traders/prapor`} key={"prapor"}>
-                            <img
-                                alt="Prapor icon"
-                                className="trader-icon"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/prapor-icon.jpg`}
-                            />
-                            {t('Prapor')}
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={`/traders/therapist`} key={"therapist"}>
-                            <img
-                                alt="Therapist icon"
-                                className="trader-icon"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/therapist-icon.jpg`}
-                            />
-                            {t('Therapist')}
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={`/traders/skier`} key={"skier"}>
-                            <img
-                                alt="Skier icon"
-                                className="trader-icon"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/skier-icon.jpg`}
-                            />
-                            {t('Skier')}
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={`/traders/peacekeeper`} key={"peacekeeper"}>
-                            <img
-                                alt="Peacekeeper icon"
-                                className="trader-icon"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/peacekeeper-icon.jpg`}
-                            />
-                            {t('Peacekeeper')}
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={`/traders/mechanic`} key={"mechanic"}>
-                            <img
-                                alt="Prapor icon"
-                                className="trader-icon"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/mechanic-icon.jpg`}
-                            />
-                            {t('Mechanic')}
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={`/traders/ragman`} key={"ragman"}>
-                            <img
-                                alt="Ragman icon"
-                                className="trader-icon"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/ragman-icon.jpg`}
-                            />
-                            {t('Ragman')}
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={`/traders/jaeger`} key={"jaeger"}>
-                            <img
-                                alt="Jaeger icon"
-                                className="trader-icon"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/jaeger-icon.jpg`}
-                            />
-                            {t('Jaeger')}
-                        </Link>
-                    </li>
+                    {traders?.map(trader=> {
+                        return (
+                            <li>
+                                <Link to={`/traders/${trader.normalizedName}`} key={'sidebar-'+trader.id}>
+                                    <img
+                                        alt={trader.name+' icon'}
+                                        className="trader-icon"
+                                        loading="lazy"
+                                        src={`${process.env.PUBLIC_URL}/images/${trader.normalizedName}-icon.jpg`}
+                                    />
+                                    {trader.name}
+                                </Link>
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
             <div className='info-text-wrapper'>
