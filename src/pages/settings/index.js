@@ -239,7 +239,7 @@ function Settings() {
                 />
             </div>
             {/* cheeki breeki */}
-            <>
+            <div>
                 <button style={{padding: '.2rem', borderRadius: '4px'}} onClick={handleClick}>cheeki breeki</button>
                 {isShown && (
                     <div className='cheeki-breeki'>
