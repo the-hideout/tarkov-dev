@@ -174,12 +174,12 @@ function Item() {
         return <ErrorPage />;
     }
 
-    /*if (!currentItemData.bestPrice) {
+    if (!currentItemData.bestPrice) {
         currentItemData = {
             ...currentItemData,
             ...bestPrice(currentItemData, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
         };
-    }*/
+    }
 
     const traderIsBest =
         currentItemData.traderPriceRUB >
@@ -302,7 +302,7 @@ function Item() {
             </>
         );
     }
-
+console.log(currentItemData)
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
@@ -453,12 +453,12 @@ function Item() {
                                                             )}
                                                             placement="bottom"
                                                         >
-                                                            <>
+                                                            <div>
                                                                 {formatPrice(
                                                                     currentItemData.traderPrice,
                                                                     currentItemData.traderCurrency,
                                                                 )}
-                                                            </>
+                                                            </div>
                                                         </Tippy>
                                                     ) : (
                                                         formatPrice(
@@ -515,12 +515,12 @@ function Item() {
                                                                     )}
                                                                     placement="bottom"
                                                                 >
-                                                                    <>
+                                                                    <div>
                                                                         {formatPrice(
                                                                             traderPrice.price,
                                                                             traderPrice.currency,
                                                                         )}
-                                                                    </>
+                                                                    </div>
                                                                 </Tippy>
                                                             ) : (
                                                                 formatPrice(

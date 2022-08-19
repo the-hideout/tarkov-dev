@@ -30,7 +30,7 @@ function ItemCost({
                 }
                 plugins={[followCursor]}
             >
-                <>
+                <div>
                     <img
                         alt={t('Barter')}
                         className="barter-icon"
@@ -39,7 +39,7 @@ function ItemCost({
                     />
                     {count + ' x ' + formatPrice(price) + ' = '}
                     {formatPrice(count * price)}
-                </>
+                </div>
             </Tippy>
         );
     }

@@ -39,12 +39,12 @@ function TraderPriceCell(props) {
                 )}
                 placement="bottom"
             >
-                <>
+                <div>
                     {formatPrice(
                         trader.price,
                         trader.currency,
                     )}
-                </>
+                </div>
             </Tippy>
         ) : 
             formatPrice(trader.price);

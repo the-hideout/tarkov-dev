@@ -114,14 +114,14 @@ function ItemsSummaryTable(props) {
     }, [t]);
 
     const extraRow = (
-        <>
+        <div>
             {t('Cost')}:{' '}
             {formatPrice(
                 data.reduce((previousValue, currentValue) => {
                     return previousValue + currentValue.totalPrice;
                 }, 0),
             )}
-        </>
+        </div>
     );
 
     return (
