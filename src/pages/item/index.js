@@ -569,14 +569,10 @@ function Item() {
                                                                 }
                                                             />
                                                         )}
-                                                        {buyPrice.requirements.find(
-                                                            (requirement) =>
-                                                                requirement.type ===
-                                                                'questCompleted',
-                                                        ) && (
+                                                        {buyPrice.vendor.taskUnlock && (
                                                             <Tippy
                                                                 content={
-                                                                    t('Locked behind a quest')
+                                                                    t('Quest: ')+buyPrice.vendor.taskUnlock.name
                                                                 }
                                                             >
                                                                 <div className="quest-icon-wrapper">
