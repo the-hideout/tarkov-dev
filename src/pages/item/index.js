@@ -65,7 +65,7 @@ function TraderPrice({ currency, price, priceRUB }) {
     if (currency !== 'RUB') {
         return (
             <Tippy content={formatPrice(priceRUB)} placement="bottom">
-                <>{formatPrice(price, currency)}</>
+                <div>{formatPrice(price, currency)}</div>
             </Tippy>
         );
     }
