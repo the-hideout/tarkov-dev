@@ -21,11 +21,13 @@ import {
     mdiDiscord,
     mdiHome,
     mdiCalendarClock,
+    mdiEmoticonDevil,
 } from '@mdi/js';
 
 import './index.css';
 
 import categoryPages from '../../data/category-pages.json';
+import BossList from '../../components/boss-list';
 
 const DISCORD_STASH_INVITE_LINK = 'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'
 
@@ -334,6 +336,21 @@ function Start() {
                             {t('Jaeger')}
                         </Link>
                     </li>
+                </ul>
+                <h3>
+                    <Link to={'/bosses'} key={"maps-page"}>
+                        <Icon
+                            path={mdiEmoticonDevil}
+                            size={1}
+                            className="icon-with-text"
+                        />
+                        {t('Bosses')}
+                    </Link>
+                </h3>
+                <ul>
+                    <Suspense fallback={renderLoader()}>
+                        <BossList />
+                    </Suspense>
                 </ul>
             </div>
             <div className='info-text-wrapper'>
