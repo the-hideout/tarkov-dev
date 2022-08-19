@@ -13,6 +13,28 @@
     list-style: none;
 }
 
+.info-text-wrapper {
+    text-align: center;
+    width: 100%;
+}
+
+.main-logo {
+    margin-top: 2.5rem;
+}
+
+.main-h1 {
+    font-size: 1.3rem;
+}
+
+.main-h2 {
+    font-size: 1.1rem;
+}
+
+.main-headers {
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
 .start-wrapper .icon-with-text {
     margin-left: 0;
 }

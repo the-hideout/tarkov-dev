@@ -23,6 +23,11 @@
     padding: 2px 5px;
 }
 
+.logo-padding {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .menu {
     align-items: center;
     display: none;
@@ -59,6 +64,8 @@
 
 .mobile-icon {
     font-size: 0;
+    margin-right: 0;
+    margin-left: 20;
 }
 
 .mobile-icon svg {
