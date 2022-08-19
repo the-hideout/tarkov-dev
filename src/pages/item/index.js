@@ -115,8 +115,8 @@ function Item() {
                 foundInRaid: false
             };
             questData.objectives.forEach((objectiveData) => {
-                if (objectiveData.item?.id === currentItemData?.id && (objectiveData.type === 'giveItem' || objectiveData.type === 'plantItem')) {
-                    objectiveInfo.count += objectiveData.count;
+                if (objectiveData.item?.id === currentItemData?.id && objectiveData.type !== 'findItem') {
+                    objectiveInfo.count += objectiveData.count || 1;
                     objectiveInfo.foundInRaid = objectiveInfo.foundInRaid || objectiveData.foundInRaid;
                 }
                 if (objectiveData.markerItem?.id === currentItemData?.id) {
