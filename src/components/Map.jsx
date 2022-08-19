@@ -72,7 +72,7 @@ function Map() {
             <title>{infoString}</title>
             <meta name="description" content={infoString} />
         </Helmet>,
-        <>
+        <div>
             <Time
                 currentMap={currentMap}
                 duration={duration}
@@ -100,7 +100,7 @@ function Map() {
                     </div>
                 </TransformComponent>
             </TransformWrapper>
-        </>,
+        </div>,
     ];
 }
 export default Map;

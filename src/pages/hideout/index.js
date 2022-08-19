@@ -98,11 +98,11 @@ function Hideout() {
                             <ButtonGroupFilterButton
                                 key={`station-tooltip-${stationName}`}
                                 tooltipContent={
-                                    <>
+                                    <div>
                                         {t(capitalizeTheFirstLetterOfEachWord(
                                             stationName.replace(/-/g, ' '),
                                         ))}
-                                    </>
+                                    </div>
                                 }
                                 selected={stationName === selectedStation}
                                 content={
@@ -122,7 +122,7 @@ function Hideout() {
                     })}
                     <ButtonGroupFilterButton
                         tooltipContent={
-                            <>{t('Show all stations & modules')}</>
+                            <div>{t('Show all stations & modules')}</div>
                         }
                         selected={selectedStation === 'all'}
                         content={t('All')}
