@@ -75,13 +75,13 @@ function Backpacks(props) {
                 accessor: 'grid',
                 Cell: ({ value }) => {
                     return (
-                        <div>
+                        <>
                             <CanvasGrid
                                 height={value.height}
                                 grid={value.pockets}
                                 width={value.width}
                             />
-                        </div>
+                        </>
                     );
                 },
             },

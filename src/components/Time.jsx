@@ -102,8 +102,8 @@ function Time(props) {
     if (props?.currentMap === 'factory') {
         return (
             <div className="time-wrapper">
-                <div>15:28:00</div>
-                <div>03:28:00</div>
+                <>15:28:00</>
+                <>03:28:00</>
                 <MapSource {...props} />
             </div>
         );

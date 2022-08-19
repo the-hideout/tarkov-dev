@@ -48,9 +48,9 @@ function traderSellCell(datum) {
                     content={formatPrice(datum.row.original.bestSell.priceRUB)}
                     placement="bottom"
                 >
-                    <div>
+                    <>
                         {formatPrice(datum.row.original.bestSell.price, datum.row.original.bestSell.currency)}
-                    </div>
+                    </>
                 </Tippy>
             ) : (
                 formatPrice(datum.row.original.bestSell.priceRUB)
@@ -161,7 +161,7 @@ function SmallItemTable(props) {
     useEffect(() => {
         if (!barterPrice)
             return;
-        
+
         let timer = false;
         if (bartersStatus === 'idle') {
             dispatch(fetchBarters());
@@ -551,7 +551,7 @@ function SmallItemTable(props) {
                                     }
                                 />
                             }
-                            // plugins={[followCursor]}
+                        // plugins={[followCursor]}
                         >
                             <div className="center-content">
                                 {props.value ? formatPrice(props.value) : '-'}
@@ -737,11 +737,11 @@ function SmallItemTable(props) {
         }
 
         if (weight) {
-          useColumns.push({
-            Header: t('Weight (kg)'),
-            accessor: 'weight',
-            Cell: CenterCell,
-          });
+            useColumns.push({
+                Header: t('Weight (kg)'),
+                accessor: 'weight',
+                Cell: CenterCell,
+            });
         }
 
         if (stats) {
@@ -790,7 +790,7 @@ function SmallItemTable(props) {
         // If the API query has not yet completed
         if (result.isFetched === false) {
             extraRow = t('Loading...');
-        // If the API query has completed, but no items were found
+            // If the API query has completed, but no items were found
         } else {
             extraRow = t('No items');
         }

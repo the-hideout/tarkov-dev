@@ -63,7 +63,7 @@ function TraderPrice({ currency, price, priceRUB }) {
     if (currency !== 'RUB') {
         return (
             <Tippy content={formatPrice(priceRUB)} placement="bottom">
-                <div>{formatPrice(price, currency)}</div>
+                <>{formatPrice(price, currency)}</>
             </Tippy>
         );
     }
@@ -184,7 +184,7 @@ function Item() {
         currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
     let fleaTooltip = (
-        <div>
+        <>
             <div className="tooltip-calculation">
                 {t('Likely sell price')}{' '}
                 <div className="tooltip-price-wrapper">
@@ -232,12 +232,12 @@ function Item() {
             <div className="tooltip-calculation">
                 {t('Calculated over the average for the last 24 hours')}
             </div>
-        </div>
+        </>
     );
 
     if (!useFleaPrice) {
         fleaTooltip = (
-            <div>
+            <>
                 <div className="tooltip-calculation">
                     {t('Best price to sell for')}{' '}
                     <div className="tooltip-price-wrapper">
@@ -292,7 +292,7 @@ function Item() {
                     " However, due to how fees are calculated you're better off selling for",
                 )}{' '}
                 {formatPrice(currentItemData.bestPrice)}
-            </div>
+            </>
         );
     }
 
@@ -367,7 +367,7 @@ function Item() {
                 <div className="trader-wrapper">
                     {currentItemData.sellFor &&
                         currentItemData.sellFor.length > 0 && (
-                            <div>
+                            <>
                                 <h2>{t('Sell for')}</h2>
                                 <div className={'information-grid'}>
                                     {!currentItemData.types.includes(
@@ -446,12 +446,12 @@ function Item() {
                                                             )}
                                                             placement="bottom"
                                                         >
-                                                            <div>
+                                                            <>
                                                                 {formatPrice(
                                                                     currentItemData.traderPrice,
                                                                     currentItemData.traderCurrency,
                                                                 )}
-                                                            </div>
+                                                            </>
                                                         </Tippy>
                                                     ) : (
                                                         formatPrice(
@@ -508,12 +508,12 @@ function Item() {
                                                                     )}
                                                                     placement="bottom"
                                                                 >
-                                                                    <div>
+                                                                    <>
                                                                         {formatPrice(
                                                                             traderPrice.price,
                                                                             traderPrice.currency,
                                                                         )}
-                                                                    </div>
+                                                                    </>
                                                                 </Tippy>
                                                             ) : (
                                                                 formatPrice(
@@ -526,11 +526,11 @@ function Item() {
                                             },
                                         )}
                                 </div>
-                            </div>
+                            </>
                         )}
                     {currentItemData.buyFor &&
                         currentItemData.buyFor.length > 0 && (
-                            <div>
+                            <>
                                 <h2>{t('Buy for')}</h2>
                                 <div className="information-grid single-line-grid">
                                     {currentItemData.buyFor.map(
@@ -640,11 +640,11 @@ function Item() {
                                         },
                                     )}
                                 </div>
-                            </div>
+                            </>
                         )}
                 </div>
                 {!currentItemData.types.includes('noFlea') && (
-                    <div>
+                    <>
                         <h2>{t('Flea price last 7 days')}</h2>
                         <PriceGraph
                             itemId={currentItemData.id}
@@ -681,11 +681,11 @@ function Item() {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </>
                 )}
                 <h2 style={{ marginTop: 10 }}>{t('Stats')}</h2>
                 <PropertyList properties={currentItemData.properties} />
-                <div>
+                <>
                     <div className="item-barters-headline-wrapper">
                         <h2>
                             {t('Barters with')} {currentItemData.name}
@@ -698,11 +698,11 @@ function Item() {
                                     setShowAllBarters(!showAllBarters)
                                 }
                                 tooltipContent={
-                                    <div>
+                                    <>
                                         {t(
                                             'Shows all crafts regardless of what you have set in your settings',
                                         )}
-                                    </div>
+                                    </>
                                 }
                             />
                         </Filter>
@@ -711,8 +711,8 @@ function Item() {
                         itemFilter={currentItemData.id}
                         showAll={showAllBarters}
                     />
-                </div>
-                <div>
+                </>
+                <>
                     <div className="item-crafts-headline-wrapper">
                         <h2>
                             {t('Crafts with')} {currentItemData.name}
@@ -725,30 +725,30 @@ function Item() {
                                     setShowAllCrafts(!showAllCrafts)
                                 }
                                 tooltipContent={
-                                    <div>
+                                    <>
                                         {t(
                                             'Shows all crafts regardless of what you have set in your settings',
                                         )}
-                                    </div>
+                                    </>
                                 }
                             />
                         </Filter>
                     </div>
-                    <Suspense fallback={<div>{t('Loading...')}</div>}>
+                    <Suspense fallback={<>{t('Loading...')}</>}>
                         <CraftsTable
                             itemFilter={currentItemData.id}
                             showAll={showAllCrafts}
                         />
                     </Suspense>
-                </div>
-                <div>
+                </>
+                <>
                     <h2>
                         {t('Hideout modules needing')} {currentItemData.name}
                     </h2>
-                    <Suspense fallback={<div>{t('Loading...')}</div>}>
+                    <Suspense fallback={<>{t('Loading...')}</>}>
                         <ItemsForHideout itemFilter={currentItemData.id} />
                     </Suspense>
-                </div>
+                </>
                 <QuestsList itemQuests={itemQuests} />
             </div>
         </div>,

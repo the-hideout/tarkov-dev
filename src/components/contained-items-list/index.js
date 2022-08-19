@@ -46,7 +46,7 @@ const ContainedItemsList = ({ item }) => {
     });
 
     return (
-        <div>
+        <>
             <span className="contained-item-title-wrapper">Can hold:</span>
             {sortedItems.map((linked, index) => {
                 if (linked.id === '54009119af1c881c07000029') {
@@ -73,7 +73,7 @@ const ContainedItemsList = ({ item }) => {
                     </span>
                 );
             })}
-        </div>
+        </>
     );
 };
 

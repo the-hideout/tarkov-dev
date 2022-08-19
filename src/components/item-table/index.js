@@ -33,11 +33,11 @@ const defaultCell = ({ value }) => {
 
 const nameCell = (props) => {
     return (
-        <div>
+        <>
             <Link to={`/item/${props.row.original.normalizedName}`}>
                 {props.value}
             </Link>
-        </div>
+        </>
     );
 };
 
