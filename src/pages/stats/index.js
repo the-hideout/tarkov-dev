@@ -44,7 +44,7 @@ function Stats() {
             <div className="center-title">
                 <img
                     src={TwitchIcon}
-                    style={{ height: '3em', width: '3em', display: 'inline' }}
+                    className="twitch-img"
                     alt="Twitch logo"
                     loading="lazy"
                 />

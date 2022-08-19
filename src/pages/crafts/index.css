@@ -15,6 +15,10 @@
     font-size: 14px;
 }
 
+.crafts-page-wrapper {
+    min-height: 0;
+}
+
 .station-toggle-handle {
     width: 26px;
 }

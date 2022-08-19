@@ -240,9 +240,9 @@ function Settings() {
             </div>
             {/* cheeki breeki */}
             <>
-                <button style={{padding: '.2rem', borderRadius: '4px'}} onClick={handleClick}>cheeki breeki</button>
+                <button className='cheeki-breeki-button' onClick={handleClick}>cheeki breeki</button>
                 {isShown && (
-                    <div style={{ display: "flex" }}>
+                    <div className='cheeki-breeki'>
                         <motion.div
                             className="block"
                             animate={{ rotate: 360 }}

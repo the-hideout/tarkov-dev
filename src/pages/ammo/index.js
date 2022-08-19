@@ -17,6 +17,8 @@ import { useItemsQuery } from '../../features/items/queries';
 import { formatCaliber } from '../../modules/format-ammo';
 import symbols from '../../symbols';
 
+import './index.css';
+
 const MAX_DAMAGE = 170;
 const MAX_PENETRATION = 70;
 
@@ -277,7 +279,7 @@ function Ammo() {
                 <Icon path={mdiAmmunition} size={1.5} className="icon-with-text"/>
                 {t('Ammo Chart')}
             </h1>
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper ammo-page-wrapper">
                 <Graph
                     listState={listState}
                     legendData={legendData}
@@ -288,7 +290,7 @@ function Ammo() {
                 />
             </div>
             
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper ammo-page-wrapper">
                 <p>
                     {"The wilderness of Tarkov includes a diverse range of ammunition. To combat different opponents, different types of ammunition are needed."}<br/>
                     <br/>

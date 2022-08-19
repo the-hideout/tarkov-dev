@@ -66,7 +66,7 @@ function Guns() {
                 autoScroll
             />
 
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper items-page-wrapper">
                 <p>
                     {"Your main tool for survival is a weapon. Almost all weapons are completely modular, allowing them to be customized for various scenarios. All of the weaponry used in Escape from Tarkov are listed on this page."}
                 </p>
