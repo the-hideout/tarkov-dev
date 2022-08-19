@@ -42,7 +42,9 @@ const doFetchMeta = async () => {
     });
 
     const metaData = await response.json();
-//console.log(metaData.data.fleaMarket);
+
+    if (metaData.errors) return Promise.reject(new Error(metaData.errors[0]));
+
     return {flea: metaData.data.fleaMarket, armor: metaData.data.armorMaterials, categories: metaData.data.itemCategories};
 };
 

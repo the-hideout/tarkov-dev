@@ -262,6 +262,8 @@ const doFetchQuests = async () => {
 
     const questsData = await response.json();
 
+    if (questsData.errors) return Promise.reject(new Error(questsData.errors[0]));
+
     return questsData.data.tasks;
 };
 

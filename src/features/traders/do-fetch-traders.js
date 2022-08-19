@@ -39,7 +39,7 @@ const doFetchTraders = async () => {
 
     const tradersData = await response.json();
 
-    if (!tradersData.data && tradersData.errors.length > 0) return Promise.reject(new Error(tradersData.errors[0]));
+    if (!tradersData.data && tradersData.errors?.length > 0) return Promise.reject(new Error(tradersData.errors[0]));
 
     return tradersData.data.traders;
 };

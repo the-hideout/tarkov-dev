@@ -6,7 +6,7 @@ const NOTES = {
     '60a2828e8689911a226117f9': `Can't store Pillbox, Day Pack, LK 3F or MBSS inside`,
 };
 
-const doFetchItems = async (meta) => {
+const doFetchItems = async () => {
 
     // Get the user selected language
     const language = await langCode();
@@ -379,6 +379,10 @@ const doFetchItems = async (meta) => {
                     }
                 }
             }
+            fleaMarket {
+                sellOfferFeeRate
+                sellRequirementFeeRate
+            }
         }`,
     });
 
@@ -395,6 +399,10 @@ const doFetchItems = async (meta) => {
             (response) => response.json(),
         ),
     ]);
+
+    if (itemData.errors) return Promise.reject(new Error(itemData.errors[0]));
+
+    const flea = itemData.data.fleaMarket;
 
     const allItems = itemData.data.items.map((rawItem) => {
         let grid = false;
@@ -474,7 +482,7 @@ const doFetchItems = async (meta) => {
 
         return {
             ...rawItem,
-            fee: fleaMarketFee(rawItem.basePrice, rawItem.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
+            fee: fleaMarketFee(rawItem.basePrice, rawItem.lastLowPrice, 1, flea.sellOfferFeeRate, flea.sellRequirementFeeRate),
             fallbackImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
             slots: rawItem.width * rawItem.height,
             // iconLink: `https://assets.tarkov.dev/${rawItem.id}-icon.jpg`,

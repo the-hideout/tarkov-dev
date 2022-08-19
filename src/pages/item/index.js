@@ -252,7 +252,7 @@ function Item() {
         </div>
     );
 
-    if (!useFleaPrice) {
+    if (!useFleaPrice && currentItemData.bestPrice) {
         fleaTooltip = (
             <div>
                 <div className="tooltip-calculation">
