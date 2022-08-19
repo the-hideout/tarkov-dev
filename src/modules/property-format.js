@@ -98,8 +98,17 @@ const formatter = (key, value) => {
 
     if (key === 'grids') {
         let displayKey = defaultFormat(key);
-
-        return [displayKey, value.map(grid => grid.width+'x'+grid.height).join(', ')];
+        const gridCounts = {};
+        value.sort((a, b) => (a.width*a.height) - (b.width*b.height)).forEach(grid => {
+            const gridLabel = grid.width+'x'+grid.height;
+            if (!gridCounts[gridLabel]) gridCounts[gridLabel] = 0;
+            gridCounts[gridLabel]++;
+        })
+        const displayGrids = [];
+        for (const label in gridCounts) {
+            displayGrids.push(`${label}${gridCounts[label] > 1 ? `: ${gridCounts[label]}` : ''}`);
+        }
+        return [displayKey, displayGrids.join(', ')];
     }
 
     if (key === 'baseItem') {

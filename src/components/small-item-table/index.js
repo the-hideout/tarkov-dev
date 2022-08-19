@@ -31,6 +31,7 @@ function traderSellCell(datum) {
         return null;
     }
 
+    const count = datum.row.original.count;
     return (
         <div className="trader-price-content">
             <img
@@ -45,15 +46,15 @@ function traderSellCell(datum) {
 
             {datum.row.original.bestSell.currency !== 'RUB' ? (
                 <Tippy
-                    content={formatPrice(datum.row.original.bestSell.priceRUB)}
+                    content={formatPrice(datum.row.original.bestSell.priceRUB*count)}
                     placement="bottom"
                 >
                     <div>
-                        {formatPrice(datum.row.original.bestSell.price, datum.row.original.bestSell.currency)}
+                        {formatPrice(datum.row.original.bestSell.price*count, datum.row.original.bestSell.currency)}
                     </div>
                 </Tippy>
             ) : (
-                formatPrice(datum.row.original.bestSell.priceRUB)
+                formatPrice(datum.row.original.bestSell.priceRUB*count)
             )}
         </div>
     );
@@ -97,6 +98,7 @@ function SmallItemTable(props) {
         nameFilter,
         defaultRandom,
         typeFilter,
+        containedInFilter,
         instaProfit,
         traderPrice,
         traderFilter,
@@ -177,6 +179,15 @@ function SmallItemTable(props) {
             clearInterval(timer);
         };
     }, [bartersStatus, barterPrice, dispatch]);
+
+    const containedItems = useMemo(() => {
+        if (!containedInFilter) return {};
+        const filterItems = {};
+        containedInFilter.forEach(ci => {
+            filterItems[ci.item.id] = ci.count;
+        });
+        return filterItems;
+    }, [containedInFilter]);
 
     const data = useMemo(() => {
         let returnData = items
@@ -263,6 +274,12 @@ function SmallItemTable(props) {
 
                 return item.categories.find(category => category.id === bsgCategoryFilter);
             })
+            .filter(item => {
+                if (!containedInFilter) {
+                    return true;
+                }
+                return containedItems[item.id];
+            })
             .map((itemData) => {
                 const formattedItem = {
                     id: itemData.id,
@@ -325,6 +342,8 @@ function SmallItemTable(props) {
                                                      : formattedItem.barterPrice.price / itemData.properties.capacity;
                     }
                 }
+
+                formattedItem.count = containedItems[itemData.id] || 1;
 
                 return formattedItem;
             })
@@ -404,6 +423,8 @@ function SmallItemTable(props) {
         return returnData;
     }, [
         nameFilter,
+        containedInFilter,
+        containedItems,
         defaultRandom,
         items,
         typeFilter,

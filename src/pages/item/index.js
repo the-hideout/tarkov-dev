@@ -9,7 +9,8 @@ import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
-// import CraftsTable from '../../components/crafts-table';
+import SmallItemTable from '../../components/small-item-table';
+//import CraftsTable from '../../components/crafts-table';
 import BartersTable from '../../components/barters-table';
 import QuestsList from '../../components/quests-list';
 import CanvasGrid from '../../components/canvas-grid';
@@ -25,6 +26,7 @@ import ContainedItemsList from '../../components/contained-items-list';
 
 import { useMetaQuery } from '../../features/meta/queries';
 import { useQuestsQuery } from '../../features/quests/queries';
+import { useBartersQuery } from '../../features/barters/bartersSlice';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
@@ -86,6 +88,7 @@ function Item() {
     const { data: currentItemByIdData } = useItemByIdQuery(itemName);
     const { data: meta } = useMetaQuery();
     const { data: quests } = useQuestsQuery();
+    const { data: barters } = useBartersQuery();
 
     let currentItemData = currentItemByNameData;
 
@@ -173,6 +176,13 @@ function Item() {
     ) {
         return <ErrorPage />;
     }
+
+    const containsItems = currentItemData?.containsItems?.length > 0;
+
+    const hasBarters = barters.some(barter => {
+        return barter.requiredItems.some(contained => contained.item.id === currentItemData.id) ||
+            barter.rewardItems.some(contained => contained.item.id === currentItemData.id);
+    });
 
     if (!currentItemData.bestPrice) {
         currentItemData = {
@@ -302,7 +312,7 @@ function Item() {
             </>
         );
     }
-console.log(currentItemData)
+
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
@@ -692,33 +702,50 @@ console.log(currentItemData)
                 )}
                 <h2 style={{ marginTop: 10 }}>{t('Stats')}</h2>
                 <PropertyList properties={currentItemData.properties} />
-                <>
-                    <div className="item-barters-headline-wrapper">
+                {containsItems && (
+                    <>
                         <h2>
-                            {t('Barters with')} {currentItemData.name}
+                            {t('Items contained in')} {currentItemData.name}
                         </h2>
-                        <Filter>
-                            <ToggleFilter
-                                checked={showAllBarters}
-                                label={t('Ignore settings')}
-                                onChange={(e) =>
-                                    setShowAllBarters(!showAllBarters)
-                                }
-                                tooltipContent={
-                                    <>
-                                        {t(
-                                            'Shows all crafts regardless of what you have set in your settings',
-                                        )}
-                                    </>
-                                }
+                        <Suspense fallback={<>{t('Loading...')}</>}>
+                            <SmallItemTable
+                                containedInFilter={currentItemData.containsItems}
+                                fleaPrice
+                                barterPrice
+                                traderValue
                             />
-                        </Filter>
-                    </div>
-                    <BartersTable
-                        itemFilter={currentItemData.id}
-                        showAll={showAllBarters}
-                    />
-                </>
+                        </Suspense>
+                    </>
+                )}
+                {hasBarters && (
+                    <>
+                        <div className="item-barters-headline-wrapper">
+                            <h2>
+                                {t('Barters with')} {currentItemData.name}
+                            </h2>
+                            <Filter>
+                                <ToggleFilter
+                                    checked={showAllBarters}
+                                    label={t('Ignore settings')}
+                                    onChange={(e) =>
+                                        setShowAllBarters(!showAllBarters)
+                                    }
+                                    tooltipContent={
+                                        <>
+                                            {t(
+                                                'Shows all crafts regardless of what you have set in your settings',
+                                            )}
+                                        </>
+                                    }
+                                />
+                            </Filter>
+                        </div>
+                        <BartersTable
+                            itemFilter={currentItemData.id}
+                            showAll={showAllBarters}
+                        />
+                    </>
+                )}
                 <>
                     <div className="item-crafts-headline-wrapper">
                         <h2>
@@ -756,7 +783,9 @@ console.log(currentItemData)
                         <ItemsForHideout itemFilter={currentItemData.id} />
                     </Suspense>
                 </>
-                <QuestsList itemQuests={itemQuests} />
+                {itemQuests.length > 0 && (
+                    <QuestsList itemQuests={itemQuests} />
+                )}
             </div>
         </div>,
     ];

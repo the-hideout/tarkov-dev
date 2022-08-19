@@ -1,3 +1,5 @@
+// Queries used to get flea market fee factors, armor attributes,
+// and item categories from the API
 import { useQuery } from 'react-query';
 import doFetchMeta from './do-fetch-meta';
 

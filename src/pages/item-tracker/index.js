@@ -17,7 +17,7 @@ function ItemTracker() {
         'quests',
         quests,
     );
-    console.log(questData); 
+    
     // const [questData, setQuestData] = useState(quests.data);
     // const [groupByQuest, setGroupByQuest] = useStateWithLocalStorage('groupByQuest', true);
     const [onlyFoundInRaid, setOnlyFoundInRaid] = useStateWithLocalStorage(

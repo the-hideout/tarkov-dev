@@ -27,7 +27,7 @@ function ItemNameCell(props) {
                     className="craft-reward-item-title"
                     to={props.row.original.itemLink}
                 >
-                    {props.row.original.name}
+                    {props.row.original.name}{props.row.original.count > 1 ? ` x ${props.row.original.count}` : ''}
                 </Link>
                 {props.row.original.notes ? (
                     <cite>{props.row.original.notes}</cite>

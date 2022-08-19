@@ -160,7 +160,7 @@ const Menu = () => {
                     <li className="submenu-wrapper">
                         <Link to="/traders">{t('Traders')}</Link>
                         <ul>
-                            {traders.map(trader => (
+                            {traders?.map(trader => (
                                 <MenuItem
                                     displayText={trader.name}
                                     key={`trader-${trader.normalizedName}`}
