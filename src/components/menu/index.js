@@ -14,7 +14,7 @@ import MenuItem from './MenuItem';
 // import PatreonButton from '../patreon-button';
 import UkraineButton from '../ukraine-button';
 
-import ammoData from '../../data/ammo.json';
+import { caliberMap } from '../../modules/format-ammo';
 import mapData from '../../data/maps.json';
 import itemsData from '../../data/category-pages.json';
 
@@ -29,13 +29,7 @@ import { useTradersQuery } from '../../features/traders/queries';
 // End of banner alert toggle
 
 
-const ammoTypes = [
-    ...new Set(
-        ammoData.data.map((ammoData) => {
-            return ammoData.type;
-        }),
-    ),
-].sort();
+const ammoTypes = Object.values(caliberMap).sort();
 
 const Menu = () => {
     const [isOpen, setIsOpen] = useState(false);

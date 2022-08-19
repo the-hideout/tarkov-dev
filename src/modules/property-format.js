@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import camelcaseToDashes from './camelcase-to-dashes';
-import ammoFormat from './format-ammo';
+import { formatCaliber } from './format-ammo';
 
 const defaultFormat = (inputString) => {
     const baseFormat = camelcaseToDashes(inputString).replace(/-/g, ' ');
@@ -21,7 +21,7 @@ const firingModeFormat = (inputString) => {
 };
 
 const ammoLinkFormat = (inputString) => {
-    const formattedName = ammoFormat(inputString);
+    const formattedName = formatCaliber(inputString);
     return <Link to={`/ammo/${formattedName}`}>{formattedName}</Link>;
 };
 

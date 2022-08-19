@@ -14,7 +14,7 @@ import CenterCell from '../../components/center-cell';
 import ValueCell from '../../components/value-cell';
 import TraderPriceCell from '../../components/trader-price-cell';
 import { useItemsQuery } from '../../features/items/queries';
-import formatCaliber from '../../modules/format-ammo';
+import { formatCaliber } from '../../modules/format-ammo';
 import symbols from '../../symbols';
 
 const MAX_DAMAGE = 170;
