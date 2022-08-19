@@ -307,8 +307,8 @@ function CraftTable(props) {
                             craftRow.rewardItems[0].item.basePrice,
                             craftRow.rewardItems[0].item[priceToUse],
                             craftRow.rewardItems[0].count,
-                            meta.flea.sellOfferFeeRate,
-                            meta.flea.sellRequirementFeeRate,
+                            meta?.flea?.sellOfferFeeRate,
+                            meta?.flea?.sellRequirementFeeRate,
                         ) *
                             feeReduction;
                 }

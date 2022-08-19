@@ -98,7 +98,6 @@ function Item() {
                     objectiveData.markerItem?.id === currentItemData?.id;
             }) || questData.neededKeys.some(taskKey => taskKey.keys.some(key => key.id === currentItemData?.id));
         }).map((questData) => {
-            console.log(questData);
             const questDataCopy = {
                 ...questData,
                 neededItems: []
