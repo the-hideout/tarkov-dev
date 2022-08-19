@@ -1,8 +1,10 @@
 import { useQuery } from 'react-query';
 import doFetchItems from './do-fetch-items';
+import { useMetaQuery } from '..//meta/queries';
 
 export const useItemsQuery = (queryOptions) => {
-    const itemsQuery = useQuery('items', () => doFetchItems(), {
+    const { data: meta } = useMetaQuery();
+    const itemsQuery = useQuery('items', () => doFetchItems(meta), {
         refetchInterval: 600000,
         placeholderData: [],
         refetchOnMount: false,

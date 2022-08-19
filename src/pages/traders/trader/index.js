@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useAsync } from 'react-async';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -14,7 +13,7 @@ import {
 import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 import TraderResetTime from '../../../components/trader-reset-time';
-import doFetchTraders from '../../../features/traders/do-fetch-traders';
+import { useTradersQuery } from '../../../features/traders/queries';
 
 const descriptions = {
     jaeger: "Before the conflict, he worked as a hunter in the Priozersk Natural Reserve under the State Hunting Service. A professional hunter and survival specialist. Even now, he still guards the reserve's hunting grounds from various aggressive individuals.",
@@ -50,7 +49,7 @@ function Trader() {
         `${traderName}SelectedTable`,
         'level',
     );
-    const { t } = useTranslation();let traders = [];
+    const { t } = useTranslation();
 
     const handleNameFilterChange = useCallback(
         (e) => {
@@ -66,10 +65,7 @@ function Trader() {
         },
         [setNameFilter],
     );
-    const req = useAsync({promiseFn: doFetchTraders});
-    if (req.error) return Promise.reject(req.error);
-    if (req.data) traders = req.data;
-    if (traders.length === 0) return null;
+    const { data: traders } = useTradersQuery();
     const trader = traders.find(tr => tr.normalizedName === traderName);
 
     return [

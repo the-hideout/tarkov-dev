@@ -1,21 +1,17 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { useAsync } from 'react-async';
 import Icon from '@mdi/react';
 import { mdiAccountGroup } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 
 import TraderResetTime from '../../components/trader-reset-time';
-import doFetchTraders from '../../features/traders/do-fetch-traders';
+import { useTradersQuery } from '../../features/traders/queries';
 
 import './index.css';
 
 function Traders(props) {
     const { t } = useTranslation();
-    let traders = [];
-    const req = useAsync({promiseFn: doFetchTraders});
-    if (req.error) return Promise.reject(req.error);
-    if (req.data) traders = req.data;
+    const { data: traders } = useTradersQuery();
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />

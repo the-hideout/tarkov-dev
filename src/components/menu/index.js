@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useAsync } from 'react-async';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
@@ -20,7 +19,7 @@ import mapData from '../../data/maps.json';
 import itemsData from '../../data/category-pages.json';
 
 import './index.css';
-import doFetchTraders from '../../features/traders/do-fetch-traders';
+import { useTradersQuery } from '../../features/traders/queries';
 
 // Comment / uncomment for banner alert
 // import MuiAlert from '@material-ui/lab/Alert';
@@ -45,10 +44,7 @@ const Menu = () => {
     };
     const { t } = useTranslation();
 
-    let traders = [];
-    const req = useAsync({promiseFn: doFetchTraders});
-    if (req.error) return Promise.reject(req.error);
-    if (req.data) traders = req.data;
+    const { data: traders } = useTradersQuery();
 
     return (
         <>

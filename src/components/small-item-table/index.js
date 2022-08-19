@@ -22,10 +22,9 @@ import {
 } from '../../features/barters/bartersSlice';
 import { getCheapestBarter } from '../../modules/format-cost-items';
 
-import categoryData from '../../data/category-data.json';
-
 import './index.css';
 import { useItemsQuery } from '../../features/items/queries';
+import { useMetaQuery } from '../../features/meta/queries';
 
 function traderSellCell(datum) {
     if (!datum.row.original.bestSell?.source || datum.row.original.bestSell.source === '?') {
@@ -135,6 +134,21 @@ function SmallItemTable(props) {
 
     // Use the primary items API query to fetch all items
     const result = useItemsQuery();
+
+    const { data: meta } = useMetaQuery();
+    const { materialDestructibilityMap, materialRepairabilityMap } = useMemo(
+        () => {
+            const destruct = {};
+            const repair = {};
+            if (!meta?.armor) return {materialDestructibilityMap: destruct, materialRepairabilityMap: repair };
+            meta.armor.forEach(armor => {
+                destruct[armor.id] = armor.destructibility;
+                repair[armor.id] = (100-Math.round((armor.minRepairDegradation + armor.maxRepairDegradation)/2*100));
+            });
+            return {materialDestructibilityMap: destruct, materialRepairabilityMap: repair };
+        },
+        [meta]
+    );
 
     // Create a constant of all data returned
     const items = result.data;
@@ -247,24 +261,7 @@ function SmallItemTable(props) {
                     return true;
                 }
 
-                if (item.bsgCategoryId === bsgCategoryFilter) {
-                    return true;
-                }
-
-                for (const bsgCategoryId in categoryData) {
-                    if (
-                        categoryData[bsgCategoryId]._parent !==
-                        bsgCategoryFilter
-                    ) {
-                        continue;
-                    }
-
-                    if (item.bsgCategoryId === bsgCategoryId) {
-                        return true;
-                    }
-                }
-
-                return false;
+                return item.categories.find(category => category.id === bsgCategoryFilter);
             })
             .map((itemData) => {
                 const formattedItem = {
@@ -300,20 +297,20 @@ function SmallItemTable(props) {
                         (barter) => barter.rewardItems[0].item.id === itemData.id,
                     ),
                     grid: itemData.grid,
-                    pricePerSlot: showNetPPS ? Math.floor(itemData.avg24hPrice / (itemData.properties.capacity - itemData.slots))
+                    pricePerSlot: showNetPPS ? Math.floor(itemData.avg24hPrice / (itemData.properties.capacity - (itemData.width * itemData.height)))
                                   : itemData.avg24hPrice / itemData.properties.capacity,
-                    ratio: (itemData.properties.capacity / itemData.slots).toFixed(2),
+                    ratio: (itemData.properties.capacity / (itemData.width * itemData.height)).toFixed(2),
                     size: itemData.properties.capacity,
                     notes: itemData.notes,
-                    slots: itemData.slots,
+                    slots: itemData.width * itemData.height,
                     armorClass: itemData.properties.class,
                     armorZone: getArmorZoneString(itemData.properties.zones || itemData.properties.headZones),
                     maxDurability: itemData.properties.durability,
-                    effectiveDurability: Math.floor(itemData.properties?.durability / itemData.properties?.material?.destructibility),
-                    repairability: (100-Math.round((itemData.properties?.material?.minRepairDegradation + itemData.properties?.material?.maxRepairDegradation)/2*100)),
+                    effectiveDurability: Math.floor(itemData.properties?.durability / materialDestructibilityMap[itemData.properties?.material?.id]),
+                    repairability: materialRepairabilityMap[itemData.properties?.material?.id],
                     stats: `${Math.round(itemData.properties.speedPenalty*100)}% / ${Math.round(itemData.properties.turnPenalty*100)}% / ${itemData.properties.ergoPenalty}`,
-                    canHoldItems: itemData.canHoldItems,
                     weight: itemData.weight,
+                    properties: itemData.properties,
                 };
 
                 if (formattedItem.buyOnFleaPrice && formattedItem.buyOnFleaPrice.price > 0) {
@@ -420,7 +417,9 @@ function SmallItemTable(props) {
         maxPropertyFilter,
         maxPrice,
         bsgCategoryFilter,
-        showNetPPS
+        showNetPPS,
+        materialDestructibilityMap,
+        materialRepairabilityMap
     ]);
 
     const columns = useMemo(() => {

@@ -29,6 +29,7 @@ import {
     getDurationDisplay,
     getFinishDisplay,
 } from '../../modules/format-duration';
+import { useMetaQuery } from '../../features/meta/queries';
 
 function CraftTable(props) {
     const { selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices } =
@@ -61,6 +62,7 @@ function CraftTable(props) {
     const progressStatus = useSelector((state) => {
         return state.settings.progressStatus;
     });
+    const { data: meta } = useMetaQuery();
 
     useEffect(() => {
         let tarkovTrackerProgressInterval = false;
@@ -305,6 +307,8 @@ function CraftTable(props) {
                             craftRow.rewardItems[0].item.basePrice,
                             craftRow.rewardItems[0].item[priceToUse],
                             craftRow.rewardItems[0].count,
+                            meta.flea.sellOfferFeeRate,
+                            meta.flea.sellRequirementFeeRate,
                         ) *
                             feeReduction;
                 }
@@ -373,6 +377,7 @@ function CraftTable(props) {
         t,
         showAll,
         averagePrices,
+        meta,
     ]);
 
     const columns = useMemo(

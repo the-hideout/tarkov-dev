@@ -34,7 +34,7 @@ function ItemNameCell(props) {
                 ) : (
                     ''
                 )}
-                {props.showContainedItems && props.row.original.canHoldItems && (
+                {props.showContainedItems && (props.row.original.properties?.grids || props.row.original.properties?.slots) && (
                     <cite>
                         <ContainedItemsList item={props.row.original} />
                     </cite>

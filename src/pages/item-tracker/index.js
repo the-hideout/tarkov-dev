@@ -5,16 +5,19 @@ import { useTranslation } from 'react-i18next';
 
 import ItemGrid from '../../components/item-grid';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
-import Traders from '../../data/traders.json';
 
-import quests from '../../data/quests.json';
+//import quests from '../../data/quests.json';
 import { useItemsQuery } from '../../features/items/queries';
+import { useTradersQuery } from '../../features/traders/queries';
+import { useQuestsQuery } from '../../features/quests/queries';
 
 function ItemTracker() {
+    const { data: quests } = useQuestsQuery();
     const [questData, setQuestData] = useStateWithLocalStorage(
         'quests',
-        quests.data,
+        quests,
     );
+    console.log(questData); 
     // const [questData, setQuestData] = useState(quests.data);
     // const [groupByQuest, setGroupByQuest] = useStateWithLocalStorage('groupByQuest', true);
     const [onlyFoundInRaid, setOnlyFoundInRaid] = useStateWithLocalStorage(
@@ -22,6 +25,7 @@ function ItemTracker() {
         true,
     );
     const { data: items } = useItemsQuery();
+    const { data: traders } = useTradersQuery();
     const { t } = useTranslation();
 
     const handleItemClick = useCallback(
@@ -85,26 +89,50 @@ function ItemTracker() {
                 return 0;
             })
             .map((questData) => {
-                const questItems = questData.items
-                    .map((questItemData) => {
-                        if (onlyFoundInRaid && !questItemData.foundInRaid) {
-                            return false;
-                        }
-
-                        if (questItemData.count <= 0) {
-                            return false;
-                        }
-
-                        return {
-                            ...questItemData,
+                const questItems = [];
+                questData.objectives.forEach((objective) => {
+                    const questTemplate = {
+                        count: 1,
+                        foundInRaid: false,
+                        onClick: handleItemClick,
+                        questId: questData.id
+                    }
+                    if (objective.__typename === 'TaskObjectiveBuildItem' && !onlyFoundInRaid) {
+                        questItems.push({
                             ...items.find(
-                                (item) => item.id === questItemData.id,
+                                (item) => item.id === objective.item.id,
                             ),
+                            ...questTemplate
+                        });
+                        for (const part of objective.containsAll) {
+                            questItems.push({
+                                ...items.find(
+                                    (item) => item.id === part.id,
+                                ),
+                                ...questTemplate
+                            });
+                        }
+                    }
+                    if (objective.__typename === 'TaskObjectiveItem' && !(onlyFoundInRaid && !objective.foundInRaid)) {
+                        questItems.push({
+                            ...items.find(
+                                (item) => item.id === objective.item.id,
+                            ),
+                            count: objective.count,
+                            foundInRaid: objective.foundInRaid,
                             onClick: handleItemClick,
-                            questId: questData.questId,
-                        };
-                    })
-                    .filter(Boolean);
+                            questId: questData.id
+                        });
+                    }
+                    if (objective.__typename === 'TaskObjectiveMark' && !onlyFoundInRaid) {
+                        questItems.push({
+                            ...items.find(
+                                (item) => item.id === objective.markerItem.id,
+                            ),
+                            ...questTemplate
+                        });
+                    }
+                });
 
                 if (questItems.length === 0) {
                     return false;
@@ -114,7 +142,7 @@ function ItemTracker() {
                     <ItemGrid
                         key={`loot-group-${questData.questId}`}
                         name={questData.name || questData.questId}
-                        subtitle={Traders[questData.traderId].locale.en}
+                        subtitle={traders.find(trader => trader.id === questData.traderId).name}
                         items={questItems}
                         extraTitleProps={
                             <button
@@ -135,6 +163,7 @@ function ItemTracker() {
         questData,
         handleDoneClick,
         items,
+        traders,
         t,
     ]);
 
@@ -184,7 +213,7 @@ function ItemTracker() {
                         />
                     </label>
                     <label className={'filter-toggle-wrapper'}>
-                        <button onClick={() => setQuestData(quests.data)}>
+                        <button onClick={() => setQuestData(quests)}>
                             {t('Reset all tracking')}
                         </button>
                     </label>

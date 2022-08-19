@@ -66,11 +66,10 @@
     "test": "react-scripts test --env=jsdom",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "eject": "react-scripts eject",
-    "prebuild": "node scripts/get-version.js && node scripts/get-ammo-data.js && node scripts/get-traders.js && node scripts/get-quests.js && node scripts/update-props.js && node scripts/get-contributors.js && node scripts/build-sitemap.js && node scripts/build-guides.js && node scripts/generate-thumbnails.js",
+    "prebuild": "node scripts/get-version.js && node scripts/update-props.js && node scripts/get-contributors.js && node scripts/build-sitemap.js && node scripts/build-guides.js && node scripts/generate-thumbnails.js",
     "postbuild": "node scripts/build-redirects.js && node scripts/critical.js",
     "stage": "npx rimraf build && npm run build && npm run preview",
     "preview": "npx serve build -l 3001 -s",
-    "get-quests": "node scripts/get-quests.js",
     "critical": "node scripts/critical.js"
   },
   "eslintConfig": {

@@ -1,4 +1,4 @@
-import calculateFee from '../../modules/flea-market-fee';
+import fleaMarketFee from '../../modules/flea-market-fee';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes';
 import { langCode } from '../../modules/lang-helpers';
 
@@ -6,7 +6,7 @@ const NOTES = {
     '60a2828e8689911a226117f9': `Can't store Pillbox, Day Pack, LK 3F or MBSS inside`,
 };
 
-const doFetchItems = async () => {
+const doFetchItems = async (meta) => {
 
     // Get the user selected language
     const language = await langCode();
@@ -116,15 +116,13 @@ const doFetchItems = async () => {
                         penetrationPower
                         armorDamage
                         fragmentationChance
+                        ammoType
                     }
                     ...on ItemPropertiesArmor {
                         class
                         material {
                             id
                             name
-                            destructibility
-                            minRepairDegradation
-                            maxRepairDegradation
                         }
                         zones
                         durability
@@ -137,9 +135,6 @@ const doFetchItems = async () => {
                         material {
                             id
                             name
-                            destructibility
-                            minRepairDegradation
-                            maxRepairDegradation
                         }
                         headZones
                         durability
@@ -152,6 +147,20 @@ const doFetchItems = async () => {
                         grids {
                             width
                             height
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
                         }
                     }
                     ...on ItemPropertiesChestRig {
@@ -160,9 +169,6 @@ const doFetchItems = async () => {
                         material {
                             id
                             name
-                            destructibility
-                            minRepairDegradation
-                            maxRepairDegradation
                         }
                         zones
                         durability
@@ -172,10 +178,42 @@ const doFetchItems = async () => {
                         grids {
                             width
                             height
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
                         }
                     }
                     ...on ItemPropertiesContainer {
                         capacity
+                        grids {
+                            width
+                            height
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
+                        }
                     }
                     ...on ItemPropertiesFoodDrink {
                         energy
@@ -189,9 +227,6 @@ const doFetchItems = async () => {
                         material {
                             id
                             name
-                            destructibility
-                            minRepairDegradation
-                            maxRepairDegradation
                         }
                     }
                     ...on ItemPropertiesGrenade {
@@ -205,9 +240,6 @@ const doFetchItems = async () => {
                         material {
                             id
                             name
-                            destructibility
-                            minRepairDegradation
-                            maxRepairDegradation
                         }
                         headZones
                         durability
@@ -216,6 +248,7 @@ const doFetchItems = async () => {
                         turnPenalty
                         deafening
                         blocksHeadset
+                        ricochetY
                         slots {
                             filters {
                                 allowedCategories {
@@ -306,6 +339,22 @@ const doFetchItems = async () => {
                         defaultRecoilVertical
                         defaultRecoilHorizontal
                         defaultWeight
+                        slots {
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
+                        }
                     }
                     ...on ItemPropertiesWeaponMod {
                         ergonomics
@@ -333,7 +382,7 @@ const doFetchItems = async () => {
         }`,
     });
 
-    const [itemData, itemGrids, itemProps] = await Promise.all([
+    const [itemData, itemGrids] = await Promise.all([
         fetch('https://api.tarkov.dev/graphql', {
             method: 'POST',
             headers: {
@@ -345,38 +394,37 @@ const doFetchItems = async () => {
         fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`).then(
             (response) => response.json(),
         ),
-        fetch(`${process.env.PUBLIC_URL}/data/item-props.min.json`).then(
-            (response) => response.json(),
-        ),
     ]);
 
     const allItems = itemData.data.items.map((rawItem) => {
         let grid = false;
 
-        rawItem.itemProperties = itemProps[rawItem.id]?.itemProperties || {};
-        rawItem.linkedItems = itemProps[rawItem.id]?.linkedItems || {};
-
-        if (itemProps[rawItem.id]?.hasGrid) {
-            let gridPockets = [
+        if (rawItem.properties?.grids) {
+            let gridPockets = [];
+            for (const grid of rawItem.properties.grids) {
+                gridPockets.push({
+                    row: gridPockets.length,
+                    col: 0,
+                    width: grid.width,
+                    height: grid.height,
+                });
+            }
+            /*let gridPockets = [
                 {
                     row: 0,
                     col: 0,
-                    width: rawItem.itemProperties.grid.pockets[0].width,
-                    height:
-                        rawItem.itemProperties.grid.totalSize /
-                        rawItem.itemProperties.grid.pockets[0].width,
+                    width: rawItem.properties.grids[0].width,
+                    height: rawItem.properties.grids[0].height,
                 },
-            ];
+            ];*/
 
             if (itemGrids[rawItem.id]) {
                 gridPockets = itemGrids[rawItem.id];
             }
 
             grid = {
-                height:
-                    rawItem.itemProperties.grid.totalSize /
-                    rawItem.itemProperties.grid.pockets[0].width,
-                width: rawItem.itemProperties.grid.pockets[0].width,
+                height: rawItem.properties.grids[0].height,
+                width: rawItem.properties.grids[0].width,
                 pockets: gridPockets,
             };
 
@@ -399,10 +447,6 @@ const doFetchItems = async () => {
             return a.priceRUB - b.priceRUB;
         });
 
-        if (!Array.isArray(rawItem.linkedItems)) {
-            rawItem.linkedItems = [];
-        }
-
         rawItem.sellFor = rawItem.sellFor.map((sellPrice) => {
             return {
                 ...sellPrice,
@@ -417,52 +461,26 @@ const doFetchItems = async () => {
             };
         });
 
-        if (rawItem.itemProperties.defAmmo) {
-            rawItem.defAmmo = rawItem.itemProperties.defAmmo;
-
-            delete rawItem.itemProperties.defAmmo;
-        }
-
-        if (rawItem.itemProperties.InitialSpeed) {
-            rawItem.initialSpeed = rawItem.itemProperties.InitialSpeed;
-
-            delete rawItem.itemProperties.InitialSpeed;
-        }
-
-        if (rawItem.itemProperties.CenterOfImpact) {
-            rawItem.centerOfImpact = rawItem.itemProperties.CenterOfImpact;
-
-            delete rawItem.itemProperties.CenterOfImpact;
-        }
-
-        if (rawItem.itemProperties.SightingRange) {
-            rawItem.itemProperties.sightingRange =
-                rawItem.itemProperties.SightingRange;
-
-            delete rawItem.itemProperties.SightingRange;
-        }
-
-        if (rawItem.properties?.slots) {
-            for (const slot of rawItem.properties.slots) {
+        const container = rawItem.properties?.slots || rawItem.properties?.grids;
+        if (container) {
+            for (const slot of container) {
                 slot.filters.allowedCategories = slot.filters.allowedCategories.map(cat => cat.id);
                 slot.filters.allowedItems = slot.filters.allowedItems.map(it => it.id);
                 slot.filters.excludedCategories = slot.filters.excludedCategories.map(cat => cat.id);
                 slot.filters.excludedItems = slot.filters.excludedItems.map(it => it.id);
             }
         }
+        rawItem.categoryIds = rawItem.categories.map(cat => cat.id);
 
         return {
             ...rawItem,
-            fee: calculateFee(rawItem.basePrice, rawItem.lastLowPrice),
+            fee: fleaMarketFee(rawItem.basePrice, rawItem.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
             fallbackImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
             slots: rawItem.width * rawItem.height,
             // iconLink: `https://assets.tarkov.dev/${rawItem.id}-icon.jpg`,
             iconLink: rawItem.iconLink,
             grid: grid,
             notes: NOTES[rawItem.id],
-            canHoldItems: itemProps[rawItem.id]?.canHoldItems,
-            equipmentSlots: itemProps[rawItem.id]?.slots || [],
-            allowedAmmoIds: itemProps[rawItem.id]?.allowedAmmoIds,
             properties: {
                 weight: rawItem.weight,
                 ...rawItem.properties

@@ -267,8 +267,11 @@ function BartersTable(props) {
                         return sellForObject;
                     },
                     {
-                        source: 'unknown',
-                        price: 0,
+                        vendor: {
+                            name: 'unkonwn',
+                            normalizedName: 'unknown'
+                        },
+                        priceRUB: 0,
                     },
                 );
 

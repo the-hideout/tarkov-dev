@@ -28,24 +28,24 @@ const getQuestList = (questList, t) => {
                     )}
                     {questList.map((questData) => {
                         return (
-                            <tr key={`quest-list-${questData.name}`}>
+                            <tr key={`quest-list-${questData.id}`}>
                                 <td>
                                     <div className="quest-link-wrapper">
                                         <Link
-                                            to={`/traders/${questData.giver.locale.en.toLowerCase()}`}
+                                            to={`/traders/${questData.trader.normalizedName}`}
                                         >
                                             <img
-                                                alt={questData.giver.locale.en}
+                                                alt={questData.trader.name}
                                                 loading="lazy"
                                                 className="quest-giver-image"
                                                 src={`${
                                                     process.env.PUBLIC_URL
-                                                }/images/${questData.giver.locale.en.toLowerCase()}-icon.jpg`}
+                                                }/images/${questData.trader.normalizedName}-icon.jpg`}
                                             />
                                         </Link>
                                         <a
                                             className="quest-name-wrapper"
-                                            href={`https://tarkovtracker.io/quest/${questData.id}/`}
+                                            href={`https://tarkovtracker.io/quest/${questData.tarkovDataId}/`}
                                         >
                                             <div>{questData.name}</div>
                                         </a>
@@ -53,7 +53,7 @@ const getQuestList = (questList, t) => {
                                 </td>
                                 <td>
                                     <QuestItemsCell
-                                        questItems={questData.objectives}
+                                        questItems={questData.neededItems}
                                     />
                                 </td>
                             </tr>

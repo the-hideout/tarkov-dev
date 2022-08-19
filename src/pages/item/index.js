@@ -23,11 +23,12 @@ import ItemSearch from '../../components/item-search';
 import { Filter, ToggleFilter } from '../../components/filter';
 import ContainedItemsList from '../../components/contained-items-list';
 
+import { useMetaQuery } from '../../features/meta/queries';
+import { useQuestsQuery } from '../../features/quests/queries';
+
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
 import bestPrice from '../../modules/best-price';
-
-import Quests from '../../Quests';
 
 import './index.css';
 import {
@@ -83,38 +84,63 @@ function Item() {
     //  queries all items via graphql and then searches for said item.
     //  This is slow and does a lot of extra processing that is not needed
     const { data: currentItemByIdData } = useItemByIdQuery(itemName);
+    const { data: meta } = useMetaQuery();
+    const { data: quests } = useQuestsQuery();
 
     let currentItemData = currentItemByNameData;
 
     const itemQuests = useMemo(() => {
-        return Quests.filter((questData) => {
-            const requiresItem = questData.objectives.find((objectiveData) => {
-                return objectiveData.targetId === currentItemData?.id;
+        return quests.filter((questData) => {
+            return questData.objectives.some((objectiveData) => {
+                if (!currentItemData) return false;
+                return objectiveData.item?.id === currentItemData?.id ||
+                    objectiveData.containsAll?.some(part => part.id === currentItemData?.id) ||
+                    objectiveData.markerItem?.id === currentItemData?.id;
             });
-
-            if (!requiresItem) {
-                return false;
-            }
-
-            return true;
         }).map((questData) => {
             const questDataCopy = {
                 ...questData,
+                neededItems: []
             };
-            questDataCopy.objectives = questDataCopy.objectives.filter(
-                ({ targetId }) => targetId === currentItemData?.id,
-            );
-
-            questDataCopy.objectives.forEach((objectiveData) => {
-                if (objectiveData.targetId === currentItemData?.id) {
-                    objectiveData.iconLink = currentItemData.iconLink;
-                    objectiveData.name = currentItemData.name;
-                }
+            questDataCopy.objectives = questDataCopy.objectives.filter(objectiveData => {
+                return objectiveData.item?.id === currentItemData?.id ||
+                    objectiveData.containsAll?.some(part => part.id === currentItemData?.id) ||
+                    objectiveData.markerItem?.id === currentItemData?.id;
             });
 
+            const objectiveInfo = {
+                iconLink: currentItemData?.iconLink,
+                name: currentItemData?.name,
+                count: 0,
+                foundInRaid: false
+            };
+            questData.objectives.forEach((objectiveData) => {
+                if (objectiveData.item?.id === currentItemData?.id && (objectiveData.type === 'giveItem' || objectiveData.type === 'plantItem')) {
+                    objectiveInfo.count += objectiveData.count;
+                    objectiveInfo.foundInRaid = objectiveInfo.foundInRaid || objectiveData.foundInRaid;
+                }
+                if (objectiveData.markerItem?.id === currentItemData?.id) {
+                    objectiveInfo.count++;
+                }
+                if (objectiveData.containsAll?.some(part => part.id === currentItemData?.id)) {
+                    objectiveData.containsAll.forEach(part => {
+                        if (!part.id === currentItemData?.id) return;
+                        objectiveInfo.count++;
+                    });
+                }
+            });
+            if (objectiveInfo.count > 0) questDataCopy.neededItems.push(objectiveInfo);
             return questDataCopy;
         });
-    }, [currentItemData]);
+    }, [currentItemData, quests]);
+    
+    currentItemData = useMemo(() => {
+        if (!currentItemData || !currentItemData.bestPrice) return currentItemData;
+        return {
+            ...currentItemData,
+            ...bestPrice(currentItemData, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
+        };
+    }, [meta, currentItemData]);
 
     // if the name we got from the params are the id of the item, redirect
     // to a nice looking path
@@ -141,17 +167,17 @@ function Item() {
         return <ErrorPage />;
     }
 
-    if (!currentItemData.bestPrice) {
+    /*if (!currentItemData.bestPrice) {
         currentItemData = {
             ...currentItemData,
-            ...bestPrice(currentItemData),
+            ...bestPrice(currentItemData, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
         };
-    }
+    }*/
 
     const traderIsBest =
         currentItemData.traderPriceRUB >
         currentItemData.lastLowPrice -
-            fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice)
+            fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate)
             ? true
             : false;
     const useFleaPrice =
@@ -175,6 +201,9 @@ function Item() {
                               fleaFee(
                                     currentItemData.basePrice,
                                     currentItemData.lastLowPrice,
+                                    1, 
+                                    meta?.flea?.sellOfferFeeRate, 
+                                    meta?.flea?.sellRequirementFeeRate
                               ),
                           )
                         : formatPrice(currentItemData.bestPriceFee)}
@@ -189,6 +218,9 @@ function Item() {
                                   fleaFee(
                                         currentItemData.basePrice,
                                         currentItemData.lastLowPrice,
+                                        1, 
+                                        meta?.flea?.sellOfferFeeRate, 
+                                        meta?.flea?.sellRequirementFeeRate
                                   ),
                           )
                         : formatPrice(
@@ -222,6 +254,9 @@ function Item() {
                                   fleaFee(
                                         currentItemData.basePrice,
                                         currentItemData.lastLowPrice,
+                                        1, 
+                                        meta?.flea?.sellOfferFeeRate, 
+                                        meta?.flea?.sellRequirementFeeRate
                                   ),
                               )
                             : formatPrice(currentItemData.bestPriceFee)}
@@ -236,6 +271,9 @@ function Item() {
                                       fleaFee(
                                             currentItemData.basePrice,
                                             currentItemData.lastLowPrice,
+                                            1, 
+                                            meta?.flea?.sellOfferFeeRate, 
+                                            meta?.flea?.sellRequirementFeeRate
                                       ),
                               )
                             : formatPrice(
@@ -304,7 +342,7 @@ function Item() {
                                 </a>
                             </span>
                         )}
-                        {currentItemData.canHoldItems && (
+                        {(currentItemData.properties?.grids || currentItemData.properties?.slots) && (
                             <ContainedItemsList item={currentItemData} />
                         )}
                     </div>

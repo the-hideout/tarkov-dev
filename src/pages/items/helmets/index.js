@@ -19,28 +19,7 @@ import {
     useItemsQuery,
     useItemsWithTypeQuery,
 } from '../../../features/items/queries';
-
-const materialDestructabilityMap = {
-    Aramid: 0.25,
-    Combined: 0.5,
-    UHMWPE: 0.45,
-    Titan: 0.55,
-    Aluminium: 0.6,
-    ArmoredSteel: 0.7,
-    Ceramic: 0.8,
-    Glass: 0.8,
-};
-
-const materialRepairabilityMap = {
-    Aramid: 4,
-    Combined: 3,
-    UHMWPE: 6,
-    Titan: 4,
-    Aluminium: 4,
-    ArmoredSteel: 5,
-    Ceramic: 2,
-    Glass: 1,
-};
+import { useMetaQuery } from '../../../features/meta/queries';
 
 const ricochetMap = (ricochetCoefficient) => {
     if (ricochetCoefficient < 0.2) {
@@ -111,7 +90,22 @@ function Helmets(props) {
     };
     const { data: items } = useItemsQuery();
     const { data: displayItems } = useItemsWithTypeQuery('helmet');
+    const { data: meta } = useMetaQuery();
     const { t } = useTranslation();
+
+    const { materialDestructibilityMap, materialRepairabilityMap } = useMemo(
+        () => {
+            const destruct = {};
+            const repair = {};
+            if (!meta?.armor) return {materialDestructibilityMap: destruct, materialRepairabilityMap: repair };
+            meta.armor.forEach(armor => {
+                destruct[armor.id] = armor.destructibility;
+                repair[armor.id] = (100-Math.round((armor.minRepairDegradation + armor.maxRepairDegradation)/2*100));
+            });
+            return {materialDestructibilityMap: destruct, materialRepairabilityMap: repair };
+        },
+        [meta]
+    );
 
     const columns = useMemo(
         () => [
@@ -267,12 +261,12 @@ function Helmets(props) {
                             : 'No',
                         maxDurability: item.properties.durability,
                         ricochetChance: ricochetMap(
-                            item.itemProperties.RicochetParams?.x,
+                            item.properties?.ricochetY,
                         ),
-                        repairability: (100-Math.round((item.properties.material?.minRepairDegradation + item.properties.material?.maxRepairDegradation)/2*100)),
+                        repairability: materialRepairabilityMap[item.properties.material?.id],
                         effectiveDurability: Math.floor(
                             item.properties.durability /
-                                materialDestructabilityMap[
+                                materialDestructibilityMap[
                                     item.properties.material?.id
                                 ],
                         ),
@@ -283,15 +277,13 @@ function Helmets(props) {
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
                         wikiLink: item.wikiLink,
                         itemLink: `/item/${item.normalizedName}`,
-                        //subRows: item.linkedItems.map((linkedItemId) => {
                         subRows: items.filter(linkedItem => {
                             if (!item.properties?.slots) return false;
-                            const cats = linkedItem.categories.map(cat => cat.id);
                             for (const slot of item.properties.slots) {
-                                const included = cats.some(catId => slot.filters.allowedCategories.includes(catId)) ||
-                                    slot.filters.allowedItems.includes(linkedItem.id);
-                                const excluded = cats.some(catId => slot.filters.excludedCategories.includes(catId)) ||
-                                    slot.filters.excludedItems.includes(linkedItem.id);
+                                const included = slot.filters.allowedItems.includes(linkedItem.id) ||
+                                    linkedItem.categoryIds.some(catId => slot.filters.allowedCategories.includes(catId));
+                                const excluded = slot.filters.excludedItems.includes(linkedItem.id) ||
+                                    linkedItem.categoryIds.some(catId => slot.filters.excludedCategories.includes(catId));
                                 if (included && !excluded) return true;
                             }
                             return false;
@@ -316,12 +308,12 @@ function Helmets(props) {
                                 maxDurability:
                                     linkedItem.properties.durability,
                                 ricochetChance: ricochetMap(
-                                    linkedItem.itemProperties.RicochetParams?.x,
+                                    linkedItem.properties?.ricochetY,
                                 ),
-                                repairability: (100-Math.round((linkedItem.properties.material?.minRepairDegradation + linkedItem.properties.material?.maxRepairDegradation)/2*100)),
+                                repairability: materialRepairabilityMap[linkedItem.properties.material?.id],
                                 effectiveDurability: Math.floor(
                                     linkedItem.properties.durability /
-                                        materialDestructabilityMap[
+                                        materialDestructibilityMap[
                                             linkedItem.properties.material?.id
                                         ],
                                 ),
@@ -337,7 +329,7 @@ function Helmets(props) {
                     };
                 })
                 .filter(Boolean),
-        [minArmorClass, includeBlockingHeadset, maxPrice, displayItems, items],
+        [minArmorClass, includeBlockingHeadset, maxPrice, displayItems, items, materialDestructibilityMap, materialRepairabilityMap],
     );
 
     return [

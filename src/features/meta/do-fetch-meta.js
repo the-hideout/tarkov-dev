@@ -10,16 +10,24 @@ const doFetchMeta = async () => {
                 enabled
                 minPlayerLevel
                 sellOfferFeeRate
-                sellREquirementFeeRate
+                sellRequirementFeeRate
             }
             armorMaterials(lang: ${language}) {
                 id
                 name
-                destructability
-                minRepairDegredation
-                maxRepairDegredation
-                minRepairKitDegredation
-                maxRepairKitDegredation
+                destructibility
+                minRepairDegradation
+                maxRepairDegradation
+                minRepairKitDegradation
+                maxRepairKitDegradation
+            }
+            itemCategories(lang: ${language}) {
+                id
+                name
+                normalizedName
+                parent {
+                    id
+                }
             }
         }`,
     });
@@ -34,8 +42,8 @@ const doFetchMeta = async () => {
     });
 
     const metaData = await response.json();
-
-    return {flea: metaData.data.traders, armor: metaData.data.armorMaterials};
+//console.log(metaData.data.fleaMarket);
+    return {flea: metaData.data.fleaMarket, armor: metaData.data.armorMaterials, categories: metaData.data.itemCategories};
 };
 
 export default doFetchMeta;
