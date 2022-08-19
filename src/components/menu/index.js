@@ -55,10 +55,6 @@ const Menu = () => {
                     size={1}
                     className="mobile-icon"
                     onClick={handleMenuClick}
-                    style={{
-                        marginRight: 0,
-                        marginLeft: 20,
-                    }}
                 />
                 <Link className="branding" to="/">
                     {/* Tarkov.dev */}
@@ -67,7 +63,7 @@ const Menu = () => {
                         height={30}
                         width={186}
                         src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.svg`}
-                        style={{ marginTop: 5, marginBottom: 5 }}
+                        class={'logo-padding'}
                         loading="lazy"
                     />
                 </Link>

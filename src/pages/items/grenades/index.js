@@ -64,7 +64,7 @@ function Grenades() {
                 traderPrice
             />
 
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper items-page-wrapper">
                 <p>
                     {"There are only a handful distinct types of grenades that may be thrown or launched in Escape from Tarkov, and each one has a unique effect: flash, smokes, high explosive, and fragmentation."}
                     <br/>

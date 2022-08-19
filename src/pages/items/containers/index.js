@@ -48,7 +48,7 @@ function Containers(props) {
                 showNetPPS={showNetPPS}
             />
 
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper items-page-wrapper">
                 <p>
                     {"As their name implies, containers in Escape from Tarkov are items used to hold other things. Some of these items are used to clear up inventory space by acting as storage and taking up less inventory slots however some of them cannot be equipped on the character."}
                 </p>

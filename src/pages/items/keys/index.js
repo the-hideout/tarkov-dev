@@ -63,7 +63,7 @@ function Keys() {
                 traderValue
             />
 
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper items-page-wrapper">
                 <p>
                     {"Maps, keys, key cards, and other useful objects are included in intelligence items. These will help you stay one step ahead of the competition—or at the very least, know where you are in Escape from Tarkov."}
                     <br/>

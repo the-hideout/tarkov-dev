@@ -262,7 +262,7 @@ function Backpacks(props) {
                 autoResetSortBy={false}
             />
 
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper items-page-wrapper">
                 <p>
                     {"When it comes to carrying and storing ammunition and magazines during your excursions in Escape from Tarkov, chest rigs are crucial. Some even provide you with additional security."}
                 </p>

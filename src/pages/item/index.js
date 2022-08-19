@@ -277,12 +277,7 @@ function Item() {
                 <div className="main-information-grid">
                     <div className="item-information-wrapper">
                         <h1>
-                            <div
-                                style={{
-                                    fontSize: 36,
-                                    fontWeight: 'bold',
-                                }}
-                            >
+                            <div className={'item-font'}>
                                 {currentItemData.name}
                             </div>
                             <img
@@ -645,7 +640,7 @@ function Item() {
                         </div>
                     </>
                 )}
-                <h2 style={{ marginTop: 10 }}>{t('Stats')}</h2>
+                <h2 className='item-h2'>{t('Stats')}</h2>
                 <PropertyList properties={currentItemData.properties} />
                 <>
                     <div className="item-barters-headline-wrapper">

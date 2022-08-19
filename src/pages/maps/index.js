@@ -44,7 +44,7 @@ function Maps() {
                     );
                 })}
             </div>
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper map-page-wrapper">
                 <p>
                     {"There are 12 different locations on the Escape from Tarkov map, of which 8 have been released publicly so far. Although eventually all maps will be connected, they are currently all apart from one another."}
                 </p>

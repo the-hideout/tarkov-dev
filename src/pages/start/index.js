@@ -336,10 +336,7 @@ function Start() {
                     </li>
                 </ul>
             </div>
-            <div style={{
-                textAlign: 'center',
-                width: '100%',
-            }}>
+            <div className='info-text-wrapper'>
                 <Link className="branding" to="/">
                     <img
                         alt="Tarkov.dev"
@@ -347,15 +344,11 @@ function Start() {
                         width={186}
                         loading="lazy"
                         src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.svg`}
-                        style={{ marginTop: '2.5rem' }}
+                        className='main-logo'
                     />
                 </Link>
-                <h1 style={
-                    { fontSize: '1.3rem', marginTop: '1.0rem', marginBottom: 0 }
-                }>tarkov.dev is an open source tool kit for Escape from Tarkov.</h1>
-                <h2 style={
-                    { fontSize: '1.1rem', marginTop: '1.0rem', marginBottom: 0 }
-                }>It is designed and maintained by the community to help you with quests, flea market trading, and improving your game! The API is also freely available for you to build your own tools and services related to EFT.</h2>
+                <h1 className='main-h1 main-headers'>tarkov.dev is an open source tool kit for Escape from Tarkov.</h1>
+                <h2 className='main-h2 main-headers'>It is designed and maintained by the community to help you with quests, flea market trading, and improving your game! The API is also freely available for you to build your own tools and services related to EFT.</h2>
             </div>
         </div>,
     ];

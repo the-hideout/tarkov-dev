@@ -10,6 +10,8 @@ import Traders from '../../data/traders.json';
 import quests from '../../data/quests.json';
 import { useItemsQuery } from '../../features/items/queries';
 
+import './index.css';
+
 function ItemTracker() {
     const [questData, setQuestData] = useStateWithLocalStorage(
         'quests',
@@ -148,11 +150,7 @@ function ItemTracker() {
             />
         </Helmet>,
         <div
-            className="display-wrapper"
-            style={{
-                backgroundColor: '#000',
-                height: 'auto',
-            }}
+            className="display-wrapper item-tracker-wrapper"
             key={'display-wrapper'}
         >
             <div className="item-group-wrapper filter-wrapper">

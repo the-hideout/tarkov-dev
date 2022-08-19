@@ -120,7 +120,7 @@ function Barters() {
                 removeDogtags={hideDogtags}
             />
 
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
+            <div className="page-wrapper barters-page-wrapper">
                 <p>
                     {"Except for Fence, every trader in Escape from Tarkov offers goods by barter rather than for purchase outright."}<br/>
                     <br/>
