@@ -63,7 +63,7 @@ function TraderPriceCell(props) {
 
     if (questLocked) {
         printString = (
-            <>
+            <div>
                 {printString}
                 <Tippy content={t('Locked behind a quest')}>
                     <div className="trader-unlock-wrapper">
@@ -77,18 +77,18 @@ function TraderPriceCell(props) {
                         ))} ${loyaltyString}`}</span>
                     </div>
                 </Tippy>
-            </>
+            </div>
         );
     } else {
         printString = (
-            <>
+            <div>
                 {printString}
                 <div className="trader-unlock-wrapper">
                     {`${t(capitalizeTheFirstLetterOfEachWord(
                         trader.source,
                     ))} ${loyaltyString}`}
                 </div>
-            </>
+            </div>
         );
     }
 

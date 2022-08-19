@@ -40,13 +40,13 @@ function BarterToolip({ source, requiredItems }) {
                             iconLink={`https://assets.tarkov.dev/${requiredItem.item.id}-icon.jpg`}
                         />
                         <div className="cost-barter-details-wrapper">
-                            <>
+                            <div>
                                 <Link
                                     to={`/item/${requiredItem.item.normalizedName}`}
                                 >
                                     {requiredItem.item.name}
                                 </Link>
-                            </>
+                            </div>
                             <div className="price-wrapper">
                                 <img
                                     alt={t('Barter')}

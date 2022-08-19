@@ -22,11 +22,11 @@ function RewardCell({
         <div className="reward-wrapper">
             <RewardImage count={count} iconLink={iconLink} />
             <div className="reward-info-wrapper">
-                <>
+                <div>
                     <Link className="reward-item-title" to={itemLink}>
                         {name}
                     </Link>
-                </>
+                </div>
                 <div className="source-wrapper">{source}</div>
                 <div className="price-wrapper">
                     {formatPrice(value)} <span>@</span> {sellTo}

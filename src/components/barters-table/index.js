@@ -395,21 +395,21 @@ function BartersTable(props) {
 
     if (data.length <= 0 && skippedByLevelRef.current) {
         extraRow = (
-            <>
+            <div>
                 {t(
                     'No barters available for selected filters but some were hidden by ',
                 )}
                 <Link to="/settings/">{t('your settings')}</Link>
-            </>
+            </div>
         );
     }
 
     if (data.length > 0 && skippedByLevelRef.current) {
         extraRow = (
-            <>
+            <div>
                 {t('Some barters hidden by ')}
                 <Link to="/settings/">{t('your settings')}</Link>
-            </>
+            </div>
         );
     }
 
