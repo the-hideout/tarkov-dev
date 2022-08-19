@@ -64,9 +64,9 @@ function ItemsForHideout(props) {
     // Visual rendering section
 
     // if (data.length <= 0) {
-    //     return <>
+    //     return <div>
     //         {t('None')}
-    //     </>
+    //     </div>
     // }
 
     let extraRow = false;

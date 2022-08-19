@@ -240,7 +240,7 @@ function Settings() {
             </div>
             {/* cheeki breeki */}
             <>
-                <button className='cheeki-breeki-button' onClick={handleClick}>cheeki breeki</button>
+                <button style={{padding: '.2rem', borderRadius: '4px'}} onClick={handleClick}>cheeki breeki</button>
                 {isShown && (
                     <div className='cheeki-breeki'>
                         <motion.div
@@ -290,7 +290,7 @@ function Settings() {
                         {/* end cheeki breeki */}
                     </div>
                 )}
-            </>
+            </div>
         </div>
     );
 }
