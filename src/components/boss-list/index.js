@@ -2,7 +2,6 @@ import { useQuery } from 'react-query';
 import doFetchBosses from '../../features/bosses/do-fetch-bosses';
 import formatBossData from '../../modules/format-boss-data';
 import { Link } from 'react-router-dom';
-import 'tippy.js/dist/tippy.css'; // optional
 import './index.css';
 
 export const useBossesQuery = (queryOptions) => {
@@ -35,7 +34,7 @@ function BossList() {
                 return (
                     <li key={`boss-link-${key}`}>
                         <Link to={`/boss/${key}`}>
-                            <img 
+                            <img
                                 alt={bossData.name}
                                 loading='lazy'
                                 className="boss-icon"
