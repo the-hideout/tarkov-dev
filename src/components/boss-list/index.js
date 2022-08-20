@@ -23,12 +23,32 @@ function BossList() {
         return 'Loading...';
     }
 
+    var duplicateCheck = [];
+    var bossArray = [];
+    for (const map of bosses.maps) {
+        for (const boss of map.bosses) {
+            if (!duplicateCheck.includes(boss.name)) {
+                bossArray.push(boss);
+                duplicateCheck.push(boss.name);
+            } 
+        }
+    }
+
     return (
         <>
-            {bosses.maps.map((bossData) => {
+            {bossArray.map((bossData) => {
+
+                var key = bossData.name.toLowerCase().replace(/ /g, '-');
+
                 return (
-                    <li key={`boss-link-${bossData.id}`}>
-                        <Link to={`/boss/${bossData.name}`}>
+                    <li key={`boss-link-${key}`}>
+                        <Link to={`/boss/${key}`}>
+                            <img 
+                                alt={bossData.name}
+                                loading='lazy'
+                                className="boss-icon"
+                                src={`https://assets.tarkov.dev/${key}.jpg`}
+                            />
                             {bossData.name}
                         </Link>
                     </li>

@@ -347,7 +347,7 @@ function Start() {
                         {t('Bosses')}
                     </Link>
                 </h3>
-                <ul>
+                <ul className="traders-list">
                     <Suspense fallback={renderLoader()}>
                         <BossList />
                     </Suspense>
