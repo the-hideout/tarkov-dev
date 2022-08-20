@@ -27,7 +27,7 @@ import ContainedItemsList from '../../components/contained-items-list';
 
 import { useMetaQuery } from '../../features/meta/queries';
 import { useQuestsQuery } from '../../features/quests/queries';
-import { useBartersQuery } from '../../features/barters/bartersSlice';
+import { selectAllBarters, fetchBarters, } from '../../features/barters/bartersSlice';
 import { useHideoutQuery } from '../../features/hideout/queries';
 import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
 
@@ -91,13 +91,33 @@ function Item() {
     const { data: currentItemByIdData } = useItemByIdQuery(itemName);
     const { data: meta } = useMetaQuery();
     const { data: quests } = useQuestsQuery();
-    const { data: barters } = useBartersQuery();
     const { data: hideout } = useHideoutQuery();
     const dispatch = useDispatch();
+    const barters = useSelector(selectAllBarters);
+    const bartersStatus = useSelector((state) => {
+        return state.barters.status;
+    });
     const crafts = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
         return state.crafts.status;
     });
+
+    useEffect(() => {
+        let timer = false;
+        if (bartersStatus === 'idle') {
+            dispatch(fetchBarters());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchBarters());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [bartersStatus, dispatch]);
 
     useEffect(() => {
         let timer = false;
