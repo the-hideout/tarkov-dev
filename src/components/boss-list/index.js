@@ -47,7 +47,7 @@ function BossList() {
                                 alt={bossData.name}
                                 loading='lazy'
                                 className="boss-icon"
-                                src={`https://assets.tarkov.dev/${key}.jpg`}
+                                src={`https://assets.tarkov.dev/${key}-icon.jpg`}
                             />
                             {bossData.name}
                         </Link>
