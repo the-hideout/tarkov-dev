@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 import doFetchBosses from '../../features/bosses/do-fetch-bosses';
+import formatBossData from '../../modules/format-boss-data';
 import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css'; // optional
 import './index.css';
@@ -23,16 +24,7 @@ function BossList() {
         return 'Loading...';
     }
 
-    var duplicateCheck = [];
-    var bossArray = [];
-    for (const map of bosses.maps) {
-        for (const boss of map.bosses) {
-            if (!duplicateCheck.includes(boss.name)) {
-                bossArray.push(boss);
-                duplicateCheck.push(boss.name);
-            } 
-        }
-    }
+    const bossArray = formatBossData(bosses);
 
     return (
         <>
