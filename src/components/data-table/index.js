@@ -171,7 +171,7 @@ function DataTable({
                     )}
                     <tr className="last-row" ref={ref} />
                 </tbody>
-                {sumColumns && (
+                {sumColumns && rows.length > 1 && (
                     <tfoot>
                         <tr>
                             {columns.map((col, colIndex) => (<th>{col.summable ? formatPrice(rows.map(row => {
