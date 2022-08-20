@@ -47,7 +47,7 @@ const getQuestList = (questList, t) => {
                                             className="quest-name-wrapper"
                                             href={`https://tarkovtracker.io/quest/${questData.tarkovDataId}/`}
                                         >
-                                            <div>{questData.name}</div>
+                                            <div>{questData.name + (questData.factionName !== 'Any' ? ` (${questData.factionName})` : '') }</div>
                                         </a>
                                     </div>
                                 </td>
