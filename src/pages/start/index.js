@@ -130,8 +130,8 @@ function Start() {
                     {t('Tools')}
                 </h3>
                 <ul className="tools-list">
-                    <li>
-                        <Link to="/ammo/" key={"ammo-page"}>
+                    <li key={"ammo-page"}>
+                        <Link to="/ammo/">
                             <Icon
                                 path={mdiAmmunition}
                                 size={1}
@@ -140,8 +140,8 @@ function Start() {
                             {t('Ammo Chart')}
                         </Link>
                     </li>
-                    <li>
-                        <Link to="/loot-tier/" key={"loot-tier-page"}>
+                    <li key={"loot-tier-page"}>
+                        <Link to="/loot-tier/">
                             <Icon
                                 path={mdiFinance}
                                 size={1}
@@ -150,8 +150,8 @@ function Start() {
                             {t('Loot tiers')}
                         </Link>
                     </li>
-                    <li>
-                        <Link to="/barters/" key={"barters-page"}>
+                    <li key={"barters-page"}>
+                        <Link to="/barters/">
                             <Icon
                                 path={mdiAccountSwitch}
                                 size={1}
@@ -160,8 +160,8 @@ function Start() {
                             {t('Barter trades')}
                         </Link>
                     </li>
-                    <li>
-                        <Link to="/hideout-profit/" key={"hideout-profit-page"}>
+                    <li key={"hideout-profit-page"}>
+                        <Link to="/hideout-profit/">
                             <Icon
                                 path={mdiProgressWrench}
                                 size={1}
@@ -170,7 +170,7 @@ function Start() {
                             {t('Hideout crafts')}
                         </Link>
                     </li>
-                    <li>
+                    <li key={'stash-bot-invite'}>
                         <a
                             href={DISCORD_STASH_INVITE_LINK}
                         >
@@ -182,8 +182,8 @@ function Start() {
                             {t('Discord bot')}
                         </a>
                     </li>
-                    <li>
-                        <Link to="/hideout" key={"hideout-page"}>
+                    <li key={"hideout-page"}>
+                        <Link to="/hideout">
                             <Icon
                                 path={mdiHome}
                                 size={1}
@@ -192,8 +192,8 @@ function Start() {
                             {t('Hideout build costs')}
                         </Link>
                     </li>
-                    <li>
-                        <Link to="/wipe-length" key={"wipe-length-page"}>
+                    <li key={"wipe-length-page"}>
+                        <Link to="/wipe-length">
                             <Icon
                                 path={mdiCalendarClock}
                                 size={1}
@@ -261,21 +261,83 @@ function Start() {
                     </Link>
                 </h3>
                 <ul className="traders-list">
-                    {traders?.map(trader=> {
-                        return (
-                            <li>
-                                <Link to={`/traders/${trader.normalizedName}`} key={'sidebar-'+trader.id}>
-                                    <img
-                                        alt={trader.name+' icon'}
-                                        className="trader-icon"
-                                        loading="lazy"
-                                        src={`${process.env.PUBLIC_URL}/images/${trader.normalizedName}-icon.jpg`}
-                                    />
-                                    {trader.name}
-                                </Link>
-                            </li>
-                        );
-                    })}
+                <li>
+                        <Link to={`/traders/prapor`}>
+                            <img
+                                alt="Prapor icon"
+                                className="trader-icon"
+                                loading="lazy"
+                                src={`${process.env.PUBLIC_URL}/images/prapor-icon.jpg`}
+                            />
+                            {t('Prapor')}
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={`/traders/therapist`}>
+                            <img
+                                alt="Therapist icon"
+                                className="trader-icon"
+                                loading="lazy"
+                                src={`${process.env.PUBLIC_URL}/images/therapist-icon.jpg`}
+                            />
+                            {t('Therapist')}
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={`/traders/skier`}>
+                            <img
+                                alt="Skier icon"
+                                className="trader-icon"
+                                loading="lazy"
+                                src={`${process.env.PUBLIC_URL}/images/skier-icon.jpg`}
+                            />
+                            {t('Skier')}
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={`/traders/peacekeeper`}>
+                            <img
+                                alt="Peacekeeper icon"
+                                className="trader-icon"
+                                loading="lazy"
+                                src={`${process.env.PUBLIC_URL}/images/peacekeeper-icon.jpg`}
+                            />
+                            {t('Peacekeeper')}
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={`/traders/mechanic`}>
+                            <img
+                                alt="Prapor icon"
+                                className="trader-icon"
+                                loading="lazy"
+                                src={`${process.env.PUBLIC_URL}/images/mechanic-icon.jpg`}
+                            />
+                            {t('Mechanic')}
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={`/traders/ragman`}>
+                            <img
+                                alt="Ragman icon"
+                                className="trader-icon"
+                                loading="lazy"
+                                src={`${process.env.PUBLIC_URL}/images/ragman-icon.jpg`}
+                            />
+                            {t('Ragman')}
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={`/traders/jaeger`}>
+                            <img
+                                alt="Jaeger icon"
+                                className="trader-icon"
+                                loading="lazy"
+                                src={`${process.env.PUBLIC_URL}/images/jaeger-icon.jpg`}
+                            />
+                            {t('Jaeger')}
+                        </Link>
+                    </li>
                 </ul>
             </div>
             <div className='info-text-wrapper'>

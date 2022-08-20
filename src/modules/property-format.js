@@ -20,6 +20,13 @@ const firingModeFormat = (inputString) => {
     }
 };
 
+const ignoreCategories = [
+    '54009119af1c881c07000029', // Item
+    '566162e44bdc2d3f298b4573', // Compound item
+    '5661632d4bdc2d903d8b456b', // Stackable item
+    '566168634bdc2d144c8b456c', // Searchable item
+];
+
 const ammoLinkFormat = (inputString) => {
     const formattedName = formatCaliber(inputString);
     return <Link to={`/ammo/${formattedName}`}>{formattedName}</Link>;
@@ -27,6 +34,10 @@ const ammoLinkFormat = (inputString) => {
 
 const itemLinkFormat = (inputItem) => {
     return <Link to={`/item/${inputItem.normalizedName}`}>{inputItem.name}</Link>;
+};
+
+const itemCategoryLinkFormat = inputCategory => {
+    return <Link to={`/items/${inputCategory.normalizedName}`}>{inputCategory.name}</Link>;
 };
 
 const formatter = (key, value) => {
@@ -113,6 +124,13 @@ const formatter = (key, value) => {
 
     if (key === 'baseItem') {
         return ['Base Item', itemLinkFormat(value)];
+    }
+
+    if (key === 'categories') {
+        return ['Categories', value?.map(category => {
+            if (ignoreCategories.includes(category.id)) return false;
+            return itemCategoryLinkFormat(category);
+        }).filter(Boolean).reduce((prev, curr) => [prev, ', ', curr])];
     }
 
     const displayKey = defaultFormat(key);

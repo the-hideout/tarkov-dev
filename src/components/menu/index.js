@@ -19,7 +19,6 @@ import mapData from '../../data/maps.json';
 import itemsData from '../../data/category-pages.json';
 
 import './index.css';
-import { useTradersQuery } from '../../features/traders/queries';
 
 // Comment / uncomment for banner alert
 // import MuiAlert from '@material-ui/lab/Alert';
@@ -37,8 +36,6 @@ const Menu = () => {
         setIsOpen(!isOpen);
     };
     const { t } = useTranslation();
-
-    const { data: traders } = useTradersQuery();
 
     return (
         <>
@@ -156,14 +153,41 @@ const Menu = () => {
                     <li className="submenu-wrapper">
                         <Link to="/traders">{t('Traders')}</Link>
                         <ul>
-                            {traders?.map(trader => (
-                                <MenuItem
-                                    displayText={trader.name}
-                                    key={`trader-${trader.normalizedName}`}
-                                    to={`/traders/${trader.normalizedName}`}
-                                    onClick={setIsOpen.bind(this, false)}
-                                />
-                            ))}
+                        <MenuItem
+                                displayText={t('Prapor')}
+                                to={`/traders/prapor`}
+                                onClick={setIsOpen.bind(this, false)}
+                            />
+                            <MenuItem
+                                displayText={t('Therapist')}
+                                to={`/traders/therapist`}
+                                onClick={setIsOpen.bind(this, false)}
+                            />
+                            <MenuItem
+                                displayText={t('Skier')}
+                                to={`/traders/skier`}
+                                onClick={setIsOpen.bind(this, false)}
+                            />
+                            <MenuItem
+                                displayText={t('Peacekeeper')}
+                                to={`/traders/peacekeeper`}
+                                onClick={setIsOpen.bind(this, false)}
+                            />
+                            <MenuItem
+                                displayText={t('Mechanic')}
+                                to={`/traders/mechanic`}
+                                onClick={setIsOpen.bind(this, false)}
+                            />
+                            <MenuItem
+                                displayText={t('Ragman')}
+                                to={`/traders/ragman`}
+                                onClick={setIsOpen.bind(this, false)}
+                            />
+                            <MenuItem
+                                displayText={t('Jaeger')}
+                                to={`/traders/jaeger`}
+                                onClick={setIsOpen.bind(this, false)}
+                            />
                         </ul>
                     </li>
                     <li className="submenu-wrapper">

@@ -20,6 +20,7 @@ const doFetchItems = async () => {
                 categories {
                     id
                     name
+                    normalizedName
                 }
                 name
                 shortName

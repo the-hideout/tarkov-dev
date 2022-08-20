@@ -772,7 +772,7 @@ function Item() {
                     </div>
                 )}
                 <h2 className='item-h2'>{t('Stats')}</h2>
-                <PropertyList properties={currentItemData.properties} />
+                <PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} />
                 {containsItems && (
                     <>
                         <h2>
