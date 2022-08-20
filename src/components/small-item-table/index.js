@@ -129,7 +129,8 @@ function SmallItemTable(props) {
         bsgCategoryFilter,
         showContainedItems,
         weight,
-        showNetPPS
+        showNetPPS,
+        sumColumns
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -542,6 +543,7 @@ function SmallItemTable(props) {
 
                     return 0;
                 },
+                summable: true
             });
         }
 
@@ -617,6 +619,7 @@ function SmallItemTable(props) {
                 accessor: (d) => Number(d.bestSell?.priceRUB),
                 Cell: traderSellCell,
                 id: 'traderPrice',
+                summable: true
             });
         }
 
@@ -828,6 +831,7 @@ function SmallItemTable(props) {
             maxItems={maxItems}
             nameFilter={nameFilter}
             autoScroll={autoScroll}
+            sumColumns={sumColumns}
         />
     );
 }

@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 // import {ReactComponent as ArrowIcon} from './Arrow.js';
 import ArrowIcon from './Arrow.js';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import formatPrice from '../../modules/format-price';
 
 import './index.css';
 
@@ -17,6 +18,7 @@ function DataTable({
     nameFilter,
     autoScroll,
     disableSortBy,
+    sumColumns,
 }) {
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
@@ -169,6 +171,17 @@ function DataTable({
                     )}
                     <tr className="last-row" ref={ref} />
                 </tbody>
+                {sumColumns && (
+                    <tfoot>
+                        <tr>
+                            {columns.map((col, colIndex) => (<th>{col.summable ? formatPrice(rows.map(row => {
+                                const val = row.cells[colIndex].value;
+                                if (isNaN(val)) return false;
+                                return val;
+                            }).filter(Boolean).reduce((previousValue, currentValue) => previousValue + currentValue, 0)) : ''}</th>))}
+                        </tr>
+                    </tfoot>
+                )}
             </table>
         </div>
     );

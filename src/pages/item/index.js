@@ -1,7 +1,7 @@
 import React, { Suspense, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import Icon from '@mdi/react';
@@ -29,7 +29,7 @@ import { useMetaQuery } from '../../features/meta/queries';
 import { useQuestsQuery } from '../../features/quests/queries';
 import { useBartersQuery } from '../../features/barters/bartersSlice';
 import { useHideoutQuery } from '../../features/hideout/queries';
-import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
+import { selectAllCrafts } from '../../features/crafts/craftsSlice';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
@@ -723,6 +723,7 @@ function Item() {
                                 fleaPrice
                                 barterPrice
                                 traderValue
+                                sumColumns
                             />
                         </Suspense>
                     </>
