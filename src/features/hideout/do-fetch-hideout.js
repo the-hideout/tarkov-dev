@@ -7,6 +7,7 @@ const doFetchHideout = async () => {
             hideoutStations(lang: ${language}) {
                 id
                 name
+                normalizedName
                 levels {
                     level
                         itemRequirements {

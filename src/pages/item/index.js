@@ -28,7 +28,7 @@ import ContainedItemsList from '../../components/contained-items-list';
 import { useMetaQuery } from '../../features/meta/queries';
 import { useQuestsQuery } from '../../features/quests/queries';
 import { selectAllBarters, fetchBarters, } from '../../features/barters/bartersSlice';
-import { useHideoutQuery } from '../../features/hideout/queries';
+import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
 import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
 
 import formatPrice from '../../modules/format-price';
@@ -91,7 +91,6 @@ function Item() {
     const { data: currentItemByIdData } = useItemByIdQuery(itemName);
     const { data: meta } = useMetaQuery();
     const { data: quests } = useQuestsQuery();
-    const { data: hideout } = useHideoutQuery();
     const dispatch = useDispatch();
     const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
@@ -100,6 +99,10 @@ function Item() {
     const crafts = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
         return state.crafts.status;
+    });
+    const hideout = useSelector(selectAllHideoutModules);
+    const hideoutStatus = useSelector((state) => {
+        return state.hideout.status;
     });
 
     useEffect(() => {
@@ -135,6 +138,23 @@ function Item() {
             clearInterval(timer);
         };
     }, [craftsStatus, dispatch]);
+
+    useEffect(() => {
+        let timer = false;
+        if (hideoutStatus === 'idle') {
+            dispatch(fetchHideout());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchHideout());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [hideoutStatus, dispatch]);
 
     let currentItemData = currentItemByNameData;
 
@@ -232,7 +252,7 @@ function Item() {
                     contained.item.containsItems.some(ci => ci.item.id === currentItemData.id)
             );
     });
-console.log(crafts);
+
     const hasCrafts = crafts.some(craft => {
         return craft.requiredItems.some(contained => contained.item.id === currentItemData.id) ||
             craft.rewardItems.some(contained => 

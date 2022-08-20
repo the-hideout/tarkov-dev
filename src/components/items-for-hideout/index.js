@@ -26,6 +26,7 @@ function ItemsForHideout(props) {
                         return {
                             ...c,
                             moduleName: curr.name,
+                            normalizedName: curr.normalizedName,
                             level: level.level,
                         };
                     }),
@@ -81,9 +82,7 @@ function ItemsForHideout(props) {
                                             loading="lazy"
                                             src={`${
                                                 process.env.PUBLIC_URL
-                                            }/images/${item.moduleName
-                                                .toLowerCase()
-                                                .replace(/\s/, '-')}-icon.png`}
+                                            }/images/${item.normalizedName}-icon.png`}
                                         />
                                         <div>
                                             <div>{item.moduleName}</div>

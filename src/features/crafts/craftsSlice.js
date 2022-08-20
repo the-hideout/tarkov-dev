@@ -11,6 +11,13 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
     const bodyQuery = JSON.stringify({
         query: `{
         crafts {
+          station {
+            id
+            name
+            normalizedName
+          }
+          level
+          duration
           rewardItems {
             item {
               id
@@ -156,7 +163,6 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
             }
           }
           source
-          duration
         }
     }`,
     });

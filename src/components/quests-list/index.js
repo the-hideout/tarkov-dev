@@ -71,7 +71,7 @@ function QuestsList(props) {
 
     return (
         <div>
-            <h2>{t('Quests')}</h2>
+            <h2>{t('Quests Requiring')}</h2>
             {getQuestList(itemQuests, t)}
         </div>
     );
