@@ -47,7 +47,7 @@ const getQuestList = (questList, t) => {
                                             className="quest-name-wrapper"
                                             href={`https://tarkovtracker.io/quest/${questData.id}/`}
                                         >
-                                            <>{questData.name}</>
+                                            <div>{questData.name}</div>
                                         </a>
                                     </div>
                                 </td>
@@ -70,10 +70,10 @@ function QuestsList(props) {
     const { t } = useTranslation();
 
     return (
-        <>
+        <div>
             <h2>{t('Quests')}</h2>
             {getQuestList(itemQuests, t)}
-        </>
+        </div>
     );
 }
 

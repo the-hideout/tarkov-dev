@@ -47,7 +47,7 @@ const Menu = () => {
         <>
             {/* ALERT BANNER SECTION - uncomment the lines below to enable the alert banner */}
             {/* severity can be 'error', 'info', 'success', or 'warning' */}
-            {/* <><Alert severity="success">{"🌟 Flea market scanners have been leveled for this patch and all flea market data is now live! 🌟"}</Alert></> */}
+            {/* <div><Alert severity="success">{"🌟 Flea market scanners have been leveled for this patch and all flea market data is now live! 🌟"}</Alert></div> */}
             {/* END ALERT BANNER SECTION */}
             <nav key="main-navigation" className="navigation">
                 <Icon

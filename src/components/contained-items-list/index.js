@@ -45,7 +45,7 @@ const ContainedItemsList = ({ item }) => {
     });
 
     return (
-        <>
+        <div>
             <span className="contained-item-title-wrapper">Can hold:</span>
             {sortedItems.map((itemOrCategoryId, index) => {
                 const currentCategoryData = categoryData[itemOrCategoryId];
@@ -96,7 +96,7 @@ const ContainedItemsList = ({ item }) => {
                     </span>
                 );
             })}
-        </>
+        </div>
     );
 };
 

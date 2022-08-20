@@ -28,7 +28,7 @@ function ItemCost({
 
     if (priceSource === 'fleaMarket') {
         return (
-            <>
+            <div>
                 <img
                     alt={t('Flea market')}
                     className="barter-icon"
@@ -37,7 +37,7 @@ function ItemCost({
                 />
                 {count + ' x ' + formatPrice(price) + ' = '}
                 {formatPrice(count * (alternatePrice || price))}
-            </>
+            </div>
         );
     }
 
@@ -56,7 +56,7 @@ function ItemCost({
                 }
                 plugins={[followCursor]}
             >
-                <>
+                <div>
                     <img
                         alt={t('Barter')}
                         className="barter-icon"
@@ -65,14 +65,14 @@ function ItemCost({
                     />
                     {count + ' x ' + formatPrice(price) + ' = '}
                     {formatPrice(count * (alternatePrice || price))}
-                </>
+                </div>
             </Tippy>
         );
     }
 
     if (TRADERS.includes(priceSource)) {
         return (
-            <>
+            <div>
                 <img
                     alt={t(priceSource)}
                     className="barter-icon"
@@ -81,7 +81,7 @@ function ItemCost({
                 />
                 {count + ' x ' + formatPrice(price) + ' = '}
                 {formatPrice(count * (alternatePrice || price))}
-            </>
+            </div>
         );
     }
 

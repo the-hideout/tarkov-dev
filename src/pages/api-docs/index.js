@@ -57,6 +57,7 @@ function APIDocs() {
                 {t(
                     'Nope! We currently do not have a rate-limit enabled. That being said, please respect this and do not hammer the API with requests just because you can. Use common sense!',
                 )}
+                <div></div>
                 {t(
                     "Price data is updated every 5 minutes, so there's really no need to query faster than that. ",
                 )}
@@ -72,6 +73,7 @@ function APIDocs() {
                 {t(
                     'Since our data is updated every 5 minutes, we also cache all graphql queries for 5 minutes as well.',
                 )}
+                <div></div>
                 {t(
                     'This helps to greatly reduce the load on our servers while making your requests speedy quick!',
                 )}
