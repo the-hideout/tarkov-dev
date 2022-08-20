@@ -7,7 +7,6 @@ import React, { lazy, Suspense } from 'react';
 import QueueBrowserTask from '../../modules/queue-browser-task';
 import mapData from '../../data/maps.json';
 import ItemIconList from '../../components/item-icon-list';
-import { useTradersQuery } from '../../features/traders/queries';
 
 import Icon from '@mdi/react';
 import {
@@ -45,7 +44,6 @@ function Start() {
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const { t } = useTranslation();
-    const { data: traders } = useTradersQuery();
 
     const handleNameFilterChange = useCallback(
         (value) => {
