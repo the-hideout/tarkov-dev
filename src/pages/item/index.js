@@ -1,6 +1,7 @@
 import React, { Suspense, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams, Navigate, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import Icon from '@mdi/react';
@@ -27,6 +28,8 @@ import ContainedItemsList from '../../components/contained-items-list';
 import { useMetaQuery } from '../../features/meta/queries';
 import { useQuestsQuery } from '../../features/quests/queries';
 import { useBartersQuery } from '../../features/barters/bartersSlice';
+import { useHideoutQuery } from '../../features/hideout/queries';
+import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
@@ -89,6 +92,8 @@ function Item() {
     const { data: meta } = useMetaQuery();
     const { data: quests } = useQuestsQuery();
     const { data: barters } = useBartersQuery();
+    const { data: hideout } = useHideoutQuery();
+    const crafts = useSelector(selectAllCrafts);
 
     let currentItemData = currentItemByNameData;
 
@@ -181,8 +186,20 @@ function Item() {
 
     const hasBarters = barters.some(barter => {
         return barter.requiredItems.some(contained => contained.item.id === currentItemData.id) ||
-            barter.rewardItems.some(contained => contained.item.id === currentItemData.id);
+            barter.rewardItems.some(contained => 
+                contained.item.id === currentItemData.id ||
+                    contained.item.containsItems.some(ci => ci.item.id === currentItemData.id)
+            );
     });
+
+    const hasCrafts = crafts.some(craft => {
+        return craft.requiredItems.some(contained => contained.item.id === currentItemData.id) ||
+            craft.rewardItems.some(contained => 
+                contained.item.id === currentItemData.id
+            );
+    });
+
+    const usedInHideout = hideout?.some(station => station.levels.some(module => module.itemRequirements.some(contained => contained.item.id === currentItemData.id)));
 
     if (!currentItemData.bestPrice) {
         currentItemData = {
@@ -569,7 +586,7 @@ function Item() {
                                                                 }
                                                             />
                                                         )}
-                                                        {buyPrice.vendor.taskUnlock && (
+                                                        {buyPrice?.vendor?.taskUnlock && (
                                                             <Tippy
                                                                 content={
                                                                     t('Quest: ')+buyPrice.vendor.taskUnlock.name
@@ -739,43 +756,47 @@ function Item() {
                         />
                     </div>
                 )}
-                <div>
-                    <div className="item-crafts-headline-wrapper">
-                        <h2>
-                            {t('Crafts with')} {currentItemData.name}
-                        </h2>
-                        <Filter>
-                            <ToggleFilter
-                                checked={showAllCrafts}
-                                label={t('Ignore settings')}
-                                onChange={(e) =>
-                                    setShowAllCrafts(!showAllCrafts)
-                                }
-                                tooltipContent={
-                                    <div>
-                                        {t(
-                                            'Shows all crafts regardless of what you have set in your settings',
-                                        )}
-                                    </div>
-                                }
+                {hasCrafts && (
+                    <div>
+                        <div className="item-crafts-headline-wrapper">
+                            <h2>
+                                {t('Crafts with')} {currentItemData.name}
+                            </h2>
+                            <Filter>
+                                <ToggleFilter
+                                    checked={showAllCrafts}
+                                    label={t('Ignore settings')}
+                                    onChange={(e) =>
+                                        setShowAllCrafts(!showAllCrafts)
+                                    }
+                                    tooltipContent={
+                                        <div>
+                                            {t(
+                                                'Shows all crafts regardless of what you have set in your settings',
+                                            )}
+                                        </div>
+                                    }
+                                />
+                            </Filter>
+                        </div>
+                        <Suspense fallback={<div>{t('Loading...')}</div>}>
+                            <CraftsTable
+                                itemFilter={currentItemData.id}
+                                showAll={showAllCrafts}
                             />
-                        </Filter>
+                        </Suspense>
                     </div>
-                    <Suspense fallback={<div>{t('Loading...')}</div>}>
-                        <CraftsTable
-                            itemFilter={currentItemData.id}
-                            showAll={showAllCrafts}
-                        />
-                    </Suspense>
-                </div>
-                <div>
-                    <h2>
-                        {t('Hideout modules needing')} {currentItemData.name}
-                    </h2>
-                    <Suspense fallback={<div>{t('Loading...')}</div>}>
-                        <ItemsForHideout itemFilter={currentItemData.id} />
-                    </Suspense>
-                </div>
+                )}
+                {usedInHideout && (
+                    <div>
+                        <h2>
+                            {t('Hideout modules needing')} {currentItemData.name}
+                        </h2>
+                        <Suspense fallback={<div>{t('Loading...')}</div>}>
+                            <ItemsForHideout itemFilter={currentItemData.id} />
+                        </Suspense>
+                    </div>
+                )}
                 {itemQuests.length > 0 && (
                     <QuestsList itemQuests={itemQuests} />
                 )}
