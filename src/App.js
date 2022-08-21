@@ -54,6 +54,8 @@ import Suppressors from './pages/items/suppressors';
 import BsgCategory from './pages/items/bsg-category';
 import BitcoinFarmCalculator from './pages/bitcoin-farm-calculator';
 
+import Bosses from './pages/bosses';
+
 import Prapor from './pages/traders/prapor';
 import Therapist from './pages/traders/therapist';
 import Skier from './pages/traders/skier';
@@ -472,6 +474,13 @@ function App() {
                             sessionID={sessionID}
                             key="provisions-wrapper"
                         />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/bosses'}
+                    element={[
+                        <Bosses sessionID={sessionID} key="bosses-wrapper" />,
                         remoteControlSessionElement,
                     ]}
                 />
