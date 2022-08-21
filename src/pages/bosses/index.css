@@ -1,7 +1,7 @@
 .boss-list-wrapper {
     display: flex;
     flex-flow: wrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .boss-page-wrapper {

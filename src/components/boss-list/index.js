@@ -44,7 +44,6 @@ export function BossPageList() {
                         <img
                             alt={bossData.name}
                             loading='lazy'
-                            className="boss-icon"
                             src={`https://assets.tarkov.dev/${key}.jpg`}
                         />
                     </Link>
