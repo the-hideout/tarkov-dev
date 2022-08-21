@@ -26,10 +26,10 @@ import { Filter, ToggleFilter } from '../../components/filter';
 import ContainedItemsList from '../../components/contained-items-list';
 
 import { useMetaQuery } from '../../features/meta/queries';
-import { useQuestsQuery } from '../../features/quests/queries';
 import { selectAllBarters, fetchBarters, } from '../../features/barters/bartersSlice';
 import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
 import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
+import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
@@ -90,7 +90,6 @@ function Item() {
     //  This is slow and does a lot of extra processing that is not needed
     const { data: currentItemByIdData } = useItemByIdQuery(itemName);
     const { data: meta } = useMetaQuery();
-    const { data: quests } = useQuestsQuery();
     const dispatch = useDispatch();
     const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
@@ -103,6 +102,10 @@ function Item() {
     const hideout = useSelector(selectAllHideoutModules);
     const hideoutStatus = useSelector((state) => {
         return state.hideout.status;
+    });
+    const quests = useSelector(selectQuests);
+    const questsStatus = useSelector((state) => {
+        return state.quests.status;
     });
 
     useEffect(() => {
@@ -155,6 +158,23 @@ function Item() {
             clearInterval(timer);
         };
     }, [hideoutStatus, dispatch]);
+
+    useEffect(() => {
+        let timer = false;
+        if (questsStatus === 'idle') {
+            dispatch(fetchQuests());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchQuests());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [questsStatus, dispatch]);
 
     let currentItemData = currentItemByNameData;
 
