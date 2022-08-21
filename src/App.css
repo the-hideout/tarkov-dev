@@ -2,6 +2,12 @@
     --display-height: auto;
 }
 
+.desc-line-break {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    width: 50%;
+}
+
 body {
     background-color: #2d2d2f;
     background-image: url('images/background-1.png');
