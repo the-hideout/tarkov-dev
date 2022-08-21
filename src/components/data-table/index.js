@@ -174,7 +174,7 @@ function DataTable({
                 {sumColumns && rows.length > 1 && (
                     <tfoot>
                         <tr>
-                            {columns.map((col, colIndex) => (<th>{col.summable ? formatPrice(rows.map(row => {
+                            {columns.map((col, colIndex) => (<th key={`col-sum-${colIndex}`}>{col.summable ? formatPrice(rows.map(row => {
                                 const val = row.cells[colIndex].value;
                                 if (isNaN(val)) return false;
                                 return val;

@@ -29,7 +29,7 @@ function PropertyList({ properties }) {
         <div className="property-list">
             {data.map(([property, value]) => {
                 return (
-                    <div className="property-wrapper">
+                    <div className="property-wrapper" key={property}>
                         <div>
                             {value}
                             <div className="property-key-wrapper">

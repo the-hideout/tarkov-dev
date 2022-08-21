@@ -386,7 +386,7 @@ const doFetchItems = async () => {
             }
         }`,
     });
-
+console.time('items query');
     const [itemData, itemGrids] = await Promise.all([
         fetch('https://api.tarkov.dev/graphql', {
             method: 'POST',
@@ -400,7 +400,8 @@ const doFetchItems = async () => {
             (response) => response.json(),
         ),
     ]);
-
+    console.timeEnd('items query');
+    console.time('processing items');
     if (itemData.errors) return Promise.reject(new Error(itemData.errors[0]));
 
     const flea = itemData.data.fleaMarket;
@@ -560,7 +561,7 @@ const doFetchItems = async () => {
         item.traderName = bestTraderPrice?.trader.name || '?';
         item.traderNormalizedName = bestTraderPrice?.trader.normalizedName || '?';
     }
-
+console.timeEnd('processing items')
     return allItems;
 };
 

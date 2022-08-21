@@ -37,7 +37,7 @@ const itemLinkFormat = (inputItem) => {
 };
 
 const itemCategoryLinkFormat = inputCategory => {
-    return <Link to={`/items/${inputCategory.normalizedName}`}>{inputCategory.name}</Link>;
+    return <Link to={`/items/${inputCategory.normalizedName}`} key={inputCategory.normalizedName}>{inputCategory.name}</Link>;
 };
 
 const formatter = (key, value) => {
