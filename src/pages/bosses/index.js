@@ -38,11 +38,12 @@ function Bosses(props) {
 
             <div className="page-wrapper boss-page-wrapper">
                 <p>
-                    {"The backbones of trade in the destroyed, besieged Norvinsk. In Escape from Tarkov, each merchant specialized in a particular kind of products, such as medical supplies, weaponry, or military equipment. Although their prices are typically high, you get what you pay for."}<br />
+                    {"In Escape from Tarkov, there are many bosses that roam the area of besieged Norvinsk. "}<br />
                     <br />
-                    {"More importantly, you can develop a reputation with each trader through Quests, which will enable you to receive better offers generally and reduce the commission they receive (an additional markup you pay on sales and purchases), among other benefits."}<br />
+                    {"Each boss has unique behaviors, characteristics, and tactics. The bosses in Tarkov are feared by players of all levels and will often pose as a greater threat than enemy PMCs in the region."}<br />
                     <br />
-                    {"Additionally, traders provide other services like insurance and repairs (allowing you to recover your gear in case of death during a raid)."}
+                    {"However, with high risk comes high reward. Many bosses contain high tier loot items or are required to elimate for quests."}
+                    {"Learning the patterns, locations, and distinct attire of a boss is often the best a player can prepare themselves when a fight begins against a boss in Tarkov."}<br />
                 </p>
             </div>
         </div>,
