@@ -37,7 +37,10 @@ function Bosses(props) {
                 </Suspense>
             </div>
 
+            <hr className='desc-line-break'></hr>
+
             <div className="page-wrapper boss-page-wrapper">
+                <h3>About Bosses</h3>
                 <p>
                     {"In Escape from Tarkov, there are many bosses that roam the area of besieged Norvinsk. "}<br />
                     <br />
