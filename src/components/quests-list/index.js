@@ -68,10 +68,11 @@ const getQuestList = (questList, t) => {
 function QuestsList(props) {
     const { itemQuests } = props;
     const { t } = useTranslation();
-
+    let title = t('Quests Requiring');
+    if (itemQuests.length > 0 && itemQuests[0].rewardItems) title = t('Quests Providing');
     return (
         <div>
-            <h2>{itemQuests.neededItems ? t('Quests Requiring') : t('Quests Providing')}</h2>
+            <h2>{title}</h2>
             {getQuestList(itemQuests, t)}
         </div>
     );
