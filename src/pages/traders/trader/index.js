@@ -1,5 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -13,7 +14,8 @@ import {
 import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 import TraderResetTime from '../../../components/trader-reset-time';
-import { useTradersQuery } from '../../../features/traders/queries';
+import { selectAllTraders, fetchTraders } from '../../../features/traders/tradersSlice';
+import ErrorPage from '../../../components/error-page';
 
 const descriptions = {
     jaeger: "Before the conflict, he worked as a hunter in the Priozersk Natural Reserve under the State Hunting Service. A professional hunter and survival specialist. Even now, he still guards the reserve's hunting grounds from various aggressive individuals.",
@@ -49,6 +51,7 @@ function Trader() {
         `${traderName}SelectedTable`,
         'level',
     );
+    //const [showAllTraders, setShowAllTraders] = useState(false);
     const { t } = useTranslation();
 
     const handleNameFilterChange = useCallback(
@@ -65,9 +68,30 @@ function Trader() {
         },
         [setNameFilter],
     );
-    const { data: traders } = useTradersQuery();
-    const trader = traders.find(tr => tr.normalizedName === traderName);
+    const dispatch = useDispatch();
+    const traders = useSelector(selectAllTraders);
+    const tradersStatus = useSelector((state) => {
+        return state.traders.status;
+    });
+    useEffect(() => {
+        let timer = false;
+        if (tradersStatus === 'idle') {
+            dispatch(fetchTraders());
+        }
 
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchTraders());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [tradersStatus, dispatch]);
+    if (traders.length === 0) return loadingPage(traderName, t);
+    const trader = traders.find(tr => tr.normalizedName === traderName);
+    if (!trader) return <ErrorPage />;
     return [
         <Helmet key={`${traderName}-helmet`}>
             <meta charSet="utf-8" />
@@ -151,5 +175,29 @@ function Trader() {
         </div>,
     ];
 }
+
+const loadingPage = (traderName, t) => {
+    const capitalized = traderName.charAt(0).toUpperCase() + traderName.slice(1);
+    return [
+        <Helmet key={`${traderName}-helmet`}>
+            <meta charSet="utf-8" />
+            <title>{capitalized+' '+t('Items')}</title>
+            <meta
+                name="description"
+                content={`All ${capitalized} items and barters in Escape from Tarkov`}
+            />
+        </Helmet>,
+        <div className="page-wrapper" key={'page-wrapper'}>
+            <div className="page-headline-wrapper">
+                <h1>
+                    {capitalized+' '+t('Items')}
+                    <cite>
+                        Loading...
+                    </cite>
+                </h1>
+            </div>
+        </div>,
+    ];
+};
 
 export default Trader;

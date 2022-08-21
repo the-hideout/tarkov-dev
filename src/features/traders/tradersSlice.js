@@ -37,4 +37,4 @@ const tradersSlice = createSlice({
 
 export default tradersSlice.reducer;
 
-export const selectTraders = (state) => state.traders.traders;
+export const selectAllTraders = (state) => state.traders.traders;
