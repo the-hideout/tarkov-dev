@@ -53,7 +53,7 @@ const getQuestList = (questList, t) => {
                                 </td>
                                 <td>
                                     <QuestItemsCell
-                                        questItems={questData.neededItems}
+                                        questItems={questData.neededItems || questData.rewardItems}
                                     />
                                 </td>
                             </tr>
@@ -71,7 +71,7 @@ function QuestsList(props) {
 
     return (
         <div>
-            <h2>{t('Quests Requiring')}</h2>
+            <h2>{itemQuests.neededItems ? t('Quests Requiring') : t('Quests Providing')}</h2>
             {getQuestList(itemQuests, t)}
         </div>
     );

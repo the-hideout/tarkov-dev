@@ -2,6 +2,28 @@ import { useTranslation } from 'react-i18next';
 
 import './index.css';
 
+const rewardMap = {
+    finishRewards: 'On Task Completion',
+    startRewards: 'On Task Start'
+};
+
+const foundInRaidPart = (questItem, t) => {
+    if (!questItem.rewardType) {
+        return <div
+            className={`found-in-raid-wrapper ${
+                questItem.foundInRaid ? 'find-in-raid' : ''
+            }`}
+        >
+            {t('Found In Raid')}
+            <span>:</span>{' '}
+            <span>{questItem.foundInRaid ? t('Yes') : t('No')}</span>
+        </div>
+    }
+    return <div className={`found-in-raid-wrapper`}>
+        {t(rewardMap[questItem.rewardType])}
+    </div>
+};
+
 function QuestItemsCell({ questItems }) {
     const { t } = useTranslation();
     return questItems.map((questItem, index) => {
@@ -22,15 +44,7 @@ function QuestItemsCell({ questItems }) {
                         {t('Amount')}
                         <span>:</span> {questItem.count}
                     </div>
-                    <div
-                        className={`found-in-raid-wrapper ${
-                            questItem.foundInRaid ? 'find-in-raid' : ''
-                        }`}
-                    >
-                        {t('Found In Raid')}
-                        <span>:</span>{' '}
-                        <span>{questItem.foundInRaid ? t('Yes') : t('No')}</span>
-                    </div>
+                    {foundInRaidPart(questItem, t)}
                 </div>
             </div>
         );

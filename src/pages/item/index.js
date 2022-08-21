@@ -229,7 +229,44 @@ function Item() {
             return questDataCopy;
         });
     }, [currentItemData, quests]);
-    
+
+    const questsProviding = useMemo(() => {
+        const rewardTypes = ['startRewards', 'finishRewards'];
+        return quests.filter(quest => {
+            return rewardTypes.some(rewardType => {
+                return quest[rewardType].items.some(contained => {
+                    return contained.item.id === currentItemData?.id ||
+                        contained.item.containsItems.some(ci => ci.item.id === currentItemData?.id);
+                });
+            });
+        }).map(quest => {
+            const questDataCopy = {
+                ...quest,
+                rewardItems: []
+            };
+            rewardTypes.forEach(rewardType => {
+                const rewardInfo = {
+                    iconLink: currentItemData?.iconLink,
+                    name: currentItemData?.name,
+                    count: 0,
+                    rewardType: rewardType
+                };
+                quest[rewardType].items.forEach(contained => {
+                    if (contained.item.id === currentItemData?.id) {
+                        rewardInfo.count += contained.count;
+                    }
+                    contained.item.containsItems.forEach(ci => {
+                        if (ci.item.id === currentItemData?.id) {
+                            rewardInfo.count += contained.count;
+                        }
+                    });
+                });
+                if (rewardInfo.count > 0) questDataCopy.rewardItems.push(rewardInfo);
+            });
+            return questDataCopy;
+        });
+    }, [currentItemData, quests]);
+    console.log(questsProviding);
     currentItemData = useMemo(() => {
         if (!currentItemData || !currentItemData.bestPrice) return currentItemData;
         return {
@@ -881,6 +918,9 @@ function Item() {
                 )}
                 {itemQuests.length > 0 && (
                     <QuestsList itemQuests={itemQuests} />
+                )}
+                {questsProviding.length > 0 && (
+                    <QuestsList itemQuests={questsProviding} />
                 )}
             </div>
         </div>,
