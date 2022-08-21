@@ -1,11 +1,10 @@
-// import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import React, { Suspense } from 'react';
 import Icon from '@mdi/react';
 import { mdiEmoticonDevil } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 
-import BossList from '../../components/boss-list';
+import { BossPageList } from '../../components/boss-list';
 
 import './index.css';
 
@@ -16,13 +15,13 @@ function Bosses(props) {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>Escape from Tarkov Traders</title>
+            <title>Escape from Tarkov Bosses</title>
             <meta
                 name="description"
-                content="Escape from Tarkov Trader items, barters, unlocks and spending guides"
+                content="Escape from Tarkov Bosses, boss details, and more"
             />
         </Helmet>,
-        <div className={'page-wrapper'} key="traders-page-wrapper">
+        <div className={'page-wrapper'} key="boss-page-wrapper">
             <h1 className="center-title">
                 <Icon
                     path={mdiEmoticonDevil}
@@ -31,13 +30,13 @@ function Bosses(props) {
                 />
                 {t('Bosses')}
             </h1>
-            <div className="traders-list-wrapper">
+            <div className="boss-list-wrapper">
                 <Suspense fallback={renderLoader()}>
-                    <BossList />
+                    <BossPageList />
                 </Suspense>
             </div>
 
-            <div className="page-wrapper trader-page-wrapper">
+            <div className="page-wrapper boss-page-wrapper">
                 <p>
                     {"The backbones of trade in the destroyed, besieged Norvinsk. In Escape from Tarkov, each merchant specialized in a particular kind of products, such as medical supplies, weaponry, or military equipment. Although their prices are typically high, you get what you pay for."}<br />
                     <br />

@@ -1,0 +1,17 @@
+.boss-list-wrapper {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-between;
+}
+
+.boss-page-wrapper {
+    min-height: 0;
+}
+
+.boss-list-wrapper img {
+    height: 128px;
+    width: 128px;
+}
+
+@media screen and (min-width: 700px) {
+}
