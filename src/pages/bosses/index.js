@@ -30,6 +30,7 @@ function Bosses(props) {
                 />
                 {t('Bosses')}
             </h1>
+            <h2 className='boss-sub-text'>Bosses are feared and deadly enemies with unique gear and traits in Escape from Tarkov</h2>
             <div className="boss-list-wrapper">
                 <Suspense fallback={renderLoader()}>
                     <BossPageList />
