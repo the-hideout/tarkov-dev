@@ -27,7 +27,12 @@ function PropertyList({ properties }) {
 
     return (
         <div className="property-list">
-            {data.map(([property, value]) => {
+            {data.sort((a, b) => {
+                console.log(a, b);
+                if (a[0] === 'Categories') return -1;
+                if (b[0] === 'Categories') return 1;
+                return a[0].localeCompare(b[0]);
+            }).map(([property, value]) => {
                 return (
                     <div className="property-wrapper" key={property}>
                         <div>
