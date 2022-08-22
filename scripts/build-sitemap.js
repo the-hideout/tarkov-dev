@@ -34,6 +34,7 @@ const standardPaths = [
     '/traders/mechanic',
     '/traders/ragman',
     '/traders/jaeger',
+    '/bosses'
 ];
 
 const addPath = (sitemap, url) => {
@@ -69,6 +70,25 @@ const addPath = (sitemap, url) => {
     for(const item of allItems.body.data.itemsByType){
         sitemap = addPath(sitemap, `/item/${item.normalizedName}`);
     }
+
+    const allBosses = await got('https://api.tarkov.dev/graphql?query={maps{bosses{name}}}', {
+        responseType: 'json',
+    });
+
+    var bossNames = [];
+    for (const map of allBosses.body.data.maps) {
+        for (const boss of map.bosses) {
+            var bossName = boss.name.toLowerCase().replace(/ /g, '-')
+            if (!bossNames.includes(bossName)) {
+                bossNames.push(bossName)
+            }
+        }
+    }
+
+    for (const bossName of bossNames) {
+        sitemap = addPath(sitemap, `/boss/${bossName}`);
+    }
+    
 
     let ammoTypes = [];
     for(const ammo of ammoData.data){
