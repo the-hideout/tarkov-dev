@@ -7,6 +7,7 @@ import formatBossData from '../../../modules/format-boss-data';
 import { useBossesQuery } from '../../../components/boss-list';
 import PropertyList from '../../../components/property-list';
 import bossJson from '../../../data/boss.json';
+import ErrorPage from '../../../components/error-page';
 
 import './index.css';
 
@@ -22,19 +23,24 @@ function BossPage(bossName) {
 
     // If no bosses have been returned yet, return 'loading'
     if (!bosses || bosses.length === 0) {
-        return 'Loading...';
+        return t('Loading...');
     }
 
     // Format the boss data
     const bossArray = formatBossData(bosses);
 
     // Get the correct individual boss data
-    var bossData;
+    var bossData = null;
     for (const boss of bossArray) {
         if (boss.name.toLowerCase().replace(/ /g, '-') === bossNameLower) {
             bossData = boss;
             break;
         }
+    }
+
+    // If no boss data has been found, return the error page
+    if (!bossData) {
+        return <ErrorPage />;
     }
 
     // Get static boss data from json file
@@ -47,10 +53,10 @@ function BossPage(bossName) {
 
     // Format the bossProperties data for the 'stats' section
     var bossProperties = {}
-    bossProperties['map 🗺️'] = Array.from(bossData.map);
-    bossProperties['spawnChance 🎲'] = `${bossData.spawnChance * 100}%`;
+    bossProperties[t('map') + ' 🗺️'] = Array.from(bossData.map);
+    bossProperties[t('spawnChance') + ' 🎲'] = `${bossData.spawnChance * 100}%`;
     if (bossJsonData) {
-        bossProperties['health 🖤'] = bossJsonData.health;
+        bossProperties[t('health') + ' 🖤'] = bossJsonData.health;
     }
 
     // Return the main react component for the boss page
@@ -96,9 +102,12 @@ function BossPage(bossName) {
 }
 
 function Boss() {
+    // Get the boss name from the url
     const { bossName } = useParams();
+    // Capitalize the first letter of the boss name
     const boss = capitalize(bossName);
 
+    // Return the main react component for the individual boss page
     return [
         <Helmet key={`boss-helmet-${bossName}`}>
             <meta key={`boss-charset-${bossName}`} charSet="utf-8" />
