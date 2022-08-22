@@ -203,7 +203,7 @@ function BossPage(bossName) {
                 <ul>
                     <li>Map: The name of the map which the boss can spawn on</li>
                     <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
-                    <li>Chance: If the "Spawn Chance" is activated for the map, this is the chance that the boss will spawn at a given location on that map</li>
+                    <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
                 </ul>
                 <DataTable
                     columns={columnsLocations}
