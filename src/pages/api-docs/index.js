@@ -44,7 +44,7 @@ function APIDocs() {
                     <a href ="https://api.tarkov.dev/___graphql">{t('Tarkov.dev graphql playground')}</a>
                 </div>
                 <div>
-                    <a href="https://graphql.org/learn/">{t('GraphQL Foundation Resources')}</a>
+                    <a href="https://graphql.org/learn/">{t('GraphQL Foundation resources')}</a>
                 </div>
             </div>
             <h2>{t('Current API Performance')}</h2>
