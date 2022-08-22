@@ -36,6 +36,7 @@ function formatBossData(bosses) {
                 boss['map'] = new Set([map.name]);
                 boss['map_id'] = new Set([map.id]);
                 boss['spawnLocations'] = spawnLocations(boss, map);
+                boss['spawnChance'] = [{chance: boss.spawnChance, map: map.name}];
 
                 bossArray.push(boss);
                 duplicateCheck.push(boss.name);
@@ -45,7 +46,7 @@ function formatBossData(bosses) {
                     if (bossData.name === boss.name) {
                         bossData['map'].add(map.name);
                         bossData['map_id'].add(map.id);
-
+                        bossData['spawnChance'].push({chance: boss.spawnChance, map: map.name});
                         bossData['spawnLocations'] = bossData['spawnLocations'].concat(spawnLocations(boss, map));
                     }
                 }

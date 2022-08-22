@@ -97,10 +97,25 @@ function BossPage(bossName) {
         }
     }
 
+    // Collect a list of all maps without duplicates
+    var maps = [];
+    for (const map of bossData.spawnChance) {
+        if (maps.includes(map.map)) {
+            continue;
+        }
+        maps.push(map.map);
+    }
+
     // Format the bossProperties data for the 'stats' section
     var bossProperties = {}
-    bossProperties[t('map') + ' 🗺️'] = Array.from(bossData.map);
-    bossProperties[t('spawnChance') + ' 🎲'] = `${bossData.spawnChance * 100}%`;
+    bossProperties[t('map') + ' 🗺️'] = maps;
+    if (bossData.spawnChance.length > 1) {
+        for (const spawn of bossData.spawnChance) {
+            bossProperties[t('spawnChance') + ` (${spawn.map}) 🎲`] = `${spawn.chance * 100}%`;
+        }
+    } else {
+        bossProperties[t('spawnChance') + ' 🎲'] = `${bossData.spawnChance[0].chance * 100}%`;
+    }
     if (bossJsonData) {
         bossProperties[t('health') + ' 🖤'] = bossJsonData.health;
     }
