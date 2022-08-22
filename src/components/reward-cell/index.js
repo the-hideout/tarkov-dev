@@ -11,7 +11,7 @@ function RewardCell({
     iconLink,
     itemLink,
     name,
-    source,
+    trader,
     value,
     sellTo,
     barterOnly = false,
@@ -27,7 +27,7 @@ function RewardCell({
                         {name}
                     </Link>
                 </div>
-                <div className="source-wrapper">{source}</div>
+                <div className="source-wrapper">{trader.name}</div>
                 <div className="price-wrapper">
                     {formatPrice(value)} <span>@</span> {sellTo}
                     {barterOnly && <span> ({t('Barter only')})</span>}

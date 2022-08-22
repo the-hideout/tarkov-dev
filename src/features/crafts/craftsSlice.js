@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
+import { langCode } from '../../modules/lang-helpers';
+
 const initialState = {
     crafts: [],
     status: 'idle',
@@ -8,9 +10,10 @@ const initialState = {
 };
 
 export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
+  const language = await langCode();
     const bodyQuery = JSON.stringify({
         query: `{
-        crafts {
+        crafts(lang: ${language}) {
           station {
             id
             name

@@ -290,6 +290,7 @@ function BartersTable(props) {
                         name: barterRow.rewardItems[0].item.name,
                         value: barterRow.rewardItems[0].item[priceToUse],
                         source: barterRow.trader.name + ' LL' + level,
+                        trader: barterRow.trader,
                         iconLink:
                             barterRow.rewardItems[0].item.iconLink ||
                             'https://tarkov.dev/images/unknown-item-icon.jpg',

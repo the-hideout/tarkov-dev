@@ -1,7 +1,11 @@
+import { langCode } from '../../modules/lang-helpers';
+
 const doFetchBarters = async () => {
+    const language = await langCode();
+
     const bodyQuery = JSON.stringify({
         query: `{
-            barters {
+            barters(lang: ${language}) {
                 rewardItems {
                     item {
                         id
