@@ -24,28 +24,23 @@ function APIDocs() {
             <h1>{t('Tarkov.dev API')}</h1>
             <h2>{t('About')}</h2>
             <div className="section-text-wrapper">
-                {t('The API is available on')}{' '}
-                <a href="https://api.tarkov.dev/graphql">
-                    https://api.tarkov.dev/graphql
-                </a>{' '}
-                <span>with a playground on</span>{' '}
-                <a href="https://api.tarkov.dev/___graphql">
-                    https://api.tarkov.dev/___graphql
-                </a>
-                <span>. </span>
-                {t(
-                    "It's written in graphql and we try our hardest to follow spec and never make breaking changes.",
-                )}
-            </div>
-            <div className="section-text-wrapper">
-                {t(`To learn more about what queries you can make and the schema, visit the playground and click the 'Docs' tab on the
-                right side. To learn about graphql queries generally, the GraphQL Foundation has helpful resources.`)}
+                {t(`The API is written in GraphQL and we try our hardest to follow spec and not to make breaking changes.
+                 To learn about what queries you can make, how the schema is structured, and to try some test queries,
+                 visit the playground and click the 'Docs' tab on the right side. 
+                 To learn about graphql queries generally, the GraphQL Foundation has helpful resources.`)}
                 <div>
                     <a href ="https://api.tarkov.dev/___graphql">{t('Tarkov.dev graphql playground')}</a>
                 </div>
                 <div>
                     <a href="https://graphql.org/learn/">{t('GraphQL Foundation resources')}</a>
                 </div>
+            </div>
+            <div className="section-text-wrapper">
+                {t('Once you\'re ready to send API queries, the endpoint is:')}{' '}
+                <a href="https://api.tarkov.dev/graphql">
+                    https://api.tarkov.dev/graphql
+                </a>
+                <span>. </span>
             </div>
             <h2>{t('Current API Performance')}</h2>
             <ApiMetricsGraph graph={true} />
