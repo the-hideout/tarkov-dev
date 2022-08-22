@@ -68,11 +68,13 @@ function BossPage(bossName) {
                         <h1>
                             {bossData.name}
                         </h1>
-                        <span className="wiki-link-wrapper">
-                            <a href={`https://escapefromtarkov.fandom.com/wiki/${bossData.name}`}>
-                                {t('Wiki')}
-                            </a>
-                        </span>
+                        {bossJsonData &&
+                            <span className="wiki-link-wrapper">
+                                <a href={bossJsonData.wikiLink}>
+                                    {t('Wiki')}
+                                </a>
+                            </span>
+                        }
                         {bossJsonData &&
                             <p className='boss-details'>{bossJsonData.details}</p>
                         }
