@@ -266,7 +266,7 @@ function Item() {
             return questDataCopy;
         });
     }, [currentItemData, quests]);
-    console.log(questsProviding);
+
     currentItemData = useMemo(() => {
         if (!currentItemData || !currentItemData.bestPrice) return currentItemData;
         return {
