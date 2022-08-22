@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet';
-import React, { Suspense, useMemo } from 'react';
+import React, { Suspense, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import capitalize from '../../../modules/capitalize-first';
@@ -10,6 +10,7 @@ import PropertyList from '../../../components/property-list';
 import bossJson from '../../../data/boss.json';
 import ErrorPage from '../../../components/error-page';
 import Icon from '@mdi/react';
+import CheekiBreekiEffect from '../../../components/cheeki-breeki-effect';
 import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup } from '@mdi/js';
 
 import './index.css';
@@ -19,6 +20,16 @@ const renderLoader = () => <p>Loading...</p>;
 
 function BossPage(bossName) {
     const { t } = useTranslation();
+
+    // cheeki breeki
+    const [isShown, setIsShown] = useState(false);
+
+    let audio = new Audio("/audio/killa.mp3")
+    const handleClick = event => {
+        setIsShown(current => !current);
+        audio.play()
+    };
+    // end cheeki breeki
 
     // Format the boss table columns for locations
     const columnsLocations = useMemo(() => {
@@ -121,7 +132,7 @@ function BossPage(bossName) {
             } else {
                 spawnStatsMsg.push(`${spawn.chance * 100}% (${spawn.map})`);
             }
-            
+
         }
     } else {
         for (const spawn of bossData.spawnChance) {
@@ -270,6 +281,16 @@ function BossPage(bossName) {
                     <p>This boss does not have any escorts</p>
                 }
 
+                {/* cheeki breeki */}
+                {bossData.name.toLowerCase() === 'killa' &&
+                    <div>
+                        <button style={{ padding: '.2rem', borderRadius: '4px' }} onClick={handleClick}>cheeki breeki</button>
+                        {isShown && (
+                            <CheekiBreekiEffect />
+                        )}
+                    </div>
+                }
+                {/* end cheeki breeki */}
             </div>
         </div>
     ]
