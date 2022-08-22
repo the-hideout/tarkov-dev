@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import capitalize from '../../../modules/capitalize-first';
 import formatBossData from '../../../modules/format-boss-data';
 import { useBossesQuery } from '../../../components/boss-list';
+import PropertyList from '../../../components/property-list';
 
 import './index.css';
 
@@ -27,11 +28,15 @@ function BossPage(bossName) {
 
     var bossData;
     for (const boss of bossArray) {
-        if (boss.name.toLowerCase() === bossNameLower) {
+        if (boss.name.toLowerCase().replace(/ /g, '-') === bossNameLower) {
             bossData = boss;
             break;
         }
     }
+
+    var bossProperties = {}
+    bossProperties['map'] = Array.from(bossData.map);
+    bossProperties['spawnChance'] = `${bossData.spawnChance * 100}%`;
 
     return [
         <div className="display-wrapper" key={'display-wrapper'}>
@@ -58,6 +63,8 @@ function BossPage(bossName) {
                         />
                     </div>
                 </div>
+                <h2 className='item-h2'>{t('Stats')}</h2>
+                <PropertyList properties={bossProperties} />
             </div>
         </div>
     ]
