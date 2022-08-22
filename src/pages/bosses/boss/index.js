@@ -83,9 +83,9 @@ function BossPage(bossName) {
     }
 
     // Format the boss table data
-    const data = []
+    const spawnLocations = []
     for (const spawnLocation of bossData.spawnLocations) {
-        data.push({
+        spawnLocations.push({
             spawnLocations: spawnLocation.name,
             chance: `${parseInt(spawnLocation.chance * 100)}%`,
             map: spawnLocation.map
@@ -135,7 +135,7 @@ function BossPage(bossName) {
                 <h2 className='item-h2' key={'boss-spawn-table-header'}>{t('Spawn Locations')}</h2>
                 <DataTable
                     columns={columns}
-                    data={data}
+                    data={spawnLocations}
                     disableSortBy={false}
                     key={'boss-spawn-table'}
                     sortBy={'map'}
@@ -146,7 +146,7 @@ function BossPage(bossName) {
                 <h2 className='item-h2' key={'boss-escort-table-header'}>{t('Boss Escorts')}</h2>
                 <DataTable
                     columns={columns}
-                    data={data}
+                    data={spawnLocations}
                     disableSortBy={false}
                     key={'boss-escort-table'}
                     sortBy={'name'}
