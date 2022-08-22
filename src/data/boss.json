@@ -4,55 +4,63 @@
         "details": "Sneaky bois. Cultists lurk in the shadows in groups of 3-5, waiting for a player to approach. They silently approach their enemies and stab them using either normal knives or, in case of the priests, the poisoned Cultist knife. If fired upon, the Cultists will return fire using firearms and grenades. After they attack a player with their knife, they may choose to run off into the woods again and return to the shadows.",
         "health": 850,
         "loot": "Secure Flash drive, SAS drive, Cultist knife",
-        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/cultists"
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/cultists",
+        "behavior": "stalker"
     },
     {
         "name": "death knight",
         "details": "The leader of 'The Goons'. Can spawn on many different maps.",
         "health": 1120,
         "loot": "Death Knight mask, Crye Precision CPC plate carrier (Goons Edition)",
-        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/knight"
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/knight",
+        "behavior": "rush"
     },
     {
         "name": "glukhar",
         "details": "Glukhar and his many guards are extremely hostile. It's very unlikely to find success while fighting in any open areas. Small hallways and closed rooms are preferable. Glukhar and his guards are very accurate. Glukhar and his guards will stay near each other at all times and his guards will follow him to wherever he goes.",
         "health": 1010,
         "loot": "GP coin, ASh-12 12.7x55 assault rifle",
-        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/glukhar"
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/glukhar",
+        "behavior": "hostile and accurate"
     },
     {
         "name": "killa",
         "details": "The true Giga Chad of Tarkov. Killa uses a light machine gun or other automatic weapon to suppress the enemy, while lurking from cover to cover, getting closer to his target for the final push. During the assault he moves in a zig-zag pattern, uses smoke and fragmentation grenades, and relentlessly suppresses enemies with automatic fire. He will follow his target large distances out of his patrol route, so be sure to run very far to get away from him if he has locked onto you.",
         "health": 890,
         "loot": "6B13 M modified assault armor (Tan), 'Maska-1SCh' bulletproof helmet (Killa)",
-        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/killa"
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/killa",
+        "behavior": "patrol and highly armored"
     },
     {
         "name": "reshala",
         "details": "He will normally try to stay at the back of the fight and hidden from the player's view. Additionally, he never wears armor. Be careful as a player scav, as if you are at lower scav karma levels Reshala or his guards may shoot you without provocation or will shoot you if you come to close to Reshala. His guards are sometimes known to give warnings to player scavs with low karma before becoming hostile.",
         "health": 752,
         "loot": "Golden TT Pistol, Bitcoin",
-        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/reshala"
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/reshala",
+        "behavior": "group patrol"
     },
     {
         "name": "sanitar",
         "details": "When engaged in combat, he will fight alongside his fellow scavs and guards, but may often break away to heal or inject himself. He has plenty of meds, so a prolonged engagement is possible.",
         "health": 1270,
         "loot": "Sanitar's bag, LEDX Skin Transilluminator, Keycard with a blue marking, Health Resort office key with a blue tape, multiple stims and meds",
-        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/sanitar"
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/sanitar",
+        "behavior": "frequent healing and stim injections"
     },
     {
         "name": "shturman",
         "details": "Shturman and his followers will engage the player at a long range protecting the sawmill area of the woods. They prefer to keep their distance, as they are not suited for close quarters combat.",
         "health": 812,
         "loot": "Shturman's stash key, Red Rebel",
-        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/shturman"
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/shturman",
+        "behavior": "sniper"
     },
     {
         "name": "tagilla",
         "details": "He is batshit insane and will attempt to hammer you down. However, if you are in a position that he cannot path-find to, such as the rafters, he will use his secondary weapon (usually a shotgun) to kill you from a distance. He's active immediately at the start of raid. The boss can set ambushes, open suppressive fire, and breach if needed.",
         "health": 1220,
         "loot": "Crye Precision AVS MBAV (Tagilla Edition), L1 (Norepinephrine) injector, Bitcoin, Tagilla's welding mask, BOSS cap",
-        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/tagilla"
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/tagilla",
+        "behavior": "batshit insane"
     }
 ]

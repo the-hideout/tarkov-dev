@@ -104,6 +104,9 @@ function BossPage(bossName) {
     if (bossJsonData) {
         bossProperties[t('health') + ' 🖤'] = bossJsonData.health;
     }
+    if (bossJsonData) {
+        bossProperties[t('behavior') + ' 💡'] = bossJsonData.behavior;
+    }
 
     // Format the boss table spawnLocation data
     const spawnLocations = []
@@ -169,6 +172,12 @@ function BossPage(bossName) {
                     />
                 </h2>
                 <PropertyList properties={bossProperties} />
+                <p>Key:</p>
+                <ul>
+                    <li>Behavior: The general AI behavior of the given boss</li>
+                    <li>Health: Total boss health</li>
+                    <li>Spawn Chance: A percentage chance that the boss spawns on a given map</li>
+                </ul>
 
                 {bossJsonData &&
                     <h2 className='item-h2' key={'boss-loot-header'}>{t('Boss Loot')}
