@@ -25,8 +25,9 @@ function APIDocs() {
             <h2>{t('About')}</h2>
             <div className="section-text-wrapper">
                 {t(`The API is written in GraphQL and we try our hardest to follow spec and not to make breaking changes.
-                 To learn about what queries you can make, how the schema is structured, and to try some test queries,
+                 To learn about what queries you can make and how the schema is structured, 
                  visit the playground and click the 'Docs' tab on the right side. 
+                 Once you're ready to try some queries, you can also test them out in the playground.
                  To learn about GraphQL queries generally, the GraphQL Foundation has helpful resources.`)}
                 <ul>
                     <li>
