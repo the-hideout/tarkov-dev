@@ -54,13 +54,7 @@ import Suppressors from './pages/items/suppressors';
 import BsgCategory from './pages/items/bsg-category';
 import BitcoinFarmCalculator from './pages/bitcoin-farm-calculator';
 
-import Prapor from './pages/traders/prapor';
-import Therapist from './pages/traders/therapist';
-import Skier from './pages/traders/skier';
-import Peacekeeper from './pages/traders/peacekeeper';
-import Mechanic from './pages/traders/mechanic';
-import Ragman from './pages/traders/ragman';
-import Jaeger from './pages/traders/jaeger';
+import Trader from './pages/traders/trader';
 import Traders from './pages/traders';
 
 import HistoryGraphs from './pages/history-graphs';
@@ -483,60 +477,9 @@ function App() {
                     ]}
                 />
                 <Route
-                    path={'/traders/prapor'}
+                    path={'/traders/:traderName'}
                     element={[
-                        <Prapor sessionID={sessionID} key="prapor-wrapper" />,
-                        remoteControlSessionElement,
-                    ]}
-                />
-                <Route
-                    path={'/traders/therapist'}
-                    element={[
-                        <Therapist
-                            sessionID={sessionID}
-                            key="therapist-wrapper"
-                        />,
-                        remoteControlSessionElement,
-                    ]}
-                />
-                <Route
-                    path={'/traders/skier'}
-                    element={[
-                        <Skier sessionID={sessionID} key="skier-wrapper" />,
-                        remoteControlSessionElement,
-                    ]}
-                />
-                <Route
-                    path={'/traders/peacekeeper'}
-                    element={[
-                        <Peacekeeper
-                            sessionID={sessionID}
-                            key="peacekeeper-wrapper"
-                        />,
-                        remoteControlSessionElement,
-                    ]}
-                />
-                <Route
-                    path={'/traders/mechanic'}
-                    element={[
-                        <Mechanic
-                            sessionID={sessionID}
-                            key="mechanic-wrapper"
-                        />,
-                        remoteControlSessionElement,
-                    ]}
-                />
-                <Route
-                    path={'/traders/ragman'}
-                    element={[
-                        <Ragman sessionID={sessionID} key="ragman-wrapper" />,
-                        remoteControlSessionElement,
-                    ]}
-                />
-                <Route
-                    path={'/traders/jaeger'}
-                    element={[
-                        <Jaeger sessionID={sessionID} key="jaeger-wrapper" />,
+                        <Trader sessionID={sessionID} key="trader-wrapper" />,
                         remoteControlSessionElement,
                     ]}
                 />

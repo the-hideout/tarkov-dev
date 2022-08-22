@@ -19,28 +19,7 @@ import {
     useItemsQuery,
     useItemsWithTypeQuery,
 } from '../../../features/items/queries';
-
-const materialDestructabilityMap = {
-    Aramid: 0.25,
-    Combined: 0.5,
-    UHMWPE: 0.45,
-    Titan: 0.55,
-    Aluminium: 0.6,
-    ArmoredSteel: 0.7,
-    Ceramic: 0.8,
-    Glass: 0.8,
-};
-
-const materialRepairabilityMap = {
-    Aramid: 4,
-    Combined: 3,
-    UHMWPE: 6,
-    Titan: 4,
-    Aluminium: 4,
-    ArmoredSteel: 5,
-    Ceramic: 2,
-    Glass: 1,
-};
+import { useMetaQuery } from '../../../features/meta/queries';
 
 const ricochetMap = (ricochetCoefficient) => {
     if (ricochetCoefficient < 0.2) {
@@ -81,18 +60,18 @@ const marks = {
     6: 1,
 };
 
-const getStatsString = (itemProperties) => {
+const getStatsString = (properties) => {
     if (
-        !itemProperties.speedPenaltyPercent &&
-        !itemProperties.mousePenalty &&
-        !itemProperties.weaponErgonomicPenalty
+        !properties.speedPenalty &&
+        !properties.turnPenalty &&
+        !properties.ergoPenalty
     ) {
         return '';
     }
 
-    return `${itemProperties.speedPenaltyPercent || 0}% / ${
-        itemProperties.mousePenalty || 0
-    }% / ${itemProperties.weaponErgonomicPenalty || 0}`;
+    return `${Math.round(properties.speedPenalty*100) || 0}% / ${
+        Math.round(properties.mousePenalty*100) || 0
+    }% / ${properties.ergoPenalty || 0}`;
 };
 
 function Helmets(props) {
@@ -111,7 +90,22 @@ function Helmets(props) {
     };
     const { data: items } = useItemsQuery();
     const { data: displayItems } = useItemsWithTypeQuery('helmet');
+    const { data: meta } = useMetaQuery();
     const { t } = useTranslation();
+
+    const { materialDestructibilityMap, materialRepairabilityMap } = useMemo(
+        () => {
+            const destruct = {};
+            const repair = {};
+            if (!meta?.armor) return {materialDestructibilityMap: destruct, materialRepairabilityMap: repair };
+            meta.armor.forEach(armor => {
+                destruct[armor.id] = armor.destructibility;
+                repair[armor.id] = (100-Math.round((armor.minRepairDegradation + armor.maxRepairDegradation)/2*100));
+            });
+            return {materialDestructibilityMap: destruct, materialRepairabilityMap: repair };
+        },
+        [meta]
+    );
 
     const columns = useMemo(
         () => [
@@ -234,22 +228,12 @@ function Helmets(props) {
         () =>
             displayItems
                 .map((item) => {
-                    if (
-                        !materialDestructabilityMap[
-                            item.itemProperties.ArmorMaterial
-                        ]
-                    ) {
-                        console.log(
-                            `Missing ${item.itemProperties.ArmorMaterial}`,
-                        );
-                    }
-
-                    if (item.itemProperties.armorClass < 7 - minArmorClass) {
+                    if (item.properties.class < 7 - minArmorClass) {
                         return false;
                     }
 
                     if (
-                        item.itemProperties.BlocksEarpiece &&
+                        item.properties.blocksHeadset &&
                         !includeBlockingHeadset
                     ) {
                         return false;
@@ -268,74 +252,73 @@ function Helmets(props) {
 
                     return {
                         name: itemName,
-                        armorClass: item.itemProperties.armorClass,
-                        armorZone: item.itemProperties.headSegments?.join(', '),
-                        material: item.itemProperties.ArmorMaterial,
-                        deafenStrength: item.itemProperties.DeafStrength,
-                        blocksHeadphones: item.itemProperties.BlocksEarpiece
+                        armorClass: item.properties.class,
+                        armorZone: item.properties.headZones?.join(', '),
+                        material: item.properties.material?.name,
+                        deafenStrength: item.properties.deafening,
+                        blocksHeadphones: item.properties.blocksHeadset
                             ? 'Yes'
                             : 'No',
-                        maxDurability: item.itemProperties.MaxDurability,
+                        maxDurability: item.properties.durability,
                         ricochetChance: ricochetMap(
-                            item.itemProperties.RicochetParams?.x,
+                            item.properties?.ricochetY,
                         ),
-                        repairability: `${
-                            materialRepairabilityMap[
-                                item.itemProperties.ArmorMaterial
-                            ]
-                        }`,
+                        repairability: materialRepairabilityMap[item.properties.material?.id],
                         effectiveDurability: Math.floor(
-                            item.itemProperties.MaxDurability /
-                                materialDestructabilityMap[
-                                    item.itemProperties.ArmorMaterial
+                            item.properties.durability /
+                                materialDestructibilityMap[
+                                    item.properties.material?.id
                                 ],
                         ),
-                        stats: getStatsString(item.itemProperties),
+                        stats: getStatsString(item.properties),
                         price: formatPrice(item.avg24hPrice),
                         image:
                             item.iconLink ||
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
                         wikiLink: item.wikiLink,
                         itemLink: `/item/${item.normalizedName}`,
-                        subRows: item.linkedItems.map((linkedItemId) => {
-                            const linkedItem = items.find(
-                                (item) => item.id === linkedItemId,
-                            );
+                        subRows: items.filter(linkedItem => {
+                            if (!item.properties?.slots) return false;
+                            for (const slot of item.properties.slots) {
+                                const included = slot.filters.allowedItems.includes(linkedItem.id) ||
+                                    linkedItem.categoryIds.some(catId => slot.filters.allowedCategories.includes(catId));
+                                const excluded = slot.filters.excludedItems.includes(linkedItem.id) ||
+                                    linkedItem.categoryIds.some(catId => slot.filters.excludedCategories.includes(catId));
+                                if (included && !excluded) return true;
+                            }
+                            return false;
+                        }).map(linkedItem => {
                             return {
                                 name: linkedItem.name,
-                                armorClass: linkedItem.itemProperties.armorClass
-                                    ? linkedItem.itemProperties.armorClass
+                                armorClass: linkedItem.properties.class
+                                    ? linkedItem.properties.class
                                     : '',
                                 armorZone:
-                                    linkedItem.itemProperties.headSegments?.join(
+                                    linkedItem.properties.headZones?.join(
                                         ', ',
                                     ),
                                 material:
-                                    linkedItem.itemProperties.ArmorMaterial,
+                                    linkedItem.properties.material?.name,
                                 deafenStrength:
-                                    linkedItem.itemProperties.DeafStrength,
-                                blocksHeadphones: linkedItem.itemProperties
-                                    .BlocksEarpiece
+                                    linkedItem.properties.deafening,
+                                blocksHeadphones: linkedItem.properties
+                                    .blocksHeadset
                                     ? 'Yes'
                                     : 'No',
                                 maxDurability:
-                                    linkedItem.itemProperties.MaxDurability,
+                                    linkedItem.properties.durability,
                                 ricochetChance: ricochetMap(
-                                    linkedItem.itemProperties.RicochetParams?.x,
+                                    linkedItem.properties?.ricochetY,
                                 ),
-                                repairability:
-                                    materialRepairabilityMap[
-                                        linkedItem.itemProperties.ArmorMaterial
-                                    ],
+                                repairability: materialRepairabilityMap[linkedItem.properties.material?.id],
                                 effectiveDurability: Math.floor(
-                                    linkedItem.itemProperties.MaxDurability /
-                                        materialDestructabilityMap[
-                                            linkedItem.itemProperties
-                                                .ArmorMaterial
+                                    linkedItem.properties.durability /
+                                        materialDestructibilityMap[
+                                            linkedItem.properties.material?.id
                                         ],
                                 ),
                                 stats: getStatsString(
-                                    linkedItem.itemProperties,
+                                    linkedItem.properties,
                                 ),
                                 price: formatPrice(linkedItem.avg24hPrice),
                                 image: `https://assets.tarkov.dev/${linkedItem.id}-icon.jpg`,
@@ -346,7 +329,7 @@ function Helmets(props) {
                     };
                 })
                 .filter(Boolean),
-        [minArmorClass, includeBlockingHeadset, maxPrice, displayItems, items],
+        [minArmorClass, includeBlockingHeadset, maxPrice, displayItems, items, materialDestructibilityMap, materialRepairabilityMap],
     );
 
     return [

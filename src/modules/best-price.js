@@ -1,13 +1,19 @@
-const calculateFee = require('./flea-market-fee');
+import calculateFee from './flea-market-fee';
 
-module.exports = (itemData) => {
-    let currentFee = calculateFee(itemData.basePrice, itemData.lastLowPrice);
+export default function bestPrice(itemData, Ti = false, Tr = false) {
+    if (!itemData.basePrice) {
+        return {
+            bestPrice: 0,
+            bestPriceFee: 0,
+        };
+    }
+    let currentFee = calculateFee(itemData.basePrice, itemData.lastLowPrice, 1, Ti, Tr);
     let bestProfit = itemData.lastLowPrice - currentFee;
     let bestPrice = itemData.lastLowPrice;
     let bestPriceFee = currentFee;
 
     for (let i = itemData.lastLowPrice - 1000; i > 0; i = i - 1000) {
-        const newFee = calculateFee(itemData.basePrice, i);
+        const newFee = calculateFee(itemData.basePrice, i, 1, Ti, Tr);
 
         const newProfit = i - newFee;
 

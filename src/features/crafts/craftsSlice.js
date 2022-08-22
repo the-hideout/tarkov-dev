@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
+import { langCode } from '../../modules/lang-helpers';
+
 const initialState = {
     crafts: [],
     status: 'idle',
@@ -8,9 +10,17 @@ const initialState = {
 };
 
 export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
+  const language = await langCode();
     const bodyQuery = JSON.stringify({
         query: `{
-        crafts {
+        crafts(lang: ${language}) {
+          station {
+            id
+            name
+            normalizedName
+          }
+          level
+          duration
           rewardItems {
             item {
               id
@@ -28,16 +38,51 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
                 priceRUB
                 trader {
                   name
+                  normalizedName
                 }
               }
               buyFor {
                 source
+                vendor {
+                  name
+                  normalizedName
+                  __typename
+                  ...on TraderOffer {
+                      trader {
+                          id
+                          name
+                          normalizedName
+                      }
+                      minTraderLevel
+                      taskUnlock {
+                          id
+                          name
+                      }
+                  }
+                }
                 price
                 priceRUB
                 currency
               }
               sellFor {
                 source
+                vendor {
+                  name
+                  normalizedName
+                  __typename
+                  ...on TraderOffer {
+                      trader {
+                          id
+                          name
+                          normalizedName
+                      }
+                      minTraderLevel
+                      taskUnlock {
+                          id
+                          name
+                      }
+                  }
+                }
                 price
                 priceRUB
                 currency
@@ -63,16 +108,51 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
                 priceRUB
                 trader {
                   name
+                  normalizedName
                 }
               }
               buyFor {
                 source
+                vendor {
+                  name
+                  normalizedName
+                  __typename
+                  ...on TraderOffer {
+                      trader {
+                          id
+                          name
+                          normalizedName
+                      }
+                      minTraderLevel
+                      taskUnlock {
+                          id
+                          name
+                      }
+                  }
+                }
                 price
                 priceRUB
                 currency
               }
               sellFor {
                 source
+                vendor {
+                  name
+                  normalizedName
+                  __typename
+                  ...on TraderOffer {
+                      trader {
+                          id
+                          name
+                          normalizedName
+                      }
+                      minTraderLevel
+                      taskUnlock {
+                          id
+                          name
+                      }
+                  }
+                }
                 price
                 priceRUB
                 currency
@@ -86,7 +166,6 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
             }
           }
           source
-          duration
         }
     }`,
     });

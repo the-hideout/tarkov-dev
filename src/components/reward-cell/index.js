@@ -6,16 +6,17 @@ import RewardImage from '../reward-image';
 import formatPrice from '../../modules/format-price';
 import './index.css';
 
-function RewardCell({
-    count,
-    iconLink,
-    itemLink,
-    name,
-    source,
-    value,
-    sellTo,
-    barterOnly = false,
-}) {
+function RewardCell(props) {
+    const {
+        count,
+        iconLink,
+        itemLink,
+        name,
+        source,
+        value,
+        sellTo,
+        barterOnly = false,
+    } = props;
     const { t } = useTranslation();
 
     return (

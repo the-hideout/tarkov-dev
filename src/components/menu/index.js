@@ -14,7 +14,7 @@ import MenuItem from './MenuItem';
 // import PatreonButton from '../patreon-button';
 import UkraineButton from '../ukraine-button';
 
-import ammoData from '../../data/ammo.json';
+import { caliberMap } from '../../modules/format-ammo';
 import mapData from '../../data/maps.json';
 import itemsData from '../../data/category-pages.json';
 
@@ -28,13 +28,7 @@ import './index.css';
 // End of banner alert toggle
 
 
-const ammoTypes = [
-    ...new Set(
-        ammoData.data.map((ammoData) => {
-            return ammoData.type;
-        }),
-    ),
-].sort();
+const ammoTypes = Object.values(caliberMap).sort();
 
 const Menu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -63,7 +57,7 @@ const Menu = () => {
                         height={30}
                         width={186}
                         src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.svg`}
-                        class={'logo-padding'}
+                        className={'logo-padding'}
                         loading="lazy"
                     />
                 </Link>
@@ -159,7 +153,7 @@ const Menu = () => {
                     <li className="submenu-wrapper">
                         <Link to="/traders">{t('Traders')}</Link>
                         <ul>
-                            <MenuItem
+                        <MenuItem
                                 displayText={t('Prapor')}
                                 to={`/traders/prapor`}
                                 onClick={setIsOpen.bind(this, false)}

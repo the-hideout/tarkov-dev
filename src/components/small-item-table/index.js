@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+ import { useMemo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
@@ -22,39 +22,39 @@ import {
 } from '../../features/barters/bartersSlice';
 import { getCheapestBarter } from '../../modules/format-cost-items';
 
-import categoryData from '../../data/category-data.json';
-
 import './index.css';
 import { useItemsQuery } from '../../features/items/queries';
+import { useMetaQuery } from '../../features/meta/queries';
 
 function traderSellCell(datum) {
     if (!datum.row.original.bestSell?.source || datum.row.original.bestSell.source === '?') {
         return null;
     }
 
+    const count = datum.row.original.count;
     return (
         <div className="trader-price-content">
             <img
-                alt={datum.row.original.bestSell.source}
+                alt={datum.row.original.bestSell.vendor.name}
                 className="trader-icon"
                 loading="lazy"
                 height="40"
-                src={`${process.env.PUBLIC_URL}/images/${datum.row.original.bestSell.source?.toLowerCase()}-icon.jpg`}
-                title={datum.row.original.bestSell.source}
+                src={`${process.env.PUBLIC_URL}/images/${datum.row.original.bestSell.vendor.normalizedName}-icon.jpg`}
+                title={datum.row.original.bestSell.vendor.name}
                 width="40"
             />
 
             {datum.row.original.bestSell.currency !== 'RUB' ? (
                 <Tippy
-                    content={formatPrice(datum.row.original.bestSell.priceRUB)}
+                    content={formatPrice(datum.row.original.bestSell.priceRUB*count)}
                     placement="bottom"
                 >
                     <div>
-                        {formatPrice(datum.row.original.bestSell.price, datum.row.original.bestSell.currency)}
+                        {formatPrice(datum.row.original.bestSell.price*count, datum.row.original.bestSell.currency)}
                     </div>
                 </Tippy>
             ) : (
-                formatPrice(datum.row.original.bestSell.priceRUB)
+                formatPrice(datum.row.original.bestSell.priceRUB*count)
             )}
         </div>
     );
@@ -70,15 +70,19 @@ function shuffleArray(array) {
 const getArmorZoneString = (armorZones) => {
     return armorZones
         ?.map((zoneName) => {
-            if (zoneName === 'Chest') {
+            if (zoneName === 'THORAX') {
                 return 'Thorax';
             }
 
-            if (zoneName === 'LeftArm') {
+            if (zoneName === 'STOMACH') {
+                return 'Stomach';
+            }
+
+            if (zoneName === 'Left Arm') {
                 return false;
             }
 
-            if (zoneName === 'RightArm') {
+            if (zoneName === 'Right Arm') {
                 return 'Arms';
             }
 
@@ -88,34 +92,13 @@ const getArmorZoneString = (armorZones) => {
         .join(', ');
 };
 
-const materialDestructabilityMap = {
-    Aramid: 0.25,
-    Combined: 0.5,
-    UHMWPE: 0.45,
-    Titan: 0.55,
-    Aluminium: 0.6,
-    ArmoredSteel: 0.7,
-    Ceramic: 0.8,
-    Glass: 0.8,
-};
-
-const materialRepairabilityMap = {
-    Aramid: 4,
-    Combined: 3,
-    UHMWPE: 6,
-    Titan: 4,
-    Aluminium: 4,
-    ArmoredSteel: 5,
-    Ceramic: 2,
-    Glass: 1,
-};
-
 function SmallItemTable(props) {
     const {
         maxItems,
         nameFilter,
         defaultRandom,
         typeFilter,
+        containedInFilter,
         instaProfit,
         traderPrice,
         traderFilter,
@@ -146,13 +129,29 @@ function SmallItemTable(props) {
         bsgCategoryFilter,
         showContainedItems,
         weight,
-        showNetPPS
+        showNetPPS,
+        sumColumns
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
     // Use the primary items API query to fetch all items
     const result = useItemsQuery();
+
+    const { data: meta } = useMetaQuery();
+    const { materialDestructibilityMap, materialRepairabilityMap } = useMemo(
+        () => {
+            const destruct = {};
+            const repair = {};
+            if (!meta?.armor) return {materialDestructibilityMap: destruct, materialRepairabilityMap: repair };
+            meta.armor.forEach(armor => {
+                destruct[armor.id] = armor.destructibility;
+                repair[armor.id] = (100-Math.round((armor.minRepairDegradation + armor.maxRepairDegradation)/2*100));
+            });
+            return {materialDestructibilityMap: destruct, materialRepairabilityMap: repair };
+        },
+        [meta]
+    );
 
     // Create a constant of all data returned
     const items = result.data;
@@ -181,6 +180,15 @@ function SmallItemTable(props) {
             clearInterval(timer);
         };
     }, [bartersStatus, barterPrice, dispatch]);
+
+    const containedItems = useMemo(() => {
+        if (!containedInFilter) return {};
+        const filterItems = {};
+        containedInFilter.forEach(ci => {
+            filterItems[ci.item.id] = ci.count;
+        });
+        return filterItems;
+    }, [containedInFilter]);
 
     const data = useMemo(() => {
         let returnData = items
@@ -238,7 +246,7 @@ function SmallItemTable(props) {
                 }
 
                 if (
-                    item.itemProperties[minPropertyFilter.property] <
+                    item.properties[minPropertyFilter.property] <
                     minPropertyFilter.value
                 ) {
                     return false;
@@ -252,7 +260,7 @@ function SmallItemTable(props) {
                 }
 
                 if (
-                    item.itemProperties[maxPropertyFilter.property] >
+                    item.properties[maxPropertyFilter.property] >
                     maxPropertyFilter.value
                 ) {
                     return false;
@@ -265,24 +273,13 @@ function SmallItemTable(props) {
                     return true;
                 }
 
-                if (item.bsgCategoryId === bsgCategoryFilter) {
+                return item.categories.find(category => category.id === bsgCategoryFilter);
+            })
+            .filter(item => {
+                if (!containedInFilter) {
                     return true;
                 }
-
-                for (const bsgCategoryId in categoryData) {
-                    if (
-                        categoryData[bsgCategoryId]._parent !==
-                        bsgCategoryFilter
-                    ) {
-                        continue;
-                    }
-
-                    if (item.bsgCategoryId === bsgCategoryId) {
-                        return true;
-                    }
-                }
-
-                return false;
+                return containedItems[item.id];
             })
             .map((itemData) => {
                 const formattedItem = {
@@ -297,6 +294,7 @@ function SmallItemTable(props) {
                     instaProfit: 0,
                     itemLink: `/item/${itemData.normalizedName}`,
                     traderName: itemData.traderName,
+                    traderNormalizedName: itemData.traderNormalizedName,
                     traderPrice: itemData.traderPrice,
                     traderPriceRUB: itemData.traderPriceRUB,
                     traderCurrency: itemData.traderCurrency,
@@ -305,31 +303,35 @@ function SmallItemTable(props) {
                     sellFor: itemData.sellFor,
                     bestSell: {
                         source: itemData.traderName,
+                        vendor: {
+                            name: itemData.traderName,
+                            normalizedName: itemData.traderNormalizedName
+                        },
                         price: itemData.traderPrice,
                         priceRUB: itemData.traderPriceRUB,
                         currency: itemData.traderCurrency
                     },
                     buyOnFleaPrice: itemData.buyFor.find(
-                        (buyPrice) => buyPrice.source === 'flea-market',
+                        (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market',
                     ),
                     barters: barters.filter(
                         (barter) => barter.rewardItems[0].item.id === itemData.id,
                     ),
                     grid: itemData.grid,
-                    pricePerSlot: showNetPPS ? Math.floor(itemData.avg24hPrice / (itemData.itemProperties.grid?.totalSize - itemData.slots))
-                        : itemData.avg24hPrice / itemData.itemProperties.grid?.totalSize,
-                    ratio: (itemData.itemProperties.grid?.totalSize / itemData.slots).toFixed(2),
-                    size: itemData.itemProperties.grid?.totalSize,
+                    pricePerSlot: showNetPPS ? Math.floor(itemData.avg24hPrice / (itemData.properties.capacity - (itemData.width * itemData.height)))
+                                  : itemData.avg24hPrice / itemData.properties.capacity,
+                    ratio: (itemData.properties.capacity / (itemData.width * itemData.height)).toFixed(2),
+                    size: itemData.properties.capacity,
                     notes: itemData.notes,
-                    slots: itemData.slots,
-                    armorClass: itemData.itemProperties.armorClass,
-                    armorZone: getArmorZoneString(itemData.itemProperties.armorZone),
-                    maxDurability: itemData.itemProperties.MaxDurability,
-                    effectiveDurability: Math.floor(itemData.itemProperties.MaxDurability / materialDestructabilityMap[itemData.itemProperties.ArmorMaterial]),
-                    repairability: materialRepairabilityMap[itemData.itemProperties.ArmorMaterial],
-                    stats: `${itemData.itemProperties.speedPenaltyPercent}% / ${itemData.itemProperties.mousePenalty}% / ${itemData.itemProperties.weaponErgonomicPenalty}`,
-                    canHoldItems: itemData.canHoldItems,
-                    weight: itemData.weight
+                    slots: itemData.width * itemData.height,
+                    armorClass: itemData.properties.class,
+                    armorZone: getArmorZoneString(itemData.properties.zones || itemData.properties.headZones),
+                    maxDurability: itemData.properties.durability,
+                    effectiveDurability: Math.floor(itemData.properties?.durability / materialDestructibilityMap[itemData.properties?.material?.id]),
+                    repairability: materialRepairabilityMap[itemData.properties?.material?.id],
+                    stats: `${Math.round(itemData.properties.speedPenalty*100)}% / ${Math.round(itemData.properties.turnPenalty*100)}% / ${itemData.properties.ergoPenalty}`,
+                    weight: itemData.weight,
+                    properties: itemData.properties,
                 };
 
                 if (formattedItem.buyOnFleaPrice && formattedItem.buyOnFleaPrice.price > 0) {
@@ -340,10 +342,12 @@ function SmallItemTable(props) {
                     formattedItem.barterPrice = getCheapestBarter(itemData, formattedItem.barters);
 
                     if (!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice) {
-                        formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.barterPrice.price / (itemData.itemProperties.grid?.totalSize - itemData.slots))
-                            : formattedItem.barterPrice.price / itemData.itemProperties.grid?.totalSize;
+                        formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.barterPrice.price / (itemData.properties.capacity - itemData.slots))
+                                                     : formattedItem.barterPrice.price / itemData.properties.capacity;
                     }
                 }
+
+                formattedItem.count = containedItems[itemData.id] || 1;
 
                 return formattedItem;
             })
@@ -366,10 +370,10 @@ function SmallItemTable(props) {
         if (traderFilter) {
             returnData = returnData.filter((item) => {
                 item.buyFor = item.buyFor.filter(
-                    (buy) => buy.source === traderFilter,
+                    (buy) => buy.vendor.normalizedName === traderFilter,
                 );
                 item.sellFor = item.sellFor?.filter(
-                    (sell) => sell.source === traderFilter,
+                    (sell) => sell.vendor.normalizedName === traderFilter,
                 );
                 item.bestSell = item.sellFor?.sort((a, b) => {
                     return b.priceRUB - a.priceRUB;
@@ -423,6 +427,8 @@ function SmallItemTable(props) {
         return returnData;
     }, [
         nameFilter,
+        containedInFilter,
+        containedItems,
         defaultRandom,
         items,
         typeFilter,
@@ -436,7 +442,9 @@ function SmallItemTable(props) {
         maxPropertyFilter,
         maxPrice,
         bsgCategoryFilter,
-        showNetPPS
+        showNetPPS,
+        materialDestructibilityMap,
+        materialRepairabilityMap
     ]);
 
     const columns = useMemo(() => {
@@ -538,6 +546,7 @@ function SmallItemTable(props) {
 
                     return 0;
                 },
+                summable: true
             });
         }
 
@@ -613,6 +622,7 @@ function SmallItemTable(props) {
                 accessor: (d) => Number(d.bestSell?.priceRUB),
                 Cell: traderSellCell,
                 id: 'traderPrice',
+                summable: true
             });
         }
 
@@ -824,6 +834,7 @@ function SmallItemTable(props) {
             maxItems={maxItems}
             nameFilter={nameFilter}
             autoScroll={autoScroll}
+            sumColumns={sumColumns}
         />
     );
 }

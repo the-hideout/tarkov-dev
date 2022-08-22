@@ -22,6 +22,11 @@ const caliberMap = {
     Caliber9x33R: '.357 Magnum'
 };
 
-module.exports = (caliber) => {
+const formatCaliber = (caliber) => {
     return caliberMap[caliber] || caliber.replace('Caliber', '');
+};
+
+module.exports = {
+    caliberMap: caliberMap,
+    formatCaliber: formatCaliber
 };
