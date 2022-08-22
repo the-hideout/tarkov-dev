@@ -179,14 +179,7 @@ function Item() {
     let currentItemData = currentItemByNameData;
 
     const itemQuests = useMemo(() => {
-        return quests.filter((questData) => {
-            return questData.objectives.some((objectiveData) => {
-                if (!currentItemData) return false;
-                return objectiveData.item?.id === currentItemData?.id ||
-                    objectiveData.containsAll?.some(part => part.id === currentItemData?.id) ||
-                    objectiveData.markerItem?.id === currentItemData?.id;
-            }) || questData.neededKeys.some(taskKey => taskKey.keys.some(key => key.id === currentItemData?.id));
-        }).map((questData) => {
+        return quests.map((questData) => {
             const questDataCopy = {
                 ...questData,
                 neededItems: []
@@ -224,20 +217,14 @@ function Item() {
                 });
             });
             if (objectiveInfo.count > 0) questDataCopy.neededItems.push(objectiveInfo);
-            return questDataCopy;
-        });
+            if (questDataCopy.neededItems.length > 0) return questDataCopy;
+            return false;
+        }).filter(Boolean);
     }, [currentItemData, quests]);
 
     const questsProviding = useMemo(() => {
         const rewardTypes = ['startRewards', 'finishRewards'];
-        return quests.filter(quest => {
-            return rewardTypes.some(rewardType => {
-                return quest[rewardType].items.some(contained => {
-                    return contained.item.id === currentItemData?.id ||
-                        contained.item.containsItems.some(ci => ci.item.id === currentItemData?.id);
-                });
-            });
-        }).map(quest => {
+        return quests.map(quest => {
             const questDataCopy = {
                 ...quest,
                 rewardItems: []
@@ -261,8 +248,9 @@ function Item() {
                 });
                 if (rewardInfo.count > 0) questDataCopy.rewardItems.push(rewardInfo);
             });
-            return questDataCopy;
-        });
+            if (questDataCopy.rewardItems.length > 0) return questDataCopy;
+            return false;
+        }).filter(Boolean);
     }, [currentItemData, quests]);
 
     currentItemData = useMemo(() => {
