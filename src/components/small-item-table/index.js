@@ -35,12 +35,12 @@ function traderSellCell(datum) {
     return (
         <div className="trader-price-content">
             <img
-                alt={datum.row.original.bestSell.source}
+                alt={datum.row.original.bestSell.vendor.name}
                 className="trader-icon"
                 loading="lazy"
                 height="40"
-                src={`${process.env.PUBLIC_URL}/images/${datum.row.original.bestSell.normalizedName}-icon.jpg`}
-                title={datum.row.original.bestSell.source}
+                src={`${process.env.PUBLIC_URL}/images/${datum.row.original.bestSell.vendor.normalizedName}-icon.jpg`}
+                title={datum.row.original.bestSell.vendor.name}
                 width="40"
             />
 
@@ -303,7 +303,10 @@ function SmallItemTable(props) {
                     sellFor: itemData.sellFor,
                     bestSell: {
                         source: itemData.traderName,
-                        normalizedName: itemData.traderNormalizedName,
+                        vendor: {
+                            name: itemData.traderName,
+                            normalizedName: itemData.traderNormalizedName
+                        },
                         price: itemData.traderPrice,
                         priceRUB: itemData.traderPriceRUB,
                         currency: itemData.traderCurrency
