@@ -111,7 +111,7 @@ function ItemsForHideout(props) {
                                                 .replace(/\s/, '-')}-icon.png`}
                                         />
                                         <div>
-                                            <div>{item.moduleName}</div>
+                                            {item.moduleName}
                                             <div>
                                                 {t('Level')} {item.level}
                                             </div>
@@ -132,10 +132,7 @@ function ItemsForHideout(props) {
                                         <div className="hideout-item-text-wrapper">
                                             {item.item.name}
                                             <div className="amount-wrapper">
-                                                {t('Amount')}:{' '}
-                                                {new Intl.NumberFormat().format(
-                                                    item.quantity,
-                                                )}
+                                                {t('Amount')}: {item.quantity}
                                             </div>
                                         </div>
                                     </div>

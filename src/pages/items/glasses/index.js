@@ -28,16 +28,14 @@ function Glasses(props) {
                 accessor: 'image',
                 Cell: ({ value }) => {
                     return (
-                        <div className="center-content">
-                            <img
-                                alt=""
-                                className="table-image"
-                                height="64"
-                                loading="lazy"
-                                src={value}
-                                width="64"
-                            />
-                        </div>
+                        <img
+                            alt=""
+                            className="table-image"
+                            height="64"
+                            loading="lazy"
+                            src={value}
+                            width="64"
+                        />
                     );
                 },
             },

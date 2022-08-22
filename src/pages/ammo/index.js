@@ -205,13 +205,11 @@ function Ammo() {
                 accessor: 'name',
                 Cell: (props) => {
                     return (
-                        <div>
-                            <Link
-                                to={`/item/${props.cell.row.original.normalizedName}`}
-                            >
+                        <>
+                            <Link to={`/item/${props.cell.row.original.normalizedName}`}>
                                 {props.value}
                             </Link>
-                        </div>
+                        </>
                     );
                 },
             },
