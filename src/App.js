@@ -57,13 +57,6 @@ import BitcoinFarmCalculator from './pages/bitcoin-farm-calculator';
 import Bosses from './pages/bosses';
 import Boss from './pages/bosses/boss';
 
-import Prapor from './pages/traders/prapor';
-import Therapist from './pages/traders/therapist';
-import Skier from './pages/traders/skier';
-import Peacekeeper from './pages/traders/peacekeeper';
-import Mechanic from './pages/traders/mechanic';
-import Ragman from './pages/traders/ragman';
-import Jaeger from './pages/traders/jaeger';
 import Trader from './pages/traders/trader';
 import Traders from './pages/traders';
 
