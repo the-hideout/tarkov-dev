@@ -726,7 +726,7 @@ function SmallItemTable(props) {
         if (armorClass) {
             useColumns.push({
                 Header: t('Armor class'),
-                accessor: 'class',
+                accessor: 'armorClass',
                 Cell: CenterCell,
             });
         }
