@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useCallback, Suspense } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -482,6 +482,13 @@ function App() {
                     path={'/bosses'}
                     element={[
                         <Bosses sessionID={sessionID} key="bosses-wrapper" />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/boss'}
+                    element={[
+                        <Navigate to="/bosses" />,
                         remoteControlSessionElement,
                     ]}
                 />
