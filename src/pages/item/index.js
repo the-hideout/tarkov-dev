@@ -211,7 +211,7 @@ function Item() {
                 if (objectiveData.markerItem?.id === currentItemData?.id) {
                     objectiveInfo.count++;
                 }
-                objectiveData.containsAll.forEach(part => {
+                objectiveData.containsAll?.forEach(part => {
                     if (part.id !== currentItemData?.id) return;
                     objectiveInfo.count++;
                 });
