@@ -109,16 +109,21 @@ function BossPage(bossName) {
     // Format the bossProperties data for the 'stats' section
     var bossProperties = {}
     bossProperties[t('map') + ' 🗺️'] = maps;
-    if (bossData.spawnChance.length > 1) {
-        for (const spawn of bossData.spawnChance) {
-            bossProperties[t('spawnChance') + ` (${spawn.map}) 🎲`] = `${spawn.chance * 100}%`;
-        }
-    } else {
-        bossProperties[t('spawnChance') + ' 🎲'] = `${bossData.spawnChance[0].chance * 100}%`;
+
+    // Collect spawn stats for each map
+    var spawnStatsMsg = [];
+    for (const spawn of bossData.spawnChance) {
+        spawnStatsMsg.push(`${spawn.chance * 100}% (${spawn.map})`)
     }
+
+    bossProperties[t('spawnChance') + ` 🎲`] = spawnStatsMsg.join(', ');
+
+    // Display health stats
     if (bossJsonData) {
         bossProperties[t('health') + ' 🖤'] = bossJsonData.health;
     }
+
+    // Display behavior info
     if (bossJsonData) {
         bossProperties[t('behavior') + ' 💡'] = bossJsonData.behavior;
     }
