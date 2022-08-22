@@ -6,14 +6,16 @@ import capitalize from '../../../modules/capitalize-first';
 import formatBossData from '../../../modules/format-boss-data';
 import { useBossesQuery } from '../../../components/boss-list';
 import PropertyList from '../../../components/property-list';
+import bossJson from '../../../data/boss.json';
 
 import './index.css';
 
 const renderLoader = () => <p>Loading...</p>;
 
 function BossPage(bossName) {
-    const bossNameLower = bossName.bossName
     const { t } = useTranslation();
+
+    const bossNameLower = bossName.bossName
 
     // Fetch bosses
     const { data: bosses } = useBossesQuery();
@@ -26,6 +28,7 @@ function BossPage(bossName) {
     // Format the boss data
     const bossArray = formatBossData(bosses);
 
+    // Get the correct individual boss data
     var bossData;
     for (const boss of bossArray) {
         if (boss.name.toLowerCase().replace(/ /g, '-') === bossNameLower) {
@@ -34,25 +37,35 @@ function BossPage(bossName) {
         }
     }
 
-    var bossProperties = {}
-    bossProperties['map'] = Array.from(bossData.map);
-    bossProperties['spawnChance'] = `${bossData.spawnChance * 100}%`;
+    // Get static boss data from json file
+    var bossJsonData;
+    for (const boss of bossJson) {
+        if (boss.name.toLowerCase().replace(/ /g, '-') === bossNameLower) {
+            bossJsonData = boss;
+        }
+    }
 
+    // Format the bossProperties data for the 'stats' section
+    var bossProperties = {}
+    bossProperties['map 🗺️'] = Array.from(bossData.map);
+    bossProperties['spawnChance 🎲'] = `${bossData.spawnChance * 100}%`;
+    bossProperties['health 🖤'] = bossJsonData.health;
+
+    // Return the main react component for the boss page
     return [
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className={'item-page-wrapper'}>
                 <div className="main-information-grid">
                     <div className="item-information-wrapper">
                         <h1>
-                            <div className={'item-font'}>
-                                {bossData.name}
-                            </div>
+                            {bossData.name}
                         </h1>
                         <span className="wiki-link-wrapper">
                             <a href={`https://escapefromtarkov.fandom.com/wiki/${bossData.name}`}>
                                 {t('Wiki')}
                             </a>
                         </span>
+                        <p className='boss-details'>{bossJsonData.details}</p>
                     </div>
                     <div className="icon-and-link-wrapper">
                         <img
@@ -63,7 +76,7 @@ function BossPage(bossName) {
                         />
                     </div>
                 </div>
-                <h2 className='item-h2'>{t('Stats')}</h2>
+                <h2 className='item-h2'>{t('Boss Stats')}</h2>
                 <PropertyList properties={bossProperties} />
             </div>
         </div>
