@@ -51,7 +51,7 @@ function APIDocs() {
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Is it open source?')}</h3>
-                {t('Of course! All source code can be found in our GitHub repo:')}{' '}
+                {t('Of course! Source code for the API can be found in its GitHub repo:')}{' '}
                 <a href="https://github.com/the-hideout/tarkov-api">
                     github.com/the-hideout/tarkov-api
                 </a>
