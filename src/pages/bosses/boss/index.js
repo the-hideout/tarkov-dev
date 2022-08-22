@@ -112,8 +112,21 @@ function BossPage(bossName) {
 
     // Collect spawn stats for each map
     var spawnStatsMsg = [];
-    for (const spawn of bossData.spawnChance) {
-        spawnStatsMsg.push(`${spawn.chance * 100}% (${spawn.map})`)
+
+    // If a specific boss override exists, use that instead of the default from the API
+    if (bossJsonData && bossJsonData.spawnChanceOverride) {
+        for (const spawn of bossJsonData.spawnChanceOverride) {
+            if (bossJsonData.spawnChanceOverrideString === true) {
+                spawnStatsMsg.push(`${spawn.chance} (${spawn.map})`)
+            } else {
+                spawnStatsMsg.push(`${spawn.chance * 100}% (${spawn.map})`);
+            }
+            
+        }
+    } else {
+        for (const spawn of bossData.spawnChance) {
+            spawnStatsMsg.push(`${spawn.chance * 100}% (${spawn.map})`)
+        }
     }
 
     bossProperties[t('spawnChance') + ` 🎲`] = spawnStatsMsg.join(', ');

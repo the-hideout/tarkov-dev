@@ -1,5 +1,30 @@
 [
     {
+        "name": "rogue",
+        "spawnChanceOverride": [
+            {
+                "chance": 1,
+                "map": "lighthouse"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Rogues"
+    },
+    {
+        "name": "raider",
+        "spawnChanceOverrideString": true,
+        "spawnChanceOverride": [
+            {
+                "chance": "~15-35%",
+                "map": "reserve"
+            },
+            {
+                "chance": "~15-45%",
+                "map": "The Lab"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/raiders"
+    },
+    {
         "name": "cultist priest",
         "details": "Sneaky bois. Cultists lurk in the shadows in groups of 3-5, waiting for a player to approach. They silently approach their enemies and stab them using either normal knives or, in case of the priests, the poisoned Cultist knife. If fired upon, the Cultists will return fire using firearms and grenades. After they attack a player with their knife, they may choose to run off into the woods again and return to the shadows.",
         "health": 850,
