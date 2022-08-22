@@ -184,11 +184,11 @@ function Item() {
                 ...questData,
                 neededItems: []
             };
-            questDataCopy.objectives = questDataCopy.objectives.filter(objectiveData => {
+            /*questDataCopy.objectives = questDataCopy.objectives.filter(objectiveData => {
                 return objectiveData.item?.id === currentItemData?.id ||
                     objectiveData.containsAll?.some(part => part.id === currentItemData?.id) ||
                     objectiveData.markerItem?.id === currentItemData?.id;
-            });
+            });*/
 
             const objectiveInfo = {
                 iconLink: currentItemData?.iconLink,
@@ -205,9 +205,27 @@ function Item() {
                     objectiveInfo.count++;
                 }
                 objectiveData.containsAll?.forEach(part => {
-                    if (part.id !== currentItemData?.id) return;
-                    objectiveInfo.count++;
+                    if (part.id === currentItemData?.id) objectiveInfo.count++;
                 });
+                if (objectiveData.usingWeapon?.length === 1) {
+                    objectiveData.usingWeapon?.forEach(item => {
+                        if (item.id === currentItemData?.id) objectiveInfo.count = 1;
+                    });
+                }
+                if (objectiveData.usingWeaponMods?.length === 1) {
+                    console.log(objectiveData.usingWeaponMods);
+                    objectiveData.usingWeaponMods[0].forEach(item => {
+                        console.log(item.id, currentItemData?.id);
+                        if (item.id === currentItemData?.id) objectiveInfo.count = 1;
+                    });
+                }
+                if (objectiveData.wearing?.length === 1) {
+                    objectiveData.wearing?.forEach(outfit => {
+                        outfit.forEach(item => {
+                            if (item.id === currentItemData?.id) objectiveInfo.count = 1;
+                        });
+                    });
+                }
             });
             questData.neededKeys.forEach(taskKey => {
                 taskKey.keys.forEach(key => {

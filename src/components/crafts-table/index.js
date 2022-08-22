@@ -195,10 +195,12 @@ function CraftTable(props) {
                 }
 
                 // let hasZeroCostItem = false;
-                let [station, level] = craftRow.source.split('level');
+                //let [station, level] = craftRow.source.split('level');
+                const station = craftRow.station.name;
+                const level = craftRow.level;
 
-                level = parseInt(level);
-                station = station.trim();
+                //level = parseInt(level);
+                //station = station.trim();
 
                 if (
                     !nameFilter &&
