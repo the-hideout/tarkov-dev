@@ -39,7 +39,7 @@ function traderSellCell(datum) {
                 className="trader-icon"
                 loading="lazy"
                 height="40"
-                src={`${process.env.PUBLIC_URL}/images/${datum.row.original.bestSell.source?.toLowerCase()}-icon.jpg`}
+                src={`${process.env.PUBLIC_URL}/images/${datum.row.original.bestSell.normalizedName}-icon.jpg`}
                 title={datum.row.original.bestSell.source}
                 width="40"
             />
@@ -309,7 +309,7 @@ function SmallItemTable(props) {
                         currency: itemData.traderCurrency
                     },
                     buyOnFleaPrice: itemData.buyFor.find(
-                        (buyPrice) => buyPrice.source === 'flea-market',
+                        (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market',
                     ),
                     barters: barters.filter(
                         (barter) => barter.rewardItems[0].item.id === itemData.id,
