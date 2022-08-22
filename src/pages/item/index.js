@@ -213,9 +213,7 @@ function Item() {
                     });
                 }
                 if (objectiveData.usingWeaponMods?.length === 1) {
-                    console.log(objectiveData.usingWeaponMods);
                     objectiveData.usingWeaponMods[0].forEach(item => {
-                        console.log(item.id, currentItemData?.id);
                         if (item.id === currentItemData?.id) objectiveInfo.count = 1;
                     });
                 }
