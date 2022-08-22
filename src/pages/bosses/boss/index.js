@@ -1,10 +1,11 @@
 import { Helmet } from 'react-helmet';
-import React, { Suspense } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import capitalize from '../../../modules/capitalize-first';
 import formatBossData from '../../../modules/format-boss-data';
 import { useBossesQuery } from '../../../components/boss-list';
+import DataTable from '../../../components/data-table';
 import PropertyList from '../../../components/property-list';
 import bossJson from '../../../data/boss.json';
 import ErrorPage from '../../../components/error-page';
@@ -15,6 +16,24 @@ const renderLoader = () => <p>Loading...</p>;
 
 function BossPage(bossName) {
     const { t } = useTranslation();
+
+    // Format the boss table columns
+    const columns = useMemo(() => {
+        return [
+            {
+                Header: t('Map'),
+                accessor: 'map',
+            },
+            {
+                Header: t('Spawn Location'),
+                accessor: 'spawnLocations',
+            },
+            {
+                Header: t('Chance'),
+                accessor: 'chance',
+            }
+        ];
+    }, [t]);
 
     const bossNameLower = bossName.bossName
 
@@ -59,6 +78,16 @@ function BossPage(bossName) {
         bossProperties[t('health') + ' 🖤'] = bossJsonData.health;
     }
 
+    // Format the boss table data
+    const data = []
+    for (const spawnLocation of bossData.spawnLocations) {
+        data.push({
+            spawnLocations: spawnLocation.name,
+            chance: `${parseInt(spawnLocation.chance * 100)}%`,
+            map: spawnLocation.map
+        });
+    }
+
     // Return the main react component for the boss page
     return [
         <div className="display-wrapper" key={'boss-display-wrapper'}>
@@ -98,6 +127,17 @@ function BossPage(bossName) {
                 {bossJsonData &&
                     <p className='boss-details' key={'boss-loot'}>{bossJsonData.loot}</p>
                 }
+
+                <h2 className='item-h2' key={'boss-spawn-table-header'}>{t('Spawn Locations')}</h2>
+                <DataTable
+                    columns={columns}
+                    data={data}
+                    disableSortBy={false}
+                    key={'boss-spawn-table'}
+                    sortBy={'map'}
+                    sortByDesc={true}
+                    autoResetSortBy={false}
+                />
             </div>
         </div>
     ]
