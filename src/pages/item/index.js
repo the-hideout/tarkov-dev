@@ -203,7 +203,7 @@ function Item() {
                 count: 0,
                 foundInRaid: false
             };
-            questData.objectives.forEach((objectiveData) => {
+            questDataCopy.objectives.forEach((objectiveData) => {
                 if (objectiveData.item?.id === currentItemData?.id && objectiveData.type !== 'findItem') {
                     objectiveInfo.count += objectiveData.count || 1;
                     objectiveInfo.foundInRaid = objectiveInfo.foundInRaid || objectiveData.foundInRaid;
@@ -211,12 +211,10 @@ function Item() {
                 if (objectiveData.markerItem?.id === currentItemData?.id) {
                     objectiveInfo.count++;
                 }
-                if (objectiveData.containsAll?.some(part => part.id === currentItemData?.id)) {
-                    objectiveData.containsAll.forEach(part => {
-                        if (!part.id === currentItemData?.id) return;
-                        objectiveInfo.count++;
-                    });
-                }
+                objectiveData.containsAll.forEach(part => {
+                    if (part.id !== currentItemData?.id) return;
+                    objectiveInfo.count++;
+                });
             });
             questData.neededKeys.forEach(taskKey => {
                 taskKey.keys.forEach(key => {
