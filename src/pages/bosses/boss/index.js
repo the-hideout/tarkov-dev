@@ -18,8 +18,8 @@ const renderLoader = () => <p>Loading...</p>;
 function BossPage(bossName) {
     const { t } = useTranslation();
 
-    // Format the boss table columns
-    const columns = useMemo(() => {
+    // Format the boss table columns for locations
+    const columnsLocations = useMemo(() => {
         return [
             {
                 Header: t('Map'),
@@ -29,6 +29,27 @@ function BossPage(bossName) {
             {
                 Header: t('Spawn Location'),
                 accessor: 'spawnLocations',
+                Cell: CenterCell
+            },
+            {
+                Header: t('Chance'),
+                accessor: 'chance',
+                Cell: CenterCell
+            }
+        ];
+    }, [t]);
+
+    // Format the boss table columns
+    const columnsEscorts = useMemo(() => {
+        return [
+            {
+                Header: t('Name'),
+                accessor: 'name',
+                Cell: CenterCell
+            },
+            {
+                Header: t('Count'),
+                accessor: 'count',
                 Cell: CenterCell
             },
             {
@@ -82,7 +103,7 @@ function BossPage(bossName) {
         bossProperties[t('health') + ' 🖤'] = bossJsonData.health;
     }
 
-    // Format the boss table data
+    // Format the boss table spawnLocation data
     const spawnLocations = []
     for (const spawnLocation of bossData.spawnLocations) {
         spawnLocations.push({
@@ -90,6 +111,18 @@ function BossPage(bossName) {
             chance: `${parseInt(spawnLocation.chance * 100)}%`,
             map: spawnLocation.map
         });
+    }
+
+    // Format the boss table escorts data
+    const escorts = []
+    for (const escort of bossData.escorts) {
+        for (const amount of escort.amount) {
+            escorts.push({
+                name: escort.name,
+                chance: `${parseInt(amount.chance * 100)}%`,
+                count: amount.count
+            });
+        }
     }
 
     // Return the main react component for the boss page
@@ -133,8 +166,13 @@ function BossPage(bossName) {
                 }
 
                 <h2 className='item-h2' key={'boss-spawn-table-header'}>{t('Spawn Locations')}</h2>
+                <ul>
+                    <li>Map: The name of the map which the boss can spawn on</li>
+                    <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
+                    <li>Chance: If the "Spawn Chance" is activated for the map, this is the chance that the boss will spawn at a given location on that map</li>
+                </ul>
                 <DataTable
-                    columns={columns}
+                    columns={columnsLocations}
                     data={spawnLocations}
                     disableSortBy={false}
                     key={'boss-spawn-table'}
@@ -144,15 +182,21 @@ function BossPage(bossName) {
                 />
 
                 <h2 className='item-h2' key={'boss-escort-table-header'}>{t('Boss Escorts')}</h2>
-                <DataTable
-                    columns={columns}
-                    data={spawnLocations}
-                    disableSortBy={false}
-                    key={'boss-escort-table'}
-                    sortBy={'name'}
-                    sortByDesc={true}
-                    autoResetSortBy={false}
-                />
+                {escorts.length > 0 &&
+                    <DataTable
+                        columns={columnsEscorts}
+                        data={escorts}
+                        disableSortBy={false}
+                        key={'boss-escort-table'}
+                        sortBy={'name'}
+                        sortByDesc={true}
+                        autoResetSortBy={false}
+                    />
+                }
+                {escorts.length === 0 &&
+                <p>This boss does not have any escorts</p>
+                }
+
             </div>
         </div>
     ]
