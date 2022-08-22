@@ -9,6 +9,8 @@ import DataTable from '../../../components/data-table';
 import PropertyList from '../../../components/property-list';
 import bossJson from '../../../data/boss.json';
 import ErrorPage from '../../../components/error-page';
+import Icon from '@mdi/react';
+import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup } from '@mdi/js';
 
 import './index.css';
 import CenterCell from '../../../components/center-cell';
@@ -131,8 +133,13 @@ function BossPage(bossName) {
             <div className={'item-page-wrapper'} key={'boss-page-display-wrapper'}>
                 <div className="main-information-grid">
                     <div className="item-information-wrapper">
-                        <h1>
+                        <h1 className='h1-boss-name'>
                             {bossData.name}
+                            <Icon
+                                path={mdiEmoticonDevil}
+                                size={1.5}
+                                className="icon-with-text"
+                            />
                         </h1>
                         {bossJsonData &&
                             <span className="wiki-link-wrapper">
@@ -154,18 +161,36 @@ function BossPage(bossName) {
                         />
                     </div>
                 </div>
-                <h2 className='item-h2' key={'boss-stats-header'}>{t('Boss Stats')}</h2>
+                <h2 className='item-h2' key={'boss-stats-header'}>{t('Boss Stats')}
+                    <Icon
+                        path={mdiPoll}
+                        size={1.5}
+                        className="icon-with-text"
+                    />
+                </h2>
                 <PropertyList properties={bossProperties} />
 
                 {bossJsonData &&
-                    <h2 className='item-h2' key={'boss-loot-header'}>{t('Boss Loot')}</h2>
+                    <h2 className='item-h2' key={'boss-loot-header'}>{t('Boss Loot')}
+                        <Icon
+                            path={mdiDiamondStone}
+                            size={1.5}
+                            className="icon-with-text"
+                        />
+                    </h2>
 
                 }
                 {bossJsonData &&
                     <p className='boss-details' key={'boss-loot'}>{bossJsonData.loot}</p>
                 }
 
-                <h2 className='item-h2' key={'boss-spawn-table-header'}>{t('Spawn Locations')}</h2>
+                <h2 className='item-h2' key={'boss-spawn-table-header'}>{t('Spawn Locations')}
+                    <Icon
+                        path={mdiMapLegend}
+                        size={1.5}
+                        className="icon-with-text"
+                    />
+                </h2>
                 <ul>
                     <li>Map: The name of the map which the boss can spawn on</li>
                     <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
@@ -181,7 +206,13 @@ function BossPage(bossName) {
                     autoResetSortBy={false}
                 />
 
-                <h2 className='item-h2' key={'boss-escort-table-header'}>{t('Boss Escorts')}</h2>
+                <h2 className='item-h2' key={'boss-escort-table-header'}>{t('Boss Escorts')}
+                    <Icon
+                        path={mdiAccountGroup}
+                        size={1.5}
+                        className="icon-with-text"
+                    />
+                </h2>
                 {escorts.length > 0 &&
                     <DataTable
                         columns={columnsEscorts}
@@ -194,7 +225,7 @@ function BossPage(bossName) {
                     />
                 }
                 {escorts.length === 0 &&
-                <p>This boss does not have any escorts</p>
+                    <p>This boss does not have any escorts</p>
                 }
 
             </div>

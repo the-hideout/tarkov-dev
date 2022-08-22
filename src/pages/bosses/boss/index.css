@@ -1,3 +1,7 @@
 .boss-details {
     max-width: 80%;
 }
+
+.h1-boss-name {
+    display: block !important;
+}
