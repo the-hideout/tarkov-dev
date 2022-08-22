@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
 import {mdiSunglasses} from '@mdi/js';
 
+import ItemNameCell from '../../../components/item-name-cell';
 import DataTable from '../../../components/data-table';
 import formatPrice from '../../../modules/format-price';
 import { useItemsQuery } from '../../../features/items/queries';
@@ -25,25 +26,15 @@ function Glasses(props) {
     const columns = useMemo(
         () => [
             {
-                accessor: 'image',
-                Cell: ({ value }) => {
-                    return (
-                        <div className="center-content">
-                            <img
-                                alt=""
-                                className="table-image"
-                                height="64"
-                                loading="lazy"
-                                src={value}
-                                width="64"
-                            />
-                        </div>
-                    );
-                },
-            },
-            {
                 Header: t('Name'),
                 accessor: 'name',
+                Cell: (props) => {
+                    return (
+                        <ItemNameCell
+                            {...props}
+                        />
+                    );
+                },
             },
             {
                 Header: t('Armor class'),
@@ -80,21 +71,22 @@ function Glasses(props) {
         () =>
             displayItems
                 .map((item) => {
-                    const match = item.name.match(/(.*)\s\(\d.+?$/);
+                    /*const match = item.name.match(/(.*)\s\(\d.+?$/);
                     let itemName = item.name;
 
                     if (match) {
                         itemName = match[1].trim();
-                    }
+                    }*/
 
                     return {
-                        name: itemName,
-                        armorClass: item.itemProperties.armorClass,
+                        ...item,
+                        itemLink: `/item/${item.normalizedName}`,
+                        armorClass: item.properties.class,
                         blindness: `${
-                            (item.itemProperties.BlindnessProtection || 0) * 100
+                            (item.properties.blindnessProtection || 0) * 100
                         }%`,
-                        stats: `${item.itemProperties.mousePenalty || 0}% / ${
-                            item.itemProperties.weaponErgonomicPenalty || 0
+                        stats: `${item.properties.turnPenalty * 100 || 0}% / ${
+                            item.properties.ergoPenalty || 0
                         }`,
                         image:
                             item.iconLink ||

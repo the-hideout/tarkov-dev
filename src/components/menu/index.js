@@ -14,7 +14,7 @@ import MenuItem from './MenuItem';
 // import PatreonButton from '../patreon-button';
 import UkraineButton from '../ukraine-button';
 
-import ammoData from '../../data/ammo.json';
+import { caliberMap } from '../../modules/format-ammo';
 import mapData from '../../data/maps.json';
 import itemsData from '../../data/category-pages.json';
 
@@ -32,13 +32,7 @@ import { Suspense } from 'react';
 
 const renderLoader = () => <p>Loading...</p>;
 
-const ammoTypes = [
-    ...new Set(
-        ammoData.data.map((ammoData) => {
-            return ammoData.type;
-        }),
-    ),
-].sort();
+const ammoTypes = Object.values(caliberMap).sort();
 
 const Menu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -163,7 +157,7 @@ const Menu = () => {
                     <li className="submenu-wrapper">
                         <Link to="/traders">{t('Traders')}</Link>
                         <ul>
-                            <MenuItem
+                        <MenuItem
                                 displayText={t('Prapor')}
                                 to={`/traders/prapor`}
                                 onClick={setIsOpen.bind(this, false)}

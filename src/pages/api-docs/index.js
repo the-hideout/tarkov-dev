@@ -24,18 +24,25 @@ function APIDocs() {
             <h1>{t('Tarkov.dev API')}</h1>
             <h2>{t('About')}</h2>
             <div className="section-text-wrapper">
-                {t('The API is available on')}{' '}
+                {t(`The API is written in GraphQL and we try our hardest to follow spec and not to make breaking changes.
+                 To learn about what queries you can make and how the schema is structured, 
+                 visit the playground and click the 'Docs' tab on the right side. 
+                 Once you're ready to try some queries, you can also test them out in the playground.
+                 To learn about GraphQL queries generally, the GraphQL Foundation has helpful resources.`)}
+                <ul>
+                    <li>
+                        <a href ="https://api.tarkov.dev/___graphql">{t('Tarkov.dev GraphQL playground')}</a>
+                    </li>
+                    <li>
+                        <a href="https://graphql.org/learn/">{t('GraphQL Foundation resources')}</a>
+                    </li>
+                </ul>
+            </div>
+            <div className="section-text-wrapper">
+                {t('Once you\'re ready to send API queries from outside the playground, the endpoint is:')}{' '}
                 <a href="https://api.tarkov.dev/graphql">
                     https://api.tarkov.dev/graphql
-                </a>{' '}
-                <span>with a playground on</span>{' '}
-                <a href="https://api.tarkov.dev/___graphql">
-                    https://api.tarkov.dev/___graphql
                 </a>
-                <span>. </span>
-                {t(
-                    "It's written in graphql and we try our hardest to follow spec and never change or deprecate anything.",
-                )}
             </div>
             <h2>{t('Current API Performance')}</h2>
             <ApiMetricsGraph graph={true} />
@@ -47,7 +54,7 @@ function APIDocs() {
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Is it open source?')}</h3>
-                {t('Of course! All source code can be found in our GitHub repo:')}{' '}
+                {t('Of course! Source code for the API can be found in its GitHub repo:')}{' '}
                 <a href="https://github.com/the-hideout/tarkov-api">
                     github.com/the-hideout/tarkov-api
                 </a>
@@ -71,7 +78,7 @@ function APIDocs() {
             <div className="section-text-wrapper">
                 <h3>{t('What about caching?')}</h3>
                 {t(
-                    'Since our data is updated every 5 minutes, we also cache all graphql queries for 5 minutes as well.',
+                    'Since our data is updated every 5 minutes, we also cache all GraphQL queries for 5 minutes as well.',
                 )}
                 <div></div>
                 {t(
@@ -99,7 +106,6 @@ function APIDocs() {
                             TarkovTracker/tarkovdata
                         </a>
                     </li>
-                    <li>{t('Directly from the game')}</li>
                     <li>{t('Our network of scanners')}</li>
                 </ul>
             </div>

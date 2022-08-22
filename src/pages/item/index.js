@@ -1,6 +1,7 @@
-import React, { Suspense, useMemo, useState } from 'react';
+import React, { Suspense, useMemo, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams, Navigate, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import Icon from '@mdi/react';
@@ -9,7 +10,8 @@ import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
-// import CraftsTable from '../../components/crafts-table';
+import SmallItemTable from '../../components/small-item-table';
+//import CraftsTable from '../../components/crafts-table';
 import BartersTable from '../../components/barters-table';
 import QuestsList from '../../components/quests-list';
 import CanvasGrid from '../../components/canvas-grid';
@@ -23,11 +25,15 @@ import ItemSearch from '../../components/item-search';
 import { Filter, ToggleFilter } from '../../components/filter';
 import ContainedItemsList from '../../components/contained-items-list';
 
+import { useMetaQuery } from '../../features/meta/queries';
+import { selectAllBarters, fetchBarters, } from '../../features/barters/bartersSlice';
+import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
+import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
+import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
+
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
 import bestPrice from '../../modules/best-price';
-
-import Quests from '../../Quests';
 
 import './index.css';
 import {
@@ -83,38 +89,193 @@ function Item() {
     //  queries all items via graphql and then searches for said item.
     //  This is slow and does a lot of extra processing that is not needed
     const { data: currentItemByIdData } = useItemByIdQuery(itemName);
+    const { data: meta } = useMetaQuery();
+    const dispatch = useDispatch();
+    const barters = useSelector(selectAllBarters);
+    const bartersStatus = useSelector((state) => {
+        return state.barters.status;
+    });
+    const crafts = useSelector(selectAllCrafts);
+    const craftsStatus = useSelector((state) => {
+        return state.crafts.status;
+    });
+    const hideout = useSelector(selectAllHideoutModules);
+    const hideoutStatus = useSelector((state) => {
+        return state.hideout.status;
+    });
+    const quests = useSelector(selectQuests);
+    const questsStatus = useSelector((state) => {
+        return state.quests.status;
+    });
+
+    useEffect(() => {
+        let timer = false;
+        if (bartersStatus === 'idle') {
+            dispatch(fetchBarters());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchBarters());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [bartersStatus, dispatch]);
+
+    useEffect(() => {
+        let timer = false;
+        if (craftsStatus === 'idle') {
+            dispatch(fetchCrafts());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchCrafts());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [craftsStatus, dispatch]);
+
+    useEffect(() => {
+        let timer = false;
+        if (hideoutStatus === 'idle') {
+            dispatch(fetchHideout());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchHideout());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [hideoutStatus, dispatch]);
+
+    useEffect(() => {
+        let timer = false;
+        if (questsStatus === 'idle') {
+            dispatch(fetchQuests());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchQuests());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [questsStatus, dispatch]);
 
     let currentItemData = currentItemByNameData;
 
     const itemQuests = useMemo(() => {
-        return Quests.filter((questData) => {
-            const requiresItem = questData.objectives.find((objectiveData) => {
-                return objectiveData.targetId === currentItemData?.id;
-            });
-
-            if (!requiresItem) {
-                return false;
-            }
-
-            return true;
-        }).map((questData) => {
+        return quests.map((questData) => {
             const questDataCopy = {
                 ...questData,
+                neededItems: []
             };
-            questDataCopy.objectives = questDataCopy.objectives.filter(
-                ({ targetId }) => targetId === currentItemData?.id,
-            );
+            /*questDataCopy.objectives = questDataCopy.objectives.filter(objectiveData => {
+                return objectiveData.item?.id === currentItemData?.id ||
+                    objectiveData.containsAll?.some(part => part.id === currentItemData?.id) ||
+                    objectiveData.markerItem?.id === currentItemData?.id;
+            });*/
 
+            const objectiveInfo = {
+                iconLink: currentItemData?.iconLink,
+                name: currentItemData?.name,
+                count: 0,
+                foundInRaid: false
+            };
             questDataCopy.objectives.forEach((objectiveData) => {
-                if (objectiveData.targetId === currentItemData?.id) {
-                    objectiveData.iconLink = currentItemData.iconLink;
-                    objectiveData.name = currentItemData.name;
+                if (objectiveData.item?.id === currentItemData?.id && objectiveData.type !== 'findItem') {
+                    objectiveInfo.count += objectiveData.count || 1;
+                    objectiveInfo.foundInRaid = objectiveInfo.foundInRaid || objectiveData.foundInRaid;
+                }
+                if (objectiveData.markerItem?.id === currentItemData?.id) {
+                    objectiveInfo.count++;
+                }
+                objectiveData.containsAll?.forEach(part => {
+                    if (part.id === currentItemData?.id) objectiveInfo.count++;
+                });
+                if (objectiveData.usingWeapon?.length === 1) {
+                    objectiveData.usingWeapon?.forEach(item => {
+                        if (item.id === currentItemData?.id) objectiveInfo.count = 1;
+                    });
+                }
+                if (objectiveData.usingWeaponMods?.length === 1) {
+                    objectiveData.usingWeaponMods[0].forEach(item => {
+                        if (item.id === currentItemData?.id) objectiveInfo.count = 1;
+                    });
+                }
+                if (objectiveData.wearing?.length === 1) {
+                    objectiveData.wearing?.forEach(outfit => {
+                        outfit.forEach(item => {
+                            if (item.id === currentItemData?.id) objectiveInfo.count = 1;
+                        });
+                    });
                 }
             });
+            questData.neededKeys.forEach(taskKey => {
+                taskKey.keys.forEach(key => {
+                    if (key.id === currentItemData?.id) {
+                        objectiveInfo.count++;
+                    }
+                });
+            });
+            if (objectiveInfo.count > 0) questDataCopy.neededItems.push(objectiveInfo);
+            if (questDataCopy.neededItems.length > 0) return questDataCopy;
+            return false;
+        }).filter(Boolean);
+    }, [currentItemData, quests]);
 
-            return questDataCopy;
-        });
-    }, [currentItemData]);
+    const questsProviding = useMemo(() => {
+        const rewardTypes = ['startRewards', 'finishRewards'];
+        return quests.map(quest => {
+            const questDataCopy = {
+                ...quest,
+                rewardItems: []
+            };
+            rewardTypes.forEach(rewardType => {
+                const rewardInfo = {
+                    iconLink: currentItemData?.iconLink,
+                    name: currentItemData?.name,
+                    count: 0,
+                    rewardType: rewardType
+                };
+                quest[rewardType].items.forEach(contained => {
+                    if (contained.item.id === currentItemData?.id) {
+                        rewardInfo.count += contained.count;
+                    }
+                    contained.item.containsItems.forEach(ci => {
+                        if (ci.item.id === currentItemData?.id) {
+                            rewardInfo.count += contained.count;
+                        }
+                    });
+                });
+                if (rewardInfo.count > 0) questDataCopy.rewardItems.push(rewardInfo);
+            });
+            if (questDataCopy.rewardItems.length > 0) return questDataCopy;
+            return false;
+        }).filter(Boolean);
+    }, [currentItemData, quests]);
+
+    currentItemData = useMemo(() => {
+        if (!currentItemData || !currentItemData.bestPrice) return currentItemData;
+        return {
+            ...currentItemData,
+            ...bestPrice(currentItemData, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
+        };
+    }, [meta, currentItemData]);
 
     // if the name we got from the params are the id of the item, redirect
     // to a nice looking path
@@ -141,17 +302,36 @@ function Item() {
         return <ErrorPage />;
     }
 
+    const containsItems = currentItemData?.containsItems?.length > 0;
+
+    const hasBarters = barters.some(barter => {
+        return barter.requiredItems.some(contained => contained.item.id === currentItemData.id) ||
+            barter.rewardItems.some(contained => 
+                contained.item.id === currentItemData.id ||
+                    contained.item.containsItems.some(ci => ci.item.id === currentItemData.id)
+            );
+    });
+
+    const hasCrafts = crafts.some(craft => {
+        return craft.requiredItems.some(contained => contained.item.id === currentItemData.id) ||
+            craft.rewardItems.some(contained => 
+                contained.item.id === currentItemData.id
+            );
+    });
+
+    const usedInHideout = hideout?.some(station => station.levels.some(module => module.itemRequirements.some(contained => contained.item.id === currentItemData.id)));
+
     if (!currentItemData.bestPrice) {
         currentItemData = {
             ...currentItemData,
-            ...bestPrice(currentItemData),
+            ...bestPrice(currentItemData, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
         };
     }
 
     const traderIsBest =
         currentItemData.traderPriceRUB >
         currentItemData.lastLowPrice -
-            fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice)
+            fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate)
             ? true
             : false;
     const useFleaPrice =
@@ -175,6 +355,9 @@ function Item() {
                               fleaFee(
                                     currentItemData.basePrice,
                                     currentItemData.lastLowPrice,
+                                    1, 
+                                    meta?.flea?.sellOfferFeeRate, 
+                                    meta?.flea?.sellRequirementFeeRate
                               ),
                           )
                         : formatPrice(currentItemData.bestPriceFee)}
@@ -189,6 +372,9 @@ function Item() {
                                   fleaFee(
                                         currentItemData.basePrice,
                                         currentItemData.lastLowPrice,
+                                        1, 
+                                        meta?.flea?.sellOfferFeeRate, 
+                                        meta?.flea?.sellRequirementFeeRate
                                   ),
                           )
                         : formatPrice(
@@ -203,7 +389,7 @@ function Item() {
         </div>
     );
 
-    if (!useFleaPrice) {
+    if (!useFleaPrice && currentItemData.bestPrice) {
         fleaTooltip = (
             <div>
                 <div className="tooltip-calculation">
@@ -222,6 +408,9 @@ function Item() {
                                   fleaFee(
                                         currentItemData.basePrice,
                                         currentItemData.lastLowPrice,
+                                        1, 
+                                        meta?.flea?.sellOfferFeeRate, 
+                                        meta?.flea?.sellRequirementFeeRate
                                   ),
                               )
                             : formatPrice(currentItemData.bestPriceFee)}
@@ -236,6 +425,9 @@ function Item() {
                                       fleaFee(
                                             currentItemData.basePrice,
                                             currentItemData.lastLowPrice,
+                                            1, 
+                                            meta?.flea?.sellOfferFeeRate, 
+                                            meta?.flea?.sellRequirementFeeRate
                                       ),
                               )
                             : formatPrice(
@@ -299,8 +491,10 @@ function Item() {
                                 </a>
                             </span>
                         )}
-                        {currentItemData.canHoldItems && (
-                            <ContainedItemsList item={currentItemData} />
+                        {(currentItemData.properties?.grids || currentItemData.properties?.slots) && (
+                            <div>
+                                <ContainedItemsList item={currentItemData} />
+                            </div>
                         )}
                     </div>
                     <div className="icon-and-link-wrapper">
@@ -379,7 +573,7 @@ function Item() {
                                                 } first-trader-price`}
                                             >
                                                 <Link
-                                                    to={`/traders/${currentItemData.traderName.toLowerCase()}`}
+                                                    to={`/traders/${currentItemData.traderNormalizedName}`}
                                                 >
                                                     <img
                                                         alt={
@@ -391,7 +585,7 @@ function Item() {
                                                         src={`${
                                                             process.env
                                                                 .PUBLIC_URL
-                                                        }/images/${currentItemData.traderName.toLowerCase()}-icon.jpg`}
+                                                        }/images/${currentItemData.traderNormalizedName}-icon.jpg`}
                                                         // title = {`Sell ${currentItemData.name} on the Flea market`}
                                                     />
                                                 </Link>
@@ -422,7 +616,7 @@ function Item() {
                                         currentItemData.traderPrices.map(
                                             (traderPrice, traderPriceIndex) => {
                                                 const traderName =
-                                                    traderPrice.trader.toLowerCase();
+                                                    traderPrice.trader.normalizedName.toLowerCase();
 
                                                 return (
                                                     <div
@@ -512,14 +706,10 @@ function Item() {
                                                                 }
                                                             />
                                                         )}
-                                                        {buyPrice.requirements.find(
-                                                            (requirement) =>
-                                                                requirement.type ===
-                                                                'questCompleted',
-                                                        ) && (
+                                                        {buyPrice?.vendor?.taskUnlock && (
                                                             <Tippy
                                                                 content={
-                                                                    t('Locked behind a quest')
+                                                                    t('Quest: ')+buyPrice.vendor.taskUnlock.name
                                                                 }
                                                             >
                                                                 <div className="quest-icon-wrapper">
@@ -641,72 +831,99 @@ function Item() {
                     </div>
                 )}
                 <h2 className='item-h2'>{t('Stats')}</h2>
-                <PropertyList properties={currentItemData.properties} />
-                <div>
-                    <div className="item-barters-headline-wrapper">
+                <PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} />
+                {containsItems && (
+                    <>
                         <h2>
-                            {t('Barters with')} {currentItemData.name}
+                            {t('Items contained in')} {currentItemData.name}
                         </h2>
-                        <Filter>
-                            <ToggleFilter
-                                checked={showAllBarters}
-                                label={t('Ignore settings')}
-                                onChange={(e) =>
-                                    setShowAllBarters(!showAllBarters)
-                                }
-                                tooltipContent={
-                                    <div>
-                                        {t(
-                                            'Shows all crafts regardless of what you have set in your settings',
-                                        )}
-                                    </div>
-                                }
+                        <Suspense fallback={<>{t('Loading...')}</>}>
+                            <SmallItemTable
+                                containedInFilter={currentItemData.containsItems}
+                                fleaPrice
+                                barterPrice
+                                traderValue
+                                sumColumns
                             />
-                        </Filter>
-                    </div>
-                    <BartersTable
-                        itemFilter={currentItemData.id}
-                        showAll={showAllBarters}
-                    />
-                </div>
-                <div>
-                    <div className="item-crafts-headline-wrapper">
-                        <h2>
-                            {t('Crafts with')} {currentItemData.name}
-                        </h2>
-                        <Filter>
-                            <ToggleFilter
-                                checked={showAllCrafts}
-                                label={t('Ignore settings')}
-                                onChange={(e) =>
-                                    setShowAllCrafts(!showAllCrafts)
-                                }
-                                tooltipContent={
-                                    <div>
-                                        {t(
-                                            'Shows all crafts regardless of what you have set in your settings',
-                                        )}
-                                    </div>
-                                }
-                            />
-                        </Filter>
-                    </div>
-                    <Suspense fallback={<div>{t('Loading...')}</div>}>
-                        <CraftsTable
+                        </Suspense>
+                    </>
+                )}
+                {hasBarters && (
+                    <div>
+                        <div className="item-barters-headline-wrapper">
+                            <h2>
+                                {t('Barters with')} {currentItemData.name}
+                            </h2>
+                            <Filter>
+                                <ToggleFilter
+                                    checked={showAllBarters}
+                                    label={t('Ignore settings')}
+                                    onChange={(e) =>
+                                        setShowAllBarters(!showAllBarters)
+                                    }
+                                    tooltipContent={
+                                        <>
+                                            {t(
+                                                'Shows all crafts regardless of what you have set in your settings',
+                                            )}
+                                        </>
+                                    }
+                                />
+                            </Filter>
+                        </div>
+                        <BartersTable
                             itemFilter={currentItemData.id}
-                            showAll={showAllCrafts}
+                            showAll={showAllBarters}
                         />
-                    </Suspense>
-                </div>
-                <div>
-                    <h2>
-                        {t('Hideout modules needing')} {currentItemData.name}
-                    </h2>
-                    <Suspense fallback={<div>{t('Loading...')}</div>}>
-                        <ItemsForHideout itemFilter={currentItemData.id} />
-                    </Suspense>
-                </div>
-                <QuestsList itemQuests={itemQuests} />
+                    </div>
+                )}
+                {hasCrafts && (
+                    <div>
+                        <div className="item-crafts-headline-wrapper">
+                            <h2>
+                                {t('Crafts with')} {currentItemData.name}
+                            </h2>
+                            <Filter>
+                                <ToggleFilter
+                                    checked={showAllCrafts}
+                                    label={t('Ignore settings')}
+                                    onChange={(e) =>
+                                        setShowAllCrafts(!showAllCrafts)
+                                    }
+                                    tooltipContent={
+                                        <div>
+                                            {t(
+                                                'Shows all crafts regardless of what you have set in your settings',
+                                            )}
+                                        </div>
+                                    }
+                                />
+                            </Filter>
+                        </div>
+                        <Suspense fallback={<div>{t('Loading...')}</div>}>
+                            <CraftsTable
+                                itemFilter={currentItemData.id}
+                                showAll={showAllCrafts}
+                            />
+                        </Suspense>
+                    </div>
+                )}
+                {usedInHideout && (
+                    <div>
+                        <h2>
+                            {t('Hideout modules needing')} {currentItemData.name}
+                        </h2>
+                        <Suspense fallback={<div>{t('Loading...')}</div>}>
+                            <ItemsForHideout itemFilter={currentItemData.id} />
+                        </Suspense>
+                    </div>
+                )}
+                {itemQuests.length > 0 && (
+                    <QuestsList itemQuests={itemQuests} />
+                )}
+                {questsProviding.length > 0 && (
+                    <QuestsList itemQuests={questsProviding} />
+                )}
             </div>
         </div>,
     ];

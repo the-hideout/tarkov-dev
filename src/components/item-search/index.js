@@ -98,6 +98,7 @@ function ItemSearch({
                     instaProfit: 0,
                     itemLink: `/item/${itemData.normalizedName}`,
                     traderName: itemData.traderName,
+                    traderNormalizedname: itemData.traderNormalizedname,
                     traderPrice: itemData.traderPrice,
                     traderPriceRUB: itemData.traderPriceRUB,
                     traderCurrency: itemData.traderCurrency,

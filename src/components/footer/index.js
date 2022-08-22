@@ -71,7 +71,7 @@ function Footer() {
                     <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">Open Collective</a>
                 </p>
                 <OpenCollectiveButton />
-                <h3>Item Data</h3>
+                <h3>{t('Item Data')}</h3>
                 <p>
                     {t(
                         'Fresh data on EFT item attribtues and hideout crafts courtesy of',

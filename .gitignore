@@ -106,6 +106,10 @@ dist
 # Anything realted to JetBrains etc
 .idea
 
+# VS code
+.vscode/
+.vscode/*
+
 build
 tarkov-tools/*
 !public/manifest.json

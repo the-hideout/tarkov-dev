@@ -53,15 +53,13 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                             <Link to={costItem.itemLink}>{costItem.name}</Link>
                             <div className={`${costItem.isTool ? 'price-wrapper-tool' : 'price-wrapper'}`}>
                                 <ItemCost
-                                    alternatePrice={costItem.alternatePrice}
-                                    alternatePriceSource={
-                                        costItem.alternatePriceSource
-                                    }
+                                    priceDetails={costItem.priceDetails}
                                     craftId={craftId}
                                     barterId={barterId}
                                     count={costItem.count}
                                     price={costItem.price}
-                                    priceSource={costItem.priceSource}
+                                    vendor={costItem.vendor}
+                                    priceType={costItem.priceType}
                                 />
                             </div>
                         </div>

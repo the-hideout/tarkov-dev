@@ -89,7 +89,7 @@ function Start() {
                 </Suspense>
                 <Suspense fallback={renderLoader()} key={'main-small-item-table'}>
                     {!loadMoreState && [<SmallItemTable
-                        key={'small-item-table-main'}
+                        key={'small-item-table-initial'}
                         maxItems={20}
                         nameFilter={nameFilter}
                         defaultRandom={true}
@@ -121,7 +121,7 @@ function Start() {
             </div>
             <div className="start-section-wrapper" key={'server-status-div'}>
                 <Suspense fallback={renderLoader()} key={'server-status'}>
-                    <ServerStatus />
+                    <ServerStatus key={"server-status"} />
                 </Suspense>
                 <h3>
                     <Icon
@@ -132,7 +132,7 @@ function Start() {
                     {t('Tools')}
                 </h3>
                 <ul className="tools-list">
-                    <li>
+                    <li key={"ammo-page"}>
                         <Link to="/ammo/">
                             <Icon
                                 path={mdiAmmunition}
@@ -142,7 +142,7 @@ function Start() {
                             {t('Ammo Chart')}
                         </Link>
                     </li>
-                    <li>
+                    <li key={"loot-tier-page"}>
                         <Link to="/loot-tier/">
                             <Icon
                                 path={mdiFinance}
@@ -152,7 +152,7 @@ function Start() {
                             {t('Loot tiers')}
                         </Link>
                     </li>
-                    <li>
+                    <li key={"barters-page"}>
                         <Link to="/barters/">
                             <Icon
                                 path={mdiAccountSwitch}
@@ -162,7 +162,7 @@ function Start() {
                             {t('Barter trades')}
                         </Link>
                     </li>
-                    <li>
+                    <li key={"hideout-profit-page"}>
                         <Link to="/hideout-profit/">
                             <Icon
                                 path={mdiProgressWrench}
@@ -172,7 +172,7 @@ function Start() {
                             {t('Hideout crafts')}
                         </Link>
                     </li>
-                    <li>
+                    <li key={'stash-bot-invite'}>
                         <a
                             href={DISCORD_STASH_INVITE_LINK}
                         >
@@ -184,7 +184,7 @@ function Start() {
                             {t('Discord bot')}
                         </a>
                     </li>
-                    <li>
+                    <li key={"hideout-page"}>
                         <Link to="/hideout">
                             <Icon
                                 path={mdiHome}
@@ -194,7 +194,7 @@ function Start() {
                             {t('Hideout build costs')}
                         </Link>
                     </li>
-                    <li>
+                    <li key={"wipe-length-page"}>
                         <Link to="/wipe-length">
                             <Icon
                                 path={mdiCalendarClock}
@@ -206,7 +206,7 @@ function Start() {
                     </li>
                 </ul>
                 <h3>
-                    <Link to={'/maps'}>
+                    <Link to={'/maps'} key={"maps-page"}>
                         <Icon
                             path={mdiMap}
                             size={1}
@@ -227,7 +227,7 @@ function Start() {
                     })}
                 </ul>
                 <h3>
-                    <Link to={'/items'}>
+                    <Link to={'/items'} key={"items-page"}>
                         <Icon
                             path={mdiViewGrid}
                             size={1}
@@ -253,7 +253,7 @@ function Start() {
                     })}
                 </ul>
                 <h3>
-                    <Link to={'/traders'}>
+                    <Link to={'/traders'} key={"traders-page"}>
                         <Icon
                             path={mdiAccountGroup}
                             size={1}
@@ -263,7 +263,7 @@ function Start() {
                     </Link>
                 </h3>
                 <ul className="traders-list">
-                    <li>
+                <li>
                         <Link to={`/traders/prapor`}>
                             <img
                                 alt="Prapor icon"

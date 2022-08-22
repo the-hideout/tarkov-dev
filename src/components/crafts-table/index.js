@@ -29,6 +29,7 @@ import {
     getDurationDisplay,
     getFinishDisplay,
 } from '../../modules/format-duration';
+import { useMetaQuery } from '../../features/meta/queries';
 
 function CraftTable(props) {
     const { selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices } =
@@ -61,6 +62,7 @@ function CraftTable(props) {
     const progressStatus = useSelector((state) => {
         return state.settings.progressStatus;
     });
+    const { data: meta } = useMetaQuery();
 
     useEffect(() => {
         let tarkovTrackerProgressInterval = false;
@@ -193,10 +195,12 @@ function CraftTable(props) {
                 }
 
                 // let hasZeroCostItem = false;
-                let [station, level] = craftRow.source.split('level');
+                //let [station, level] = craftRow.source.split('level');
+                const station = craftRow.station.name;
+                const level = craftRow.level;
 
-                level = parseInt(level);
-                station = station.trim();
+                //level = parseInt(level);
+                //station = station.trim();
 
                 if (
                     !nameFilter &&
@@ -261,12 +265,15 @@ function CraftTable(props) {
                 };
 
                 const bestTraderValue = Math.max(
-                    ...craftRow.rewardItems[0].item.traderPrices.map(
-                        (priceObject) => priceObject.priceRUB,
+                    ...craftRow.rewardItems[0].item.sellFor.map(
+                        (priceObject) => {
+                            if (priceObject.vendor.normalizedName === 'flea-market') return 0;
+                            return priceObject.priceRUB
+                        }
                     ),
                 );
                 const bestTrade =
-                    craftRow.rewardItems[0].item.traderPrices.find(
+                    craftRow.rewardItems[0].item.sellFor.find(
                         (traderPrice) => traderPrice.priceRUB === bestTraderValue,
                     );
 
@@ -275,7 +282,7 @@ function CraftTable(props) {
                     (bestTrade && !includeFlea)
                 ) {
                     tradeData.reward.value = bestTrade.priceRUB;
-                    tradeData.reward.sellTo = t(bestTrade.trader.name);
+                    tradeData.reward.sellTo = bestTrade.vendor.name;
                 }
 
                 const priceToUse = averagePrices === true ? 'avg24hPrice' : 'lastLowPrice';
@@ -302,6 +309,8 @@ function CraftTable(props) {
                             craftRow.rewardItems[0].item.basePrice,
                             craftRow.rewardItems[0].item[priceToUse],
                             craftRow.rewardItems[0].count,
+                            meta?.flea?.sellOfferFeeRate,
+                            meta?.flea?.sellRequirementFeeRate,
                         ) *
                             feeReduction;
                 }
@@ -370,6 +379,7 @@ function CraftTable(props) {
         t,
         showAll,
         averagePrices,
+        meta,
     ]);
 
     const columns = useMemo(

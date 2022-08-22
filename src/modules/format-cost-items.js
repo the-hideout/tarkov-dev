@@ -10,25 +10,27 @@ function getCheapestItemPrice(item, useFlea) {
         return bestPrice;
     }
 
-    item.buyFor.map((priceObject) => {
+    item.buyFor.forEach((priceObject) => {
         if (priceObject.priceRUB > bestPrice.price) {
-            return true;
+            return;
         }
 
-        if (priceObject.source === 'fleaMarket' && !useFlea) {
-            return true;
+        if (priceObject.vendor.normalizedName === 'flea-market' && !useFlea) {
+            return;
         }
 
-        bestPrice.source = priceObject.source;
+        bestPrice.vendor = priceObject.vendor;
+        bestPrice.type = 'cash';
         bestPrice.price = priceObject.priceRUB;
 
-        return true;
+        return;
     });
 
     return bestPrice;
 }
 
 function getItemBarters(item, barters) {
+    const matchedBarters = [];
     for (const barter of barters) {
         // if(barter.rewardItems.length > 1){
         //     continue;
@@ -42,19 +44,20 @@ function getItemBarters(item, barters) {
             continue;
         }
 
-        return barter;
+        matchedBarters.push(barter);
     }
 
-    return false;
+    return matchedBarters;
 }
 
 function getCheapestBarter(item, barters, useFlea = true) {
-    const barter = getItemBarters(item, barters);
-    let barterTotalCost = false;
+    const itemBarters = getItemBarters(item, barters);
+    let bestBarter = false;
+    let barterTotalCost = Number.MAX_SAFE_INTEGER;
     let bestPrice = {};
 
-    if (barter) {
-        barterTotalCost = barter.requiredItems.reduce(
+    for (const barter of itemBarters) {
+        const thisBarterCost = barter.requiredItems.reduce(
             (accumulatedPrice, requiredItem) => {
                 return (
                     accumulatedPrice +
@@ -64,12 +67,16 @@ function getCheapestBarter(item, barters, useFlea = true) {
             },
             0,
         );
+        if (thisBarterCost && thisBarterCost < barterTotalCost) {
+            bestBarter = barter;
+            barterTotalCost = thisBarterCost;
+        }
     }
 
-    if (barter && barterTotalCost) {
+    if (bestBarter) {
         bestPrice.price = barterTotalCost;
-        bestPrice.source = 'barter';
-        bestPrice.barter = barter;
+        bestPrice.type = 'barter';
+        bestPrice.barter = bestBarter;
     }
 
     return bestPrice;
@@ -78,11 +85,12 @@ function getCheapestBarter(item, barters, useFlea = true) {
 function getCheapestItemPriceWithBarters(item, barters, useFlea = true) {
     const bestPrice = getCheapestItemPrice(item, useFlea);
 
-    const barter = getItemBarters(item, barters);
-    let barterTotalCost = false;
+    const itemBarters = getItemBarters(item, barters);
+    let bestBarter = false;
+    let barterTotalCost = Number.MAX_SAFE_INTEGER;
 
-    if (barter) {
-        barterTotalCost = barter.requiredItems.reduce(
+    for (const barter of itemBarters) {
+        const thisBarterCost = barter.requiredItems.reduce(
             (accumulatedPrice, requiredItem) => {
                 return (
                     accumulatedPrice +
@@ -92,34 +100,44 @@ function getCheapestItemPriceWithBarters(item, barters, useFlea = true) {
             },
             0,
         );
+        if (thisBarterCost && thisBarterCost < barterTotalCost) {
+            bestBarter = barter;
+            barterTotalCost = thisBarterCost;
+        }
     }
-
-    if (
-        barter &&
-        barterTotalCost &&
-        (!bestPrice.price || barterTotalCost < bestPrice.price)
-    ) {
+ 
+    if (bestBarter && (!bestPrice.price || barterTotalCost < bestPrice.price)) {
         bestPrice.price = barterTotalCost;
-        bestPrice.source = 'barter';
-        bestPrice.barter = barter;
+        bestPrice.type = 'barter';
+        bestPrice.barter = bestBarter;
+        bestPrice.vendor = {
+            name: bestBarter.trader.name,
+            normalizedName: bestBarter.trader.normalizedName,
+            vendor: {
+                trader: bestBarter.trader,
+                minTraderLevel: bestBarter.level,
+                taskUnlock: bestBarter.taskUnlock
+            }
+        }
     }
 
     // If we don't have any price at all, fall back to highest trader sell price
     if (!bestPrice.price) {
         // console.log(`Found no bestPrice for ${item.name}, falling back to trader value`);
-        item.sellFor.map((priceObject) => {
+        item.sellFor.forEach((priceObject) => {
             if (priceObject.priceRUB < bestPrice.price) {
-                return true;
+                return;
             }
 
-            if (priceObject.source === 'fleaMarket' && !useFlea) {
-                return true;
+            if (priceObject.vendor.normalizedName === 'flea-market' && !useFlea) {
+                return;
             }
 
-            bestPrice.source = priceObject.source;
+            bestPrice.type = 'cash';
+            bestPrice.vendor = priceObject.vendor;
             bestPrice.price = priceObject.priceRUB;
 
-            return true;
+            return;
         });
     }
 
@@ -170,8 +188,9 @@ const formatCostItems = (
                     : requiredItem.count,
             name: itemName,
             price: calculationPrice,
-            priceSource: bestPrice.source,
-            alternatePriceSource: bestPrice.barter,
+            priceType: bestPrice.type,
+            vendor: bestPrice.vendor,
+            priceDetails: bestPrice.barter,
             iconLink:
                 requiredItem.item.iconLink ||
                 'https://tarkov.dev/images/unknown-item-icon.jpg',

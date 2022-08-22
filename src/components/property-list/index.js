@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import './index.css';
 
-const skipProps = ['grid', 'ConflictingItems', '__typename'];
+const skipProps = ['grid', 'ConflictingItems', '__typename', 'slots'];
 
 function PropertyList({ properties }) {
     const data = useMemo(

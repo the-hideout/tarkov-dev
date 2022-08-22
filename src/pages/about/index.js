@@ -56,17 +56,12 @@ function About() {
                 {t(
                     'We offer a 100% free and publically accessible API for all your Tarkov development needs - ',
                 )}{' '}
-                <a href="https://github.com/the-hideout/tarkov-data-api">API</a>{' '}
+                <a href="/api/">API</a>{' '}
             </p>
             <h2>{t('History')}</h2>
             <p>
-                {t('This project')}
-                {' ('}
-                <a href="https://github.com/the-hideout/tarkov-dev">
-                    tarkov-dev
-                </a>
-                {') '}
-                {t('is a fork of ')}{' '}
+                {t('This project is a fork of')}
+                {' '}
                 <a href="https://github.com/kokarn/tarkov-tools">
                     tarkov-tools.com
                 </a>
@@ -109,6 +104,9 @@ function About() {
                     </li>
                     <li>
                         <a href="https://github.com/johndongus">@johndongus</a>{' '}
+                    </li>
+                    <li>
+                        <a href="https://github.com/Shebuka">@Shebuka</a>
                     </li>
                 </ul>
             </p>
