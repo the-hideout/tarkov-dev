@@ -40,7 +40,6 @@ function APIDocs() {
                 <a href="https://api.tarkov.dev/graphql">
                     https://api.tarkov.dev/graphql
                 </a>
-                <span>. </span>
             </div>
             <h2>{t('Current API Performance')}</h2>
             <ApiMetricsGraph graph={true} />
