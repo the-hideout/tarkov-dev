@@ -11,6 +11,7 @@ import bossJson from '../../../data/boss.json';
 import ErrorPage from '../../../components/error-page';
 
 import './index.css';
+import CenterCell from '../../../components/center-cell';
 
 const renderLoader = () => <p>Loading...</p>;
 
@@ -23,14 +24,17 @@ function BossPage(bossName) {
             {
                 Header: t('Map'),
                 accessor: 'map',
+                Cell: CenterCell
             },
             {
                 Header: t('Spawn Location'),
                 accessor: 'spawnLocations',
+                Cell: CenterCell
             },
             {
                 Header: t('Chance'),
                 accessor: 'chance',
+                Cell: CenterCell
             }
         ];
     }, [t]);
@@ -135,6 +139,17 @@ function BossPage(bossName) {
                     disableSortBy={false}
                     key={'boss-spawn-table'}
                     sortBy={'map'}
+                    sortByDesc={true}
+                    autoResetSortBy={false}
+                />
+
+                <h2 className='item-h2' key={'boss-escort-table-header'}>{t('Boss Escorts')}</h2>
+                <DataTable
+                    columns={columns}
+                    data={data}
+                    disableSortBy={false}
+                    key={'boss-escort-table'}
+                    sortBy={'name'}
                     sortByDesc={true}
                     autoResetSortBy={false}
                 />
