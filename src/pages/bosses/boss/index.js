@@ -55,8 +55,8 @@ function BossPage(bossName) {
 
     // Return the main react component for the boss page
     return [
-        <div className="display-wrapper" key={'display-wrapper'}>
-            <div className={'item-page-wrapper'}>
+        <div className="display-wrapper" key={'boss-display-wrapper'}>
+            <div className={'item-page-wrapper'} key={'boss-page-display-wrapper'}>
                 <div className="main-information-grid">
                     <div className="item-information-wrapper">
                         <h1>
@@ -80,8 +80,16 @@ function BossPage(bossName) {
                         />
                     </div>
                 </div>
-                <h2 className='item-h2'>{t('Boss Stats')}</h2>
+                <h2 className='item-h2' key={'boss-stats-header'}>{t('Boss Stats')}</h2>
                 <PropertyList properties={bossProperties} />
+
+                {bossJsonData &&
+                    <h2 className='item-h2' key={'boss-loot-header'}>{t('Boss Loot')}</h2>
+
+                }
+                {bossJsonData &&
+                    <p className='boss-details' key={'boss-loot'}>{bossJsonData.loot}</p>
+                }
             </div>
         </div>
     ]
@@ -92,19 +100,20 @@ function Boss() {
     const boss = capitalize(bossName);
 
     return [
-        <Helmet key={'loot-tier-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{`${boss} - Escape from Tarkov`}</title>
-            <meta
+        <Helmet key={`boss-helmet-${bossName}`}>
+            <meta key={`boss-charset-${bossName}`} charSet="utf-8" />
+            <title key={`boss-title-${bossName}`}>{`${boss} - Escape from Tarkov`}</title>
+            <meta key={`boss-meta-${bossName}`}
                 name="description"
                 content={`All the relevant information about ${boss} (boss) in Escape from Tarkov`}
             />
             <link
+                key={`boss-canonical-${bossName}`}
                 rel="canonical"
                 href={`https://tarkov.dev/boss/${bossName}`}
             />
         </Helmet>,
-        <Suspense fallback={renderLoader()}>
+        <Suspense fallback={renderLoader()} key={`suspense-boss-page-${bossName}`}>
             <BossPage bossName={bossName} />
         </Suspense>
     ];
