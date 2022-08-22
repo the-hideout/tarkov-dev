@@ -18,7 +18,10 @@ import ammoData from '../../data/ammo.json';
 import mapData from '../../data/maps.json';
 import itemsData from '../../data/category-pages.json';
 
+import { BossListNav } from '../../components/boss-list';
+
 import './index.css';
+import { Suspense } from 'react';
 
 // Comment / uncomment for banner alert
 // import MuiAlert from '@material-ui/lab/Alert';
@@ -27,6 +30,7 @@ import './index.css';
 // }
 // End of banner alert toggle
 
+const renderLoader = () => <p>Loading...</p>;
 
 const ammoTypes = [
     ...new Set(
@@ -195,6 +199,12 @@ const Menu = () => {
                                 onClick={setIsOpen.bind(this, false)}
                             />
                         </ul>
+                    </li>
+                    <li className="submenu-wrapper">
+                        <Link to="/bosses/">{t('Bosses')}</Link>
+                        <Suspense fallback={renderLoader()}>
+                            <BossListNav onClick={setIsOpen.bind(this, false)} />
+                        </Suspense>
                     </li>
                     <li className="submenu-wrapper">
                         <Link

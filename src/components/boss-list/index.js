@@ -2,6 +2,8 @@ import { useQuery } from 'react-query';
 import doFetchBosses from '../../features/bosses/do-fetch-bosses';
 import formatBossData from '../../modules/format-boss-data';
 import { Link } from 'react-router-dom';
+import MenuItem from '../menu/MenuItem';
+
 import './index.css';
 
 // Query for bosses
@@ -49,6 +51,41 @@ export function BossPageList() {
                     </Link>
                 )
             })}
+        </>
+    );
+}
+
+// BossListNav component for homepage nav bar
+export function BossListNav(onClick) {
+    // Fetch bosses
+    const { data: bosses } = useBossesQuery();
+
+    // If no bosses have been returned yet, return 'loading'
+    if (!bosses || bosses.length === 0) {
+        return 'Loading...';
+    }
+
+    // Format the boss data
+    const bossArray = formatBossData(bosses);
+
+    // Return the home page nav boss React component
+    return (
+        <>
+            <ul>
+                {bossArray.map((boss) => {
+                    // Format the boss name for links
+                    var key = boss.name.toLowerCase().replace(/ /g, '-');
+
+                    return (
+                        <MenuItem
+                            displayText={boss.name}
+                            key={key}
+                            to={`/boss/${key}`}
+                            onClick={onClick.onClick}
+                        />
+                    )
+                })}
+            </ul>
         </>
     );
 }
