@@ -27,10 +27,10 @@ function APIDocs() {
                 {t(`The API is written in GraphQL and we try our hardest to follow spec and not to make breaking changes.
                  To learn about what queries you can make, how the schema is structured, and to try some test queries,
                  visit the playground and click the 'Docs' tab on the right side. 
-                 To learn about graphql queries generally, the GraphQL Foundation has helpful resources.`)}
+                 To learn about GraphQL queries generally, the GraphQL Foundation has helpful resources.`)}
                 <ul>
                     <li>
-                        <a href ="https://api.tarkov.dev/___graphql">{t('Tarkov.dev graphql playground')}</a>
+                        <a href ="https://api.tarkov.dev/___graphql">{t('Tarkov.dev GraphQL playground')}</a>
                     </li>
                     <li>
                         <a href="https://graphql.org/learn/">{t('GraphQL Foundation resources')}</a>
@@ -77,7 +77,7 @@ function APIDocs() {
             <div className="section-text-wrapper">
                 <h3>{t('What about caching?')}</h3>
                 {t(
-                    'Since our data is updated every 5 minutes, we also cache all graphql queries for 5 minutes as well.',
+                    'Since our data is updated every 5 minutes, we also cache all GraphQL queries for 5 minutes as well.',
                 )}
                 <div></div>
                 {t(
