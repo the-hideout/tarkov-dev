@@ -11,6 +11,7 @@
     },
     {
         "name": "raider",
+        "details": "Scav raiders (also known as just 'raiders') are advanced Scavs that are considerably stronger and more tactical than your typical Scavs. They carry significantly more dangerous weapons and use higher tier ammunition. Additionally, they have much better aim and can frequently drop well geared players with only a few bullets (or you just get head-eyes'd). Scav raiders also patrol in multiple groups and can usually be distinguished by their gear, unique voicelines, and general aggression. Scav Raiders start out friendly to all other Scavs (including player scavs) but they will become hostile if you get to close and ignore their verbal warnings. They will also become hostile to all Scavs if any Scav angers them.",
         "spawnChanceOverrideString": true,
         "spawnChanceOverride": [
             {
@@ -22,7 +23,10 @@
                 "map": "The Lab"
             }
         ],
-        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/raiders"
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/raiders",
+        "health": 750,
+        "behavior": "rush",
+        "loot": "AK-104, Mk47, SKS, AS VAL, SA-58, PACA Soft Armor, Trooper Armor, IOTV Gen 4, Hexgrid, AFAK"
     },
     {
         "name": "cultist priest",
