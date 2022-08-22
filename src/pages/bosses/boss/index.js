@@ -38,7 +38,7 @@ function BossPage(bossName) {
     }
 
     // Get static boss data from json file
-    var bossJsonData;
+    var bossJsonData = null;
     for (const boss of bossJson) {
         if (boss.name.toLowerCase().replace(/ /g, '-') === bossNameLower) {
             bossJsonData = boss;
@@ -49,7 +49,9 @@ function BossPage(bossName) {
     var bossProperties = {}
     bossProperties['map 🗺️'] = Array.from(bossData.map);
     bossProperties['spawnChance 🎲'] = `${bossData.spawnChance * 100}%`;
-    bossProperties['health 🖤'] = bossJsonData.health;
+    if (bossJsonData) {
+        bossProperties['health 🖤'] = bossJsonData.health;
+    }
 
     // Return the main react component for the boss page
     return [
@@ -65,7 +67,9 @@ function BossPage(bossName) {
                                 {t('Wiki')}
                             </a>
                         </span>
-                        <p className='boss-details'>{bossJsonData.details}</p>
+                        {bossJsonData &&
+                            <p className='boss-details'>{bossJsonData.details}</p>
+                        }
                     </div>
                     <div className="icon-and-link-wrapper">
                         <img
