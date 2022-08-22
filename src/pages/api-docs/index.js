@@ -28,15 +28,17 @@ function APIDocs() {
                  To learn about what queries you can make, how the schema is structured, and to try some test queries,
                  visit the playground and click the 'Docs' tab on the right side. 
                  To learn about graphql queries generally, the GraphQL Foundation has helpful resources.`)}
-                <div>
-                    <a href ="https://api.tarkov.dev/___graphql">{t('Tarkov.dev graphql playground')}</a>
-                </div>
-                <div>
-                    <a href="https://graphql.org/learn/">{t('GraphQL Foundation resources')}</a>
-                </div>
+                <ul>
+                    <li>
+                        <a href ="https://api.tarkov.dev/___graphql">{t('Tarkov.dev graphql playground')}</a>
+                    </li>
+                    <li>
+                        <a href="https://graphql.org/learn/">{t('GraphQL Foundation resources')}</a>
+                    </li>
+                </ul>
             </div>
             <div className="section-text-wrapper">
-                {t('Once you\'re ready to send API queries, the endpoint is:')}{' '}
+                {t('Once you\'re ready to send API queries from outside the playground, the endpoint is:')}{' '}
                 <a href="https://api.tarkov.dev/graphql">
                     https://api.tarkov.dev/graphql
                 </a>
@@ -103,7 +105,6 @@ function APIDocs() {
                             TarkovTracker/tarkovdata
                         </a>
                     </li>
-                    <li>{t('Directly from the game')}</li>
                     <li>{t('Our network of scanners')}</li>
                 </ul>
             </div>
