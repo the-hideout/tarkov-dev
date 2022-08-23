@@ -11,7 +11,73 @@
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Rogues",
         "health": 770,
         "behavior": "patrol",
-        "loot": "AK-104, Mk47, AK-74M, M4A1, HK 416A5, SR-25, SCAR-L, Team Wendy EXFIL, Ops-Core FAST MT, Galvion Caiman, HighCom Striker ACHHC, Hexgrid, Slick, IOTV Gen4, Trooper, AFAK"
+        "loot": [
+            {
+                "name": "Gen4 HMK",
+                "link": "iotv-gen4-body-armor-high-mobility-kit",
+                "img": "5b44d0de86f774503d30cba8-grid-image.jpg"
+            },
+            {
+                "name": "Trooper",
+                "link": "highcom-trooper-tfo-body-armor-multicam",
+                "img": "5c0e655586f774045612eeb2-grid-image.jpg"
+            },
+            {
+                "name": "Hexgrid",
+                "link": "511-tactical-hexgrid-plate-carrier",
+                "img": "5fd4c474dd870108a754b241-grid-image.jpg"
+            },
+            {
+                "name": "Slick",
+                "link": "lbt-6094a-slick-plate-carrier",
+                "img": "5e4abb5086f77406975c9342-grid-image.jpg"
+            },
+            {
+                "name": "EXFIL Black",
+                "link": "team-wendy-exfil-ballistic-helmet-black",
+                "img": "5e00c1ad86f774747333222c-grid-image.jpg"
+            },
+            {
+                "name": "EXFIL CB",
+                "link": "team-wendy-exfil-ballistic-helmet-coyote-brown",
+                "img": "5e01ef6886f77445f643baa4-grid-image.jpg"
+            },
+            {
+                "name": "AK-104",
+                "link": "kalashnikov-ak-104-762x39-assault-rifle",
+                "img": "5ac66d725acfc43b321d4b60-grid-image.jpg"
+            },
+            {
+                "name": "SCAR-L",
+                "link": "fn-scar-l-556x45-assault-rifle",
+                "img": "6184055050224f204c1da540-grid-image.jpg"
+            },
+            {
+                "name": "Galvion Caiman Hybrid helmet",
+                "link": "galvion-caiman-hybrid-helmet",
+                "img": "5f60b34a41e30a4ab12a6947-grid-image.jpg"
+            },
+            {
+                "name": "M4A1",
+                "link": "colt-m4a1-556x45-assault-rifle",
+                "img": "5447a9cd4bdc2dbd208b4567-grid-image.jpg"
+            },
+            {
+                "name": "HK 416A5",
+                "link": "hk-416a5-556x45-assault-rifle",
+                "img": "5bb2475ed4351e00853264e3-grid-image.jpg"
+            },
+            {
+                "name": "SR-25",
+                "link": "knights-armament-company-sr-25-762x51-marksman-rifle",
+                "img": "5df8ce05b11454561e39243b-grid-image.jpg"
+            },
+            {
+                "name": "AFAK",
+                "link": "afak-tactical-individual-first-aid-kit",
+                "img": "60098ad7c2240c0fe85c570a-grid-image.jpg"
+            }
+        ]
     },
     {
         "name": "raider",
@@ -30,7 +96,33 @@
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/raiders",
         "health": 750,
         "behavior": "rush",
-        "loot": "AK-104, Mk47, SKS, AS VAL, SA-58, PACA Soft Armor, Trooper Armor, IOTV Gen 4, Hexgrid, AFAK"
+        "loot": [
+            {
+                "name": "AK-104",
+                "link": "kalashnikov-ak-104-762x39-assault-rifle",
+                "img": "5ac66d725acfc43b321d4b60-grid-image.jpg"
+            },
+            {
+                "name": "Gen4 HMK",
+                "link": "iotv-gen4-body-armor-high-mobility-kit",
+                "img": "5b44d0de86f774503d30cba8-grid-image.jpg"
+            },
+            {
+                "name": "Trooper",
+                "link": "highcom-trooper-tfo-body-armor-multicam",
+                "img": "5c0e655586f774045612eeb2-grid-image.jpg"
+            },
+            {
+                "name": "Hexgrid",
+                "link": "511-tactical-hexgrid-plate-carrier",
+                "img": "5fd4c474dd870108a754b241-grid-image.jpg"
+            },
+            {
+                "name": "AFAK",
+                "link": "afak-tactical-individual-first-aid-kit",
+                "img": "60098ad7c2240c0fe85c570a-grid-image.jpg"
+            }
+        ]
     },
     {
         "name": "cultist priest",
