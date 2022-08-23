@@ -44,7 +44,18 @@
         "name": "death knight",
         "details": "The leader of 'The Goons'. Can spawn on many different maps.",
         "health": 1120,
-        "loot": "Death Knight mask, Crye Precision CPC plate carrier (Goons Edition)",
+        "loot": [
+            {
+                "name": "death-knight-mask",
+                "link": "death-knight-mask",
+                "img": "unknown-item-grid-image.jpg"
+            },
+            {
+                "name": "Crye Precision CPC plate carrier (Goons Edition)",
+                "link": "crye-precision-cpc-plate-carrier-goons-edition",
+                "img": "unknown-item-grid-image.jpg"
+            }
+        ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/knight",
         "behavior": "rush"
     },
