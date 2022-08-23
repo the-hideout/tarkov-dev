@@ -3,7 +3,6 @@ import doFetchBosses from '../../features/bosses/do-fetch-bosses';
 import formatBossData from '../../modules/format-boss-data';
 import { Link } from 'react-router-dom';
 import MenuItem from '../menu/MenuItem';
-import Loading from '../loading';
 
 import './index.css';
 
@@ -27,7 +26,7 @@ export function BossPageList() {
 
     // If no bosses have been returned yet, return 'loading'
     if (!bosses || bosses.length === 0) {
-        return <Loading />;
+        return 'Loading...';
     }
 
     // Format the boss data
@@ -63,7 +62,7 @@ export function BossListNav(onClick) {
 
     // If no bosses have been returned yet, return 'loading'
     if (!bosses || bosses.length === 0) {
-        return <Loading />;
+        return 'Loading...';
     }
 
     // Format the boss data
@@ -98,7 +97,7 @@ function BossList() {
 
     // If no bosses have been returned yet, return 'loading'
     if (!bosses || bosses.length === 0) {
-        return <Loading />;
+        return 'Loading...';
     }
 
     // Format the boss data
