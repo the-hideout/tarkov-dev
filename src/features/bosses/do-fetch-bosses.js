@@ -8,6 +8,7 @@ const doFetchBosses = async () => {
                 id
                 tarkovDataId
                 name
+                normalizedName
                 wiki
                 description
                 enemies
@@ -15,6 +16,7 @@ const doFetchBosses = async () => {
                 players
                 bosses {
                     name
+                    normalizedName
                     spawnChance
                     spawnLocations {
                         name
@@ -22,6 +24,7 @@ const doFetchBosses = async () => {
                     }
                     escorts {
                         name
+                        normalizedName
                         amount {
                             count
                             chance

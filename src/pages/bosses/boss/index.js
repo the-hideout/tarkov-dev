@@ -17,7 +17,7 @@ import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGro
 import './index.css';
 import CenterCell from '../../../components/center-cell';
 
-function BossPage(bossName) {
+function BossPage(params) {
     const { t } = useTranslation();
 
     // cheeki breeki
@@ -74,7 +74,6 @@ function BossPage(bossName) {
 
     // Format the boss table columns for locations
     const columnsLoot = useMemo(() => {
-
         return [
             {
                 Header: t('Item Image'),
@@ -116,7 +115,7 @@ function BossPage(bossName) {
         ];
     }, [t]);
 
-    const bossNameLower = bossName.bossName
+    const bossNameLower = params.bossName
 
     // Fetch bosses
     const { data: bosses } = useBossesQuery();
@@ -132,7 +131,7 @@ function BossPage(bossName) {
     // Get the correct individual boss data
     var bossData = null;
     for (const boss of bossArray) {
-        if (boss.name.toLowerCase().replace(/ /g, '-') === bossNameLower) {
+        if (boss.normalizedName === bossNameLower) {
             bossData = boss;
             break;
         }
@@ -146,7 +145,7 @@ function BossPage(bossName) {
     // Get static boss data from json file
     var bossJsonData = null;
     for (const boss of bossJson) {
-        if (boss.name.toLowerCase().replace(/ /g, '-') === bossNameLower) {
+        if (boss.normalizedName === bossNameLower) {
             bossJsonData = boss;
         }
     }
@@ -247,7 +246,7 @@ function BossPage(bossName) {
                             alt={bossData.name}
                             className={'item-image'}
                             loading="lazy"
-                            src={`https://assets.tarkov.dev/${bossNameLower}.jpg`}
+                            src={`https://assets.tarkov.dev/${bossData.normalizedName}.jpg`}
                         />
                     </div>
                 </div>
@@ -334,9 +333,10 @@ function BossPage(bossName) {
                 }
 
                 {/* cheeki breeki */}
-                {bossData.name.toLowerCase() === 'killa' &&
+                {bossData.normalizedName === 'killa' &&
                     <div className='killa-party-time'>
-                        <h3 className='item-h2' key={'killa-party-time'}>{'Killa Party Time?'}
+                        <h3 className='item-h2' key={'killa-party-time'}>
+                            {'Killa Party Time?'}
                             <Icon
                                 path={mdiPartyPopper}
                                 size={1.5}

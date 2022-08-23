@@ -35,16 +35,16 @@ export function BossPageList() {
     // Return the home page boss React component
     return (
         <>
-            {bossArray.map((bossData) => {
+            {bossArray.map((boss) => {
 
                 // Format the boss name for links
-                var key = bossData.name.toLowerCase().replace(/ /g, '-');
+                var key = boss.normalizedName.toLowerCase().replace(/ /g, '-');
 
                 return (
                     <Link to={`/boss/${key}`} className="screen-link" key={`boss-${key}`}>
-                        <h2 className="center-title">{bossData.name}</h2>
+                        <h2 className="center-title">{boss.name}</h2>
                         <img
-                            alt={bossData.name}
+                            alt={boss.name}
                             loading='lazy'
                             src={`https://assets.tarkov.dev/${key}.jpg`}
                         />
@@ -74,7 +74,7 @@ export function BossListNav(onClick) {
             <ul>
                 {bossArray.map((boss) => {
                     // Format the boss name for links
-                    var key = boss.name.toLowerCase().replace(/ /g, '-');
+                    var key = boss.normalizedName.toLowerCase().replace(/ /g, '-');
 
                     return (
                         <MenuItem
@@ -106,21 +106,21 @@ function BossList() {
     // Return the home page boss React component
     return (
         <>
-            {bossArray.map((bossData) => {
+            {bossArray.map((boss) => {
 
                 // Format the boss name for links
-                var key = bossData.name.toLowerCase().replace(/ /g, '-');
+                var key = boss.normalizedName.toLowerCase().replace(/ /g, '-');
 
                 return (
                     <li key={`boss-link-${key}`}>
                         <Link to={`/boss/${key}`} key={`boss-${key}`}>
                             <img
-                                alt={bossData.name}
+                                alt={boss.name}
                                 loading='lazy'
                                 className="boss-icon"
                                 src={`https://assets.tarkov.dev/${key}-icon.jpg`}
                             />
-                            {bossData.name}
+                            {boss.name}
                         </Link>
                     </li>
                 )
