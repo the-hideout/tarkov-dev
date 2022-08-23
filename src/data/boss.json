@@ -157,7 +157,38 @@
         "name": "tagilla",
         "details": "He is batshit insane and will attempt to hammer you down. However, if you are in a position that he cannot path-find to, such as the rafters, he will use his secondary weapon (usually a shotgun) to kill you from a distance. He's active immediately at the start of raid. The boss can set ambushes, open suppressive fire, and breach if needed.",
         "health": 1220,
-        "loot": "Crye Precision AVS MBAV (Tagilla Edition), L1 (Norepinephrine) injector, Bitcoin, Tagilla's welding mask, BOSS cap",
+        "loot": [
+            {
+                "name": "Crye Precision AVS MBAV (Tagilla Edition)",
+                "link": "crye-precision-avs-mbav-tagilla-edition",
+                "img": "609e860ebd219504d8507525-grid-image.jpg"
+            },
+            {
+                "name": "L1 (Norepinephrine) injector",
+                "link": "l1-norepinephrine-injector",
+                "img": "5ed515e03a40a50460332579-grid-image.jpg"
+            },
+            {
+                "name": "Physical bitcoin",
+                "link": "physical-bitcoin",
+                "img": "59faff1d86f7746c51718c9c-grid-image.jpg"
+            },
+            {
+                "name": "Tagilla's welding mask 'UBEY'",
+                "link": "tagillas-welding-mask-ubey",
+                "img": "60a7ad2a2198820d95707a2e-grid-image.jpg"
+            },
+            {
+                "name": "Tagilla's welding mask 'Gorilla'",
+                "link": "tagillas-welding-mask-gorilla",
+                "img": "60a7ad3a0c5cb24b0134664a-grid-image.jpg"
+            },
+            {
+                "name": "BOSS cap",
+                "link": "boss-cap",
+                "img": "60a7acf20c5cb24b01346648-grid-image.jpg"
+            }
+        ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/tagilla",
         "behavior": "batshit insane"
     }
