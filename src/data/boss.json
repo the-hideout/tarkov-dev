@@ -71,7 +71,18 @@
         "name": "killa",
         "details": "The true Giga Chad of Tarkov. Killa uses a light machine gun or other automatic weapon to suppress the enemy, while lurking from cover to cover, getting closer to his target for the final push. During the assault he moves in a zig-zag pattern, uses smoke and fragmentation grenades, and relentlessly suppresses enemies with automatic fire. He will follow his target large distances out of his patrol route, so be sure to run very far to get away from him if he has locked onto you.",
         "health": 890,
-        "loot": "6B13 M modified assault armor (Tan), 'Maska-1SCh' bulletproof helmet (Killa)",
+        "loot": [
+            {
+                "name": "6B13 M modified assault armor (Tan)",
+                "link": "6b13-m-modified-assault-armor-tan",
+                "img": "5c0e541586f7747fa54205c9-grid-image.jpg"
+            },
+            {
+                "name": "Maska-1SCh (Killa)",
+                "link": "maska-1sch-bulletproof-helmet-killa",
+                "img": "5c0e874186f7745dc7616606-grid-image.jpg"
+            }
+        ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/killa",
         "behavior": "patrol and highly armored"
     },
