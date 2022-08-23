@@ -90,7 +90,18 @@
         "name": "reshala",
         "details": "He will normally try to stay at the back of the fight and hidden from the player's view. Additionally, he never wears armor. Be careful as a player scav, as if you are at lower scav karma levels Reshala or his guards may shoot you without provocation or will shoot you if you come to close to Reshala. His guards are sometimes known to give warnings to player scavs with low karma before becoming hostile.",
         "health": 752,
-        "loot": "Golden TT Pistol, Bitcoin",
+        "loot": [
+            {
+                "name": "TT-33 7.62x25 TT pistol (Golden)",
+                "link": "tt-33-762x25-tt-pistol-golden",
+                "img": "5b3b713c5acfc4330140bd8d-grid-image.jpg"
+            },
+            {
+                "name": "Physical bitcoin",
+                "link": "physical-bitcoin",
+                "img": "59faff1d86f7746c51718c9c-grid-image.jpg"
+            }
+        ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/reshala",
         "behavior": "group patrol"
     },
