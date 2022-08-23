@@ -15,7 +15,7 @@ import MenuItem from './MenuItem';
 import UkraineButton from '../ukraine-button';
 
 import { caliberMap } from '../../modules/format-ammo';
-import mapData from '../../data/maps.json';
+import rawMapData from '../../data/maps.json';
 import itemsData from '../../data/category-pages.json';
 
 import './index.css';
@@ -127,13 +127,15 @@ const Menu = () => {
                     <li className="submenu-wrapper">
                         <Link to="/maps/">{t('Maps')}</Link>
                         <ul>
-                            {mapData.map((map) => (
-                                <MenuItem
-                                    displayText={map.displayText}
-                                    key={map.key}
-                                    to={`/map/${map.key}`}
-                                    onClick={setIsOpen.bind(this, false)}
-                                />
+                            {rawMapData.map((mapsGroup) => (
+                                mapsGroup.maps.map((map) => (
+                                    <MenuItem
+                                        displayText={map.displayText}
+                                        key={map.key}
+                                        to={`/map/${map.key}`}
+                                        onClick={setIsOpen.bind(this, false)}
+                                    />
+                                ))
                             ))}
                         </ul>
                     </li>

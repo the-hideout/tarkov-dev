@@ -53,8 +53,10 @@ const addPath = (sitemap, url) => {
         sitemap = addPath(sitemap, path);
     }
 
-    for(const map of maps){
-        sitemap = addPath(sitemap, `/map/${map.key}`);
+    for(const mapsGroup of maps){
+        for(const map of mapsGroup.maps){
+            sitemap = addPath(sitemap, `/map/${map.key}`);
+        }
     }
 
     const itemTypes = await got('https://api.tarkov.dev/graphql?query={%20itemCategories{%20normalizedName%20}%20}', {
