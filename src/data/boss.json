@@ -109,7 +109,28 @@
         "name": "sanitar",
         "details": "When engaged in combat, he will fight alongside his fellow scavs and guards, but may often break away to heal or inject himself. He has plenty of meds, so a prolonged engagement is possible.",
         "health": 1270,
-        "loot": "Sanitar's bag, LEDX Skin Transilluminator, Keycard with a blue marking, Health Resort office key with a blue tape, multiple stims and meds",
+        "loot": [
+            {
+                "name": "Sanitar's bag",
+                "link": "sanitars-bag",
+                "img": "5e997f0b86f7741ac73993e2-grid-image.jpg"
+            },
+            {
+                "name": "LEDX",
+                "link": "ledx-skin-transilluminator",
+                "img": "5c0530ee86f774697952d952-grid-image.jpg"
+            },
+            {
+                "name": "Keycard with a blue marking",
+                "link": "keycard-with-a-blue-marking",
+                "img": "5efde6b4f5448336730dbd61-grid-image.jpg"
+            },
+            {
+                "name": "Health Resort office key with a blue tape",
+                "link": "health-resort-office-key-with-a-blue-tape",
+                "img": "5eff09cd30a7dc22fd1ddfed-grid-image.jpg"
+            }
+        ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/sanitar",
         "behavior": "frequent healing and stim injections"
     },
