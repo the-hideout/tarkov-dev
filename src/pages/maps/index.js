@@ -33,7 +33,7 @@ function Maps() {
             {rawMapData.map((mapsGroup) => {
                 return (
                     <>
-                        <h2>{mapsGroup.name}</h2>
+                        <h2>{t(mapsGroup.name)}</h2>
                         <div className="page-wrapper map-page-wrapper">
                             {mapsGroup.description}
                         </div>
