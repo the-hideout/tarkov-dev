@@ -62,7 +62,7 @@ export function BossListNav(onClick) {
 
     // If no bosses have been returned yet, return 'loading'
     if (!bosses || bosses.length === 0) {
-        return 'Loading...';
+        return null;
     }
 
     // Format the boss data
