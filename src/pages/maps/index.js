@@ -25,6 +25,11 @@ function Maps() {
                 <Icon path={mdiMap} size={1.5} className="icon-with-text" /> 
                 {t('Maps')}
             </h1>
+            <div className="page-wrapper map-page-wrapper">
+                <p>
+                    {"There are 12 different locations on the Escape from Tarkov map, of which 8 have been released publicly so far. Although eventually all maps will be connected, they are currently all apart from one another."}
+                </p>
+            </div>
             {rawMapData.map((mapsGroup) => {
                 return (
                     <>
@@ -33,8 +38,8 @@ function Maps() {
                             {mapsGroup.description}
                         </div>
                         <div className="maps-wrapper">
-                        {mapsGroup.maps.map((amap) => {
-                            const { displayText, key } = amap;
+                        {mapsGroup.maps.map((map) => {
+                            const { displayText, key } = map;
                             return (
                                 <div className="map-wrapper" key={`map-wrapper-${key}`}>
                                     <h3>{displayText}</h3>
@@ -54,11 +59,6 @@ function Maps() {
                     </>
                 );
             })}
-            <div className="page-wrapper map-page-wrapper">
-                <p>
-                    {"There are 12 different locations on the Escape from Tarkov map, of which 8 have been released publicly so far. Although eventually all maps will be connected, they are currently all apart from one another."}
-                </p>
-            </div>
         </div>,
     ];
 }
