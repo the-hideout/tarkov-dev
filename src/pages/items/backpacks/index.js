@@ -31,16 +31,14 @@ function Backpacks(props) {
                 accessor: 'image',
                 Cell: ({ value }) => {
                     return (
-                        <div className="center-content">
-                            <img
-                                alt=""
-                                className="table-image"
-                                height="64"
-                                loading="lazy"
-                                src={value}
-                                width="64"
-                            />
-                        </div>
+                        <img
+                            alt=""
+                            className="table-image"
+                            height="64"
+                            loading="lazy"
+                            src={value}
+                            width="64"
+                        />
                     );
                 },
             },
@@ -49,13 +47,11 @@ function Backpacks(props) {
                 accessor: 'grid',
                 Cell: ({ value }) => {
                     return (
-                        <div>
-                            <CanvasGrid
-                                height={value.height}
-                                grid={value.pockets}
-                                width={value.width}
-                            />
-                        </div>
+                        <CanvasGrid
+                            height={value.height}
+                            grid={value.pockets}
+                            width={value.width}
+                        />
                     );
                 },
             },
@@ -69,11 +65,7 @@ function Backpacks(props) {
                     return (
                         <div className="center-content">
                             <a href={fullItemData.itemLink}>{cellData.value}</a>
-                            {fullItemData.notes ? (
-                                <cite>{fullItemData.notes}</cite>
-                            ) : (
-                                ''
-                            )}
+                            {fullItemData.notes ? (<cite>{fullItemData.notes}</cite>) : ('')}
                         </div>
                     );
                 },

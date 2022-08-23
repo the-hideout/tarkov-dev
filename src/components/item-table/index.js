@@ -28,7 +28,11 @@ const getCell = (type) => {
 };
 
 const defaultCell = ({ value }) => {
-    return <div className="center-content">{value}</div>;
+    return (
+        <div className="center-content">
+            {value}
+        </div>
+    );
 };
 
 const nameCell = (props) => {
