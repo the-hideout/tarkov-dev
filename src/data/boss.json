@@ -52,7 +52,18 @@
         "name": "glukhar",
         "details": "Glukhar and his many guards are extremely hostile. It's very unlikely to find success while fighting in any open areas. Small hallways and closed rooms are preferable. Glukhar and his guards are very accurate. Glukhar and his guards will stay near each other at all times and his guards will follow him to wherever he goes.",
         "health": 1010,
-        "loot": "GP coin, ASh-12 12.7x55 assault rifle",
+        "loot": [
+            {
+                "name": "GP Coin",
+                "link": "gp-coin",
+                "img": "5d235b4d86f7742e017bc88a-grid-image.jpg"
+            },
+            {
+                "name": "ASh-12",
+                "link": "ash-12-127x55-assault-rifle",
+                "img": "5cadfbf7ae92152ac412eeef-grid-image.jpg"
+            }
+        ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/glukhar",
         "behavior": "hostile and accurate"
     },

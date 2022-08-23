@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet';
 import React, { Suspense, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import capitalize from '../../../modules/capitalize-first';
 import formatBossData from '../../../modules/format-boss-data';
 import { useBossesQuery } from '../../../components/boss-list';
@@ -69,6 +69,50 @@ function BossPage(bossName) {
                 accessor: 'chance',
                 Cell: CenterCell
             }
+        ];
+    }, [t]);
+
+    // Format the boss table columns for locations
+    const columnsLoot = useMemo(() => {
+
+        return [
+            {
+                Header: t('Item Image'),
+                accessor: 'image',
+                Cell: (props) => {
+                    return (
+                        <CenterCell>
+                            <Link
+                                to={`/item/${props.row.original.link}`}
+                                key={`item-loot-link-${props.row.original.link}`}
+                            >
+                                <img
+                                    alt={`${props.row.original.name} icon`}
+                                    height={64}
+                                    loading="lazy"
+                                    src={`https://assets.tarkov.dev/${props.row.original.img}`}
+                                    width={64}
+                                />
+                            </Link>
+                        </CenterCell>
+                    );
+                },
+            },
+            {
+                Header: t('Name'),
+                accessor: 'name',
+                Cell: (props) => {
+                    return (
+                        <CenterCell>
+                            <Link
+                                to={`/item/${props.row.original.link}`}
+                            >
+                                {props.row.original.name}
+                            </Link>
+                        </CenterCell>
+                    );
+                },
+            },
         ];
     }, [t]);
 
@@ -223,17 +267,26 @@ function BossPage(bossName) {
                 </ul>
 
                 {bossJsonData &&
-                    <h2 className='item-h2' key={'boss-loot-header'}>{t('Boss Loot')}
+                    <h2 className='item-h2' key={'boss-loot-header'}>{t('Unique Boss Loot')}
                         <Icon
                             path={mdiDiamondStone}
                             size={1.5}
                             className="icon-with-text"
                         />
                     </h2>
-
                 }
                 {bossJsonData &&
-                    <p className='boss-details' key={'boss-loot'}>{bossJsonData.loot}</p>
+                    <div className='loot-table-boss'>
+                        <DataTable
+                            columns={columnsLoot}
+                            data={bossJsonData.loot}
+                            disableSortBy={false}
+                            key={'boss-loot-table'}
+                            sortBy={'name'}
+                            sortByDesc={true}
+                            autoResetSortBy={false}
+                        />
+                    </div>
                 }
 
                 <h2 className='item-h2' key={'boss-spawn-table-header'}>{t('Spawn Locations')}
