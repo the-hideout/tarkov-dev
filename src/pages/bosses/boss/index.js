@@ -344,7 +344,7 @@ function Boss() {
                 name="description"
                 content={`All the relevant information about ${boss} (boss) in Escape from Tarkov`}
             />
-            <link
+            <Link
                 key={`boss-canonical-${bossName}`}
                 rel="canonical"
                 href={`https://tarkov.dev/boss/${bossName}`}
