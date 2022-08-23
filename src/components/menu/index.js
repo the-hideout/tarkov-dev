@@ -86,24 +86,24 @@ const Menu = () => {
                         <UkraineButton />
                     </li>
                     {/*<li className="only-large">
-                    <PatreonButton
-                        wrapperStyle={{
-                            margin: 0,
-                        }}
-                        linkStyle={{
-                            color: '#fff',
-                            padding: '5px 20px',
-                            alignItems: 'center',
-                        }}
-                    >
-                        {t('Support on Patreon')}
-                        <Icon
-                            path={mdiHeartFlash}
-                            size={1}
-                            className="icon-with-text"
-                        />
-                    </PatreonButton>
-                </li>*/}
+                        <PatreonButton
+                            wrapperStyle={{
+                                margin: 0,
+                            }}
+                            linkStyle={{
+                                color: '#fff',
+                                padding: '5px 20px',
+                                alignItems: 'center',
+                            }}
+                        >
+                            {t('Support on Patreon')}
+                            <Icon
+                                path={mdiHeartFlash}
+                                size={1}
+                                className="icon-with-text"
+                            />
+                        </PatreonButton>
+                    </li>*/}
                     <li className="submenu-wrapper">
                         <Link to="/" onClick={setIsOpen.bind(this, false)}>
                             {t('Home')}
@@ -116,7 +116,7 @@ const Menu = () => {
                                 <MenuItem
                                     checkbox
                                     displayText={ammoType}
-                                    key={ammoType}
+                                    key={`menu-item-${ammoType}`}
                                     prefix="/ammo"
                                     to={`/ammo/${ammoType}`}
                                     onClick={setIsOpen.bind(this, false)}
@@ -130,7 +130,7 @@ const Menu = () => {
                             {mapData.map((map) => (
                                 <MenuItem
                                     displayText={map.displayText}
-                                    key={map.key}
+                                    key={`menu-item-${map.key}`}
                                     to={`/map/${map.key}`}
                                     onClick={setIsOpen.bind(this, false)}
                                 />
@@ -155,36 +155,43 @@ const Menu = () => {
                         <ul>
                         <MenuItem
                                 displayText={t('Prapor')}
+                                key="menu-item-prapor"
                                 to={`/traders/prapor`}
                                 onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Therapist')}
+                                key="menu-item-therapist"
                                 to={`/traders/therapist`}
                                 onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Skier')}
+                                key="menu-item-skier"
                                 to={`/traders/skier`}
                                 onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Peacekeeper')}
+                                key="menu-item-peacekeeper"
                                 to={`/traders/peacekeeper`}
                                 onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Mechanic')}
+                                key="menu-item-mechanic"
                                 to={`/traders/mechanic`}
                                 onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Ragman')}
+                                key="menu-item-ragman"
                                 to={`/traders/ragman`}
                                 onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Jaeger')}
+                                key="menu-item-jaeger"
                                 to={`/traders/jaeger`}
                                 onClick={setIsOpen.bind(this, false)}
                             />

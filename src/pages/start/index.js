@@ -84,35 +84,21 @@ function Start() {
                     />
                 </Suspense>
                 <Suspense fallback={renderLoader()}>
-                    {!loadMoreState && [<SmallItemTable
-                        key={'small-item-table-initial'}
+                    <SmallItemTable
                         maxItems={20}
                         nameFilter={nameFilter}
                         defaultRandom={true}
-                        autoScroll={false}
+                        autoScroll={loadMoreState}
                         fleaValue
                         traderValue
                         instaProfit
                         hideBorders
-                    />,
-                    <div className="load-more-wrapper" key={"load-more-div"}>
+                    />
+                    {!loadMoreState &&
+                    [<div className="load-more-wrapper">
                         <button id="load-more-button" className="load-more-button" onClick={loadMore}>Load More</button>
-                    </div>
-                    ]}
-
-                    {loadMoreState && (
-                        <SmallItemTable
-                            key={'load-more-items'}
-                            maxItems={20}
-                            nameFilter={nameFilter}
-                            defaultRandom={true}
-                            autoScroll={true}
-                            fleaValue
-                            traderValue
-                            instaProfit
-                            hideBorders
-                        />
-                    )}
+                    </div>]
+                    }
                 </Suspense>
             </div>
             <div className="start-section-wrapper">
@@ -127,8 +113,8 @@ function Start() {
                     />
                     {t('Tools')}
                 </h3>
-                <ul className="tools-list">
-                    <li key={"ammo-page"}>
+                <ul className="tools-list" key="tools-list">
+                    <li key="start-link-ammo">
                         <Link to="/ammo/">
                             <Icon
                                 path={mdiAmmunition}
@@ -138,7 +124,7 @@ function Start() {
                             {t('Ammo Chart')}
                         </Link>
                     </li>
-                    <li key={"loot-tier-page"}>
+                    <li key="start-link-loot-tier">
                         <Link to="/loot-tier/">
                             <Icon
                                 path={mdiFinance}
@@ -148,7 +134,7 @@ function Start() {
                             {t('Loot tiers')}
                         </Link>
                     </li>
-                    <li key={"barters-page"}>
+                    <li key="start-link-barters">
                         <Link to="/barters/">
                             <Icon
                                 path={mdiAccountSwitch}
@@ -158,7 +144,7 @@ function Start() {
                             {t('Barter trades')}
                         </Link>
                     </li>
-                    <li key={"hideout-profit-page"}>
+                    <li key="start-link-hideout-profit">
                         <Link to="/hideout-profit/">
                             <Icon
                                 path={mdiProgressWrench}
@@ -168,7 +154,7 @@ function Start() {
                             {t('Hideout crafts')}
                         </Link>
                     </li>
-                    <li key={'stash-bot-invite'}>
+                    <li key="start-link-stash-bot-invite">
                         <a
                             href={DISCORD_STASH_INVITE_LINK}
                         >
@@ -180,7 +166,7 @@ function Start() {
                             {t('Discord bot')}
                         </a>
                     </li>
-                    <li key={"hideout-page"}>
+                    <li key="start-link-hideout">
                         <Link to="/hideout">
                             <Icon
                                 path={mdiHome}
@@ -190,7 +176,7 @@ function Start() {
                             {t('Hideout build costs')}
                         </Link>
                     </li>
-                    <li key={"wipe-length-page"}>
+                    <li key="start-link-wipe-length">
                         <Link to="/wipe-length">
                             <Icon
                                 path={mdiCalendarClock}
@@ -211,7 +197,7 @@ function Start() {
                         {t('Maps')}
                     </Link>
                 </h3>
-                <ul>
+                <ul key="maps-list">
                     {mapData.map((mapData) => {
                         return (
                             <li key={`map-link-${mapData.key}`}>
@@ -232,7 +218,7 @@ function Start() {
                         {t('Items')}
                     </Link>
                 </h3>
-                <ul>
+                <ul key="categorys-list">
                     {categoryPages.map((categoryPage) => {
                         return (
                             <li key={`start-link-to-${categoryPage.key}`}>
@@ -258,8 +244,8 @@ function Start() {
                         {t('Traders')}
                     </Link>
                 </h3>
-                <ul className="traders-list">
-                <li>
+                <ul className="traders-list" key="traders-list">
+                    <li key="start-link-prapor">
                         <Link to={`/traders/prapor`}>
                             <img
                                 alt="Prapor icon"
@@ -270,7 +256,7 @@ function Start() {
                             {t('Prapor')}
                         </Link>
                     </li>
-                    <li>
+                    <li key="start-link-therapist">
                         <Link to={`/traders/therapist`}>
                             <img
                                 alt="Therapist icon"
@@ -281,7 +267,7 @@ function Start() {
                             {t('Therapist')}
                         </Link>
                     </li>
-                    <li>
+                    <li key="start-link-skier">
                         <Link to={`/traders/skier`}>
                             <img
                                 alt="Skier icon"
@@ -292,7 +278,7 @@ function Start() {
                             {t('Skier')}
                         </Link>
                     </li>
-                    <li>
+                    <li key="start-link-peacekeeper">
                         <Link to={`/traders/peacekeeper`}>
                             <img
                                 alt="Peacekeeper icon"
@@ -303,7 +289,7 @@ function Start() {
                             {t('Peacekeeper')}
                         </Link>
                     </li>
-                    <li>
+                    <li key="start-link-mechanic">
                         <Link to={`/traders/mechanic`}>
                             <img
                                 alt="Prapor icon"
@@ -314,7 +300,7 @@ function Start() {
                             {t('Mechanic')}
                         </Link>
                     </li>
-                    <li>
+                    <li key="start-link-ragman">
                         <Link to={`/traders/ragman`}>
                             <img
                                 alt="Ragman icon"
@@ -325,7 +311,7 @@ function Start() {
                             {t('Ragman')}
                         </Link>
                     </li>
-                    <li>
+                    <li key="start-link-jaeger">
                         <Link to={`/traders/jaeger`}>
                             <img
                                 alt="Jaeger icon"

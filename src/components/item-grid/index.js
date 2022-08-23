@@ -9,19 +9,15 @@ const getSubtitle = (text, minPrice, maxPrice, t) => {
     if (minPrice || maxPrice) {
         return (
             <div className="item-group-subtitle-wrapper">
-                <div>
-                    <span>{`${formatPrice(minPrice)} - ${formatPrice(
-                        maxPrice,
-                    )}`}</span>
-                    <div className="note">{t('per slot')}</div>
-                </div>
+                <span>{`${formatPrice(minPrice)} - ${formatPrice(maxPrice)}`}</span>
+                <div className="note">{t('per slot')}</div>
             </div>
         );
     }
 
     return (
         <div className="item-group-subtitle-wrapper">
-            <div>{text}</div>
+            {text}
         </div>
     );
 };
