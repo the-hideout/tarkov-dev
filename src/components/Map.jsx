@@ -27,10 +27,6 @@ const maps = Object.fromEntries(
 function Map() {
     let { currentMap } = useParams();
 
-    if (currentMap === 'customs-cardinal') {
-        currentMap = 'customs';
-    }
-
     useEffect(() => {
         let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
         if (viewableHeight < 100) {
