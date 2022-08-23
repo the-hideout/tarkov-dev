@@ -138,7 +138,18 @@
         "name": "shturman",
         "details": "Shturman and his followers will engage the player at a long range protecting the sawmill area of the woods. They prefer to keep their distance, as they are not suited for close quarters combat.",
         "health": 812,
-        "loot": "Shturman's stash key, Red Rebel",
+        "loot": [
+            {
+                "name": "Shturman's stash key",
+                "link": "shturmans-stash-key",
+                "img": "5d08d21286f774736e7c94c3-grid-image.jpg"
+            },
+            {
+                "name": "Red Rebel ice pick",
+                "link": "red-rebel-ice-pick",
+                "img": "5c0126f40db834002a125382-grid-image.jpg"
+            }
+        ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/shturman",
         "behavior": "sniper"
     },
