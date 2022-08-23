@@ -97,9 +97,10 @@ function Start() {
                         traderValue
                         instaProfit
                         hideBorders
+                        key="start-items-table"
                     />
                     {!loadMoreState &&
-                    [<div className="load-more-wrapper">
+                    [<div className="load-more-wrapper" key="start-load-more-button">
                         <button id="load-more-button" className="load-more-button" onClick={loadMore}>Load More</button>
                     </div>]
                     }

@@ -34,6 +34,31 @@ const renderLoader = () => <p>Loading...</p>;
 
 const ammoTypes = Object.values(caliberMap).sort();
 
+const getAmmoMenu = (setIsOpen) => {
+    const shotIndex = ammoTypes.findIndex(ammoType => ammoType === '12 Gauge Shot');
+    const ammoMenu = ammoTypes.map((ammoType) => (
+        <MenuItem
+            checkbox
+            displayText={ammoType}
+            key={`menu-item-${ammoType}`}
+            prefix="/ammo"
+            to={`/ammo/${ammoType}`}
+            onClick={setIsOpen.bind(this, false)}
+        />
+    ));
+    ammoMenu.splice(shotIndex+1, 0, (
+        <MenuItem
+            checkbox
+            displayText="12 Gauge Slug"
+            key="menu-item-12 Gauge Slug"
+            prefix="/ammo"
+            to="/ammo/12 Gauge Slug"
+            onClick={setIsOpen.bind(this, false)}
+        />
+    ));
+    return ammoMenu;
+};
+
 const Menu = () => {
     const [isOpen, setIsOpen] = useState(false);
     const handleMenuClick = () => {
@@ -86,7 +111,7 @@ const Menu = () => {
                     />
                 </Link>
                 <ul className={`menu${isOpen ? ' open' : ''}`}>
-                    <li className="only-large">
+                    <li className="only-large" key="menu-ua-donate">
                         <UkraineButton />
                     </li>
                     {/*<li className="only-large">
@@ -108,27 +133,13 @@ const Menu = () => {
                             />
                         </PatreonButton>
                     </li>*/}
-                    <li className="submenu-wrapper">
-                        <Link to="/" onClick={setIsOpen.bind(this, false)}>
-                            {t('Home')}
-                        </Link>
-                    </li>
-                    <li className="submenu-wrapper">
+                    <li className="submenu-wrapper" key="menu-ammo">
                         <Link to="/ammo/">{t('Ammo')}</Link>
                         <ul>
-                            {ammoTypes.map((ammoType) => (
-                                <MenuItem
-                                    checkbox
-                                    displayText={ammoType}
-                                    key={`menu-item-${ammoType}`}
-                                    prefix="/ammo"
-                                    to={`/ammo/${ammoType}`}
-                                    onClick={setIsOpen.bind(this, false)}
-                                />
-                            ))}
+                            {getAmmoMenu(setIsOpen)}
                         </ul>
                     </li>
-                    <li className="submenu-wrapper">
+                    <li className="submenu-wrapper" key="menu-maps">
                         <Link to="/maps/">{t('Maps')}</Link>
                         <ul>
                             {mapData.map((map) => (
@@ -141,7 +152,7 @@ const Menu = () => {
                             ))}
                         </ul>
                     </li>
-                    <li className="submenu-wrapper">
+                    <li className="submenu-wrapper" key="menu-items">
                         <Link to="/items/">{t('Items')}</Link>
                         <ul>
                             {itemsData.map((categoryPage) => (
@@ -154,7 +165,7 @@ const Menu = () => {
                             ))}
                         </ul>
                     </li>
-                    <li className="submenu-wrapper">
+                    <li className="submenu-wrapper" key="menu-traders">
                         <Link to="/traders">{t('Traders')}</Link>
                         <ul>
                             <MenuItem
@@ -201,13 +212,13 @@ const Menu = () => {
                             />
                         </ul>
                     </li>
-                    <li className="submenu-wrapper">
+                    <li className="submenu-wrapper" key="menu-bosses">
                         <Link to="/bosses/">{t('Bosses')}</Link>
                         <Suspense fallback={renderLoader()}>
                             <BossListNav onClick={setIsOpen.bind(this, false)} />
                         </Suspense>
                     </li>
-                    <li className="submenu-wrapper">
+                    <li className="submenu-wrapper" key="menu-loot-tier">
                         <Link
                             to="/loot-tier/"
                             onClick={setIsOpen.bind(this, false)}
@@ -215,13 +226,12 @@ const Menu = () => {
                             {t('Loot tiers')}
                         </Link>
                     </li>
-
-                    <li className="submenu-wrapper">
+                    <li className="submenu-wrapper" key="menu-barters">
                         <Link to="/barters/" onClick={setIsOpen.bind(this, false)}>
                             {t('Barter profit')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper">
+                    <li className="submenu-wrapper" key="menu-hideout-profit">
                         <Link
                             to="/hideout-profit/"
                             onClick={setIsOpen.bind(this, false)}
@@ -229,7 +239,7 @@ const Menu = () => {
                             {t('Hideout profit')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper">
+                    <li className="submenu-wrapper" key="menu-api">
                         <Link
                             to="/api/"
                             onClick={setIsOpen.bind(this, false)}
@@ -237,7 +247,7 @@ const Menu = () => {
                             {t('API')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper">
+                    <li className="submenu-wrapper" key="menu-stats">
                         <Link
                             to="/stats/"
                             onClick={setIsOpen.bind(this, false)}
@@ -245,7 +255,7 @@ const Menu = () => {
                             {t('stats')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper desktop-only-link">
+                    <li className="submenu-wrapper desktop-only-link" key="menu-remote-control">
                         <Link
                             aria-label="Remote control"
                             to="/control/"
@@ -259,7 +269,7 @@ const Menu = () => {
                             />
                         </Link>
                     </li>
-                    <li className="submenu-wrapper desktop-only-link">
+                    <li className="submenu-wrapper desktop-only-link" key="menu-settings">
                         <Link
                             aria-label="Settings"
                             to="/settings/"
