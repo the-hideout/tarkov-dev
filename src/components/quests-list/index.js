@@ -28,32 +28,32 @@ const getQuestList = (questList, t) => {
                     )}
                     {questList.map((questData) => {
                         return (
-                            <tr key={`quest-list-${questData.name}`}>
+                            <tr key={`quest-list-${questData.id}`}>
                                 <td>
                                     <div className="quest-link-wrapper">
                                         <Link
-                                            to={`/traders/${questData.giver.locale.en.toLowerCase()}`}
+                                            to={`/traders/${questData.trader.normalizedName}`}
                                         >
                                             <img
-                                                alt={questData.giver.locale.en}
+                                                alt={questData.trader.name}
                                                 loading="lazy"
                                                 className="quest-giver-image"
                                                 src={`${
                                                     process.env.PUBLIC_URL
-                                                }/images/${questData.giver.locale.en.toLowerCase()}-icon.jpg`}
+                                                }/images/${questData.trader.normalizedName}-icon.jpg`}
                                             />
                                         </Link>
                                         <a
                                             className="quest-name-wrapper"
-                                            href={`https://tarkovtracker.io/quest/${questData.id}/`}
+                                            href={`https://tarkovtracker.io/quest/${questData.tarkovDataId}/`}
                                         >
-                                            <div>{questData.name}</div>
+                                            <div>{questData.name + (questData.factionName !== 'Any' ? ` (${questData.factionName})` : '') }</div>
                                         </a>
                                     </div>
                                 </td>
                                 <td>
                                     <QuestItemsCell
-                                        questItems={questData.objectives}
+                                        questItems={questData.neededItems || questData.rewardItems}
                                     />
                                 </td>
                             </tr>
@@ -68,10 +68,11 @@ const getQuestList = (questList, t) => {
 function QuestsList(props) {
     const { itemQuests } = props;
     const { t } = useTranslation();
-
+    let title = t('Quests Requiring');
+    if (itemQuests.length > 0 && itemQuests[0].rewardItems) title = t('Quests Providing');
     return (
         <div>
-            <h2>{t('Quests')}</h2>
+            <h2>{title}</h2>
             {getQuestList(itemQuests, t)}
         </div>
     );

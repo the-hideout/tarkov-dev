@@ -2,10 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 const files = [
-    'item-props',
+    //'item-props',
     'item-grids',
-    'globals',
-    'item_presets',
+    //'globals',
+    //'item_presets',
 ];
 
 for(const file of files){

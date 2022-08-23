@@ -1,4 +1,5 @@
 module.exports = (price, currency = 'RUB') => {
+    if (typeof price === 'undefined') price = 0;
     price = Math.floor(price);
 
     if (currency === 'USD') {

@@ -103,7 +103,7 @@ function Start() {
             </div>
             <div className="start-section-wrapper">
                 <Suspense fallback={renderLoader()}>
-                    <ServerStatus />
+                    <ServerStatus key={"server-status"} />
                 </Suspense>
                 <h3>
                     <Icon
@@ -154,7 +154,7 @@ function Start() {
                             {t('Hideout crafts')}
                         </Link>
                     </li>
-                    <li key="start-link-discord">
+                    <li key="start-link-stash-bot-invite">
                         <a
                             href={DISCORD_STASH_INVITE_LINK}
                         >
@@ -188,7 +188,7 @@ function Start() {
                     </li>
                 </ul>
                 <h3>
-                    <Link to={'/maps'}>
+                    <Link to={'/maps'} key={"maps-page"}>
                         <Icon
                             path={mdiMap}
                             size={1}
@@ -209,7 +209,7 @@ function Start() {
                     })}
                 </ul>
                 <h3>
-                    <Link to={'/items'}>
+                    <Link to={'/items'} key={"items-page"}>
                         <Icon
                             path={mdiViewGrid}
                             size={1}
@@ -235,7 +235,7 @@ function Start() {
                     })}
                 </ul>
                 <h3>
-                    <Link to={'/traders'}>
+                    <Link to={'/traders'} key={"traders-page"}>
                         <Icon
                             path={mdiAccountGroup}
                             size={1}
@@ -325,7 +325,7 @@ function Start() {
                 </ul>
             </div>
             <div className='info-text-wrapper'>
-                <Link className="branding" to="/">
+                <Link className="branding" to="/" key={"branding"}>
                     <img
                         alt="Tarkov.dev"
                         height={30}

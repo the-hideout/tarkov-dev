@@ -36,6 +36,7 @@ const FleaPriceCell = function (props) {
     return (
         <ValueCell
             value={props.value}
+            count={props.row.original.count}
             noValue={
                 <div className="center-content">
                     <Tippy

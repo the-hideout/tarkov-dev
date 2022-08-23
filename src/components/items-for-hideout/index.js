@@ -1,38 +1,13 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-    selectAllHideoutModules,
-    fetchHideout,
-} from '../../features/hideout/hideoutSlice';
+import { useHideoutQuery } from '../../features/hideout/queries';
 
 import './index.css';
 
 function ItemsForHideout(props) {
     const { itemFilter } = props;
-    const dispatch = useDispatch();
     const { t } = useTranslation();
-    const hideout = useSelector(selectAllHideoutModules);
-    const hideoutStatus = useSelector((state) => {
-        return state.hideout.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (hideoutStatus === 'idle') {
-            dispatch(fetchHideout());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchHideout());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [hideoutStatus, dispatch]);
+    const { data: hideout } = useHideoutQuery();
 
     // Data manipulation section
     const data = useMemo(() => {
@@ -51,6 +26,7 @@ function ItemsForHideout(props) {
                         return {
                             ...c,
                             moduleName: curr.name,
+                            normalizedName: curr.normalizedName,
                             level: level.level,
                         };
                     }),
@@ -106,9 +82,7 @@ function ItemsForHideout(props) {
                                             loading="lazy"
                                             src={`${
                                                 process.env.PUBLIC_URL
-                                            }/images/${item.moduleName
-                                                .toLowerCase()
-                                                .replace(/\s/, '-')}-icon.png`}
+                                            }/images/${item.normalizedName}-icon.png`}
                                         />
                                         <div>
                                             {item.moduleName}

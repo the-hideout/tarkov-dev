@@ -1,4 +1,4 @@
-import calculateFee from '../../modules/flea-market-fee';
+import fleaMarketFee from '../../modules/flea-market-fee';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes';
 import { langCode } from '../../modules/lang-helpers';
 
@@ -17,6 +17,11 @@ const doFetchItems = async () => {
             items(lang: ${language}) {
                 id
                 bsgCategoryId
+                categories {
+                    id
+                    name
+                    normalizedName
+                }
                 name
                 shortName
                 basePrice
@@ -41,10 +46,28 @@ const doFetchItems = async () => {
                     priceRUB
                     trader {
                         name
+                        normalizedName
                     }
                 }
                 sellFor {
                     source
+                    vendor {
+                        name
+                        normalizedName
+                        __typename
+                        ...on TraderOffer {
+                            trader {
+                                id
+                                name
+                                normalizedName
+                            }
+                            minTraderLevel
+                            taskUnlock {
+                                id
+                                name
+                            }
+                        }
+                    }
                     price
                     priceRUB
                     requirements {
@@ -55,6 +78,23 @@ const doFetchItems = async () => {
                 }
                 buyFor {
                     source
+                    vendor {
+                        name
+                        normalizedName
+                        __typename
+                        ...on TraderOffer {
+                            trader {
+                                id
+                                name
+                                normalizedName
+                            }
+                            minTraderLevel
+                            taskUnlock {
+                                id
+                                name
+                            }
+                        }
+                    }
                     price
                     priceRUB
                     currency
@@ -77,6 +117,7 @@ const doFetchItems = async () => {
                         penetrationPower
                         armorDamage
                         fragmentationChance
+                        ammoType
                     }
                     ...on ItemPropertiesArmor {
                         class
@@ -104,12 +145,27 @@ const doFetchItems = async () => {
                     }
                     ...on ItemPropertiesBackpack {
                         capacity
-                        pouches {
+                        grids {
                             width
                             height
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
                         }
                     }
                     ...on ItemPropertiesChestRig {
+                        capacity
                         class
                         material {
                             id
@@ -120,13 +176,45 @@ const doFetchItems = async () => {
                         ergoPenalty
                         speedPenalty
                         turnPenalty
-                        pouches {
+                        grids {
                             width
                             height
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
                         }
                     }
                     ...on ItemPropertiesContainer {
                         capacity
+                        grids {
+                            width
+                            height
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
+                        }
                     }
                     ...on ItemPropertiesFoodDrink {
                         energy
@@ -160,6 +248,24 @@ const doFetchItems = async () => {
                         speedPenalty
                         turnPenalty
                         deafening
+                        blocksHeadset
+                        ricochetY
+                        slots {
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
+                        }
                     }
                     ...on ItemPropertiesKey {
                         uses
@@ -234,17 +340,54 @@ const doFetchItems = async () => {
                         defaultRecoilVertical
                         defaultRecoilHorizontal
                         defaultWeight
+                        slots {
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
+                        }
                     }
                     ...on ItemPropertiesWeaponMod {
                         ergonomics
+                        recoilModifier
                         recoil
+                        slots {
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
+                        }
                     }
                 }
             }
+            fleaMarket {
+                sellOfferFeeRate
+                sellRequirementFeeRate
+            }
         }`,
     });
-
-    const [itemData, itemGrids, itemProps] = await Promise.all([
+    //console.time('items query');
+    const [itemData, itemGrids] = await Promise.all([
         fetch('https://api.tarkov.dev/graphql', {
             method: 'POST',
             headers: {
@@ -256,38 +399,41 @@ const doFetchItems = async () => {
         fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`).then(
             (response) => response.json(),
         ),
-        fetch(`${process.env.PUBLIC_URL}/data/item-props.min.json`).then(
-            (response) => response.json(),
-        ),
     ]);
+    //console.timeEnd('items query');
+    if (itemData.errors) return Promise.reject(new Error(itemData.errors[0]));
+
+    const flea = itemData.data.fleaMarket;
 
     const allItems = itemData.data.items.map((rawItem) => {
         let grid = false;
 
-        rawItem.itemProperties = itemProps[rawItem.id]?.itemProperties || {};
-        rawItem.linkedItems = itemProps[rawItem.id]?.linkedItems || {};
-
-        if (itemProps[rawItem.id]?.hasGrid) {
-            let gridPockets = [
+        if (rawItem.properties?.grids) {
+            let gridPockets = [];
+            for (const grid of rawItem.properties.grids) {
+                gridPockets.push({
+                    row: gridPockets.length,
+                    col: 0,
+                    width: grid.width,
+                    height: grid.height,
+                });
+            }
+            /*let gridPockets = [
                 {
                     row: 0,
                     col: 0,
-                    width: rawItem.itemProperties.grid.pockets[0].width,
-                    height:
-                        rawItem.itemProperties.grid.totalSize /
-                        rawItem.itemProperties.grid.pockets[0].width,
+                    width: rawItem.properties.grids[0].width,
+                    height: rawItem.properties.grids[0].height,
                 },
-            ];
+            ];*/
 
             if (itemGrids[rawItem.id]) {
                 gridPockets = itemGrids[rawItem.id];
             }
 
             grid = {
-                height:
-                    rawItem.itemProperties.grid.totalSize /
-                    rawItem.itemProperties.grid.pockets[0].width,
-                width: rawItem.itemProperties.grid.pockets[0].width,
+                height: rawItem.properties.grids[0].height,
+                width: rawItem.properties.grids[0].width,
                 pockets: gridPockets,
             };
 
@@ -310,10 +456,6 @@ const doFetchItems = async () => {
             return a.priceRUB - b.priceRUB;
         });
 
-        if (!Array.isArray(rawItem.linkedItems)) {
-            rawItem.linkedItems = [];
-        }
-
         rawItem.sellFor = rawItem.sellFor.map((sellPrice) => {
             return {
                 ...sellPrice,
@@ -328,63 +470,32 @@ const doFetchItems = async () => {
             };
         });
 
-        if (rawItem.itemProperties.defAmmo) {
-            rawItem.defAmmo = rawItem.itemProperties.defAmmo;
-
-            delete rawItem.itemProperties.defAmmo;
+        const container = rawItem.properties?.slots || rawItem.properties?.grids;
+        if (container) {
+            for (const slot of container) {
+                slot.filters.allowedCategories = slot.filters.allowedCategories.map(cat => cat.id);
+                slot.filters.allowedItems = slot.filters.allowedItems.map(it => it.id);
+                slot.filters.excludedCategories = slot.filters.excludedCategories.map(cat => cat.id);
+                slot.filters.excludedItems = slot.filters.excludedItems.map(it => it.id);
+            }
         }
-
-        if (rawItem.itemProperties.InitialSpeed) {
-            rawItem.initialSpeed = rawItem.itemProperties.InitialSpeed;
-
-            delete rawItem.itemProperties.InitialSpeed;
-        }
-
-        if (rawItem.itemProperties.CenterOfImpact) {
-            rawItem.centerOfImpact = rawItem.itemProperties.CenterOfImpact;
-
-            delete rawItem.itemProperties.CenterOfImpact;
-        }
-
-        if (rawItem.itemProperties.SightingRange) {
-            rawItem.itemProperties.sightingRange =
-                rawItem.itemProperties.SightingRange;
-
-            delete rawItem.itemProperties.SightingRange;
-        }
+        rawItem.categoryIds = rawItem.categories.map(cat => cat.id);
 
         return {
             ...rawItem,
-            fee: calculateFee(rawItem.basePrice, rawItem.lastLowPrice),
+            fee: fleaMarketFee(rawItem.basePrice, rawItem.lastLowPrice, 1, flea.sellOfferFeeRate, flea.sellRequirementFeeRate),
             fallbackImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
             slots: rawItem.width * rawItem.height,
             // iconLink: `https://assets.tarkov.dev/${rawItem.id}-icon.jpg`,
             iconLink: rawItem.iconLink,
             grid: grid,
             notes: NOTES[rawItem.id],
-            traderPrices: rawItem.traderPrices.map((traderPrice) => {
-                return {
-                    price: traderPrice.price,
-                    priceRUB: traderPrice.priceRUB,
-                    currency: traderPrice.currency,
-                    trader: traderPrice.trader.name,
-                };
-            }),
-            canHoldItems: itemProps[rawItem.id]?.canHoldItems,
-            equipmentSlots: itemProps[rawItem.id]?.slots || [],
-            allowedAmmoIds: itemProps[rawItem.id]?.allowedAmmoIds,
             properties: {
                 weight: rawItem.weight,
                 ...rawItem.properties
             }
         };
     });
-
-    const itemMap = {};
-
-    for (const item of allItems) {
-        itemMap[item.id] = item;
-    }
 
     for (const item of allItems) {
         if (item.types.includes('gun') && item.containsItems) {
@@ -395,9 +506,7 @@ const doFetchItems = async () => {
 
                 localTraderPrice.price = item.containsItems.reduce(
                     (previousValue, currentValue) => {
-                        const partPrice = itemMap[
-                            currentValue.item.id
-                        ].traderPrices.find(
+                        const partPrice = allItems.find(it => it.id === currentValue.item.id).traderPrices.find(
                             (innerTraderPrice) =>
                                 innerTraderPrice.name === localTraderPrice.name,
                         );
@@ -415,15 +524,13 @@ const doFetchItems = async () => {
             });
 
             item.sellFor = item.sellFor.map((sellFor) => {
-                if (sellFor.source === 'fleaMarket') {
+                if (sellFor.vendor.normalizedName === 'flea-market') {
                     return sellFor;
                 }
 
                 sellFor.price = item.containsItems.reduce(
                     (previousValue, currentValue) => {
-                        const partPrice = itemMap[
-                            currentValue.item.id
-                        ].sellFor.find(
+                        const partPrice = allItems.find(it => it.id === currentValue.item.id).sellFor.find(
                             (innerSellFor) =>
                                 innerSellFor.source === sellFor.source,
                         );
@@ -450,7 +557,8 @@ const doFetchItems = async () => {
         item.traderPrice = bestTraderPrice?.price || 0;
         item.traderPriceRUB = bestTraderPrice?.priceRUB || 0;
         item.traderCurrency = bestTraderPrice?.currency || 'RUB';
-        item.traderName = bestTraderPrice?.trader || '?';
+        item.traderName = bestTraderPrice?.trader.name || '?';
+        item.traderNormalizedName = bestTraderPrice?.trader.normalizedName || '?';
     }
 
     return allItems;

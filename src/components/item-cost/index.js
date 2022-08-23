@@ -6,41 +6,16 @@ import { useTranslation } from 'react-i18next';
 import BarterToolip from '../barter-tooltip';
 import formatPrice from '../../modules/format-price';
 
-const TRADERS = [
-    'prapor',
-    'therapist',
-    'fence',
-    'skier',
-    'peacekeeper',
-    'mechanic',
-    'ragman',
-    'jaeger',
-];
-
 function ItemCost({
     count,
     price,
-    alternatePrice,
-    alternatePriceSource,
-    priceSource = 'flea',
+    vendor = {name: 'Flea Market', normalizedName: 'flea-market'},
+    priceType = 'cash',
+    priceDetails,
 }) {
     const { t } = useTranslation();
 
-    if (priceSource === 'fleaMarket') {
-        return (
-            <>
-                <img
-                    alt={t('Flea market')}
-                    className="barter-icon"
-                    src={`${process.env.PUBLIC_URL}/images/flea-market-icon.jpg`}
-                    loading="lazy"
-                />
-                {count + ' x ' + formatPrice(price) + ' = ' + formatPrice(count * (alternatePrice || price))}
-            </>
-        );
-    }
-
-    if (priceSource === 'barter') {
+    if (priceType === 'barter') {
         return (
             <Tippy
                 placement="bottom"
@@ -49,8 +24,8 @@ function ItemCost({
                 interactive={true}
                 content={
                     <BarterToolip
-                        source={alternatePriceSource.source}
-                        requiredItems={alternatePriceSource.requiredItems}
+                        source={vendor.name}
+                        requiredItems={priceDetails.requiredItems}
                     />
                 }
                 plugins={[followCursor]}
@@ -62,27 +37,23 @@ function ItemCost({
                         loading="lazy"
                         src={`${process.env.PUBLIC_URL}/images/icon-barter.png`}
                     />
-                    {count + ' x ' + formatPrice(price) + ' = ' + formatPrice(count * (alternatePrice || price))}
+                    {count + ' x ' + formatPrice(price) + ' = ' + formatPrice(count * price)}
                 </div>
             </Tippy>
         );
     }
 
-    if (TRADERS.includes(priceSource)) {
-        return (
-            <>
-                <img
-                    alt={t(priceSource)}
-                    className="barter-icon"
-                    loading="lazy"
-                    src={`${process.env.PUBLIC_URL}/images/${priceSource}-icon.jpg`}
-                />
-                {count + ' x ' + formatPrice(price) + ' = ' + formatPrice(count * (alternatePrice || price))}
-            </>
-        );
-    }
-
-    return null;
+    return (
+        <>
+            <img
+                alt={vendor.name}
+                className="barter-icon"
+                src={`${process.env.PUBLIC_URL}/images/${vendor.normalizedName}-icon.jpg`}
+                loading="lazy"
+            />
+            {count + ' x ' + formatPrice(price) + ' = ' + formatPrice(count * price)}
+        </>
+    );
 }
 
 export default ItemCost;

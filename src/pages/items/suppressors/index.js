@@ -8,11 +8,12 @@ import {mdiBottleWine} from '@mdi/js';
 import ItemsTable from '../../../components/item-table';
 import { Filter, SelectFilter } from '../../../components/filter';
 import { useItemsQuery } from '../../../features/items/queries';
+import itemCanContain from '../../../modules/item-can-contain';
 
 const getGuns = (items, targetItem) => {
     let parentItems = [];
     const currentParentItems = items.filter((innerItem) =>
-        innerItem.linkedItems.includes(targetItem.id),
+        itemCanContain(innerItem, targetItem, 'slots'),
     );
 
     for (const parentItem of currentParentItems) {
@@ -42,22 +43,9 @@ const getGuns = (items, targetItem) => {
     return parentItems;
 };
 
-// const getChain = (items, targetItem) => {
-//     const chain = items.filter(innerItem => innerItem.linkedItems.includes(targetItem.id));
-
-//     for(const key in chain){
-//         chain[key] = {
-//             ...chain[key],
-//             fitChain: getChain(items, chain[key]),
-//         };
-//     }
-
-//     return chain;
-// };
-
 const getAttachmentPoints = (items, targetItem) => {
     return items
-        .filter((innerItem) => innerItem.linkedItems.includes(targetItem.id))
+        .filter((innerItem) => itemCanContain(innerItem, targetItem, 'slots'))
         .map((item) => {
             return {
                 ...item,
@@ -143,6 +131,10 @@ function Suppressors(props) {
                     });
 
                     return subItem;
+                })
+                .map(subItem => {
+                    subItem.recoil = Math.round(subItem.properties.recoilModifier*100)+'%';
+                    return subItem;
                 }),
         [allItems, selectedGun],
     );
@@ -159,11 +151,11 @@ function Suppressors(props) {
         },
         {
             title: t('Ergonomics'),
-            key: 'itemProperties.Ergonomics',
+            key: 'properties.ergonomics',
         },
         {
             title: t('Recoil'),
-            key: 'itemProperties.Recoil',
+            key: 'recoil',
         },
         {
             title: t('Cost'),

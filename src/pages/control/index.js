@@ -5,19 +5,13 @@ import { useTranslation } from 'react-i18next';
 
 import Connect from './Connect.jsx';
 
-import ammoData from '../../data/ammo.json';
+import { caliberMap } from '../../modules/format-ammo';
 import mapData from '../../data/maps.json';
 
 import './index.css';
 import { useItemsQuery } from '../../features/items/queries.js';
 
-const ammoTypes = [
-    ...new Set(
-        ammoData.data.map((ammoData) => {
-            return ammoData.type;
-        }),
-    ),
-].sort();
+const ammoTypes = Object.values(caliberMap).sort();
 
 const selectFilterStyle = {
     menu: (provided) => ({

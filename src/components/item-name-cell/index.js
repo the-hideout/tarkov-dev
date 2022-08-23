@@ -27,14 +27,14 @@ function ItemNameCell(props) {
                     className="craft-reward-item-title"
                     to={props.row.original.itemLink}
                 >
-                    {props.row.original.name}
+                    {props.row.original.name}{props.row.original.count > 1 ? ` x ${props.row.original.count}` : ''}
                 </Link>
                 {props.row.original.notes ? (
                     <cite>{props.row.original.notes}</cite>
                 ) : (
                     ''
                 )}
-                {props.showContainedItems && props.row.original.canHoldItems && (
+                {props.showContainedItems && (props.row.original.properties?.grids || props.row.original.properties?.slots) && (
                     <cite>
                         <ContainedItemsList item={props.row.original} />
                     </cite>

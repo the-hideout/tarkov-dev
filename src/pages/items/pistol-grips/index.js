@@ -11,11 +11,12 @@ import {
     useItemsQuery,
     useItemsWithTypeQuery,
 } from '../../../features/items/queries';
+import itemCanContain from '../../../modules/item-can-contain';
 
 const getGuns = (items, targetItem) => {
     let parentItems = [];
-    const currentParentItems = items.filter((innerItem) =>
-        innerItem.linkedItems.includes(targetItem.id),
+    const currentParentItems = items.filter((innerItem) => 
+        itemCanContain(innerItem, targetItem, 'slots'),
     );
 
     for (const parentItem of currentParentItems) {
@@ -45,22 +46,9 @@ const getGuns = (items, targetItem) => {
     return parentItems;
 };
 
-// const getChain = (items, targetItem) => {
-//     const chain = items.filter(innerItem => innerItem.linkedItems.includes(targetItem.id));
-
-//     for(const key in chain){
-//         chain[key] = {
-//             ...chain[key],
-//             fitChain: getChain(items, chain[key]),
-//         };
-//     }
-
-//     return chain;
-// };
-
 const getAttachmentPoints = (items, targetItem) => {
     return items
-        .filter((innerItem) => innerItem.linkedItems.includes(targetItem.id))
+        .filter((parentItem) => itemCanContain(parentItem, targetItem, 'slots'))
         .map((item) => {
             return {
                 ...item,
@@ -146,7 +134,7 @@ function PistolGrips(props) {
                     });
 
                     subItem.costPerErgo =
-                        subItem.avg24hPrice / subItem.itemProperties.Ergonomics;
+                        subItem.avg24hPrice / subItem.properties.ergonomics;
 
                     return subItem;
                 }),
@@ -165,7 +153,7 @@ function PistolGrips(props) {
         },
         {
             title: t('Ergonomics'),
-            key: 'itemProperties.Ergonomics',
+            key: 'properties.ergonomics',
         },
         {
             title: t('Flea Price'),

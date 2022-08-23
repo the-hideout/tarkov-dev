@@ -1,5 +1,6 @@
-import { useQuery } from 'react-query';
+//import { useQuery } from 'react-query';
 import Countdown from 'react-countdown';
+import Moment from 'react-moment';
 // import { useTranslation } from 'react-i18next';
 
 import './index.css';
@@ -7,7 +8,8 @@ import './index.css';
 const Renderer = (props) => {
     // const t = useTranslation();
     if (props.completed) {
-        return <span>Restock right now</span>;
+        //return <span>Restock right now</span>;
+        return <Moment fromNow locale={props.props.locale}>{props.props.date}</Moment>
     }
 
     return (
@@ -21,8 +23,8 @@ const Renderer = (props) => {
     );
 };
 
-function TraderResetTime({ trader, center = false }) {
-    const dataQuery = JSON.stringify({
+function TraderResetTime({ timestamp, center = false, locale = 'en' }) {
+    /*const dataQuery = JSON.stringify({
         query: `{
         traderResetTimes {
             name
@@ -54,17 +56,14 @@ function TraderResetTime({ trader, center = false }) {
 
     if (status === 'success' && data.data.traderResetTimes.length === 0) {
         return 'No data';
-    }
+    }*/
 
     return (
         <div className={`countdown-wrapper ${center ? 'center' : ''}`}>
             <Countdown
-                date={
-                    data.data.traderResetTimes.find(
-                        (resetTime) => resetTime.name === trader,
-                    ).resetTimestamp
-                }
+                date={timestamp}
                 renderer={Renderer}
+                locale={locale}
             />
         </div>
     );

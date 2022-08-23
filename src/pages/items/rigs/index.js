@@ -40,7 +40,7 @@ function Backpacks(props) {
 
     let maxSlots = Math.max(
         ...displayItems.map(
-            (displayItem) => displayItem.itemProperties.grid?.totalSize || 0,
+            (displayItem) => displayItem.properties.capacity || 0,
         ),
     );
     if (maxSlots === Infinity) {
@@ -153,12 +153,12 @@ function Backpacks(props) {
                         return false;
                     }
 
-                    if (item.itemProperties.grid?.totalSize < minSlots) {
+                    if (item.properties.capacity < minSlots) {
                         return false;
                     }
 
                     if (has3Slot) {
-                        const isValid = item.grid?.pockets?.find((pocket) => {
+                        const isValid = item.properties.grids?.find((pocket) => {
                             return pocket.width === 1 && pocket.height === 3;
                         });
 
@@ -168,7 +168,7 @@ function Backpacks(props) {
                     }
 
                     if (has4Slot) {
-                        const isValid = item.grid?.pockets?.find((pocket) => {
+                        const isValid = item.properties.grids?.find((pocket) => {
                             return pocket.width === 2 && pocket.height === 2;
                         });
 
@@ -185,14 +185,14 @@ function Backpacks(props) {
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
                         name: itemName,
                         price: item.avg24hPrice,
-                        pricePerSlot: showNetPPS ? Math.floor(item.avg24hPrice / (item.itemProperties.grid?.totalSize - item.slots)) 
-                                      : Math.floor(item.avg24hPrice / item.itemProperties.grid?.totalSize),
+                        pricePerSlot: showNetPPS ? Math.floor(item.avg24hPrice / (item.properties.capacity - item.slots)) 
+                                      : Math.floor(item.avg24hPrice / item.properties.capacity),
                         ratio: (
-                            item.itemProperties.grid?.totalSize / item.slots
+                            item.properties.capacity / item.slots
                         ).toFixed(2),
-                        size: item.itemProperties.grid?.totalSize,
+                        size: item.properties.capacity,
                         slots: item.slots,
-                        weight: `${item.itemProperties.Weight} kg`,
+                        weight: `${item.properties.weight} kg`,
                         wikiLink: item.wikiLink,
                         itemLink: `/item/${item.normalizedName}`,
                         notes: item.notes,

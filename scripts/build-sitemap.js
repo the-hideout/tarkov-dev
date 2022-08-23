@@ -4,8 +4,7 @@ const path = require('path');
 const got = require('got');
 
 const maps = require('../src/data/maps.json');
-const itemTypes = require('../src/data/category-pages.json');
-const ammoData = require('../src/data/ammo.json');
+const { caliberMap } = require('../src/modules/format-ammo');
 
 const standardPaths = [
     '',
@@ -58,24 +57,23 @@ const addPath = (sitemap, url) => {
         sitemap = addPath(sitemap, `/map/${map.key}`);
     }
 
-    for(const itemType of itemTypes){
-        sitemap = addPath(sitemap, `/items/${itemType.key}`);
-    }
-
-    const allItems = await got('https://api.tarkov.dev/graphql?query={%20itemsByType(type:%20any){%20normalizedName%20}%20}', {
+    const itemTypes = await got('https://api.tarkov.dev/graphql?query={%20itemCategories{%20normalizedName%20}%20}', {
         responseType: 'json',
     });
 
-    for(const item of allItems.body.data.itemsByType){
+    for (const itemType of itemTypes.body.data.itemCategories) {
+        sitemap = addPath(sitemap, `/items/${itemType.normalizedName}`);
+    }
+
+    const allItems = await got('https://api.tarkov.dev/graphql?query={%20items{%20normalizedName%20}%20}', {
+        responseType: 'json',
+    });
+
+    for(const item of allItems.body.data.items){
         sitemap = addPath(sitemap, `/item/${item.normalizedName}`);
     }
 
-    let ammoTypes = [];
-    for(const ammo of ammoData.data){
-        ammoTypes.push(ammo.type);
-    }
-
-    ammoTypes = [...new Set(ammoTypes)];
+    let ammoTypes = Object.values(caliberMap).sort();
 
     for(const ammoType of ammoTypes){
         sitemap = addPath(sitemap, `/ammo/${ammoType.replace(/ /g, '%20')}`);

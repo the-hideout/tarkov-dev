@@ -8,9 +8,8 @@ import ErrorPage from '../../../components/error-page';
 import { Filter, InputFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
-import formatCategoryName from '../../../modules/format-category-name';
 
-import categoryData from '../../../data/category-data.json';
+import { useMetaQuery } from '../../../features/meta/queries';
 
 function BsgCategory() {
     const defaultQuery = new URLSearchParams(window.location.search).get(
@@ -20,9 +19,12 @@ function BsgCategory() {
     let { bsgCategoryName } = useParams();
     const { t } = useTranslation();
 
-    const bsgCategoryData = Object.values(categoryData).find(
+    /*const bsgCategoryData = Object.values(categoryData).find(
         (category) => category.urlName === bsgCategoryName?.toLowerCase(),
-    );
+    );*/
+
+    const { data: meta } = useMetaQuery();
+    const category = meta.categories.find(cat => bsgCategoryName === cat.normalizedName);
 
     const handleNameFilterChange = useCallback(
         (e) => {
@@ -39,7 +41,7 @@ function BsgCategory() {
         [setNameFilter],
     );
 
-    if (!bsgCategoryData) {
+    if (!category) {
         return <ErrorPage />;
     }
 
@@ -47,7 +49,7 @@ function BsgCategory() {
         <Helmet key={'barter-items-helmet'}>
             <meta charSet="utf-8" />
             <title>
-                {t('Escape from Tarkov')} {formatCategoryName(bsgCategoryData)}
+                {t('Escape from Tarkov')} {category.name}
             </title>
             <meta
                 name="description"
@@ -57,7 +59,7 @@ function BsgCategory() {
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {t('Escape from Tarkov')} {formatCategoryName(bsgCategoryData)}
+                    {t('Escape from Tarkov')} {category.name}
                     {/* <cite>
                         {bsgCategoryData._id}
                     </cite> */}
@@ -73,7 +75,7 @@ function BsgCategory() {
 
             <SmallItemTable
                 nameFilter={nameFilter}
-                bsgCategoryFilter={bsgCategoryData._id}
+                bsgCategoryFilter={category.id}
                 fleaValue
                 traderValue
                 traderPrice

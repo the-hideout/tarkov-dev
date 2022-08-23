@@ -1,97 +1,74 @@
 import { Link } from 'react-router-dom';
 
-import formatCategoryName from '../../modules/format-category-name';
-
-import categoryData from '../../data/category-data.json';
 import { useItemsQuery } from '../../features/items/queries';
+import { useMetaQuery } from '../../features/meta/queries';
 
 const ContainedItemsList = ({ item }) => {
     const { data: items } = useItemsQuery();
+    const { data: meta } = useMetaQuery();
 
+    //const containers = item.properties?.slots || item.properties?.grids;
+    const containers = item.properties?.grids;
     if (
-        !item.canHoldItems ||
-        (item.canHoldItems.length === 1 &&
-            item.canHoldItems[0] === '54009119af1c881c07000029')
+        !containers ||
+        (containers.length === 1 &&
+            containers[0].filters.allowedCategories.length === 1 &&
+            containers[0].filters.allowedCategories[0] === '54009119af1c881c07000029')
     ) {
         return null;
     }
 
-    const sortedItems = [...item.canHoldItems];
-
-    sortedItems.sort((a, b) => {
-        const firstCategory = categoryData[a];
-        const secondCategory = categoryData[b];
-
-        let firstTitle = firstCategory?.urlName;
-        let secondTitle = secondCategory?.urlName;
-
-        if (!firstCategory) {
-            const firstItem = items.find((item) => item.id === a);
-
-            firstTitle = firstItem?.normalizedName;
+    const sortedItems = items.filter(linkedItem => {
+        for (const slot of containers) {
+            /*const included = slot.filters.allowedItems.includes(linkedItem.id) ||
+                linkedItem.categoryIds.some(catId => slot.filters.allowedCategories.includes(catId));
+            const excluded = slot.filters.excludedItems.includes(linkedItem.id) ||
+                linkedItem.categoryIds.some(catId => slot.filters.excludedCategories.includes(catId));*/
+            const included = slot.filters.allowedItems.includes(linkedItem.id);
+            const excluded = linkedItem.categoryIds.some(catId => slot.filters.excludedCategories.includes(catId));
+            if (included && !excluded) return true;
         }
+        return false;
+    });
 
-        if (!secondCategory) {
-            const secondItem = items.find((item) => item.id === b);
-
-            secondTitle = secondItem?.normalizedName;
+    meta.categories.forEach(category => {
+        for (const slot of containers) {
+            if (slot.filters.allowedCategories.includes(category.id)) {
+                sortedItems.push(category);
+            }
         }
-
-        if (!firstTitle || !secondTitle) {
-            return 0;
-        }
-
-        return firstTitle.localeCompare(secondTitle);
+    });
+    
+    sortedItems.sort((a,b) => {
+        const textA = a.normalizedName;
+        const textB = b.normalizedName;
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
     });
 
     return (
         <div>
             <span className="contained-item-title-wrapper">Can hold:</span>
-            {sortedItems.map((itemOrCategoryId, index) => {
-                const currentCategoryData = categoryData[itemOrCategoryId];
-                let linkedItem = false;
-
-                if (itemOrCategoryId === '54009119af1c881c07000029') {
+            {sortedItems.map((linked, index) => {
+                if (linked.id === '54009119af1c881c07000029') {
                     // Special case for items that can contain all items
 
                     return null;
                 }
-
-                if (!currentCategoryData) {
-                    linkedItem = items.find(
-                        (item) => item.id === itemOrCategoryId,
-                    );
-                }
-
-                if (!linkedItem && !currentCategoryData) {
-                    return null;
-                }
-
-                if (linkedItem && linkedItem.types.includes('disabled')) {
-                    return null;
-                }
+                const isCategory = linked.parent ? 's' : '';
 
                 return (
                     <span
                         className="contained-item-link-wrapper"
-                        key={`item-link-${item.id}-${
-                            linkedItem?.id || currentCategoryData._id
-                        }`}
+                        key={`item-link-${item.id}-${linked.id}`}
                     >
                         <Link
                             className="contained-item-link"
-                            to={
-                                currentCategoryData
-                                    ? `/items/${currentCategoryData?.urlName}`
-                                    : `/item/${linkedItem.normalizedName}`
-                            }
+                            to={`/item${isCategory}/${linked.normalizedName}`}
                         >
-                            {currentCategoryData
-                                ? formatCategoryName(currentCategoryData)
-                                : linkedItem.name}
+                            {linked.name}
                         </Link>
                         <span>
-                            {item.canHoldItems.length > index + 1 ? ',' : ''}
+                            {sortedItems.length > index + 1 ? ',' : ''}
                         </span>
                     </span>
                 );

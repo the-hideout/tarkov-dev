@@ -1,83 +1,165 @@
+import { langCode } from '../../modules/lang-helpers';
+
 const doFetchBarters = async () => {
+    const language = await langCode();
+
     const bodyQuery = JSON.stringify({
         query: `{
-        barters {
-            rewardItems {
-                item {
+            barters(lang: ${language}) {
+                rewardItems {
+                    item {
+                        id
+                        name
+                        normalizedName
+                        iconLink
+                        imageLink
+                        wikiLink
+                        avg24hPrice
+                        lastLowPrice
+                        traderPrices {
+                            priceRUB
+                            price
+                            currency
+                            trader {
+                                name
+                            }
+                        }
+                        buyFor {
+                            source
+                            vendor {
+                                name
+                                normalizedName
+                                __typename
+                                ...on TraderOffer {
+                                    trader {
+                                        id
+                                        name
+                                        normalizedName
+                                    }
+                                    minTraderLevel
+                                    taskUnlock {
+                                        id
+                                        name
+                                    }
+                                }
+                            }
+                            priceRUB
+                            price
+                            currency
+                        }
+                        sellFor {
+                            source
+                            vendor {
+                                name
+                                normalizedName
+                                __typename
+                                ...on TraderOffer {
+                                    trader {
+                                        id
+                                        name
+                                        normalizedName
+                                    }
+                                    minTraderLevel
+                                    taskUnlock {
+                                        id
+                                        name
+                                    }
+                                }
+                            }
+                            priceRUB
+                            price
+                            currency
+                        }
+                        containsItems {
+                            item {
+                                id
+                            }
+                        }
+                    }
+                    count
+                }
+                requiredItems {
+                    item {
+                        id
+                        name
+                        normalizedName
+                        iconLink
+                        imageLink
+                        wikiLink
+                        avg24hPrice
+                        lastLowPrice
+                        traderPrices {
+                            priceRUB
+                            price
+                            currency
+                            trader {
+                                name
+                            }
+                        }
+                        buyFor {
+                            source
+                            vendor {
+                                name
+                                normalizedName
+                                __typename
+                                ...on TraderOffer {
+                                    trader {
+                                        id
+                                        name
+                                        normalizedName
+                                    }
+                                    minTraderLevel
+                                    taskUnlock {
+                                        id
+                                        name
+                                    }
+                                }
+                            }
+                            priceRUB
+                            price
+                            currency
+                        }
+                        sellFor {
+                            source
+                            vendor {
+                                name
+                                normalizedName
+                                __typename
+                                ...on TraderOffer {
+                                    trader {
+                                        id
+                                        name
+                                        normalizedName
+                                    }
+                                    minTraderLevel
+                                    taskUnlock {
+                                        id
+                                        name
+                                    }
+                                }
+                            }
+                            priceRUB
+                            price
+                            currency
+                        }
+                    }
+                    count
+                    attributes {
+                        name
+                        value
+                    }
+                }
+                source
+                trader {
                     id
                     name
                     normalizedName
-                    iconLink
-                    imageLink
-                    wikiLink
-                    avg24hPrice
-                    lastLowPrice
-                    traderPrices {
-                        priceRUB
-                        price
-                        currency
-                        trader {
-                            name
-                        }
-                    }
-                    buyFor {
-                        source
-                        priceRUB
-                        price
-                        currency
-                    }
-                    sellFor {
-                        source
-                        priceRUB
-                        price
-                        currency
-                    }
-                    containsItems {
-                        item {
-                            id
-                        }
-                    }
                 }
-                count
-            }
-            requiredItems {
-                item {
+                level
+                taskUnlock {
                     id
                     name
-                    normalizedName
-                    iconLink
-                    imageLink
-                    wikiLink
-                    avg24hPrice
-                    lastLowPrice
-                    traderPrices {
-                        priceRUB
-                        price
-                        currency
-                        trader {
-                            name
-                        }
-                    }
-                    buyFor {
-                        source
-                        priceRUB
-                        price
-                        currency
-                    }
-                    sellFor {
-                        source
-                        priceRUB
-                        price
-                        currency
-                    }
                 }
-                count
-                attributes {
-                    name
-                    value
-                }
-            }
-            source
             }
         }`,
     });
