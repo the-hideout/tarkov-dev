@@ -224,7 +224,6 @@ function PistolGrips(props) {
                 columns={columns}
                 items={displayItems}
                 traderPrice
-                maxItems={50}
                 autoScroll
             />
 
