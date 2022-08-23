@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useCallback, Suspense } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -53,6 +53,9 @@ import Rigs from './pages/items/rigs';
 import Suppressors from './pages/items/suppressors';
 import BsgCategory from './pages/items/bsg-category';
 import BitcoinFarmCalculator from './pages/bitcoin-farm-calculator';
+
+import Bosses from './pages/bosses';
+import Boss from './pages/bosses/boss';
 
 import Trader from './pages/traders/trader';
 import Traders from './pages/traders';
@@ -466,6 +469,31 @@ function App() {
                             sessionID={sessionID}
                             key="provisions-wrapper"
                         />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/bosses'}
+                    element={[
+                        <Suspense fallback={<Loading />} key="bosses-wrapper-suspense">
+                            <Bosses sessionID={sessionID} key="bosses-wrapper" />
+                        </Suspense>,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/boss'}
+                    element={[
+                        <Navigate to="/bosses" />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/boss/:bossName'}
+                    element={[
+                        <Suspense fallback={<Loading />} key="specific-boss-wrapper-suspense">
+                            <Boss sessionID={sessionID} key="specific-boss-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />

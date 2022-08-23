@@ -21,11 +21,13 @@ import {
     mdiDiscord,
     mdiHome,
     mdiCalendarClock,
+    mdiEmoticonDevil,
 } from '@mdi/js';
 
 import './index.css';
 
 import categoryPages from '../../data/category-pages.json';
+import BossList from '../../components/boss-list';
 
 const DISCORD_STASH_INVITE_LINK = 'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'
 
@@ -64,23 +66,25 @@ function Start() {
     };
 
     return [
-        <Helmet key={'loot-tier-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t(`Tarkov.dev - Escape from Tarkov`)}</title>
+        <Helmet key={'start-page-helmet'}>
+            <meta key={'start-page-charset'} charSet="utf-8" />
+            <title key={'start-page-title'}>{t(`Tarkov.dev - Escape from Tarkov`)}</title>
             <meta
                 name="description"
                 content={`Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, trader details, a free API, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.`}
+                key={'start-page-description'}
             />
         </Helmet>,
         <div
             className="display-wrapper page-wrapper start-wrapper"
-            key={'display-wrapper'}
+            key={'display-wrapper-start-page'}
         >
-            <div className="start-section-wrapper item-section">
-                <Suspense fallback={renderLoader()}>
+            <div className="start-section-wrapper item-section" key={'item-section-div'}>
+                <Suspense fallback={renderLoader()} key={'item-search'}>
                     <ItemSearch
                         onChange={handleNameFilterChange}
                         autoFocus={true}
+                        key={'item-search-box'}
                     />
                 </Suspense>
                 <Suspense fallback={renderLoader()}>
@@ -101,8 +105,8 @@ function Start() {
                     }
                 </Suspense>
             </div>
-            <div className="start-section-wrapper">
-                <Suspense fallback={renderLoader()}>
+            <div className="start-section-wrapper" key={'server-status-div'}>
+                <Suspense fallback={renderLoader()} key={'server-status'}>
                     <ServerStatus key={"server-status"} />
                 </Suspense>
                 <h3>
@@ -323,9 +327,24 @@ function Start() {
                         </Link>
                     </li>
                 </ul>
+                <h3>
+                    <Link to={'/bosses'} key={"maps-page"}>
+                        <Icon
+                            path={mdiEmoticonDevil}
+                            size={1}
+                            className="icon-with-text"
+                        />
+                        {t('Bosses')}
+                    </Link>
+                </h3>
+                <ul className="traders-list">
+                    <Suspense fallback={renderLoader()}>
+                        <BossList />
+                    </Suspense>
+                </ul>
             </div>
-            <div className='info-text-wrapper'>
-                <Link className="branding" to="/" key={"branding"}>
+            <div className='info-text-wrapper' key={'info-text-wrapper-div'}>
+                <Link className="branding" to="/">
                     <img
                         alt="Tarkov.dev"
                         height={30}

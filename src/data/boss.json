@@ -1,0 +1,324 @@
+[
+    {
+        "name": "Rogue",
+        "normalizedName": "rogue",
+        "details": "Rogues defend the water treatment plant and surrounding areas on Lighthouse. Their primary behavior is patrolling but they will often take defensive positions on rooftops and use emplaced weapons. They will target all players who enter their area but are slightly more lenient towards USEC PMCs and Scavs. Rogues can also spawn at the Southern lighthouse location (island). Rogues are extremely dangerous due to their high health, laserbeam accuracy, and high targeting distance. Rogues will also run behind cover and use meds if they are wounded.",
+        "spawnChanceOverride": [
+            {
+                "chance": 1,
+                "map": "lighthouse"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Rogues",
+        "health": 770,
+        "behavior": "patrol",
+        "loot": [
+            {
+                "name": "Gen4 HMK",
+                "itemLink": "/item/iotv-gen4-body-armor-high-mobility-kit",
+                "iconLink": "https://assets.tarkov.dev/5b44d0de86f774503d30cba8-icon.jpg"
+            },
+            {
+                "name": "Trooper",
+                "itemLink": "/item/highcom-trooper-tfo-body-armor-multicam",
+                "iconLink": "https://assets.tarkov.dev/5c0e655586f774045612eeb2-icon.jpg"
+            },
+            {
+                "name": "Hexgrid",
+                "itemLink": "/item/511-tactical-hexgrid-plate-carrier",
+                "iconLink": "https://assets.tarkov.dev/5fd4c474dd870108a754b241-icon.jpg"
+            },
+            {
+                "name": "Slick",
+                "itemLink": "/item/lbt-6094a-slick-plate-carrier",
+                "iconLink": "https://assets.tarkov.dev/5e4abb5086f77406975c9342-icon.jpg"
+            },
+            {
+                "name": "EXFIL Black",
+                "itemLink": "/item/team-wendy-exfil-ballistic-helmet-black",
+                "iconLink": "https://assets.tarkov.dev/5e00c1ad86f774747333222c-icon.jpg"
+            },
+            {
+                "name": "EXFIL CB",
+                "itemLink": "/item/team-wendy-exfil-ballistic-helmet-coyote-brown",
+                "iconLink": "https://assets.tarkov.dev/5e01ef6886f77445f643baa4-icon.jpg"
+            },
+            {
+                "name": "AK-104",
+                "itemLink": "/item/kalashnikov-ak-104-762x39-assault-rifle",
+                "iconLink": "https://assets.tarkov.dev/5ac66d725acfc43b321d4b60-icon.jpg"
+            },
+            {
+                "name": "SCAR-L",
+                "itemLink": "/item/fn-scar-l-556x45-assault-rifle",
+                "iconLink": "https://assets.tarkov.dev/6184055050224f204c1da540-icon.jpg"
+            },
+            {
+                "name": "Galvion Caiman Hybrid helmet",
+                "itemLink": "/item/galvion-caiman-hybrid-helmet",
+                "iconLink": "https://assets.tarkov.dev/5f60b34a41e30a4ab12a6947-icon.jpg"
+            },
+            {
+                "name": "M4A1",
+                "itemLink": "/item/colt-m4a1-556x45-assault-rifle",
+                "iconLink": "https://assets.tarkov.dev/5447a9cd4bdc2dbd208b4567-icon.jpg"
+            },
+            {
+                "name": "HK 416A5",
+                "itemLink": "/item/hk-416a5-556x45-assault-rifle",
+                "iconLink": "https://assets.tarkov.dev/5bb2475ed4351e00853264e3-icon.jpg"
+            },
+            {
+                "name": "SR-25",
+                "itemLink": "/item/knights-armament-company-sr-25-762x51-marksman-rifle",
+                "iconLink": "https://assets.tarkov.dev/5df8ce05b11454561e39243b-icon.jpg"
+            },
+            {
+                "name": "AFAK",
+                "itemLink": "/item/afak-tactical-individual-first-aid-kit",
+                "iconLink": "https://assets.tarkov.dev/60098ad7c2240c0fe85c570a-icon.jpg"
+            }
+        ]
+    },
+    {
+        "name": "Raider",
+        "normalizedName": "raider",
+        "details": "Scav raiders (also known as just 'raiders') are advanced Scavs that are considerably stronger and more tactical than your typical Scavs. They carry significantly more dangerous weapons and use higher tier ammunition. Additionally, they have much better aim and can frequently drop well geared players with only a few bullets (or you just get head-eyes'd). Scav raiders also patrol in multiple groups and can usually be distinguished by their gear, unique voicelines, and general aggression. Scav Raiders start out friendly to all other Scavs (including player scavs) but they will become hostile if you get to close and ignore their verbal warnings. They will also become hostile to all Scavs if any Scav angers them.",
+        "spawnChanceOverrideString": true,
+        "spawnChanceOverride": [
+            {
+                "chance": "~15-35%",
+                "map": "reserve"
+            },
+            {
+                "chance": "100%",
+                "map": "The Lab"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/raiders",
+        "health": 750,
+        "behavior": "rush",
+        "loot": [
+            {
+                "name": "AK-104",
+                "itemLink": "/item/kalashnikov-ak-104-762x39-assault-rifle",
+                "iconLink": "https://assets.tarkov.dev/5ac66d725acfc43b321d4b60-icon.jpg"
+            },
+            {
+                "name": "Gen4 HMK",
+                "itemLink": "/item/iotv-gen4-body-armor-high-mobility-kit",
+                "iconLink": "https://assets.tarkov.dev/5b44d0de86f774503d30cba8-icon.jpg"
+            },
+            {
+                "name": "Trooper",
+                "itemLink": "/item/highcom-trooper-tfo-body-armor-multicam",
+                "iconLink": "https://assets.tarkov.dev/5c0e655586f774045612eeb2-icon.jpg"
+            },
+            {
+                "name": "Hexgrid",
+                "itemLink": "/item/511-tactical-hexgrid-plate-carrier",
+                "iconLink": "https://assets.tarkov.dev/5fd4c474dd870108a754b241-icon.jpg"
+            },
+            {
+                "name": "AFAK",
+                "itemLink": "/item/afak-tactical-individual-first-aid-kit",
+                "iconLink": "https://assets.tarkov.dev/60098ad7c2240c0fe85c570a-icon.jpg"
+            }
+        ]
+    },
+    {
+        "name": "Cultist Priest",
+        "normalizedName": "cultist-priest",
+        "details": "Sneaky bois. Cultists lurk in the shadows in groups of 3-5, waiting for a player to approach. They silently approach their enemies and stab them using either normal knives or, in case of the priests, the poisoned Cultist knife. If fired upon, the Cultists will return fire using firearms and grenades. After they attack a player with their knife, they may choose to run off into the woods again and return to the shadows.",
+        "health": 850,
+        "loot": [
+            {
+                "name": "Secure Flash drive",
+                "itemLink": "/item/secure-flash-drive",
+                "iconLink": "https://assets.tarkov.dev/590c621186f774138d11ea29-icon.jpg"
+            },
+            {
+                "name": "SAS drive",
+                "itemLink": "/item/sas-drive",
+                "iconLink": "https://assets.tarkov.dev/590c37d286f77443be3d7827-icon.jpg"
+            },
+            {
+                "name": "Cultist knife",
+                "itemLink": "/item/cultist-knife",
+                "iconLink": "https://assets.tarkov.dev/5fc64ea372b0dd78d51159dc-icon.jpg"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/cultists",
+        "behavior": "stalker"
+    },
+    {
+        "name": "Death Knight",
+        "normalizedName": "death-knight",
+        "details": "The leader of 'The Goons'. Can spawn on many different maps.",
+        "health": 1120,
+        "loot": [
+            {
+                "name": "death-knight-mask",
+                "itemLink": "/item/death-knight-mask",
+                "iconLink": "https://assets.tarkov.dev/unknown-item-icon.jpg"
+            },
+            {
+                "name": "Crye Precision CPC plate carrier (Goons Edition)",
+                "itemLink": "/item/crye-precision-cpc-plate-carrier-goons-edition",
+                "iconLink": "https://assets.tarkov.dev/unknown-item-icon.jpg"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/knight",
+        "behavior": "rush"
+    },
+    {
+        "name": "Glukhar",
+        "normalizedName": "glukhar",
+        "details": "Glukhar and his many guards are extremely hostile. It's very unlikely to find success while fighting in any open areas. Small hallways and closed rooms are preferable. Glukhar and his guards are very accurate. Glukhar and his guards will stay near each other at all times and his guards will follow him to wherever he goes.",
+        "health": 1010,
+        "loot": [
+            {
+                "name": "GP Coin",
+                "itemLink": "/item/gp-coin",
+                "iconLink": "https://assets.tarkov.dev/5d235b4d86f7742e017bc88a-icon.jpg"
+            },
+            {
+                "name": "ASh-12",
+                "itemLink": "/item/ash-12-127x55-assault-rifle",
+                "iconLink": "https://assets.tarkov.dev/5cadfbf7ae92152ac412eeef-icon.jpg"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/glukhar",
+        "behavior": "hostile and accurate"
+    },
+    {
+        "name": "Killa",
+        "normalizedName": "killa",
+        "details": "The true Giga Chad of Tarkov. Killa uses a light machine gun or other automatic weapon to suppress the enemy, while lurking from cover to cover, getting closer to his target for the final push. During the assault he moves in a zig-zag pattern, uses smoke and fragmentation grenades, and relentlessly suppresses enemies with automatic fire. He will follow his target large distances out of his patrol route, so be sure to run very far to get away from him if he has locked onto you.",
+        "health": 890,
+        "loot": [
+            {
+                "name": "6B13 M modified assault armor (Tan)",
+                "itemLink": "/item/6b13-m-modified-assault-armor-tan",
+                "iconLink": "https://assets.tarkov.dev/5c0e541586f7747fa54205c9-icon.jpg"
+            },
+            {
+                "name": "Maska-1SCh (Killa)",
+                "itemLink": "/item/maska-1sch-bulletproof-helmet-killa",
+                "iconLink": "https://assets.tarkov.dev/5c0e874186f7745dc7616606-icon.jpg"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/killa",
+        "behavior": "patrol and highly armored"
+    },
+    {
+        "name": "Reshala",
+        "normalizedName": "reshala",
+        "details": "He will normally try to stay at the back of the fight and hidden from the player's view. Additionally, he never wears armor. Be careful as a player scav, as if you are at lower scav karma levels Reshala or his guards may shoot you without provocation or will shoot you if you come to close to Reshala. His guards are sometimes known to give warnings to player scavs with low karma before becoming hostile.",
+        "health": 752,
+        "loot": [
+            {
+                "name": "TT-33 7.62x25 TT pistol (Golden)",
+                "itemLink": "/item/tt-33-762x25-tt-pistol-golden",
+                "iconLink": "https://assets.tarkov.dev/5b3b713c5acfc4330140bd8d-icon.jpg"
+            },
+            {
+                "name": "Physical bitcoin",
+                "itemLink": "/item/physical-bitcoin",
+                "iconLink": "https://assets.tarkov.dev/59faff1d86f7746c51718c9c-icon.jpg"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/reshala",
+        "behavior": "group patrol"
+    },
+    {
+        "name": "Sanitar",
+        "normalizedName": "sanitar",
+        "details": "When engaged in combat, he will fight alongside his fellow scavs and guards, but may often break away to heal or inject himself. He has plenty of meds, so a prolonged engagement is possible.",
+        "health": 1270,
+        "loot": [
+            {
+                "name": "Sanitar's bag",
+                "itemLink": "/item/sanitars-bag",
+                "iconLink": "https://assets.tarkov.dev/5e997f0b86f7741ac73993e2-icon.jpg"
+            },
+            {
+                "name": "LEDX",
+                "itemLink": "/item/ledx-skin-transilluminator",
+                "iconLink": "https://assets.tarkov.dev/5c0530ee86f774697952d952-icon.jpg"
+            },
+            {
+                "name": "Keycard with a blue marking",
+                "itemLink": "/item/keycard-with-a-blue-marking",
+                "iconLink": "https://assets.tarkov.dev/5efde6b4f5448336730dbd61-icon.jpg"
+            },
+            {
+                "name": "Health Resort office key with a blue tape",
+                "itemLink": "/item/health-resort-office-key-with-a-blue-tape",
+                "iconLink": "https://assets.tarkov.dev/5eff09cd30a7dc22fd1ddfed-icon.jpg"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/sanitar",
+        "behavior": "frequent healing and stim injections"
+    },
+    {
+        "name": "Shturman",
+        "normalizedName": "shturman",
+        "details": "Shturman and his followers will engage the player at a long range protecting the sawmill area of the woods. They prefer to keep their distance, as they are not suited for close quarters combat.",
+        "health": 812,
+        "loot": [
+            {
+                "name": "Shturman's stash key",
+                "itemLink": "/item/shturmans-stash-key",
+                "iconLink": "https://assets.tarkov.dev/5d08d21286f774736e7c94c3-icon.jpg"
+            },
+            {
+                "name": "Red Rebel ice pick",
+                "itemLink": "/item/red-rebel-ice-pick",
+                "iconLink": "https://assets.tarkov.dev/5c0126f40db834002a125382-icon.jpg"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/shturman",
+        "behavior": "sniper"
+    },
+    {
+        "name": "Tagilla",
+        "normalizedName": "tagilla",
+        "details": "He is batshit insane and will attempt to hammer you down. However, if you are in a position that he cannot path-find to, such as the rafters, he will use his secondary weapon (usually a shotgun) to kill you from a distance. He's active immediately at the start of raid. The boss can set ambushes, open suppressive fire, and breach if needed.",
+        "health": 1220,
+        "loot": [
+            {
+                "name": "Crye Precision AVS MBAV (Tagilla Edition)",
+                "itemLink": "/item/crye-precision-avs-mbav-tagilla-edition",
+                "iconLink": "https://assets.tarkov.dev/609e860ebd219504d8507525-icon.jpg"
+            },
+            {
+                "name": "L1 (Norepinephrine) injector",
+                "itemLink": "/item/l1-norepinephrine-injector",
+                "iconLink": "https://assets.tarkov.dev/5ed515e03a40a50460332579-icon.jpg"
+            },
+            {
+                "name": "Physical bitcoin",
+                "itemLink": "/item/physical-bitcoin",
+                "iconLink": "https://assets.tarkov.dev/59faff1d86f7746c51718c9c-icon.jpg"
+            },
+            {
+                "name": "Tagilla's welding mask 'UBEY'",
+                "itemLink": "/item/tagillas-welding-mask-ubey",
+                "iconLink": "https://assets.tarkov.dev/60a7ad2a2198820d95707a2e-icon.jpg"
+            },
+            {
+                "name": "Tagilla's welding mask 'Gorilla'",
+                "itemLink": "/item/tagillas-welding-mask-gorilla",
+                "iconLink": "https://assets.tarkov.dev/60a7ad3a0c5cb24b0134664a-icon.jpg"
+            },
+            {
+                "name": "BOSS cap",
+                "itemLink": "/item/boss-cap",
+                "iconLink": "https://assets.tarkov.dev/60a7acf20c5cb24b01346648-icon.jpg"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/tagilla",
+        "behavior": "batshit insane"
+    }
+]
