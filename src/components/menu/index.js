@@ -18,7 +18,10 @@ import { caliberMap } from '../../modules/format-ammo';
 import mapData from '../../data/maps.json';
 import itemsData from '../../data/category-pages.json';
 
+import { BossListNav } from '../../components/boss-list';
+
 import './index.css';
+import { Suspense } from 'react';
 
 // Comment / uncomment for banner alert
 // import MuiAlert from '@material-ui/lab/Alert';
@@ -27,6 +30,7 @@ import './index.css';
 // }
 // End of banner alert toggle
 
+const renderLoader = () => <p>Loading...</p>;
 
 const ammoTypes = Object.values(caliberMap).sort();
 
@@ -153,7 +157,7 @@ const Menu = () => {
                     <li className="submenu-wrapper">
                         <Link to="/traders">{t('Traders')}</Link>
                         <ul>
-                        <MenuItem
+                            <MenuItem
                                 displayText={t('Prapor')}
                                 key="menu-item-prapor"
                                 to={`/traders/prapor`}
@@ -196,6 +200,12 @@ const Menu = () => {
                                 onClick={setIsOpen.bind(this, false)}
                             />
                         </ul>
+                    </li>
+                    <li className="submenu-wrapper">
+                        <Link to="/bosses/">{t('Bosses')}</Link>
+                        <Suspense fallback={renderLoader()}>
+                            <BossListNav onClick={setIsOpen.bind(this, false)} />
+                        </Suspense>
                     </li>
                     <li className="submenu-wrapper">
                         <Link
