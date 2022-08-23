@@ -23,7 +23,7 @@
                 "map": "reserve"
             },
             {
-                "chance": "~15-45%",
+                "chance": "100%",
                 "map": "The Lab"
             }
         ],
