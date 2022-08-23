@@ -99,10 +99,10 @@ function DataTable({
             const tableProps = row.getRowProps();
 
             tableProps.className = `${
-                row.isExpanded || row.depth === 1 ? 'expanded' : ''
+                row.depth >= 1 ? 'expanded' : ''
             }`;
             return (
-                <tr key={i} {...tableProps}>
+                <tr key={row.original.id} {...tableProps}>
                     {row.cells.map((cell) => {
                         return (
                             <td
