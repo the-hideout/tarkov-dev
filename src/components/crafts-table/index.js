@@ -32,8 +32,7 @@ import {
 import { useMetaQuery } from '../../features/meta/queries';
 
 function CraftTable(props) {
-    const { selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices } =
-        props;
+    const { selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const includeFlea = useSelector((state) => state.settings.hasFlea);
@@ -194,21 +193,11 @@ function CraftTable(props) {
                     }
                 }
 
-                // let hasZeroCostItem = false;
-                //let [station, level] = craftRow.source.split('level');
                 const station = craftRow.station.name;
+                const stationNormalized = craftRow.station.normalizedName;
                 const level = craftRow.level;
 
-                //level = parseInt(level);
-                //station = station.trim();
-
-                if (
-                    !nameFilter &&
-                    selectedStation &&
-                    selectedStation !== 'top' &&
-                    selectedStation !==
-                        station.toLowerCase().replace(/\s/g, '-')
-                ) {
+                if (!nameFilter && selectedStation && selectedStation !== 'top' && selectedStation !== stationNormalized) {
                     return false;
                 }
 
@@ -216,10 +205,7 @@ function CraftTable(props) {
                     skippedByLevelRef.current = false;
                 }
 
-                if (
-                    !showAll &&
-                    level > stations[station.toLowerCase().replace(/\s/g, '-')]
-                ) {
+                if (!showAll && level > stations[stationNormalized]) {
                     //setSkippedByLevel(true);
                     skippedByLevelRef.current = true;
 
@@ -234,17 +220,13 @@ function CraftTable(props) {
                     includeFlea,
                 );
 
-                // const craftDuration = Math.floor(craftRow.duration - (skills.crafting * 0.75))
                 const craftDuration = Math.floor(
-                    craftRow.duration -
-                        (craftRow.duration * (skills.crafting * 0.75)) / 100,
+                    craftRow.duration - (craftRow.duration * (skills.crafting * 0.75)) / 100,
                 );
 
                 var costItemsWithoutTools = costItems.filter(costItem => costItem.isTool === false)
                 costItemsWithoutTools.map(
-                    (costItem) =>
-                        (totalCost =
-                            totalCost + costItem.price * costItem.count),
+                    (costItem) => (totalCost = totalCost + costItem.price * costItem.count),
                 );
 
                 const tradeData = {
@@ -256,9 +238,7 @@ function CraftTable(props) {
                         wikiLink: craftRow.rewardItems[0].item.wikiLink,
                         itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
                         source: `${t(station)} (${t('Level')} ${level})`,
-                        iconLink:
-                            craftRow.rewardItems[0].item.iconLink ||
-                            'https://tarkov.dev/images/unknown-item-icon.jpg',
+                        iconLink: craftRow.rewardItems[0].item.iconLink || 'https://tarkov.dev/images/unknown-item-icon.jpg',
                         count: craftRow.rewardItems[0].count,
                         value: 0, 
                     },
@@ -267,7 +247,8 @@ function CraftTable(props) {
                 const bestTraderValue = Math.max(
                     ...craftRow.rewardItems[0].item.sellFor.map(
                         (priceObject) => {
-                            if (priceObject.vendor.normalizedName === 'flea-market') return 0;
+                            if (priceObject.vendor.normalizedName === 'flea-market') 
+                                return 0;
                             return priceObject.priceRUB
                         }
                     ),
@@ -277,10 +258,7 @@ function CraftTable(props) {
                         (traderPrice) => traderPrice.priceRUB === bestTraderValue,
                     );
 
-                if (
-                    (bestTrade && bestTrade.priceRUB > tradeData.reward.value) ||
-                    (bestTrade && !includeFlea)
-                ) {
+                if ((bestTrade && bestTrade.priceRUB > tradeData.reward.value) || (bestTrade && !includeFlea)) {
                     tradeData.reward.value = bestTrade.priceRUB;
                     tradeData.reward.sellTo = bestTrade.vendor.name;
                 }
@@ -288,20 +266,16 @@ function CraftTable(props) {
                 const priceToUse = averagePrices === true ? 'avg24hPrice' : 'lastLowPrice';
 
                 if (!craftRow.rewardItems[0].item.types.includes('noFlea')) {
-                        tradeData.reward.value =
-                        craftRow.rewardItems[0].item[priceToUse];
+                    tradeData.reward.value = craftRow.rewardItems[0].item[priceToUse];
                     
                     tradeData.reward.sellTo = t('Flea Market');
                     tradeData.fleaThroughput = Math.floor(
-                        (craftRow.rewardItems[0].item[priceToUse] *
-                            craftRow.rewardItems[0].count) /
-                            (craftDuration / 3600),
+                        (craftRow.rewardItems[0].item[priceToUse] * craftRow.rewardItems[0].count) / (craftDuration / 3600),
                     );
                 }
 
-                tradeData.profit =
-                    tradeData.reward.value * craftRow.rewardItems[0].count -
-                    totalCost;
+                tradeData.profit = tradeData.reward.value * craftRow.rewardItems[0].count - totalCost;
+
                 if (tradeData.reward.sellTo === t('Flea Market')) {
                     tradeData.profit =
                         tradeData.profit -
@@ -329,13 +303,6 @@ function CraftTable(props) {
                     tradeData.reward.barterOnly = true;
                     tradeData.profit = 0;
                 }
-
-                // if(hasZeroCostItem){
-                //     // console.log('Found a zero cost item!');
-                //     // console.log(craftRow);
-
-                //     return false;
-                // }
 
                 return tradeData;
             })
@@ -459,21 +426,17 @@ function CraftTable(props) {
 
     if (data.length <= 0 && skippedByLevelRef.current) {
         extraRow = (
-            <div>
-                {t(
-                    'No crafts available for selected filters but some were hidden by ',
-                )}
-                <Link to="/settings/">{t('your settings')}</Link>
-            </div>
+            <>
+                {t('No crafts available for selected filters but some were hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
+            </>
         );
     }
 
     if (data.length > 0 && skippedByLevelRef.current) {
         extraRow = (
-            <div>
-                {t('Some crafts hidden by ')}
-                <Link to="/settings/">{t('your settings')}</Link>
-            </div>
+            <>
+                {t('Some crafts hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
+            </>
         );
     }
 

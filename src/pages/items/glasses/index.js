@@ -71,13 +71,6 @@ function Glasses(props) {
         () =>
             displayItems
                 .map((item) => {
-                    /*const match = item.name.match(/(.*)\s\(\d.+?$/);
-                    let itemName = item.name;
-
-                    if (match) {
-                        itemName = match[1].trim();
-                    }*/
-
                     return {
                         ...item,
                         itemLink: `/item/${item.normalizedName}`,

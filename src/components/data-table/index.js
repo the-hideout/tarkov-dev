@@ -102,7 +102,7 @@ function DataTable({
                 row.isExpanded || row.depth === 1 ? 'expanded' : ''
             }`;
             return (
-                <tr {...tableProps}>
+                <tr key={i} {...tableProps}>
                     {row.cells.map((cell) => {
                         return (
                             <td
@@ -126,11 +126,7 @@ function DataTable({
                     {headerGroups.map((headerGroup) => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map((column) => (
-                                <th
-                                    {...column.getHeaderProps(
-                                        column.getSortByToggleProps(),
-                                    )}
-                                >
+                                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                                     <span className={'header-text'}>
                                         {column.render('Header')}
                                     </span>
@@ -160,7 +156,7 @@ function DataTable({
                 <tbody {...getTableBodyProps()}>
                     {getRows()}
                     {extraRow && (
-                        <tr>
+                        <tr key="extra">
                             <td
                                 className="data-cell table-extra-row"
                                 colSpan={999}

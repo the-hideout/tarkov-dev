@@ -37,24 +37,22 @@ function ItemCost({
                         loading="lazy"
                         src={`${process.env.PUBLIC_URL}/images/icon-barter.png`}
                     />
-                    {count + ' x ' + formatPrice(price) + ' = '}
-                    {formatPrice(count * price)}
+                    {count + ' x ' + formatPrice(price) + ' = ' + formatPrice(count * price)}
                 </div>
             </Tippy>
         );
     }
 
     return (
-        <div>
+        <>
             <img
                 alt={vendor.name}
                 className="barter-icon"
                 src={`${process.env.PUBLIC_URL}/images/${vendor.normalizedName}-icon.jpg`}
                 loading="lazy"
             />
-            {count + ' x ' + formatPrice(price) + ' = '}
-            {formatPrice(count * price)}
-        </div>
+            {count + ' x ' + formatPrice(price) + ' = ' + formatPrice(count * price)}
+        </>
     );
 }
 
