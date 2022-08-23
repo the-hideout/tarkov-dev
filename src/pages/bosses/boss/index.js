@@ -9,14 +9,13 @@ import DataTable from '../../../components/data-table';
 import PropertyList from '../../../components/property-list';
 import bossJson from '../../../data/boss.json';
 import ErrorPage from '../../../components/error-page';
+import Loading from '../../../components/loading';
 import Icon from '@mdi/react';
 import CheekiBreekiEffect from '../../../components/cheeki-breeki-effect';
 import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup } from '@mdi/js';
 
 import './index.css';
 import CenterCell from '../../../components/center-cell';
-
-const renderLoader = () => <p>Loading...</p>;
 
 function BossPage(bossName) {
     const { t } = useTranslation();
@@ -80,7 +79,7 @@ function BossPage(bossName) {
 
     // If no bosses have been returned yet, return 'loading'
     if (!bosses || bosses.length === 0) {
-        return t('Loading...');
+        return <Loading />;
     }
 
     // Format the boss data
@@ -317,7 +316,7 @@ function Boss() {
                 href={`https://tarkov.dev/boss/${bossName}`}
             />
         </Helmet>,
-        <Suspense fallback={renderLoader()} key={`suspense-boss-page-${bossName}`}>
+        <Suspense fallback={<Loading />} key={`suspense-boss-page-${bossName}`}>
             <BossPage bossName={bossName} />
         </Suspense>
     ];

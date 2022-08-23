@@ -3,12 +3,11 @@ import React, { Suspense } from 'react';
 import Icon from '@mdi/react';
 import { mdiEmoticonDevil } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
+import Loading from '../../components/loading';
 
 import { BossPageList } from '../../components/boss-list';
 
 import './index.css';
-
-const renderLoader = () => <p>Loading...</p>;
 
 function Bosses(props) {
     const { t } = useTranslation();
@@ -32,7 +31,7 @@ function Bosses(props) {
             </h1>
             <h2 className='boss-sub-text'>Bosses are feared and deadly enemies with unique gear and traits in Escape from Tarkov</h2>
             <div className="boss-list-wrapper">
-                <Suspense fallback={renderLoader()}>
+                <Suspense fallback={<Loading />}>
                     <BossPageList />
                 </Suspense>
             </div>

@@ -475,7 +475,9 @@ function App() {
                 <Route
                     path={'/bosses'}
                     element={[
-                        <Bosses sessionID={sessionID} key="bosses-wrapper" />,
+                        <Suspense fallback={<Loading />} key="bosses-wrapper-suspense">
+                            <Bosses sessionID={sessionID} key="bosses-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -489,10 +491,9 @@ function App() {
                 <Route
                     path={'/boss/:bossName'}
                     element={[
-                        <Boss
-                            sessionID={sessionID}
-                            key="specific-boss-wrapper"
-                        />,
+                        <Suspense fallback={<Loading />} key="specific-boss-wrapper-suspense">
+                            <Boss sessionID={sessionID} key="specific-boss-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
