@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams, Link } from 'react-router-dom';
 import capitalize from '../../../modules/capitalize-first';
 import formatBossData from '../../../modules/format-boss-data';
+import ItemNameCell from '../../../components/item-name-cell';
 import { useBossesQuery } from '../../../components/boss-list';
 import DataTable from '../../../components/data-table';
 import PropertyList from '../../../components/property-list';
@@ -76,42 +77,10 @@ function BossPage(params) {
     const columnsLoot = useMemo(() => {
         return [
             {
-                Header: t('Item Image'),
-                accessor: 'image',
-                Cell: (props) => {
-                    return (
-                        <CenterCell>
-                            <Link
-                                to={`/item/${props.row.original.link}`}
-                                key={`item-loot-link-${props.row.original.link}`}
-                            >
-                                <img
-                                    alt={`${props.row.original.name} icon`}
-                                    height={64}
-                                    loading="lazy"
-                                    src={`https://assets.tarkov.dev/${props.row.original.img}`}
-                                    width={64}
-                                />
-                            </Link>
-                        </CenterCell>
-                    );
-                },
-            },
-            {
                 Header: t('Name'),
                 accessor: 'name',
-                Cell: (props) => {
-                    return (
-                        <CenterCell>
-                            <Link
-                                to={`/item/${props.row.original.link}`}
-                            >
-                                {props.row.original.name}
-                            </Link>
-                        </CenterCell>
-                    );
-                },
-            },
+                Cell: ItemNameCell
+            }
         ];
     }, [t]);
 
@@ -250,7 +219,8 @@ function BossPage(params) {
                         />
                     </div>
                 </div>
-                <h2 className='item-h2' key={'boss-stats-header'}>{t('Boss Stats')}
+                <h2 className='item-h2' key={'boss-stats-header'}>
+                    {t('Boss Stats')}
                     <Icon
                         path={mdiPoll}
                         size={1.5}
@@ -266,7 +236,8 @@ function BossPage(params) {
                 </ul>
 
                 {bossJsonData &&
-                    <h2 className='item-h2' key={'boss-loot-header'}>{t('Unique Boss Loot')}
+                    <h2 className='item-h2' key={'boss-loot-header'}>
+                        {t('Unique Boss Loot')}
                         <Icon
                             path={mdiDiamondStone}
                             size={1.5}
@@ -288,7 +259,8 @@ function BossPage(params) {
                     </div>
                 }
 
-                <h2 className='item-h2' key={'boss-spawn-table-header'}>{t('Spawn Locations')}
+                <h2 className='item-h2' key={'boss-spawn-table-header'}>
+                    {t('Spawn Locations')}
                     <Icon
                         path={mdiMapLegend}
                         size={1.5}
@@ -310,7 +282,8 @@ function BossPage(params) {
                     autoResetSortBy={false}
                 />
 
-                <h2 className='item-h2' key={'boss-escort-table-header'}>{t('Boss Escorts')}
+                <h2 className='item-h2' key={'boss-escort-table-header'}>
+                    {t('Boss Escorts')}
                     <Icon
                         path={mdiAccountGroup}
                         size={1.5}

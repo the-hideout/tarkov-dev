@@ -15,68 +15,68 @@
         "loot": [
             {
                 "name": "Gen4 HMK",
-                "link": "iotv-gen4-body-armor-high-mobility-kit",
-                "img": "5b44d0de86f774503d30cba8-grid-image.jpg"
+                "itemLink": "/item/iotv-gen4-body-armor-high-mobility-kit",
+                "iconLink": "https://assets.tarkov.dev/5b44d0de86f774503d30cba8-icon.jpg"
             },
             {
                 "name": "Trooper",
-                "link": "highcom-trooper-tfo-body-armor-multicam",
-                "img": "5c0e655586f774045612eeb2-grid-image.jpg"
+                "itemLink": "/item/highcom-trooper-tfo-body-armor-multicam",
+                "iconLink": "https://assets.tarkov.dev/5c0e655586f774045612eeb2-icon.jpg"
             },
             {
                 "name": "Hexgrid",
-                "link": "511-tactical-hexgrid-plate-carrier",
-                "img": "5fd4c474dd870108a754b241-grid-image.jpg"
+                "itemLink": "/item/511-tactical-hexgrid-plate-carrier",
+                "iconLink": "https://assets.tarkov.dev/5fd4c474dd870108a754b241-icon.jpg"
             },
             {
                 "name": "Slick",
-                "link": "lbt-6094a-slick-plate-carrier",
-                "img": "5e4abb5086f77406975c9342-grid-image.jpg"
+                "itemLink": "/item/lbt-6094a-slick-plate-carrier",
+                "iconLink": "https://assets.tarkov.dev/5e4abb5086f77406975c9342-icon.jpg"
             },
             {
                 "name": "EXFIL Black",
-                "link": "team-wendy-exfil-ballistic-helmet-black",
-                "img": "5e00c1ad86f774747333222c-grid-image.jpg"
+                "itemLink": "/item/team-wendy-exfil-ballistic-helmet-black",
+                "iconLink": "https://assets.tarkov.dev/5e00c1ad86f774747333222c-icon.jpg"
             },
             {
                 "name": "EXFIL CB",
-                "link": "team-wendy-exfil-ballistic-helmet-coyote-brown",
-                "img": "5e01ef6886f77445f643baa4-grid-image.jpg"
+                "itemLink": "/item/team-wendy-exfil-ballistic-helmet-coyote-brown",
+                "iconLink": "https://assets.tarkov.dev/5e01ef6886f77445f643baa4-icon.jpg"
             },
             {
                 "name": "AK-104",
-                "link": "kalashnikov-ak-104-762x39-assault-rifle",
-                "img": "5ac66d725acfc43b321d4b60-grid-image.jpg"
+                "itemLink": "/item/kalashnikov-ak-104-762x39-assault-rifle",
+                "iconLink": "https://assets.tarkov.dev/5ac66d725acfc43b321d4b60-icon.jpg"
             },
             {
                 "name": "SCAR-L",
-                "link": "fn-scar-l-556x45-assault-rifle",
-                "img": "6184055050224f204c1da540-grid-image.jpg"
+                "itemLink": "/item/fn-scar-l-556x45-assault-rifle",
+                "iconLink": "https://assets.tarkov.dev/6184055050224f204c1da540-icon.jpg"
             },
             {
                 "name": "Galvion Caiman Hybrid helmet",
-                "link": "galvion-caiman-hybrid-helmet",
-                "img": "5f60b34a41e30a4ab12a6947-grid-image.jpg"
+                "itemLink": "/item/galvion-caiman-hybrid-helmet",
+                "iconLink": "https://assets.tarkov.dev/5f60b34a41e30a4ab12a6947-icon.jpg"
             },
             {
                 "name": "M4A1",
-                "link": "colt-m4a1-556x45-assault-rifle",
-                "img": "5447a9cd4bdc2dbd208b4567-grid-image.jpg"
+                "itemLink": "/item/colt-m4a1-556x45-assault-rifle",
+                "iconLink": "https://assets.tarkov.dev/5447a9cd4bdc2dbd208b4567-icon.jpg"
             },
             {
                 "name": "HK 416A5",
-                "link": "hk-416a5-556x45-assault-rifle",
-                "img": "5bb2475ed4351e00853264e3-grid-image.jpg"
+                "itemLink": "/item/hk-416a5-556x45-assault-rifle",
+                "iconLink": "https://assets.tarkov.dev/5bb2475ed4351e00853264e3-icon.jpg"
             },
             {
                 "name": "SR-25",
-                "link": "knights-armament-company-sr-25-762x51-marksman-rifle",
-                "img": "5df8ce05b11454561e39243b-grid-image.jpg"
+                "itemLink": "/item/knights-armament-company-sr-25-762x51-marksman-rifle",
+                "iconLink": "https://assets.tarkov.dev/5df8ce05b11454561e39243b-icon.jpg"
             },
             {
                 "name": "AFAK",
-                "link": "afak-tactical-individual-first-aid-kit",
-                "img": "60098ad7c2240c0fe85c570a-grid-image.jpg"
+                "itemLink": "/item/afak-tactical-individual-first-aid-kit",
+                "iconLink": "https://assets.tarkov.dev/60098ad7c2240c0fe85c570a-icon.jpg"
             }
         ]
     },
@@ -101,28 +101,28 @@
         "loot": [
             {
                 "name": "AK-104",
-                "link": "kalashnikov-ak-104-762x39-assault-rifle",
-                "img": "5ac66d725acfc43b321d4b60-grid-image.jpg"
+                "itemLink": "/item/kalashnikov-ak-104-762x39-assault-rifle",
+                "iconLink": "https://assets.tarkov.dev/5ac66d725acfc43b321d4b60-icon.jpg"
             },
             {
                 "name": "Gen4 HMK",
-                "link": "iotv-gen4-body-armor-high-mobility-kit",
-                "img": "5b44d0de86f774503d30cba8-grid-image.jpg"
+                "itemLink": "/item/iotv-gen4-body-armor-high-mobility-kit",
+                "iconLink": "https://assets.tarkov.dev/5b44d0de86f774503d30cba8-icon.jpg"
             },
             {
                 "name": "Trooper",
-                "link": "highcom-trooper-tfo-body-armor-multicam",
-                "img": "5c0e655586f774045612eeb2-grid-image.jpg"
+                "itemLink": "/item/highcom-trooper-tfo-body-armor-multicam",
+                "iconLink": "https://assets.tarkov.dev/5c0e655586f774045612eeb2-icon.jpg"
             },
             {
                 "name": "Hexgrid",
-                "link": "511-tactical-hexgrid-plate-carrier",
-                "img": "5fd4c474dd870108a754b241-grid-image.jpg"
+                "itemLink": "/item/511-tactical-hexgrid-plate-carrier",
+                "iconLink": "https://assets.tarkov.dev/5fd4c474dd870108a754b241-icon.jpg"
             },
             {
                 "name": "AFAK",
-                "link": "afak-tactical-individual-first-aid-kit",
-                "img": "60098ad7c2240c0fe85c570a-grid-image.jpg"
+                "itemLink": "/item/afak-tactical-individual-first-aid-kit",
+                "iconLink": "https://assets.tarkov.dev/60098ad7c2240c0fe85c570a-icon.jpg"
             }
         ]
     },
@@ -134,18 +134,18 @@
         "loot": [
             {
                 "name": "Secure Flash drive",
-                "link": "secure-flash-drive",
-                "img": "590c621186f774138d11ea29-grid-image.jpg"
+                "itemLink": "/item/secure-flash-drive",
+                "iconLink": "https://assets.tarkov.dev/590c621186f774138d11ea29-icon.jpg"
             },
             {
                 "name": "SAS drive",
-                "link": "sas-drive",
-                "img": "590c37d286f77443be3d7827-grid-image.jpg"
+                "itemLink": "/item/sas-drive",
+                "iconLink": "https://assets.tarkov.dev/590c37d286f77443be3d7827-icon.jpg"
             },
             {
                 "name": "Cultist knife",
-                "link": "cultist-knife",
-                "img": "5fc64ea372b0dd78d51159dc-grid-image.jpg"
+                "itemLink": "/item/cultist-knife",
+                "iconLink": "https://assets.tarkov.dev/5fc64ea372b0dd78d51159dc-icon.jpg"
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/cultists",
@@ -159,13 +159,13 @@
         "loot": [
             {
                 "name": "death-knight-mask",
-                "link": "death-knight-mask",
-                "img": "unknown-item-grid-image.jpg"
+                "itemLink": "/item/death-knight-mask",
+                "iconLink": "https://assets.tarkov.dev/unknown-item-icon.jpg"
             },
             {
                 "name": "Crye Precision CPC plate carrier (Goons Edition)",
-                "link": "crye-precision-cpc-plate-carrier-goons-edition",
-                "img": "unknown-item-grid-image.jpg"
+                "itemLink": "/item/crye-precision-cpc-plate-carrier-goons-edition",
+                "iconLink": "https://assets.tarkov.dev/unknown-item-icon.jpg"
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/knight",
@@ -179,13 +179,13 @@
         "loot": [
             {
                 "name": "GP Coin",
-                "link": "gp-coin",
-                "img": "5d235b4d86f7742e017bc88a-grid-image.jpg"
+                "itemLink": "/item/gp-coin",
+                "iconLink": "https://assets.tarkov.dev/5d235b4d86f7742e017bc88a-icon.jpg"
             },
             {
                 "name": "ASh-12",
-                "link": "ash-12-127x55-assault-rifle",
-                "img": "5cadfbf7ae92152ac412eeef-grid-image.jpg"
+                "itemLink": "/item/ash-12-127x55-assault-rifle",
+                "iconLink": "https://assets.tarkov.dev/5cadfbf7ae92152ac412eeef-icon.jpg"
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/glukhar",
@@ -199,13 +199,13 @@
         "loot": [
             {
                 "name": "6B13 M modified assault armor (Tan)",
-                "link": "6b13-m-modified-assault-armor-tan",
-                "img": "5c0e541586f7747fa54205c9-grid-image.jpg"
+                "itemLink": "/item/6b13-m-modified-assault-armor-tan",
+                "iconLink": "https://assets.tarkov.dev/5c0e541586f7747fa54205c9-icon.jpg"
             },
             {
                 "name": "Maska-1SCh (Killa)",
-                "link": "maska-1sch-bulletproof-helmet-killa",
-                "img": "5c0e874186f7745dc7616606-grid-image.jpg"
+                "itemLink": "/item/maska-1sch-bulletproof-helmet-killa",
+                "iconLink": "https://assets.tarkov.dev/5c0e874186f7745dc7616606-icon.jpg"
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/killa",
@@ -219,13 +219,13 @@
         "loot": [
             {
                 "name": "TT-33 7.62x25 TT pistol (Golden)",
-                "link": "tt-33-762x25-tt-pistol-golden",
-                "img": "5b3b713c5acfc4330140bd8d-grid-image.jpg"
+                "itemLink": "/item/tt-33-762x25-tt-pistol-golden",
+                "iconLink": "https://assets.tarkov.dev/5b3b713c5acfc4330140bd8d-icon.jpg"
             },
             {
                 "name": "Physical bitcoin",
-                "link": "physical-bitcoin",
-                "img": "59faff1d86f7746c51718c9c-grid-image.jpg"
+                "itemLink": "/item/physical-bitcoin",
+                "iconLink": "https://assets.tarkov.dev/59faff1d86f7746c51718c9c-icon.jpg"
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/reshala",
@@ -239,23 +239,23 @@
         "loot": [
             {
                 "name": "Sanitar's bag",
-                "link": "sanitars-bag",
-                "img": "5e997f0b86f7741ac73993e2-grid-image.jpg"
+                "itemLink": "/item/sanitars-bag",
+                "iconLink": "https://assets.tarkov.dev/5e997f0b86f7741ac73993e2-icon.jpg"
             },
             {
                 "name": "LEDX",
-                "link": "ledx-skin-transilluminator",
-                "img": "5c0530ee86f774697952d952-grid-image.jpg"
+                "itemLink": "/item/ledx-skin-transilluminator",
+                "iconLink": "https://assets.tarkov.dev/5c0530ee86f774697952d952-icon.jpg"
             },
             {
                 "name": "Keycard with a blue marking",
-                "link": "keycard-with-a-blue-marking",
-                "img": "5efde6b4f5448336730dbd61-grid-image.jpg"
+                "itemLink": "/item/keycard-with-a-blue-marking",
+                "iconLink": "https://assets.tarkov.dev/5efde6b4f5448336730dbd61-icon.jpg"
             },
             {
                 "name": "Health Resort office key with a blue tape",
-                "link": "health-resort-office-key-with-a-blue-tape",
-                "img": "5eff09cd30a7dc22fd1ddfed-grid-image.jpg"
+                "itemLink": "/item/health-resort-office-key-with-a-blue-tape",
+                "iconLink": "https://assets.tarkov.dev/5eff09cd30a7dc22fd1ddfed-icon.jpg"
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/sanitar",
@@ -269,13 +269,13 @@
         "loot": [
             {
                 "name": "Shturman's stash key",
-                "link": "shturmans-stash-key",
-                "img": "5d08d21286f774736e7c94c3-grid-image.jpg"
+                "itemLink": "/item/shturmans-stash-key",
+                "iconLink": "https://assets.tarkov.dev/5d08d21286f774736e7c94c3-icon.jpg"
             },
             {
                 "name": "Red Rebel ice pick",
-                "link": "red-rebel-ice-pick",
-                "img": "5c0126f40db834002a125382-grid-image.jpg"
+                "itemLink": "/item/red-rebel-ice-pick",
+                "iconLink": "https://assets.tarkov.dev/5c0126f40db834002a125382-icon.jpg"
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/shturman",
@@ -289,33 +289,33 @@
         "loot": [
             {
                 "name": "Crye Precision AVS MBAV (Tagilla Edition)",
-                "link": "crye-precision-avs-mbav-tagilla-edition",
-                "img": "609e860ebd219504d8507525-grid-image.jpg"
+                "itemLink": "/item/crye-precision-avs-mbav-tagilla-edition",
+                "iconLink": "https://assets.tarkov.dev/609e860ebd219504d8507525-icon.jpg"
             },
             {
                 "name": "L1 (Norepinephrine) injector",
-                "link": "l1-norepinephrine-injector",
-                "img": "5ed515e03a40a50460332579-grid-image.jpg"
+                "itemLink": "/item/l1-norepinephrine-injector",
+                "iconLink": "https://assets.tarkov.dev/5ed515e03a40a50460332579-icon.jpg"
             },
             {
                 "name": "Physical bitcoin",
-                "link": "physical-bitcoin",
-                "img": "59faff1d86f7746c51718c9c-grid-image.jpg"
+                "itemLink": "/item/physical-bitcoin",
+                "iconLink": "https://assets.tarkov.dev/59faff1d86f7746c51718c9c-icon.jpg"
             },
             {
                 "name": "Tagilla's welding mask 'UBEY'",
-                "link": "tagillas-welding-mask-ubey",
-                "img": "60a7ad2a2198820d95707a2e-grid-image.jpg"
+                "itemLink": "/item/tagillas-welding-mask-ubey",
+                "iconLink": "https://assets.tarkov.dev/60a7ad2a2198820d95707a2e-icon.jpg"
             },
             {
                 "name": "Tagilla's welding mask 'Gorilla'",
-                "link": "tagillas-welding-mask-gorilla",
-                "img": "60a7ad3a0c5cb24b0134664a-grid-image.jpg"
+                "itemLink": "/item/tagillas-welding-mask-gorilla",
+                "iconLink": "https://assets.tarkov.dev/60a7ad3a0c5cb24b0134664a-icon.jpg"
             },
             {
                 "name": "BOSS cap",
-                "link": "boss-cap",
-                "img": "60a7acf20c5cb24b01346648-grid-image.jpg"
+                "itemLink": "/item/boss-cap",
+                "iconLink": "https://assets.tarkov.dev/60a7acf20c5cb24b01346648-icon.jpg"
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/tagilla",
