@@ -157,7 +157,7 @@ const Menu = () => {
                     <li className="submenu-wrapper">
                         <Link to="/traders">{t('Traders')}</Link>
                         <ul>
-                        <MenuItem
+                            <MenuItem
                                 displayText={t('Prapor')}
                                 to={`/traders/prapor`}
                                 onClick={setIsOpen.bind(this, false)}
