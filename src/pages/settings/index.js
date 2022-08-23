@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation, withTranslation } from 'react-i18next';
 import Select from 'react-select';
-import { motion } from "framer-motion";
 
 
 import { InputFilter, ToggleFilter } from '../../components/filter';
@@ -22,6 +21,7 @@ import {
 import './index.css';
 
 import i18n from '../../i18n';
+import CheekiBreekiEffect from '../../components/cheeki-breeki-effect';
 
 // Defined Languages
 const langOptions = [
@@ -240,57 +240,12 @@ function Settings() {
             </div>
             {/* cheeki breeki */}
             <div>
-                <button style={{padding: '.2rem', borderRadius: '4px'}} onClick={handleClick}>cheeki breeki</button>
+                <button style={{ padding: '.2rem', borderRadius: '4px' }} onClick={handleClick}>cheeki breeki</button>
                 {isShown && (
-                    <div className='cheeki-breeki'>
-                        <motion.div
-                            className="block"
-                            animate={{ rotate: 360 }}
-                            transition={{ yoyo: Infinity, duration: 0.25 }}
-                        >
-                            <img
-                                alt={'Prapor'}
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/killa.png`}
-                            />
-                        </motion.div>
-                        <motion.div
-                            className="block"
-                            animate={{ scale: 4 }}
-                            transition={{ yoyo: Infinity, duration: 1 }}
-                        >
-                            <img
-                                alt={'Prapor'}
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/killa.png`}
-                            />
-                        </motion.div>
-                        <motion.div
-                            className="block"
-                            animate={{ rotate: 360, scale: 4, x: -100 }}
-                            transition={{ yoyo: Infinity, duration: 0.30 }}
-                        >
-                            <img
-                                alt={'Prapor'}
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/killa.png`}
-                            />
-                        </motion.div>
-                        <motion.div
-                            className="block"
-                            animate={{ scale: 4 }}
-                            transition={{ yoyo: Infinity, duration: 1 }}
-                        >
-                            <img
-                                alt={'Prapor'}
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/killa.png`}
-                            />
-                        </motion.div>
-                        {/* end cheeki breeki */}
-                    </div>
+                    <CheekiBreekiEffect />
                 )}
             </div>
+            {/* end cheeki breeki */}
         </div>
     );
 }

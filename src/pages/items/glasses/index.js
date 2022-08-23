@@ -28,13 +28,7 @@ function Glasses(props) {
             {
                 Header: t('Name'),
                 accessor: 'name',
-                Cell: (props) => {
-                    return (
-                        <ItemNameCell
-                            {...props}
-                        />
-                    );
-                },
+                Cell: ItemNameCell,
             },
             {
                 Header: t('Armor class'),

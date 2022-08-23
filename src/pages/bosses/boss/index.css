@@ -1,0 +1,19 @@
+.boss-details {
+    max-width: 80%;
+}
+
+.h1-boss-name {
+    display: block !important;
+}
+
+.killa-party-time {
+    margin-top: 5rem;
+}
+
+.killa-party-time-text {
+    font-size: 1rem;
+}
+
+.loot-table-boss {
+    max-width: 50%;
+}
