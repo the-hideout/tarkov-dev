@@ -36,7 +36,23 @@
         "name": "cultist priest",
         "details": "Sneaky bois. Cultists lurk in the shadows in groups of 3-5, waiting for a player to approach. They silently approach their enemies and stab them using either normal knives or, in case of the priests, the poisoned Cultist knife. If fired upon, the Cultists will return fire using firearms and grenades. After they attack a player with their knife, they may choose to run off into the woods again and return to the shadows.",
         "health": 850,
-        "loot": "Secure Flash drive, SAS drive, Cultist knife",
+        "loot": [
+            {
+                "name": "Secure Flash drive",
+                "link": "secure-flash-drive",
+                "img": "590c621186f774138d11ea29-grid-image.jpg"
+            },
+            {
+                "name": "SAS drive",
+                "link": "sas-drive",
+                "img": "590c37d286f77443be3d7827-grid-image.jpg"
+            },
+            {
+                "name": "Cultist knife",
+                "link": "cultist-knife",
+                "img": "5fc64ea372b0dd78d51159dc-grid-image.jpg"
+            }
+        ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/cultists",
         "behavior": "stalker"
     },
