@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import React, { lazy, Suspense } from 'react';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
-import mapData from '../../data/maps.json';
+import rawMapData from '../../data/maps.json';
 import ItemIconList from '../../components/item-icon-list';
 
 import Icon from '@mdi/react';
@@ -202,15 +202,15 @@ function Start() {
                     </Link>
                 </h3>
                 <ul key="maps-list">
-                    {mapData.map((mapData) => {
-                        return (
-                            <li key={`map-link-${mapData.key}`}>
-                                <Link to={`/map/${mapData.key}`}>
-                                    {mapData.displayText}
+                    {rawMapData.map((mapsGroup) => (
+                        mapsGroup.maps.map((map) => (
+                            <li key={`map-link-${map.key}`}>
+                                <Link to={`/map/${map.key}`}>
+                                    {map.displayText}
                                 </Link>
                             </li>
-                        );
-                    })}
+                        ))
+                    ))}
                 </ul>
                 <h3>
                     <Link to={'/items'} key={"items-page"}>

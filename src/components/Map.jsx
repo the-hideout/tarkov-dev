@@ -12,29 +12,11 @@ import ErrorPage from './error-page';
 
 import rawMapData from '../data/maps.json';
 
-const maps = Object.fromEntries(
-    rawMapData.map((mapData) => {
-        return [
-            mapData.key,
-            {
-                ...mapData,
-                image: `/maps/${mapData.key}.jpg`,
-            },
-        ];
-    }),
-);
-
 function Map() {
     let { currentMap } = useParams();
 
-    if (currentMap === 'customs-cardinal') {
-        currentMap = 'customs';
-    }
-
     useEffect(() => {
-        let viewableHeight =
-            window.innerHeight -
-                document.querySelector('.navigation')?.offsetHeight || 0;
+        let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
         if (viewableHeight < 100) {
             viewableHeight = window.innerHeight;
         }
@@ -58,12 +40,22 @@ function Map() {
         ref?.current?.resetTransform();
     }, [currentMap]);
 
-    if (!maps[currentMap]) {
+    let allMaps = {};
+
+    for(const mapsGroup of rawMapData) {
+        for(const map of mapsGroup.maps) {
+            allMaps[map.key] = {
+                ...map,
+                image: `/maps/${map.key}.jpg`,
+            }
+        }
+    }
+
+    if (!allMaps[currentMap]) {
         return <ErrorPage />;
     }
 
-    const { displayText, image, source, sourceLink, duration, players } =
-        maps[currentMap];
+    const { displayText, image, source, sourceLink, duration, players } = allMaps[currentMap];
     const infoString = `${displayText} Map`;
 
     return [

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import Connect from './Connect.jsx';
 
 import { caliberMap } from '../../modules/format-ammo';
-import mapData from '../../data/maps.json';
+import rawMapData from '../../data/maps.json';
 
 import './index.css';
 import { useItemsQuery } from '../../features/items/queries.js';
@@ -131,10 +131,12 @@ function Control(props) {
                     onChange={handleMapChange}
                     ref={typeRefs['map']}
                 >
-                    {mapData.map((map) => (
-                        <option key={map.key} value={map.key}>
-                            {map.displayText}
-                        </option>
+                    {rawMapData.map((mapsGroup) => (
+                        mapsGroup.maps.map((map) => (
+                            <option key={map.key} value={map.key}>
+                                {map.displayText}
+                            </option>
+                        ))
                     ))}
                 </select>
                 <button disabled={!socketConnected} onClick={handleMapChange}>
