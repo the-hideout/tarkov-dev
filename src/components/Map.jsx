@@ -32,9 +32,7 @@ function Map() {
     }
 
     useEffect(() => {
-        let viewableHeight =
-            window.innerHeight -
-                document.querySelector('.navigation')?.offsetHeight || 0;
+        let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
         if (viewableHeight < 100) {
             viewableHeight = window.innerHeight;
         }
@@ -62,8 +60,7 @@ function Map() {
         return <ErrorPage />;
     }
 
-    const { displayText, image, source, sourceLink, duration, players } =
-        maps[currentMap];
+    const { displayText, image, source, sourceLink, duration, players } = maps[currentMap];
     const infoString = `${displayText} Map`;
 
     return [
