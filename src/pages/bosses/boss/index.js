@@ -12,7 +12,7 @@ import ErrorPage from '../../../components/error-page';
 import Loading from '../../../components/loading';
 import Icon from '@mdi/react';
 import CheekiBreekiEffect from '../../../components/cheeki-breeki-effect';
-import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup } from '@mdi/js';
+import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper } from '@mdi/js';
 
 import './index.css';
 import CenterCell from '../../../components/center-cell';
@@ -282,7 +282,15 @@ function BossPage(bossName) {
 
                 {/* cheeki breeki */}
                 {bossData.name.toLowerCase() === 'killa' &&
-                    <div>
+                    <div className='killa-party-time'>
+                        <h3 className='item-h2' key={'killa-party-time'}>{'Killa Party Time?'}
+                            <Icon
+                                path={mdiPartyPopper}
+                                size={1.5}
+                                className="icon-with-text"
+                            />
+                            <p className='killa-party-time-text'>Warning: LOUD</p>
+                        </h3>
                         <button style={{ padding: '.2rem', borderRadius: '4px' }} onClick={handleClick}>cheeki breeki</button>
                         {isShown && (
                             <CheekiBreekiEffect />
