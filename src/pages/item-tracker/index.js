@@ -92,21 +92,25 @@ function ItemTracker() {
             })
             .map((questData) => {
                 const questItems = [];
-                questData.objectives.forEach((objective) => {
+                questData.items.forEach((questItem) => {
+                    if (items.length === 0) {
+                        return;
+                    }
+
                     const questTemplate = {
                         count: 1,
                         foundInRaid: false,
                         onClick: handleItemClick,
-                        questId: questData.id
+                        questId: questData.questId
                     }
-                    if (objective.__typename === 'TaskObjectiveBuildItem' && !onlyFoundInRaid) {
+                    if (questItem.__typename === 'TaskObjectiveBuildItem' && !onlyFoundInRaid) {
                         questItems.push({
                             ...items.find(
-                                (item) => item.id === objective.item.id,
+                                (item) => item.id === questItem.item.id,
                             ),
                             ...questTemplate
                         });
-                        for (const part of objective.containsAll) {
+                        for (const part of questItem.containsAll) {
                             questItems.push({
                                 ...items.find(
                                     (item) => item.id === part.id,
@@ -114,24 +118,39 @@ function ItemTracker() {
                                 ...questTemplate
                             });
                         }
+                        return;
                     }
-                    if (objective.__typename === 'TaskObjectiveItem' && !(onlyFoundInRaid && !objective.foundInRaid)) {
+                    if (questItem.__typename === 'TaskObjectiveItem' && !(onlyFoundInRaid && !questItem.foundInRaid)) {
                         questItems.push({
                             ...items.find(
-                                (item) => item.id === objective.item.id,
+                                (item) => item.id === questItem.item.id,
                             ),
-                            count: objective.count,
-                            foundInRaid: objective.foundInRaid,
+                            count: questItem.count,
+                            foundInRaid: questItem.foundInRaid,
                             onClick: handleItemClick,
-                            questId: questData.id
+                            questId: questData.questId
                         });
+                        return;
                     }
-                    if (objective.__typename === 'TaskObjectiveMark' && !onlyFoundInRaid) {
+                    if (questItem.__typename === 'TaskObjectiveMark' && !onlyFoundInRaid) {
                         questItems.push({
                             ...items.find(
-                                (item) => item.id === objective.markerItem.id,
+                                (item) => item.id === questItem.markerItem.id,
                             ),
                             ...questTemplate
+                        });
+                        return;
+                    }
+
+                    if (!(onlyFoundInRaid && !questItem.foundInRaid)) {
+                        questItems.push({
+                            ...items.find(
+                                (item) => item.id === questItem.id,
+                            ),
+                            count: questItem.count,
+                            foundInRaid: questItem.foundInRaid,
+                            onClick: handleItemClick,
+                            questId: questData.questId
                         });
                     }
                 });
@@ -140,11 +159,16 @@ function ItemTracker() {
                     return false;
                 }
 
+                if (traders.length > 0) {
+                    let trader = traders.find(trader => trader.normalizedName === questData.traderId);
+                    questData.traderName = trader.name || '';
+                }
+
                 return (
                     <ItemGrid
                         key={`loot-group-${questData.questId}`}
                         name={questData.name || questData.questId}
-                        subtitle={traders.find(trader => trader.id === questData.traderId).name}
+                        subtitle={questData.traderName}
                         items={questItems}
                         extraTitleProps={
                             <button
