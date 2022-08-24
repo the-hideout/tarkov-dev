@@ -56,12 +56,13 @@ function ItemGrid(props) {
             <div className="item-group-items">
                 {props.items.map((item) => (
                     <Item
-                        key={`${props.name}-${item.id}`}
+                        key={`${props.normalizedName}-${item.id}`}
                         onClick={item.onClick}
                         count={item.count}
                         name={item.name}
                         pricePerSlot={item.pricePerSlot}
                         sellTo={item.sellTo}
+                        sellToNormalized={item.sellToNormalized}
                         slots={item.gridImageLink ? item.slots : 1}
                         src={item.gridImageLink || item.fallbackImageLink}
                         itemLink={`/item/${item.normalizedName}`}

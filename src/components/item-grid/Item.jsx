@@ -49,12 +49,13 @@ function Item(props) {
             <ItemTooltip
                 pricePerSlot={props.pricePerSlot}
                 slots={props.slots}
-                sellTo={t(props.sellTo)}
+                sellTo={props.sellTo}
                 name={props.name}
             />
             <ItemIcon
-                text={props.sellTo?.toUpperCase() || props.count}
-                maxLength={2}
+                sellTo={props.sellTo}
+                sellToNormalized={props.sellToNormalized}
+                count={props.count}
             />
 
             <img alt={props.name} loading="lazy" src={imgSrc} />
