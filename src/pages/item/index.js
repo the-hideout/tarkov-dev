@@ -81,6 +81,7 @@ function Item() {
     const { t } = useTranslation();
     const [showAllCrafts, setShowAllCrafts] = useState(false);
     const [showAllBarters, setShowAllBarters] = useState(false);
+    const [showAllContainedItemSources, setShowAllContainedItemSources] = useState(false);
 
     const { data: currentItemByNameData, status: itemStatus } =
         useItemByNameQuery(itemName);
@@ -834,16 +835,37 @@ function Item() {
                 <PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} />
                 {containsItems && (
                     <>
+                        <div className="item-contents-headline-wrapper">
                         <h2>
                             {t('Items contained in')} {currentItemData.name}
                         </h2>
+                        <Filter>
+                            <ToggleFilter
+                                checked={showAllContainedItemSources}
+                                label={t('Ignore settings')}
+                                onChange={(e) =>
+                                    setShowAllContainedItemSources(!showAllContainedItemSources)
+                                }
+                                tooltipContent={
+                                    <>
+                                        {t(
+                                            'Shows all sources of items regardless of what you have set in your settings',
+                                        )}
+                                    </>
+                                }
+                            />
+                        </Filter>
+                        </div>
                         <Suspense fallback={<>{t('Loading...')}</>}>
                             <SmallItemTable
                                 containedInFilter={currentItemData.containsItems}
                                 fleaPrice
                                 barterPrice
                                 traderValue
+                                traderPrice
+                                cheapestPrice
                                 sumColumns
+                                showAllSources={showAllContainedItemSources}
                             />
                         </Suspense>
                     </>

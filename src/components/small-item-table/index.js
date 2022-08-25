@@ -26,6 +26,17 @@ import './index.css';
 import { useItemsQuery } from '../../features/items/queries';
 import { useMetaQuery } from '../../features/meta/queries';
 
+function getItemCountPrice(item) {
+    if (item.count < 2) return '';
+    return (
+        <div key="countprice">
+            {formatPrice(
+                item.bestSell.priceRUB,
+            )} x {item.count}
+        </div>
+    );
+}
+
 function traderSellCell(datum) {
     if (!datum.row.original.bestSell?.source || datum.row.original.bestSell.source === '?') {
         return null;
@@ -34,28 +45,34 @@ function traderSellCell(datum) {
     const count = datum.row.original.count;
     return (
         <div className="trader-price-content">
-            <img
-                alt={datum.row.original.bestSell.vendor.name}
-                className="trader-icon"
-                loading="lazy"
-                height="40"
-                src={`${process.env.PUBLIC_URL}/images/${datum.row.original.bestSell.vendor.normalizedName}-icon.jpg`}
-                title={datum.row.original.bestSell.vendor.name}
-                width="40"
-            />
-
-            {datum.row.original.bestSell.currency !== 'RUB' ? (
-                <Tippy
-                    content={formatPrice(datum.row.original.bestSell.priceRUB*count)}
-                    placement="bottom"
-                >
+            <span>
+                <img
+                    alt={datum.row.original.bestSell.vendor.name}
+                    className="trader-icon"
+                    loading="lazy"
+                    height="40"
+                    src={`${process.env.PUBLIC_URL}/images/${datum.row.original.bestSell.vendor.normalizedName}-icon.jpg`}
+                    title={datum.row.original.bestSell.vendor.name}
+                    width="40"
+                />
+            </span>
+            <span>
+                {datum.row.original.bestSell.currency !== 'RUB' ? (
+                    <Tippy
+                        content={formatPrice(datum.row.original.bestSell.priceRUB*count)}
+                        placement="bottom"
+                    >
+                        <div>
+                            {formatPrice(datum.row.original.bestSell.price*count, datum.row.original.bestSell.currency)}
+                        </div>
+                    </Tippy>
+                ) : (
                     <div>
-                        {formatPrice(datum.row.original.bestSell.price*count, datum.row.original.bestSell.currency)}
+                        {formatPrice(datum.row.original.bestSell.priceRUB*count)}
                     </div>
-                </Tippy>
-            ) : (
-                formatPrice(datum.row.original.bestSell.priceRUB*count)
-            )}
+                )}
+                {getItemCountPrice(datum.row.original)}
+            </span>
         </div>
     );
 }
@@ -93,7 +110,7 @@ const getArmorZoneString = (armorZones) => {
 };
 
 function SmallItemTable(props) {
-    const {
+    let {
         maxItems,
         nameFilter,
         defaultRandom,
@@ -130,10 +147,14 @@ function SmallItemTable(props) {
         showContainedItems,
         weight,
         showNetPPS,
+        showAllSources,
+        cheapestPrice,
         sumColumns
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
+    const settings = useSelector((state) => state.settings);
+    if (typeof showAllSources === 'undefined') showAllSources = true;
 
     // Use the primary items API query to fetch all items
     const result = useItemsQuery();
@@ -299,20 +320,19 @@ function SmallItemTable(props) {
                     traderPriceRUB: itemData.traderPriceRUB,
                     traderCurrency: itemData.traderCurrency,
                     types: itemData.types,
-                    buyFor: itemData.buyFor,
+                    buyFor: itemData.buyFor.filter(buyFor => {
+                        if (buyFor.vendor.normalizedName === 'flea-market' && !showAllSources && !settings.hasFlea) return false;
+                        if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) return false;
+                        return true;
+                    }),
                     sellFor: itemData.sellFor,
-                    bestSell: {
-                        source: itemData.traderName,
-                        vendor: {
-                            name: itemData.traderName,
-                            normalizedName: itemData.traderNormalizedName
-                        },
-                        price: itemData.traderPrice,
-                        priceRUB: itemData.traderPriceRUB,
-                        currency: itemData.traderCurrency
-                    },
+                    bestSell: itemData.sellFor.filter(sellFor => {
+                        if (sellFor.vendor.normalizedName === 'flea-market') return false;
+                        if (!showAllSources && sellFor.vendor.normalizedName === 'jaeger' && !settings.jaeger) return false;
+                        return true;
+                    }),
                     buyOnFleaPrice: itemData.buyFor.find(
-                        (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market',
+                        (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market' && (showAllSources || settings.hasFlea),
                     ),
                     barters: barters.filter(
                         (barter) => barter.rewardItems[0].item.id === itemData.id,
@@ -334,17 +354,35 @@ function SmallItemTable(props) {
                     properties: itemData.properties,
                 };
 
+                if (formattedItem.bestSell.length > 1) {
+                    formattedItem.bestSell = formattedItem.bestSell.reduce((prev, current) => {
+                        return prev.priceRUB > current.priceRUB ? prev : current;
+                    })
+                }
+
+                if (!showAllSources && !settings.hasFlea) {
+                    formattedItem.buyOnFleaPrice = 0
+                }
+
                 if (formattedItem.buyOnFleaPrice && formattedItem.buyOnFleaPrice.price > 0) {
                     formattedItem.instaProfit = itemData.traderPriceRUB - formattedItem.buyOnFleaPrice.price;
                 }
 
                 if (formattedItem.barters.length > 0) {
-                    formattedItem.barterPrice = getCheapestBarter(itemData, formattedItem.barters);
+                    formattedItem.barterPrice = getCheapestBarter(itemData, formattedItem.barters, settings, showAllSources);
 
                     if (!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice) {
                         formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.barterPrice.price / (itemData.properties.capacity - itemData.slots))
                                                      : formattedItem.barterPrice.price / itemData.properties.capacity;
                     }
+                }
+                formattedItem.cheapestPrice = Number.MAX_SAFE_INTEGER;
+                if (formattedItem.barterPrice) formattedItem.cheapestPrice = formattedItem.barterPrice.price;
+                for (const buyFor of formattedItem.buyFor) {
+                    if (buyFor.priceRUB < formattedItem.cheapestPrice) formattedItem.cheapestPrice = buyFor.priceRUB;
+                }
+                if (formattedItem.cheapestPrice === Number.MAX_SAFE_INTEGER) {
+                    formattedItem.cheapestPrice = 0;
                 }
 
                 formattedItem.count = containedItems[itemData.id] || 1;
@@ -444,7 +482,9 @@ function SmallItemTable(props) {
         bsgCategoryFilter,
         showNetPPS,
         materialDestructibilityMap,
-        materialRepairabilityMap
+        materialRepairabilityMap,
+        settings,
+        showAllSources
     ]);
 
     const columns = useMemo(() => {
@@ -546,7 +586,6 @@ function SmallItemTable(props) {
 
                     return 0;
                 },
-                summable: true
             });
         }
 
@@ -786,6 +825,27 @@ function SmallItemTable(props) {
             });
         }
 
+        if (cheapestPrice) {
+            useColumns.push({
+                Header: t('Cheapest Price'),
+                accessor: 'cheapestPrice',
+                Cell: (props) => {
+                    // return <ValueCell
+                    //     value = {props.value}
+                    // />;
+                    /*
+                        For some reason this
+                        */
+                    return (
+                        <div className="center-content">
+                            {props.value ? formatPrice(props.value*props.row.original.count) : '-'}
+                        </div>
+                    );
+                },
+                summable: true
+            });
+        }
+
         return useColumns;
     }, [
         t,
@@ -807,7 +867,8 @@ function SmallItemTable(props) {
         repairability,
         stats,
         showContainedItems,
-        weight
+        weight,
+        cheapestPrice
     ]);
 
     let extraRow = false;
