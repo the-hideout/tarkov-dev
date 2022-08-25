@@ -65,7 +65,8 @@ function ItemsForHideout(props) {
     }
 
     let displayList = unbuilt;
-    if (showAll) displayList = data;
+    if (showAll)
+        displayList = data;
 
     return (
         <div className="table-wrapper">
