@@ -17,7 +17,7 @@ function getCheapestItemPrice(item, settings, allowAllSources) {
             return true;
         });
         if (sellToTrader.length > 1) {
-            sellToTrader.reduce((prev, current) => {
+            sellToTrader = sellToTrader.reduce((prev, current) => {
                 return prev.priceRUB > current.priceRUB ? prev : current;
             });
         } else {
@@ -168,7 +168,7 @@ const formatCostItems = (
             settings,
             allowAllSources
         );
-        let calculationPrice = bestPrice.price;
+        let calculationPrice = bestPrice.priceRUB;
 
         let itemName = requiredItem.item.name;
         const isDogTag = requiredItem.attributes && requiredItem.attributes.some(att => att.name === 'minLevel');
