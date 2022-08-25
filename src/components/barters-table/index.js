@@ -25,8 +25,12 @@ function BartersTable(props) {
         props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
-    const includeFlea = useSelector((state) => state.settings.hasFlea);
-    const hasJaeger = useSelector((state) => state.settings.jaeger);
+    const settings = useSelector((state) => state.settings);
+    const { includeFlea, hasJaeger } = useMemo(() => {
+        return {includeFlea: settings.includeFlea, hasJaeger: settings.hasJaeger};
+    }, [settings]);
+    //const includeFlea = useSelector((state) => state.settings.hasFlea);
+    //const hasJaeger = useSelector((state) => state.settings.jaeger);
     const traders = useSelector(selectAllTraders);
     const skippedByLevelRef = useRef(false);
 
@@ -240,10 +244,9 @@ function BartersTable(props) {
 
                 const costItems = formatCostItems(
                     barterRow.requiredItems,
-                    1,
+                    settings,
                     barters,
                     false,
-                    includeFlea,
                 );
                 costItems.map(
                     (costItem) =>

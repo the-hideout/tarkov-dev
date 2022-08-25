@@ -3,30 +3,37 @@ const fuelIds = [
     '5d1b36a186f7742523398433', // Metal fuel tank
 ];
 
-function getCheapestItemPrice(item, useFlea) {
-    let bestPrice = {};
-
-    if (!item.buyFor) {
-        return bestPrice;
-    }
-
-    item.buyFor.forEach((priceObject) => {
-        if (priceObject.priceRUB > bestPrice.price) {
-            return;
+function getCheapestItemPrice(item, settings, allowAllSources) {
+    let buySource = item.buyFor?.filter(buyFor => {
+        if (buyFor.vendor.normalizedName === 'flea-market') {
+            return (allowAllSources || settings.hasFlea);
         }
-
-        if (priceObject.vendor.normalizedName === 'flea-market' && !useFlea) {
-            return;
-        }
-
-        bestPrice.vendor = priceObject.vendor;
-        bestPrice.type = 'cash';
-        bestPrice.price = priceObject.priceRUB;
-
-        return;
+        return (allowAllSources || settings[buyFor.vendor.normalizedName] > buyFor.vendor.minTraderLevel)
     });
-
-    return bestPrice;
+    if (!buySource || buySource.length === 0) {
+        let sellToTrader = item.sellFor.filter(sellFor => {
+            if (sellFor.vendor.normalizedName === 'flea-market') return false;
+            if (sellFor.vendor.normalizedName === 'jaeger' && !settings.jaeger) return false;
+            return true;
+        });
+        if (sellToTrader.length > 1) {
+            sellToTrader.reduce((prev, current) => {
+                return prev.priceRUB > current.priceRUB ? prev : current;
+            });
+        } else {
+            sellToTrader = sellToTrader[0];
+        }
+        return {...sellToTrader, type: 'cash'};
+    } else {
+        if (buySource.length > 1) {
+            buySource = buySource.reduce((prev, current) => {
+                return prev.priceRUB < current.priceRUB ? prev : current;
+            });
+        } else {
+            buySource = buySource[0];
+        }
+        return {...buySource, type: 'cash'};
+    }
 }
 
 function getItemBarters(item, barters) {
@@ -50,7 +57,8 @@ function getItemBarters(item, barters) {
     return matchedBarters;
 }
 
-function getCheapestBarter(item, barters, useFlea = true) {
+function getCheapestBarter(item, barters, settings, allowAllSources) {
+    const useFlea = settings.useFlea;
     const itemBarters = getItemBarters(item, barters);
     let bestBarter = false;
     let barterTotalCost = Number.MAX_SAFE_INTEGER;
@@ -61,7 +69,7 @@ function getCheapestBarter(item, barters, useFlea = true) {
             (accumulatedPrice, requiredItem) => {
                 return (
                     accumulatedPrice +
-                    getCheapestItemPrice(requiredItem.item, useFlea).price *
+                    getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB *
                         requiredItem.count
                 );
             },
@@ -75,6 +83,7 @@ function getCheapestBarter(item, barters, useFlea = true) {
 
     if (bestBarter) {
         bestPrice.price = barterTotalCost;
+        bestPrice.priceRUB = barterTotalCost;
         bestPrice.type = 'barter';
         bestPrice.barter = bestBarter;
     }
@@ -82,8 +91,9 @@ function getCheapestBarter(item, barters, useFlea = true) {
     return bestPrice;
 }
 
-function getCheapestItemPriceWithBarters(item, barters, useFlea = true) {
-    const bestPrice = getCheapestItemPrice(item, useFlea);
+function getCheapestItemPriceWithBarters(item, barters, settings, allowAllSources) {
+    const useFlea = settings.useFlea;
+    const bestPrice = getCheapestItemPrice(item, settings, allowAllSources);
 
     const itemBarters = getItemBarters(item, barters);
     let bestBarter = false;
@@ -94,7 +104,7 @@ function getCheapestItemPriceWithBarters(item, barters, useFlea = true) {
             (accumulatedPrice, requiredItem) => {
                 return (
                     accumulatedPrice +
-                    getCheapestItemPrice(requiredItem.item, useFlea).price *
+                    getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB *
                         requiredItem.count
                 );
             },
@@ -146,16 +156,19 @@ function getCheapestItemPriceWithBarters(item, barters, useFlea = true) {
 
 const formatCostItems = (
     itemsList,
-    hideoutManagementSkillLevel,
+    settings,
     barters,
     freeFuel = false,
-    useFlea = true,
+    allowAllSources = false
 ) => {
+    const hideoutManagementSkillLevel = settings['hideout-management'];
+    const useFlea = settings.includeFlea;
     return itemsList.map((requiredItem) => {
         let bestPrice = getCheapestItemPriceWithBarters(
             requiredItem.item,
             barters,
-            useFlea,
+            settings,
+            allowAllSources
         );
         let calculationPrice = bestPrice.price;
 

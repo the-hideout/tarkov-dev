@@ -36,6 +36,7 @@ function CraftTable(props) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const includeFlea = useSelector((state) => state.settings.hasFlea);
+    const settings = useSelector((state) => state.settings);
     const stations = useSelector(selectAllStations);
     const skills = useSelector(selectAllSkills);
     // const [skippedByLevel, setSkippedByLevel] = useState(false);
@@ -214,10 +215,9 @@ function CraftTable(props) {
 
                 const costItems = formatCostItems(
                     craftRow.requiredItems,
-                    skills['hideout-management'],
+                    settings,
                     barters,
                     freeFuel,
-                    includeFlea,
                 );
 
                 const craftDuration = Math.floor(

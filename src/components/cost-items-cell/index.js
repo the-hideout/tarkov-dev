@@ -57,7 +57,7 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                                     craftId={craftId}
                                     barterId={barterId}
                                     count={costItem.count}
-                                    price={costItem.price}
+                                    price={costItem.priceRUB}
                                     vendor={costItem.vendor}
                                     priceType={costItem.priceType}
                                 />
