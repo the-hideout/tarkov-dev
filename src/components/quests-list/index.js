@@ -10,8 +10,6 @@ import './index.css';
 const getQuestList = (questList, t, showAll, settings) => {
     let extraRow = false;
 
-    console.log(questList);
-    console.log(settings);
     const shownQuests = questList.filter(quest => showAll || !settings.completedQuests.some(stringId => parseInt(stringId) === quest.tarkovDataId));
     console.log(shownQuests);
     if (questList.length <= 0) {
