@@ -1,28 +1,23 @@
 function ItemIcon(props) {
-    if (!props.text) {
-        return false;
-    }
+    let sellTo = props.sellTo;
+    let sellToNormalized = props.sellToNormalized;
+    let count = props.count;
+    let sell;
 
-    let parsedText = props.text;
-    let sellTo;
-
-    if (typeof parsedText === 'string') {
-        sellTo = (
+    if (sellToNormalized) {
+        sell = (
             <img
-                alt={parsedText}
+                alt={sellTo}
                 loading="lazy"
-                src={`${process.env.PUBLIC_URL}/images/${parsedText
-                    .replace(/\s/g, '-')
-                    .toLowerCase()}-icon.jpg`}
-                title={parsedText}
+                src={`${process.env.PUBLIC_URL}/images/${sellToNormalized}-icon.jpg`}
+                title={sellTo}
             />
         );
     } else {
-        parsedText = parsedText.toString();
-        sellTo = parsedText;
+        sell = count;
     }
 
-    return <span className={'sell-to-icon'}>{sellTo}</span>;
+    return <span className={'sell-to-icon'}>{sell}</span>;
 }
 
 export default ItemIcon;

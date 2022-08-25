@@ -136,32 +136,28 @@ function LootTier(props) {
                     item.width = item.properties.defaultWidth;
                     item.slots = item.height * item.width;
 
-                    item.types = item.types.filter(
-                        (type) => type !== 'wearable');
-                }
-                
-                if (!hasFlea) {
-                    return {
-                        ...item,
-                        sellTo: item.traderName,
-                        pricePerSlot: Math.floor(item.traderPriceRUB / item.slots),
-                    };
+                    item.types = item.types.filter((type) => type !== 'wearable');
                 }
 
-                let sellTo = 'Flea Market';
-                const fleaPrice = item.avg24hPrice - item.fee;
+                let sellTo = item.traderName;
+                let sellToNormalized = item.traderNormalizedName;
+                let priceRUB = item.traderPriceRUB;
 
-                if (fleaPrice <= item.traderPriceRUB) {
-                    sellTo = item.traderName;
+                if (hasFlea && !item.types.includes('noFlea')) {
+                    const fleaPrice = item.avg24hPrice - item.fee;
+                    if (fleaPrice <= item.traderPriceRUB) {
+                        sellTo = 'Flea Market';
+                        sellToNormalized = 'flea-market';
+                        priceRUB = fleaPrice;
+                    }
                 }
 
                 return {
                     ...item,
                     sellTo: sellTo,
-                    pricePerSlot: Math.floor(
-                        Math.max(fleaPrice, item.traderPriceRUB) / item.slots,
-                    ),
-                };
+                    sellToNormalized: sellToNormalized,
+                    pricePerSlot: Math.floor(priceRUB / item.slots)
+                }
             })
             .filter((item) => {
                 if (item.types.includes('unLootable')) {
