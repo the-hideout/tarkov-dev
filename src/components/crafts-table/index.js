@@ -375,7 +375,9 @@ function CraftTable(props) {
                             <div className="duration-wrapper">
                                 {getDurationDisplay(value * 1000)}
                             </div>
-                            <div className="duration-wrapper">
+                            <div className="finish-wrapper" title={t('Start now')} onClick={((e) => {
+                                e.target.innerText = getFinishDisplay(value * 1000);
+                            })}>
                                 {getFinishDisplay(value * 1000)}
                             </div>
                         </CenterCell>
