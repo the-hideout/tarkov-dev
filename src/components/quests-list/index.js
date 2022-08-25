@@ -11,7 +11,6 @@ const getQuestList = (questList, t, showAll, settings) => {
     let extraRow = false;
 
     const shownQuests = questList.filter(quest => showAll || !settings.completedQuests.some(stringId => parseInt(stringId) === quest.tarkovDataId));
-    console.log(shownQuests);
     if (questList.length <= 0) {
         extraRow = t('No quest requires this item');
     } else if (questList.length !== shownQuests.length) {
