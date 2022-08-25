@@ -59,4 +59,5 @@
 .item-quest-headline-wrapper h2 {
     flex-grow: 1;
     margin: 0;
+    padding: 20px 0;
 }
