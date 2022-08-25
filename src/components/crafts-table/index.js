@@ -347,6 +347,7 @@ function CraftTable(props) {
         showAll,
         averagePrices,
         meta,
+        settings
     ]);
 
     const columns = useMemo(

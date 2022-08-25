@@ -58,7 +58,6 @@ function getItemBarters(item, barters) {
 }
 
 function getCheapestBarter(item, barters, settings, allowAllSources) {
-    const useFlea = settings.useFlea;
     const itemBarters = getItemBarters(item, barters);
     let bestBarter = false;
     let barterTotalCost = Number.MAX_SAFE_INTEGER;
@@ -162,7 +161,6 @@ const formatCostItems = (
     allowAllSources = false
 ) => {
     const hideoutManagementSkillLevel = settings['hideout-management'];
-    const useFlea = settings.includeFlea;
     return itemsList.map((requiredItem) => {
         let bestPrice = getCheapestItemPriceWithBarters(
             requiredItem.item,

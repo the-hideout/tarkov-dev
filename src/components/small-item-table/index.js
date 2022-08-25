@@ -84,36 +84,6 @@ function shuffleArray(array) {
     }
 }
 
-function getBarterCost(barter, showAllSources, settings) {
-    let totalCost = 0;
-    for (const ingredient of barter.requiredItems) {
-        let itemCost = 0;
-        let buySource = ingredient.item.buyFor.filter(buyFor => {
-            if (buyFor.vendor.normalizedName === 'flea-market') {
-                return (showAllSources || settings.hasFlea);
-            }
-            return (showAllSources || settings[buyFor.vendor.normalizedName] > buyFor.vendor.minTraderLevel)
-        });
-        if (buySource.length === 0) {
-            let sellToTrader = ingredient.item.sellFor(sellFor => {
-                if (sellFor.vendor.normalizedName === 'flea-market') return false;
-                if (sellFor.vendor.normalizedName === 'jaeger' && !settings.jaeger) return false;
-                return true;
-            });
-            if (sellToTrader.length > 1) sellToTrader.reduce((prev, current) => {
-                return prev.priceRUB > current.priceRUB ? prev : current;
-            });
-            itemCost = sellToTrader.priceRUB;
-        } else {
-            if (buySource.length > 1) buySource = buySource.reduce((prev, current) => {
-                return prev.priceRUB < current.priceRUB ? prev : current;
-            });
-            itemCost = buySource.priceRUB;
-        }
-        totalCost += itemCost * ingredient.count;
-    }
-}
-
 const getArmorZoneString = (armorZones) => {
     return armorZones
         ?.map((zoneName) => {
@@ -411,7 +381,7 @@ function SmallItemTable(props) {
                 for (const buyFor of formattedItem.buyFor) {
                     if (buyFor.priceRUB < formattedItem.cheapestPrice) formattedItem.cheapestPrice = buyFor.priceRUB;
                 }
-                if (formattedItem.cheapestPrice == Number.MAX_SAFE_INTEGER) {
+                if (formattedItem.cheapestPrice === Number.MAX_SAFE_INTEGER) {
                     formattedItem.cheapestPrice = 0;
                 }
 
@@ -897,7 +867,8 @@ function SmallItemTable(props) {
         repairability,
         stats,
         showContainedItems,
-        weight
+        weight,
+        cheapestPrice
     ]);
 
     let extraRow = false;

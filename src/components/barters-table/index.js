@@ -388,6 +388,7 @@ function BartersTable(props) {
         t,
         removeDogtags,
         showAll,
+        settings,
     ]);
 
     let extraRow = false;
