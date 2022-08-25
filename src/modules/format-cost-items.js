@@ -199,6 +199,7 @@ const formatCostItems = (
                     : requiredItem.count,
             name: itemName,
             price: calculationPrice,
+            priceRUB: calculationPrice,
             priceType: bestPrice.type,
             vendor: bestPrice.vendor,
             priceDetails: bestPrice.barter,
