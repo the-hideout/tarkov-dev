@@ -168,7 +168,6 @@ const formatCostItems = (
             settings,
             allowAllSources
         );
-        console.log(bestPrice);
         let calculationPrice = bestPrice.priceRUB;
 
         let itemName = requiredItem.item.name;

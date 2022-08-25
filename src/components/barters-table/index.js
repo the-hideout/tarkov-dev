@@ -247,6 +247,7 @@ function BartersTable(props) {
                     settings,
                     barters,
                     false,
+                    showAll,
                 );
                 costItems.map(
                     (costItem) =>

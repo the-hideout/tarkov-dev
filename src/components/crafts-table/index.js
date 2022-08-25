@@ -218,6 +218,7 @@ function CraftTable(props) {
                     settings,
                     barters,
                     freeFuel,
+                    showAll
                 );
 
                 const craftDuration = Math.floor(
