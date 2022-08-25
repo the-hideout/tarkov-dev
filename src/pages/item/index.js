@@ -82,6 +82,7 @@ function Item() {
     const [showAllCrafts, setShowAllCrafts] = useState(false);
     const [showAllBarters, setShowAllBarters] = useState(false);
     const [showAllContainedItemSources, setShowAllContainedItemSources] = useState(false);
+    const [showAllHideoutStations, setShowAllHideoutStations] = useState(false);
 
     const { data: currentItemByNameData, status: itemStatus } =
         useItemByNameQuery(itemName);
@@ -932,11 +933,29 @@ function Item() {
                 )}
                 {usedInHideout && (
                     <div>
-                        <h2>
-                            {t('Hideout modules needing')} {currentItemData.name}
-                        </h2>
+                        <div className="item-crafts-headline-wrapper">
+                            <h2>
+                                {t('Hideout modules needing')} {currentItemData.name}
+                            </h2>
+                            <Filter>
+                                <ToggleFilter
+                                    checked={showAllHideoutStations}
+                                    label={t('Show built')}
+                                    onChange={(e) =>
+                                        setShowAllHideoutStations(!showAllHideoutStations)
+                                    }
+                                    tooltipContent={
+                                        <div>
+                                            {t(
+                                                'Shows all modules regardless of what you have set in your settings',
+                                            )}
+                                        </div>
+                                    }
+                                />
+                            </Filter>
+                        </div>
                         <Suspense fallback={<div>{t('Loading...')}</div>}>
-                            <ItemsForHideout itemFilter={currentItemData.id} />
+                            <ItemsForHideout itemFilter={currentItemData.id} showAll={showAllHideoutStations} />
                         </Suspense>
                     </div>
                 )}

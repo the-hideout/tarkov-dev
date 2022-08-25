@@ -172,7 +172,8 @@
 
 .item-crafts-headline-wrapper,
 .item-barters-headline-wrapper,
-.item-contents-headline-wrapper {
+.item-contents-headline-wrapper,
+.item-hideout-headline-wrapper {
     margin-top: 20px;
     align-items: center;
     display: flex;
@@ -180,7 +181,8 @@
 
 .item-crafts-headline-wrapper h2,
 .item-barters-headline-wrapper h2,
-.item-contents-headline-wrapper h2 {
+.item-contents-headline-wrapper h2,
+.item-hideout-headline-wrapper h2 {
     flex-grow: 1;
     margin: 0;
 }
