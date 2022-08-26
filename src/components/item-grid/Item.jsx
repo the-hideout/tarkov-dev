@@ -3,18 +3,18 @@ import { useCallback } from 'react';
 import ItemTooltip from './ItemTooltip';
 import ItemIcon from './ItemIcon';
 
-const sizesNotToRotate = [
-    '3x2',
-    '4x2',
-    '4x1',
-    '5x1',
-    '5x2',
-    '5x3',
-    '6x1',
-    '7x1',
-];
+// const sizesNotToRotate = [
+//     '3x2',
+//     '4x2',
+//     '4x1',
+//     '5x1',
+//     '5x2',
+//     '5x3',
+//     '6x1',
+//     '7x1',
+// ];
 
-const sizesToAlwaysRotate = ['2x3'];
+// const sizesToAlwaysRotate = ['2x3'];
 
 function Item(props) {
     const { item, onClick } = props;
