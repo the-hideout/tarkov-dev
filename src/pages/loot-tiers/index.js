@@ -286,22 +286,20 @@ function LootTier(props) {
 
         for (let i = 0; i < innerItemChunks.length; i = i + 1) {
             innerItemChunks[i] = innerItemChunks[i]?.sort((itemA, itemB) => {
-                if (itemA.slots > itemB.slots) {
-                    return -1;
-                }
-
-                if (itemA.slots < itemB.slots) {
-                    return 1;
-                }
-
-                return 0;
-            });
-        }
-
-        for (let i = 0; i < innerItemChunks.length; i = i + 1) {
-            innerItemChunks[i] = innerItemChunks[i]?.sort((itemA, itemB) => {
                 if (itemA.height > itemB.height) {
                     return -1;
+                }
+
+                if (itemA.height === itemB.height) {
+                    if (itemA.slots > itemB.slots) {
+                        return -1;
+                    }
+                    else if (itemA.slots === itemB.slots) {
+                        return 0;
+                    }
+                    else if (itemA.slots < itemB.slots) {
+                        return 1;
+                    }
                 }
                 
                 if (itemA.height < itemB.height) {
