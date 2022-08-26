@@ -35,6 +35,7 @@ import StreamElements from './pages/stream-elements';
 import ApiUsers from './pages/api-users';
 import Moobot from './pages/moobot';
 
+import SearchPreview from './pages/search-preview';
 import Items from './pages/items/';
 import Armor from './pages/items/armor';
 import Backpacks from './pages/items/backpacks';
@@ -469,6 +470,13 @@ function App() {
                             sessionID={sessionID}
                             key="provisions-wrapper"
                         />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/search-preview'}
+                    element={[
+                        <SearchPreview sessionID={sessionID} key="search-preview-wrapper" />,
                         remoteControlSessionElement,
                     ]}
                 />
