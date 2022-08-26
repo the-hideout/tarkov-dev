@@ -30,18 +30,19 @@ function Item(props) {
 
     let imgSrc = props.src;
 
-    const gridSize = `${props.width}x${props.height}`;
-
-    if (props.width > props.height && !sizesNotToRotate.includes(gridSize)) {
-        imgSrc = `//images.weserv.nl/?url=${encodeURIComponent(imgSrc)}&ro=-90`;
-    } else if (sizesToAlwaysRotate.includes(gridSize)) {
-        imgSrc = `//images.weserv.nl/?url=${encodeURIComponent(imgSrc)}&ro=-90`;
-    }
+    //const gridSize = `${props.width}x${props.height}`;
+    //
+    // if (props.width > props.height && !sizesNotToRotate.includes(gridSize)) {
+    //     imgSrc = `//images.weserv.nl/?url=${encodeURIComponent(imgSrc)}&ro=-90`;
+    // } else if (sizesToAlwaysRotate.includes(gridSize)) {
+    //     imgSrc = `//images.weserv.nl/?url=${encodeURIComponent(imgSrc)}&ro=-90`;
+    // }
 
     return (
         <a
             href={props.itemLink}
-            className={`grid-item grid-item-${props.width}x${props.height}`}
+            className={`grid-item`}
+            style={{gridRowEnd: `span ${props.height}`, gridColumnEnd: `span ${props.width}`}}
             onClick={handleClick}
         >
             <ItemTooltip
