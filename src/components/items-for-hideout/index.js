@@ -1,13 +1,16 @@
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { useHideoutQuery } from '../../features/hideout/queries';
 
 import './index.css';
 
 function ItemsForHideout(props) {
-    const { itemFilter } = props;
+    const { itemFilter, showAll } = props;
     const { t } = useTranslation();
     const { data: hideout } = useHideoutQuery();
+    const settings = useSelector((state) => state.settings);
 
     // Data manipulation section
     const data = useMemo(() => {
@@ -45,11 +48,25 @@ function ItemsForHideout(props) {
     //     </div>
     // }
 
+    const unbuilt = useMemo(() => {
+        return data.filter(module => settings[module.normalizedName] < module.level);
+    }, [data, settings]);
+
     let extraRow = false;
 
     if (data.length <= 0) {
         extraRow = t('No hideout modules requires this item');
+    } else if (unbuilt.length !== data.length && !showAll) {
+        extraRow = (
+            <>
+                {t('No unbuilt hideout moduels for selected filters but some were hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
+            </>
+        );
     }
+
+    let displayList = unbuilt;
+    if (showAll)
+        displayList = data;
 
     return (
         <div className="table-wrapper">
@@ -71,7 +88,7 @@ function ItemsForHideout(props) {
                             </td>
                         </tr>
                     )}
-                    {data.map((item, k) => {
+                    {displayList.map((item, k) => {
                         return (
                             <tr key={k} className="hideout-item-list-row">
                                 <td className="hideout-item-list-column">
