@@ -117,6 +117,7 @@ function getCheapestItemPriceWithBarters(item, barters, settings, allowAllSource
  
     if (bestBarter && (!bestPrice.price || barterTotalCost < bestPrice.price)) {
         bestPrice.price = barterTotalCost;
+        bestPrice.priceRUB = barterTotalCost;
         bestPrice.type = 'barter';
         bestPrice.barter = bestBarter;
         bestPrice.vendor = {
