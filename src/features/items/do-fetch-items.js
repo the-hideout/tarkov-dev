@@ -500,25 +500,30 @@ const doFetchItems = async () => {
     for (const item of allItems) {
         if (item.types.includes('gun') && item.containsItems) {
             item.traderPrices = item.traderPrices.map((localTraderPrice) => {
-                if (localTraderPrice.source === 'fleaMarket') {
+                if (localTraderPrice.trader.normalizedName === 'flea-market') {
                     return localTraderPrice;
                 }
 
                 localTraderPrice.price = item.containsItems.reduce(
                     (previousValue, currentValue) => {
-                        const partPrice = allItems.find(it => it.id === currentValue.item.id).traderPrices.find(
-                            (innerTraderPrice) =>
-                                innerTraderPrice.name === localTraderPrice.name,
-                        );
+                        const part = allItems.find(innerItem => innerItem.id === currentValue.item.id);
+                        const partFromSameTrader = part.traderPrices.find(innerTraderPrice => innerTraderPrice.trader.normalizedName === localTraderPrice.trader.normalizedName);
 
-                        if (!partPrice) {
+                        if (!partFromSameTrader) {
                             return previousValue;
                         }
 
-                        return partPrice.price + previousValue;
+                        return partFromSameTrader.price + previousValue;
                     },
                     localTraderPrice.price,
                 );
+                
+                if (localTraderPrice.currency === "USD") {
+                    localTraderPrice.priceRUB = localTraderPrice.price * 99.77;
+                }
+                else {
+                    localTraderPrice.priceRUB = localTraderPrice.price;
+                }
 
                 return localTraderPrice;
             });
@@ -530,19 +535,24 @@ const doFetchItems = async () => {
 
                 sellFor.price = item.containsItems.reduce(
                     (previousValue, currentValue) => {
-                        const partPrice = allItems.find(it => it.id === currentValue.item.id).sellFor.find(
-                            (innerSellFor) =>
-                                innerSellFor.source === sellFor.source,
-                        );
+                        const part = allItems.find(innerItem => innerItem.id === currentValue.item.id);
+                        const partFromSellFor = part.sellFor.find(innerSellFor => innerSellFor.vendor.normalizedName === sellFor.vendor.normalizedName);
 
-                        if (!partPrice) {
+                        if (!partFromSellFor) {
                             return previousValue;
                         }
 
-                        return partPrice.price + previousValue;
+                        return partFromSellFor.price + previousValue;
                     },
                     sellFor.price,
                 );
+                
+                if (sellFor.currency === "USD") {
+                    sellFor.priceRUB = sellFor.price * 99.77;
+                }
+                else {
+                    sellFor.priceRUB = sellFor.price;
+                }
 
                 return sellFor;
             });
