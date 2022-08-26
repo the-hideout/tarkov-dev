@@ -298,6 +298,20 @@ function LootTier(props) {
             });
         }
 
+        for (let i = 0; i < innerItemChunks.length; i = i + 1) {
+            innerItemChunks[i] = innerItemChunks[i]?.sort((itemA, itemB) => {
+                if (itemA.height > itemB.height) {
+                    return -1;
+                }
+                
+                if (itemA.height < itemB.height) {
+                    return 1;
+                }
+
+                return 0;
+            });
+        }
+
         return {
             groupNames: innerGroupNames,
             itemChunks: innerItemChunks,
