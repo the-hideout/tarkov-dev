@@ -84,13 +84,15 @@ function Item() {
     const [showAllContainedItemSources, setShowAllContainedItemSources] = useState(false);
     const [showAllHideoutStations, setShowAllHideoutStations] = useState(false);
 
-    const { data: currentItemByNameData, status: itemStatus } =
-        useItemByNameQuery(itemName);
+    // item name may be an id
+    const { data: currentItemByIdData } = useItemByIdQuery(itemName);
+
     // TODO: This function needs to be greatly improved.
     //  it currently only needs to get a single item via its ID but it
     //  queries all items via graphql and then searches for said item.
     //  This is slow and does a lot of extra processing that is not needed
-    const { data: currentItemByIdData } = useItemByIdQuery(itemName);
+    const { data: currentItemByNameData, status: itemStatus } = useItemByNameQuery(itemName);
+
     const { data: meta } = useMetaQuery();
     const dispatch = useDispatch();
     const barters = useSelector(selectAllBarters);
@@ -186,6 +188,7 @@ function Item() {
                 ...questData,
                 neededItems: []
             };
+
             /*questDataCopy.objectives = questDataCopy.objectives.filter(objectiveData => {
                 return objectiveData.item?.id === currentItemData?.id ||
                     objectiveData.containsAll?.some(part => part.id === currentItemData?.id) ||
@@ -198,6 +201,7 @@ function Item() {
                 count: 0,
                 foundInRaid: false
             };
+
             questDataCopy.objectives.forEach((objectiveData) => {
                 if (objectiveData.item?.id === currentItemData?.id && objectiveData.type !== 'findItem') {
                     objectiveInfo.count += objectiveData.count || 1;
@@ -207,26 +211,31 @@ function Item() {
                     objectiveInfo.count++;
                 }
                 objectiveData.containsAll?.forEach(part => {
-                    if (part.id === currentItemData?.id) objectiveInfo.count++;
+                    if (part.id === currentItemData?.id) 
+                        objectiveInfo.count++;
                 });
                 if (objectiveData.usingWeapon?.length === 1) {
                     objectiveData.usingWeapon?.forEach(item => {
-                        if (item.id === currentItemData?.id) objectiveInfo.count = 1;
+                        if (item.id === currentItemData?.id) 
+                            objectiveInfo.count = 1;
                     });
                 }
                 if (objectiveData.usingWeaponMods?.length === 1) {
                     objectiveData.usingWeaponMods[0].forEach(item => {
-                        if (item.id === currentItemData?.id) objectiveInfo.count = 1;
+                        if (item.id === currentItemData?.id) 
+                            objectiveInfo.count = 1;
                     });
                 }
                 if (objectiveData.wearing?.length === 1) {
                     objectiveData.wearing?.forEach(outfit => {
                         outfit.forEach(item => {
-                            if (item.id === currentItemData?.id) objectiveInfo.count = 1;
+                            if (item.id === currentItemData?.id) 
+                                objectiveInfo.count = 1;
                         });
                     });
                 }
             });
+
             questData.neededKeys.forEach(taskKey => {
                 taskKey.keys.forEach(key => {
                     if (key.id === currentItemData?.id) {
@@ -234,8 +243,13 @@ function Item() {
                     }
                 });
             });
-            if (objectiveInfo.count > 0) questDataCopy.neededItems.push(objectiveInfo);
-            if (questDataCopy.neededItems.length > 0) return questDataCopy;
+
+            if (objectiveInfo.count > 0) 
+                questDataCopy.neededItems.push(objectiveInfo);
+            
+            if (questDataCopy.neededItems.length > 0) 
+                return questDataCopy;
+
             return false;
         }).filter(Boolean);
     }, [currentItemData, quests]);
@@ -247,6 +261,7 @@ function Item() {
                 ...quest,
                 rewardItems: []
             };
+
             rewardTypes.forEach(rewardType => {
                 const rewardInfo = {
                     iconLink: currentItemData?.iconLink,
@@ -264,15 +279,20 @@ function Item() {
                         }
                     });
                 });
-                if (rewardInfo.count > 0) questDataCopy.rewardItems.push(rewardInfo);
+                if (rewardInfo.count > 0)
+                    questDataCopy.rewardItems.push(rewardInfo);
             });
-            if (questDataCopy.rewardItems.length > 0) return questDataCopy;
+
+            if (questDataCopy.rewardItems.length > 0) 
+                return questDataCopy;
+            
             return false;
         }).filter(Boolean);
     }, [currentItemData, quests]);
 
     currentItemData = useMemo(() => {
-        if (!currentItemData || !currentItemData.bestPrice) return currentItemData;
+        if (!currentItemData || !currentItemData.bestPrice) 
+            return currentItemData;
         return {
             ...currentItemData,
             ...bestPrice(currentItemData, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
@@ -290,35 +310,29 @@ function Item() {
         );
     }
 
-    if (
-        !currentItemData &&
-        (itemStatus === 'idle' || itemStatus === 'loading')
-    ) {
+    // checks for item data loaded
+    if (!currentItemData && (itemStatus === 'idle' || itemStatus === 'loading')) {
         currentItemData = loadingData;
     }
 
-    if (
-        !currentItemData &&
-        (itemStatus === 'success' || itemStatus === 'failed')
-    ) {
+    if (!currentItemData && (itemStatus === 'success' || itemStatus === 'failed')) {
         return <ErrorPage />;
     }
 
     const containsItems = currentItemData?.containsItems?.length > 0;
 
     const hasBarters = barters.some(barter => {
-        return barter.requiredItems.some(contained => contained.item.id === currentItemData.id) ||
-            barter.rewardItems.some(contained => 
-                contained.item.id === currentItemData.id ||
-                    contained.item.containsItems.some(ci => ci.item.id === currentItemData.id)
-            );
+        let requiredItems = barter.requiredItems.some(contained => contained.item.id === currentItemData.id);
+        let rewardItems = barter.rewardItems.some(contained => contained.item.id === currentItemData.id || contained.item.containsItems.some(ci => ci.item.id === currentItemData.id));
+
+        return requiredItems || rewardItems;
     });
 
     const hasCrafts = crafts.some(craft => {
-        return craft.requiredItems.some(contained => contained.item.id === currentItemData.id) ||
-            craft.rewardItems.some(contained => 
-                contained.item.id === currentItemData.id
-            );
+        let requiredItems = craft.requiredItems.some(contained => contained.item.id === currentItemData.id);
+        let rewardItems = craft.rewardItems.some(contained => contained.item.id === currentItemData.id);
+
+        return requiredItems || rewardItems;
     });
 
     const usedInHideout = hideout?.some(station => station.levels.some(module => module.itemRequirements.some(contained => contained.item.id === currentItemData.id)));
@@ -330,72 +344,50 @@ function Item() {
         };
     }
 
-    const traderIsBest =
-        currentItemData.traderPriceRUB >
-        currentItemData.lastLowPrice -
-            fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate)
-            ? true
-            : false;
-    const useFleaPrice =
-        currentItemData.lastLowPrice <= currentItemData.bestPrice;
+    const itemFleaFee = fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
 
-    let fleaTooltip = (
-        <div>
-            <div className="tooltip-calculation">
-                {t('Likely sell price')}{' '}
-                <div className="tooltip-price-wrapper">
-                    {useFleaPrice
-                        ? formatPrice(currentItemData.lastLowPrice)
-                        : formatPrice(currentItemData.bestPrice)}
-                </div>
-            </div>
-            <div className="tooltip-calculation">
-                {t('Fee')}{' '}
-                <div className="tooltip-price-wrapper">
-                    {useFleaPrice
-                        ? formatPrice(
-                              fleaFee(
-                                    currentItemData.basePrice,
-                                    currentItemData.lastLowPrice,
-                                    1, 
-                                    meta?.flea?.sellOfferFeeRate, 
-                                    meta?.flea?.sellRequirementFeeRate
-                              ),
-                          )
-                        : formatPrice(currentItemData.bestPriceFee)}
-                </div>
-            </div>
-            <div className="tooltip-calculation">
-                {t('Profit')}{' '}
-                <div className="tooltip-price-wrapper">
-                    {useFleaPrice
-                        ? formatPrice(
-                              currentItemData.lastLowPrice -
-                                  fleaFee(
-                                        currentItemData.basePrice,
-                                        currentItemData.lastLowPrice,
-                                        1, 
-                                        meta?.flea?.sellOfferFeeRate, 
-                                        meta?.flea?.sellRequirementFeeRate
-                                  ),
-                          )
-                        : formatPrice(
-                              currentItemData.bestPrice -
-                                  currentItemData.bestPriceFee,
-                          )}
-                </div>
-            </div>
-            <div className="tooltip-calculation">
-                {t('Calculated over the average for the last 24 hours')}
-            </div>
-        </div>
-    );
+    const traderIsBest = currentItemData.traderPriceRUB > currentItemData.lastLowPrice - itemFleaFee;
+    const useFleaPrice = currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
+    let fleaTooltip;
+    
     if (!useFleaPrice && currentItemData.bestPrice) {
         fleaTooltip = (
             <div>
                 <div className="tooltip-calculation">
                     {t('Best price to sell for')}{' '}
+                    <div className="tooltip-price-wrapper">
+                        {formatPrice(currentItemData.bestPrice)}
+                    </div>
+                </div>
+                <div className="tooltip-calculation">
+                    {t('Fee')}{' '}
+                    <div className="tooltip-price-wrapper">
+                        {formatPrice(currentItemData.bestPriceFee)}
+                    </div>
+                </div>
+                <div className="tooltip-calculation">
+                    {t('Profit')}{' '}
+                    <div className="tooltip-price-wrapper">
+                        {formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}
+                    </div>
+                </div>
+                <div className="tooltip-calculation">
+                    {t('Calculated over the average for the last 24 hours')}
+                </div>
+                {t('This item was sold for')}{' '}
+                {formatPrice(currentItemData.avg24hPrice)}{' '}
+                {t('on average in the last 24h on the Flea Market.')}
+                {t(" However, due to how fees are calculated you're better off selling for")}{' '}
+                {formatPrice(currentItemData.bestPrice)}
+            </div>
+        );
+    }
+    else {
+        fleaTooltip = (
+            <div>
+                <div className="tooltip-calculation">
+                    {t('Likely sell price')}{' '}
                     <div className="tooltip-price-wrapper">
                         {useFleaPrice
                             ? formatPrice(currentItemData.lastLowPrice)
@@ -406,15 +398,7 @@ function Item() {
                     {t('Fee')}{' '}
                     <div className="tooltip-price-wrapper">
                         {useFleaPrice
-                            ? formatPrice(
-                                  fleaFee(
-                                        currentItemData.basePrice,
-                                        currentItemData.lastLowPrice,
-                                        1, 
-                                        meta?.flea?.sellOfferFeeRate, 
-                                        meta?.flea?.sellRequirementFeeRate
-                                  ),
-                              )
+                            ? formatPrice(itemFleaFee)
                             : formatPrice(currentItemData.bestPriceFee)}
                     </div>
                 </div>
@@ -422,32 +406,13 @@ function Item() {
                     {t('Profit')}{' '}
                     <div className="tooltip-price-wrapper">
                         {useFleaPrice
-                            ? formatPrice(
-                                  currentItemData.lastLowPrice -
-                                      fleaFee(
-                                            currentItemData.basePrice,
-                                            currentItemData.lastLowPrice,
-                                            1, 
-                                            meta?.flea?.sellOfferFeeRate, 
-                                            meta?.flea?.sellRequirementFeeRate
-                                      ),
-                              )
-                            : formatPrice(
-                                  currentItemData.bestPrice -
-                                      currentItemData.bestPriceFee,
-                              )}
+                            ? formatPrice(currentItemData.lastLowPrice - itemFleaFee)
+                            : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}
                     </div>
                 </div>
                 <div className="tooltip-calculation">
                     {t('Calculated over the average for the last 24 hours')}
                 </div>
-                {t('This item was sold for')}{' '}
-                {formatPrice(currentItemData.avg24hPrice)}{' '}
-                {t('on average in the last 24h on the Flea Market.')}
-                {t(
-                    " However, due to how fees are calculated you're better off selling for",
-                )}{' '}
-                {formatPrice(currentItemData.bestPrice)}
             </div>
         );
     }
