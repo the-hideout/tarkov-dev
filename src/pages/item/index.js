@@ -43,6 +43,10 @@ import {
 
 dayjs.extend(relativeTime);
 
+const ConditionalWrapper = ({ condition, wrapper, children }) => {
+    return condition ? wrapper(children) : children;
+};
+
 const CraftsTable = React.lazy(() => import('../../components/crafts-table'));
 
 const loadingData = {
@@ -539,18 +543,19 @@ function Item() {
                                             />
                                         </Link>
                                         <div className="price-wrapper">
-                                            {currentItemData.traderCurrency !== 'RUB' ? (
-                                                <Tippy
-                                                    content={formatPrice(currentItemData.traderPriceRUB)}
-                                                    placement="bottom"
-                                                >
-                                                    <div>
-                                                        {formatPrice(currentItemData.traderPrice, currentItemData.traderCurrency)}
-                                                    </div>
-                                                </Tippy>
-                                            ) : (
-                                                formatPrice(currentItemData.traderPrice)
-                                            )}
+                                            <ConditionalWrapper
+                                                condition={currentItemData.traderCurrency !== 'RUB'}
+                                                wrapper={(children) => 
+                                                    <Tippy
+                                                        content={formatPrice(currentItemData.traderPriceRUB)}
+                                                        placement="bottom"
+                                                    >
+                                                        <div>{children}</div>
+                                                    </Tippy>
+                                                }
+                                            >
+                                                {formatPrice(currentItemData.traderPrice, currentItemData.traderCurrency)}
+                                            </ConditionalWrapper>
                                         </div>
                                     </div>
                                 )}
@@ -563,43 +568,37 @@ function Item() {
                                                 className={`text-and-image-information-wrapper`}
                                                 key={`${currentItemData.id}-trader-price-${traderName}-${traderPriceIndex}`}
                                             >
-                                                {traderName !== 'fence' && (
-                                                    <Link
-                                                        to={`/traders/${traderName}`}
-                                                    >
-                                                        <img
-                                                            alt={traderName}
-                                                            height="86"
-                                                            loading="lazy"
-                                                            width="86"
-                                                            src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
-                                                            // title = {`Sell ${currentItemData.name} on the Flea market`}
-                                                        />
-                                                    </Link>
-                                                )}
-                                                {traderName === 'fence' && (
+                                                <ConditionalWrapper
+                                                    condition={traderName !== 'fence'}
+                                                    wrapper={(children) => 
+                                                        <Link to={`/traders/${traderName}`}>
+                                                            {children}
+                                                        </Link>
+                                                    }
+                                                >
                                                     <img
-                                                        alt={traderName}
+                                                        alt={traderPrice.trader.name}
                                                         height="86"
                                                         loading="lazy"
                                                         width="86"
                                                         src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
                                                         // title = {`Sell ${currentItemData.name} on the Flea market`}
                                                     />
-                                                )}
+                                                </ConditionalWrapper>
                                                 <div className="price-wrapper">
-                                                    {traderPrice.currency !== 'RUB' ? (
-                                                        <Tippy
-                                                            content={formatPrice(traderPrice.priceRUB)}
-                                                            placement="bottom"
-                                                        >
-                                                            <div>
-                                                                {formatPrice(traderPrice.price, traderPrice.currency)}
-                                                            </div>
-                                                        </Tippy>
-                                                    ) : (
-                                                        formatPrice(traderPrice.price)
-                                                    )}
+                                                    <ConditionalWrapper
+                                                        condition={traderPrice.currency !== 'RUB'}
+                                                        wrapper={(children) => 
+                                                            <Tippy
+                                                                content={formatPrice(traderPrice.priceRUB)}
+                                                                placement="bottom"
+                                                            >
+                                                                <div>{children}</div>
+                                                            </Tippy>
+                                                        }
+                                                    >
+                                                        {formatPrice(traderPrice.price, traderPrice.currency)}
+                                                    </ConditionalWrapper>
                                                 </div>
                                             </div>
                                         );
@@ -641,20 +640,14 @@ function Item() {
                                                             </div>
                                                         </Tippy>
                                                     )}
-                                                    {buyPrice.source !== 'flea-market' && (
-                                                        <Link
-                                                            to={`/traders/${buyPrice.source.toLowerCase()}`}
-                                                        >
-                                                            <img
-                                                                alt={buyPrice.requirements.source}
-                                                                height="86"
-                                                                loading="lazy"
-                                                                width="86"
-                                                                src={`${process.env.PUBLIC_URL}/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
-                                                            />
-                                                        </Link>
-                                                    )}
-                                                    {buyPrice.source === 'flea-market' && (
+                                                    <ConditionalWrapper
+                                                        condition={buyPrice.source !== 'flea-market'}
+                                                        wrapper={(children) => 
+                                                            <Link to={`/traders/${buyPrice.source.toLowerCase()}`}>
+                                                                {children}
+                                                            </Link>
+                                                        }
+                                                    >
                                                         <img
                                                             alt={buyPrice.requirements.source}
                                                             height="86"
@@ -662,7 +655,7 @@ function Item() {
                                                             width="86"
                                                             src={`${process.env.PUBLIC_URL}/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
                                                         />
-                                                    )}
+                                                    </ConditionalWrapper>
                                                 </div>
                                                 <div className={`price-wrapper ${ index === 0 ? 'best-profit': ''}`}>
                                                     <TraderPrice
@@ -696,26 +689,16 @@ function Item() {
                         <div className={`text-and-image-information-wrapper price-info-wrapper`}>
                             <div className="price-wrapper price-wrapper-bright">
                                 <div>
-                                    {t('Change vs yesterday')}
-                                    {': '}
-                                    {currentItemData.changeLast48h} ₽
-                                    {' / '}
-                                    {currentItemData.changeLast48hPercent} %
+                                    {t('Change vs yesterday')}: {currentItemData.changeLast48h} ₽ / {currentItemData.changeLast48hPercent} %
                                 </div>
                                 <div>
-                                    {t('Lowest scanned price last 24h')}
-                                    {': '}
-                                    {formatPrice(currentItemData.low24hPrice)}
+                                    {t('Lowest scanned price last 24h')}: {formatPrice(currentItemData.low24hPrice)}
                                 </div>
                                 <div>
-                                    {t('Highest scanned price last 24h')}
-                                    {': '}
-                                    {formatPrice(currentItemData.high24hPrice)}
+                                    {t('Highest scanned price last 24h')}: {formatPrice(currentItemData.high24hPrice)}
                                 </div>
                                 <div title={dayjs(currentItemData.updated,).format('YYYY-MM-DD HH:mm:ss')}>
-                                    {t('Updated')}
-                                    {': '}
-                                    {dayjs(currentItemData.updated).fromNow()}
+                                    {t('Updated')}: {dayjs(currentItemData.updated).fromNow()}
                                 </div>
                             </div>
                         </div>
@@ -783,10 +766,12 @@ function Item() {
                                 />
                             </Filter>
                         </div>
-                        <BartersTable
-                            itemFilter={currentItemData.id}
-                            showAll={showAllBarters}
-                        />
+                        <Suspense fallback={<div>{t('Loading...')}</div>}>
+                            <BartersTable
+                                itemFilter={currentItemData.id}
+                                showAll={showAllBarters}
+                            />
+                        </Suspense>
                     </div>
                 )}
                 {hasCrafts && (
