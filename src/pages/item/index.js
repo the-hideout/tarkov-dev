@@ -329,7 +329,8 @@ function Item() {
 
     const hasBarters = barters.some(barter => {
         let requiredItems = barter.requiredItems.some(contained => contained.item.id === currentItemData.id);
-        let rewardItems = barter.rewardItems.some(contained => contained.item.id === currentItemData.id || contained.item.containsItems.some(ci => ci.item.id === currentItemData.id));
+        let rewardItems = barter.rewardItems.some(contained => contained.item.id === currentItemData.id || 
+                                                               contained.item.containsItems.some(ci => ci.item.id === currentItemData.id));
 
         return requiredItems || rewardItems;
     });
@@ -489,279 +490,200 @@ function Item() {
                     </div>
                 </div>
                 <div className="trader-wrapper">
-                    {currentItemData.sellFor &&
-                        currentItemData.sellFor.length > 0 && (
-                            <div>
-                                <h2>{t('Sell for')}</h2>
-                                <div className={'information-grid'}>
-                                    {!currentItemData.types.includes(
-                                        'noFlea',
-                                    ) && (
-                                        <Tippy
-                                            placement="bottom"
-                                            content={fleaTooltip}
-                                        >
-                                            <div
-                                                className={`text-and-image-information-wrapper flea-wrapper ${
-                                                    traderIsBest
-                                                        ? ''
-                                                        : 'best-profit'
-                                                }`}
-                                            >
-                                                <img
-                                                    alt="Flea market"
-                                                    height="86"
-                                                    width="86"
-                                                    src={`${process.env.PUBLIC_URL}/images/flea-market-icon.jpg`}
-                                                    loading="lazy"
-                                                    // title = {`Sell ${currentItemData.name} on the Flea market`}
-                                                />
-                                                <div className="price-wrapper">
-                                                    {!useFleaPrice && (
-                                                        <img
-                                                            alt="Warning"
-                                                            loading="lazy"
-                                                            className="warning-icon"
-                                                            src={warningIcon}
-                                                        />
-                                                    )}
-                                                    <span>
-                                                        {formatPrice(
-                                                            useFleaPrice
-                                                                ? currentItemData.lastLowPrice
-                                                                : currentItemData.bestPrice,
-                                                        )}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </Tippy>
-                                    )}
-                                    {currentItemData.traderName &&
-                                        currentItemData.traderPrice !== 0 && (
-                                            <div
-                                                className={`text-and-image-information-wrapper ${
-                                                    traderIsBest
-                                                        ? 'best-profit'
-                                                        : ''
-                                                } first-trader-price`}
-                                            >
-                                                <Link
-                                                    to={`/traders/${currentItemData.traderNormalizedName}`}
-                                                >
+                    {currentItemData.sellFor && currentItemData.sellFor.length > 0 && (
+                        <div>
+                            <h2>{t('Sell for')}</h2>
+                            <div className={'information-grid'}>
+                                {!currentItemData.types.includes('noFlea') && (
+                                    <Tippy
+                                        placement="bottom"
+                                        content={fleaTooltip}
+                                    >
+                                        <div className={`text-and-image-information-wrapper flea-wrapper ${traderIsBest ? '' : 'best-profit'}`}>
+                                            <img
+                                                alt="Flea market"
+                                                height="86"
+                                                width="86"
+                                                src={`${process.env.PUBLIC_URL}/images/flea-market-icon.jpg`}
+                                                loading="lazy"
+                                                // title = {`Sell ${currentItemData.name} on the Flea market`}
+                                            />
+                                            <div className="price-wrapper">
+                                                {!useFleaPrice && (
                                                     <img
-                                                        alt={
-                                                            currentItemData.traderName
-                                                        }
-                                                        height="86"
-                                                        width="86"
+                                                        alt="Warning"
                                                         loading="lazy"
-                                                        src={`${
-                                                            process.env
-                                                                .PUBLIC_URL
-                                                        }/images/${currentItemData.traderNormalizedName}-icon.jpg`}
+                                                        className="warning-icon"
+                                                        src={warningIcon}
+                                                    />
+                                                )}
+                                                <span>
+                                                    {formatPrice(useFleaPrice ? currentItemData.lastLowPrice : currentItemData.bestPrice)}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </Tippy>
+                                )}
+                                {currentItemData.traderName && currentItemData.traderPrice !== 0 && (
+                                    <div className={`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''} first-trader-price`}>
+                                        <Link
+                                            to={`/traders/${currentItemData.traderNormalizedName}`}
+                                        >
+                                            <img
+                                                alt={currentItemData.traderName}
+                                                height="86"
+                                                width="86"
+                                                loading="lazy"
+                                                src={`${process.env.PUBLIC_URL}/images/${currentItemData.traderNormalizedName}-icon.jpg`}
+                                                // title = {`Sell ${currentItemData.name} on the Flea market`}
+                                            />
+                                        </Link>
+                                        <div className="price-wrapper">
+                                            {currentItemData.traderCurrency !== 'RUB' ? (
+                                                <Tippy
+                                                    content={formatPrice(currentItemData.traderPriceRUB)}
+                                                    placement="bottom"
+                                                >
+                                                    <div>
+                                                        {formatPrice(currentItemData.traderPrice, currentItemData.traderCurrency)}
+                                                    </div>
+                                                </Tippy>
+                                            ) : (
+                                                formatPrice(currentItemData.traderPrice)
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
+                                {currentItemData.traderPrices && currentItemData.traderPrices.map(
+                                    (traderPrice, traderPriceIndex) => {
+                                        const traderName = traderPrice.trader.normalizedName;
+
+                                        return (
+                                            <div
+                                                className={`text-and-image-information-wrapper`}
+                                                key={`${currentItemData.id}-trader-price-${traderName}-${traderPriceIndex}`}
+                                            >
+                                                {traderName !== 'fence' && (
+                                                    <Link
+                                                        to={`/traders/${traderName}`}
+                                                    >
+                                                        <img
+                                                            alt={traderName}
+                                                            height="86"
+                                                            loading="lazy"
+                                                            width="86"
+                                                            src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
+                                                            // title = {`Sell ${currentItemData.name} on the Flea market`}
+                                                        />
+                                                    </Link>
+                                                )}
+                                                {traderName === 'fence' && (
+                                                    <img
+                                                        alt={traderName}
+                                                        height="86"
+                                                        loading="lazy"
+                                                        width="86"
+                                                        src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
                                                         // title = {`Sell ${currentItemData.name} on the Flea market`}
                                                     />
-                                                </Link>
+                                                )}
                                                 <div className="price-wrapper">
-                                                    {currentItemData.traderCurrency !== 'RUB' ? (
+                                                    {traderPrice.currency !== 'RUB' ? (
                                                         <Tippy
-                                                            content={formatPrice(
-                                                                currentItemData.traderPriceRUB,
-                                                            )}
+                                                            content={formatPrice(traderPrice.priceRUB)}
                                                             placement="bottom"
                                                         >
                                                             <div>
-                                                                {formatPrice(
-                                                                    currentItemData.traderPrice,
-                                                                    currentItemData.traderCurrency,
-                                                                )}
+                                                                {formatPrice(traderPrice.price, traderPrice.currency)}
                                                             </div>
                                                         </Tippy>
                                                     ) : (
-                                                        formatPrice(
-                                                            currentItemData.traderPrice,
-                                                        )
+                                                        formatPrice(traderPrice.price)
                                                     )}
                                                 </div>
                                             </div>
-                                        )}
-                                    {currentItemData.traderPrices &&
-                                        currentItemData.traderPrices.map(
-                                            (traderPrice, traderPriceIndex) => {
-                                                const traderName =
-                                                    traderPrice.trader.normalizedName.toLowerCase();
-
-                                                return (
-                                                    <div
-                                                        className={`text-and-image-information-wrapper`}
-                                                        key={`${currentItemData.id}-trader-price-${traderName}-${traderPriceIndex}`}
-                                                    >
-                                                        {traderName !==
-                                                            'fence' && (
-                                                            <Link
-                                                                to={`/traders/${traderName}`}
-                                                            >
-                                                                <img
-                                                                    alt={
-                                                                        traderName
-                                                                    }
-                                                                    height="86"
-                                                                    loading="lazy"
-                                                                    width="86"
-                                                                    src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
-                                                                    // title = {`Sell ${currentItemData.name} on the Flea market`}
-                                                                />
-                                                            </Link>
-                                                        )}
-                                                        {traderName ===
-                                                            'fence' && (
-                                                            <img
-                                                                alt={traderName}
-                                                                height="86"
-                                                                loading="lazy"
-                                                                width="86"
-                                                                src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
-                                                                // title = {`Sell ${currentItemData.name} on the Flea market`}
-                                                            />
-                                                        )}
-                                                        <div className="price-wrapper">
-                                                            {traderPrice.currency !== 'RUB' ? (
-                                                                <Tippy
-                                                                    content={formatPrice(
-                                                                        traderPrice.priceRUB,
-                                                                    )}
-                                                                    placement="bottom"
-                                                                >
-                                                                    <div>
-                                                                        {formatPrice(
-                                                                            traderPrice.price,
-                                                                            traderPrice.currency,
-                                                                        )}
-                                                                    </div>
-                                                                </Tippy>
-                                                            ) : (
-                                                                formatPrice(
-                                                                    traderPrice.price,
-                                                                )
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                );
-                                            },
-                                        )}
-                                </div>
+                                        );
+                                    }
+                                )}
                             </div>
-                        )}
-                    {currentItemData.buyFor &&
-                        currentItemData.buyFor.length > 0 && (
-                            <div>
-                                <h2>{t('Buy for')}</h2>
-                                <div className="information-grid single-line-grid">
-                                    {currentItemData.buyFor.map(
-                                        (buyPrice, index) => {
-                                            const loyaltyLevel =
-                                                buyPrice.requirements.find(
-                                                    (requirement) =>
-                                                        requirement.type ===
-                                                        'loyaltyLevel',
-                                                )?.value;
-                                            return (
-                                                <div
-                                                    className={`text-and-image-information-wrapper`}
-                                                    key={`${currentItemData.id}-trader-price-${buyPrice.source}-${index}`}
-                                                >
-                                                    <div className="source-wrapper">
-                                                        {buyPrice.source !==
-                                                            'flea-market' && (
-                                                            <LoyaltyLevelIcon
-                                                                loyaltyLevel={
-                                                                    loyaltyLevel
-                                                                }
-                                                            />
-                                                        )}
-                                                        {buyPrice?.vendor?.taskUnlock && (
-                                                            <Tippy
-                                                                content={
-                                                                    t('Quest: ')+buyPrice.vendor.taskUnlock.name
-                                                                }
-                                                            >
-                                                                <div className="quest-icon-wrapper">
-                                                                    <Icon
-                                                                        path={
-                                                                            mdiLock
-                                                                        }
-                                                                        size={1}
-                                                                        className="icon-with-text"
-                                                                    />
-                                                                </div>
-                                                            </Tippy>
-                                                        )}
-                                                        {buyPrice.source !==
-                                                            'flea-market' && (
-                                                            <Link
-                                                                to={`/traders/${buyPrice.source.toLowerCase()}`}
-                                                            >
-                                                                <img
-                                                                    alt={
-                                                                        buyPrice
-                                                                            .requirements
-                                                                            .source
-                                                                    }
-                                                                    height="86"
-                                                                    loading="lazy"
-                                                                    width="86"
-                                                                    src={`${
-                                                                        process
-                                                                            .env
-                                                                            .PUBLIC_URL
-                                                                    }/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
-                                                                />
-                                                            </Link>
-                                                        )}
-                                                        {buyPrice.source ===
-                                                            'flea-market' && (
-                                                            <img
-                                                                alt={
-                                                                    buyPrice
-                                                                        .requirements
-                                                                        .source
-                                                                }
-                                                                height="86"
-                                                                loading="lazy"
-                                                                width="86"
-                                                                src={`${
-                                                                    process.env
-                                                                        .PUBLIC_URL
-                                                                }/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
-                                                            />
-                                                        )}
-                                                    </div>
-                                                    <div
-                                                        className={`price-wrapper ${
-                                                            index === 0
-                                                                ? 'best-profit'
-                                                                : ''
-                                                        }`}
-                                                    >
-                                                        <TraderPrice
-                                                            currency={
-                                                                buyPrice.currency
-                                                            }
-                                                            price={
-                                                                buyPrice.price
-                                                            }
-                                                            priceRUB={
-                                                                buyPrice.priceRUB
+                        </div>
+                    )}
+                    {currentItemData.buyFor && currentItemData.buyFor.length > 0 && (
+                        <div>
+                            <h2>{t('Buy for')}</h2>
+                            <div className="information-grid single-line-grid">
+                                {currentItemData.buyFor.map(
+                                    (buyPrice, index) => {
+                                        const loyaltyLevel = buyPrice.requirements.find((requirement) => requirement.type === 'loyaltyLevel')?.value;
+                                        return (
+                                            <div
+                                                className={`text-and-image-information-wrapper`}
+                                                key={`${currentItemData.id}-trader-price-${buyPrice.source}-${index}`}
+                                            >
+                                                <div className="source-wrapper">
+                                                    {buyPrice.source !== 'flea-market' && (
+                                                        <LoyaltyLevelIcon
+                                                            loyaltyLevel={
+                                                                loyaltyLevel
                                                             }
                                                         />
-                                                    </div>
+                                                    )}
+                                                    {buyPrice?.vendor?.taskUnlock && (
+                                                        <Tippy
+                                                            content={t('Quest: ')+buyPrice.vendor.taskUnlock.name}
+                                                        >
+                                                            <div className="quest-icon-wrapper">
+                                                                <Icon
+                                                                    path={mdiLock}
+                                                                    size={1}
+                                                                    className="icon-with-text"
+                                                                />
+                                                            </div>
+                                                        </Tippy>
+                                                    )}
+                                                    {buyPrice.source !== 'flea-market' && (
+                                                        <Link
+                                                            to={`/traders/${buyPrice.source.toLowerCase()}`}
+                                                        >
+                                                            <img
+                                                                alt={buyPrice.requirements.source}
+                                                                height="86"
+                                                                loading="lazy"
+                                                                width="86"
+                                                                src={`${process.env.PUBLIC_URL}/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
+                                                            />
+                                                        </Link>
+                                                    )}
+                                                    {buyPrice.source === 'flea-market' && (
+                                                        <img
+                                                            alt={buyPrice.requirements.source}
+                                                            height="86"
+                                                            loading="lazy"
+                                                            width="86"
+                                                            src={`${process.env.PUBLIC_URL}/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
+                                                        />
+                                                    )}
                                                 </div>
-                                            );
-                                        },
-                                    )}
-                                </div>
+                                                <div className={`price-wrapper ${ index === 0 ? 'best-profit': ''}`}>
+                                                    <TraderPrice
+                                                        currency={
+                                                            buyPrice.currency
+                                                        }
+                                                        price={
+                                                            buyPrice.price
+                                                        }
+                                                        priceRUB={
+                                                            buyPrice.priceRUB
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+                                        );
+                                    },
+                                )}
                             </div>
-                        )}
+                        </div>
+                    )}
                 </div>
                 {!currentItemData.types.includes('noFlea') && (
                     <div>
@@ -771,9 +693,7 @@ function Item() {
                             itemChange24={currentItemData.changeLast48h}
                         />
                         <br />
-                        <div
-                            className={`text-and-image-information-wrapper price-info-wrapper`}
-                        >
+                        <div className={`text-and-image-information-wrapper price-info-wrapper`}>
                             <div className="price-wrapper price-wrapper-bright">
                                 <div>
                                     {t('Change vs yesterday')}
@@ -792,9 +712,7 @@ function Item() {
                                     {': '}
                                     {formatPrice(currentItemData.high24hPrice)}
                                 </div>
-                                <div
-                                    title={dayjs(currentItemData.updated,).format('YYYY-MM-DD HH:mm:ss')}
-                                >
+                                <div title={dayjs(currentItemData.updated,).format('YYYY-MM-DD HH:mm:ss')}>
                                     {t('Updated')}
                                     {': '}
                                     {dayjs(currentItemData.updated).fromNow()}
@@ -803,30 +721,32 @@ function Item() {
                         </div>
                     </div>
                 )}
-                <h2 className='item-h2'>{t('Stats')}</h2>
-                <PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} />
+                <div>
+                    <h2 className='item-h2'>
+                        {t('Stats')}
+                    </h2>
+                    <PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} />
+                </div>
                 {containsItems && (
-                    <>
+                    <div>
                         <div className="item-contents-headline-wrapper">
-                        <h2>
-                            {t('Items contained in')} {currentItemData.name}
-                        </h2>
-                        <Filter>
-                            <ToggleFilter
-                                checked={showAllContainedItemSources}
-                                label={t('Ignore settings')}
-                                onChange={(e) =>
-                                    setShowAllContainedItemSources(!showAllContainedItemSources)
-                                }
-                                tooltipContent={
-                                    <>
-                                        {t(
-                                            'Shows all sources of items regardless of what you have set in your settings',
-                                        )}
-                                    </>
-                                }
-                            />
-                        </Filter>
+                            <h2>
+                                {t('Items contained in')} {currentItemData.name}
+                            </h2>
+                            <Filter>
+                                <ToggleFilter
+                                    checked={showAllContainedItemSources}
+                                    label={t('Ignore settings')}
+                                    onChange={(e) =>
+                                        setShowAllContainedItemSources(!showAllContainedItemSources)
+                                    }
+                                    tooltipContent={
+                                        <>
+                                            {t('Shows all sources of items regardless of what you have set in your settings')}
+                                        </>
+                                    }
+                                />
+                            </Filter>
                         </div>
                         <Suspense fallback={<>{t('Loading...')}</>}>
                             <SmallItemTable
@@ -840,7 +760,7 @@ function Item() {
                                 showAllSources={showAllContainedItemSources}
                             />
                         </Suspense>
-                    </>
+                    </div>
                 )}
                 {hasBarters && (
                     <div>
@@ -857,9 +777,7 @@ function Item() {
                                     }
                                     tooltipContent={
                                         <>
-                                            {t(
-                                                'Shows all crafts regardless of what you have set in your settings',
-                                            )}
+                                            {t('Shows all crafts regardless of what you have set in your settings')}
                                         </>
                                     }
                                 />
@@ -885,11 +803,9 @@ function Item() {
                                         setShowAllCrafts(!showAllCrafts)
                                     }
                                     tooltipContent={
-                                        <div>
-                                            {t(
-                                                'Shows all crafts regardless of what you have set in your settings',
-                                            )}
-                                        </div>
+                                        <>
+                                            {t('Shows all crafts regardless of what you have set in your settings')}
+                                        </>
                                     }
                                 />
                             </Filter>
@@ -916,11 +832,9 @@ function Item() {
                                         setShowAllHideoutStations(!showAllHideoutStations)
                                     }
                                     tooltipContent={
-                                        <div>
-                                            {t(
-                                                'Shows all modules regardless of what you have set in your settings',
-                                            )}
-                                        </div>
+                                        <>
+                                            {t('Shows all modules regardless of what you have set in your settings')}
+                                        </>
                                     }
                                 />
                             </Filter>
