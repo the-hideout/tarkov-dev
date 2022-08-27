@@ -1,5 +1,7 @@
 module.exports = (price, currency = 'RUB') => {
-    if (typeof price === 'undefined') price = 0;
+    if (typeof price === 'undefined') 
+        price = 0;
+    
     price = Math.floor(price);
 
     if (currency === 'USD') {
@@ -7,7 +9,7 @@ module.exports = (price, currency = 'RUB') => {
             style: 'currency',
             currency: 'USD',
             maximumSignificantDigits: 6,
-        }).format(Math.floor(price));
+        }).format(price);
     }
 
     if (currency === 'EUR') {
@@ -15,7 +17,7 @@ module.exports = (price, currency = 'RUB') => {
             style: 'currency',
             currency: 'EUR',
             maximumSignificantDigits: 6,
-        }).format(Math.floor(price));
+        }).format(price);
     }
 
     return new Intl.NumberFormat('ru-RU', {
