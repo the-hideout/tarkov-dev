@@ -184,6 +184,9 @@ function Item() {
 
     const itemQuests = useMemo(() => {
         return quests.map((questData) => {
+            if (!currentItemData)
+                return false;
+            
             const questDataCopy = {
                 ...questData,
                 neededItems: []
@@ -257,6 +260,9 @@ function Item() {
     const questsProviding = useMemo(() => {
         const rewardTypes = ['startRewards', 'finishRewards'];
         return quests.map(quest => {
+            if (!currentItemData)
+                return false;
+            
             const questDataCopy = {
                 ...quest,
                 rewardItems: []
