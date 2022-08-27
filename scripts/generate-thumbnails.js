@@ -1,6 +1,6 @@
 const fs = require('fs/promises');
 
-const Jimp = require('jimp-compact');
+const sharp = require('sharp');
 
 (async () => {
     console.time('Generating thumbnails');
@@ -14,8 +14,8 @@ const Jimp = require('jimp-compact');
         if (fileName.endsWith('_thumb.jpg')) continue;
         const thumbName = fileName.replace('.jpg', '_thumb.jpg');
         console.log(`Generating ${thumbName}`);
-        const image = (await Jimp.read(mapsPath+fileName)).resize(Jimp.AUTO, maxHeight).quality(70);
-        image.write(mapsPath+thumbName);
+        const image = sharp(mapsPath+fileName).resize(null, maxHeight).jpeg({quality: 70});
+        await image.toFile(mapsPath+thumbName);
     }
     console.timeEnd('Generating thumbnails');
 })();
