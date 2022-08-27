@@ -61,11 +61,9 @@ function Barters() {
                         label={t('Hide dogtags')}
                         onChange={(e) => setHideDogtags(!hideDogtags)}
                         tooltipContent={
-                            <div>
-                                {t(
-                                    'Dogtags are very hard to calulcate values for as they depend on level. Most calculations with them are wrong',
-                                )}
-                            </div>
+                            <>
+                                {t('Dogtags are very hard to calulcate values for as they depend on level. Most calculations with them are wrong')}
+                            </>
                         }
                     />
                     <ButtonGroupFilter>
@@ -74,11 +72,9 @@ function Barters() {
                                 <ButtonGroupFilterButton
                                     key={`trader-tooltip-${traderName}`}
                                     tooltipContent={
-                                        <div>
-                                            {t(capitalizeTheFirstLetterOfEachWord(
-                                                traderName.replace('-', ' '),
-                                            ))}
-                                        </div>
+                                        <>
+                                            {t(capitalizeTheFirstLetterOfEachWord(traderName.replace('-', ' ')))}
+                                        </>
                                     }
                                     selected={traderName === selectedTrader}
                                     content={
@@ -91,13 +87,16 @@ function Barters() {
                                     }
                                     onClick={setSelectedTrader.bind(
                                         undefined,
-                                        traderName,
-                                    )}
+                                        traderName)}
                                 />
                             );
                         })}
                         <ButtonGroupFilterButton
-                            tooltipContent={<div>{t('Show all barters')}</div>}
+                            tooltipContent={
+                                <>
+                                    {t('Show all barters')}
+                                </>
+                            }
                             selected={selectedTrader === 'all'}
                             content={t('All')}
                             onClick={setSelectedTrader.bind(undefined, 'all')}

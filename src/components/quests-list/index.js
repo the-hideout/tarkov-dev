@@ -93,9 +93,9 @@ function QuestsList(props) {
                     setShowAllQuests(!showAllQuests)
                 }
                 tooltipContent={
-                    <div>
+                    <>
                         {t('Shows all quests regardless of if you\'ve completed them')}
-                    </div>
+                    </>
                 }
             />
         </Filter>

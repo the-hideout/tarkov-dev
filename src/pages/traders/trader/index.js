@@ -89,13 +89,18 @@ function Trader() {
             clearInterval(timer);
         };
     }, [tradersStatus, dispatch]);
-    if (traders.length === 0) return loadingPage(traderName, t);
+
+    if (traders.length === 0) 
+        return loadingPage(traderName, t);
+    
     const trader = traders.find(tr => tr.normalizedName === traderName);
-    if (!trader) return <ErrorPage />;
+    if (!trader) 
+        return <ErrorPage />;
+    
     return [
         <Helmet key={`${traderName}-helmet`}>
             <meta charSet="utf-8" />
-            <title>{trader.name+' '+t('Items')}</title>
+            <title>{trader.name} {t('Items')}</title>
             <meta
                 name="description"
                 content={`All ${trader.name} items and barters in Escape from Tarkov`}
@@ -104,7 +109,7 @@ function Trader() {
         <div className="page-wrapper" key={'page-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {trader.name+' '+t('Items')}
+                    {trader.name} {t('Items')}
                     <cite>
                         <TraderResetTime timestamp={trader.resetTime} />
                     </cite>
@@ -113,11 +118,9 @@ function Trader() {
                     <ButtonGroupFilter>
                         <ButtonGroupFilterButton
                             tooltipContent={
-                                <div>
-                                    {t(
-                                        'Items with the best cash back prices for leveling when buying from flea',
-                                    )}
-                                </div>
+                                <>
+                                    {t('Items with the best cash back prices for leveling when buying from flea')}
+                                </>
                             }
                             selected={selectedTable === 'level'}
                             content={t('Spending')}
@@ -130,9 +133,9 @@ function Trader() {
                             <ButtonGroupFilterButton
                                 key={level.level}
                                 tooltipContent={
-                                    <div>
+                                    <>
                                         {`${t('Unlocks at Loyalty Level')} ${level.level}`}
-                                    </div>
+                                    </>
                                 }
                                 selected={selectedTable === level.level}
                                 content={romanLevels[level.level]}
@@ -151,9 +154,7 @@ function Trader() {
             <SmallItemTable
                 nameFilter={nameFilter}
                 traderFilter={traderName}
-                loyaltyLevelFilter={
-                    Number.isInteger(selectedTable) ? selectedTable : false
-                }
+                loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
                 traderPrice={selectedTable === 'level' ? false : true}
                 fleaValue
                 traderValue
@@ -190,7 +191,7 @@ const loadingPage = (traderName, t) => {
         <div className="page-wrapper" key={'page-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {capitalized+' '+t('Items')}
+                    {capitalized} {t('Items')}
                     <cite>
                         Loading...
                     </cite>
