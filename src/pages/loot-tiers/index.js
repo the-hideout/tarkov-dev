@@ -145,7 +145,7 @@ function LootTier(props) {
 
                 if (hasFlea && !item.types.includes('noFlea')) {
                     const fleaPrice = item.avg24hPrice - item.fee;
-                    if (fleaPrice <= item.traderPriceRUB) {
+                    if (fleaPrice >= item.traderPriceRUB) {
                         sellTo = 'Flea Market';
                         sellToNormalized = 'flea-market';
                         priceRUB = fleaPrice;
@@ -286,11 +286,23 @@ function LootTier(props) {
 
         for (let i = 0; i < innerItemChunks.length; i = i + 1) {
             innerItemChunks[i] = innerItemChunks[i]?.sort((itemA, itemB) => {
-                if (itemA.slots > itemB.slots) {
+                if (itemA.height > itemB.height) {
                     return -1;
                 }
 
-                if (itemA.slots < itemB.slots) {
+                if (itemA.height === itemB.height) {
+                    if (itemA.slots > itemB.slots) {
+                        return -1;
+                    }
+                    else if (itemA.slots === itemB.slots) {
+                        return 0;
+                    }
+                    else if (itemA.slots < itemB.slots) {
+                        return 1;
+                    }
+                }
+                
+                if (itemA.height < itemB.height) {
                     return 1;
                 }
 
