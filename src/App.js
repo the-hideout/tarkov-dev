@@ -76,7 +76,7 @@ import Debug from './components/Debug';
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
 // import APIDocs from './pages/api-docs';
 
-const socketServer = `wss://hideout-socket-server.herokuapp.com`;
+const socketServer = `wss://socket.tarkov.dev`;
 
 let socket = false;
 
