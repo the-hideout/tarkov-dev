@@ -549,14 +549,14 @@ function Item() {
                                                 condition={currentItemData.traderCurrency !== 'RUB'}
                                                 wrapper={(children) => 
                                                     <Tippy
-                                                        content={formatPrice(currentItemData.traderPriceRUB)}
+                                                        content={formatPrice(currentItemData.traderTotalPriceRUB)}
                                                         placement="bottom"
                                                     >
                                                         <div>{children}</div>
                                                     </Tippy>
                                                 }
                                             >
-                                                {formatPrice(currentItemData.traderPrice, currentItemData.traderCurrency)}
+                                                {formatPrice(currentItemData.traderTotalPrice, currentItemData.traderCurrency)}
                                             </ConditionalWrapper>
                                         </div>
                                     </div>
@@ -592,14 +592,14 @@ function Item() {
                                                         condition={traderPrice.currency !== 'RUB'}
                                                         wrapper={(children) => 
                                                             <Tippy
-                                                                content={formatPrice(traderPrice.priceRUB)}
+                                                                content={formatPrice(traderPrice.totalPriceRUB)}
                                                                 placement="bottom"
                                                             >
                                                                 <div>{children}</div>
                                                             </Tippy>
                                                         }
                                                     >
-                                                        {formatPrice(traderPrice.price, traderPrice.currency)}
+                                                        {formatPrice(traderPrice.totalPrice, traderPrice.currency)}
                                                     </ConditionalWrapper>
                                                 </div>
                                             </div>

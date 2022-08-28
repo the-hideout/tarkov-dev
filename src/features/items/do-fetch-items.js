@@ -40,15 +40,6 @@ const doFetchItems = async () => {
                 gridImageLink
                 iconLink
                 updated
-                traderPrices {
-                    price
-                    currency
-                    priceRUB
-                    trader {
-                        name
-                        normalizedName
-                    }
-                }
                 sellFor {
                     source
                     vendor {
@@ -302,6 +293,7 @@ const doFetchItems = async () => {
                     }
                     ...on ItemPropertiesPreset {
                         baseItem {
+                            id
                             name
                             normalizedName
                         }
@@ -384,6 +376,16 @@ const doFetchItems = async () => {
                 sellOfferFeeRate
                 sellRequirementFeeRate
             }
+            traders {
+                normalizedName
+                levels {
+                    payRate
+                }
+            }
+            currencies: items(categoryNames: [Money]) {
+                shortName
+                basePrice
+            }
         }`,
     });
     //console.time('items query');
@@ -404,6 +406,11 @@ const doFetchItems = async () => {
     if (itemData.errors) return Promise.reject(new Error(itemData.errors[0]));
 
     const flea = itemData.data.fleaMarket;
+
+    const currencies = {};
+    for (const currency of itemData.data.currencies) {
+        currencies[currency.shortName] = currency.basePrice;
+    }
 
     const allItems = itemData.data.items.map((rawItem) => {
         let grid = false;
@@ -498,46 +505,30 @@ const doFetchItems = async () => {
     });
 
     for (const item of allItems) {
-        if (item.types.includes('gun') && item.containsItems) {
-            item.traderPrices = item.traderPrices.map((localTraderPrice) => {
-                if (localTraderPrice.trader.normalizedName === 'flea-market') {
-                    return localTraderPrice;
-                }
-
-                const totalPrices = item.containsItems.reduce(
-                    (previousValue, currentValue) => {
-                        const part = allItems.find(innerItem => innerItem.id === currentValue.item.id);
-                        const partFromSameTrader = part.traderPrices.find(innerTraderPrice => innerTraderPrice.trader.normalizedName === localTraderPrice.trader.normalizedName);
-
-                        if (!partFromSameTrader) {
-                            return previousValue;
-                        }
-
-                        previousValue.price += partFromSameTrader.price;
-                        previousValue.priceRUB += partFromSameTrader.priceRUB;
-
-                        return previousValue;
-                    },
-                    {price: localTraderPrice.price, priceRUB: localTraderPrice.priceRUB}
-                );
-
-                localTraderPrice.price = totalPrices.price;
-                localTraderPrice.priceRUB = totalPrices.priceRUB;
-
-                return localTraderPrice;
-            });
-
+        if ((item.types.includes('gun') || item.types.includes('preset')) && item.containsItems?.length > 0) {
             item.sellFor = item.sellFor.map((sellFor) => {
                 if (sellFor.vendor.normalizedName === 'flea-market') {
-                    return sellFor;
+                    return {
+                        ...sellFor,
+                        totalPriceRUB: sellFor.priceRUB,
+                        totalPrice: sellFor.price
+                    };
                 }
-
+                const trader = itemData.data.traders.find(t => t.normalizedName === sellFor.vendor.normalizedName);
+                const baseId = item.types.includes('preset') ? item.properties.baseItem.id : false;
                 const totalPrices = item.containsItems.reduce(
                     (previousValue, currentValue) => {
+                        if (baseId === currentValue.item.id) {
+                            // don't double-count the value of the base item
+                            return previousValue;
+                        }
                         const part = allItems.find(innerItem => innerItem.id === currentValue.item.id);
                         const partFromSellFor = part.sellFor.find(innerSellFor => innerSellFor.vendor.normalizedName === sellFor.vendor.normalizedName);
 
                         if (!partFromSellFor) {
+                            const thisPartPriceRUB = Math.floor(part.basePrice * trader.levels[0].payRate);
+                            previousValue.priceRUB += thisPartPriceRUB;
+                            previousValue.price += Math.round(thisPartPriceRUB / currencies[sellFor.currency]);
                             return previousValue;
                         }
 
@@ -549,21 +540,40 @@ const doFetchItems = async () => {
                     {price: sellFor.price, priceRUB: sellFor.priceRUB}
                 );
                 
-                sellFor.price = totalPrices.price;
-                sellFor.priceRUB = totalPrices.priceRUB;
+                //sellFor.price = totalPrices.price;
 
-                return sellFor;
+                return {
+                    ...sellFor,
+                    totalPrice: totalPrices.price,
+                    totalPriceRUB: totalPrices.priceRUB
+                };
             });
         }
 
-        const bestTraderPrice = item.traderPrices
-            .sort((a, b) => {
-                return b.priceRUB - a.priceRUB;
-            })
-            .shift();
+        const traderOnlySellFor = item.sellFor.filter(sellFor => sellFor.vendor.traderNormalizedName !== 'flea-market');
+
+        item.traderPrices = traderOnlySellFor.map(sellFor => {
+            return {
+                price: sellFor.price,
+                totalPrice: sellFor.totalPrice,
+                currency: sellFor.currency,
+                priceRUB: sellFor.priceRUB,
+                totalPriceRUB: sellFor.totalPriceRUB,
+                trader: {
+                    name: sellFor.vendor.name,
+                    normalizedName: sellFor.vendor.normalizedName
+                }
+            }
+        }).sort((a, b) => {
+            return b.totalPriceRUB - a.totalPriceRUB;
+        });
+
+        const bestTraderPrice = item.traderPrices.shift();
 
         item.traderPrice = bestTraderPrice?.price || 0;
+        item.traderTotalPrice = bestTraderPrice?.totalPrice || 0;
         item.traderPriceRUB = bestTraderPrice?.priceRUB || 0;
+        item.traderTotalPriceRUB = bestTraderPrice?.totalPriceRUB || 0;
         item.traderCurrency = bestTraderPrice?.currency || 'RUB';
         item.traderName = bestTraderPrice?.trader.name || '?';
         item.traderNormalizedName = bestTraderPrice?.trader.normalizedName || '?';
