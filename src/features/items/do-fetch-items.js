@@ -548,6 +548,14 @@ const doFetchItems = async () => {
                     totalPriceRUB: totalPrices.priceRUB
                 };
             });
+        } else {
+            item.sellFor = item.sellFor.map((sellFor) => {
+                return {
+                    ...sellFor,
+                    totalPrice: sellFor.price,
+                    totalPriceRUB: sellFor.priceRUB
+                };
+            });
         }
 
         const traderOnlySellFor = item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');

@@ -37,12 +37,14 @@ function getItemCountPrice(item) {
     );
 }
 
-function traderSellCell(datum) {
+function traderSellCell(datum, totalTraderPrice = false) {
     if (!datum.row.original.bestSell?.source || datum.row.original.bestSell.source === '?') {
         return null;
     }
 
     const count = datum.row.original.count;
+    const priceRUB = totalTraderPrice ? datum.row.original.bestSell.totalPriceRUB : datum.row.original.bestSell.priceRUB;
+    const price = totalTraderPrice ? datum.row.original.bestSell.totalPrice : datum.row.original.bestSell.price;
     return (
         <div className="trader-price-content">
             <span>
@@ -59,16 +61,16 @@ function traderSellCell(datum) {
             <span>
                 {datum.row.original.bestSell.currency !== 'RUB' ? (
                     <Tippy
-                        content={formatPrice(datum.row.original.bestSell.priceRUB*count)}
+                        content={formatPrice(priceRUB*count)}
                         placement="bottom"
                     >
                         <div>
-                            {formatPrice(datum.row.original.bestSell.price*count, datum.row.original.bestSell.currency)}
+                            {formatPrice(price*count, datum.row.original.bestSell.currency)}
                         </div>
                     </Tippy>
                 ) : (
                     <div>
-                        {formatPrice(datum.row.original.bestSell.priceRUB*count)}
+                        {formatPrice(priceRUB*count)}
                     </div>
                 )}
                 {getItemCountPrice(datum.row.original)}
@@ -149,7 +151,8 @@ function SmallItemTable(props) {
         showNetPPS,
         showAllSources,
         cheapestPrice,
-        sumColumns
+        sumColumns,
+        totalTraderPrice,
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -356,8 +359,9 @@ function SmallItemTable(props) {
 
                 if (formattedItem.bestSell.length > 1) {
                     formattedItem.bestSell = formattedItem.bestSell.reduce((prev, current) => {
-                        return prev.priceRUB > current.priceRUB ? prev : current;
-                    })
+                        if (prev.priceRUB > current.priceRUB) return prev;
+                        return current;
+                    }, {priceRUB: 0})
                 }
 
                 if (!showAllSources && !settings.hasFlea) {
@@ -658,8 +662,8 @@ function SmallItemTable(props) {
         if (traderValue) {
             useColumns.splice(1, 0, {
                 Header: t('Sell to Trader'),
-                accessor: (d) => Number(d.bestSell?.priceRUB),
-                Cell: traderSellCell,
+                accessor: (d) => Number(totalTraderPrice? d.bestSell?.totalPriceRUB : d.bestSell?.priceRUB),
+                Cell: (datum) => {return traderSellCell(datum, totalTraderPrice)},
                 id: 'traderPrice',
                 summable: true
             });
@@ -868,7 +872,8 @@ function SmallItemTable(props) {
         stats,
         showContainedItems,
         weight,
-        cheapestPrice
+        cheapestPrice,
+        totalTraderPrice,
     ]);
 
     let extraRow = false;
