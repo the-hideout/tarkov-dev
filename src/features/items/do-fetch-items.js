@@ -505,7 +505,7 @@ const doFetchItems = async () => {
     });
 
     for (const item of allItems) {
-        if ((item.types.includes('gun') || item.types.includes('preset')) && item.containsItems?.length > 0) {
+        if (item.types.includes('gun') && item.containsItems?.length > 0) {
             item.sellFor = item.sellFor.map((sellFor) => {
                 if (sellFor.vendor.normalizedName === 'flea-market') {
                     return {
@@ -515,13 +515,8 @@ const doFetchItems = async () => {
                     };
                 }
                 const trader = itemData.data.traders.find(t => t.normalizedName === sellFor.vendor.normalizedName);
-                const baseId = item.types.includes('preset') ? item.properties.baseItem.id : false;
                 const totalPrices = item.containsItems.reduce(
                     (previousValue, currentValue) => {
-                        if (baseId === currentValue.item.id) {
-                            // don't double-count the value of the base item
-                            return previousValue;
-                        }
                         const part = allItems.find(innerItem => innerItem.id === currentValue.item.id);
                         const partFromSellFor = part.sellFor.find(innerSellFor => innerSellFor.vendor.normalizedName === sellFor.vendor.normalizedName);
 
