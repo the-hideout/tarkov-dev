@@ -46,8 +46,12 @@
     gap: 10px;
 }
 
-.single-line-grid {
+.single-line-grid.sell {
     justify-content: flex-start;
+}
+
+.single-line-grid.buy {
+    justify-content: flex-end;
 }
 
 .information-outer-grid {
@@ -126,6 +130,11 @@
 .text-and-image-information-wrapper.best-profit .price-wrapper,
 .best-profit {
     color: #c7c5b3;
+}
+
+.best-profit img {
+    outline: #9a8866 solid 1px;
+    outline-offset: -1px;
 }
 
 .price-wrapper-bright {

@@ -51,7 +51,7 @@ const CraftsTable = React.lazy(() => import('../../components/crafts-table'));
 
 const loadingData = {
     name: 'Loading...',
-    types: [],
+    types: ['loading'],
     iconLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
     sellFor: [
         {
@@ -187,10 +187,11 @@ function Item() {
     let currentItemData = currentItemByNameData;
 
     const itemQuests = useMemo(() => {
+        if (!currentItemData) {
+            return [];
+        }
+        
         return quests.map((questData) => {
-            if (!currentItemData)
-                return false;
-            
             const questDataCopy = {
                 ...questData,
                 neededItems: []
@@ -262,11 +263,12 @@ function Item() {
     }, [currentItemData, quests]);
 
     const questsProviding = useMemo(() => {
+        if (!currentItemData) {
+            return [];
+        }
+
         const rewardTypes = ['startRewards', 'finishRewards'];
         return quests.map(quest => {
-            if (!currentItemData)
-                return false;
-            
             const questDataCopy = {
                 ...quest,
                 rewardItems: []
@@ -497,7 +499,7 @@ function Item() {
                     {currentItemData.sellFor && currentItemData.sellFor.length > 0 && (
                         <div>
                             <h2>{t('Sell for')}</h2>
-                            <div className={'information-grid'}>
+                            <div className={'information-grid single-line-grid sell'}>
                                 {!currentItemData.types.includes('noFlea') && (
                                     <Tippy
                                         placement="bottom"
@@ -610,7 +612,7 @@ function Item() {
                     {currentItemData.buyFor && currentItemData.buyFor.length > 0 && (
                         <div>
                             <h2>{t('Buy for')}</h2>
-                            <div className="information-grid single-line-grid">
+                            <div className="information-grid single-line-grid buy">
                                 {currentItemData.buyFor.map(
                                     (buyPrice, index) => {
                                         const loyaltyLevel = buyPrice.requirements.find((requirement) => requirement.type === 'loyaltyLevel')?.value;
