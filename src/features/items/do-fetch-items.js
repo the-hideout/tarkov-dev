@@ -550,7 +550,7 @@ const doFetchItems = async () => {
             });
         }
 
-        const traderOnlySellFor = item.sellFor.filter(sellFor => sellFor.vendor.traderNormalizedName !== 'flea-market');
+        const traderOnlySellFor = item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
 
         item.traderPrices = traderOnlySellFor.map(sellFor => {
             return {

@@ -359,7 +359,7 @@ function Item() {
 
     const itemFleaFee = fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
 
-    const traderIsBest = currentItemData.traderPriceRUB > currentItemData.lastLowPrice - itemFleaFee;
+    const traderIsBest = currentItemData.traderTotalPriceRUB > currentItemData.lastLowPrice - itemFleaFee;
     const useFleaPrice = currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
     let fleaTooltip;
