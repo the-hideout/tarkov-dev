@@ -67,11 +67,9 @@ function Crafts() {
                         label={t('Ignore settings')}
                         onChange={(e) => setShowAll(!showAll)}
                         tooltipContent={
-                            <div>
-                                {t(
-                                    'Shows all crafts regardless of what you have set in your settings',
-                                )}
-                            </div>
+                            <>
+                                {t('Shows all crafts regardless of what you have set in your settings')}
+                            </>
                         }
                     />
                     <ToggleFilter
@@ -79,11 +77,9 @@ function Crafts() {
                         label={t('Average prices')}
                         onChange={(e) => setAveragePrices(!averagePrices)}
                         tooltipContent={
-                            <div>
-                                {t(
-                                    'Use average prices from the past 24 hours for profit calculations',
-                                )}
-                            </div>
+                            <>
+                                {t('Use average prices from the past 24 hours for profit calculations')}
+                            </>
                         }
                     />
                     <ButtonGroupFilter>
@@ -92,13 +88,9 @@ function Crafts() {
                                 <ButtonGroupFilterButton
                                     key={`station-tooltip-${stationName}`}
                                     tooltipContent={
-                                        <div>
-                                            {t(
-                                                capitalizeTheFirstLetterOfEachWord(
-                                                    stationName.replace('-', ' '),
-                                                ),
-                                            )}
-                                        </div>
+                                        <>
+                                            {t(capitalizeTheFirstLetterOfEachWord(stationName.replace('-', ' ')))}
+                                        </>
                                     }
                                     selected={stationName === selectedStation}
                                     content={
@@ -111,16 +103,15 @@ function Crafts() {
                                     }
                                     onClick={setSelectedStation.bind(
                                         undefined,
-                                        stationName,
-                                    )}
+                                        stationName)}
                                 />
                             );
                         })}
                         <ButtonGroupFilterButton
                             tooltipContent={
-                                <div>
+                                <>
                                     {t('Most profitable craft in each station')}
-                                </div>
+                                </>
                             }
                             selected={selectedStation === 'top'}
                             content={t('Best')}
@@ -132,11 +123,9 @@ function Crafts() {
                         label={t('Empty fuel')}
                         onChange={(e) => setFreeFuel(!freeFuel)}
                         tooltipContent={
-                            <div>
-                                {t(
-                                    'Sets fuel canister cost to 0 for crafts requiring fuel canisters when using non-FIR fuel canisters from generator.',
-                                )}
-                            </div>
+                            <>
+                                {t('Sets fuel canister cost to 0 for crafts requiring fuel canisters when using non-FIR fuel canisters from generator.')}
+                            </>
                         }
                     />
                     <InputFilter

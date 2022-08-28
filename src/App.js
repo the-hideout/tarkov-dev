@@ -253,9 +253,7 @@ function App() {
                                 <title>Tarkov Ammo Chart</title>
                                 <meta
                                     name="description"
-                                    content={t(
-                                        'Visualization of all ammo types in Escape from Tarkov',
-                                    )}
+                                    content={t('Visualization of all ammo types in Escape from Tarkov')}
                                 />
                             </Helmet>
                             <Ammo />
@@ -272,9 +270,7 @@ function App() {
                                 <title>Tarkov Ammo Chart</title>
                                 <meta
                                     name="description"
-                                    content={t(
-                                        'Visualization of all ammo types in Escape from Tarkov',
-                                    )}
+                                    content={t('Visualization of all ammo types in Escape from Tarkov')}
                                 />
                             </Helmet>
                             <Ammo />

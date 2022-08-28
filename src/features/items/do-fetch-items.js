@@ -69,12 +69,12 @@ const doFetchItems = async () => {
                         }
                     }
                     price
+                    currency
                     priceRUB
                     requirements {
                         type
                         value
                     }
-                    currency
                 }
                 buyFor {
                     source
@@ -96,8 +96,8 @@ const doFetchItems = async () => {
                         }
                     }
                     price
-                    priceRUB
                     currency
+                    priceRUB
                     requirements {
                         type
                         value

@@ -43,11 +43,15 @@ import {
 
 dayjs.extend(relativeTime);
 
+const ConditionalWrapper = ({ condition, wrapper, children }) => {
+    return condition ? wrapper(children) : children;
+};
+
 const CraftsTable = React.lazy(() => import('../../components/crafts-table'));
 
 const loadingData = {
     name: 'Loading...',
-    types: [],
+    types: ['loading'],
     iconLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
     sellFor: [
         {
@@ -84,13 +88,15 @@ function Item() {
     const [showAllContainedItemSources, setShowAllContainedItemSources] = useState(false);
     const [showAllHideoutStations, setShowAllHideoutStations] = useState(false);
 
-    const { data: currentItemByNameData, status: itemStatus } =
-        useItemByNameQuery(itemName);
+    // item name may be an id
+    const { data: currentItemByIdData } = useItemByIdQuery(itemName);
+
     // TODO: This function needs to be greatly improved.
     //  it currently only needs to get a single item via its ID but it
     //  queries all items via graphql and then searches for said item.
     //  This is slow and does a lot of extra processing that is not needed
-    const { data: currentItemByIdData } = useItemByIdQuery(itemName);
+    const { data: currentItemByNameData, status: itemStatus } = useItemByNameQuery(itemName);
+
     const { data: meta } = useMetaQuery();
     const dispatch = useDispatch();
     const barters = useSelector(selectAllBarters);
@@ -181,11 +187,16 @@ function Item() {
     let currentItemData = currentItemByNameData;
 
     const itemQuests = useMemo(() => {
+        if (!currentItemData) {
+            return [];
+        }
+        
         return quests.map((questData) => {
             const questDataCopy = {
                 ...questData,
                 neededItems: []
             };
+
             /*questDataCopy.objectives = questDataCopy.objectives.filter(objectiveData => {
                 return objectiveData.item?.id === currentItemData?.id ||
                     objectiveData.containsAll?.some(part => part.id === currentItemData?.id) ||
@@ -198,6 +209,7 @@ function Item() {
                 count: 0,
                 foundInRaid: false
             };
+
             questDataCopy.objectives.forEach((objectiveData) => {
                 if (objectiveData.item?.id === currentItemData?.id && objectiveData.type !== 'findItem') {
                     objectiveInfo.count += objectiveData.count || 1;
@@ -207,26 +219,31 @@ function Item() {
                     objectiveInfo.count++;
                 }
                 objectiveData.containsAll?.forEach(part => {
-                    if (part.id === currentItemData?.id) objectiveInfo.count++;
+                    if (part.id === currentItemData?.id) 
+                        objectiveInfo.count++;
                 });
                 if (objectiveData.usingWeapon?.length === 1) {
                     objectiveData.usingWeapon?.forEach(item => {
-                        if (item.id === currentItemData?.id) objectiveInfo.count = 1;
+                        if (item.id === currentItemData?.id) 
+                            objectiveInfo.count = 1;
                     });
                 }
                 if (objectiveData.usingWeaponMods?.length === 1) {
                     objectiveData.usingWeaponMods[0].forEach(item => {
-                        if (item.id === currentItemData?.id) objectiveInfo.count = 1;
+                        if (item.id === currentItemData?.id) 
+                            objectiveInfo.count = 1;
                     });
                 }
                 if (objectiveData.wearing?.length === 1) {
                     objectiveData.wearing?.forEach(outfit => {
                         outfit.forEach(item => {
-                            if (item.id === currentItemData?.id) objectiveInfo.count = 1;
+                            if (item.id === currentItemData?.id) 
+                                objectiveInfo.count = 1;
                         });
                     });
                 }
             });
+
             questData.neededKeys.forEach(taskKey => {
                 taskKey.keys.forEach(key => {
                     if (key.id === currentItemData?.id) {
@@ -234,19 +251,29 @@ function Item() {
                     }
                 });
             });
-            if (objectiveInfo.count > 0) questDataCopy.neededItems.push(objectiveInfo);
-            if (questDataCopy.neededItems.length > 0) return questDataCopy;
+
+            if (objectiveInfo.count > 0) 
+                questDataCopy.neededItems.push(objectiveInfo);
+            
+            if (questDataCopy.neededItems.length > 0) 
+                return questDataCopy;
+
             return false;
         }).filter(Boolean);
     }, [currentItemData, quests]);
 
     const questsProviding = useMemo(() => {
+        if (!currentItemData) {
+            return [];
+        }
+
         const rewardTypes = ['startRewards', 'finishRewards'];
         return quests.map(quest => {
             const questDataCopy = {
                 ...quest,
                 rewardItems: []
             };
+
             rewardTypes.forEach(rewardType => {
                 const rewardInfo = {
                     iconLink: currentItemData?.iconLink,
@@ -264,15 +291,20 @@ function Item() {
                         }
                     });
                 });
-                if (rewardInfo.count > 0) questDataCopy.rewardItems.push(rewardInfo);
+                if (rewardInfo.count > 0)
+                    questDataCopy.rewardItems.push(rewardInfo);
             });
-            if (questDataCopy.rewardItems.length > 0) return questDataCopy;
+
+            if (questDataCopy.rewardItems.length > 0) 
+                return questDataCopy;
+            
             return false;
         }).filter(Boolean);
     }, [currentItemData, quests]);
 
     currentItemData = useMemo(() => {
-        if (!currentItemData || !currentItemData.bestPrice) return currentItemData;
+        if (!currentItemData || !currentItemData.bestPrice) 
+            return currentItemData;
         return {
             ...currentItemData,
             ...bestPrice(currentItemData, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
@@ -290,35 +322,30 @@ function Item() {
         );
     }
 
-    if (
-        !currentItemData &&
-        (itemStatus === 'idle' || itemStatus === 'loading')
-    ) {
+    // checks for item data loaded
+    if (!currentItemData && (itemStatus === 'idle' || itemStatus === 'loading')) {
         currentItemData = loadingData;
     }
 
-    if (
-        !currentItemData &&
-        (itemStatus === 'success' || itemStatus === 'failed')
-    ) {
+    if (!currentItemData && (itemStatus === 'success' || itemStatus === 'failed')) {
         return <ErrorPage />;
     }
 
     const containsItems = currentItemData?.containsItems?.length > 0;
 
     const hasBarters = barters.some(barter => {
-        return barter.requiredItems.some(contained => contained.item.id === currentItemData.id) ||
-            barter.rewardItems.some(contained => 
-                contained.item.id === currentItemData.id ||
-                    contained.item.containsItems.some(ci => ci.item.id === currentItemData.id)
-            );
+        let requiredItems = barter.requiredItems.some(contained => contained.item.id === currentItemData.id);
+        let rewardItems = barter.rewardItems.some(contained => contained.item.id === currentItemData.id || 
+                                                               contained.item.containsItems.some(ci => ci.item.id === currentItemData.id));
+
+        return requiredItems || rewardItems;
     });
 
     const hasCrafts = crafts.some(craft => {
-        return craft.requiredItems.some(contained => contained.item.id === currentItemData.id) ||
-            craft.rewardItems.some(contained => 
-                contained.item.id === currentItemData.id
-            );
+        let requiredItems = craft.requiredItems.some(contained => contained.item.id === currentItemData.id);
+        let rewardItems = craft.rewardItems.some(contained => contained.item.id === currentItemData.id);
+
+        return requiredItems || rewardItems;
     });
 
     const usedInHideout = hideout?.some(station => station.levels.some(module => module.itemRequirements.some(contained => contained.item.id === currentItemData.id)));
@@ -330,72 +357,50 @@ function Item() {
         };
     }
 
-    const traderIsBest =
-        currentItemData.traderPriceRUB >
-        currentItemData.lastLowPrice -
-            fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate)
-            ? true
-            : false;
-    const useFleaPrice =
-        currentItemData.lastLowPrice <= currentItemData.bestPrice;
+    const itemFleaFee = fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
 
-    let fleaTooltip = (
-        <div>
-            <div className="tooltip-calculation">
-                {t('Likely sell price')}{' '}
-                <div className="tooltip-price-wrapper">
-                    {useFleaPrice
-                        ? formatPrice(currentItemData.lastLowPrice)
-                        : formatPrice(currentItemData.bestPrice)}
-                </div>
-            </div>
-            <div className="tooltip-calculation">
-                {t('Fee')}{' '}
-                <div className="tooltip-price-wrapper">
-                    {useFleaPrice
-                        ? formatPrice(
-                              fleaFee(
-                                    currentItemData.basePrice,
-                                    currentItemData.lastLowPrice,
-                                    1, 
-                                    meta?.flea?.sellOfferFeeRate, 
-                                    meta?.flea?.sellRequirementFeeRate
-                              ),
-                          )
-                        : formatPrice(currentItemData.bestPriceFee)}
-                </div>
-            </div>
-            <div className="tooltip-calculation">
-                {t('Profit')}{' '}
-                <div className="tooltip-price-wrapper">
-                    {useFleaPrice
-                        ? formatPrice(
-                              currentItemData.lastLowPrice -
-                                  fleaFee(
-                                        currentItemData.basePrice,
-                                        currentItemData.lastLowPrice,
-                                        1, 
-                                        meta?.flea?.sellOfferFeeRate, 
-                                        meta?.flea?.sellRequirementFeeRate
-                                  ),
-                          )
-                        : formatPrice(
-                              currentItemData.bestPrice -
-                                  currentItemData.bestPriceFee,
-                          )}
-                </div>
-            </div>
-            <div className="tooltip-calculation">
-                {t('Calculated over the average for the last 24 hours')}
-            </div>
-        </div>
-    );
+    const traderIsBest = currentItemData.traderPriceRUB > currentItemData.lastLowPrice - itemFleaFee;
+    const useFleaPrice = currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
+    let fleaTooltip;
+    
     if (!useFleaPrice && currentItemData.bestPrice) {
         fleaTooltip = (
             <div>
                 <div className="tooltip-calculation">
                     {t('Best price to sell for')}{' '}
+                    <div className="tooltip-price-wrapper">
+                        {formatPrice(currentItemData.bestPrice)}
+                    </div>
+                </div>
+                <div className="tooltip-calculation">
+                    {t('Fee')}{' '}
+                    <div className="tooltip-price-wrapper">
+                        {formatPrice(currentItemData.bestPriceFee)}
+                    </div>
+                </div>
+                <div className="tooltip-calculation">
+                    {t('Profit')}{' '}
+                    <div className="tooltip-price-wrapper">
+                        {formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}
+                    </div>
+                </div>
+                <div className="tooltip-calculation">
+                    {t('Calculated over the average for the last 24 hours')}
+                </div>
+                {t('This item was sold for')}{' '}
+                {formatPrice(currentItemData.avg24hPrice)}{' '}
+                {t('on average in the last 24h on the Flea Market.')}
+                {t(" However, due to how fees are calculated you're better off selling for")}{' '}
+                {formatPrice(currentItemData.bestPrice)}
+            </div>
+        );
+    }
+    else {
+        fleaTooltip = (
+            <div>
+                <div className="tooltip-calculation">
+                    {t('Likely sell price')}{' '}
                     <div className="tooltip-price-wrapper">
                         {useFleaPrice
                             ? formatPrice(currentItemData.lastLowPrice)
@@ -406,15 +411,7 @@ function Item() {
                     {t('Fee')}{' '}
                     <div className="tooltip-price-wrapper">
                         {useFleaPrice
-                            ? formatPrice(
-                                  fleaFee(
-                                        currentItemData.basePrice,
-                                        currentItemData.lastLowPrice,
-                                        1, 
-                                        meta?.flea?.sellOfferFeeRate, 
-                                        meta?.flea?.sellRequirementFeeRate
-                                  ),
-                              )
+                            ? formatPrice(itemFleaFee)
                             : formatPrice(currentItemData.bestPriceFee)}
                     </div>
                 </div>
@@ -422,32 +419,13 @@ function Item() {
                     {t('Profit')}{' '}
                     <div className="tooltip-price-wrapper">
                         {useFleaPrice
-                            ? formatPrice(
-                                  currentItemData.lastLowPrice -
-                                      fleaFee(
-                                            currentItemData.basePrice,
-                                            currentItemData.lastLowPrice,
-                                            1, 
-                                            meta?.flea?.sellOfferFeeRate, 
-                                            meta?.flea?.sellRequirementFeeRate
-                                      ),
-                              )
-                            : formatPrice(
-                                  currentItemData.bestPrice -
-                                      currentItemData.bestPriceFee,
-                              )}
+                            ? formatPrice(currentItemData.lastLowPrice - itemFleaFee)
+                            : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}
                     </div>
                 </div>
                 <div className="tooltip-calculation">
                     {t('Calculated over the average for the last 24 hours')}
                 </div>
-                {t('This item was sold for')}{' '}
-                {formatPrice(currentItemData.avg24hPrice)}{' '}
-                {t('on average in the last 24h on the Flea Market.')}
-                {t(
-                    " However, due to how fees are calculated you're better off selling for",
-                )}{' '}
-                {formatPrice(currentItemData.bestPrice)}
             </div>
         );
     }
@@ -518,279 +496,189 @@ function Item() {
                     </div>
                 </div>
                 <div className="trader-wrapper">
-                    {currentItemData.sellFor &&
-                        currentItemData.sellFor.length > 0 && (
-                            <div>
-                                <h2>{t('Sell for')}</h2>
-                                <div className={'information-grid'}>
-                                    {!currentItemData.types.includes(
-                                        'noFlea',
-                                    ) && (
-                                        <Tippy
-                                            placement="bottom"
-                                            content={fleaTooltip}
-                                        >
-                                            <div
-                                                className={`text-and-image-information-wrapper flea-wrapper ${
-                                                    traderIsBest
-                                                        ? ''
-                                                        : 'best-profit'
-                                                }`}
-                                            >
-                                                <img
-                                                    alt="Flea market"
-                                                    height="86"
-                                                    width="86"
-                                                    src={`${process.env.PUBLIC_URL}/images/flea-market-icon.jpg`}
-                                                    loading="lazy"
-                                                    // title = {`Sell ${currentItemData.name} on the Flea market`}
-                                                />
-                                                <div className="price-wrapper">
-                                                    {!useFleaPrice && (
-                                                        <img
-                                                            alt="Warning"
-                                                            loading="lazy"
-                                                            className="warning-icon"
-                                                            src={warningIcon}
-                                                        />
-                                                    )}
-                                                    <span>
-                                                        {formatPrice(
-                                                            useFleaPrice
-                                                                ? currentItemData.lastLowPrice
-                                                                : currentItemData.bestPrice,
-                                                        )}
-                                                    </span>
-                                                </div>
+                    {currentItemData.sellFor && currentItemData.sellFor.length > 0 && (
+                        <div>
+                            <h2>{t('Sell for')}</h2>
+                            <div className={'information-grid single-line-grid sell'}>
+                                {!currentItemData.types.includes('noFlea') && (
+                                    <Tippy
+                                        placement="bottom"
+                                        content={fleaTooltip}
+                                    >
+                                        <div className={`text-and-image-information-wrapper flea-wrapper ${traderIsBest ? '' : 'best-profit'}`}>
+                                            <img
+                                                alt="Flea market"
+                                                height="86"
+                                                width="86"
+                                                src={`${process.env.PUBLIC_URL}/images/flea-market-icon.jpg`}
+                                                loading="lazy"
+                                                // title = {`Sell ${currentItemData.name} on the Flea market`}
+                                            />
+                                            <div className="price-wrapper">
+                                                {!useFleaPrice && (
+                                                    <img
+                                                        alt="Warning"
+                                                        loading="lazy"
+                                                        className="warning-icon"
+                                                        src={warningIcon}
+                                                    />
+                                                )}
+                                                <span>
+                                                    {formatPrice(useFleaPrice ? currentItemData.lastLowPrice : currentItemData.bestPrice)}
+                                                </span>
                                             </div>
-                                        </Tippy>
-                                    )}
-                                    {currentItemData.traderName &&
-                                        currentItemData.traderPrice !== 0 && (
-                                            <div
-                                                className={`text-and-image-information-wrapper ${
-                                                    traderIsBest
-                                                        ? 'best-profit'
-                                                        : ''
-                                                } first-trader-price`}
+                                        </div>
+                                    </Tippy>
+                                )}
+                                {currentItemData.traderName && currentItemData.traderPrice !== 0 && (
+                                    <div className={`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''} first-trader-price`}>
+                                        <Link
+                                            to={`/traders/${currentItemData.traderNormalizedName}`}
+                                        >
+                                            <img
+                                                alt={currentItemData.traderName}
+                                                height="86"
+                                                width="86"
+                                                loading="lazy"
+                                                src={`${process.env.PUBLIC_URL}/images/${currentItemData.traderNormalizedName}-icon.jpg`}
+                                                // title = {`Sell ${currentItemData.name} on the Flea market`}
+                                            />
+                                        </Link>
+                                        <div className="price-wrapper">
+                                            <ConditionalWrapper
+                                                condition={currentItemData.traderCurrency !== 'RUB'}
+                                                wrapper={(children) => 
+                                                    <Tippy
+                                                        content={formatPrice(currentItemData.traderPriceRUB)}
+                                                        placement="bottom"
+                                                    >
+                                                        <div>{children}</div>
+                                                    </Tippy>
+                                                }
                                             >
-                                                <Link
-                                                    to={`/traders/${currentItemData.traderNormalizedName}`}
+                                                {formatPrice(currentItemData.traderPrice, currentItemData.traderCurrency)}
+                                            </ConditionalWrapper>
+                                        </div>
+                                    </div>
+                                )}
+                                {currentItemData.traderPrices && currentItemData.traderPrices.map(
+                                    (traderPrice, traderPriceIndex) => {
+                                        const traderName = traderPrice.trader.normalizedName;
+
+                                        return (
+                                            <div
+                                                className={`text-and-image-information-wrapper`}
+                                                key={`${currentItemData.id}-trader-price-${traderName}-${traderPriceIndex}`}
+                                            >
+                                                <ConditionalWrapper
+                                                    condition={traderName !== 'fence'}
+                                                    wrapper={(children) => 
+                                                        <Link to={`/traders/${traderName}`}>
+                                                            {children}
+                                                        </Link>
+                                                    }
                                                 >
                                                     <img
-                                                        alt={
-                                                            currentItemData.traderName
-                                                        }
+                                                        alt={traderPrice.trader.name}
                                                         height="86"
-                                                        width="86"
                                                         loading="lazy"
-                                                        src={`${
-                                                            process.env
-                                                                .PUBLIC_URL
-                                                        }/images/${currentItemData.traderNormalizedName}-icon.jpg`}
+                                                        width="86"
+                                                        src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
                                                         // title = {`Sell ${currentItemData.name} on the Flea market`}
                                                     />
-                                                </Link>
+                                                </ConditionalWrapper>
                                                 <div className="price-wrapper">
-                                                    {currentItemData.traderCurrency !== 'RUB' ? (
-                                                        <Tippy
-                                                            content={formatPrice(
-                                                                currentItemData.traderPriceRUB,
-                                                            )}
-                                                            placement="bottom"
-                                                        >
-                                                            <div>
-                                                                {formatPrice(
-                                                                    currentItemData.traderPrice,
-                                                                    currentItemData.traderCurrency,
-                                                                )}
-                                                            </div>
-                                                        </Tippy>
-                                                    ) : (
-                                                        formatPrice(
-                                                            currentItemData.traderPrice,
-                                                        )
-                                                    )}
+                                                    <ConditionalWrapper
+                                                        condition={traderPrice.currency !== 'RUB'}
+                                                        wrapper={(children) => 
+                                                            <Tippy
+                                                                content={formatPrice(traderPrice.priceRUB)}
+                                                                placement="bottom"
+                                                            >
+                                                                <div>{children}</div>
+                                                            </Tippy>
+                                                        }
+                                                    >
+                                                        {formatPrice(traderPrice.price, traderPrice.currency)}
+                                                    </ConditionalWrapper>
                                                 </div>
                                             </div>
-                                        )}
-                                    {currentItemData.traderPrices &&
-                                        currentItemData.traderPrices.map(
-                                            (traderPrice, traderPriceIndex) => {
-                                                const traderName =
-                                                    traderPrice.trader.normalizedName.toLowerCase();
-
-                                                return (
-                                                    <div
-                                                        className={`text-and-image-information-wrapper`}
-                                                        key={`${currentItemData.id}-trader-price-${traderName}-${traderPriceIndex}`}
-                                                    >
-                                                        {traderName !==
-                                                            'fence' && (
-                                                            <Link
-                                                                to={`/traders/${traderName}`}
-                                                            >
-                                                                <img
-                                                                    alt={
-                                                                        traderName
-                                                                    }
-                                                                    height="86"
-                                                                    loading="lazy"
-                                                                    width="86"
-                                                                    src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
-                                                                    // title = {`Sell ${currentItemData.name} on the Flea market`}
-                                                                />
-                                                            </Link>
-                                                        )}
-                                                        {traderName ===
-                                                            'fence' && (
-                                                            <img
-                                                                alt={traderName}
-                                                                height="86"
-                                                                loading="lazy"
-                                                                width="86"
-                                                                src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
-                                                                // title = {`Sell ${currentItemData.name} on the Flea market`}
-                                                            />
-                                                        )}
-                                                        <div className="price-wrapper">
-                                                            {traderPrice.currency !== 'RUB' ? (
-                                                                <Tippy
-                                                                    content={formatPrice(
-                                                                        traderPrice.priceRUB,
-                                                                    )}
-                                                                    placement="bottom"
-                                                                >
-                                                                    <div>
-                                                                        {formatPrice(
-                                                                            traderPrice.price,
-                                                                            traderPrice.currency,
-                                                                        )}
-                                                                    </div>
-                                                                </Tippy>
-                                                            ) : (
-                                                                formatPrice(
-                                                                    traderPrice.price,
-                                                                )
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                );
-                                            },
-                                        )}
-                                </div>
+                                        );
+                                    }
+                                )}
                             </div>
-                        )}
-                    {currentItemData.buyFor &&
-                        currentItemData.buyFor.length > 0 && (
-                            <div>
-                                <h2>{t('Buy for')}</h2>
-                                <div className="information-grid single-line-grid">
-                                    {currentItemData.buyFor.map(
-                                        (buyPrice, index) => {
-                                            const loyaltyLevel =
-                                                buyPrice.requirements.find(
-                                                    (requirement) =>
-                                                        requirement.type ===
-                                                        'loyaltyLevel',
-                                                )?.value;
-                                            return (
-                                                <div
-                                                    className={`text-and-image-information-wrapper`}
-                                                    key={`${currentItemData.id}-trader-price-${buyPrice.source}-${index}`}
-                                                >
-                                                    <div className="source-wrapper">
-                                                        {buyPrice.source !==
-                                                            'flea-market' && (
-                                                            <LoyaltyLevelIcon
-                                                                loyaltyLevel={
-                                                                    loyaltyLevel
-                                                                }
-                                                            />
-                                                        )}
-                                                        {buyPrice?.vendor?.taskUnlock && (
-                                                            <Tippy
-                                                                content={
-                                                                    t('Quest: ')+buyPrice.vendor.taskUnlock.name
-                                                                }
-                                                            >
-                                                                <div className="quest-icon-wrapper">
-                                                                    <Icon
-                                                                        path={
-                                                                            mdiLock
-                                                                        }
-                                                                        size={1}
-                                                                        className="icon-with-text"
-                                                                    />
-                                                                </div>
-                                                            </Tippy>
-                                                        )}
-                                                        {buyPrice.source !==
-                                                            'flea-market' && (
-                                                            <Link
-                                                                to={`/traders/${buyPrice.source.toLowerCase()}`}
-                                                            >
-                                                                <img
-                                                                    alt={
-                                                                        buyPrice
-                                                                            .requirements
-                                                                            .source
-                                                                    }
-                                                                    height="86"
-                                                                    loading="lazy"
-                                                                    width="86"
-                                                                    src={`${
-                                                                        process
-                                                                            .env
-                                                                            .PUBLIC_URL
-                                                                    }/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
-                                                                />
-                                                            </Link>
-                                                        )}
-                                                        {buyPrice.source ===
-                                                            'flea-market' && (
-                                                            <img
-                                                                alt={
-                                                                    buyPrice
-                                                                        .requirements
-                                                                        .source
-                                                                }
-                                                                height="86"
-                                                                loading="lazy"
-                                                                width="86"
-                                                                src={`${
-                                                                    process.env
-                                                                        .PUBLIC_URL
-                                                                }/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
-                                                            />
-                                                        )}
-                                                    </div>
-                                                    <div
-                                                        className={`price-wrapper ${
-                                                            index === 0
-                                                                ? 'best-profit'
-                                                                : ''
-                                                        }`}
-                                                    >
-                                                        <TraderPrice
-                                                            currency={
-                                                                buyPrice.currency
-                                                            }
-                                                            price={
-                                                                buyPrice.price
-                                                            }
-                                                            priceRUB={
-                                                                buyPrice.priceRUB
+                        </div>
+                    )}
+                    {currentItemData.buyFor && currentItemData.buyFor.length > 0 && (
+                        <div>
+                            <h2>{t('Buy for')}</h2>
+                            <div className="information-grid single-line-grid buy">
+                                {currentItemData.buyFor.map(
+                                    (buyPrice, index) => {
+                                        const loyaltyLevel = buyPrice.requirements.find((requirement) => requirement.type === 'loyaltyLevel')?.value;
+                                        return (
+                                            <div
+                                                className={`text-and-image-information-wrapper`}
+                                                key={`${currentItemData.id}-trader-price-${buyPrice.source}-${index}`}
+                                            >
+                                                <div className="source-wrapper">
+                                                    {buyPrice.source !== 'flea-market' && (
+                                                        <LoyaltyLevelIcon
+                                                            loyaltyLevel={
+                                                                loyaltyLevel
                                                             }
                                                         />
-                                                    </div>
+                                                    )}
+                                                    {buyPrice?.vendor?.taskUnlock && (
+                                                        <Tippy
+                                                            content={t('Quest: ')+buyPrice.vendor.taskUnlock.name}
+                                                        >
+                                                            <div className="quest-icon-wrapper">
+                                                                <Icon
+                                                                    path={mdiLock}
+                                                                    size={1}
+                                                                    className="icon-with-text"
+                                                                />
+                                                            </div>
+                                                        </Tippy>
+                                                    )}
+                                                    <ConditionalWrapper
+                                                        condition={buyPrice.source !== 'flea-market'}
+                                                        wrapper={(children) => 
+                                                            <Link to={`/traders/${buyPrice.source.toLowerCase()}`}>
+                                                                {children}
+                                                            </Link>
+                                                        }
+                                                    >
+                                                        <img
+                                                            alt={buyPrice.requirements.source}
+                                                            height="86"
+                                                            loading="lazy"
+                                                            width="86"
+                                                            src={`${process.env.PUBLIC_URL}/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
+                                                        />
+                                                    </ConditionalWrapper>
                                                 </div>
-                                            );
-                                        },
-                                    )}
-                                </div>
+                                                <div className={`price-wrapper ${ index === 0 ? 'best-profit': ''}`}>
+                                                    <TraderPrice
+                                                        currency={
+                                                            buyPrice.currency
+                                                        }
+                                                        price={
+                                                            buyPrice.price
+                                                        }
+                                                        priceRUB={
+                                                            buyPrice.priceRUB
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+                                        );
+                                    },
+                                )}
                             </div>
-                        )}
+                        </div>
+                    )}
                 </div>
                 {!currentItemData.types.includes('noFlea') && (
                     <div>
@@ -800,62 +688,50 @@ function Item() {
                             itemChange24={currentItemData.changeLast48h}
                         />
                         <br />
-                        <div
-                            className={`text-and-image-information-wrapper price-info-wrapper`}
-                        >
+                        <div className={`text-and-image-information-wrapper price-info-wrapper`}>
                             <div className="price-wrapper price-wrapper-bright">
                                 <div>
-                                    {t('Change vs yesterday')}
-                                    {': '}
-                                    {currentItemData.changeLast48h} ₽
-                                    {' / '}
-                                    {currentItemData.changeLast48hPercent} %
+                                    {t('Change vs yesterday')}: {currentItemData.changeLast48h} ₽ / {currentItemData.changeLast48hPercent} %
                                 </div>
                                 <div>
-                                    {t('Lowest scanned price last 24h')}
-                                    {': '}
-                                    {formatPrice(currentItemData.low24hPrice)}
+                                    {t('Lowest scanned price last 24h')}: {formatPrice(currentItemData.low24hPrice)}
                                 </div>
                                 <div>
-                                    {t('Highest scanned price last 24h')}
-                                    {': '}
-                                    {formatPrice(currentItemData.high24hPrice)}
+                                    {t('Highest scanned price last 24h')}: {formatPrice(currentItemData.high24hPrice)}
                                 </div>
-                                <div
-                                    title={dayjs(currentItemData.updated,).format('YYYY-MM-DD HH:mm:ss')}
-                                >
-                                    {t('Updated')}
-                                    {': '}
-                                    {dayjs(currentItemData.updated).fromNow()}
+                                <div title={dayjs(currentItemData.updated,).format('YYYY-MM-DD HH:mm:ss')}>
+                                    {t('Updated')}: {dayjs(currentItemData.updated).fromNow()}
                                 </div>
                             </div>
                         </div>
                     </div>
                 )}
-                <h2 className='item-h2'>{t('Stats')}</h2>
-                <PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} />
+                <div>
+                    <h2 className='item-h2'>
+                        {t('Stats')}
+                    </h2>
+                    <PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} />
+                </div>
                 {containsItems && (
-                    <>
+                    <div>
                         <div className="item-contents-headline-wrapper">
-                        <h2>
-                            {t('Items contained in')} {currentItemData.name}
-                        </h2>
-                        <Filter>
-                            <ToggleFilter
-                                checked={showAllContainedItemSources}
-                                label={t('Ignore settings')}
-                                onChange={(e) =>
-                                    setShowAllContainedItemSources(!showAllContainedItemSources)
-                                }
-                                tooltipContent={
-                                    <>
-                                        {t(
-                                            'Shows all sources of items regardless of what you have set in your settings',
-                                        )}
-                                    </>
-                                }
-                            />
-                        </Filter>
+                            <h2>
+                                {t('Items contained in')} {currentItemData.name}
+                            </h2>
+                            <Filter>
+                                <ToggleFilter
+                                    checked={showAllContainedItemSources}
+                                    label={t('Ignore settings')}
+                                    onChange={(e) =>
+                                        setShowAllContainedItemSources(!showAllContainedItemSources)
+                                    }
+                                    tooltipContent={
+                                        <>
+                                            {t('Shows all sources of items regardless of what you have set in your settings')}
+                                        </>
+                                    }
+                                />
+                            </Filter>
                         </div>
                         <Suspense fallback={<>{t('Loading...')}</>}>
                             <SmallItemTable
@@ -869,7 +745,7 @@ function Item() {
                                 showAllSources={showAllContainedItemSources}
                             />
                         </Suspense>
-                    </>
+                    </div>
                 )}
                 {hasBarters && (
                     <div>
@@ -886,18 +762,18 @@ function Item() {
                                     }
                                     tooltipContent={
                                         <>
-                                            {t(
-                                                'Shows all crafts regardless of what you have set in your settings',
-                                            )}
+                                            {t('Shows all crafts regardless of what you have set in your settings')}
                                         </>
                                     }
                                 />
                             </Filter>
                         </div>
-                        <BartersTable
-                            itemFilter={currentItemData.id}
-                            showAll={showAllBarters}
-                        />
+                        <Suspense fallback={<div>{t('Loading...')}</div>}>
+                            <BartersTable
+                                itemFilter={currentItemData.id}
+                                showAll={showAllBarters}
+                            />
+                        </Suspense>
                     </div>
                 )}
                 {hasCrafts && (
@@ -914,11 +790,9 @@ function Item() {
                                         setShowAllCrafts(!showAllCrafts)
                                     }
                                     tooltipContent={
-                                        <div>
-                                            {t(
-                                                'Shows all crafts regardless of what you have set in your settings',
-                                            )}
-                                        </div>
+                                        <>
+                                            {t('Shows all crafts regardless of what you have set in your settings')}
+                                        </>
                                     }
                                 />
                             </Filter>
@@ -945,11 +819,9 @@ function Item() {
                                         setShowAllHideoutStations(!showAllHideoutStations)
                                     }
                                     tooltipContent={
-                                        <div>
-                                            {t(
-                                                'Shows all modules regardless of what you have set in your settings',
-                                            )}
-                                        </div>
+                                        <>
+                                            {t('Shows all modules regardless of what you have set in your settings')}
+                                        </>
                                     }
                                 />
                             </Filter>

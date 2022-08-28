@@ -48,16 +48,16 @@ const getQuestList = (questList, t, showAll, settings) => {
                                                 alt={questData.trader.name}
                                                 loading="lazy"
                                                 className="quest-giver-image"
-                                                src={`${
-                                                    process.env.PUBLIC_URL
-                                                }/images/${questData.trader.normalizedName}-icon.jpg`}
+                                                src={`${process.env.PUBLIC_URL}/images/${questData.trader.normalizedName}-icon.jpg`}
                                             />
                                         </Link>
                                         <a
                                             className="quest-name-wrapper"
                                             href={`https://tarkovtracker.io/quest/${questData.tarkovDataId}/`}
                                         >
-                                            <div>{questData.name + (questData.factionName !== 'Any' ? ` (${questData.factionName})` : '') }</div>
+                                            <div>
+                                                {questData.name} {questData.factionName !== 'Any' ? questData.factionName : ''}
+                                            </div>
                                         </a>
                                     </div>
                                 </td>
@@ -80,8 +80,9 @@ function QuestsList(props) {
     const { t } = useTranslation();
     const [showAllQuests, setShowAllQuests] = useState(false);
     const settings = useSelector((state) => state.settings);
-    let title = t('Quests Requiring');
-    if (itemQuests.length > 0 && itemQuests[0].rewardItems) title = t('Quests Providing');
+
+    let title = (itemQuests.length > 0 && itemQuests[0].rewardItems) ? t('Quests Providing') : t('Quests Requiring');
+
     let toggleFilter = '';
     if (settings.completedQuests?.length > 0) toggleFilter = (
         <Filter>
@@ -92,11 +93,9 @@ function QuestsList(props) {
                     setShowAllQuests(!showAllQuests)
                 }
                 tooltipContent={
-                    <div>
-                        {t(
-                            'Shows all quests regardless of if you\'ve completed them',
-                        )}
-                    </div>
+                    <>
+                        {t('Shows all quests regardless of if you\'ve completed them')}
+                    </>
                 }
             />
         </Filter>
