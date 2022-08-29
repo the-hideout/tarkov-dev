@@ -29,14 +29,13 @@ function TraderPriceCell(props) {
     }
 
     const trader = props.row.original.buyFor
-        ?.map((buyFor) => {
-            if (buyFor.source === 'flea-market') {
-                return false;
+        ?.reduce((previous, current) => {
+            if (current.vendor.normalizedName === 'flea-market') {
+                return previous;
             }
-
-            return buyFor;
-        })
-        .filter(Boolean)[0];
+            if (!previous || current.priceRUB < previous.priceRUB) return current;
+            return previous;
+        }, false);
 
     if (!trader) {
         return null;
