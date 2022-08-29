@@ -505,7 +505,7 @@ function Item() {
                                         placement="bottom"
                                         content={fleaTooltip}
                                     >
-                                        <div className={`text-and-image-information-wrapper flea-wrapper ${traderIsBest ? '' : 'best-profit'}`}>
+                                        <div className={`text-and-image-information-wrapper ${traderIsBest ? '' : 'best-profit'}`}>
                                             <img
                                                 alt="Flea market"
                                                 height="86"
@@ -523,9 +523,7 @@ function Item() {
                                                         src={warningIcon}
                                                     />
                                                 )}
-                                                <span>
-                                                    {formatPrice(useFleaPrice ? currentItemData.lastLowPrice : currentItemData.bestPrice)}
-                                                </span>
+                                                {formatPrice(useFleaPrice ? currentItemData.lastLowPrice : currentItemData.bestPrice)}
                                             </div>
                                         </div>
                                     </Tippy>
@@ -683,10 +681,14 @@ function Item() {
                 {!currentItemData.types.includes('noFlea') && (
                     <div>
                         <h2>{t('Flea price last 7 days')}</h2>
-                        <PriceGraph
-                            itemId={currentItemData.id}
-                            itemChange24={currentItemData.changeLast48h}
-                        />
+                        {currentItemData.id && (
+                            <Suspense fallback={<>{t('Loading...')}</>}>
+                                <PriceGraph
+                                    itemId={currentItemData.id}
+                                    itemChange24={currentItemData.changeLast48h}
+                                />
+                            </Suspense>
+                        )}
                         <br />
                         <div className={`text-and-image-information-wrapper price-info-wrapper`}>
                             <div className="price-wrapper price-wrapper-bright">
@@ -718,20 +720,18 @@ function Item() {
                             <h2>
                                 {t('Items contained in')} {currentItemData.name}
                             </h2>
-                            <Filter>
-                                <ToggleFilter
-                                    checked={showAllContainedItemSources}
-                                    label={t('Ignore settings')}
-                                    onChange={(e) =>
-                                        setShowAllContainedItemSources(!showAllContainedItemSources)
-                                    }
-                                    tooltipContent={
-                                        <>
-                                            {t('Shows all sources of items regardless of what you have set in your settings')}
-                                        </>
-                                    }
-                                />
-                            </Filter>
+                            <ToggleFilter
+                                checked={showAllContainedItemSources}
+                                label={t('Ignore settings')}
+                                onChange={(e) =>
+                                    setShowAllContainedItemSources(!showAllContainedItemSources)
+                                }
+                                tooltipContent={
+                                    <>
+                                        {t('Shows all sources of items regardless of what you have set in your settings')}
+                                    </>
+                                }
+                            />
                         </div>
                         <Suspense fallback={<>{t('Loading...')}</>}>
                             <SmallItemTable
@@ -753,20 +753,18 @@ function Item() {
                             <h2>
                                 {t('Barters with')} {currentItemData.name}
                             </h2>
-                            <Filter>
-                                <ToggleFilter
-                                    checked={showAllBarters}
-                                    label={t('Ignore settings')}
-                                    onChange={(e) =>
-                                        setShowAllBarters(!showAllBarters)
-                                    }
-                                    tooltipContent={
-                                        <>
-                                            {t('Shows all crafts regardless of what you have set in your settings')}
-                                        </>
-                                    }
-                                />
-                            </Filter>
+                            <ToggleFilter
+                                checked={showAllBarters}
+                                label={t('Ignore settings')}
+                                onChange={(e) =>
+                                    setShowAllBarters(!showAllBarters)
+                                }
+                                tooltipContent={
+                                    <>
+                                        {t('Shows all crafts regardless of what you have set in your settings')}
+                                    </>
+                                }
+                            />
                         </div>
                         <Suspense fallback={<div>{t('Loading...')}</div>}>
                             <BartersTable
@@ -782,20 +780,18 @@ function Item() {
                             <h2>
                                 {t('Crafts with')} {currentItemData.name}
                             </h2>
-                            <Filter>
-                                <ToggleFilter
-                                    checked={showAllCrafts}
-                                    label={t('Ignore settings')}
-                                    onChange={(e) =>
-                                        setShowAllCrafts(!showAllCrafts)
-                                    }
-                                    tooltipContent={
-                                        <>
-                                            {t('Shows all crafts regardless of what you have set in your settings')}
-                                        </>
-                                    }
-                                />
-                            </Filter>
+                            <ToggleFilter
+                                checked={showAllCrafts}
+                                label={t('Ignore settings')}
+                                onChange={(e) =>
+                                    setShowAllCrafts(!showAllCrafts)
+                                }
+                                tooltipContent={
+                                    <>
+                                        {t('Shows all crafts regardless of what you have set in your settings')}
+                                    </>
+                                }
+                            />
                         </div>
                         <Suspense fallback={<div>{t('Loading...')}</div>}>
                             <CraftsTable
@@ -811,20 +807,18 @@ function Item() {
                             <h2>
                                 {t('Hideout modules needing')} {currentItemData.name}
                             </h2>
-                            <Filter>
-                                <ToggleFilter
-                                    checked={showAllHideoutStations}
-                                    label={t('Show built')}
-                                    onChange={(e) =>
-                                        setShowAllHideoutStations(!showAllHideoutStations)
-                                    }
-                                    tooltipContent={
-                                        <>
-                                            {t('Shows all modules regardless of what you have set in your settings')}
-                                        </>
-                                    }
-                                />
-                            </Filter>
+                            <ToggleFilter
+                                checked={showAllHideoutStations}
+                                label={t('Show built')}
+                                onChange={(e) =>
+                                    setShowAllHideoutStations(!showAllHideoutStations)
+                                }
+                                tooltipContent={
+                                    <>
+                                        {t('Shows all modules regardless of what you have set in your settings')}
+                                    </>
+                                }
+                            />
                         </div>
                         <Suspense fallback={<div>{t('Loading...')}</div>}>
                             <ItemsForHideout itemFilter={currentItemData.id} showAll={showAllHideoutStations} />

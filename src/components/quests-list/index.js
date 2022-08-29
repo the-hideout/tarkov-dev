@@ -85,20 +85,18 @@ function QuestsList(props) {
 
     let toggleFilter = '';
     if (settings.completedQuests?.length > 0) toggleFilter = (
-        <Filter>
-            <ToggleFilter
-                checked={showAllQuests}
-                label={t('Show completed')}
-                onChange={(e) =>
-                    setShowAllQuests(!showAllQuests)
-                }
-                tooltipContent={
-                    <>
-                        {t('Shows all quests regardless of if you\'ve completed them')}
-                    </>
-                }
-            />
-        </Filter>
+        <ToggleFilter
+            checked={showAllQuests}
+            label={t('Show completed')}
+            onChange={(e) =>
+                setShowAllQuests(!showAllQuests)
+            }
+            tooltipContent={
+                <>
+                    {t('Shows all quests regardless of if you\'ve completed them')}
+                </>
+            }
+        />
     );
     return (
         <div>
