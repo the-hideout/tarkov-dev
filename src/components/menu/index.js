@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
@@ -13,24 +14,15 @@ import {
 import MenuItem from './MenuItem';
 // import PatreonButton from '../patreon-button';
 import UkraineButton from '../ukraine-button';
+import LoadingSmall from '../loading-small';
+import { BossListNav } from '../boss-list';
 
 import { caliberMap } from '../../modules/format-ammo';
 import rawMapData from '../../data/maps.json';
 import itemsData from '../../data/category-pages.json';
 
-import { BossListNav } from '../../components/boss-list';
 
 import './index.css';
-import { Suspense } from 'react';
-
-// Comment / uncomment for banner alert
-// import MuiAlert from '@material-ui/lab/Alert';
-// function Alert(props) {
-//     return <MuiAlert elevation={6} variant="filled" {...props} />;
-// }
-// End of banner alert toggle
-
-const renderLoader = () => <p>Loading...</p>;
 
 const ammoTypes = Object.values(caliberMap).sort();
 
@@ -216,7 +208,7 @@ const Menu = () => {
                     </li>
                     <li className="submenu-wrapper" key="menu-bosses">
                         <Link to="/bosses/">{t('Bosses')}</Link>
-                        <Suspense fallback={renderLoader()}>
+                        <Suspense fallback={<LoadingSmall />}>
                             <BossListNav onClick={setIsOpen.bind(this, false)} />
                         </Suspense>
                     </li>

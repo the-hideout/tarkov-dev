@@ -24,22 +24,23 @@ import PriceGraph from '../../components/price-graph';
 import ItemSearch from '../../components/item-search';
 import { ToggleFilter } from '../../components/filter';
 import ContainedItemsList from '../../components/contained-items-list';
+import LoadingSmall from '../../components/loading-small';
 
 import { useMetaQuery } from '../../features/meta/queries';
 import { selectAllBarters, fetchBarters, } from '../../features/barters/bartersSlice';
 import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
 import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
+import {
+    useItemByNameQuery,
+    useItemByIdQuery,
+} from '../../features/items/queries';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
 import bestPrice from '../../modules/best-price';
 
 import './index.css';
-import {
-    useItemByNameQuery,
-    useItemByIdQuery,
-} from '../../features/items/queries';
 
 dayjs.extend(relativeTime);
 
@@ -71,6 +72,7 @@ function Item() {
         name: t('Loading...'),
         types: ['loading'],
         iconLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+        gridImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
         sellFor: [
             {
                 source: 'fleaMarket',
@@ -450,7 +452,10 @@ function Item() {
                     <div className="item-information-wrapper">
                         <h1>
                             <div className={'item-font'}>
-                                {currentItemData.name}
+                                {!currentItemData.types.includes('loading')
+                                    ? (currentItemData.name)
+                                    : (<LoadingSmall />)
+                                }
                             </div>
                             <img
                                 alt={currentItemData.name}
@@ -710,7 +715,7 @@ function Item() {
                     </h2>
                     {hasProperties
                         ? (<PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} />)
-                        : (<>{t('Loading...')}</>)
+                        : (<LoadingSmall />)
                     }
                 </div>
                 {containsItems && (

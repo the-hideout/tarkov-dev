@@ -1,8 +1,10 @@
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
+
 import doFetchBosses from '../../features/bosses/do-fetch-bosses';
 import formatBossData from '../../modules/format-boss-data';
-import { Link } from 'react-router-dom';
 import MenuItem from '../menu/MenuItem';
+import LoadingSmall from '../loading-small';
 
 import './index.css';
 
@@ -26,7 +28,7 @@ export function BossPageList() {
 
     // If no bosses have been returned yet, return 'loading'
     if (!bosses || bosses.length === 0) {
-        return 'Loading...';
+        return <LoadingSmall />;
     }
 
     // Format the boss data
@@ -97,7 +99,7 @@ function BossList() {
 
     // If no bosses have been returned yet, return 'loading'
     if (!bosses || bosses.length === 0) {
-        return 'Loading...';
+        return <LoadingSmall />;
     }
 
     // Format the boss data

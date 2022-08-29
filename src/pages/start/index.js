@@ -5,8 +5,12 @@ import { useTranslation } from 'react-i18next';
 import React, { lazy, Suspense } from 'react';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
+
 import rawMapData from '../../data/maps.json';
+import categoryPages from '../../data/category-pages.json';
+
 import ItemIconList from '../../components/item-icon-list';
+import LoadingSmall from '../../components/loading-small';
 
 import Icon from '@mdi/react';
 import {
@@ -25,8 +29,6 @@ import {
 } from '@mdi/js';
 
 import './index.css';
-
-import categoryPages from '../../data/category-pages.json';
 
 const DISCORD_STASH_INVITE_LINK = 'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'
 
@@ -76,14 +78,14 @@ function Start() {
             key={'display-wrapper-start-page'}
         >
             <div className="start-section-wrapper item-section" key={'item-section-div'}>
-                <Suspense fallback={<div>{t('Loading...')}</div>} key={'item-search'}>
+                <Suspense fallback={<LoadingSmall />} key={'item-search'}>
                     <ItemSearch
                         onChange={handleNameFilterChange}
                         autoFocus={true}
                         key={'item-search-box'}
                     />
                 </Suspense>
-                <Suspense fallback={<div>{t('Loading...')}</div>}>
+                <Suspense fallback={<LoadingSmall />}>
                     <SmallItemTable
                         maxItems={20}
                         nameFilter={nameFilter}
@@ -104,7 +106,7 @@ function Start() {
                 </Suspense>
             </div>
             <div className="start-section-wrapper" key={'server-status-div'}>
-                <Suspense fallback={<div>{t('Loading...')}</div>} key={'server-status'}>
+                <Suspense fallback={<LoadingSmall />} key={'server-status'}>
                     <ServerStatus key={"server-status"} />
                 </Suspense>
                 <h3>
@@ -336,7 +338,7 @@ function Start() {
                     </Link>
                 </h3>
                 <ul className="traders-list">
-                    <Suspense fallback={<div>{t('Loading...')}</div>}>
+                    <Suspense fallback={<LoadingSmall />}>
                         <BossList />
                     </Suspense>
                 </ul>

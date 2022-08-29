@@ -7,6 +7,8 @@ import { mdiAccountGroup } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 
 import TraderResetTime from '../../components/trader-reset-time';
+import LoadingSmall from '../../components/loading-small';
+
 import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
 
 import './index.css';
@@ -100,7 +102,7 @@ const showLoadingPage = (t) => {
                 {t('Traders')}
             </h1>
             <div className="traders-list-wrapper">
-                Loading...
+                <LoadingSmall />
             </div>
 
             <div className="page-wrapper trader-page-wrapper">

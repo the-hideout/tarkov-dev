@@ -12,19 +12,21 @@ import CenterCell from '../center-cell';
 import ItemNameCell from '../item-name-cell';
 import FleaPriceCell from '../flea-price-cell';
 import BarterToolTip from '../barter-tooltip';
-
 import DataTable from '../data-table';
+import LoadingSmall from '../loading-small';
+
 import formatPrice from '../../modules/format-price';
 import itemSearch from '../../modules/item-search';
+import { getCheapestBarter } from '../../modules/format-cost-items';
+
 import {
     selectAllBarters,
     fetchBarters,
 } from '../../features/barters/bartersSlice';
-import { getCheapestBarter } from '../../modules/format-cost-items';
-
-import './index.css';
 import { useItemsQuery } from '../../features/items/queries';
 import { useMetaQuery } from '../../features/meta/queries';
+
+import './index.css';
 
 function getItemCountPrice(item) {
     if (item.count < 2) return '';
@@ -882,7 +884,7 @@ function SmallItemTable(props) {
     if (data.length <= 0) {
         // If the API query has not yet completed
         if (result.isFetched === false) {
-            extraRow = t('Loading...');
+            extraRow = <LoadingSmall />;
             // If the API query has completed, but no items were found
         } else {
             extraRow = t('No items');
