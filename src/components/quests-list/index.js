@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { Filter, ToggleFilter } from '../../components/filter';
+import { ToggleFilter } from '../../components/filter';
 import QuestItemsCell from '../quest-items-cell';
 import './index.css';
 
