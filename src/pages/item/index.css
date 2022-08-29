@@ -40,22 +40,9 @@
 }
 
 .information-grid {
-    justify-content: space-between;
     display: flex;
     flex-flow: wrap;
     gap: 10px;
-}
-
-.single-line-grid.sell {
-    justify-content: flex-start;
-}
-
-.single-line-grid.buy {
-    justify-content: flex-end;
-}
-
-.information-outer-grid {
-    justify-content: space-between;
 }
 
 .information-grid h2 {
@@ -141,19 +128,6 @@
     color: #c7c5b3;
 }
 
-.flea-wrapper {
-    display: block;
-}
-
-.flea-wrapper img {
-    height: 86px;
-    width: 86px;
-}
-
-.flea-wrapper .price-wrapper {
-    text-align: center;
-}
-
 .text-and-image-information-wrapper.price-info-wrapper {
     align-items: center;
     display: flex;
@@ -185,8 +159,8 @@
 .item-hideout-headline-wrapper,
 .item-quest-headline-wrapper {
     margin-top: 20px;
+    margin-bottom: 20px;
     align-items: center;
-    display: flex;
 }
 
 .item-crafts-headline-wrapper h2,
@@ -199,7 +173,7 @@
 }
 
 .item-h2 {
-    margin-top: 10;
+    margin-top: 10px;
 }
 
 @media screen and (min-width: 700px) {
@@ -209,6 +183,14 @@
 
     .item-page-wrapper h2 {
         /* margin-top: 70px; */
+    }
+
+    .item-crafts-headline-wrapper,
+    .item-barters-headline-wrapper,
+    .item-contents-headline-wrapper,
+    .item-hideout-headline-wrapper,
+    .item-quest-headline-wrapper {
+        display: flex;
     }
 
     .icon-and-link-wrapper {
@@ -233,16 +215,20 @@
         text-align: center;
     }
 
+    .single-line-grid.sell {
+        justify-content: flex-start;
+    }
+    
+    .single-line-grid.buy {
+        justify-content: flex-end;
+    }
+
     .icon-and-link-wrapper img {
         max-height: 200px;
     }
 
     .main-information-grid {
         display: flex;
-    }
-
-    .information-grid {
-        flex-wrap: nowrap;
     }
 
     .main-information-grid h1 img {
