@@ -6,6 +6,12 @@ const NOTES = {
     '60a2828e8689911a226117f9': `Can't store Pillbox, Day Pack, LK 3F or MBSS inside`,
 };
 
+const currencyMap = {
+    '5449016a4bdc2d6f028b456f': 'RUB',
+    '5696686a4bdc2da3298b456a': 'USD',
+    '569668774bdc2da2298b4568': 'EUR',
+}
+
 const doFetchItems = async () => {
 
     // Get the user selected language
@@ -382,7 +388,8 @@ const doFetchItems = async () => {
                     payRate
                 }
             }
-            currencies: items(categoryNames: [Money]) {
+            currencies: items(categoryNames: [Money], lang: en) {
+                id
                 shortName
                 basePrice
             }
@@ -409,7 +416,7 @@ const doFetchItems = async () => {
 
     const currencies = {};
     for (const currency of itemData.data.currencies) {
-        currencies[currency.shortName] = currency.basePrice;
+        currencies[currencyMap[currency.id]] = currency.basePrice;
     }
 
     const allItems = itemData.data.items.map((rawItem) => {
