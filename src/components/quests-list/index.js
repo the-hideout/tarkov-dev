@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { Filter, ToggleFilter } from '../../components/filter';
+import { ToggleFilter } from '../../components/filter';
 import QuestItemsCell from '../quest-items-cell';
 import './index.css';
 
@@ -32,7 +32,7 @@ const getQuestList = (questList, t, showAll, settings) => {
                 </thead>
                 <tbody>
                     {extraRow && (
-                        <tr className="quest-list-extra-row">
+                        <tr className="quest-list-extra-row" key="quest-list-extra-row">
                             <td colSpan={2}>{extraRow}</td>
                         </tr>
                     )}
@@ -84,8 +84,8 @@ function QuestsList(props) {
     let title = (itemQuests.length > 0 && itemQuests[0].rewardItems) ? t('Quests Providing') : t('Quests Requiring');
 
     let toggleFilter = '';
-    if (settings.completedQuests?.length > 0) toggleFilter = (
-        <Filter>
+    if (settings.completedQuests?.length > 0) 
+        toggleFilter = (
             <ToggleFilter
                 checked={showAllQuests}
                 label={t('Show completed')}
@@ -98,8 +98,7 @@ function QuestsList(props) {
                     </>
                 }
             />
-        </Filter>
-    );
+        );
     return (
         <div>
             <div className="item-quest-headline-wrapper">

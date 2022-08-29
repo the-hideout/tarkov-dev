@@ -1,4 +1,4 @@
-import React, { Suspense, useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
 import SmallItemTable from '../../components/small-item-table';
-//import CraftsTable from '../../components/crafts-table';
+import CraftsTable from '../../components/crafts-table';
 import BartersTable from '../../components/barters-table';
 import QuestsList from '../../components/quests-list';
 import CanvasGrid from '../../components/canvas-grid';
@@ -22,50 +22,30 @@ import PropertyList from '../../components/property-list';
 import ItemsForHideout from '../../components/items-for-hideout';
 import PriceGraph from '../../components/price-graph';
 import ItemSearch from '../../components/item-search';
-import { Filter, ToggleFilter } from '../../components/filter';
+import { ToggleFilter } from '../../components/filter';
 import ContainedItemsList from '../../components/contained-items-list';
+import LoadingSmall from '../../components/loading-small';
 
 import { useMetaQuery } from '../../features/meta/queries';
 import { selectAllBarters, fetchBarters, } from '../../features/barters/bartersSlice';
 import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
 import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
+import {
+    useItemByNameQuery,
+    useItemByIdQuery,
+} from '../../features/items/queries';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
 import bestPrice from '../../modules/best-price';
 
 import './index.css';
-import {
-    useItemByNameQuery,
-    useItemByIdQuery,
-} from '../../features/items/queries';
 
 dayjs.extend(relativeTime);
 
 const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
-};
-
-const CraftsTable = React.lazy(() => import('../../components/crafts-table'));
-
-const loadingData = {
-    name: 'Loading...',
-    types: ['loading'],
-    iconLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
-    sellFor: [
-        {
-            source: 'fleaMarket',
-            price: 0,
-        },
-    ],
-    buyFor: [
-        {
-            source: 'flea-market',
-            price: 0,
-            requirements: [],
-        },
-    ],
 };
 
 function TraderPrice({ currency, price, priceRUB }) {
@@ -87,6 +67,26 @@ function Item() {
     const [showAllBarters, setShowAllBarters] = useState(false);
     const [showAllContainedItemSources, setShowAllContainedItemSources] = useState(false);
     const [showAllHideoutStations, setShowAllHideoutStations] = useState(false);
+
+    const loadingData = {
+        name: t('Loading...'),
+        types: ['loading'],
+        iconLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+        gridImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+        sellFor: [
+            {
+                source: 'fleaMarket',
+                price: 0,
+            },
+        ],
+        buyFor: [
+            {
+                source: 'flea-market',
+                price: 0,
+                requirements: [],
+            },
+        ],
+    };
 
     // item name may be an id
     const { data: currentItemByIdData } = useItemByIdQuery(itemName);
@@ -331,6 +331,8 @@ function Item() {
         return <ErrorPage />;
     }
 
+    const hasProperties = !!currentItemData.properties;
+
     const containsItems = currentItemData?.containsItems?.length > 0;
 
     const hasBarters = barters.some(barter => {
@@ -450,7 +452,10 @@ function Item() {
                     <div className="item-information-wrapper">
                         <h1>
                             <div className={'item-font'}>
-                                {currentItemData.name}
+                                {!currentItemData.types.includes('loading')
+                                    ? (currentItemData.name)
+                                    : (<LoadingSmall />)
+                                }
                             </div>
                             <img
                                 alt={currentItemData.name}
@@ -505,7 +510,7 @@ function Item() {
                                         placement="bottom"
                                         content={fleaTooltip}
                                     >
-                                        <div className={`text-and-image-information-wrapper flea-wrapper ${traderIsBest ? '' : 'best-profit'}`}>
+                                        <div className={`text-and-image-information-wrapper ${traderIsBest ? '' : 'best-profit'}`}>
                                             <img
                                                 alt="Flea market"
                                                 height="86"
@@ -523,9 +528,7 @@ function Item() {
                                                         src={warningIcon}
                                                     />
                                                 )}
-                                                <span>
-                                                    {formatPrice(useFleaPrice ? currentItemData.lastLowPrice : currentItemData.bestPrice)}
-                                                </span>
+                                                {formatPrice(useFleaPrice ? currentItemData.lastLowPrice : currentItemData.bestPrice)}
                                             </div>
                                         </div>
                                     </Tippy>
@@ -680,7 +683,7 @@ function Item() {
                         </div>
                     )}
                 </div>
-                {!currentItemData.types.includes('noFlea') && (
+                {currentItemData.id && !currentItemData.types.includes('noFlea') && (
                     <div>
                         <h2>{t('Flea price last 7 days')}</h2>
                         <PriceGraph
@@ -710,7 +713,10 @@ function Item() {
                     <h2 className='item-h2'>
                         {t('Stats')}
                     </h2>
-                    <PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} />
+                    {hasProperties
+                        ? (<PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} />)
+                        : (<LoadingSmall />)
+                    }
                 </div>
                 {containsItems && (
                     <div>
@@ -718,33 +724,29 @@ function Item() {
                             <h2>
                                 {t('Items contained in')} {currentItemData.name}
                             </h2>
-                            <Filter>
-                                <ToggleFilter
-                                    checked={showAllContainedItemSources}
-                                    label={t('Ignore settings')}
-                                    onChange={(e) =>
-                                        setShowAllContainedItemSources(!showAllContainedItemSources)
-                                    }
-                                    tooltipContent={
-                                        <>
-                                            {t('Shows all sources of items regardless of what you have set in your settings')}
-                                        </>
-                                    }
-                                />
-                            </Filter>
-                        </div>
-                        <Suspense fallback={<>{t('Loading...')}</>}>
-                            <SmallItemTable
-                                containedInFilter={currentItemData.containsItems}
-                                fleaPrice
-                                barterPrice
-                                traderValue
-                                traderPrice
-                                cheapestPrice
-                                sumColumns
-                                showAllSources={showAllContainedItemSources}
+                            <ToggleFilter
+                                checked={showAllContainedItemSources}
+                                label={t('Ignore settings')}
+                                onChange={(e) =>
+                                    setShowAllContainedItemSources(!showAllContainedItemSources)
+                                }
+                                tooltipContent={
+                                    <>
+                                        {t('Shows all sources of items regardless of what you have set in your settings')}
+                                    </>
+                                }
                             />
-                        </Suspense>
+                        </div>
+                        <SmallItemTable
+                            containedInFilter={currentItemData.containsItems}
+                            fleaPrice
+                            barterPrice
+                            traderValue
+                            traderPrice
+                            cheapestPrice
+                            sumColumns
+                            showAllSources={showAllContainedItemSources}
+                        />
                     </div>
                 )}
                 {hasBarters && (
@@ -753,27 +755,23 @@ function Item() {
                             <h2>
                                 {t('Barters with')} {currentItemData.name}
                             </h2>
-                            <Filter>
-                                <ToggleFilter
-                                    checked={showAllBarters}
-                                    label={t('Ignore settings')}
-                                    onChange={(e) =>
-                                        setShowAllBarters(!showAllBarters)
-                                    }
-                                    tooltipContent={
-                                        <>
-                                            {t('Shows all crafts regardless of what you have set in your settings')}
-                                        </>
-                                    }
-                                />
-                            </Filter>
-                        </div>
-                        <Suspense fallback={<div>{t('Loading...')}</div>}>
-                            <BartersTable
-                                itemFilter={currentItemData.id}
-                                showAll={showAllBarters}
+                            <ToggleFilter
+                                checked={showAllBarters}
+                                label={t('Ignore settings')}
+                                onChange={(e) =>
+                                    setShowAllBarters(!showAllBarters)
+                                }
+                                tooltipContent={
+                                    <>
+                                        {t('Shows all crafts regardless of what you have set in your settings')}
+                                    </>
+                                }
                             />
-                        </Suspense>
+                        </div>
+                        <BartersTable
+                            itemFilter={currentItemData.id}
+                            showAll={showAllBarters}
+                        />
                     </div>
                 )}
                 {hasCrafts && (
@@ -782,27 +780,23 @@ function Item() {
                             <h2>
                                 {t('Crafts with')} {currentItemData.name}
                             </h2>
-                            <Filter>
-                                <ToggleFilter
-                                    checked={showAllCrafts}
-                                    label={t('Ignore settings')}
-                                    onChange={(e) =>
-                                        setShowAllCrafts(!showAllCrafts)
-                                    }
-                                    tooltipContent={
-                                        <>
-                                            {t('Shows all crafts regardless of what you have set in your settings')}
-                                        </>
-                                    }
-                                />
-                            </Filter>
-                        </div>
-                        <Suspense fallback={<div>{t('Loading...')}</div>}>
-                            <CraftsTable
-                                itemFilter={currentItemData.id}
-                                showAll={showAllCrafts}
+                            <ToggleFilter
+                                checked={showAllCrafts}
+                                label={t('Ignore settings')}
+                                onChange={(e) =>
+                                    setShowAllCrafts(!showAllCrafts)
+                                }
+                                tooltipContent={
+                                    <>
+                                        {t('Shows all crafts regardless of what you have set in your settings')}
+                                    </>
+                                }
                             />
-                        </Suspense>
+                        </div>
+                        <CraftsTable
+                            itemFilter={currentItemData.id}
+                            showAll={showAllCrafts}
+                        />
                     </div>
                 )}
                 {usedInHideout && (
@@ -811,24 +805,20 @@ function Item() {
                             <h2>
                                 {t('Hideout modules needing')} {currentItemData.name}
                             </h2>
-                            <Filter>
-                                <ToggleFilter
-                                    checked={showAllHideoutStations}
-                                    label={t('Show built')}
-                                    onChange={(e) =>
-                                        setShowAllHideoutStations(!showAllHideoutStations)
-                                    }
-                                    tooltipContent={
-                                        <>
-                                            {t('Shows all modules regardless of what you have set in your settings')}
-                                        </>
-                                    }
-                                />
-                            </Filter>
+                            <ToggleFilter
+                                checked={showAllHideoutStations}
+                                label={t('Show built')}
+                                onChange={(e) =>
+                                    setShowAllHideoutStations(!showAllHideoutStations)
+                                }
+                                tooltipContent={
+                                    <>
+                                        {t('Shows all modules regardless of what you have set in your settings')}
+                                    </>
+                                }
+                            />
                         </div>
-                        <Suspense fallback={<div>{t('Loading...')}</div>}>
-                            <ItemsForHideout itemFilter={currentItemData.id} showAll={showAllHideoutStations} />
-                        </Suspense>
+                        <ItemsForHideout itemFilter={currentItemData.id} showAll={showAllHideoutStations} />
                     </div>
                 )}
                 {itemQuests.length > 0 && (

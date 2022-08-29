@@ -1,0 +1,21 @@
+.loading-wipe {
+    background: linear-gradient(to left, #c7c5b3 20%, #9a8866 40%, #9a8866 60%, #c7c5b3 80%);
+    background-size: 200% auto;
+
+    color: #000;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: shine 1s linear infinite;
+    animation: shine 1s linear infinite;
+}
+@-webkit-keyframes shine {
+    to {
+        background-position: -200% center;
+    }
+}
+@keyframes shine {
+    to {
+        background-position: -200% center;
+    }
+}
