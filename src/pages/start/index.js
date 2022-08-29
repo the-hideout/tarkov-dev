@@ -93,6 +93,7 @@ function Start() {
                         nameFilter={nameFilter}
                         defaultRandom={true}
                         autoScroll={loadMoreState}
+                        totalTraderPrice={true}
                         fleaValue
                         traderValue
                         instaProfit

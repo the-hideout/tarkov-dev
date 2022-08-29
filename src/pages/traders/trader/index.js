@@ -162,6 +162,7 @@ function Trader() {
                 traderBuyback={selectedTable === 'level' ? true : false}
                 traderBuybackFilter={selectedTable === 'level' ? true : false}
                 maxItems={selectedTable === 'level' ? 50 : false}
+                totalTraderPrice={true}
 
                 // instaProfit = {selectedTable === 'instaProfit' ? true : false}
                 // maxItems = {selectedTable === 'instaProfit' ? 50 : false}
