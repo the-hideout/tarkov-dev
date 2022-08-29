@@ -27,18 +27,14 @@ import {
 import './index.css';
 
 import categoryPages from '../../data/category-pages.json';
-import BossList from '../../components/boss-list';
 
 const DISCORD_STASH_INVITE_LINK = 'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'
-
-// Lazy loading React component text (fallback)
-// https://web.dev/code-splitting-suspense/?utm_source=lighthouse&utm_medium=wpt
-const renderLoader = () => <p>Loading...</p>;
 
 // Use Lazy and Suspense to load these components
 const ServerStatus = lazy(() => import('../../components/server-status'));
 const SmallItemTable = lazy(() => import('../../components/small-item-table'));
 const ItemSearch = lazy(() => import('../../components/item-search'));
+const BossList = lazy(() => import('../../components/boss-list'));
 
 function Start() {
     const defaultQuery = new URLSearchParams(window.location.search).get(
@@ -80,14 +76,14 @@ function Start() {
             key={'display-wrapper-start-page'}
         >
             <div className="start-section-wrapper item-section" key={'item-section-div'}>
-                <Suspense fallback={renderLoader()} key={'item-search'}>
+                <Suspense fallback={<div>{t('Loading...')}</div>} key={'item-search'}>
                     <ItemSearch
                         onChange={handleNameFilterChange}
                         autoFocus={true}
                         key={'item-search-box'}
                     />
                 </Suspense>
-                <Suspense fallback={renderLoader()}>
+                <Suspense fallback={<div>{t('Loading...')}</div>}>
                     <SmallItemTable
                         maxItems={20}
                         nameFilter={nameFilter}
@@ -107,7 +103,7 @@ function Start() {
                 </Suspense>
             </div>
             <div className="start-section-wrapper" key={'server-status-div'}>
-                <Suspense fallback={renderLoader()} key={'server-status'}>
+                <Suspense fallback={<div>{t('Loading...')}</div>} key={'server-status'}>
                     <ServerStatus key={"server-status"} />
                 </Suspense>
                 <h3>
@@ -339,7 +335,7 @@ function Start() {
                     </Link>
                 </h3>
                 <ul className="traders-list">
-                    <Suspense fallback={renderLoader()}>
+                    <Suspense fallback={<div>{t('Loading...')}</div>}>
                         <BossList />
                     </Suspense>
                 </ul>
