@@ -32,7 +32,7 @@ const getQuestList = (questList, t, showAll, settings) => {
                 </thead>
                 <tbody>
                     {extraRow && (
-                        <tr className="quest-list-extra-row">
+                        <tr className="quest-list-extra-row" key="quest-list-extra-row">
                             <td colSpan={2}>{extraRow}</td>
                         </tr>
                     )}
@@ -84,20 +84,21 @@ function QuestsList(props) {
     let title = (itemQuests.length > 0 && itemQuests[0].rewardItems) ? t('Quests Providing') : t('Quests Requiring');
 
     let toggleFilter = '';
-    if (settings.completedQuests?.length > 0) toggleFilter = (
-        <ToggleFilter
-            checked={showAllQuests}
-            label={t('Show completed')}
-            onChange={(e) =>
-                setShowAllQuests(!showAllQuests)
-            }
-            tooltipContent={
-                <>
-                    {t('Shows all quests regardless of if you\'ve completed them')}
-                </>
-            }
-        />
-    );
+    if (settings.completedQuests?.length > 0) 
+        toggleFilter = (
+            <ToggleFilter
+                checked={showAllQuests}
+                label={t('Show completed')}
+                onChange={(e) =>
+                    setShowAllQuests(!showAllQuests)
+                }
+                tooltipContent={
+                    <>
+                        {t('Shows all quests regardless of if you\'ve completed them')}
+                    </>
+                }
+            />
+        );
     return (
         <div>
             <div className="item-quest-headline-wrapper">
