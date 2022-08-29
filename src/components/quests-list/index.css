@@ -49,15 +49,3 @@
 .quest-link-wrapper a {
     display: flex;
 }
-
-.item-quest-headline-wrapper {
-    margin-top: 20px;
-    align-items: center;
-    display: flex;
-}
-
-.item-quest-headline-wrapper h2 {
-    flex-grow: 1;
-    margin: 0;
-    padding: 20px 0;
-}
