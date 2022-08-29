@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
 import SmallItemTable from '../../components/small-item-table';
-//import CraftsTable from '../../components/crafts-table';
+import CraftsTable from '../../components/crafts-table';
 import BartersTable from '../../components/barters-table';
 import QuestsList from '../../components/quests-list';
 import CanvasGrid from '../../components/canvas-grid';
@@ -22,7 +22,7 @@ import PropertyList from '../../components/property-list';
 import ItemsForHideout from '../../components/items-for-hideout';
 import PriceGraph from '../../components/price-graph';
 import ItemSearch from '../../components/item-search';
-import { Filter, ToggleFilter } from '../../components/filter';
+import { ToggleFilter } from '../../components/filter';
 import ContainedItemsList from '../../components/contained-items-list';
 
 import { useMetaQuery } from '../../features/meta/queries';
@@ -47,27 +47,6 @@ const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
 };
 
-const CraftsTable = React.lazy(() => import('../../components/crafts-table'));
-
-const loadingData = {
-    name: 'Loading...',
-    types: ['loading'],
-    iconLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
-    sellFor: [
-        {
-            source: 'fleaMarket',
-            price: 0,
-        },
-    ],
-    buyFor: [
-        {
-            source: 'flea-market',
-            price: 0,
-            requirements: [],
-        },
-    ],
-};
-
 function TraderPrice({ currency, price, priceRUB }) {
     if (currency !== 'RUB') {
         return (
@@ -87,6 +66,25 @@ function Item() {
     const [showAllBarters, setShowAllBarters] = useState(false);
     const [showAllContainedItemSources, setShowAllContainedItemSources] = useState(false);
     const [showAllHideoutStations, setShowAllHideoutStations] = useState(false);
+
+    const loadingData = {
+        name: t('Loading...'),
+        types: ['loading'],
+        iconLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+        sellFor: [
+            {
+                source: 'fleaMarket',
+                price: 0,
+            },
+        ],
+        buyFor: [
+            {
+                source: 'flea-market',
+                price: 0,
+                requirements: [],
+            },
+        ],
+    };
 
     // item name may be an id
     const { data: currentItemByIdData } = useItemByIdQuery(itemName);
@@ -330,6 +328,8 @@ function Item() {
     if (!currentItemData && (itemStatus === 'success' || itemStatus === 'failed')) {
         return <ErrorPage />;
     }
+
+    const hasProperties = !!currentItemData.properties;
 
     const containsItems = currentItemData?.containsItems?.length > 0;
 
@@ -678,17 +678,13 @@ function Item() {
                         </div>
                     )}
                 </div>
-                {!currentItemData.types.includes('noFlea') && (
+                {currentItemData.id && !currentItemData.types.includes('noFlea') && (
                     <div>
                         <h2>{t('Flea price last 7 days')}</h2>
-                        {currentItemData.id && (
-                            <Suspense fallback={<>{t('Loading...')}</>}>
-                                <PriceGraph
-                                    itemId={currentItemData.id}
-                                    itemChange24={currentItemData.changeLast48h}
-                                />
-                            </Suspense>
-                        )}
+                        <PriceGraph
+                            itemId={currentItemData.id}
+                            itemChange24={currentItemData.changeLast48h}
+                        />
                         <br />
                         <div className={`text-and-image-information-wrapper price-info-wrapper`}>
                             <div className="price-wrapper price-wrapper-bright">
@@ -712,7 +708,10 @@ function Item() {
                     <h2 className='item-h2'>
                         {t('Stats')}
                     </h2>
-                    <PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} />
+                    {hasProperties
+                        ? (<PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} />)
+                        : (<>{t('Loading...')}</>)
+                    }
                 </div>
                 {containsItems && (
                     <div>
@@ -733,18 +732,16 @@ function Item() {
                                 }
                             />
                         </div>
-                        <Suspense fallback={<>{t('Loading...')}</>}>
-                            <SmallItemTable
-                                containedInFilter={currentItemData.containsItems}
-                                fleaPrice
-                                barterPrice
-                                traderValue
-                                traderPrice
-                                cheapestPrice
-                                sumColumns
-                                showAllSources={showAllContainedItemSources}
-                            />
-                        </Suspense>
+                        <SmallItemTable
+                            containedInFilter={currentItemData.containsItems}
+                            fleaPrice
+                            barterPrice
+                            traderValue
+                            traderPrice
+                            cheapestPrice
+                            sumColumns
+                            showAllSources={showAllContainedItemSources}
+                        />
                     </div>
                 )}
                 {hasBarters && (
@@ -766,12 +763,10 @@ function Item() {
                                 }
                             />
                         </div>
-                        <Suspense fallback={<div>{t('Loading...')}</div>}>
-                            <BartersTable
-                                itemFilter={currentItemData.id}
-                                showAll={showAllBarters}
-                            />
-                        </Suspense>
+                        <BartersTable
+                            itemFilter={currentItemData.id}
+                            showAll={showAllBarters}
+                        />
                     </div>
                 )}
                 {hasCrafts && (
@@ -793,12 +788,10 @@ function Item() {
                                 }
                             />
                         </div>
-                        <Suspense fallback={<div>{t('Loading...')}</div>}>
-                            <CraftsTable
-                                itemFilter={currentItemData.id}
-                                showAll={showAllCrafts}
-                            />
-                        </Suspense>
+                        <CraftsTable
+                            itemFilter={currentItemData.id}
+                            showAll={showAllCrafts}
+                        />
                     </div>
                 )}
                 {usedInHideout && (
@@ -820,9 +813,7 @@ function Item() {
                                 }
                             />
                         </div>
-                        <Suspense fallback={<div>{t('Loading...')}</div>}>
-                            <ItemsForHideout itemFilter={currentItemData.id} showAll={showAllHideoutStations} />
-                        </Suspense>
+                        <ItemsForHideout itemFilter={currentItemData.id} showAll={showAllHideoutStations} />
                     </div>
                 )}
                 {itemQuests.length > 0 && (
