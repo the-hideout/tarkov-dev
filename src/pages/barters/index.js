@@ -37,9 +37,13 @@ function Barters() {
         'selectedTrader',
         'all',
     );
+    const [showAll, setShowAll] = useStateWithLocalStorage(
+        'showAllBarters',
+        false,
+    );
     const [hideDogtags, setHideDogtags] = useStateWithLocalStorage(
         'hideDogtagBarters',
-        true,
+        false,
     );
     const { t } = useTranslation();
 
@@ -56,6 +60,16 @@ function Barters() {
                     {t('Barter Profits')}
                 </h1>
                 <Filter>
+                    <ToggleFilter
+                        checked={showAll}
+                        label={t('Ignore settings')}
+                        onChange={(e) => setShowAll(!showAll)}
+                        tooltipContent={
+                            <>
+                                {t('Shows all barters regardless of what you have set in your settings')}
+                            </>
+                        }
+                    />
                     <ToggleFilter
                         checked={hideDogtags}
                         label={t('Hide dogtags')}
@@ -117,6 +131,7 @@ function Barters() {
                 selectedTrader={selectedTrader}
                 key="barters-page-barters-table"
                 removeDogtags={hideDogtags}
+                showAll={showAll}
             />
 
             <div className="page-wrapper barters-page-wrapper">

@@ -1,5 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -7,6 +8,7 @@ import 'tippy.js/dist/tippy.css'; // optional
 import Icon from '@mdi/react';
 import { mdiAmmunition } from '@mdi/js';
 
+import { Filter, ToggleFilter } from '../../components/filter';
 import Graph from '../../components/Graph.jsx';
 import useKeyPress from '../../hooks/useKeyPress';
 import DataTable from '../../components/data-table';
@@ -39,9 +41,11 @@ function Ammo() {
     const navigate = useNavigate();
     const [selectedLegendName, setSelectedLegendName] =
         useState(currentAmmoList);
+    const [showAllTraderPrices, setShowAllTraderPrices] = useState(false);
     const shiftPress = useKeyPress('Shift');
     const { t } = useTranslation();
     const { data: items } = useItemsQuery();
+    const settings = useSelector((state) => state.settings);
 
     useEffect(() => {
         if (currentAmmo === []) {
@@ -78,8 +82,8 @@ function Ammo() {
             returnData.displayDamage = MAX_DAMAGE;
         }
 
-        if (returnData.penetration > MAX_PENETRATION) {
-            returnData.name = `${ammoData.name} (${returnData.penetration})`;
+        if (returnData.penetrationPower > MAX_PENETRATION) {
+            returnData.name = `${ammoData.name} (${returnData.penetrationPower})`;
             returnData.displayPenetration = MAX_PENETRATION;
         }
         let symbol = symbols[typeCache.length];
@@ -99,6 +103,18 @@ function Ammo() {
         if(!symbol) {
             console.log(`Missing symbol for ${returnData.type}, the graph will crash. Add more symbols to src/symbols.json`);
             process.exit(1);
+        }
+
+        if (!showAllTraderPrices) {
+            returnData.buyFor = returnData.buyFor.filter(buyFor => {
+                if (buyFor.vendor.normalizedName === 'flea-market') {
+                    return true;
+                }
+                if (buyFor.vendor.minTraderLevel <= settings[buyFor.vendor.normalizedName]) {
+                    return true;
+                }
+                return false;
+            });
         }
 
         return returnData;
@@ -295,11 +311,23 @@ function Ammo() {
                     {"This page contains a list of every type of ammo in Escape from Tarkov. To filter the complete list of available cartridges, click the name of a caliber."}
                 </p>
             </div>
-
+            <Filter>
+                <ToggleFilter
+                    checked={showAllTraderPrices}
+                    label={t('Ignore settings')}
+                    onChange={(e) =>
+                        setShowAllTraderPrices(!showAllTraderPrices)
+                    }
+                    tooltipContent={
+                        <>
+                            {t('Shows all trader prices regardless of your settings')}
+                        </>
+                    }
+                />
+            </Filter>
             <h2 className="center-title">
                 {t('Ammo Statistics Table')}
             </h2>
-
             <DataTable columns={columns} data={listState} />
         </React.Fragment>
     );

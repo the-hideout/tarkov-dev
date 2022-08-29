@@ -141,11 +141,11 @@ function LootTier(props) {
 
                 let sellTo = item.traderName;
                 let sellToNormalized = item.traderNormalizedName;
-                let priceRUB = item.traderPriceRUB;
+                let priceRUB = item.traderTotalPriceRUB;
 
                 if (hasFlea && !item.types.includes('noFlea')) {
                     const fleaPrice = item.avg24hPrice - item.fee;
-                    if (fleaPrice >= item.traderPriceRUB) {
+                    if (fleaPrice >= item.traderTotalPriceRUB) {
                         sellTo = 'Flea Market';
                         sellToNormalized = 'flea-market';
                         priceRUB = fleaPrice;
