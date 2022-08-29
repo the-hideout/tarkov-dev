@@ -78,8 +78,8 @@ function Ammo() {
             returnData.displayDamage = MAX_DAMAGE;
         }
 
-        if (returnData.penetration > MAX_PENETRATION) {
-            returnData.name = `${ammoData.name} (${returnData.penetration})`;
+        if (returnData.penetrationPower > MAX_PENETRATION) {
+            returnData.name = `${ammoData.name} (${returnData.penetrationPower})`;
             returnData.displayPenetration = MAX_PENETRATION;
         }
         let symbol = symbols[typeCache.length];
