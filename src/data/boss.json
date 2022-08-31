@@ -158,7 +158,7 @@
         "health": 1120,
         "loot": [
             {
-                "name": "death-knight-mask",
+                "name": "Death Knight mask",
                 "itemLink": "/item/death-knight-mask",
                 "iconLink": "https://assets.tarkov.dev/unknown-item-icon.jpg"
             },
