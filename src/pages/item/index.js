@@ -365,7 +365,7 @@ function Item() {
     const useFleaPrice = currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
     let fleaTooltip;
-    
+    console.log(currentItemData)
     if (!useFleaPrice && currentItemData.bestPrice) {
         fleaTooltip = (
             <div>
@@ -397,8 +397,9 @@ function Item() {
                 {formatPrice(currentItemData.bestPrice)}
             </div>
         );
-    }
-    else {
+    } else if (!currentItemData.lastLowPrice) {
+        fleaTooltip = t('No flea price seen');
+    } else {
         fleaTooltip = (
             <div>
                 <div className="tooltip-calculation">
@@ -520,7 +521,7 @@ function Item() {
                                                 // title = {`Sell ${currentItemData.name} on the Flea market`}
                                             />
                                             <div className="price-wrapper">
-                                                {!useFleaPrice && (
+                                                {(!useFleaPrice || !currentItemData.lastLowPrice) && (
                                                     <img
                                                         alt="Warning"
                                                         loading="lazy"
@@ -528,7 +529,7 @@ function Item() {
                                                         src={warningIcon}
                                                     />
                                                 )}
-                                                {formatPrice(useFleaPrice ? currentItemData.lastLowPrice : currentItemData.bestPrice)}
+                                                {(!useFleaPrice || currentItemData.lastLowPrice) && formatPrice(useFleaPrice? currentItemData.bestPrice : currentItemData.bestPrice)}
                                             </div>
                                         </div>
                                     </Tippy>
