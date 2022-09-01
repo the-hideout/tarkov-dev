@@ -365,7 +365,7 @@ function Item() {
     const useFleaPrice = currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
     let fleaTooltip;
-    
+
     if (!useFleaPrice && currentItemData.bestPrice) {
         fleaTooltip = (
             <div>
@@ -529,7 +529,7 @@ function Item() {
                                                         src={warningIcon}
                                                     />
                                                 )}
-                                                {(!useFleaPrice || currentItemData.lastLowPrice) && formatPrice(useFleaPrice? currentItemData.bestPrice : currentItemData.bestPrice)}
+                                                {(!useFleaPrice || currentItemData.lastLowPrice) && formatPrice(useFleaPrice ? currentItemData.lastLowPrice : currentItemData.bestPrice)}
                                             </div>
                                         </div>
                                     </Tippy>
