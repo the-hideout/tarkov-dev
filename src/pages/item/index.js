@@ -418,7 +418,8 @@ function Item() {
                 {t('This item has not been observed on the Flea Market.')}
                 {t(" The maximum profitable price  is")}{' '}
                 {formatPrice(currentItemData.bestPrice)}
-                {t(', but the item may or may not sell at that price.')}
+                {t(', but the item may or may not sell at that price.')}{' '}
+                {t('The max profitable price is impacted by your intel center and hideout management skill levels in your settings.')}
             </div>
         )
         //fleaTooltip = t('No flea price seen');
