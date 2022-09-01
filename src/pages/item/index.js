@@ -387,18 +387,41 @@ function Item() {
                         {formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}
                     </div>
                 </div>
-                <div className="tooltip-calculation">
-                    {t('Calculated over the average for the last 24 hours')}
-                </div>
-                {t('This item was sold for')}{' '}
-                {formatPrice(currentItemData.avg24hPrice)}{' '}
-                {t('on average in the last 24h on the Flea Market.')}
+                {t('This item was listed for')}{' '}
+                {formatPrice(currentItemData.lastLowPrice)}{' '}
+                {t('minimum last observed on the Flea Market.')}
                 {t(" However, due to how fees are calculated you're better off selling for")}{' '}
                 {formatPrice(currentItemData.bestPrice)}
             </div>
         );
     } else if (!currentItemData.lastLowPrice) {
-        fleaTooltip = t('No flea price seen');
+        fleaTooltip = (
+            <div>
+                <div className="tooltip-calculation">
+                    {t('Max price to sell for')}{' '}
+                    <div className="tooltip-price-wrapper">
+                        {formatPrice(currentItemData.bestPrice)}
+                    </div>
+                </div>
+                <div className="tooltip-calculation">
+                    {t('Fee')}{' '}
+                    <div className="tooltip-price-wrapper">
+                        {formatPrice(currentItemData.bestPriceFee)}
+                    </div>
+                </div>
+                <div className="tooltip-calculation">
+                    {t('Profit')}{' '}
+                    <div className="tooltip-price-wrapper">
+                        {formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}
+                    </div>
+                </div>
+                {t('This item has not been observed on the Flea Market.')}
+                {t(" The maximum profitable price  is")}{' '}
+                {formatPrice(currentItemData.bestPrice)}
+                {t(', but the item may or may not sell at that price.')}
+            </div>
+        )
+        //fleaTooltip = t('No flea price seen');
     } else {
         fleaTooltip = (
             <div>
