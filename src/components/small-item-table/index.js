@@ -155,6 +155,7 @@ function SmallItemTable(props) {
         cheapestPrice,
         sumColumns,
         totalTraderPrice,
+        idFilter,
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -466,6 +467,13 @@ function SmallItemTable(props) {
 
         if (defaultRandom && !nameFilter) {
             shuffleArray(returnData);
+        }
+
+        if (idFilter) {
+            if (!Array.isArray(idFilter)) {
+                idFilter = [idFilter];
+            }
+            returnData = returnData.filter(item => idFilter.includes(item.id));
         }
 
         return returnData;

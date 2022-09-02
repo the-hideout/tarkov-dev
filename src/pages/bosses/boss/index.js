@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { useParams, Link } from 'react-router-dom';
 import capitalize from '../../../modules/capitalize-first';
 import formatBossData from '../../../modules/format-boss-data';
-import ItemNameCell from '../../../components/item-name-cell';
 import { useBossesQuery } from '../../../components/boss-list';
 import DataTable from '../../../components/data-table';
 import PropertyList from '../../../components/property-list';
 import bossJson from '../../../data/boss.json';
 import ErrorPage from '../../../components/error-page';
 import Loading from '../../../components/loading';
+import SmallItemTable from '../../../components/small-item-table';
 import Icon from '@mdi/react';
 import CheekiBreekiEffect from '../../../components/cheeki-breeki-effect';
 import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper } from '@mdi/js';
@@ -69,17 +69,6 @@ function BossPage(params) {
                 Header: t('Chance'),
                 accessor: 'chance',
                 Cell: CenterCell
-            }
-        ];
-    }, [t]);
-
-    // Format the boss table columns for locations
-    const columnsLoot = useMemo(() => {
-        return [
-            {
-                Header: t('Name'),
-                accessor: 'name',
-                Cell: ItemNameCell
             }
         ];
     }, [t]);
@@ -237,7 +226,7 @@ function BossPage(params) {
 
                 {bossJsonData &&
                     <h2 className='item-h2' key={'boss-loot-header'}>
-                        {t('Unique Boss Loot')}
+                        {t('Special Boss Loot')}
                         <Icon
                             path={mdiDiamondStone}
                             size={1.5}
@@ -247,14 +236,13 @@ function BossPage(params) {
                 }
                 {bossJsonData &&
                     <div className='loot-table-boss'>
-                        <DataTable
-                            columns={columnsLoot}
-                            data={bossJsonData.loot}
-                            disableSortBy={false}
-                            key={'boss-loot-table'}
-                            sortBy={'name'}
-                            sortByDesc={true}
-                            autoResetSortBy={false}
+                        <SmallItemTable
+                            idFilter={bossJsonData.loot.reduce((prev, current) => {
+                                prev.push(current.id);
+                                return prev;
+                            }, [])}
+                            fleaValue
+                            traderValue
                         />
                     </div>
                 }
