@@ -1,14 +1,14 @@
 function formatBossData(maps) {
 
     // Try to get the formatted boss data from session storage
-    const dataObj = sessionStorage.getItem('boss-array-new');
+    /*const dataObj = sessionStorage.getItem('boss-array-new');
     if (dataObj) {
         try {
             return JSON.parse(dataObj);
         } catch (e) {
             console.log(e);
         }
-    }
+    }*/
 
     const bossArray = [];
 
@@ -45,7 +45,7 @@ function formatBossData(maps) {
     }
 
     // Save to session storage and return the formatted boss data
-    sessionStorage.setItem('boss-array-new', JSON.stringify(bossArray));
+    //sessionStorage.setItem('boss-array-new', JSON.stringify(bossArray));
     return bossArray;
 }
 
