@@ -596,7 +596,7 @@ function Item() {
                                                 // title = {`Sell ${currentItemData.name} on the Flea market`}
                                             />
                                         </Link>
-                                        <div className="price-wrapper">
+                                        <div className={`price-wrapper${settings[currentItemData.traderNormalizedName] ? '' : ' locked'}`}>
                                             <ConditionalWrapper
                                                 condition={currentItemData.traderCurrency !== 'RUB'}
                                                 wrapper={(children) => 
@@ -639,7 +639,7 @@ function Item() {
                                                         // title = {`Sell ${currentItemData.name} on the Flea market`}
                                                     />
                                                 </ConditionalWrapper>
-                                                <div className="price-wrapper">
+                                                <div className={`price-wrapper${traderName === 'fence' || settings[traderName] ? '' : ' locked'}`}>
                                                     <ConditionalWrapper
                                                         condition={traderPrice.currency !== 'RUB'}
                                                         wrapper={(children) => 

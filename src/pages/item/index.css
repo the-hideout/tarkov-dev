@@ -128,7 +128,8 @@
     color: #c7c5b3;
 }
 
-.price-wrapper.locked {
+.price-wrapper.locked,
+.best-profit .price-wrapper.locked {
     color: #626151;
 }
 
