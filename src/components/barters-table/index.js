@@ -12,7 +12,7 @@ import {
 import { selectAllTraders } from '../../features/settings/settingsSlice';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
-import formatCostItems from '../../modules/format-cost-items';
+import { formatCostItems, getCheapestItemPrice, getCheapestItemPriceWithBarters } from '../../modules/format-cost-items';
 import RewardCell from '../reward-cell';
 import { isAnyDogtag, isBothDogtags } from '../../modules/dogtags';
 
@@ -80,15 +80,15 @@ function BartersTable(props) {
             {
                 Header: t('Estimated savings'),
                 accessor: (d) => Number(d.savings),
-                Cell: ({ value }) => {
-                    return <ValueCell value={value} highlightProfit />;
+                Cell: (props) => {
+                    return <ValueCell value={props.value} highlightProfit />;
                 },
                 sortType: (a, b) => {
-                    if (a.value > b.value) {
+                    if (a.sellValue > b.sellValue) {
                         return 1;
                     }
 
-                    if (a.value < b.value) {
+                    if (a.sellValue < b.sellValue) {
                         return -1;
                     }
 
@@ -292,7 +292,7 @@ function BartersTable(props) {
                         sellTo: t('Flea Market'),
                         sellToNormalized: 'flea-market',
                         name: barterRow.rewardItems[0].item.name,
-                        value: barterRow.rewardItems[0].item[priceToUse],
+                        sellValue: barterRow.rewardItems[0].item[priceToUse],
                         source: barterRow.trader.name + ' LL' + level,
                         iconLink:
                             barterRow.rewardItems[0].item.iconLink ||
@@ -301,51 +301,43 @@ function BartersTable(props) {
                     },
                 };
 
-                const bestTraderValue = Math.max(
-                    ...barterRow.rewardItems[0].item.sellFor.map(
-                        (priceObject) => {
-                            if (priceObject.vendor.normalizedName === 'flea-market') return 0;
-                            if (
-                                !hasJaeger &&
-                                priceObject.vendor.normalizedName === 'jaeger'
-                            ) {
-                                return 0;
-                            }
-
-                            return priceObject.price;
-                        },
-                    ),
-                );
-
-                const bestTrade =
-                    barterRow.rewardItems[0].item.sellFor.find(
-                        (traderPrice) => traderPrice.priceRUB === bestTraderValue,
-                    );
+                const bestTrade = barterRow.rewardItems[0].item.sellFor.reduce((prev, current) => {
+                    if (current.vendor.normalizedName === 'flea-market') 
+                        return prev;
+                    if (!hasJaeger && current.vendor.normalizedName === 'jaeger') 
+                        return prev;
+                    if (!prev) 
+                        return current;
+                    if (prev.priceRUB < current.priceRUB) 
+                        return current;
+                    return prev;
+                }, false);
 
                 if (
                     (bestTrade && bestTrade.priceRUB > tradeData.reward.value) ||
                     (bestTrade && !includeFlea)
                 ) {
                     // console.log(barterRow.rewardItems[0].item.sellTo);
-                    tradeData.reward.value = bestTrade.priceRUB;
+                    tradeData.reward.sellValue = bestTrade.priceRUB;
                     tradeData.reward.sellTo = bestTrade.vendor.name;
                     tradeData.reward.sellToNormalized = bestTrade.vendor.normalizedName;
                 }
                 
                 //tradeData.reward.sellTo = t(tradeData.reward.sellTo)
 
-                tradeData.savings = tradeData.reward.value - cost;
-
-                // If the reward has no value, it's not available for purchase
-                if (tradeData.reward.value === 0) {
-                    tradeData.reward.value = tradeData.cost;
-                    tradeData.reward.barterOnly = true;
+                const cheapestPrice = getCheapestItemPrice(barterRow.rewardItems[0].item, settings, showAll);
+                const cheapestBarter = getCheapestItemPriceWithBarters(barterRow.rewardItems[0].item, barters, settings, showAll);
+                if (cheapestPrice.type === 'cash-sell' && cheapestBarter.priceRUB === cost) {
                     tradeData.savings = 0;
+                    tradeData.reward.barterOnly = true;
+                } else if (cheapestPrice.type === 'cash-sell' && cheapestBarter.priceRUB < cost) {
+                    tradeData.savings = cheapestBarter.priceRUB - cost;
+                    tradeData.reward.barterOnly = true;
+                } else if (cheapestPrice.type === 'cash-sell') {
+                    tradeData.savings = 0;
+                } else {
+                    tradeData.savings = cheapestPrice.priceRUB - cost;
                 }
-
-                // if(hasZeroCostItem){
-                //     return false;
-                // }
 
                 return tradeData;
             })
