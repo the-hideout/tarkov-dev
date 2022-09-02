@@ -241,6 +241,17 @@ function Item() {
                                 objectiveInfo.count = 1;
                         });
                     });
+                } else if (objectiveData.wearing?.length) {
+                    let requiredCount = 0;
+                    objectiveData.wearing?.forEach(outfit => {
+                        outfit.forEach(item => {
+                            if (item.id === currentItemData?.id) 
+                                requiredCount++
+                        });
+                    });
+                    if (requiredCount === objectiveData.wearing.length) {
+                        objectiveInfo.count = 1;
+                    }
                 }
             });
 
