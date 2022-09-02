@@ -8,7 +8,7 @@ function getCheapestItemPrice(item, settings, allowAllSources) {
         if (buyFor.vendor.normalizedName === 'flea-market') {
             return (allowAllSources || settings.hasFlea);
         }
-        return (allowAllSources || settings[buyFor.vendor.normalizedName] > buyFor.vendor.minTraderLevel)
+        return (allowAllSources || settings[buyFor.vendor.normalizedName] >= buyFor.vendor.minTraderLevel)
     });
     if (!buySource || buySource.length === 0) {
         let sellToTrader = item.sellFor.filter(sellFor => {
