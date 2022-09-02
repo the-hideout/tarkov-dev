@@ -56,6 +56,11 @@ function BossPage(params) {
     const columnsEscorts = useMemo(() => {
         return [
             {
+                Header: t('Map'),
+                accessor: 'map',
+                Cell: CenterCell
+            },
+            {
                 Header: t('Name'),
                 accessor: 'name',
                 Cell: CenterCell
@@ -168,13 +173,16 @@ function BossPage(params) {
 
     // Format the boss table escorts data
     const escorts = []
-    for (const escort of bossData.escorts) {
-        for (const amount of escort.amount) {
-            escorts.push({
-                name: escort.name,
-                chance: `${parseInt(amount.chance * 100)}%`,
-                count: amount.count
-            });
+    for (const map of bossData.maps) {
+        for (const escort of map.escorts) {
+            for (const amount of escort.amount) {
+                escorts.push({
+                    map: map.name,
+                    name: escort.name,
+                    chance: `${parseInt(amount.chance * 100)}%`,
+                    count: amount.count
+                });
+            }
         }
     }
 

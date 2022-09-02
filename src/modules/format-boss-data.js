@@ -33,6 +33,7 @@ function formatBossData(maps) {
                     name: map.name,
                     normalizedName: map.normalizedName,
                     id: map.id,
+                    escorts: boss.escorts,
                     spawns: []
                 }
                 savedBoss.maps.push(bossMap);
