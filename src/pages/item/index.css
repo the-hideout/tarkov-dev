@@ -128,6 +128,10 @@
     color: #c7c5b3;
 }
 
+.price-wrapper.locked {
+    color: #626151;
+}
+
 .text-and-image-information-wrapper.price-info-wrapper {
     align-items: center;
     display: flex;
