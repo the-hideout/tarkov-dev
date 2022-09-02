@@ -7,12 +7,13 @@ export default function bestPrice(itemData, Ti = false, Tr = false) {
             bestPriceFee: 0,
         };
     }
-    let currentFee = calculateFee(itemData.basePrice, itemData.lastLowPrice, 1, Ti, Tr);
-    let bestProfit = itemData.lastLowPrice - currentFee;
-    let bestPrice = itemData.lastLowPrice;
+    let testPrice = itemData.lastLowPrice || (itemData.basePrice * 100);
+    let currentFee = calculateFee(itemData.basePrice, testPrice, 1, Ti, Tr);
+    let bestProfit = testPrice - currentFee;
+    let bestPrice = testPrice;
     let bestPriceFee = currentFee;
 
-    for (let i = itemData.lastLowPrice - 1000; i > 0; i = i - 1000) {
+    for (let i = testPrice - 1000; i > 0; i = i - 1000) {
         const newFee = calculateFee(itemData.basePrice, i, 1, Ti, Tr);
 
         const newProfit = i - newFee;
