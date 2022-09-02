@@ -264,7 +264,7 @@ function CraftTable(props) {
 
                 const priceToUse = averagePrices === true ? 'avg24hPrice' : 'lastLowPrice';
 
-                if (!craftRow.rewardItems[0].item.types.includes('noFlea')) {
+                if (!craftRow.rewardItems[0].item.types.includes('noFlea') && (showAll || includeFlea)) {
                     tradeData.reward.sellValue = craftRow.rewardItems[0].item[priceToUse];
                     
                     tradeData.reward.sellTo = t('Flea Market');

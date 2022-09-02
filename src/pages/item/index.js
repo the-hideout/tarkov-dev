@@ -60,7 +60,18 @@ function TraderPrice({ currency, price, priceRUB }) {
     return formatPrice(priceRUB);
 }
 
+function priceIsLocked(buyFor, settings) {
+    let className = '';
+    if (buyFor.vendor.trader && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) {
+        className = ' locked';
+    } else if (buyFor.vendor.normalizedName === 'flea-market' && !settings.hasFlea) {
+        className = ' locked';
+    }
+    return className;
+}
+
 function Item() {
+    const settings = useSelector((state) => state.settings);
     const { itemName } = useParams();
     const { t } = useTranslation();
     const [showAllCrafts, setShowAllCrafts] = useState(false);
@@ -585,7 +596,7 @@ function Item() {
                                                 // title = {`Sell ${currentItemData.name} on the Flea market`}
                                             />
                                         </Link>
-                                        <div className="price-wrapper">
+                                        <div className={`price-wrapper${settings[currentItemData.traderNormalizedName] ? '' : ' locked'}`}>
                                             <ConditionalWrapper
                                                 condition={currentItemData.traderCurrency !== 'RUB'}
                                                 wrapper={(children) => 
@@ -628,7 +639,7 @@ function Item() {
                                                         // title = {`Sell ${currentItemData.name} on the Flea market`}
                                                     />
                                                 </ConditionalWrapper>
-                                                <div className="price-wrapper">
+                                                <div className={`price-wrapper${traderName === 'fence' || settings[traderName] ? '' : ' locked'}`}>
                                                     <ConditionalWrapper
                                                         condition={traderPrice.currency !== 'RUB'}
                                                         wrapper={(children) => 
@@ -684,23 +695,23 @@ function Item() {
                                                         </Tippy>
                                                     )}
                                                     <ConditionalWrapper
-                                                        condition={buyPrice.source !== 'flea-market'}
+                                                        condition={buyPrice.vendor.normalizedName !== 'flea-market'}
                                                         wrapper={(children) => 
-                                                            <Link to={`/traders/${buyPrice.source.toLowerCase()}`}>
+                                                            <Link to={`/traders/${buyPrice.vendor.normalizedName}`}>
                                                                 {children}
                                                             </Link>
                                                         }
                                                     >
                                                         <img
-                                                            alt={buyPrice.requirements.source}
+                                                            alt={buyPrice.vendor.name}
                                                             height="86"
                                                             loading="lazy"
                                                             width="86"
-                                                            src={`${process.env.PUBLIC_URL}/images/${buyPrice.source.toLowerCase()}-icon.jpg`}
+                                                            src={`${process.env.PUBLIC_URL}/images/${buyPrice.vendor.normalizedName}-icon.jpg`}
                                                         />
                                                     </ConditionalWrapper>
                                                 </div>
-                                                <div className={`price-wrapper ${ index === 0 ? 'best-profit': ''}`}>
+                                                <div className={`price-wrapper ${ index === 0 ? 'best-profit': ''}${priceIsLocked(buyPrice, settings)}`}>
                                                     <TraderPrice
                                                         currency={
                                                             buyPrice.currency
