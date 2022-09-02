@@ -1,21 +1,7 @@
-function spawnLocations(boss, map) {
-    var spawnLocations = [];
-
-    for (const spawnLocation of boss.spawnLocations) {
-        spawnLocations.push({
-            name: spawnLocation.name,
-            chance: spawnLocation.chance,
-            map: map.name,
-        });
-    }
-
-    return spawnLocations;
-}
-
-function formatBossData(bosses) {
+function formatBossData(maps) {
 
     // Try to get the formatted boss data from session storage
-    const dataObj = sessionStorage.getItem('boss-array-fmt');
+    const dataObj = sessionStorage.getItem('boss-array-new');
     if (dataObj) {
         try {
             return JSON.parse(dataObj);
@@ -24,38 +10,42 @@ function formatBossData(bosses) {
         }
     }
 
-    var duplicateCheck = [];
-    var bossArray = [];
+    const bossArray = [];
 
     // Loop through each map
-    for (const map of bosses.maps) {
+    for (const map of maps) {
         // Loop through each boss for each map
         for (const boss of map.bosses) {
-            // If the boss has already been added to the array, move on to the 'else' statement
-            if (!duplicateCheck.includes(boss.name)) {
-                boss['map'] = new Set([map.name]);
-                boss['map_id'] = new Set([map.id]);
-                boss['spawnLocations'] = spawnLocations(boss, map);
-                boss['spawnChance'] = [{chance: boss.spawnChance, map: map.name}];
+            let savedBoss = bossArray.find(savedBoss => boss.normalizedName === savedBoss.normalizedName);
+            if (!savedBoss) {
+                savedBoss = {
+                    name: boss.name,
+                    normalizedName: boss.normalizedName,
+                    escorts: boss.escorts,
+                    maps: []
 
-                bossArray.push(boss);
-                duplicateCheck.push(boss.name);
-            } else {
-                // Find the boss in the bossArray and add the map to the map array
-                for (const bossData of bossArray) {
-                    if (bossData.name === boss.name) {
-                        bossData['map'].add(map.name);
-                        bossData['map_id'].add(map.id);
-                        bossData['spawnChance'].push({chance: boss.spawnChance, map: map.name});
-                        bossData['spawnLocations'] = bossData['spawnLocations'].concat(spawnLocations(boss, map));
-                    }
-                }
+                };
+                bossArray.push(savedBoss);
             }
+            let bossMap = savedBoss.maps.find(savedMap => savedMap.normalizedName === map.normalizedName);
+            if (!bossMap) {
+                bossMap = {
+                    name: map.name,
+                    normalizedName: map.normalizedName,
+                    id: map.id,
+                    spawns: []
+                }
+                savedBoss.maps.push(bossMap);
+            }
+            bossMap.spawns.push({
+                spawnChance: boss.spawnChance,
+                locations: boss.spawnLocations
+            });
         }
     }
 
     // Save to session storage and return the formatted boss data
-    sessionStorage.setItem('boss-array-fmt', JSON.stringify(bossArray));
+    sessionStorage.setItem('boss-array-new', JSON.stringify(bossArray));
     return bossArray;
 }
 
