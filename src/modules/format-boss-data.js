@@ -27,7 +27,7 @@ function formatBossData(maps) {
                 };
                 bossArray.push(savedBoss);
             }
-            let bossMap = savedBoss.maps.find(savedMap => savedMap.normalizedName === map.normalizedName);
+            let bossMap = savedBoss.maps.find(savedMap => savedMap.id === map.id);
             if (!bossMap) {
                 bossMap = {
                     name: map.name,
