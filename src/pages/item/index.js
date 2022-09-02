@@ -468,6 +468,8 @@ function Item() {
         );
     }
 
+    const buySources = currentItemData.buyFor.filter(buyFor => buyFor.price > 0);
+
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
@@ -648,11 +650,11 @@ function Item() {
                             </div>
                         </div>
                     )}
-                    {currentItemData.buyFor && currentItemData.buyFor.length > 0 && (
+                    {buySources && buySources.length > 0 && (
                         <div>
                             <h2>{t('Buy for')}</h2>
                             <div className="information-grid single-line-grid buy">
-                                {currentItemData.buyFor.map(
+                                {buySources.map(
                                     (buyPrice, index) => {
                                         const loyaltyLevel = buyPrice.requirements.find((requirement) => requirement.type === 'loyaltyLevel')?.value;
                                         return (
