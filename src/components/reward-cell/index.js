@@ -28,10 +28,9 @@ function RewardCell(props) {
                         {name}
                     </Link>
                 </div>
-                <div className="source-wrapper">{source}</div>
+                <div className="source-wrapper">{source}{barterOnly && <span> ({t('Barter only')})</span>}</div>
                 <div className="price-wrapper">
                     {formatPrice(sellValue)} <span>@</span> {sellTo}
-                    {barterOnly && <span> ({t('Barter only')})</span>}
                 </div>
             </div>
         </div>
