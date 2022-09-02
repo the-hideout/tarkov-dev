@@ -757,7 +757,7 @@ function Item() {
                                 }
                                 tooltipContent={
                                     <>
-                                        {t('Shows all sources of items regardless of what you have set in your settings')}
+                                        {t('Shows all sources of items regardless of your settings')}
                                     </>
                                 }
                             />
@@ -788,7 +788,7 @@ function Item() {
                                 }
                                 tooltipContent={
                                     <>
-                                        {t('Shows all crafts regardless of what you have set in your settings')}
+                                        {t('Shows all barters regardless of your settings')}
                                     </>
                                 }
                             />
@@ -813,7 +813,7 @@ function Item() {
                                 }
                                 tooltipContent={
                                     <>
-                                        {t('Shows all crafts regardless of what you have set in your settings')}
+                                        {t('Shows all crafts regardless of your settings')}
                                     </>
                                 }
                             />
@@ -838,7 +838,7 @@ function Item() {
                                 }
                                 tooltipContent={
                                     <>
-                                        {t('Shows all modules regardless of what you have set in your settings')}
+                                        {t('Shows all modules regardless of your settings')}
                                     </>
                                 }
                             />
