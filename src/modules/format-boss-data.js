@@ -23,7 +23,6 @@ function formatBossData(maps) {
                     normalizedName: boss.normalizedName,
                     escorts: boss.escorts,
                     maps: []
-
                 };
                 bossArray.push(savedBoss);
             }
