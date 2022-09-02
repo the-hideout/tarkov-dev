@@ -38,7 +38,7 @@ const ContainedItemsList = ({ item }) => {
             }
         }
     });
-console.log(sortedItems);
+
     sortedItems = sortedItems.reduce((allItems, current) => {
         if (!allItems.some(item => item.id === current.id))
             allItems.push(current);
