@@ -112,7 +112,7 @@ function BossPage(params) {
 
     // Collect spawn stats for each map
     var spawnStatsMsg = [];
-console.log(bossData);
+
     for (const map of bossData.maps) {
         // If a specific boss override exists, use that instead of the default from the API
         const spawnChanceOverride = bossJsonData?.spawnChanceOverride?.find(override => override.map === map.normalizedName);
