@@ -13,7 +13,7 @@ function RewardCell(props) {
         itemLink,
         name,
         source,
-        value,
+        sellValue,
         sellTo,
         barterOnly = false,
     } = props;
@@ -30,7 +30,7 @@ function RewardCell(props) {
                 </div>
                 <div className="source-wrapper">{source}</div>
                 <div className="price-wrapper">
-                    {formatPrice(value)} <span>@</span> {sellTo}
+                    {formatPrice(sellValue)} <span>@</span> {sellTo}
                     {barterOnly && <span> ({t('Barter only')})</span>}
                 </div>
             </div>

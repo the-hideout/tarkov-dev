@@ -241,33 +241,31 @@ function CraftTable(props) {
                         source: `${t(station)} (${t('Level')} ${level})`,
                         iconLink: craftRow.rewardItems[0].item.iconLink || 'https://tarkov.dev/images/unknown-item-icon.jpg',
                         count: craftRow.rewardItems[0].count,
-                        value: 0, 
+                        sellValue: 0, 
                     },
                 };
 
-                const bestTraderValue = Math.max(
-                    ...craftRow.rewardItems[0].item.sellFor.map(
-                        (priceObject) => {
-                            if (priceObject.vendor.normalizedName === 'flea-market') 
-                                return 0;
-                            return priceObject.priceRUB
-                        }
-                    ),
-                );
-                const bestTrade =
-                    craftRow.rewardItems[0].item.sellFor.find(
-                        (traderPrice) => traderPrice.priceRUB === bestTraderValue,
-                    );
+                const bestTrade = craftRow.rewardItems[0].item.sellFor.reduce((prev, current) => {
+                    if (current.vendor.normalizedName === 'flea-market') 
+                        return prev;
+                    if (!settings.jaeger && current.vendor.normalizedName === 'jaeger') 
+                        return prev;
+                    if (!prev) 
+                        return current;
+                    if (prev.priceRUB < current.priceRUB) 
+                        return current;
+                    return prev;
+                }, false);
 
                 if ((bestTrade && bestTrade.priceRUB > tradeData.reward.value) || (bestTrade && !includeFlea)) {
-                    tradeData.reward.value = bestTrade.priceRUB;
+                    tradeData.reward.sellValue = bestTrade.priceRUB;
                     tradeData.reward.sellTo = bestTrade.vendor.name;
                 }
 
                 const priceToUse = averagePrices === true ? 'avg24hPrice' : 'lastLowPrice';
 
                 if (!craftRow.rewardItems[0].item.types.includes('noFlea')) {
-                    tradeData.reward.value = craftRow.rewardItems[0].item[priceToUse];
+                    tradeData.reward.sellValue = craftRow.rewardItems[0].item[priceToUse];
                     
                     tradeData.reward.sellTo = t('Flea Market');
                     tradeData.fleaThroughput = Math.floor(
@@ -275,7 +273,7 @@ function CraftTable(props) {
                     );
                 }
 
-                tradeData.profit = tradeData.reward.value * craftRow.rewardItems[0].count - totalCost;
+                tradeData.profit = tradeData.reward.sellValue * craftRow.rewardItems[0].count - totalCost;
 
                 if (tradeData.reward.sellTo === t('Flea Market')) {
                     tradeData.profit =
@@ -299,8 +297,8 @@ function CraftTable(props) {
                 );
 
                 // If the reward has no value, it's not available for purchase
-                if (tradeData.reward.value === 0) {
-                    tradeData.reward.value = tradeData.cost;
+                if (tradeData.reward.sellValue === 0) {
+                    tradeData.reward.sellValue = tradeData.cost;
                     tradeData.reward.barterOnly = true;
                     tradeData.profit = 0;
                 }

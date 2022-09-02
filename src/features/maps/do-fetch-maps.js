@@ -1,6 +1,6 @@
 import { langCode } from '../../modules/lang-helpers';
 
-const doFetchBosses = async () => {
+const doFetchMaps = async () => {
     const language = await langCode();
     const bodyQuery = JSON.stringify({
         query: `{
@@ -47,9 +47,9 @@ const doFetchBosses = async () => {
         body: bodyQuery,
     });
 
-    const bossData = await response.json();
+    const mapsData = await response.json();
 
-    return bossData.data;
+    return mapsData.data.maps;
 };
 
-export default doFetchBosses;
+export default doFetchMaps;

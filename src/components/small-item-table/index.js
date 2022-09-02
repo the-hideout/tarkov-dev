@@ -155,6 +155,7 @@ function SmallItemTable(props) {
         cheapestPrice,
         sumColumns,
         totalTraderPrice,
+        idFilter,
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -468,6 +469,11 @@ function SmallItemTable(props) {
             shuffleArray(returnData);
         }
 
+        if (idFilter) {
+            const idArray = Array.isArray(idFilter) ? idFilter : [idFilter];
+            returnData = returnData.filter(item => idArray.includes(item.id));
+        }
+
         return returnData;
     }, [
         nameFilter,
@@ -490,7 +496,8 @@ function SmallItemTable(props) {
         materialDestructibilityMap,
         materialRepairabilityMap,
         settings,
-        showAllSources
+        showAllSources,
+        idFilter
     ]);
 
     const columns = useMemo(() => {

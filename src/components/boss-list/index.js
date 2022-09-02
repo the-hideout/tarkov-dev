@@ -1,16 +1,16 @@
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 
-import doFetchBosses from '../../features/bosses/do-fetch-bosses';
+import doFetchMaps from '../../features/maps/do-fetch-maps';
 import formatBossData from '../../modules/format-boss-data';
 import MenuItem from '../menu/MenuItem';
 import LoadingSmall from '../loading-small';
 
 import './index.css';
 
-// Query for bosses
-export const useBossesQuery = (queryOptions) => {
-    const bossesQuery = useQuery('bosses', () => doFetchBosses(), {
+// Query for maps
+export const useMapsQuery = (queryOptions) => {
+    const mapsQuery = useQuery('maps', () => doFetchMaps(), {
         refetchInterval: 600000,
         placeholderData: [],
         refetchOnMount: false,
@@ -18,21 +18,21 @@ export const useBossesQuery = (queryOptions) => {
         ...queryOptions,
     });
 
-    return bossesQuery;
+    return mapsQuery;
 };
 
 // BossPageList component for the main boss page
 export function BossPageList() {
-    // Fetch bosses
-    const { data: bosses } = useBossesQuery();
+    // Fetch maps
+    const { data: maps } = useMapsQuery();
 
-    // If no bosses have been returned yet, return 'loading'
-    if (!bosses || bosses.length === 0) {
+    // If no maps have been returned yet, return 'loading'
+    if (!maps || maps.length === 0) {
         return <LoadingSmall />;
     }
 
     // Format the boss data
-    const bossArray = formatBossData(bosses);
+    const bossArray = formatBossData(maps);
 
     // Return the home page boss React component
     return (
@@ -40,7 +40,7 @@ export function BossPageList() {
             {bossArray.map((boss) => {
 
                 // Format the boss name for links
-                var key = boss.normalizedName.toLowerCase().replace(/ /g, '-');
+                var key = boss.normalizedName;
 
                 return (
                     <Link to={`/boss/${key}`} className="screen-link" key={`boss-${key}`}>
@@ -59,16 +59,16 @@ export function BossPageList() {
 
 // BossListNav component for homepage nav bar
 export function BossListNav(onClick) {
-    // Fetch bosses
-    const { data: bosses } = useBossesQuery();
+    // Fetch maps
+    const { data: maps } = useMapsQuery();
 
-    // If no bosses have been returned yet, return 'loading'
-    if (!bosses || bosses.length === 0) {
+    // If no maps have been returned yet, return 'loading'
+    if (!maps || maps.length === 0) {
         return null;
     }
 
     // Format the boss data
-    const bossArray = formatBossData(bosses);
+    const bossArray = formatBossData(maps);
 
     // Return the home page nav boss React component
     return (
@@ -76,7 +76,7 @@ export function BossListNav(onClick) {
             <ul>
                 {bossArray.map((boss) => {
                     // Format the boss name for links
-                    var key = boss.normalizedName.toLowerCase().replace(/ /g, '-');
+                    var key = boss.normalizedName;
 
                     return (
                         <MenuItem
@@ -94,16 +94,16 @@ export function BossListNav(onClick) {
 
 // BossList component for homepage
 function BossList() {
-    // Fetch bosses
-    const { data: bosses } = useBossesQuery();
+    // Fetch maps
+    const { data: maps } = useMapsQuery();
 
-    // If no bosses have been returned yet, return 'loading'
-    if (!bosses || bosses.length === 0) {
+    // If no maps have been returned yet, return 'loading'
+    if (!maps || maps.length === 0) {
         return <LoadingSmall />;
     }
 
     // Format the boss data
-    const bossArray = formatBossData(bosses);
+    const bossArray = formatBossData(maps);
 
     // Return the home page boss React component
     return (
@@ -111,7 +111,7 @@ function BossList() {
             {bossArray.map((boss) => {
 
                 // Format the boss name for links
-                var key = boss.normalizedName.toLowerCase().replace(/ /g, '-');
+                var key = boss.normalizedName;
 
                 return (
                     <li key={`boss-link-${key}`}>

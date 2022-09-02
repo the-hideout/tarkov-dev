@@ -1,16 +1,16 @@
 import { Helmet } from 'react-helmet';
 import React, { Suspense, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import capitalize from '../../../modules/capitalize-first';
 import formatBossData from '../../../modules/format-boss-data';
-import ItemNameCell from '../../../components/item-name-cell';
-import { useBossesQuery } from '../../../components/boss-list';
+import { useMapsQuery } from '../../../components/boss-list';
 import DataTable from '../../../components/data-table';
 import PropertyList from '../../../components/property-list';
 import bossJson from '../../../data/boss.json';
 import ErrorPage from '../../../components/error-page';
 import Loading from '../../../components/loading';
+import SmallItemTable from '../../../components/small-item-table';
 import Icon from '@mdi/react';
 import CheekiBreekiEffect from '../../../components/cheeki-breeki-effect';
 import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper } from '@mdi/js';
@@ -73,38 +73,21 @@ function BossPage(params) {
         ];
     }, [t]);
 
-    // Format the boss table columns for locations
-    const columnsLoot = useMemo(() => {
-        return [
-            {
-                Header: t('Name'),
-                accessor: 'name',
-                Cell: ItemNameCell
-            }
-        ];
-    }, [t]);
-
     const bossNameLower = params.bossName
 
-    // Fetch bosses
-    const { data: bosses } = useBossesQuery();
+    // Fetch maps
+    const { data: maps } = useMapsQuery();
 
-    // If no bosses have been returned yet, return 'loading'
-    if (!bosses || bosses.length === 0) {
+    // If no maps have been returned yet, return 'loading'
+    if (!maps || maps.length === 0) {
         return <Loading />;
     }
 
     // Format the boss data
-    const bossArray = formatBossData(bosses);
+    const bossArray = formatBossData(maps);
 
     // Get the correct individual boss data
-    var bossData = null;
-    for (const boss of bossArray) {
-        if (boss.normalizedName === bossNameLower) {
-            bossData = boss;
-            break;
-        }
-    }
+    var bossData = bossArray.find(boss => boss.normalizedName === bossNameLower);
 
     // If no boss data has been found, return the error page
     if (!bossData) {
@@ -112,43 +95,48 @@ function BossPage(params) {
     }
 
     // Get static boss data from json file
-    var bossJsonData = null;
-    for (const boss of bossJson) {
-        if (boss.normalizedName === bossNameLower) {
-            bossJsonData = boss;
-        }
-    }
+    var bossJsonData = bossJson.find(boss => boss.normalizedName === bossNameLower);
 
     // Collect a list of all maps without duplicates
-    var maps = [];
-    for (const map of bossData.spawnChance) {
-        if (maps.includes(map.map)) {
+    var bossMaps = [];
+    for (const map of bossData.maps) {
+        if (bossMaps.includes(map.name)) {
             continue;
         }
-        maps.push(map.map);
+        bossMaps.push(map.name);
     }
 
     // Format the bossProperties data for the 'stats' section
     var bossProperties = {}
-    bossProperties[t('map') + ' 🗺️'] = maps;
+    bossProperties[t('map') + ' 🗺️'] = bossMaps;
 
     // Collect spawn stats for each map
     var spawnStatsMsg = [];
 
-    // If a specific boss override exists, use that instead of the default from the API
-    if (bossJsonData && bossJsonData.spawnChanceOverride) {
-        for (const spawn of bossJsonData.spawnChanceOverride) {
-            if (bossJsonData.spawnChanceOverrideString === true) {
-                spawnStatsMsg.push(`${spawn.chance} (${spawn.map})`)
-            } else {
-                spawnStatsMsg.push(`${spawn.chance * 100}% (${spawn.map})`);
-            }
-
+    for (const map of bossData.maps) {
+        // If a specific boss override exists, use that instead of the default from the API
+        const spawnChanceOverride = bossJsonData?.spawnChanceOverride?.find(override => override.map === map.normalizedName);
+        if (spawnChanceOverride) {
+            spawnStatsMsg.push(`${spawnChanceOverride.chance * 100}% (${map.name})`);
+            continue;
         }
-    } else {
-        for (const spawn of bossData.spawnChance) {
-            spawnStatsMsg.push(`${spawn.chance * 100}% (${spawn.map})`)
+        /*if (map.spawns.length === 1) {
+            spawnStatsMsg.push(`${map.spawns[0].spawnChance * 100}% (${map.name})`);
+            continue;
+        }*/
+        let lowerBound = 1;
+        let upperBound = 0;
+        for (const spawn of map.spawns) {
+            lowerBound = lowerBound > spawn.spawnChance ? spawn.spawnChance : lowerBound;
+            upperBound = upperBound < spawn.spawnChance ? spawn.spawnChance : upperBound;
         }
+        upperBound = upperBound * 100;
+        lowerBound = lowerBound * 100;
+        let displayPercent = `${lowerBound}-${upperBound}`;
+        if (lowerBound === upperBound || upperBound === 100) {
+            displayPercent = upperBound;
+        } 
+        spawnStatsMsg.push(`${displayPercent}% (${map.name})`)
     }
 
     bossProperties[t('spawnChance') + ` 🎲`] = spawnStatsMsg.join(', ');
@@ -165,12 +153,17 @@ function BossPage(params) {
 
     // Format the boss table spawnLocation data
     const spawnLocations = []
-    for (const spawnLocation of bossData.spawnLocations) {
-        spawnLocations.push({
-            spawnLocations: spawnLocation.name,
-            chance: `${parseInt(spawnLocation.chance * 100)}%`,
-            map: spawnLocation.map
-        });
+    for (const map of bossData.maps) {
+        for (const spawn of map.spawns) {
+            for (const location of spawn.locations) {
+                const chance = map.spawns.length > 1 && location.chance === 1 ? spawn.spawnChance : location.chance;
+                spawnLocations.push({
+                    spawnLocations: location.name,
+                    chance: `${parseInt(chance * 100)}%`,
+                    map: map.name
+                });
+            }
+        }
     }
 
     // Format the boss table escorts data
@@ -237,7 +230,7 @@ function BossPage(params) {
 
                 {bossJsonData &&
                     <h2 className='item-h2' key={'boss-loot-header'}>
-                        {t('Unique Boss Loot')}
+                        {t('Special Boss Loot')}
                         <Icon
                             path={mdiDiamondStone}
                             size={1.5}
@@ -247,14 +240,13 @@ function BossPage(params) {
                 }
                 {bossJsonData &&
                     <div className='loot-table-boss'>
-                        <DataTable
-                            columns={columnsLoot}
-                            data={bossJsonData.loot}
-                            disableSortBy={false}
-                            key={'boss-loot-table'}
-                            sortBy={'name'}
-                            sortByDesc={true}
-                            autoResetSortBy={false}
+                        <SmallItemTable
+                            idFilter={bossJsonData.loot.reduce((prev, current) => {
+                                prev.push(current.id);
+                                return prev;
+                            }, [])}
+                            fleaValue
+                            traderValue
                         />
                     </div>
                 }
@@ -344,8 +336,7 @@ function Boss() {
                 name="description"
                 content={`All the relevant information about ${boss} (boss) in Escape from Tarkov`}
             />
-            <Link
-                key={`boss-canonical-${bossName}`}
+            <link
                 rel="canonical"
                 href={`https://tarkov.dev/boss/${bossName}`}
             />

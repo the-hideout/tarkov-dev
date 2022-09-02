@@ -18,7 +18,7 @@ const ContainedItemsList = ({ item }) => {
         return null;
     }
 
-    const sortedItems = items.filter(linkedItem => {
+    let sortedItems = items.filter(linkedItem => {
         for (const slot of containers) {
             /*const included = slot.filters.allowedItems.includes(linkedItem.id) ||
                 linkedItem.categoryIds.some(catId => slot.filters.allowedCategories.includes(catId));
@@ -38,7 +38,15 @@ const ContainedItemsList = ({ item }) => {
             }
         }
     });
-    
+
+    sortedItems = sortedItems.reduce((allItems, current) => {
+        if (!allItems.some(item => item.id === current.id))
+            allItems.push(current);
+        return allItems;
+    }, []);
+    if (sortedItems.length === 1 && sortedItems[0].id === '54009119af1c881c07000029') {
+        return null;
+    }
     sortedItems.sort((a,b) => {
         const textA = a.normalizedName;
         const textB = b.normalizedName;

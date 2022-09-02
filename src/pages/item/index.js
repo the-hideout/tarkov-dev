@@ -241,6 +241,17 @@ function Item() {
                                 objectiveInfo.count = 1;
                         });
                     });
+                } else if (objectiveData.wearing?.length) {
+                    let requiredCount = 0;
+                    objectiveData.wearing?.forEach(outfit => {
+                        outfit.forEach(item => {
+                            if (item.id === currentItemData?.id) 
+                                requiredCount++
+                        });
+                    });
+                    if (requiredCount === objectiveData.wearing.length) {
+                        objectiveInfo.count = 1;
+                    }
                 }
             });
 
@@ -457,6 +468,8 @@ function Item() {
         );
     }
 
+    const buySources = currentItemData.buyFor.filter(buyFor => buyFor.price > 0);
+
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
@@ -637,11 +650,11 @@ function Item() {
                             </div>
                         </div>
                     )}
-                    {currentItemData.buyFor && currentItemData.buyFor.length > 0 && (
+                    {buySources && buySources.length > 0 && (
                         <div>
                             <h2>{t('Buy for')}</h2>
                             <div className="information-grid single-line-grid buy">
-                                {currentItemData.buyFor.map(
+                                {buySources.map(
                                     (buyPrice, index) => {
                                         const loyaltyLevel = buyPrice.requirements.find((requirement) => requirement.type === 'loyaltyLevel')?.value;
                                         return (
@@ -757,7 +770,7 @@ function Item() {
                                 }
                                 tooltipContent={
                                     <>
-                                        {t('Shows all sources of items regardless of what you have set in your settings')}
+                                        {t('Shows all sources of items regardless of your settings')}
                                     </>
                                 }
                             />
@@ -788,7 +801,7 @@ function Item() {
                                 }
                                 tooltipContent={
                                     <>
-                                        {t('Shows all crafts regardless of what you have set in your settings')}
+                                        {t('Shows all barters regardless of your settings')}
                                     </>
                                 }
                             />
@@ -813,7 +826,7 @@ function Item() {
                                 }
                                 tooltipContent={
                                     <>
-                                        {t('Shows all crafts regardless of what you have set in your settings')}
+                                        {t('Shows all crafts regardless of your settings')}
                                     </>
                                 }
                             />
@@ -838,7 +851,7 @@ function Item() {
                                 }
                                 tooltipContent={
                                     <>
-                                        {t('Shows all modules regardless of what you have set in your settings')}
+                                        {t('Shows all modules regardless of your settings')}
                                     </>
                                 }
                             />
