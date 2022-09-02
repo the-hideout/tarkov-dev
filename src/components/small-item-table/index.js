@@ -470,10 +470,8 @@ function SmallItemTable(props) {
         }
 
         if (idFilter) {
-            if (!Array.isArray(idFilter)) {
-                idFilter = [idFilter];
-            }
-            returnData = returnData.filter(item => idFilter.includes(item.id));
+            const idArray = Array.isArray(idFilter) ? idFilter : [idFilter];
+            returnData = returnData.filter(item => idArray.includes(item.id));
         }
 
         return returnData;
@@ -498,7 +496,8 @@ function SmallItemTable(props) {
         materialDestructibilityMap,
         materialRepairabilityMap,
         settings,
-        showAllSources
+        showAllSources,
+        idFilter
     ]);
 
     const columns = useMemo(() => {
