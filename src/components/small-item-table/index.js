@@ -40,6 +40,7 @@ function getItemCountPrice(item) {
 }
 
 function traderSellCell(datum, totalTraderPrice = false) {
+    console.log(datum.row.original);
     if (!datum.row.original.bestSell?.source || datum.row.original.bestSell.source === '?') {
         return null;
     }
@@ -365,6 +366,8 @@ function SmallItemTable(props) {
                         if (prev.priceRUB > current.priceRUB) return prev;
                         return current;
                     }, {priceRUB: 0})
+                } else {
+                    formattedItem.bestSell = formattedItem.bestSell[0];
                 }
 
                 if (!showAllSources && !settings.hasFlea) {
