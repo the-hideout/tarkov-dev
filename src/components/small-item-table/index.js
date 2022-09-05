@@ -40,7 +40,6 @@ function getItemCountPrice(item) {
 }
 
 function traderSellCell(datum, totalTraderPrice = false) {
-    console.log(datum.row.original);
     if (!datum.row.original.bestSell?.source || datum.row.original.bestSell.source === '?') {
         return null;
     }
