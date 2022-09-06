@@ -365,6 +365,8 @@ function SmallItemTable(props) {
                         if (prev.priceRUB > current.priceRUB) return prev;
                         return current;
                     }, {priceRUB: 0})
+                } else if (formattedItem.bestSell.length === 1) {
+                    formattedItem.bestSell = formattedItem.bestSell[0];
                 }
 
                 if (!showAllSources && !settings.hasFlea) {
