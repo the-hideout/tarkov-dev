@@ -77,7 +77,7 @@
   },
   "jest": {
     "transformIgnorePatterns": [
-      "node_modules\/(?!@github\/|@primer\/).*"
+      "node_modules\/(?!@github\/|@primer\/|tippy\\.js).*"
     ]
   },
   "eslintConfig": {
