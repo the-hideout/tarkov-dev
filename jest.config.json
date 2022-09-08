@@ -1,3 +1,0 @@
-{
-    "transformIgnorePatterns": "node_modules\/(?!@github\/|@primer\/).*"
-}

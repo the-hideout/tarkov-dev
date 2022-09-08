@@ -75,6 +75,9 @@
     "preview": "npx serve build -l 3001 -s",
     "critical": "node scripts/critical.js"
   },
+  "jest": {
+    "transformIgnorePatterns": "node_modules\/(?!@github\/|@primer\/).*"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
