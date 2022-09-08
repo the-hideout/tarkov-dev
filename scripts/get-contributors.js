@@ -25,6 +25,7 @@ const repositories = [
             allContributors.push({
                 login: contributor.login,
                 html_url: contributor.html_url,
+                avatar_url: `${contributor.avatar_url}`,
             });
         }
     }
