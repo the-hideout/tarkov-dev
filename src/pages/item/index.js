@@ -549,6 +549,10 @@ function Item() {
                         )}
                     </div>
                 </div>
+
+                {/* Divider between sections */}
+                <hr className="hr-muted"></hr>
+                
                 <div className="trader-wrapper">
                     {currentItemData.sellFor && currentItemData.sellFor.length > 0 && (
                         <div>
