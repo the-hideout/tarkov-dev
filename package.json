@@ -76,7 +76,9 @@
     "critical": "node scripts/critical.js"
   },
   "jest": {
-    "transformIgnorePatterns": "node_modules\/(?!@github\/|@primer\/).*"
+    "transformIgnorePatterns": [
+      "node_modules\/(?!@github\/|@primer\/).*"
+    ]
   },
   "eslintConfig": {
     "extends": [
