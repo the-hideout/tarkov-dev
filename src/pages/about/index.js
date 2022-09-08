@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
-import { AvatarStack, Avatar } from '@primer/react';
+import { Avatar } from '@primer/react';
 
 // import SupportersList from '../../components/supporters-list';
 
