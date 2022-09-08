@@ -5,6 +5,7 @@ import { Avatar } from '@primer/react';
 // import SupportersList from '../../components/supporters-list';
 
 import UkraineButton from '../../components/ukraine-button';
+import Contributors from '../../components/contributors';
 
 import './index.css';
 
@@ -121,6 +122,10 @@ function About() {
                     </li>
                 </ul>
             </p>
+            <h2>{t('All Contributors')}</h2>
+            <p>Massive thank you to all the people that have contributed to this project to make it possible! ❤️</p>
+            <Contributors size={36}/>
+
             {/* <h3>{t('Gold supporters')}</h3>
             <SupportersList tierFilter={'Gold supporter'} />
             <h3>{t('Silver supporters')}</h3>
