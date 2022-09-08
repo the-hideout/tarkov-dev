@@ -15,7 +15,8 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        'Helvetica Neue', Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -213,6 +214,13 @@ div.tippy-box[data-placement^='left'] > .tippy-arrow::before {
 
 div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
     border-right-color: #4f4f4f;
+}
+
+.hr-muted {
+    margin-top: 2rem;
+    border-bottom: 1px solid #9a8866;
+    width: 80%;
+    opacity: 0.4;
 }
 
 @media screen and (min-width: 710px) {
