@@ -81,25 +81,43 @@ function About() {
             </p>
             <h2>{t('Core Contributors')}</h2>
             <p>
-                {t('The core contributors to this project (in no particular order) are:')}{' '}
+                {t('The core contributors to this project (in no particular order) are:')}
                 <ul>
                     <li>
-                        <a href="https://github.com/Razzmatazzz">@Razzmatazzz</a>{' '}
+                        <a href="https://github.com/Razzmatazzz">
+                            <Avatar src="https://avatars.githubusercontent.com/Razzmatazzz?size=24" />
+                            {' @Razzmatazzz'}
+                        </a>{' '}
                     </li>
                     <li>
-                        <a href="https://github.com/austinhodak">@austinhodak</a>{' '}
+                        <a href="https://github.com/austinhodak">
+                            <Avatar src="https://avatars.githubusercontent.com/austinhodak?size=24" />
+                            {' @austinhodak'}
+                        </a>
                     </li>
                     <li>
-                        <a href="https://github.com/GrantBirki">@GrantBirki</a>{' '}
+                        <a href="https://github.com/GrantBirki">
+                            <Avatar src="https://avatars.githubusercontent.com/GrantBirki?size=24" />
+                            {' @GrantBirki'}
+                        </a>
                     </li>
                     <li>
-                        <a href="https://github.com/Blightbuster">@Blightbuster</a>{' '}
+                        <a href="https://github.com/Blightbuster">
+                            <Avatar src="https://avatars.githubusercontent.com/Blightbuster?size=24" />
+                            {' @Blightbuster'}
+                        </a>
                     </li>
                     <li>
-                        <a href="https://github.com/johndongus">@johndongus</a>{' '}
+                        <a href="https://github.com/johndongus">
+                            <Avatar src="https://avatars.githubusercontent.com/johndongus?size=24" />
+                            {' @johndongus'}
+                        </a>{' '}
                     </li>
                     <li>
-                        <a href="https://github.com/Shebuka">@Shebuka</a>
+                        <a href="https://github.com/Shebuka">
+                            <Avatar src="https://avatars.githubusercontent.com/Shebuka?size=24" />
+                            {' @Shebuka'}
+                        </a>
                     </li>
                 </ul>
             </p>
