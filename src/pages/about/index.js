@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
+import { AvatarStack, Avatar } from '@primer/react';
+
 // import SupportersList from '../../components/supporters-list';
 
 import UkraineButton from '../../components/ukraine-button';
@@ -29,22 +31,25 @@ function About() {
             </p>
             <h2>{t('Discussions & feedback')}</h2>
             <p>
-                {t(
-                    'If you wanna have a chat, ask questions or request features, we have a',
-                )}{' '}
-                <a href="https://discord.gg/XPAsKGHSzH">Discord</a>{' '}
-                {t('server')}
+                {t('If you wanna have a chat, ask questions or request features, we have a')}{' '}
+                <a href="https://discord.gg/XPAsKGHSzH">Discord</a> {t('server')}
             </p>
             <h2>{t('Support')}</h2>
             <p>
                 {t(
                     'We encourage everyone who can to donate to support the people of Ukraine using the button below',
-                )}<span>.</span>
+                )}
+                <span>.</span>
             </p>
-            <UkraineButton/>
+            <UkraineButton />
             <p>
-                {t("If you'd also like to support this project, you can make a donation and/or become a backer on")}{' '}
-                <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">Open Collective</a><span>.</span>
+                {t(
+                    "If you'd also like to support this project, you can make a donation and/or become a backer on",
+                )}{' '}
+                <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">
+                    Open Collective
+                </a>
+                <span>.</span>
             </p>
             <p>
                 {t(
@@ -60,14 +65,10 @@ function About() {
             </p>
             <h2>{t('History')}</h2>
             <p>
-                {t('This project is a fork of')}
-                {' '}
-                <a href="https://github.com/kokarn/tarkov-tools">
-                    tarkov-tools.com
-                </a>
+                {t('This project is a fork of')}{' '}
+                <a href="https://github.com/kokarn/tarkov-tools">tarkov-tools.com</a>
                 {'. '}
-                {t('The original creator')}{' '}
-                <a href="https://github.com/kokarn">@kokarn</a>{' '}
+                {t('The original creator')} <a href="https://github.com/kokarn">@kokarn</a>{' '}
                 {t(
                     'decided to shut the site down. In the spirit of open source, a group of developers came together to revive the site in order to continue providing a great website for the Tarkov community and an API to power further development for creators. This project is now 100% open source and developer first. Our GitHub Organization',
                 )}
@@ -80,27 +81,19 @@ function About() {
             </p>
             <h2>{t('Core Contributors')}</h2>
             <p>
-                {t(
-                    'The core contributors to this project (in no particular order) are:',
-                )}{' '}
+                {t('The core contributors to this project (in no particular order) are:')}{' '}
                 <ul>
                     <li>
-                        <a href="https://github.com/Razzmatazzz">
-                            @Razzmatazzz
-                        </a>{' '}
+                        <a href="https://github.com/Razzmatazzz">@Razzmatazzz</a>{' '}
                     </li>
                     <li>
-                        <a href="https://github.com/austinhodak">
-                            @austinhodak
-                        </a>{' '}
+                        <a href="https://github.com/austinhodak">@austinhodak</a>{' '}
                     </li>
                     <li>
                         <a href="https://github.com/GrantBirki">@GrantBirki</a>{' '}
                     </li>
                     <li>
-                        <a href="https://github.com/Blightbuster">
-                            @Blightbuster
-                        </a>{' '}
+                        <a href="https://github.com/Blightbuster">@Blightbuster</a>{' '}
                     </li>
                     <li>
                         <a href="https://github.com/johndongus">@johndongus</a>{' '}
