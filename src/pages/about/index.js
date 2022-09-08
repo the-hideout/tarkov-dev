@@ -109,6 +109,12 @@ function About() {
                         </a>
                     </li>
                     <li>
+                        <a href="https://github.com/thaddeus">
+                            <Avatar src="https://avatars.githubusercontent.com/thaddeus?size=24" />
+                            {' @thaddeus'}
+                        </a>
+                    </li>
+                    <li>
                         <a href="https://github.com/johndongus">
                             <Avatar src="https://avatars.githubusercontent.com/johndongus?size=24" />
                             {' @johndongus'}
