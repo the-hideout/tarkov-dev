@@ -6,7 +6,12 @@ const got = require('got');
 const repositories = [
     'the-hideout/tarkov-dev',
     'the-hideout/stash',
-    'the-hideout/tarkov-data-api',
+    'the-hideout/tarkov-api',
+    'the-hideout/cloudflare',
+    'the-hideout/tarkov-data-manager',
+    'the-hideout/cache',
+    'the-hideout/status',
+    'the-hideout/tarkov-dev-image-generator',
     'TarkovTracker/tarkovdata',
 ];
 
