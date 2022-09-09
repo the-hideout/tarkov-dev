@@ -81,56 +81,57 @@ function About() {
                 )}{' '}
             </p>
             <h2>{t('Core Contributors')}</h2>
-            <p>
-                {t('The core contributors to this project (in no particular order) are:')}
-                <ul>
-                    <li>
-                        <a href="https://github.com/Razzmatazzz">
-                            <Avatar src="https://avatars.githubusercontent.com/Razzmatazzz?size=24" />
-                            {' @Razzmatazzz'}
-                        </a>{' '}
-                    </li>
-                    <li>
-                        <a href="https://github.com/austinhodak">
-                            <Avatar src="https://avatars.githubusercontent.com/austinhodak?size=24" />
-                            {' @austinhodak'}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/GrantBirki">
-                            <Avatar src="https://avatars.githubusercontent.com/GrantBirki?size=24" />
-                            {' @GrantBirki'}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/Blightbuster">
-                            <Avatar src="https://avatars.githubusercontent.com/Blightbuster?size=24" />
-                            {' @Blightbuster'}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/thaddeus">
-                            <Avatar src="https://avatars.githubusercontent.com/thaddeus?size=24" />
-                            {' @thaddeus'}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/johndongus">
-                            <Avatar src="https://avatars.githubusercontent.com/johndongus?size=24" />
-                            {' @johndongus'}
-                        </a>{' '}
-                    </li>
-                    <li>
-                        <a href="https://github.com/Shebuka">
-                            <Avatar src="https://avatars.githubusercontent.com/Shebuka?size=24" />
-                            {' @Shebuka'}
-                        </a>
-                    </li>
-                </ul>
-            </p>
+            {t('The core contributors to this project (in no particular order) are:')}
+            <ul>
+                <li>
+                    <a href="https://github.com/Razzmatazzz">
+                        <Avatar src="https://avatars.githubusercontent.com/Razzmatazzz?size=24" />
+                        {' @Razzmatazzz'}
+                    </a>{' '}
+                </li>
+                <li>
+                    <a href="https://github.com/austinhodak">
+                        <Avatar src="https://avatars.githubusercontent.com/austinhodak?size=24" />
+                        {' @austinhodak'}
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/GrantBirki">
+                        <Avatar src="https://avatars.githubusercontent.com/GrantBirki?size=24" />
+                        {' @GrantBirki'}
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/Blightbuster">
+                        <Avatar src="https://avatars.githubusercontent.com/Blightbuster?size=24" />
+                        {' @Blightbuster'}
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/thaddeus">
+                        <Avatar src="https://avatars.githubusercontent.com/thaddeus?size=24" />
+                        {' @thaddeus'}
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/johndongus">
+                        <Avatar src="https://avatars.githubusercontent.com/johndongus?size=24" />
+                        {' @johndongus'}
+                    </a>{' '}
+                </li>
+                <li>
+                    <a href="https://github.com/Shebuka">
+                        <Avatar src="https://avatars.githubusercontent.com/Shebuka?size=24" />
+                        {' @Shebuka'}
+                    </a>
+                </li>
+            </ul>
             <h2>{t('All Contributors')}</h2>
-            <p>Massive thank you to all the people that have contributed to this project to make it possible! ❤️</p>
-            <Contributors size={36}/>
+            <p>
+                Massive thank you to all the people that have contributed to this project to make it
+                possible! ❤️
+            </p>
+            <Contributors size={36} />
 
             {/* <h3>{t('Gold supporters')}</h3>
             <SupportersList tierFilter={'Gold supporter'} />
