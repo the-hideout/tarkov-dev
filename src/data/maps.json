@@ -14,20 +14,25 @@
             },
             {
                 "key": "customs-2d",
-                "displayText": "Customs - 2D",
-                "source": "TacticalOtter",
+                "displayText": "Customs - 2D cardinal",
+                "source": "Tactical_Otter",
+                "sourceLink": "https://www.reddit.com/user/9877531/",
                 "duration": "40 min",
                 "players": "9-12"
             },
             {
                 "key": "customs-2d-monkix3",
-                "displayText": "Customs - MONKIMONKIMONKI",
+                "displayText": "Customs - 2D",
+                "source": "monkimonkimonk",
+                "sourceLink": "https://www.reddit.com/user/monkimonkimonk/",
                 "duration": "40 min",
                 "players": "9-12"
             },
             {
                 "key": "customs-2d-dorms",
                 "displayText": "Customs - Dorms",
+                "source": "OffaPerry",
+                "sourceLink": "https://www.reddit.com/user/OffaPerry/",
                 "duration": "40 min",
                 "players": "9-12"
             }
@@ -41,7 +46,8 @@
             {
                 "key": "factory-3d",
                 "displayText": "Factory",
-                "source": "/u/JohnnyTushonka",
+                "source": "JohnnyTushonka",
+                "sourceLink": "https://www.reddit.com/user/JohnnyTushonka/",
                 "duration": "20 min / 25 min",
                 "players": "4-6"
             }
@@ -55,12 +61,16 @@
             {
                 "key": "interchange-2d",
                 "displayText": "Interchange",
+                "source": "Lorathor",
+                "sourceLink": "https://www.reddit.com/user/Lorathor6/",
                 "duration": "40 min",
                 "players": "10-14"
             },
             {
                 "key": "interchange-2d-stashes",
                 "displayText": "Interchange - Stashes",
+                "source": "Austindj3",
+                "sourceLink": "https://www.reddit.com/user/Austindj3/",
                 "duration": "40 min",
                 "players": "10-14"
             }
@@ -74,6 +84,8 @@
             {
                 "key": "labs-2d",
                 "displayText": "The Lab",
+                "source": "monkimonkimonk",
+                "sourceLink": "https://www.reddit.com/user/monkimonkimonk/",
                 "duration": "35 min",
                 "players": "6-10"
             }
@@ -156,12 +168,16 @@
             {
                 "key": "shoreline-2d",
                 "displayText": "Shoreline - 2D",
+                "source": "monkimonkimonk",
+                "sourceLink": "https://www.reddit.com/user/monkimonkimonk/",
                 "duration": "45 min",
                 "players": "10-13"
             },
             {
                 "key": "shoreline-3d-resort",
                 "displayText": "Shoreline - Resort",
+                "source": "TaroMochi",
+                "sourceLink": "https://www.clanunknownsoldiers.com/",
                 "duration": "45 min",
                 "players": "10-13"
             }
