@@ -31,8 +31,9 @@ function Contributors(props) {
         return (
             <>
                 {contributorJson.map((contributor) => (
-                    <a href={contributor.html_url}>
+                    <a href={contributor.html_url} key={contributor.login}>
                         <Avatar
+                            key={contributor.login}
                             size={props.size}
                             src={`${contributor.avatar_url}&size=${quality}`}
                         />
