@@ -14,7 +14,7 @@ const sharp = require('sharp');
         if (fileName.endsWith('_thumb.jpg')) continue;
         const thumbName = fileName.replace('.jpg', '_thumb.jpg');
         console.log(`Generating ${thumbName}`);
-        const image = sharp(mapsPath+fileName).resize(null, maxHeight).jpeg({quality: 70});
+        const image = sharp(mapsPath+fileName).resize(null, maxHeight).jpeg({quality: 80});
         await image.toFile(mapsPath+thumbName);
     }
     console.timeEnd('Generating thumbnails');
