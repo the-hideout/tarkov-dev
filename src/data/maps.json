@@ -173,8 +173,16 @@
         "description": "The Priozersk Natural Reserve recently became part of the state-protected wildlife reserves of the North Western Federal District.",
         "maps": [
             {
-                "key": "woods-2d",
+                "key": "woods-3d",
                 "displayText": "Woods",
+                "source": "re3mr",
+                "sourceLink": "https://reemr.se",
+                "duration": "40 min",
+                "players": "9-14"
+            },
+            {
+                "key": "woods-2d",
+                "displayText": "Woods - 2D",
                 "source": "Jindouz",
                 "sourceLink": "https://www.reddit.com/user/Jindouz",
                 "duration": "40 min",
