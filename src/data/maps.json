@@ -5,7 +5,7 @@
         "description": "A large area of industrial park land situated adjacent to the factory zone. The area houses a customs terminal, fuel storage facilities, offices, and dorms, as well as a variety of other infrastructure and buildings.",
         "maps": [
             {
-                "key": "customs",
+                "key": "customs-3d",
                 "displayText": "Customs",
                 "source": "re3mr",
                 "sourceLink": "https://reemr.se",
@@ -14,20 +14,25 @@
             },
             {
                 "key": "customs-2d",
+                "displayText": "Customs - 2D cardinal",
+                "source": "Tactical_Otter",
+                "sourceLink": "https://www.reddit.com/user/9877531/",
+                "duration": "40 min",
+                "players": "9-12"
+            },
+            {
+                "key": "customs-2d-monkix3",
                 "displayText": "Customs - 2D",
-                "source": "TacticalOtter",
+                "source": "monkimonkimonk",
+                "sourceLink": "https://www.reddit.com/user/monkimonkimonk/",
                 "duration": "40 min",
                 "players": "9-12"
             },
             {
-                "key": "customs-monkix3",
-                "displayText": "Customs - MONKIMONKIMONKI",
-                "duration": "40 min",
-                "players": "9-12"
-            },
-            {
-                "key": "dorms",
+                "key": "customs-2d-dorms",
                 "displayText": "Customs - Dorms",
+                "source": "OffaPerry",
+                "sourceLink": "https://www.reddit.com/user/OffaPerry/",
                 "duration": "40 min",
                 "players": "9-12"
             }
@@ -39,9 +44,10 @@
         "description": "The industrial estate and facilities of Chemical Plant No. 16 were rented out illegally to the TerraGroup corporation. During the advent of the Contract Wars, the plant became the scene of numerous firefights between BEAR and USEC that ultimately determined control over the industrial district of Tarkov. Later on, in the wake of the chaos, the plant facilities became a shelter for the remaining civilians, Scavs, and military operatives, including the scattered remains of the BEAR and USEC contingents.",
         "maps": [
             {
-                "key": "factory",
+                "key": "factory-3d",
                 "displayText": "Factory",
-                "source": "/u/JohnnyTushonka",
+                "source": "JohnnyTushonka",
+                "sourceLink": "https://www.reddit.com/user/JohnnyTushonka/",
                 "duration": "20 min / 25 min",
                 "players": "4-6"
             }
@@ -53,14 +59,18 @@
         "description": "The South Interchange is a key transport location for the city. This strategic area connects the port and harbor with the industrial outskirts of Tarkov. Located in the center of the interchange is a huge ULTRA shopping mall which was used as the main base of operation for the EMERCOM evacuation.",
         "maps": [
             {
-                "key": "interchange",
+                "key": "interchange-2d",
                 "displayText": "Interchange",
+                "source": "Lorathor",
+                "sourceLink": "https://www.reddit.com/user/Lorathor6/",
                 "duration": "40 min",
                 "players": "10-14"
             },
             {
-                "key": "interchange-stashes",
+                "key": "interchange-2d-stashes",
                 "displayText": "Interchange - Stashes",
+                "source": "Austindj3",
+                "sourceLink": "https://www.reddit.com/user/Austindj3/",
                 "duration": "40 min",
                 "players": "10-14"
             }
@@ -72,8 +82,10 @@
         "description": "Secret underground TerraGroup Labs facility hidden right under the center of Tarkov. Officially, this research center does not exist and, based on data scraps, is engaged in research and development as well as testing and simulation of projects in chemistry, physics, biology, and other high technology.",
         "maps": [
             {
-                "key": "labs",
+                "key": "labs-2d",
                 "displayText": "The Lab",
+                "source": "monkimonkimonk",
+                "sourceLink": "https://www.reddit.com/user/monkimonkimonk/",
                 "duration": "35 min",
                 "players": "6-10"
             }
@@ -85,7 +97,7 @@
         "description": "The lighthouse at Cape Dalniy was an important strategic object on the way to Tarkov. During Contract Wars, it was the main entry point for USEC units and served as their base of operations. After the conflict, Scavs took a fancy to this place, until the old owners returned, who decided to stay in Tarkov and establish their own order.",
         "maps": [
             {
-                "key": "lighthouse",
+                "key": "lighthouse-3d",
                 "displayText": "Lighthouse",
                 "source": "re3mr",
                 "sourceLink": "https://reemr.se",
@@ -100,7 +112,7 @@
                 "players": "9-12"
             },
             {
-                "key": "lighthouse-landscape",
+                "key": "lighthouse-2d-landscape",
                 "displayText": "Lighthouse - Landscape",
                 "source": "Jindouz",
                 "sourceLink": "https://www.reddit.com/user/Jindouz",
@@ -115,7 +127,7 @@
         "description": "The secret Federal State Reserve Agency base that, according to urban legends, contains enough supplies to last for years: food, medications, and other resources, enough to survive an all-out nuclear war.",
         "maps": [
             {
-                "key": "reserve",
+                "key": "reserve-3d",
                 "displayText": "Reserve",
                 "source": "re3mr",
                 "sourceLink": "https://reemr.se",
@@ -131,7 +143,7 @@
                 "players": "9-12"
             },
             {
-                "key": "underground",
+                "key": "reserve-2d-underground",
                 "displayText": "Reserve - Underground",
                 "source": "re3mr",
                 "sourceLink": "https://reemr.se",
@@ -154,14 +166,18 @@
                 "players": "10-13"
             },
             {
-                "key": "shoreline",
+                "key": "shoreline-2d",
                 "displayText": "Shoreline - 2D",
+                "source": "monkimonkimonk",
+                "sourceLink": "https://www.reddit.com/user/monkimonkimonk/",
                 "duration": "45 min",
                 "players": "10-13"
             },
             {
-                "key": "resort",
+                "key": "shoreline-3d-resort",
                 "displayText": "Shoreline - Resort",
+                "source": "TaroMochi",
+                "sourceLink": "https://www.clanunknownsoldiers.com/",
                 "duration": "45 min",
                 "players": "10-13"
             }
@@ -173,8 +189,16 @@
         "description": "The Priozersk Natural Reserve recently became part of the state-protected wildlife reserves of the North Western Federal District.",
         "maps": [
             {
-                "key": "woods",
+                "key": "woods-3d",
                 "displayText": "Woods",
+                "source": "re3mr",
+                "sourceLink": "https://reemr.se",
+                "duration": "40 min",
+                "players": "9-14"
+            },
+            {
+                "key": "woods-2d",
+                "displayText": "Woods - 2D",
                 "source": "Jindouz",
                 "sourceLink": "https://www.reddit.com/user/Jindouz",
                 "duration": "40 min",
