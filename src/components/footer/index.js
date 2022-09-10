@@ -12,6 +12,7 @@ import UkraineButton from '../ukraine-button';
 import OpenCollectiveButton from '../open-collective-button';
 
 import rawVersion from '../../data/version.json';
+import Contributors from '../contributors';
 
 const version = rawVersion.version.slice(0, 7);
 
@@ -55,6 +56,10 @@ function Footer() {
                 <p>
                     <a href="https://tarkovtracker.io/">TarkovTracker</a>
                 </p>
+                <h3>{t('Contributors')}</h3>
+                <p>Massive thanks to all the people who help build and maintain this project!</p>
+                <p>Made with ❤️ by:</p>
+                <Contributors quality={20} />
             </div>
             <div className="footer-section-wrapper">
                 <h3>{t('Supporters')}</h3>
