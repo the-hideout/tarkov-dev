@@ -54,7 +54,6 @@ function ItemImage(props) {
     };
 
     const textStyle = {
-        backgroundImage: `url(${item.image512pxLink})`,
         color: '#a4aeb4',
         position: 'absolute',
         top: '2px',
