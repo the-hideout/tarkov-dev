@@ -60,6 +60,10 @@ function ItemImage(props) {
         right: '5px',
     };
 
+    if (item.image512pxLink.includes('unknown-item')) {
+        return (<img src={item.gridImageLink} alt={item.name}/>);
+    }
+
     return (
         <div style={backgroundStyle}>
             <img src={item.image512pxLink} alt={item.name}/>
