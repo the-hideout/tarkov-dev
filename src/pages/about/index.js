@@ -1,8 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
+import { Avatar } from '@primer/react';
+
 // import SupportersList from '../../components/supporters-list';
 
 import UkraineButton from '../../components/ukraine-button';
+import Contributors from '../../components/contributors';
 
 import './index.css';
 
@@ -29,22 +32,25 @@ function About() {
             </p>
             <h2>{t('Discussions & feedback')}</h2>
             <p>
-                {t(
-                    'If you wanna have a chat, ask questions or request features, we have a',
-                )}{' '}
-                <a href="https://discord.gg/XPAsKGHSzH">Discord</a>{' '}
-                {t('server')}
+                {t('If you wanna have a chat, ask questions or request features, we have a')}{' '}
+                <a href="https://discord.gg/XPAsKGHSzH">Discord</a> {t('server')}
             </p>
             <h2>{t('Support')}</h2>
             <p>
                 {t(
                     'We encourage everyone who can to donate to support the people of Ukraine using the button below',
-                )}<span>.</span>
+                )}
+                <span>.</span>
             </p>
-            <UkraineButton/>
+            <UkraineButton />
             <p>
-                {t("If you'd also like to support this project, you can make a donation and/or become a backer on")}{' '}
-                <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">Open Collective</a><span>.</span>
+                {t(
+                    "If you'd also like to support this project, you can make a donation and/or become a backer on",
+                )}{' '}
+                <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">
+                    Open Collective
+                </a>
+                <span>.</span>
             </p>
             <p>
                 {t(
@@ -60,14 +66,10 @@ function About() {
             </p>
             <h2>{t('History')}</h2>
             <p>
-                {t('This project is a fork of')}
-                {' '}
-                <a href="https://github.com/kokarn/tarkov-tools">
-                    tarkov-tools.com
-                </a>
+                {t('This project is a fork of')}{' '}
+                <a href="https://github.com/kokarn/tarkov-tools">tarkov-tools.com</a>
                 {'. '}
-                {t('The original creator')}{' '}
-                <a href="https://github.com/kokarn">@kokarn</a>{' '}
+                {t('The original creator')} <a href="https://github.com/kokarn">@kokarn</a>{' '}
                 {t(
                     'decided to shut the site down. In the spirit of open source, a group of developers came together to revive the site in order to continue providing a great website for the Tarkov community and an API to power further development for creators. This project is now 100% open source and developer first. Our GitHub Organization',
                 )}
@@ -79,37 +81,58 @@ function About() {
                 )}{' '}
             </p>
             <h2>{t('Core Contributors')}</h2>
+            {t('The core contributors to this project (in no particular order) are:')}
+            <ul>
+                <li>
+                    <a href="https://github.com/Razzmatazzz">
+                        <Avatar src="https://avatars.githubusercontent.com/Razzmatazzz?size=24" />
+                        {' @Razzmatazzz'}
+                    </a>{' '}
+                </li>
+                <li>
+                    <a href="https://github.com/austinhodak">
+                        <Avatar src="https://avatars.githubusercontent.com/austinhodak?size=24" />
+                        {' @austinhodak'}
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/GrantBirki">
+                        <Avatar src="https://avatars.githubusercontent.com/GrantBirki?size=24" />
+                        {' @GrantBirki'}
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/Blightbuster">
+                        <Avatar src="https://avatars.githubusercontent.com/Blightbuster?size=24" />
+                        {' @Blightbuster'}
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/thaddeus">
+                        <Avatar src="https://avatars.githubusercontent.com/thaddeus?size=24" />
+                        {' @thaddeus'}
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/johndongus">
+                        <Avatar src="https://avatars.githubusercontent.com/johndongus?size=24" />
+                        {' @johndongus'}
+                    </a>{' '}
+                </li>
+                <li>
+                    <a href="https://github.com/Shebuka">
+                        <Avatar src="https://avatars.githubusercontent.com/Shebuka?size=24" />
+                        {' @Shebuka'}
+                    </a>
+                </li>
+            </ul>
+            <h2>{t('All Contributors')}</h2>
             <p>
-                {t(
-                    'The core contributors to this project (in no particular order) are:',
-                )}{' '}
-                <ul>
-                    <li>
-                        <a href="https://github.com/Razzmatazzz">
-                            @Razzmatazzz
-                        </a>{' '}
-                    </li>
-                    <li>
-                        <a href="https://github.com/austinhodak">
-                            @austinhodak
-                        </a>{' '}
-                    </li>
-                    <li>
-                        <a href="https://github.com/GrantBirki">@GrantBirki</a>{' '}
-                    </li>
-                    <li>
-                        <a href="https://github.com/Blightbuster">
-                            @Blightbuster
-                        </a>{' '}
-                    </li>
-                    <li>
-                        <a href="https://github.com/johndongus">@johndongus</a>{' '}
-                    </li>
-                    <li>
-                        <a href="https://github.com/Shebuka">@Shebuka</a>
-                    </li>
-                </ul>
+                Massive thank you to all the people that have contributed to this project to make it
+                possible! ❤️
             </p>
+            <Contributors size={36} />
+
             {/* <h3>{t('Gold supporters')}</h3>
             <SupportersList tierFilter={'Gold supporter'} />
             <h3>{t('Silver supporters')}</h3>
