@@ -25,6 +25,7 @@ import ItemSearch from '../../components/item-search';
 import { ToggleFilter } from '../../components/filter';
 import ContainedItemsList from '../../components/contained-items-list';
 import LoadingSmall from '../../components/loading-small';
+import ItemImage from '../../components/item-image';
 
 import { useMetaQuery } from '../../features/meta/queries';
 import { selectAllBarters, fetchBarters, } from '../../features/barters/bartersSlice';
@@ -81,9 +82,12 @@ function Item() {
 
     const loadingData = {
         name: t('Loading...'),
+        shortName: t('Loading...'),
         types: ['loading'],
         iconLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
         gridImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+        image512pxLink: `${process.env.PUBLIC_URL}/images/unknown-item-512.webp`,
+        backgroundColor: 'default',
         sellFor: [
             {
                 source: 'fleaMarket',
@@ -539,14 +543,9 @@ function Item() {
                                 width={currentItemData.grid.width}
                             />
                         )}
-                        {currentItemData.gridImageLink && (
-                            <img
-                                alt={currentItemData.name}
-                                className={'item-image'}
-                                loading="lazy"
-                                src={currentItemData.gridImageLink}
-                            />
-                        )}
+                        <ItemImage
+                            item={currentItemData}
+                        />
                     </div>
                 </div>
 
