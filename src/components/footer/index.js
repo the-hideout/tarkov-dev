@@ -42,20 +42,6 @@ function Footer() {
                 <p>
                     <Link to="/about">{t('About')} tarkov.dev</Link>
                 </p>
-                <h3>{t('External resources')}</h3>
-                <p>
-                    <a href="https://developertracker.com/escape-from-tarkov/">
-                        Escape from Tarkov Dev tracker
-                    </a>
-                </p>
-                <p>
-                    <a href="https://github.com/RatScanner/RatScanner">
-                        RatScanner
-                    </a>
-                </p>
-                <p>
-                    <a href="https://tarkovtracker.io/">TarkovTracker</a>
-                </p>
                 <h3>{t('Contributors')}</h3>
                 <p>Massive thanks to all the people who help build and maintain this project!</p>
                 <p>Made with ❤️ by:</p>
@@ -133,6 +119,20 @@ function Footer() {
                     >
                         {t('Discord bot for your Discord')}
                     </a>
+                </p>
+                <h3>{t('External resources')}</h3>
+                <p>
+                    <a href="https://developertracker.com/escape-from-tarkov/">
+                        Escape from Tarkov Dev tracker
+                    </a>
+                </p>
+                <p>
+                    <a href="https://github.com/RatScanner/RatScanner">
+                        RatScanner
+                    </a>
+                </p>
+                <p>
+                    <a href="https://tarkovtracker.io/">TarkovTracker</a>
                 </p>
                 <p>
                     <iframe className='discord' title="discord-iframe" src="https://discord.com/widget?id=956236955815907388&theme=dark" allowtransparency="true" frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>

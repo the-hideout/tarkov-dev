@@ -63,7 +63,7 @@ function ItemImage(props) {
 
     return (
         <div style={backgroundStyle}>
-            <img src={item.image512pxLink}/>
+            <img src={item.image512pxLink} alt={item.name}/>
             <div style={textStyle}>{item.shortName}</div>
         </div>
     );
