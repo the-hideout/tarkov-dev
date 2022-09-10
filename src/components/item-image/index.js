@@ -58,6 +58,8 @@ function ItemImage(props) {
         position: 'absolute',
         top: '2px',
         right: '5px',
+        fontWeight: 'bold',
+        textShadow: '1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000'
     };
 
     if (item.image512pxLink.includes('unknown-item') && !item.gridImageLink.includes('unknown-item')) {
