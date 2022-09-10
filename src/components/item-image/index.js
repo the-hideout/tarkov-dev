@@ -54,6 +54,7 @@ function ItemImage(props) {
     };
 
     const textStyle = {
+        cursor: 'default',
         color: '#a4aeb4',
         position: 'absolute',
         top: '2px',
