@@ -8,6 +8,7 @@ import {mdiBagPersonal} from '@mdi/js';
 import CanvasGrid from '../../../components/canvas-grid';
 import DataTable from '../../../components/data-table';
 import ValueCell from '../../../components/value-cell';
+import LoadingSmall from '../../../components/loading-small';
 import { useItemsWithTypeQuery } from '../../../features/items/queries';
 import { Filter, ToggleFilter } from '../../../components/filter';
 
@@ -103,40 +104,40 @@ function Backpacks(props) {
     );
 
     const data = useMemo(
-        () =>
-            displayItems
-                .map((item) => {
-                    const match = item.name.match(/(.*)\s\(\d.+?$/);
-                    let itemName = item.name;
+        () => displayItems
+            .map((item) => {
+                const match = item.name.match(/(.*)\s\(\d.+?$/);
+                let itemName = item.name;
 
-                    if (match) {
-                        itemName = match[1].trim();
-                    }
+                if (match) {
+                    itemName = match[1].trim();
+                }
 
-                    return {
-                        grid: item.grid,
-                        id: item.id,
-                        image:
-                            item.iconLink ||
-                            'https://tarkov.dev/images/unknown-item-icon.jpg',
-                        name: itemName,
-                        price: item.avg24hPrice,
-                        pricePerSlot: showNetPPS ? Math.floor(item.avg24hPrice / (item.properties.capacity - (item.width * item.height))) 
-                                      : Math.floor(item.avg24hPrice / item.properties.capacity),
-                        ratio: (
-                            item.properties.capacity / (item.width * item.height)
-                        ).toFixed(2),
-                        size: item.properties.capacity,
-                        slots: (item.width * item.height),
-                        weight: `${parseFloat(item.properties.weight).toFixed(2)} kg`,
-                        wikiLink: item.wikiLink,
-                        itemLink: `/item/${item.normalizedName}`,
-                        notes: item.notes,
-                    };
-                })
-                .filter(Boolean),
+                return {
+                    grid: item.grid,
+                    id: item.id,
+                    image: item.iconLink || 'https://tarkov.dev/images/unknown-item-icon.jpg',
+                    name: itemName,
+                    price: item.avg24hPrice,
+                    pricePerSlot: showNetPPS ? Math.floor(item.avg24hPrice / (item.properties.capacity - (item.width * item.height))) 
+                                             : Math.floor(item.avg24hPrice / item.properties.capacity),
+                    ratio: (item.properties.capacity / (item.width * item.height)).toFixed(2),
+                    size: item.properties.capacity,
+                    slots: (item.width * item.height),
+                    weight: `${parseFloat(item.properties.weight).toFixed(2)} kg`,
+                    wikiLink: item.wikiLink,
+                    itemLink: `/item/${item.normalizedName}`,
+                    notes: item.notes,
+                };
+            })
+            .filter(Boolean),
         [displayItems, showNetPPS],
     );
+
+    let extraRow = null;
+    if (data.length <= 0) {
+        extraRow = <LoadingSmall />;
+    }
 
     return [
         <Helmet key={'backpacks-table'}>
@@ -166,6 +167,7 @@ function Backpacks(props) {
             <DataTable
                 columns={columns}
                 data={data}
+                extraRow={extraRow}
                 sortBy={'slots'}
                 sortByDesc={true}
                 autoResetSortBy={false}
