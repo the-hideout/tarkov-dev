@@ -512,10 +512,8 @@ function Item() {
                             </div>
                             <img
                                 alt={currentItemData.name}
-                                className={'item-image'}
+                                className={'item-icon'}
                                 loading="lazy"
-                                height={62}
-                                width={62}
                                 src={currentItemData.iconLink}
                             />
                         </h1>

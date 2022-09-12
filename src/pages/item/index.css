@@ -15,6 +15,11 @@
     font-weight: bold;
 }
 
+.item-icon {
+    width: 64px;
+    height: 64px;
+}
+
 .icon-and-link-wrapper {
     align-items: flex-start;
     display: none;
