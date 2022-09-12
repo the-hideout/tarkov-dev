@@ -6,7 +6,7 @@
     margin-bottom: 10px;
     padding: 10px 0;
     width: 100%;
-    --grid-base: 50px;
+    --grid-base: 48px;
 }
 
 .item-group-wrapper .text-label {
@@ -20,14 +20,6 @@
     border: 0;
     background-color: rgb(239, 239, 239);
     padding: 10px;
-}
-
-.select__menu {
-    color: #000;
-}
-
-.rc-slider-mark .rc-slider-mark-text-active {
-    color: #fff;
 }
 
 .item-group-title {
@@ -55,6 +47,7 @@
     display: grid;
     grid-auto-rows: var(--grid-base);
     grid-template-columns: repeat(auto-fill, minmax(var(--grid-base), 1fr));
+    grid-gap: 1px;
     margin: auto;
     width: 90vw;
 }
@@ -175,7 +168,7 @@
 
 @media screen and (min-width: 1920px) {
     .item-group-wrapper {
-        --grid-base: 60px;
+        --grid-base: 64px;
     }
 }
 
