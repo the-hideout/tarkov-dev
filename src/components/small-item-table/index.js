@@ -388,8 +388,8 @@ function SmallItemTable(props) {
                 formattedItem.cheapestPrice = Number.MAX_SAFE_INTEGER;
                 if (formattedItem.barterPrice) formattedItem.cheapestPrice = formattedItem.barterPrice.price;
                 for (const buyFor of formattedItem.buyFor) {
-                    console.log(formattedItem.name, buyFor)
-                    if (buyFor.priceRUB && buyFor.priceRUB < formattedItem.cheapestPrice) formattedItem.cheapestPrice = buyFor.priceRUB;
+                    if (buyFor.priceRUB && buyFor.priceRUB < formattedItem.cheapestPrice)
+                        formattedItem.cheapestPrice = buyFor.priceRUB;
                 }
                 if (formattedItem.cheapestPrice === Number.MAX_SAFE_INTEGER) {
                     formattedItem.cheapestPrice = 0;
