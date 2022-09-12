@@ -21,7 +21,6 @@ import {
 // import BtcGraph from './graph';
 import ProfitInfo from './profit-info';
 import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
-import capitalizeFirst from '../../modules/capitalize-first';
 
 const BitcoinFarmCalculator = () => {
     const { t } = useTranslation();
