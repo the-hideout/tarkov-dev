@@ -248,6 +248,17 @@ function Item() {
                         if (item.id === currentItemData?.id) 
                             objectiveInfo.count = 1;
                     });
+                } else if (objectiveData.usingWeaponMods?.length) {
+                    let requiredCount = 0;
+                    objectiveData.usingWeaponMods?.forEach(modSet => {
+                        modSet.forEach(item => {
+                            if (item.id === currentItemData?.id) 
+                                requiredCount++
+                        });
+                    });
+                    if (requiredCount === objectiveData.usingWeaponMods.length) {
+                        objectiveInfo.count = 1;
+                    }
                 }
                 if (objectiveData.wearing?.length === 1) {
                     objectiveData.wearing?.forEach(outfit => {
