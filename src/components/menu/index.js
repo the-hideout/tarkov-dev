@@ -68,7 +68,7 @@ const Menu = () => {
                 <Icon
                     path={mdiMenu}
                     size={1}
-                    className="mobile-icon"
+                    className="mobile-icon icon-with-text"
                     onClick={handleMenuClick}
                 />
                 <Link className="branding" to="/">
