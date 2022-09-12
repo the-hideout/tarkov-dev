@@ -20,12 +20,13 @@
 }
 
 .small-item-table-image-wrapper img {
-    height: 32px;
     width: 32px;
+    height: 32px;
 }
 
 .small-data-table .table-image {
-    border: 1px solid #4a5154;
+    outline: 1px solid #4a5154;
+    outline-offset: -1px;
 }
 
 .small-data-table .trader-icon {
@@ -44,8 +45,8 @@
 
 @media screen and (min-width: 800px) {
     .small-item-table-image-wrapper img {
-        height: 64px;
         width: 64px;
+        height: 64px;
     }
 
     .small-item-table-name-wrapper cite {

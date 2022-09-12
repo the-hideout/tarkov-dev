@@ -34,10 +34,8 @@ function Backpacks(props) {
                         <img
                             alt=""
                             className="table-image"
-                            height="64"
                             loading="lazy"
                             src={value}
-                            width="64"
                         />
                     );
                 },
@@ -48,9 +46,9 @@ function Backpacks(props) {
                 Cell: ({ value }) => {
                     return (
                         <CanvasGrid
+                            width={value.width}
                             height={value.height}
                             grid={value.pockets}
-                            width={value.width}
                         />
                     );
                 },

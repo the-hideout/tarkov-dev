@@ -97,13 +97,13 @@
 }
 
 .text-and-image-information-wrapper img {
-    height: 32px;
     width: 32px;
+    height: 32px;
 }
 
 .text-and-image-information-wrapper .warning-icon {
-    height: 14px;
     width: 14px;
+    height: 14px;
     vertical-align: text-bottom;
     position: relative;
     bottom: 2px;

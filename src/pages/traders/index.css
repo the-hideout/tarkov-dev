@@ -9,8 +9,8 @@
 }
 
 .traders-list-wrapper img {
-    height: 128px;
     width: 128px;
+    height: 128px;
 }
 
 @media screen and (min-width: 800px) {
