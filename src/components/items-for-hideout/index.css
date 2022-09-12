@@ -46,8 +46,10 @@
 }
 
 .hideout-item-image-wrapper img {
-    width: 34px;
-    border: 1px solid #4a5154;
+    outline: 1px solid #4a5154;
+    outline-offset: -1px;
+    width: 32px;
+    height: 32px;
 }
 
 .hideout-item-list-extra-row {

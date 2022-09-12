@@ -13,5 +13,6 @@
 }
 
 .table-image-tool {
-    border: 1px solid #0292c0;
+    outline: 1px solid #0292c0;
+    outline-offset: -1px;
 }

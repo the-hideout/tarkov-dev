@@ -15,10 +15,8 @@ function ItemNameCell(props) {
                     <img
                         alt={props.row.original.name}
                         className="table-image"
-                        height="64"
                         loading="lazy"
                         src={props.row.original.iconLink}
-                        width="64"
                     />
                 </Link>
             </div>

@@ -223,11 +223,10 @@ function Ammo() {
                     return (
                         <CenterCell>
                             <img
-                                alt={`${props.row.original.name} icon`}
-                                height={64}
+                                alt={`${props.row.original.name}`}
+                                className="table-image"
                                 loading="lazy"
                                 src={props.value}
-                                width={64}
                             />
                         </CenterCell>
                     );

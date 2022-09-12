@@ -10,8 +10,8 @@
 
 .quest-giver-image {
     margin-right: 10px;
-    max-height: 64px;
     max-width: 64px;
+    max-height: 64px;
 }
 
 .quest-list thead {

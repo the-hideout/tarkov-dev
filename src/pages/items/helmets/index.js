@@ -149,10 +149,8 @@ function Helmets(props) {
                             <img
                                 alt=""
                                 className="table-image"
-                                height="64"
                                 loading="lazy"
                                 src={value}
-                                width="64"
                             />
                         </div>
                     );

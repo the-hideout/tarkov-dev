@@ -22,7 +22,7 @@ const marks = {
     25: 0,
 };
 
-function Backpacks(props) {
+function Rigs(props) {
     const { data: items } = useItemsQuery();
 
     const [includeArmoredRigs, setIncludeArmoredRigs] =
@@ -61,10 +61,8 @@ function Backpacks(props) {
                             <img
                                 alt=""
                                 className="table-image"
-                                height="64"
                                 loading="lazy"
                                 src={value}
-                                width="64"
                             />
                         </div>
                     );
@@ -269,4 +267,4 @@ function Backpacks(props) {
     ];
 }
 
-export default Backpacks;
+export default Rigs;

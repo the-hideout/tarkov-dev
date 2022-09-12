@@ -44,7 +44,7 @@
     border-radius: 4px;
 }
 
-@media screen and (min-width: 1040px) {
+@media screen and (min-width: 1280px) {
     .settings-group-wrapper {
         justify-content: flex-start;
     }

@@ -20,12 +20,13 @@
 }
 
 .small-item-table-image-wrapper img {
-    height: 32px;
     width: 32px;
+    height: 32px;
 }
 
 .small-data-table .table-image {
-    border: 1px solid #4a5154;
+    outline: 1px solid #4a5154;
+    outline-offset: -1px;
 }
 
 .small-data-table .trader-icon {
@@ -42,25 +43,10 @@
     display: none;
 }
 
-/* .small-data-table tr,
-.small-data-table td {
-    display: block;
-}
-
-@media screen and (min-width: 700px) {
-    .small-data-table tr {
-        display: table-row;
-    }
-
-    .small-data-table td {
-        display: table-cell;
-    }
-} */
-
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 800px) {
     .small-item-table-image-wrapper img {
-        height: 64px;
         width: 64px;
+        height: 64px;
     }
 
     .small-item-table-name-wrapper cite {

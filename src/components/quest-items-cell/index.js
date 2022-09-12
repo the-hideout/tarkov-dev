@@ -33,8 +33,6 @@ function QuestItemsCell({ questItems }) {
                     <img
                         alt={questItem.name}
                         loading="lazy"
-                        height="34"
-                        width="34"
                         src={questItem.iconLink}
                     />
                 </div>

@@ -17,7 +17,7 @@
     white-space: nowrap;
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 800px) {
     .reward-info-wrapper div:first-child {
         white-space: initial;
     }

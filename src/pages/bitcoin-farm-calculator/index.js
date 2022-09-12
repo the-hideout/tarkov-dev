@@ -21,7 +21,6 @@ import {
 // import BtcGraph from './graph';
 import ProfitInfo from './profit-info';
 import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
-import capitalizeFirst from '../../modules/capitalize-first';
 
 const BitcoinFarmCalculator = () => {
     const { t } = useTranslation();
@@ -107,9 +106,7 @@ const BitcoinFarmCalculator = () => {
                         itemLink={`/item/${graphicCardItem.normalizedName}`}
                         name={graphicCardItem.name}
                         sellValue={graphicsCardBuy.priceRUB}
-                        sellTo={t(capitalizeFirst(
-                            graphicsCardBuy.source.replace(/-/g, ' '),
-                        ))}
+                        sellTo={graphicsCardBuy.vendor.name}
                     />
                 )}
                 {Boolean(bitcoinItem) && (
@@ -119,9 +116,7 @@ const BitcoinFarmCalculator = () => {
                         itemLink={`/item/${bitcoinItem.normalizedName}`}
                         name={bitcoinItem.name}
                         sellValue={btcSell.priceRUB}
-                        sellTo={t(capitalizeFirst(
-                            btcSell.source.replace(/-/g, ' '),
-                        ))}
+                        sellTo={btcSell.vendor.name}
                     />
                 )}
             </div>

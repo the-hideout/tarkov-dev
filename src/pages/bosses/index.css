@@ -9,8 +9,8 @@
 }
 
 .boss-list-wrapper img {
-    height: 128px;
     width: 128px;
+    height: 128px;
 }
 
 .boss-sub-text {
@@ -20,4 +20,4 @@
     font-weight: 400;
 }
 
-@media screen and (min-width: 700px) {}
+@media screen and (min-width: 800px) {}
