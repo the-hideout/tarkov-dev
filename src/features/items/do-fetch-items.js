@@ -26,6 +26,7 @@ const doFetchItems = async () => {
                 shortName
                 basePrice
                 normalizedName
+                backgroundColor
                 types
                 width
                 height
@@ -39,6 +40,7 @@ const doFetchItems = async () => {
                 lastLowPrice
                 gridImageLink
                 iconLink
+                image512pxLink
                 updated
                 sellFor {
                     source
