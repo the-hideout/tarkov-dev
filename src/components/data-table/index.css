@@ -107,7 +107,7 @@ div.no-data-info {
     text-align: center;
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 800px) {
     .table-wrapper {
         overflow-x: initial;
     }

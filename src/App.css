@@ -223,7 +223,7 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
     opacity: 0.4;
 }
 
-@media screen and (min-width: 710px) {
+@media screen and (min-width: 800px) {
     .control-wrapper {
         display: none;
     }
@@ -234,13 +234,13 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
     }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1280px) {
     .page-wrapper {
         margin: 0 auto;
     }
 }
 
-@media screen and (min-width: 1800px) {
+@media screen and (min-width: 1920px) {
     .page-wrapper {
         margin: 0 auto;
         max-width: 1600px;

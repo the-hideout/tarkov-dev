@@ -106,7 +106,7 @@
     cursor: pointer;
   }
 
-@media screen and (min-width: 1220px) {
+@media screen and (min-width: 1280px) {
     .start-section-wrapper img {
         max-width: 256px;
     }

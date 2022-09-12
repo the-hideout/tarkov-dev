@@ -181,7 +181,7 @@
     margin-top: 10px;
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 800px) {
     .item-page-wrapper {
         padding-top: 20px;
     }

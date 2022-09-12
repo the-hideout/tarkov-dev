@@ -96,7 +96,7 @@
     color: #ccc;
 }
 
-@media screen and (min-width: 710px) {
+@media screen and (min-width: 800px) {
     .id-wrapper {
         display: block;
     }

@@ -172,7 +172,7 @@
     }
 }
 
-@media screen and (min-width: 710px) {
+@media screen and (min-width: 800px) {
     .item-group-title {
         width: 10vw;
     }

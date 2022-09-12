@@ -42,22 +42,7 @@
     display: none;
 }
 
-/* .small-data-table tr,
-.small-data-table td {
-    display: block;
-}
-
-@media screen and (min-width: 700px) {
-    .small-data-table tr {
-        display: table-row;
-    }
-
-    .small-data-table td {
-        display: table-cell;
-    }
-} */
-
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 800px) {
     .small-item-table-image-wrapper img {
         height: 64px;
         width: 64px;
