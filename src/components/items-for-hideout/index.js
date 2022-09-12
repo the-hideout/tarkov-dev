@@ -64,9 +64,7 @@ function ItemsForHideout(props) {
         );
     }
 
-    let displayList = unbuilt;
-    if (showAll)
-        displayList = data;
+    let displayList = showAll ? data : unbuilt;
 
     return (
         <div className="table-wrapper">
@@ -115,8 +113,6 @@ function ItemsForHideout(props) {
                                             <img
                                                 alt={item.item.name}
                                                 loading="lazy"
-                                                height="34"
-                                                width="34"
                                                 src={item.item.iconLink}
                                             />
                                         </div>

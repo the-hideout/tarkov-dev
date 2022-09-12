@@ -40,3 +40,8 @@ img.barter-icon {
     flex-grow: 1;
     white-space: nowrap;
 }
+
+.cost-image-wrapper img {
+    width: 32px;
+    height: 32px;
+}

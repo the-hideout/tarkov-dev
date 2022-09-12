@@ -148,7 +148,7 @@
     border-bottom-right-radius: 4px;
 }
 
-@media screen and (min-width: 710px) {
+@media screen and (min-width: 800px) {
     .button-group-wrapper {
         margin-right: 10px;
         gap: 10px;

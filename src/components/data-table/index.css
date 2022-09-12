@@ -57,9 +57,10 @@ td.data-cell:last-child {
 }
 
 .data-table .table-image {
-    max-height: 64px;
     max-width: 64px;
-    border: 1px solid #4a5154;
+    max-height: 64px;
+    outline: 1px solid #4a5154;
+    outline-offset: -1px;
 }
 
 .data-table tr td {
@@ -107,7 +108,7 @@ div.no-data-info {
     text-align: center;
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 800px) {
     .table-wrapper {
         overflow-x: initial;
     }

@@ -74,8 +74,8 @@
 }
 
 .start-section-wrapper .trader-icon {
-    height: 24px;
     width: 24px;
+    height: 24px;
 }
 
 .traders-list .trader-icon {
@@ -106,7 +106,7 @@
     cursor: pointer;
   }
 
-@media screen and (min-width: 1220px) {
+@media screen and (min-width: 1280px) {
     .start-section-wrapper img {
         max-width: 256px;
     }

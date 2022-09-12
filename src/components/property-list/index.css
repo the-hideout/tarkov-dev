@@ -20,7 +20,7 @@
     font-size: 14px;
 }
 
-@media screen and (min-width: 780px) {
+@media screen and (min-width: 800px) {
     .property-wrapper {
         flex-basis: 10%;
         white-space: nowrap;
