@@ -46,16 +46,6 @@ function ItemImage(props) {
         return (<img src={item.gridImageLink} alt={item.name}/>);
     }
 
-    let height = 200;
-    const itemWidth = item.properties?.defaultWidth || item.width;
-    const itemHeight = item.properties?.defaultHeight || item.height;
-    if (itemWidth > itemHeight) {
-        height = itemHeight * 86;
-        if (height > 200) {
-            height = 200;
-        }
-    }
-
     const color = colors[item.backgroundColor];
 
     const backgroundStyle = {
@@ -67,7 +57,6 @@ function ItemImage(props) {
             </svg>')`,
         backgroundSize: '2px 2px',
         position: 'relative',
-        height: `${height}px`,
     };
 
     if (item.types.includes('loading')) {
