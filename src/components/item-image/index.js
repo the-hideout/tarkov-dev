@@ -57,7 +57,6 @@ function ItemImage(props) {
             </svg>')`,
         backgroundSize: '2px 2px',
         position: 'relative',
-        height: '200px',
     };
 
     if (item.types.includes('loading')) {
