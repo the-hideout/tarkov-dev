@@ -156,6 +156,7 @@ function SmallItemTable(props) {
         sumColumns,
         totalTraderPrice,
         idFilter,
+        useClassEffectiveDurability,
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -805,7 +806,12 @@ function SmallItemTable(props) {
         if (effectiveDurability) {
             useColumns.push({
                 Header: t('Effective Durability'),
-                accessor: 'effectiveDurability',
+                accessor: (item) => {
+                    if (useClassEffectiveDurability) {
+                        return item.effectiveDurability * (item.armorClass * item.armorClass);
+                    }
+                    return item.effectiveDurability;
+                },
                 Cell: CenterCell,
             });
         }
@@ -886,6 +892,7 @@ function SmallItemTable(props) {
         weight,
         cheapestPrice,
         totalTraderPrice,
+        useClassEffectiveDurability,
     ]);
 
     let extraRow = false;

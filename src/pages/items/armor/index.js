@@ -23,6 +23,10 @@ const marks = {
 };
 
 function Armor(props) {
+    const [useClassEffectiveDurability, setUseClassEffectiveDurability] = useStateWithLocalStorage(
+        'useClassEffectiveDurability',
+        false,
+    );
     const [includeRigs, setIncludeRigs] = useStateWithLocalStorage(
         'includeRigs',
         true,
@@ -69,6 +73,11 @@ function Armor(props) {
                 </h1>
                 <Filter center>
                     <ToggleFilter
+                        label={t('Class effective durability')}
+                        onChange={(e) => setUseClassEffectiveDurability(!useClassEffectiveDurability)}
+                        checked={useClassEffectiveDurability}
+                    />
+                    <ToggleFilter
                         label={t('Include rigs')}
                         onChange={(e) => setIncludeRigs(!includeRigs)}
                         checked={includeRigs}
@@ -103,6 +112,7 @@ function Armor(props) {
                     value: maxArmorClass,
                 }}
                 maxPrice={maxPrice}
+                useClassEffectiveDurability={useClassEffectiveDurability}
                 fleaPrice
                 armorClass
                 armorZones
