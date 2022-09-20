@@ -93,7 +93,7 @@ function Start() {
                         autoScroll={loadMoreState}
                         totalTraderPrice={true}
                         fleaValue
-                        traderValue
+                        traderValue={1}
                         instaProfit
                         hideBorders
                         key="start-items-table"

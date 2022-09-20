@@ -39,6 +39,7 @@ const doFetchBarters = async () => {
                                     minTraderLevel
                                     taskUnlock {
                                         id
+                                        tarkovDataId
                                         name
                                     }
                                 }
@@ -62,6 +63,7 @@ const doFetchBarters = async () => {
                                     minTraderLevel
                                     taskUnlock {
                                         id
+                                        tarkovDataId
                                         name
                                     }
                                 }
@@ -111,6 +113,7 @@ const doFetchBarters = async () => {
                                     minTraderLevel
                                     taskUnlock {
                                         id
+                                        tarkovDataId
                                         name
                                     }
                                 }
@@ -134,6 +137,7 @@ const doFetchBarters = async () => {
                                     minTraderLevel
                                     taskUnlock {
                                         id
+                                        tarkovDataId
                                         name
                                     }
                                 }
@@ -158,6 +162,7 @@ const doFetchBarters = async () => {
                 level
                 taskUnlock {
                     id
+                    tarkovDataId
                     name
                 }
             }

@@ -57,6 +57,7 @@ const doFetchItems = async () => {
                             minTraderLevel
                             taskUnlock {
                                 id
+                                tarkovDataId
                                 name
                             }
                         }
@@ -84,6 +85,7 @@ const doFetchItems = async () => {
                             minTraderLevel
                             taskUnlock {
                                 id
+                                tarkovDataId
                                 name
                             }
                         }
@@ -107,6 +109,7 @@ const doFetchItems = async () => {
                     ...on ItemPropertiesAmmo {
                         caliber
                         damage
+                        projectileCount
                         penetrationPower
                         armorDamage
                         fragmentationChance

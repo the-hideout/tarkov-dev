@@ -11,8 +11,10 @@ import {
 
 import './index.css';
 
-function BarterToolip({ source, requiredItems }) {
+function BarterToolip({ barter, source, requiredItems }) {
     const { t } = useTranslation();
+    source = source || barter?.source;
+    requiredItems = requiredItems || barter?.requiredItems;
 
     if (!source || !requiredItems) {
         return "No barters found for this item";
@@ -30,6 +32,22 @@ function BarterToolip({ source, requiredItems }) {
                 {t('Barter at')} {source}
             </h3>
             {requiredItems.map((requiredItem) => {
+                let itemName = requiredItem.item.name;
+                let price = requiredItem.item.avg24hPrice;
+                let sourceName = 'flea-market';
+                const isDogTag = requiredItem.attributes && requiredItem.attributes.some(att => att.name === 'minLevel');
+                if (isDogTag) {
+                    const bestSell = requiredItem.item.sellFor.reduce((bestPrice, sellFor) => {
+                        if (sellFor.priceRUB > bestPrice.priceRUB) {
+                            return sellFor;
+                        }
+                        return bestPrice;
+                    }, {priceRUB: 0});
+                    const minLevel = requiredItem.attributes.find(att => att.name === 'minLevel').value;
+                    price = bestSell.priceRUB * minLevel;
+                    sourceName = bestSell.vendor.normalizedName;
+                    itemName = `${itemName} ≥ ${minLevel}`;
+                }
                 return (
                     <div
                         className="cost-item-wrapper"
@@ -44,7 +62,7 @@ function BarterToolip({ source, requiredItems }) {
                                 <Link
                                     to={`/item/${requiredItem.item.normalizedName}`}
                                 >
-                                    {requiredItem.item.name}
+                                    {itemName}
                                 </Link>
                             </div>
                             <div className="price-wrapper">
@@ -52,14 +70,14 @@ function BarterToolip({ source, requiredItems }) {
                                     alt={t('Barter')}
                                     className="barter-icon"
                                     loading="lazy"
-                                    src={`${process.env.PUBLIC_URL}/images/flea-market-icon.jpg`}
+                                    src={`${process.env.PUBLIC_URL}/images/${sourceName}-icon.jpg`}
                                 />
                                 {requiredItem.count} <span>X</span>{' '}
-                                {formatPrice(requiredItem.item.avg24hPrice)}{' '}
+                                {formatPrice(price)}{' '}
                                 <span>=</span>{' '}
                                 {formatPrice(
                                     requiredItem.count *
-                                    requiredItem.item.avg24hPrice,
+                                    price,
                                 )}
                             </div>
                         </div>

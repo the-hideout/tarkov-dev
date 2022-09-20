@@ -1,143 +1,17 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import {mdiBagPersonal} from '@mdi/js';
 
-import CanvasGrid from '../../../components/canvas-grid';
-import DataTable from '../../../components/data-table';
-import ValueCell from '../../../components/value-cell';
-import LoadingSmall from '../../../components/loading-small';
-import { useItemsWithTypeQuery } from '../../../features/items/queries';
 import { Filter, ToggleFilter } from '../../../components/filter';
+import SmallItemTable from '../../../components/small-item-table';
 
-const centerCell = ({ value }) => {
-    return <div className="center-content">{value}</div>;
-};
-
-const centerNowrapCell = ({ value }) => {
-    return <div className="center-content nowrap-content">{value}</div>;
-};
-
-function Backpacks(props) {
-    const { data: displayItems } = useItemsWithTypeQuery('backpack');
-
+function Backpacks() {
+    const [showAllItemSources, setShowAllItemSources] = useState(false);
     const [showNetPPS, setShowNetPPS] = useState(false);
     const { t } = useTranslation();
-
-    const columns = useMemo(
-        () => [
-            {
-                accessor: 'image',
-                Cell: ({ value }) => {
-                    return (
-                        <img
-                            alt=""
-                            className="table-image"
-                            loading="lazy"
-                            src={value}
-                        />
-                    );
-                },
-            },
-            {
-                Header: t('Grid'),
-                accessor: 'grid',
-                Cell: ({ value }) => {
-                    return (
-                        <CanvasGrid
-                            width={value.width}
-                            height={value.height}
-                            grid={value.pockets}
-                        />
-                    );
-                },
-            },
-            {
-                Header: t('Name'),
-                accessor: 'name',
-                Cell: (cellData) => {
-                    const fullItemData = cellData.data.find(
-                        (cellItem) => cellItem.name === cellData.value,
-                    );
-                    return (
-                        <div className="center-content">
-                            <a href={fullItemData.itemLink}>{cellData.value}</a>
-                            {fullItemData.notes ? (<cite>{fullItemData.notes}</cite>) : ('')}
-                        </div>
-                    );
-                },
-            },
-            {
-                Header: t('Grid slots'),
-                accessor: 'slots',
-                Cell: centerCell,
-            },
-            {
-                Header: t('Inner size'),
-                accessor: 'size',
-                Cell: centerCell,
-            },
-            {
-                Header: t('Weight'),
-                accessor: 'weight',
-                Cell: centerNowrapCell,
-            },
-            {
-                Header: t('Slot ratio'),
-                accessor: 'ratio',
-                Cell: centerCell,
-            },
-            {
-                Header: t('Price'),
-                accessor: 'price',
-                Cell: ValueCell,
-            },
-            {
-                Header: t('Price per slot'),
-                accessor: 'pricePerSlot',
-                Cell: ValueCell,
-            },
-        ],
-        [t],
-    );
-
-    const data = useMemo(
-        () => displayItems
-            .map((item) => {
-                const match = item.name.match(/(.*)\s\(\d.+?$/);
-                let itemName = item.name;
-
-                if (match) {
-                    itemName = match[1].trim();
-                }
-
-                return {
-                    grid: item.grid,
-                    id: item.id,
-                    image: item.iconLink || 'https://tarkov.dev/images/unknown-item-icon.jpg',
-                    name: itemName,
-                    price: item.avg24hPrice,
-                    pricePerSlot: showNetPPS ? Math.floor(item.avg24hPrice / (item.properties.capacity - (item.width * item.height))) 
-                                             : Math.floor(item.avg24hPrice / item.properties.capacity),
-                    ratio: (item.properties.capacity / (item.width * item.height)).toFixed(2),
-                    size: item.properties.capacity,
-                    slots: (item.width * item.height),
-                    weight: `${parseFloat(item.properties.weight).toFixed(2)} kg`,
-                    wikiLink: item.wikiLink,
-                    itemLink: `/item/${item.normalizedName}`,
-                    notes: item.notes,
-                };
-            })
-            .filter(Boolean),
-        [displayItems, showNetPPS],
-    );
-
-    let extraRow = null;
-    if (data.length <= 0) {
-        extraRow = <LoadingSmall />;
-    }
 
     return [
         <Helmet key={'backpacks-table'}>
@@ -157,6 +31,18 @@ function Backpacks(props) {
                 </h1>
                 <Filter>
                     <ToggleFilter
+                        checked={showAllItemSources}
+                        label={t('Ignore settings')}
+                        onChange={(e) =>
+                            setShowAllItemSources(!showAllItemSources)
+                        }
+                        tooltipContent={
+                            <>
+                                {t('Shows all sources of items regardless of your settings')}
+                            </>
+                        }
+                    />
+                    <ToggleFilter
                         label={t('Net Price per Slot?')}
                         onChange={(e) => setShowNetPPS(!showNetPPS)}
                         checked={showNetPPS}
@@ -164,13 +50,15 @@ function Backpacks(props) {
                 </Filter>
             </div>
 
-            <DataTable
-                columns={columns}
-                data={data}
-                extraRow={extraRow}
-                sortBy={'slots'}
-                sortByDesc={true}
-                autoResetSortBy={false}
+            <SmallItemTable
+                typeFilter={'backpack'}
+                grid={1}
+                innerSize={2}
+                weight={3}
+                cheapestPrice={4}
+                pricePerSlot={5}
+                showNetPPS={showNetPPS}
+                showAllSources={showAllItemSources}
             />
             
             <div className="page-wrapper items-page-wrapper">

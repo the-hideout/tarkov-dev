@@ -36,7 +36,7 @@ function getCheapestItemPrice(item, settings, allowAllSources) {
     }
 }
 
-function getItemBarters(item, barters) {
+function getItemBarters(item, barters, settings, allowAllSources) {
     const matchedBarters = [];
     for (const barter of barters) {
         // if(barter.rewardItems.length > 1){
@@ -51,6 +51,10 @@ function getItemBarters(item, barters) {
             continue;
         }
 
+        if (!allowAllSources && settings[barter.trader.normalizedName] < barter.level) {
+            continue;
+        }
+
         matchedBarters.push(barter);
     }
 
@@ -58,7 +62,7 @@ function getItemBarters(item, barters) {
 }
 
 function getCheapestBarter(item, barters, settings, allowAllSources) {
-    const itemBarters = getItemBarters(item, barters);
+    const itemBarters = getItemBarters(item, barters, settings, allowAllSources);
     let bestBarter = false;
     let barterTotalCost = Number.MAX_SAFE_INTEGER;
     let bestPrice = {};
@@ -66,11 +70,13 @@ function getCheapestBarter(item, barters, settings, allowAllSources) {
     for (const barter of itemBarters) {
         const thisBarterCost = barter.requiredItems.reduce(
             (accumulatedPrice, requiredItem) => {
-                return (
-                    accumulatedPrice +
-                    getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB *
-                        requiredItem.count
-                );
+                let price = getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB;
+                const isDogTag = requiredItem.attributes && requiredItem.attributes.some(att => att.name === 'minLevel');
+                if (isDogTag) {
+                    const minLevel = requiredItem.attributes.find(att => att.name === 'minLevel').value;
+                    price = price * minLevel;
+                }
+                return accumulatedPrice + (price * requiredItem.count);
             },
             0,
         );
@@ -85,6 +91,8 @@ function getCheapestBarter(item, barters, settings, allowAllSources) {
         bestPrice.priceRUB = barterTotalCost;
         bestPrice.type = 'barter';
         bestPrice.barter = bestBarter;
+    } else {
+        bestPrice = undefined;
     }
 
     return bestPrice;
@@ -94,7 +102,7 @@ function getCheapestItemPriceWithBarters(item, barters, settings, allowAllSource
     const useFlea = settings.useFlea;
     const bestPrice = getCheapestItemPrice(item, settings, allowAllSources);
 
-    const itemBarters = getItemBarters(item, barters);
+    const itemBarters = getItemBarters(item, barters, settings, allowAllSources);
     let bestBarter = false;
     let barterTotalCost = Number.MAX_SAFE_INTEGER;
 

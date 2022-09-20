@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
 import {mdiFoodForkDrink} from '@mdi/js';
 
-import { Filter, InputFilter } from '../../../components/filter';
+import { Filter, InputFilter, ToggleFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 
@@ -14,6 +14,8 @@ function Provisions() {
         'search',
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [showAllItemSources, setShowAllItemSources] = useState(false);
+    const [useTotalEnergyCost, setUseTotalEnergyCost] = useState(true);
     const { t } = useTranslation();
 
     const handleNameFilterChange = useCallback(
@@ -48,6 +50,30 @@ function Provisions() {
                     {t('Provisions')}
                 </h1>
                 <Filter center>
+                    <ToggleFilter
+                        checked={showAllItemSources}
+                        label={t('Ignore settings')}
+                        onChange={(e) =>
+                            setShowAllItemSources(!showAllItemSources)
+                        }
+                        tooltipContent={
+                            <>
+                                {t('Shows all sources of items regardless of your settings')}
+                            </>
+                        }
+                    />
+                    <ToggleFilter
+                        checked={useTotalEnergyCost}
+                        label={t('Total energy cost')}
+                        onChange={(e) =>
+                            setUseTotalEnergyCost(!useTotalEnergyCost)
+                        }
+                        tooltipContent={
+                            <>
+                                {t('Include the cost of lost hydration in the cost of energy')}
+                            </>
+                        }
+                    />
                     <InputFilter
                         defaultValue={nameFilter}
                         onChange={handleNameFilterChange}
@@ -58,10 +84,17 @@ function Provisions() {
 
             <SmallItemTable
                 nameFilter={nameFilter}
-                typeFilter="provisions"
-                fleaValue
-                traderValue
-                traderPrice
+                bsgCategoryFilter="543be6674bdc2df1348b4569"
+                showAllSources={showAllItemSources}
+                totalEnergyCost={useTotalEnergyCost}
+                hydration={1}
+                energy={2}
+                traderValue={3}
+                fleaValue={4}
+                cheapestPrice={5}
+                hydrationCost={6}
+                energyCost={7}
+                provisionValue={8}
             />
 
             <div className="page-wrapper items-page-wrapper">

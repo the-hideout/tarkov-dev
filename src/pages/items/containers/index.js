@@ -38,12 +38,11 @@ function Containers(props) {
 
             <SmallItemTable
                 typeFilter="container"
-                fleaPrice
+                cheapestPrice={1}
                 gridSlots
                 innerSize
                 slotRatio
                 pricePerSlot
-                barterPrice
                 showContainedItems
                 showNetPPS={showNetPPS}
             />
