@@ -1496,7 +1496,7 @@ function SmallItemTable(props) {
                             condition={tipContent}
                             wrapper={(children) => {
                                 return (
-                                    <Tippy placement="bottom" content={tipContent}>
+                                    <Tippy placement="right" content={tipContent}>
                                         {children}
                                     </Tippy>
                                 );
