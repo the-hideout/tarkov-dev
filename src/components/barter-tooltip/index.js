@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import RewardImage from '../reward-image';
 import formatPrice from '../../modules/format-price';
+import { getDogTagCost } from '../../modules/dogtags';
 
 import Icon from '@mdi/react';
 import {
@@ -51,19 +52,10 @@ function BarterToolip({ barter, source, requiredItems, showTitle = true, title }
                 let sourceName = 'flea-market';
                 const isDogTag = requiredItem.attributes && requiredItem.attributes.some(att => att.name === 'minLevel');
                 if (isDogTag) {
-                    const bestSell = requiredItem.item.sellFor.reduce((bestPrice, sellFor) => {
-                        if (sellFor.priceRUB > bestPrice.priceRUB) {
-                            return sellFor;
-                        }
-                        return bestPrice;
-                    }, {priceRUB: 0});
-                    let minLevel = requiredItem.attributes.find(att => att.name === 'minLevel').value;
-                    itemName = `${itemName} ≥ ${minLevel}`;
-                    if (parseInt(minLevel) < parseInt(settings.minDogtagLevel)) {
-                        minLevel = settings.minDogtagLevel;
-                    }
-                    price = bestSell.priceRUB * minLevel;
-                    sourceName = bestSell.vendor.normalizedName;
+                    const dogtagCost = getDogTagCost(requiredItem, settings);
+                    itemName = dogtagCost.name;
+                    price = dogtagCost.price;
+                    sourceName = dogtagCost.sourceNormalizedName;
                 }
                 return (
                     <div
