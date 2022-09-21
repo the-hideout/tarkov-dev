@@ -22,7 +22,6 @@ function BarterToolip({ barter, source, requiredItems, showTitle = true, title }
 
     let titleElement = '';
     if (showTitle) {
-        const titleText = title || `${t('Barter at')} ${source}`;
         titleElement = (
             <h3>
                 <Icon
@@ -30,9 +29,14 @@ function BarterToolip({ barter, source, requiredItems, showTitle = true, title }
                     size={1}
                     className="icon-with-text"
                 />
-                {titleText}
+                {t('Barter at')} {source}
             </h3>
         );
+        if (title) {
+            titleElement = (
+                <h4>{title}</h4>
+            );
+        }
     }
 
     return (

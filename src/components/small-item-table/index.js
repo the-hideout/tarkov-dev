@@ -1158,6 +1158,9 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Weight (kg)'),
                 accessor: 'weight',
+                sortType: (a, b, columnId, desc) => {
+                    return a.original.weight - b.original.weight;
+                },
                 Cell: CenterCell,
                 position: weight,
             });
@@ -1448,6 +1451,7 @@ function SmallItemTable(props) {
                             if (priceInfo.vendor.taskUnlock) {
                                 taskIcon = (
                                     <Icon
+                                        key="price-task-tooltip-icon"
                                         path={mdiClipboardList}
                                         size={1}
                                         className="icon-with-text"
@@ -1459,6 +1463,7 @@ function SmallItemTable(props) {
                             priceSource += ` LL${priceInfo.barter.level}`;
                             barterIcon = (
                                 <Icon
+                                key="barter-tooltip-icon"
                                     path={mdiAccountSwitch}
                                     size={1}
                                     className="icon-with-text"
@@ -1468,6 +1473,7 @@ function SmallItemTable(props) {
                             if (priceInfo.barter.taskUnlock) {
                                 taskIcon = (
                                     <Icon
+                                        key="barter-task-tooltip-icon"
                                         path={mdiClipboardList}
                                         size={1}
                                         className="icon-with-text"
@@ -1486,8 +1492,8 @@ function SmallItemTable(props) {
                         displayedPrice.push(priceSource);
                         displayedPrice.push(barterIcon);
                         displayedPrice.push(taskIcon);
-                        priceContent.push(formatPrice(props.value*props.row.original.count));
-                        priceContent.push((<div class="trader-unlock-wrapper">{displayedPrice}</div>))
+                        priceContent.push((<div key="price-info">{formatPrice(props.value*props.row.original.count)}</div>));
+                        priceContent.push((<div key="price-source-info" className="trader-unlock-wrapper">{displayedPrice}</div>))
                     } else {
                         priceContent.push('-');
                     }
