@@ -432,11 +432,31 @@ function App() {
                     ]}
                 />
                 <Route
+                    path={'/items/food-and-drink'}
+                    element={[
+                        <Provisions
+                            sessionID={sessionID}
+                            key="provisions-wrapper"
+                        />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
                     path={'/items/grenades'}
                     element={[
                         <Grenades
                             sessionID={sessionID}
                             key="grenades-wrapper"
+                        />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/items/headphones'}
+                    element={[
+                        <Headsets
+                            sessionID={sessionID}
+                            key="headsets-wrapper"
                         />,
                         remoteControlSessionElement,
                     ]}

@@ -98,7 +98,7 @@ function Armor(props) {
                     />
                     <RangeFilter
                         defaultValue={[minArmorClass, maxArmorClass]}
-                        label={t('Min armor class')}
+                        label={t('Armor class')}
                         min={1}
                         max={6}
                         marks={marks}

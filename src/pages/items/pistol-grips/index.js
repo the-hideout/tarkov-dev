@@ -1,171 +1,27 @@
-import { useMemo, useState, useRef } from 'react';
+import { useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import {mdiHandPointingLeft} from '@mdi/js';
 
-import ItemsTable from '../../../components/item-table';
-import { Filter, SelectFilter } from '../../../components/filter';
+import { Filter, ToggleFilter, SelectItemFilter } from '../../../components/filter';
+import SmallItemTable from '../../../components/small-item-table';
 import {
     useItemsQuery,
-    useItemsWithTypeQuery,
 } from '../../../features/items/queries';
-import itemCanContain from '../../../modules/item-can-contain';
 
-const getGuns = (items, targetItem) => {
-    let parentItems = [];
-    const currentParentItems = items.filter((innerItem) => 
-        itemCanContain(innerItem, targetItem, 'slots'),
-    );
-
-    for (const parentItem of currentParentItems) {
-        if (parentItem.types.includes('gun')) {
-            parentItems.push(parentItem);
-
-            continue;
-        }
-
-        parentItems = parentItems.concat(getGuns(items, parentItem));
-    }
-
-    let idCache = [];
-
-    parentItems = parentItems
-        .map((parentItem) => {
-            if (idCache.includes(parentItem.id)) {
-                return false;
-            }
-
-            idCache.push(parentItem.id);
-
-            return parentItem;
-        })
-        .filter(Boolean);
-
-    return parentItems;
-};
-
-const getAttachmentPoints = (items, targetItem) => {
-    return items
-        .filter((parentItem) => itemCanContain(parentItem, targetItem, 'slots'))
-        .map((item) => {
-            return {
-                ...item,
-                fitsTo: getGuns(items, item),
-            };
-        });
-};
-
-function PistolGrips(props) {
+function PistolGrips() {
+    const [showAllItemSources, setShowAllItemSources] = useState(false);
     const [selectedGun, setSelectedGun] = useState(false);
 
     const { data: items } = useItemsQuery();
-    const { data: pistolGripItems } = useItemsWithTypeQuery('pistolGrip');
 
-    const selectInputRef = useRef(null);
     const { t } = useTranslation();
 
-    const allItems = useMemo(
-        () =>
-            pistolGripItems.map((item) => {
-                return {
-                    ...item,
-                    fitsTo: getGuns(items, item),
-                    subRows: getAttachmentPoints(items, item),
-                };
-            }),
-
-        [pistolGripItems, items],
-    );
-
     const activeGuns = useMemo(() => {
-        let activeGuns = [];
-        let idCache = [];
-
-        allItems.map((displayItem) => {
-            for (const subRow of displayItem.fitsTo) {
-                if (idCache.includes(subRow.id)) {
-                    continue;
-                }
-
-                idCache.push(subRow.id);
-
-                activeGuns.push(subRow);
-            }
-
-            return true;
-        });
-
-        activeGuns.sort((a, b) => a.name.localeCompare(b.name));
-
-        return activeGuns;
-    }, [allItems]);
-
-    const displayItems = useMemo(
-        () =>
-            allItems
-                .filter((item) => {
-                    if (!selectedGun) {
-                        return true;
-                    }
-
-                    for (const subRow of item.fitsTo) {
-                        if (subRow.id === selectedGun.id) {
-                            return true;
-                        }
-                    }
-
-                    return false;
-                })
-                .map((subItem) => {
-                    subItem.subRows = subItem.subRows.filter((item) => {
-                        if (!selectedGun) {
-                            return true;
-                        }
-
-                        for (const subRow of item.fitsTo) {
-                            if (subRow.id === selectedGun.id) {
-                                return true;
-                            }
-                        }
-
-                        return false;
-                    });
-
-                    subItem.costPerErgo =
-                        subItem.avg24hPrice / subItem.properties.ergonomics;
-
-                    return subItem;
-                }),
-        [allItems, selectedGun],
-    );
-
-    const columns = [
-        {
-            key: 'iconLink',
-            type: 'image',
-        },
-        {
-            title: t('Name'),
-            key: 'name',
-            type: 'name',
-        },
-        {
-            title: t('Ergonomics'),
-            key: 'properties.ergonomics',
-        },
-        {
-            title: t('Flea Price'),
-            key: 'avg24hPrice',
-            type: 'price',
-        },
-        {
-            title: t('Cost per ergo'),
-            key: 'costPerErgo',
-            type: 'price',
-        },
-    ];
+        return items.filter(item => item.types.includes('gun')).sort((a, b) => a.name.localeCompare(b.name));
+    }, [items]);
 
     return [
         <Helmet key={'pistol-grips-table'}>
@@ -184,17 +40,28 @@ function PistolGrips(props) {
                     {t('Pistol Grips')}
                 </h1>
                 <Filter center>
-                    <SelectFilter
+                    <ToggleFilter
+                        checked={showAllItemSources}
+                        label={t('Ignore settings')}
+                        onChange={(e) =>
+                            setShowAllItemSources(!showAllItemSources)
+                        }
+                        tooltipContent={
+                            <>
+                                {t('Shows all sources of items regardless of your settings')}
+                            </>
+                        }
+                    />
+                    <SelectItemFilter
                         label={t('Filter by gun')}
-                        options={activeGuns.map((activeGun) => {
-                            return {
-                                label: activeGun.name,
-                                value: activeGun.id,
-                            };
-                        })}
+                        items={activeGuns}
                         onChange={(event) => {
                             if (!event) {
                                 return true;
+                            }
+
+                            if (!event.value) {
+                                setSelectedGun(undefined);
                             }
 
                             setSelectedGun(
@@ -203,28 +70,19 @@ function PistolGrips(props) {
                                 ),
                             );
                         }}
-                        parentRef={selectInputRef}
                         wide
                     />
-                    {selectedGun && (
-                        <img
-                            alt={`${selectedGun.name}-icon`}
-                            onClick={() => {
-                                selectInputRef.current?.clearValue();
-                                setSelectedGun(false);
-                            }}
-                            loading="lazy"
-                            src={selectedGun.iconLink}
-                        />
-                    )}
                 </Filter>
             </div>
 
-            <ItemsTable
-                columns={columns}
-                items={displayItems}
-                traderPrice
-                autoScroll
+            <SmallItemTable
+                typeFilter="pistolGrip"
+                showAllSources={showAllItemSources}
+                attachesToItemFilter={selectedGun}
+                showAttachTo
+                ergonomics={1}
+                cheapestPrice={2}
+                ergoCost={2}
             />
 
             <div className="page-wrapper items-page-wrapper">
