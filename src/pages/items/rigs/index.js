@@ -5,13 +5,10 @@ import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
 import {mdiTshirtCrewOutline} from '@mdi/js';
 
-import CanvasGrid from '../../../components/canvas-grid';
-import DataTable from '../../../components/data-table';
-import ValueCell from '../../../components/value-cell';
 import { Filter, ToggleFilter, SliderFilter } from '../../../components/filter';
-import CenterCell from '../../../components/center-cell';
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
 import { useItemsQuery } from '../../../features/items/queries';
+import SmallItemTable from '../../../components/small-item-table';
 
 const marks = {
     0: 25,
@@ -22,7 +19,7 @@ const marks = {
     25: 0,
 };
 
-function Rigs(props) {
+function Rigs() {
     const { data: items } = useItemsQuery();
 
     const [includeArmoredRigs, setIncludeArmoredRigs] =
@@ -31,6 +28,7 @@ function Rigs(props) {
     const [has3Slot, setHas3Slot] = useState(false);
     const [has4Slot, setHas4Slot] = useState(false);
     const [showNetPPS, setShowNetPPS] = useState(false);
+    const [showAllItemSources, setShowAllItemSources] = useState(false);
     const { t } = useTranslation();
 
     const displayItems = useMemo(
@@ -51,155 +49,6 @@ function Rigs(props) {
         setMinSlots(maxSlots - newValueLabel);
     };
 
-    const columns = useMemo(
-        () => [
-            {
-                accessor: 'image',
-                Cell: ({ value }) => {
-                    return (
-                        <div className="center-content">
-                            <img
-                                alt=""
-                                className="table-image"
-                                loading="lazy"
-                                src={value}
-                            />
-                        </div>
-                    );
-                },
-            },
-            {
-                Header: t('Grid'),
-                accessor: 'grid',
-                Cell: ({ value }) => {
-                    return (
-                        <CanvasGrid
-                            height={value.height}
-                            grid={value.pockets}
-                            width={value.width}
-                        />
-                    );
-                },
-            },
-            {
-                Header: t('Name'),
-                accessor: 'name',
-                Cell: (cellData) => {
-                    const fullItemData = cellData.data.find(
-                        (cellItem) => cellItem.name === cellData.value,
-                    );
-                    return (
-                        <div className="center-content">
-                            <a href={fullItemData.itemLink}>{cellData.value}</a>
-                            {fullItemData.notes ? (
-                                <cite>{fullItemData.notes}</cite>
-                            ) : (
-                                ''
-                            )}
-                        </div>
-                    );
-                },
-            },
-            {
-                Header: t('Grid slots'),
-                accessor: 'slots',
-                Cell: CenterCell,
-            },
-            {
-                Header: t('Inner size'),
-                accessor: 'size',
-                Cell: CenterCell,
-            },
-            {
-                Header: t('Weight'),
-                accessor: 'weight',
-                Cell: ({ value }) => {
-                    return <CenterCell value={value} nowrap />;
-                },
-            },
-            {
-                Header: t('Slot ratio'),
-                accessor: 'ratio',
-                Cell: CenterCell,
-            },
-            {
-                Header: t('Cost'),
-                accessor: 'price',
-                Cell: ValueCell,
-            },
-            {
-                Header: t('Price per slot'),
-                accessor: 'pricePerSlot',
-                Cell: ValueCell,
-            },
-        ],
-        [t],
-    );
-
-    const data = useMemo(
-        () =>
-            displayItems
-                .map((item) => {
-                    const match = item.name.match(/(.*)\s\(\d.+?$/);
-                    let itemName = item.name;
-
-                    if (match) {
-                        itemName = match[1].trim();
-                    }
-
-                    if (!includeArmoredRigs && item.types.includes('armor')) {
-                        return false;
-                    }
-
-                    if (item.properties.capacity < minSlots) {
-                        return false;
-                    }
-
-                    if (has3Slot) {
-                        const isValid = item.properties.grids?.find((pocket) => {
-                            return pocket.width === 1 && pocket.height === 3;
-                        });
-
-                        if (!isValid) {
-                            return false;
-                        }
-                    }
-
-                    if (has4Slot) {
-                        const isValid = item.properties.grids?.find((pocket) => {
-                            return pocket.width === 2 && pocket.height === 2;
-                        });
-
-                        if (!isValid) {
-                            return false;
-                        }
-                    }
-
-                    return {
-                        grid: item.grid,
-                        id: item.id,
-                        image:
-                            item.iconLink ||
-                            'https://tarkov.dev/images/unknown-item-icon.jpg',
-                        name: itemName,
-                        price: item.avg24hPrice,
-                        pricePerSlot: showNetPPS ? Math.floor(item.avg24hPrice / (item.properties.capacity - item.slots)) 
-                                      : Math.floor(item.avg24hPrice / item.properties.capacity),
-                        ratio: (
-                            item.properties.capacity / item.slots
-                        ).toFixed(2),
-                        size: item.properties.capacity,
-                        slots: item.slots,
-                        weight: `${item.properties.weight} kg`,
-                        wikiLink: item.wikiLink,
-                        itemLink: `/item/${item.normalizedName}`,
-                        notes: item.notes,
-                    };
-                })
-                .filter(Boolean),
-        [displayItems, includeArmoredRigs, minSlots, has3Slot, has4Slot, showNetPPS],
-    );
-
     return [
         <Helmet key={'backpacks-table'}>
             <meta charSet="utf-8" />
@@ -216,6 +65,18 @@ function Rigs(props) {
                     {t('Rigs')}
                 </h1>
                 <Filter center>
+                    <ToggleFilter
+                        checked={showAllItemSources}
+                        label={t('Ignore settings')}
+                        onChange={(e) =>
+                            setShowAllItemSources(!showAllItemSources)
+                        }
+                        tooltipContent={
+                            <>
+                                {t('Shows all sources of items regardless of your settings')}
+                            </>
+                        }
+                    />
                     <ToggleFilter
                         label={t('Armored rigs?')}
                         onChange={(e) =>
@@ -250,12 +111,21 @@ function Rigs(props) {
                 </Filter>
             </div>
 
-            <DataTable
-                columns={columns}
-                data={data}
-                sortBy={'slots'}
-                sortByDesc={true}
-                autoResetSortBy={false}
+            <SmallItemTable
+                typeFilter={'rig'}
+                showNetPPS={showNetPPS}
+                showAllSources={showAllItemSources}
+                excludeArmor={!includeArmoredRigs}
+                minSlots={minSlots}
+                has3Slot={has3Slot}
+                has4Slot={has4Slot}
+                grid={1}
+                gridSlots={2}
+                innerSize={3}
+                weight={4}
+                slotRatio={5}
+                cheapestPrice={6}
+                pricePerSlot={7}
             />
 
             <div className="page-wrapper items-page-wrapper">

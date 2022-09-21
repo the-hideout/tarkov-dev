@@ -60,7 +60,7 @@ function BarterItems() {
                 nameFilter={nameFilter}
                 typeFilter="barter"
                 fleaValue
-                traderValue
+                traderValue={1}
                 maxItems={50}
                 autoScroll
             />

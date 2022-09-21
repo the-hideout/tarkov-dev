@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
 import {mdiGasCylinder} from '@mdi/js';
 
-import { Filter, InputFilter } from '../../../components/filter';
+import { Filter, InputFilter, ToggleFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 
@@ -13,6 +13,7 @@ function Grenades() {
     const defaultQuery = new URLSearchParams(window.location.search).get(
         'search',
     );
+    const [showAllItemSources, setShowAllItemSources] = useState(false);
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const { t } = useTranslation();
 
@@ -48,6 +49,18 @@ function Grenades() {
                     {t('Grenades')}
                 </h1>
                 <Filter center>
+                    <ToggleFilter
+                        checked={showAllItemSources}
+                        label={t('Ignore settings')}
+                        onChange={(e) =>
+                            setShowAllItemSources(!showAllItemSources)
+                        }
+                        tooltipContent={
+                            <>
+                                {t('Shows all sources of items regardless of your settings')}
+                            </>
+                        }
+                    />
                     <InputFilter
                         defaultValue={nameFilter}
                         onChange={handleNameFilterChange}
@@ -59,9 +72,10 @@ function Grenades() {
             <SmallItemTable
                 nameFilter={nameFilter}
                 typeFilter="grenade"
-                fleaValue
-                traderValue
-                traderPrice
+                showAllSources={showAllItemSources}
+                traderValue={1}
+                fleaValue={2}
+                cheapestPrice={3}
             />
 
             <div className="page-wrapper items-page-wrapper">

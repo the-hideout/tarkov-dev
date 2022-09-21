@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
 import {mdiHeadset} from '@mdi/js';
 
-import { Filter, InputFilter } from '../../../components/filter';
+import { Filter, InputFilter, ToggleFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 
@@ -14,6 +14,7 @@ function Headsets() {
         'search',
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [showAllItemSources, setShowAllItemSources] = useState(false);
     const { t } = useTranslation();
 
     const handleNameFilterChange = useCallback(
@@ -48,6 +49,18 @@ function Headsets() {
                     {t('Headsets')}
                 </h1>
                 <Filter center>
+                    <ToggleFilter
+                        checked={showAllItemSources}
+                        label={t('Ignore settings')}
+                        onChange={(e) =>
+                            setShowAllItemSources(!showAllItemSources)
+                        }
+                        tooltipContent={
+                            <>
+                                {t('Shows all sources of items regardless of your settings')}
+                            </>
+                        }
+                    />
                     <InputFilter
                         defaultValue={nameFilter}
                         onChange={handleNameFilterChange}
@@ -59,11 +72,11 @@ function Headsets() {
             <SmallItemTable
                 nameFilter={nameFilter}
                 typeFilter="headphones"
-                fleaValue
-                weight
-                barterPrice
-                traderValue
-                traderPrice
+                showAllSources={showAllItemSources}
+                weight={1}
+                traderValue={2}
+                fleaValue={3}
+                cheapestPrice
             />
 
             <div className="page-wrapper items-page-wrapper">

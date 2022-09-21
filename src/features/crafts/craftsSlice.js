@@ -56,6 +56,7 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
                       minTraderLevel
                       taskUnlock {
                           id
+                          tarkovDataId
                           name
                       }
                   }
@@ -79,6 +80,7 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
                       minTraderLevel
                       taskUnlock {
                           id
+                          tarkovDataId
                           name
                       }
                   }
@@ -126,6 +128,7 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
                       minTraderLevel
                       taskUnlock {
                           id
+                          tarkovDataId
                           name
                       }
                   }
@@ -149,6 +152,7 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
                       minTraderLevel
                       taskUnlock {
                           id
+                          tarkovDataId
                           name
                       }
                   }

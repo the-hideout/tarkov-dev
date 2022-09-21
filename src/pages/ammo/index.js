@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
 
@@ -11,10 +11,7 @@ import { mdiAmmunition } from '@mdi/js';
 import { Filter, ToggleFilter } from '../../components/filter';
 import Graph from '../../components/Graph.jsx';
 import useKeyPress from '../../hooks/useKeyPress';
-import DataTable from '../../components/data-table';
-import CenterCell from '../../components/center-cell';
-import ValueCell from '../../components/value-cell';
-import TraderPriceCell from '../../components/trader-price-cell';
+import SmallItemTable from '../../components/small-item-table';
 import { useItemsQuery } from '../../features/items/queries';
 import { formatCaliber } from '../../modules/format-ammo';
 import symbols from '../../symbols';
@@ -42,6 +39,7 @@ function Ammo() {
     const [selectedLegendName, setSelectedLegendName] =
         useState(currentAmmoList);
     const [showAllTraderPrices, setShowAllTraderPrices] = useState(false);
+    const [useAllProjectileDamage, setUseAllProjectileDamage] = useState(false);
     const shiftPress = useKeyPress('Shift');
     const { t } = useTranslation();
     const { data: items } = useItemsQuery();
@@ -71,14 +69,14 @@ function Ammo() {
             ...ammoData,
             ...ammoData.properties,
             type: formatCaliber(ammoData.properties.caliber) || ammoData.properties.caliber.replace('Caliber', ''),
-            displayDamage: ammoData.properties.damage,
+            displayDamage: useAllProjectileDamage ? ammoData.properties.projectileCount * ammoData.properties.damage : ammoData.properties.damage,
             displayPenetration: ammoData.properties.penetrationPower,
         };
         if (!returnData.type) console.log(returnData);
         if (returnData.type === '12 Gauge Shot' && returnData.ammoType === 'bullet') returnData.type = returnData.type.replace('Shot', 'Slug');
 
-        if (returnData.damage > MAX_DAMAGE) {
-            returnData.name = `${ammoData.name} (${returnData.damage})`;
+        if (returnData.displayDamage > MAX_DAMAGE) {
+            returnData.name = `${ammoData.name} (${returnData.displayDamage})`;
             returnData.displayDamage = MAX_DAMAGE;
         }
 
@@ -95,6 +93,7 @@ function Ammo() {
             legendData.push({
                 ...returnData,
                 name: returnData.type,
+                caliber: returnData.properties.caliber,
                 symbol: symbol,
             });
         }
@@ -191,100 +190,6 @@ function Ammo() {
         [selectedLegendName, setSelectedLegendName, navigate],
     );
 
-    const traderPriceSort = useMemo(
-        () => (a, b) => {
-            if (!a.original.trader) {
-                return 1;
-            }
-
-            if (!b.original.trader) {
-                return -1;
-            }
-
-            if (a.original.trader?.priceRUB > b.original.trader?.priceRUB) {
-                return 1;
-            }
-
-            if (a.original.trader?.priceRUB < b.original.trader?.priceRUB) {
-                return -1;
-            }
-
-            return 0;
-        },
-        [],
-    );
-
-    const columns = useMemo(
-        () => [
-            {
-                Header: t(''),
-                accessor: 'gridImageLink',
-                Cell: (props) => {
-                    return (
-                        <CenterCell>
-                            <img
-                                alt={`${props.row.original.name}`}
-                                className="table-image"
-                                loading="lazy"
-                                src={props.value}
-                            />
-                        </CenterCell>
-                    );
-                },
-            },
-            {
-                Header: t('Name'),
-                accessor: 'name',
-                Cell: (props) => {
-                    return (
-                        <>
-                            <Link to={`/item/${props.cell.row.original.normalizedName}`}>
-                                {props.value}
-                            </Link>
-                        </>
-                    );
-                },
-            },
-            {
-                Header: t('Caliber'),
-                accessor: 'type',
-                Cell: CenterCell,
-            },
-            {
-                Header: t('Damage'),
-                accessor: 'damage',
-                Cell: CenterCell,
-            },
-            {
-                Header: t('Penetration'),
-                accessor: 'penetrationPower',
-                Cell: CenterCell,
-            },
-            {
-                Header: t('Armor damage'),
-                accessor: 'armorDamage',
-                Cell: CenterCell,
-            },
-            {
-                Header: t('Fragmentation chance'),
-                accessor: 'fragChance',
-                Cell: CenterCell,
-            },
-            {
-                Header: t('Flea Price'),
-                accessor: 'lastLowPrice',
-                Cell: ValueCell,
-            },
-            {
-                Header: t('Trader buy'),
-                accessor: 'trader',
-                sortType: traderPriceSort,
-                Cell: TraderPriceCell,
-            },
-        ],
-        [t, traderPriceSort],
-    );
-
     return (
         <React.Fragment>
             <h1 className="center-title">
@@ -312,6 +217,18 @@ function Ammo() {
             </div>
             <Filter>
                 <ToggleFilter
+                    checked={useAllProjectileDamage}
+                    label={t('Total damage')}
+                    onChange={(e) =>
+                        setUseAllProjectileDamage(!useAllProjectileDamage)
+                    }
+                    tooltipContent={
+                        <>
+                            {t('Use total damage of all projectiles in a round')}
+                        </>
+                    }
+                />
+                <ToggleFilter
                     checked={showAllTraderPrices}
                     label={t('Ignore settings')}
                     onChange={(e) =>
@@ -319,7 +236,7 @@ function Ammo() {
                     }
                     tooltipContent={
                         <>
-                            {t('Shows all trader prices regardless of your settings')}
+                            {t('Shows all sources of items regardless of your settings')}
                         </>
                     }
                 />
@@ -327,7 +244,18 @@ function Ammo() {
             <h2 className="center-title">
                 {t('Ammo Statistics Table')}
             </h2>
-            <DataTable columns={columns} data={listState} />
+            <SmallItemTable
+                bsgCategoryFilter={'5485a8684bdc2da71d8b4567'}
+                showAllSources={showAllTraderPrices}
+                caliberFilter={selectedLegendName}
+                useAllProjectileDamage={useAllProjectileDamage}
+                caliber={1}
+                damage={2}
+                penetrationPower={3}
+                armorDamage={4}
+                fragChance={5}
+                cheapestPrice={6}
+            />
         </React.Fragment>
     );
 }

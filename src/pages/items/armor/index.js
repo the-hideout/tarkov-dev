@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
@@ -23,6 +24,7 @@ const marks = {
 };
 
 function Armor(props) {
+    const [showAllArmorSources, setShowAllArmorSources] = useState(false);
     const [useClassEffectiveDurability, setUseClassEffectiveDurability] = useStateWithLocalStorage(
         'useClassEffectiveDurability',
         false,
@@ -73,6 +75,18 @@ function Armor(props) {
                 </h1>
                 <Filter center>
                     <ToggleFilter
+                        checked={showAllArmorSources}
+                        label={t('Ignore settings')}
+                        onChange={(e) =>
+                            setShowAllArmorSources(!showAllArmorSources)
+                        }
+                        tooltipContent={
+                            <>
+                                {t('Shows all sources of items regardless of your settings')}
+                            </>
+                        }
+                    />
+                    <ToggleFilter
                         label={t('Class effective durability')}
                         onChange={(e) => setUseClassEffectiveDurability(!useClassEffectiveDurability)}
                         checked={useClassEffectiveDurability}
@@ -113,15 +127,15 @@ function Armor(props) {
                 }}
                 maxPrice={maxPrice}
                 useClassEffectiveDurability={useClassEffectiveDurability}
-                fleaPrice
                 armorClass
                 armorZones
-                barterPrice
+                cheapestPrice={1}
                 maxDurability
                 effectiveDurability
                 repairability
                 weight
                 stats
+                showAllSources={showAllArmorSources}
             />
             
             <div className="page-wrapper items-page-wrapper">

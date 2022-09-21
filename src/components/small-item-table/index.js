@@ -18,6 +18,7 @@ import LoadingSmall from '../loading-small';
 import formatPrice from '../../modules/format-price';
 import itemSearch from '../../modules/item-search';
 import { getCheapestBarter } from '../../modules/format-cost-items';
+import { formatCaliber } from '../../modules/format-ammo';
 
 import {
     selectAllBarters,
@@ -25,6 +26,7 @@ import {
 } from '../../features/barters/bartersSlice';
 import { useItemsQuery } from '../../features/items/queries';
 import { useMetaQuery } from '../../features/meta/queries';
+import CanvasGrid from '../../components/canvas-grid';
 
 import './index.css';
 
@@ -126,8 +128,10 @@ function SmallItemTable(props) {
         loyaltyLevelFilter,
         traderValue,
         traderBuybackFilter,
+        caliberFilter,
         traderBuyback,
         fleaPrice,
+        grid,
         gridSlots,
         innerSize,
         slotRatio,
@@ -157,6 +161,23 @@ function SmallItemTable(props) {
         totalTraderPrice,
         idFilter,
         useClassEffectiveDurability,
+        excludeArmor,
+        minSlots,
+        has3Slot,
+        has4Slot,
+        caliber,
+        damage,
+        penetrationPower,
+        armorDamage,
+        fragChance,
+        blindnessProtection,
+        useAllProjectileDamage,
+        hydration,
+        energy,
+        hydrationCost,
+        energyCost,
+        totalEnergyCost,
+        provisionValue,
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -190,7 +211,7 @@ function SmallItemTable(props) {
     });
 
     useEffect(() => {
-        if (!barterPrice)
+        if (!barterPrice && !cheapestPrice)
             return;
 
         let timer = false;
@@ -207,7 +228,7 @@ function SmallItemTable(props) {
         return () => {
             clearInterval(timer);
         };
-    }, [bartersStatus, barterPrice, dispatch]);
+    }, [bartersStatus, barterPrice, cheapestPrice, dispatch]);
 
     const containedItems = useMemo(() => {
         if (!containedInFilter) return {};
@@ -356,7 +377,7 @@ function SmallItemTable(props) {
                     maxDurability: itemData.properties.durability,
                     effectiveDurability: Math.floor(itemData.properties?.durability / materialDestructibilityMap[itemData.properties?.material?.id]),
                     repairability: materialRepairabilityMap[itemData.properties?.material?.id],
-                    stats: `${Math.round(itemData.properties.speedPenalty*100)}% / ${Math.round(itemData.properties.turnPenalty*100)}% / ${itemData.properties.ergoPenalty}`,
+                    stats: `${Math.round((itemData.properties.speedPenalty || 0) *100)}% / ${Math.round((itemData.properties.turnPenalty || 0) *100)}% / ${itemData.properties.ergoPenalty || 0}`,
                     weight: itemData.weight,
                     properties: itemData.properties,
                 };
@@ -381,13 +402,17 @@ function SmallItemTable(props) {
                 if (formattedItem.barters.length > 0) {
                     formattedItem.barterPrice = getCheapestBarter(itemData, formattedItem.barters, settings, showAllSources);
 
-                    if (!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice) {
+                    if (formattedItem.barterPrice && (!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice)) {
                         formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.barterPrice.price / (itemData.properties.capacity - itemData.slots))
                                                      : formattedItem.barterPrice.price / itemData.properties.capacity;
                     }
                 }
                 formattedItem.cheapestPrice = Number.MAX_SAFE_INTEGER;
-                if (formattedItem.barterPrice) formattedItem.cheapestPrice = formattedItem.barterPrice.price;
+                if (formattedItem.barterPrice) {
+                    //console.log(formattedItem.barterPrice.barter, settings[formattedItem.barterPrice.barter.trader.normalizedName]);
+                    //if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel)
+                    formattedItem.cheapestPrice = formattedItem.barterPrice.price;
+                }
                 for (const buyFor of formattedItem.buyFor) {
                     if (buyFor.priceRUB && buyFor.priceRUB < formattedItem.cheapestPrice)
                         formattedItem.cheapestPrice = buyFor.priceRUB;
@@ -405,7 +430,7 @@ function SmallItemTable(props) {
                     return true;
                 }
 
-                if (item.avg24hPrice > maxPrice) {
+                if (item.cheapestPrice > maxPrice) {
                     return false;
                 }
 
@@ -478,11 +503,51 @@ function SmallItemTable(props) {
             returnData = returnData.filter(item => idArray.includes(item.id));
         }
 
+        if (excludeArmor) {
+            returnData = returnData.filter(item => !item.properties.class);
+        }
+
+        if (minSlots) {
+            returnData = returnData.filter(item => item.properties.capacity >= minSlots);
+        }
+
+        if (has3Slot) {
+            returnData = returnData.filter(item => item.properties?.grids?.some(grid => grid.width >= 3 || grid.height >= 3));
+        }
+
+        if (has4Slot) {
+            returnData = returnData.filter(item => item.properties?.grids?.some(grid => grid.width * grid.height >= 4));
+        }
+
+        if (caliberFilter) {
+            let filterArray = [];
+            if (!Array.isArray(caliberFilter)) {
+                filterArray.push(caliberFilter);
+            } else {
+                filterArray.push(...caliberFilter);
+            }
+            returnData = returnData.filter(item => {
+                if (caliberFilter.length < 1) 
+                    return true;
+                let caliber = formatCaliber(item.properties.caliber);
+                if (!caliber) {
+                    return false;
+                }
+                if (caliber === '12 Gauge Shot' && item.properties.ammoType === 'bullet') {
+                    caliber = caliber.replace('Shot', 'Slug');
+                }
+                return caliberFilter.includes(caliber);
+            }).sort((a, b) => {
+                return formatCaliber(a.properties.caliber).localeCompare(formatCaliber(b.properties.caliber));
+            });
+        }
+
         return returnData;
     }, [
         nameFilter,
         containedInFilter,
         containedItems,
+        caliberFilter,
         defaultRandom,
         items,
         typeFilter,
@@ -501,7 +566,57 @@ function SmallItemTable(props) {
         materialRepairabilityMap,
         settings,
         showAllSources,
-        idFilter
+        idFilter,
+        excludeArmor,
+        minSlots,
+        has3Slot,
+        has4Slot,
+    ]);
+    const lowHydrationCost = useMemo(() => {
+        if (!totalEnergyCost && !provisionValue) {
+            return 0;
+        }
+        let lowHyd = Number.MAX_SAFE_INTEGER;
+        data.forEach(item => {
+            if (item.properties.hydration > 0) {
+                if (item.cheapestPrice) {
+                    const hydrationCost = item.cheapestPrice / item.properties.hydration;
+                    if (hydrationCost < lowHyd) {
+                        lowHyd = hydrationCost;
+                    }
+                }
+            }
+        });
+        return lowHyd;
+    }, [
+        data,
+        totalEnergyCost,
+        provisionValue,
+    ]);
+    const lowEnergyCost = useMemo(() => {
+        if (!totalEnergyCost && !provisionValue) {
+            return 0;
+        }
+        let lowEng = Number.MAX_SAFE_INTEGER;
+        data.forEach(item => {
+            if (item.properties.energy > 0) {
+                if (item.cheapestPrice) {
+                    let energyCost = item.cheapestPrice / item.properties.energy;
+                    if (item.properties.hydration < 0 && totalEnergyCost) {
+                        energyCost = energyCost + ((item.properties.hydration * -1) * lowHydrationCost);
+                    }
+                    if (energyCost > 0 && energyCost < lowEng) {
+                        lowEng = energyCost;
+                    }
+                }
+            }
+        });
+        return lowEng;
+    }, [
+        data,
+        totalEnergyCost,
+        lowHydrationCost,
+        provisionValue,
     ]);
 
     const columns = useMemo(() => {
@@ -567,6 +682,7 @@ function SmallItemTable(props) {
                     );
                 },
                 id: 'fleaSellPrice',
+                position: fleaValue,
             });
         }
 
@@ -603,6 +719,7 @@ function SmallItemTable(props) {
 
                     return 0;
                 },
+                position: fleaPrice,
             });
         }
 
@@ -625,12 +742,7 @@ function SmallItemTable(props) {
                             interactive={true}
                             content={
                                 <BarterToolTip
-                                    source={
-                                        props.row.original.barters[0]?.source
-                                    }
-                                    requiredItems={
-                                        props.row.original.barters[0]?.requiredItems
-                                    }
+                                    barter={props.row.original.barterPrice?.barter}
                                 />
                             }
                         // plugins={[followCursor]}
@@ -669,16 +781,18 @@ function SmallItemTable(props) {
 
                     return 0;
                 },
+                position: barterPrice,
             });
         }
 
         if (traderValue) {
-            useColumns.splice(1, 0, {
+            useColumns.push({
                 Header: t('Sell to Trader'),
                 accessor: (d) => Number(totalTraderPrice? d.bestSell?.totalPriceRUB : d.bestSell?.priceRUB),
                 Cell: (datum) => {return traderSellCell(datum, totalTraderPrice)},
                 id: 'traderPrice',
-                summable: true
+                summable: true,
+                position: traderValue,
             });
         }
 
@@ -717,6 +831,7 @@ function SmallItemTable(props) {
 
                     return 0;
                 },
+                position: instaProfit,
             });
         }
 
@@ -726,6 +841,7 @@ function SmallItemTable(props) {
                 accessor: (d) => Number(d.instaProfit),
                 Cell: TraderPriceCell,
                 id: 'traderBuyCell',
+                position: traderPrice,
             });
         }
 
@@ -744,6 +860,33 @@ function SmallItemTable(props) {
                 id: 'buyback',
                 sortDescFirst: true,
                 sortType: 'basic',
+                position: traderBuyback,
+            });
+        }
+
+        if (grid) {
+            useColumns.push({
+                Header: t('Grid'),
+                accessor: 'grid',
+                Cell: ({ value }) => {
+                    return (
+                        <CanvasGrid
+                            width={value.width}
+                            height={value.height}
+                            grid={value.pockets}
+                        />
+                    );
+                },
+                sortType: (a, b, columnId, desc) => {
+                    const aSize = a.values.grid.pockets.reduce((totalSize, pocket) => {
+                        return totalSize += (pocket.width * pocket.height);
+                    }, 0);
+                    const bSize = b.values.grid.pockets.reduce((totalSize, pocket) => {
+                        return totalSize += (pocket.width * pocket.height);
+                    }, 0);
+                    return aSize - bSize;
+                },
+                position: grid,
             });
         }
 
@@ -752,6 +895,7 @@ function SmallItemTable(props) {
                 Header: t('Grid slots'),
                 accessor: 'slots',
                 Cell: CenterCell,
+                position: gridSlots,
             });
         }
 
@@ -760,6 +904,7 @@ function SmallItemTable(props) {
                 Header: t('Inner size'),
                 accessor: 'size',
                 Cell: CenterCell,
+                position: innerSize
             });
         }
 
@@ -768,6 +913,7 @@ function SmallItemTable(props) {
                 Header: t('Slot ratio'),
                 accessor: 'ratio',
                 Cell: CenterCell,
+                position: slotRatio,
             });
         }
 
@@ -776,6 +922,7 @@ function SmallItemTable(props) {
                 Header: t('Price per slot'),
                 accessor: 'pricePerSlot',
                 Cell: ValueCell,
+                position: pricePerSlot,
             });
         }
 
@@ -784,6 +931,7 @@ function SmallItemTable(props) {
                 Header: t('Armor class'),
                 accessor: 'armorClass',
                 Cell: CenterCell,
+                position: armorClass,
             });
         }
 
@@ -792,6 +940,7 @@ function SmallItemTable(props) {
                 Header: t('Zones'),
                 accessor: 'armorZone',
                 Cell: CenterCell,
+                position: armorZones,
             });
         }
 
@@ -800,6 +949,7 @@ function SmallItemTable(props) {
                 Header: t('Max Durability'),
                 accessor: 'maxDurability',
                 Cell: CenterCell,
+                position: maxDurability,
             });
         }
 
@@ -813,6 +963,7 @@ function SmallItemTable(props) {
                     return item.effectiveDurability;
                 },
                 Cell: CenterCell,
+                position: effectiveDurability,
             });
         }
 
@@ -821,6 +972,7 @@ function SmallItemTable(props) {
                 Header: t('Repairability'),
                 accessor: 'repairability',
                 Cell: CenterCell,
+                position: repairability,
             });
         }
 
@@ -829,6 +981,7 @@ function SmallItemTable(props) {
                 Header: t('Weight (kg)'),
                 accessor: 'weight',
                 Cell: CenterCell,
+                position: weight,
             });
         }
 
@@ -844,6 +997,171 @@ function SmallItemTable(props) {
                 Cell: ({ value }) => {
                     return <CenterCell value={value} nowrap />;
                 },
+                position: stats,
+            });
+        }
+
+        if (caliber) {
+            useColumns.push({
+                Header: t('Caliber'),
+                accessor: (item) => {
+                    let caliber = item.properties.caliber;
+                    if (!caliber) return '-';
+                    caliber = formatCaliber(caliber);
+                    if (caliber === '12 Gauge Shot' && item.properties.ammoType === 'bullet') {
+                        caliber = caliber.replace('Shot', 'Slug');
+                    }
+                    return caliber;
+                },
+                Cell: CenterCell,
+                position: caliber,
+            });
+        }
+
+        if (damage) {
+            useColumns.push({
+                Header: t('Damage'),
+                accessor: (ammoData) => useAllProjectileDamage ? ammoData.properties.projectileCount * ammoData.properties.damage : ammoData.properties.damage,
+                Cell: CenterCell,
+                position: damage,
+            });
+        }
+
+        if (penetrationPower) {
+            useColumns.push({
+                Header: t('Penetration'),
+                accessor: (item) => item.properties.penetrationPower,
+                Cell: CenterCell,
+                position: penetrationPower,
+            });
+        }
+
+        if (armorDamage) {
+            useColumns.push({
+                Header: t('Armor damage'),
+                accessor: (item) => item.properties.armorDamage,
+                Cell: CenterCell,
+                position: armorDamage,
+            });
+        }
+
+        if (fragChance) {
+            useColumns.push({
+                Header: t('Fragmentation chance'),
+                accessor: (item) => `${Math.floor(item.properties.fragmentationChance * 100)}%`,
+                Cell: CenterCell,
+                position: fragChance,
+            });
+        }
+
+        if (blindnessProtection) {
+            useColumns.push({
+                Header: t('Blindness protection'),
+                accessor: (item) => item.properties.blindnessProtection ? `${item.properties.blindnessProtection*100}%` : '-',
+                Cell: CenterCell,
+                position: blindnessProtection,
+            });
+        }
+
+        if (hydration) {
+            useColumns.push({
+                Header: t('Hydration'),
+                accessor: (item) => item.properties.hydration,
+                Cell: CenterCell,
+                position: hydration,
+            });
+        }
+
+        if (energy) {
+            useColumns.push({
+                Header: t('Energy'),
+                accessor: (item) => item.properties.energy,
+                Cell: CenterCell,
+                position: energy,
+            });
+        }
+
+        if (hydrationCost) {
+            useColumns.push({
+                Header: t('Hydration Cost'),
+                accessor: (item) => {
+                    if (!item.cheapestPrice) {
+                        return 0;
+                    }
+                    if (!item.properties.hydration || item.properties.hydration < 0) {
+                        return Number.MAX_SAFE_INTEGER;
+                    }
+                    return item.cheapestPrice / item.properties.hydration;
+                },
+                Cell: ({ value }) => {
+                    if (!value) {
+                        value = '-';
+                    } else if (value === Number.MAX_SAFE_INTEGER) {
+                        value = '∞'
+                    } else {
+                        value = formatPrice(value);
+                    }
+                    return <CenterCell value={value} nowrap />;
+                },
+                position: hydrationCost,
+            });
+        }
+
+        if (energyCost) {
+            useColumns.push({
+                Header: t('Energy Cost'),
+                accessor: (item) => {
+                    if (!item.cheapestPrice) {
+                        return 0;
+                    }
+                    if (!item.properties.energy || item.properties.energy < 0) {
+                        return Number.MAX_SAFE_INTEGER;
+                    }
+                    
+                    if (item.properties.hydration && item.properties.hydration < 0 && totalEnergyCost) {
+                        return (item.cheapestPrice / item.properties.energy) + (item.properties.hydration * -1) * lowHydrationCost;
+                    }
+                    return item.cheapestPrice / item.properties.energy;
+                },
+                Cell: ({ value }) => {
+                    if (!value) {
+                        value = '-';
+                    } else if (value === Number.MAX_SAFE_INTEGER) {
+                        value = '∞'
+                    } else {
+                        value = formatPrice(value);
+                    }
+                    return <CenterCell value={value} nowrap />;
+                },
+                position: energyCost,
+            });
+        }
+
+        if (provisionValue) {
+            useColumns.push({
+                Header: t('Hydration + Energy Value'),
+                accessor: (item) => {
+                    let hydValue = 0;
+                    let engValue = 0;
+                    if (item.properties.hydration > 0) {
+                        hydValue = item.properties.hydration * lowHydrationCost;
+                    }
+                    if (item.properties.energy > 0) {
+                        engValue = item.properties.energy * lowEnergyCost;
+                    }
+                    return hydValue + engValue;
+                },
+                Cell: ({ value }) => {
+                    if (!value) {
+                        value = '-';
+                    } else if (value === Number.MAX_SAFE_INTEGER) {
+                        value = '∞'
+                    } else {
+                        value = formatPrice(value);
+                    }
+                    return <CenterCell value={value} nowrap />;
+                },
+                position: provisionValue,
             });
         }
 
@@ -852,30 +1170,93 @@ function SmallItemTable(props) {
                 Header: t('Cheapest Price'),
                 accessor: 'cheapestPrice',
                 Cell: (props) => {
-                    // return <ValueCell
-                    //     value = {props.value}
-                    // />;
-                    /*
-                        For some reason this
-                        */
+                    let tipContent = '';
+                    if (props.row.original.barterPrice && props.row.original.barterPrice.price === props.value) {
+                        tipContent = (
+                            <BarterToolTip
+                                barter={props.row.original.barterPrice.barter}
+                            />
+                        );
+                    }
+                    if (!tipContent && props.row.original.cheapestPrice) {
+                        for (const buyFor of props.row.original.buyFor) {
+                            if (buyFor.priceRUB === props.row.original.cheapestPrice) {
+                                tipContent = buyFor.vendor.name;
+                                if (buyFor.vendor.minTraderLevel) {
+                                    tipContent += ` LL${buyFor.vendor.minTraderLevel}`;
+                                    if (buyFor.vendor.taskUnlock && !settings?.completedQuests?.includes(buyFor.vendor.taskUnlock.tarkovDataId)) {
+                                        tipContent += ` + ${buyFor.vendor.taskUnlock.name}`;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    if (!props.row.original.cheapestPrice) {
+                        tipContent = [];
+                        if (props.row.original.types.includes('noFlea')) {
+                            tipContent.push((
+                                <div key={'no-flea-tooltip'}>
+                                    {t('This item can\'t be sold on the Flea Market')}
+                                </div>
+                            ));
+                        }
+                        tipContent.push((
+                            <div key={'no-trader-sell-tooltip'}>
+                                {t('There are no trader offers available')}
+                            </div>
+                        ));
+                    }
                     return (
-                        <div className="center-content">
-                            {props.value ? formatPrice(props.value*props.row.original.count) : '-'}
-                        </div>
+                        <Tippy
+                            placement="bottom"
+                            interactive={true}
+                            content={tipContent}
+                        >
+                            <div className="center-content">
+                                {props.value ? formatPrice(props.value*props.row.original.count) : '-'}
+                            </div>
+                        </Tippy>
                     );
                 },
-                summable: true
+                summable: true,
+                position: cheapestPrice,
             });
+        }
+
+        const claimedPositions = [];
+        for (let i = 1; i < useColumns.length; i++) {
+            const column = useColumns[i];
+            if (Number.isInteger(column.position)) {
+                let position = parseInt(column.position);
+                if (position < 1) {
+                    position = 1;
+                }
+                if (position >= useColumns.length) {
+                    position = useColumns.length-1;
+                }
+                if (position !== i && !claimedPositions.includes(position)) {
+                    //console.log(`Moving ${column.Header} from ${i} to ${position}`);
+                    claimedPositions.push(position);
+                    useColumns.splice(i, 1);
+                    useColumns.splice(position, 0, column);
+                    i = 1;
+                } else if (position !== i && claimedPositions.includes(position)) {
+                    //console.warn(`Warning: ${column.Header} wants position ${position}, but that position has already been claimed by ${useColumns[position].Header}`);
+                }
+            }
         }
 
         return useColumns;
     }, [
         t,
+        settings,
         instaProfit,
         traderPrice,
         traderValue,
         traderBuyback,
         fleaPrice,
+        grid,
         gridSlots,
         innerSize,
         slotRatio,
@@ -890,9 +1271,24 @@ function SmallItemTable(props) {
         stats,
         showContainedItems,
         weight,
+        caliber,
+        damage,
+        penetrationPower,
+        armorDamage,
+        fragChance,
         cheapestPrice,
+        blindnessProtection,
         totalTraderPrice,
         useClassEffectiveDurability,
+        useAllProjectileDamage,
+        hydration,
+        energy,
+        hydrationCost,
+        energyCost,
+        lowHydrationCost,
+        lowEnergyCost,
+        totalEnergyCost,
+        provisionValue,
     ]);
 
     let extraRow = false;

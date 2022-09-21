@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import ErrorPage from '../../../components/error-page';
 
-import { Filter, InputFilter } from '../../../components/filter';
+import { Filter, InputFilter, ToggleFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 
@@ -15,6 +15,7 @@ function BsgCategory() {
     const defaultQuery = new URLSearchParams(window.location.search).get(
         'search',
     );
+    const [showAllItemSources, setShowAllItemSources] = useState(false);
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     let { bsgCategoryName } = useParams();
     const { t } = useTranslation();
@@ -65,6 +66,18 @@ function BsgCategory() {
                     </cite> */}
                 </h1>
                 <Filter center>
+                    <ToggleFilter
+                        checked={showAllItemSources}
+                        label={t('Ignore settings')}
+                        onChange={(e) =>
+                            setShowAllItemSources(!showAllItemSources)
+                        }
+                        tooltipContent={
+                            <>
+                                {t('Shows all sources of items regardless of your settings')}
+                            </>
+                        }
+                    />
                     <InputFilter
                         defaultValue={nameFilter}
                         onChange={handleNameFilterChange}
@@ -76,9 +89,10 @@ function BsgCategory() {
             <SmallItemTable
                 nameFilter={nameFilter}
                 bsgCategoryFilter={category.id}
-                fleaValue
-                traderValue
-                traderPrice
+                showAllSources={showAllItemSources}
+                traderValue={1}
+                fleaValue={2}
+                cheapestPrice={3}
             />
         </div>,
     ];

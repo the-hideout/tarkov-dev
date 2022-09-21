@@ -1,89 +1,16 @@
-import { useMemo } from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import {mdiSunglasses} from '@mdi/js';
 
-import ItemNameCell from '../../../components/item-name-cell';
-import DataTable from '../../../components/data-table';
-import formatPrice from '../../../modules/format-price';
-import { useItemsQuery } from '../../../features/items/queries';
+import { Filter, ToggleFilter } from '../../../components/filter';
+import SmallItemTable from '../../../components/small-item-table';
 
-const centerCell = ({ value }) => {
-    return <div className="center-content">{value}</div>;
-};
-
-function Glasses(props) {
-    const { data: items } = useItemsQuery();
+function Glasses() {
     const { t } = useTranslation();
-
-    const displayItems = useMemo(
-        () => items.filter((item) => item.types.includes('glasses')),
-        [items],
-    );
-
-    const columns = useMemo(
-        () => [
-            {
-                Header: t('Name'),
-                accessor: 'name',
-                Cell: ItemNameCell,
-            },
-            {
-                Header: t('Armor class'),
-                accessor: 'armorClass',
-                Cell: centerCell,
-            },
-            {
-                Header: t('Blindness protection'),
-                accessor: 'blindness',
-                Cell: centerCell,
-            },
-            {
-                Header: ({ value }) => {
-                    return (
-                        <div className="center-content">
-                            {t('Status')}
-                            <div>{t('Turn/Ergo')}</div>
-                        </div>
-                    );
-                },
-                accessor: 'stats',
-                Cell: centerCell,
-            },
-            {
-                Header: t('Cost'),
-                accessor: 'price',
-                Cell: centerCell,
-            },
-        ],
-        [t],
-    );
-
-    const data = useMemo(
-        () =>
-            displayItems
-                .map((item) => {
-                    return {
-                        ...item,
-                        itemLink: `/item/${item.normalizedName}`,
-                        armorClass: item.properties.class,
-                        blindness: `${
-                            (item.properties.blindnessProtection || 0) * 100
-                        }%`,
-                        stats: `${item.properties.turnPenalty * 100 || 0}% / ${
-                            item.properties.ergoPenalty || 0
-                        }`,
-                        image:
-                            item.iconLink ||
-                            'https://tarkov.dev/images/unknown-item-icon.jpg',
-                        price: `${formatPrice(item.avg24hPrice)}`,
-                    };
-                })
-                .filter(Boolean),
-        [displayItems],
-    );
+    const [showAllItemSources, setShowAllItemSources] = useState(false);
 
     return [
         <Helmet key={'glasses-table'}>
@@ -101,11 +28,29 @@ function Glasses(props) {
                     <Icon path={mdiSunglasses} size={1.5} className="icon-with-text" /> 
                     {t('Glasses chart')}
                 </h1>
+                <Filter center>
+                    <ToggleFilter
+                        checked={showAllItemSources}
+                        label={t('Ignore settings')}
+                        onChange={(e) =>
+                            setShowAllItemSources(!showAllItemSources)
+                        }
+                        tooltipContent={
+                            <>
+                                {t('Shows all sources of items regardless of your settings')}
+                            </>
+                        }
+                    />
+                </Filter>
             </div>
 
-            <DataTable 
-                columns={columns} 
-                data={data} 
+            <SmallItemTable
+                typeFilter={'glasses'}
+                showAllSources={showAllItemSources}
+                armorClass={1}
+                blindnessProtection={2}
+                stats={3}
+                cheapestPrice={4}
             />
 
             <div className="page-wrapper items-page-wrapper">

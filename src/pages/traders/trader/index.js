@@ -157,7 +157,7 @@ function Trader() {
                 loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
                 traderPrice={selectedTable === 'level' ? false : true}
                 fleaValue
-                traderValue
+                traderValue={1}
                 fleaPrice
                 traderBuyback={selectedTable === 'level' ? true : false}
                 traderBuybackFilter={selectedTable === 'level' ? true : false}

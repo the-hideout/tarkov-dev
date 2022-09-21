@@ -802,7 +802,7 @@ function Item() {
                             containedInFilter={currentItemData.containsItems}
                             fleaPrice
                             barterPrice
-                            traderValue
+                            traderValue={1}
                             traderPrice
                             cheapestPrice
                             sumColumns
