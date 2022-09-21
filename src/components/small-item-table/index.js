@@ -5,6 +5,10 @@ import Icon from '@mdi/react';
 import { mdiClockAlertOutline, mdiCloseOctagon } from '@mdi/js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
+import {
+    mdiAccountSwitch,
+    mdiClipboardList
+} from '@mdi/js';
 
 import ValueCell from '../value-cell';
 import TraderPriceCell from '../trader-price-cell';
@@ -159,6 +163,10 @@ const getAttachmentPoints = (items, targetItem) => {
                 fitsTo: getGuns(items, item),
             };
         });
+};
+
+const ConditionalWrapper = ({ condition, wrapper, children }) => {
+    return condition ? wrapper(children) : children;
 };
 
 function SmallItemTable(props) {
@@ -376,14 +384,18 @@ function SmallItemTable(props) {
                 }
             }
             formattedItem.cheapestPrice = Number.MAX_SAFE_INTEGER;
+            formattedItem.cheapestPriceInfo = false;
             if (formattedItem.barterPrice) {
                 //console.log(formattedItem.barterPrice.barter, settings[formattedItem.barterPrice.barter.trader.normalizedName]);
                 //if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel)
                 formattedItem.cheapestPrice = formattedItem.barterPrice.price;
+                formattedItem.cheapestPriceInfo = formattedItem.barterPrice;
             }
             for (const buyFor of formattedItem.buyFor) {
-                if (buyFor.priceRUB && buyFor.priceRUB < formattedItem.cheapestPrice)
+                if (buyFor.priceRUB && buyFor.priceRUB < formattedItem.cheapestPrice) {
                     formattedItem.cheapestPrice = buyFor.priceRUB;
+                    formattedItem.cheapestPriceInfo = buyFor;
+                }
             }
             if (formattedItem.cheapestPrice === Number.MAX_SAFE_INTEGER) {
                 formattedItem.cheapestPrice = 0;
@@ -1403,27 +1415,6 @@ function SmallItemTable(props) {
                 accessor: 'cheapestPrice',
                 Cell: (props) => {
                     let tipContent = '';
-                    if (props.row.original.barterPrice && props.row.original.barterPrice.price === props.value) {
-                        tipContent = (
-                            <BarterToolTip
-                                barter={props.row.original.barterPrice.barter}
-                            />
-                        );
-                    }
-                    if (!tipContent && props.row.original.cheapestPrice) {
-                        for (const buyFor of props.row.original.buyFor) {
-                            if (buyFor.priceRUB === props.row.original.cheapestPrice) {
-                                tipContent = buyFor.vendor.name;
-                                if (buyFor.vendor.minTraderLevel) {
-                                    tipContent += ` LL${buyFor.vendor.minTraderLevel}`;
-                                    if (buyFor.vendor.taskUnlock && !settings?.completedQuests?.includes(buyFor.vendor.taskUnlock.tarkovDataId)) {
-                                        tipContent += ` + ${buyFor.vendor.taskUnlock.name}`;
-                                    }
-                                }
-                                break;
-                            }
-                        }
-                    }
                     if (!props.row.original.cheapestPrice) {
                         tipContent = [];
                         if (props.row.original.types.includes('noFlea')) {
@@ -1445,16 +1436,76 @@ function SmallItemTable(props) {
                             </div>
                         ));
                     }
+                    const priceContent = [];
+                    if (props.value) {
+                        const priceInfo = props.row.original.cheapestPriceInfo;
+                        let priceSource = priceInfo.vendor?.name || priceInfo.barter.trader.name;
+                        const displayedPrice = [];
+                        let taskIcon = '';
+                        let barterIcon = '';
+                        if (priceInfo.vendor?.minTraderLevel) {
+                            priceSource += ` LL${priceInfo.vendor.minTraderLevel}`;
+                            if (priceInfo.vendor.taskUnlock) {
+                                taskIcon = (
+                                    <Icon
+                                        path={mdiClipboardList}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                );
+                                tipContent = `${t('Task')}: ${priceInfo.vendor.taskUnlock.name}`;
+                            }
+                        } else if (priceInfo.barter?.level) {
+                            priceSource += ` LL${priceInfo.barter.level}`;
+                            barterIcon = (
+                                <Icon
+                                    path={mdiAccountSwitch}
+                                    size={1}
+                                    className="icon-with-text"
+                                />
+                            );
+                            let barterTipTitle = '';
+                            if (priceInfo.barter.taskUnlock) {
+                                taskIcon = (
+                                    <Icon
+                                        path={mdiClipboardList}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                );
+                                barterTipTitle = `${t('Task')}: ${priceInfo.barter.taskUnlock.name}`;
+                            }
+                            tipContent = (
+                                <BarterToolTip
+                                    barter={props.row.original.barterPrice.barter}
+                                    showTitle={taskIcon !== ''}
+                                    title={barterTipTitle}
+                                />
+                            );
+                        }
+                        displayedPrice.push(priceSource);
+                        displayedPrice.push(barterIcon);
+                        displayedPrice.push(taskIcon);
+                        priceContent.push(formatPrice(props.value*props.row.original.count));
+                        priceContent.push((<div class="trader-unlock-wrapper">{displayedPrice}</div>))
+                    } else {
+                        priceContent.push('-');
+                    }
                     return (
-                        <Tippy
-                            placement="bottom"
-                            interactive={true}
-                            content={tipContent}
+                        <ConditionalWrapper
+                            condition={tipContent}
+                            wrapper={(children) => {
+                                return (
+                                    <Tippy placement="bottom" content={tipContent}>
+                                        {children}
+                                    </Tippy>
+                                );
+                            }}
                         >
                             <div className="center-content">
-                                {props.value ? formatPrice(props.value*props.row.original.count) : '-'}
+                                {priceContent}
                             </div>
-                        </Tippy>
+                        </ConditionalWrapper>
                     );
                 },
                 summable: true,
@@ -1491,7 +1542,6 @@ function SmallItemTable(props) {
         return useColumns;
     }, [
         t,
-        settings,
         instaProfit,
         traderPrice,
         traderValue,

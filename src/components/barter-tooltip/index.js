@@ -11,7 +11,7 @@ import {
 
 import './index.css';
 
-function BarterToolip({ barter, source, requiredItems }) {
+function BarterToolip({ barter, source, requiredItems, showTitle = true, title }) {
     const { t } = useTranslation();
     source = source || barter?.source;
     requiredItems = requiredItems || barter?.requiredItems;
@@ -20,17 +20,25 @@ function BarterToolip({ barter, source, requiredItems }) {
         return "No barters found for this item";
     }
 
-    return (
-        <div className="cost-with-barter-wrapper">
-
+    let titleElement = '';
+    if (showTitle) {
+        const titleText = title || `${t('Barter at')} ${source}`;
+        titleElement = (
             <h3>
                 <Icon
                     path={mdiAccountSwitch}
                     size={1}
                     className="icon-with-text"
                 />
-                {t('Barter at')} {source}
+                {titleText}
             </h3>
+        );
+    }
+
+    return (
+        <div className="cost-with-barter-wrapper">
+
+            {titleElement}
             {requiredItems.map((requiredItem) => {
                 let itemName = requiredItem.item.name;
                 let price = requiredItem.item.avg24hPrice;
