@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Switch from 'react-switch';
 import Select from 'react-select';
 import Slider, { Range } from 'rc-slider';
@@ -261,6 +261,76 @@ function SelectFilter({
     );
 }
 
+function SelectItemFilter({
+    defaultValue,
+    onChange,
+    isMulti = false,
+    label,
+    tooltip,
+    tooltipDisabled,
+    onMenuOpen,
+    onMenuClose,
+    wide,
+    items,
+}) {
+    const [selectedItem, setSelectedItem] = useState(false);
+    const selectInputRef = useRef(null);
+
+    const elements = [(
+        <SelectFilter
+            key={'select-item-filter'}
+            label={label}
+            options={items.map((item) => {
+                return {
+                    label: item.name,
+                    value: item.id,
+                };
+            })}
+            onChange={(event) => {
+                if (!event) {
+                    return true;
+                }
+
+                setSelectedItem(
+                    items.find(
+                        (item) => item.id === event.value,
+                    ),
+                );
+                if (onChange) {
+                    onChange(event);
+                }
+            }}
+            parentRef={selectInputRef}
+            wide={wide}
+            defaultValue={defaultValue}
+            isMulti={isMulti}
+            tooltip={tooltip}
+            tooltipDisabled={tooltipDisabled}
+            onMenuOpen={onMenuOpen}
+            onMenuClose={onMenuClose}
+        />
+    )];
+
+    if (selectedItem) {
+        elements.push((
+            <img
+                key={'select-item-filter-selected-icon'}
+                alt={`${selectedItem.name}-icon`}
+                onClick={() => {
+                    selectInputRef.current?.clearValue();
+                    setSelectedItem(false);
+                    if (onChange) {
+                        onChange({label: '', value: false});
+                    }
+                }}
+                loading="lazy"
+                src={selectedItem.iconLink}
+            />
+        ))
+    }
+    return elements;
+}
+
 function InputFilter({
     defaultValue,
     type = 'text',
@@ -330,4 +400,5 @@ export {
     ButtonGroupFilter,
     ButtonGroupFilterButton,
     RangeFilter,
+    SelectItemFilter,
 };

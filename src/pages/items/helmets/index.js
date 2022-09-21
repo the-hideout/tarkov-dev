@@ -1,334 +1,52 @@
-import { useMemo } from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import {mdiRacingHelmet} from '@mdi/js';
 
-import DataTable from '../../../components/data-table';
-import formatPrice from '../../../modules/format-price';
+
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
-import ArrowIcon from '../../../components/data-table/Arrow.js';
+import SmallItemTable from '../../../components/small-item-table';
 import {
     Filter,
     ToggleFilter,
-    SliderFilter,
+    RangeFilter,
     InputFilter,
 } from '../../../components/filter';
-import {
-    useItemsQuery,
-    useItemsWithTypeQuery,
-} from '../../../features/items/queries';
-import { useMetaQuery } from '../../../features/meta/queries';
-
-const ricochetMap = (ricochetCoefficient) => {
-    if (ricochetCoefficient < 0.2) {
-        return 'None';
-    }
-
-    if (ricochetCoefficient < 0.8) {
-        return 'Low';
-    }
-
-    if (ricochetCoefficient < 0.9) {
-        return 'Medium';
-    }
-
-    if (ricochetCoefficient < 1) {
-        return 'High';
-    }
-};
-
-const centerCell = ({ value }) => {
-    return <div className="center-content">{value}</div>;
-};
-
-const centerNowrapCell = ({ value }) => {
-    return <div className="center-content nowrap-content">{value}</div>;
-};
-
-const linkCell = (allData) => {
-    return <a href={allData.row.original.itemLink}>{allData.value}</a>;
-};
 
 const marks = {
-    1: 6,
-    2: 5,
-    3: 4,
-    4: 3,
-    5: 2,
-    6: 1,
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5,
+    6: 6,
 };
 
-const getStatsString = (properties) => {
-    if (
-        !properties.speedPenalty &&
-        !properties.turnPenalty &&
-        !properties.ergoPenalty
-    ) {
-        return '';
-    }
-
-    return `${Math.round(properties.speedPenalty*100) || 0}% / ${
-        Math.round(properties.mousePenalty*100) || 0
-    }% / ${properties.ergoPenalty || 0}`;
-};
-
-function Helmets(props) {
+function Helmets() {
+    const [showAllItemSources, setShowAllItemSources] = useState(false);
     const [includeBlockingHeadset, setIncludeBlockingHeadset] =
         useStateWithLocalStorage('includeBlockingHeadset', true);
     const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage(
         'minHelmetArmorClass',
+        1,
+    );
+    const [maxArmorClass, setMaxArmorClass] = useStateWithLocalStorage(
+        'maxHelmetArmorClass',
         6,
     );
     const [maxPrice, setMaxPrice] = useStateWithLocalStorage(
         'helmetMaxPrice',
         '',
     );
-    const handleArmorClassChange = (newValueLabel) => {
-        setMinArmorClass(newValueLabel);
+
+    const handleArmorClassChange = ([min, max]) => {
+        setMinArmorClass(min);
+        setMaxArmorClass(max);
     };
-    const { data: items } = useItemsQuery();
-    const { data: displayItems } = useItemsWithTypeQuery('helmet');
-    const { data: meta } = useMetaQuery();
+
     const { t } = useTranslation();
-
-    const { materialDestructibilityMap, materialRepairabilityMap } = useMemo(
-        () => {
-            const destruct = {};
-            const repair = {};
-            if (!meta?.armor) return {materialDestructibilityMap: destruct, materialRepairabilityMap: repair };
-            meta.armor.forEach(armor => {
-                destruct[armor.id] = armor.destructibility;
-                repair[armor.id] = (100-Math.round((armor.minRepairDegradation + armor.maxRepairDegradation)/2*100));
-            });
-            return {materialDestructibilityMap: destruct, materialRepairabilityMap: repair };
-        },
-        [meta]
-    );
-
-    const columns = useMemo(
-        () => [
-            {
-                id: 'expander',
-                Header: ({
-                    getToggleAllRowsExpandedProps,
-                    isAllRowsExpanded,
-                }) =>
-                    // <span {...getToggleAllRowsExpandedProps()}>
-                    //     {isAllRowsExpanded ? 'v' : '>'}
-                    // </span>
-                    null,
-                Cell: ({ row }) =>
-                    // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
-                    // to build the toggle for expanding a row
-                    row.canExpand ? (
-                        <span
-                            {...row.getToggleRowExpandedProps({
-                                style: {
-                                    // We can even use the row.depth property
-                                    // and paddingLeft to indicate the depth
-                                    // of the row
-                                    // paddingLeft: `${row.depth * 2}rem`,
-                                },
-                            })}
-                        >
-                            {row.isExpanded ? (
-                                <ArrowIcon />
-                            ) : (
-                                <ArrowIcon className={'arrow-right'} />
-                            )}
-                        </span>
-                    ) : null,
-            },
-            {
-                accessor: 'image',
-                Cell: ({ value }) => {
-                    return (
-                        <div className="center-content">
-                            <img
-                                alt=""
-                                className="table-image"
-                                loading="lazy"
-                                src={value}
-                            />
-                        </div>
-                    );
-                },
-            },
-            {
-                Header: t('Name'),
-                accessor: 'name',
-                Cell: linkCell,
-            },
-            {
-                Header: t('Armor class'),
-                accessor: 'armorClass',
-                Cell: centerCell,
-            },
-            {
-                Header: t('Zones'),
-                accessor: 'armorZone',
-                Cell: centerCell,
-            },
-            // {
-            //     Header: t('Ricochet chance'),
-            //     accessor: 'ricochetChance',
-            //     Cell: centerCell,
-            // },
-            {
-                Header: t('Sound supression'),
-                accessor: 'deafenStrength',
-                Cell: centerCell,
-            },
-            {
-                Header: t('Blocks earpiece'),
-                accessor: 'blocksHeadphones',
-                Cell: centerCell,
-            },
-            {
-                Header: t('Max Durability'),
-                accessor: 'maxDurability',
-                Cell: centerCell,
-            },
-            // {
-            //     Header: 'Effective Durability',
-            //     accessor: 'effectiveDurability',
-            //     Cell: centerCell,
-            // },
-            // {
-            //     Header: 'Repairability',
-            //     accessor: 'repairability',
-            //     Cell: centerCell,
-            // },
-            {
-                Header: ({ value }) => {
-                    return (
-                        <div className="center-content">
-                            {t('Status')}
-                            <div>{t('Mov/Turn/Ergo')}</div>
-                        </div>
-                    );
-                },
-                accessor: 'stats',
-                Cell: centerNowrapCell,
-            },
-            {
-                Header: t('Current Price'),
-                accessor: 'price',
-                Cell: centerCell,
-            },
-        ],
-        [t],
-    );
-
-    const data = useMemo(
-        () =>
-            displayItems
-                .map((item) => {
-                    if (item.properties.class < 7 - minArmorClass) {
-                        return false;
-                    }
-
-                    if (
-                        item.properties.blocksHeadset &&
-                        !includeBlockingHeadset
-                    ) {
-                        return false;
-                    }
-
-                    if (maxPrice && item.avg24hPrice > maxPrice) {
-                        return false;
-                    }
-
-                    const match = item.name.match(/(.*)\s\(\d.+?$/);
-                    let itemName = item.name;
-
-                    if (match) {
-                        itemName = match[1].trim();
-                    }
-
-                    return {
-                        name: itemName,
-                        armorClass: item.properties.class,
-                        armorZone: item.properties.headZones?.join(', '),
-                        material: item.properties.material?.name,
-                        deafenStrength: item.properties.deafening,
-                        blocksHeadphones: item.properties.blocksHeadset
-                            ? 'Yes'
-                            : 'No',
-                        maxDurability: item.properties.durability,
-                        ricochetChance: ricochetMap(
-                            item.properties?.ricochetY,
-                        ),
-                        repairability: materialRepairabilityMap[item.properties.material?.id],
-                        effectiveDurability: Math.floor(
-                            item.properties.durability /
-                                materialDestructibilityMap[
-                                    item.properties.material?.id
-                                ],
-                        ),
-                        stats: getStatsString(item.properties),
-                        price: formatPrice(item.avg24hPrice),
-                        image:
-                            item.iconLink ||
-                            'https://tarkov.dev/images/unknown-item-icon.jpg',
-                        wikiLink: item.wikiLink,
-                        itemLink: `/item/${item.normalizedName}`,
-                        subRows: items.filter(linkedItem => {
-                            if (!item.properties?.slots) return false;
-                            for (const slot of item.properties.slots) {
-                                const included = slot.filters.allowedItems.includes(linkedItem.id) ||
-                                    linkedItem.categoryIds.some(catId => slot.filters.allowedCategories.includes(catId));
-                                const excluded = slot.filters.excludedItems.includes(linkedItem.id) ||
-                                    linkedItem.categoryIds.some(catId => slot.filters.excludedCategories.includes(catId));
-                                if (included && !excluded) return true;
-                            }
-                            return false;
-                        }).map(linkedItem => {
-                            return {
-                                name: linkedItem.name,
-                                armorClass: linkedItem.properties.class
-                                    ? linkedItem.properties.class
-                                    : '',
-                                armorZone:
-                                    linkedItem.properties.headZones?.join(
-                                        ', ',
-                                    ),
-                                material:
-                                    linkedItem.properties.material?.name,
-                                deafenStrength:
-                                    linkedItem.properties.deafening,
-                                blocksHeadphones: linkedItem.properties
-                                    .blocksHeadset
-                                    ? 'Yes'
-                                    : 'No',
-                                maxDurability:
-                                    linkedItem.properties.durability,
-                                ricochetChance: ricochetMap(
-                                    linkedItem.properties?.ricochetY,
-                                ),
-                                repairability: materialRepairabilityMap[linkedItem.properties.material?.id],
-                                effectiveDurability: Math.floor(
-                                    linkedItem.properties.durability /
-                                        materialDestructibilityMap[
-                                            linkedItem.properties.material?.id
-                                        ],
-                                ),
-                                stats: getStatsString(
-                                    linkedItem.properties,
-                                ),
-                                price: formatPrice(linkedItem.avg24hPrice),
-                                image: `https://assets.tarkov.dev/${linkedItem.id}-icon.jpg`,
-                                wikiLink: linkedItem.wikiLink,
-                                itemLink: `/item/${linkedItem.normalizedName}`,
-                            };
-                        }),
-                    };
-                })
-                .filter(Boolean),
-        [minArmorClass, includeBlockingHeadset, maxPrice, displayItems, items, materialDestructibilityMap, materialRepairabilityMap],
-    );
 
     return [
         <Helmet key={'helmet-table'}>
@@ -347,19 +65,30 @@ function Helmets(props) {
                 </h1>
                 <Filter center>
                     <ToggleFilter
+                        checked={showAllItemSources}
+                        label={t('Ignore settings')}
+                        onChange={(e) =>
+                            setShowAllItemSources(!showAllItemSources)
+                        }
+                        tooltipContent={
+                            <>
+                                {t('Shows all sources of items regardless of your settings')}
+                            </>
+                        }
+                    />
+                    <ToggleFilter
                         label={t('Show blocking headset')}
                         onChange={(e) =>
                             setIncludeBlockingHeadset(!includeBlockingHeadset)
                         }
                         checked={includeBlockingHeadset}
                     />
-                    <SliderFilter
-                        defaultValue={minArmorClass}
+                    <RangeFilter
+                        defaultValue={[minArmorClass, maxArmorClass]}
                         label={t('Min armor class')}
                         min={1}
                         max={6}
                         marks={marks}
-                        reverse
                         onChange={handleArmorClassChange}
                     />
                     <InputFilter
@@ -372,12 +101,28 @@ function Helmets(props) {
                 </Filter>
             </div>
 
-            <DataTable
-                columns={columns}
-                data={data}
-                sortBy={'armorClass'}
-                sortByDesc={true}
-                autoResetSortBy={false}
+            <SmallItemTable
+                bsgCategoryFilter={['5a341c4686f77469e155819e', '5a341c4086f77401f2541505']}
+                showAllSources={showAllItemSources}
+                minPropertyFilter={{
+                    property: 'class',
+                    value: minArmorClass,
+                }}
+                maxPropertyFilter={{
+                    property: 'class',
+                    value: maxArmorClass,
+                }}
+                includeBlockingHeadset={includeBlockingHeadset}
+                maxPrice={maxPrice}
+                showAttachments
+                requireArmor
+                armorClass={1}
+                armorZones={2}
+                soundSuppression={3}
+                blocksHeadset={4}
+                maxDurability={5}
+                stats={6}
+                cheapestPrice={7}
             />
 
             <div className="page-wrapper items-page-wrapper">

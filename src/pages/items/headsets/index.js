@@ -76,7 +76,7 @@ function Headsets() {
                 weight={1}
                 traderValue={2}
                 fleaValue={3}
-                cheapestPrice
+                cheapestPrice={4}
             />
 
             <div className="page-wrapper items-page-wrapper">

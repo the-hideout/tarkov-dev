@@ -5,6 +5,10 @@ import Icon from '@mdi/react';
 import { mdiClockAlertOutline, mdiCloseOctagon } from '@mdi/js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
+import {
+    mdiAccountSwitch,
+    mdiClipboardList
+} from '@mdi/js';
 
 import ValueCell from '../value-cell';
 import TraderPriceCell from '../trader-price-cell';
@@ -14,11 +18,13 @@ import FleaPriceCell from '../flea-price-cell';
 import BarterToolTip from '../barter-tooltip';
 import DataTable from '../data-table';
 import LoadingSmall from '../loading-small';
+import ArrowIcon from '../../components/data-table/Arrow.js';
 
 import formatPrice from '../../modules/format-price';
 import itemSearch from '../../modules/item-search';
 import { getCheapestBarter } from '../../modules/format-cost-items';
 import { formatCaliber } from '../../modules/format-ammo';
+import itemCanContain from '../../modules/item-can-contain';
 
 import {
     selectAllBarters,
@@ -115,6 +121,54 @@ const getArmorZoneString = (armorZones) => {
         .join(', ');
 };
 
+const getGuns = (items, targetItem) => {
+    let parentItems = [];
+    const currentParentItems = items.filter((innerItem) => 
+        itemCanContain(innerItem, targetItem, 'slots'),
+    );
+
+    for (const parentItem of currentParentItems) {
+        if (parentItem.types.includes('gun')) {
+            parentItems.push(parentItem);
+
+            continue;
+        }
+
+        parentItems = parentItems.concat(getGuns(items, parentItem));
+    }
+
+    let idCache = [];
+
+    parentItems = parentItems
+        .map((parentItem) => {
+            if (idCache.includes(parentItem.id)) {
+                return false;
+            }
+
+            idCache.push(parentItem.id);
+
+            return parentItem;
+        })
+        .filter(Boolean);
+
+    return parentItems;
+};
+
+const getAttachmentPoints = (items, targetItem) => {
+    return items
+        .filter((parentItem) => itemCanContain(parentItem, targetItem, 'slots'))
+        .map((item) => {
+            return {
+                ...item,
+                fitsTo: getGuns(items, item),
+            };
+        });
+};
+
+const ConditionalWrapper = ({ condition, wrapper, children }) => {
+    return condition ? wrapper(children) : children;
+};
+
 function SmallItemTable(props) {
     let {
         maxItems,
@@ -162,6 +216,7 @@ function SmallItemTable(props) {
         idFilter,
         useClassEffectiveDurability,
         excludeArmor,
+        requireArmor,
         minSlots,
         has3Slot,
         has4Slot,
@@ -178,6 +233,15 @@ function SmallItemTable(props) {
         energyCost,
         totalEnergyCost,
         provisionValue,
+        soundSuppression,
+        blocksHeadset,
+        showAttachments,
+        includeBlockingHeadset,
+        ergonomics,
+        ergoCost,
+        recoilModifier,
+        showAttachTo,
+        attachesToItemFilter,
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -240,6 +304,111 @@ function SmallItemTable(props) {
     }, [containedInFilter]);
 
     const data = useMemo(() => {
+        const formatItem = itemData => {
+            const formattedItem = {
+                id: itemData.id,
+                name: itemData.name,
+                shortName: itemData.shortName,
+                normalizedName: itemData.normalizedName,
+                avg24hPrice: itemData.avg24hPrice,
+                lastLowPrice: itemData.lastLowPrice,
+                // iconLink: `https://assets.tarkov.dev/${itemData.id}-icon.jpg`,
+                iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+                instaProfit: 0,
+                itemLink: `/item/${itemData.normalizedName}`,
+                traderName: itemData.traderName,
+                traderNormalizedName: itemData.traderNormalizedName,
+                traderPrice: itemData.traderPrice,
+                traderPriceRUB: itemData.traderPriceRUB,
+                traderCurrency: itemData.traderCurrency,
+                types: itemData.types,
+                buyFor: itemData.buyFor.filter(buyFor => {
+                    if (buyFor.vendor.normalizedName === 'flea-market' && !showAllSources && !settings.hasFlea) return false;
+                    if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) return false;
+                    return true;
+                }),
+                sellFor: itemData.sellFor,
+                bestSell: itemData.sellFor.filter(sellFor => {
+                    if (sellFor.vendor.normalizedName === 'flea-market') return false;
+                    if (!showAllSources && sellFor.vendor.normalizedName === 'jaeger' && !settings.jaeger) return false;
+                    return true;
+                }),
+                buyOnFleaPrice: itemData.buyFor.find(
+                    (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market' && (showAllSources || settings.hasFlea),
+                ),
+                barters: barters.filter(
+                    (barter) => barter.rewardItems[0].item.id === itemData.id,
+                ),
+                grid: itemData.grid,
+                pricePerSlot: showNetPPS ? Math.floor(itemData.avg24hPrice / (itemData.properties.capacity - (itemData.width * itemData.height)))
+                              : itemData.avg24hPrice / itemData.properties.capacity,
+                ratio: (itemData.properties.capacity / (itemData.width * itemData.height)).toFixed(2),
+                size: itemData.properties.capacity,
+                notes: itemData.notes,
+                slots: itemData.width * itemData.height,
+                armorClass: itemData.properties.class,
+                armorZone: getArmorZoneString(itemData.properties.zones || itemData.properties.headZones),
+                maxDurability: itemData.properties.durability,
+                effectiveDurability: Math.floor(itemData.properties?.durability / materialDestructibilityMap[itemData.properties?.material?.id]),
+                repairability: materialRepairabilityMap[itemData.properties?.material?.id],
+                stats: `${Math.round((itemData.properties.speedPenalty || 0) *100)}% / ${Math.round((itemData.properties.turnPenalty || 0) *100)}% / ${itemData.properties.ergoPenalty || 0}`,
+                weight: itemData.weight,
+                properties: itemData.properties,
+                categories: itemData.categories,
+                categoryIds: itemData.categoryIds,
+            };
+
+            if (formattedItem.bestSell.length > 1) {
+                formattedItem.bestSell = formattedItem.bestSell.reduce((prev, current) => {
+                    if (prev.priceRUB > current.priceRUB) return prev;
+                    return current;
+                }, {priceRUB: 0})
+            } else if (formattedItem.bestSell.length === 1) {
+                formattedItem.bestSell = formattedItem.bestSell[0];
+            }
+
+            if (!showAllSources && !settings.hasFlea) {
+                formattedItem.buyOnFleaPrice = 0
+            }
+
+            if (formattedItem.buyOnFleaPrice && formattedItem.buyOnFleaPrice.price > 0) {
+                formattedItem.instaProfit = itemData.traderPriceRUB - formattedItem.buyOnFleaPrice.price;
+            }
+
+            if (formattedItem.barters.length > 0) {
+                formattedItem.barterPrice = getCheapestBarter(itemData, formattedItem.barters, settings, showAllSources);
+
+                if (formattedItem.barterPrice && (!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice)) {
+                    formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.barterPrice.price / (itemData.properties.capacity - itemData.slots))
+                                                 : formattedItem.barterPrice.price / itemData.properties.capacity;
+                }
+            }
+            formattedItem.cheapestPrice = Number.MAX_SAFE_INTEGER;
+            formattedItem.cheapestPriceInfo = false;
+            if (formattedItem.barterPrice) {
+                //console.log(formattedItem.barterPrice.barter, settings[formattedItem.barterPrice.barter.trader.normalizedName]);
+                //if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel)
+                formattedItem.cheapestPrice = formattedItem.barterPrice.price;
+                formattedItem.cheapestPriceInfo = formattedItem.barterPrice;
+            }
+            for (const buyFor of formattedItem.buyFor) {
+                if (buyFor.priceRUB && buyFor.priceRUB < formattedItem.cheapestPrice) {
+                    formattedItem.cheapestPrice = buyFor.priceRUB;
+                    formattedItem.cheapestPriceInfo = buyFor;
+                }
+            }
+            if (formattedItem.cheapestPrice === Number.MAX_SAFE_INTEGER) {
+                formattedItem.cheapestPrice = 0;
+            }
+
+            if (traderBuybackFilter) {
+                formattedItem.buyback = formattedItem.bestSell?.priceRUB / formattedItem.buyOnFleaPrice.price;
+            }
+
+            formattedItem.count = containedItems[itemData.id] || 1;
+
+            return formattedItem;
+        };
         let returnData = items
             .filter((item) => {
                 return !item.types.includes('disabled');
@@ -294,6 +463,7 @@ function SmallItemTable(props) {
                     return true;
                 }
 
+                //console.log(item.properties[minPropertyFilter.property], minPropertyFilter.value);
                 if (
                     item.properties[minPropertyFilter.property] <
                     minPropertyFilter.value
@@ -321,8 +491,12 @@ function SmallItemTable(props) {
                 if (!bsgCategoryFilter) {
                     return true;
                 }
+                let categories = bsgCategoryFilter;
+                if (!Array.isArray(categories)) {
+                    categories = [categories];
+                }
 
-                return item.categories.find(category => category.id === bsgCategoryFilter);
+                return item.categories.some(category => categories.includes(category.id));
             })
             .filter(item => {
                 if (!containedInFilter) {
@@ -330,100 +504,14 @@ function SmallItemTable(props) {
                 }
                 return containedItems[item.id];
             })
+            .filter(item => {
+                if (includeBlockingHeadset) {
+                    return true;
+                }
+                return !item.properties.blocksHeadset;
+            })
             .map((itemData) => {
-                const formattedItem = {
-                    id: itemData.id,
-                    name: itemData.name,
-                    shortName: itemData.shortName,
-                    normalizedName: itemData.normalizedName,
-                    avg24hPrice: itemData.avg24hPrice,
-                    lastLowPrice: itemData.lastLowPrice,
-                    // iconLink: `https://assets.tarkov.dev/${itemData.id}-icon.jpg`,
-                    iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
-                    instaProfit: 0,
-                    itemLink: `/item/${itemData.normalizedName}`,
-                    traderName: itemData.traderName,
-                    traderNormalizedName: itemData.traderNormalizedName,
-                    traderPrice: itemData.traderPrice,
-                    traderPriceRUB: itemData.traderPriceRUB,
-                    traderCurrency: itemData.traderCurrency,
-                    types: itemData.types,
-                    buyFor: itemData.buyFor.filter(buyFor => {
-                        if (buyFor.vendor.normalizedName === 'flea-market' && !showAllSources && !settings.hasFlea) return false;
-                        if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) return false;
-                        return true;
-                    }),
-                    sellFor: itemData.sellFor,
-                    bestSell: itemData.sellFor.filter(sellFor => {
-                        if (sellFor.vendor.normalizedName === 'flea-market') return false;
-                        if (!showAllSources && sellFor.vendor.normalizedName === 'jaeger' && !settings.jaeger) return false;
-                        return true;
-                    }),
-                    buyOnFleaPrice: itemData.buyFor.find(
-                        (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market' && (showAllSources || settings.hasFlea),
-                    ),
-                    barters: barters.filter(
-                        (barter) => barter.rewardItems[0].item.id === itemData.id,
-                    ),
-                    grid: itemData.grid,
-                    pricePerSlot: showNetPPS ? Math.floor(itemData.avg24hPrice / (itemData.properties.capacity - (itemData.width * itemData.height)))
-                                  : itemData.avg24hPrice / itemData.properties.capacity,
-                    ratio: (itemData.properties.capacity / (itemData.width * itemData.height)).toFixed(2),
-                    size: itemData.properties.capacity,
-                    notes: itemData.notes,
-                    slots: itemData.width * itemData.height,
-                    armorClass: itemData.properties.class,
-                    armorZone: getArmorZoneString(itemData.properties.zones || itemData.properties.headZones),
-                    maxDurability: itemData.properties.durability,
-                    effectiveDurability: Math.floor(itemData.properties?.durability / materialDestructibilityMap[itemData.properties?.material?.id]),
-                    repairability: materialRepairabilityMap[itemData.properties?.material?.id],
-                    stats: `${Math.round((itemData.properties.speedPenalty || 0) *100)}% / ${Math.round((itemData.properties.turnPenalty || 0) *100)}% / ${itemData.properties.ergoPenalty || 0}`,
-                    weight: itemData.weight,
-                    properties: itemData.properties,
-                };
-
-                if (formattedItem.bestSell.length > 1) {
-                    formattedItem.bestSell = formattedItem.bestSell.reduce((prev, current) => {
-                        if (prev.priceRUB > current.priceRUB) return prev;
-                        return current;
-                    }, {priceRUB: 0})
-                } else if (formattedItem.bestSell.length === 1) {
-                    formattedItem.bestSell = formattedItem.bestSell[0];
-                }
-
-                if (!showAllSources && !settings.hasFlea) {
-                    formattedItem.buyOnFleaPrice = 0
-                }
-
-                if (formattedItem.buyOnFleaPrice && formattedItem.buyOnFleaPrice.price > 0) {
-                    formattedItem.instaProfit = itemData.traderPriceRUB - formattedItem.buyOnFleaPrice.price;
-                }
-
-                if (formattedItem.barters.length > 0) {
-                    formattedItem.barterPrice = getCheapestBarter(itemData, formattedItem.barters, settings, showAllSources);
-
-                    if (formattedItem.barterPrice && (!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice)) {
-                        formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.barterPrice.price / (itemData.properties.capacity - itemData.slots))
-                                                     : formattedItem.barterPrice.price / itemData.properties.capacity;
-                    }
-                }
-                formattedItem.cheapestPrice = Number.MAX_SAFE_INTEGER;
-                if (formattedItem.barterPrice) {
-                    //console.log(formattedItem.barterPrice.barter, settings[formattedItem.barterPrice.barter.trader.normalizedName]);
-                    //if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel)
-                    formattedItem.cheapestPrice = formattedItem.barterPrice.price;
-                }
-                for (const buyFor of formattedItem.buyFor) {
-                    if (buyFor.priceRUB && buyFor.priceRUB < formattedItem.cheapestPrice)
-                        formattedItem.cheapestPrice = buyFor.priceRUB;
-                }
-                if (formattedItem.cheapestPrice === Number.MAX_SAFE_INTEGER) {
-                    formattedItem.cheapestPrice = 0;
-                }
-
-                formattedItem.count = containedItems[itemData.id] || 1;
-
-                return formattedItem;
+                return formatItem(itemData);
             })
             .filter((item) => {
                 if (!maxPrice) {
@@ -483,12 +571,6 @@ function SmallItemTable(props) {
                 .filter(
                     (item) => item.buyOnFleaPrice && item.buyOnFleaPrice.price > 0,
                 )
-                .map((item) => {
-                    return {
-                        ...item,
-                        buyback: item.bestSell?.priceRUB / item.buyOnFleaPrice.price,
-                    };
-                })
                 .sort((a, b) => {
                     return b.buyback - a.buyback;
                 });
@@ -505,6 +587,10 @@ function SmallItemTable(props) {
 
         if (excludeArmor) {
             returnData = returnData.filter(item => !item.properties.class);
+        }
+
+        if (requireArmor) {
+            returnData = returnData.filter(item => item.properties.class);
         }
 
         if (minSlots) {
@@ -542,6 +628,58 @@ function SmallItemTable(props) {
             });
         }
 
+        if (showAttachments) {
+            returnData.forEach(item => {
+                item.subRows = items.filter(linkedItem => {
+                    if (!item.properties?.slots) return false;
+                    for (const slot of item.properties.slots) {
+                        const included = slot.filters.allowedItems.includes(linkedItem.id) ||
+                            linkedItem.categoryIds.some(catId => slot.filters.allowedCategories.includes(catId));
+                        const excluded = slot.filters.excludedItems.includes(linkedItem.id) ||
+                            linkedItem.categoryIds.some(catId => slot.filters.excludedCategories.includes(catId));
+                        if (included && !excluded) return true;
+                    }
+                    return false;
+                }).map(item => formatItem(item));
+            });
+        }
+
+        if (showAttachTo || attachesToItemFilter) {
+            returnData.forEach(item => {
+                item.fitsTo = getGuns(items, item);
+            });
+        }
+
+        if (attachesToItemFilter) {
+            returnData = returnData.filter(item => {
+                for (const baseItem of item.fitsTo) {
+                    if (baseItem.id === attachesToItemFilter.id) {
+                        return true;
+                    }
+                }
+
+                return false;
+            });
+        }
+
+        if (showAttachTo) {
+            returnData.forEach(formattedItem => {
+                formattedItem.subRows = getAttachmentPoints(items, formattedItem).filter((item) => {
+                    if (!attachesToItemFilter) {
+                        return true;
+                    }
+
+                    for (const subRow of item.fitsTo) {
+                        if (subRow.id === attachesToItemFilter.id) {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }).map(parentItem => formatItem(parentItem));
+            });
+        } 
+
         return returnData;
     }, [
         nameFilter,
@@ -568,9 +706,14 @@ function SmallItemTable(props) {
         showAllSources,
         idFilter,
         excludeArmor,
+        requireArmor,
         minSlots,
         has3Slot,
         has4Slot,
+        showAttachments,
+        includeBlockingHeadset,
+        showAttachTo,
+        attachesToItemFilter,
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {
@@ -620,7 +763,42 @@ function SmallItemTable(props) {
     ]);
 
     const columns = useMemo(() => {
-        const useColumns = [
+        const useColumns = [];
+        if (showAttachments || showAttachTo) {
+            useColumns.push({
+                id: 'expander',
+                Header: ({
+                    getToggleAllRowsExpandedProps,
+                    isAllRowsExpanded,
+                }) =>
+                    // <span {...getToggleAllRowsExpandedProps()}>
+                    //     {isAllRowsExpanded ? 'v' : '>'}
+                    // </span>
+                    null,
+                Cell: ({ row }) =>
+                    // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
+                    // to build the toggle for expanding a row
+                    row.canExpand ? (
+                        <span
+                            {...row.getToggleRowExpandedProps({
+                                style: {
+                                    // We can even use the row.depth property
+                                    // and paddingLeft to indicate the depth
+                                    // of the row
+                                    // paddingLeft: `${row.depth * 2}rem`,
+                                },
+                            })}
+                        >
+                            {row.isExpanded ? (
+                                <ArrowIcon />
+                            ) : (
+                                <ArrowIcon className={'arrow-right'} />
+                            )}
+                        </span>
+                    ) : null,
+            });
+        }
+        useColumns.push(
             {
                 Header: t('Name'),
                 accessor: 'name',
@@ -633,7 +811,7 @@ function SmallItemTable(props) {
                     );
                 },
             },
-        ];
+        );
 
         if (fleaValue) {
             useColumns.push({
@@ -980,6 +1158,9 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Weight (kg)'),
                 accessor: 'weight',
+                sortType: (a, b, columnId, desc) => {
+                    return a.original.weight - b.original.weight;
+                },
                 Cell: CenterCell,
                 position: weight,
             });
@@ -1165,39 +1346,90 @@ function SmallItemTable(props) {
             });
         }
 
+        if (soundSuppression) {
+            useColumns.push({
+                Header: t('Sound suppression'),
+                accessor: (item) => item.properties.deafening,
+                Cell: CenterCell,
+                position: soundSuppression,
+            });
+        }
+
+        if (blocksHeadset) {
+            useColumns.push({
+                Header: t('Blocks earpiece'),
+                accessor: (item) => item.properties.blocksHeadset ? 'Yes' : 'No',
+                Cell: CenterCell,
+                position: blocksHeadset,
+            });
+        }
+
+        if (ergonomics) {
+            useColumns.push({
+                Header: t('Ergonomics'),
+                accessor: (item) => item.properties.ergonomics,
+                Cell: CenterCell,
+                position: ergonomics,
+            });
+        }
+
+        if (ergoCost) {
+            useColumns.push({
+                Header: t('Cost per ergo'),
+                accessor: (item) => {
+                    if (item.cheapestPrice) {
+                        return item.cheapestPrice / item.properties.ergonomics;
+                    }
+                    return Number.MAX_SAFE_INTEGER;
+                },
+                Cell: ({ value }) => {
+                    if (!value) {
+                        value = '-';
+                    } else if (value === Number.MAX_SAFE_INTEGER) {
+                        value = '-'
+                    } else {
+                        value = formatPrice(value);
+                    }
+                    return <CenterCell value={value} nowrap />;
+                },
+                position: ergoCost,
+            });
+        }
+
+        if (recoilModifier) {
+            useColumns.push({
+                Header: t('Recoil'),
+                accessor: (item) => item.properties.recoilModifier,
+                Cell: ({value}) => {
+                    if (!value) {
+                        value = '-'
+                    } else {
+                        value = `${Math.round(value * 100)}%`;
+                    }
+                    return <CenterCell value={value} nowrap />;
+                },
+                position: recoilModifier,
+            });
+        }
+
         if (cheapestPrice) {
             useColumns.push({
                 Header: t('Cheapest Price'),
                 accessor: 'cheapestPrice',
                 Cell: (props) => {
                     let tipContent = '';
-                    if (props.row.original.barterPrice && props.row.original.barterPrice.price === props.value) {
-                        tipContent = (
-                            <BarterToolTip
-                                barter={props.row.original.barterPrice.barter}
-                            />
-                        );
-                    }
-                    if (!tipContent && props.row.original.cheapestPrice) {
-                        for (const buyFor of props.row.original.buyFor) {
-                            if (buyFor.priceRUB === props.row.original.cheapestPrice) {
-                                tipContent = buyFor.vendor.name;
-                                if (buyFor.vendor.minTraderLevel) {
-                                    tipContent += ` LL${buyFor.vendor.minTraderLevel}`;
-                                    if (buyFor.vendor.taskUnlock && !settings?.completedQuests?.includes(buyFor.vendor.taskUnlock.tarkovDataId)) {
-                                        tipContent += ` + ${buyFor.vendor.taskUnlock.name}`;
-                                    }
-                                }
-                                break;
-                            }
-                        }
-                    }
                     if (!props.row.original.cheapestPrice) {
                         tipContent = [];
                         if (props.row.original.types.includes('noFlea')) {
                             tipContent.push((
                                 <div key={'no-flea-tooltip'}>
                                     {t('This item can\'t be sold on the Flea Market')}
+                                </div>
+                            ));
+                        } else {
+                            tipContent.push((
+                                <div key={'no-flea-tooltip'}>
+                                    {t('This item has not been observed on the Flea Market')}
                                 </div>
                             ));
                         }
@@ -1207,16 +1439,79 @@ function SmallItemTable(props) {
                             </div>
                         ));
                     }
+                    const priceContent = [];
+                    if (props.value) {
+                        const priceInfo = props.row.original.cheapestPriceInfo;
+                        let priceSource = priceInfo.vendor?.name || priceInfo.barter.trader.name;
+                        const displayedPrice = [];
+                        let taskIcon = '';
+                        let barterIcon = '';
+                        if (priceInfo.vendor?.minTraderLevel) {
+                            priceSource += ` LL${priceInfo.vendor.minTraderLevel}`;
+                            if (priceInfo.vendor.taskUnlock) {
+                                taskIcon = (
+                                    <Icon
+                                        key="price-task-tooltip-icon"
+                                        path={mdiClipboardList}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                );
+                                tipContent = `${t('Task')}: ${priceInfo.vendor.taskUnlock.name}`;
+                            }
+                        } else if (priceInfo.barter?.level) {
+                            priceSource += ` LL${priceInfo.barter.level}`;
+                            barterIcon = (
+                                <Icon
+                                key="barter-tooltip-icon"
+                                    path={mdiAccountSwitch}
+                                    size={1}
+                                    className="icon-with-text"
+                                />
+                            );
+                            let barterTipTitle = '';
+                            if (priceInfo.barter.taskUnlock) {
+                                taskIcon = (
+                                    <Icon
+                                        key="barter-task-tooltip-icon"
+                                        path={mdiClipboardList}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                );
+                                barterTipTitle = `${t('Task')}: ${priceInfo.barter.taskUnlock.name}`;
+                            }
+                            tipContent = (
+                                <BarterToolTip
+                                    barter={props.row.original.barterPrice.barter}
+                                    showTitle={taskIcon !== ''}
+                                    title={barterTipTitle}
+                                />
+                            );
+                        }
+                        displayedPrice.push(priceSource);
+                        displayedPrice.push(barterIcon);
+                        displayedPrice.push(taskIcon);
+                        priceContent.push((<div key="price-info">{formatPrice(props.value*props.row.original.count)}</div>));
+                        priceContent.push((<div key="price-source-info" className="trader-unlock-wrapper">{displayedPrice}</div>))
+                    } else {
+                        priceContent.push('-');
+                    }
                     return (
-                        <Tippy
-                            placement="bottom"
-                            interactive={true}
-                            content={tipContent}
+                        <ConditionalWrapper
+                            condition={tipContent}
+                            wrapper={(children) => {
+                                return (
+                                    <Tippy placement="right" content={tipContent}>
+                                        {children}
+                                    </Tippy>
+                                );
+                            }}
                         >
                             <div className="center-content">
-                                {props.value ? formatPrice(props.value*props.row.original.count) : '-'}
+                                {priceContent}
                             </div>
-                        </Tippy>
+                        </ConditionalWrapper>
                     );
                 },
                 summable: true,
@@ -1229,6 +1524,9 @@ function SmallItemTable(props) {
             const column = useColumns[i];
             if (Number.isInteger(column.position)) {
                 let position = parseInt(column.position);
+                if (showAttachments || showAttachTo) {
+                    position++;
+                }
                 if (position < 1) {
                     position = 1;
                 }
@@ -1250,7 +1548,6 @@ function SmallItemTable(props) {
         return useColumns;
     }, [
         t,
-        settings,
         instaProfit,
         traderPrice,
         traderValue,
@@ -1289,6 +1586,13 @@ function SmallItemTable(props) {
         lowEnergyCost,
         totalEnergyCost,
         provisionValue,
+        soundSuppression,
+        blocksHeadset,
+        showAttachments,
+        showAttachTo,
+        ergonomics,
+        ergoCost,
+        recoilModifier,
     ]);
 
     let extraRow = false;
