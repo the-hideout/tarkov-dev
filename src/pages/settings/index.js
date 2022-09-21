@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation, withTranslation } from 'react-i18next';
 import Select from 'react-select';
 
-
 import { InputFilter, ToggleFilter } from '../../components/filter';
 import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
 import {
     selectAllTraders,
     selectAllStations,
     toggleFlea,
+    setMinDogtagLevel,
     selectAllSkills,
     setTarkovTrackerAPIKey,
     fetchTarkovTrackerProgress,
@@ -226,16 +226,35 @@ function Settings() {
                             type="skill"
                             stateKey={skillKey}
                             ref={refs[skillKey]}
-                            isDisabled={useTarkovTracker}
                         />
                     );
                 })}
             </div>
             <div className="settings-group-wrapper">
+                <h2>{t('Misc.')}</h2>
                 <ToggleFilter
                     label={t('Hide remote control')}
                     onChange={handleHideRemoteValueToggle}
                     checked={hideRemoteControlValue}
+                />
+                <InputFilter
+                    label={t('Minimum dogtag level')}
+                    defaultValue={useSelector(
+                        (state) => state.settings.minDogtagLevel,
+                    )}
+                    type="text"
+                    placeholder={'1-72'}
+                    onChange={(event) => {
+                        if (!event.target.value) {
+                            event.target.value = '1';
+                        }
+                        event.target.value = event.target.value.replaceAll(/[^0-9]/g, '');
+                        if (!event.target.value) {
+                            event.target.value = '1';
+                        }
+                        dispatch(setMinDogtagLevel(event.target.value));
+                    }}
+                    tooltip={t('Minimum dogtag level to use for calculating the cost of dogtag barter trades')}
                 />
             </div>
             {/* cheeki breeki */}

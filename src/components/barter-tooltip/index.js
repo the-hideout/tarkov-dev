@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import RewardImage from '../reward-image';
@@ -12,6 +13,7 @@ import {
 import './index.css';
 
 function BarterToolip({ barter, source, requiredItems, showTitle = true, title }) {
+    const settings = useSelector((state) => state.settings);
     const { t } = useTranslation();
     source = source || barter?.source;
     requiredItems = requiredItems || barter?.requiredItems;
@@ -55,10 +57,13 @@ function BarterToolip({ barter, source, requiredItems, showTitle = true, title }
                         }
                         return bestPrice;
                     }, {priceRUB: 0});
-                    const minLevel = requiredItem.attributes.find(att => att.name === 'minLevel').value;
+                    let minLevel = requiredItem.attributes.find(att => att.name === 'minLevel').value;
+                    itemName = `${itemName} ≥ ${minLevel}`;
+                    if (parseInt(minLevel) < parseInt(settings.minDogtagLevel)) {
+                        minLevel = settings.minDogtagLevel;
+                    }
                     price = bestSell.priceRUB * minLevel;
                     sourceName = bestSell.vendor.normalizedName;
-                    itemName = `${itemName} ≥ ${minLevel}`;
                 }
                 return (
                     <div

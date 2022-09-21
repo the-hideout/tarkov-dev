@@ -73,7 +73,10 @@ function getCheapestBarter(item, barters, settings, allowAllSources) {
                 let price = getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB;
                 const isDogTag = requiredItem.attributes && requiredItem.attributes.some(att => att.name === 'minLevel');
                 if (isDogTag) {
-                    const minLevel = requiredItem.attributes.find(att => att.name === 'minLevel').value;
+                    let minLevel = requiredItem.attributes.find(att => att.name === 'minLevel').value;
+                    if (parseInt(minLevel) < parseInt(settings.minDogtagLevel)) {
+                        minLevel = settings.minDogtagLevel;
+                    }
                     price = price * minLevel;
                 }
                 return accumulatedPrice + (price * requiredItem.count);
@@ -182,9 +185,12 @@ const formatCostItems = (
         let itemName = requiredItem.item.name;
         const isDogTag = requiredItem.attributes && requiredItem.attributes.some(att => att.name === 'minLevel');
         if (isDogTag) {
-            const minLevel = requiredItem.attributes.find(att => att.name === 'minLevel').value;
-            calculationPrice = calculationPrice * minLevel;
+            let minLevel = requiredItem.attributes.find(att => att.name === 'minLevel').value;
             itemName = `${itemName} ≥ ${minLevel}`;
+            if (parseInt(minLevel) < parseInt(settings.minDogtagLevel)) {
+                minLevel = settings.minDogtagLevel;
+            }
+            calculationPrice = calculationPrice * minLevel;
         }
 
         if (freeFuel && fuelIds.includes(requiredItem.item.id)) {

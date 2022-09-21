@@ -147,6 +147,7 @@ const settingsSlice = createSlice({
         useTarkovTracker: localStorageReadJson('useTarkovTracker', false),
         tarkovTrackerModules: [],
         hideRemoteControl: localStorageReadJson('hide-remote-control', false),
+        minDogtagLevel: localStorageReadJson('minDogtagLevel', 1),
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
@@ -159,6 +160,10 @@ const settingsSlice = createSlice({
         toggleFlea: (state, action) => {
             state.hasFlea = action.payload;
             localStorageWriteJson('useFlea', action.payload);
+        },
+        setMinDogtagLevel: (state, action) => {
+            state.minDogtagLevel = action.payload;
+            localStorageWriteJson('minDogTagLevel', action.payload);
         },
         setStationOrTraderLevel: (state, action) => {
             state[action.payload.target] = action.payload.value;
@@ -253,6 +258,7 @@ export const selectCompletedQuests = (state) => {
 export const {
     setTarkovTrackerAPIKey,
     toggleFlea,
+    setMinDogtagLevel,
     setStationOrTraderLevel,
     toggleTarkovTracker,
     toggleHideRemoteControl,
