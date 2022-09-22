@@ -1,3 +1,5 @@
+import Tippy from '@tippyjs/react';
+
 import formatPrice from '../../modules/format-price';
 
 import './index.css';
@@ -20,9 +22,14 @@ function ValueCell({ value, highlightProfit, children, noValue = '-', count = 1,
     let slotValue = '';
     if (value && showSlotValue && slots > 1) {
         slotValue = (
-            <div className="trader-unlock-wrapper">
-                {formatPrice(Math.round(value / slots))}{' / slot'}
-            </div>
+            <Tippy
+                content="Per slot"
+                placement="bottom"
+            >
+                <div className="trader-unlock-wrapper">
+                    {formatPrice(Math.round(value / slots))}
+                </div>
+            </Tippy>
         );
     }
     return (

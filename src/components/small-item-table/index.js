@@ -59,9 +59,14 @@ function traderSellCell(datum, totalTraderPrice = false, showSlotValue = false) 
     let slotValue = '';
     if (showSlotValue && slots > 1) {
         slotValue = (
-            <div className="trader-unlock-wrapper">
-                {formatPrice(Math.round(priceRUB / slots))}{' / slot'}
-            </div>
+            <Tippy
+                content="Per slot"
+                placement="bottom"
+            >
+                <div className="trader-unlock-wrapper">
+                    {formatPrice(Math.round(priceRUB / slots))}
+                </div>
+            </Tippy>
         );
     }
     return [
