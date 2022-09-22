@@ -2,7 +2,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
-import { mdiClockAlertOutline, mdiCloseOctagon } from '@mdi/js';
+import { mdiCloseOctagon, mdiHelpRhombus } from '@mdi/js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import {
@@ -47,7 +47,7 @@ function getItemCountPrice(item) {
     );
 }
 
-function traderSellCell(datum, totalTraderPrice = false) {
+function traderSellCell(datum, totalTraderPrice = false, showSlotValue = false) {
     if (!datum.row.original.bestSell?.source || datum.row.original.bestSell.source === '?') {
         return null;
     }
@@ -55,7 +55,16 @@ function traderSellCell(datum, totalTraderPrice = false) {
     const count = datum.row.original.count;
     const priceRUB = totalTraderPrice ? datum.row.original.bestSell.totalPriceRUB : datum.row.original.bestSell.priceRUB;
     const price = totalTraderPrice ? datum.row.original.bestSell.totalPrice : datum.row.original.bestSell.price;
-    return (
+    const slots = datum.row.original.width * datum.row.original.height;
+    let slotValue = '';
+    if (showSlotValue && slots > 1) {
+        slotValue = (
+            <div className="trader-unlock-wrapper">
+                {formatPrice(Math.round(priceRUB / slots))}{' / slot'}
+            </div>
+        );
+    }
+    return [
         <div className="trader-price-content">
             <span>
                 <img
@@ -85,8 +94,9 @@ function traderSellCell(datum, totalTraderPrice = false) {
                 )}
                 {getItemCountPrice(datum.row.original)}
             </span>
-        </div>
-    );
+        </div>,
+        slotValue
+    ];
 }
 
 function shuffleArray(array) {
@@ -242,6 +252,7 @@ function SmallItemTable(props) {
         recoilModifier,
         showAttachTo,
         attachesToItemFilter,
+        showSlotValue,
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -356,6 +367,8 @@ function SmallItemTable(props) {
                 properties: itemData.properties,
                 categories: itemData.categories,
                 categoryIds: itemData.categoryIds,
+                width: itemData.width,
+                height: itemData.height,
             };
 
             if (formattedItem.bestSell.length > 1) {
@@ -839,6 +852,7 @@ function SmallItemTable(props) {
                             />
                         );
                     }
+                    const slots = allData.row.original.width * allData.row.original.height;
                     return (
                         <ValueCell
                             value={allData.value}
@@ -846,16 +860,18 @@ function SmallItemTable(props) {
                                 <div className="center-content">
                                     <Tippy
                                         placement="bottom"
-                                        content={t('No flea price seen in the past 24 hours')}
+                                        content={t('Not scanned on the Flea Market')}
                                     >
                                         <Icon
-                                            path={mdiClockAlertOutline}
+                                            path={mdiHelpRhombus}
                                             size={1}
                                             className="icon-with-text"
                                         />
                                     </Tippy>
                                 </div>
                             }
+                            slots={slots}
+                            showSlotValue={showSlotValue}
                         />
                     );
                 },
@@ -967,7 +983,7 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Sell to Trader'),
                 accessor: (d) => Number(totalTraderPrice? d.bestSell?.totalPriceRUB : d.bestSell?.priceRUB),
-                Cell: (datum) => {return traderSellCell(datum, totalTraderPrice)},
+                Cell: (datum) => {return traderSellCell(datum, totalTraderPrice, showSlotValue)},
                 id: 'traderPrice',
                 summable: true,
                 position: traderValue,
@@ -1418,28 +1434,42 @@ function SmallItemTable(props) {
                 accessor: 'cheapestPrice',
                 Cell: (props) => {
                     let tipContent = '';
+                    const priceContent = [];
                     if (!props.row.original.cheapestPrice) {
                         tipContent = [];
                         if (props.row.original.types.includes('noFlea')) {
+                            priceContent.push((
+                                <Icon
+                                    path={mdiCloseOctagon}
+                                    size={1}
+                                    className="icon-with-text"
+                                />
+                            ));
                             tipContent.push((
                                 <div key={'no-flea-tooltip'}>
                                     {t('This item can\'t be sold on the Flea Market')}
                                 </div>
                             ));
                         } else {
+                            priceContent.push((
+                                <Icon
+                                    path={mdiHelpRhombus}
+                                    size={1}
+                                    className="icon-with-text"
+                                />
+                            ));
                             tipContent.push((
                                 <div key={'no-flea-tooltip'}>
-                                    {t('This item has not been observed on the Flea Market')}
+                                    {t('Not scanned on the Flea Market')}
                                 </div>
                             ));
                         }
                         tipContent.push((
                             <div key={'no-trader-sell-tooltip'}>
-                                {t('There are no trader offers available')}
+                                {t('No trader offers available')}
                             </div>
                         ));
                     }
-                    const priceContent = [];
                     let interactiveTooltip = false;
                     if (props.value) {
                         const priceInfo = props.row.original.cheapestPriceInfo;
@@ -1496,9 +1526,7 @@ function SmallItemTable(props) {
                         displayedPrice.push(taskIcon);
                         priceContent.push((<div key="price-info">{formatPrice(props.value*props.row.original.count)}</div>));
                         priceContent.push((<div key="price-source-info" className="trader-unlock-wrapper">{displayedPrice}</div>))
-                    } else {
-                        priceContent.push('-');
-                    }
+                    } 
                     return (
                         <ConditionalWrapper
                             condition={tipContent}
@@ -1595,6 +1623,7 @@ function SmallItemTable(props) {
         ergonomics,
         ergoCost,
         recoilModifier,
+        showSlotValue,
     ]);
 
     let extraRow = false;
