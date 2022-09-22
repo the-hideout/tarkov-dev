@@ -1,4 +1,4 @@
-import { getDogTagCost } from "./dogtags";
+import { isAnyDogtag, getDogTagCost } from "./dogtags";
 
 const fuelIds = [
     '5d1b371186f774253763a656', // Expeditionary fuel tank
@@ -73,8 +73,7 @@ function getCheapestBarter(item, barters, settings, allowAllSources) {
         const thisBarterCost = barter.requiredItems.reduce(
             (accumulatedPrice, requiredItem) => {
                 let price = getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB;
-                const isDogTag = requiredItem.attributes && requiredItem.attributes.some(att => att.name === 'minLevel');
-                if (isDogTag) {
+                if (isAnyDogtag(requiredItem.item.id)) {
                     const dogtagCost = getDogTagCost(requiredItem, settings);
                     price = dogtagCost.price;
                 }
@@ -182,8 +181,7 @@ const formatCostItems = (
         let calculationPrice = bestPrice.priceRUB;
 
         let itemName = requiredItem.item.name;
-        const isDogTag = requiredItem.attributes && requiredItem.attributes.some(att => att.name === 'minLevel');
-        if (isDogTag) {
+        if (isAnyDogtag(requiredItem.item.id)) {
             const dogtagCost = getDogTagCost(requiredItem, settings);
             itemName = dogtagCost.name;
             calculationPrice = dogtagCost.price;

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import RewardImage from '../reward-image';
 import formatPrice from '../../modules/format-price';
-import { getDogTagCost } from '../../modules/dogtags';
+import { isAnyDogtag, getDogTagCost } from '../../modules/dogtags';
 import { getCheapestItemPrice } from '../../modules/format-cost-items';
 
 import Icon from '@mdi/react';
@@ -52,8 +52,7 @@ function BarterToolip({ barter, source, requiredItems, showTitle = true, title, 
                 const cheapestPrice = getCheapestItemPrice(requiredItem.item, settings, allowAllSources);
                 let price = cheapestPrice.priceRUB;
                 let sourceName = cheapestPrice.vendor.normalizedName;
-                const isDogTag = requiredItem.attributes && requiredItem.attributes.some(att => att.name === 'minLevel');
-                if (isDogTag) {
+                if (isAnyDogtag(requiredItem.item.id)) {
                     const dogtagCost = getDogTagCost(requiredItem, settings);
                     itemName = dogtagCost.name;
                     price = dogtagCost.price;

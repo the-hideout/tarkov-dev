@@ -23,6 +23,8 @@ import './index.css';
 import i18n from '../../i18n';
 import CheekiBreekiEffect from '../../components/cheeki-breeki-effect';
 
+import { getWipeData } from '../wipe-length';
+
 // Defined Languages
 const langOptions = [
     { value: 'en', label: 'en' },
@@ -141,6 +143,9 @@ function Settings() {
         audio.play()
     };
 
+    const wipeLength = getWipeData()[0].lengthDays;
+    const estimatedAvgPlayerLevel = Math.round(30 * Math.atan(wipeLength / 38));
+
     return (
         <div className={'page-wrapper'}>
             <h1>{t('Settings')}</h1>
@@ -254,7 +259,12 @@ function Settings() {
                         }
                         dispatch(setMinDogtagLevel(event.target.value));
                     }}
-                    tooltip={t('Minimum dogtag level to use for calculating the cost of dogtag barter trades')}
+                    tooltip={(
+                        <div>
+                            <div>{t('Minimum dogtag level to use for calculating the cost of dogtag barter trades')}</div>
+                            <div>{t(`The current estimated average player level is ${estimatedAvgPlayerLevel}`)}</div>
+                        </div>
+                    )}
                 />
             </div>
             {/* cheeki breeki */}
