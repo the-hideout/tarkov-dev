@@ -1440,6 +1440,7 @@ function SmallItemTable(props) {
                         ));
                     }
                     const priceContent = [];
+                    let interactiveTooltip = false;
                     if (props.value) {
                         const priceInfo = props.row.original.cheapestPriceInfo;
                         let priceSource = priceInfo.vendor?.name || priceInfo.barter.trader.name;
@@ -1460,6 +1461,7 @@ function SmallItemTable(props) {
                                 tipContent = `${t('Task')}: ${priceInfo.vendor.taskUnlock.name}`;
                             }
                         } else if (priceInfo.barter?.level) {
+                            interactiveTooltip = true;
                             priceSource += ` LL${priceInfo.barter.level}`;
                             barterIcon = (
                                 <Icon
@@ -1502,7 +1504,7 @@ function SmallItemTable(props) {
                             condition={tipContent}
                             wrapper={(children) => {
                                 return (
-                                    <Tippy placement="right" content={tipContent}>
+                                    <Tippy placement="right" content={tipContent} interactive={interactiveTooltip}>
                                         {children}
                                     </Tippy>
                                 );
