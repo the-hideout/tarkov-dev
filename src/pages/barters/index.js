@@ -76,7 +76,7 @@ function Barters() {
                         onChange={(e) => setHideDogtags(!hideDogtags)}
                         tooltipContent={
                             <>
-                                {t('Dogtags are very hard to calulcate values for as they depend on level. Most calculations with them are wrong')}
+                                {t('The true "cost" of barters using Dogtags is difficult to estimate')}
                             </>
                         }
                     />

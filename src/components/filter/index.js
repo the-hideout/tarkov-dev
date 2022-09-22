@@ -339,20 +339,35 @@ function InputFilter({
     label,
     min,
     max,
+    tooltip,
 }) {
     return (
-        <label className={'single-filter-wrapper'}>
-            <span className={'single-filter-label'}>{label}</span>
-            <input
-                className={`filter-input ${type}`}
-                defaultValue={defaultValue}
-                type={type}
-                placeholder={placeholder}
-                onChange={onChange}
-                min={min}
-                max={max}
-            />
-        </label>
+        <ConditionalWrapper
+            condition={tooltip}
+            wrapper={(children) => {
+                return (
+                    <Tippy
+                        placement="bottom"
+                        content={tooltip}
+                    >
+                        {children}
+                    </Tippy>
+                );
+            }}
+        >
+            <label className={'single-filter-wrapper'}>
+                <span className={'single-filter-label'}>{label}</span>
+                <input
+                    className={`filter-input ${type}`}
+                    defaultValue={defaultValue}
+                    type={type}
+                    placeholder={placeholder}
+                    onChange={onChange}
+                    min={min}
+                    max={max}
+                />
+            </label>
+        </ConditionalWrapper>
     );
 }
 

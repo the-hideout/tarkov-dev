@@ -92,6 +92,7 @@ function Start() {
                         defaultRandom={true}
                         autoScroll={loadMoreState}
                         totalTraderPrice={true}
+                        showSlotValue
                         fleaValue
                         traderValue={1}
                         instaProfit

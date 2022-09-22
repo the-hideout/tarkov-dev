@@ -181,3 +181,11 @@ const WipeLength = (props) => {
 };
 
 export default WipeLength;
+
+export function getAverageWipeLength() {
+    return lengthDaysAverage;
+}
+
+export function getWipeData() {
+    return data;
+}

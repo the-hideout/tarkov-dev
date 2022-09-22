@@ -1,8 +1,11 @@
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import RewardImage from '../reward-image';
 import formatPrice from '../../modules/format-price';
+import { isAnyDogtag, getDogTagCost } from '../../modules/dogtags';
+import { getCheapestItemPrice } from '../../modules/format-cost-items';
 
 import Icon from '@mdi/react';
 import {
@@ -11,7 +14,8 @@ import {
 
 import './index.css';
 
-function BarterToolip({ barter, source, requiredItems, showTitle = true, title }) {
+function BarterToolip({ barter, source, requiredItems, showTitle = true, title, allowAllSources }) {
+    const settings = useSelector((state) => state.settings);
     const { t } = useTranslation();
     source = source || barter?.source;
     requiredItems = requiredItems || barter?.requiredItems;
@@ -45,20 +49,14 @@ function BarterToolip({ barter, source, requiredItems, showTitle = true, title }
             {titleElement}
             {requiredItems.map((requiredItem) => {
                 let itemName = requiredItem.item.name;
-                let price = requiredItem.item.avg24hPrice;
-                let sourceName = 'flea-market';
-                const isDogTag = requiredItem.attributes && requiredItem.attributes.some(att => att.name === 'minLevel');
-                if (isDogTag) {
-                    const bestSell = requiredItem.item.sellFor.reduce((bestPrice, sellFor) => {
-                        if (sellFor.priceRUB > bestPrice.priceRUB) {
-                            return sellFor;
-                        }
-                        return bestPrice;
-                    }, {priceRUB: 0});
-                    const minLevel = requiredItem.attributes.find(att => att.name === 'minLevel').value;
-                    price = bestSell.priceRUB * minLevel;
-                    sourceName = bestSell.vendor.normalizedName;
-                    itemName = `${itemName} ≥ ${minLevel}`;
+                const cheapestPrice = getCheapestItemPrice(requiredItem.item, settings, allowAllSources);
+                let price = cheapestPrice.priceRUB;
+                let sourceName = cheapestPrice.vendor.normalizedName;
+                if (isAnyDogtag(requiredItem.item.id)) {
+                    const dogtagCost = getDogTagCost(requiredItem, settings);
+                    itemName = dogtagCost.name;
+                    price = dogtagCost.price;
+                    sourceName = dogtagCost.sourceNormalizedName;
                 }
                 return (
                     <div
