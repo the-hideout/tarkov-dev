@@ -61,7 +61,7 @@ function traderSellCell(datum, totalTraderPrice = false, showSlotValue = false) 
         slotValue = (
             <Tippy
                 content="Per slot"
-                placement="bottom"
+                placement="left"
             >
                 <div className="trader-unlock-wrapper">
                     {formatPrice(Math.round(priceRUB / slots))}
