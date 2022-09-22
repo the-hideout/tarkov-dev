@@ -942,6 +942,7 @@ function SmallItemTable(props) {
                             content={
                                 <BarterToolTip
                                     barter={props.row.original.barterPrice?.barter}
+                                    showAllSources={showAllSources}
                                 />
                             }
                         // plugins={[followCursor]}
@@ -1523,6 +1524,7 @@ function SmallItemTable(props) {
                                     barter={props.row.original.barterPrice.barter}
                                     showTitle={taskIcon !== ''}
                                     title={barterTipTitle}
+                                    showAllSources={showAllSources}
                                 />
                             );
                         }
@@ -1629,6 +1631,7 @@ function SmallItemTable(props) {
         ergoCost,
         recoilModifier,
         showSlotValue,
+        showAllSources
     ]);
 
     let extraRow = false;
