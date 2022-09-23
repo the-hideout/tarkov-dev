@@ -353,6 +353,11 @@ const doFetchItems = async () => {
                                 }
                             }
                         }
+                        defaultPreset {
+                            gridImageLink
+                            iconLink
+                            image512pxLink
+                        }
                     }
                     ...on ItemPropertiesWeaponMod {
                         ergonomics
@@ -556,6 +561,17 @@ const doFetchItems = async () => {
                     totalPriceRUB: sellFor.priceRUB
                 };
             });
+        }
+        if (item.types.includes('gun') && item.properties.defaultPreset) {
+            // use default preset images for item
+            item.receiverImages = {
+                iconLink: item.iconLInk,
+                gridImageLink: item.gridImageLink,
+                image512pxLink: item.image512pxLink
+            };
+            item.iconLink = item.properties.defaultPreset.iconLink;
+            item.gridImageLink = item.properties.defaultPreset.gridImageLink;
+            item.image512pxLink = item.properties.defaultPreset.image512pxLink;
         }
 
         const traderOnlySellFor = item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');

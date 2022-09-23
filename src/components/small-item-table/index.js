@@ -62,6 +62,7 @@ function traderSellCell(datum, totalTraderPrice = false, showSlotValue = false) 
             <Tippy
                 content="Per slot"
                 placement="left"
+                key="item-sell-to-trader-slot-value"
             >
                 <div className="trader-unlock-wrapper">
                     {formatPrice(Math.round(priceRUB / slots))}
@@ -70,7 +71,7 @@ function traderSellCell(datum, totalTraderPrice = false, showSlotValue = false) 
         );
     }
     return [
-        <div className="trader-price-content">
+        <div className="trader-price-content" key="item-sell-to-trader-value">
             <span>
                 <img
                     alt={datum.row.original.bestSell.vendor.name}
