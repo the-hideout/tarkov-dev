@@ -10,168 +10,180 @@ const initialState = {
 };
 
 export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
-  const language = await langCode();
+    const language = await langCode();
     const bodyQuery = JSON.stringify({
         query: `{
-        crafts(lang: ${language}) {
-          station {
-            id
-            name
-            normalizedName
-          }
-          level
-          duration
-          rewardItems {
-            item {
-              id
-              basePrice
-              name
-              normalizedName
-              iconLink
-              imageLink
-              wikiLink
-              avg24hPrice
-              lastLowPrice
-              traderPrices {
-                price
-                currency
-                priceRUB
-                trader {
-                  name
-                  normalizedName
+            crafts(lang: ${language}) {
+                station {
+                    id
+                    name
+                    normalizedName
                 }
-              }
-              buyFor {
+                level
+                duration
+                rewardItems {
+                    item {
+                        id
+                        basePrice
+                        name
+                        normalizedName
+                        iconLink
+                        wikiLink
+                        properties {
+                            ...on ItemPropertiesWeapon {
+                                defaultPreset {
+                                    iconLink
+                                }
+                            }
+                        }
+                        avg24hPrice
+                        lastLowPrice
+                        traderPrices {
+                            price
+                            currency
+                            priceRUB
+                            trader {
+                                name
+                                normalizedName
+                            }
+                        }
+                        buyFor {
+                            source
+                            vendor {
+                                name
+                                normalizedName
+                                __typename
+                                ...on TraderOffer {
+                                    trader {
+                                        id
+                                        name
+                                        normalizedName
+                                    }
+                                    minTraderLevel
+                                    taskUnlock {
+                                        id
+                                        tarkovDataId
+                                        name
+                                    }
+                                }
+                            }
+                            price
+                            priceRUB
+                            currency
+                        }
+                        sellFor {
+                            source
+                            vendor {
+                                name
+                                normalizedName
+                                __typename
+                                ...on TraderOffer {
+                                    trader {
+                                        id
+                                        name
+                                        normalizedName
+                                    }
+                                    minTraderLevel
+                                    taskUnlock {
+                                        id
+                                        tarkovDataId
+                                        name
+                                    }
+                                }
+                            }
+                            price
+                            priceRUB
+                            currency
+                        }
+                        types
+                    }
+                    count
+                }
+                requiredItems {
+                    item {
+                        id
+                        basePrice
+                        name
+                        normalizedName
+                        iconLink
+                        wikiLink
+                        properties {
+                            ...on ItemPropertiesWeapon {
+                                defaultPreset {
+                                    iconLink
+                                }
+                            }
+                        }
+                        avg24hPrice
+                        lastLowPrice
+                        traderPrices {
+                            price
+                            currency
+                            priceRUB
+                            trader {
+                                name
+                                normalizedName
+                            }
+                        }
+                        buyFor {
+                            source
+                            vendor {
+                                name
+                                normalizedName
+                                __typename
+                                ...on TraderOffer {
+                                    trader {
+                                        id
+                                        name
+                                        normalizedName
+                                    }
+                                    minTraderLevel
+                                    taskUnlock {
+                                        id
+                                        tarkovDataId
+                                        name
+                                    }
+                                }
+                            }
+                            price
+                            priceRUB
+                            currency
+                        }
+                        sellFor {
+                            source
+                            vendor {
+                                name
+                                normalizedName
+                                __typename
+                                ...on TraderOffer {
+                                    trader {
+                                        id
+                                        name
+                                        normalizedName
+                                    }
+                                    minTraderLevel
+                                    taskUnlock {
+                                        id
+                                        tarkovDataId
+                                        name
+                                    }
+                                }
+                            }
+                            price
+                            priceRUB
+                            currency
+                        }
+                    }
+                    count
+                    attributes {
+                        type
+                        name
+                        value
+                    }
+                }
                 source
-                vendor {
-                  name
-                  normalizedName
-                  __typename
-                  ...on TraderOffer {
-                      trader {
-                          id
-                          name
-                          normalizedName
-                      }
-                      minTraderLevel
-                      taskUnlock {
-                          id
-                          tarkovDataId
-                          name
-                      }
-                  }
-                }
-                price
-                priceRUB
-                currency
-              }
-              sellFor {
-                source
-                vendor {
-                  name
-                  normalizedName
-                  __typename
-                  ...on TraderOffer {
-                      trader {
-                          id
-                          name
-                          normalizedName
-                      }
-                      minTraderLevel
-                      taskUnlock {
-                          id
-                          tarkovDataId
-                          name
-                      }
-                  }
-                }
-                price
-                priceRUB
-                currency
-              }
-              types
             }
-            count
-          }
-          requiredItems {
-            item {
-              id
-              basePrice
-              name
-              normalizedName
-              iconLink
-              imageLink
-              wikiLink
-              avg24hPrice
-              lastLowPrice
-              traderPrices {
-                price
-                currency
-                priceRUB
-                trader {
-                  name
-                  normalizedName
-                }
-              }
-              buyFor {
-                source
-                vendor {
-                  name
-                  normalizedName
-                  __typename
-                  ...on TraderOffer {
-                      trader {
-                          id
-                          name
-                          normalizedName
-                      }
-                      minTraderLevel
-                      taskUnlock {
-                          id
-                          tarkovDataId
-                          name
-                      }
-                  }
-                }
-                price
-                priceRUB
-                currency
-              }
-              sellFor {
-                source
-                vendor {
-                  name
-                  normalizedName
-                  __typename
-                  ...on TraderOffer {
-                      trader {
-                          id
-                          name
-                          normalizedName
-                      }
-                      minTraderLevel
-                      taskUnlock {
-                          id
-                          tarkovDataId
-                          name
-                      }
-                  }
-                }
-                price
-                priceRUB
-                currency
-              }
-            }
-            count
-            attributes {
-              type
-              name
-              value
-            }
-          }
-          source
-        }
-    }`,
+        }`,
     });
 
     const response = await fetch('https://api.tarkov.dev/graphql', {
@@ -187,7 +199,15 @@ export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => {
 
     return craftsData.data.crafts.filter(
         (craft) => !craft.source.toLowerCase().includes('christmas'),
-    );
+    ).map(craft => {
+        craft.rewardItems.forEach(contained => {
+            contained.item.iconLink = contained.item.defaultPreset?.iconLink || contained.item.iconLink;
+        });
+        craft.requiredItems.forEach(contained => {
+            contained.item.iconLink = contained.item.defaultPreset?.iconLink || contained.item.iconLink;
+        });
+        return craft;
+    });;
 });
 
 const craftsSlice = createSlice({

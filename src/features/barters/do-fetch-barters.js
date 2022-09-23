@@ -12,8 +12,14 @@ const doFetchBarters = async () => {
                         name
                         normalizedName
                         iconLink
-                        imageLink
                         wikiLink
+                        properties {
+                            ...on ItemPropertiesWeapon {
+                                defaultPreset {
+                                    iconLink
+                                }
+                            }
+                        }
                         avg24hPrice
                         lastLowPrice
                         traderPrices {
@@ -86,8 +92,14 @@ const doFetchBarters = async () => {
                         name
                         normalizedName
                         iconLink
-                        imageLink
                         wikiLink
+                        properties {
+                            ...on ItemPropertiesWeapon {
+                                defaultPreset {
+                                    iconLink
+                                }
+                            }
+                        }
                         avg24hPrice
                         lastLowPrice
                         traderPrices {
@@ -180,7 +192,15 @@ const doFetchBarters = async () => {
 
     const bartersData = await response.json();
 
-    return bartersData.data.barters;
+    return bartersData.data.barters.map(barter => {
+        barter.rewardItems.forEach(contained => {
+            contained.item.iconLink = contained.item.defaultPreset?.iconLink || contained.item.iconLink;
+        });
+        barter.requiredItems.forEach(contained => {
+            contained.item.iconLink = contained.item.defaultPreset?.iconLink || contained.item.iconLink;
+        });
+        return barter;
+    });
 };
 
 export default doFetchBarters;
