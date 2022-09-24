@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import doFetchItems from './do-fetch-items';
+import doFetchItems from './do-fetch-items.mjs';
 
 const initialState = {
     items: [],
