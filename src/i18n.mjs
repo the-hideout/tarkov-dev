@@ -2,14 +2,14 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-import translationEN from './translations/en/translation.json';
-import translationDE from './translations/de/translation.json';
-import translationRU from './translations/ru/translation.json';
-import translationIT from './translations/it/translation.json';
-import translationES from './translations/es/translation.json';
-import translationFR from './translations/fr/translation.json';
-import translationJA from './translations/ja/translation.json';
-import translationPL from './translations/pl/translation.json';
+import translationEN from './translations/en/translation.json' assert {type: 'json'};
+import translationDE from './translations/de/translation.json' assert {type: 'json'};
+import translationRU from './translations/ru/translation.json' assert {type: 'json'};
+import translationIT from './translations/it/translation.json' assert {type: 'json'};
+import translationES from './translations/es/translation.json' assert {type: 'json'};
+import translationFR from './translations/fr/translation.json' assert {type: 'json'};
+import translationJA from './translations/ja/translation.json' assert {type: 'json'};
+import translationPL from './translations/pl/translation.json' assert {type: 'json'};
 
 i18n.use(LanguageDetector)
     .use(initReactI18next) // passes i18n down to react-i18next

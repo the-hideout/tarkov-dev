@@ -129,6 +129,7 @@ src/data/contributors.json
 src/data/quests.json
 src/data/traders.json
 src/data/version.json
+src/data/items.json
 public/sitemap.xml
 workers-site/index.js
 src/pages/guides/*

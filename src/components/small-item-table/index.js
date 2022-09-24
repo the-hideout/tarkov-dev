@@ -1,4 +1,4 @@
- import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
@@ -105,9 +105,11 @@ function traderSellCell(datum, totalTraderPrice = false, showSlotValue = false) 
     ];
 }
 
+const randomSeed = Math.random();
+
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        const j = Math.floor(randomSeed * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
@@ -714,7 +716,7 @@ function SmallItemTable(props) {
                 }).map(parentItem => formatItem(parentItem));
             });
         } 
-
+console.log(returnData);
         return returnData;
     }, [
         nameFilter,
@@ -1467,6 +1469,7 @@ function SmallItemTable(props) {
                                     path={mdiCloseOctagon}
                                     size={1}
                                     className="icon-with-text"
+                                    key="no-flea-icon"
                                 />
                             ));
                             tipContent.push((
@@ -1480,6 +1483,7 @@ function SmallItemTable(props) {
                                     path={mdiHelpRhombus}
                                     size={1}
                                     className="icon-with-text"
+                                    key="no-prices-icon"
                                 />
                             ));
                             tipContent.push((

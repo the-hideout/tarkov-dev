@@ -1,10 +1,12 @@
 import { useQuery } from 'react-query';
 import doFetchItems from './do-fetch-items';
 
+import defaultItems from '../../data/items.json';
+
 export const useItemsQuery = (queryOptions) => {
     const itemsQuery = useQuery('items', () => doFetchItems(), {
         refetchInterval: 600000,
-        placeholderData: [],
+        placeholderData: defaultItems,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         ...queryOptions,
