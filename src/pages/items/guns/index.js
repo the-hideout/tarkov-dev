@@ -74,6 +74,7 @@ function Guns() {
                 totalTraderPrice={true}
                 typeFilter="gun"
                 showAllSources={showAllItemSources}
+                showPresets
                 maxItems={50}
                 autoScroll
                 traderValue={1}

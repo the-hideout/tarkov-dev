@@ -259,6 +259,7 @@ function SmallItemTable(props) {
         showAttachTo,
         attachesToItemFilter,
         showSlotValue,
+        showPresets,
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -663,6 +664,17 @@ function SmallItemTable(props) {
             });
         }
 
+        if (showPresets) {
+            returnData.forEach(item => {
+                item.subRows = items.filter(linkedItem => {
+                    if (!linkedItem.types.includes('preset')){ 
+                        return false;
+                    }
+                    return linkedItem.properties.baseItem.id === item.id;
+                }).map(item => formatItem(item));
+            });
+        }
+
         if (showAttachTo || attachesToItemFilter) {
             returnData.forEach(item => {
                 item.fitsTo = getGuns(items, item);
@@ -733,6 +745,7 @@ function SmallItemTable(props) {
         includeBlockingHeadset,
         showAttachTo,
         attachesToItemFilter,
+        showPresets,
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {
@@ -783,7 +796,7 @@ function SmallItemTable(props) {
 
     const columns = useMemo(() => {
         const useColumns = [];
-        if (showAttachments || showAttachTo) {
+        if (showAttachments || showAttachTo || showPresets) {
             useColumns.push({
                 id: 'expander',
                 Header: ({
@@ -1562,7 +1575,7 @@ function SmallItemTable(props) {
             const column = useColumns[i];
             if (Number.isInteger(column.position)) {
                 let position = parseInt(column.position);
-                if (showAttachments || showAttachTo) {
+                if (showAttachments || showAttachTo || showPresets) {
                     position++;
                 }
                 if (position < 1) {
@@ -1632,7 +1645,8 @@ function SmallItemTable(props) {
         ergoCost,
         recoilModifier,
         showSlotValue,
-        showAllSources
+        showAllSources,
+        showPresets
     ]);
 
     let extraRow = false;

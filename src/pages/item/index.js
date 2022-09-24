@@ -42,6 +42,7 @@ import fleaFee from '../../modules/flea-market-fee';
 import bestPrice from '../../modules/best-price';
 
 import './index.css';
+import { PresetSelector } from '../../components/preset-selector';
 
 dayjs.extend(relativeTime);
 
@@ -528,9 +529,14 @@ function Item() {
                                 src={currentItemData.iconLink}
                             />
                         </h1>
-                        <cite className="item-short-name-wrapper">
-                            {currentItemData.shortName}
-                        </cite>
+                        <PresetSelector 
+                            item={currentItemData}
+                            alt={(
+                                <cite className="item-short-name-wrapper">
+                                    {currentItemData.shortName}
+                                </cite>
+                            )}
+                        />
                         {currentItemData.wikiLink && (
                             <span className="wiki-link-wrapper">
                                 <a href={currentItemData.wikiLink}>
