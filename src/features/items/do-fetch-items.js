@@ -301,6 +301,13 @@ const doFetchItems = async () => {
                             id
                             name
                             normalizedName
+                            properties {
+                                ...on ItemPropertiesWeapon {
+                                    defaultPreset {
+                                        id
+                                    }
+                                }
+                            }
                         }
                         ergonomics
                         recoilVertical

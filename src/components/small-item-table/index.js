@@ -671,6 +671,8 @@ function SmallItemTable(props) {
                         return false;
                     }
                     return linkedItem.properties.baseItem.id === item.id;
+                }).filter(linkedItem => {
+                    return linkedItem.properties.baseItem.properties.defaultPreset.id !== linkedItem.id;
                 }).sort((a, b) => {
                     return a.shortName.localeCompare(b.shortName);
                 }).map(item => formatItem(item));

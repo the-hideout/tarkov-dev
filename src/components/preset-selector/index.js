@@ -27,7 +27,14 @@ export function PresetSelector({ item, alt = '' }) {
         };
     }, [selected]);
 
-    const items = result.data.filter(testItem => testItem.id === baseId || (testItem.types.includes('preset') && testItem.properties.baseItem.id === baseId)).sort((a, b) => {
+    const items = result.data.filter(
+        testItem => testItem.id === baseId || (testItem.types.includes('preset') && testItem.properties.baseItem.id === baseId)
+    ).filter(testItem => {
+        if (!testItem.types.includes('preset')) {
+            return true;
+        }
+        return testItem.properties.baseItem.properties.defaultPreset.id !== testItem.id;
+    }).sort((a, b) => {
         return a.shortName.localeCompare(b.shortName);
     });
 
