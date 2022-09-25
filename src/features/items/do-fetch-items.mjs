@@ -2,7 +2,6 @@ import fetch from 'cross-fetch';
 
 import fleaMarketFee from '../../modules/flea-market-fee.mjs';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes.js';
-import { langCode } from '../../modules/lang-helpers.mjs';
 
 import itemGrids from '../../data/item-grids.json' assert {type: 'json'};
 
@@ -10,11 +9,13 @@ const NOTES = {
     '60a2828e8689911a226117f9': `Can't store Pillbox, Day Pack, LK 3F or MBSS inside`,
 };
 
-const doFetchItems = async () => {
-
-    // Get the user selected language
-    const language = await langCode();
-
+const doFetchItems = async (language) => {
+    language = await new Promise(resolve => {
+        if (!language) {
+            return resolve('en');
+        }
+        return resolve(language);
+    });
     // Format the query for item fetching
     const QueryBody = JSON.stringify({
         query: `{
@@ -419,7 +420,7 @@ const doFetchItems = async () => {
         body: QueryBody,
     }).then((response) => response.json());
     //console.timeEnd('items query');
-    if (itemData.errors) return Promise.reject(new Error(itemData.errors[0]));
+    if (itemData.errors) return Promise.reject(new Error(itemData.errors[0].message));
 
     const flea = itemData.data.fleaMarket;
 

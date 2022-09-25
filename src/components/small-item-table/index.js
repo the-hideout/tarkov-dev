@@ -105,11 +105,14 @@ function traderSellCell(datum, totalTraderPrice = false, showSlotValue = false) 
     ];
 }
 
-const randomSeed = Math.random();
+const randomSeeds = [];
 
 function shuffleArray(array) {
+    for (let i = randomSeeds.length; i < array.length; i++) {
+        randomSeeds.push(Math.random());
+    }
     for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(randomSeed * (i + 1));
+        const j = Math.floor(randomSeeds[i] * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
 }

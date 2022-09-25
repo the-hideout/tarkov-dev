@@ -606,7 +606,7 @@ const doFetchItems = async () => {
 
 console.time('Caching API data');
     
-const items = await doFetchItems(true);
+const items = await doFetchItems('en');
 
 await fs.writeFile('./src/data/items.json', JSON.stringify(items));
 console.timeEnd('Caching API data');
