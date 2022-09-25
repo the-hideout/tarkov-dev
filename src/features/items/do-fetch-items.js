@@ -1,3 +1,8 @@
+// This has to be a CommonJS module
+// If created as an ECMAScript module, the cache-api-data job will error because the
+// file extension does not match.
+// If the file extension is changed to .mjs, then React won't work
+
 const fetch = require('cross-fetch');
 
 const fleaMarketFee = require('../../modules/flea-market-fee.js');

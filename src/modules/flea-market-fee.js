@@ -1,3 +1,6 @@
+// This has to be a CommonJS module
+// See note in do-fetch-items
+
 // https://escapefromtarkov.gamepedia.com/Trading#Flea_Market
 const localStorageReadJson = (key, defaultValue) => {
     try {
