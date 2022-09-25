@@ -719,7 +719,7 @@ function SmallItemTable(props) {
                 }).map(parentItem => formatItem(parentItem));
             });
         } 
-console.log(returnData);
+
         return returnData;
     }, [
         nameFilter,
