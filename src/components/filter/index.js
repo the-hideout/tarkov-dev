@@ -211,6 +211,7 @@ const selectFilterStyle = {
 
 function SelectFilter({
     defaultValue,
+    value,
     options,
     onChange,
     isMulti = false,
@@ -237,16 +238,26 @@ function SelectFilter({
                 );
             }}
         >
-            <label
-                className={`single-filter-wrapper ${
-                    wide ? 'single-filter-wrapper-wide' : ''
-                }`}
+            <ConditionalWrapper
+                condition={label}
+                wrapper={(labelChildren) => {
+                    return (
+                        <label
+                            className={`single-filter-wrapper ${
+                                wide ? 'single-filter-wrapper-wide' : ''
+                            }`}
+                        >
+                            <span className={'single-filter-label'}>{label}</span>
+                            {labelChildren}
+                        </label>
+                    )
+                }}
             >
-                <span className={'single-filter-label'}>{label}</span>
                 <Select
                     className="basic-multi-select"
                     classNamePrefix="select"
                     defaultValue={defaultValue}
+                    value={value}
                     isMulti={isMulti}
                     name="colors"
                     onChange={onChange}
@@ -256,13 +267,15 @@ function SelectFilter({
                     ref={parentRef}
                     styles={selectFilterStyle}
                 />
-            </label>
+            </ConditionalWrapper>
         </ConditionalWrapper>
     );
 }
 
 function SelectItemFilter({
     defaultValue,
+    value,
+    selection,
     onChange,
     isMulti = false,
     label,
@@ -272,6 +285,8 @@ function SelectItemFilter({
     onMenuClose,
     wide,
     items,
+    showImage = true,
+    shortNames
 }) {
     const [selectedItem, setSelectedItem] = useState(false);
     const selectInputRef = useRef(null);
@@ -282,8 +297,9 @@ function SelectItemFilter({
             label={label}
             options={items.map((item) => {
                 return {
-                    label: item.name,
+                    label: shortNames? item.shortName : item.name,
                     value: item.id,
+                    selected: selection && selection.id === item.id
                 };
             })}
             onChange={(event) => {
@@ -303,6 +319,7 @@ function SelectItemFilter({
             parentRef={selectInputRef}
             wide={wide}
             defaultValue={defaultValue}
+            value={value}
             isMulti={isMulti}
             tooltip={tooltip}
             tooltipDisabled={tooltipDisabled}
@@ -311,7 +328,7 @@ function SelectItemFilter({
         />
     )];
 
-    if (selectedItem) {
+    if (selectedItem && showImage) {
         elements.push((
             <img
                 key={'select-item-filter-selected-icon'}
