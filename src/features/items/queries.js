@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import * as doFetchItems from './do-fetch-items';
+import doFetchItems from './do-fetch-items';
 import { langCode } from '../../modules/lang-helpers';
 
 import defaultItems from '../../data/items.json';
