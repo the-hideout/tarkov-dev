@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+import fs from 'fs';
 
 import doFetchItems from '../src/features/items/do-fetch-items.js';
 
@@ -12,7 +12,7 @@ try {
         item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
         item.cached = true;
     }
-    await fs.writeFile('./src/data/items.json', JSON.stringify(items));
+    fs.writeFileSync('./src/data/items.json', JSON.stringify(items));
 } catch (error) {
     console.log(error);
 }

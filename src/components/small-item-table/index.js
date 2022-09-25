@@ -2,13 +2,15 @@ import { useMemo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
-import { mdiCloseOctagon, mdiHelpRhombus } from '@mdi/js';
+import { 
+    mdiCloseOctagon, 
+    mdiHelpRhombus,
+    mdiAccountSwitch,
+    mdiClipboardList,
+    mdiTimerSand,
+} from '@mdi/js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-import {
-    mdiAccountSwitch,
-    mdiClipboardList
-} from '@mdi/js';
 
 import ValueCell from '../value-cell';
 import TraderPriceCell from '../trader-price-cell';
@@ -381,6 +383,7 @@ function SmallItemTable(props) {
                 categoryIds: itemData.categoryIds,
                 width: itemData.width,
                 height: itemData.height,
+                cached: itemData.cached,
             };
 
             if (formattedItem.bestSell.length > 1) {
@@ -881,6 +884,12 @@ function SmallItemTable(props) {
                         );
                     }
                     const slots = allData.row.original.width * allData.row.original.height;
+                    let noValueTip = t('Not scanned on the Flea Market');
+                    let noValueIcon = mdiHelpRhombus;
+                    if (allData.row.original.cached) {
+                        noValueTip = t('Flea market prices loading');
+                        noValueIcon = mdiTimerSand;
+                    }
                     return (
                         <ValueCell
                             value={allData.value}
@@ -888,10 +897,10 @@ function SmallItemTable(props) {
                                 <div className="center-content">
                                     <Tippy
                                         placement="bottom"
-                                        content={t('Not scanned on the Flea Market')}
+                                        content={noValueTip}
                                     >
                                         <Icon
-                                            path={mdiHelpRhombus}
+                                            path={noValueIcon}
                                             size={1}
                                             className="icon-with-text"
                                         />
@@ -1481,9 +1490,15 @@ function SmallItemTable(props) {
                                 </div>
                             ));
                         } else {
+                            let tipText = t('Not scanned on the Flea Market');
+                            let icon = mdiHelpRhombus;
+                            if (props.row.original.cached) {
+                                tipText = t('Flea market prices loading');
+                                icon = mdiTimerSand;
+                            }
                             priceContent.push((
                                 <Icon
-                                    path={mdiHelpRhombus}
+                                    path={icon}
                                     size={1}
                                     className="icon-with-text"
                                     key="no-prices-icon"
@@ -1491,7 +1506,7 @@ function SmallItemTable(props) {
                             ));
                             tipContent.push((
                                 <div key={'no-flea-tooltip'}>
-                                    {t('Not scanned on the Flea Market')}
+                                    {tipText}
                                 </div>
                             ));
                         }
