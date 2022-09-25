@@ -37,41 +37,30 @@ const FleaPriceCell = function (props) {
         );
     }
 
-    let noFleaPrice = (
-        <div className="center-content">
-            <Tippy
-                placement="bottom"
-                content={t('Not scanned on the Flea Market')}
-            >
-                <Icon
-                    path={mdiHelpRhombus}
-                    size={1}
-                    className="icon-with-text"
-                />
-            </Tippy>
-        </div>
-    );
+    let noFleaTip = t('Not scanned on the Flea Market');
+    let noFleaIcon = mdiHelpRhombus;
     if (props.row.original.cached) {
-        noFleaPrice = (
-            <div className="center-content">
-                <Tippy
-                    placement="bottom"
-                    content={t('Flea market prices loading')}
-                >
-                    <Icon
-                        path={mdiTimerSand}
-                        size={1}
-                        className="icon-with-text"
-                    />
-                </Tippy>
-            </div>
-        );
+        noFleaTip = t('Flea market prices loading');
+        noFleaIcon = mdiTimerSand;
     }
     return (
         <ValueCell
             value={props.value}
             count={props.row.original.count}
-            noValue={noFleaPrice}
+            noValue={
+                <div className="center-content">
+                    <Tippy
+                        placement="bottom"
+                        content={noFleaTip}
+                    >
+                        <Icon
+                            path={noFleaIcon}
+                            size={1}
+                            className="icon-with-text"
+                        />
+                    </Tippy>
+                </div>
+            }
         />
     );
 };
