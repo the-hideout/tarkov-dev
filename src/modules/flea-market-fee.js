@@ -1,7 +1,5 @@
-// This has to be a CommonJS module
-// See note in do-fetch-items
-
 // https://escapefromtarkov.gamepedia.com/Trading#Flea_Market
+
 const localStorageReadJson = (key, defaultValue) => {
     try {
         const value = localStorage.getItem(key);
@@ -16,7 +14,7 @@ const localStorageReadJson = (key, defaultValue) => {
     return defaultValue;
 };
 
-module.exports = (basePrice, sellPrice, count = 1, Ti = 0.05, Tr = 0.10) => {
+export default function fleaMarketFee(basePrice, sellPrice, count = 1, Ti = 0.05, Tr = 0.10) {
     let V0 = basePrice;
     let VR = sellPrice;
     //let Ti = 0.05;

@@ -1,12 +1,7 @@
-// This has to be a CommonJS module
-// If created as an ECMAScript module, the cache-api-data job will error because the
-// file extension does not match.
-// If the file extension is changed to .mjs, then React won't work
+import fetch  from 'cross-fetch';
 
-const fetch = require('cross-fetch');
-
-const fleaMarketFee = require('../../modules/flea-market-fee.js');
-const camelcaseToDashes = require('../../modules/camelcase-to-dashes.js');
+import fleaMarketFee from '../../modules/flea-market-fee.js';
+import camelcaseToDashes from '../../modules/camelcase-to-dashes.js';
 
 const NOTES = {
     '60a2828e8689911a226117f9': `Can't store Pillbox, Day Pack, LK 3F or MBSS inside`,
@@ -429,7 +424,10 @@ const doFetchItems = async (language, prebuild = false) => {
             }
             return resolve(fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`).then(
                 (response) => response.json(),
-            ));
+            )).catch(error => {
+                console.log('Error retrieving item grids', error);
+                return {};
+            });
         })
     ]);
     //console.timeEnd('items query');
@@ -626,5 +624,4 @@ const doFetchItems = async (language, prebuild = false) => {
     return allItems;
 };
 
-//export default doFetchItems;
-module.exports = doFetchItems;
+export default doFetchItems;
