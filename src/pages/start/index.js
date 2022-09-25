@@ -1,8 +1,7 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback, lazy, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import React, { lazy, Suspense } from 'react';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
 
