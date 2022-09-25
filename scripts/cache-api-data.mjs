@@ -10,6 +10,7 @@ try {
         item.avg24hPrice = 0;
         item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
         item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
+        item.cached = true;
     }
     await fs.writeFile('./src/data/items.json', JSON.stringify(items));
 } catch (error) {
