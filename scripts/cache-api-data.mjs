@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 
-import doFetchItems from '../src/features/items/do-fetch-items.mjs';
+import doFetchItems from '../src/features/items/do-fetch-items.js';
 
 console.time('Caching API data');
 try {
@@ -10,7 +10,3 @@ try {
     console.log(error);
 }
 console.timeEnd('Caching API data');
-
-(async () => {
-    
-})();

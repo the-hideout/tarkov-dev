@@ -1,7 +1,7 @@
-import fetch from 'cross-fetch';
+const fetch = require('cross-fetch');
 
-import fleaMarketFee from '../../modules/flea-market-fee.mjs';
-import camelcaseToDashes from '../../modules/camelcase-to-dashes.js';
+const fleaMarketFee = require('../../modules/flea-market-fee.js');
+const camelcaseToDashes = require('../../modules/camelcase-to-dashes.js');
 
 const NOTES = {
     '60a2828e8689911a226117f9': `Can't store Pillbox, Day Pack, LK 3F or MBSS inside`,
@@ -621,4 +621,5 @@ const doFetchItems = async (language, prebuild = false) => {
     return allItems;
 };
 
-export default doFetchItems;
+//export default doFetchItems;
+module.exports = doFetchItems;

@@ -13,7 +13,7 @@ const localStorageReadJson = (key, defaultValue) => {
     return defaultValue;
 };
 
-export default function fleaMarketFee(basePrice, sellPrice, count = 1, Ti = 0.05, Tr = 0.10) {
+module.exports = (basePrice, sellPrice, count = 1, Ti = 0.05, Tr = 0.10) => {
     let V0 = basePrice;
     let VR = sellPrice;
     //let Ti = 0.05;
