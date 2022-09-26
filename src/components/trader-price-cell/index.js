@@ -21,10 +21,6 @@ function getItemCountPrice(price, currency = 'RUB', count = 1) {
     );
 }
 
-const ConditionalWrapper = ({ condition, wrapper, children }) => {
-    return condition ? wrapper(children) : children;
-};
-
 function TraderPriceCell(props) {
     const { t } = useTranslation();
     if (!props) {
