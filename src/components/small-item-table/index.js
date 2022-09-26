@@ -443,7 +443,10 @@ function SmallItemTable(props) {
             }
 
             if (traderBuybackFilter && formattedItem.buyOnFleaPrice) {
-                formattedItem.buyback = formattedItem.bestSell?.priceRUB / formattedItem.buyOnFleaPrice.price;
+                const thisTraderSell = formattedItem.sellFor.find(sellFor => sellFor.vendor.normalizedName === traderFilter);
+                if (thisTraderSell) {
+                    formattedItem.buyback = thisTraderSell.priceRUB / formattedItem.buyOnFleaPrice.price;
+                }
             }
 
             formattedItem.count = containedItems[itemData.id] || 1;
