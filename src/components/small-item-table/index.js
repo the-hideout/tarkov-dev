@@ -107,9 +107,10 @@ function traderSellCell(datum, totalTraderPrice = false, showSlotValue = false) 
     ];
 }
 
-const randomSeeds = [];
-
-function shuffleArray(array) {
+function shuffleArray(array, randomSeeds) {
+    if (!Array.isArray(randomSeeds)) {
+        randomSeeds = [];
+    }
     for (let i = randomSeeds.length; i < array.length; i++) {
         randomSeeds.push(Math.random());
     }
@@ -293,6 +294,18 @@ function SmallItemTable(props) {
 
     // Create a constant of all data returned
     const items = result.data;
+
+    const itemCount = items.length;
+    const randomSeeds = useMemo(() => {
+        const seeds = [];
+        if (!defaultRandom) {
+            return seeds;
+        }
+        for (let i = seeds.length; i < itemCount; i++) {
+            seeds.push(Math.random());
+        }
+        return seeds;
+    },[itemCount, defaultRandom]);
 
     const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
@@ -605,7 +618,7 @@ function SmallItemTable(props) {
         }
 
         if (defaultRandom && !nameFilter) {
-            shuffleArray(returnData);
+            shuffleArray(returnData, randomSeeds);
         }
 
         if (idFilter) {
@@ -730,6 +743,7 @@ function SmallItemTable(props) {
         containedItems,
         caliberFilter,
         defaultRandom,
+        randomSeeds,
         items,
         typeFilter,
         traderFilter,
