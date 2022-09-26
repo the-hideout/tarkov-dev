@@ -1101,9 +1101,13 @@ function SmallItemTable(props) {
                 Cell: ({ value }) => {
                     // allData.row.original.itemLink
                     return (
-                        <div className="center-content">
-                            {`${Math.floor((Math.round(value * 100) / 100) * 100)}%`}
-                        </div>
+                        <Tippy
+                            content={t('The percent recovered if you buy this item on the flea and sell to the trader')}
+                        >
+                            <div className="center-content">
+                                {`${Math.floor((Math.round(value * 100) / 100) * 100)}%`}
+                            </div>
+                        </Tippy>
                     );
                 },
                 id: 'buyback',
