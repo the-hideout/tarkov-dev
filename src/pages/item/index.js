@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import Icon from '@mdi/react';
-import { mdiLock } from '@mdi/js';
+import { mdiLock, mdiTimerSand } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -402,9 +402,20 @@ function Item() {
     const traderIsBest = currentItemData.traderTotalPriceRUB > currentItemData.lastLowPrice - itemFleaFee;
     const useFleaPrice = currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
+    let fleaSellPriceDisplay = formatPrice(currentItemData.lastLowPrice);
+    let fleaSellIcon = '';
     let fleaTooltip;
     
     if (!useFleaPrice && currentItemData.bestPrice) {
+        fleaSellPriceDisplay = formatPrice(currentItemData.bestPrice);
+        fleaSellIcon = (
+            <img
+                alt="Warning"
+                loading="lazy"
+                className="warning-icon"
+                src={warningIcon}
+            />
+        );
         fleaTooltip = (
             <div>
                 <div className="tooltip-calculation">
@@ -433,6 +444,15 @@ function Item() {
             </div>
         );
     } else if (!currentItemData.lastLowPrice) {
+        fleaSellPriceDisplay = '';
+        fleaSellIcon = (
+            <img
+                alt="Warning"
+                loading="lazy"
+                className="warning-icon"
+                src={warningIcon}
+            />
+        );
         fleaTooltip = (
             <div>
                 <div className="tooltip-calculation">
@@ -454,13 +474,26 @@ function Item() {
                     </div>
                 </div>
                 {t('This item has not been observed on the Flea Market.')}
-                {t(" The maximum profitable price  is")}{' '}
+                {t(" The maximum profitable price is")}{' '}
                 {formatPrice(currentItemData.bestPrice)}
-                {t(', but the item may or may not sell at that price.')}{' '}
-                {t('The max profitable price is impacted by your intel center and hideout management skill levels in your settings.')}
+                {t(', but the item may not sell at that price.')}{' '}
+                {t('The max profitable price is impacted by the intel center and hideout management skill levels in your settings.')}
             </div>
         )
-        //fleaTooltip = t('No flea price seen');
+        if (currentItemData.cached) {
+            fleaSellIcon = (
+                <Icon
+                    path={mdiTimerSand}
+                    size={1}
+                    className="icon-with-text"
+                />
+            );
+            fleaTooltip = (
+                <div>
+                    {t('Flea market prices loading')}
+                </div>
+            );
+        }
     } else {
         fleaTooltip = (
             <div>
@@ -587,15 +620,8 @@ function Item() {
                                                 // title = {`Sell ${currentItemData.name} on the Flea market`}
                                             />
                                             <div className="price-wrapper">
-                                                {(!useFleaPrice || !currentItemData.lastLowPrice) && (
-                                                    <img
-                                                        alt="Warning"
-                                                        loading="lazy"
-                                                        className="warning-icon"
-                                                        src={warningIcon}
-                                                    />
-                                                )}
-                                                {(!useFleaPrice || currentItemData.lastLowPrice) && formatPrice(useFleaPrice ? currentItemData.lastLowPrice : currentItemData.bestPrice)}
+                                                {fleaSellIcon}
+                                                {fleaSellPriceDisplay}
                                             </div>
                                         </div>
                                     </Tippy>
