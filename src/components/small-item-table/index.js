@@ -442,7 +442,7 @@ function SmallItemTable(props) {
                 formattedItem.cheapestPrice = 0;
             }
 
-            if (traderBuybackFilter) {
+            if (traderBuybackFilter && formattedItem.buyOnFleaPrice) {
                 formattedItem.buyback = formattedItem.bestSell?.priceRUB / formattedItem.buyOnFleaPrice.price;
             }
 
