@@ -33,6 +33,9 @@ export function PresetSelector({ item, alt = '' }) {
         if (!testItem.types.includes('preset')) {
             return true;
         }
+        if (!testItem.properties?.baseItem?.properties?.defaultPreset) {
+            return true;
+        }
         return testItem.properties.baseItem.properties.defaultPreset.id !== testItem.id;
     }).sort((a, b) => {
         return a.shortName.localeCompare(b.shortName);
