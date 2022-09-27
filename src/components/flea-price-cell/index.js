@@ -1,5 +1,9 @@
 import Icon from '@mdi/react';
-import { mdiCloseOctagon, mdiClockAlertOutline } from '@mdi/js';
+import { 
+    mdiCloseOctagon,
+    mdiHelpRhombus,
+    mdiTimerSand,
+} from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -33,6 +37,12 @@ const FleaPriceCell = function (props) {
         );
     }
 
+    let noFleaTip = t('Not scanned on the Flea Market');
+    let noFleaIcon = mdiHelpRhombus;
+    if (props.row.original.cached) {
+        noFleaTip = t('Flea market prices loading');
+        noFleaIcon = mdiTimerSand;
+    }
     return (
         <ValueCell
             value={props.value}
@@ -41,10 +51,10 @@ const FleaPriceCell = function (props) {
                 <div className="center-content">
                     <Tippy
                         placement="bottom"
-                        content={t('No flea price seen in the past 24 hours')}
+                        content={noFleaTip}
                     >
                         <Icon
-                            path={mdiClockAlertOutline}
+                            path={noFleaIcon}
                             size={1}
                             className="icon-with-text"
                         />

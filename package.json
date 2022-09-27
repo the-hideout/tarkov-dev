@@ -21,6 +21,7 @@
     "@testing-library/react": "^12.0.0",
     "@tippyjs/react": "^4.2.4",
     "critical": "^4.0.1",
+    "cross-fetch": "^3.1.5",
     "dayjs": "^1.10.6",
     "fast-deep-equal": "^3.1.3",
     "framer-motion": "^6.3.16",
@@ -69,11 +70,12 @@
     "test": "react-scripts test --env=jsdom",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "eject": "react-scripts eject",
-    "prebuild": "node scripts/get-version.js && node scripts/update-props.js && node scripts/get-contributors.js && node scripts/build-sitemap.js && node scripts/build-guides.js && node scripts/generate-thumbnails.js",
+    "prebuild": "node scripts/update-props.js && node --experimental-loader ./scripts/custom-loader.mjs scripts/cache-api-data.mjs && node scripts/get-version.js && node scripts/get-contributors.js && node scripts/build-sitemap.js && node scripts/build-guides.js && node scripts/generate-thumbnails.js",
     "postbuild": "node scripts/build-redirects.js && node scripts/critical.js",
     "stage": "npx rimraf build && npm run build && npm run preview",
     "preview": "npx serve build -l 3001 -s",
-    "critical": "node scripts/critical.js"
+    "critical": "node scripts/critical.js",
+    "cache-api-data": "node --experimental-loader ./scripts/custom-loader.mjs scripts/cache-api-data.mjs"
   },
   "jest": {
     "transformIgnorePatterns": [

@@ -1,12 +1,11 @@
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import Icon from '@mdi/react';
-import { mdiLock } from '@mdi/js';
+import { mdiClipboardList } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 
 import formatPrice from '../../modules/format-price';
 import CenterCell from '../center-cell';
-import capitalizeTheFirstLetterOfEachWord from '../../modules/capitalize-first';
 
 import './index.css';
 
@@ -60,34 +59,25 @@ function TraderPriceCell(props) {
             </Tippy>
         ) : 
             formatPrice(trader.price*count);
-    let questLocked = false;
-    let loyaltyString = '';
-
-    for (const requirement of trader.requirements) {
-        if (requirement.type === 'loyaltyLevel') {
-            loyaltyString = `LL${requirement.value}`;
-        }
-
-        if (requirement.type === 'questCompleted') {
-            questLocked = true;
-        }
-    }
+    const questLocked = trader.vendor.taskUnlock;
+    const loyaltyString = `LL${trader.vendor.minTraderLevel}`;
 
     if (questLocked) {
         printString = (
             <>
                 {printString}
                 {getItemCountPrice(trader.price, trader.currency, count)}
-                <Tippy content={t('Locked behind a quest')}>
+                <Tippy 
+                    content={`${t('Task')}: ${questLocked.name}`}
+                    placement="bottom"
+                >
                     <div className="trader-unlock-wrapper">
                         <Icon
-                            path={mdiLock}
+                            path={mdiClipboardList}
                             size={1}
                             className="icon-with-text"
                         />
-                        <span>{`${t(capitalizeTheFirstLetterOfEachWord(
-                            trader.source,
-                        ))} ${loyaltyString}`}</span>
+                        <span>{`${trader.vendor.name} ${loyaltyString}`}</span>
                     </div>
                 </Tippy>
             </>
@@ -98,9 +88,7 @@ function TraderPriceCell(props) {
                 {printString}
                 {getItemCountPrice(trader.price, trader.currency, count)}
                 <div className="trader-unlock-wrapper">
-                    {`${t(capitalizeTheFirstLetterOfEachWord(
-                        trader.source,
-                    ))} ${loyaltyString}`}
+                    {`${trader.vendor.name} ${loyaltyString}`}
                 </div>
             </>
         );

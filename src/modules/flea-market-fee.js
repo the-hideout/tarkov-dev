@@ -1,4 +1,5 @@
 // https://escapefromtarkov.gamepedia.com/Trading#Flea_Market
+
 const localStorageReadJson = (key, defaultValue) => {
     try {
         const value = localStorage.getItem(key);

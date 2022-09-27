@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
 import doFetchItems from './do-fetch-items';
+import { langCode } from '../../modules/lang-helpers';
 
 const initialState = {
     items: [],
@@ -10,7 +11,7 @@ const initialState = {
 };
 
 export const fetchItems = createAsyncThunk('items/fetchItems', () =>
-    doFetchItems(),
+    doFetchItems(langCode()),
 );
 const itemsSlice = createSlice({
     name: 'items',

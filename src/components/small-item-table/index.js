@@ -1,14 +1,16 @@
- import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
-import { mdiCloseOctagon, mdiHelpRhombus } from '@mdi/js';
+import { 
+    mdiCloseOctagon, 
+    mdiHelpRhombus,
+    mdiAccountSwitch,
+    mdiClipboardList,
+    mdiTimerSand,
+} from '@mdi/js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-import {
-    mdiAccountSwitch,
-    mdiClipboardList
-} from '@mdi/js';
 
 import ValueCell from '../value-cell';
 import TraderPriceCell from '../trader-price-cell';
@@ -105,9 +107,15 @@ function traderSellCell(datum, totalTraderPrice = false, showSlotValue = false) 
     ];
 }
 
-function shuffleArray(array) {
+function shuffleArray(array, randomSeeds) {
+    if (!Array.isArray(randomSeeds)) {
+        randomSeeds = [];
+    }
+    for (let i = randomSeeds.length; i < array.length; i++) {
+        randomSeeds.push(Math.random());
+    }
     for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        const j = Math.floor(randomSeeds[i] * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
@@ -287,6 +295,18 @@ function SmallItemTable(props) {
     // Create a constant of all data returned
     const items = result.data;
 
+    const itemCount = items.length;
+    const randomSeeds = useMemo(() => {
+        const seeds = [];
+        if (!defaultRandom) {
+            return seeds;
+        }
+        for (let i = seeds.length; i < itemCount; i++) {
+            seeds.push(Math.random());
+        }
+        return seeds;
+    },[itemCount, defaultRandom]);
+
     const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
         return state.barters.status;
@@ -376,6 +396,7 @@ function SmallItemTable(props) {
                 categoryIds: itemData.categoryIds,
                 width: itemData.width,
                 height: itemData.height,
+                cached: itemData.cached,
             };
 
             if (formattedItem.bestSell.length > 1) {
@@ -421,8 +442,11 @@ function SmallItemTable(props) {
                 formattedItem.cheapestPrice = 0;
             }
 
-            if (traderBuybackFilter) {
-                formattedItem.buyback = formattedItem.bestSell?.priceRUB / formattedItem.buyOnFleaPrice.price;
+            if (traderBuybackFilter && formattedItem.buyOnFleaPrice) {
+                const thisTraderSell = formattedItem.sellFor.find(sellFor => sellFor.vendor.normalizedName === traderFilter);
+                if (thisTraderSell) {
+                    formattedItem.buyback = thisTraderSell.priceRUB / formattedItem.buyOnFleaPrice.price;
+                }
             }
 
             formattedItem.count = containedItems[itemData.id] || 1;
@@ -597,7 +621,7 @@ function SmallItemTable(props) {
         }
 
         if (defaultRandom && !nameFilter) {
-            shuffleArray(returnData);
+            shuffleArray(returnData, randomSeeds);
         }
 
         if (idFilter) {
@@ -722,6 +746,7 @@ function SmallItemTable(props) {
         containedItems,
         caliberFilter,
         defaultRandom,
+        randomSeeds,
         items,
         typeFilter,
         traderFilter,
@@ -876,6 +901,12 @@ function SmallItemTable(props) {
                         );
                     }
                     const slots = allData.row.original.width * allData.row.original.height;
+                    let noValueTip = t('Not scanned on the Flea Market');
+                    let noValueIcon = mdiHelpRhombus;
+                    if (allData.row.original.cached) {
+                        noValueTip = t('Flea market prices loading');
+                        noValueIcon = mdiTimerSand;
+                    }
                     return (
                         <ValueCell
                             value={allData.value}
@@ -883,10 +914,10 @@ function SmallItemTable(props) {
                                 <div className="center-content">
                                     <Tippy
                                         placement="bottom"
-                                        content={t('Not scanned on the Flea Market')}
+                                        content={noValueTip}
                                     >
                                         <Icon
-                                            path={mdiHelpRhombus}
+                                            path={noValueIcon}
                                             size={1}
                                             className="icon-with-text"
                                         />
@@ -1070,9 +1101,13 @@ function SmallItemTable(props) {
                 Cell: ({ value }) => {
                     // allData.row.original.itemLink
                     return (
-                        <div className="center-content">
-                            {`${Math.floor((Math.round(value * 100) / 100) * 100)}%`}
-                        </div>
+                        <Tippy
+                            content={t('The percent recovered if you buy this item on the flea and sell to the trader')}
+                        >
+                            <div className="center-content">
+                                {`${Math.floor((Math.round(value * 100) / 100) * 100)}%`}
+                            </div>
+                        </Tippy>
                     );
                 },
                 id: 'buyback',
@@ -1467,6 +1502,7 @@ function SmallItemTable(props) {
                                     path={mdiCloseOctagon}
                                     size={1}
                                     className="icon-with-text"
+                                    key="no-flea-icon"
                                 />
                             ));
                             tipContent.push((
@@ -1475,16 +1511,23 @@ function SmallItemTable(props) {
                                 </div>
                             ));
                         } else {
+                            let tipText = t('Not scanned on the Flea Market');
+                            let icon = mdiHelpRhombus;
+                            if (props.row.original.cached) {
+                                tipText = t('Flea market prices loading');
+                                icon = mdiTimerSand;
+                            }
                             priceContent.push((
                                 <Icon
-                                    path={mdiHelpRhombus}
+                                    path={icon}
                                     size={1}
                                     className="icon-with-text"
+                                    key="no-prices-icon"
                                 />
                             ));
                             tipContent.push((
                                 <div key={'no-flea-tooltip'}>
-                                    {t('Not scanned on the Flea Market')}
+                                    {tipText}
                                 </div>
                             ));
                         }

@@ -1,16 +1,19 @@
-import fleaMarketFee from '../../modules/flea-market-fee';
-import camelcaseToDashes from '../../modules/camelcase-to-dashes';
-import { langCode } from '../../modules/lang-helpers';
+import fetch  from 'cross-fetch';
+
+import fleaMarketFee from '../../modules/flea-market-fee.js';
+import camelcaseToDashes from '../../modules/camelcase-to-dashes.js';
 
 const NOTES = {
     '60a2828e8689911a226117f9': `Can't store Pillbox, Day Pack, LK 3F or MBSS inside`,
 };
 
-const doFetchItems = async () => {
-
-    // Get the user selected language
-    const language = await langCode();
-
+const doFetchItems = async (language, prebuild = false) => {
+    language = await new Promise(resolve => {
+        if (!language) {
+            return resolve('en');
+        }
+        return resolve(language);
+    });
     // Format the query for item fetching
     const QueryBody = JSON.stringify({
         query: `{
@@ -415,12 +418,20 @@ const doFetchItems = async () => {
             },
             body: QueryBody,
         }).then((response) => response.json()),
-        fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`).then(
-            (response) => response.json(),
-        ),
+        new Promise(resolve => {
+            if (prebuild) {
+                return resolve({});
+            }
+            return resolve(fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`).then(
+                (response) => response.json(),
+            )).catch(error => {
+                console.log('Error retrieving item grids', error);
+                return {};
+            });
+        })
     ]);
     //console.timeEnd('items query');
-    if (itemData.errors) return Promise.reject(new Error(itemData.errors[0]));
+    if (itemData.errors) return Promise.reject(new Error(itemData.errors[0].message));
 
     const flea = itemData.data.fleaMarket;
 
