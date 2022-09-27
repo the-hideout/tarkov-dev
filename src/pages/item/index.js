@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import Icon from '@mdi/react';
-import { mdiLock, mdiTimerSand } from '@mdi/js';
+import { mdiClipboardList, mdiTimerSand } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -727,11 +727,11 @@ function Item() {
                                                     )}
                                                     {buyPrice?.vendor?.taskUnlock && (
                                                         <Tippy
-                                                            content={t('Quest: ')+buyPrice.vendor.taskUnlock.name}
+                                                            content={t('Task: ')+buyPrice.vendor.taskUnlock.name}
                                                         >
                                                             <div className="quest-icon-wrapper">
                                                                 <Icon
-                                                                    path={mdiLock}
+                                                                    path={mdiClipboardList}
                                                                     size={1}
                                                                     className="icon-with-text"
                                                                 />
