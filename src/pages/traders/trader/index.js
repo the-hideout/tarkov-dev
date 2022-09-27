@@ -49,7 +49,7 @@ function Trader() {
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [selectedTable, setSelectedTable] = useStateWithLocalStorage(
         `${traderName}SelectedTable`,
-        'level',
+        'spending',
     );
     //const [showAllTraders, setShowAllTraders] = useState(false);
     const { t } = useTranslation();
@@ -122,10 +122,10 @@ function Trader() {
                                     {t('Items with the best cash back prices for leveling when buying from flea')}
                                 </>
                             }
-                            selected={selectedTable === 'level'}
+                            selected={selectedTable === 'spending'}
                             content={t('Spending')}
                             type="text"
-                            onClick={setSelectedTable.bind(undefined, 'level')}
+                            onClick={setSelectedTable.bind(undefined, 'spending')}
                         />
                     </ButtonGroupFilter>
                     <ButtonGroupFilter>
@@ -155,13 +155,13 @@ function Trader() {
                 nameFilter={nameFilter}
                 traderFilter={traderName}
                 loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
-                traderBuybackFilter={selectedTable === 'level' ? true : false}
-                maxItems={selectedTable === 'level' ? 50 : false}
+                traderBuybackFilter={selectedTable === 'spending' ? true : false}
+                maxItems={selectedTable === 'spending' ? 50 : false}
                 totalTraderPrice={true}
-                traderValue={selectedTable === 'level' ? 1 : false}
-                fleaPrice={selectedTable === 'level' ? 2 : 1}
-                traderPrice={selectedTable === 'level' ? false : 2}
-                traderBuyback={selectedTable === 'level' ? 3 : false}
+                traderValue={selectedTable === 'spending' ? 1 : false}
+                fleaPrice={selectedTable === 'spending' ? 2 : 1}
+                traderPrice={selectedTable === 'spending' ? false : 2}
+                traderBuyback={selectedTable === 'spending' ? 3 : false}
             />
 
             <div className="page-wrapper" style={{ minHeight: 0 }}>
