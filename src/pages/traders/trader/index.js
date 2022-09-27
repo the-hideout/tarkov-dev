@@ -155,17 +155,13 @@ function Trader() {
                 nameFilter={nameFilter}
                 traderFilter={traderName}
                 loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
-                traderPrice={selectedTable === 'level' ? false : true}
-                fleaValue
-                traderValue={1}
-                fleaPrice
-                traderBuyback={selectedTable === 'level' ? true : false}
                 traderBuybackFilter={selectedTable === 'level' ? true : false}
                 maxItems={selectedTable === 'level' ? 50 : false}
                 totalTraderPrice={true}
-
-                // instaProfit = {selectedTable === 'instaProfit' ? true : false}
-                // maxItems = {selectedTable === 'instaProfit' ? 50 : false}
+                traderValue={selectedTable === 'level' ? 1 : false}
+                fleaPrice={selectedTable === 'level' ? 2 : 1}
+                traderPrice={selectedTable === 'level' ? false : 2}
+                traderBuyback={selectedTable === 'level' ? 3 : false}
             />
 
             <div className="page-wrapper" style={{ minHeight: 0 }}>
