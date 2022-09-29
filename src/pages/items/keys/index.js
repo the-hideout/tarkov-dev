@@ -80,9 +80,9 @@ function Keys() {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {"Maps, keys, key cards, and other useful objects are included in intelligence items. These will help you stay one step ahead of the competition—or at the very least, know where you are in Escape from Tarkov."}
+                    {t("Maps, keys, key cards, and other useful objects are included in intelligence items. These will help you stay one step ahead of the competition—or at the very least, know where you are in Escape from Tarkov.")}
                     <br/>
-                    {"The remaining durability of keys and keycards with a limited number of uses is displayed in the bottom right corner of their icons and on their inspection screens."}
+                    {t("The remaining durability of keys and keycards with a limited number of uses is displayed in the bottom right corner of their icons and on their inspection screens.")}
                 </p>
             </div>
         </div>,

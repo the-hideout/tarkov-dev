@@ -130,7 +130,7 @@ function Rigs() {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {"When it comes to carrying and storing ammunition and magazines during your excursions in Escape from Tarkov, chest rigs are crucial. Some even provide you with additional security."}
+                    {t("When it comes to carrying and storing ammunition and magazines during your excursions in Escape from Tarkov, chest rigs are crucial. Some even provide you with additional security.")}
                 </p>
             </div>
         </div>,

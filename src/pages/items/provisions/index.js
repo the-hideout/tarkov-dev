@@ -99,9 +99,9 @@ function Provisions() {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {"In Escape from Tarkov, provisions are utilized to replenish energy and hydration."}
+                    {t("In Escape from Tarkov, provisions are utilized to replenish energy and hydration.")}
                     <br/>
-                    {"Your Metabolism skill level will determine how effective they are."}
+                    {t("Your Metabolism skill level will determine how effective they are.")}
                 </p>
             </div>
         </div>,
