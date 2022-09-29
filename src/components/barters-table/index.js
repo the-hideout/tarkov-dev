@@ -22,8 +22,6 @@ import { isAnyDogtag, isBothDogtags } from '../../modules/dogtags';
 
 import './index.css';
 
-const priceToUse = 'lastLowPrice';
-
 function BartersTable(props) {
     const { selectedTrader, nameFilter, itemFilter, removeDogtags, showAll } =
         props;
