@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
 import { Avatar } from '@primer/react';
@@ -62,7 +63,7 @@ function About() {
                 {t(
                     'We offer a 100% free and publically accessible API for all your Tarkov development needs - ',
                 )}{' '}
-                <a href="/api/">API</a>{' '}
+                <Link to="/api/">API</Link>{' '}
             </p>
             <h2>{t('History')}</h2>
             <p>

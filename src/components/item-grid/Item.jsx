@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import ItemTooltip from './ItemTooltip';
 import ItemIcon from './ItemIcon';
@@ -17,12 +17,6 @@ import ItemIcon from './ItemIcon';
 // const sizesToAlwaysRotate = ['2x3'];
 
 function Item(props) {
-    const navigate = useNavigate();
-
-    const handleClick = (e) => {
-        navigate(props.itemLink)
-    };
-
     let imgSrc = props.src;
 
     //const gridSize = `${props.width}x${props.height}`;
@@ -34,10 +28,10 @@ function Item(props) {
     // }
 
     return (
-        <span
+        <Link
+            to={props.itemLink}
             className={`grid-item`}
-            style={{gridRowEnd: `span ${props.height}`, gridColumnEnd: `span ${props.width}`, cursor: 'pointer'}}
-            onClick={handleClick}
+            style={{gridRowEnd: `span ${props.height}`, gridColumnEnd: `span ${props.width}`}}
         >
             <ItemTooltip
                 pricePerSlot={props.pricePerSlot}
@@ -52,7 +46,7 @@ function Item(props) {
             />
 
             <img alt={props.name} loading="lazy" src={imgSrc} />
-        </span>
+        </Link>
     );
 }
 
