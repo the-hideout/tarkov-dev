@@ -123,6 +123,7 @@ function CraftTable(props) {
     const data = useMemo(() => {
         let addedStations = [];
 
+        skippedByLevelRef.current = false;
         return crafts
             .map((craftRow) => {
                 let totalCost = 0;
