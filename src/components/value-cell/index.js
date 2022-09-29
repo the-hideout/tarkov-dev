@@ -13,7 +13,8 @@ function ValueCell({
     count = 1, 
     slots, 
     showSlotValue,
-    valueCount = 1
+    valueCount = 1,
+    valueDetails,
 }) {
     const { t } = useTranslation();
 
@@ -56,9 +57,33 @@ function ValueCell({
             </Tippy>
         );
     }
-    return (
+    let displayValue = (
         <div className={className}>
             {value ? formatPrice(value*count) : noValue}
+        </div>
+    );
+    console.log(valueDetails)
+    if (valueDetails) {
+        displayValue = (
+            <Tippy
+                content={valueDetails.map(detail => {
+                    return (
+                        <div key={detail.name}>
+                            <span>{`${detail.name}: `}</span>
+                            <span style={{float:'right', paddingLeft: '5px'}} className={detail.value > 0 ? 'craft-profit' : 'craft-loss'}>
+                                {formatPrice(detail.value)}
+                            </span>
+                        </div>
+                    );
+                })}
+            >
+                {displayValue}
+            </Tippy>
+        );
+    }
+    return (
+        <div>
+            {displayValue}
             {countTag}
             {slotValue}
             {children}

@@ -307,6 +307,25 @@ function CraftTable(props) {
                     tradeData.reward.sellNote = t('Flea banned');
                 }
 
+                tradeData.profitParts = [
+                    {
+                        name: t('Sell Price'),
+                        value: tradeData.reward.sellValue * craftRow.rewardItems[0].count,
+                    },
+                ];
+                if (totalCost) {
+                    tradeData.profitParts.push({
+                        name: t('Cost'),
+                        value: totalCost * -1,
+                    });
+                }
+                if (fleaFeeTotal) {
+                    tradeData.profitParts.push({
+                        name: t('Flea Market Fee'),
+                        value: fleaFeeTotal * -1,
+                    });
+                }
+
                 tradeData.fleaThroughput = Math.floor(
                     (tradeData.reward.sellValue * craftRow.rewardItems[0].count) / (craftDuration / 3600),
                 );
@@ -474,7 +493,7 @@ function CraftTable(props) {
                             </div>
                         );
                     }
-                    return <ValueCell value={props.value} highlightProfit />;
+                    return <ValueCell value={props.value} valueDetails={props.row.original.profitParts} highlightProfit />;
                 },
                 sortType: 'basic',
             },
