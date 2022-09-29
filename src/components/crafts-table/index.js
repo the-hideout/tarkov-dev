@@ -46,7 +46,7 @@ function CraftTable(props) {
     const skills = useSelector(selectAllSkills);
     // const [skippedByLevel, setSkippedByLevel] = useState(false);
     const skippedByLevelRef = useRef();
-    const feeReduction = stations['intelligence-center'] === 3 ? 0.7 : 1;
+    const feeReduction = stations['intelligence-center'] === 3 ? 0.7 - (0.003 * skills['hideout-management']) : 1;
 
     const crafts = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
