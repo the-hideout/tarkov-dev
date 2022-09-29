@@ -125,7 +125,6 @@ function Crafts() {
                                         <img
                                             alt={station.name}
                                             loading="lazy"
-                                            title={station.name}
                                             src={`${process.env.PUBLIC_URL}/images/${station.normalizedName}-icon.png`}
                                         />
                                     }
