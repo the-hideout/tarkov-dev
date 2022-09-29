@@ -309,7 +309,7 @@ function CraftTable(props) {
 
                 tradeData.profitParts = [
                     {
-                        name: t('Sell Price'),
+                        name: t('Sell price'),
                         value: tradeData.reward.sellValue * craftRow.rewardItems[0].count,
                     },
                 ];
@@ -321,7 +321,7 @@ function CraftTable(props) {
                 }
                 if (fleaFeeTotal) {
                     tradeData.profitParts.push({
-                        name: t('Flea Market Fee'),
+                        name: t('Flea Market fee'),
                         value: fleaFeeTotal * -1,
                     });
                 }

@@ -18,12 +18,6 @@ function ValueCell({
 }) {
     const { t } = useTranslation();
 
-    let className = 'center-content';
-
-    if (highlightProfit && value !== 0) {
-        className = `${className} ${value > 0 ? 'craft-profit' : 'craft-loss'}`;
-    }
-
     let countTag = '';
     if (count > 1 && value) {
         countTag = (
@@ -57,6 +51,11 @@ function ValueCell({
             </Tippy>
         );
     }
+    
+    let className = '';
+    if (highlightProfit && value !== 0) {
+        className = value > 0 ? 'craft-profit' : 'craft-loss';
+    }
     let displayValue = (
         <div className={className}>
             {value ? formatPrice(value*count) : noValue}
@@ -82,7 +81,7 @@ function ValueCell({
         );
     }
     return (
-        <div>
+        <div className="center-content">
             {displayValue}
             {countTag}
             {slotValue}
