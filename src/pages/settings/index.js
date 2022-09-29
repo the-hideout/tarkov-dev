@@ -263,7 +263,7 @@ function Settings() {
                     tooltip={(
                         <div>
                             <div>{t('Minimum dogtag level to use for calculating the cost of dogtag barter trades')}</div>
-                            <div>{t(`The current estimated average player level is ${estimatedAvgPlayerLevel}`)}</div>
+                            <div>{t(`The current estimated average player level is {{avgPlayerLevel}}`, {avgPlayerLevel: estimatedAvgPlayerLevel})}</div>
                         </div>
                     )}
                 />
