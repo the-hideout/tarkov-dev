@@ -2,9 +2,6 @@ import { useMemo, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import Icon from '@mdi/react';
-import { mdiTimerSand } from '@mdi/js';
-import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../../components/data-table';
@@ -19,6 +16,7 @@ import CostItemsCell from '../cost-items-cell';
 import { formatCostItems, getCheapestItemPrice, getCheapestItemPriceWithBarters } from '../../modules/format-cost-items';
 import RewardCell from '../reward-cell';
 import { isAnyDogtag, isBothDogtags } from '../../modules/dogtags';
+import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
 import './index.css';
 
@@ -81,16 +79,7 @@ function BartersTable(props) {
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <Tippy
-                                    placement="bottom"
-                                    content={t('Flea market prices loading')}
-                                >
-                                    <Icon
-                                        path={mdiTimerSand}
-                                        size={1}
-                                        className="icon-with-text"
-                                    />
-                                </Tippy>
+                                <FleaMarketLoadingIcon/>
                             </div>
                         );
                     }
@@ -104,16 +93,7 @@ function BartersTable(props) {
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <Tippy
-                                    placement="bottom"
-                                    content={t('Flea market prices loading')}
-                                >
-                                    <Icon
-                                        path={mdiTimerSand}
-                                        size={1}
-                                        className="icon-with-text"
-                                    />
-                                </Tippy>
+                                <FleaMarketLoadingIcon/>
                             </div>
                         );
                     }
@@ -138,16 +118,7 @@ function BartersTable(props) {
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <Tippy
-                                    placement="bottom"
-                                    content={t('Flea market prices loading')}
-                                >
-                                    <Icon
-                                        path={mdiTimerSand}
-                                        size={1}
-                                        className="icon-with-text"
-                                    />
-                                </Tippy>
+                                <FleaMarketLoadingIcon/>
                             </div>
                         );
                     }

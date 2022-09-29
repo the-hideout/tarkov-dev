@@ -32,7 +32,7 @@ function ValueCell({
                 content={t('Cost per unit')}
                 placement="bottom"
             >
-                <div class="trader-unlock-wrapper">
+                <div className="trader-unlock-wrapper">
                     {formatPrice(Math.round(value / valueCount))}
                 </div>
             </Tippy>
@@ -51,7 +51,7 @@ function ValueCell({
             </Tippy>
         );
     }
-    
+
     let className = '';
     if (highlightProfit && value !== 0) {
         className = value > 0 ? 'craft-profit' : 'craft-loss';

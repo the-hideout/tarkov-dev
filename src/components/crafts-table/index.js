@@ -2,9 +2,6 @@ import { useMemo, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import Icon from '@mdi/react';
-import { mdiTimerSand } from '@mdi/js';
-import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../data-table';
@@ -35,6 +32,8 @@ import {
 } from '../../modules/format-duration';
 import bestPrice from '../../modules/best-price';
 import { useMetaQuery } from '../../features/meta/queries';
+
+import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
 function CraftTable(props) {
     const { selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices } = props;
@@ -429,16 +428,7 @@ function CraftTable(props) {
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <Tippy
-                                    placement="bottom"
-                                    content={t('Flea market prices loading')}
-                                >
-                                    <Icon
-                                        path={mdiTimerSand}
-                                        size={1}
-                                        className="icon-with-text"
-                                    />
-                                </Tippy>
+                                <FleaMarketLoadingIcon/>
                             </div>
                         );
                     }
@@ -455,16 +445,7 @@ function CraftTable(props) {
                             if (props.row.original.cached) {
                                 return (
                                     <div className="center-content">
-                                        <Tippy
-                                            placement="bottom"
-                                            content={t('Flea market prices loading')}
-                                        >
-                                            <Icon
-                                                path={mdiTimerSand}
-                                                size={1}
-                                                className="icon-with-text"
-                                            />
-                                        </Tippy>
+                                        <FleaMarketLoadingIcon/>
                                     </div>
                                 );
                             }
@@ -481,16 +462,7 @@ function CraftTable(props) {
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <Tippy
-                                    placement="bottom"
-                                    content={t('Flea market prices loading')}
-                                >
-                                    <Icon
-                                        path={mdiTimerSand}
-                                        size={1}
-                                        className="icon-with-text"
-                                    />
-                                </Tippy>
+                                <FleaMarketLoadingIcon/>
                             </div>
                         );
                     }
@@ -505,16 +477,7 @@ function CraftTable(props) {
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <Tippy
-                                    placement="bottom"
-                                    content={t('Flea market prices loading')}
-                                >
-                                    <Icon
-                                        path={mdiTimerSand}
-                                        size={1}
-                                        className="icon-with-text"
-                                    />
-                                </Tippy>
+                                <FleaMarketLoadingIcon/>
                             </div>
                         );
                     }
