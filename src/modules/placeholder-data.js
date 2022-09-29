@@ -2,24 +2,12 @@ import cachedBarters from '../data/barters.json';
 import cachedCrafts from '../data/crafts.json';
 
 import cachedItems from '../data/items.json';
-import cachedItemsFr from '../data/items_fr.json';
-import cachedItemsRu from '../data/items_ru.json';
+import cachedItemsLocale from '../data/items_locale.json';
 
 import cachedMaps from '../data/maps_cached.json';
 
 import cachedTraders from '../data/traders.json'
-import cachedTradersFr from '../data/traders_fr.json';
-import cachedTradersRu from '../data/traders_ru.json';
-
-const itemLangs = {
-    fr: cachedItemsFr,
-    ru: cachedItemsRu,
-};
-
-const traderLangs = {
-    fr: cachedTradersFr,
-    ru: cachedTradersRu,
-};
+import cachedTradersLocale from '../data/traders_locale.json';
 
 export function placeholderBarters(language = 'en') {
     return cachedBarters;
@@ -30,11 +18,11 @@ export function placeholderCrafts(language = 'en') {
 }
 
 export function placeholderItems(language = 'en') {
-    if (language !== 'en' && itemLangs[language]) {
+    if (language !== 'en' && cachedItemsLocale[language]) {
         return cachedItems.map(item => {
             return {
                 ...item,
-                ...itemLangs[language][item.id]
+                ...cachedItemsLocale[language][item.id]
             };
         });
     }
@@ -46,11 +34,11 @@ export function placeholderMaps(language = 'en') {
 }
 
 export function placeholderTraders(language = 'en') {
-    if (language !== 'en' && traderLangs[language]) {
+    if (language !== 'en' && cachedTradersLocale[language]) {
         return cachedTraders.map(trader => {
             return {
                 ...trader,
-                ...traderLangs[language][trader.id]
+                ...cachedTradersLocale[language][trader.id]
             };
         });
     }
