@@ -3,12 +3,12 @@ import { useQuery } from 'react-query';
 import { langCode } from '../../modules/lang-helpers';
 import doFetchTraders from './do-fetch-traders';
 
-import placeholderTraders from '../../data/traders.json'
+import { placeholderTraders } from '../../modules/placeholder-data';
 
 export const useTradersQuery = (queryOptions) => {
     const tradersQuery = useQuery('traders', () => doFetchTraders(langCode()), {
         refetchInterval: 600000,
-        placeholderData: placeholderTraders,
+        placeholderData: placeholderTraders(langCode()),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         ...queryOptions,

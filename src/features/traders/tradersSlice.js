@@ -4,10 +4,10 @@ import equal from 'fast-deep-equal';
 import { langCode } from '../../modules/lang-helpers';
 import doFetchTraders from './do-fetch-traders';
 
-import placeholderTraders from '../../data/traders.json'
+import { placeholderTraders } from '../../modules/placeholder-data';
 
 const initialState = {
-    traders: placeholderTraders,
+    traders: placeholderTraders(langCode()),
     status: 'idle',
     error: null,
 };

@@ -2,12 +2,12 @@ import { useQuery } from 'react-query';
 import doFetchItems from './do-fetch-items';
 import { langCode } from '../../modules/lang-helpers';
 
-import defaultItems from '../../data/items.json';
+import { placeholderItems } from '../../modules/placeholder-data';
 
 export const useItemsQuery = (queryOptions) => {
     const itemsQuery = useQuery('items', () => doFetchItems(langCode()), {
         refetchInterval: 600000,
-        placeholderData: defaultItems,
+        placeholderData: placeholderItems(langCode()),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         ...queryOptions,

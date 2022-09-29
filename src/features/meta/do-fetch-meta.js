@@ -1,7 +1,7 @@
 import { langCode } from '../../modules/lang-helpers';
 
 const doFetchMeta = async () => {
-    const language = await langCode();
+    const language = langCode();
     const bodyQuery = JSON.stringify({
         query: `{
             fleaMarket(lang: ${language}) {

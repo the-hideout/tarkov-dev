@@ -1,7 +1,7 @@
 import { langCode } from '../../modules/lang-helpers';
 
 const doFetchQuests = async () => {
-    const language = await langCode();
+    const language = langCode();
     const bodyQuery = JSON.stringify({
         query: `{
             tasks(lang: ${language}) {

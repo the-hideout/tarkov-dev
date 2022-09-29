@@ -9,13 +9,13 @@ import LoadingSmall from '../loading-small';
 
 import './index.css';
 
-import placeholderMaps from '../../data/maps_cached.json';
+import { placeholderMaps } from '../../modules/placeholder-data';
 
 // Query for maps
 export const useMapsQuery = (queryOptions) => {
     const mapsQuery = useQuery('maps', () => doFetchMaps(langCode()), {
         refetchInterval: 600000,
-        placeholderData: placeholderMaps,
+        placeholderData: placeholderMaps(langCode()),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         ...queryOptions,

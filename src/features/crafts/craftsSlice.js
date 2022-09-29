@@ -4,10 +4,10 @@ import equal from 'fast-deep-equal';
 import doFetchCrafts from './do-fetch-crafts';
 import { langCode } from '../../modules/lang-helpers';
 
-import placeHolderCrafts from '../../data/crafts.json';
+import { placeholderCrafts } from '../../modules/placeholder-data';
 
 const initialState = {
-    crafts: placeHolderCrafts,
+    crafts: placeholderCrafts(langCode()),
     status: 'idle',
     error: null,
 };

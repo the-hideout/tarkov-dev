@@ -5,12 +5,12 @@ import { useQuery } from 'react-query';
 import doFetchBarters from './do-fetch-barters';
 import { langCode } from '../../modules/lang-helpers';
 
-import placeHolderBarters from '../../data/barters.json';
+import { placeholderBarters } from '../../modules/placeholder-data';
 
 export const useBartersQuery = (queryOptions) => {
     const bartersQuery = useQuery('barters', () => doFetchBarters(langCode()), {
         refetchInterval: 600000,
-        placeholderData: placeHolderBarters,
+        placeholderData: placeholderBarters(langCode()),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         ...queryOptions,
@@ -20,7 +20,7 @@ export const useBartersQuery = (queryOptions) => {
 };
 
 const initialState = {
-    barters: placeHolderBarters,
+    barters: placeholderBarters(langCode()),
     status: 'idle',
     error: null,
 };

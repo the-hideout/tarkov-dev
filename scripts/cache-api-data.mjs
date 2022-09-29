@@ -6,9 +6,15 @@ import doFetchCrafts from '../src/features/crafts/do-fetch-crafts.js';
 import doFetchTraders from '../src/features/traders/do-fetch-traders.js';
 import doFetchMaps from '../src/features/maps/do-fetch-maps.js';
 
+const langs = [
+    'fr',
+    'ru',
+];
+
 console.time('Caching API data');
 try {
-    const itemsPromise = doFetchItems('en', true).then(items => {
+    const apiPromises = [];
+    apiPromises.push(doFetchItems('en', true).then(items => {
         for (const item of items) {
             item.lastLowPrice = 0;
             item.avg24hPrice = 0;
@@ -17,9 +23,21 @@ try {
             item.cached = true;
         }
         fs.writeFileSync('./src/data/items.json', JSON.stringify(items));
-    });
+    }));
+    for (const lang of langs) {
+        apiPromises.push(doFetchItems(lang, true).then(items => {
+            const localization = {};
+            items.forEach(item => {
+                localization[item.id] =  {
+                    name: item.name,
+                    shortName: item.shortName
+                };
+            })
+            fs.writeFileSync(`./src/data/items_${lang}.json`, JSON.stringify(localization));
+        }));
+    }
 
-    const bartersPromise = doFetchBarters('en').then(barters => {
+    apiPromises.push(doFetchBarters('en').then(barters => {
         for (const barter of barters) {
             barter.rewardItems.forEach(containedItem => {
                 const item = containedItem.item;
@@ -40,9 +58,9 @@ try {
             barter.cached = true;
         }
         fs.writeFileSync('./src/data/barters.json', JSON.stringify(barters));
-    });
+    }));
 
-    const craftsPromise = doFetchCrafts('en').then(crafts => {
+    apiPromises.push(doFetchCrafts('en').then(crafts => {
         for (const craft of crafts) {
             craft.rewardItems.forEach(containedItem => {
                 const item = containedItem.item;
@@ -63,17 +81,28 @@ try {
             craft.cached = true;
         }
         fs.writeFileSync('./src/data/crafts.json', JSON.stringify(crafts));
-    });
+    }));
 
-    const tradersPromise = doFetchTraders('en').then(traders => {
+    apiPromises.push(doFetchTraders('en').then(traders => {
         fs.writeFileSync('./src/data/traders.json', JSON.stringify(traders));
-    });
+    }));
+    for (const lang of langs) {
+        apiPromises.push(doFetchTraders(lang, true).then(traders => {
+            const localization = {};
+            traders.forEach(trader => {
+                localization[trader.id] =  {
+                    name: trader.name
+                };
+            })
+            fs.writeFileSync(`./src/data/traders_${lang}.json`, JSON.stringify(localization));
+        }));
+    }
 
-    const mapsPromise = doFetchMaps('en').then(maps => {
+    apiPromises.push(doFetchMaps('en').then(maps => {
         fs.writeFileSync('./src/data/maps_cached.json', JSON.stringify(maps));
-    });
+    }));
 
-    await Promise.all([itemsPromise, bartersPromise, craftsPromise, tradersPromise, mapsPromise]);
+    await Promise.all(apiPromises);
 } catch (error) {
     console.log(error);
 }

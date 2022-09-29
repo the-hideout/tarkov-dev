@@ -2,7 +2,7 @@
 import i18n from '../i18n';
 import languages from '../data/supported-languages.json';
 
-export async function langCode() {
+export function langCode() {
     // Convert to two digit language code
     const langFmt = i18n.language.replace(/-[a-zA-Z]{2}/, "");
 
