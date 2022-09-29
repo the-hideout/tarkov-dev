@@ -280,16 +280,18 @@ function CraftTable(props) {
                     if (fleaPriceToUse === 0) {
                         fleaPriceToUse = bestFleaPrice.bestPrice;
                     } 
-                    fleaFeeSingle = fleaMarketFee(
-                        craftRow.rewardItems[0].item.basePrice,
-                        fleaPriceToUse,
-                        1,
-                        meta?.flea?.sellOfferFeeRate,
-                        meta?.flea?.sellRequirementFeeRate,
-                    ) * feeReduction;
                     if (bestFleaPrice.bestPrice < fleaPriceToUse) {
                         fleaPriceToUse = bestFleaPrice.bestPrice;
                         fleaFeeSingle = bestFleaPrice.bestPriceFee;
+                    }
+                    else {
+                        fleaFeeSingle = fleaMarketFee(
+                            craftRow.rewardItems[0].item.basePrice,
+                            fleaPriceToUse,
+                            1,
+                            meta?.flea?.sellOfferFeeRate,
+                            meta?.flea?.sellRequirementFeeRate,
+                        ) * feeReduction;
                     }
                     fleaFeeTotal = fleaMarketFee(
                         craftRow.rewardItems[0].item.basePrice,
