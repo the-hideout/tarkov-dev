@@ -7,6 +7,9 @@ const fuelIds = [
 
 function getCheapestItemPrice(item, settings, allowAllSources) {
     let buySource = item.buyFor?.filter(buyFor => {
+        if (buyFor.priceRUB === 0) {
+            return false;
+        }
         if (buyFor.vendor.normalizedName === 'flea-market') {
             return (allowAllSources || settings.hasFlea);
         }
