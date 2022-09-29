@@ -207,6 +207,10 @@ function CraftTable(props) {
                     return false;
                 }
 
+                if (selectedStation === 'top' && stationNormalized === 'bitcoin-farm') {
+                    return false;
+                }
+
                 if (showAll) {
                     skippedByLevelRef.current = false;
                 }
