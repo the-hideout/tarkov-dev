@@ -436,11 +436,14 @@ function Item() {
                         {formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}
                     </div>
                 </div>
-                {t('This item was listed for')}{' '}
-                {formatPrice(currentItemData.lastLowPrice)}{' '}
-                {t('minimum last observed on the Flea Market.')}
-                {t(" However, due to how fees are calculated you're better off selling for")}{' '}
-                {formatPrice(currentItemData.bestPrice)}
+                {t(
+                    `The last observed low price for this item on the Flea Market was {{lastSeenPrice}}.
+                    However, due to how fees are calculated, you're better off selling for {{bestPrice}}.`, 
+                    {
+                        lastSeenPrice: formatPrice(currentItemData.lastLowPrice),
+                        bestPrice: formatPrice(currentItemData.bestPrice)
+                    }
+                )}
             </div>
         );
     } else if (!currentItemData.lastLowPrice) {
@@ -473,11 +476,14 @@ function Item() {
                         {formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}
                     </div>
                 </div>
-                {t('This item has not been observed on the Flea Market.')}
-                {t(" The maximum profitable price is")}{' '}
-                {formatPrice(currentItemData.bestPrice)}
-                {t(', but the item may not sell at that price.')}{' '}
-                {t('The max profitable price is impacted by the intel center and hideout management skill levels in your settings.')}
+                {t(
+                    `This item has not been observed on the Flea Market. 
+                    The maximum profitable price is {{bestPrice}}, but
+                    the item may not sell at that price. 
+                    The max profitable price is impacted by the intel center and hideout management skill levels in your settings.
+                    `,{
+                        bestPrice: formatPrice(currentItemData.bestPrice)
+                    })}
             </div>
         )
         if (currentItemData.cached) {
@@ -520,9 +526,6 @@ function Item() {
                             ? formatPrice(currentItemData.lastLowPrice - itemFleaFee)
                             : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}
                     </div>
-                </div>
-                <div className="tooltip-calculation">
-                    {t('Calculated over the average for the last 24 hours')}
                 </div>
             </div>
         );

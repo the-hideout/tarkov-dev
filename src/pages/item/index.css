@@ -84,6 +84,7 @@
 .tooltip-price-wrapper {
     flex-grow: 1;
     text-align: right;
+    padding-left: 5px;
 }
 
 .text-information-wrapper {
