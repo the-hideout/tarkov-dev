@@ -7,17 +7,17 @@ import RewardImage from '../reward-image';
 import formatPrice from '../../modules/format-price';
 import './index.css';
 
-function RewardCell(props) {
-    const {
-        count,
-        iconLink,
-        itemLink,
-        name,
-        source,
-        sellValue,
-        sellTo,
-        sellNote = false
-    } = props;
+function RewardCell({
+    count,
+    iconLink,
+    itemLink,
+    name,
+    source,
+    sellValue,
+    sellTo,
+    sellNote = false,
+    valueTooltip,
+}) {
     const { t } = useTranslation();
 
     let barterCraftOnly = '';
@@ -28,6 +28,10 @@ function RewardCell(props) {
     let displayValue = '';
     if (sellValue) {
         displayValue = `${formatPrice(sellValue)} @ ${sellTo}`;
+    }
+    
+    if(!valueTooltip) {
+        valueTooltip = t('Sell value');
     }
 
     return (
@@ -41,7 +45,7 @@ function RewardCell(props) {
                 </div>
                 <div className="source-wrapper">{source}</div>
                 <Tippy
-                    content={t('Sell value')}
+                    content={valueTooltip}
                     placement="bottom"
                 >
                     <div className="price-wrapper">

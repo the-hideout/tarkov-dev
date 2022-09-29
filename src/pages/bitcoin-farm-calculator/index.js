@@ -108,6 +108,7 @@ const BitcoinFarmCalculator = () => {
                         name={graphicCardItem.name}
                         sellValue={graphicsCardBuy.priceRUB}
                         sellTo={graphicsCardBuy.vendor.name}
+                        valueTooltip={t('Purchase cost')}
                         key="gpu-price-display"
                     />
                 )}
