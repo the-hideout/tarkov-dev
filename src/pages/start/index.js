@@ -25,6 +25,7 @@ import {
     mdiHome,
     mdiCalendarClock,
     mdiEmoticonDevil,
+    mdiBitcoin,
 } from '@mdi/js';
 
 import './index.css';
@@ -188,6 +189,16 @@ function Start() {
                                 className="icon-with-text"
                             />
                             {t('Wipe length')}
+                        </Link>
+                    </li>
+                    <li key="start-link-btc-farm-profit">
+                        <Link to="/bitcoin-farm-calculator">
+                            <Icon
+                                path={mdiBitcoin}
+                                size={1}
+                                className="icon-with-text"
+                            />
+                            {t('Bitcoin Farm Profit')}
                         </Link>
                     </li>
                 </ul>
