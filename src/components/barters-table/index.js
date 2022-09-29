@@ -390,6 +390,10 @@ function BartersTable(props) {
                     });
                 }
 
+                if (tradeData.reward.sellValue === 0) {
+                    tradeData.instaProfitDetails.splice(0, 1);
+                }
+
                 return tradeData;
             })
             .filter(Boolean)
