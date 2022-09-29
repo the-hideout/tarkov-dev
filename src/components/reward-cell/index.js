@@ -25,6 +25,11 @@ function RewardCell(props) {
         barterCraftOnly = (<span> ({sellNote})</span>);
     }
 
+    let displayValue = '';
+    if (sellValue) {
+        displayValue = `${formatPrice(sellValue)} @ ${sellTo}`;
+    }
+
     return (
         <div className="reward-wrapper">
             <RewardImage count={count} iconLink={iconLink} />
@@ -40,7 +45,7 @@ function RewardCell(props) {
                     placement="bottom"
                 >
                     <div className="price-wrapper">
-                        {formatPrice(sellValue)} <span>@</span> {sellTo}
+                        {displayValue}
                         {barterCraftOnly}
                     </div>
                 </Tippy>

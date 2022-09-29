@@ -343,10 +343,10 @@ function BartersTable(props) {
                     instaProfit: bestSellTo.priceRUB - cost,
                     instaProfitSource: bestSellTo,
                     reward: {
-                        sellTo: t('Flea Market'),
-                        sellToNormalized: 'flea-market',
+                        sellTo: t('N/A'),
+                        sellToNormalized: 'none',
                         name: barterRow.rewardItems[0].item.name,
-                        sellValue: barterRow.rewardItems[0].item[priceToUse],
+                        sellValue: 0,
                         source: barterRow.trader.name + ' LL' + level,
                         iconLink:
                             barterRow.rewardItems[0].item.iconLink ||
@@ -384,10 +384,10 @@ function BartersTable(props) {
                 const cheapestBarter = getCheapestItemPriceWithBarters(barterRow.rewardItems[0].item, barters, settings, showAll);
                 if (cheapestPrice.type === 'cash-sell' && cheapestBarter.priceRUB === cost) {
                     tradeData.savings = 0;
-                    tradeData.reward.sellNote = t('Barter only');
+                    //tradeData.reward.sellNote = t('Barter only');
                 } else if (cheapestPrice.type === 'cash-sell' && cheapestBarter.priceRUB < cost) {
                     tradeData.savings = cheapestBarter.priceRUB - cost;
-                    tradeData.reward.sellNote = t('Barter only');
+                    //tradeData.reward.sellNote = t('Barter only');
                 } else if (cheapestPrice.type === 'cash-sell') {
                     tradeData.savings = 0;
                 } else {
