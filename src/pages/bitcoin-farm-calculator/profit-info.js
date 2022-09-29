@@ -19,8 +19,18 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay }) => {
         if (!bitcoinItem || !graphicCardItem) {
             return [];
         }
-        const btcSellPrice = bitcoinItem.sellFor?.[0].priceRUB ?? 0;
-        const graphicsCardBuyPrice = graphicCardItem.buyFor?.[0].priceRUB ?? 0;
+        const btcSellPrice = bitcoinItem.sellFor?.reduce((bestPrice, currentPrice) => {
+            if (bestPrice < currentPrice.priceRUB) {
+                return currentPrice.priceRUB;
+            }
+            return bestPrice;
+        }, 0);
+        const graphicsCardBuyPrice = graphicCardItem.buyFor?.reduce((bestPrice, currentPrice) => {
+            if (bestPrice === 0 || bestPrice > currentPrice.priceRUB) {
+                return currentPrice.priceRUB;
+            }
+            return bestPrice;
+        }, 0);
 
         return profitForNumCards.map((graphicCardsCount) => {
             const data = ProduceBitcoinData[graphicCardsCount];
