@@ -279,7 +279,6 @@ function CraftTable(props) {
                     fleaPriceToUse = craftRow.rewardItems[0].item.lastLowPrice;
                 }
 
-                console.log(craftRow.rewardItems[0].item.name, bestTrade);
                 if (!craftRow.rewardItems[0].item.types.includes('noFlea') && (showAll || includeFlea)) {
                     const bestFleaPrice = bestPrice(craftRow.rewardItems[0].item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
                     if (fleaPriceToUse === 0 || bestFleaPrice.bestPrice < fleaPriceToUse) {
@@ -312,7 +311,6 @@ function CraftTable(props) {
                 } else if (craftRow.rewardItems[0].item.types.includes('noFlea')) {
                     tradeData.reward.sellNote = t('Flea banned');
                 }
-                console.log(tradeData.reward)
 
                 tradeData.profitParts = [
                     {
