@@ -1,12 +1,6 @@
 import fetch  from 'cross-fetch';
 
 export default async function doFetchTraders(language) {
-    language = await new Promise(resolve => {
-        if (!language) {
-            return resolve('en');
-        }
-        return resolve(language);
-    });
     const bodyQuery = JSON.stringify({
         query: `{
             traders(lang: ${language}) {

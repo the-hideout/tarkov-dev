@@ -1,12 +1,6 @@
 import fetch  from 'cross-fetch';
 
 const doFetchMaps = async (language) => {
-    language = await new Promise(resolve => {
-        if (!language) {
-            return resolve('en');
-        }
-        return resolve(language);
-    });
     const bodyQuery = JSON.stringify({
         query: `{
             maps(lang: ${language}) {

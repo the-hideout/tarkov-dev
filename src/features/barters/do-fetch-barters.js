@@ -1,13 +1,6 @@
 import fetch  from 'cross-fetch';
 
 const doFetchBarters = async (language) => {
-    language = await new Promise(resolve => {
-        if (!language) {
-            return resolve('en');
-        }
-        return resolve(language);
-    });
-
     const bodyQuery = JSON.stringify({
         query: `{
             barters(lang: ${language}) {
