@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Tippy from '@tippyjs/react';
 
 import RewardImage from '../reward-image';
 
@@ -15,9 +16,14 @@ function RewardCell(props) {
         source,
         sellValue,
         sellTo,
-        barterOnly = false,
+        sellNote = false
     } = props;
     const { t } = useTranslation();
+
+    let barterCraftOnly = '';
+    if (sellNote) {
+        barterCraftOnly = (<span> ({sellNote})</span>);
+    }
 
     return (
         <div className="reward-wrapper">
@@ -29,10 +35,15 @@ function RewardCell(props) {
                     </Link>
                 </div>
                 <div className="source-wrapper">{source}</div>
-                <div className="price-wrapper">
-                    {formatPrice(sellValue)} <span>@</span> {sellTo}
-                    {barterOnly && <span> ({t('Barter only')})</span>}
-                </div>
+                <Tippy
+                    content={t('Sell value')}
+                    placement="bottom"
+                >
+                    <div className="price-wrapper">
+                        {formatPrice(sellValue)} <span>@</span> {sellTo}
+                        {barterCraftOnly}
+                    </div>
+                </Tippy>
             </div>
         </div>
     );

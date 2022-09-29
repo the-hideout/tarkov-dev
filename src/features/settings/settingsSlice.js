@@ -10,6 +10,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
         const returnData = {
             flea: false,
             hideout: {
+                'bitcoin-farm': 0,
                 'booze-generator': 0,
                 'christmas-tree': 0,
                 'intelligence-center': 0,
@@ -132,6 +133,7 @@ const settingsSlice = createSlice({
         mechanic: localStorageReadJson('mechanic', 4),
         ragman: localStorageReadJson('ragman', 4),
         jaeger: localStorageReadJson('jaeger', 4),
+        'bitcoin-farm': localStorageReadJson('bitcoin-farm', 3),
         'booze-generator': localStorageReadJson('booze-generator', 1),
         'christmas-tree': localStorageReadJson('christmas-tree', 1),
         'intelligence-center': localStorageReadJson('intelligence-center', 3),
@@ -232,6 +234,7 @@ export const selectAllTraders = (state) => {
 
 export const selectAllStations = (state) => {
     return {
+        'bitcoin-farm': state.settings['bitcoin-farm'],
         'booze-generator': state.settings['booze-generator'],
         // 'christmas-tree': state.settings['christmas-tree'],
         'intelligence-center': state.settings['intelligence-center'],

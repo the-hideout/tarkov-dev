@@ -209,7 +209,7 @@ const formatCostItems = (
             name: itemName,
             price: calculationPrice,
             priceRUB: calculationPrice,
-            priceType: bestPrice.type,
+            priceType: requiredItem.item.cached ? 'cached' : bestPrice.type,
             vendor: bestPrice.vendor,
             priceDetails: bestPrice.barter,
             iconLink:
@@ -218,6 +218,7 @@ const formatCostItems = (
             wikiLink: requiredItem.item.wikiLink,
             itemLink: `/item/${requiredItem.item.normalizedName}`,
             isTool: isTool,
+            cached: requiredItem.item.cached,
         };
 
         return returnData;

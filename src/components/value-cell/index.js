@@ -1,10 +1,22 @@
 import Tippy from '@tippyjs/react';
+import { useTranslation } from 'react-i18next';
 
 import formatPrice from '../../modules/format-price';
 
 import './index.css';
 
-function ValueCell({ value, highlightProfit, children, noValue = '-', count = 1, slots, showSlotValue }) {
+function ValueCell({ 
+    value, 
+    highlightProfit, 
+    children, 
+    noValue = '-', 
+    count = 1, 
+    slots, 
+    showSlotValue,
+    valueCount = 1
+}) {
+    const { t } = useTranslation();
+
     let className = 'center-content';
 
     if (highlightProfit && value !== 0) {
@@ -17,6 +29,18 @@ function ValueCell({ value, highlightProfit, children, noValue = '-', count = 1,
             <div>
                 {formatPrice(value)} x {count}
             </div>
+        );
+    }
+    if (valueCount > 1) {
+        countTag = (
+            <Tippy
+                content={t('Cost per unit')}
+                placement="bottom"
+            >
+                <div class="trader-unlock-wrapper">
+                    {formatPrice(Math.round(value / valueCount))}
+                </div>
+            </Tippy>
         );
     }
     let slotValue = '';

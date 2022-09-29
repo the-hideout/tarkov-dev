@@ -2,6 +2,10 @@ import { useMemo, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import Icon from '@mdi/react';
+import { mdiTimerSand } from '@mdi/js';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../data-table';
 import fleaMarketFee from '../../modules/flea-market-fee';
@@ -29,6 +33,7 @@ import {
     getDurationDisplay,
     getFinishDisplay,
 } from '../../modules/format-duration';
+import bestPrice from '../../modules/best-price';
 import { useMetaQuery } from '../../features/meta/queries';
 
 function CraftTable(props) {
@@ -243,6 +248,7 @@ function CraftTable(props) {
                         count: craftRow.rewardItems[0].count,
                         sellValue: 0, 
                     },
+                    cached: craftRow.cached,
                 };
 
                 const bestTrade = craftRow.rewardItems[0].item.sellFor.reduce((prev, current) => {
@@ -257,36 +263,55 @@ function CraftTable(props) {
                     return prev;
                 }, false);
 
-                if ((bestTrade && bestTrade.priceRUB > tradeData.reward.value) || (bestTrade && !includeFlea)) {
+                if ((bestTrade && bestTrade.priceRUB > tradeData.reward.sellValue) || (bestTrade && !includeFlea)) {
                     tradeData.reward.sellValue = bestTrade.priceRUB;
                     tradeData.reward.sellTo = bestTrade.vendor.name;
                 }
 
-                const priceToUse = averagePrices === true ? 'avg24hPrice' : 'lastLowPrice';
+                let fleaFeeSingle = 0;
+                let fleaFeeTotal = 0;
+                let fleaPriceToUse = craftRow.rewardItems[0].item[averagePrices === true ? 'avg24hPrice' : 'lastLowPrice'];
+                if (fleaPriceToUse === 0) {
+                    fleaPriceToUse = craftRow.rewardItems[0].item.lastLowPrice;
+                }
 
                 if (!craftRow.rewardItems[0].item.types.includes('noFlea') && (showAll || includeFlea)) {
-                    tradeData.reward.sellValue = craftRow.rewardItems[0].item[priceToUse];
+                    const bestFleaPrice = bestPrice(craftRow.rewardItems[0].item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
+                    if (fleaPriceToUse === 0) {
+                        fleaPriceToUse = bestFleaPrice.bestPrice;
+                    } 
+                    fleaFeeSingle = fleaMarketFee(
+                        craftRow.rewardItems[0].item.basePrice,
+                        fleaPriceToUse,
+                        1,
+                        meta?.flea?.sellOfferFeeRate,
+                        meta?.flea?.sellRequirementFeeRate,
+                    ) * feeReduction;
+                    if (bestFleaPrice.bestPrice < fleaPriceToUse) {
+                        fleaPriceToUse = bestFleaPrice.bestPrice;
+                        fleaFeeSingle = bestFleaPrice.bestPriceFee;
+                    }
+                    fleaFeeTotal = fleaMarketFee(
+                        craftRow.rewardItems[0].item.basePrice,
+                        fleaPriceToUse,
+                        craftRow.rewardItems[0].count,
+                        meta?.flea?.sellOfferFeeRate,
+                        meta?.flea?.sellRequirementFeeRate,
+                    ) * feeReduction;
+                    if (fleaPriceToUse - fleaFeeSingle > tradeData.reward.sellValue) {
+                        tradeData.reward.sellValue = fleaPriceToUse;
                     
-                    tradeData.reward.sellTo = t('Flea Market');
-                    tradeData.fleaThroughput = Math.floor(
-                        (craftRow.rewardItems[0].item[priceToUse] * craftRow.rewardItems[0].count) / (craftDuration / 3600),
-                    );
+                        tradeData.reward.sellTo = t('Flea Market');
+                    }
+                } else if (craftRow.rewardItems[0].item.types.includes('noFlea')) {
+                    tradeData.reward.sellNote = t('Flea banned');
                 }
 
-                tradeData.profit = tradeData.reward.sellValue * craftRow.rewardItems[0].count - totalCost;
+                tradeData.fleaThroughput = Math.floor(
+                    (tradeData.reward.sellValue * craftRow.rewardItems[0].count) / (craftDuration / 3600),
+                );
 
-                if (tradeData.reward.sellTo === t('Flea Market')) {
-                    tradeData.profit =
-                        tradeData.profit -
-                        fleaMarketFee(
-                            craftRow.rewardItems[0].item.basePrice,
-                            craftRow.rewardItems[0].item[priceToUse],
-                            craftRow.rewardItems[0].count,
-                            meta?.flea?.sellOfferFeeRate,
-                            meta?.flea?.sellRequirementFeeRate,
-                        ) *
-                            feeReduction;
-                }
+                tradeData.profit = tradeData.reward.sellValue * craftRow.rewardItems[0].count - totalCost - fleaFeeTotal;
 
                 if (tradeData.profit === Infinity) {
                     tradeData.profit = 0;
@@ -295,13 +320,6 @@ function CraftTable(props) {
                 tradeData.profitPerHour = Math.floor(
                     tradeData.profit / (craftDuration / 3600),
                 );
-
-                // If the reward has no value, it's not available for purchase
-                if (tradeData.reward.sellValue === 0) {
-                    tradeData.reward.sellValue = tradeData.cost;
-                    tradeData.reward.barterOnly = true;
-                    tradeData.profit = 0;
-                }
 
                 return tradeData;
             })
@@ -387,7 +405,25 @@ function CraftTable(props) {
             {
                 Header: t('Cost ₽'),
                 accessor: (d) => Number(d.cost),
-                Cell: ValueCell,
+                Cell: (props) => {
+                    if (props.row.original.cached) {
+                        return (
+                            <div className="center-content">
+                                <Tippy
+                                    placement="bottom"
+                                    content={t('Flea market prices loading')}
+                                >
+                                    <Icon
+                                        path={mdiTimerSand}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                </Tippy>
+                            </div>
+                        );
+                    }
+                    return <ValueCell value={props.value} valueCount={props.row.original.reward.count}/>;
+                },
                 id: 'cost',
             },
             ...(includeFlea
@@ -395,7 +431,25 @@ function CraftTable(props) {
                       {
                           Header: t('Flea throughput/h'),
                           accessor: 'fleaThroughput',
-                          Cell: ValueCell,
+                          Cell: (props) => {
+                            if (props.row.original.cached) {
+                                return (
+                                    <div className="center-content">
+                                        <Tippy
+                                            placement="bottom"
+                                            content={t('Flea market prices loading')}
+                                        >
+                                            <Icon
+                                                path={mdiTimerSand}
+                                                size={1}
+                                                className="icon-with-text"
+                                            />
+                                        </Tippy>
+                                    </div>
+                                );
+                            }
+                            return <ValueCell value={props.value}/>;
+                        },
                           sortType: 'basic',
                       },
                   ]
@@ -404,6 +458,22 @@ function CraftTable(props) {
                 Header: t('Estimated profit'),
                 accessor: 'profit',
                 Cell: (props) => {
+                    if (props.row.original.cached) {
+                        return (
+                            <div className="center-content">
+                                <Tippy
+                                    placement="bottom"
+                                    content={t('Flea market prices loading')}
+                                >
+                                    <Icon
+                                        path={mdiTimerSand}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                </Tippy>
+                            </div>
+                        );
+                    }
                     return <ValueCell value={props.value} highlightProfit />;
                 },
                 sortType: 'basic',
@@ -411,8 +481,24 @@ function CraftTable(props) {
             {
                 Header: t('Estimated profit/h'),
                 accessor: 'profitPerHour',
-                Cell: ({ value }) => {
-                    return <ValueCell value={value} highlightProfit />;
+                Cell: (props) => {
+                    if (props.row.original.cached) {
+                        return (
+                            <div className="center-content">
+                                <Tippy
+                                    placement="bottom"
+                                    content={t('Flea market prices loading')}
+                                >
+                                    <Icon
+                                        path={mdiTimerSand}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                </Tippy>
+                            </div>
+                        );
+                    }
+                    return <ValueCell value={props.value} highlightProfit />;
                 },
                 sortType: 'basic',
             },

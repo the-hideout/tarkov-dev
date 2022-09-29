@@ -1,6 +1,6 @@
 import fetch  from 'cross-fetch';
 
-const doFetchBarters = async (language) => {
+export default async function doFetchCrafts(language) {
     language = await new Promise(resolve => {
         if (!language) {
             return resolve('en');
@@ -10,10 +10,18 @@ const doFetchBarters = async (language) => {
 
     const bodyQuery = JSON.stringify({
         query: `{
-            barters(lang: ${language}) {
+            crafts(lang: ${language}) {
+                station {
+                    id
+                    name
+                    normalizedName
+                }
+                level
+                duration
                 rewardItems {
                     item {
                         id
+                        basePrice
                         name
                         normalizedName
                         iconLink
@@ -28,11 +36,12 @@ const doFetchBarters = async (language) => {
                         avg24hPrice
                         lastLowPrice
                         traderPrices {
-                            priceRUB
                             price
                             currency
+                            priceRUB
                             trader {
                                 name
+                                normalizedName
                             }
                         }
                         buyFor {
@@ -55,8 +64,8 @@ const doFetchBarters = async (language) => {
                                     }
                                 }
                             }
-                            priceRUB
                             price
+                            priceRUB
                             currency
                         }
                         sellFor {
@@ -79,21 +88,18 @@ const doFetchBarters = async (language) => {
                                     }
                                 }
                             }
-                            priceRUB
                             price
+                            priceRUB
                             currency
                         }
-                        containsItems {
-                            item {
-                                id
-                            }
-                        }
+                        types
                     }
                     count
                 }
                 requiredItems {
                     item {
                         id
+                        basePrice
                         name
                         normalizedName
                         iconLink
@@ -108,11 +114,12 @@ const doFetchBarters = async (language) => {
                         avg24hPrice
                         lastLowPrice
                         traderPrices {
-                            priceRUB
                             price
                             currency
+                            priceRUB
                             trader {
                                 name
+                                normalizedName
                             }
                         }
                         buyFor {
@@ -135,8 +142,8 @@ const doFetchBarters = async (language) => {
                                     }
                                 }
                             }
-                            priceRUB
                             price
+                            priceRUB
                             currency
                         }
                         sellFor {
@@ -159,29 +166,19 @@ const doFetchBarters = async (language) => {
                                     }
                                 }
                             }
-                            priceRUB
                             price
+                            priceRUB
                             currency
                         }
                     }
                     count
                     attributes {
+                        type
                         name
                         value
                     }
                 }
                 source
-                trader {
-                    id
-                    name
-                    normalizedName
-                }
-                level
-                taskUnlock {
-                    id
-                    tarkovDataId
-                    name
-                }
             }
         }`,
     });
@@ -195,17 +192,17 @@ const doFetchBarters = async (language) => {
         body: bodyQuery,
     });
 
-    const bartersData = await response.json();
+    const craftsData = await response.json();
 
-    return bartersData.data.barters.map(barter => {
-        barter.rewardItems.forEach(contained => {
+    return craftsData.data.crafts.filter(
+        (craft) => !craft.source.toLowerCase().includes('christmas'),
+    ).map(craft => {
+        craft.rewardItems.forEach(contained => {
             contained.item.iconLink = contained.item.defaultPreset?.iconLink || contained.item.iconLink;
         });
-        barter.requiredItems.forEach(contained => {
+        craft.requiredItems.forEach(contained => {
             contained.item.iconLink = contained.item.defaultPreset?.iconLink || contained.item.iconLink;
         });
-        return barter;
-    });
+        return craft;
+    });;
 };
-
-export default doFetchBarters;

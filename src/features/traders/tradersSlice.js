@@ -1,16 +1,19 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
+import { langCode } from '../../modules/lang-helpers';
 import doFetchTraders from './do-fetch-traders';
 
+import placeholderTraders from '../../data/traders.json'
+
 const initialState = {
-    traders: [],
+    traders: placeholderTraders,
     status: 'idle',
     error: null,
 };
 
 export const fetchTraders = createAsyncThunk('traders/fetchTraders', () =>
-    doFetchTraders(),
+    doFetchTraders(langCode()),
 );
 const tradersSlice = createSlice({
     name: 'traders',

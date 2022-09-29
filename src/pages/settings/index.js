@@ -69,6 +69,7 @@ function Settings() {
     );
 
     const refs = {
+        'bitcoin-farm': useRef(null),
         'booze-generator': useRef(null),
         // 'christmas-tree': useRef(null),
         'intelligence-center': useRef(null),

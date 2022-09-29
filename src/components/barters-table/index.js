@@ -2,6 +2,10 @@ import { useMemo, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import Icon from '@mdi/react';
+import { mdiTimerSand } from '@mdi/js';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../../components/data-table';
 // import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
@@ -75,12 +79,46 @@ function BartersTable(props) {
             {
                 Header: t('Cost ₽'),
                 accessor: 'cost',
-                Cell: ValueCell,
+                Cell: (props) => {
+                    if (props.row.original.cached) {
+                        return (
+                            <div className="center-content">
+                                <Tippy
+                                    placement="bottom"
+                                    content={t('Flea market prices loading')}
+                                >
+                                    <Icon
+                                        path={mdiTimerSand}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                </Tippy>
+                            </div>
+                        );
+                    }
+                    return <ValueCell value={props.value}/>;
+                },
             },
             {
                 Header: t('Estimated savings'),
                 accessor: (d) => Number(d.savings),
                 Cell: (props) => {
+                    if (props.row.original.cached) {
+                        return (
+                            <div className="center-content">
+                                <Tippy
+                                    placement="bottom"
+                                    content={t('Flea market prices loading')}
+                                >
+                                    <Icon
+                                        path={mdiTimerSand}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                </Tippy>
+                            </div>
+                        );
+                    }
                     return <ValueCell value={props.value} highlightProfit />;
                 },
                 sortType: (a, b) => {
@@ -99,6 +137,22 @@ function BartersTable(props) {
                 Header: t('InstaProfit'),
                 accessor: 'instaProfit',
                 Cell: (props) => {
+                    if (props.row.original.cached) {
+                        return (
+                            <div className="center-content">
+                                <Tippy
+                                    placement="bottom"
+                                    content={t('Flea market prices loading')}
+                                >
+                                    <Icon
+                                        path={mdiTimerSand}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                </Tippy>
+                            </div>
+                        );
+                    }
                     return (
                         <ValueCell value={props.value} highlightProfit>
                             <div className="duration-wrapper">
@@ -299,6 +353,7 @@ function BartersTable(props) {
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
                         itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,
                     },
+                    cached: barterRow.cached,
                 };
 
                 const bestTrade = barterRow.rewardItems[0].item.sellFor.reduce((prev, current) => {
@@ -329,10 +384,10 @@ function BartersTable(props) {
                 const cheapestBarter = getCheapestItemPriceWithBarters(barterRow.rewardItems[0].item, barters, settings, showAll);
                 if (cheapestPrice.type === 'cash-sell' && cheapestBarter.priceRUB === cost) {
                     tradeData.savings = 0;
-                    tradeData.reward.barterOnly = true;
+                    tradeData.reward.sellNote = t('Barter only');
                 } else if (cheapestPrice.type === 'cash-sell' && cheapestBarter.priceRUB < cost) {
                     tradeData.savings = cheapestBarter.priceRUB - cost;
-                    tradeData.reward.barterOnly = true;
+                    tradeData.reward.sellNote = t('Barter only');
                 } else if (cheapestPrice.type === 'cash-sell') {
                     tradeData.savings = 0;
                 } else {
