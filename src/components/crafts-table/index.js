@@ -277,14 +277,10 @@ function CraftTable(props) {
 
                 if (!craftRow.rewardItems[0].item.types.includes('noFlea') && (showAll || includeFlea)) {
                     const bestFleaPrice = bestPrice(craftRow.rewardItems[0].item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
-                    if (fleaPriceToUse === 0) {
-                        fleaPriceToUse = bestFleaPrice.bestPrice;
-                    } 
-                    if (bestFleaPrice.bestPrice < fleaPriceToUse) {
+                    if (fleaPriceToUse === 0 || bestFleaPrice.bestPrice < fleaPriceToUse) {
                         fleaPriceToUse = bestFleaPrice.bestPrice;
                         fleaFeeSingle = bestFleaPrice.bestPriceFee;
-                    }
-                    else {
+                    } else {
                         fleaFeeSingle = fleaMarketFee(
                             craftRow.rewardItems[0].item.basePrice,
                             fleaPriceToUse,
