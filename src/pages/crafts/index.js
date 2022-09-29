@@ -65,6 +65,9 @@ function Crafts() {
     const stations = useMemo(() => {
         const stn = [];
         for (const craft of crafts) {
+            if (craft.station.normalizedName === 'bitcoin-farm') {
+                continue;
+            }
             if (!stn.some(station => station.id === craft.station.id)) {
                 stn.push(craft.station);
             }
