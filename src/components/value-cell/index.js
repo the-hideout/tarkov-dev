@@ -62,8 +62,8 @@ function ValueCell({
             {value ? formatPrice(value*count) : noValue}
         </div>
     );
-    console.log(valueDetails)
-    if (valueDetails) {
+
+    if (valueDetails && Array.isArray(valueDetails) & valueDetails.length > 0) {
         displayValue = (
             <Tippy
                 content={valueDetails.map(detail => {
