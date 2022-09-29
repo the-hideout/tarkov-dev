@@ -110,11 +110,12 @@ function getCheapestItemPriceWithBarters(item, barters, settings, allowAllSource
     for (const barter of itemBarters) {
         const thisBarterCost = barter.requiredItems.reduce(
             (accumulatedPrice, requiredItem) => {
-                return (
-                    accumulatedPrice +
-                    getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB *
-                        requiredItem.count
-                );
+                let price = getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB;
+                if (isAnyDogtag(requiredItem.item.id)) {
+                    const dogtagCost = getDogTagCost(requiredItem, settings);
+                    price = dogtagCost.price;
+                }
+                return accumulatedPrice + (price * requiredItem.count);
             },
             0,
         );
@@ -132,11 +133,9 @@ function getCheapestItemPriceWithBarters(item, barters, settings, allowAllSource
         bestPrice.vendor = {
             name: bestBarter.trader.name,
             normalizedName: bestBarter.trader.normalizedName,
-            vendor: {
-                trader: bestBarter.trader,
-                minTraderLevel: bestBarter.level,
-                taskUnlock: bestBarter.taskUnlock
-            }
+            trader: bestBarter.trader,
+            minTraderLevel: bestBarter.level,
+            taskUnlock: bestBarter.taskUnlock
         }
     }
 

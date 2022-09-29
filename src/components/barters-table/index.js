@@ -117,7 +117,7 @@ function BartersTable(props) {
                             </div>
                         );
                     }
-                    return <ValueCell value={props.value} highlightProfit />;
+                    return <ValueCell value={props.value} highlightProfit valueDetails={props.row.original.savingsParts} />;
                 },
                 sortType: (a, b) => {
                     if (a.sellValue > b.sellValue) {
@@ -152,7 +152,7 @@ function BartersTable(props) {
                         );
                     }
                     return (
-                        <ValueCell value={props.value} highlightProfit>
+                        <ValueCell value={props.value} highlightProfit valueDetails={props.row.original.instaProfitDetails}>
                             <div className="duration-wrapper">
                                 {props.row.original.instaProfitSource.vendor.name}
                             </div>
@@ -340,6 +340,16 @@ function BartersTable(props) {
                     cost: cost,
                     instaProfit: bestSellTo.priceRUB - cost,
                     instaProfitSource: bestSellTo,
+                    instaProfitDetails: [
+                        {
+                            name: bestSellTo.vendor.name,
+                            value: bestSellTo.priceRUB,
+                        },
+                        {
+                            name: t('Barter cost'),
+                            value: cost * -1,
+                        }
+                    ],
                     reward: {
                         sellTo: t('N/A'),
                         sellToNormalized: 'none',
@@ -378,18 +388,35 @@ function BartersTable(props) {
                 
                 //tradeData.reward.sellTo = t(tradeData.reward.sellTo)
 
+                tradeData.savingsParts = [];
                 const cheapestPrice = getCheapestItemPrice(barterRow.rewardItems[0].item, settings, showAll);
                 const cheapestBarter = getCheapestItemPriceWithBarters(barterRow.rewardItems[0].item, barters, settings, showAll);
-                if (cheapestPrice.type === 'cash-sell' && cheapestBarter.priceRUB === cost) {
-                    tradeData.savings = 0;
-                    //tradeData.reward.sellNote = t('Barter only');
-                } else if (cheapestPrice.type === 'cash-sell' && cheapestBarter.priceRUB < cost) {
+                if (cheapestPrice.type === 'cash-sell'){
+                    //this item cannot be purchased for cash
+                    if (cheapestBarter.priceRUB !== cost) {
+                        tradeData.savingsParts.push({
+                            name: `${cheapestBarter.vendor.name} LL${cheapestBarter.vendor.minTraderLevel} ${t('Barter')}`,
+                            value: cheapestBarter.priceRUB
+                        });
+                    }
                     tradeData.savings = cheapestBarter.priceRUB - cost;
-                    //tradeData.reward.sellNote = t('Barter only');
-                } else if (cheapestPrice.type === 'cash-sell') {
-                    tradeData.savings = 0;
                 } else {
+                    // savings based on cheapest cash price
+                    let sellerName = cheapestPrice.vendor.name;
+                    if (cheapestPrice.vendor.minTraderLevel) {
+                        sellerName += ` LL${cheapestPrice.vendor.minTraderLevel}`;
+                    }
+                    tradeData.savingsParts.push({
+                        name: sellerName,
+                        value: cheapestPrice.priceRUB
+                    });
                     tradeData.savings = cheapestPrice.priceRUB - cost;
+                }
+                if (tradeData.savingsParts.length > 0) {
+                    tradeData.savingsParts.push({
+                        name: t('Barter cost'),
+                        value: cost * -1
+                    });
                 }
 
                 return tradeData;
