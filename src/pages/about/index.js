@@ -21,7 +21,7 @@ function About() {
                 content="Learn more about the-hideout and tarkov.dev. A free, community made, open source Escape from Tarkov ecosystem! Use our tools to help you play the game, or build your own projects with our free API."
             />
         </Helmet>,
-        <div className={'page-wrapper'}>
+        <div className={'page-wrapper'} key="about-page-content">
             <h1>{t('About')}</h1>
             <h2>{t('Open source')}</h2>
             <p>
