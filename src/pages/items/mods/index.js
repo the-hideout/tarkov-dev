@@ -82,14 +82,14 @@ function Mods() {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {t("In Escape from Tarkov, the performance and functioning of a weapon are controlled by elaborate mechanisms organized into five categories:")}
+                    {"In Escape from Tarkov, the performance and functioning of a weapon are controlled by elaborate mechanisms organized into five categories:"}
                 </p>
                 <ul>
-                    <li>{t("Functional Mods")}</li>
-                    <li>{t("Muzzle devices (Functional Mods)")}</li>
-                    <li>{t("Sights (Functional Mods)")}</li>
-                    <li>{t("Gear Mods")}</li>
-                    <li>{t("Vital parts")}</li>
+                    <li>{"Functional Mods"}</li>
+                    <li>{"Muzzle devices (Functional Mods)"}</li>
+                    <li>{"Sights (Functional Mods)"}</li>
+                    <li>{"Gear Mods"}</li>
+                    <li>{"Vital parts"}</li>
                 </ul>
             </div>
         </div>,

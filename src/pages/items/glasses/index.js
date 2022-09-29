@@ -55,7 +55,7 @@ function Glasses() {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {t("Eyewear in Escape from Tarkov can be used to decrease the number and quantity of raindrops on the players' screens as well as the length of flashbang effects.")}
+                    {"Eyewear in Escape from Tarkov can be used to decrease the number and quantity of raindrops on the players' screens as well as the length of flashbang effects."}
                 </p>
             </div>
         </div>,

@@ -84,7 +84,7 @@ function Suppressors() {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {t("In Escape from Tarkov, a suppressor is a muzzle device (a functional mod) and can be installed on a weapon to muffle gunshot sound.")}
+                    {"In Escape from Tarkov, a suppressor is a muzzle device (a functional mod) and can be installed on a weapon to muffle gunshot sound."}
                 </p>
             </div>
         </div>,

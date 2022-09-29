@@ -136,11 +136,11 @@ function Barters() {
 
             <div className="page-wrapper barters-page-wrapper">
                 <p>
-                    {t("Except for Fence, every trader in Escape from Tarkov offers goods by barter rather than for purchase outright.")}<br/>
+                    {"Except for Fence, every trader in Escape from Tarkov offers goods by barter rather than for purchase outright."}<br/>
                     <br/>
-                    {t("In exchange for a variety of inexpensive things, the player can frequently trade them for more valuable objects that can be utilized or sold for a profit or higher level gear at lower loyalty levels.")}<br/>
+                    {"In exchange for a variety of inexpensive things, the player can frequently trade them for more valuable objects that can be utilized or sold for a profit or higher level gear at lower loyalty levels."}<br/>
                     <br/>
-                    {t("Be sure to check back after reset for your favorite transactions because the majority of these valued trades have strict limits per trader reset and frequently sell out.")}
+                    {"Be sure to check back after reset for your favorite transactions because the majority of these valued trades have strict limits per trader reset and frequently sell out."}
                 </p>
             </div>
         </div>,

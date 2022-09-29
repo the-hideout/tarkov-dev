@@ -179,11 +179,11 @@ function Crafts() {
 
             <div className="page-wrapper crafts-page-wrapper">
                 <p>
-                    {t('In Escape from Tarkov, crafts allow you create a variety of things. It is accomplished using a variety of hideout modules, including the water collector, workbench, medstation, lavatory, and nutrition unit.')}<br/>
+                    {"In Escape from Tarkov, crafts allow you create a variety of things. It is accomplished using a variety of hideout modules, including the water collector, workbench, medstation, lavatory, and nutrition unit."}<br/>
                     <br/>
-                    {t('The "found in raid" status will be applied to each item created in the hideout. The entire list of these crafts is shown above. The Crafting skill has an impact on item creation time.')}<br/>
+                    {"The \"found in raid\" status will be applied to each item created in the hideout. The entire list of these crafts is shown above. The Crafting skill has an impact on item creation time."}<br/>
                     <br/>
-                    {t("When an item's icon has a blue border, it will be utilized as an auxiliary tool and, once manufacturing is finished, it will be returned to your stash.")}
+                    {"When an item's icon has a blue border, it will be utilized as an auxiliary tool and, once manufacturing is finished, it will be returned to your stash."}
                 </p>
             </div>
         </div>

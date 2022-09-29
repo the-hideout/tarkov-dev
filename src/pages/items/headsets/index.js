@@ -81,7 +81,7 @@ function Headsets() {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {t("In Escape from Tarkov, headsets magnify low-frequency noises like footsteps while muzzling impulsive stimuli like gunshots. Different audio profiles are offered by the various models.")}
+                    {"In Escape from Tarkov, headsets magnify low-frequency noises like footsteps while muzzling impulsive stimuli like gunshots. Different audio profiles are offered by the various models."}
                 </p>
             </div>
         </div>,

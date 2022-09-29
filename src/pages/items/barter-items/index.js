@@ -67,7 +67,7 @@ function BarterItems() {
             
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {t("This table of barter items from Escape from Tarkov will make it simple for you to determine how much each one is worth. It can be challenging to determine which products are valuable enough to take because there are over 150 barter items in the game, and flea market pricing can fluctuate suddenly. You may optimize your loot with the aid of this interactive table.")}
+                    {"This table of barter items from Escape from Tarkov will make it simple for you to determine how much each one is worth. It can be challenging to determine which products are valuable enough to take because there are over 150 barter items in the game, and flea market pricing can fluctuate suddenly. You may optimize your loot with the aid of this interactive table."}
                 </p>
             </div>
         </div>,

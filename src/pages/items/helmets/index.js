@@ -127,13 +127,13 @@ function Helmets() {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {t("In Escape from Tarkov, headgear serves a variety of functions.")}
+                    {"In Escape from Tarkov, headgear serves a variety of functions."}
                     <br/>
-                    {t("There are useful objects, vanity items, and safety headgear. Before entering combat, choosing a helmet that will protect different parts of the head becomes crucial.")}
+                    {"There are useful objects, vanity items, and safety headgear. Before entering combat, choosing a helmet that will protect different parts of the head becomes crucial."}
                     <br/>
-                    {t("The impact that different helmets will have on how much sound they suppress is another crucial factor to take into account. Escape from Tarkov's gameplay heavily relies on sound.")}
+                    {"The impact that different helmets will have on how much sound they suppress is another crucial factor to take into account. Escape from Tarkov's gameplay heavily relies on sound."}
                     <br/>
-                    {t("Modular helmets, which have an assortment of different components, are another aspect of Escape from Tarkov. These helmets may modify the number of segments they protect. Top, Nape, Ears, Eyes, and Jaws are the segments.")}
+                    {"Modular helmets, which have an assortment of different components, are another aspect of Escape from Tarkov. These helmets may modify the number of segments they protect. Top, Nape, Ears, Eyes, and Jaws are the segments."}
                 </p>
             </div>
         </div>,

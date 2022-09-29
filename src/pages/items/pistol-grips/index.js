@@ -87,7 +87,7 @@ function PistolGrips() {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {t("In Escape from Tarkov a pistol grip is a vital part of a weapon.")}
+                    {"In Escape from Tarkov a pistol grip is a vital part of a weapon."}
                 </p>
             </div>
         </div>,
