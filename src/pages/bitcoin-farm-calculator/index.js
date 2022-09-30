@@ -31,6 +31,9 @@ const BitcoinFarmCalculator = () => {
     );
     const [calculateWithFuelCost, setCalculateWithFuelCost] =
         useStateWithLocalStorage('btc-farm-calculate-with-fuel-cost', false);
+    
+    const [calculateWithBuildCost, setCalculateWithBuildCost] =
+        useStateWithLocalStorage('btc-farm-calculate-with-build-cost', false);
 
     const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
     const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
@@ -92,10 +95,18 @@ const BitcoinFarmCalculator = () => {
                             setCalculateWithFuelCost((prev) => !prev)
                         }
                     />
+                    <ToggleFilter
+                        label={t('Use station build costs')}
+                        checked={calculateWithBuildCost}
+                        onChange={() =>
+                            setCalculateWithBuildCost((prev) => !prev)
+                        }
+                    />
                 </Filter>
             </div>
             <ProfitInfo
                 fuelPricePerDay={calculateWithFuelCost ? fuelPricePerDay : 0}
+                useBuildCosts={calculateWithBuildCost}
                 profitForNumCards={graphicsCardsList}
                 key="btc-profit-table"
             />

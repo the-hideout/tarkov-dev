@@ -19,7 +19,7 @@ const cardSlots = {
     3: 50,
 };
 
-const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay }) => {
+const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBuildCosts }) => {
     const stations = useSelector(selectAllStations);
 
     const itemsResult = useItemsQuery();
@@ -88,7 +88,7 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay }) => {
             }
         }
         return farmCosts;
-    }, [hideout, items]);
+    }, [hideout, items, useBuildCosts]);
 
     const data = useMemo(() => {
         if (!bitcoinItem || !graphicCardItem) {
@@ -118,18 +118,20 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay }) => {
             const btcProfitPerDay = btcRevenuePerDay - fuelPricePerDay;
 
             let buildCosts = 0;
-            if (stations['solar-power'] === 1) {
-                buildCosts += solarCost;
-            }
-            let farmLevelNeeded = 3;
-            for (let i = Object.values(cardSlots).length; i > 0; i--) {
-                if (cardSlots[i] < graphicCardsCount) {
-                    break;
+            if (useBuildCosts) {
+                if (stations['solar-power'] === 1) {
+                    buildCosts += solarCost;
                 }
-                farmLevelNeeded = i;
-            }
-            for (let i = 1; i <= farmLevelNeeded; i++) {
-                buildCosts += farmCosts[i];
+                let farmLevelNeeded = 3;
+                for (let i = Object.values(cardSlots).length; i > 0; i--) {
+                    if (cardSlots[i] < graphicCardsCount) {
+                        break;
+                    }
+                    farmLevelNeeded = i;
+                }
+                for (let i = 1; i <= farmLevelNeeded; i++) {
+                    buildCosts += farmCosts[i];
+                }
             }
 
             const totalCosts = graphicCardsCost + buildCosts;
@@ -178,52 +180,62 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay }) => {
         return null;
     }
 
+    const columns = [
+        {
+            Header: t('Num graphic cards'),
+            accessor: 'graphicCardsCount',
+        },
+
+        {
+            Header: t('Time to produce 1 bitcoin'),
+            accessor: ({ msToProduceBTC }) =>
+                getDurationDisplay(msToProduceBTC),
+            Cell: CenterCell,
+        },
+        {
+            Header: t('BTC/day'),
+            accessor: ({ btcPerDay }) => btcPerDay.toFixed(4),
+            Cell: CenterCell,
+        },
+        {
+            Header: t('Estimated profit/day'),
+            accessor: ({ btcProfitPerDay }) =>
+                formatPrice(btcProfitPerDay),
+            Cell: CenterCell,
+        },
+        {
+            Header: t('Profitable after days'),
+            accessor: 'profitableDay',
+            Cell: CenterCell,
+        },
+        {
+            Header: t('Total cost of graphic cards'),
+            accessor: ({ graphicCardsCost }) =>
+                formatPrice(graphicCardsCost),
+            Cell: CenterCell,
+        },
+    ];
+    if (useBuildCosts) {
+        columns.push({
+            Header: t('Build costs'),
+            accessor: ({ buildCosts }) =>
+                formatPrice(buildCosts),
+            Cell: CenterCell,
+        });
+        columns.push({
+            Header: t('GPU + build costs'),
+            accessor: (data) =>
+                formatPrice(data.graphicCardsCost + data.buildCosts),
+            Cell: CenterCell,
+        });
+    }
+
     return (
         <>
             <DataTable
                 disableSortBy={true}
                 data={data}
-                columns={[
-                    {
-                        Header: t('Num graphic cards'),
-                        accessor: 'graphicCardsCount',
-                    },
-
-                    {
-                        Header: t('Time to produce 1 bitcoin'),
-                        accessor: ({ msToProduceBTC }) =>
-                            getDurationDisplay(msToProduceBTC),
-                        Cell: CenterCell,
-                    },
-                    {
-                        Header: t('BTC/day'),
-                        accessor: ({ btcPerDay }) => btcPerDay.toFixed(4),
-                        Cell: CenterCell,
-                    },
-                    {
-                        Header: t('Estimated profit/day'),
-                        accessor: ({ btcProfitPerDay }) =>
-                            formatPrice(btcProfitPerDay),
-                        Cell: CenterCell,
-                    },
-                    {
-                        Header: t('Profitable after days'),
-                        accessor: 'profitableDay',
-                        Cell: CenterCell,
-                    },
-                    {
-                        Header: t('Total cost of graphic cards'),
-                        accessor: ({ graphicCardsCost }) =>
-                            formatPrice(graphicCardsCost),
-                        Cell: CenterCell,
-                    },
-                    {
-                        Header: t('Build costs'),
-                        accessor: ({ buildCosts }) =>
-                            formatPrice(buildCosts),
-                        Cell: CenterCell,
-                    },
-                ]}
+                columns={columns}
             />
 
             {/* <ProfitableGraph data={data} /> */}
