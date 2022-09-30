@@ -130,11 +130,13 @@ src/data/quests.json
 src/data/traders.json
 src/data/traders_locale.json
 src/data/version.json
+src/data/hideout.json
 src/data/items.json
 src/data/items_locale.json
 src/data/barters.json
 src/data/crafts.json
 src/data/maps_cached.json
+src/data/meta.json
 public/sitemap.xml
 workers-site/index.js
 src/pages/guides/*

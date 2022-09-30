@@ -1,8 +1,12 @@
 import cachedBarters from '../data/barters.json';
 import cachedCrafts from '../data/crafts.json';
 
+import cachedHideout from '../data/hideout.json'
+
 import cachedItems from '../data/items.json';
 import cachedItemsLocale from '../data/items_locale.json';
+
+import cachedMeta from '../data/meta.json';
 
 import cachedMaps from '../data/maps_cached.json';
 
@@ -15,6 +19,10 @@ export function placeholderBarters(language = 'en') {
 
 export function placeholderCrafts(language = 'en') {
     return cachedCrafts;
+}
+
+export function placeholderHideout(language = 'en') {
+    return cachedHideout;
 }
 
 export function placeholderItems(language = 'en') {
@@ -31,6 +39,10 @@ export function placeholderItems(language = 'en') {
 
 export function placeholderMaps(language = 'en') {
     return cachedMaps;
+}
+
+export function placeholderMeta(language = 'en') {
+    return cachedMeta;
 }
 
 export function placeholderTraders(language = 'en') {

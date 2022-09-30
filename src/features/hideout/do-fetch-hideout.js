@@ -1,7 +1,6 @@
-import { langCode } from '../../modules/lang-helpers';
+import fetch  from 'cross-fetch';
 
-const doFetchHideout = async () => {
-    const language = langCode();
+const doFetchHideout = async (language) => {
     const bodyQuery = JSON.stringify({
         query: `{
             hideoutStations(lang: ${language}) {

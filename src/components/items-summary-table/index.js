@@ -13,6 +13,8 @@ import formatPrice from '../../modules/format-price';
 import { useItemsQuery } from '../../features/items/queries';
 import { useBartersQuery } from '../../features/barters/bartersSlice';
 
+import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
+
 // import './index.css';
 
 function ItemsSummaryTable(props) {
@@ -69,7 +71,7 @@ function ItemsSummaryTable(props) {
                 } else if (formattedItem.id === '5449016a4bdc2d6f028b456f') {
                     formattedItem.totalPrice = formattedItem.quantity;
                 } else {
-                    formattedItem.totalPrice = '-';
+                    formattedItem.totalPrice = 0;
                 }
 
                 return formattedItem;
@@ -105,7 +107,16 @@ function ItemsSummaryTable(props) {
             {
                 Header: t('Cost'),
                 accessor: 'totalPrice',
-                Cell: ValueCell,
+                Cell: (props) => {
+                    if (!props.value && props.row.original.cached) {
+                        return (
+                            <div className="center-content">
+                                <FleaMarketLoadingIcon/>
+                            </div>
+                        );
+                    }
+                    return <ValueCell value={props.value}/>;
+                },
                 id: 'totalPriceCell',
             },
         ];

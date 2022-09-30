@@ -2,11 +2,13 @@
 // and item categories from the API
 import { useQuery } from 'react-query';
 import doFetchMeta from './do-fetch-meta';
+import { langCode } from '../../modules/lang-helpers';
+import { placeholderMeta } from '../../modules/placeholder-data';
 
 export const useMetaQuery = (queryOptions) => {
-    const metaQuery = useQuery('meta', () => doFetchMeta(), {
+    const metaQuery = useQuery('meta', () => doFetchMeta(langCode()), {
         refetchInterval: 600000,
-        placeholderData: [],
+        placeholderData: placeholderMeta(langCode()),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         ...queryOptions,

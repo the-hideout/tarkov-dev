@@ -6,6 +6,8 @@ import doFetchBarters from '../src/features/barters/do-fetch-barters.js';
 import doFetchCrafts from '../src/features/crafts/do-fetch-crafts.js';
 import doFetchTraders from '../src/features/traders/do-fetch-traders.js';
 import doFetchMaps from '../src/features/maps/do-fetch-maps.js';
+import doFetchMeta from '../src/features/meta/do-fetch-meta.js';
+import doFetchHideout from '../src/features/hideout/do-fetch-hideout.js';
 
 const langs = [
     'es',
@@ -139,6 +141,10 @@ try {
         fs.writeFileSync('./src/data/crafts.json', JSON.stringify(crafts));
     }));
 
+    apiPromises.push(doFetchHideout('en').then(hideout => {
+        fs.writeFileSync('./src/data/hideout.json', JSON.stringify(hideout));
+    }));
+
     apiPromises.push(doFetchTraders('en').then(traders => {
         fs.writeFileSync('./src/data/traders.json', JSON.stringify(traders));
     }));
@@ -161,6 +167,10 @@ try {
 
     apiPromises.push(doFetchMaps('en').then(maps => {
         fs.writeFileSync('./src/data/maps_cached.json', JSON.stringify(maps));
+    }));
+
+    apiPromises.push(doFetchMeta('en').then(meta => {
+        fs.writeFileSync('./src/data/meta.json', JSON.stringify(meta));
     }));
 
     await Promise.all(apiPromises);

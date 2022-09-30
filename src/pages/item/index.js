@@ -730,7 +730,7 @@ function Item() {
                                                     )}
                                                     {buyPrice?.vendor?.taskUnlock && (
                                                         <Tippy
-                                                            content={t('Task: ')+buyPrice.vendor.taskUnlock.name}
+                                                            content={t('Task: {{taskName}}', {taskName: buyPrice.vendor.taskUnlock.name})}
                                                         >
                                                             <div className="quest-icon-wrapper">
                                                                 <Icon
@@ -790,16 +790,16 @@ function Item() {
                         <div className={`text-and-image-information-wrapper price-info-wrapper`}>
                             <div className="price-wrapper price-wrapper-bright">
                                 <div>
-                                    {t('Change vs yesterday')}: {currentItemData.changeLast48h} ₽ / {currentItemData.changeLast48hPercent} %
+                                    {t('Change vs yesterday: {{changeLast48h}}  ₽ / {{changeLast48Percent}} %', {changeLast48h: currentItemData.changeLast48h, changeLast48Percent: currentItemData.changeLast48hPercent})}
                                 </div>
                                 <div>
-                                    {t('Lowest scanned price last 24h')}: {formatPrice(currentItemData.low24hPrice)}
+                                    {t('Lowest scanned price last 24h: {{low24hPrice}}', {low24hPrice: formatPrice(currentItemData.low24hPrice)})}
                                 </div>
                                 <div>
-                                    {t('Highest scanned price last 24h')}: {formatPrice(currentItemData.high24hPrice)}
+                                    {t('Highest scanned price last 24h: {{high24hPrice}}', {high24hPrice: formatPrice(currentItemData.high24hPrice)})}
                                 </div>
                                 <div title={dayjs(currentItemData.updated,).format('YYYY-MM-DD HH:mm:ss')}>
-                                    {t('Updated')}: {dayjs(currentItemData.updated).fromNow()}
+                                    {t('Updated: {{updated}}', {updated: dayjs(currentItemData.updated).fromNow()})}
                                 </div>
                             </div>
                         </div>
@@ -818,7 +818,7 @@ function Item() {
                     <div>
                         <div className="item-contents-headline-wrapper">
                             <h2>
-                                {t('Items contained in')} {currentItemData.name}
+                                {t('Items contained in {{itemName}}', {itemName: currentItemData.name})}
                             </h2>
                             <ToggleFilter
                                 checked={showAllContainedItemSources}
@@ -849,7 +849,7 @@ function Item() {
                     <div>
                         <div className="item-barters-headline-wrapper">
                             <h2>
-                                {t('Barters with')} {currentItemData.name}
+                                {t('Barters with {{itemName}}', {itemName: currentItemData.name})}
                             </h2>
                             <ToggleFilter
                                 checked={showAllBarters}
@@ -874,7 +874,7 @@ function Item() {
                     <div>
                         <div className="item-crafts-headline-wrapper">
                             <h2>
-                                {t('Crafts with')} {currentItemData.name}
+                                {t('Crafts with {{itemName}}', {itemName: currentItemData.name})}
                             </h2>
                             <ToggleFilter
                                 checked={showAllCrafts}
@@ -899,7 +899,7 @@ function Item() {
                     <div>
                         <div className="item-crafts-headline-wrapper">
                             <h2>
-                                {t('Hideout modules needing')} {currentItemData.name}
+                                {t('Hideout modules needing {{itemName}}', {itemName: currentItemData.name})}
                             </h2>
                             <ToggleFilter
                                 checked={showAllHideoutStations}

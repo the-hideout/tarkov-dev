@@ -5,17 +5,18 @@ import formatPrice from '../../modules/format-price';
 
 import './index.css';
 
-function ValueCell({ 
-    value, 
-    highlightProfit, 
-    children, 
-    noValue = '-', 
-    count = 1, 
-    slots, 
-    showSlotValue,
-    valueCount = 1,
-    valueDetails,
-}) {
+function ValueCell(props) {
+    const { 
+        value, 
+        highlightProfit, 
+        children, 
+        noValue = '-', 
+        count = 1, 
+        slots, 
+        showSlotValue,
+        valueCount = 1,
+        valueDetails,
+    } = props;
     const { t } = useTranslation();
 
     let countTag = '';

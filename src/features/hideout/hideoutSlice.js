@@ -1,48 +1,20 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
+import doFetchHideout from './do-fetch-hideout';
+
+import { langCode } from '../../modules/lang-helpers';
+import { placeholderHideout } from '../../modules/placeholder-data';
+
 const initialState = {
-    hideout: [],
+    hideout: placeholderHideout(langCode()),
     status: 'idle',
     error: null,
 };
 
 export const fetchHideout = createAsyncThunk(
     'hideout/fetchHideout',
-    async () => {
-        const bodyQuery = JSON.stringify({
-            query: `{
-                hideoutStations {
-                    id
-                    name
-                    levels {
-                        level
-                            itemRequirements {
-                                quantity
-                                item {
-                                    name
-                                    id
-                                    iconLink
-                                }
-                            } 
-                        }
-                    }
-                }`,
-        });
-
-        const response = await fetch('https://api.tarkov.dev/graphql', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-            body: bodyQuery,
-        });
-
-        const hideoutData = await response.json();
-
-        return hideoutData.data.hideoutStations;
-    },
+    async () => doFetchHideout(langCode())
 );
 
 const hideoutSlice = createSlice({

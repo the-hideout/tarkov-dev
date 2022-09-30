@@ -16,7 +16,9 @@ export async function load(url, context, defaultLoad) {
         'camelcase-to-dashes.js',
         'do-fetch-barters.js',
         'do-fetch-crafts.js',
+        'do-fetch-hideout.js',
         'do-fetch-maps.js',
+        'do-fetch-meta.js',
         'do-fetch-traders.js',
     ];
 

@@ -15,7 +15,7 @@ function Glasses() {
     return [
         <Helmet key={'glasses-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Glasses chart')}</title>
+            <title>{t('Escape from Tarkov')} - {t('Glasses')}</title>
             <meta
                 name="description"
                 content="All glasses in Escape from Tarkov sortable by price, armor class etc"
@@ -26,7 +26,7 @@ function Glasses() {
                 <h1>
                     {t('Escape from Tarkov')} 
                     <Icon path={mdiSunglasses} size={1.5} className="icon-with-text" /> 
-                    {t('Glasses chart')}
+                    {t('Glasses')}
                 </h1>
                 <Filter center>
                     <ToggleFilter

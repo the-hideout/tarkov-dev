@@ -99,7 +99,7 @@ function Crafts() {
                         onChange={(e) => setShowAll(!showAll)}
                         tooltipContent={
                             <>
-                                {t('Shows all crafts regardless of what you have set in your settings')}
+                                {t('Shows all crafts regardless of your settings')}
                             </>
                         }
                     />
