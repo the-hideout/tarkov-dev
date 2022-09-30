@@ -88,7 +88,7 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
             }
         }
         return farmCosts;
-    }, [hideout, items, useBuildCosts]);
+    }, [hideout, items]);
 
     const data = useMemo(() => {
         if (!bitcoinItem || !graphicCardItem) {
@@ -174,6 +174,7 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
         solarCost,
         farmCosts,
         stations,
+        useBuildCosts
     ]);
 
     if (data.length <= 0) {
