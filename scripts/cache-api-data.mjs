@@ -1,4 +1,5 @@
 import fs from 'fs';
+import fetch  from 'cross-fetch';
 
 import doFetchItems from '../src/features/items/do-fetch-items.js';
 import doFetchBarters from '../src/features/barters/do-fetch-barters.js';
@@ -22,6 +23,45 @@ const langs = [
     'zh',
 ];
 
+const getItemNames = (language) => {
+    const QueryBody = JSON.stringify({
+        query: `{
+            items(lang: ${language}) {
+                id
+                name
+                shortName
+            }
+        }`,
+    });
+    return fetch('https://api.tarkov.dev/graphql', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: QueryBody,
+    }).then((response) => response.json()).then(response => response.data.items);
+};
+
+const getTraderNames = (language) => {
+    const QueryBody = JSON.stringify({
+        query: `{
+            traders(lang: ${language}) {
+                id
+                name
+            }
+        }`,
+    });
+    return fetch('https://api.tarkov.dev/graphql', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: QueryBody,
+    }).then((response) => response.json()).then(response => response.data.traders);
+};
+
 console.time('Caching API data');
 try {
     const apiPromises = [];
@@ -35,11 +75,10 @@ try {
         }
         fs.writeFileSync('./src/data/items.json', JSON.stringify(items));
     }));
-    apiPromises.push(new Promise(resolve => {
+    apiPromises.push(new Promise(async resolve => {
         const itemLangs = {};
-        const itemLangPromises = [];
         for (const lang of langs) {
-            itemLangPromises.push(doFetchItems(lang, true).then(items => {
+            await getItemNames(lang).then(items => {
                 const localization = {};
                 items.forEach(item => {
                     localization[item.id] =  {
@@ -48,12 +87,10 @@ try {
                     };
                 });
                 itemLangs[lang] = localization;
-            }));
+            });
         }
-        Promise.all(itemLangPromises).then(() => {
-            fs.writeFileSync(`./src/data/items_locale.json`, JSON.stringify(itemLangs));
-            resolve();
-        });
+        fs.writeFileSync(`./src/data/items_locale.json`, JSON.stringify(itemLangs));
+        resolve();
     }));
 
     apiPromises.push(doFetchBarters('en').then(barters => {
@@ -105,11 +142,10 @@ try {
     apiPromises.push(doFetchTraders('en').then(traders => {
         fs.writeFileSync('./src/data/traders.json', JSON.stringify(traders));
     }));
-    apiPromises.push(new Promise(resolve => {
+    apiPromises.push(new Promise(async resolve => {
         const traderLangs = {};
-        const traderLangPromises = [];
         for (const lang of langs) {
-            traderLangPromises.push(doFetchTraders(lang, true).then(traders => {
+            await getTraderNames(lang).then(traders => {
                 const localization = {};
                 traders.forEach(trader => {
                     localization[trader.id] =  {
@@ -117,12 +153,10 @@ try {
                     };
                 });
                 traderLangs[lang] = localization;
-            }));
+            });
         }
-        Promise.all(traderLangPromises).then(() => {
-            fs.writeFileSync(`./src/data/traders_locale.json`, JSON.stringify(traderLangs));
-            resolve();
-        });
+        fs.writeFileSync(`./src/data/traders_locale.json`, JSON.stringify(traderLangs));
+        resolve();
     }));
 
     apiPromises.push(doFetchMaps('en').then(maps => {
