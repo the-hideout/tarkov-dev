@@ -7,6 +7,9 @@ const fuelIds = [
 
 function getCheapestItemPrice(item, settings, allowAllSources) {
     let buySource = item.buyFor?.filter(buyFor => {
+        if (buyFor.priceRUB === 0) {
+            return false;
+        }
         if (buyFor.vendor.normalizedName === 'flea-market') {
             return (allowAllSources || settings.hasFlea);
         }
@@ -110,11 +113,12 @@ function getCheapestItemPriceWithBarters(item, barters, settings, allowAllSource
     for (const barter of itemBarters) {
         const thisBarterCost = barter.requiredItems.reduce(
             (accumulatedPrice, requiredItem) => {
-                return (
-                    accumulatedPrice +
-                    getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB *
-                        requiredItem.count
-                );
+                let price = getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB;
+                if (isAnyDogtag(requiredItem.item.id)) {
+                    const dogtagCost = getDogTagCost(requiredItem, settings);
+                    price = dogtagCost.price;
+                }
+                return accumulatedPrice + (price * requiredItem.count);
             },
             0,
         );
@@ -132,11 +136,9 @@ function getCheapestItemPriceWithBarters(item, barters, settings, allowAllSource
         bestPrice.vendor = {
             name: bestBarter.trader.name,
             normalizedName: bestBarter.trader.normalizedName,
-            vendor: {
-                trader: bestBarter.trader,
-                minTraderLevel: bestBarter.level,
-                taskUnlock: bestBarter.taskUnlock
-            }
+            trader: bestBarter.trader,
+            minTraderLevel: bestBarter.level,
+            taskUnlock: bestBarter.taskUnlock
         }
     }
 
@@ -209,7 +211,7 @@ const formatCostItems = (
             name: itemName,
             price: calculationPrice,
             priceRUB: calculationPrice,
-            priceType: bestPrice.type,
+            priceType: requiredItem.item.cached ? 'cached' : bestPrice.type,
             vendor: bestPrice.vendor,
             priceDetails: bestPrice.barter,
             iconLink:
@@ -218,6 +220,7 @@ const formatCostItems = (
             wikiLink: requiredItem.item.wikiLink,
             itemLink: `/item/${requiredItem.item.normalizedName}`,
             isTool: isTool,
+            cached: requiredItem.item.cached,
         };
 
         return returnData;

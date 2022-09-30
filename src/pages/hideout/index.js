@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,33 +17,8 @@ import {
     ButtonGroupFilter,
     ButtonGroupFilterButton,
 } from '../../components/filter';
-import capitalizeTheFirstLetterOfEachWord from '../../modules/capitalize-first';
 
 import './index.css';
-
-const stations = [
-    'air-filtering-unit',
-    'bitcoin-farm',
-    'booze-generator',
-    // 'christmas-tree',
-    'generator',
-    'heating',
-    'illumination',
-    'intelligence-center',
-    'lavatory',
-    'library',
-    'medstation',
-    'nutrition-unit',
-    'rest-space',
-    'scav-case',
-    'security',
-    'shooting-range',
-    'solar-power',
-    'stash',
-    'vents',
-    'water-collector',
-    'workbench',
-];
 
 function Hideout() {
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
@@ -74,6 +49,12 @@ function Hideout() {
         };
     }, [hideoutStatus, dispatch]);
 
+    const stations = useMemo(() => {
+        return hideout.map(station => station).sort((a, b) => {
+            return a.name.localeCompare(b.name);
+        });
+    }, [hideout]);
+
     return [
         <Helmet key={'hideout-helmet'}>
             <meta charSet="utf-8" />
@@ -93,27 +74,26 @@ function Hideout() {
             </div>
             <Filter center>
                 <ButtonGroupFilter>
-                    {stations.map((stationName) => {
+                    {stations.map((station) => {
                         return (
                             <ButtonGroupFilterButton
-                                key={`station-tooltip-${stationName}`}
+                                key={`station-tooltip-${station.normalizedName}`}
                                 tooltipContent={
                                     <>
-                                        {t(capitalizeTheFirstLetterOfEachWord(stationName.replace(/-/g, ' ')))}
+                                        {station.name}
                                     </>
                                 }
-                                selected={stationName === selectedStation}
+                                selected={station.normalizedName === selectedStation}
                                 content={
                                     <img
-                                        alt={stationName}
+                                        alt={station.name}
                                         loading="lazy"
-                                        title={stationName}
-                                        src={`${process.env.PUBLIC_URL}/images/${stationName}-icon.png`}
+                                        src={`${process.env.PUBLIC_URL}/images/${station.normalizedName}-icon.png`}
                                     />
                                 }
                                 onClick={setSelectedStation.bind(
                                     undefined,
-                                    stationName,
+                                    station.normalizedName,
                                 )}
                             />
                         );
@@ -138,7 +118,7 @@ function Hideout() {
                 if (
                     selectedStation &&
                     selectedStation !== 'all' &&
-                    hideoutModule.name.toLowerCase().replace(/ /g, '-') !==
+                    hideoutModule.normalizedName !==
                         selectedStation
                 ) {
                     return null;
@@ -152,10 +132,10 @@ function Hideout() {
                     return (
                         <div
                             className="hideout-module-wrapper"
-                            key={`hideout-module-cost-${hideoutModule.name}-${level.level}`}
+                            key={`hideout-module-cost-${hideoutModule.normalizedName}-${level.level}`}
                         >
                             <h2>
-                                {t(capitalizeTheFirstLetterOfEachWord(hideoutModule.name))} {level.level}
+                                {hideoutModule.name} {level.level}
                             </h2>
                             <ItemsSummaryTable
                                 includeItems={level.itemRequirements.map(

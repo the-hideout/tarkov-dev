@@ -25,8 +25,10 @@ import CheekiBreekiEffect from '../../components/cheeki-breeki-effect';
 
 import { getWipeData } from '../wipe-length';
 
+import supportedLanguages from '../../data/supported-languages.json';
+
 // Defined Languages
-const langOptions = [
+/*const langOptions = [
     { value: 'en', label: 'en' },
     { value: 'de', label: 'de' },
     { value: 'ru', label: 'ru' },
@@ -35,7 +37,10 @@ const langOptions = [
     { value: 'fr', label: 'fr' },
     { value: 'ja', label: 'ja' },
     { value: 'pl', label: 'pl' },
-]
+]*/
+const langOptions = supportedLanguages.map(lang => {
+    return {value: lang, label: lang};
+});
 
 export function getNumericSelect(min, max) {
     let returnOptions = [];
@@ -69,6 +74,7 @@ function Settings() {
     );
 
     const refs = {
+        'bitcoin-farm': useRef(null),
         'booze-generator': useRef(null),
         // 'christmas-tree': useRef(null),
         'intelligence-center': useRef(null),
@@ -262,7 +268,7 @@ function Settings() {
                     tooltip={(
                         <div>
                             <div>{t('Minimum dogtag level to use for calculating the cost of dogtag barter trades')}</div>
-                            <div>{t(`The current estimated average player level is ${estimatedAvgPlayerLevel}`)}</div>
+                            <div>{t(`The current estimated average player level is {{avgPlayerLevel}}`, {avgPlayerLevel: estimatedAvgPlayerLevel})}</div>
                         </div>
                     )}
                 />

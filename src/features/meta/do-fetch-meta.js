@@ -1,7 +1,6 @@
-import { langCode } from '../../modules/lang-helpers';
+import fetch  from 'cross-fetch';
 
-const doFetchMeta = async () => {
-    const language = await langCode();
+const doFetchMeta = async (language) => {
     const bodyQuery = JSON.stringify({
         query: `{
             fleaMarket(lang: ${language}) {

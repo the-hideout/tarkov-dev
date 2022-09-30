@@ -31,12 +31,15 @@ const BitcoinFarmCalculator = () => {
     );
     const [calculateWithFuelCost, setCalculateWithFuelCost] =
         useStateWithLocalStorage('btc-farm-calculate-with-fuel-cost', false);
+    
+    const [calculateWithBuildCost, setCalculateWithBuildCost] =
+        useStateWithLocalStorage('btc-farm-calculate-with-build-cost', false);
 
     const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
     const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
     const fuelPricePerDay = useFuelPricePerDay();
 
-    if (!bitcoinItem || !graphicCardItem) {
+    if (bitcoinItem.cached || graphicCardItem.cached) {
         return <Loading />;
     }
 
@@ -58,8 +61,8 @@ const BitcoinFarmCalculator = () => {
                 content="Escape from Tarkov Bitcoin farm price and profit calculator"
             />
         </Helmet>,
-        <div className={'page-wrapper'}>
-            <div className="page-headline-wrapper">
+        <div className={'page-wrapper'} key={'display-wrapper'}>
+            <div className="page-headline-wrapper" key="btc-profit-settings">
                 <h1>{t('Bitcoin Farm Calculator')}</h1>
                 <Filter>
                     <InputFilter
@@ -84,7 +87,7 @@ const BitcoinFarmCalculator = () => {
                         type="station"
                     />
                     <ToggleFilter
-                        label={t('Use fuel cost, {{price}}/day', {
+                        label={t('Use fuel cost: {{price}}/day', {
                             price: formatPrice(fuelPricePerDay),
                         })}
                         checked={calculateWithFuelCost}
@@ -92,13 +95,22 @@ const BitcoinFarmCalculator = () => {
                             setCalculateWithFuelCost((prev) => !prev)
                         }
                     />
+                    <ToggleFilter
+                        label={t('Use station build costs')}
+                        checked={calculateWithBuildCost}
+                        onChange={() =>
+                            setCalculateWithBuildCost((prev) => !prev)
+                        }
+                    />
                 </Filter>
             </div>
             <ProfitInfo
                 fuelPricePerDay={calculateWithFuelCost ? fuelPricePerDay : 0}
+                useBuildCosts={calculateWithBuildCost}
                 profitForNumCards={graphicsCardsList}
+                key="btc-profit-table"
             />
-            <div className="included-items-wrapper">
+            <div className="included-items-wrapper" key="btc-item-prices">
                 {Boolean(graphicCardItem) && (
                     <RewardCell
                         count={1}
@@ -107,6 +119,8 @@ const BitcoinFarmCalculator = () => {
                         name={graphicCardItem.name}
                         sellValue={graphicsCardBuy.priceRUB}
                         sellTo={graphicsCardBuy.vendor.name}
+                        valueTooltip={t('Purchase cost')}
+                        key="gpu-price-display"
                     />
                 )}
                 {Boolean(bitcoinItem) && (
@@ -117,6 +131,7 @@ const BitcoinFarmCalculator = () => {
                         name={bitcoinItem.name}
                         sellValue={btcSell.priceRUB}
                         sellTo={btcSell.vendor.name}
+                        key="btc-price-display"
                     />
                 )}
             </div>

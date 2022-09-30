@@ -3,11 +3,14 @@ import equal from 'fast-deep-equal';
 import { useQuery } from 'react-query';
 
 import doFetchBarters from './do-fetch-barters';
+import { langCode } from '../../modules/lang-helpers';
+
+import { placeholderBarters } from '../../modules/placeholder-data';
 
 export const useBartersQuery = (queryOptions) => {
-    const bartersQuery = useQuery('barters', () => doFetchBarters(), {
+    const bartersQuery = useQuery('barters', () => doFetchBarters(langCode()), {
         refetchInterval: 600000,
-        placeholderData: [],
+        placeholderData: placeholderBarters(langCode()),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         ...queryOptions,
@@ -17,13 +20,13 @@ export const useBartersQuery = (queryOptions) => {
 };
 
 const initialState = {
-    barters: [],
+    barters: placeholderBarters(langCode()),
     status: 'idle',
     error: null,
 };
 
 export const fetchBarters = createAsyncThunk('barters/fetchBarters', () =>
-    doFetchBarters(),
+    doFetchBarters(langCode()),
 );
 
 const bartersSlice = createSlice({

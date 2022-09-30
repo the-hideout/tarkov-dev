@@ -2,6 +2,7 @@ import { useMemo, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../../components/data-table';
 // import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
@@ -15,10 +16,9 @@ import CostItemsCell from '../cost-items-cell';
 import { formatCostItems, getCheapestItemPrice, getCheapestItemPriceWithBarters } from '../../modules/format-cost-items';
 import RewardCell from '../reward-cell';
 import { isAnyDogtag, isBothDogtags } from '../../modules/dogtags';
+import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
 import './index.css';
-
-const priceToUse = 'lastLowPrice';
 
 function BartersTable(props) {
     const { selectedTrader, nameFilter, itemFilter, removeDogtags, showAll } =
@@ -75,13 +75,29 @@ function BartersTable(props) {
             {
                 Header: t('Cost ₽'),
                 accessor: 'cost',
-                Cell: ValueCell,
+                Cell: (props) => {
+                    if (props.row.original.cached) {
+                        return (
+                            <div className="center-content">
+                                <FleaMarketLoadingIcon/>
+                            </div>
+                        );
+                    }
+                    return <ValueCell value={props.value}/>;
+                },
             },
             {
                 Header: t('Estimated savings'),
                 accessor: (d) => Number(d.savings),
                 Cell: (props) => {
-                    return <ValueCell value={props.value} highlightProfit />;
+                    if (props.row.original.cached) {
+                        return (
+                            <div className="center-content">
+                                <FleaMarketLoadingIcon/>
+                            </div>
+                        );
+                    }
+                    return <ValueCell value={props.value} highlightProfit valueDetails={props.row.original.savingsParts} />;
                 },
                 sortType: (a, b) => {
                     if (a.sellValue > b.sellValue) {
@@ -99,8 +115,15 @@ function BartersTable(props) {
                 Header: t('InstaProfit'),
                 accessor: 'instaProfit',
                 Cell: (props) => {
+                    if (props.row.original.cached) {
+                        return (
+                            <div className="center-content">
+                                <FleaMarketLoadingIcon/>
+                            </div>
+                        );
+                    }
                     return (
-                        <ValueCell value={props.value} highlightProfit>
+                        <ValueCell value={props.value} highlightProfit valueDetails={props.row.original.instaProfitDetails}>
                             <div className="duration-wrapper">
                                 {props.row.original.instaProfitSource.vendor.name}
                             </div>
@@ -288,17 +311,28 @@ function BartersTable(props) {
                     cost: cost,
                     instaProfit: bestSellTo.priceRUB - cost,
                     instaProfitSource: bestSellTo,
+                    instaProfitDetails: [
+                        {
+                            name: bestSellTo.vendor.name,
+                            value: bestSellTo.priceRUB,
+                        },
+                        {
+                            name: t('Barter cost'),
+                            value: cost * -1,
+                        }
+                    ],
                     reward: {
-                        sellTo: t('Flea Market'),
-                        sellToNormalized: 'flea-market',
+                        sellTo: t('N/A'),
+                        sellToNormalized: 'none',
                         name: barterRow.rewardItems[0].item.name,
-                        sellValue: barterRow.rewardItems[0].item[priceToUse],
+                        sellValue: 0,
                         source: barterRow.trader.name + ' LL' + level,
                         iconLink:
                             barterRow.rewardItems[0].item.iconLink ||
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
                         itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,
                     },
+                    cached: barterRow.cached,
                 };
 
                 const bestTrade = barterRow.rewardItems[0].item.sellFor.reduce((prev, current) => {
@@ -325,18 +359,39 @@ function BartersTable(props) {
                 
                 //tradeData.reward.sellTo = t(tradeData.reward.sellTo)
 
+                tradeData.savingsParts = [];
                 const cheapestPrice = getCheapestItemPrice(barterRow.rewardItems[0].item, settings, showAll);
                 const cheapestBarter = getCheapestItemPriceWithBarters(barterRow.rewardItems[0].item, barters, settings, showAll);
-                if (cheapestPrice.type === 'cash-sell' && cheapestBarter.priceRUB === cost) {
-                    tradeData.savings = 0;
-                    tradeData.reward.barterOnly = true;
-                } else if (cheapestPrice.type === 'cash-sell' && cheapestBarter.priceRUB < cost) {
+                if (cheapestPrice.type === 'cash-sell'){
+                    //this item cannot be purchased for cash
+                    if (cheapestBarter.priceRUB !== cost) {
+                        tradeData.savingsParts.push({
+                            name: `${cheapestBarter.vendor.name} LL${cheapestBarter.vendor.minTraderLevel} ${t('Barter')}`,
+                            value: cheapestBarter.priceRUB
+                        });
+                    }
                     tradeData.savings = cheapestBarter.priceRUB - cost;
-                    tradeData.reward.barterOnly = true;
-                } else if (cheapestPrice.type === 'cash-sell') {
-                    tradeData.savings = 0;
                 } else {
+                    // savings based on cheapest cash price
+                    let sellerName = cheapestPrice.vendor.name;
+                    if (cheapestPrice.vendor.minTraderLevel) {
+                        sellerName += ` LL${cheapestPrice.vendor.minTraderLevel}`;
+                    }
+                    tradeData.savingsParts.push({
+                        name: sellerName,
+                        value: cheapestPrice.priceRUB
+                    });
                     tradeData.savings = cheapestPrice.priceRUB - cost;
+                }
+                if (tradeData.savingsParts.length > 0) {
+                    tradeData.savingsParts.push({
+                        name: t('Barter cost'),
+                        value: cost * -1
+                    });
+                }
+
+                if (tradeData.reward.sellValue === 0) {
+                    tradeData.instaProfitDetails.splice(0, 1);
                 }
 
                 return tradeData;

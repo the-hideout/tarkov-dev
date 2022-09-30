@@ -3,16 +3,19 @@ import { Link } from 'react-router-dom';
 
 import doFetchMaps from '../../features/maps/do-fetch-maps';
 import formatBossData from '../../modules/format-boss-data';
+import { langCode } from '../../modules/lang-helpers';
 import MenuItem from '../menu/MenuItem';
 import LoadingSmall from '../loading-small';
 
 import './index.css';
 
+import { placeholderMaps } from '../../modules/placeholder-data';
+
 // Query for maps
 export const useMapsQuery = (queryOptions) => {
-    const mapsQuery = useQuery('maps', () => doFetchMaps(), {
+    const mapsQuery = useQuery('maps', () => doFetchMaps(langCode()), {
         refetchInterval: 600000,
-        placeholderData: [],
+        placeholderData: placeholderMaps(langCode()),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         ...queryOptions,

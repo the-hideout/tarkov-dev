@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
+import {
+    selectAllCrafts,
+    fetchCrafts,
+} from '../../features/crafts/craftsSlice';
 import CraftsTable from '../../components/crafts-table';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import {
@@ -11,23 +16,11 @@ import {
     ButtonGroupFilterButton,
     ToggleFilter,
 } from '../../components/filter';
-import capitalizeTheFirstLetterOfEachWord from '../../modules/capitalize-first';
 
 import Icon from '@mdi/react';
 import { mdiProgressWrench } from '@mdi/js';
 
 import './index.css';
-
-const stations = [
-    'booze-generator',
-    // 'christmas-tree',
-    'intelligence-center',
-    'lavatory',
-    'medstation',
-    'nutrition-unit',
-    'water-collector',
-    'workbench',
-];
 
 function Crafts() {
     const defaultQuery = new URLSearchParams(window.location.search).get(
@@ -45,6 +38,44 @@ function Crafts() {
     );
     const [showAll, setShowAll] = useState(false);
     const { t } = useTranslation();
+
+    const dispatch = useDispatch();
+    const crafts = useSelector(selectAllCrafts);
+    const craftsStatus = useSelector((state) => {
+        return state.crafts.status;
+    });
+
+    useEffect(() => {
+        let timer = false;
+        if (craftsStatus === 'idle') {
+            dispatch(fetchCrafts());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchCrafts());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [craftsStatus, dispatch]);
+    
+    const stations = useMemo(() => {
+        const stn = [];
+        for (const craft of crafts) {
+            if (craft.station.normalizedName === 'bitcoin-farm') {
+                continue;
+            }
+            if (!stn.some(station => station.id === craft.station.id)) {
+                stn.push(craft.station);
+            }
+        }
+        return stn.sort((a, b) => {
+            return a.name.localeCompare(b.name);
+        });
+    }, [crafts]);
 
     return [
         <Helmet key={'loot-tier-helmet'}>
@@ -68,7 +99,7 @@ function Crafts() {
                         onChange={(e) => setShowAll(!showAll)}
                         tooltipContent={
                             <>
-                                {t('Shows all crafts regardless of what you have set in your settings')}
+                                {t('Shows all crafts regardless of your settings')}
                             </>
                         }
                     />
@@ -83,27 +114,26 @@ function Crafts() {
                         }
                     />
                     <ButtonGroupFilter>
-                        {stations.map((stationName) => {
+                        {stations.map((station) => {
                             return (
                                 <ButtonGroupFilterButton
-                                    key={`station-tooltip-${stationName}`}
+                                    key={`station-tooltip-${station.normalizedName}`}
                                     tooltipContent={
                                         <>
-                                            {t(capitalizeTheFirstLetterOfEachWord(stationName.replace('-', ' ')))}
+                                            {station.name}
                                         </>
                                     }
-                                    selected={stationName === selectedStation}
+                                    selected={station.normalizedName === selectedStation}
                                     content={
                                         <img
-                                            alt={stationName}
+                                            alt={station.name}
                                             loading="lazy"
-                                            title={stationName}
-                                            src={`${process.env.PUBLIC_URL}/images/${stationName}-icon.png`}
+                                            src={`${process.env.PUBLIC_URL}/images/${station.normalizedName}-icon.png`}
                                         />
                                     }
                                     onClick={setSelectedStation.bind(
                                         undefined,
-                                        stationName)}
+                                        station.normalizedName)}
                                 />
                             );
                         })}
@@ -124,7 +154,7 @@ function Crafts() {
                         onChange={(e) => setFreeFuel(!freeFuel)}
                         tooltipContent={
                             <>
-                                {t('Sets fuel canister cost to 0 for crafts requiring fuel canisters when using non-FIR fuel canisters from generator.')}
+                                {t('Sets fuel canister cost to 0 for crafts requiring fuel canisters when using non-FIR fuel canisters.')}
                             </>
                         }
                     />

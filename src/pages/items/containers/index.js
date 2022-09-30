@@ -29,7 +29,8 @@ function Containers(props) {
                 </h1>
                 <Filter>
                     <ToggleFilter
-                        label={t("Net Price per Slot?")}
+                        label={t("Net price per slot")}
+                        tooltipContent={t('Show price per additional slot of storage gained from the container')}
                         onChange={(e) => {setShowNetPPS(!showNetPPS)}}
                         checked={showNetPPS}
                     />

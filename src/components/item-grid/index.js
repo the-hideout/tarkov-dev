@@ -57,7 +57,6 @@ function ItemGrid(props) {
                 {props.items.map((item) => (
                     <Item
                         key={`${props.normalizedName}-${item.id}`}
-                        onClick={item.onClick}
                         count={item.count}
                         name={item.name}
                         pricePerSlot={item.pricePerSlot}

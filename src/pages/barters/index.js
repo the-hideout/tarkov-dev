@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+import Icon from '@mdi/react';
+import { mdiAccountSwitch } from '@mdi/js';
 
 import BartersTable from '../../components/barters-table';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
@@ -11,22 +14,10 @@ import {
     ButtonGroupFilterButton,
     ToggleFilter,
 } from '../../components/filter';
-import capitalizeTheFirstLetterOfEachWord from '../../modules/capitalize-first';
 
-import Icon from '@mdi/react';
-import { mdiAccountSwitch } from '@mdi/js';
+import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
 
 import './index.css';
-
-const traders = [
-    'prapor',
-    'therapist',
-    'skier',
-    'peacekeeper',
-    'mechanic',
-    'ragman',
-    'jaeger',
-];
 
 function Barters() {
     const defaultQuery = new URLSearchParams(window.location.search).get(
@@ -45,7 +36,34 @@ function Barters() {
         'hideDogtagBarters',
         false,
     );
+
+    const dispatch = useDispatch();
+    const allTraders = useSelector(selectAllTraders);
+    const tradersStatus = useSelector((state) => {
+        return state.traders.status;
+    });
+    useEffect(() => {
+        let timer = false;
+        if (tradersStatus === 'idle') {
+            dispatch(fetchTraders());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchTraders());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [tradersStatus, dispatch]);
+
     const { t } = useTranslation();
+
+    const traders = useMemo(() => {
+        return allTraders.filter(trader => trader.normalizedName !== 'fence');
+    }, [allTraders]);
 
     return [
         <Helmet key={'loot-tier-helmet'}>
@@ -66,7 +84,7 @@ function Barters() {
                         onChange={(e) => setShowAll(!showAll)}
                         tooltipContent={
                             <>
-                                {t('Shows all barters regardless of what you have set in your settings')}
+                                {t('Shows all barters regardless of your settings')}
                             </>
                         }
                     />
@@ -81,27 +99,27 @@ function Barters() {
                         }
                     />
                     <ButtonGroupFilter>
-                        {traders.map((traderName) => {
+                        {traders.map((trader) => {
                             return (
                                 <ButtonGroupFilterButton
-                                    key={`trader-tooltip-${traderName}`}
+                                    key={`trader-tooltip-${trader.normalizedName}`}
                                     tooltipContent={
                                         <>
-                                            {t(capitalizeTheFirstLetterOfEachWord(traderName.replace('-', ' ')))}
+                                            {trader.name}
                                         </>
                                     }
-                                    selected={traderName === selectedTrader}
+                                    selected={trader.normalizedName === selectedTrader}
                                     content={
                                         <img
-                                            alt={traderName}
+                                            alt={trader.name}
                                             loading="lazy"
-                                            title={traderName}
-                                            src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
+                                            title={trader.name}
+                                            src={`${process.env.PUBLIC_URL}/images/${trader.normalizedName}-icon.jpg`}
                                         />
                                     }
                                     onClick={setSelectedTrader.bind(
                                         undefined,
-                                        traderName)}
+                                        trader.normalizedName)}
                                 />
                             );
                         })}

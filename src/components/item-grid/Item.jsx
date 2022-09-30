@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { Link } from "react-router-dom";
 
 import ItemTooltip from './ItemTooltip';
 import ItemIcon from './ItemIcon';
@@ -17,17 +17,6 @@ import ItemIcon from './ItemIcon';
 // const sizesToAlwaysRotate = ['2x3'];
 
 function Item(props) {
-    const { item, onClick } = props;
-
-    const handleClick = useCallback(
-        (e) => {
-            if (onClick && item) {
-                onClick(item, e);
-            }
-        },
-        [item, onClick],
-    );
-
     let imgSrc = props.src;
 
     //const gridSize = `${props.width}x${props.height}`;
@@ -39,11 +28,10 @@ function Item(props) {
     // }
 
     return (
-        <a
-            href={props.itemLink}
+        <Link
+            to={props.itemLink}
             className={`grid-item`}
             style={{gridRowEnd: `span ${props.height}`, gridColumnEnd: `span ${props.width}`}}
-            onClick={handleClick}
         >
             <ItemTooltip
                 pricePerSlot={props.pricePerSlot}
@@ -58,7 +46,7 @@ function Item(props) {
             />
 
             <img alt={props.name} loading="lazy" src={imgSrc} />
-        </a>
+        </Link>
     );
 }
 

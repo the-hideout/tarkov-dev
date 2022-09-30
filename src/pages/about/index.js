@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
 import { Avatar } from '@primer/react';
@@ -20,7 +21,7 @@ function About() {
                 content="Learn more about the-hideout and tarkov.dev. A free, community made, open source Escape from Tarkov ecosystem! Use our tools to help you play the game, or build your own projects with our free API."
             />
         </Helmet>,
-        <div className={'page-wrapper'}>
+        <div className={'page-wrapper'} key="about-page-content">
             <h1>{t('About')}</h1>
             <h2>{t('Open source')}</h2>
             <p>
@@ -62,7 +63,7 @@ function About() {
                 {t(
                     'We offer a 100% free and publically accessible API for all your Tarkov development needs - ',
                 )}{' '}
-                <a href="/api/">API</a>{' '}
+                <Link to="/api/">API</Link>{' '}
             </p>
             <h2>{t('History')}</h2>
             <p>

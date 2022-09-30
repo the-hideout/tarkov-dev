@@ -13,7 +13,13 @@ export async function load(url, context, defaultLoad) {
     const forceConvert = [
         'do-fetch-items.js',
         'flea-market-fee.js',
-        'camelcase-to-dashes.js'
+        'camelcase-to-dashes.js',
+        'do-fetch-barters.js',
+        'do-fetch-crafts.js',
+        'do-fetch-hideout.js',
+        'do-fetch-maps.js',
+        'do-fetch-meta.js',
+        'do-fetch-traders.js',
     ];
 
     for (const fileName of forceConvert) {

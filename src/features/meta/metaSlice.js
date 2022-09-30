@@ -2,15 +2,17 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
 import doFetchMeta from './do-fetch-meta';
+import { langCode } from '../../modules/lang-helpers';
+import { placeholderMeta } from '../../modules/placeholder-data';
 
 const initialState = {
-    meta: [],
+    meta: placeholderMeta(langCode()),
     status: 'idle',
     error: null,
 };
 
 export const fetchMeta = createAsyncThunk('meta/fetchMeta', () =>
-    doFetchMeta(),
+    doFetchMeta(langCode()),
 );
 const metaSlice = createSlice({
     name: 'meta',

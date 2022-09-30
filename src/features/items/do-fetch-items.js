@@ -8,13 +8,6 @@ const NOTES = {
 };
 
 const doFetchItems = async (language, prebuild = false) => {
-    language = await new Promise(resolve => {
-        if (!language) {
-            return resolve('en');
-        }
-        return resolve(language);
-    });
-    // Format the query for item fetching
     const QueryBody = JSON.stringify({
         query: `{
             items(lang: ${language}) {

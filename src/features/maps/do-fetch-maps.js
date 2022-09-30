@@ -1,7 +1,6 @@
-import { langCode } from '../../modules/lang-helpers';
+import fetch  from 'cross-fetch';
 
-const doFetchMaps = async () => {
-    const language = await langCode();
+const doFetchMaps = async (language) => {
     const bodyQuery = JSON.stringify({
         query: `{
             maps(lang: ${language}) {
