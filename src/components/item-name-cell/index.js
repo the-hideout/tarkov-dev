@@ -5,36 +5,40 @@ import ContainedItemsList from '../contained-items-list';
 import './index.css';
 
 function ItemNameCell(props) {
+    let {item, showContainedItems, showRestrictedType} = props;
+    if (!item) {
+        item = props.row.original;
+    }
     return (
         <div className="small-item-table-description-wrapper">
             <div className="small-item-table-image-wrapper">
                 <Link
-                    to={props.row.original.itemLink}
+                    to={item.itemLink}
                     className="small-item-table-image-link"
                 >
                     <img
-                        alt={props.row.original.name}
+                        alt={item.name}
                         className="table-image"
                         loading="lazy"
-                        src={props.row.original.iconLink}
+                        src={item.iconLink}
                     />
                 </Link>
             </div>
             <div className="small-item-table-name-wrapper">
                 <Link
                     className="craft-reward-item-title"
-                    to={props.row.original.itemLink}
+                    to={item.itemLink}
                 >
-                    {props.row.original.name}{props.row.original.count > 1 ? ` x ${props.row.original.count}` : ''}
+                    {item.name}{item.count > 1 ? ` x ${item.count}` : ''}
                 </Link>
-                {props.row.original.notes ? (
-                    <cite>{props.row.original.notes}</cite>
-                ) : (
-                    ''
-                )}
-                {props.showContainedItems && (props.row.original.properties?.grids || props.row.original.properties?.slots) && (
+                {showRestrictedType && (
                     <cite>
-                        <ContainedItemsList item={props.row.original} />
+                        <ContainedItemsList item={item} showRestrictedType={showRestrictedType} />
+                    </cite>
+                )}
+                {showContainedItems && (item.properties?.grids || item.properties?.slots) && (
+                    <cite>
+                        <ContainedItemsList item={item} />
                     </cite>
                 )}
             </div>

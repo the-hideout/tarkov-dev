@@ -3,10 +3,6 @@ import fetch  from 'cross-fetch';
 import fleaMarketFee from '../../modules/flea-market-fee.js';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes.js';
 
-const NOTES = {
-    '60a2828e8689911a226117f9': `Can't store Pillbox, Day Pack, LK 3F or MBSS inside`,
-};
-
 const doFetchItems = async (language, prebuild = false) => {
     const QueryBody = JSON.stringify({
         query: `{
@@ -517,7 +513,6 @@ const doFetchItems = async (language, prebuild = false) => {
             // iconLink: `https://assets.tarkov.dev/${rawItem.id}-icon.jpg`,
             iconLink: rawItem.iconLink,
             grid: grid,
-            notes: NOTES[rawItem.id],
             properties: {
                 weight: rawItem.weight,
                 ...rawItem.properties

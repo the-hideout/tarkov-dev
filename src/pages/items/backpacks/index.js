@@ -43,7 +43,8 @@ function Backpacks() {
                         }
                     />
                     <ToggleFilter
-                        label={t('Net Price per Slot?')}
+                        label={t('Net price per slot')}
+                        tooltipContent={t('Show price per additional slot of storage gained from the container')}
                         onChange={(e) => setShowNetPPS(!showNetPPS)}
                         checked={showNetPPS}
                     />
@@ -52,13 +53,14 @@ function Backpacks() {
 
             <SmallItemTable
                 typeFilter={'backpack'}
+                showNetPPS={showNetPPS}
+                showAllSources={showAllItemSources}
+                showRestrictedType={'backpack'}
                 grid={1}
                 innerSize={2}
                 weight={3}
                 cheapestPrice={4}
                 pricePerSlot={5}
-                showNetPPS={showNetPPS}
-                showAllSources={showAllItemSources}
             />
             
             <div className="page-wrapper items-page-wrapper">
