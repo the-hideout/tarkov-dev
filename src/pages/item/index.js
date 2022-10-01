@@ -233,6 +233,26 @@ function Item() {
         }).filter(reward => reward.length > 0);
     }, [currentItemData, quests]);
 
+    const questsToggle = useMemo(() => {
+        if (settings.completedQuests?.length > 0) {
+            return (
+                <ToggleFilter
+                    checked={showAllQuests}
+                    label={t('Show completed')}
+                    onChange={(e) =>
+                        setShowAllQuests(!showAllQuests)
+                    }
+                    tooltipContent={
+                        <>
+                            {t('Shows all quests regardless of if you\'ve completed them')}
+                        </>
+                    }
+                />
+            );
+        }
+        return '';
+    }, [settings, showAllQuests, t]);
+
     currentItemData = useMemo(() => {
         if (!currentItemData || !currentItemData.bestPrice) 
             return currentItemData;
@@ -816,18 +836,7 @@ function Item() {
                             <h2>
                                 {t('Quests requiring {{itemName}}', {itemName: currentItemData.name})}
                             </h2>
-                            <ToggleFilter
-                                checked={showAllQuests}
-                                label={t('Show completed')}
-                                onChange={(e) =>
-                                    setShowAllQuests(!showAllQuests)
-                                }
-                                tooltipContent={
-                                    <>
-                                        {t('Shows all quests regardless of if you\'ve completed them')}
-                                    </>
-                                }
-                            />
+                            {questsToggle}
                         </div>
                         <QuestTable
                             showCompleted={showAllQuests}
@@ -842,18 +851,7 @@ function Item() {
                             <h2>
                                 {t('Quests rewarding {{itemName}}', {itemName: currentItemData.name})}
                             </h2>
-                            <ToggleFilter
-                                checked={showAllQuests}
-                                label={t('Show completed')}
-                                onChange={(e) =>
-                                    setShowAllQuests(!showAllQuests)
-                                }
-                                tooltipContent={
-                                    <>
-                                        {t('Shows all quests regardless of if you\'ve completed them')}
-                                    </>
-                                }
-                            />
+                            {questsToggle}
                         </div>
                         <QuestTable
                             showCompleted={showAllQuests}
