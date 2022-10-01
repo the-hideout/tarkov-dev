@@ -1,16 +1,35 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { useItemsQuery } from '../../features/items/queries';
 import { useMetaQuery } from '../../features/meta/queries';
 
-const ContainedItemsList = ({ item }) => {
+const ContainedItemsList = ({ item, showRestrictedType }) => {
     const { data: items } = useItemsQuery();
     const { data: meta, isFetched: metaFetched } = useMetaQuery();
+    const { t } = useTranslation();
 
     //const containers = item.properties?.slots || item.properties?.grids;
     const containers = item.properties?.grids;
     const sortedItems = useMemo(() => {
+        if (showRestrictedType) {
+            const restrictedItems = new Set();
+            item.properties?.grids?.forEach(grid => {
+                for (const id of grid.filters.excludedItems) {
+                    restrictedItems.add(id)
+                }
+            });
+            return [...restrictedItems].map(id => {
+                const rItem = items.find(testItem => testItem.id === id);
+                if (typeof showRestrictedType === 'boolean' || rItem.types.includes(showRestrictedType)) {
+                    return rItem;
+                }
+                return false;
+            }).filter(Boolean).sort((a, b) => {
+                return a.name.localeCompare(b.name);
+            });
+        }
         if (
             !containers ||
             (containers.length === 1 &&
@@ -55,8 +74,16 @@ const ContainedItemsList = ({ item }) => {
         items,
         meta,
         metaFetched,
-        containers
+        containers,
+        item,
+        showRestrictedType
     ]);
+    //console.log(item.name, item.showRestricted, sortedItems)
+
+    let itemsText = t('Can hold:');
+    if (showRestrictedType) {
+        itemsText = t('Can\'t hold:');
+    }
 
     if (sortedItems.length === 0) {
         return null;
@@ -67,7 +94,7 @@ const ContainedItemsList = ({ item }) => {
 
     return (
         <div>
-            <span className="contained-item-title-wrapper">Can hold:</span>
+            <span className="contained-item-title-wrapper">{itemsText}</span>
             {sortedItems.map((linked, index) => {
                 if (linked.id === '54009119af1c881c07000029') {
                     // Special case for items that can contain all items

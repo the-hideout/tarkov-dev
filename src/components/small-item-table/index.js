@@ -268,6 +268,7 @@ function SmallItemTable(props) {
         attachesToItemFilter,
         showSlotValue,
         showPresets,
+        showRestrictedType,
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -382,7 +383,6 @@ function SmallItemTable(props) {
                               : itemData.avg24hPrice / itemData.properties.capacity,
                 ratio: (itemData.properties.capacity / (itemData.width * itemData.height)).toFixed(2),
                 size: itemData.properties.capacity,
-                notes: itemData.notes,
                 slots: itemData.width * itemData.height,
                 armorClass: itemData.properties.class,
                 armorZone: getArmorZoneString(itemData.properties.zones || itemData.properties.headZones),
@@ -866,8 +866,9 @@ function SmallItemTable(props) {
                 Cell: (props) => {
                     return (
                         <ItemNameCell
-                            {...props}
+                            item={props.row.original}
                             showContainedItems={showContainedItems}
+                            showRestrictedType={showRestrictedType}
                         />
                     );
                 },
@@ -1693,7 +1694,8 @@ function SmallItemTable(props) {
         recoilModifier,
         showSlotValue,
         showAllSources,
-        showPresets
+        showPresets,
+        showRestrictedType,
     ]);
 
     let extraRow = false;
