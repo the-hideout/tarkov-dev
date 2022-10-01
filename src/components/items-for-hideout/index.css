@@ -61,3 +61,7 @@
     color: #636363;
     font-size: 14px;
 }
+
+.hideout-item-list thead tr:first-child {
+    border-top: 4px solid #1b1919;
+}

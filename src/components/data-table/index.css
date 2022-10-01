@@ -24,6 +24,10 @@
     height: 69px;
 }
 
+.data-table thead tr:first-child {
+    border-top: 4px solid #1b1919;
+}
+
 .data-table tbody tr.last-row {
     height: 1px;
 }
