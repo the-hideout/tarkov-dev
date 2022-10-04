@@ -127,6 +127,7 @@ public/maps/*_thumb.jpg
 src/data/ammo.json
 src/data/contributors.json
 src/data/quests.json
+src/data/quests_locale.json
 src/data/traders.json
 src/data/traders_locale.json
 src/data/version.json

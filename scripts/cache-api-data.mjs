@@ -8,6 +8,7 @@ import doFetchTraders from '../src/features/traders/do-fetch-traders.js';
 import doFetchMaps from '../src/features/maps/do-fetch-maps.js';
 import doFetchMeta from '../src/features/meta/do-fetch-meta.js';
 import doFetchHideout from '../src/features/hideout/do-fetch-hideout.js';
+import doFetchQuests from '../src/features/quests/do-fetch-quests.js';
 
 const langs = [
     'es',
@@ -43,6 +44,29 @@ const getItemNames = (language) => {
         },
         body: QueryBody,
     }).then((response) => response.json()).then(response => response.data.items);
+};
+
+const getTaskNames = (language) => {
+    const QueryBody = JSON.stringify({
+        query: `{
+            tasks(lang: ${language}) {
+                id
+                name
+                objectives {
+                    id
+                    description
+                }
+            }
+        }`,
+    });
+    return fetch('https://api.tarkov.dev/graphql', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: QueryBody,
+    }).then((response) => response.json()).then(response => response.data.tasks);
 };
 
 const getTraderNames = (language) => {
@@ -171,6 +195,30 @@ try {
 
     apiPromises.push(doFetchMeta('en').then(meta => {
         fs.writeFileSync('./src/data/meta.json', JSON.stringify(meta));
+    }));
+
+    apiPromises.push(doFetchQuests('en').then(quests => {
+        fs.writeFileSync('./src/data/quests.json', JSON.stringify(quests));
+        return new Promise(async resolve => {
+            const taskLangs = {};
+            for (const lang of langs) {
+                await getTaskNames(lang).then(tasks => {
+                    const localization = {};
+                    tasks.forEach(task => {
+                        localization[task.id] =  {
+                            name: task.name,
+                            objectives: {}
+                        };
+                        task.objectives.forEach(objective => {
+                            localization[task.id].objectives[objective.id] = objective.description;
+                        });
+                    });
+                    taskLangs[lang] = localization;
+                });
+            }
+            fs.writeFileSync(`./src/data/quests_locale.json`, JSON.stringify(taskLangs));
+            resolve();
+        });
     }));
 
     await Promise.all(apiPromises);

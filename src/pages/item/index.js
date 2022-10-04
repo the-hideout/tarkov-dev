@@ -80,7 +80,7 @@ function Item() {
     const [showAllBarters, setShowAllBarters] = useState(false);
     const [showAllContainedItemSources, setShowAllContainedItemSources] = useState(false);
     const [showAllHideoutStations, setShowAllHideoutStations] = useState(false);
-    const [showAllQuests, setShowAllQuests] = useState(false);
+    const [hideCompletedQuests, setHideCompletedQuests] = useState(true);
 
     const loadingData = {
         name: t('Loading...'),
@@ -203,55 +203,45 @@ function Item() {
 
     let currentItemData = currentItemByNameData;
 
-    const itemQuests = useMemo(() => {
+    const questsRequiringCount = useMemo(() => {
         if (!currentItemData) {
             return [];
         }
         
         return quests.map((questData) => {
-            return getRequiredQuestItems(questData).filter(needed => needed.item.id === currentItemData?.id);
-        }).filter(required => required.length > 0);
+            return getRequiredQuestItems(questData, currentItemData.id);
+        }).filter(required => required.length > 0).length;
     }, [currentItemData, quests]);
 
-    const questsProviding = useMemo(() => {
+    const questsProvidingCount = useMemo(() => {
         if (!currentItemData) {
             return [];
         }
 
         return quests.map(questData => {
-            return getRewardQuestItems(questData).filter(reward => {
-                if (reward.item.id === currentItemData?.id) {
-                    return true;
-                }
-                for (const contained of reward.item.containsItems) {
-                    if (contained.item.id === currentItemData?.id) {
-                        return true;
-                    }
-                }
-                return false;
-            })
-        }).filter(reward => reward.length > 0);
+            return getRewardQuestItems(questData, currentItemData.id);
+        }).filter(reward => reward.length > 0).length;
     }, [currentItemData, quests]);
 
     const questsToggle = useMemo(() => {
         if (settings.completedQuests?.length > 0) {
             return (
                 <ToggleFilter
-                    checked={showAllQuests}
-                    label={t('Show completed')}
+                    checked={hideCompletedQuests}
+                    label={t('Hide completed')}
                     onChange={(e) =>
-                        setShowAllQuests(!showAllQuests)
+                        setHideCompletedQuests(!hideCompletedQuests)
                     }
                     tooltipContent={
                         <>
-                            {t('Shows all quests regardless of if you\'ve completed them')}
+                            {t('Hide tasks you\'ve completed')}
                         </>
                     }
                 />
             );
         }
         return '';
-    }, [settings, showAllQuests, t]);
+    }, [settings, hideCompletedQuests, t]);
 
     currentItemData = useMemo(() => {
         if (!currentItemData || !currentItemData.bestPrice) 
@@ -642,17 +632,26 @@ function Item() {
                                                         />
                                                     )}
                                                     {buyPrice?.vendor?.taskUnlock && (
-                                                        <Tippy
-                                                            content={t('Task: {{taskName}}', {taskName: buyPrice.vendor.taskUnlock.name})}
-                                                        >
-                                                            <div className="quest-icon-wrapper">
-                                                                <Icon
-                                                                    path={mdiClipboardList}
-                                                                    size={1}
-                                                                    className="icon-with-text"
-                                                                />
-                                                            </div>
-                                                        </Tippy>
+                                                        <div>
+                                                            <Tippy
+                                                                content={(
+                                                                    <Link to={`/task/${buyPrice.vendor.taskUnlock.normalizedName}`}>
+                                                                        <div style={{whiteSpace: 'nowrap'}}>
+                                                                            {t('Task: {{taskName}}', {taskName: buyPrice.vendor.taskUnlock.name})}
+                                                                        </div>
+                                                                    </Link>
+                                                                )}
+                                                                interactive={true}
+                                                            >
+                                                                <div className="quest-icon-wrapper">
+                                                                    <Icon
+                                                                        path={mdiClipboardList}
+                                                                        size={1}
+                                                                        className="icon-with-text"
+                                                                    />
+                                                                </div>
+                                                            </Tippy>
+                                                        </div>
                                                     )}
                                                     <ConditionalWrapper
                                                         condition={buyPrice.vendor.normalizedName !== 'flea-market'}
@@ -830,7 +829,7 @@ function Item() {
                         <ItemsForHideout itemFilter={currentItemData.id} showAll={showAllHideoutStations} />
                     </div>
                 )}
-                {itemQuests.length > 0 && (
+                {questsRequiringCount > 0 && (
                     <div>
                         <div className="item-crafts-headline-wrapper">
                             <h2>
@@ -839,13 +838,13 @@ function Item() {
                             {questsToggle}
                         </div>
                         <QuestTable
-                            showCompleted={showAllQuests}
+                            hideCompleted={hideCompletedQuests}
                             requiredItemFilter={currentItemData.id}
                             requiredItems={1}
                         />
                     </div>
                 )}
-                {questsProviding.length > 0 && (
+                {questsProvidingCount > 0 && (
                     <div>
                         <div className="item-crafts-headline-wrapper">
                             <h2>
@@ -854,7 +853,7 @@ function Item() {
                             {questsToggle}
                         </div>
                         <QuestTable
-                            showCompleted={showAllQuests}
+                            hideCompleted={hideCompletedQuests}
                             rewardItemFilter={currentItemData.id}
                             rewardItems={1}
                         />

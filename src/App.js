@@ -53,6 +53,8 @@ import Rigs from './pages/items/rigs';
 import Suppressors from './pages/items/suppressors';
 import BsgCategory from './pages/items/bsg-category';
 import BitcoinFarmCalculator from './pages/bitcoin-farm-calculator';
+import Quests from './pages/quests';
+import Quest from './pages/quest';
 
 import Bosses from './pages/bosses';
 import Boss from './pages/bosses/boss';
@@ -683,6 +685,20 @@ function App() {
                         >
                             <BsgCategory />
                         </div>,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/tasks/'}
+                    element={[
+                        <Quests key="quests-wrapper" />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/task/:taskIdentifier'}
+                    element={[
+                        <Quest key="quest-wrapper" />,
                         remoteControlSessionElement,
                     ]}
                 />

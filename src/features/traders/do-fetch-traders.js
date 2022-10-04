@@ -6,6 +6,7 @@ export default async function doFetchTraders(language) {
             traders(lang: ${language}) {
                 id
                 name
+                description
                 normalizedName
                 currency {
                     id

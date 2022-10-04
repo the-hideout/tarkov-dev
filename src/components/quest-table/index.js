@@ -2,17 +2,23 @@ import { useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import Icon from '@mdi/react';
+import { mdiClipboardCheck } from '@mdi/js';
 
 import DataTable from '../data-table';
 import QuestItemsCell from './quest-items-cell';
+import CenterCell from '../center-cell';
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
 import { useItemsQuery } from '../../features/items/queries';
 
 import './index.css';
 
-export function getRequiredQuestItems(quest) {
+export function getRequiredQuestItems(quest, itemFilter = false) {
     const requiredItems = [];
     const addItem = (item, count = 1, foundInRaid = false) => {
+        if (itemFilter && item.id !== itemFilter) {
+            return;
+        }
         let req = requiredItems.find(reqItem => reqItem.item.id === item.id);
         if (!req) {
             req = {
@@ -83,7 +89,7 @@ export function getRequiredQuestItems(quest) {
         }
     });
 
-    quest.neededKeys.forEach(taskKey => {
+    quest.neededKeys?.forEach(taskKey => {
         taskKey.keys.forEach(key => {
             addItem(key);
         });
@@ -94,9 +100,23 @@ export function getRequiredQuestItems(quest) {
 
 const rewardTypes = ['startRewards', 'finishRewards'];
 
-export function getRewardQuestItems(quest) {
+export function getRewardQuestItems(quest, itemFilter = false) {
     const rewardItems = [];
     const addItem = (item, count = 1, rewardType) => {
+        if (itemFilter) {
+            let passed = item.id === itemFilter;
+            if (!passed && item.containsItems) {
+                for (const contained of item.containsItems) {
+                    if (contained.item.id === itemFilter) {
+                        passed = true;
+                        break;
+                    }
+                }
+            }
+            if (!passed) {
+                return;
+            }
+        }
         let rew = rewardItems.find(rewItem => rewItem.item.id === item.id);
         if (!rew) {
             rew = {
@@ -117,11 +137,16 @@ export function getRewardQuestItems(quest) {
     return rewardItems;
 }
 
-function QuestTable({ 
+function QuestTable({
+    giverFilter,
+    nameFilter,
     requiredItemFilter,
     rewardItemFilter,
     hideBorders,
-    showCompleted,
+    hideCompleted,
+    questRequirements,
+    minimumLevel,
+    minimumTraderLevel,
     requiredItems,
     rewardItems,
  }) {
@@ -158,31 +183,24 @@ function QuestTable({
         return quests.map(rawQuest => {
             const questData = {
                 ...rawQuest,
-                requiredItems: getRequiredQuestItems(rawQuest).filter(req => {
-                    if (requiredItemFilter) {
-                        return req.item.id === requiredItemFilter;
-                    }
-                    return true;
-                }).map(req => {
+                requiredItems: [],
+                rewardItems: [],
+            };
+
+            if (requiredItemFilter || requiredItems) {
+                questData.requiredItems = getRequiredQuestItems(rawQuest, requiredItemFilter).map(req => {
                     return {
                         ...req,
                         item: items.find(i => i.id === req.item.id)
                     };
-                }),
-                rewardItems: getRewardQuestItems(rawQuest).filter(rew => {
-                    if (rewardItemFilter) {
-                        if (rew.item.id === rewardItemFilter) {
-                            return true;
-                        }
-                        for (const contained of rew.item.containsItems) {
-                            if (contained.item.id === rewardItemFilter) {
-                                return true;
-                            }
-                        }
-                        return false;
-                    }
-                    return true;
-                }).map(rew => {
+                });
+                if (requiredItemFilter && questData.requiredItems.length === 0) {
+                    return false;
+                }
+            }
+
+            if (rewardItemFilter || rewardItems) {
+                questData.rewardItems = getRewardQuestItems(rawQuest, rewardItemFilter).map(rew => {
                     const contained = rew.item.containsItems;
                     const mapped = {
                         ...rew,
@@ -190,53 +208,65 @@ function QuestTable({
                     };
                     mapped.item.containsItems = contained;
                     return mapped;
-                }),
-            };
+                });
+                if (rewardItemFilter && questData.rewardItems.length === 0) {
+                    return false;
+                }
+            }
+
+            if (giverFilter && giverFilter !== 'all') {
+                if (questData.trader.normalizedName !== giverFilter) {
+                    return false;
+                }
+            }
+
+            if (nameFilter && !questData.name.toLowerCase().includes(nameFilter.toLowerCase())) {
+                return false
+            }
 
             return questData;
-        }).filter(questData => {
-            if (requiredItemFilter) {
-                return questData.requiredItems.some(req => req.item.id === requiredItemFilter);
-            }
-            return true;
-        }).filter(questData => {
-            if (rewardItemFilter) {
-                for (const reward of questData.rewardItems) {
-                    if (reward.item.id === rewardItemFilter) {
-                        return true;
-                    }
-                    for (const contained of reward.item.containsItems) {
-                        if (contained.item.id === rewardItemFilter) {
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
-            return true;
-        });
+        }).filter(Boolean);
     }, [
         quests, 
         items,
+        giverFilter,
+        nameFilter,
         requiredItemFilter,
         rewardItemFilter,
+        requiredItems,
+        rewardItems,
     ]);
 
     const shownQuests = useMemo(() => {
-        return allQuestData.filter(quest => showCompleted || !settings.completedQuests.some(stringId => parseInt(stringId) === quest.tarkovDataId));
+        return allQuestData.filter(quest => {
+            if (!hideCompleted) {
+                return true;
+            }
+            return !settings.completedQuests.some(stringId => parseInt(stringId) === quest.tarkovDataId)
+        });
     }, [
         settings,
         allQuestData,
-        showCompleted,
+        hideCompleted,
     ]);
 
     const columns = useMemo(() => {
         const useColumns = [
             {
-                Header: t('Quest'),
+                Header: t('Task'),
                 accessor: 'name',
                 Cell: (props) => {
                     const questData = props.row.original;
+                    let completedIcon = '';
+                    if (settings.completedQuests.includes(String(questData.tarkovDataId))) {
+                        completedIcon = (
+                            <Icon
+                                path={mdiClipboardCheck}
+                                size={1}
+                                className="icon-with-text"
+                            />
+                        );
+                    }
                     return (
                         <div className="quest-link-wrapper">
                             <Link
@@ -249,14 +279,12 @@ function QuestTable({
                                     src={`${process.env.PUBLIC_URL}/images/${questData.trader.normalizedName}-icon.jpg`}
                                 />
                             </Link>
-                            <a
-                                className="quest-name-wrapper"
-                                href={`https://tarkovtracker.io/quest/${questData.tarkovDataId}/`}
+                            <Link
+                                to={`/task/${questData.normalizedName}`}
                             >
-                                <div>
-                                    {questData.name} {questData.factionName !== 'Any' ? questData.factionName : ''}
-                                </div>
-                            </a>
+                                {questData.name} {questData.factionName !== 'Any' ? questData.factionName : ''}
+                            </Link>
+                            {completedIcon}
                         </div>
                     );
                 },
@@ -299,6 +327,69 @@ function QuestTable({
             });
         }
 
+        if (questRequirements) {
+            useColumns.push({
+                Header: t('Required tasks'),
+                accessor: (questData) => {
+                    return quests.find(quest => quest.id === questData.taskRequirements[0]?.task.id)?.name;
+                },
+                Cell: (props) => {
+                    const questData = props.row.original;
+                    return questData.taskRequirements.map(req => {
+                        const reqQuest = quests.find(quest => quest.id === req.task.id);
+                        let completedIcon = '';
+                        if (settings.completedQuests.includes(String(questData.tarkovDataId))) {
+                            completedIcon = (
+                                <Icon
+                                    path={mdiClipboardCheck}
+                                    size={0.75}
+                                    className="icon-with-text"
+                                />
+                            );
+                        }
+                        return (
+                            <div key={`quest-req-${req.task.id}`}>
+                                <Link
+                                    to={`/task/${reqQuest.normalizedName}`}
+                                >
+                                    {reqQuest.name} {reqQuest.factionName !== 'Any' ? reqQuest.factionName : ''}
+                                </Link>
+                                {completedIcon}
+                                <div>
+                                    {req.status.map(status => t(status)).join(', ')}
+                                </div>
+                            </div>
+                        );
+                    });
+                },
+                position: rewardItems,
+            });
+        }
+
+        if (minimumLevel) {
+            useColumns.push({
+                Header: t('Minimum level'),
+                accessor: 'minPlayerLevel',
+                Cell: CenterCell,
+                position: minimumLevel,
+            });
+        }
+
+        if (minimumTraderLevel) {
+            useColumns.push({
+                Header: t('Minimum trader level'),
+                accessor: (questData) => {
+                    return questData.traderLevelRequirements[0]?.level;
+                },
+                Cell: (props) => {
+                    return (
+                        <CenterCell value ={props.row.original.traderLevelRequirements.map(req => req.level).join(', ')}/>
+                    );
+                },
+                position: minimumTraderLevel,
+            });
+        }
+
         const claimedPositions = [];
         for (let i = 1; i < useColumns.length; i++) {
             const column = useColumns[i];
@@ -325,6 +416,11 @@ function QuestTable({
         return useColumns;
     }, [
         t,
+        settings,
+        quests,
+        questRequirements,
+        minimumLevel,
+        minimumTraderLevel,
         requiredItems,
         rewardItems,
     ]);

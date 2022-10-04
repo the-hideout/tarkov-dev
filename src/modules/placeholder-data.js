@@ -10,6 +10,9 @@ import cachedMeta from '../data/meta.json';
 
 import cachedMaps from '../data/maps_cached.json';
 
+import cachedTasks from '../data/quests.json';
+import cachedTasksLocale from '../data/quests_locale.json';
+
 import cachedTraders from '../data/traders.json'
 import cachedTradersLocale from '../data/traders_locale.json';
 
@@ -45,12 +48,30 @@ export function placeholderMeta(language = 'en') {
     return cachedMeta;
 }
 
-export function placeholderTraders(language = 'en') {
-    if (language !== 'en' && cachedTradersLocale[language]) {
+export function placeholderTasks(language = 'en') {
+    if (language !== 'en' && cachedTasksLocale[language]) {
         return cachedTraders.map(trader => {
             return {
                 ...trader,
                 ...cachedTradersLocale[language][trader.id]
+            };
+        });
+    }
+    return cachedTasks;
+}
+
+export function placeholderTraders(language = 'en') {
+    if (language !== 'en' && cachedTradersLocale[language]) {
+        return cachedTasks.map(task => {
+            return {
+                ...task,
+                name: cachedTasksLocale[language][task.id].name,
+                objectives: task.objectives.map(defObj => {
+                    return {
+                        ...defObj,
+                        description: cachedTasksLocale[language][task.id][defObj.id]
+                    }
+                })
             };
         });
     }
