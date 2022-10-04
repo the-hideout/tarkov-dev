@@ -282,7 +282,7 @@ function Item() {
                 }
             });
 
-            questData.neededKeys.forEach(taskKey => {
+            questData.neededKeys?.forEach(taskKey => {
                 taskKey.keys.forEach(key => {
                     if (key.id === currentItemData?.id) {
                         objectiveInfo.count++;
