@@ -13,6 +13,7 @@ import Map from './components/Map.jsx';
 import RemoteControlId from './components/remote-control-id';
 import Menu from './components/menu';
 import Footer from './components/footer';
+import { fetchTarkovTrackerProgress } from './features/settings/settingsSlice';
 
 import {
     setConnectionStatus,
@@ -101,6 +102,39 @@ function App() {
     if (connectToId) {
         dispatch(enableConnection());
     }
+
+    const useTarkovTracker = useSelector(
+        (state) => state.settings.useTarkovTracker,
+    );
+    
+    const progressStatus = useSelector((state) => {
+        return state.settings.progressStatus;
+    });
+
+    const tarkovTrackerAPIKey = useSelector(
+        (state) => state.settings.tarkovTrackerAPIKey,
+    );
+
+    useEffect(() => {
+        let tarkovTrackerProgressInterval = false;
+        if (useTarkovTracker && progressStatus === 'idle') {
+            dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
+        }
+
+        if (!tarkovTrackerProgressInterval && useTarkovTracker) {
+            tarkovTrackerProgressInterval = setInterval(() => {
+                dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
+            }, 30000);
+        }
+
+        if (tarkovTrackerProgressInterval && !useTarkovTracker) {
+            clearInterval(tarkovTrackerProgressInterval);
+        }
+
+        return () => {
+            clearInterval(tarkovTrackerProgressInterval);
+        };
+    }, [progressStatus, dispatch, tarkovTrackerAPIKey, useTarkovTracker]);
 
     useEffect(() => {
         const handleDisplayMessage = (rawMessage) => {

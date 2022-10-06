@@ -40,7 +40,6 @@ const colors = {
 };
 
 function ItemImage({ item }) {
-    console.log(item);
     if (item.image512pxLink.includes('unknown-item') && !item.gridImageLink.includes('unknown-item')) {
         return (<img src={item.gridImageLink} alt={item.name}/>);
     }
