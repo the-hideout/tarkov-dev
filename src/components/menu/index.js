@@ -9,7 +9,6 @@ import {
     // mdiHeartFlash,
     mdiMenu,
     // mdiHandHeart,
-    mdiDotsHorizontal,
 } from '@mdi/js';
 
 import MenuItem from './MenuItem';
