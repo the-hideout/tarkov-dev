@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from '@mdi/react';
-import { mdiClipboardCheck } from '@mdi/js';
+import { mdiClipboardCheck, mdiClipboardRemove } from '@mdi/js';
 
 import DataTable from '../data-table';
 import QuestItemsCell from './quest-items-cell';
@@ -282,7 +282,7 @@ function QuestTable({
                             <Link
                                 to={`/task/${questData.normalizedName}`}
                             >
-                                {questData.name} {questData.factionName !== 'Any' ? questData.factionName : ''}
+                                {questData.name} {questData.factionName !== 'Any' ? ` (${questData.factionName})` : ''}
                             </Link>
                             {completedIcon}
                         </div>
@@ -338,10 +338,19 @@ function QuestTable({
                     return questData.taskRequirements.map(req => {
                         const reqQuest = quests.find(quest => quest.id === req.task.id);
                         let completedIcon = '';
-                        if (settings.completedQuests.includes(String(questData.tarkovDataId))) {
+                        if (req.status.includes('complete') && settings.completedQuests.includes(String(questData.tarkovDataId))) {
                             completedIcon = (
                                 <Icon
                                     path={mdiClipboardCheck}
+                                    size={0.75}
+                                    className="icon-with-text"
+                                />
+                            );
+                        }
+                        if (req.status.length === 1 && req.status[0] === 'active' && settings.completedQuests.includes(String(questData.tarkovDataId))) {
+                            completedIcon = (
+                                <Icon
+                                    path={mdiClipboardRemove}
                                     size={0.75}
                                     className="icon-with-text"
                                 />
@@ -352,12 +361,12 @@ function QuestTable({
                                 <Link
                                     to={`/task/${reqQuest.normalizedName}`}
                                 >
-                                    {reqQuest.name} {reqQuest.factionName !== 'Any' ? reqQuest.factionName : ''}
+                                    {reqQuest.name}{reqQuest.factionName !== 'Any' ? ` (${reqQuest.factionName})` : ''}
                                 </Link>
-                                {completedIcon}
-                                <div>
-                                    {req.status.map(status => t(status)).join(', ')}
-                                </div>
+                                <span>
+                                    {`: ${req.status.map(status => t(status)).join(', ')}`}
+                                    {completedIcon}
+                                </span>
                             </div>
                         );
                     });

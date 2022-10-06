@@ -39,9 +39,8 @@ const colors = {
     ],
 };
 
-function ItemImage(props) {
-    const { item } = props;
-
+function ItemImage({ item }) {
+    console.log(item);
     if (item.image512pxLink.includes('unknown-item') && !item.gridImageLink.includes('unknown-item')) {
         return (<img src={item.gridImageLink} alt={item.name}/>);
     }
@@ -59,7 +58,7 @@ function ItemImage(props) {
         position: 'relative',
     };
 
-    if (item.types.includes('loading')) {
+    if (item.types?.includes('loading')) {
         const loadingStyle = {
             WebkitMask:`url(${item.image512pxLink}) center/cover`,
                   mask:`url(${item.image512pxLink}) center/cover`,

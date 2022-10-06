@@ -97,6 +97,12 @@ const doFetchQuests = async (language) => {
                         questItem {
                             id
                             name
+                            shortName
+                            width
+                            height
+                            iconLink
+                            gridImageLink
+                            image512pxLink
                         }
                         count
                     }
