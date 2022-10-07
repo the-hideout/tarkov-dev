@@ -124,7 +124,7 @@ function App() {
         if (!tarkovTrackerProgressInterval && useTarkovTracker) {
             tarkovTrackerProgressInterval = setInterval(() => {
                 dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
-            }, 30000);
+            }, 1000 * 60 * 5);
         }
 
         if (tarkovTrackerProgressInterval && !useTarkovTracker) {
