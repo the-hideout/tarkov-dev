@@ -28,8 +28,12 @@ function Quests() {
         'selectedTrader',
         'all',
     );
-    const [showAll, setShowAll] = useStateWithLocalStorage(
-        'showAllBarters',
+    const [hideCompleted, setHideCompleted] = useStateWithLocalStorage(
+        'hideCompletedTasks',
+        false,
+    );
+    const [hideLocked, setHideLocked] = useStateWithLocalStorage(
+        'hideLockedTasks',
         false,
     );
 
@@ -71,12 +75,22 @@ function Quests() {
                 </h1>
                 <Filter>
                     <ToggleFilter
-                        checked={showAll}
-                        label={t('Show completed')}
-                        onChange={(e) => setShowAll(!showAll)}
+                        checked={hideCompleted}
+                        label={t('Hide completed')}
+                        onChange={(e) => setHideCompleted(!hideCompleted)}
                         tooltipContent={
                             <>
-                                {t('Shows all tasks')}
+                                {t('Hides completed tasks')}
+                            </>
+                        }
+                    />
+                    <ToggleFilter
+                        checked={hideLocked}
+                        label={t('Hide locked')}
+                        onChange={(e) => setHideLocked(!hideLocked)}
+                        tooltipContent={
+                            <>
+                                {t('Hides locked tasks')}
                             </>
                         }
                     />
@@ -127,7 +141,8 @@ function Quests() {
             </div>
 
             <QuestTable
-                showCompleted={showAll}
+                hideCompleted={hideCompleted}
+                hideLocked={hideLocked}
                 giverFilter={selectedTrader}
                 nameFilter={nameFilter}
                 questRequirements={1}

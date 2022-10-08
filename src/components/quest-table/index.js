@@ -10,6 +10,7 @@ import QuestItemsCell from './quest-items-cell';
 import CenterCell from '../center-cell';
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
 import { useItemsQuery } from '../../features/items/queries';
+import { useTradersQuery } from '../../features/traders/queries';
 
 import './index.css';
 
@@ -144,6 +145,7 @@ function QuestTable({
     rewardItemFilter,
     hideBorders,
     hideCompleted,
+    hideLocked,
     questRequirements,
     minimumLevel,
     minimumTraderLevel,
@@ -155,6 +157,11 @@ function QuestTable({
 
     const result = useItemsQuery();
     const items = result.data;
+
+    const tradersResult = useTradersQuery();
+    const traders = useMemo(() => {
+        return tradersResult.data;
+    }, [tradersResult]);
     
     const dispatch = useDispatch();
     const quests = useSelector(selectQuests);
@@ -239,15 +246,44 @@ function QuestTable({
 
     const shownQuests = useMemo(() => {
         return allQuestData.filter(quest => {
-            if (!hideCompleted) {
+            if (!hideCompleted && !hideLocked) {
                 return true;
             }
-            return !settings.completedQuests.some(stringId => parseInt(stringId) === quest.tarkovDataId)
+
+            let completedPassed = true;
+            if (hideCompleted) {
+                completedPassed = !settings.completedQuests.some(stringId => parseInt(stringId) === quest.tarkovDataId);
+            }
+
+            let lockedPassed = true;
+            if (hideLocked) {
+                for (const req of quest.traderLevelRequirements) {
+                    const trader = traders.find(t => t.id === req.trader.id);
+                    if (settings[trader.normalizedName] < req.level) {
+                        lockedPassed = false;
+                        break;
+                    }
+                }
+                for (const req of quest.taskRequirements) {
+                    const questReq = allQuestData.find(q => q.id === req.task.id);
+                    if (req.status.includes('complete')) {
+                        const isComplete = settings.completedQuests.some(stringId => parseInt(stringId) === questReq.tarkovDataId);
+                        if (!isComplete) {
+                            lockedPassed = false;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return completedPassed && lockedPassed;
         });
     }, [
         settings,
         allQuestData,
+        traders,
         hideCompleted,
+        hideLocked,
     ]);
 
     const columns = useMemo(() => {
