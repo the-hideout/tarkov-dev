@@ -147,7 +147,7 @@ function Quest() {
         if (currentQuest.taskRequirements?.length > 0) {
             tasksReqs = (
                 <div key={'task-status-req'}>
-                    <h3>{t('Precursor Tasks')}</h3>
+                    <h3>{t('Prerequisite Tasks')}</h3>
                     {currentQuest.taskRequirements.map((taskReq) => {
                         const task = quests.find((quest) => quest.id === taskReq.task.id);
                         return (
@@ -248,7 +248,7 @@ function Quest() {
                 {/* Divider between sections */}
                 <hr className="hr-muted-full"></hr>
 
-                <h2 className='center-title task-details-heading'>{t('Task Details')}</h2>
+                <h2 className="center-title task-details-heading">{t('Task Details')}</h2>
 
                 {currentQuest.map && <h2>{`🗺️ ${t('Map')}: ${currentQuest.map.name}`}</h2>}
                 <h2>🏆 {t('Objectives')}</h2>
@@ -270,7 +270,9 @@ function Quest() {
                                             </span>
                                         }
                                     >
-                                        <span>{objective.questItem.name}</span>
+                                        <span className="hover-item-name">
+                                            {objective.questItem.name}
+                                        </span>
                                     </Tippy>
                                 </>
                             );
@@ -671,7 +673,7 @@ function Quest() {
                         }
                         return (
                             <div key={objective.id}>
-                                <h3>{`${objective.description}${
+                                <h3>{`✔️ ${objective.description}${
                                     objective.optional ? ` (${t('optional')})` : ''
                                 }`}</h3>
                                 {objective.maps.length > 0 && (
@@ -688,7 +690,6 @@ function Quest() {
                 </>
                 {currentQuest.neededKeys?.length > 0 && (
                     <>
-                        <hr className="hr-muted-full"></hr>
                         <h2>🗝️ {t('Needed Keys')}</h2>
                         <ul>
                             {currentQuest.neededKeys.map((mapKeys) => {
@@ -721,6 +722,11 @@ function Quest() {
                         </ul>
                     </>
                 )}
+
+                <hr className="hr-muted-full"></hr>
+
+                <h2 className="center-title task-details-heading">{t('Task Completion')}</h2>
+
                 <h2>🎁 {t('Rewards')}</h2>
                 {currentQuest.finishRewards?.items?.length > 0 && (
                     <div>
