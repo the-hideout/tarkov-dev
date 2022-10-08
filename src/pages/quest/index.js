@@ -253,7 +253,7 @@ function Quest() {
                 <hr className="hr-muted"></hr>
                 {currentQuest.map && <h2>{`🗺️ ${t('Map')}: ${currentQuest.map.name}`}</h2>}
                 <h2>🏆 {t('Objectives')}</h2>
-                <div>
+                <>
                     {currentQuest.objectives.map((objective) => {
                         let taskDetails = '';
                         if (objective.type.includes('QuestItem')) {
@@ -262,7 +262,7 @@ function Quest() {
                                 verb = t('Hand over');
                             }
                             taskDetails = (
-                                <div>
+                                <>
                                     <span>{verb} </span>
                                     <Tippy
                                         content={
@@ -273,7 +273,7 @@ function Quest() {
                                     >
                                         <span>{objective.questItem.name}</span>
                                     </Tippy>
-                                </div>
+                                </>
                             );
                         }
                         if (objective.type === 'buildWeapon') {
@@ -287,14 +287,14 @@ function Quest() {
                                 })
                                 .filter(Boolean);
                             taskDetails = (
-                                <div>
+                                <>
                                     <>
                                         <Link to={`/item/${baseItem.normalizedName}`}>
                                             {baseItem.name}
                                         </Link>
                                     </>
                                     {attributes.length > 0 && (
-                                        <div>
+                                        <>
                                             <h4>{t('Attributes')}</h4>
                                             <ul>
                                                 {attributes.map((att) => {
@@ -305,10 +305,10 @@ function Quest() {
                                                     );
                                                 })}
                                             </ul>
-                                        </div>
+                                        </>
                                     )}
                                     {objective.containsAll?.length > 0 && (
-                                        <div>
+                                        <>
                                             <h4>{t('Contains All')}</h4>
                                             <ul>
                                                 {objective.containsAll.map((part) => {
@@ -326,10 +326,10 @@ function Quest() {
                                                     );
                                                 })}
                                             </ul>
-                                        </div>
+                                        </>
                                     )}
                                     {objective.containsOne?.length > 0 && (
-                                        <div>
+                                        <>
                                             <h4>{t('Contains One')}</h4>
                                             <ul>
                                                 {objective.containsOne.map((part) => {
@@ -347,14 +347,14 @@ function Quest() {
                                                     );
                                                 })}
                                             </ul>
-                                        </div>
+                                        </>
                                     )}
-                                </div>
+                                </>
                             );
                         }
                         if (objective.type === 'experience') {
                             taskDetails = (
-                                <div>
+                                <>
                                     {`${t(
                                         'Have the {{effectNames}} effect(s) on your {{bodyParts}} for {{operator}} {{seconds}} seconds',
                                         {
@@ -372,12 +372,12 @@ function Quest() {
                                             seconds: objective.healthEffect.time.value,
                                         },
                                     )}`}
-                                </div>
+                                </>
                             );
                         }
                         if (objective.type === 'extract') {
                             taskDetails = (
-                                <div>
+                                <>
                                     {t('Extract with the status(es): {{extractStatuses}}', {
                                         extractStatuses: objective.exitStatus
                                             .map((status) => {
@@ -385,7 +385,7 @@ function Quest() {
                                             })
                                             .join(', '),
                                     })}
-                                </div>
+                                </>
                             );
                         }
                         if (objective.type === 'giveItem' || objective.type === 'findItem') {
@@ -416,13 +416,13 @@ function Quest() {
                                 });
                             }
                             taskDetails = (
-                                <div>
-                                    <div>
+                                <>
+                                    <>
                                         <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
                                         {objective.count > 1 && (
                                             <span>{` x ${objective.count}`}</span>
                                         )}
-                                    </div>
+                                    </>
                                     {attributes.length > 0 && (
                                         <ul>
                                             {attributes.map((att) => {
@@ -434,15 +434,15 @@ function Quest() {
                                             })}
                                         </ul>
                                     )}
-                                </div>
+                                </>
                             );
                         }
                         if (objective.type === 'mark') {
                             const item = items.find((i) => i.id === objective.markerItem.id);
                             taskDetails = (
-                                <div>
+                                <>
                                     <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
-                                </div>
+                                </>
                             );
                         }
                         if (objective.type === 'shoot') {
@@ -451,24 +451,24 @@ function Quest() {
                                 verb = 'Shoot';
                             }
                             taskDetails = (
-                                <div>
-                                    <div>
+                                <>
+                                    <>
                                         {t('{{shootOrKill}} {{target}} {{shotCount}} time(s)', {
                                             shootOrKill: t(verb),
                                             shotCount: objective.count,
                                             target: objective.target,
                                         })}
-                                    </div>
+                                    </>
                                     {objective.distance && (
-                                        <div>
+                                        <>
                                             {t('From distance: {{operator}} {{distance}} meters', {
                                                 operator: objective.distance.compareMethod,
                                                 distance: objective.distance.value,
                                             })}
-                                        </div>
+                                        </>
                                     )}
                                     {objective.zoneNames?.length > 0 && (
-                                        <div>
+                                        <>
                                             {t('While inside: {{zoneList}}', {
                                                 zoneList: objective.zoneNames
                                                     .map((zone) => {
@@ -476,10 +476,10 @@ function Quest() {
                                                     })
                                                     .join(', '),
                                             })}
-                                        </div>
+                                        </>
                                     )}
                                     {objective.bodyParts?.length > 0 && (
-                                        <div>
+                                        <>
                                             {t('Hitting: {{bodyPartList}}', {
                                                 bodyPartList: objective.bodyParts
                                                     .map((part) => {
@@ -487,10 +487,10 @@ function Quest() {
                                                     })
                                                     .join(', '),
                                             })}
-                                        </div>
+                                        </>
                                     )}
                                     {objective.usingWeapon?.length > 0 && (
-                                        <div>
+                                        <>
                                             {t('Using weapon:')}{' '}
                                             <ul>
                                                 {objective.usingWeapon.map((weap) => {
@@ -508,10 +508,10 @@ function Quest() {
                                                     );
                                                 })}
                                             </ul>
-                                        </div>
+                                        </>
                                     )}
                                     {objective.usingWeaponMods?.length > 0 && (
-                                        <div>
+                                        <>
                                             {t('Using weapon mods:')}{' '}
                                             {objective.usingWeaponMods.map((modSet) => {
                                                 return (
@@ -533,10 +533,10 @@ function Quest() {
                                                     </ul>
                                                 );
                                             })}
-                                        </div>
+                                        </>
                                     )}
                                     {objective.wearing?.length > 0 && (
-                                        <div>
+                                        <>
                                             {t('While wearing:')}{' '}
                                             {objective.wearing.map((outfit) => {
                                                 return (
@@ -558,10 +558,10 @@ function Quest() {
                                                     </ul>
                                                 );
                                             })}
-                                        </div>
+                                        </>
                                     )}
                                     {objective.notWearing?.length > 0 && (
-                                        <div>
+                                        <>
                                             {t('Not wearing:')}{' '}
                                             <ul>
                                                 {objective.notWearing.map((accessory) => {
@@ -579,10 +579,10 @@ function Quest() {
                                                     );
                                                 })}
                                             </ul>
-                                        </div>
+                                        </>
                                     )}
                                     {objective.playerHealthEffect && (
-                                        <div>
+                                        <>
                                             {`${t(
                                                 'While having the {{effectNames}} effect(s) on your {{bodyParts}} for {{operator}} {{seconds}} seconds',
                                                 {
@@ -605,10 +605,10 @@ function Quest() {
                                                         objective.playerHealthEffect.time.value,
                                                 },
                                             )}`}
-                                        </div>
+                                        </>
                                     )}
                                     {objective.enemyHealthEffect && (
-                                        <div>
+                                        <>
                                             {`${t(
                                                 'While target has the {{effectNames}} effect(s) on their {{bodyParts}} for {{operator}} {{seconds}} seconds',
                                                 {
@@ -628,25 +628,25 @@ function Quest() {
                                                     seconds: objective.enemyHealthEffect.time.value,
                                                 },
                                             )}`}
-                                        </div>
+                                        </>
                                     )}
-                                </div>
+                                </>
                             );
                         }
                         if (objective.type === 'skill') {
                             taskDetails = (
-                                <div>
+                                <>
                                     {t('Obtain level {{level}} {{skillName}} skill', {
                                         level: objective.skillLevel.level,
                                         skillName: objective.skillLevel.name,
                                     })}
-                                </div>
+                                </>
                             );
                         }
                         if (objective.type === 'taskStatus') {
                             const task = quests.find((q) => q.id === objective.task.id);
                             taskDetails = (
-                                <div>
+                                <>
                                     <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>
                                     <span>
                                         :{' '}
@@ -656,18 +656,18 @@ function Quest() {
                                             })
                                             .join(', ')}
                                     </span>
-                                </div>
+                                </>
                             );
                         }
                         if (objective.type === 'traderLevel') {
                             const trader = traders.find((t) => t.id === objective.trader.id);
                             taskDetails = (
-                                <div>
+                                <>
                                     <Link to={`/traders/${trader.normalizedName}`}>
                                         {trader.name}
                                     </Link>
                                     <span>{` LL${objective.level}`}</span>
-                                </div>
+                                </>
                             );
                         }
                         return (
@@ -676,17 +676,19 @@ function Quest() {
                                     objective.optional ? ` (${t('optional')})` : ''
                                 }`}</h3>
                                 {objective.maps.length > 0 && (
-                                    <div>{`${t('Maps')}: ${objective.maps
-                                        .map((m) => m.name)
-                                        .join(', ')}`}</div>
+                                    <>
+                                        {`${t('Maps')}: ${objective.maps
+                                            .map((m) => m.name)
+                                            .join(', ')}`}
+                                    </>
                                 )}
                                 {taskDetails}
                             </div>
                         );
                     })}
-                </div>
+                </>
                 {currentQuest.neededKeys?.length > 0 && (
-                    <div>
+                    <>
                         <h2>🗝️ {t('Needed Keys')}</h2>
                         <ul>
                             {currentQuest.neededKeys.map((mapKeys) => {
@@ -717,7 +719,7 @@ function Quest() {
                                 );
                             })}
                         </ul>
-                    </div>
+                    </>
                 )}
                 <h2>🎁 {t('Rewards')}</h2>
                 {currentQuest.finishRewards?.items?.length > 0 && (
@@ -741,7 +743,7 @@ function Quest() {
                     </div>
                 )}
                 {currentQuest.finishRewards?.traderStanding?.length > 0 && (
-                    <div>
+                    <>
                         <h3>{t('Trader Standing')}</h3>
                         <ul>
                             {currentQuest.finishRewards.traderStanding.map((standing) => {
@@ -766,18 +768,18 @@ function Quest() {
                                 );
                             })}
                         </ul>
-                    </div>
+                    </>
                 )}
                 {currentQuest.finishRewards?.skillLevelReward?.length > 0 && (
-                    <div>
+                    <>
                         <h3>{t('Skill Level')}</h3>
                         {currentQuest.finishRewards.skillLevelReward.map((skillReward) => {
                             return <>{`${skillReward.name} +${skillReward.level}`}</>;
                         })}
-                    </div>
+                    </>
                 )}
                 {currentQuest.finishRewards?.offerUnlock?.length > 0 && (
-                    <div>
+                    <>
                         <h3>{t('Trader Offer Unlock')}</h3>
                         <ul>
                             {currentQuest.finishRewards.offerUnlock.map((unlock) => {
@@ -799,10 +801,10 @@ function Quest() {
                                 );
                             })}
                         </ul>
-                    </div>
+                    </>
                 )}
                 {currentQuest.finishRewards?.traderUnlock?.length > 0 && (
-                    <div>
+                    <>
                         <h3>{t('Trader Unlock')}</h3>
                         <ul>
                             {currentQuest.finishRewards.traderUnlock.map((unlock) => {
@@ -818,7 +820,7 @@ function Quest() {
                                 );
                             })}
                         </ul>
-                    </div>
+                    </>
                 )}
             </div>
         </div>,
