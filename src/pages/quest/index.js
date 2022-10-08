@@ -302,6 +302,7 @@ function Quest() {
                                                     return (
                                                         <li
                                                             key={att.name}
+                                                            className={'quest-list-item'}
                                                         >{`${att.name}: ${att.requirement.compareMethod} ${att.requirement.value}`}</li>
                                                     );
                                                 })}
@@ -317,7 +318,7 @@ function Quest() {
                                                         (i) => i.id === part.id,
                                                     );
                                                     return (
-                                                        <li key={item.id}>
+                                                        <li key={item.id} className={'quest-list-item'}>
                                                             <Link
                                                                 to={`/item/${item.normalizedName}`}
                                                             >
@@ -338,7 +339,7 @@ function Quest() {
                                                         (i) => i.id === part.id,
                                                     );
                                                     return (
-                                                        <li key={item.id}>
+                                                        <li key={item.id} className={'quest-list-item'}>
                                                             <Link
                                                                 to={`/item/${item.normalizedName}`}
                                                             >
@@ -428,7 +429,7 @@ function Quest() {
                                         <ul>
                                             {attributes.map((att) => {
                                                 return (
-                                                    <li key={att.name}>
+                                                    <li key={att.name} className={'quest-list-item'}>
                                                         {`${att.name}: ${att.value}`}
                                                     </li>
                                                 );
@@ -499,7 +500,7 @@ function Quest() {
                                                         (i) => i.id === weap.id,
                                                     );
                                                     return (
-                                                        <li key={`weapon-${item.id}`}>
+                                                        <li key={`weapon-${item.id}`} className={'quest-list-item'}>
                                                             <Link
                                                                 to={`/item/${item.normalizedName}`}
                                                             >
@@ -522,7 +523,7 @@ function Quest() {
                                                                 (i) => i.id === mod.id,
                                                             );
                                                             return (
-                                                                <li key={`mod-${item.id}`}>
+                                                                <li key={`mod-${item.id}`} className={'quest-list-item'}>
                                                                     <Link
                                                                         to={`/item/${item.normalizedName}`}
                                                                     >
@@ -547,7 +548,7 @@ function Quest() {
                                                                 (i) => i.id === accessory.id,
                                                             );
                                                             return (
-                                                                <li key={`accessory-${item.id}`}>
+                                                                <li key={`accessory-${item.id}`} className={'quest-list-item'}>
                                                                     <Link
                                                                         to={`/item/${item.normalizedName}`}
                                                                     >
@@ -570,7 +571,7 @@ function Quest() {
                                                         (i) => i.id === accessory.id,
                                                     );
                                                     return (
-                                                        <li key={`accessory-${item.id}`}>
+                                                        <li key={`accessory-${item.id}`} className={'quest-list-item'}>
                                                             <Link
                                                                 to={`/item/${item.normalizedName}`}
                                                             >
