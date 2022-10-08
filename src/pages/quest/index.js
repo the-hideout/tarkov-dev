@@ -11,7 +11,6 @@ import Tippy from '@tippyjs/react';
 
 import ErrorPage from '../../components/error-page';
 import ItemSearch from '../../components/item-search';
-//import ItemImage from '../../components/item-image';
 
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
 import { useTradersQuery } from '../../features/traders/queries';
@@ -21,10 +20,6 @@ import { useMapsQuery } from '../../features/maps/queries';
 import './index.css';
 
 dayjs.extend(relativeTime);
-
-/*const ConditionalWrapper = ({ condition, wrapper, children }) => {
-    return condition ? wrapper(children) : children;
-};*/
 
 function Quest() {
     const settings = useSelector((state) => state.settings);
@@ -190,7 +185,7 @@ function Quest() {
             </div>
         );
     }
-    //console.log(currentQuest)
+
     return [
         <Helmet key={'quest-page-helmet'}>
             <meta charSet="utf-8" />
@@ -249,8 +244,10 @@ function Quest() {
                     </div>
                 </div>
                 {requirementsChunk}
+
                 {/* Divider between sections */}
                 <hr className="hr-muted"></hr>
+
                 {currentQuest.map && <h2>{`🗺️ ${t('Map')}: ${currentQuest.map.name}`}</h2>}
                 <h2>🏆 {t('Objectives')}</h2>
                 <>
