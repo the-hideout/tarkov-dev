@@ -260,7 +260,7 @@ function Quest() {
                 {/* Divider between sections */}
                 <hr className="hr-muted"></hr>
                 {currentQuest.map && (
-                    <h2>{`${t('Map')}: ${currentQuest.map.name}`}</h2>
+                    <h2>{`🗺️ ${t('Map')}: ${currentQuest.map.name}`}</h2>
                 )}
                 <h2>{t('Objectives')}</h2>
                 <div>
