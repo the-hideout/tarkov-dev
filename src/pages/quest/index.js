@@ -262,7 +262,7 @@ function Quest() {
                 {currentQuest.map && (
                     <h2>{`🗺️ ${t('Map')}: ${currentQuest.map.name}`}</h2>
                 )}
-                <h2>{t('Objectives')}</h2>
+                <h2>🏆 {t('Objectives')}</h2>
                 <div>
                     {currentQuest.objectives.map(objective => {
                         let taskDetails = '';
@@ -616,12 +616,12 @@ function Quest() {
                 </div>
                 {currentQuest.neededKeys?.length > 0 && (
                     <div>
-                        <h2>{t('Needed Keys')}</h2>
+                        <h2>🗝️ {t('Needed Keys')}</h2>
                         <ul>
                             {currentQuest.neededKeys.map(mapKeys => {
                                 const map = maps.find(m => m.id === mapKeys.map.id);
                                 return (
-                                    <li key={map.id}>
+                                    <li key={map.id} className='quest-list-item'>
                                         {`${map.name}: `}
                                         {mapKeys.keys.map(key => {
                                             const item = items.find(i => i.id === key.id);
@@ -645,26 +645,31 @@ function Quest() {
                         </ul>
                     </div>
                 )}
-                <h2>{t('Rewards')}</h2>
+                <h2>🎁 {t('Rewards')}</h2>
                 {currentQuest.finishRewards?.items?.length > 0 && (
                     <div>
                         <h3>{t('Items')}</h3>
+                        <ul>
                         {currentQuest.finishRewards?.items.map(rewardItem => {
                             const item = items.find(it => it.id === rewardItem.item.id);
                             return (
-                                <div>
+                                <>
+                                    <li className='quest-list-item' key={rewardItem.item.id}>
                                     <Link to={`/item/${item.normalizedName}`}>
                                         {item.name}
                                     </Link>
                                     <span>{` x ${rewardItem.count.toLocaleString()}`}</span>
-                                </div>
+                                    </li>
+                                </>
                             );
                         })}
+                        </ul>
                     </div>
                 )}
                 {currentQuest.finishRewards?.traderStanding?.length > 0 && (
                     <div>
                         <h3>{t('Trader Standing')}</h3>
+                        <ul>
                         {currentQuest.finishRewards.traderStanding.map(standing => {
                             const trader = traders.find(t => t.id === standing.trader.id);
                             let sign = '';
@@ -672,16 +677,19 @@ function Quest() {
                                 sign = '+';
                             }
                             return (
-                                <div>
+                                <>
+                                    <li className='quest-list-item' key={standing.trader.id}>
                                     <Link to={`/traders/${trader.normalizedName}`}>
                                         {trader.name}
                                     </Link>
                                     <span>
                                         {' '}{sign}{standing.standing}
                                     </span>
-                                </div>
+                                    </li>
+                                </>
                             );
                         })}
+                        </ul>
                     </div>
                 )}
                 {currentQuest.finishRewards?.skillLevelReward?.length > 0 && (
@@ -689,9 +697,9 @@ function Quest() {
                         <h3>{t('Skill Level')}</h3>
                         {currentQuest.finishRewards.skillLevelReward.map(skillReward => {
                             return (
-                                <div>
+                                <>
                                     {`${skillReward.name} +${skillReward.level}`}
-                                </div>
+                                </>
                             );
                         })}
                     </div>
@@ -699,11 +707,13 @@ function Quest() {
                 {currentQuest.finishRewards?.offerUnlock?.length > 0 && (
                     <div>
                         <h3>{t('Trader Offer Unlock')}</h3>
+                        <ul>
                         {currentQuest.finishRewards.offerUnlock.map(unlock => {
                             const trader = traders.find(t => t.id === unlock.trader.id);
                             const item = items.find(i => i.id === unlock.item.id);
                             return (
-                                <div>
+                                <>
+                                    <li className='quest-list-item' key={unlock.item.id}>
                                     <Link to={`/item/${item.normalizedName}`}>
                                         {item.name}
                                     </Link>
@@ -712,25 +722,30 @@ function Quest() {
                                         {trader.name}
                                     </Link>
                                     <span>{` LL${unlock.level}`}</span>
-                                </div>
+                                    </li>
+                                </>
                             );
                         })}
+                        </ul>
                     </div>
                 )}
                 {currentQuest.finishRewards?.traderUnlock?.length > 0 && (
                     <div>
                         <h3>{t('Trader Unlock')}</h3>
+                        <ul>
                         {currentQuest.finishRewards.traderUnlock.map(unlock => {
                             const trader = traders.find(t => t.id === unlock.id);
                             return (
-                                <div>
+                                <>
+                                    <li className='quest-list-item' key={unlock.id}>
                                     <Link to={`/traders/${trader.normalizedName}`}>
                                         {trader.name}
                                     </Link>
-                                </div>
+                                    </li>
+                                </>
                             );
-                            
                         })}
+                        </ul>
                     </div>
                 )}
             </div>
