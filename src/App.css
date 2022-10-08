@@ -222,6 +222,13 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
     opacity: 0.4;
 }
 
+.hr-muted-full {
+    margin-top: 2rem;
+    border-bottom: 1px solid #9a8866;
+    width: 100%;
+    opacity: 0.4;
+}
+
 @media screen and (min-width: 800px) {
     .control-wrapper {
         display: none;

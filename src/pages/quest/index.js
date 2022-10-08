@@ -178,7 +178,7 @@ function Quest() {
         }
         requirementsChunk = (
             <div key={'all-start-requirements'}>
-                <h2>{t('Start Requirements')}</h2>
+                <h2>📋 {t('Start Requirements')}</h2>
                 {playerLevel}
                 {traderLevels}
                 {tasksReqs}
@@ -246,7 +246,9 @@ function Quest() {
                 {requirementsChunk}
 
                 {/* Divider between sections */}
-                <hr className="hr-muted"></hr>
+                <hr className="hr-muted-full"></hr>
+
+                <h2 className='center-title task-details-heading'>{t('Task Details')}</h2>
 
                 {currentQuest.map && <h2>{`🗺️ ${t('Map')}: ${currentQuest.map.name}`}</h2>}
                 <h2>🏆 {t('Objectives')}</h2>
@@ -686,6 +688,7 @@ function Quest() {
                 </>
                 {currentQuest.neededKeys?.length > 0 && (
                     <>
+                        <hr className="hr-muted-full"></hr>
                         <h2>🗝️ {t('Needed Keys')}</h2>
                         <ul>
                             {currentQuest.neededKeys.map((mapKeys) => {
