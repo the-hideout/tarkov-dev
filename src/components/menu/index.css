@@ -99,6 +99,10 @@
     position: relative;
 }
 
+.more-dropdown-wrapper ul {
+    left: 0;
+}
+
 .menu .submenu-wrapper ul {
     background-color: #2d2d2f;
     border-bottom-left-radius: 3px;
@@ -216,8 +220,8 @@ li.mobile-only-link {
         /* width: auto; */
     }
 
-    .submenu-wrapper > ul {
-        left: -8rem !important;
+    .more-dropdown-wrapper > ul {
+        left: -5.25rem !important;
     }
 
     .menu > li {

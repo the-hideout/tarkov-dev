@@ -282,7 +282,7 @@ const Menu = () => {
                             {t('stats')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper desktop-only-link" key="menu-more">
+                    <li className="submenu-wrapper desktop-only-link more-dropdown-wrapper" key="menu-more">
                         <Link to={"#"}>
                             <Icon
                                 path={mdiDotsHorizontal}
