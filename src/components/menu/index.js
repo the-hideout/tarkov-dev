@@ -9,6 +9,7 @@ import {
     // mdiHeartFlash,
     mdiMenu,
     // mdiHandHeart,
+    mdiDotsHorizontal
 } from '@mdi/js';
 
 import MenuItem from './MenuItem';
@@ -225,8 +226,72 @@ const Menu = () => {
                             {t('Hideout profit')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper" key="menu-more">
-                        <Link to={"#"}>More...</Link>
+                    <li className="submenu-wrapper mobile-only-link" key="menu-tasks">
+                        <Link
+                            to="/tasks"
+                            onClick={setIsOpen.bind(this, false)}
+                        >
+                            {t('Tasks')}
+                        </Link>
+                    </li>
+                    <li className="submenu-wrapper mobile-only-link" key="menu-loot-tier">
+                        <Link
+                            to="/loot-tier/"
+                            onClick={setIsOpen.bind(this, false)}
+                        >
+                            {t('Loot tiers')}
+                        </Link>
+                    </li>
+                    <li className="submenu-wrapper mobile-only-link" key="menu-hideout-costs">
+                        <Link
+                            to="/hideout"
+                            onClick={setIsOpen.bind(this, false)}
+                        >
+                            {t('Hideout build costs')}
+                        </Link>
+                    </li>
+                    <li className="submenu-wrapper mobile-only-link" key="menu-wipe-length">
+                        <Link
+                            to="/wipe-length"
+                            onClick={setIsOpen.bind(this, false)}
+                        >
+                            {t('Wipe length')}
+                        </Link>
+                    </li>
+                    <li className="submenu-wrapper mobile-only-link" key="menu-bitcoin-farm">
+                        <Link
+                            to="/bitcoin-farm-calculator"
+                            onClick={setIsOpen.bind(this, false)}
+                        >
+                            {t('Bitcoin Farm Profit')}
+                        </Link>
+                    </li>
+                    <li className="submenu-wrapper mobile-only-link" key="menu-api">
+                        <Link
+                            to="/api/"
+                            onClick={setIsOpen.bind(this, false)}
+                        >
+                            {t('API')}
+                        </Link>
+                    </li>
+                    <li className="submenu-wrapper mobile-only-link" key="menu-stats">
+                        <Link
+                            to="/stats/"
+                            onClick={setIsOpen.bind(this, false)}
+                        >
+                            {t('stats')}
+                        </Link>
+                    </li>
+                    <li className="submenu-wrapper desktop-only-link" key="menu-more">
+                        <Link to={"#"}>
+                            <Icon
+                                path={mdiDotsHorizontal}
+                                // size={1}
+                                className="icon-with-text"
+                                size={'20px'}
+                                title={t('More')}
+                            />
+                        </Link>
                         <ul>
                             <li className="submenu-wrapper" key="menu-tasks">
                                 <Link

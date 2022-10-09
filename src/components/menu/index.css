@@ -187,6 +187,10 @@ li.desktop-only-link {
     display: none;
 }
 
+li.mobile-only-link {
+    display: block;
+}
+
 @media screen and (min-width: 1280px) {
     .branding {
         margin-right: 0;
@@ -199,6 +203,10 @@ li.desktop-only-link {
 
     li.desktop-only-link {
         display: block;
+    }
+
+    li.mobile-only-link {
+        display: none;
     }
 
     .menu {
