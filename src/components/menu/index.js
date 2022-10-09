@@ -225,7 +225,7 @@ const Menu = () => {
                             {t('Hideout profit')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper menu-align-right" key="menu-more">
+                    <li className="submenu-wrapper" key="menu-more">
                         <Link to={"#"}>More...</Link>
                         <ul>
                             <li className="submenu-wrapper" key="menu-tasks">

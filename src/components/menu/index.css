@@ -208,6 +208,10 @@ li.desktop-only-link {
         /* width: auto; */
     }
 
+    .submenu-wrapper > ul {
+        left: -8rem !important;
+    }
+
     .menu > li {
         border-width: 0 1px 0 0;
     }
