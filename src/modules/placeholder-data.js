@@ -50,10 +50,16 @@ export function placeholderMeta(language = 'en') {
 
 export function placeholderTasks(language = 'en') {
     if (language !== 'en' && cachedTasksLocale[language]) {
-        return cachedTraders.map(trader => {
+        return cachedTasks.map(task => {
             return {
-                ...trader,
-                ...cachedTradersLocale[language][trader.id]
+                ...task,
+                name: cachedTasksLocale[language][task.id].name,
+                objectives: task.objectives.map(defObj => {
+                    return {
+                        ...defObj,
+                        description: cachedTasksLocale[language][task.id].objectives[defObj.id]
+                    }
+                })
             };
         });
     }
@@ -62,16 +68,10 @@ export function placeholderTasks(language = 'en') {
 
 export function placeholderTraders(language = 'en') {
     if (language !== 'en' && cachedTradersLocale[language]) {
-        return cachedTasks.map(task => {
+        return cachedTraders.map(trader => {
             return {
-                ...task,
-                name: cachedTasksLocale[language][task.id].name,
-                objectives: task.objectives.map(defObj => {
-                    return {
-                        ...defObj,
-                        description: cachedTasksLocale[language][task.id][defObj.id]
-                    }
-                })
+                ...trader,
+                ...cachedTradersLocale[language][trader.id]
             };
         });
     }
