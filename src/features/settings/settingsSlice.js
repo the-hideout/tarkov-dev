@@ -164,8 +164,8 @@ const settingsSlice = createSlice({
             localStorageWriteJson('useFlea', action.payload);
         },
         setMinDogtagLevel: (state, action) => {
-            state.minDogtagLevel = action.payload;
-            localStorageWriteJson('minDogTagLevel', action.payload);
+            state.minDogtagLevel = parseInt(action.payload);
+            localStorageWriteJson('minDogtagLevel', parseInt(action.payload));
         },
         setStationOrTraderLevel: (state, action) => {
             state[action.payload.target] = action.payload.value;
