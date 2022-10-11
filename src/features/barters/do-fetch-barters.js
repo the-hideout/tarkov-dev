@@ -174,6 +174,7 @@ const doFetchBarters = async (language) => {
                     id
                     tarkovDataId
                     name
+                    normalizedName
                 }
             }
         }`,

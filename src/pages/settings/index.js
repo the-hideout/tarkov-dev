@@ -12,7 +12,6 @@ import {
     setMinDogtagLevel,
     selectAllSkills,
     setTarkovTrackerAPIKey,
-    fetchTarkovTrackerProgress,
     toggleTarkovTracker,
     toggleHideRemoteControl,
     // selectCompletedQuests,
@@ -65,13 +64,6 @@ function Settings() {
     const useTarkovTracker = useSelector(
         (state) => state.settings.useTarkovTracker,
     );
-    const progressStatus = useSelector((state) => {
-        return state.settings.progressStatus;
-    });
-    // const completedQuests = useSelector(selectCompletedQuests);
-    const tarkovTrackerAPIKey = useSelector(
-        (state) => state.settings.tarkovTrackerAPIKey,
-    );
 
     const refs = {
         'bitcoin-farm': useRef(null),
@@ -85,27 +77,6 @@ function Settings() {
         workbench: useRef(null),
         'solar-power': useRef(null),
     };
-
-    useEffect(() => {
-        let tarkovTrackerProgressInterval = false;
-        if (useTarkovTracker && progressStatus === 'idle') {
-            dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
-        }
-
-        if (!tarkovTrackerProgressInterval && useTarkovTracker) {
-            tarkovTrackerProgressInterval = setInterval(() => {
-                dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
-            }, 30000);
-        }
-
-        if (tarkovTrackerProgressInterval && !useTarkovTracker) {
-            clearInterval(tarkovTrackerProgressInterval);
-        }
-
-        return () => {
-            clearInterval(tarkovTrackerProgressInterval);
-        };
-    }, [progressStatus, dispatch, tarkovTrackerAPIKey, useTarkovTracker]);
 
     useEffect(() => {
         if (useTarkovTracker) {

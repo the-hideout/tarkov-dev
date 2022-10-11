@@ -1,13 +1,13 @@
-import { langCode } from '../../modules/lang-helpers';
+import fetch  from 'cross-fetch';
 
-const doFetchQuests = async () => {
-    const language = langCode();
+const doFetchQuests = async (language) => {
     const bodyQuery = JSON.stringify({
         query: `{
             tasks(lang: ${language}) {
                 id
                 tarkovDataId
                 name
+                normalizedName
                 trader {
                     id
                     name
@@ -97,6 +97,12 @@ const doFetchQuests = async () => {
                         questItem {
                             id
                             name
+                            shortName
+                            width
+                            height
+                            iconLink
+                            gridImageLink
+                            image512pxLink
                         }
                         count
                     }

@@ -22,7 +22,6 @@ import {
     selectAllSkills,
 } from '../../features/settings/settingsSlice';
 import CenterCell from '../center-cell';
-import { fetchTarkovTrackerProgress } from '../../features/settings/settingsSlice';
 
 import './index.css';
 import RewardCell from '../reward-cell';
@@ -57,33 +56,7 @@ function CraftTable(props) {
         return state.barters.status;
     });
 
-    const tarkovTrackerAPIKey = useSelector(
-        (state) => state.settings.tarkovTrackerAPIKey,
-    );
-    const useTarkovTracker = useSelector(
-        (state) => state.settings.useTarkovTracker,
-    );
-    const progressStatus = useSelector((state) => {
-        return state.settings.progressStatus;
-    });
     const { data: meta } = useMetaQuery();
-
-    useEffect(() => {
-        let tarkovTrackerProgressInterval = false;
-        if (progressStatus === 'idle' && useTarkovTracker) {
-            dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
-        }
-
-        if (!tarkovTrackerProgressInterval && useTarkovTracker) {
-            tarkovTrackerProgressInterval = setInterval(() => {
-                dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
-            }, 30000);
-        }
-
-        return () => {
-            clearInterval(tarkovTrackerProgressInterval);
-        };
-    }, [progressStatus, dispatch, tarkovTrackerAPIKey, useTarkovTracker]);
 
     useEffect(() => {
         let timer = false;

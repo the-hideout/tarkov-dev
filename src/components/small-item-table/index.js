@@ -1,5 +1,6 @@
 import { useMemo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
 import { 
@@ -1538,7 +1539,6 @@ function SmallItemTable(props) {
                             </div>
                         ));
                     }
-                    let interactiveTooltip = false;
                     if (props.value) {
                         const priceInfo = props.row.original.cheapestPriceInfo;
                         let priceSource = priceInfo.vendor?.name || priceInfo.barter.trader.name;
@@ -1556,10 +1556,17 @@ function SmallItemTable(props) {
                                         className="icon-with-text"
                                     />
                                 );
-                                tipContent = `${t('Task')}: ${priceInfo.vendor.taskUnlock.name}`;
+                                tipContent = (
+                                    <div>
+                                        <Link 
+                                            to={`/task/${priceInfo.vendor.taskUnlock.normalizedName}`}
+                                        >
+                                            {t('Task: {{taskName}}', {taskName: priceInfo.vendor.taskUnlock.name})}
+                                        </Link>
+                                    </div>
+                                );
                             }
                         } else if (priceInfo.barter?.level) {
-                            interactiveTooltip = true;
                             priceSource += ` LL${priceInfo.barter.level}`;
                             barterIcon = (
                                 <Icon
@@ -1579,7 +1586,11 @@ function SmallItemTable(props) {
                                         className="icon-with-text"
                                     />
                                 );
-                                barterTipTitle = `${t('Task')}: ${priceInfo.barter.taskUnlock.name}`;
+                                barterTipTitle = (
+                                    <Link to={`/task/${priceInfo.barter.taskUnlock.normalizedName}`}>
+                                        {t('Task: {{taskName}}', {taskName: priceInfo.barter.taskUnlock.name})}
+                                    </Link>
+                                );
                             }
                             tipContent = (
                                 <BarterToolTip
@@ -1601,7 +1612,7 @@ function SmallItemTable(props) {
                             condition={tipContent}
                             wrapper={(children) => {
                                 return (
-                                    <Tippy placement="right" content={tipContent} interactive={interactiveTooltip}>
+                                    <Tippy placement="right" content={tipContent} interactive={true}>
                                         {children}
                                     </Tippy>
                                 );

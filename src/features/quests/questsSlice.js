@@ -2,15 +2,17 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
 import doFetchQuests from './do-fetch-quests';
+import { langCode } from '../../modules/lang-helpers';
+import { placeholderTasks } from '../../modules/placeholder-data';
 
 const initialState = {
-    quests: [],
+    quests: placeholderTasks(langCode()),
     status: 'idle',
     error: null,
 };
 
 export const fetchQuests = createAsyncThunk('quests/fetchQuests', () =>
-    doFetchQuests(),
+    doFetchQuests(langCode()),
 );
 const questsSlice = createSlice({
     name: 'quests',

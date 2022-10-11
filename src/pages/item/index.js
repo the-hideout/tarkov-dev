@@ -13,7 +13,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import SmallItemTable from '../../components/small-item-table';
 import CraftsTable from '../../components/crafts-table';
 import BartersTable from '../../components/barters-table';
-import QuestsList from '../../components/quests-list';
+import QuestTable, { getRequiredQuestItems, getRewardQuestItems } from '../../components/quest-table';
 import CanvasGrid from '../../components/canvas-grid';
 import warningIcon from '../../images/icon-warning.png';
 import ErrorPage from '../../components/error-page';
@@ -80,6 +80,7 @@ function Item() {
     const [showAllBarters, setShowAllBarters] = useState(false);
     const [showAllContainedItemSources, setShowAllContainedItemSources] = useState(false);
     const [showAllHideoutStations, setShowAllHideoutStations] = useState(false);
+    const [hideCompletedQuests, setHideCompletedQuests] = useState(true);
 
     const loadingData = {
         name: t('Loading...'),
@@ -202,143 +203,45 @@ function Item() {
 
     let currentItemData = currentItemByNameData;
 
-    const itemQuests = useMemo(() => {
+    const questsRequiringCount = useMemo(() => {
         if (!currentItemData) {
             return [];
         }
         
         return quests.map((questData) => {
-            const questDataCopy = {
-                ...questData,
-                neededItems: []
-            };
-
-            /*questDataCopy.objectives = questDataCopy.objectives.filter(objectiveData => {
-                return objectiveData.item?.id === currentItemData?.id ||
-                    objectiveData.containsAll?.some(part => part.id === currentItemData?.id) ||
-                    objectiveData.markerItem?.id === currentItemData?.id;
-            });*/
-
-            const objectiveInfo = {
-                iconLink: currentItemData?.iconLink,
-                name: currentItemData?.name,
-                count: 0,
-                foundInRaid: false
-            };
-
-            questDataCopy.objectives.forEach((objectiveData) => {
-                if (objectiveData.item?.id === currentItemData?.id && objectiveData.type !== 'findItem') {
-                    objectiveInfo.count += objectiveData.count || 1;
-                    objectiveInfo.foundInRaid = objectiveInfo.foundInRaid || objectiveData.foundInRaid;
-                }
-                if (objectiveData.markerItem?.id === currentItemData?.id) {
-                    objectiveInfo.count++;
-                }
-                objectiveData.containsAll?.forEach(part => {
-                    if (part.id === currentItemData?.id) 
-                        objectiveInfo.count++;
-                });
-                if (objectiveData.usingWeapon?.length === 1) {
-                    objectiveData.usingWeapon?.forEach(item => {
-                        if (item.id === currentItemData?.id) 
-                            objectiveInfo.count = 1;
-                    });
-                }
-                if (objectiveData.usingWeaponMods?.length === 1) {
-                    objectiveData.usingWeaponMods[0].forEach(item => {
-                        if (item.id === currentItemData?.id) 
-                            objectiveInfo.count = 1;
-                    });
-                } else if (objectiveData.usingWeaponMods?.length) {
-                    let requiredCount = 0;
-                    objectiveData.usingWeaponMods?.forEach(modSet => {
-                        modSet.forEach(item => {
-                            if (item.id === currentItemData?.id) 
-                                requiredCount++
-                        });
-                    });
-                    if (requiredCount === objectiveData.usingWeaponMods.length) {
-                        objectiveInfo.count = 1;
-                    }
-                }
-                if (objectiveData.wearing?.length === 1) {
-                    objectiveData.wearing?.forEach(outfit => {
-                        outfit.forEach(item => {
-                            if (item.id === currentItemData?.id) 
-                                objectiveInfo.count = 1;
-                        });
-                    });
-                } else if (objectiveData.wearing?.length) {
-                    let requiredCount = 0;
-                    objectiveData.wearing?.forEach(outfit => {
-                        outfit.forEach(item => {
-                            if (item.id === currentItemData?.id) 
-                                requiredCount++
-                        });
-                    });
-                    if (requiredCount === objectiveData.wearing.length) {
-                        objectiveInfo.count = 1;
-                    }
-                }
-            });
-
-            questData.neededKeys?.forEach(taskKey => {
-                taskKey.keys.forEach(key => {
-                    if (key.id === currentItemData?.id) {
-                        objectiveInfo.count++;
-                    }
-                });
-            });
-
-            if (objectiveInfo.count > 0) 
-                questDataCopy.neededItems.push(objectiveInfo);
-            
-            if (questDataCopy.neededItems.length > 0) 
-                return questDataCopy;
-
-            return false;
-        }).filter(Boolean);
+            return getRequiredQuestItems(questData, currentItemData.id);
+        }).filter(required => required.length > 0).length;
     }, [currentItemData, quests]);
 
-    const questsProviding = useMemo(() => {
+    const questsProvidingCount = useMemo(() => {
         if (!currentItemData) {
             return [];
         }
 
-        const rewardTypes = ['startRewards', 'finishRewards'];
-        return quests.map(quest => {
-            const questDataCopy = {
-                ...quest,
-                rewardItems: []
-            };
-
-            rewardTypes.forEach(rewardType => {
-                const rewardInfo = {
-                    iconLink: currentItemData?.iconLink,
-                    name: currentItemData?.name,
-                    count: 0,
-                    rewardType: rewardType
-                };
-                quest[rewardType].items.forEach(contained => {
-                    if (contained.item.id === currentItemData?.id) {
-                        rewardInfo.count += contained.count;
-                    }
-                    contained.item.containsItems.forEach(ci => {
-                        if (ci.item.id === currentItemData?.id) {
-                            rewardInfo.count += contained.count;
-                        }
-                    });
-                });
-                if (rewardInfo.count > 0)
-                    questDataCopy.rewardItems.push(rewardInfo);
-            });
-
-            if (questDataCopy.rewardItems.length > 0) 
-                return questDataCopy;
-            
-            return false;
-        }).filter(Boolean);
+        return quests.map(questData => {
+            return getRewardQuestItems(questData, currentItemData.id);
+        }).filter(reward => reward.length > 0).length;
     }, [currentItemData, quests]);
+
+    const questsToggle = useMemo(() => {
+        if (settings.completedQuests?.length > 0) {
+            return (
+                <ToggleFilter
+                    checked={hideCompletedQuests}
+                    label={t('Hide completed')}
+                    onChange={(e) =>
+                        setHideCompletedQuests(!hideCompletedQuests)
+                    }
+                    tooltipContent={
+                        <>
+                            {t('Hide tasks you\'ve completed')}
+                        </>
+                    }
+                />
+            );
+        }
+        return '';
+    }, [settings, hideCompletedQuests, t]);
 
     currentItemData = useMemo(() => {
         if (!currentItemData || !currentItemData.bestPrice) 
@@ -729,17 +632,26 @@ function Item() {
                                                         />
                                                     )}
                                                     {buyPrice?.vendor?.taskUnlock && (
-                                                        <Tippy
-                                                            content={t('Task: {{taskName}}', {taskName: buyPrice.vendor.taskUnlock.name})}
-                                                        >
-                                                            <div className="quest-icon-wrapper">
-                                                                <Icon
-                                                                    path={mdiClipboardList}
-                                                                    size={1}
-                                                                    className="icon-with-text"
-                                                                />
-                                                            </div>
-                                                        </Tippy>
+                                                        <div>
+                                                            <Tippy
+                                                                content={(
+                                                                    <Link to={`/task/${buyPrice.vendor.taskUnlock.normalizedName}`}>
+                                                                        <div style={{whiteSpace: 'nowrap'}}>
+                                                                            {t('Task: {{taskName}}', {taskName: buyPrice.vendor.taskUnlock.name})}
+                                                                        </div>
+                                                                    </Link>
+                                                                )}
+                                                                interactive={true}
+                                                            >
+                                                                <div className="quest-icon-wrapper">
+                                                                    <Icon
+                                                                        path={mdiClipboardList}
+                                                                        size={1}
+                                                                        className="icon-with-text"
+                                                                    />
+                                                                </div>
+                                                            </Tippy>
+                                                        </div>
                                                     )}
                                                     <ConditionalWrapper
                                                         condition={buyPrice.vendor.normalizedName !== 'flea-market'}
@@ -917,11 +829,35 @@ function Item() {
                         <ItemsForHideout itemFilter={currentItemData.id} showAll={showAllHideoutStations} />
                     </div>
                 )}
-                {itemQuests.length > 0 && (
-                    <QuestsList itemQuests={itemQuests} />
+                {questsRequiringCount > 0 && (
+                    <div>
+                        <div className="item-crafts-headline-wrapper">
+                            <h2>
+                                {t('Quests requiring {{itemName}}', {itemName: currentItemData.name})}
+                            </h2>
+                            {questsToggle}
+                        </div>
+                        <QuestTable
+                            hideCompleted={hideCompletedQuests}
+                            requiredItemFilter={currentItemData.id}
+                            requiredItems={1}
+                        />
+                    </div>
                 )}
-                {questsProviding.length > 0 && (
-                    <QuestsList itemQuests={questsProviding} />
+                {questsProvidingCount > 0 && (
+                    <div>
+                        <div className="item-crafts-headline-wrapper">
+                            <h2>
+                                {t('Quests rewarding {{itemName}}', {itemName: currentItemData.name})}
+                            </h2>
+                            {questsToggle}
+                        </div>
+                        <QuestTable
+                            hideCompleted={hideCompletedQuests}
+                            rewardItemFilter={currentItemData.id}
+                            rewardItems={1}
+                        />
+                    </div>
                 )}
             </div>
         </div>,

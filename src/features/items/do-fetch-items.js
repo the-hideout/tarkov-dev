@@ -79,6 +79,7 @@ const doFetchItems = async (language, prebuild = false) => {
                                 id
                                 tarkovDataId
                                 name
+                                normalizedName
                             }
                         }
                     }

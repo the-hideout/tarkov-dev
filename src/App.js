@@ -13,6 +13,7 @@ import Map from './components/Map.jsx';
 import RemoteControlId from './components/remote-control-id';
 import Menu from './components/menu';
 import Footer from './components/footer';
+import { fetchTarkovTrackerProgress } from './features/settings/settingsSlice';
 
 import {
     setConnectionStatus,
@@ -53,6 +54,8 @@ import Rigs from './pages/items/rigs';
 import Suppressors from './pages/items/suppressors';
 import BsgCategory from './pages/items/bsg-category';
 import BitcoinFarmCalculator from './pages/bitcoin-farm-calculator';
+import Quests from './pages/quests';
+import Quest from './pages/quest';
 
 import Bosses from './pages/bosses';
 import Boss from './pages/bosses/boss';
@@ -99,6 +102,39 @@ function App() {
     if (connectToId) {
         dispatch(enableConnection());
     }
+
+    const useTarkovTracker = useSelector(
+        (state) => state.settings.useTarkovTracker,
+    );
+    
+    const progressStatus = useSelector((state) => {
+        return state.settings.progressStatus;
+    });
+
+    const tarkovTrackerAPIKey = useSelector(
+        (state) => state.settings.tarkovTrackerAPIKey,
+    );
+
+    useEffect(() => {
+        let tarkovTrackerProgressInterval = false;
+        if (useTarkovTracker && progressStatus === 'idle') {
+            dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
+        }
+
+        if (!tarkovTrackerProgressInterval && useTarkovTracker) {
+            tarkovTrackerProgressInterval = setInterval(() => {
+                dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
+            }, 1000 * 60 * 5);
+        }
+
+        if (tarkovTrackerProgressInterval && !useTarkovTracker) {
+            clearInterval(tarkovTrackerProgressInterval);
+        }
+
+        return () => {
+            clearInterval(tarkovTrackerProgressInterval);
+        };
+    }, [progressStatus, dispatch, tarkovTrackerAPIKey, useTarkovTracker]);
 
     useEffect(() => {
         const handleDisplayMessage = (rawMessage) => {
@@ -683,6 +719,20 @@ function App() {
                         >
                             <BsgCategory />
                         </div>,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/tasks/'}
+                    element={[
+                        <Quests key="quests-wrapper" />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/task/:taskIdentifier'}
+                    element={[
+                        <Quest key="quest-wrapper" />,
                         remoteControlSessionElement,
                     ]}
                 />

@@ -187,6 +187,10 @@ li.desktop-only-link {
     display: none;
 }
 
+li.mobile-only-link {
+    display: block;
+}
+
 @media screen and (min-width: 1280px) {
     .branding {
         margin-right: 0;
@@ -201,11 +205,19 @@ li.desktop-only-link {
         display: block;
     }
 
+    li.mobile-only-link {
+        display: none;
+    }
+
     .menu {
         display: flex;
         font-size: 20px;
         margin: 0;
         /* width: auto; */
+    }
+
+    .more-dropdown-wrapper > ul {
+        left: -5.25rem !important;
     }
 
     .menu > li {

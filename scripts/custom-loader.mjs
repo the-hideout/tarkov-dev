@@ -20,6 +20,7 @@ export async function load(url, context, defaultLoad) {
         'do-fetch-maps.js',
         'do-fetch-meta.js',
         'do-fetch-traders.js',
+        'do-fetch-quests.js',
     ];
 
     for (const fileName of forceConvert) {
