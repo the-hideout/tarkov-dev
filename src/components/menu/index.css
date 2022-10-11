@@ -99,10 +99,6 @@
     position: relative;
 }
 
-.more-dropdown-wrapper ul {
-    left: 0;
-}
-
 .menu .submenu-wrapper ul {
     background-color: #2d2d2f;
     border-bottom-left-radius: 3px;
