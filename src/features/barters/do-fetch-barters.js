@@ -1,6 +1,6 @@
 import fetch  from 'cross-fetch';
 
-const doFetchBarters = async (language) => {
+const doFetchBarters = async (language, prebuild = false) => {
     const bodyQuery = JSON.stringify({
         query: `{
             barters(lang: ${language}) {
@@ -190,6 +190,29 @@ const doFetchBarters = async (language) => {
     });
 
     const bartersData = await response.json();
+
+    if (bartersData.errors) {
+        for (const error of bartersData.errors) {
+            let badItem = false;
+            if (error.path) {
+                badItem = bartersData.data;
+                for (let i = 0; i < 2; i++) {
+                    badItem = badItem[error.path[i]];
+                }
+            }
+            console.log(`Error in barters API query: ${error.message}`);
+            if (badItem) {
+                console.log(badItem)
+            }
+        }
+        // only throw error if this is for prebuild or data wasn't returned
+        if (
+            prebuild || !bartersData.data || 
+            !bartersData.data.barters || !bartersData.data.barters.length
+        ) {
+            return Promise.reject(new Error(bartersData.errors[0].message));
+        }
+    }
 
     return bartersData.data.barters.map(barter => {
         barter.rewardItems.forEach(contained => {

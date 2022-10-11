@@ -1,6 +1,6 @@
 import fetch  from 'cross-fetch';
 
-export default async function doFetchTraders(language) {
+export default async function doFetchTraders(language, prebuild = false) {
     const bodyQuery = JSON.stringify({
         query: `{
             traders(lang: ${language}) {
@@ -39,7 +39,28 @@ export default async function doFetchTraders(language) {
 
     const tradersData = await response.json();
 
-    if (tradersData.errors?.length > 0) return Promise.reject(new Error(tradersData.errors[0]));
+    if (tradersData.errors) {
+        for (const error of tradersData.errors) {
+            let badItem = false;
+            if (error.path) {
+                badItem = tradersData.data;
+                for (let i = 0; i < 2; i++) {
+                    badItem = badItem[error.path[i]];
+                }
+            }
+            console.log(`Error in traders API query: ${error.message}`);
+            if (badItem) {
+                console.log(badItem)
+            }
+        }
+        // only throw error if this is for prebuild or data wasn't returned
+        if (
+            prebuild || !tradersData.data || 
+            !tradersData.data.traders || !tradersData.data.traders.length
+        ) {
+            return Promise.reject(new Error(tradersData.errors[0].message));
+        }
+    }
 
     return tradersData.data.traders;
 };

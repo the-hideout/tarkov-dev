@@ -1,6 +1,6 @@
 import fetch  from 'cross-fetch';
 
-export default async function doFetchCrafts(language) {
+export default async function doFetchCrafts(language, prebuild = false) {
     const bodyQuery = JSON.stringify({
         query: `{
             crafts(lang: ${language}) {
@@ -186,6 +186,29 @@ export default async function doFetchCrafts(language) {
     });
 
     const craftsData = await response.json();
+    
+    if (craftsData.errors) {
+        for (const error of craftsData.errors) {
+            let badItem = false;
+            if (error.path) {
+                badItem = craftsData.data;
+                for (let i = 0; i < 2; i++) {
+                    badItem = badItem[error.path[i]];
+                }
+            }
+            console.log(`Error in crafts API query: ${error.message}`);
+            if (badItem) {
+                console.log(badItem)
+            }
+        }
+        // only throw error if this is for prebuild or data wasn't returned
+        if (
+            prebuild || !craftsData.data || 
+            !craftsData.data.crafts || !craftsData.data.crafts.length
+        ) {
+            return Promise.reject(new Error(craftsData.errors[0].message));
+        }
+    }
 
     return craftsData.data.crafts.filter(
         (craft) => !craft.source.toLowerCase().includes('christmas'),

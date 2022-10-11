@@ -1,6 +1,6 @@
 import fetch  from 'cross-fetch';
 
-const doFetchQuests = async (language) => {
+const doFetchQuests = async (language, prebuild = false) => {
     const bodyQuery = JSON.stringify({
         query: `{
             tasks(lang: ${language}) {
@@ -268,7 +268,28 @@ const doFetchQuests = async (language) => {
 
     const questsData = await response.json();
 
-    if (questsData.errors) return Promise.reject(new Error(questsData.errors[0]));
+    if (questsData.errors) {
+        for (const error of questsData.errors) {
+            let badItem = false;
+            if (error.path) {
+                badItem = questsData.data;
+                for (let i = 0; i < 2; i++) {
+                    badItem = badItem[error.path[i]];
+                }
+            }
+            console.log(`Error in tasks API query: ${error.message}`);
+            if (badItem) {
+                console.log(badItem)
+            }
+        }
+        // only throw error if this is for prebuild or data wasn't returned
+        if (
+            prebuild || !questsData.data || 
+            !questsData.data.tasks || !questsData.data.tasks.length
+        ) {
+            return Promise.reject(new Error(questsData.errors[0].message));
+        }
+    }
 
     return questsData.data.tasks;
 };
