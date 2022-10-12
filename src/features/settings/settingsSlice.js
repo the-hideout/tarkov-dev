@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const fetchTarkovTrackerProgress = createAsyncThunk(
     'settings/fetchTarkovTrackerProgress',
     async (apiKey) => {
-        if (!apiKey) {
+        if (!apiKey || typeof apiKey !== 'string' || !apiKey.match(/^[a-zA-Z0-9]{22}$/)) {
             return false;
         }
 
