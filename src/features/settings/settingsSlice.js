@@ -150,6 +150,7 @@ const settingsSlice = createSlice({
         tarkovTrackerModules: [],
         hideRemoteControl: localStorageReadJson('hide-remote-control', false),
         minDogtagLevel: localStorageReadJson('minDogtagLevel', 1),
+        hideDogtagBarters: localStorageReadJson('hideTogtagBarters', false),
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
@@ -166,6 +167,10 @@ const settingsSlice = createSlice({
         setMinDogtagLevel: (state, action) => {
             state.minDogtagLevel = parseInt(action.payload);
             localStorageWriteJson('minDogtagLevel', parseInt(action.payload));
+        },
+        toggleHideDogtagBarters: (state, action) => {
+            state.hideDogtagBarters = action.payload;
+            localStorageWriteJson('hideDogtagBarters', action.payload);
         },
         setStationOrTraderLevel: (state, action) => {
             state[action.payload.target] = action.payload.value;
@@ -265,6 +270,7 @@ export const {
     setStationOrTraderLevel,
     toggleTarkovTracker,
     toggleHideRemoteControl,
+    toggleHideDogtagBarters,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

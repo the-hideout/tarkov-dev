@@ -216,10 +216,10 @@ const doFetchBarters = async (language, prebuild = false) => {
 
     return bartersData.data.barters.map(barter => {
         barter.rewardItems.forEach(contained => {
-            contained.item.iconLink = contained.item.defaultPreset?.iconLink || contained.item.iconLink;
+            contained.item.iconLink = contained.item.properties?.defaultPreset?.iconLink || contained.item.iconLink;
         });
         barter.requiredItems.forEach(contained => {
-            contained.item.iconLink = contained.item.defaultPreset?.iconLink || contained.item.iconLink;
+            contained.item.iconLink = contained.item.properties?.defaultPreset?.iconLink || contained.item.iconLink;
         });
         return barter;
     });

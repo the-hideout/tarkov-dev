@@ -77,6 +77,9 @@ function getCheapestBarter(item, barters, settings, allowAllSources) {
             (accumulatedPrice, requiredItem) => {
                 let price = getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB;
                 if (isAnyDogtag(requiredItem.item.id)) {
+                    if (settings.hideDogtagBarters) {
+                        return 0;
+                    }
                     const dogtagCost = getDogTagCost(requiredItem, settings);
                     price = dogtagCost.price;
                 }
@@ -115,6 +118,9 @@ function getCheapestItemPriceWithBarters(item, barters, settings, allowAllSource
             (accumulatedPrice, requiredItem) => {
                 let price = getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB;
                 if (isAnyDogtag(requiredItem.item.id)) {
+                    if (settings.hideDogtagBarters) {
+                        return 0;
+                    }
                     const dogtagCost = getDogTagCost(requiredItem, settings);
                     price = dogtagCost.price;
                 }

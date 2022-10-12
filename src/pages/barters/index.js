@@ -17,6 +17,8 @@ import {
 
 import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
 
+import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
+
 import './index.css';
 
 function Barters() {
@@ -32,10 +34,7 @@ function Barters() {
         'showAllBarters',
         false,
     );
-    const [hideDogtags, setHideDogtags] = useStateWithLocalStorage(
-        'hideDogtagBarters',
-        false,
-    );
+    const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
 
     const dispatch = useDispatch();
     const allTraders = useSelector(selectAllTraders);
@@ -89,12 +88,12 @@ function Barters() {
                         }
                     />
                     <ToggleFilter
-                        checked={hideDogtags}
+                        checked={hideDogtagBarters}
                         label={t('Hide dogtags')}
-                        onChange={(e) => setHideDogtags(!hideDogtags)}
+                        onChange={(e) => dispatch(toggleHideDogtagBarters(!hideDogtagBarters))}
                         tooltipContent={
                             <>
-                                {t('The true "cost" of barters using Dogtags is difficult to estimate')}
+                                {t('The true "cost" of barters using Dogtags is difficult to estimate, so you may want to exclude dogtag barters')}
                             </>
                         }
                     />
@@ -148,7 +147,6 @@ function Barters() {
                 nameFilter={nameFilter}
                 selectedTrader={selectedTrader}
                 key="barters-page-barters-table"
-                removeDogtags={hideDogtags}
                 showAll={showAll}
             />
 

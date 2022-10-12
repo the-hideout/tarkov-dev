@@ -14,6 +14,7 @@ import {
     setTarkovTrackerAPIKey,
     toggleTarkovTracker,
     toggleHideRemoteControl,
+    toggleHideDogtagBarters,
     // selectCompletedQuests,
 } from '../../features/settings/settingsSlice';
 
@@ -64,6 +65,7 @@ function Settings() {
     const useTarkovTracker = useSelector(
         (state) => state.settings.useTarkovTracker,
     );
+    const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
 
     const refs = {
         'bitcoin-farm': useRef(null),
@@ -213,11 +215,16 @@ function Settings() {
                 })}
             </div>
             <div className="settings-group-wrapper">
-                <h2>{t('Misc.')}</h2>
+                <h2>{t('Dogtag Barters')}</h2>
                 <ToggleFilter
-                    label={t('Hide remote control')}
-                    onChange={handleHideRemoteValueToggle}
-                    checked={hideRemoteControlValue}
+                    checked={hideDogtagBarters}
+                    label={t('Exclude')}
+                    onChange={(e) => dispatch(toggleHideDogtagBarters(!hideDogtagBarters))}
+                    tooltipContent={
+                        <>
+                            {t('The true "cost" of barters using Dogtags is difficult to estimate, so you may want to exclude dogtag barters')}
+                        </>
+                    }
                 />
                 <InputFilter
                     label={t('Minimum dogtag level')}
@@ -242,6 +249,12 @@ function Settings() {
                             <div>{t(`The current estimated average player level is {{avgPlayerLevel}}`, {avgPlayerLevel: estimatedAvgPlayerLevel})}</div>
                         </div>
                     )}
+                />
+                <h2>{t('Misc.')}</h2>
+                <ToggleFilter
+                    label={t('Hide remote control')}
+                    onChange={handleHideRemoteValueToggle}
+                    checked={hideRemoteControlValue}
                 />
             </div>
             {/* cheeki breeki */}
