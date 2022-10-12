@@ -421,7 +421,35 @@ const doFetchItems = async (language, prebuild = false) => {
         })
     ]);
     //console.timeEnd('items query');
-    if (itemData.errors) return Promise.reject(new Error(itemData.errors[0].message));
+    if (itemData.errors) {
+        for (const error of itemData.errors) {
+            let badItem = false;
+            if (error.path) {
+                let traverseLimit = 2;
+                if (error.path[0] === 'fleaMarket') {
+                    traverseLimit = 1;
+                }
+                badItem = itemData.data;
+                for (let i = 0; i < traverseLimit; i++) {
+                    badItem = badItem[error.path[i]];
+                }
+            }
+            console.log(`Error in items API query: ${error.message}`, error.path);
+            if (badItem) {
+                console.log(badItem)
+            }
+        }
+        // only throw error if this is for prebuild or data wasn't returned
+        if (
+            prebuild || !itemData.data || 
+            !itemData.data.items || !itemData.data.items.length || 
+            !itemData.data.fleaMarket || 
+            !itemData.data.traders || !itemData.data.traders.length || 
+            !itemData.data.currencies || !itemData.data.currencies.length
+        ) {
+            return Promise.reject(new Error(itemData.errors[0].message));
+        }
+    }
 
     const flea = itemData.data.fleaMarket;
 

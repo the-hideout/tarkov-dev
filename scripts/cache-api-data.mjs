@@ -119,7 +119,7 @@ try {
         resolve();
     }));
 
-    apiPromises.push(doFetchBarters('en').then(barters => {
+    apiPromises.push(doFetchBarters('en', true).then(barters => {
         for (const barter of barters) {
             barter.rewardItems.forEach(containedItem => {
                 const item = containedItem.item;
@@ -142,7 +142,7 @@ try {
         fs.writeFileSync('./src/data/barters.json', JSON.stringify(barters));
     }));
 
-    apiPromises.push(doFetchCrafts('en').then(crafts => {
+    apiPromises.push(doFetchCrafts('en', true).then(crafts => {
         for (const craft of crafts) {
             craft.rewardItems.forEach(containedItem => {
                 const item = containedItem.item;
@@ -165,11 +165,11 @@ try {
         fs.writeFileSync('./src/data/crafts.json', JSON.stringify(crafts));
     }));
 
-    apiPromises.push(doFetchHideout('en').then(hideout => {
+    apiPromises.push(doFetchHideout('en', true).then(hideout => {
         fs.writeFileSync('./src/data/hideout.json', JSON.stringify(hideout));
     }));
 
-    apiPromises.push(doFetchTraders('en').then(traders => {
+    apiPromises.push(doFetchTraders('en', true).then(traders => {
         fs.writeFileSync('./src/data/traders.json', JSON.stringify(traders));
     }));
     apiPromises.push(new Promise(async resolve => {
@@ -189,15 +189,15 @@ try {
         resolve();
     }));
 
-    apiPromises.push(doFetchMaps('en').then(maps => {
+    apiPromises.push(doFetchMaps('en', true).then(maps => {
         fs.writeFileSync('./src/data/maps_cached.json', JSON.stringify(maps));
     }));
 
-    apiPromises.push(doFetchMeta('en').then(meta => {
+    apiPromises.push(doFetchMeta('en', true).then(meta => {
         fs.writeFileSync('./src/data/meta.json', JSON.stringify(meta));
     }));
 
-    apiPromises.push(doFetchQuests('en').then(quests => {
+    apiPromises.push(doFetchQuests('en', true).then(quests => {
         fs.writeFileSync('./src/data/quests.json', JSON.stringify(quests));
         return new Promise(async resolve => {
             const taskLangs = {};

@@ -1,6 +1,6 @@
 import fetch  from 'cross-fetch';
 
-const doFetchHideout = async (language) => {
+const doFetchHideout = async (language, prebuild = false) => {
     const bodyQuery = JSON.stringify({
         query: `{
             hideoutStations(lang: ${language}) {
@@ -33,7 +33,28 @@ const doFetchHideout = async (language) => {
 
     const queryData = await response.json();
 
-    if (queryData.errors) return Promise.reject(new Error(queryData.errors[0]));
+    if (queryData.errors) {
+        for (const error of queryData.errors) {
+            let badItem = false;
+            if (error.path) {
+                badItem = queryData.data;
+                for (let i = 0; i < 2; i++) {
+                    badItem = badItem[error.path[i]];
+                }
+            }
+            console.log(`Error in hideoutStations API query: ${error.message}`);
+            if (badItem) {
+                console.log(badItem)
+            }
+        }
+        // only throw error if this is for prebuild or data wasn't returned
+        if (
+            prebuild || !queryData.data || 
+            !queryData.data.hideoutStations || !queryData.data.hideoutStations.length
+        ) {
+            return Promise.reject(new Error(queryData.errors[0].message));
+        }
+    }
 
     return queryData.data.hideoutStations;
 };
