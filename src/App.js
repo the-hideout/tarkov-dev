@@ -82,6 +82,8 @@ const APIDocs = React.lazy(() => import('./pages/api-docs'));
 const socketServer = `wss://socket.tarkov.dev`;
 
 let socket = false;
+let oldUse = false;
+let tarkovTrackerProgressInterval = false;
 
 loadPolyfills();
 
@@ -116,8 +118,13 @@ function App() {
     );
 
     useEffect(() => {
-        let tarkovTrackerProgressInterval = false;
-        if (useTarkovTracker && progressStatus === 'idle') {
+        if (!oldUse && useTarkovTracker && tarkovTrackerProgressInterval) {
+            clearInterval(tarkovTrackerProgressInterval);
+            tarkovTrackerProgressInterval = false;
+        }
+        oldUse = useTarkovTracker;
+
+        if (useTarkovTracker && progressStatus !== 'loading' && !tarkovTrackerProgressInterval) {
             dispatch(fetchTarkovTrackerProgress(tarkovTrackerAPIKey));
         }
 
@@ -129,6 +136,7 @@ function App() {
 
         if (tarkovTrackerProgressInterval && !useTarkovTracker) {
             clearInterval(tarkovTrackerProgressInterval);
+            tarkovTrackerProgressInterval = false;
         }
 
         return () => {
