@@ -175,9 +175,6 @@ const settingsSlice = createSlice({
             );
         },
         toggleTarkovTracker: (state, action) => {
-            /*if (!state.useTarkovTracker && action.payload) {
-                fetchTarkovTrackerProgress(state.tarkovTrackerAPIKey);
-            }*/
             state.useTarkovTracker = action.payload;
             localStorageWriteJson(
                 'useTarkovTracker',
