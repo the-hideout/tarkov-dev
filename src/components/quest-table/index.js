@@ -477,7 +477,7 @@ function QuestTable({
     } else if (allQuestData.length !== shownQuests.length) {
         extraRow = (
             <>
-                {t('Some completed quests hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
+                {t('Some tasks hidden by filter settings')}
             </>
         );
     }
