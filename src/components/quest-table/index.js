@@ -151,6 +151,7 @@ function QuestTable({
     minimumTraderLevel,
     requiredItems,
     rewardItems,
+    reputationRewards,
  }) {
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
@@ -415,7 +416,14 @@ function QuestTable({
             useColumns.push({
                 Header: t('Minimum level'),
                 accessor: 'minPlayerLevel',
-                Cell: CenterCell,
+                Cell: (props) => {
+                    if (!props.value) {
+                        return '';
+                    }
+                    return (
+                        <CenterCell value={props.value}/>
+                    );
+                },
                 position: minimumLevel,
             });
         }
@@ -428,7 +436,31 @@ function QuestTable({
                 },
                 Cell: (props) => {
                     return (
-                        <CenterCell value ={props.row.original.traderLevelRequirements.map(req => req.level).join(', ')}/>
+                        <CenterCell value={props.row.original.traderLevelRequirements.map(req => req.level).join(', ')}/>
+                    );
+                },
+                position: minimumTraderLevel,
+            });
+        }
+
+        if (reputationRewards) {
+            useColumns.push({
+                Header: t('Reputation rewards'),
+                accessor: (questData) => {
+                    return questData.finishRewards.traderStanding[0]?.standing;
+                },
+                Cell: (props) => {
+                    return (
+                        <CenterCell value={props.row.original.finishRewards.traderStanding?.reduce((standings, current) => {
+                            const trader = traders.find(t => t.id === current.trader.id);
+                            standings.push((
+                                <div key={trader.id}>
+                                    <Link to={`/traders/${trader.normalizedName}`}>{trader.name}</Link>
+                                    <span>: {current.standing}</span>
+                                </div>
+                            ));
+                            return standings;
+                        }, [])}/>
                     );
                 },
                 position: minimumTraderLevel,
@@ -468,6 +500,7 @@ function QuestTable({
         minimumTraderLevel,
         requiredItems,
         rewardItems,
+        reputationRewards,
     ]);
 
     let extraRow = false;
