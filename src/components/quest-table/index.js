@@ -195,6 +195,13 @@ function QuestTable({
                 rewardItems: [],
             };
 
+            if (reputationRewards) {
+                questData.totalRepReward = rawQuest.finishRewards.traderStanding?.reduce((total, current) => {
+                    total += current.standing;
+                    return Math.round(total * 100) / 100;
+                }, 0);
+            }
+
             if (requiredItemFilter || requiredItems) {
                 questData.requiredItems = getRequiredQuestItems(rawQuest, requiredItemFilter).map(req => {
                     return {
@@ -243,6 +250,7 @@ function QuestTable({
         rewardItemFilter,
         requiredItems,
         rewardItems,
+        reputationRewards,
     ]);
 
     const shownQuests = useMemo(() => {
@@ -446,9 +454,7 @@ function QuestTable({
         if (reputationRewards) {
             useColumns.push({
                 Header: t('Reputation rewards'),
-                accessor: (questData) => {
-                    return questData.finishRewards.traderStanding[0]?.standing;
-                },
+                accessor: 'totalRepReward',
                 Cell: (props) => {
                     return (
                         <CenterCell value={props.row.original.finishRewards.traderStanding?.reduce((standings, current) => {
@@ -462,6 +468,9 @@ function QuestTable({
                             return standings;
                         }, [])}/>
                     );
+                },
+                sortType: (a, b, columnId, desc) => {
+                    return a.original.totalRepReward - b.original.totalRepReward;
                 },
                 position: minimumTraderLevel,
             });
@@ -495,6 +504,7 @@ function QuestTable({
         t,
         settings,
         quests,
+        traders,
         questRequirements,
         minimumLevel,
         minimumTraderLevel,
