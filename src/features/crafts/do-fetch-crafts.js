@@ -214,10 +214,10 @@ export default async function doFetchCrafts(language, prebuild = false) {
         (craft) => !craft.source.toLowerCase().includes('christmas'),
     ).map(craft => {
         craft.rewardItems.forEach(contained => {
-            contained.item.iconLink = contained.item.defaultPreset?.iconLink || contained.item.iconLink;
+            contained.item.iconLink = contained.item.properties?.defaultPreset?.iconLink || contained.item.iconLink;
         });
         craft.requiredItems.forEach(contained => {
-            contained.item.iconLink = contained.item.defaultPreset?.iconLink || contained.item.iconLink;
+            contained.item.iconLink = contained.item.properties?.defaultPreset?.iconLink || contained.item.iconLink;
         });
         return craft;
     });;

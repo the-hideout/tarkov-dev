@@ -36,10 +36,12 @@ import {
     useItemByNameQuery,
     useItemByIdQuery,
 } from '../../features/items/queries';
+import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 
 import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
 import bestPrice from '../../modules/best-price';
+import { isAnyDogtag } from '../../modules/dogtags';
 
 import './index.css';
 import { PresetSelector } from '../../components/preset-selector';
@@ -132,6 +134,7 @@ function Item() {
     const questsStatus = useSelector((state) => {
         return state.quests.status;
     });
+    const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
 
     useEffect(() => {
         let timer = false;
@@ -270,6 +273,22 @@ function Item() {
 
     if (!currentItemData && (itemStatus === 'success' || itemStatus === 'failed')) {
         return <ErrorPage />;
+    }
+
+    let dogtagToggle = '';
+    if (isAnyDogtag(currentItemData.id)) {
+        dogtagToggle = (
+            <ToggleFilter
+                checked={hideDogtagBarters}
+                label={t('Hide dogtag barters')}
+                onChange={(e) => dispatch(toggleHideDogtagBarters(!hideDogtagBarters))}
+                tooltipContent={
+                    <>
+                        {t('The true "cost" of barters using Dogtags is difficult to estimate, so you may want to exclude dogtag barters')}
+                    </>
+                }
+            />
+        );
     }
 
     const hasProperties = !!currentItemData.properties;
@@ -775,6 +794,7 @@ function Item() {
                                     </>
                                 }
                             />
+                            {dogtagToggle}
                         </div>
                         <BartersTable
                             itemFilter={currentItemData.id}

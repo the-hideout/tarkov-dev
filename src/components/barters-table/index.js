@@ -21,13 +21,13 @@ import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 import './index.css';
 
 function BartersTable(props) {
-    const { selectedTrader, nameFilter, itemFilter, removeDogtags, showAll } =
+    const { selectedTrader, nameFilter, itemFilter, showAll } =
         props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
-    const { includeFlea, hasJaeger } = useMemo(() => {
-        return {includeFlea: settings.includeFlea, hasJaeger: settings.hasJaeger};
+    const { includeFlea, hasJaeger, removeDogtags } = useMemo(() => {
+        return {includeFlea: settings.includeFlea, hasJaeger: settings.hasJaeger, removeDogtags: settings.hideDogtagBarters};
     }, [settings]);
     //const includeFlea = useSelector((state) => state.settings.hasFlea);
     //const hasJaeger = useSelector((state) => state.settings.jaeger);

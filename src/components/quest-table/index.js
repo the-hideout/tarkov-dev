@@ -151,6 +151,7 @@ function QuestTable({
     minimumTraderLevel,
     requiredItems,
     rewardItems,
+    reputationRewards,
  }) {
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
@@ -193,6 +194,13 @@ function QuestTable({
                 requiredItems: [],
                 rewardItems: [],
             };
+
+            if (reputationRewards) {
+                questData.totalRepReward = rawQuest.finishRewards.traderStanding?.reduce((total, current) => {
+                    total += current.standing;
+                    return Math.round(total * 100) / 100;
+                }, 0);
+            }
 
             if (requiredItemFilter || requiredItems) {
                 questData.requiredItems = getRequiredQuestItems(rawQuest, requiredItemFilter).map(req => {
@@ -242,6 +250,7 @@ function QuestTable({
         rewardItemFilter,
         requiredItems,
         rewardItems,
+        reputationRewards,
     ]);
 
     const shownQuests = useMemo(() => {
@@ -415,7 +424,14 @@ function QuestTable({
             useColumns.push({
                 Header: t('Minimum level'),
                 accessor: 'minPlayerLevel',
-                Cell: CenterCell,
+                Cell: (props) => {
+                    if (!props.value) {
+                        return '';
+                    }
+                    return (
+                        <CenterCell value={props.value}/>
+                    );
+                },
                 position: minimumLevel,
             });
         }
@@ -428,8 +444,33 @@ function QuestTable({
                 },
                 Cell: (props) => {
                     return (
-                        <CenterCell value ={props.row.original.traderLevelRequirements.map(req => req.level).join(', ')}/>
+                        <CenterCell value={props.row.original.traderLevelRequirements.map(req => req.level).join(', ')}/>
                     );
+                },
+                position: minimumTraderLevel,
+            });
+        }
+
+        if (reputationRewards) {
+            useColumns.push({
+                Header: t('Reputation rewards'),
+                accessor: 'totalRepReward',
+                Cell: (props) => {
+                    return (
+                        <CenterCell value={props.row.original.finishRewards.traderStanding?.reduce((standings, current) => {
+                            const trader = traders.find(t => t.id === current.trader.id);
+                            standings.push((
+                                <div key={trader.id}>
+                                    <Link to={`/traders/${trader.normalizedName}`}>{trader.name}</Link>
+                                    <span>: {current.standing}</span>
+                                </div>
+                            ));
+                            return standings;
+                        }, [])}/>
+                    );
+                },
+                sortType: (a, b, columnId, desc) => {
+                    return a.original.totalRepReward - b.original.totalRepReward;
                 },
                 position: minimumTraderLevel,
             });
@@ -463,11 +504,13 @@ function QuestTable({
         t,
         settings,
         quests,
+        traders,
         questRequirements,
         minimumLevel,
         minimumTraderLevel,
         requiredItems,
         rewardItems,
+        reputationRewards,
     ]);
 
     let extraRow = false;
@@ -477,7 +520,7 @@ function QuestTable({
     } else if (allQuestData.length !== shownQuests.length) {
         extraRow = (
             <>
-                {t('Some completed quests hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
+                {t('Some tasks hidden by filter settings')}
             </>
         );
     }
