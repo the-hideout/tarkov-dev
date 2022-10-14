@@ -34,8 +34,7 @@ import { useMetaQuery } from '../../features/meta/queries';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
-function CraftTable(props) {
-    const { selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices } = props;
+function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const includeFlea = useSelector((state) => state.settings.hasFlea);
@@ -217,6 +216,7 @@ function CraftTable(props) {
                     cost: totalCost,
                     craftTime: craftDuration,
                     reward: {
+                        id: craftRow.rewardItems[0].item.id,
                         name: craftRow.rewardItems[0].item.name,
                         wikiLink: craftRow.rewardItems[0].item.wikiLink,
                         itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
@@ -283,6 +283,10 @@ function CraftTable(props) {
                     }
                 } else if (craftRow.rewardItems[0].item.types.includes('noFlea')) {
                     tradeData.reward.sellNote = t('Flea banned');
+                }
+                if (craftRow.rewardItems[0].priceCustom) {
+                    tradeData.reward.sellValue = craftRow.rewardItems[0].priceCustom;
+                    tradeData.reward.sellType = 'custom';
                 }
 
                 tradeData.profitParts = [

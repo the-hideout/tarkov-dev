@@ -50,6 +50,44 @@ const craftsSlice = createSlice({
 
             state.crafts = newCrafts;
         },
+        setItemCost: (state, action) => {
+            let newCrafts = [...state.crafts];
+
+            newCrafts = newCrafts.map((craft) => {
+                craft.requiredItems = craft.requiredItems.map(
+                    (requiredItem) => {
+                        if (requiredItem.item.id === action.payload.itemId) {
+                            requiredItem.priceCustom = action.payload.price;
+                        }
+
+                        return requiredItem;
+                    },
+                );
+
+                return craft;
+            });
+
+            state.crafts = newCrafts;
+        },
+        setRewardValue: (state, action) => {
+            let newCrafts = [...state.crafts];
+
+            newCrafts = newCrafts.map((craft) => {
+                craft.rewardItems = craft.rewardItems.map(
+                    (rewardItem) => {
+                        if (rewardItem.item.id === action.payload.itemId) {
+                            rewardItem.priceCustom = action.payload.price;
+                        }
+
+                        return rewardItem;
+                    },
+                );
+
+                return craft;
+            });
+
+            state.crafts = newCrafts;
+        },
     },
     extraReducers: {
         [fetchCrafts.pending]: (state, action) => {
@@ -69,7 +107,7 @@ const craftsSlice = createSlice({
     },
 });
 
-export const { toggleItem } = craftsSlice.actions;
+export const { toggleItem, setItemCost, setRewardValue } = craftsSlice.actions;
 
 export default craftsSlice.reducer;
 

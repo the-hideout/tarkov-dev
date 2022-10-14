@@ -57,6 +57,44 @@ const bartersSlice = createSlice({
 
             state.barters = newBarters;
         },
+        setItemCost: (state, action) => {
+            let newBarters = [...state.barters];
+
+            newBarters = newBarters.map((barter) => {
+                barter.requiredItems = barter.requiredItems.map(
+                    (requiredItem) => {
+                        if (requiredItem.item.id === action.payload.itemId) {
+                            requiredItem.priceCustom = action.payload.price;
+                        }
+
+                        return requiredItem;
+                    },
+                );
+
+                return barter;
+            });
+
+            state.barters = newBarters;
+        },
+        setRewardValue: (state, action) => {
+            let newBarters = [...state.barters];
+
+            newBarters = newBarters.map((barter) => {
+                barter.rewardItems = barter.rewardItems.map(
+                    (rewardItem) => {
+                        if (rewardItem.item.id === action.payload.itemId) {
+                            rewardItem.priceCustom = action.payload.price;
+                        }
+
+                        return rewardItem;
+                    },
+                );
+
+                return barter;
+            });
+
+            state.barters = newBarters;
+        },
     },
     extraReducers: {
         [fetchBarters.pending]: (state, action) => {
@@ -76,7 +114,7 @@ const bartersSlice = createSlice({
     },
 });
 
-export const { toggleItem } = bartersSlice.actions;
+export const { toggleItem, setItemCost, setRewardValue } = bartersSlice.actions;
 
 export default bartersSlice.reducer;
 

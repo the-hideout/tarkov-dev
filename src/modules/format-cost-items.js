@@ -186,6 +186,10 @@ const formatCostItems = (
             settings,
             allowAllSources
         );
+        if (requiredItem.priceCustom) {
+            bestPrice.priceRUB = requiredItem.priceCustom;
+            bestPrice.type = 'custom';
+        }
         let calculationPrice = bestPrice.priceRUB;
 
         let itemName = requiredItem.item.name;
