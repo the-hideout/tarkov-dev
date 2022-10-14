@@ -71,7 +71,7 @@ function RewardCell({
                     <Icon
                         path={mdiCheckboxMarked}
                         size={1}
-                        color={'darkGreen'}
+                        color={'#008800'}
                         className="icon-with-text no-click"
                         onClick={(event) => {
                             dispatch(
@@ -92,7 +92,7 @@ function RewardCell({
                     <Icon
                         path={mdiCloseBox}
                         size={1}
-                        color={'darkRed'}
+                        color={'#cd1e2f'}
                         className="icon-with-text no-click"
                         onClick={(event) => {
                             dispatch(
