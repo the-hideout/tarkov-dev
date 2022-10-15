@@ -71,8 +71,7 @@ function RewardCell({
                     <Icon
                         path={mdiCheckboxMarked}
                         size={1}
-                        color={'#6a9a66'}
-                        className="icon-with-text no-click"
+                        className="icon-with-text no-click muted-green"
                         onClick={(event) => {
                             dispatch(
                                 setBarterRewardValue({
@@ -92,8 +91,7 @@ function RewardCell({
                     <Icon
                         path={mdiCloseBox}
                         size={1}
-                        color={'#9a6666'}
-                        className="icon-with-text no-click"
+                        className="icon-with-text no-click muted-red"
                         onClick={(event) => {
                             dispatch(
                                 setBarterRewardValue({

@@ -9,3 +9,11 @@
     padding: 4px;
     width: 5em;
 }
+
+.muted-green {
+    color: #6a9a66;
+}
+
+.muted-red {
+    color: #9a6666;
+}
