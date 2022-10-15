@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+//import { useMemo, useState } from 'react';
 import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,7 @@ import {
 } from '@mdi/js';
 
 import MenuItem from './MenuItem';
-import SubMenu from './SubMenu';
+//import SubMenu from './SubMenu';
 // import PatreonButton from '../patreon-button';
 import UkraineButton from '../ukraine-button';
 import LoadingSmall from '../loading-small';
@@ -18,8 +18,8 @@ import { BossListNav } from '../boss-list';
 import { caliberMap } from '../../modules/format-ammo';
 import rawMapData from '../../data/maps.json';
 import itemsData from '../../data/category-pages.json';
-import { useMapsQuery } from '../../features/maps/queries';
-import formatBossData from '../../modules/format-boss-data';
+//import { useMapsQuery } from '../../features/maps/queries';
+//import formatBossData from '../../modules/format-boss-data';
 
 import IntersectionObserverWrapper from './intersection-observer-wrapper';
 
@@ -36,7 +36,7 @@ const getAmmoMenu = (setIsOpen) => {
             key={`menu-item-${ammoType}`}
             prefix="/ammo"
             to={`/ammo/${ammoType}`}
-            onClick={setIsOpen.bind(this, false)}
+            //onClick={setIsOpen.bind(this, false)}
         />
     ));
     ammoMenu.splice(shotIndex+1, 0, (
@@ -46,27 +46,27 @@ const getAmmoMenu = (setIsOpen) => {
             key="menu-item-12 Gauge Slug"
             prefix="/ammo"
             to="/ammo/12 Gauge Slug"
-            onClick={setIsOpen.bind(this, false)}
+            //onClick={setIsOpen.bind(this, false)}
         />
     ));
     return ammoMenu;
 };
 
 const Menu = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    /*const [isOpen, setIsOpen] = useState(false);
     const handleMenuClick = () => {
         setIsOpen(!isOpen);
-    };
+    };*/
     const { t } = useTranslation();
 
-    const { data: maps } = useMapsQuery();
+    /*const { data: maps } = useMapsQuery();
 
     const bosses = useMemo(() => {
         if (!maps || maps.length === 0) {
             return [];
         }
         return formatBossData(maps);
-    }, [maps]);
+    }, [maps]);*/
 
     return (
         <>
@@ -94,7 +94,7 @@ const Menu = () => {
                         <Link
                             aria-label="Settings"
                             to="/settings/"
-                            onClick={setIsOpen.bind(this, false)}
+                            //onClick={setIsOpen.bind(this, false)}
                         >
                             <Icon
                                 path={mdiCogOutline}
@@ -107,7 +107,7 @@ const Menu = () => {
                         <Link
                             aria-label="Remote control"
                             to="/control/"
-                            onClick={setIsOpen.bind(this, false)}
+                            //onClick={setIsOpen.bind(this, false)}
                         >
                             <Icon path={mdiRemote} size={1} className="icon-with-text" />
                         </Link>
@@ -137,7 +137,7 @@ const Menu = () => {
                     <li className="submenu-wrapper" key="menu-ammo" data-targetid="ammo">
                         <Link to="/ammo/">{t('Ammo')}</Link>
                         <ul>
-                            {getAmmoMenu(setIsOpen)}
+                            {getAmmoMenu()}
                         </ul>
                     </li>
                     <li className="submenu-wrapper" key="menu-maps" data-targetid="maps">
@@ -149,7 +149,7 @@ const Menu = () => {
                                         displayText={map.displayText}
                                         key={`menu-item-${map.key}`}
                                         to={`/map/${map.key}`}
-                                        onClick={setIsOpen.bind(this, false)}
+                                        //onClick={setIsOpen.bind(this, false)}
                                     />
                                 ))
                             ))}
@@ -163,7 +163,7 @@ const Menu = () => {
                                     displayText={t(categoryPage.displayText)}
                                     key={categoryPage.key}
                                     to={`/items/${categoryPage.key}`}
-                                    onClick={setIsOpen.bind(this, false)}
+                                    //onClick={setIsOpen.bind(this, false)}
                                 />
                             ))}
                         </ul>
@@ -175,61 +175,66 @@ const Menu = () => {
                                 displayText={t('Prapor')}
                                 key="menu-item-prapor"
                                 to={`/traders/prapor`}
-                                onClick={setIsOpen.bind(this, false)}
+                                //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Therapist')}
                                 key="menu-item-therapist"
                                 to={`/traders/therapist`}
-                                onClick={setIsOpen.bind(this, false)}
+                                //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Skier')}
                                 key="menu-item-skier"
                                 to={`/traders/skier`}
-                                onClick={setIsOpen.bind(this, false)}
+                                //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Peacekeeper')}
                                 key="menu-item-peacekeeper"
                                 to={`/traders/peacekeeper`}
-                                onClick={setIsOpen.bind(this, false)}
+                                //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Mechanic')}
                                 key="menu-item-mechanic"
                                 to={`/traders/mechanic`}
-                                onClick={setIsOpen.bind(this, false)}
+                                //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Ragman')}
                                 key="menu-item-ragman"
                                 to={`/traders/ragman`}
-                                onClick={setIsOpen.bind(this, false)}
+                                //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Jaeger')}
                                 key="menu-item-jaeger"
                                 to={`/traders/jaeger`}
-                                onClick={setIsOpen.bind(this, false)}
+                                //onClick={setIsOpen.bind(this, false)}
                             />
                         </ul>
                     </li>
                     <li className="submenu-wrapper" key="menu-bosses" data-targetid="bosses">
                         <Link to="/bosses/">{t('Bosses')}</Link>
                         <Suspense fallback={<LoadingSmall />}>
-                            <BossListNav onClick={setIsOpen.bind(this, false)} />
+                            <BossListNav 
+                                //onClick={setIsOpen.bind(this, false)} 
+                            />
                         </Suspense>
                     </li>
                     <li className="submenu-wrapper" key="menu-barters" data-targetid="barters">
-                        <Link to="/barters/" onClick={setIsOpen.bind(this, false)}>
+                        <Link 
+                            to="/barters/" 
+                            //onClick={setIsOpen.bind(this, false)}
+                        >
                             {t('Barter profit')}
                         </Link>
                     </li>
                     <li className="submenu-wrapper" key="menu-hideout-profit" data-targetid="crafts">
                         <Link
                             to="/hideout-profit/"
-                            onClick={setIsOpen.bind(this, false)}
+                            //onClick={setIsOpen.bind(this, false)}
                         >
                             {t('Hideout profit')}
                         </Link>
@@ -237,7 +242,7 @@ const Menu = () => {
                     <li className="submenu-wrapper" key="menu-tasks" data-targetid="tasks">
                         <Link
                             to="/tasks"
-                            onClick={setIsOpen.bind(this, false)}
+                            //onClick={setIsOpen.bind(this, false)}
                         >
                             {t('Tasks')}
                         </Link>
@@ -245,7 +250,7 @@ const Menu = () => {
                     <li className="submenu-wrapper" key="menu-loot-tier" data-targetid="loot-tier">
                         <Link
                             to="/loot-tier/"
-                            onClick={setIsOpen.bind(this, false)}
+                            //onClick={setIsOpen.bind(this, false)}
                         >
                             {t('Loot tiers')}
                         </Link>
@@ -253,7 +258,7 @@ const Menu = () => {
                     <li className="submenu-wrapper" key="menu-hideout-costs" data-targetid="hideout">
                         <Link
                             to="/hideout"
-                            onClick={setIsOpen.bind(this, false)}
+                            //onClick={setIsOpen.bind(this, false)}
                         >
                             {t('Hideout build costs')}
                         </Link>
@@ -261,7 +266,7 @@ const Menu = () => {
                     <li className="submenu-wrapper" key="menu-wipe-length" data-targetid="wipe-length">
                         <Link
                             to="/wipe-length"
-                            onClick={setIsOpen.bind(this, false)}
+                            //onClick={setIsOpen.bind(this, false)}
                         >
                             {t('Wipe length')}
                         </Link>
@@ -269,7 +274,7 @@ const Menu = () => {
                     <li className="submenu-wrapper" key="menu-bitcoin-farm" data-targetid="bitcoin">
                         <Link
                             to="/bitcoin-farm-calculator"
-                            onClick={setIsOpen.bind(this, false)}
+                            //onClick={setIsOpen.bind(this, false)}
                         >
                             {t('Bitcoin Farm Profit')}
                         </Link>
@@ -277,7 +282,7 @@ const Menu = () => {
                     <li className="submenu-wrapper" key="menu-api" data-targetid="api">
                         <Link
                             to="/api/"
-                            onClick={setIsOpen.bind(this, false)}
+                            //onClick={setIsOpen.bind(this, false)}
                         >
                             {t('API')}
                         </Link>
@@ -285,7 +290,7 @@ const Menu = () => {
                     <li className="submenu-wrapper" key="menu-stats" data-targetid="stats">
                         <Link
                             to="/stats/"
-                            onClick={setIsOpen.bind(this, false)}
+                            //onClick={setIsOpen.bind(this, false)}
                         >
                             {t('stats')}
                         </Link>
