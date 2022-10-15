@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import capitalize from '../../../modules/capitalize-first';
 import formatBossData from '../../../modules/format-boss-data';
-import { useMapsQuery } from '../../../components/boss-list';
+import { useMapsQuery } from '../../../features/maps/queries';
 import DataTable from '../../../components/data-table';
 import PropertyList from '../../../components/property-list';
 import bossJson from '../../../data/boss.json';

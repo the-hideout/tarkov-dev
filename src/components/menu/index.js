@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -6,13 +6,10 @@ import Icon from '@mdi/react';
 import {
     mdiCogOutline,
     mdiRemote,
-    // mdiHeartFlash,
-    mdiMenu,
-    // mdiHandHeart,
-    mdiDotsHorizontal
 } from '@mdi/js';
 
 import MenuItem from './MenuItem';
+import SubMenu from './SubMenu';
 // import PatreonButton from '../patreon-button';
 import UkraineButton from '../ukraine-button';
 import LoadingSmall from '../loading-small';
@@ -21,7 +18,10 @@ import { BossListNav } from '../boss-list';
 import { caliberMap } from '../../modules/format-ammo';
 import rawMapData from '../../data/maps.json';
 import itemsData from '../../data/category-pages.json';
+import { useMapsQuery } from '../../features/maps/queries';
+import formatBossData from '../../modules/format-boss-data';
 
+import IntersectionObserverWrapper from './intersection-observer-wrapper';
 
 import './index.css';
 
@@ -59,6 +59,15 @@ const Menu = () => {
     };
     const { t } = useTranslation();
 
+    const { data: maps } = useMapsQuery();
+
+    const bosses = useMemo(() => {
+        if (!maps || maps.length === 0) {
+            return [];
+        }
+        return formatBossData(maps);
+    }, [maps]);
+
     return (
         <>
             {/* ALERT BANNER SECTION - uncomment the lines below to enable the alert banner */}
@@ -66,45 +75,44 @@ const Menu = () => {
             {/* <div><Alert severity="success">{"🌟 Flea market scanners have been leveled for this patch and all flea market data is now live! 🌟"}</Alert></div> */}
             {/* END ALERT BANNER SECTION */}
             <nav key="main-navigation" className="navigation">
-                <Icon
-                    path={mdiMenu}
-                    size={1}
-                    className="mobile-icon icon-with-text"
-                    onClick={handleMenuClick}
-                />
-                <Link className="branding" to="/">
-                    {/* Tarkov.dev */}
-                    <img
-                        alt="Tarkov.dev"
-                        height={30}
-                        width={186}
-                        src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.svg`}
-                        className={'logo-padding'}
-                        loading="lazy"
-                    />
-                </Link>
-                <Link
-                    aria-label="Remote control"
-                    className="mobile-only-link"
-                    to="/control/"
-                    onClick={setIsOpen.bind(this, false)}
-                >
-                    <Icon path={mdiRemote} size={1} className="icon-with-text" />
-                </Link>
-                <Link
-                    aria-label="Settings"
-                    className="mobile-only-link"
-                    to="/settings/"
-                    onClick={setIsOpen.bind(this, false)}
-                >
-                    <Icon
-                        path={mdiCogOutline}
-                        size={1}
-                        className="icon-with-text"
-                    />
-                </Link>
-                <ul className={`menu${isOpen ? ' open' : ''}`}>
-                    <li className="only-large" key="menu-ua-donate">
+                <ul className={`menu`}>
+                <IntersectionObserverWrapper>
+                    <li key="menu-home" data-targetid="home">
+                        <Link className="branding" to="/">
+                        {/* Tarkov.dev */}
+                        <img
+                            alt="Tarkov.dev"
+                            height={30}
+                            width={186}
+                            src={`${process.env.PUBLIC_URL}/tarkov-dev-logo.svg`}
+                            className={'logo-padding'}
+                            loading="lazy"
+                        />
+                    </Link>
+                    </li>
+                    <li className="submenu-wrapper"  key="menu-settings" data-targetid="settings">
+                        <Link
+                            aria-label="Settings"
+                            to="/settings/"
+                            onClick={setIsOpen.bind(this, false)}
+                        >
+                            <Icon
+                                path={mdiCogOutline}
+                                size={1}
+                                className="icon-with-text"
+                            />
+                        </Link>
+                    </li>
+                    <li className="submenu-wrapper"  key="menu-remote" data-targetid="remote">
+                        <Link
+                            aria-label="Remote control"
+                            to="/control/"
+                            onClick={setIsOpen.bind(this, false)}
+                        >
+                            <Icon path={mdiRemote} size={1} className="icon-with-text" />
+                        </Link>
+                    </li>
+                    <li className="submenu-wrapper"  key="menu-ua-donate" data-targetid="ua-donate">
                         <UkraineButton />
                     </li>
                     {/*<li className="only-large">
@@ -126,13 +134,13 @@ const Menu = () => {
                             />
                         </PatreonButton>
                     </li>*/}
-                    <li className="submenu-wrapper" key="menu-ammo">
+                    <li className="submenu-wrapper" key="menu-ammo" data-targetid="ammo">
                         <Link to="/ammo/">{t('Ammo')}</Link>
                         <ul>
                             {getAmmoMenu(setIsOpen)}
                         </ul>
                     </li>
-                    <li className="submenu-wrapper" key="menu-maps">
+                    <li className="submenu-wrapper" key="menu-maps" data-targetid="maps">
                         <Link to="/maps/">{t('Maps')}</Link>
                         <ul>
                             {rawMapData.map((mapsGroup) => (
@@ -147,7 +155,7 @@ const Menu = () => {
                             ))}
                         </ul>
                     </li>
-                    <li className="submenu-wrapper" key="menu-items">
+                    <li className="submenu-wrapper" key="menu-items" data-targetid="items">
                         <Link to="/items/">{t('Items')}</Link>
                         <ul>
                             {itemsData.map((categoryPage) => (
@@ -160,7 +168,7 @@ const Menu = () => {
                             ))}
                         </ul>
                     </li>
-                    <li className="submenu-wrapper" key="menu-traders">
+                    <li className="submenu-wrapper" key="menu-traders" data-targetid="traders">
                         <Link to="/traders">{t('Traders')}</Link>
                         <ul>
                             <MenuItem
@@ -207,18 +215,18 @@ const Menu = () => {
                             />
                         </ul>
                     </li>
-                    <li className="submenu-wrapper" key="menu-bosses">
+                    <li className="submenu-wrapper" key="menu-bosses" data-targetid="bosses">
                         <Link to="/bosses/">{t('Bosses')}</Link>
                         <Suspense fallback={<LoadingSmall />}>
                             <BossListNav onClick={setIsOpen.bind(this, false)} />
                         </Suspense>
                     </li>
-                    <li className="submenu-wrapper" key="menu-barters">
+                    <li className="submenu-wrapper" key="menu-barters" data-targetid="barters">
                         <Link to="/barters/" onClick={setIsOpen.bind(this, false)}>
                             {t('Barter profit')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper" key="menu-hideout-profit">
+                    <li className="submenu-wrapper" key="menu-hideout-profit" data-targetid="crafts">
                         <Link
                             to="/hideout-profit/"
                             onClick={setIsOpen.bind(this, false)}
@@ -226,7 +234,7 @@ const Menu = () => {
                             {t('Hideout profit')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper mobile-only-link" key="menu-tasks">
+                    <li className="submenu-wrapper" key="menu-tasks" data-targetid="tasks">
                         <Link
                             to="/tasks"
                             onClick={setIsOpen.bind(this, false)}
@@ -234,7 +242,7 @@ const Menu = () => {
                             {t('Tasks')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper mobile-only-link" key="menu-loot-tier">
+                    <li className="submenu-wrapper" key="menu-loot-tier" data-targetid="loot-tier">
                         <Link
                             to="/loot-tier/"
                             onClick={setIsOpen.bind(this, false)}
@@ -242,7 +250,7 @@ const Menu = () => {
                             {t('Loot tiers')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper mobile-only-link" key="menu-hideout-costs">
+                    <li className="submenu-wrapper" key="menu-hideout-costs" data-targetid="hideout">
                         <Link
                             to="/hideout"
                             onClick={setIsOpen.bind(this, false)}
@@ -250,7 +258,7 @@ const Menu = () => {
                             {t('Hideout build costs')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper mobile-only-link" key="menu-wipe-length">
+                    <li className="submenu-wrapper" key="menu-wipe-length" data-targetid="wipe-length">
                         <Link
                             to="/wipe-length"
                             onClick={setIsOpen.bind(this, false)}
@@ -258,7 +266,7 @@ const Menu = () => {
                             {t('Wipe length')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper mobile-only-link" key="menu-bitcoin-farm">
+                    <li className="submenu-wrapper" key="menu-bitcoin-farm" data-targetid="bitcoin">
                         <Link
                             to="/bitcoin-farm-calculator"
                             onClick={setIsOpen.bind(this, false)}
@@ -266,7 +274,7 @@ const Menu = () => {
                             {t('Bitcoin Farm Profit')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper mobile-only-link" key="menu-api">
+                    <li className="submenu-wrapper" key="menu-api" data-targetid="api">
                         <Link
                             to="/api/"
                             onClick={setIsOpen.bind(this, false)}
@@ -274,7 +282,7 @@ const Menu = () => {
                             {t('API')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper mobile-only-link" key="menu-stats">
+                    <li className="submenu-wrapper" key="menu-stats" data-targetid="stats">
                         <Link
                             to="/stats/"
                             onClick={setIsOpen.bind(this, false)}
@@ -282,102 +290,7 @@ const Menu = () => {
                             {t('stats')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper desktop-only-link more-dropdown-wrapper" key="menu-more">
-                        <Link to={"#"}>
-                            <Icon
-                                path={mdiDotsHorizontal}
-                                // size={1}
-                                className="icon-with-text"
-                                size={'20px'}
-                                title={t('More')}
-                            />
-                        </Link>
-                        <ul>
-                            <li className="submenu-wrapper" key="menu-tasks">
-                                <Link
-                                    to="/tasks"
-                                    onClick={setIsOpen.bind(this, false)}
-                                >
-                                    {t('Tasks')}
-                                </Link>
-                            </li>
-                            <li className="submenu-wrapper" key="menu-loot-tier">
-                                <Link
-                                    to="/loot-tier/"
-                                    onClick={setIsOpen.bind(this, false)}
-                                >
-                                    {t('Loot tiers')}
-                                </Link>
-                            </li>
-                            <li className="submenu-wrapper" key="menu-hideout-costs">
-                                <Link
-                                    to="/hideout"
-                                    onClick={setIsOpen.bind(this, false)}
-                                >
-                                    {t('Hideout build costs')}
-                                </Link>
-                            </li>
-                            <li className="submenu-wrapper" key="menu-wipe-length">
-                                <Link
-                                    to="/wipe-length"
-                                    onClick={setIsOpen.bind(this, false)}
-                                >
-                                    {t('Wipe length')}
-                                </Link>
-                            </li>
-                            <li className="submenu-wrapper" key="menu-bitcoin-farm">
-                                <Link
-                                    to="/bitcoin-farm-calculator"
-                                    onClick={setIsOpen.bind(this, false)}
-                                >
-                                    {t('Bitcoin Farm Profit')}
-                                </Link>
-                            </li>
-                            <li className="submenu-wrapper" key="menu-api">
-                                <Link
-                                    to="/api/"
-                                    onClick={setIsOpen.bind(this, false)}
-                                >
-                                    {t('API')}
-                                </Link>
-                            </li>
-                            <li className="submenu-wrapper" key="menu-stats">
-                                <Link
-                                    to="/stats/"
-                                    onClick={setIsOpen.bind(this, false)}
-                                >
-                                    {t('stats')}
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
-                    <li className="submenu-wrapper desktop-only-link" key="menu-remote-control">
-                        <Link
-                            aria-label="Remote control"
-                            to="/control/"
-                            onClick={setIsOpen.bind(this, false)}
-                        >
-                            <Icon
-                                path={mdiRemote}
-                                // size={1}
-                                className="icon-with-text"
-                                size={'20px'}
-                            />
-                        </Link>
-                    </li>
-                    <li className="submenu-wrapper desktop-only-link" key="menu-settings">
-                        <Link
-                            aria-label="Settings"
-                            to="/settings/"
-                            onClick={setIsOpen.bind(this, false)}
-                        >
-                            <Icon
-                                path={mdiCogOutline}
-                                size={'20px'}
-                                className="icon-with-text"
-                            />
-                        </Link>
-                    </li>
+                </IntersectionObserverWrapper>
                 </ul>
             </nav>
         </>
