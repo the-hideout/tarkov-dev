@@ -91,7 +91,7 @@ function ItemCost({
                         <Icon
                             path={mdiCheckboxMarked}
                             size={1}
-                            color={'#008800'}
+                            color={'#6a9a66'}
                             className="icon-with-text no-click"
                             onClick={(event) => {
                                 dispatch(
@@ -112,7 +112,7 @@ function ItemCost({
                         <Icon
                             path={mdiCloseBox}
                             size={1}
-                            color={'#cd1e2f'}
+                            color={'#9a6666'}
                             className="icon-with-text no-click"
                             onClick={(event) => {
                                 dispatch(
