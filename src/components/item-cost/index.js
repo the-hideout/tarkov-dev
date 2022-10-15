@@ -79,6 +79,7 @@ function ItemCost({
                         <input 
                             className="no-click custom-price" 
                             value={customPrice}
+                            inputMode="numeric"
                             onChange={(e) => {
                                 let sanitized = e.target.value.replaceAll(/[^0-9]/g, '');
                                 if (sanitized) {
@@ -86,7 +87,7 @@ function ItemCost({
                                 }
                                 setCustomPrice(sanitized);
                             }}
-                        ></input>
+                        />
                         <span> ₽</span>
                         <Icon
                             path={mdiCheckboxMarked}

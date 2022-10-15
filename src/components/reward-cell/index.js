@@ -59,6 +59,7 @@ function RewardCell({
                     <input 
                         className="custom-price" 
                         value={customPrice}
+                        inputMode="numeric"
                         onChange={(e) => {
                             let sanitized = e.target.value.replaceAll(/[^0-9]/g, '');
                             if (sanitized) {
@@ -66,7 +67,7 @@ function RewardCell({
                             }
                             setCustomPrice(sanitized);
                         }}
-                    ></input>
+                    />
                     <span> ₽</span>
                     <Icon
                         path={mdiCheckboxMarked}
