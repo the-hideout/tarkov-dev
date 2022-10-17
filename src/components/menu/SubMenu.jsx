@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from "@material-ui/core";
 
-export default function SubMenu({key, label, to, children}) {
+const SubMenu = React.forwardRef(({target, label, to, children}, ref) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -15,12 +15,11 @@ export default function SubMenu({key, label, to, children}) {
     };
 
     return (
-        <li key={key} data-targetid={key}>
+        <li data-targetid={target} className="submenu-wrapper" ref={ref}>
             <Link 
-                className="submenu-wrapper" 
                 to={to}
                 onClick={handleClick}
-                onMouseOver={handleClick}
+                /*onMouseOver={handleClick}
                 onMouseLeave={(event) => {
                     let parent = event.currentTarget.parentElement;
                     while (parent) {
@@ -29,7 +28,7 @@ export default function SubMenu({key, label, to, children}) {
                         }
                     }
                     handleClose();
-                }}
+                }}*/
             >
                 {label}
             </Link>
@@ -41,11 +40,13 @@ export default function SubMenu({key, label, to, children}) {
                 open={open}
                 onClose={handleClose}
                 onMouseLeave={handleClose}
-                transformOrigin={{horizontal: 'right', vertical: 'top'}}
-                anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+                transformOrigin={{horizontal: 'left', vertical: 'top'}}
+                anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
             >
-                {}
+                {children}
             </Menu>
         </li>
     );
-}
+});
+
+export default SubMenu;

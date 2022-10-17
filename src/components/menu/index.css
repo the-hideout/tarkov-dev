@@ -99,7 +99,7 @@
     /* background-color: #000; */
     border-radius: 0;
     font-size: 20px;
-    position: relative;
+    /*position: relative; /* commenting this out makes the submenus appear, but on the left side */
 }
 
 .menu .submenu-wrapper ul {

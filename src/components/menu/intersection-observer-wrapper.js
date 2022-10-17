@@ -51,7 +51,7 @@ export default function IntersectionObserverWrapper({ children }) {
           ...prev,
           ...updatedEntries
         }));
-      };
+    };
     useEffect(() => {
       const observer = new IntersectionObserver(
         handleIntersection,
@@ -81,7 +81,7 @@ export default function IntersectionObserverWrapper({ children }) {
             if (Array.isArray(child.props.children)) {
                 const subMenu = child.props.children.find(c => c.type === 'ul');
                 if (subMenu) {
-                    console.log(child.props['data-targetid']);
+                    console.log('list', child.props['data-targetid']);
                     showOverflow = true;
                 } else {
                     console.log('not list', child.props['data-targetid'], child.props.children)    
@@ -94,7 +94,7 @@ export default function IntersectionObserverWrapper({ children }) {
               className: classnames(child.props.className, {
                 [classes.visible]: !!visibilityMap[child.props["data-targetid"]],
                 [classes.inVisible]: !visibilityMap[child.props["data-targetid"]],
-                [classes.showOverflow]: visible && showOverflow
+                //[classes.showOverflow]: visible && showOverflow
               })
             });
           })}

@@ -1,5 +1,5 @@
-//import { useMemo, useState } from 'react';
-import { Suspense } from 'react';
+import { useMemo } from 'react';
+//import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
@@ -12,14 +12,14 @@ import MenuItem from './MenuItem';
 //import SubMenu from './SubMenu';
 // import PatreonButton from '../patreon-button';
 import UkraineButton from '../ukraine-button';
-import LoadingSmall from '../loading-small';
-import { BossListNav } from '../boss-list';
+//import LoadingSmall from '../loading-small';
+//import { BossListNav } from '../boss-list';
 
 import { caliberMap } from '../../modules/format-ammo';
 import rawMapData from '../../data/maps.json';
 import itemsData from '../../data/category-pages.json';
-//import { useMapsQuery } from '../../features/maps/queries';
-//import formatBossData from '../../modules/format-boss-data';
+import { useMapsQuery } from '../../features/maps/queries';
+import formatBossData from '../../modules/format-boss-data';
 
 import IntersectionObserverWrapper from './intersection-observer-wrapper';
 
@@ -59,14 +59,14 @@ const Menu = () => {
     };*/
     const { t } = useTranslation();
 
-    /*const { data: maps } = useMapsQuery();
+    const { data: maps } = useMapsQuery();
 
     const bosses = useMemo(() => {
         if (!maps || maps.length === 0) {
             return [];
         }
         return formatBossData(maps);
-    }, [maps]);*/
+    }, [maps]);
 
     return (
         <>
@@ -112,7 +112,7 @@ const Menu = () => {
                             <Icon path={mdiRemote} size={1} className="icon-with-text" />
                         </Link>
                     </li>
-                    <li className="submenu-wrapper"  key="menu-ua-donate" data-targetid="ua-donate">
+                    <li className="submenu-wrapper" key="menu-ua-donate" data-targetid="ua-donate">
                         <UkraineButton />
                     </li>
                     {/*<li className="only-large">
@@ -217,11 +217,13 @@ const Menu = () => {
                     </li>
                     <li className="submenu-wrapper" key="menu-bosses" data-targetid="bosses">
                         <Link to="/bosses/">{t('Bosses')}</Link>
-                        <Suspense fallback={<LoadingSmall />}>
-                            <BossListNav 
-                                //onClick={setIsOpen.bind(this, false)} 
-                            />
-                        </Suspense>
+                        <ul>
+                            {bosses.map(boss => {
+                                return (
+                                    <li key={`boss-${boss.normalizedName}`}><Link to={`/boss/${boss.normalizedName}`}>{boss.name}</Link></li>
+                                );
+                            })}
+                        </ul>
                     </li>
                     <li className="submenu-wrapper" key="menu-barters" data-targetid="barters">
                         <Link 
