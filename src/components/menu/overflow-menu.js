@@ -43,16 +43,7 @@ export default function OverflowMenu({ children, className, visibilityMap }) {
             alt={t('More')}
             to="#"
             onClick={handleClick}
-            onMouseOver={handleClick}
-            onMouseLeave={(event) => {
-              let parent = event.currentTarget.parentElement;
-              while (parent) {
-                if (parent.classList.contains('overflow-menu')) {
-                  return;
-                }
-              }
-              handleClose();
-            }}
+            onMouseEnter={handleClick}
         >
             <Icon path={mdiDotsVertical} size={1} className="icon-with-text" />
         </Link>
@@ -64,7 +55,6 @@ export default function OverflowMenu({ children, className, visibilityMap }) {
         keepMounted
         open={open}
         onClose={handleClose}
-        //onMouseLeave={handleClose}
         onMouseOver={event => {
             if (event.target.classList.contains('MuiList-padding')) {
                 setMouseEntered(true);
