@@ -26,7 +26,6 @@ const useIntersectionStyles = makeStyles(() => ({
     order: 99,
     position: "sticky",
     right: "0",
-    //backgroundColor: "white"
   },
   showOverflow: {
     overflow: 'visible'
