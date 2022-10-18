@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
 export default function OverflowMenu({ children, className, visibilityMap }) {
     const { t } = useTranslation();
     const [anchorEl, setAnchorEl] = useState(null);
+    const [mouseEntered, setMouseEntered] = useState(false);
     const open = Boolean(anchorEl);
     const classes = useStyles();
     const handleClick = (event) => {
@@ -26,6 +27,7 @@ export default function OverflowMenu({ children, className, visibilityMap }) {
 
     const handleClose = () => {
         setAnchorEl(null);
+        setMouseEntered(false);
     };
 
     const shouldShowMenu = useMemo(() => 
@@ -62,7 +64,15 @@ export default function OverflowMenu({ children, className, visibilityMap }) {
         keepMounted
         open={open}
         onClose={handleClose}
-        onMouseLeave={handleClose}
+        //onMouseLeave={handleClose}
+        onMouseOver={event => {
+            if (event.target.classList.contains('MuiList-padding')) {
+                setMouseEntered(true);
+            }
+            if (mouseEntered && event.target.nodeName === 'DIV' && event.target.innerHTML === '' && event.target.classList.length === 0 && event.target.style.backgroundColor === 'transparent' && event.target.parentElement.classList.contains('overflow-menu')) {
+                handleClose();
+            }
+        }}
         transformOrigin={{horizontal: 'right', vertical: 'top'}}
         anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
       >
