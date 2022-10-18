@@ -17,8 +17,10 @@ const useIntersectionStyles = makeStyles(() => ({
   },
   toolbarWrapper: {
     display: "flex",
-    overflow: "hidden",
+    overflowX: "clip",
+    overflowY: "visible",
     padding: "0 10px",
+    maxWidth: "100%"
   },
   overflowStyle: {
     order: 99,
@@ -39,7 +41,6 @@ export default function IntersectionObserverWrapper({ children }) {
         const updatedEntries = {};
         entries.forEach((entry) => {
           const targetid = entry.target.dataset.targetid;
-          console.log(entry, targetid);
           if (entry.isIntersecting) {
             updatedEntries[targetid] = true;
           } else {
@@ -75,21 +76,6 @@ export default function IntersectionObserverWrapper({ children }) {
     return (
         <div className={classes.toolbarWrapper} ref={navRef}>
           {React.Children.map(children, (child) => {
-            const visible = !!visibilityMap[child.props["data-targetid"]];
-            //console.log(child, visible);
-            let showOverflow = false;
-            if (Array.isArray(child.props.children)) {
-                const subMenu = child.props.children.find(c => c.type === 'ul');
-                if (subMenu) {
-                    console.log('list', child.props['data-targetid']);
-                    showOverflow = true;
-                } else {
-                    console.log('not list', child.props['data-targetid'], child.props.children)    
-                }
-            } else {
-                console.log('not array', child.props['data-targetid'], child.props.children)
-            }
-            console.log(child.props['data-targetid'], visible, showOverflow)
             return React.cloneElement(child, {
               className: classnames(child.props.className, {
                 [classes.visible]: !!visibilityMap[child.props["data-targetid"]],

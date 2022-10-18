@@ -99,7 +99,7 @@
     /* background-color: #000; */
     border-radius: 0;
     font-size: 20px;
-    /*position: relative; /* commenting this out makes the submenus appear, but on the left side */
+    position: relative;
 }
 
 .menu .submenu-wrapper ul {
@@ -257,4 +257,9 @@ li.mobile-only-link {
     display: block;
     list-style-type: none;
     padding-left: 10px;
+}
+
+.navigation,
+ul.menu {
+    max-width: 100%;
 }
