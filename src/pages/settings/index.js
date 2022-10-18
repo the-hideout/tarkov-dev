@@ -232,6 +232,7 @@ function Settings() {
                         (state) => state.settings.minDogtagLevel,
                     )}
                     type="text"
+                    inputMode="numeric"
                     placeholder={'1-72'}
                     onChange={(event) => {
                         if (!event.target.value) {

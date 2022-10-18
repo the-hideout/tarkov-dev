@@ -30,6 +30,12 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                             if (event.target.nodeName === 'A') {
                                 return true;
                             }
+                            if (event.target.nodeName === 'path') {
+                                return true;
+                            }
+                            if (event.target.classList.contains('no-click')) {
+                                return true;
+                            }
                             dispatch(
                                 toggleCraftItem({
                                     itemId: costItem.id,
@@ -53,6 +59,7 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                             <Link to={costItem.itemLink}>{costItem.name}</Link>
                             <div className={`${costItem.isTool ? 'price-wrapper-tool' : 'price-wrapper'}`}>
                                 <ItemCost
+                                    itemId={costItem.id}
                                     priceDetails={costItem.priceDetails}
                                     craftId={craftId}
                                     barterId={barterId}
@@ -60,6 +67,7 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                                     price={costItem.priceRUB}
                                     vendor={costItem.vendor}
                                     priceType={costItem.priceType}
+                                    isTool={costItem.isTool}
                                 />
                             </div>
                         </div>

@@ -178,6 +178,7 @@ export default async function doFetchCrafts(language, prebuild = false) {
 
     const response = await fetch('https://api.tarkov.dev/graphql', {
         method: 'POST',
+        cache: 'no-store',
         headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',

@@ -402,6 +402,7 @@ const doFetchItems = async (language, prebuild = false) => {
     const [itemData, itemGrids] = await Promise.all([
         fetch('https://api.tarkov.dev/graphql', {
             method: 'POST',
+            cache: 'no-store',
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
