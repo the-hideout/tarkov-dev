@@ -20,9 +20,7 @@ import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
 import './index.css';
 
-function BartersTable(props) {
-    const { selectedTrader, nameFilter, itemFilter, showAll } =
-        props;
+function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
@@ -322,6 +320,7 @@ function BartersTable(props) {
                         }
                     ],
                     reward: {
+                        id: barterRow.rewardItems[0].item.id,
                         sellTo: t('N/A'),
                         sellToNormalized: 'none',
                         name: barterRow.rewardItems[0].item.name,
@@ -355,6 +354,10 @@ function BartersTable(props) {
                     tradeData.reward.sellValue = bestTrade.priceRUB;
                     tradeData.reward.sellTo = bestTrade.vendor.name;
                     tradeData.reward.sellToNormalized = bestTrade.vendor.normalizedName;
+                }
+                if (barterRow.rewardItems[0].priceCustom) {
+                    tradeData.reward.sellValue = barterRow.rewardItems[0].priceCustom;
+                    tradeData.reward.sellType = 'custom';
                 }
                 
                 //tradeData.reward.sellTo = t(tradeData.reward.sellTo)

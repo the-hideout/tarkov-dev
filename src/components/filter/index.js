@@ -357,6 +357,7 @@ function InputFilter({
     min,
     max,
     tooltip,
+    inputMode,
 }) {
     return (
         <ConditionalWrapper
@@ -378,6 +379,7 @@ function InputFilter({
                     className={`filter-input ${type}`}
                     defaultValue={defaultValue}
                     type={type}
+                    inputMode={inputMode}
                     placeholder={placeholder}
                     onChange={onChange}
                     min={min}
