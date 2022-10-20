@@ -98,10 +98,10 @@ function Trader() {
     return [
         <Helmet key={`${traderName}-helmet`}>
             <meta charSet="utf-8" />
-            <title>{trader.name} {t('Items')}</title>
+            <title>{trader.name} - Escape from Tarkov Trader</title>
             <meta
                 name="description"
-                content={`All ${trader.name} items and barters in Escape from Tarkov`}
+                content={`All ${trader.name} items and tasks in Escape from Tarkov`}
             />
         </Helmet>,
         <div className="page-wrapper" key={'page-wrapper'}>
