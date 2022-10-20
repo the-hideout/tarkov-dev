@@ -107,7 +107,7 @@ function Trader() {
         <div className="page-wrapper" key={'page-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {trader.name} {t('Items')}
+                    {trader.name}
                     <cite>
                         {resetTime}
                     </cite>
