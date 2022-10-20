@@ -17,6 +17,7 @@ import QueueBrowserTask from '../../../modules/queue-browser-task';
 import TraderResetTime from '../../../components/trader-reset-time';
 import { selectAllTraders, fetchTraders } from '../../../features/traders/tradersSlice';
 import ErrorPage from '../../../components/error-page';
+import LoadingSmall from '../../../components/loading-small';
 
 const romanLevels = {
     0: '0',
@@ -88,6 +89,12 @@ function Trader() {
     if (!trader) 
         return <ErrorPage />;
     
+    let resetTime = (<LoadingSmall/>);
+    if (trader.resetTime) {
+        resetTime = (
+            <TraderResetTime timestamp={trader.resetTime} />
+        );
+    }
     return [
         <Helmet key={`${traderName}-helmet`}>
             <meta charSet="utf-8" />
@@ -102,7 +109,7 @@ function Trader() {
                 <h1>
                     {trader.name} {t('Items')}
                     <cite>
-                        <TraderResetTime timestamp={trader.resetTime} />
+                        {resetTime}
                     </cite>
                 </h1>
                 <Filter center>

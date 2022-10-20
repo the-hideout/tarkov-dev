@@ -170,23 +170,26 @@ try {
     }));
 
     apiPromises.push(doFetchTraders('en', true).then(traders => {
-        fs.writeFileSync('./src/data/traders.json', JSON.stringify(traders));
-    }));
-    apiPromises.push(new Promise(async resolve => {
-        const traderLangs = {};
-        for (const lang of langs) {
-            await getTraderNames(lang).then(traders => {
-                const localization = {};
-                traders.forEach(trader => {
-                    localization[trader.id] =  {
-                        name: trader.name
-                    };
-                });
-                traderLangs[lang] = localization;
-            });
+        for (const trader of traders) {
+            delete trader.resetTime;
         }
-        fs.writeFileSync(`./src/data/traders_locale.json`, JSON.stringify(traderLangs));
-        resolve();
+        fs.writeFileSync('./src/data/traders.json', JSON.stringify(traders));
+        return new Promise(async resolve => {
+            const traderLangs = {};
+            for (const lang of langs) {
+                await getTraderNames(lang).then(traders => {
+                    const localization = {};
+                    traders.forEach(trader => {
+                        localization[trader.id] =  {
+                            name: trader.name
+                        };
+                    });
+                    traderLangs[lang] = localization;
+                });
+            }
+            fs.writeFileSync(`./src/data/traders_locale.json`, JSON.stringify(traderLangs));
+            resolve();
+        })
     }));
 
     apiPromises.push(doFetchMaps('en', true).then(maps => {
