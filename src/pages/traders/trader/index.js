@@ -181,6 +181,7 @@ function Trader() {
             {selectedTable === 'tasks' && (
                 <QuestTable
                     giverFilter={trader.normalizedName}
+                    nameFilter={nameFilter}
                     questRequirements={1}
                     minimumLevel={2}
                 />
