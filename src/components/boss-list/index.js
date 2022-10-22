@@ -1,28 +1,12 @@
-import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 
-import doFetchMaps from '../../features/maps/do-fetch-maps';
 import formatBossData from '../../modules/format-boss-data';
-import { langCode } from '../../modules/lang-helpers';
 import MenuItem from '../menu/MenuItem';
 import LoadingSmall from '../loading-small';
+import { useMapsQuery } from '../../features/maps/queries';
 
 import './index.css';
 
-import { placeholderMaps } from '../../modules/placeholder-data';
-
-// Query for maps
-export const useMapsQuery = (queryOptions) => {
-    const mapsQuery = useQuery('maps', () => doFetchMaps(langCode()), {
-        refetchInterval: 600000,
-        placeholderData: placeholderMaps(langCode()),
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
-        ...queryOptions,
-    });
-
-    return mapsQuery;
-};
 
 // BossPageList component for the main boss page
 export function BossPageList() {

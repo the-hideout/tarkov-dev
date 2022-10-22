@@ -56,17 +56,27 @@ function Traders(props) {
                 {t('Traders')}
             </h1>
             <div className="traders-list-wrapper">
-                {traders.filter(trader => trader.normalizedName !== 'fence').map(trader => (
-                    <Link key={trader.id} to={`/traders/${trader.normalizedName}`} className="screen-link">
-                        <h2 className="center-title">{trader.name}</h2>
-                        <img
-                            alt={trader.name}
-                            loading="lazy"
-                            src={`${process.env.PUBLIC_URL}/images/${trader.normalizedName}-icon.jpg`}
-                        />
-                        <TraderResetTime center timestamp={trader.resetTime} />
-                    </Link>
-                ))}
+                {traders.filter(trader => trader.normalizedName !== 'fence').map(trader => {
+                    let resetTime = (
+                        <LoadingSmall/>
+                    );
+                    if (trader.resetTime) {
+                        resetTime = (
+                            <TraderResetTime center timestamp={trader.resetTime} />
+                        );
+                    }
+                    return (
+                        <Link key={trader.id} to={`/traders/${trader.normalizedName}`} className="screen-link">
+                            <h2 className="center-title">{trader.name}</h2>
+                            <img
+                                alt={trader.name}
+                                loading="lazy"
+                                src={`${process.env.PUBLIC_URL}/images/${trader.normalizedName}-icon.jpg`}
+                            />
+                            {resetTime}
+                        </Link>
+                    );
+                })}
             </div>
 
             <div className="page-wrapper trader-page-wrapper">

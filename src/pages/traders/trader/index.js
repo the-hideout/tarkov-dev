@@ -17,6 +17,7 @@ import QueueBrowserTask from '../../../modules/queue-browser-task';
 import TraderResetTime from '../../../components/trader-reset-time';
 import { selectAllTraders, fetchTraders } from '../../../features/traders/tradersSlice';
 import ErrorPage from '../../../components/error-page';
+import LoadingSmall from '../../../components/loading-small';
 
 const romanLevels = {
     0: '0',
@@ -88,21 +89,27 @@ function Trader() {
     if (!trader) 
         return <ErrorPage />;
     
+    let resetTime = (<LoadingSmall/>);
+    if (trader.resetTime) {
+        resetTime = (
+            <TraderResetTime timestamp={trader.resetTime} />
+        );
+    }
     return [
         <Helmet key={`${traderName}-helmet`}>
             <meta charSet="utf-8" />
-            <title>{trader.name} {t('Items')}</title>
+            <title>{trader.name} - Escape from Tarkov Trader</title>
             <meta
                 name="description"
-                content={`All ${trader.name} items and barters in Escape from Tarkov`}
+                content={`All ${trader.name} items and tasks in Escape from Tarkov`}
             />
         </Helmet>,
         <div className="page-wrapper" key={'page-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {trader.name} {t('Items')}
+                    {trader.name}
                     <cite>
-                        <TraderResetTime timestamp={trader.resetTime} />
+                        {resetTime}
                     </cite>
                 </h1>
                 <Filter center>
@@ -174,6 +181,7 @@ function Trader() {
             {selectedTable === 'tasks' && (
                 <QuestTable
                     giverFilter={trader.normalizedName}
+                    nameFilter={nameFilter}
                     questRequirements={1}
                     minimumLevel={2}
                 />

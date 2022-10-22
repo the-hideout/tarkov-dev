@@ -1,5 +1,6 @@
 .menu,
-.navigation {
+.navigation,
+.overflow-menu .MuiPaper-root ul {
     background-color: #2d2d2f;
 }
 
@@ -13,7 +14,8 @@
 }
 
 .navigation a,
-.navigation button {
+.navigation button,
+.overflow-menu a {
     border-radius: 0;
     border: 0;
     color: #9a8866;
@@ -30,12 +32,12 @@
 
 .menu {
     align-items: center;
-    display: none;
+    display: flex;
     font-size: 34px;
     gap: 10px;
-    justify-content: end;
+    justify-content: center;
     line-height: 1;
-    margin-top: -10px;
+    margin: 10px 0;
     padding: 0;
     text-decoration: none;
     text-transform: uppercase;
@@ -60,6 +62,7 @@
 .menu span {
     display: block;
     text-align: left;
+    margin: auto 0;
 }
 
 .mobile-icon {
@@ -193,7 +196,7 @@ li.mobile-only-link {
 
 @media screen and (min-width: 1280px) {
     .branding {
-        margin-right: 0;
+        /*margin-right: 0;*/
     }
 
     .mobile-icon,
@@ -212,7 +215,7 @@ li.mobile-only-link {
     .menu {
         display: flex;
         font-size: 20px;
-        margin: 0;
+        /*margin: 0;*/
         /* width: auto; */
     }
 
@@ -229,4 +232,34 @@ li.mobile-only-link {
     .menu li.only-large {
         display: flex;
     }
+}
+
+/* new styles */
+.submenu-wrapper a {
+    margin: auto 0;
+}
+
+.overflow-menu .MuiPaper-root {
+    background-color: #2d2d2f;
+}
+
+.overflow-menu ul.MuiList-root {
+    padding-left: 10px;
+}
+
+.overflow-menu li {
+    font-size: 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.overflow-menu li ul {
+    display: block;
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+.navigation,
+ul.menu {
+    max-width: 100%;
 }
