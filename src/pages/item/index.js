@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { useParams, Navigate, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -76,6 +76,7 @@ function priceIsLocked(buyFor, settings) {
 
 function Item() {
     const settings = useSelector((state) => state.settings);
+    const navigate = useNavigate();
     const { itemName } = useParams();
     const { t } = useTranslation();
     const [showAllCrafts, setShowAllCrafts] = useState(false);
@@ -204,7 +205,12 @@ function Item() {
         };
     }, [questsStatus, dispatch]);
 
-    let currentItemData = currentItemByNameData;
+    let currentItemData = useMemo(() => {
+        if (currentItemByIdData) {
+            return currentItemByIdData;
+        }
+        return currentItemByNameData;
+    }, [currentItemByNameData, currentItemByIdData]);
 
     const questsRequiringCount = useMemo(() => {
         if (!currentItemData) {
@@ -257,14 +263,11 @@ function Item() {
 
     // if the name we got from the params are the id of the item, redirect
     // to a nice looking path
-    if (currentItemByIdData) {
-        return (
-            <Navigate
-                to={`/item/${currentItemByIdData.normalizedName}`}
-                replace
-            />
-        );
-    }
+    useEffect(() => {
+        if (currentItemByIdData) {
+            navigate(`/item/${currentItemByIdData.normalizedName}`);
+        }
+    }, [currentItemByIdData, navigate]);
 
     // checks for item data loaded
     if (!currentItemData && (itemStatus === 'idle' || itemStatus === 'loading')) {
