@@ -133,6 +133,23 @@ const formatter = (key, value) => {
         }).filter(Boolean).reduce((prev, curr) => [prev, ', ', curr])];
     }
 
+    if (key === 'stimEffects') {
+        return ['Stim effects', value?.map((effect, effectIndex) => {
+            const displayName = effect.skillName || effect.type;
+            let displayValue = `${effect.value > 0 ? '+' : ''}${effect.value}${effect.percent ? '%' : ''}`;
+            if (effect.value === 0) {
+                displayValue = '';
+            }
+            const chance = effect.chance === 1 ? '' : ` ${effect.chance * 100}%`;
+            const formattedValue = displayValue || chance ? `${displayName}: ${displayValue}${chance}` : displayName;
+            return (
+                <div key={`effect-${effectIndex}`}>
+                    {formattedValue}
+                </div>
+            );
+        }).filter(Boolean)];//.reduce((prev, curr) => [prev, (<br/>), curr])];
+    }
+
     const displayKey = defaultFormat(key);
     if (Array.isArray(value)) {
         return [displayKey, value.join(', ')];

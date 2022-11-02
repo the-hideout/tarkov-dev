@@ -209,6 +209,15 @@ const doFetchItems = async (language, prebuild = false) => {
                         energy
                         hydration
                         units
+                        stimEffects {
+                            type
+                            chance
+                            delay
+                            duration
+                            value
+                            percent
+                            skillName
+                        }
                     }
                     ...on ItemPropertiesGlasses {
                         class
@@ -314,6 +323,15 @@ const doFetchItems = async (language, prebuild = false) => {
                     ...on ItemPropertiesStim {
                         cures
                         useTime
+                        stimEffects {
+                            type
+                            chance
+                            delay
+                            duration
+                            value
+                            percent
+                            skillName
+                        }
                     }
                     ...on ItemPropertiesSurgicalKit {
                         uses
