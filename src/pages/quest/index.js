@@ -107,6 +107,8 @@ function Quest() {
         return <ErrorPage />;
     }*/
 
+    const nextQuests = quests.filter(quest => quest.taskRequirements.some(req => req.task.id === currentQuest.id && !req.status.includes('active')));
+
     let requirementsChunk = '';
     if (
         currentQuest.minPlayerLevel ||
@@ -244,7 +246,23 @@ function Quest() {
                     </div>
                 </div>
                 {requirementsChunk}
-
+                {nextQuests.length > 0 && (
+                    <div>
+                        <h2>➡️📋 {t('Leads to')}</h2>
+                        {nextQuests.map((task) => {
+                            let failNote = '';
+                            let status = task.taskRequirements.find(req => req.task.id === currentQuest.id).status;
+                            if (status.length === 1 && status[0] === 'failed') {
+                                failNote = t('(on failure)');
+                            }
+                            return (
+                                <div key={`req-task-${task.id}`}>
+                                    <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>{' '}{failNote}
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
                 {/* Divider between sections */}
                 <hr className="hr-muted-full"></hr>
 
@@ -462,15 +480,15 @@ function Quest() {
                                         })}
                                     </>
                                     {objective.distance && (
-                                        <>
+                                        <div>
                                             {t('From distance: {{operator}} {{distance}} meters', {
                                                 operator: objective.distance.compareMethod,
                                                 distance: objective.distance.value,
                                             })}
-                                        </>
+                                        </div>
                                     )}
                                     {objective.zoneNames?.length > 0 && (
-                                        <>
+                                        <div>
                                             {t('While inside: {{zoneList}}', {
                                                 zoneList: objective.zoneNames
                                                     .map((zone) => {
@@ -478,10 +496,10 @@ function Quest() {
                                                     })
                                                     .join(', '),
                                             })}
-                                        </>
+                                        </div>
                                     )}
                                     {objective.bodyParts?.length > 0 && (
-                                        <>
+                                        <div>
                                             {t('Hitting: {{bodyPartList}}', {
                                                 bodyPartList: objective.bodyParts
                                                     .map((part) => {
@@ -489,10 +507,10 @@ function Quest() {
                                                     })
                                                     .join(', '),
                                             })}
-                                        </>
+                                        </div>
                                     )}
                                     {objective.usingWeapon?.length > 0 && (
-                                        <>
+                                        <div>
                                             {t('Using weapon:')}{' '}
                                             <ul>
                                                 {objective.usingWeapon.map((weap) => {
@@ -510,10 +528,10 @@ function Quest() {
                                                     );
                                                 })}
                                             </ul>
-                                        </>
+                                        </div>
                                     )}
                                     {objective.usingWeaponMods?.length > 0 && (
-                                        <>
+                                        <div>
                                             {t('Using weapon mods:')}{' '}
                                             {objective.usingWeaponMods.map((modSet, index) => {
                                                 return (
@@ -535,10 +553,10 @@ function Quest() {
                                                     </ul>
                                                 );
                                             })}
-                                        </>
+                                        </div>
                                     )}
                                     {objective.wearing?.length > 0 && (
-                                        <>
+                                        <div>
                                             {t('While wearing:')}{' '}
                                             {objective.wearing.map((outfit, index) => {
                                                 return (
@@ -560,10 +578,10 @@ function Quest() {
                                                     </ul>
                                                 );
                                             })}
-                                        </>
+                                        </div>
                                     )}
                                     {objective.notWearing?.length > 0 && (
-                                        <>
+                                        <div>
                                             {t('Not wearing:')}{' '}
                                             <ul>
                                                 {objective.notWearing.map((accessory) => {
@@ -581,12 +599,12 @@ function Quest() {
                                                     );
                                                 })}
                                             </ul>
-                                        </>
+                                        </div>
                                     )}
                                     {objective.playerHealthEffect && (
-                                        <>
+                                        <div>
                                             {`${t(
-                                                'While having the {{effectNames}} effect(s) on your {{bodyParts}} for {{operator}} {{seconds}} seconds',
+                                                objective.playerHealthEffect.time ? 'While having the {{effectNames}} effect(s) on your {{bodyParts}} for {{operator}} {{seconds}} seconds' : 'While having the {{effectNames}} effect(s) on your {{bodyParts}}',
                                                 {
                                                     effectNames:
                                                         objective.playerHealthEffect.effects
@@ -601,18 +619,17 @@ function Quest() {
                                                             })
                                                             .join(', '),
                                                     operator:
-                                                        objective.playerHealthEffect.time
-                                                            .compareMethod,
+                                                        objective.playerHealthEffect.time?.compareMethod,
                                                     seconds:
-                                                        objective.playerHealthEffect.time.value,
+                                                        objective.playerHealthEffect.time?.value,
                                                 },
                                             )}`}
-                                        </>
+                                        </div>
                                     )}
                                     {objective.enemyHealthEffect && (
-                                        <>
+                                        <div>
                                             {`${t(
-                                                'While target has the {{effectNames}} effect(s) on their {{bodyParts}} for {{operator}} {{seconds}} seconds',
+                                                objective.enemyHealthEffect.time? 'While target has the {{effectNames}} effect(s) on their {{bodyParts}} for {{operator}} {{seconds}} seconds' : 'While target has the {{effectNames}} effect(s) on their {{bodyParts}}',
                                                 {
                                                     effectNames: objective.enemyHealthEffect.effects
                                                         .map((effect) => {
@@ -625,12 +642,11 @@ function Quest() {
                                                         })
                                                         .join(', '),
                                                     operator:
-                                                        objective.enemyHealthEffect.time
-                                                            .compareMethod,
-                                                    seconds: objective.enemyHealthEffect.time.value,
+                                                        objective.enemyHealthEffect.time?.compareMethod,
+                                                    seconds: objective.enemyHealthEffect.time?.value,
                                                 },
                                             )}`}
-                                        </>
+                                        </div>
                                     )}
                                 </>
                             );
