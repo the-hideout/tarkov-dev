@@ -251,10 +251,14 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 if (fleaPriceToUse === 0) {
                     fleaPriceToUse = craftRow.rewardItems[0].item.lastLowPrice;
                 }
+                if (craftRow.rewardItems[0].priceCustom) {
+                    fleaPriceToUse = craftRow.rewardItems[0].priceCustom;
+                    tradeData.reward.sellType = 'custom';
+                }
 
                 if (!craftRow.rewardItems[0].item.types.includes('noFlea') && (showAll || includeFlea)) {
-                    const bestFleaPrice = bestPrice(craftRow.rewardItems[0].item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
-                    if (fleaPriceToUse === 0 || bestFleaPrice.bestPrice < fleaPriceToUse) {
+                    const bestFleaPrice = bestPrice(craftRow.rewardItems[0].item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate, fleaPriceToUse);
+                    if (!craftRow.rewardItems[0].priceCustom && (fleaPriceToUse === 0 || bestFleaPrice.bestPrice < fleaPriceToUse)) {
                         fleaPriceToUse = bestFleaPrice.bestPrice;
                         fleaFeeSingle = bestFleaPrice.bestPriceFee;
                     } else {
@@ -283,10 +287,6 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     }
                 } else if (craftRow.rewardItems[0].item.types.includes('noFlea')) {
                     tradeData.reward.sellNote = t('Flea banned');
-                }
-                if (craftRow.rewardItems[0].priceCustom) {
-                    tradeData.reward.sellValue = craftRow.rewardItems[0].priceCustom;
-                    tradeData.reward.sellType = 'custom';
                 }
 
                 tradeData.profitParts = [
