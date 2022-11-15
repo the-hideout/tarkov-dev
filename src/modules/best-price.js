@@ -1,13 +1,13 @@
 import calculateFee from './flea-market-fee';
 
-export default function bestPrice(itemData, Ti = false, Tr = false) {
+export default function bestPrice(itemData, Ti = false, Tr = false, startPrice) {
     if (!itemData.basePrice) {
         return {
             bestPrice: 0,
             bestPriceFee: 0,
         };
     }
-    let testPrice = itemData.lastLowPrice || (itemData.basePrice * 100);
+    let testPrice = startPrice || itemData.lastLowPrice || (itemData.basePrice * 100);
     let currentFee = calculateFee(itemData.basePrice, testPrice, 1, Ti, Tr);
     let bestProfit = testPrice - currentFee;
     let bestPrice = testPrice;
