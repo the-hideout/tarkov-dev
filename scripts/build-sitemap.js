@@ -9,7 +9,6 @@ const { caliberMap } = require('../src/modules/format-ammo');
 const standardPaths = [
     '',
     '/about',
-    '/stats',
     '/ammo',
     '/api',
     '/api-users',
