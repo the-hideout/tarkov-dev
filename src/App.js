@@ -68,7 +68,6 @@ import ItemTracker from './pages/item-tracker/';
 import Hideout from './pages/hideout';
 import WipeLength from './pages/wipe-length';
 import About from './pages/about/';
-import Stats from './pages/stats/';
 
 import Guides from './pages/guides';
 
@@ -599,13 +598,6 @@ function App() {
                     path={'/about'}
                     element={[
                         <About key="about-wrapper" />,
-                        remoteControlSessionElement,
-                    ]}
-                />
-                <Route
-                    path={'/stats'}
-                    element={[
-                        <Stats key="stats-wrapper" />,
                         remoteControlSessionElement,
                     ]}
                 />
