@@ -289,14 +289,6 @@ const Menu = () => {
                             {t('API')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper" key="menu-stats" data-targetid="stats">
-                        <Link
-                            to="/stats/"
-                            //onClick={setIsOpen.bind(this, false)}
-                        >
-                            {t('stats')}
-                        </Link>
-                    </li>
                 </IntersectionObserverWrapper>
                 </ul>
             </nav>
