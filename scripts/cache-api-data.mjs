@@ -10,21 +10,27 @@ import doFetchMeta from '../src/features/meta/do-fetch-meta.js';
 import doFetchHideout from '../src/features/hideout/do-fetch-hideout.js';
 import doFetchQuests from '../src/features/quests/do-fetch-quests.js';
 
-const langs = [
-    'es',
-    'de',
-    'fr',
-    'cz',
-    'hu',
-    'it',
-    'jp',
-    'pl',
-    'pt',
-    'ru',
-    'sk',
-    'tr',
-    'zh',
-];
+function getLanguageCodes() {
+    const QueryBody = JSON.stringify({
+        query: `{
+            __type(name: "LanguageCode") {
+                enumValues {
+                    name
+                }
+            }
+        }`,
+    });
+    return fetch('https://api.tarkov.dev/graphql', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: QueryBody,
+    }).then((response) => response.json()).then(response => response.data.__type.enumValues.map(lang => {
+        return lang.name;
+    }));
+}
 
 const getItemNames = (language) => {
     const QueryBody = JSON.stringify({
@@ -90,6 +96,9 @@ const getTraderNames = (language) => {
 
 console.time('Caching API data');
 try {
+    const allLangs = await getLanguageCodes();
+    fs.writeFileSync('./src/data/supported-languages.json', JSON.stringify(allLangs, null, 4));
+    const langs = allLangs.filter(lang => lang !== 'en')
     const apiPromises = [];
     apiPromises.push(doFetchItems('en', true).then(items => {
         for (const item of items) {
