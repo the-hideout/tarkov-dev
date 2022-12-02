@@ -144,16 +144,25 @@ function BossPage(params) {
         spawnStatsMsg.push(`${displayPercent}% (${map.name})`)
     }
 
-    bossProperties[t('spawnChance') + ` 🎲`] = spawnStatsMsg.join(', ');
+    bossProperties[t('spawnChance') + ` 🎲`] = {
+        value: spawnStatsMsg.join(', '),
+        tooltip: 'Chance that the boss spawns on a given map',
+    };
 
     // Display health stats
     if (bossJsonData) {
-        bossProperties[t('health') + ' 🖤'] = bossJsonData.health;
+        bossProperties[t('health') + ' 🖤'] = {
+            value: bossJsonData.health,
+            tooltip: t('Total boss health'),
+        };
     }
 
     // Display behavior info
     if (bossJsonData) {
-        bossProperties[t('behavior') + ' 💡'] = bossJsonData.behavior;
+        bossProperties[t('behavior') + ' 💡'] = {
+            value: bossJsonData.behavior,
+            tooltip: t("The boss's general AI behavior"),
+        };
     }
 
     // Format the boss table spawnLocation data
@@ -229,12 +238,6 @@ function BossPage(params) {
                     />
                 </h2>
                 <PropertyList properties={bossProperties} />
-                <p>Key:</p>
-                <ul>
-                    <li>Behavior: The general AI behavior of the given boss</li>
-                    <li>Health: Total boss health</li>
-                    <li>Spawn Chance: A percentage chance that the boss spawns on a given map</li>
-                </ul>
 
                 {bossJsonData &&
                     <h2 className='item-h2' key={'boss-loot-header'}>
