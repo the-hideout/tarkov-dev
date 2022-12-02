@@ -41,6 +41,16 @@ const itemCategoryLinkFormat = inputCategory => {
 };
 
 const formatter = (key, value) => {
+    let tooltip = false;
+    if (typeof value === 'object' && value.value) {
+        if (value.tooltip) {
+            tooltip = value.tooltip;
+        }
+        value = value.value;
+    } else if (typeof value === 'object' && !Array.isArray(value)) {
+        console.log('not array', key, value)
+    }
+
     if (key === 'Weight') {
         return [key, `${value} kg`];
     }
@@ -150,15 +160,27 @@ const formatter = (key, value) => {
         }).filter(Boolean)];//.reduce((prev, curr) => [prev, (<br/>), curr])];
     }
 
+    if (key === 'material') {
+        if (typeof value === 'object') {
+            value = value.name;
+        }
+    }
+
     const displayKey = defaultFormat(key);
-    if (Array.isArray(value)) {
-        return [displayKey, value.join(', ')];
+
+    value = {
+        value: value,
+        tooltip: tooltip,
+    }
+
+    if (Array.isArray(value.value)) {
+        value.value = value.value.join(', ');
     }
 
     // if the value is an object, return an empty array meaning that we
     // can't format that value
-    if (typeof value === 'object') {
-        return [displayKey, undefined];
+    if (typeof value.value === 'object') {
+        value.value = undefined;
     }
 
     return [displayKey, value];
