@@ -27,7 +27,7 @@ function PropertyList({ properties }) {
                 .filter(([property, value]) => value.value?.length !== 0)
                 .sort((a, b) => a[0].localeCompare(b[0])),
 
-        [properties, t],
+        [properties],
     );
 
     return (
