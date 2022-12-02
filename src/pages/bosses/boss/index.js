@@ -146,7 +146,7 @@ function BossPage(params) {
 
     bossProperties[t('spawnChance') + ` 🎲`] = {
         value: spawnStatsMsg.join(', '),
-        tooltip: 'Chance that the boss spawns on a given map',
+        tooltip: t('Chance that the boss spawns on a given map'),
     };
 
     // Display health stats
