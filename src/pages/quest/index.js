@@ -107,7 +107,11 @@ function Quest() {
         return <ErrorPage />;
     }*/
 
-    const nextQuests = quests.filter(quest => quest.taskRequirements.some(req => req.task.id === currentQuest.id && !req.status.includes('active')));
+    const nextQuests = quests.filter((quest) =>
+        quest.taskRequirements.some(
+            (req) => req.task.id === currentQuest.id && !req.status.includes('active'),
+        ),
+    );
 
     let requirementsChunk = '';
     if (
@@ -251,13 +255,16 @@ function Quest() {
                         <h2>➡️📋 {t('Leads to')}</h2>
                         {nextQuests.map((task) => {
                             let failNote = '';
-                            let status = task.taskRequirements.find(req => req.task.id === currentQuest.id).status;
+                            let status = task.taskRequirements.find(
+                                (req) => req.task.id === currentQuest.id,
+                            ).status;
                             if (status.length === 1 && status[0] === 'failed') {
                                 failNote = t('(on failure)');
                             }
                             return (
                                 <div key={`req-task-${task.id}`}>
-                                    <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>{' '}{failNote}
+                                    <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>{' '}
+                                    {failNote}
                                 </div>
                             );
                         })}
@@ -336,7 +343,10 @@ function Quest() {
                                                         (i) => i.id === part.id,
                                                     );
                                                     return (
-                                                        <li key={item.id} className={'quest-list-item'}>
+                                                        <li
+                                                            key={item.id}
+                                                            className={'quest-list-item'}
+                                                        >
                                                             <Link
                                                                 to={`/item/${item.normalizedName}`}
                                                             >
@@ -357,7 +367,10 @@ function Quest() {
                                                         (i) => i.id === part.id,
                                                     );
                                                     return (
-                                                        <li key={item.id} className={'quest-list-item'}>
+                                                        <li
+                                                            key={item.id}
+                                                            className={'quest-list-item'}
+                                                        >
                                                             <Link
                                                                 to={`/item/${item.normalizedName}`}
                                                             >
@@ -447,7 +460,10 @@ function Quest() {
                                         <ul>
                                             {attributes.map((att) => {
                                                 return (
-                                                    <li key={att.name} className={'quest-list-item'}>
+                                                    <li
+                                                        key={att.name}
+                                                        className={'quest-list-item'}
+                                                    >
                                                         {`${att.name}: ${att.value}`}
                                                     </li>
                                                 );
@@ -518,7 +534,10 @@ function Quest() {
                                                         (i) => i.id === weap.id,
                                                     );
                                                     return (
-                                                        <li key={`weapon-${item.id}`} className={'quest-list-item'}>
+                                                        <li
+                                                            key={`weapon-${item.id}`}
+                                                            className={'quest-list-item'}
+                                                        >
                                                             <Link
                                                                 to={`/item/${item.normalizedName}`}
                                                             >
@@ -541,7 +560,10 @@ function Quest() {
                                                                 (i) => i.id === mod.id,
                                                             );
                                                             return (
-                                                                <li key={`mod-${item.id}`} className={'quest-list-item'}>
+                                                                <li
+                                                                    key={`mod-${item.id}`}
+                                                                    className={'quest-list-item'}
+                                                                >
                                                                     <Link
                                                                         to={`/item/${item.normalizedName}`}
                                                                     >
@@ -566,7 +588,10 @@ function Quest() {
                                                                 (i) => i.id === accessory.id,
                                                             );
                                                             return (
-                                                                <li key={`accessory-${item.id}`} className={'quest-list-item'}>
+                                                                <li
+                                                                    key={`accessory-${item.id}`}
+                                                                    className={'quest-list-item'}
+                                                                >
                                                                     <Link
                                                                         to={`/item/${item.normalizedName}`}
                                                                     >
@@ -589,7 +614,10 @@ function Quest() {
                                                         (i) => i.id === accessory.id,
                                                     );
                                                     return (
-                                                        <li key={`accessory-${item.id}`} className={'quest-list-item'}>
+                                                        <li
+                                                            key={`accessory-${item.id}`}
+                                                            className={'quest-list-item'}
+                                                        >
                                                             <Link
                                                                 to={`/item/${item.normalizedName}`}
                                                             >
@@ -604,7 +632,9 @@ function Quest() {
                                     {objective.playerHealthEffect && (
                                         <div>
                                             {`${t(
-                                                objective.playerHealthEffect.time ? 'While having the {{effectNames}} effect(s) on your {{bodyParts}} for {{operator}} {{seconds}} seconds' : 'While having the {{effectNames}} effect(s) on your {{bodyParts}}',
+                                                objective.playerHealthEffect.time
+                                                    ? 'While having the {{effectNames}} effect(s) on your {{bodyParts}} for {{operator}} {{seconds}} seconds'
+                                                    : 'While having the {{effectNames}} effect(s) on your {{bodyParts}}',
                                                 {
                                                     effectNames:
                                                         objective.playerHealthEffect.effects
@@ -619,7 +649,8 @@ function Quest() {
                                                             })
                                                             .join(', '),
                                                     operator:
-                                                        objective.playerHealthEffect.time?.compareMethod,
+                                                        objective.playerHealthEffect.time
+                                                            ?.compareMethod,
                                                     seconds:
                                                         objective.playerHealthEffect.time?.value,
                                                 },
@@ -629,7 +660,9 @@ function Quest() {
                                     {objective.enemyHealthEffect && (
                                         <div>
                                             {`${t(
-                                                objective.enemyHealthEffect.time? 'While target has the {{effectNames}} effect(s) on their {{bodyParts}} for {{operator}} {{seconds}} seconds' : 'While target has the {{effectNames}} effect(s) on their {{bodyParts}}',
+                                                objective.enemyHealthEffect.time
+                                                    ? 'While target has the {{effectNames}} effect(s) on their {{bodyParts}} for {{operator}} {{seconds}} seconds'
+                                                    : 'While target has the {{effectNames}} effect(s) on their {{bodyParts}}',
                                                 {
                                                     effectNames: objective.enemyHealthEffect.effects
                                                         .map((effect) => {
@@ -642,8 +675,10 @@ function Quest() {
                                                         })
                                                         .join(', '),
                                                     operator:
-                                                        objective.enemyHealthEffect.time?.compareMethod,
-                                                    seconds: objective.enemyHealthEffect.time?.value,
+                                                        objective.enemyHealthEffect.time
+                                                            ?.compareMethod,
+                                                    seconds:
+                                                        objective.enemyHealthEffect.time?.value,
                                                 },
                                             )}`}
                                         </div>
@@ -752,10 +787,11 @@ function Quest() {
                             {currentQuest.finishRewards?.items.map((rewardItem, index) => {
                                 const item = items.find((it) => it.id === rewardItem.item.id);
                                 return (
-                                    <li className="quest-list-item" key={`reward-index-${rewardItem.item.id}`}>
-                                        <Link to={`/item/${item.normalizedName}`}>
-                                            {item.name}
-                                        </Link>
+                                    <li
+                                        className="quest-list-item"
+                                        key={`reward-index-${rewardItem.item.id}`}
+                                    >
+                                        <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
                                         <span>{` x ${rewardItem.count.toLocaleString()}`}</span>
                                     </li>
                                 );
@@ -806,9 +842,7 @@ function Quest() {
                                 const item = items.find((i) => i.id === unlock.item.id);
                                 return (
                                     <li className="quest-list-item" key={unlock.item.id}>
-                                        <Link to={`/item/${item.normalizedName}`}>
-                                            {item.name}
-                                        </Link>
+                                        <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
                                         <span>{' @ '}</span>
                                         <Link to={`/traders/${trader.normalizedName}`}>
                                             {trader.name}
