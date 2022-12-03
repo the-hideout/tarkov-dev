@@ -19,6 +19,8 @@ import { useMapsQuery } from '../../features/maps/queries';
 
 import './index.css';
 
+import mapJson from '../../data/maps.json';
+
 dayjs.extend(relativeTime);
 
 function Quest() {
@@ -276,6 +278,22 @@ function Quest() {
                 <h2 className="center-title task-details-heading">{t('Task Details')}</h2>
 
                 {currentQuest.map && <h2>{`🗺️ ${t('Map')}: ${currentQuest.map.name}`}</h2>}
+
+                {/* loop through all the values in mapJson array and if there is a match, add a link to the map */}
+                {currentQuest.map &&
+                    mapJson.map((map) => {
+                        if (map.normalizedName === currentQuest.map.name.toLowerCase()) {
+                            return (
+                                <div key={`map-link-${map.normalizedName}`}>
+                                    <Link to={map.primaryPath}>
+                                        {t('View Map')} - {currentQuest.map.name}
+                                    </Link>
+                                </div>
+                            );
+                        }
+                        return null;
+                    })}
+
                 <h2>🏆 {t('Objectives')}</h2>
                 <div key="task-objectives">
                     {currentQuest.objectives.map((objective) => {
