@@ -104,7 +104,7 @@ const formatter = (key, value) => {
         value = value?.map(category => {
             if (ignoreCategories.includes(category.id)) return false;
             return itemCategoryLinkFormat(category);
-        }).filter(Boolean).reduce((prev, curr) => [prev, ', ', curr]);
+        }).filter(Boolean).reduce((prev, curr, currentIndex) => [prev, (<span key={`spacer-${currentIndex}`}>, </span>), curr]);
     }
 
     if (key === 'stimEffects') {
