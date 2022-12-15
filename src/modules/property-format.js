@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { isValidElement } from 'react';
 
 import camelcaseToDashes from './camelcase-to-dashes';
 import { formatCaliber } from './format-ammo';
@@ -68,7 +69,7 @@ const formatter = (key, value) => {
 
     if (key === 'caliber') {
         //return ['Ammunition', ammoLinkFormat(value)];
-        value = [ammoLinkFormat(value)];
+        value = ammoLinkFormat(value);
     }
 
     if (typeof value === 'boolean') {
@@ -97,7 +98,7 @@ const formatter = (key, value) => {
     }
 
     if (key === 'baseItem') {
-        value = [itemLinkFormat(value)];
+        value = itemLinkFormat(value);
     }
 
     if (key === 'categories') {
@@ -141,7 +142,7 @@ const formatter = (key, value) => {
         if (allString) {
             value = value.join(', ');
         }
-    } else if (typeof value === 'object') {
+    } else if (typeof value === 'object' && value !== null && !isValidElement(value)) {
         // if the value is an object, return an empty array meaning that we
         // can't format that value
         value = undefined;
