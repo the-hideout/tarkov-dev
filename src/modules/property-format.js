@@ -41,7 +41,7 @@ const formatter = (key, value) => {
 
     let displayKey = defaultFormat(key);
 
-    if (key === 'Weight') {
+    if (key === 'weight') {
         value = `${value} kg`;
     }
 
@@ -49,8 +49,8 @@ const formatter = (key, value) => {
         value = `${value*100}%`;
     }
 
-    if (key === 'RicochetParams') {
-        return ['Ricochet chance', value.x];
+    if (key === 'ricochetY') {
+        displayKey = 'Ricochet chance';
     }
 
     if (key === 'armorZone') {
