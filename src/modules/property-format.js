@@ -9,17 +9,6 @@ const defaultFormat = (inputString) => {
     return baseFormat.charAt(0).toUpperCase() + baseFormat.slice(1);
 };
 
-const firingModeFormat = (inputString) => {
-    switch (inputString) {
-        case 'single':
-            return 'semi-auto';
-        case 'fullauto':
-            return 'full-auto';
-        default:
-            return inputString;
-    }
-};
-
 const ignoreCategories = [
     '54009119af1c881c07000029', // Item
     '566162e44bdc2d3f298b4573', // Compound item
@@ -48,7 +37,7 @@ const formatter = (key, value) => {
         }
         value = value.value;
     } 
-    
+
     let displayKey = defaultFormat(key);
 
     if (key === 'Weight') {
