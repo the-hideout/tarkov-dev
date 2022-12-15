@@ -3,6 +3,7 @@
         "name": "Customs",
         "normalizedName": "customs",
         "description": "A large area of industrial park land situated adjacent to the factory zone. The area houses a customs terminal, fuel storage facilities, offices, and dorms, as well as a variety of other infrastructure and buildings.",
+        "primaryPath": "/map/customs-3d",
         "maps": [
             {
                 "key": "customs-3d",
@@ -42,6 +43,7 @@
         "name": "Factory",
         "normalizedName": "factory",
         "description": "The industrial estate and facilities of Chemical Plant No. 16 were rented out illegally to the TerraGroup corporation. During the advent of the Contract Wars, the plant became the scene of numerous firefights between BEAR and USEC that ultimately determined control over the industrial district of Tarkov. Later on, in the wake of the chaos, the plant facilities became a shelter for the remaining civilians, Scavs, and military operatives, including the scattered remains of the BEAR and USEC contingents.",
+        "primaryPath": "/map/factory-3d",
         "maps": [
             {
                 "key": "factory-3d",
@@ -57,6 +59,7 @@
         "name": "Interchange",
         "normalizedName": "interchange",
         "description": "The South Interchange is a key transport location for the city. This strategic area connects the port and harbor with the industrial outskirts of Tarkov. Located in the center of the interchange is a huge ULTRA shopping mall which was used as the main base of operation for the EMERCOM evacuation.",
+        "primaryPath": "/map/interchange-2d",
         "maps": [
             {
                 "key": "interchange-2d",
@@ -80,6 +83,7 @@
         "name": "The Lab",
         "normalizedName": "labs",
         "description": "Secret underground TerraGroup Labs facility hidden right under the center of Tarkov. Officially, this research center does not exist and, based on data scraps, is engaged in research and development as well as testing and simulation of projects in chemistry, physics, biology, and other high technology.",
+        "primaryPath": "/map/labs-2d",
         "maps": [
             {
                 "key": "labs-2d",
@@ -95,6 +99,7 @@
         "name": "Lighthouse",
         "normalizedName": "lighthouse",
         "description": "The lighthouse at Cape Dalniy was an important strategic object on the way to Tarkov. During Contract Wars, it was the main entry point for USEC units and served as their base of operations. After the conflict, Scavs took a fancy to this place, until the old owners returned, who decided to stay in Tarkov and establish their own order.",
+        "primaryPath": "/map/lighthouse-2d-landscape",
         "maps": [
             {
                 "key": "lighthouse-3d",
@@ -125,6 +130,7 @@
         "name": "Reserve",
         "normalizedName": "reserve",
         "description": "The secret Federal State Reserve Agency base that, according to urban legends, contains enough supplies to last for years: food, medications, and other resources, enough to survive an all-out nuclear war.",
+        "primaryPath": "/map/reserve-3d",
         "maps": [
             {
                 "key": "reserve-3d",
@@ -156,6 +162,7 @@
         "name": "Shoreline",
         "normalizedName": "shoreline",
         "description": "The Shoreline area makes up a large part of the outskirts of Tarkov and is located next to the Port. The area houses a partially abandoned village, modern private housing, agricultural fields, long stretches of beach, a boating facility, gas station, weather station, and a cellular tower as well as other commercial facilities. Shoreline's main point of interest is the \"Azure Coast\" health resort which consists of several luxurious buildings and facilities. The resort is exclusively powered by a nearby hydroelectric power plant. The resort had previously been used as temporary accommodation for members of TerraGroup and the corporation's associated divisions in preparation for the evacuation of the Tarkov Port.",
+        "primaryPath": "/map/shoreline-2d",
         "maps": [
             {
                 "key": "shoreline-3d",
@@ -187,6 +194,7 @@
         "name": "Woods",
         "normalizedName": "woods",
         "description": "The Priozersk Natural Reserve recently became part of the state-protected wildlife reserves of the North Western Federal District.",
+        "primaryPath": "/map/woods-2d",
         "maps": [
             {
                 "key": "woods-3d",
