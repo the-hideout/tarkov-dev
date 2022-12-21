@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { isValidElement } from 'react';
 
 import camelcaseToDashes from './camelcase-to-dashes';
 import { formatCaliber } from './format-ammo';
@@ -7,17 +8,6 @@ const defaultFormat = (inputString) => {
     const baseFormat = camelcaseToDashes(inputString).replace(/-/g, ' ');
 
     return baseFormat.charAt(0).toUpperCase() + baseFormat.slice(1);
-};
-
-const firingModeFormat = (inputString) => {
-    switch (inputString) {
-        case 'single':
-            return 'semi-auto';
-        case 'fullauto':
-            return 'full-auto';
-        default:
-            return inputString;
-    }
 };
 
 const ignoreCategories = [
@@ -42,83 +32,58 @@ const itemCategoryLinkFormat = inputCategory => {
 
 const formatter = (key, value) => {
     let tooltip = false;
-    if (typeof value === 'object' && value.value) {
+    if (typeof value === 'object' && value !== null && value.value) {
         if (value.tooltip) {
             tooltip = value.tooltip;
         }
         value = value.value;
-    } else if (typeof value === 'object' && !Array.isArray(value)) {
-        console.log('not array', key, value)
+    } 
+
+    let displayKey = defaultFormat(key);
+
+    if (key === 'weight') {
+        value = `${value} kg`;
     }
 
-    if (key === 'Weight') {
-        return [key, `${value} kg`];
+    if (key === 'speedPenalty') {
+        value = `${value*100}%`;
     }
 
-    if (key === 'speedPenaltyPercent') {
-        return ['Speed penalty', `${value}%`];
-    }
-
-    if (key === 'RicochetParams') {
-        return ['Ricochet chance', value.x];
+    if (key === 'ricochetY') {
+        displayKey = 'Ricochet chance';
     }
 
     if (key === 'armorZone') {
-        let displayKey = defaultFormat(key);
 
         if (value.length > 1) {
             displayKey = `${displayKey}s`;
         }
 
-        return [displayKey, value.map(defaultFormat).join(', ')];
+        value = value.map(defaultFormat).join(', ');
     }
 
-    if (key === 'weaponErgonomicPenalty') {
-        return ['Ergonomics', value];
-    }
-
-    if (key === 'mousePenalty') {
-        return ['Turn speed', `${value} %`];
-    }
-
-    if (key === 'bFirerate') {
-        return ['Rate of fire', value];
-    }
-
-    if (key === 'RecoilForceBack' || key === 'RecoilForceUp') {
-        return [defaultFormat(key).replace(' force', ''), value];
-    }
-
-    if (key === 'weapFireType') {
-        return ['Fire modes', value.map(firingModeFormat).join(', ')];
+    if (key === 'turnPenalty') {
+        displayKey = 'Turn speed';
+        value = `${value*100}%`;
     }
 
     if (key === 'caliber') {
-        return ['Ammunition', ammoLinkFormat(value)];
+        //return ['Ammunition', ammoLinkFormat(value)];
+        value = ammoLinkFormat(value);
     }
 
-    if (key === 'headSegments') {
-        let displayKey = defaultFormat(key);
-
-        return [displayKey, value.map(defaultFormat).join(', ')];
-    }
-
-    if (key === 'BlocksEarpiece') {
-        let displayKey = defaultFormat(key);
-
-        return [displayKey, value ? 'Yes' : 'No'];
+    if (typeof value === 'boolean') {
+        value = value ? 'Yes' : 'No';
     }
 
     if (key === 'zoomLevels') {
-        let displayKey = defaultFormat(key);
 
         const zoomLevels = new Set();
         value.forEach(levels => zoomLevels.add(...levels));
-        return [displayKey, [...zoomLevels].join(', ')];
+        value = [...zoomLevels].join(', ');
     }
 
     if (key === 'grids') {
-        let displayKey = defaultFormat(key);
         const gridCounts = {};
         value.sort((a, b) => (a.width*a.height) - (b.width*b.height)).forEach(grid => {
             const gridLabel = grid.width+'x'+grid.height;
@@ -129,22 +94,22 @@ const formatter = (key, value) => {
         for (const label in gridCounts) {
             displayGrids.push(`${label}${gridCounts[label] > 1 ? `: ${gridCounts[label]}` : ''}`);
         }
-        return [displayKey, displayGrids.join(', ')];
+        value = displayGrids.join(', ');
     }
 
     if (key === 'baseItem') {
-        return ['Base Item', itemLinkFormat(value)];
+        value = itemLinkFormat(value);
     }
 
     if (key === 'categories') {
-        return ['Categories', value?.map(category => {
+        value = value?.map(category => {
             if (ignoreCategories.includes(category.id)) return false;
             return itemCategoryLinkFormat(category);
-        }).filter(Boolean).reduce((prev, curr) => [prev, ', ', curr])];
+        }).filter(Boolean).reduce((prev, curr, currentIndex) => [prev, (<span key={`spacer-${currentIndex}`}>, </span>), curr]);
     }
 
     if (key === 'stimEffects') {
-        return ['Stim effects', value?.map((effect, effectIndex) => {
+        value = value?.map((effect, effectIndex) => {
             const displayName = effect.skillName || effect.type;
             let displayValue = `${effect.value > 0 ? '+' : ''}${effect.value}${effect.percent ? '%' : ''}`;
             if (effect.value === 0) {
@@ -157,7 +122,7 @@ const formatter = (key, value) => {
                     {formattedValue}
                 </div>
             );
-        }).filter(Boolean)];//.reduce((prev, curr) => [prev, (<br/>), curr])];
+        }).filter(Boolean);//.reduce((prev, curr) => [prev, (<br/>), curr])];
     }
 
     if (key === 'material') {
@@ -166,21 +131,26 @@ const formatter = (key, value) => {
         }
     }
 
-    const displayKey = defaultFormat(key);
+    if (Array.isArray(value)) {
+        let allString = true;
+        for (const val of value) {
+            if (typeof val !== 'string') {
+                allString = false;
+                break;
+            }
+        }
+        if (allString) {
+            value = value.join(', ');
+        }
+    } else if (typeof value === 'object' && value !== null && !isValidElement(value)) {
+        // if the value is an object, return an empty array meaning that we
+        // can't format that value
+        value = undefined;
+    }
 
     value = {
         value: value,
         tooltip: tooltip,
-    }
-
-    if (Array.isArray(value.value)) {
-        value.value = value.value.join(', ');
-    }
-
-    // if the value is an object, return an empty array meaning that we
-    // can't format that value
-    if (typeof value.value === 'object') {
-        value.value = undefined;
     }
 
     return [displayKey, value];
