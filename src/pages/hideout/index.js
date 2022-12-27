@@ -111,9 +111,9 @@ function Hideout() {
                 </ButtonGroupFilter>
             </Filter>
             {hideout.map((hideoutModule) => {
-                if (hideoutModule.name === 'Christmas Tree') {
+                /*if (hideoutModule.name === 'Christmas Tree') {
                     return null;
-                }
+                }*/
 
                 if (
                     selectedStation &&
