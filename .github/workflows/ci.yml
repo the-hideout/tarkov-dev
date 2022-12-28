@@ -62,6 +62,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
 
       - name: deploy
         uses: cloudflare/wrangler-action@4c10c1822abba527d820b29e6333e7f5dac2cabd # pin@2.0.0

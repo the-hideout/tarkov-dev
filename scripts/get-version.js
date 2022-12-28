@@ -5,12 +5,23 @@ const got = require('got');
 
 const COMMIT_URL = 'https://api.github.com/repos/the-hideout/tarkov-dev/commits/main';
 
+// Use a GitHub token to increase the rate limit
+const token = process.env.GITHUB_TOKEN;
+const headers = {};
+if (token) {
+    headers.authorization = `token ${token}`;
+    console.log("Using provided GitHub token to increase rate limit")
+} else {
+    console.log("No GitHub token provided, rate limit may be reached")
+}
+
 const getVersion = async function getVersion() {
     console.time(`Get version url ${COMMIT_URL}`);
     try {
         const response = await got(COMMIT_URL, {
             responseType: 'json',
             timeout: 5000,
+            headers,
         }).json();
         console.timeEnd(`Get version url ${COMMIT_URL}`);
 

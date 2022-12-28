@@ -37,6 +37,8 @@ jobs:
       - name: Build
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
 
       - name: deploy - dev
         id: dev-deploy
