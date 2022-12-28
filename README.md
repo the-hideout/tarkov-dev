@@ -8,6 +8,7 @@
 
 This is the source code for the official [tarkov.dev](https://tarkov.dev) website.
 
+
 View Escape from Tarkov information about items, barters, trades, flea market prices, quests, maps, hideout profits, and so much more!
 
 ![homepage](docs/assets/homepage.png)
