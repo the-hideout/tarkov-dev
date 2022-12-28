@@ -25,6 +25,13 @@ import IntersectionObserverWrapper from './intersection-observer-wrapper';
 
 import './index.css';
 
+// Comment / uncomment for banner alert
+import MuiAlert from '@material-ui/lab/Alert';
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+// End of banner alert toggle
+
 const ammoTypes = Object.values(caliberMap).sort();
 
 const getAmmoMenu = (setIsOpen) => {
@@ -72,7 +79,7 @@ const Menu = () => {
         <>
             {/* ALERT BANNER SECTION - uncomment the lines below to enable the alert banner */}
             {/* severity can be 'error', 'info', 'success', or 'warning' */}
-            {/* <div><Alert severity="success">{"🌟 Flea market scanners have been leveled for this patch and all flea market data is now live! 🌟"}</Alert></div> */}
+            <div><Alert severity="warning">{"Notice: Flea market scanners are currently being leveled and should be receiving data soon for this latest wipe"}</Alert></div>
             {/* END ALERT BANNER SECTION */}
             <nav key="main-navigation" className="navigation">
                 <ul className={`menu`}>
