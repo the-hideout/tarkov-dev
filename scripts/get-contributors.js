@@ -15,19 +15,22 @@ const repositories = [
     'TarkovTracker/tarkovdata',
 ];
 
+// If a GitHub token is provided, use it to increase the rate limit
+const token = process.env.GITHUB_TOKEN;
+const headers = {};
+if (token) {
+    headers.authorization = `token ${token}`;
+    console.log("Using provided GitHub token to increase rate limit")
+} else {
+    console.log("No GitHub token provided, rate limit may be reached")
+}
+
 (async () => {
     console.log('Loading contributors');
     let allContributors = [];
 
     for (const repository of repositories) {
         console.time(`contributors-${repository}`);
-
-        // If a GitHub token is provided, use it to increase the rate limit
-        const token = process.env.GITHUB_TOKEN;
-        const headers = {};
-        if (token) {
-            headers.authorization = `token ${token}`;
-        }
 
         const response = await got(`https://api.github.com/repos/${repository}/contributors`, {
             responseType: 'json',
