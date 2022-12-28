@@ -213,5 +213,29 @@
                 "players": "9-14"
             }
         ]
+    },
+    {
+        "name": "Streets of Tarkov",
+        "normalizedName": "streets",
+        "description": "The streets of Tarkov are a dangerous place. The city is in a state of emergency, and the streets are filled with Scavs and other dangerous individuals.",
+        "primaryPath": "/map/streets-2d",
+        "maps": [
+            {
+                "key": "streets-2d",
+                "displayText": "Streets - 2D",
+                "source": "EFT Wiki",
+                "sourceLink": "https://escapefromtarkov.fandom.com/wiki/Streets_of_Tarkov",
+                "duration": "50 min",
+                "players": "15-17"
+            },
+            {
+                "key": "streets-3d",
+                "displayText": "Streets",
+                "source": "EFT Wiki",
+                "sourceLink": "https://escapefromtarkov.fandom.com/wiki/Streets_of_Tarkov",
+                "duration": "50 min",
+                "players": "15-17"
+            }
+        ]
     }
 ]
