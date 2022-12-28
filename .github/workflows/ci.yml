@@ -47,6 +47,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
 
   deploy:
     if: github.event_name == 'push'
