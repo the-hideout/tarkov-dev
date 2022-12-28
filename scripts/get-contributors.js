@@ -64,6 +64,9 @@ if (token) {
                     "avatar_url": "https://avatars.githubusercontent.com/u/121582168?v=4"
                 }
             ];
+        } else {
+            console.log(`error fetching contributors: ${error}`);
+            process.exit(1);
         }
     }
 
