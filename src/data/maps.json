@@ -221,18 +221,18 @@
         "primaryPath": "/map/streets-2d",
         "maps": [
             {
-                "key": "streets-2d",
-                "displayText": "Streets - 2D",
+                "key": "streets-3d",
+                "displayText": "Streets",
                 "source": "EFT Wiki",
                 "sourceLink": "https://escapefromtarkov.fandom.com/wiki/Streets_of_Tarkov",
                 "duration": "50 min",
                 "players": "15-17"
             },
             {
-                "key": "streets-3d",
-                "displayText": "Streets",
-                "source": "EFT Wiki",
-                "sourceLink": "https://escapefromtarkov.fandom.com/wiki/Streets_of_Tarkov",
+                "key": "streets-2d",
+                "displayText": "Streets - 2D",
+                "source": "Tychodelouw",
+                "sourceLink": "https://www.reddit.com/user/Tychodelouw",
                 "duration": "50 min",
                 "players": "15-17"
             }
