@@ -1,5 +1,29 @@
 [
     {
+        "name": "Streets of Tarkov",
+        "normalizedName": "streets",
+        "description": "Downtown Tarkov houses, banks, malls, and hotels as well as all the other amenities a thriving metropolis could have needed. An urban map with a large scale, containing mostly apartments. Interactable and detailed interiors were made for all buildings. Both long range and close quarters combat. The streets of Tarkov are a dangerous place. The city is in a state of emergency, and the streets are filled with Scavs and other dangerous individuals.",
+        "primaryPath": "/map/streets-2d",
+        "maps": [
+            {
+                "key": "streets-3d",
+                "displayText": "Streets",
+                "source": "EFT Wiki",
+                "sourceLink": "https://escapefromtarkov.fandom.com/wiki/Streets_of_Tarkov",
+                "duration": "50 min",
+                "players": "15-17"
+            },
+            {
+                "key": "streets-2d",
+                "displayText": "Streets - 2D",
+                "source": "Tychodelouw",
+                "sourceLink": "https://www.reddit.com/user/Tychodelouw",
+                "duration": "50 min",
+                "players": "15-17"
+            }
+        ]
+    },
+    {
         "name": "Customs",
         "normalizedName": "customs",
         "description": "A large area of industrial park land situated adjacent to the factory zone. The area houses a customs terminal, fuel storage facilities, offices, and dorms, as well as a variety of other infrastructure and buildings.",
