@@ -2,7 +2,7 @@
     {
         "name": "Streets of Tarkov",
         "normalizedName": "streets",
-        "description": "The streets of Tarkov are a dangerous place. The city is in a state of emergency, and the streets are filled with Scavs and other dangerous individuals.",
+        "description": "Downtown Tarkov houses, banks, malls, and hotels as well as all the other amenities a thriving metropolis could have needed. An urban map with a large scale, containing mostly apartments. Interactable and detailed interiors were made for all buildings. Both long range and close quarters combat. The streets of Tarkov are a dangerous place. The city is in a state of emergency, and the streets are filled with Scavs and other dangerous individuals.",
         "primaryPath": "/map/streets-2d",
         "maps": [
             {
