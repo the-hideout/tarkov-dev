@@ -79,7 +79,7 @@ const Menu = () => {
         <>
             {/* ALERT BANNER SECTION - uncomment the lines below to enable the alert banner */}
             {/* severity can be 'error', 'info', 'success', or 'warning' */}
-            <div><Alert severity="warning">{"Notice: Flea market scanners are currently being leveled and should be receiving data soon for this latest wipe"}</Alert></div>
+            <div><Alert severity="success">{"Notice: Flea market scanners are now fully online and live prices are being updated! 🎉"}</Alert></div>
             {/* END ALERT BANNER SECTION */}
             <nav key="main-navigation" className="navigation">
                 <ul className={`menu`}>
