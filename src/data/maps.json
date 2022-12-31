@@ -14,6 +14,14 @@
                 "players": "15-17"
             },
             {
+                "key": "streets-2d",
+                "displayText": "Streets - 2D",
+                "source": "Jindouz",
+                "sourceLink": "https://www.reddit.com/user/Jindouz",
+                "duration": "50 min",
+                "players": "15-17"
+            },
+            {
                 "key": "streets-2d-tycho",
                 "displayText": "Streets - 2D - Tycho",
                 "source": "Tychodelouw",
