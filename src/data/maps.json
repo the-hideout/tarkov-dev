@@ -16,6 +16,14 @@
             {
                 "key": "streets-2d",
                 "displayText": "Streets - 2D",
+                "source": "Jindouz",
+                "sourceLink": "https://www.reddit.com/user/Jindouz",
+                "duration": "50 min",
+                "players": "15-17"
+            },
+            {
+                "key": "streets-2d-tycho",
+                "displayText": "Streets - 2D - Tycho",
                 "source": "Tychodelouw",
                 "sourceLink": "https://www.reddit.com/user/Tychodelouw",
                 "duration": "50 min",
@@ -165,8 +173,16 @@
                 "players": "9-12"
             },
             {
-                "key": "reserve-2d",
+                "key": "reserve-2d-jindouz",
                 "displayText": "Reserve - 2D",
+                "source": "Jindouz",
+                "sourceLink": "https://www.reddit.com/user/Jindouz",
+                "duration": "40 min",
+                "players": "9-12"
+            },
+            {
+                "key": "reserve-2d",
+                "displayText": "Reserve - 2D - Vex",
                 "source": "Vex",
                 "sourceLink": "https://vexnet.xyz",
                 "duration": "40 min",
