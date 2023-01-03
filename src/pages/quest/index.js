@@ -169,7 +169,7 @@ function Quest() {
                                         .join(', ')}`}
                                 </span>
                                 {taskReq.status.includes('complete') &&
-                                settings.completedQuests.includes(task.tarkovDataid) ? (
+                                settings.completedQuests.includes(task.id) ? (
                                     <Icon
                                         path={mdiClipboardCheck}
                                         size={0.75}
