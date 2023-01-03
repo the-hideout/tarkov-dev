@@ -261,7 +261,7 @@ function QuestTable({
 
             let completedPassed = true;
             if (hideCompleted) {
-                completedPassed = !settings.completedQuests.some(stringId => parseInt(stringId) === quest.tarkovDataId);
+                completedPassed = !settings.completedQuests.some(taskId => taskId === quest.id);
             }
 
             let lockedPassed = true;
@@ -276,7 +276,7 @@ function QuestTable({
                 for (const req of quest.taskRequirements) {
                     const questReq = allQuestData.find(q => q.id === req.task.id);
                     if (req.status.includes('complete')) {
-                        const isComplete = settings.completedQuests.some(stringId => parseInt(stringId) === questReq.tarkovDataId);
+                        const isComplete = settings.completedQuests.some(taskId => taskId === questReq.id);
                         if (!isComplete) {
                             lockedPassed = false;
                             break;
@@ -303,7 +303,7 @@ function QuestTable({
                 Cell: (props) => {
                     const questData = props.row.original;
                     let completedIcon = '';
-                    if (settings.completedQuests.includes(String(questData.tarkovDataId))) {
+                    if (settings.completedQuests.includes(questData.id)) {
                         completedIcon = (
                             <Icon
                                 path={mdiClipboardCheck}
@@ -383,7 +383,7 @@ function QuestTable({
                     return questData.taskRequirements.map(req => {
                         const reqQuest = quests.find(quest => quest.id === req.task.id);
                         let completedIcon = '';
-                        if (req.status.includes('complete') && settings.completedQuests.includes(String(questData.tarkovDataId))) {
+                        if (req.status.includes('complete') && settings.completedQuests.includes(questData.iu)) {
                             completedIcon = (
                                 <Icon
                                     path={mdiClipboardCheck}
@@ -392,7 +392,7 @@ function QuestTable({
                                 />
                             );
                         }
-                        if (req.status.length === 1 && req.status[0] === 'active' && settings.completedQuests.includes(String(questData.tarkovDataId))) {
+                        if (req.status.length === 1 && req.status[0] === 'active' && settings.completedQuests.includes(questData.id)) {
                             completedIcon = (
                                 <Icon
                                     path={mdiClipboardRemove}

@@ -8,90 +8,75 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
         }
 
         const returnData = {
-            flea: false,
-            hideout: {
-                'bitcoin-farm': 0,
-                'booze-generator': 0,
-                'christmas-tree': 0,
-                'intelligence-center': 0,
-                lavatory: 0,
-                medstation: 0,
-                'nutrition-unit': 0,
-                'water-collector': 0,
-                workbench: 0,
-                'solar-power': 0,
-            },
-            quests: {},
+            flea: true,
+            hideout: {},
+            quests: [],
         };
 
         const response = await fetch(
-            'https://tarkovtracker.io/api/v1/progress',
+            'https://tarkovtracker.io/api/v2/progress',
             {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${apiKey}`,
                 },
             },
-        );
+        ).then((resp) => resp.json());
 
-        const progressData = await response.json();
+        const progressData = response.data;
 
-        returnData.quests = progressData.quests;
-        returnData.flea = progressData.level >= 15 ? true : false;
+        returnData.quests = progressData.tasksProgress.reduce((completedTasks, current) => {
+            if (current.complete) {
+                completedTasks.push(current.id);
+            }
+            return completedTasks;
+        }, []);
+        //returnData.flea = progressData.level >= 15 ? true : false;
 
         const bodyQuery = JSON.stringify({
             query: `{
-        hideoutModules {
+        hideoutStations {
             id
             name
-            level
+            normalizedName
+            levels {
+                id
+                level
+            }
         }
     }`,
         });
 
-        const apiResponse = await fetch('https://api.tarkov.dev/graphql', {
+        const hideoutData = await fetch('https://api.tarkov.dev/graphql', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
             },
             body: bodyQuery,
-        });
+        }).then((resp) => resp.json())
+        .then((resp) => resp.data.hideoutStations);
 
-        const hideoutData = await apiResponse.json();
-        const builtModules = [];
-
-        for (const moduleId in progressData.hideout) {
-            if (!progressData.hideout[moduleId].complete) {
-                continue;
-            }
-
-            builtModules.push(
-                hideoutData.data.hideoutModules.find(
-                    (currentModule) =>
-                        currentModule.id.toString() === moduleId.toString(),
-                ),
-            );
+        for (const station of hideoutData) {
+            returnData.hideout[station.normalizedName] = 0;
         }
 
-        for (const module of builtModules) {
-            if (!module?.name) {
+        for (const module of progressData.hideoutModulesProgress) {
+            if (!module.complete) {
                 continue;
             }
 
-            const moduleKey = module.name.toLowerCase().replace(/\s/g, '-');
-
-            if (!returnData.hideout[moduleKey]) {
-                returnData.hideout[moduleKey] = module.level;
-
-                continue;
+            for (const station of hideoutData) {
+                for (const level of station.levels) {
+                    if (level.id !== module.id) {
+                        continue;
+                    }
+                    if (returnData.hideout[station.normalizedName] < level.level) {
+                        returnData.hideout[station.normalizedName] = level.level;
+                        continue;
+                    }
+                }
             }
-
-            if (returnData.hideout[moduleKey] > module.level) {
-                continue;
-            }
-
-            returnData.hideout[moduleKey] = module.level;
         }
 
         return returnData;
@@ -202,9 +187,7 @@ const settingsSlice = createSlice({
             state.progressStatus = 'succeeded';
 
             if (action.payload) {
-                state.completedQuests = state.completedQuests.concat(
-                    Object.keys(action.payload.quests),
-                );
+                state.completedQuests = action.payload.quests;
                 state.hasFlea = action.payload.flea;
 
                 for (const stationKey in action.payload.hideout) {
