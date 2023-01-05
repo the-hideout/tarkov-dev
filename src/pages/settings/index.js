@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation, withTranslation } from 'react-i18next';
 import Select from 'react-select';
@@ -17,6 +17,10 @@ import {
     toggleHideDogtagBarters,
     // selectCompletedQuests,
 } from '../../features/settings/settingsSlice';
+import {
+    selectAllCrafts,
+    fetchCrafts,
+} from '../../features/crafts/craftsSlice';
 
 import './index.css';
 
@@ -70,7 +74,7 @@ function Settings() {
     const refs = {
         'bitcoin-farm': useRef(null),
         'booze-generator': useRef(null),
-        // 'christmas-tree': useRef(null),
+        'christmas-tree': useRef(null),
         'intelligence-center': useRef(null),
         lavatory: useRef(null),
         medstation: useRef(null),
@@ -79,6 +83,45 @@ function Settings() {
         workbench: useRef(null),
         'solar-power': useRef(null),
     };
+
+    const crafts = useSelector(selectAllCrafts);
+    const craftsStatus = useSelector((state) => {
+        return state.crafts.status;
+    });
+
+    useEffect(() => {
+        let timer = false;
+        if (craftsStatus === 'idle') {
+            dispatch(fetchCrafts());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchCrafts());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [craftsStatus, dispatch]);
+    
+    const stations = useMemo(() => {
+        const stn = [];
+        for (const craft of crafts) {
+            if (!stn.some(station => station.id === craft.station.id)) {
+                stn.push(craft.station);
+            }
+        }
+        stn.push({
+            id: '5d494a385b56502f18c98a0c',
+            name: 'Solar Power',
+            normalizedName: 'solar-power',
+        });
+        return stn.sort((a, b) => {
+            return a.name.localeCompare(b.name);
+        });
+    }, [crafts]);
 
     useEffect(() => {
         if (useTarkovTracker) {
@@ -189,13 +232,13 @@ function Settings() {
             </div>
             <div className="settings-group-wrapper">
                 <h2>{t('Stations')}</h2>
-                {Object.keys(allStations).map((stationKey) => {
+                {stations.map((station) => {
                     return (
                         <StationSkillTraderSetting
-                            key={stationKey}
+                            key={station.normalizedName}
                             type="station"
-                            stateKey={stationKey}
-                            ref={refs[stationKey]}
+                            stateKey={station.normalizedName}
+                            ref={refs[station.normalizedName]}
                             isDisabled={useTarkovTracker}
                         />
                     );

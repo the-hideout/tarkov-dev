@@ -54,12 +54,11 @@ const formatter = (key, value) => {
     }
 
     if (key === 'armorZone') {
-
-        if (value.length > 1) {
+        if (value?.length > 1) {
             displayKey = `${displayKey}s`;
         }
 
-        value = value.map(defaultFormat).join(', ');
+        value = value?.map(defaultFormat).join(', ');
     }
 
     if (key === 'turnPenalty') {
@@ -77,15 +76,14 @@ const formatter = (key, value) => {
     }
 
     if (key === 'zoomLevels') {
-
         const zoomLevels = new Set();
-        value.forEach(levels => zoomLevels.add(...levels));
+        value?.forEach(levels => zoomLevels.add(...levels));
         value = [...zoomLevels].join(', ');
     }
 
     if (key === 'grids') {
         const gridCounts = {};
-        value.sort((a, b) => (a.width*a.height) - (b.width*b.height)).forEach(grid => {
+        value?.sort((a, b) => (a.width*a.height) - (b.width*b.height)).forEach(grid => {
             const gridLabel = grid.width+'x'+grid.height;
             if (!gridCounts[gridLabel]) gridCounts[gridLabel] = 0;
             gridCounts[gridLabel]++;
@@ -125,9 +123,9 @@ const formatter = (key, value) => {
         }).filter(Boolean);//.reduce((prev, curr) => [prev, (<br/>), curr])];
     }
 
-    if (key === 'material') {
+    if (key === 'material' && value) {
         if (typeof value === 'object') {
-            value = value.name;
+            value = value?.name;
         }
     }
 

@@ -224,7 +224,7 @@ export const selectAllStations = (state) => {
     return {
         'bitcoin-farm': state.settings['bitcoin-farm'],
         'booze-generator': state.settings['booze-generator'],
-        // 'christmas-tree': state.settings['christmas-tree'],
+        'christmas-tree': state.settings['christmas-tree'],
         'intelligence-center': state.settings['intelligence-center'],
         lavatory: state.settings.lavatory,
         medstation: state.settings.medstation,
