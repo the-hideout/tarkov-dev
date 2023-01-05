@@ -1493,6 +1493,12 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Cheapest Price'),
                 accessor: 'cheapestPrice',
+                sortType: (a, b) => {
+                    if (b.original.cheapestPrice && !a.original.cheapestPrice) {
+                        return b.original.cheapestPrice;
+                    }
+                    return a.original.cheapestPrice - b.original.cheapestPrice;
+                },
                 Cell: (props) => {
                     let tipContent = '';
                     const priceContent = [];
@@ -1541,7 +1547,7 @@ function SmallItemTable(props) {
                     }
                     if (props.value) {
                         const priceInfo = props.row.original.cheapestPriceInfo;
-                        let priceSource = priceInfo.vendor?.name || priceInfo.barter.trader.name;
+                        let priceSource = priceInfo.vendor?.name || priceInfo.barter?.trader.name;
                         const displayedPrice = [];
                         let taskIcon = '';
                         let barterIcon = '';
