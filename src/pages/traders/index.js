@@ -37,6 +37,10 @@ function Traders(props) {
         };
     }, [tradersStatus, dispatch]);
     if (traders.length === 0) return showLoadingPage(t);
+    const skipTraders = [
+        'fence',
+        'lightkeeper',
+    ];
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
@@ -56,7 +60,7 @@ function Traders(props) {
                 {t('Traders')}
             </h1>
             <div className="traders-list-wrapper">
-                {traders.filter(trader => trader.normalizedName !== 'fence').map(trader => {
+                {traders.filter(trader => !skipTraders.includes(trader.normalizedName)).map(trader => {
                     let resetTime = (
                         <LoadingSmall/>
                     );

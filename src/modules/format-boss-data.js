@@ -46,7 +46,7 @@ function formatBossData(maps) {
 
     // Save to session storage and return the formatted boss data
     //sessionStorage.setItem('boss-array-new', JSON.stringify(bossArray));
-    return bossArray;
+    return bossArray.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 export default formatBossData;
