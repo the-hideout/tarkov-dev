@@ -276,9 +276,8 @@
                 "name": "L1 (Norepinephrine) injector"
             },
             {
-                "name": "Physical bitcoin",
-                "itemLink": "/item/physical-bitcoin",
-                "iconLink": "https://assets.tarkov.dev/59faff1d86f7746c51718c9c-icon.jpg"
+                "id": "59faff1d86f7746c51718c9c",
+                "name": "Physical bitcoin"
             },
             {
                 "id": "60a7ad2a2198820d95707a2e",
@@ -295,5 +294,35 @@
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/tagilla",
         "behavior": "batshit insane"
+    },
+    {
+        "name": "Zryachiy",
+        "normalizedName": "zryachiy",
+        "details": "Lightkeeper's cultist guard.",
+        "health": 1305,
+        "loot": [
+            {
+                "id": "627e14b21713922ded6f2c15",
+                "name": "Accuracy International AXMC .338 LM bolt-action sniper rifle"
+            },
+            {
+                "id": "5bd05f1186f774572f181678",
+                "name": "HK MP7A1 4.6x30 submachine gun SEALS"
+            },
+            {
+                "id": "59f98b4986f7746f546d2cef",
+                "name": "Serdyukov SR-1MP Gyurza 9x21 pistol"
+            },
+            {
+                "id": "63626d904aa74b8fe30ab426",
+                "name": "Zryachiy's balaclava"
+            },
+            {
+                "id": "636270263f2495c26f00b007",
+                "name": "Zryachiy's balaclava (folded)"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Zryachiy",
+        "behavior": "sniper"
     }
 ]
