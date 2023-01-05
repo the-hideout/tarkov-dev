@@ -211,9 +211,7 @@ export default async function doFetchCrafts(language, prebuild = false) {
         }
     }
 
-    return craftsData.data.crafts.filter(
-        (craft) => !craft.source.toLowerCase().includes('christmas'),
-    ).map(craft => {
+    return craftsData.data.crafts.map(craft => {
         craft.rewardItems.forEach(contained => {
             contained.item.iconLink = contained.item.properties?.defaultPreset?.iconLink || contained.item.iconLink;
         });
