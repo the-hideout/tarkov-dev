@@ -86,12 +86,13 @@ const getOptionsForTrader = (t, traderKey) => {
 };
 
 const StationSkillTraderSetting = React.forwardRef((props, ref) => {
-    const { stateKey, type, isDisabled } = props;
+    const { stateKey, type, isDisabled, label } = props;
     const { t } = useTranslation();
 
     let selector;
     let options;
     let iconExt = 'png';
+    const toolTip = label || capitalizeFirst(camelcaseToDashes(stateKey).replace(/-/g, ' '));
     if (type === 'station') {
         selector = selectAllStations;
         options = getOptionsForStation(t, stateKey);
@@ -113,9 +114,7 @@ const StationSkillTraderSetting = React.forwardRef((props, ref) => {
     return (
         <Tippy
             placement="top"
-            content={capitalizeFirst(
-                camelcaseToDashes(stateKey).replace(/-/g, ' '),
-            )}
+            content={toolTip}
         >
             <div className="station-skill-trader-setting-wrapper">
                 <img

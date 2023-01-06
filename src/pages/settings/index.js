@@ -6,7 +6,7 @@ import Select from 'react-select';
 import { InputFilter, ToggleFilter } from '../../components/filter';
 import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
 import {
-    selectAllTraders,
+    //selectAllTraders as traderSettings,
     selectAllStations,
     toggleFlea,
     setMinDogtagLevel,
@@ -21,6 +21,11 @@ import {
     selectAllCrafts,
     fetchCrafts,
 } from '../../features/crafts/craftsSlice';
+import {
+    selectAllHideoutModules,
+    fetchHideout,
+} from '../../features/hideout/hideoutSlice';
+import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
 
 import './index.css';
 
@@ -62,7 +67,7 @@ export function getNumericSelect(min, max) {
 function Settings() {
     const dispatch = useDispatch();
     const { t } = useTranslation();
-    const allTraders = useSelector(selectAllTraders);
+    //const allTraders = useSelector(traderSettings);
     const allStations = useSelector(selectAllStations);
     const allSkills = useSelector(selectAllSkills);
     const hasFlea = useSelector((state) => state.settings.hasFlea);
@@ -83,6 +88,49 @@ function Settings() {
         workbench: useRef(null),
         'solar-power': useRef(null),
     };
+
+    const traders = useSelector(selectAllTraders).filter(t => t.normalizedName !== 'lightkeeper');
+    const tradersStatus = useSelector((state) => {
+        return state.traders.status;
+    });
+    useEffect(() => {
+        let timer = false;
+        if (tradersStatus === 'idle') {
+            dispatch(fetchTraders());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchTraders());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [tradersStatus, dispatch]);
+
+    const hideout = useSelector(selectAllHideoutModules);
+    const hideoutStatus = useSelector((state) => {
+        return state.hideout.status;
+    });
+
+    useEffect(() => {
+        let timer = false;
+        if (hideoutStatus === 'idle') {
+            dispatch(fetchHideout());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchHideout());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [hideoutStatus, dispatch]);
 
     const crafts = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
@@ -113,15 +161,11 @@ function Settings() {
                 stn.push(craft.station);
             }
         }
-        stn.push({
-            id: '5d494a385b56502f18c98a0c',
-            name: 'Solar Power',
-            normalizedName: 'solar-power',
-        });
+        stn.push(hideout.find(h => h.normalizedName === 'solar-power'));
         return stn.sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
-    }, [crafts]);
+    }, [crafts, hideout]);
 
     useEffect(() => {
         if (useTarkovTracker) {
@@ -219,13 +263,14 @@ function Settings() {
             </div>
             <div className="settings-group-wrapper">
                 <h2>{t('Traders')}</h2>
-                {Object.keys(allTraders).map((traderKey) => {
+                {traders.map((trader) => {
                     return (
                         <StationSkillTraderSetting
-                            key={traderKey}
+                            key={trader.normalizedName}
+                            label={trader.name}
                             type="trader"
-                            stateKey={traderKey}
-                            ref={refs[traderKey]}
+                            stateKey={trader.normalizedName}
+                            ref={refs[trader.normalizedName]}
                         />
                     );
                 })}
@@ -236,6 +281,7 @@ function Settings() {
                     return (
                         <StationSkillTraderSetting
                             key={station.normalizedName}
+                            label={station.name}
                             type="station"
                             stateKey={station.normalizedName}
                             ref={refs[station.normalizedName]}
