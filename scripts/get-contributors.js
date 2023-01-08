@@ -59,9 +59,9 @@ if (token) {
             console.log(`error: ${error} - using fallback contributors.json`);
             allContributors = [
                 {
-                    "login": "hideout-bot",
-                    "html_url": "https://github.com/hideout-bot",
-                    "avatar_url": "https://avatars.githubusercontent.com/u/121582168?v=4"
+                    login: "hideout-bot",
+                    html_url: "https://github.com/hideout-bot",
+                    avatar_url: "https://avatars.githubusercontent.com/u/121582168?v=4"
                 }
             ];
         } else {
