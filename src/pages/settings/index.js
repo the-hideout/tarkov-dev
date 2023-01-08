@@ -174,7 +174,7 @@ function Settings() {
                     continue;
                 }
 
-                refs[stationKey].current.setValue({
+                refs[stationKey].current?.setValue({
                     value: allStations[stationKey],
                     label: allStations[stationKey]
                         ? allStations[stationKey].toString()
