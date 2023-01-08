@@ -15,8 +15,6 @@
     "@primer/react": "^35.8.0",
     "@reduxjs/toolkit": "^1.5.1",
     "@sayari/eslint-plugin": "^0.0.1-rc.4",
-    "@sentry/react": "^6.19.3",
-    "@sentry/tracing": "^6.19.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@tippyjs/react": "^4.2.4",
