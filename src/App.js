@@ -63,7 +63,6 @@ import Boss from './pages/bosses/boss';
 import Trader from './pages/traders/trader';
 import Traders from './pages/traders';
 
-import HistoryGraphs from './pages/history-graphs';
 import ItemTracker from './pages/item-tracker/';
 import Hideout from './pages/hideout';
 import WipeLength from './pages/wipe-length';
@@ -265,9 +264,7 @@ function App() {
                 <title>Tarkov.dev</title>
                 <meta
                     name="description"
-                    content={t(
-                        'Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, spending guides, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.',
-                    )}
+                    content={t('Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, spending guides, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.')}
                 />
             </Helmet>
             <Menu />
@@ -654,18 +651,6 @@ function App() {
                             key="api-users-wrapper"
                         >
                             <ApiUsers />
-                        </Suspense>,
-                        remoteControlSessionElement,
-                    ]}
-                />
-                <Route
-                    path={'/history-graphs'}
-                    element={[
-                        <Suspense
-                            fallback={<Loading />}
-                            key="history-graphs-wrapper"
-                        >
-                            <HistoryGraphs />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
