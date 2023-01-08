@@ -81,11 +81,11 @@ function Settings() {
         'booze-generator': useRef(null),
         'christmas-tree': useRef(null),
         'intelligence-center': useRef(null),
-        lavatory: useRef(null),
-        medstation: useRef(null),
+        'lavatory': useRef(null),
+        'medstation': useRef(null),
         'nutrition-unit': useRef(null),
         'water-collector': useRef(null),
-        workbench: useRef(null),
+        'workbench': useRef(null),
         'solar-power': useRef(null),
     };
 
@@ -170,7 +170,7 @@ function Settings() {
     useEffect(() => {
         if (useTarkovTracker) {
             for (const stationKey in allStations) {
-                if (!refs[stationKey]) {
+                if (!refs[stationKey] || !refs[stationKey].current) {
                     continue;
                 }
 
