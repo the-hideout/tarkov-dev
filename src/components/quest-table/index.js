@@ -409,7 +409,14 @@ function QuestTable({
                                     {reqQuest.name}{reqQuest.factionName !== 'Any' ? ` (${reqQuest.factionName})` : ''}
                                 </Link>
                                 <span>
-                                    {`: ${req.status.map(status => t(status)).join(', ')}`}
+                                    {`: ${
+                                        // t('loading')
+                                        // t('active')
+                                        // t('succeeded')
+                                        // t('complete')
+                                        // t('failed')
+                                        req.status.map(status => t(status)).join(', ')
+                                    }`}
                                     {completedIcon}
                                 </span>
                             </div>

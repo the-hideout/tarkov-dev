@@ -197,10 +197,10 @@ function Quest() {
     return [
         <Helmet key={'quest-page-helmet'}>
             <meta charSet="utf-8" />
-            <title>{`${currentQuest.name} - Escape from Tarkov`}</title>
+            <title>{currentQuest.name} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={`All the relevant information about ${currentQuest.name}`}
+                content={t('This page includes information on the objectives, rewards, and strategies for completing task {{questName}}. Get tips on how to prepare for and succeed in your mission.', { questName: currentQuest.name })}
             />
             <link rel="canonical" href={`https://tarkov.dev/task/${currentQuest.normalizedName}`} />
         </Helmet>,
@@ -406,9 +406,7 @@ function Quest() {
                         if (objective.type === 'experience') {
                             taskDetails = (
                                 <>
-                                    {`${t(
-                                        'Have the {{effectNames}} effect(s) on your {{bodyParts}} for {{operator}} {{seconds}} seconds',
-                                        {
+                                    {`${t('Have the {{effectNames}} effect(s) on your {{bodyParts}} for {{operator}} {{seconds}} seconds', {
                                             effectNames: objective.healthEffect.effects
                                                 .map((effect) => {
                                                     return t(effect);

@@ -333,6 +333,8 @@ function BossPage(params) {
 }
 
 function Boss() {
+    const { t } = useTranslation();
+    
     // Get the boss name from the url
     const { bossName } = useParams();
     // Capitalize the first letter of the boss name
@@ -342,10 +344,10 @@ function Boss() {
     return [
         <Helmet key={`boss-helmet-${bossName}`}>
             <meta key={`boss-charset-${bossName}`} charSet="utf-8" />
-            <title key={`boss-title-${bossName}`}>{`${boss} - Escape from Tarkov`}</title>
+            <title key={`boss-title-${bossName}`}>{boss} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta key={`boss-meta-${bossName}`}
                 name="description"
-                content={`All the relevant information about ${boss} (boss) in Escape from Tarkov`}
+                content={t('This page includes information on {{bossName}} location, loot, and strategies for defeating him.', { bossName: boss })}
             />
             <link
                 rel="canonical"

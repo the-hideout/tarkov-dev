@@ -14,10 +14,10 @@ function Bosses(props) {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>Escape from Tarkov Bosses</title>
+            <title>{t('Bosses')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="Escape from Tarkov Bosses, boss details, and more"
+                content={t('This page includes information on the all the bosses in the game. bosses in the game, their location, loot, escort and strategies for defeating them.')}
             />
         </Helmet>,
         <div className={'page-wrapper'} key="boss-page-wrapper">

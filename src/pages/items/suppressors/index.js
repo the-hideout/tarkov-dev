@@ -23,10 +23,10 @@ function Suppressors() {
     return [
         <Helmet key={'suppressors-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Suppressors')}</title>
+            <title>{t('Escape from Tarkov')} - {t('Suppressors')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="All suppressors in Escape from Tarkov sortable by price, caliber etc"
+                content={t('This page includes a sortable table with information on the different types of suppressors available in the game, including their ergonomics, recoil, and cheapest price.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
@@ -51,6 +51,7 @@ function Suppressors() {
                     />
                     <SelectItemFilter
                         label={t('Filter by gun')}
+                        placeholder={t('select')}
                         items={activeGuns}
                         onChange={(event) => {
                             if (!event) {

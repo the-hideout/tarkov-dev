@@ -337,10 +337,10 @@ function LootTier(props) {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Loot tiers')}</title>
+            <title>{t('Loot tiers')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="Visualization of all different valuable loot"
+                content="Learn about the different types of loot available in the game, their value, rarity, and what to keep and what to trash."
             />
         </Helmet>,
         <div
@@ -353,7 +353,7 @@ function LootTier(props) {
                     <Icon path={mdiFinance} size={1.5} className="icon-with-text" /> 
                     {t('Loot tiers')}
                 </h1>
-                <p className='loot-tier-text'>Escape from Tarkov "loot tiers" - Ranking the most valuable items in the game</p>
+                <p className='loot-tier-text'>{t('Ranking the most valuable items in the game')}</p>
             </div>
             <Filter fullWidth>
                 <ToggleFilter
@@ -385,7 +385,7 @@ function LootTier(props) {
                 <InputFilter
                     defaultValue={filters.name || ''}
                     type={'text'}
-                    placeholder={t('btc, graphics e.t.c')}
+                    placeholder={t('filter on item')}
                     onChange={handleFilterNameChange}
                 />
             </Filter>

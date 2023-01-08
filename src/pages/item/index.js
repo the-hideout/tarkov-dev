@@ -461,10 +461,10 @@ function Item() {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>{`${currentItemData.name} - Escape from Tarkov`}</title>
+            <title>{currentItemData.name} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={`All the relevant information about ${currentItemData.name}`}
+                content={t('This page includes information on the characteristics, uses, and strategies for {{itemName}}.', { itemName: currentItemData.name })}
             />
             <link
                 rel="canonical"
@@ -724,7 +724,7 @@ function Item() {
                         <div className={`text-and-image-information-wrapper price-info-wrapper`}>
                             <div className="price-wrapper price-wrapper-bright">
                                 <div>
-                                    {t('Change vs yesterday: {{changeLast48h}}  ₽ / {{changeLast48Percent}} %', {changeLast48h: currentItemData.changeLast48h, changeLast48Percent: currentItemData.changeLast48hPercent})}
+                                    {t('Change vs yesterday: {{changeLast48h}} ₽ / {{changeLast48Percent}} %', {changeLast48h: currentItemData.changeLast48h, changeLast48Percent: currentItemData.changeLast48hPercent})}
                                 </div>
                                 <div>
                                     {t('Lowest scanned price last 24h: {{low24hPrice}}', {low24hPrice: formatPrice(currentItemData.low24hPrice)})}

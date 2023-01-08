@@ -340,7 +340,7 @@ function Settings() {
                         </div>
                     )}
                 />
-                <h2>{t('Misc.')}</h2>
+                <h2>{t('Miscellaneous')}</h2>
                 <ToggleFilter
                     label={t('Hide remote control')}
                     onChange={handleHideRemoteValueToggle}

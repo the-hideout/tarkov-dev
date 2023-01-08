@@ -66,7 +66,7 @@ function Start() {
     return [
         <Helmet key={'start-page-helmet'}>
             <meta key={'start-page-charset'} charSet="utf-8" />
-            <title key={'start-page-title'}>{t(`Tarkov.dev - Escape from Tarkov`)}</title>
+            <title key={'start-page-title'}>{t('Tarkov.dev')} - {t('Escape from Tarkov')}</title>
             <meta
                 name="description"
                 content={`Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, trader details, a free API, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.`}
@@ -101,7 +101,7 @@ function Start() {
                     />
                     {!loadMoreState &&
                     [<div className="load-more-wrapper" key="start-load-more-button">
-                        <button id="load-more-button" className="load-more-button" onClick={loadMore}>Load More</button>
+                        <button id="load-more-button" className="load-more-button" onClick={loadMore}>{t('Load More')}</button>
                     </div>]
                     }
                 </Suspense>
@@ -126,17 +126,7 @@ function Start() {
                                 size={1}
                                 className="icon-with-text"
                             />
-                            {t('Ammo Chart')}
-                        </Link>
-                    </li>
-                    <li key="start-link-loot-tier">
-                        <Link to="/loot-tier/">
-                            <Icon
-                                path={mdiFinance}
-                                size={1}
-                                className="icon-with-text"
-                            />
-                            {t('Loot tiers')}
+                            {t('Ammo chart filter')}
                         </Link>
                     </li>
                     <li key="start-link-barters">
@@ -146,7 +136,7 @@ function Start() {
                                 size={1}
                                 className="icon-with-text"
                             />
-                            {t('Barter trades')}
+                            {t('Traders barter profit')}
                         </Link>
                     </li>
                     <li key="start-link-hideout-profit">
@@ -156,20 +146,18 @@ function Start() {
                                 size={1}
                                 className="icon-with-text"
                             />
-                            {t('Hideout crafts')}
+                            {t('Hideout crafts profit')}
                         </Link>
                     </li>
-                    <li key="start-link-stash-bot-invite">
-                        <a
-                            href={DISCORD_STASH_INVITE_LINK}
-                        >
+                    <li key="start-link-loot-tier">
+                        <Link to="/loot-tier/">
                             <Icon
-                                path={mdiDiscord}
+                                path={mdiFinance}
                                 size={1}
                                 className="icon-with-text"
                             />
-                            {t('Discord bot')}
-                        </a>
+                            {t('Loot tiers ranking')}
+                        </Link>
                     </li>
                     <li key="start-link-hideout">
                         <Link to="/hideout">
@@ -188,7 +176,7 @@ function Start() {
                                 size={1}
                                 className="icon-with-text"
                             />
-                            {t('Wipe length')}
+                            {t('Average wipe length')}
                         </Link>
                     </li>
                     <li key="start-link-btc-farm-profit">
@@ -198,8 +186,20 @@ function Start() {
                                 size={1}
                                 className="icon-with-text"
                             />
-                            {t('Bitcoin Farm Profit')}
+                            {t('Bitcoin farm profit')}
                         </Link>
+                    </li>
+                    <li key="start-link-stash-bot-invite">
+                        <a
+                            href={DISCORD_STASH_INVITE_LINK}
+                        >
+                            <Icon
+                                path={mdiDiscord}
+                                size={1}
+                                className="icon-with-text"
+                            />
+                            {t('Invite Discord bot')}
+                        </a>
                     </li>
                 </ul>
                 <h3>
@@ -365,8 +365,8 @@ function Start() {
                         className='main-logo'
                     />
                 </Link>
-                <h1 className='main-h1 main-headers'>tarkov.dev is an open source tool kit for Escape from Tarkov.</h1>
-                <h2 className='main-h2 main-headers'>It is designed and maintained by the community to help you with quests, flea market trading, and improving your game! The API is also freely available for you to build your own tools and services related to EFT.</h2>
+                <h1 className='main-h1 main-headers'>{t('tarkov.dev is an open source tool kit for Escape from Tarkov.')}</h1>
+                <h2 className='main-h2 main-headers'>{t('It is designed and maintained by the community to help you with quests, flea market trading, and improving your game! The API is also freely available for you to build your own tools and services related to EFT.')}</h2>
             </div>
         </div>,
     ];

@@ -1,12 +1,11 @@
 //import { useQuery } from 'react-query';
 import Countdown from 'react-countdown';
 import Moment from 'react-moment';
-// import { useTranslation } from 'react-i18next';
+import { Translation } from 'react-i18next';
 
 import './index.css';
 
 const Renderer = (props) => {
-    // const t = useTranslation();
     if (props.completed) {
         //return <span>Restock right now</span>;
         return <Moment fromNow locale={props.props.locale}>{props.props.date}</Moment>
@@ -14,11 +13,15 @@ const Renderer = (props) => {
 
     return (
         <span>
-            <span className="countdown-text-wrapper">Restock in</span>{' '}
+            <Translation>
+                {
+                    (t, { i18n }) => <span className="countdown-text-wrapper">{t('Restock in')}</span>
+                }
+            </Translation>
+            {' '}
             <span>
-                {props.formatted.hours}:{props.formatted.minutes}:
+                {props.formatted.hours}:{props.formatted.minutes}:{props.formatted.seconds}
             </span>
-            {props.formatted.seconds}
         </span>
     );
 };

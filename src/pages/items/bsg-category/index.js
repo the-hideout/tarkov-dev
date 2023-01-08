@@ -49,21 +49,17 @@ function BsgCategory() {
     return [
         <Helmet key={'barter-items-helmet'}>
             <meta charSet="utf-8" />
-            <title>
-                {t('Escape from Tarkov')} {category.name}
-            </title>
+            <title>{category.name} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={`All the relevant information about Escape from Tarkov`}
+                content={t("Find out everything you need to know about {{category}} in Escape from Tarkov.", { category: category.name })}
             />
         </Helmet>,
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {t('Escape from Tarkov')} {category.name}
-                    {/* <cite>
-                        {bsgCategoryData._id}
-                    </cite> */}
+                    {t('Escape from Tarkov')} 
+                    {category.name}
                 </h1>
                 <Filter center>
                     <ToggleFilter
@@ -81,7 +77,7 @@ function BsgCategory() {
                     <InputFilter
                         defaultValue={nameFilter}
                         onChange={handleNameFilterChange}
-                        placeholder={t('Search...')}
+                        placeholder={t('filter on item')}
                     />
                 </Filter>
             </div>

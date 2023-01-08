@@ -51,10 +51,10 @@ function Helmets() {
     return [
         <Helmet key={'helmet-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Helmets')}</title>
+            <title>{t('Helmets')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="All helmets in Escape from Tarkov sortable by price, armor class etc"
+                content={t("This page includes a sortable table with information on the different types of helmet available in the game, including their price, armor class, and other characteristics.")}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>

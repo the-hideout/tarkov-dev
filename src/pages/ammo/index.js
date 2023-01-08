@@ -191,11 +191,11 @@ function Ammo() {
     );
 
     return (
-        <React.Fragment>
+        <>
             <h1 className="center-title">
                 {t('Escape from Tarkov')}
                 <Icon path={mdiAmmunition} size={1.5} className="icon-with-text"/>
-                {t('Ammo Chart')}
+                {t('Ammo chart')}
             </h1>
             <div className="page-wrapper ammo-page-wrapper">
                 <Graph
@@ -256,7 +256,7 @@ function Ammo() {
                 fragChance={5}
                 cheapestPrice={6}
             />
-        </React.Fragment>
+        </>
     );
 }
 

@@ -26,16 +26,15 @@ function PistolGrips() {
     return [
         <Helmet key={'pistol-grips-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Pistol Grips')}</title>
+            <title>{t('Pistol Grips')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="All Pistol grips in Escape from Tarkov sortable by price, caliber etc"
+                content={t("This page includes a sortable table with information on the different types of pistol grips available in the game, including their price, ergonomics, compatibility, and other characteristics.")}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {t('Escape from Tarkov')}
                     <Icon path={mdiHandPointingLeft} size={1.5} className="icon-with-text" /> 
                     {t('Pistol Grips')}
                 </h1>
@@ -54,6 +53,7 @@ function PistolGrips() {
                     />
                     <SelectItemFilter
                         label={t('Filter by gun')}
+                        placeholder={t('select')}
                         items={activeGuns}
                         onChange={(event) => {
                             if (!event) {

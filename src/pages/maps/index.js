@@ -13,10 +13,10 @@ function Maps() {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Maps')}</title>
+            <title>{t('Maps')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="Escape from Tarkov maps and loot locations"
+                content={t("Get the latest information on all maps in Escape from Tarkov, including extract points and loot locations. Find out where to find the best gear and resources in the game")}
             />
         </Helmet>,
         <div className={'page-wrapper'} key="map-page-wrapper">

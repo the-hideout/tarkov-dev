@@ -156,7 +156,7 @@ function Trader() {
                     <InputFilter
                         defaultValue={nameFilter}
                         onChange={handleNameFilterChange}
-                        placeholder={t('Search...')}
+                        placeholder={t('filter on item')}
                     />
                 </Filter>
             </div>

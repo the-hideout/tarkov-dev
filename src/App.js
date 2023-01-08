@@ -261,7 +261,7 @@ function App() {
         <div className="App">
             <Helmet htmlAttributes={{ lang: i18n.language }}>
                 <meta charSet="utf-8" />
-                <title>Tarkov.dev</title>
+                <title>{t('Tarkov.dev')}</title>
                 <meta
                     name="description"
                     content={t('Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, spending guides, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.')}
@@ -283,10 +283,10 @@ function App() {
                         <div className="display-wrapper" key="ammo-wrapper">
                             <Helmet>
                                 <meta charSet="utf-8" />
-                                <title>Tarkov Ammo Chart</title>
+                                <title>{t('Ammo chart')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
                                 <meta
                                     name="description"
-                                    content={t('Visualization of all ammo types in Escape from Tarkov')}
+                                    content={t('This page contains a list of every type of ammo in Escape from Tarkov. To filter the complete list of available cartridges, click the name of a caliber.')}
                                 />
                             </Helmet>
                             <Ammo />
@@ -300,10 +300,10 @@ function App() {
                         <div className="display-wrapper" key="ammo-wrapper">
                             <Helmet>
                                 <meta charSet="utf-8" />
-                                <title>Tarkov Ammo Chart</title>
+                                <title>{t('Ammo chart')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
                                 <meta
                                     name="description"
-                                    content={t('Visualization of all ammo types in Escape from Tarkov')}
+                                    content={t('This page contains a list of every type of ammo in Escape from Tarkov. To filter the complete list of available cartridges, click the name of a caliber.')}
                                 />
                             </Helmet>
                             <Ammo />

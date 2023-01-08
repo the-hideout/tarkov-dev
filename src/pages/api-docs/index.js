@@ -14,7 +14,7 @@ function APIDocs() {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('API Documentation')}</title>
+            <title>{t('API Documentation')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
                 content="Escape from Tarkov's community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT."

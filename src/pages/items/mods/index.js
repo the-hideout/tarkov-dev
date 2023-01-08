@@ -35,10 +35,10 @@ function Mods() {
     return [
         <Helmet key={'loot-tier-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Mods')}</title>
+            <title>{t('Mods')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={`All the relevant information about Escape from Tarkov`}
+                content={t("This page includes a sortable table with information on the different types of gun mods available in the game, including their price, compatibility, and other characteristics.")}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
@@ -64,7 +64,7 @@ function Mods() {
                     <InputFilter
                         defaultValue={nameFilter}
                         onChange={handleNameFilterChange}
-                        placeholder={t('Search...')}
+                        placeholder={t('filter on item')}
                     />
                 </Filter>
             </div>

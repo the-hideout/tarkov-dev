@@ -52,10 +52,10 @@ function Rigs() {
     return [
         <Helmet key={'backpacks-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Rigs')}</title>
+            <title>{t('Rigs')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="All backpacks in Escape from Tarkov sortable by price, size etc"
+                content={t('This page includes a sortable table with information on the different types of rigs available in the game, including their price, inside and outside size, weight, compression, and other characteristics.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
