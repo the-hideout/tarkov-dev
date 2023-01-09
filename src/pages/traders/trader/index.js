@@ -18,6 +18,7 @@ import TraderResetTime from '../../../components/trader-reset-time';
 import { selectAllTraders, fetchTraders } from '../../../features/traders/tradersSlice';
 import ErrorPage from '../../../components/error-page';
 import LoadingSmall from '../../../components/loading-small';
+import i18n from '../../../i18n';
 
 const romanLevels = {
     0: '0',
@@ -89,7 +90,7 @@ function Trader() {
     let resetTime = (<LoadingSmall/>);
     if (trader.resetTime) {
         resetTime = (
-            <TraderResetTime timestamp={trader.resetTime} />
+            <TraderResetTime timestamp={trader.resetTime} locale={i18n.language} />
         );
     }
     return [

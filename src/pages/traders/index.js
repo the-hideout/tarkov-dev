@@ -12,6 +12,7 @@ import LoadingSmall from '../../components/loading-small';
 import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
 
 import './index.css';
+import i18n from '../../i18n';
 
 function Traders(props) {
     const { t } = useTranslation();
@@ -67,7 +68,7 @@ function Traders(props) {
                     );
                     if (trader.resetTime) {
                         resetTime = (
-                            <TraderResetTime center timestamp={trader.resetTime} />
+                            <TraderResetTime center timestamp={trader.resetTime} locale={i18n.language} />
                         );
                     }
                     return (
