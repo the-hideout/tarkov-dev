@@ -144,23 +144,35 @@ function BossPage(params) {
         spawnStatsMsg.push(`${displayPercent}% (${map.name})`)
     }
 
-    bossProperties[t('spawnChance') + ` 🎲`] = {
+    bossProperties['spawnChance'] = {
         value: spawnStatsMsg.join(', '),
+        label: `${t('Spawn chance')} 🎲`,
         tooltip: t('Chance that the boss spawns on a given map'),
     };
 
     // Display health stats
     if (bossJsonData) {
-        bossProperties[t('health') + ' 🖤'] = {
+        bossProperties['health'] = {
             value: bossJsonData.health,
+            label: `${t('Health')} 🖤`,
             tooltip: t('Total boss health'),
         };
     }
 
     // Display behavior info
     if (bossJsonData) {
-        bossProperties[t('behavior') + ' 💡'] = {
+        bossProperties['behavior'] = {
+            // t('patrol')
+            // t('rush')
+            // t('stalker')
+            // t('hostile and accurate')
+            // t('patrol and highly armored')
+            // t('group patrol')
+            // t('frequent healing and stim injections')
+            // t('sniper')
+            // t('batshit insane')
             value: bossJsonData.behavior,
+            label: `${t('Behavior')} 💡`,
             tooltip: t("The boss's general AI behavior"),
         };
     }
