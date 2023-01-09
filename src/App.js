@@ -37,7 +37,7 @@ import ApiUsers from './pages/api-users';
 import Moobot from './pages/moobot';
 
 import Items from './pages/items/';
-import Armor from './pages/items/armor';
+import Armors from './pages/items/armors';
 import Backpacks from './pages/items/backpacks';
 import BarterItems from './pages/items/barter-items';
 import Containers from './pages/items/containers';
@@ -387,9 +387,9 @@ function App() {
                     ]}
                 />
                 <Route
-                    path={'/items/armor'}
+                    path={'/items/armors'}
                     element={[
-                        <Armor sessionID={sessionID} key="armor-wrapper" />,
+                        <Armors sessionID={sessionID} key="armors-wrapper" />,
                         remoteControlSessionElement,
                     ]}
                 />

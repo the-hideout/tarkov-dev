@@ -23,7 +23,7 @@ const marks = {
     6: 6,
 };
 
-function Armor(props) {
+function Armors(props) {
     const [showAllArmorSources, setShowAllArmorSources] = useState(false);
     const [useClassEffectiveDurability, setUseClassEffectiveDurability] = useStateWithLocalStorage(
         'useClassEffectiveDurability',
@@ -59,7 +59,7 @@ function Armor(props) {
     }
 
     return [
-        <Helmet key={'armor-table'}>
+        <Helmet key={'armors-table'}>
             <meta charSet="utf-8" />
             <title>{t('Armors')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
@@ -147,4 +147,4 @@ function Armor(props) {
     ];
 }
 
-export default Armor;
+export default Armors;
