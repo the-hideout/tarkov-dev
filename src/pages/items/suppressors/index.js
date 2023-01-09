@@ -51,7 +51,7 @@ function Suppressors() {
                     />
                     <SelectItemFilter
                         label={t('Filter by gun')}
-                        placeholder={t('select')}
+                        placeholder={t('select a gun')}
                         items={activeGuns}
                         onChange={(event) => {
                             if (!event) {

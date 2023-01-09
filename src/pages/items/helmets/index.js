@@ -95,7 +95,7 @@ function Helmets() {
                         defaultValue={maxPrice || ''}
                         label={t('Max price')}
                         onChange={(e) => setMaxPrice(Number(e.target.value))}
-                        placeholder={t('Max price')}
+                        placeholder={t('max price')}
                         type="number"
                     />
                 </Filter>
