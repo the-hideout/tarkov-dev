@@ -96,7 +96,7 @@ function App() {
     const controlId = useSelector((state) => state.sockets.controlId);
     let navigate = useNavigate();
     const dispatch = useDispatch();
-    const { t } = useTranslation();
+    //const { t } = useTranslation();
 
     if (connectToId) {
         dispatch(enableConnection());
