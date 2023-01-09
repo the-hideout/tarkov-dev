@@ -46,6 +46,10 @@ function Map() {
         for(const map of mapsGroup.maps) {
             allMaps[map.key] = {
                 ...map,
+                normalizedName: mapsGroup.normalizedName,
+                description: mapsGroup.description,
+                duration: mapsGroup.duration,
+                players: mapsGroup.players,
                 image: `/maps/${map.key}.jpg`,
             }
         }
@@ -55,18 +59,19 @@ function Map() {
         return <ErrorPage />;
     }
 
-    const { displayText, image, source, sourceLink, duration, players } = allMaps[currentMap];
+    const { displayText, source, sourceLink, normalizedName, description, duration, players, image } = allMaps[currentMap];
     const infoString = `${displayText} Map`;
 
     return [
         <Helmet>
             <meta charSet="utf-8" />
             <title>{infoString}</title>
-            <meta name="description" content={infoString} />
+            <meta name="description" content={description} />
         </Helmet>,
-        <div>
+        <div className="display-wrapper" key="map-wrapper">
             <Time
                 currentMap={currentMap}
+                normalizedName={normalizedName}
                 duration={duration}
                 players={players}
                 source={source}
