@@ -1,4 +1,5 @@
 /* eslint-disable no-restricted-globals */
+import { Helmet } from 'react-helmet';
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -190,8 +191,16 @@ function Ammo() {
         [selectedLegendName, setSelectedLegendName, navigate],
     );
 
-    return (
-        <>
+    return [
+        <Helmet>
+            <meta charSet="utf-8" />
+            <title>{t('Ammo chart')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
+            <meta
+                name="description"
+                content={t('ammo-page-description', 'This page contains a list of every type of ammo in Escape from Tarkov. To filter the complete list of available cartridges, click the name of a caliber.')}
+            />
+        </Helmet>,
+        <div className="display-wrapper" key="ammo-wrapper">
             <h1 className="center-title">
                 {t('Escape from Tarkov')}
                 <Icon path={mdiAmmunition} size={1.5} className="icon-with-text"/>
@@ -256,8 +265,8 @@ function Ammo() {
                 fragChance={5}
                 cheapestPrice={6}
             />
-        </>
-    );
+        </div>,
+    ];
 }
 
 export default Ammo;

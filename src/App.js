@@ -261,11 +261,6 @@ function App() {
         <div className="App">
             <Helmet htmlAttributes={{ lang: i18n.language }}>
                 <meta charSet="utf-8" />
-                <title>{t('Tarkov.dev')}</title>
-                <meta
-                    name="description"
-                    content={t('Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, spending guides, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.')}
-                />
             </Helmet>
             <Menu />
             {/* <Suspense fallback={<Loading />}> */}
@@ -280,34 +275,14 @@ function App() {
                 <Route
                     path={'/ammo'}
                     element={[
-                        <div className="display-wrapper" key="ammo-wrapper">
-                            <Helmet>
-                                <meta charSet="utf-8" />
-                                <title>{t('Ammo chart')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-                                <meta
-                                    name="description"
-                                    content={t('This page contains a list of every type of ammo in Escape from Tarkov. To filter the complete list of available cartridges, click the name of a caliber.')}
-                                />
-                            </Helmet>
-                            <Ammo />
-                        </div>,
+                        <Ammo key="ammo-wrapper" />,
                         remoteControlSessionElement,
                     ]}
                 />
                 <Route
                     path={'/ammo/:currentAmmo'}
                     element={[
-                        <div className="display-wrapper" key="ammo-wrapper">
-                            <Helmet>
-                                <meta charSet="utf-8" />
-                                <title>{t('Ammo chart')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-                                <meta
-                                    name="description"
-                                    content={t('This page contains a list of every type of ammo in Escape from Tarkov. To filter the complete list of available cartridges, click the name of a caliber.')}
-                                />
-                            </Helmet>
-                            <Ammo />
-                        </div>,
+                        <Ammo key="ammo-wrapper" />,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -321,9 +296,7 @@ function App() {
                 <Route
                     path="/map/:currentMap"
                     element={[
-                        <div className="display-wrapper" key="map-wrapper">
-                            <Map />
-                        </div>,
+                        <Map key="map-wrapper" />,
                         remoteControlSessionElement,
                     ]}
                 />
