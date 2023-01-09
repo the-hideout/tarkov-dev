@@ -185,6 +185,7 @@ cite {
     flex-grow: 1;
     text-align: center;
     white-space: initial;
+    display: inline-flex;
 }
 
 div.tippy-box {
