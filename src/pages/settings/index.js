@@ -170,7 +170,7 @@ function Settings() {
     useEffect(() => {
         if (useTarkovTracker) {
             for (const stationKey in allStations) {
-                if (!refs[stationKey] || !refs[stationKey].current) {
+                if (!refs[stationKey]) {
                     continue;
                 }
 
