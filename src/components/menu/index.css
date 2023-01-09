@@ -239,6 +239,11 @@ li.mobile-only-link {
     margin: auto 0;
 }
 
+.submenu-items {
+    border-left: 1px solid #9a8866;
+    border-right: 1px solid rgba(0, 0, 0, 0);
+}
+
 .overflow-menu .MuiPaper-root {
     background-color: #2d2d2f;
 }
