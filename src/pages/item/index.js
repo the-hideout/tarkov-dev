@@ -459,12 +459,12 @@ function Item() {
     const buySources = currentItemData.buyFor.filter(buyFor => buyFor.price > 0);
 
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'item-helmet'}>
             <meta charSet="utf-8" />
             <title>{currentItemData.name} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t('This page includes information on the characteristics, uses, and strategies for {{itemName}}.', { itemName: currentItemData.name })}
+                content={t('item-page-description', 'This page includes information on the characteristics, uses, and strategies for {{itemName}}.', { itemName: currentItemData.name })}
             />
             <link
                 rel="canonical"

@@ -13,12 +13,12 @@ import './index.css';
 function About() {
     const { t } = useTranslation();
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'about-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('About the tarkov.dev project')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t("Learn more about the-hideout and tarkov.dev. A free, community made, open source Escape from Tarkov ecosystem! Use our tools to help you play the game, or build your own projects with our free API.")}
+                content={t('about-page-description', 'Learn more about the-hideout and tarkov.dev. A free, community made, open source Escape from Tarkov ecosystem! Use our tools to help you play the game, or build your own projects with our free API.')}
             />
         </Helmet>,
         <div className={'page-wrapper'} key="about-page-content">

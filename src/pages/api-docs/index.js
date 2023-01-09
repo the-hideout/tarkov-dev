@@ -12,12 +12,12 @@ import './index.css';
 function APIDocs() {
     const { t } = useTranslation();
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'api-docs-page-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('API Documentation')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="Escape from Tarkov's community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT."
+                content={t('api-docs-page-description', 'Escape from Tarkov\'s community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT.')}
             />
         </Helmet>,
         <div className={'page-wrapper api-docs-page-wrapper'}>

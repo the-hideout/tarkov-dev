@@ -21,12 +21,12 @@ function Suppressors() {
     }, [items]);
 
     return [
-        <Helmet key={'suppressors-table'}>
+        <Helmet key={'suppressors-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('Escape from Tarkov')} - {t('Suppressors')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t('This page includes a sortable table with information on the different types of suppressors available in the game, including their ergonomics, recoil, and cheapest price.')}
+                content={t('suppressors-page-description', 'This page includes a sortable table with information on the different types of suppressors available in the game, including their ergonomics, recoil, and cheapest price.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>

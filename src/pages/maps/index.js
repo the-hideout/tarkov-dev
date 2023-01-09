@@ -11,12 +11,12 @@ import rawMapData from '../../data/maps.json';
 function Maps() {
     const { t } = useTranslation();
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'maps-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('Maps')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t("Get the latest information on all maps in Escape from Tarkov, including extract points and loot locations. Find out where to find the best gear and resources in the game")}
+                content={t('maps-page-description', 'Get the latest information on all maps in Escape from Tarkov, including extract points and loot locations. Find out where to find the best gear and resources in the game')}
             />
         </Helmet>,
         <div className={'page-wrapper'} key="map-page-wrapper">

@@ -152,13 +152,13 @@ const WipeLength = (props) => {
     // }, []);
 
     return (
-        <React.Fragment>
-            <Helmet>
+        <>
+            <Helmet key={'wipe-length-helmet'}>
                 <meta charSet="utf-8" />
                 <title>{t('Wipe Length')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
                 <meta
                     name="description"
-                    content={t('Get the latest information on the average wipe length in Escape from Tarkov. Find out how long wipes typically last, and prepare for the next wipe.')}
+                    content={t('wipe-length-description', 'Get the latest information on the average wipe length in Escape from Tarkov. Find out how long wipes typically last, and prepare for the next wipe.')}
                 />
             </Helmet>
             <div className={'page-wrapper'}>
@@ -167,7 +167,7 @@ const WipeLength = (props) => {
                 </h1>
                 <div className="center-title">
                     <h3>{t('Average Wipe Length among last 6 wipes:')}</h3>
-                    <h2>{t('{{days}} Days 📆', {days: lengthDaysAverage})}</h2>
+                    <h2>{t('{{count}} days', { count: lengthDaysAverage })} 📆</h2>
                 </div>
                 <DataTable
                     columns={columns}
@@ -176,7 +176,7 @@ const WipeLength = (props) => {
                 />
                 {}
             </div>
-        </React.Fragment>
+        </>
     );
 };
 

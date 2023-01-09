@@ -359,7 +359,7 @@ function Boss() {
             <title key={`boss-title-${bossName}`}>{boss} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta key={`boss-meta-${bossName}`}
                 name="description"
-                content={t('This page includes information on {{bossName}} location, loot, and strategies for defeating him.', { bossName: boss })}
+                content={t('boss-page-description', 'This page includes information on {{bossName}} location, loot, and strategies for defeating him.', { bossName: boss })}
             />
             <link
                 rel="canonical"

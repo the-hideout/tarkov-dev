@@ -50,12 +50,12 @@ function Rigs() {
     };
 
     return [
-        <Helmet key={'backpacks-table'}>
+        <Helmet key={'rigs-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('Rigs')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t('This page includes a sortable table with information on the different types of rigs available in the game, including their price, inside and outside size, weight, compression, and other characteristics.')}
+                content={t('rigs-page-description', 'This page includes a sortable table with information on the different types of rigs available in the game, including their price, inside and outside size, weight, compression, and other characteristics.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>

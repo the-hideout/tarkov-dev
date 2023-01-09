@@ -99,7 +99,7 @@ function Trader() {
             <title>{t('Trader {{trader}}', { trader: trader.name })} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t('Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty', { trader: trader.name })}
+                content={t('trader-page-description', 'Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty', { trader: trader.name })}
             />
         </Helmet>,
         <div className="page-wrapper" key={'page-wrapper'}>

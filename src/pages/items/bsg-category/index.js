@@ -47,12 +47,12 @@ function BsgCategory() {
     }
 
     return [
-        <Helmet key={'barter-items-helmet'}>
+        <Helmet key={'bsg-category-helmet'}>
             <meta charSet="utf-8" />
             <title>{category.name} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t("Find out everything you need to know about {{category}} in Escape from Tarkov.", { category: category.name })}
+                content={t('bsg-category-description', 'Find out everything you need to know about {{category}} in Escape from Tarkov.', { category: category.name })}
             />
         </Helmet>,
         <div className="page-wrapper" key={'display-wrapper'}>

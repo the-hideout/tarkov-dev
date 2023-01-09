@@ -33,12 +33,12 @@ function Guns() {
     );
 
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'guns-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('Guns')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t("This page includes a sortable table with information on the different types of guns available in the game, including their price, damage, accuracy, and other characteristics.")}
+                content={t('guns-page-description', 'This page includes a sortable table with information on the different types of guns available in the game, including their price, damage, accuracy, and other characteristics.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>

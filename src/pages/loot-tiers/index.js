@@ -334,25 +334,25 @@ function LootTier(props) {
     );
 
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'loot-tiers-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('Loot tiers')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="Learn about the different types of loot available in the game, their value, rarity, and what to keep and what to trash."
+                content={t('loot-tiers-page-description', 'Learn about the different types of loot available in the game, their value, rarity, and what to keep and what to trash.')}
             />
         </Helmet>,
         <div
-            className="display-wrapper loot-tier-main-wrapper"
+            className="display-wrapper loot-tiers-main-wrapper"
             key={'display-wrapper'}
         >
-            <div className='loot-tier-wrapper'>
-                <h1 className='loot-tier-text'>
+            <div className='loot-tiers-wrapper'>
+                <h1 className='loot-tiers-text'>
                     {t('Escape from Tarkov')}
                     <Icon path={mdiFinance} size={1.5} className="icon-with-text" /> 
                     {t('Loot tiers')}
                 </h1>
-                <p className='loot-tier-text'>{t('Ranking the most valuable items in the game')}</p>
+                <p className='loot-tiers-text'>{t('Ranking the most valuable items in the game')}</p>
             </div>
             <Filter fullWidth>
                 <ToggleFilter

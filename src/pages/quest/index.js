@@ -194,12 +194,12 @@ function Quest() {
     }
 
     return [
-        <Helmet key={'quest-page-helmet'}>
+        <Helmet key={'task-helmet'}>
             <meta charSet="utf-8" />
             <title>{currentQuest.name} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t('This page includes information on the objectives, rewards, and strategies for completing task {{questName}}. Get tips on how to prepare for and succeed in your mission.', { questName: currentQuest.name })}
+                content={t('task-page-description', 'This page includes information on the objectives, rewards, and strategies for completing task {{questName}}. Get tips on how to prepare for and succeed in your mission.', { questName: currentQuest.name })}
             />
             <link rel="canonical" href={`https://tarkov.dev/task/${currentQuest.normalizedName}`} />
         </Helmet>,

@@ -33,12 +33,12 @@ function Keys() {
     );
 
     return [
-        <Helmet key={'barter-items-helmet'}>
+        <Helmet key={'keys-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('Keys')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t("This page includes a sortable table with information on the different types of keys available in the game, including their price, rarity, and other characteristics.")}
+                content={t('keys-page-description', 'This page includes a sortable table with information on the different types of keys available in the game, including their price, rarity, and other characteristics.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>

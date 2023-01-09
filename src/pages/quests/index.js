@@ -62,10 +62,10 @@ function Quests() {
     const { t } = useTranslation();
 
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'tasks-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('Tasks')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta name="description" content={t('Find out everything you need to know about tasks in Escape from Tarkov. Learn about the different types of tasks available in the game, how to complete them, and the rewards you can earn.')} />
+            <meta name="description" content={t('tasks-page-description', 'Find out everything you need to know about tasks in Escape from Tarkov. Learn about the different types of tasks available in the game, how to complete them, and the rewards you can earn.')} />
         </Helmet>,
         <div className={'page-wrapper'} key="quests-page-wrapper">
             <div className="quests-headline-wrapper" key="quests-headline">

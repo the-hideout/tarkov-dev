@@ -18,7 +18,7 @@ function Glasses() {
             <title>{t('Glasses')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t("This page includes a sortable table with information on the different types of glasses available in the game, including their price, armor class, and other characteristics.")}
+                content={t('glasses-page-description', 'This page includes a sortable table with information on the different types of glasses available in the game, including their price, armor class, and other characteristics.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>

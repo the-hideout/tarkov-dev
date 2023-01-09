@@ -78,12 +78,12 @@ function Crafts() {
     }, [crafts]);
 
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'crafts-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('Escape from Tarkov')} - {t('Hideout Crafts')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t('This page includes information on the different items that can be crafted in the hideout, the materials and resources required, and the profits that can be made from selling the finished products.')}
+                content={t('crafts-page-description', 'This page includes information on the different items that can be crafted in the hideout, the materials and resources required, and the profits that can be made from selling the finished products.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>

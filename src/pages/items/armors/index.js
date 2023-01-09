@@ -64,7 +64,7 @@ function Armors(props) {
             <title>{t('Armors')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t("This page includes a sortable table with information on the different types of armor available in the game, including their price, repairability, armor class, and other characteristics.")}
+                content={t('armors-page-description', 'This page includes a sortable table with information on the different types of armor available in the game, including their price, repairability, armor class, and other characteristics.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>

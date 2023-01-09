@@ -12,15 +12,15 @@ import './index.css';
 function Bosses(props) {
     const { t } = useTranslation();
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'bosses-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('Bosses')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t('This page includes information on the all the bosses in the game. bosses in the game, their location, loot, escort and strategies for defeating them.')}
+                content={t('bosses-page-description', 'This page includes information on the all the bosses in the game. bosses in the game, their location, loot, escort and strategies for defeating them.')}
             />
         </Helmet>,
-        <div className={'page-wrapper'} key="boss-page-wrapper">
+        <div className={'page-wrapper'} key="bosses-page-wrapper">
             <h1 className="center-title">
                 <Icon
                     path={mdiEmoticonDevil}
@@ -29,8 +29,8 @@ function Bosses(props) {
                 />
                 {t('Bosses')}
             </h1>
-            <h2 className='boss-sub-text'>Bosses are feared and deadly enemies with unique gear and traits in Escape from Tarkov</h2>
-            <div className="boss-list-wrapper">
+            <h2 className='bosses-sub-text'>Bosses are feared and deadly enemies with unique gear and traits in Escape from Tarkov</h2>
+            <div className="bosses-list-wrapper">
                 <Suspense fallback={<Loading />}>
                     <BossPageList />
                 </Suspense>
@@ -38,7 +38,7 @@ function Bosses(props) {
 
             <hr className='desc-line-break'></hr>
 
-            <div className="page-wrapper boss-page-wrapper">
+            <div className="page-wrapper bosses-page-wrapper">
                 <h3>About Bosses</h3>
                 <p>
                     {"In Escape from Tarkov, there are many bosses that roam the area of besieged Norvinsk. "}<br />

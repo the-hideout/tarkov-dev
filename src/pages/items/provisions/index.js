@@ -34,12 +34,12 @@ function Provisions() {
     );
 
     return [
-        <Helmet key={'barter-items-helmet'}>
+        <Helmet key={'provisions-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('Provisions')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t('This page includes a sortable table with information on the different types of provisions available in the game, including their hydration, energy, cheapest price and traders or flea market value.')}
+                content={t('provisions-page-description', 'This page includes a sortable table with information on the different types of provisions available in the game, including their hydration, energy, cheapest price and traders or flea market value.')}
             />
         </Helmet>,
         <div className="page-wrapper" key={'display-wrapper'}>

@@ -33,12 +33,12 @@ function Mods() {
     );
 
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'mods-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('Mods')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t("This page includes a sortable table with information on the different types of gun mods available in the game, including their price, compatibility, and other characteristics.")}
+                content={t('mods-page-description', 'This page includes a sortable table with information on the different types of gun mods available in the game, including their price, compatibility, and other characteristics.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>

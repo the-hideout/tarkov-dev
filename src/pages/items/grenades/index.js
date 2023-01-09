@@ -38,7 +38,7 @@ function Grenades() {
             <title>{t('Grenades')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t("This page includes a sortable table with information on the different types of grenades available in the game, including their price, damage, and other characteristics.")}
+                content={t('grenades-page-description', 'This page includes a sortable table with information on the different types of grenades available in the game, including their price, damage, and other characteristics.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>

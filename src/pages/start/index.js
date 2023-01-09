@@ -64,13 +64,12 @@ function Start() {
     };
 
     return [
-        <Helmet key={'start-page-helmet'}>
+        <Helmet key={'start-helmet'}>
             <meta key={'start-page-charset'} charSet="utf-8" />
             <title key={'start-page-title'}>{t('Tarkov.dev')} - {t('Escape from Tarkov')}</title>
             <meta
                 name="description"
-                content={`Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, trader details, a free API, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.`}
-                key={'start-page-description'}
+                content={t('start-page-description', 'Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, trader details, a free API, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.')}
             />
         </Helmet>,
         <div
