@@ -33,6 +33,18 @@ function Maps() {
             {rawMapData.map((mapsGroup) => {
                 return (
                     <>
+                        {
+                        // t('Streets of Tarkov')
+                        // t('Customs')
+                        // t('Factory')
+                        // t('Interchange')
+                        // t('The Lab')
+                        // t('Lighthouse')
+                        // t('Reserve')
+                        // t('Shoreline')
+                        // t('Woods')
+                        // t('Openworld')
+                        }
                         <h2>{t(mapsGroup.name)}</h2>
                         <div className="page-wrapper map-page-wrapper">
                             {mapsGroup.description}
