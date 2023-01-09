@@ -9,7 +9,9 @@ const getSubtitle = (text, minPrice, maxPrice, t) => {
     if (minPrice || maxPrice) {
         return (
             <div className="item-group-subtitle-wrapper">
-                <span>{`${formatPrice(minPrice)} - ${formatPrice(maxPrice)}`}</span>
+                <div>{formatPrice(maxPrice)}</div>
+                <div>{'⇩'}</div>
+                <div>{formatPrice(minPrice)}</div>
                 <div className="note">{t('per slot')}</div>
             </div>
         );
@@ -37,8 +39,8 @@ function ItemGrid(props) {
         }
     }
 
-    minPrice = Math.floor(minPrice / 1000) * 1000;
-    maxPrice = Math.ceil(maxPrice / 1000) * 1000;
+    minPrice = Math.ceil(minPrice / 250) * 250;
+    maxPrice = Math.ceil(maxPrice / 250) * 250;
 
     let className = 'item-group-wrapper';
 
