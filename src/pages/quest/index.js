@@ -128,9 +128,7 @@ function Quest() {
         if (currentQuest.minPlayerLevel) {
             playerLevel = (
                 <div key={'player-level-req'}>
-                    {t('Player level: {{playerLevel}}', {
-                        playerLevel: currentQuest.minPlayerLevel,
-                    })}
+                    {t('Player level: {{playerLevel}}', { playerLevel: currentQuest.minPlayerLevel })}
                 </div>
             );
         }
@@ -164,6 +162,7 @@ function Quest() {
                                 <span>
                                     {`: ${taskReq.status
                                         .map((taskStatus) => {
+                                            // possible values for t already specified in Quests page
                                             return t(taskStatus);
                                         })
                                         .join(', ')}`}
@@ -406,19 +405,17 @@ function Quest() {
                         if (objective.type === 'experience') {
                             taskDetails = (
                                 <>
-                                    {`${t('Have the {{effectNames}} effect(s) on your {{bodyParts}} for {{operator}} {{seconds}} seconds', {
+                                    {`${t('Have the {{effectNames, list}} effect(s) on your {{bodyParts, list}} for {{operator}} {{count}} seconds', {
                                             effectNames: objective.healthEffect.effects
                                                 .map((effect) => {
                                                     return t(effect);
-                                                })
-                                                .join(', '),
+                                                }),
                                             bodyParts: objective.healthEffect.bodyParts
                                                 .map((part) => {
                                                     return t(part);
-                                                })
-                                                .join(', '),
+                                                }),
                                             operator: objective.healthEffect.time.compareMethod,
-                                            seconds: objective.healthEffect.time.value,
+                                            count: objective.healthEffect.time.value,
                                         },
                                     )}`}
                                 </>
@@ -427,12 +424,11 @@ function Quest() {
                         if (objective.type === 'extract') {
                             taskDetails = (
                                 <>
-                                    {t('Extract with the status(es): {{extractStatuses}}', {
+                                    {t('Extract with the status(es): {{extractStatuses, list}}', {
                                         extractStatuses: objective.exitStatus
                                             .map((status) => {
                                                 return t(status);
-                                            })
-                                            .join(', '),
+                                            }),
                                     })}
                                 </>
                             );
@@ -505,39 +501,39 @@ function Quest() {
                             taskDetails = (
                                 <>
                                     <>
-                                        {t('{{shootOrKill}} {{target}} {{shotCount}} time(s)', {
+                                        {t('{{shootOrKill}} {{target}} {{count}} times', {
+                                            // t('Shoot)
+                                            // t('Kill')
                                             shootOrKill: t(verb),
-                                            shotCount: objective.count,
                                             target: objective.target,
+                                            count: objective.count,
                                         })}
                                     </>
                                     {objective.distance && (
                                         <div>
-                                            {t('From distance: {{operator}} {{distance}} meters', {
+                                            {t('From distance: {{operator}} {{count}} meters', {
                                                 operator: objective.distance.compareMethod,
-                                                distance: objective.distance.value,
+                                                count: objective.distance.value,
                                             })}
                                         </div>
                                     )}
                                     {objective.zoneNames?.length > 0 && (
                                         <div>
-                                            {t('While inside: {{zoneList}}', {
+                                            {t('While inside: {{zoneList, list}}', {
                                                 zoneList: objective.zoneNames
                                                     .map((zone) => {
                                                         return t(zone);
-                                                    })
-                                                    .join(', '),
+                                                    }),
                                             })}
                                         </div>
                                     )}
                                     {objective.bodyParts?.length > 0 && (
                                         <div>
-                                            {t('Hitting: {{bodyPartList}}', {
+                                            {t('Hitting: {{bodyPartList, list}}', {
                                                 bodyPartList: objective.bodyParts
                                                     .map((part) => {
                                                         return t(part);
-                                                    })
-                                                    .join(', '),
+                                                    }),
                                             })}
                                         </div>
                                     )}
@@ -649,25 +645,22 @@ function Quest() {
                                         <div>
                                             {`${t(
                                                 objective.playerHealthEffect.time
-                                                    ? 'While having the {{effectNames}} effect(s) on your {{bodyParts}} for {{operator}} {{seconds}} seconds'
-                                                    : 'While having the {{effectNames}} effect(s) on your {{bodyParts}}',
+                                                    ? 'While having the {{effectNames, list}} effect(s) on your {{bodyParts, list}} for {{operator}} {{count}} seconds'
+                                                    : 'While having the {{effectNames, list}} effect(s) on your {{bodyParts, list}}',
                                                 {
                                                     effectNames:
                                                         objective.playerHealthEffect.effects
                                                             .map((effect) => {
                                                                 return t(effect);
-                                                            })
-                                                            .join(', '),
+                                                            }),
                                                     bodyParts:
                                                         objective.playerHealthEffect.bodyParts
                                                             .map((part) => {
                                                                 return t(part);
-                                                            })
-                                                            .join(', '),
+                                                            }),
                                                     operator:
-                                                        objective.playerHealthEffect.time
-                                                            ?.compareMethod,
-                                                    seconds:
+                                                        objective.playerHealthEffect.time?.compareMethod,
+                                                    count:
                                                         objective.playerHealthEffect.time?.value,
                                                 },
                                             )}`}
@@ -677,23 +670,20 @@ function Quest() {
                                         <div>
                                             {`${t(
                                                 objective.enemyHealthEffect.time
-                                                    ? 'While target has the {{effectNames}} effect(s) on their {{bodyParts}} for {{operator}} {{seconds}} seconds'
-                                                    : 'While target has the {{effectNames}} effect(s) on their {{bodyParts}}',
+                                                    ? 'While target has the {{effectNames, list}} effect(s) on their {{bodyParts, list}} for {{operator}} {{count}} seconds'
+                                                    : 'While target has the {{effectNames, list}} effect(s) on their {{bodyParts, list}}',
                                                 {
                                                     effectNames: objective.enemyHealthEffect.effects
                                                         .map((effect) => {
                                                             return t(effect);
-                                                        })
-                                                        .join(', '),
+                                                        }),
                                                     bodyParts: objective.enemyHealthEffect.bodyParts
                                                         .map((part) => {
                                                             return t(part);
-                                                        })
-                                                        .join(', '),
+                                                        }),
                                                     operator:
-                                                        objective.enemyHealthEffect.time
-                                                            ?.compareMethod,
-                                                    seconds:
+                                                        objective.enemyHealthEffect.time?.compareMethod,
+                                                    count:
                                                         objective.enemyHealthEffect.time?.value,
                                                 },
                                             )}`}
