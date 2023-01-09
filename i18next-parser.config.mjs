@@ -33,7 +33,7 @@ export default {
     html: ['HTMLLexer'],
 
     mjs: ['JavascriptLexer'],
-    js: ['JavascriptLexer'], // if you're writing jsx inside .js files, change this to JsxLexer
+    js: ['JsxLexer'], // if you're writing jsx inside .js files, change this to JsxLexer
     ts: ['JavascriptLexer'],
     jsx: ['JsxLexer'],
     tsx: ['JsxLexer'],
@@ -44,7 +44,7 @@ export default {
   lineEnding: 'auto',
   // Control the line ending. See options at https://github.com/ryanve/eol
 
-  locales: ['en', 'ru', 'pl', 'de', 'fr'],
+  locales: ['de', 'en', 'es', 'fr', 'it', 'ja', 'pl', 'ru'],
   // An array of the locales in your applications
 
   namespaceSeparator: false,
