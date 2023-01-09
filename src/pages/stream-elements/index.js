@@ -16,12 +16,12 @@ function StreamElements() {
             <ul>
                 <li>
                     {t('Register at')}{' '}
-                    <a href="https://streamelements.com/">streamelements.com</a>{' '}
+                    <a href="https://streamelements.com/" target="_blank" rel="noopener noreferrer">streamelements.com</a>{' '}
                     {t('using your twitch / youtube account')}
                 </li>
                 <li>
                     {t('Go to dashboard')}{' '}
-                    <a href="https://streamelements.com/dashboard">
+                    <a href="https://streamelements.com/dashboard" target="_blank" rel="noopener noreferrer">
                         streamelements.com/dashboard
                     </a>
                 </li>
@@ -44,7 +44,7 @@ function StreamElements() {
                 </li>
                 <li>
                     {t('Go to custom commands')}{' '}
-                    <a href="https://streamelements.com/dashboard/bot/commands/custom">
+                    <a href="https://streamelements.com/dashboard/bot/commands/custom" target="_blank" rel="noopener noreferrer">
                         streamelements.com/dashboard/bot/commands/custom
                     </a>
                 </li>
@@ -83,7 +83,7 @@ function StreamElements() {
             </p>
             <p>
                 {t('Big thanks to')}{' '}
-                <a href="https://www.twitch.tv/PhreakinPhil">PhreakinPhil</a>{' '}
+                <a href="https://www.twitch.tv/PhreakinPhil" target="_blank" rel="noopener noreferrer">PhreakinPhil</a>{' '}
                 {t('for feedback')}
             </p>
         </div>

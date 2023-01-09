@@ -500,7 +500,7 @@ function Item() {
                         />
                         {currentItemData.wikiLink && (
                             <span className="wiki-link-wrapper">
-                                <a href={currentItemData.wikiLink}>
+                                <a href={currentItemData.wikiLink} target="_blank" rel="noopener noreferrer">
                                     {t('Wiki')}
                                 </a>
                             </span>

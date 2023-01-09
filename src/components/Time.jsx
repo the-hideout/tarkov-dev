@@ -88,7 +88,7 @@ function MapSource(props) {
         overlayItem.push(
             <div key={`${props.currentMap}-attribution`}>
                 {t('By')}
-                <span>:</span> <a href={props.sourceLink} target="_blank">{props.source}</a>
+                <span>:</span> <a href={props.sourceLink} target="_blank" rel="noopener noreferrer">{props.source}</a>
             </div>,
         );
     }

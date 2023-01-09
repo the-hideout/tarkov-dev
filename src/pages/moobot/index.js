@@ -13,7 +13,7 @@ function Moobot() {
             <h2>{t('Instructions')}</h2>
             <ul>
                 <li>
-                    {t('Register at')} <a href="https://moo.bot/">moo.bot</a> {t('using your twitch account')}
+                    {t('Register at')} <a href="https://moo.bot/" target="_blank" rel="noopener noreferrer">moo.bot</a> {t('using your twitch account')}
                 </li>
                 <li>{t('Go to Custom commands')}</li>
             </ul>
@@ -72,7 +72,7 @@ function Moobot() {
                 />
             </p>
             <p>
-                {t('Big thanks to')} <a href="https://www.twitch.tv/PhreakinPhil">PhreakinPhil</a> {t('for feedback')}
+                {t('Big thanks to')} <a href="https://www.twitch.tv/PhreakinPhil" target="_blank" rel="noopener noreferrer">PhreakinPhil</a> {t('for feedback')}
             </p>
         </div>
     );

@@ -224,7 +224,7 @@ function Quest() {
                         </h1>
                         {currentQuest.wikiLink && (
                             <div className="wiki-link-wrapper">
-                                <a href={currentQuest.wikiLink}>{t('Wiki')}</a>
+                                <a href={currentQuest.wikiLink} target="_blank" rel="noopener noreferrer">{t('Wiki')}</a>
                             </div>
                         )}
                         {typeof currentQuest.tarkovDataId !== 'undefined' && (

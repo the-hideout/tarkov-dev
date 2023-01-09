@@ -28,13 +28,13 @@ function About() {
                 {t(
                     'The whole platform is open source and focused around developers. All code is available on',
                 )}{' '}
-                <a href="https://github.com/the-hideout/tarkov-dev">GitHub</a>
+                <a href="https://github.com/the-hideout/tarkov-dev" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <span>.</span>
             </p>
             <h2>{t('Discussions & feedback')}</h2>
             <p>
                 {t('If you wanna have a chat, ask questions or request features, we have a')}{' '}
-                <a href="https://discord.gg/XPAsKGHSzH">Discord</a> {t('server')}
+                <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer">Discord</a> {t('server')}
             </p>
             <h2>{t('Support')}</h2>
             <p>
@@ -48,7 +48,7 @@ function About() {
                 {t(
                     "If you'd also like to support this project, you can make a donation and/or become a backer on",
                 )}{' '}
-                <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">
+                <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noopener noreferrer">
                     Open Collective
                 </a>
                 <span>.</span>
@@ -68,14 +68,14 @@ function About() {
             <h2>{t('History')}</h2>
             <p>
                 {t('This project is a fork of')}{' '}
-                <a href="https://github.com/kokarn/tarkov-tools">tarkov-tools.com</a>
+                <a href="https://github.com/kokarn/tarkov-tools" target="_blank" rel="noopener noreferrer">tarkov-tools.com</a>
                 {'. '}
                 {t('The original creator')} <a href="https://github.com/kokarn">@kokarn</a>{' '}
                 {t(
                     'decided to shut the site down. In the spirit of open source, a group of developers came together to revive the site in order to continue providing a great website for the Tarkov community and an API to power further development for creators. This project is now 100% open source and developer first. Our GitHub Organization',
                 )}
                 {' ('}
-                <a href="https://github.com/the-hideout">the-hideout</a>
+                <a href="https://github.com/the-hideout" target="_blank" rel="noopener noreferrer">the-hideout</a>
                 {') '}
                 {t(
                     'contains all the repos which power the API, this website, the community Discord bot, server infrastructure, and much more! We are passionate about open source and love pull requests to improve our ecosystem for all.',
@@ -85,43 +85,43 @@ function About() {
             {t('The core contributors to this project (in no particular order) are:')}
             <ul>
                 <li>
-                    <a href="https://github.com/Razzmatazzz">
+                    <a href="https://github.com/Razzmatazzz" target="_blank" rel="noopener noreferrer">
                         <Avatar src="https://avatars.githubusercontent.com/Razzmatazzz?size=24" />
                         {' @Razzmatazzz'}
                     </a>{' '}
                 </li>
                 <li>
-                    <a href="https://github.com/austinhodak">
+                    <a href="https://github.com/austinhodak" target="_blank" rel="noopener noreferrer">
                         <Avatar src="https://avatars.githubusercontent.com/austinhodak?size=24" />
                         {' @austinhodak'}
                     </a>
                 </li>
                 <li>
-                    <a href="https://github.com/GrantBirki">
+                    <a href="https://github.com/GrantBirki" target="_blank" rel="noopener noreferrer">
                         <Avatar src="https://avatars.githubusercontent.com/GrantBirki?size=24" />
                         {' @GrantBirki'}
                     </a>
                 </li>
                 <li>
-                    <a href="https://github.com/Blightbuster">
+                    <a href="https://github.com/Blightbuster" target="_blank" rel="noopener noreferrer">
                         <Avatar src="https://avatars.githubusercontent.com/Blightbuster?size=24" />
                         {' @Blightbuster'}
                     </a>
                 </li>
                 <li>
-                    <a href="https://github.com/thaddeus">
+                    <a href="https://github.com/thaddeus" target="_blank" rel="noopener noreferrer">
                         <Avatar src="https://avatars.githubusercontent.com/thaddeus?size=24" />
                         {' @thaddeus'}
                     </a>
                 </li>
                 <li>
-                    <a href="https://github.com/johndongus">
+                    <a href="https://github.com/johndongus" target="_blank" rel="noopener noreferrer">
                         <Avatar src="https://avatars.githubusercontent.com/johndongus?size=24" />
                         {' @johndongus'}
                     </a>{' '}
                 </li>
                 <li>
-                    <a href="https://github.com/Shebuka">
+                    <a href="https://github.com/Shebuka" target="_blank" rel="noopener noreferrer">
                         <Avatar src="https://avatars.githubusercontent.com/Shebuka?size=24" />
                         {' @Shebuka'}
                     </a>

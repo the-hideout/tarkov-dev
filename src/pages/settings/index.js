@@ -247,7 +247,7 @@ function Settings() {
                 />
                 <InputFilter
                     label={
-                        <a href="https://tarkovtracker.io/settings/">
+                        <a href="https://tarkovtracker.io/settings/" target="_blank" rel="noopener noreferrer">
                             {t('TarkovTracker API Token')}
                         </a>
                     }

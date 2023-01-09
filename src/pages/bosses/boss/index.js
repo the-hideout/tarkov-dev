@@ -223,7 +223,7 @@ function BossPage(params) {
                         </h1>
                         {bossJsonData &&
                             <span className="wiki-link-wrapper">
-                                <a href={bossJsonData.wikiLink}>
+                                <a href={bossJsonData.wikiLink} target="_blank" rel="noopener noreferrer">
                                     {t('Wiki')}
                                 </a>
                             </span>

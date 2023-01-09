@@ -13,10 +13,10 @@ function Nightbot() {
             <h2>{t('Instructions')}</h2>
             <ul>
                 <li>
-                    {t('Register at')} <a href="https://nightbot.tv">nightbot.tv</a> {t('using your twitch / youtube account')}
+                    {t('Register at')} <a href="https://nightbot.tv" target="_blank" rel="noopener noreferrer">nightbot.tv</a> {t('using your twitch / youtube account')}
                 </li>
                 <li>
-                    {t('Go to dashboard')} <a href="https://nightbot.tv/dashboard">nightbot.tv/dashboard</a>
+                    {t('Go to dashboard')} <a href="https://nightbot.tv/dashboard" target="_blank" rel="noopener noreferrer">nightbot.tv/dashboard</a>
                 </li>
                 <li>{t('Click the "Join Channel" button')}</li>
             </ul>
@@ -34,7 +34,7 @@ function Nightbot() {
                     {t('Make bot - moderator, just type /mod nightbot in your chat')}
                 </li>
                 <li>
-                    {t('Go to custom commands')} <a href="https://nightbot.tv/commands/custom">nightbot.tv/commands/custom</a>
+                    {t('Go to custom commands')} <a href="https://nightbot.tv/commands/custom" target="_blank" rel="noopener noreferrer">nightbot.tv/commands/custom</a>
                 </li>
                 <li>{t('Press the "Add command" button')}</li>
             </ul>
@@ -68,7 +68,7 @@ function Nightbot() {
                 />
             </p>
             <p>
-                {t('Big thanks to')} <a href="https://www.twitch.tv/PhreakinPhil">PhreakinPhil</a> {t('for feedback')}
+                {t('Big thanks to')} <a href="https://www.twitch.tv/PhreakinPhil" target="_blank" rel="noopener noreferrer">PhreakinPhil</a> {t('for feedback')}
             </p>
         </div>
     );
