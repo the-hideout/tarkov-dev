@@ -23,44 +23,6 @@ import './index.css';
 
 const defaultGroupNames = ['S', 'A', 'B', 'C', 'D', 'E', 'F'];
 
-const filterOptions = [
-    {
-        value: 'barter',
-        label: 'Barter',
-        default: true,
-    },
-    {
-        value: 'keys',
-        label: 'Keys',
-        default: true,
-    },
-    // {
-    //     value: 'marked',
-    //     label: 'Marked',
-    //     default: false,
-    // },
-    {
-        value: 'mods',
-        label: 'Mods',
-        default: true,
-    },
-    {
-        value: 'provisions',
-        label: 'Provisions',
-        default: true,
-    },
-    {
-        value: 'wearable',
-        label: 'Wearable',
-        default: true,
-    },
-    {
-        value: 'gun',
-        label: 'Gun',
-        default: true,
-    },
-];
-
 const DEFAULT_MAX_ITEMS = 244;
 
 const arrayChunk = (inputArray, chunkLength) => {
@@ -89,6 +51,44 @@ function LootTier(props) {
         'groupByType',
         false,
     );
+    const { t } = useTranslation();
+    const filterOptions = [
+        {
+            value: 'barter',
+            label: t('Barters'),
+            default: true,
+        },
+        {
+            value: 'keys',
+            label: t('Keys'),
+            default: true,
+        },
+        // {
+        //     value: 'marked',
+        //     label: 'Marked',
+        //     default: false,
+        // },
+        {
+            value: 'mods',
+            label: t('Mods'),
+            default: true,
+        },
+        {
+            value: 'provisions',
+            label: t('Provisions'),
+            default: true,
+        },
+        {
+            value: 'wearable',
+            label: t('Wearables'),
+            default: true,
+        },
+        {
+            value: 'gun',
+            label: t('Guns'),
+            default: true,
+        },
+    ];
     const [filters, setFilters] = useStateWithLocalStorage('filters', {
         name: '',
         types: filterOptions
@@ -103,7 +103,6 @@ function LootTier(props) {
     });
 
     const { data: items } = useItemsQuery();
-    const { t } = useTranslation();
 
     const handleFilterChange = (selectedFilters) => {
         QueueBrowserTask.task(() => {
@@ -378,14 +377,14 @@ function LootTier(props) {
                 />
                 <InputFilter
                     defaultValue={minPrice || ''}
-                    placeholder={t('Min value')}
+                    placeholder={t('min value')}
                     type={'number'}
                     onChange={minPriceHandler}
                 />
                 <InputFilter
                     defaultValue={filters.name || ''}
-                    type={'text'}
                     placeholder={t('filter on item')}
+                    type={'text'}
                     onChange={handleFilterNameChange}
                 />
             </Filter>
