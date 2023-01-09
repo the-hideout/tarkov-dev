@@ -50,8 +50,10 @@ const doFetchQuests = async (language, prebuild = false) => {
                         containsAll {
                             id
                         }
-                        containsOne {
+                        containsCategory {
                             id
+                            name
+                            normalizedName
                         }
                         attributes {
                             name
