@@ -3,7 +3,6 @@ import React, { useEffect, useCallback, Suspense } from 'react';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 
 import './App.css';
 import i18n from './i18n';
@@ -96,7 +95,6 @@ function App() {
     const controlId = useSelector((state) => state.sockets.controlId);
     let navigate = useNavigate();
     const dispatch = useDispatch();
-    //const { t } = useTranslation();
 
     if (connectToId) {
         dispatch(enableConnection());
