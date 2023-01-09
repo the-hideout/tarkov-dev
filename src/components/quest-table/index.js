@@ -6,7 +6,7 @@ import Icon from '@mdi/react';
 import { mdiClipboardCheck, mdiClipboardRemove } from '@mdi/js';
 
 import DataTable from '../data-table';
-import QuestItemsCell from './quest-items-cell';
+import QuestItemsCell from '../quest-items-cell';
 import CenterCell from '../center-cell';
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
 import { useItemsQuery } from '../../features/items/queries';
