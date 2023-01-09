@@ -376,23 +376,20 @@ function Quest() {
                                             </ul>
                                         </>
                                     )}
-                                    {objective.containsOne?.length > 0 && (
+                                    {objective.containsCategory?.length > 0 && (
                                         <>
-                                            <h4>{t('Contains One')}</h4>
+                                            <h4>{t('Contains Item in Category')}</h4>
                                             <ul>
-                                                {objective.containsOne.map((part) => {
-                                                    const item = items.find(
-                                                        (i) => i.id === part.id,
-                                                    );
+                                                {objective.containsCategory.map((cat) => {
                                                     return (
                                                         <li
-                                                            key={item.id}
-                                                            className={'quest-list-item'}
+                                                            key={cat.id}
+                                                            className={'quest-list-item-category'}
                                                         >
                                                             <Link
-                                                                to={`/item/${item.normalizedName}`}
+                                                                to={`/items/${cat.normalizedName}`}
                                                             >
-                                                                {item.name}
+                                                                {cat.name}
                                                             </Link>
                                                         </li>
                                                     );
