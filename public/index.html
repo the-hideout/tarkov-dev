@@ -13,20 +13,22 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Escape from Tarkov - Ammo visualization, loot tiers, profit calculators, community driven API, and much more! Enjoy our best in class EFT toolkit." />
+
+  <title>Tarkov.dev</title>
+  <meta name="description" content="Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, trader details, a free API, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides." />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tarkov.dev/">
   <meta property="og:title" content="Tarkov.dev">
-  <meta property="og:description" content="Escape from Tarkov - Ammo visualization, loot tiers, profit calculators, community driven API, and much more! Enjoy our best in class EFT toolkit.">
+  <meta property="og:description" content="Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, trader details, a free API, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.">
   <meta property="og:image" content="">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://tarkov.dev/">
   <meta property="twitter:title" content="Tarkov.dev">
-  <meta property="twitter:description" content="Escape from Tarkov - Ammo visualization, loot tiers, profit calculators, community driven API, and much more! Enjoy our best in class EFT toolkit.">
+  <meta property="twitter:description" content="Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, trader details, a free API, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.">
   <meta property="twitter:image" content="">
 
   <style>
@@ -77,7 +79,6 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-  <title>Tarkov.dev</title>
   <link rel="dns-prefetch" href="https://wombatstats.com">
   <link rel="preconnect" href="https://wombatstats.com">
   <link rel="dns-prefetch" href="https://assets.tarkov.dev">
@@ -88,7 +89,19 @@
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <noscript>
+      <div style="display: flex; flex-direction: column; flex-wrap: nowrap; align-items: center;">
+        <a href="/">
+          <img alt="Tarkov.dev" width="300" height="48" loading="lazy" src="/tarkov-dev-logo.svg">
+        </a>
+        <h1>tarkov.dev is an open source tool kit for Escape from Tarkov.</h1>
+        <h2>It is designed and maintained by the community to help you with quests, flea market trading, and improving your game!</h2>
+        <h2>The API is also freely available for you to build your own tools and services related to EFT.</h2>
+        <h3 style="color:red">Enable JavaScript and start using tarkov.dev right now!</span>
+      </div>
+    </noscript>
+  </div>
   <!-- Matomo Analytics -->
   <script defer src="%PUBLIC_URL%/custom-user-stats.js"></script>
 </body>
