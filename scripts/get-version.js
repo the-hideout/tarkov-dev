@@ -28,7 +28,12 @@ const getVersion = async function getVersion() {
         return response;
     } catch (responseError) {
         console.timeEnd(`Get version url ${COMMIT_URL}`);
-        console.error(responseError);
+
+        if (responseError instanceof got.HTTPError) {
+            console.error(`HTTP Error: ${responseError.response.statusCode} ${responseError.response.statusMessage}`);
+        } else {
+            console.error(responseError);
+        }
     }
 
     return false;
@@ -39,6 +44,16 @@ const getVersion = async function getVersion() {
         let response = false;
 
         response = await getVersion();
+
+        if (!response) {
+            console.log('Error fetching version, using fallback version.json')
+            fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'version.json'), JSON.stringify(
+                {
+                    version: 'unknown'
+                }, null, 4
+            ));
+            return;
+        }
 
         console.log(response.sha);
 
@@ -51,6 +66,7 @@ const getVersion = async function getVersion() {
         console.timeEnd('Write new data');
     } catch (error) {
         console.error(error);
+        console.log('Error fetching version, using fallback version.json')
         fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'version.json'), JSON.stringify(
             {
                 version: 'unknown'

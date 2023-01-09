@@ -31,7 +31,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             }
             return completedTasks;
         }, []);
-        //returnData.flea = progressData.level >= 15 ? true : false;
+        returnData.flea = progressData.playerLevel >= 15 ? true : false;
 
         const bodyQuery = JSON.stringify({
             query: `{
