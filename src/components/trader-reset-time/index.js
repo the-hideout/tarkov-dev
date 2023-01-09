@@ -1,6 +1,7 @@
 //import { useQuery } from 'react-query';
 import Countdown from 'react-countdown';
 import Moment from 'react-moment';
+import 'moment/min/locales';
 import { Translation } from 'react-i18next';
 
 import './index.css';
@@ -14,9 +15,7 @@ const Renderer = (props) => {
     return (
         <span>
             <Translation>
-                {
-                    (t, { i18n }) => <span className="countdown-text-wrapper">{t('Restock in')}</span>
-                }
+                {(t, { i18n }) => <span className="countdown-text-wrapper">{t('Restock in')}</span>}
             </Translation>
             {' '}
             <span>
