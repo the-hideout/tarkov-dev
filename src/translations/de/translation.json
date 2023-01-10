@@ -411,7 +411,7 @@
     "Hand over": "Hand over",
     "Attributes": "Attributes",
     "Contains All": "Contains All",
-    "Contains One": "Contains One",
+    "Contains Item in Category": "Contains Item in Category",
     "Have the {{effectNames, list}} effect(s) on your {{bodyParts, list}} for {{operator}} {{count}} seconds_one": "Have the {{effectNames, list}} effect(s) on your {{bodyParts, list}} for {{operator}} {{count}} seconds",
     "Have the {{effectNames, list}} effect(s) on your {{bodyParts, list}} for {{operator}} {{count}} seconds_other": "Have the {{effectNames, list}} effect(s) on your {{bodyParts, list}} for {{operator}} {{count}} seconds",
     "Extract with the status(es): {{extractStatuses, list}}": "Extract with the status(es): {{extractStatuses, list}}",
@@ -480,7 +480,7 @@
     "Press \"Activate Command\"": "Press \"Activate Command\"",
     "Find out everything you need to know about traders in Escape from Tarkov. Learn about the different traders available in the game, their locations, and the items they sell.": "Find out everything you need to know about traders in Escape from Tarkov. Learn about the different traders available in the game, their locations, and the items they sell.",
     "Trader {{trader}}": "Trader {{trader}}",
-    "Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty": "Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty",
+    "trader-page-description": "Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty",
     "Items with the best cash back prices for leveling when buying from flea": "Items with the best cash back prices for leveling when buying from flea",
     "Spending": "Spending",
     "Unlocks at Loyalty Level {{level}}": "Unlocks at Loyalty Level {{level}}",
@@ -492,6 +492,6 @@
     "{{count}} days_one": "{{count}} days",
     "{{count}} days_other": "{{count}} days",
     "Wipe Length": "Wipe Length",
-    "Get the latest information on the average wipe length in Escape from Tarkov. Find out how long wipes typically last, and prepare for the next wipe.": "Get the latest information on the average wipe length in Escape from Tarkov. Find out how long wipes typically last, and prepare for the next wipe.",
+    "wipe-length-description": "Get the latest information on the average wipe length in Escape from Tarkov. Find out how long wipes typically last, and prepare for the next wipe.",
     "Average Wipe Length among last 6 wipes:": "Average Wipe Length among last 6 wipes:"
 }
