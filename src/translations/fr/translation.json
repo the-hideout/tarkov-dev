@@ -1,7 +1,7 @@
 {
     "Current Average Latency": "Latence moyenne actuelle",
     "API Latency in milliseconds": "Latence de l'API en millisecondes",
-    "Barter at": "Barter at",
+    "Barter at {{trader}}": "Barter at {{trader}}",
     "Barter": "Objets d'échange",
     "Reward": "Récompense",
     "Cost": "Coût",
