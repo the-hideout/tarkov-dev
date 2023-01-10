@@ -71,6 +71,12 @@ function Footer() {
                         <span>Tarkov-Changes</span>
                     </a>
                 </p>
+                <p>
+                    {t('Additional data courtesy of')} {' '}
+                    <a href="https://www.sp-tarkov.com/" target="_blank" rel="noopener noreferrer">
+                        <span>SPT-AKI</span>
+                    </a>
+                </p>
 
                 {/*{supporters.map((supporter) => {*/}
                 {/*    if (supporter.name === 'kokarn') {*/}
