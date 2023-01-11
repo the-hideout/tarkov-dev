@@ -1552,7 +1552,7 @@ function SmallItemTable(props) {
                         let taskIcon = '';
                         let barterIcon = '';
                         if (priceInfo.vendor?.minTraderLevel) {
-                            priceSource += ` LL${priceInfo.vendor.minTraderLevel}`;
+                            priceSource += ` ${t('LL{{level}}', { level: priceInfo.vendor.minTraderLevel })}`;
                             if (priceInfo.vendor.taskUnlock) {
                                 taskIcon = (
                                     <Icon
@@ -1573,7 +1573,7 @@ function SmallItemTable(props) {
                                 );
                             }
                         } else if (priceInfo.barter?.level) {
-                            priceSource += ` LL${priceInfo.barter.level}`;
+                            priceSource += ` ${t('LL{{level}}', { level: priceInfo.barter.level })}`;
                             barterIcon = (
                                 <Icon
                                 key="barter-tooltip-icon"

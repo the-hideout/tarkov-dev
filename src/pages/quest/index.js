@@ -142,7 +142,7 @@ function Quest() {
                         return (
                             <div key={`req-trader-${trader.id}`}>
                                 <Link to={`/traders/${trader.normalizedName}`}>{trader.name}</Link>
-                                <span>{` LL${traderReq.level}`}</span>
+                                <span>{` ${t('LL{{level}}', { level: traderReq.level })}`}</span>
                             </div>
                         );
                     })}
@@ -722,7 +722,7 @@ function Quest() {
                                     <Link to={`/traders/${trader.normalizedName}`}>
                                         {trader.name}
                                     </Link>
-                                    <span>{` LL${objective.level}`}</span>
+                                    <span>{` ${t('LL{{level}}', { level: objective.level })}`}</span>
                                 </>
                             );
                         }
@@ -850,7 +850,7 @@ function Quest() {
                                         <Link to={`/traders/${trader.normalizedName}`}>
                                             {trader.name}
                                         </Link>
-                                        <span>{` LL${unlock.level}`}</span>
+                                        <span>{` ${t('LL{{level}}', { level: unlock.level })}`}</span>
                                     </li>
                                 );
                             })}
