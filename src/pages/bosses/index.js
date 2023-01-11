@@ -29,8 +29,8 @@ function Bosses(props) {
                 />
                 {t('Bosses')}
             </h1>
-            <h2 className='bosses-sub-text'>Bosses are feared and deadly enemies with unique gear and traits in Escape from Tarkov</h2>
-            <div className="bosses-list-wrapper">
+            <h2 className='boss-sub-text'>Bosses are feared and deadly enemies with unique gear and traits in Escape from Tarkov</h2>
+            <div className="boss-list-wrapper">
                 <Suspense fallback={<Loading />}>
                     <BossPageList />
                 </Suspense>
@@ -38,7 +38,7 @@ function Bosses(props) {
 
             <hr className='desc-line-break'></hr>
 
-            <div className="page-wrapper bosses-page-wrapper">
+            <div className="page-wrapper boss-page-wrapper">
                 <h3>About Bosses</h3>
                 <p>
                     {"In Escape from Tarkov, there are many bosses that roam the area of besieged Norvinsk. "}<br />
