@@ -17,7 +17,7 @@ function Bosses(props) {
             <title>{t('Bosses')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t('bosses-page-description', 'This page includes information on the all the bosses in the game. bosses in the game, their location, loot, escort and strategies for defeating them.')}
+                content={t('bosses-page-description', 'This page includes information on the all the bosses in the game, their location, loot, escort and strategies for defeating them.')}
             />
         </Helmet>,
         <div className={'page-wrapper'} key="bosses-page-wrapper">
