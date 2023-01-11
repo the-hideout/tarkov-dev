@@ -484,7 +484,7 @@
     "Make bot - moderator, just type /mod streamelements in your chat": "Сделайте бота модератором, просто введите /mod streamelements в вашем чате",
     "Press the \"Add new command\" button": "Нажмите кнопку \"Добавить новую команду\"",
     "Press \"Activate Command\"": "Нажмите \"Активировать команду\"",
-    "Find out everything you need to know about traders in Escape from Tarkov. Learn about the different traders available in the game, their locations, and the items they sell.": "Find out everything you need to know about traders in Escape from Tarkov. Learn about the different traders available in the game, their locations, and the items they sell.",
+    "traders-page-description": "Find out everything you need to know about traders in Escape from Tarkov. Learn about the different traders available in the game, their locations, and the items they sell.",
     "Trader {{trader}}": "Trader {{trader}}",
     "trader-page-description": "Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty",
     "Items with the best cash back prices for leveling when buying from flea": "Предметы с лучшими ценами кэшбэка для прокачки уровня при покупке на барахолке",

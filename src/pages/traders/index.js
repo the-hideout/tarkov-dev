@@ -43,12 +43,12 @@ function Traders(props) {
         'lightkeeper',
     ];
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'traders-helmet'}>
             <meta charSet="utf-8" />
             <title>{t('Traders')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t('Find out everything you need to know about traders in Escape from Tarkov. Learn about the different traders available in the game, their locations, and the items they sell.')}
+                content={t('traders-page-description', 'Find out everything you need to know about traders in Escape from Tarkov. Learn about the different traders available in the game, their locations, and the items they sell.')}
             />
         </Helmet>,
         <div className={'page-wrapper'} key="traders-page-wrapper">
