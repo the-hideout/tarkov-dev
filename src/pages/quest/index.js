@@ -281,11 +281,11 @@ function Quest() {
                 {/* loop through all the values in mapJson array and if there is a match, add a link to the map */}
                 {currentQuest.map &&
                     mapJson.map((map) => {
-                        if (map.normalizedName === currentQuest.map.name.toLowerCase()) {
+                        if (map.normalizedName === currentQuest.map.normalizedName) {
                             return (
                                 <div key={`map-link-${map.normalizedName}`}>
                                     <Link to={map.primaryPath}>
-                                        {t('View Map')} - {currentQuest.map.name}
+                                        {t('View Map')} - {t(map.name)}
                                     </Link>
                                 </div>
                             );

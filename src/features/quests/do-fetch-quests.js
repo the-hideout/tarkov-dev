@@ -16,6 +16,7 @@ const doFetchQuests = async (language, prebuild = false) => {
                 map {
                     id
                     name
+                    normalizedName
                 }
                 experience
                 wikiLink
