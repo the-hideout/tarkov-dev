@@ -255,6 +255,10 @@ function App() {
         />
     );
 
+    // dayjs locale needs to be loaded so it output localized text, but this suggested method throws a loader error...
+    // maybe we should use i18n DateTime and RelativeTime instead
+    //require(`dayjs/locale/${i18n.language}`)
+
     return (
         <div className="App">
             <Helmet htmlAttributes={{ lang: i18n.language }}>
