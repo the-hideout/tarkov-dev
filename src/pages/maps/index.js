@@ -11,12 +11,12 @@ import rawMapData from '../../data/maps.json';
 function Maps() {
     const { t } = useTranslation();
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'maps-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Maps')}</title>
+            <title>{t('Maps')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="Escape from Tarkov maps and loot locations"
+                content={t('maps-page-description', 'Get the latest information on all maps in Escape from Tarkov, including extract points and loot locations. Find out where to find the best gear and resources in the game')}
             />
         </Helmet>,
         <div className={'page-wrapper'} key="map-page-wrapper">
@@ -33,7 +33,21 @@ function Maps() {
             {rawMapData.map((mapsGroup) => {
                 return (
                     <>
-                        <h2>{t(mapsGroup.name)}</h2>
+                        <h2>
+                            {
+                            // t('Streets of Tarkov')
+                            // t('Customs')
+                            // t('Factory')
+                            // t('Interchange')
+                            // t('The Lab')
+                            // t('Lighthouse')
+                            // t('Reserve')
+                            // t('Shoreline')
+                            // t('Woods')
+                            // t('Openworld')
+                            t(mapsGroup.name)
+                            }
+                        </h2>
                         <div className="page-wrapper map-page-wrapper">
                             {mapsGroup.description}
                         </div>

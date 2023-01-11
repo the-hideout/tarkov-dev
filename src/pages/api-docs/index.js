@@ -12,12 +12,12 @@ import './index.css';
 function APIDocs() {
     const { t } = useTranslation();
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'api-docs-page-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('API Documentation')}</title>
+            <title>{t('API Documentation')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="Escape from Tarkov's community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT."
+                content={t('api-docs-page-description', 'Escape from Tarkov\'s community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT.')}
             />
         </Helmet>,
         <div className={'page-wrapper api-docs-page-wrapper'}>
@@ -31,22 +31,22 @@ function APIDocs() {
                  To learn about GraphQL queries generally, the GraphQL Foundation has helpful resources.`)}
                 <ul>
                     <li>
-                        <a href ="https://api.tarkov.dev/___graphql">{t('Tarkov.dev GraphQL playground')}</a>
+                        <a href="https://api.tarkov.dev/___graphql" target="_blank" rel="noopener noreferrer">{t('Tarkov.dev GraphQL playground')}</a>
                     </li>
                     <li>
-                        <a href="https://graphql.org/learn/">{t('GraphQL Foundation resources')}</a>
+                        <a href="https://graphql.org/learn/" target="_blank" rel="noopener noreferrer">{t('GraphQL Foundation resources')}</a>
                     </li>
                 </ul>
             </div>
             <div className="section-text-wrapper">
                 {t('Once you\'re ready to send API queries from outside the playground, the endpoint is:')}{' '}
-                <a href="https://api.tarkov.dev/graphql">
+                <a href="https://api.tarkov.dev/graphql" target="_blank" rel="noopener noreferrer">
                     https://api.tarkov.dev/graphql
                 </a>
             </div>
             <h2>{t('Current API Performance')}</h2>
             <ApiMetricsGraph graph={true} />
-            <p>{'For full API metrics and performance, check out our'} <a href="https://status.tarkov.dev">status page</a></p>
+            <p>{'For full API metrics and performance, check out our'} <a href="https://status.tarkov.dev" target="_blank" rel="noopener noreferrer">status page</a></p>
             <h2>{t('FAQ')}</h2>
             <div className="section-text-wrapper">
                 <h3>{t('Is it free?')}</h3>
@@ -55,7 +55,7 @@ function APIDocs() {
             <div className="section-text-wrapper">
                 <h3>{t('Is it open source?')}</h3>
                 {t('Of course! Source code for the API can be found in its GitHub repo:')}{' '}
-                <a href="https://github.com/the-hideout/tarkov-api">
+                <a href="https://github.com/the-hideout/tarkov-api" target="_blank" rel="noopener noreferrer">
                     github.com/the-hideout/tarkov-api
                 </a>
             </div>
@@ -71,7 +71,7 @@ function APIDocs() {
                 {t(
                     "To view an up-to-date definition of our rate-limits (or lack there-of), check our Cloudflare GitHub repo where they are defined: ",
                 )}
-                <a href="https://github.com/the-hideout/cloudflare/blob/main/terraform/security.tf">
+                <a href="https://github.com/the-hideout/cloudflare/blob/main/terraform/security.tf" target="_blank" rel="noopener noreferrer">
                     rate limit definition
                 </a>
             </div>
@@ -92,17 +92,17 @@ function APIDocs() {
                 )}
                 <ul>
                     <li>
-                        <a href="https://tarkov-changes.com/">
+                        <a href="https://tarkov-changes.com/" target="_blank" rel="noopener noreferrer">
                             Tarkov Changes
                         </a>
                     </li>
                     <li>
-                        <a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki">
+                        <a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki" target="_blank" rel="noopener noreferrer">
                             Escape from Tarkov Wiki
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/TarkovTracker/tarkovdata/">
+                        <a href="https://github.com/TarkovTracker/tarkovdata/" target="_blank" rel="noopener noreferrer">
                             TarkovTracker/tarkovdata
                         </a>
                     </li>
@@ -212,7 +212,7 @@ print(result)`}
                 <h3 id="ruby">Ruby {t('example')}</h3>
                 <cite>
                     <span>Contributed by </span>
-                    <a href="https://github.com/GrantBirki">GrantBirki</a>
+                    <a href="https://github.com/GrantBirki" target="_blank" rel="noopener noreferrer">GrantBirki</a>
                 </cite>
                 <SyntaxHighlighter language="ruby" style={atomOneDark}>
                     {`# frozen_string_literal: true
@@ -277,7 +277,7 @@ return json_decode($data, true);`}
                     <span>Java 11's HttpClient {t('example')}</span>
                     <cite>
                         <span>Contributed by </span>
-                        <a href="https://github.com/HeyBanditoz">HeyBanditoz</a>
+                        <a href="https://github.com/HeyBanditoz" target="_blank" rel="noopener noreferrer">HeyBanditoz</a>
                     </cite>
                 </h3>
                 <SyntaxHighlighter language="java" style={atomOneDark}>
@@ -336,7 +336,7 @@ using (var httpClient = new HttpClient())
                     <span>Go {t('example')}</span>
                     <cite>
                         <span>Contributed by </span>
-                        <a href="https://github.com/HeyBanditoz">HeyBanditoz</a>
+                        <a href="https://github.com/HeyBanditoz" target="_blank" rel="noopener noreferrer">HeyBanditoz</a>
                     </cite>
                 </h3>
                 <SyntaxHighlighter language="go" style={atomOneDark}>
@@ -379,7 +379,7 @@ func main() {
                     <span>Lua (Luvit) {t('example')}</span>
                     <cite>
                         <span>Contributed by </span>
-                        <a href="https://github.com/AntwanR942">AntwanR942</a>
+                        <a href="https://github.com/AntwanR942" target="_blank" rel="noopener noreferrer">AntwanR942</a>
                     </cite>
                 </h3>
                 <SyntaxHighlighter language="lua" style={atomOneDark}>

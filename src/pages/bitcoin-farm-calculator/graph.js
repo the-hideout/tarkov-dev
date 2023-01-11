@@ -32,8 +32,8 @@ const BtcGraph = () => {
                 x="count"
                 y="hoursToProduceBTC"
             />
-            <VictoryAxis label={t('num graphic cards')} />
-            <VictoryAxis label={t('hours')} dependentAxis />
+            <VictoryAxis label={t('Num graphic cards')} />
+            <VictoryAxis label={t('Hours')} dependentAxis />
         </VictoryChart>
     );
 };

@@ -34,10 +34,10 @@ function BarterItems() {
     return [
         <Helmet key={'barter-items-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Barter Items')}</title>
+            <title>{t('Barter Items')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={`All the relevant information about Escape from Tarkov`}
+                content={"This page includes a sortable table with information on the different types of barter items available in the game, including their price, rarity, and other characteristics."}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
@@ -51,7 +51,7 @@ function BarterItems() {
                     <InputFilter
                         defaultValue={nameFilter}
                         onChange={handleNameFilterChange}
-                        placeholder={t('Search...')}
+                        placeholder={t('filter on item')}
                     />
                 </Filter>
             </div>

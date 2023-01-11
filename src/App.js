@@ -3,7 +3,6 @@ import React, { useEffect, useCallback, Suspense } from 'react';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 
 import './App.css';
 import i18n from './i18n';
@@ -37,7 +36,7 @@ import ApiUsers from './pages/api-users';
 import Moobot from './pages/moobot';
 
 import Items from './pages/items/';
-import Armor from './pages/items/armor';
+import Armors from './pages/items/armors';
 import Backpacks from './pages/items/backpacks';
 import BarterItems from './pages/items/barter-items';
 import Containers from './pages/items/containers';
@@ -63,7 +62,6 @@ import Boss from './pages/bosses/boss';
 import Trader from './pages/traders/trader';
 import Traders from './pages/traders';
 
-import HistoryGraphs from './pages/history-graphs';
 import ItemTracker from './pages/item-tracker/';
 import Hideout from './pages/hideout';
 import WipeLength from './pages/wipe-length';
@@ -97,7 +95,6 @@ function App() {
     const controlId = useSelector((state) => state.sockets.controlId);
     let navigate = useNavigate();
     const dispatch = useDispatch();
-    const { t } = useTranslation();
 
     if (connectToId) {
         dispatch(enableConnection());
@@ -258,17 +255,14 @@ function App() {
         />
     );
 
+    // dayjs locale needs to be loaded so it output localized text, but this suggested method throws a loader error...
+    // maybe we should use i18n DateTime and RelativeTime instead
+    //require(`dayjs/locale/${i18n.language}`)
+
     return (
         <div className="App">
             <Helmet htmlAttributes={{ lang: i18n.language }}>
                 <meta charSet="utf-8" />
-                <title>Tarkov.dev</title>
-                <meta
-                    name="description"
-                    content={t(
-                        'Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, spending guides, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.',
-                    )}
-                />
             </Helmet>
             <Menu />
             {/* <Suspense fallback={<Loading />}> */}
@@ -283,34 +277,14 @@ function App() {
                 <Route
                     path={'/ammo'}
                     element={[
-                        <div className="display-wrapper" key="ammo-wrapper">
-                            <Helmet>
-                                <meta charSet="utf-8" />
-                                <title>Tarkov Ammo Chart</title>
-                                <meta
-                                    name="description"
-                                    content={t('Visualization of all ammo types in Escape from Tarkov')}
-                                />
-                            </Helmet>
-                            <Ammo />
-                        </div>,
+                        <Ammo key="ammo-wrapper" />,
                         remoteControlSessionElement,
                     ]}
                 />
                 <Route
                     path={'/ammo/:currentAmmo'}
                     element={[
-                        <div className="display-wrapper" key="ammo-wrapper">
-                            <Helmet>
-                                <meta charSet="utf-8" />
-                                <title>Tarkov Ammo Chart</title>
-                                <meta
-                                    name="description"
-                                    content={t('Visualization of all ammo types in Escape from Tarkov')}
-                                />
-                            </Helmet>
-                            <Ammo />
-                        </div>,
+                        <Ammo key="ammo-wrapper" />,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -324,9 +298,7 @@ function App() {
                 <Route
                     path="/map/:currentMap"
                     element={[
-                        <div className="display-wrapper" key="map-wrapper">
-                            <Map />
-                        </div>,
+                        <Map key="map-wrapper" />,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -390,9 +362,9 @@ function App() {
                     ]}
                 />
                 <Route
-                    path={'/items/armor'}
+                    path={'/items/armors'}
                     element={[
-                        <Armor sessionID={sessionID} key="armor-wrapper" />,
+                        <Armors sessionID={sessionID} key="armors-wrapper" />,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -654,18 +626,6 @@ function App() {
                             key="api-users-wrapper"
                         >
                             <ApiUsers />
-                        </Suspense>,
-                        remoteControlSessionElement,
-                    ]}
-                />
-                <Route
-                    path={'/history-graphs'}
-                    element={[
-                        <Suspense
-                            fallback={<Loading />}
-                            key="history-graphs-wrapper"
-                        >
-                            <HistoryGraphs />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}

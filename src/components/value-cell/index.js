@@ -43,7 +43,7 @@ function ValueCell(props) {
     if (value && showSlotValue && slots > 1) {
         slotValue = (
             <Tippy
-                content="Per slot"
+                content={t('Per slot')}
                 placement="bottom"
             >
                 <div className="trader-unlock-wrapper">

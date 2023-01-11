@@ -65,10 +65,10 @@ function Barters() {
     }, [allTraders]);
 
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'barters-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Barter Profits')}</title>
-            <meta name="description" content="Barter Profits" />
+            <title>{t('Barter Profits')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
+            <meta name="description" content={t('barters-page-description', 'This page includes information on the different items that can be traded with NPC vendors, the barter prices, and the profits that can be made from selling the items.')} />
         </Helmet>,
         <div className={'page-wrapper'} key="barters-page-wrapper">
             <div className="barters-headline-wrapper" key="barters-headline">

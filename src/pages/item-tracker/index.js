@@ -196,16 +196,19 @@ function ItemTracker() {
     return [
         <Helmet>
             <meta charSet="utf-8" />
-            <title>Item Tracker</title>
+            <title>{t('Item Tracker')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="Track what items you need to find in Raid for Escape from Tarkov quests"
+                content="Track what items you need to Found in Raid for Escape from Tarkov quests"
             />
         </Helmet>,
         <div
             className="display-wrapper item-tracker-wrapper"
             key={'display-wrapper'}
         >
+            <h1 className="center-title">
+                {t('Escape from Tarkov')} {t('Item Tracker')}
+            </h1>
             <div className="item-group-wrapper filter-wrapper">
                 <div className={'filter-content-wrapper'}>
                     {/* <label
@@ -224,7 +227,7 @@ function ItemTracker() {
                     </label> */}
                     <label className={'filter-toggle-wrapper'}>
                         <span className={'filter-toggle-label'}>
-                            {t('Only show Find in Raid')}
+                            {t('Only show Found in Raid')}
                         </span>
                         <Switch
                             className={'filter-toggle'}

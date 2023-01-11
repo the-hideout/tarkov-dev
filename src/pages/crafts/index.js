@@ -78,12 +78,12 @@ function Crafts() {
     }, [crafts]);
 
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'crafts-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Hideout Crafts')}</title>
+            <title>{t('Escape from Tarkov')} - {t('Hideout Crafts')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="Escape from Tarkov Hideout Craft Profits"
+                content={t('crafts-page-description', 'This page includes information on the different items that can be crafted in the hideout, the materials and resources required, and the profits that can be made from selling the finished products.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
@@ -181,7 +181,7 @@ function Crafts() {
                 <p>
                     {"In Escape from Tarkov, crafts allow you create a variety of things. It is accomplished using a variety of hideout modules, including the water collector, workbench, medstation, lavatory, and nutrition unit."}<br/>
                     <br/>
-                    {"The \"found in raid\" status will be applied to each item created in the hideout. The entire list of these crafts is shown above. The Crafting skill has an impact on item creation time."}<br/>
+                    {"The \"Found in Raid\" status will be applied to each item created in the hideout. The entire list of these crafts is shown above. The Crafting skill has an impact on item creation time."}<br/>
                     <br/>
                     {"When an item's icon has a blue border, it will be utilized as an auxiliary tool and, once manufacturing is finished, it will be returned to your stash."}
                 </p>

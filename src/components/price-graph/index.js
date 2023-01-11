@@ -7,12 +7,14 @@ import {
     // VictoryTooltip,
     VictoryVoronoiContainer,
 } from 'victory';
+import { useTranslation } from 'react-i18next';
 
 import formatPrice from '../../modules/format-price';
 
 import './index.css';
 
 function PriceGraph({ itemId, itemChange24 }) {
+    const { t } = useTranslation();
     const { status, data } = useQuery(
         `historical-price-${itemId}`,
         () =>
@@ -49,7 +51,7 @@ function PriceGraph({ itemId, itemChange24 }) {
     }
 
     if (status === 'success' && data.data.historicalItemPrices.length === 0) {
-        return 'No data';
+        return t('No data');
     }
 
     let max = 0;

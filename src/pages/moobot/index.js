@@ -8,15 +8,12 @@ function Moobot() {
         <div className={'page-wrapper moobot-page-wrapper'}>
             <h1>{t('Tarkov.dev Moobot integration')}</h1>
             <p>
-                {t(
-                    'You can add command to your moobot to get price check in your twitch chat',
-                )}
+                {t('You can add command to your moobot to get price check in your twitch chat')}
             </p>
             <h2>{t('Instructions')}</h2>
             <ul>
                 <li>
-                    {t('Register at')} <a href="https://moo.bot/">moo.bot</a>{' '}
-                    {t('using your twitch account')}
+                    {t('Register at')} <a href="https://moo.bot/" target="_blank" rel="noopener noreferrer">moo.bot</a> {t('using your twitch account')}
                 </li>
                 <li>{t('Go to Custom commands')}</li>
             </ul>
@@ -31,9 +28,7 @@ function Moobot() {
             </p>
             <ul>
                 <li>
-                    {t(
-                        'Set what you want the command to be. Common is "p" or "price"',
-                    )}
+                    {t('Set what you want the command to be. Common is "p" or "price"')}
                 </li>
                 <li>{t('Press the "Create" button')}</li>
             </ul>
@@ -77,9 +72,7 @@ function Moobot() {
                 />
             </p>
             <p>
-                {t('Big thanks to')}{' '}
-                <a href="https://www.twitch.tv/PhreakinPhil">PhreakinPhil</a>{' '}
-                {t('for feedback')}
+                {t('Big thanks to')} <a href="https://www.twitch.tv/PhreakinPhil" target="_blank" rel="noopener noreferrer">PhreakinPhil</a> {t('for feedback')}
             </p>
         </div>
     );

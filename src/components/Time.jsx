@@ -88,7 +88,7 @@ function MapSource(props) {
         overlayItem.push(
             <div key={`${props.currentMap}-attribution`}>
                 {t('By')}
-                <span>:</span> <a href={props.sourceLink}>{props.source}</a>
+                <span>:</span> <a href={props.sourceLink} target="_blank" rel="noopener noreferrer">{props.source}</a>
             </div>,
         );
     }
@@ -99,7 +99,7 @@ function MapSource(props) {
 function Time(props) {
     const time = useDate(new Date(), 50);
 
-    if (props?.currentMap === 'factory') {
+    if (props?.normalizedName === 'factory') {
         return (
             <div className="time-wrapper">
                 <div>15:28:00</div>
@@ -109,7 +109,7 @@ function Time(props) {
         );
     }
 
-    if (props?.currentMap === 'labs') {
+    if (props?.normalizedName === 'labs') {
         return (
             <div className="time-wrapper">
                 <MapSource {...props} />
