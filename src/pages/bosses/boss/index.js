@@ -171,7 +171,7 @@ function BossPage(params) {
             // t('frequent healing and stim injections')
             // t('sniper')
             // t('batshit insane')
-            value: bossJsonData.behavior,
+            value: t(bossJsonData.behavior),
             label: `${t('Behavior')} 💡`,
             tooltip: t("The boss's general AI behavior"),
         };

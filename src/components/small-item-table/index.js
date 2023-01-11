@@ -50,7 +50,9 @@ function getItemCountPrice(item) {
     );
 }
 
-function traderSellCell(datum, totalTraderPrice = false, showSlotValue = false) {
+function TraderSellCell(datum, totalTraderPrice = false, showSlotValue = false) {
+    const { t } = useTranslation();
+    
     if (!datum.row.original.bestSell?.source || datum.row.original.bestSell.source === '?') {
         return null;
     }
@@ -63,8 +65,8 @@ function traderSellCell(datum, totalTraderPrice = false, showSlotValue = false) 
     if (showSlotValue && slots > 1) {
         slotValue = (
             <Tippy
-                content="Per slot"
-                placement="left"
+                content={t('Per slot')}
+                placement="bottom"
                 key="item-sell-to-trader-slot-value"
             >
                 <div className="trader-unlock-wrapper">
@@ -102,9 +104,9 @@ function traderSellCell(datum, totalTraderPrice = false, showSlotValue = false) 
                     </div>
                 )}
                 {getItemCountPrice(datum.row.original)}
+                {slotValue}
             </span>
-        </div>,
-        slotValue
+        </div>
     ];
 }
 
@@ -1040,7 +1042,7 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Sell to Trader'),
                 accessor: (d) => Number(totalTraderPrice? d.bestSell?.totalPriceRUB : d.bestSell?.priceRUB),
-                Cell: (datum) => {return traderSellCell(datum, totalTraderPrice, showSlotValue)},
+                Cell: (datum) => TraderSellCell(datum, totalTraderPrice, showSlotValue),
                 id: 'traderPrice',
                 summable: true,
                 position: traderValue,
@@ -1435,7 +1437,7 @@ function SmallItemTable(props) {
         if (blocksHeadset) {
             useColumns.push({
                 Header: t('Blocks earpiece'),
-                accessor: (item) => item.properties.blocksHeadset ? 'Yes' : 'No',
+                accessor: (item) => item.properties.blocksHeadset ? t('Yes') : t('No'),
                 Cell: CenterCell,
                 position: blocksHeadset,
             });

@@ -47,7 +47,7 @@ function ServerStatus() {
     }
 
     if (status === 'success' && data.data.status.length === 0) {
-        return 'No data';
+        return t('No data');
     }
 
     if (

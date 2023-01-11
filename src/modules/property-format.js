@@ -3,6 +3,7 @@ import { isValidElement } from 'react';
 
 import camelcaseToDashes from './camelcase-to-dashes';
 import { formatCaliber } from './format-ammo';
+import i18n from '../i18n';
 
 const defaultFormat = (inputString) => {
     const baseFormat = camelcaseToDashes(inputString).replace(/-/g, ' ');
@@ -46,7 +47,7 @@ const formatter = (key, value) => {
     let displayKey = defaultFormat(key);
 
     if (key === 'weight') {
-        value = `${value} kg`;
+        value = i18n.t('{{value}} kg');
     }
 
     if (key === 'speedPenalty') {
@@ -76,7 +77,7 @@ const formatter = (key, value) => {
     }
 
     if (typeof value === 'boolean') {
-        value = value ? 'Yes' : 'No';
+        value = value ? i18n.t('Yes') : i18n.t('No');
     }
 
     if (key === 'zoomLevels') {

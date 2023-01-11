@@ -436,7 +436,7 @@ function Quest() {
                             if (objective.foundInRaid) {
                                 attributes.push({
                                     name: t('Found in raid'),
-                                    value: 'Yes',
+                                    value: t('Yes'),
                                 });
                             }
                             if (objective.dogTagLevel) {
