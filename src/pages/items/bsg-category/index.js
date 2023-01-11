@@ -58,7 +58,8 @@ function BsgCategory() {
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {t('Escape from Tarkov')} 
+                    {t('Escape from Tarkov')}
+                    {' - '}
                     {category.name}
                 </h1>
                 <Filter center>
