@@ -23,44 +23,6 @@ import './index.css';
 
 const defaultGroupNames = ['S', 'A', 'B', 'C', 'D', 'E', 'F'];
 
-const filterOptions = [
-    {
-        value: 'barter',
-        label: 'Barter',
-        default: true,
-    },
-    {
-        value: 'keys',
-        label: 'Keys',
-        default: true,
-    },
-    // {
-    //     value: 'marked',
-    //     label: 'Marked',
-    //     default: false,
-    // },
-    {
-        value: 'mods',
-        label: 'Mods',
-        default: true,
-    },
-    {
-        value: 'provisions',
-        label: 'Provisions',
-        default: true,
-    },
-    {
-        value: 'wearable',
-        label: 'Wearable',
-        default: true,
-    },
-    {
-        value: 'gun',
-        label: 'Gun',
-        default: true,
-    },
-];
-
 const DEFAULT_MAX_ITEMS = 244;
 
 const arrayChunk = (inputArray, chunkLength) => {
@@ -89,6 +51,44 @@ function LootTier(props) {
         'groupByType',
         false,
     );
+    const { t } = useTranslation();
+    const filterOptions = [
+        {
+            value: 'barter',
+            label: t('Barters'),
+            default: true,
+        },
+        {
+            value: 'keys',
+            label: t('Keys'),
+            default: true,
+        },
+        // {
+        //     value: 'marked',
+        //     label: 'Marked',
+        //     default: false,
+        // },
+        {
+            value: 'mods',
+            label: t('Mods'),
+            default: true,
+        },
+        {
+            value: 'provisions',
+            label: t('Provisions'),
+            default: true,
+        },
+        {
+            value: 'wearable',
+            label: t('Wearables'),
+            default: true,
+        },
+        {
+            value: 'gun',
+            label: t('Guns'),
+            default: true,
+        },
+    ];
     const [filters, setFilters] = useStateWithLocalStorage('filters', {
         name: '',
         types: filterOptions
@@ -103,7 +103,6 @@ function LootTier(props) {
     });
 
     const { data: items } = useItemsQuery();
-    const { t } = useTranslation();
 
     const handleFilterChange = (selectedFilters) => {
         QueueBrowserTask.task(() => {
@@ -335,25 +334,25 @@ function LootTier(props) {
     );
 
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'loot-tiers-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Loot tiers')}</title>
+            <title>{t('Loot tiers')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="Visualization of all different valuable loot"
+                content={t('loot-tiers-page-description', 'Learn about the different types of loot available in the game, their value, rarity, and what to keep and what to trash.')}
             />
         </Helmet>,
         <div
-            className="display-wrapper loot-tier-main-wrapper"
+            className="display-wrapper loot-tiers-main-wrapper"
             key={'display-wrapper'}
         >
-            <div className='loot-tier-wrapper'>
-                <h1 className='loot-tier-text'>
+            <div className='loot-tiers-wrapper'>
+                <h1 className='loot-tiers-text'>
                     {t('Escape from Tarkov')}
                     <Icon path={mdiFinance} size={1.5} className="icon-with-text" /> 
                     {t('Loot tiers')}
                 </h1>
-                <p className='loot-tier-text'>Escape from Tarkov "loot tiers" - Ranking the most valuable items in the game</p>
+                <p className='loot-tiers-text'>{t('Ranking the most valuable items in the game')}</p>
             </div>
             <Filter fullWidth>
                 <ToggleFilter
@@ -378,14 +377,14 @@ function LootTier(props) {
                 />
                 <InputFilter
                     defaultValue={minPrice || ''}
-                    placeholder={t('Min value')}
+                    placeholder={t('min value')}
                     type={'number'}
                     onChange={minPriceHandler}
                 />
                 <InputFilter
                     defaultValue={filters.name || ''}
+                    placeholder={t('filter on item')}
                     type={'text'}
-                    placeholder={t('btc, graphics e.t.c')}
                     onChange={handleFilterNameChange}
                 />
             </Filter>

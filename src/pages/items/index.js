@@ -15,12 +15,12 @@ import './index.css';
 function Items(props) {
     const { t } = useTranslation();
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'items-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Items')}</title>
+            <title>{t('Items')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="Escape from Tarkov item guides and graphs"
+                content={t('items-page-description', 'This page includes links to pages with information on different item categories, including armor, backpacks, barter items, containers, glasses, grenades, guns, headsets, helmet, keys, gun mods, pistol grips, provisions, rigs, suppressors, and more.')}
             />
         </Helmet>,
         <div className={'page-wrapper'} key="map-page-wrapper">
@@ -52,6 +52,12 @@ function Items(props) {
                         />
                     </Link>
                 ))}
+            </div>
+
+            <div className="page-wrapper items-page-wrapper">
+                <p>
+                    {t('items-page-description', 'This page includes links to pages with information on different item categories, including armor, backpacks, barter items, containers, glasses, grenades, guns, headsets, helmet, keys, gun mods, pistol grips, provisions, rigs, suppressors, and more.')}
+                </p>
             </div>
         </div>,
     ];

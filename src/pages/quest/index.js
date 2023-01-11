@@ -128,9 +128,7 @@ function Quest() {
         if (currentQuest.minPlayerLevel) {
             playerLevel = (
                 <div key={'player-level-req'}>
-                    {t('Player level: {{playerLevel}}', {
-                        playerLevel: currentQuest.minPlayerLevel,
-                    })}
+                    {t('Player level: {{playerLevel}}', { playerLevel: currentQuest.minPlayerLevel })}
                 </div>
             );
         }
@@ -144,7 +142,7 @@ function Quest() {
                         return (
                             <div key={`req-trader-${trader.id}`}>
                                 <Link to={`/traders/${trader.normalizedName}`}>{trader.name}</Link>
-                                <span>{` LL${traderReq.level}`}</span>
+                                <span>{` ${t('LL{{level}}', { level: traderReq.level })}`}</span>
                             </div>
                         );
                     })}
@@ -164,6 +162,7 @@ function Quest() {
                                 <span>
                                     {`: ${taskReq.status
                                         .map((taskStatus) => {
+                                            // possible values for t already specified in Quests page
                                             return t(taskStatus);
                                         })
                                         .join(', ')}`}
@@ -195,12 +194,12 @@ function Quest() {
     }
 
     return [
-        <Helmet key={'quest-page-helmet'}>
+        <Helmet key={'task-helmet'}>
             <meta charSet="utf-8" />
-            <title>{`${currentQuest.name} - Escape from Tarkov`}</title>
+            <title>{currentQuest.name} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={`All the relevant information about ${currentQuest.name}`}
+                content={t('task-page-description', 'This page includes information on the objectives, rewards, and strategies for completing task {{questName}}. Get tips on how to prepare for and succeed in your mission.', { questName: currentQuest.name })}
             />
             <link rel="canonical" href={`https://tarkov.dev/task/${currentQuest.normalizedName}`} />
         </Helmet>,
@@ -225,7 +224,7 @@ function Quest() {
                         </h1>
                         {currentQuest.wikiLink && (
                             <div className="wiki-link-wrapper">
-                                <a href={currentQuest.wikiLink}>{t('Wiki')}</a>
+                                <a href={currentQuest.wikiLink} target="_blank" rel="noopener noreferrer">{t('Wiki')}</a>
                             </div>
                         )}
                         {typeof currentQuest.tarkovDataId !== 'undefined' && (
@@ -282,11 +281,11 @@ function Quest() {
                 {/* loop through all the values in mapJson array and if there is a match, add a link to the map */}
                 {currentQuest.map &&
                     mapJson.map((map) => {
-                        if (map.normalizedName === currentQuest.map.name.toLowerCase()) {
+                        if (map.normalizedName === currentQuest.map.normalizedName) {
                             return (
                                 <div key={`map-link-${map.normalizedName}`}>
                                     <Link to={map.primaryPath}>
-                                        {t('View Map')} - {currentQuest.map.name}
+                                        {t('View Map')} - {t(map.name)}
                                     </Link>
                                 </div>
                             );
@@ -403,21 +402,17 @@ function Quest() {
                         if (objective.type === 'experience') {
                             taskDetails = (
                                 <>
-                                    {`${t(
-                                        'Have the {{effectNames}} effect(s) on your {{bodyParts}} for {{operator}} {{seconds}} seconds',
-                                        {
+                                    {`${t('Have the {{effectNames, list}} effect(s) on your {{bodyParts, list}} for {{operator}} {{count}} seconds', {
                                             effectNames: objective.healthEffect.effects
                                                 .map((effect) => {
                                                     return t(effect);
-                                                })
-                                                .join(', '),
+                                                }),
                                             bodyParts: objective.healthEffect.bodyParts
                                                 .map((part) => {
                                                     return t(part);
-                                                })
-                                                .join(', '),
+                                                }),
                                             operator: objective.healthEffect.time.compareMethod,
-                                            seconds: objective.healthEffect.time.value,
+                                            count: objective.healthEffect.time.value,
                                         },
                                     )}`}
                                 </>
@@ -426,12 +421,11 @@ function Quest() {
                         if (objective.type === 'extract') {
                             taskDetails = (
                                 <>
-                                    {t('Extract with the status(es): {{extractStatuses}}', {
+                                    {t('Extract with the status(es): {{extractStatuses, list}}', {
                                         extractStatuses: objective.exitStatus
                                             .map((status) => {
                                                 return t(status);
-                                            })
-                                            .join(', '),
+                                            }),
                                     })}
                                 </>
                             );
@@ -442,7 +436,7 @@ function Quest() {
                             if (objective.foundInRaid) {
                                 attributes.push({
                                     name: t('Found in raid'),
-                                    value: 'Yes',
+                                    value: t('Yes'),
                                 });
                             }
                             if (objective.dogTagLevel) {
@@ -504,39 +498,39 @@ function Quest() {
                             taskDetails = (
                                 <>
                                     <>
-                                        {t('{{shootOrKill}} {{target}} {{shotCount}} time(s)', {
+                                        {t('{{shootOrKill}} {{target}} {{count}} times', {
+                                            // t('Shoot)
+                                            // t('Kill')
                                             shootOrKill: t(verb),
-                                            shotCount: objective.count,
                                             target: objective.target,
+                                            count: objective.count,
                                         })}
                                     </>
                                     {objective.distance && (
                                         <div>
-                                            {t('From distance: {{operator}} {{distance}} meters', {
+                                            {t('From distance: {{operator}} {{count}} meters', {
                                                 operator: objective.distance.compareMethod,
-                                                distance: objective.distance.value,
+                                                count: objective.distance.value,
                                             })}
                                         </div>
                                     )}
                                     {objective.zoneNames?.length > 0 && (
                                         <div>
-                                            {t('While inside: {{zoneList}}', {
+                                            {t('While inside: {{zoneList, list}}', {
                                                 zoneList: objective.zoneNames
                                                     .map((zone) => {
                                                         return t(zone);
-                                                    })
-                                                    .join(', '),
+                                                    }),
                                             })}
                                         </div>
                                     )}
                                     {objective.bodyParts?.length > 0 && (
                                         <div>
-                                            {t('Hitting: {{bodyPartList}}', {
+                                            {t('Hitting: {{bodyPartList, list}}', {
                                                 bodyPartList: objective.bodyParts
                                                     .map((part) => {
                                                         return t(part);
-                                                    })
-                                                    .join(', '),
+                                                    }),
                                             })}
                                         </div>
                                     )}
@@ -648,25 +642,22 @@ function Quest() {
                                         <div>
                                             {`${t(
                                                 objective.playerHealthEffect.time
-                                                    ? 'While having the {{effectNames}} effect(s) on your {{bodyParts}} for {{operator}} {{seconds}} seconds'
-                                                    : 'While having the {{effectNames}} effect(s) on your {{bodyParts}}',
+                                                    ? 'While having the {{effectNames, list}} effect(s) on your {{bodyParts, list}} for {{operator}} {{count}} seconds'
+                                                    : 'While having the {{effectNames, list}} effect(s) on your {{bodyParts, list}}',
                                                 {
                                                     effectNames:
                                                         objective.playerHealthEffect.effects
                                                             .map((effect) => {
                                                                 return t(effect);
-                                                            })
-                                                            .join(', '),
+                                                            }),
                                                     bodyParts:
                                                         objective.playerHealthEffect.bodyParts
                                                             .map((part) => {
                                                                 return t(part);
-                                                            })
-                                                            .join(', '),
+                                                            }),
                                                     operator:
-                                                        objective.playerHealthEffect.time
-                                                            ?.compareMethod,
-                                                    seconds:
+                                                        objective.playerHealthEffect.time?.compareMethod,
+                                                    count:
                                                         objective.playerHealthEffect.time?.value,
                                                 },
                                             )}`}
@@ -676,23 +667,20 @@ function Quest() {
                                         <div>
                                             {`${t(
                                                 objective.enemyHealthEffect.time
-                                                    ? 'While target has the {{effectNames}} effect(s) on their {{bodyParts}} for {{operator}} {{seconds}} seconds'
-                                                    : 'While target has the {{effectNames}} effect(s) on their {{bodyParts}}',
+                                                    ? 'While target has the {{effectNames, list}} effect(s) on their {{bodyParts, list}} for {{operator}} {{count}} seconds'
+                                                    : 'While target has the {{effectNames, list}} effect(s) on their {{bodyParts, list}}',
                                                 {
                                                     effectNames: objective.enemyHealthEffect.effects
                                                         .map((effect) => {
                                                             return t(effect);
-                                                        })
-                                                        .join(', '),
+                                                        }),
                                                     bodyParts: objective.enemyHealthEffect.bodyParts
                                                         .map((part) => {
                                                             return t(part);
-                                                        })
-                                                        .join(', '),
+                                                        }),
                                                     operator:
-                                                        objective.enemyHealthEffect.time
-                                                            ?.compareMethod,
-                                                    seconds:
+                                                        objective.enemyHealthEffect.time?.compareMethod,
+                                                    count:
                                                         objective.enemyHealthEffect.time?.value,
                                                 },
                                             )}`}
@@ -734,7 +722,7 @@ function Quest() {
                                     <Link to={`/traders/${trader.normalizedName}`}>
                                         {trader.name}
                                     </Link>
-                                    <span>{` LL${objective.level}`}</span>
+                                    <span>{` ${t('LL{{level}}', { level: objective.level })}`}</span>
                                 </>
                             );
                         }
@@ -862,7 +850,7 @@ function Quest() {
                                         <Link to={`/traders/${trader.normalizedName}`}>
                                             {trader.name}
                                         </Link>
-                                        <span>{` LL${unlock.level}`}</span>
+                                        <span>{` ${t('LL{{level}}', { level: unlock.level })}`}</span>
                                     </li>
                                 );
                             })}

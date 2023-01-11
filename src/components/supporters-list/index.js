@@ -26,7 +26,7 @@ function SupportersList({ tierFilter, typeFilter, type }) {
     if (validSupporters.length === 0) {
         return (
             <p>
-                <a href="https://www.patreon.com/kokarn">
+                <a href="https://www.patreon.com/kokarn" target="_blank" rel="noopener noreferrer">
                     {t('Be the first!')}
                 </a>
             </p>

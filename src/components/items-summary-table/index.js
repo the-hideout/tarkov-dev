@@ -140,7 +140,7 @@ function ItemsSummaryTable(props) {
             className="data-table"
             columns={displayColumns}
             extraRow={extraRow}
-            key="item-table"
+            key="item-summary-table"
             data={data}
             autoResetSortBy={false}
         />

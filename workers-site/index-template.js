@@ -2,7 +2,7 @@ import { getAssetFromKV, mapRequestToAsset } from '@cloudflare/kv-asset-handler'
 
 const gearRedirects = {
     "/gear/": "/items/",
-    "/gear/armor": "/items/armor",
+    "/gear/armors": "/items/armors",
     "/gear/backpacks": "/items/backpacks",
     "/gear/helmets": "/items/helmets",
     "/gear/glasses": "/items/glasses",

@@ -14,10 +14,10 @@ function Containers(props) {
     return [
         <Helmet key={'containers-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Containers')}</title>
+            <title>{t('Containers')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="All containers in Escape from Tarkov sortable by price, slot-ratio, size etc"
+                content="This page includes a sortable table with information on the different types of containers available in the game, including their price, slot-ratio, size, and other characteristics."
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
@@ -29,7 +29,7 @@ function Containers(props) {
                 </h1>
                 <Filter>
                     <ToggleFilter
-                        label={t("Net price per slot")}
+                        label={t('Net price per slot')}
                         tooltipContent={t('Show price per additional slot of storage gained from the container')}
                         onChange={(e) => {setShowNetPPS(!showNetPPS)}}
                         checked={showNetPPS}

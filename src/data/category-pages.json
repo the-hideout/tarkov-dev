@@ -1,40 +1,5 @@
 [
     {
-        "key": "armor",
-        "displayText": "Armor",
-        "icon": "mdiTshirtCrew"
-    },
-    {
-        "key": "backpacks",
-        "displayText": "Backpacks",
-        "icon": "mdiBagPersonal"
-    },
-    {
-        "key": "barter-items",
-        "displayText": "Barter Items",
-        "icon": "mdiPliers"
-    },
-    {
-        "key": "containers",
-        "displayText": "Containers",
-        "icon": "mdiArchive"
-    },
-    {
-        "key": "glasses",
-        "displayText": "Glasses",
-        "icon": "mdiSunglasses"
-    },
-    {
-        "key": "grenades",
-        "displayText": "Grenades",
-        "icon": "mdiGasCylinder"
-    },
-    {
-        "key": "guns",
-        "displayText": "Guns",
-        "icon": "mdiPistol"
-    },
-    {
         "key": "headsets",
         "displayText": "Headsets",
         "icon": "mdiHeadset"
@@ -45,9 +10,29 @@
         "icon": "mdiRacingHelmet"
     },
     {
-        "key": "keys",
-        "displayText": "Keys",
-        "icon": "mdiKeyVariant"
+        "key": "glasses",
+        "displayText": "Glasses",
+        "icon": "mdiSunglasses"
+    },
+    {
+        "key": "armors",
+        "displayText": "Armors",
+        "icon": "mdiTshirtCrew"
+    },
+    {
+        "key": "rigs",
+        "displayText": "Rigs",
+        "icon": "mdiTshirtCrewOutline"
+    },
+    {
+        "key": "backpacks",
+        "displayText": "Backpacks",
+        "icon": "mdiBagPersonal"
+    },
+    {
+        "key": "guns",
+        "displayText": "Guns",
+        "icon": "mdiPistol"
     },
     {
         "key": "mods",
@@ -60,18 +45,33 @@
         "icon": "mdiHandPointingLeft"
     },
     {
-        "key": "provisions",
-        "displayText": "Provisions",
-        "icon": "mdiFoodForkDrink"
-    },
-    {
-        "key": "rigs",
-        "displayText": "Rigs",
-        "icon": "mdiTshirtCrewOutline"
-    },
-    {
         "key": "suppressors",
         "displayText": "Suppressors",
         "icon": "mdiBottleWine"
+    },
+    {
+        "key": "grenades",
+        "displayText": "Grenades",
+        "icon": "mdiGasCylinder"
+    },
+    {
+        "key": "containers",
+        "displayText": "Containers",
+        "icon": "mdiArchive"
+    },
+    {
+        "key": "barter-items",
+        "displayText": "Barter Items",
+        "icon": "mdiPliers"
+    },
+    {
+        "key": "keys",
+        "displayText": "Keys",
+        "icon": "mdiKeyVariant"
+    },
+    {
+        "key": "provisions",
+        "displayText": "Provisions",
+        "icon": "mdiFoodForkDrink"
     }
 ]

@@ -45,11 +45,11 @@ function PropertyList({ properties }) {
                                             content={value.tooltip}
                                             placement="bottom"
                                         >
-                                            <div>{t(children)}</div>
+                                            <div>{children}</div>
                                         </Tippy>
                                     }
                                 >
-                                    {property}
+                                    {value.label ? value.label : t(property)}
                                 </ConditionalWrapper>
                             </div>
                         </div>

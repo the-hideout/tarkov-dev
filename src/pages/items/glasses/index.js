@@ -15,10 +15,10 @@ function Glasses() {
     return [
         <Helmet key={'glasses-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Glasses')}</title>
+            <title>{t('Glasses')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="All glasses in Escape from Tarkov sortable by price, armor class etc"
+                content={t('glasses-page-description', 'This page includes a sortable table with information on the different types of glasses available in the game, including their price, armor class, and other characteristics.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>

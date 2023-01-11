@@ -47,7 +47,7 @@ function ServerStatus() {
     }
 
     if (status === 'success' && data.data.status.length === 0) {
-        return 'No data';
+        return t('No data');
     }
 
     if (
@@ -60,7 +60,7 @@ function ServerStatus() {
                     placement="top"
                     content={data.data.status.messages[0]?.content}
                 >
-                    <a href="https://status.escapefromtarkov.com/">
+                    <a href="https://status.escapefromtarkov.com/" target="_blank" rel="noopener noreferrer">
                         {t(`Tarkov server status`)}
                         <div
                             className={`status-indicator status-${data.data.status.generalStatus.status}`}
@@ -77,7 +77,7 @@ function ServerStatus() {
 
     return (
         <div className={`server-status-wrapper`}>
-            <a href="https://status.escapefromtarkov.com/">
+            <a href="https://status.escapefromtarkov.com/" target="_blank" rel="noopener noreferrer">
                 {t(`Tarkov server status`)}
                 <div
                     className={`status-indicator status-${data.data.status.generalStatus.status}`}

@@ -16,10 +16,10 @@ function Backpacks() {
     return [
         <Helmet key={'backpacks-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Backpacks Chart')}</title>
+            <title>{t('Backpacks')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="All backpacks in Escape from Tarkov sortable by price, size etc"
+                content={t('backpacks-page-description', 'This page includes a sortable table with information on the different types of backpacks available in the game, including their price, size, capacity, and other characteristics.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
@@ -27,7 +27,7 @@ function Backpacks() {
                 <h1>
                     {t('Escape from Tarkov')}
                     <Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" /> 
-                    {t('Backpacks Chart')}
+                    {t('Backpacks')}
                 </h1>
                 <Filter>
                     <ToggleFilter

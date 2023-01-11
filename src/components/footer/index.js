@@ -27,7 +27,7 @@ function Footer() {
                     {t(
                         'The whole platform is open source and focused around developers. All code is available on',
                     )}{' '}
-                    <a href="https://github.com/the-hideout/tarkov-dev">
+                    <a href="https://github.com/the-hideout/tarkov-dev" target="_blank" rel="noopener noreferrer">
                         <GithubIcon /> <span>GitHub</span>
                     </a>
                 </p>
@@ -35,7 +35,7 @@ function Footer() {
                     {t(
                         'If you wanna have a chat, ask questions or request features, we have a',
                     )}{' '}
-                    <a href="https://discord.gg/XPAsKGHSzH">
+                    <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer">
                         <DiscordIcon /> {t('Discord server')}
                     </a>
                 </p>
@@ -59,7 +59,7 @@ function Footer() {
                 />
                 <p>
                     {t("If you'd also like to support this project, you can make a donation and/or become a backer on")}{' '}
-                    <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noreferrer">Open Collective</a>
+                    <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noopener noreferrer">Open Collective</a>
                 </p>
                 <OpenCollectiveButton />
                 <h3>{t('Item Data')}</h3>
@@ -67,7 +67,7 @@ function Footer() {
                     {t(
                         'Fresh data on EFT item attribtues and hideout crafts courtesy of',
                     )}{' '}
-                    <a href="https://tarkov-changes.com">
+                    <a href="https://tarkov-changes.com" target="_blank" rel="noopener noreferrer">
                         <span>Tarkov-Changes</span>
                     </a>
                 </p>
@@ -122,17 +122,17 @@ function Footer() {
                 </p>
                 <h3>{t('External resources')}</h3>
                 <p>
-                    <a href="https://developertracker.com/escape-from-tarkov/">
+                    <a href="https://developertracker.com/escape-from-tarkov/" target="_blank" rel="noopener noreferrer">
                         Escape from Tarkov Dev tracker
                     </a>
                 </p>
                 <p>
-                    <a href="https://github.com/RatScanner/RatScanner">
+                    <a href="https://github.com/RatScanner/RatScanner" target="_blank" rel="noopener noreferrer">
                         RatScanner
                     </a>
                 </p>
                 <p>
-                    <a href="https://tarkovtracker.io/">TarkovTracker</a>
+                    <a href="https://tarkovtracker.io/" target="_blank" rel="noopener noreferrer">TarkovTracker</a>
                 </p>
                 <p>
                     <iframe className='discord' title="discord-iframe" src="https://discord.com/widget?id=956236955815907388&theme=dark" allowtransparency="true" frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
@@ -150,7 +150,7 @@ function Footer() {
             </div>
             <div className="copyright-wrapper">
                 {'version: '}
-                <a href="https://github.com/the-hideout/tarkov-dev/commits/main">{version}</a>
+                <a href="https://github.com/the-hideout/tarkov-dev/commits/main" target="_blank" rel="noopener noreferrer">{version}</a>
             </div>
         </div>
     );

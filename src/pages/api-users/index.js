@@ -10,7 +10,7 @@ function ApiUsers() {
             <h1>{t('Tarkov.dev API Users')}</h1>
             <p>
                 {t('Want to be included on this page? Join the')}{' '}
-                <a href="https://discord.gg/XPAsKGHSzH">Discord</a>{' '}
+                <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer">Discord</a>{' '}
                 {t("and tell us about what you've made!")}
             </p>
             {apiUsers.map((apiUser) => {
@@ -23,7 +23,7 @@ function ApiUsers() {
                         key={`api-user-${projectKey}`}
                     >
                         <h2>
-                            <a href={apiUser.link}>{apiUser.title}</a>
+                            <a href={apiUser.link} target="_blank" rel="noopener noreferrer">{apiUser.title}</a>
                         </h2>
                         <div className="api-user-data-wrapper">
                             {apiUser.text}

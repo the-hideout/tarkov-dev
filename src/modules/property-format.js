@@ -31,8 +31,12 @@ const itemCategoryLinkFormat = inputCategory => {
 };
 
 const formatter = (key, value) => {
+    let label = null;
     let tooltip = false;
     if (typeof value === 'object' && value !== null && value.value) {
+        if (value.label) {
+            label = value.label;
+        }
         if (value.tooltip) {
             tooltip = value.tooltip;
         }
@@ -148,10 +152,11 @@ const formatter = (key, value) => {
 
     value = {
         value: value,
+        label: label ? label : displayKey,
         tooltip: tooltip,
     }
 
-    return [displayKey, value];
+    return [key, value];
 };
 
 export default formatter;

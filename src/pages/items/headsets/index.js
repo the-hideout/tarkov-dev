@@ -33,12 +33,12 @@ function Headsets() {
     );
 
     return [
-        <Helmet key={'barter-items-helmet'}>
+        <Helmet key={'headsets-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Headsets')}</title>
+            <title>{t('Headsets')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={`All the relevant information about Escape from Tarkov`}
+                content={t('headsets-page-description', 'This page includes a sortable table with information on the different types of headsets available in the game, including their price, aviability, and other characteristics.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
@@ -64,7 +64,7 @@ function Headsets() {
                     <InputFilter
                         defaultValue={nameFilter}
                         onChange={handleNameFilterChange}
-                        placeholder={t('Search...')}
+                        placeholder={t('filter on item')}
                     />
                 </Filter>
             </div>

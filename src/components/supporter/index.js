@@ -17,7 +17,7 @@ function Supporter(props) {
     return (
         <div className={`supporter-wrapper ${props.inline ? 'inline' : ''}`}>
             {props.link && (
-                <a href={props.link}>
+                <a href={props.link} target="_blank" rel="noopener noreferrer">
                     <div className="supporter-name-wrapper">{props.name}</div>
                     {supporterTypes}
                 </a>
