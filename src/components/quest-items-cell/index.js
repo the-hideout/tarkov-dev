@@ -24,8 +24,8 @@ const foundInRaidPart = (questItem, t) => {
         {
         // t('On Task Completion')
         // t('On Task Start')
+        t(rewardMap[questItem.rewardType])
         }
-        {t(rewardMap[questItem.rewardType])}
     </div>
 };
 
