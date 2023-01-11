@@ -18,6 +18,7 @@ import TraderResetTime from '../../../components/trader-reset-time';
 import { selectAllTraders, fetchTraders } from '../../../features/traders/tradersSlice';
 import ErrorPage from '../../../components/error-page';
 import LoadingSmall from '../../../components/loading-small';
+import i18n from '../../../i18n';
 
 const romanLevels = {
     0: '0',
@@ -81,9 +82,6 @@ function Trader() {
             clearInterval(timer);
         };
     }, [tradersStatus, dispatch]);
-
-    if (traders.length === 0) 
-        return loadingPage(traderName, t);
     
     const trader = traders.find(tr => tr.normalizedName === traderName);
     if (!trader) 
@@ -92,16 +90,16 @@ function Trader() {
     let resetTime = (<LoadingSmall/>);
     if (trader.resetTime) {
         resetTime = (
-            <TraderResetTime timestamp={trader.resetTime} />
+            <TraderResetTime timestamp={trader.resetTime} locale={i18n.language} />
         );
     }
     return [
         <Helmet key={`${traderName}-helmet`}>
             <meta charSet="utf-8" />
-            <title>{trader.name} - Escape from Tarkov Trader</title>
+            <title>{t('Trader {{trader}}', { trader: trader.name })} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={`All ${trader.name} items and tasks in Escape from Tarkov`}
+                content={t('trader-page-description', 'Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty', { trader: trader.name })}
             />
         </Helmet>,
         <div className="page-wrapper" key={'page-wrapper'}>
@@ -133,7 +131,7 @@ function Trader() {
                                     key={level.level}
                                     tooltipContent={
                                         <>
-                                            {`${t('Unlocks at Loyalty Level')} ${level.level}`}
+                                            {t('Unlocks at Loyalty Level {{level}}', { level: level.level})}
                                         </>
                                     }
                                     selected={selectedTable === level.level}
@@ -159,7 +157,7 @@ function Trader() {
                     <InputFilter
                         defaultValue={nameFilter}
                         onChange={handleNameFilterChange}
-                        placeholder={t('Search...')}
+                        placeholder={t('filter on item')}
                     />
                 </Filter>
             </div>
@@ -195,29 +193,5 @@ function Trader() {
         </div>,
     ];
 }
-
-const loadingPage = (traderName, t) => {
-    const capitalized = traderName.charAt(0).toUpperCase() + traderName.slice(1);
-    return [
-        <Helmet key={`${traderName}-helmet`}>
-            <meta charSet="utf-8" />
-            <title>{capitalized+' '+t('Items')}</title>
-            <meta
-                name="description"
-                content={`All ${capitalized} items and barters in Escape from Tarkov`}
-            />
-        </Helmet>,
-        <div className="page-wrapper" key={'page-wrapper'}>
-            <div className="page-headline-wrapper">
-                <h1>
-                    {capitalized} {t('Items')}
-                    <cite>
-                        Loading...
-                    </cite>
-                </h1>
-            </div>
-        </div>,
-    ];
-};
 
 export default Trader;

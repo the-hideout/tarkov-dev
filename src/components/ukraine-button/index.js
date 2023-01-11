@@ -11,6 +11,7 @@ function UkraineButton({ onlyLarge, linkStyle, wrapperStyle, text, children }) {
             className={'ua-button'}
             variant="contained"
             href="https://www.icrc.org/en/donate/ukraine"
+            target="_blank" rel="noopener noreferrer"
         >
             {t('Support Ukraine')}
         </Button>
@@ -21,7 +22,7 @@ function UkraineButton({ onlyLarge, linkStyle, wrapperStyle, text, children }) {
     //         className={`ukraine-wrapper ${onlyLarge ? 'only-large' : ''}`}
     //         style={wrapperStyle}
     //     >
-    //         <a href="https://www.icrc.org/en/donate/ukraine" style={linkStyle}>
+    //         <a href="https://www.icrc.org/en/donate/ukraine" style={linkStyle} target="_blank" rel="noopener noreferrer">
     //             {children ? children : t('Support Ukraine')}
     //         </a>
     //     </p>

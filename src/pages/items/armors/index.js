@@ -23,7 +23,7 @@ const marks = {
     6: 6,
 };
 
-function Armor(props) {
+function Armors(props) {
     const [showAllArmorSources, setShowAllArmorSources] = useState(false);
     const [useClassEffectiveDurability, setUseClassEffectiveDurability] = useStateWithLocalStorage(
         'useClassEffectiveDurability',
@@ -59,12 +59,12 @@ function Armor(props) {
     }
 
     return [
-        <Helmet key={'armor-table'}>
+        <Helmet key={'armors-table'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Armors')}</title>
+            <title>{t('Armors')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="All armor in Escape from Tarkov sortable by price, repairability, armor class etc"
+                content={t('armors-page-description', 'This page includes a sortable table with information on the different types of armor available in the game, including their price, repairability, armor class, and other characteristics.')}
             />
         </Helmet>,
         <div className="display-wrapper" key={'display-wrapper'}>
@@ -108,7 +108,7 @@ function Armor(props) {
                         defaultValue={maxPrice || ''}
                         label={t('Max price')}
                         onChange={(e) => setMaxPrice(Number(e.target.value))}
-                        placeholder={t('Max price')}
+                        placeholder={t('max price')}
                         type="number"
                     />
                 </Filter>
@@ -147,4 +147,4 @@ function Armor(props) {
     ];
 }
 
-export default Armor;
+export default Armors;

@@ -210,6 +210,7 @@ const selectFilterStyle = {
 };
 
 function SelectFilter({
+    placeholder,
     defaultValue,
     value,
     options,
@@ -256,6 +257,7 @@ function SelectFilter({
                 <Select
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    placeholder={placeholder}
                     defaultValue={defaultValue}
                     value={value}
                     isMulti={isMulti}
@@ -273,6 +275,7 @@ function SelectFilter({
 }
 
 function SelectItemFilter({
+    placeholder,
     defaultValue,
     value,
     selection,
@@ -294,6 +297,7 @@ function SelectItemFilter({
     const elements = [(
         <SelectFilter
             key={'select-item-filter'}
+            placeholder={placeholder}
             label={label}
             options={items.map((item) => {
                 return {

@@ -60,7 +60,7 @@ function TraderPriceCell(props) {
         ) : 
             formatPrice(trader.price*count);
     const questLocked = trader.vendor.taskUnlock;
-    const loyaltyString = `LL${trader.vendor.minTraderLevel}`;
+    const loyaltyString = t('LL{{level}}', { level: trader.vendor.minTraderLevel });
 
     if (questLocked) {
         printString = (

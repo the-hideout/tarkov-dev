@@ -8,16 +8,16 @@ import './index.css';
 function ErrorPage(props) {
     const { t } = useTranslation();
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'error-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t(`Page not found - Escape from Tarkov`)}</title>
+            <title>{t('Page not found')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content={t(`This is not the page you are looking for`)}
+                content={t('error-page-description', 'This is not the page you are looking for')}
             />
         </Helmet>,
         <div className="page-wrapper error-page" key={'display-wrapper'}>
-            <h1>{t(`Sorry, that page doesn't exist!`)}</h1>
+            <h1>{t("Sorry, that page doesn't exist!")}</h1>
             <ItemSearch showDropdown />
         </div>,
     ];

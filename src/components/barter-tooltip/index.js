@@ -33,7 +33,7 @@ function BarterToolip({ barter, source, requiredItems, showTitle = true, title, 
                     size={1}
                     className="icon-with-text"
                 />
-                {t('Barter at')} {source}
+                {t('Barter at {{trader}}', { trader: source })}
             </h3>
         );
         if (title) {

@@ -182,10 +182,6 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
             .filter((barter) => {
                 let trader = barter.trader.normalizedName;
                 let level = barter.level;
-                /*let [trader, level] = barter.source.split('LL');
-
-                level = parseInt(level);
-                trader = trader.trim();*/
 
                 if (
                     !nameFilter &&
@@ -299,8 +295,6 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                 );
 
                 let level = barterRow.level;
-                /*let [trader, level] = barterRow.source.split('LL');
-                trader = trader.trim();*/
 
                 const tradeData = {
                     costItems: costItems,
@@ -323,7 +317,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                         sellToNormalized: 'none',
                         name: barterRow.rewardItems[0].item.name,
                         sellValue: 0,
-                        source: barterRow.trader.name + ' LL' + level,
+                        source: `${barterRow.trader.name} ${t('LL{{level}}', { level: level })}`,
                         iconLink:
                             barterRow.rewardItems[0].item.iconLink ||
                             'https://tarkov.dev/images/unknown-item-icon.jpg',
@@ -367,7 +361,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     //this item cannot be purchased for cash
                     if (cheapestBarter.priceRUB !== cost) {
                         tradeData.savingsParts.push({
-                            name: `${cheapestBarter.vendor.name} LL${cheapestBarter.vendor.minTraderLevel} ${t('Barter')}`,
+                            name: `${cheapestBarter.vendor.name} ${t('LL{{level}}', { level: cheapestBarter.vendor.minTraderLevel })} ${t('Barter')}`,
                             value: cheapestBarter.priceRUB
                         });
                     }
@@ -376,7 +370,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     // savings based on cheapest cash price
                     let sellerName = cheapestPrice.vendor.name;
                     if (cheapestPrice.vendor.minTraderLevel) {
-                        sellerName += ` LL${cheapestPrice.vendor.minTraderLevel}`;
+                        sellerName += ` ${t('LL{{level}}', { level: cheapestPrice.vendor.minTraderLevel })}`;
                     }
                     tradeData.savingsParts.push({
                         name: sellerName,

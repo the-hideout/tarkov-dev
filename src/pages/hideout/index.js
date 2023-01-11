@@ -58,7 +58,7 @@ function Hideout() {
     return [
         <Helmet key={'hideout-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Hideout')}</title>
+            <title>{t('Escape from Tarkov')} - {t('Hideout')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
                 content={`All the relevant information about the Escape from Tarkov Hideout`}

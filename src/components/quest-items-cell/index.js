@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import './index.css';
 
@@ -20,7 +21,11 @@ const foundInRaidPart = (questItem, t) => {
         </div>
     }
     return <div className={`found-in-raid-wrapper`}>
-        {t(rewardMap[questItem.rewardType])}
+        {
+        // t('On Task Completion')
+        // t('On Task Start')
+        t(rewardMap[questItem.rewardType])
+        }
     </div>
 };
 
@@ -31,13 +36,15 @@ function QuestItemsCell({ questItems }) {
             <div className="quest-item-wrapper" key={`quest-item-${index}`}>
                 <div className="quest-image-wrapper">
                     <img
-                        alt={questItem.name}
+                        alt={questItem.item.name}
                         loading="lazy"
-                        src={questItem.iconLink}
+                        src={questItem.item.iconLink}
                     />
                 </div>
                 <div className="quest-item-text-wrapper">
-                    {questItem.name}
+                    <Link to={`/item/${questItem.item.normalizedName}`}>
+                        {questItem.item.name}
+                    </Link>
                     <div className="amount-wrapper">
                         {t('Amount')}
                         <span>:</span> {questItem.count}

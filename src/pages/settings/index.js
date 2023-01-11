@@ -81,11 +81,11 @@ function Settings() {
         'booze-generator': useRef(null),
         'christmas-tree': useRef(null),
         'intelligence-center': useRef(null),
-        lavatory: useRef(null),
-        medstation: useRef(null),
+        'lavatory': useRef(null),
+        'medstation': useRef(null),
         'nutrition-unit': useRef(null),
         'water-collector': useRef(null),
-        workbench: useRef(null),
+        'workbench': useRef(null),
         'solar-power': useRef(null),
     };
 
@@ -247,7 +247,7 @@ function Settings() {
                 />
                 <InputFilter
                     label={
-                        <a href="https://tarkovtracker.io/settings/">
+                        <a href="https://tarkovtracker.io/settings/" target="_blank" rel="noopener noreferrer">
                             {t('TarkovTracker API Token')}
                         </a>
                     }
@@ -340,7 +340,7 @@ function Settings() {
                         </div>
                     )}
                 />
-                <h2>{t('Misc.')}</h2>
+                <h2>{t('Miscellaneous')}</h2>
                 <ToggleFilter
                     label={t('Hide remote control')}
                     onChange={handleHideRemoteValueToggle}

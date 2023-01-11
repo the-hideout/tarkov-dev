@@ -144,23 +144,35 @@ function BossPage(params) {
         spawnStatsMsg.push(`${displayPercent}% (${map.name})`)
     }
 
-    bossProperties[t('spawnChance') + ` 🎲`] = {
+    bossProperties['spawnChance'] = {
         value: spawnStatsMsg.join(', '),
+        label: `${t('Spawn chance')} 🎲`,
         tooltip: t('Chance that the boss spawns on a given map'),
     };
 
     // Display health stats
     if (bossJsonData) {
-        bossProperties[t('health') + ' 🖤'] = {
+        bossProperties['health'] = {
             value: bossJsonData.health,
+            label: `${t('Health')} 🖤`,
             tooltip: t('Total boss health'),
         };
     }
 
     // Display behavior info
     if (bossJsonData) {
-        bossProperties[t('behavior') + ' 💡'] = {
-            value: bossJsonData.behavior,
+        bossProperties['behavior'] = {
+            // t('patrol')
+            // t('rush')
+            // t('stalker')
+            // t('hostile and accurate')
+            // t('patrol and highly armored')
+            // t('group patrol')
+            // t('frequent healing and stim injections')
+            // t('sniper')
+            // t('batshit insane')
+            value: t(bossJsonData.behavior),
+            label: `${t('Behavior')} 💡`,
             tooltip: t("The boss's general AI behavior"),
         };
     }
@@ -211,7 +223,7 @@ function BossPage(params) {
                         </h1>
                         {bossJsonData &&
                             <span className="wiki-link-wrapper">
-                                <a href={bossJsonData.wikiLink}>
+                                <a href={bossJsonData.wikiLink} target="_blank" rel="noopener noreferrer">
                                     {t('Wiki')}
                                 </a>
                             </span>
@@ -333,6 +345,8 @@ function BossPage(params) {
 }
 
 function Boss() {
+    const { t } = useTranslation();
+    
     // Get the boss name from the url
     const { bossName } = useParams();
     // Capitalize the first letter of the boss name
@@ -342,10 +356,10 @@ function Boss() {
     return [
         <Helmet key={`boss-helmet-${bossName}`}>
             <meta key={`boss-charset-${bossName}`} charSet="utf-8" />
-            <title key={`boss-title-${bossName}`}>{`${boss} - Escape from Tarkov`}</title>
+            <title key={`boss-title-${bossName}`}>{boss} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta key={`boss-meta-${bossName}`}
                 name="description"
-                content={`All the relevant information about ${boss} (boss) in Escape from Tarkov`}
+                content={t('boss-page-description', 'This page includes information on {{bossName}} location, loot, and strategies for defeating him.', { bossName: boss })}
             />
             <link
                 rel="canonical"

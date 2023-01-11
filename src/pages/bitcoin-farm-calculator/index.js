@@ -53,12 +53,12 @@ const BitcoinFarmCalculator = () => {
     }
 
     return [
-        <Helmet key={'loot-tier-helmet'}>
+        <Helmet key={'bitcoin-farm-calculator-helmet'}>
             <meta charSet="utf-8" />
-            <title>{t('Bitcoin Farm Price Calculator')}</title>
+            <title>{t('Bitcoin Farm Calculator')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
             <meta
                 name="description"
-                content="Escape from Tarkov Bitcoin farm price and profit calculator"
+                content={t('bitcoin-farm-calculator-page-description', 'This page includes a calculator tool that helps you determine the price of building and maintaining a Bitcoin Farm, based on the number of GPUs, electricity costs, and bitcoin cost.')}
             />
         </Helmet>,
         <div className={'page-wrapper'} key={'display-wrapper'}>
