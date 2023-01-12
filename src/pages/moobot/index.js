@@ -46,7 +46,7 @@ function Moobot() {
                     {t('In response choose URL Fetch - Full (plain) response')}
                 </li>
                 <li>
-                    <pre>https://tarkov.dev/webhook/moobot?q=</pre>
+                    <pre>https://api.tarkov.dev/webhook/moobot?q=</pre>
                     {t('and after insert "Command arguments"')}
                 </li>
             </ul>
