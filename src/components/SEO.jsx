@@ -1,7 +1,8 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 
-export default function SEO({title, description, type="article", url=`${process.env.PUBLIC_URL}/${this.props.location}`}) {
+export default function SEO({title, description, url, image, type="article", card="summary"}) {
+    let urlPath = url ? url : window.location.href;
     return (
         <Helmet>
             { /* Standard metadata tags */ }
@@ -13,14 +14,16 @@ export default function SEO({title, description, type="article", url=`${process.
             <meta property="og:type" content={type} />
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
-            <meta property="og:url" content={url} />
+            <meta property="og:url" content={urlPath} />
+            <meta property="og:image" content={image} />
             { /* End Facebook tags */ }
-
+            
             { /* Twitter tags */ }
-            <meta name="twitter:card" content={type} />
+            <meta name="twitter:card" content={card} />
             <meta name="twitter:title" content={title} />
             <meta name="twitter:description" content={description} />
-            <meta name="twitter:url" content={url} />
+            <meta name="twitter:url" content={urlPath} />
+            <meta name="twitter:image" content={image} />
             { /* End Twitter tags */ }
         </Helmet>
     )
