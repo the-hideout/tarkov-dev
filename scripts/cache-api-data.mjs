@@ -32,14 +32,17 @@ function getLanguageCodes() {
     }));
 }
 
-const getItemNames = (language) => {
+const getItemNames = (langs) => {
+    const queries = langs.map(language => {
+        return `${language}: items(lang: ${language}) {
+            id
+            name
+            shortName
+        }`
+    });
     const QueryBody = JSON.stringify({
         query: `{
-            items(lang: ${language}) {
-                id
-                name
-                shortName
-            }
+            ${queries.join('\n')}
         }`,
     });
     return fetch('https://api.tarkov.dev/graphql', {
@@ -49,20 +52,23 @@ const getItemNames = (language) => {
             Accept: 'application/json',
         },
         body: QueryBody,
-    }).then((response) => response.json()).then(response => response.data.items);
+    }).then((response) => response.json()).then(response => response.data);
 };
 
-const getTaskNames = (language) => {
+const getTaskNames = (langs) => {
+    const queries = langs.map(language => {
+        return `${language}: tasks(lang: ${language}) {
+            id
+            name
+            objectives {
+                id
+                description
+            }
+        }`
+    });;
     const QueryBody = JSON.stringify({
         query: `{
-            tasks(lang: ${language}) {
-                id
-                name
-                objectives {
-                    id
-                    description
-                }
-            }
+            ${queries.join('\n')}
         }`,
     });
     return fetch('https://api.tarkov.dev/graphql', {
@@ -72,16 +78,19 @@ const getTaskNames = (language) => {
             Accept: 'application/json',
         },
         body: QueryBody,
-    }).then((response) => response.json()).then(response => response.data.tasks);
+    }).then((response) => response.json()).then(response => response.data);
 };
 
-const getTraderNames = (language) => {
+const getTraderNames = (langs) => {
+    const queries = langs.map(language => {
+        return `${language}: traders(lang: ${language}) {
+            id
+            name
+        }`;
+    });
     const QueryBody = JSON.stringify({
         query: `{
-            traders(lang: ${language}) {
-                id
-                name
-            }
+            ${queries.join('\n')}
         }`,
     });
     return fetch('https://api.tarkov.dev/graphql', {
@@ -91,7 +100,7 @@ const getTraderNames = (language) => {
             Accept: 'application/json',
         },
         body: QueryBody,
-    }).then((response) => response.json()).then(response => response.data.traders);
+    }).then((response) => response.json()).then(response => response.data);
 };
 
 console.time('Caching API data');
@@ -109,23 +118,24 @@ try {
             item.cached = true;
         }
         fs.writeFileSync('./src/data/items.json', JSON.stringify(items));
-    }));
-    apiPromises.push(new Promise(async resolve => {
-        const itemLangs = {};
-        for (const lang of langs) {
-            await getItemNames(lang).then(items => {
-                const localization = {};
-                items.forEach(item => {
-                    localization[item.id] =  {
-                        name: item.name,
-                        shortName: item.shortName
-                    };
-                });
-                itemLangs[lang] = localization;
+
+        return new Promise(async resolve => {
+            const itemLangs = {};
+            await getItemNames(langs).then(itemResults => {
+                for (const lang in itemResults) {
+                    const localization = {};
+                    itemResults[lang].forEach(item => {
+                        localization[item.id] =  {
+                            name: item.name,
+                            shortName: item.shortName
+                        };
+                    });
+                    itemLangs[lang] = localization;
+                }
             });
-        }
-        fs.writeFileSync(`./src/data/items_locale.json`, JSON.stringify(itemLangs));
-        resolve();
+            fs.writeFileSync(`./src/data/items_locale.json`, JSON.stringify(itemLangs));
+            resolve();
+        });
     }));
 
     apiPromises.push(doFetchBarters('en', true).then(barters => {
@@ -185,17 +195,17 @@ try {
         fs.writeFileSync('./src/data/traders.json', JSON.stringify(traders));
         return new Promise(async resolve => {
             const traderLangs = {};
-            for (const lang of langs) {
-                await getTraderNames(lang).then(traders => {
+            await getTraderNames(langs).then(traderResults => {
+                for (const lang in traderResults) {
                     const localization = {};
-                    traders.forEach(trader => {
+                    traderResults[lang].forEach(trader => {
                         localization[trader.id] =  {
                             name: trader.name
                         };
                     });
                     traderLangs[lang] = localization;
-                });
-            }
+                }
+            });
             fs.writeFileSync(`./src/data/traders_locale.json`, JSON.stringify(traderLangs));
             resolve();
         })
@@ -213,10 +223,10 @@ try {
         fs.writeFileSync('./src/data/quests.json', JSON.stringify(quests));
         return new Promise(async resolve => {
             const taskLangs = {};
-            for (const lang of langs) {
-                await getTaskNames(lang).then(tasks => {
+            await getTaskNames(langs).then(taskResults => {
+                for (const lang in taskResults) {
                     const localization = {};
-                    tasks.forEach(task => {
+                    taskResults[lang].forEach(task => {
                         localization[task.id] =  {
                             name: task.name,
                             objectives: {}
@@ -226,8 +236,8 @@ try {
                         });
                     });
                     taskLangs[lang] = localization;
-                });
-            }
+                }
+            });
             fs.writeFileSync(`./src/data/quests_locale.json`, JSON.stringify(taskLangs));
             resolve();
         });
