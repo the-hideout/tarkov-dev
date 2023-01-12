@@ -1,24 +1,22 @@
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+
 import Icon from '@mdi/react';
 import { mdiMap } from '@mdi/js';
 
-import './index.css';
+import SEO from '../../components/SEO';
 
 import rawMapData from '../../data/maps.json';
+
+import './index.css';
 
 function Maps() {
     const { t } = useTranslation();
     return [
-        <Helmet key={'maps-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('Maps')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('maps-page-description', 'Get the latest information on all maps in Escape from Tarkov, including extract points and loot locations. Find out where to find the best gear and resources in the game')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Maps')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('maps-page-description', 'Get the latest information on all maps in Escape from Tarkov, including extract points and loot locations. Find out where to find the best gear and resources in the game')}
+        />,
         <div className={'page-wrapper'} key="map-page-wrapper">
             <h1 className="center-title">
                 {t('Escape from Tarkov')} 

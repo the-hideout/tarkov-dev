@@ -1,5 +1,4 @@
 import { useEffect, useMemo } from 'react';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -7,16 +6,19 @@ import Icon from '@mdi/react';
 import { mdiHome } from '@mdi/js';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+
+import SEO from '../../components/SEO';
 import ItemsSummaryTable from '../../components/items-summary-table';
-import {
-    selectAllHideoutModules,
-    fetchHideout,
-} from '../../features/hideout/hideoutSlice';
 import {
     Filter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
 } from '../../components/filter';
+
+import {
+    selectAllHideoutModules,
+    fetchHideout,
+} from '../../features/hideout/hideoutSlice';
 
 import './index.css';
 
@@ -56,14 +58,10 @@ function Hideout() {
     }, [hideout]);
 
     return [
-        <Helmet key={'hideout-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Hideout')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={`All the relevant information about the Escape from Tarkov Hideout`}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Hideout')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('hideout-page-description', 'This page includes information on the different station and modules that can be build with the materials and resources required to upgrade your hideout.')}
+        />,
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>

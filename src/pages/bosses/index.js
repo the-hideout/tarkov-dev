@@ -1,10 +1,11 @@
-import { Helmet } from 'react-helmet';
 import React, { Suspense } from 'react';
 import Icon from '@mdi/react';
-import { mdiEmoticonDevil } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
-import Loading from '../../components/loading';
 
+import { mdiEmoticonDevil } from '@mdi/js';
+
+import SEO from '../../components/SEO';
+import Loading from '../../components/loading';
 import { BossPageList } from '../../components/boss-list';
 
 import './index.css';
@@ -12,14 +13,10 @@ import './index.css';
 function Bosses(props) {
     const { t } = useTranslation();
     return [
-        <Helmet key={'bosses-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('Bosses')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('bosses-page-description', 'This page includes information on the all the bosses in the game, their location, loot, escort and strategies for defeating them.')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Bosses')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('bosses-page-description', 'This page includes information on the all the bosses in the game, their location, loot, escort and strategies for defeating them.')}
+        />,
         <div className={'page-wrapper'} key="bosses-page-wrapper">
             <h1 className="center-title">
                 <Icon

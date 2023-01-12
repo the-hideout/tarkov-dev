@@ -1,10 +1,11 @@
 import { useCallback, useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
+
+import SEO from '../../../components/SEO';
 import {
     Filter,
     InputFilter,
@@ -13,11 +14,14 @@ import {
 } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 import QuestTable from '../../../components/quest-table';
-import QueueBrowserTask from '../../../modules/queue-browser-task';
 import TraderResetTime from '../../../components/trader-reset-time';
-import { selectAllTraders, fetchTraders } from '../../../features/traders/tradersSlice';
 import ErrorPage from '../../../components/error-page';
 import LoadingSmall from '../../../components/loading-small';
+
+import QueueBrowserTask from '../../../modules/queue-browser-task';
+
+import { selectAllTraders, fetchTraders } from '../../../features/traders/tradersSlice';
+
 import i18n from '../../../i18n';
 
 const romanLevels = {
@@ -94,14 +98,10 @@ function Trader() {
         );
     }
     return [
-        <Helmet key={`${traderName}-helmet`}>
-            <meta charSet="utf-8" />
-            <title>{t('Trader {{trader}}', { trader: trader.name })} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('trader-page-description', 'Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty', { trader: trader.name })}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Trader {{trader}}', { trader: trader.name })} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('trader-page-description', 'Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty', { trader: trader.name })}
+        />,
         <div className="page-wrapper" key={'page-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>

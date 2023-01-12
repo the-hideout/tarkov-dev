@@ -1,21 +1,21 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-import Icon from '@mdi/react';
-import { mdiClipboardList, mdiTimerSand } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
+import Icon from '@mdi/react';
+import { mdiClipboardList, mdiTimerSand } from '@mdi/js';
+
+import SEO from '../../components/SEO';
 import SmallItemTable from '../../components/small-item-table';
 import CraftsTable from '../../components/crafts-table';
 import BartersTable from '../../components/barters-table';
 import QuestTable, { getRequiredQuestItems, getRewardQuestItems } from '../../components/quest-table';
 import CanvasGrid from '../../components/canvas-grid';
-import warningIcon from '../../images/icon-warning.png';
 import ErrorPage from '../../components/error-page';
 import LoyaltyLevelIcon from '../../components/loyalty-level-icon';
 import PropertyList from '../../components/property-list';
@@ -26,6 +26,9 @@ import { ToggleFilter } from '../../components/filter';
 import ContainedItemsList from '../../components/contained-items-list';
 import LoadingSmall from '../../components/loading-small';
 import ItemImage from '../../components/item-image';
+import { PresetSelector } from '../../components/preset-selector';
+
+import warningIcon from '../../images/icon-warning.png';
 
 import { useMetaQuery } from '../../features/meta/queries';
 import { selectAllBarters, fetchBarters, } from '../../features/barters/bartersSlice';
@@ -44,7 +47,6 @@ import bestPrice from '../../modules/best-price';
 import { isAnyDogtag } from '../../modules/dogtags';
 
 import './index.css';
-import { PresetSelector } from '../../components/preset-selector';
 
 dayjs.extend(relativeTime);
 
@@ -459,18 +461,11 @@ function Item() {
     const buySources = currentItemData.buyFor.filter(buyFor => buyFor.price > 0);
 
     return [
-        <Helmet key={'item-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{currentItemData.name} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('item-page-description', 'This page includes information on the characteristics, uses, and strategies for {{itemName}}.', { itemName: currentItemData.name })}
-            />
-            <link
-                rel="canonical"
-                href={`https://tarkov.dev/item/${currentItemData.normalizedName}`}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${currentItemData.name} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('item-page-description', 'This page includes information on the characteristics, uses, and strategies for {{itemName}}.', { itemName: currentItemData.name })}
+            url={`https://tarkov.dev/item/${currentItemData.normalizedName}`}
+        />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className={'item-page-wrapper'}>
                 <ItemSearch showDropdown />

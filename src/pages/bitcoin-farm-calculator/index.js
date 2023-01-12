@@ -1,14 +1,16 @@
 import { useTranslation } from 'react-i18next';
-import { Helmet } from 'react-helmet';
 
-import './index.css';
 import { useItemByIdQuery } from '../../features/items/queries';
+
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
+import SEO from '../../components/SEO';
 import { Filter, InputFilter, ToggleFilter } from '../../components/filter';
-import formatPrice from '../../modules/format-price';
 import Loading from '../../components/loading';
 import RewardCell from '../../components/reward-cell';
+import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
+
+import formatPrice from '../../modules/format-price';
 
 import {
     BitcoinItemId,
@@ -20,7 +22,8 @@ import {
 } from './data';
 // import BtcGraph from './graph';
 import ProfitInfo from './profit-info';
-import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
+
+import './index.css';
 
 const BitcoinFarmCalculator = () => {
     const { t } = useTranslation();
@@ -53,14 +56,10 @@ const BitcoinFarmCalculator = () => {
     }
 
     return [
-        <Helmet key={'bitcoin-farm-calculator-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('Bitcoin Farm Calculator')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('bitcoin-farm-calculator-page-description', 'This page includes a calculator tool that helps you determine the price of building and maintaining a Bitcoin Farm, based on the number of GPUs, electricity costs, and bitcoin cost.')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Bitcoin Farm Calculator')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('bitcoin-farm-calculator-page-description', 'This page includes a calculator tool that helps you determine the price of building and maintaining a Bitcoin Farm, based on the number of GPUs, electricity costs, and bitcoin cost.')}
+        />,
         <div className={'page-wrapper'} key={'display-wrapper'}>
             <div className="page-headline-wrapper" key="btc-profit-settings">
                 <h1>{t('Bitcoin Farm Calculator')}</h1>

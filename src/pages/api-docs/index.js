@@ -1,10 +1,9 @@
-import { Helmet } from 'react-helmet';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useTranslation } from 'react-i18next';
-// import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
+import SEO from '../../components/SEO';
 import ApiMetricsGraph from '../../components/api-metrics-graph';
 
 import './index.css';
@@ -12,14 +11,10 @@ import './index.css';
 function APIDocs() {
     const { t } = useTranslation();
     return [
-        <Helmet key={'api-docs-page-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('API Documentation')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('api-docs-page-description', 'Escape from Tarkov\'s community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT.')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('API Documentation')} - ${t('Tarkov.dev')}`}
+            description={t('api-docs-page-description', 'Escape from Tarkov\'s community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT.')}
+        />,
         <div className={'page-wrapper api-docs-page-wrapper'}>
             <h1>{t('Tarkov.dev API')}</h1>
             <h2>{t('About')}</h2>

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import { Helmet } from 'react-helmet';
 import { Avatar } from '@primer/react';
 
 // import SupportersList from '../../components/supporters-list';
 
+import SEO from '../../components/SEO';
 import UkraineButton from '../../components/ukraine-button';
 import Contributors from '../../components/contributors';
 
@@ -13,14 +13,10 @@ import './index.css';
 function About() {
     const { t } = useTranslation();
     return [
-        <Helmet key={'about-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('About the tarkov.dev project')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('about-page-description', 'Learn more about the-hideout and tarkov.dev. A free, community made, open source Escape from Tarkov ecosystem! Use our tools to help you play the game, or build your own projects with our free API.')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('About the tarkov.dev project')} - ${t('Tarkov.dev')}`}
+            description={t('about-page-description', 'Learn more about the-hideout and tarkov.dev. A free, community made, open source Escape from Tarkov ecosystem! Use our tools to help you play the game, or build your own projects with our free API.')}
+        />,
         <div className={'page-wrapper'} key="about-page-content">
             <h1>{t('About')}</h1>
             <h2>{t('Open source')}</h2>

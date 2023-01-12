@@ -1,14 +1,16 @@
 import { useMemo, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import {mdiTshirtCrewOutline} from '@mdi/js';
 
+import SEO from '../../../components/SEO';
 import { Filter, ToggleFilter, SliderFilter } from '../../../components/filter';
-import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
-import { useItemsQuery } from '../../../features/items/queries';
 import SmallItemTable from '../../../components/small-item-table';
+
+import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
+
+import { useItemsQuery } from '../../../features/items/queries';
 
 const marks = {
     0: 25,
@@ -50,14 +52,10 @@ function Rigs() {
     };
 
     return [
-        <Helmet key={'rigs-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('Rigs')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('rigs-page-description', 'This page includes a sortable table with information on the different types of rigs available in the game, including their price, inside and outside size, weight, compression, and other characteristics.')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Rigs')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('rigs-page-description', 'This page includes a sortable table with information on the different types of rigs available in the game, including their price, inside and outside size, weight, compression, and other characteristics.')}
+        />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>

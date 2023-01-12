@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+
 import Icon from '@mdi/react';
 import { mdiClipboardList } from '@mdi/js';
 
-import QuestTable from '../../components/quest-table';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+
+import SEO from '../../components/SEO';
+import QuestTable from '../../components/quest-table';
 import {
     Filter,
     InputFilter,
@@ -62,11 +64,10 @@ function Quests() {
     const { t } = useTranslation();
 
     return [
-        <Helmet key={'tasks-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('Tasks')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta name="description" content={t('tasks-page-description', 'Find out everything you need to know about tasks in Escape from Tarkov. Learn about the different types of tasks available in the game, how to complete them, and the rewards you can earn.')} />
-        </Helmet>,
+        <SEO 
+            title={`${t('Tasks')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('tasks-page-description', 'Find out everything you need to know about tasks in Escape from Tarkov. Learn about the different types of tasks available in the game, how to complete them, and the rewards you can earn.')}
+        />,
         <div className={'page-wrapper'} key="quests-page-wrapper">
             <div className="quests-headline-wrapper" key="quests-headline">
                 <h1 className="quests-page-title">

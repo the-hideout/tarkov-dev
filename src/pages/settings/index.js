@@ -3,8 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation, withTranslation } from 'react-i18next';
 import Select from 'react-select';
 
+import i18n from '../../i18n';
+
+import SEO from '../../components/SEO';
 import { InputFilter, ToggleFilter } from '../../components/filter';
 import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
+import CheekiBreekiEffect from '../../components/cheeki-breeki-effect';
+
 import {
     //selectAllTraders as traderSettings,
     selectAllStations,
@@ -27,14 +32,11 @@ import {
 } from '../../features/hideout/hideoutSlice';
 import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
 
-import './index.css';
-
-import i18n from '../../i18n';
-import CheekiBreekiEffect from '../../components/cheeki-breeki-effect';
+import supportedLanguages from '../../data/supported-languages.json';
 
 import { getWipeData } from '../wipe-length';
 
-import supportedLanguages from '../../data/supported-languages.json';
+import './index.css';
 
 // Defined Languages
 /*const langOptions = [
@@ -213,6 +215,10 @@ function Settings() {
     const estimatedAvgPlayerLevel = Math.round(30 * Math.atan(wipeLength / 38));
 
     return (
+        <SEO 
+            title={`${t('Settings')} - ${t('Tarkov.dev')}`}
+            description={t('settings-page-description', 'This page contains user settings on Tarkov.dev.')}
+        />,
         <div className={'page-wrapper'}>
             <h1>{t('Settings')}</h1>
             <div className="language-toggle-wrapper settings-group-wrapper">

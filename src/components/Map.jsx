@@ -4,9 +4,9 @@ import {
     TransformWrapper,
     TransformComponent,
 } from '@kokarn/react-zoom-pan-pinch';
-import { Helmet } from 'react-helmet';
 
 import Time from './Time';
+import SEO from './SEO';
 
 import ErrorPage from './error-page';
 
@@ -63,11 +63,10 @@ function Map() {
     const infoString = `${displayText} Map`;
 
     return [
-        <Helmet>
-            <meta charSet="utf-8" />
-            <title>{infoString}</title>
-            <meta name="description" content={description} />
-        </Helmet>,
+        <SEO 
+            title={`${infoString}`}
+            description={description}
+        />,
         <div className="display-wrapper" key="map-wrapper">
             <Time
                 currentMap={currentMap}

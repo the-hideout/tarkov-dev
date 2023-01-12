@@ -1,12 +1,19 @@
 import { useTranslation } from 'react-i18next';
 
+import SEO from '../../components/SEO';
+
 import './index.css';
 
 function Moobot() {
     const { t } = useTranslation();
+    const botName = 'Moobot';
     return (
+        <SEO 
+            title={`${t('Tarkov.dev {{bot}} integration', { bot: botName })} - ${t('Tarkov.dev')}`}
+            description={t('bot-page-description', 'This page contains everything necessary to integrate {{bot}} with Tarkov.dev.', { bot: botName })}
+        />,
         <div className={'page-wrapper moobot-page-wrapper'}>
-            <h1>{t('Tarkov.dev Moobot integration')}</h1>
+            <h1>{t('Tarkov.dev {{bot}} integration', { bot: botName })}</h1>
             <p>
                 {t('You can add command to your moobot to get price check in your twitch chat')}
             </p>

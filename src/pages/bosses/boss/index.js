@@ -1,22 +1,27 @@
-import { Helmet } from 'react-helmet';
 import React, { Suspense, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import capitalize from '../../../modules/capitalize-first';
-import formatBossData from '../../../modules/format-boss-data';
-import { useMapsQuery } from '../../../features/maps/queries';
-import DataTable from '../../../components/data-table';
-import PropertyList from '../../../components/property-list';
-import bossJson from '../../../data/boss.json';
+
+import Icon from '@mdi/react';
+import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper } from '@mdi/js';
+
+import SEO from '../../../components/SEO';
+import CenterCell from '../../../components/center-cell';
 import ErrorPage from '../../../components/error-page';
 import Loading from '../../../components/loading';
 import SmallItemTable from '../../../components/small-item-table';
-import Icon from '@mdi/react';
+import DataTable from '../../../components/data-table';
+import PropertyList from '../../../components/property-list';
 import CheekiBreekiEffect from '../../../components/cheeki-breeki-effect';
-import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper } from '@mdi/js';
+
+import capitalize from '../../../modules/capitalize-first';
+import formatBossData from '../../../modules/format-boss-data';
+
+import { useMapsQuery } from '../../../features/maps/queries';
+
+import bossJson from '../../../data/boss.json';
 
 import './index.css';
-import CenterCell from '../../../components/center-cell';
 
 function BossPage(params) {
     const { t } = useTranslation();
@@ -354,18 +359,11 @@ function Boss() {
 
     // Return the main react component for the individual boss page
     return [
-        <Helmet key={`boss-helmet-${bossName}`}>
-            <meta key={`boss-charset-${bossName}`} charSet="utf-8" />
-            <title key={`boss-title-${bossName}`}>{boss} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta key={`boss-meta-${bossName}`}
-                name="description"
-                content={t('boss-page-description', 'This page includes information on {{bossName}} location, loot, and strategies for defeating him.', { bossName: boss })}
-            />
-            <link
-                rel="canonical"
-                href={`https://tarkov.dev/boss/${bossName}`}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${boss} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('boss-page-description', 'This page includes information on {{bossName}} location, loot, and strategies for defeating him.', { bossName: boss })}
+            url={`https://tarkov.dev/boss/${bossName}`}
+        />,
         <Suspense fallback={<Loading />} key={`suspense-boss-page-${bossName}`}>
             <BossPage bossName={bossName} />
         </Suspense>

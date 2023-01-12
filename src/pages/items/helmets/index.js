@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import {mdiRacingHelmet} from '@mdi/js';
 
-
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
+
+import SEO from '../../../components/SEO';
 import SmallItemTable from '../../../components/small-item-table';
 import {
     Filter,
@@ -49,14 +49,10 @@ function Helmets() {
     const { t } = useTranslation();
 
     return [
-        <Helmet key={'helmet-table'}>
-            <meta charSet="utf-8" />
-            <title>{t('Helmets')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('helmet-page-description', 'This page includes a sortable table with information on the different types of helmet available in the game, including their price, armor class, and other characteristics.')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Helmets')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('helmet-page-description', 'This page includes a sortable table with information on the different types of helmet available in the game, including their price, armor class, and other characteristics.')}
+        />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
