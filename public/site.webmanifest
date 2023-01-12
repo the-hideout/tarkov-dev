@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Tarkov.dev",
+    "short_name": "Tarkov.dev",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -13,7 +13,8 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#333333",
-    "background_color": "#333333",
+    "theme_color": "#2d2d2f",
+    "background_color": "#2d2d2f",
+    "start_url": "https://tarkov.dev",
     "display": "standalone"
 }
