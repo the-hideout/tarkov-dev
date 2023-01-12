@@ -363,6 +363,8 @@ function Boss() {
             title={`${boss} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('boss-page-description', 'This page includes information on {{bossName}} location, loot, and strategies for defeating him.', { bossName: boss })}
             url={`https://tarkov.dev/boss/${bossName}`}
+            image={`https://assets.tarkov.dev/${bossName}.jpg`}
+            card='summary_large_image'
         />,
         <Suspense fallback={<Loading />} key={`suspense-boss-page-${bossName}`}>
             <BossPage bossName={bossName} />

@@ -465,6 +465,8 @@ function Item() {
             title={`${currentItemData.name} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('item-page-description', 'This page includes information on the characteristics, uses, and strategies for {{itemName}}.', { itemName: currentItemData.name })}
             url={`https://tarkov.dev/item/${currentItemData.normalizedName}`}
+            image={currentItemData.image512pxLink}
+            card='summary_large_image'
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className={'item-page-wrapper'}>

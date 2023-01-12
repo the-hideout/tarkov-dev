@@ -51,6 +51,7 @@ function Map() {
                 duration: mapsGroup.duration,
                 players: mapsGroup.players,
                 image: `/maps/${map.key}.jpg`,
+                imageThumb: `/maps/${map.key}_thumb.jpg`,
             }
         }
     }
@@ -59,13 +60,15 @@ function Map() {
         return <ErrorPage />;
     }
 
-    const { displayText, source, sourceLink, normalizedName, description, duration, players, image } = allMaps[currentMap];
+    const { displayText, source, sourceLink, normalizedName, description, duration, players, image, imageThumb } = allMaps[currentMap];
     const infoString = `${displayText} Map`;
 
     return [
         <SEO 
             title={`${infoString}`}
             description={description}
+            image={`${window.location.origin}${process.env.PUBLIC_URL}${imageThumb}`}
+            card='summary_large_image'
         />,
         <div className="display-wrapper" key="map-wrapper">
             <Time
