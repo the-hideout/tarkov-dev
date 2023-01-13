@@ -226,7 +226,7 @@ const formatCostItems = (
             priceDetails: bestPrice.barter,
             iconLink:
                 requiredItem.item.iconLink ||
-                'https://tarkov.dev/images/unknown-item-icon.jpg',
+                `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
             wikiLink: requiredItem.item.wikiLink,
             itemLink: `/item/${requiredItem.item.normalizedName}`,
             isTool: isTool,

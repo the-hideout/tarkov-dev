@@ -75,7 +75,7 @@ function Traders(props) {
                             <img
                                 alt={trader.name}
                                 loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/${trader.normalizedName}-icon.jpg`}
+                                src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}-icon.jpg`}
                             />
                             {resetTime}
                         </Link>

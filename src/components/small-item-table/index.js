@@ -83,7 +83,7 @@ function TraderSellCell(datum, totalTraderPrice = false, showSlotValue = false) 
                     className="trader-icon"
                     loading="lazy"
                     height="40"
-                    src={`${process.env.PUBLIC_URL}/images/${datum.row.original.bestSell.vendor.normalizedName}-icon.jpg`}
+                    src={`${process.env.PUBLIC_URL}/images/traders/${datum.row.original.bestSell.vendor.normalizedName}-icon.jpg`}
                     title={datum.row.original.bestSell.vendor.name}
                     width="40"
                 />

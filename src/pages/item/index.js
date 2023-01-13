@@ -540,7 +540,7 @@ function Item() {
                                                 alt="Flea market"
                                                 height="86"
                                                 width="86"
-                                                src={`${process.env.PUBLIC_URL}/images/flea-market-icon.jpg`}
+                                                src={`${process.env.PUBLIC_URL}/images/traders/flea-market-portrait.jpg`}
                                                 loading="lazy"
                                                 // title = {`Sell ${currentItemData.name} on the Flea market`}
                                             />
@@ -561,7 +561,7 @@ function Item() {
                                                 height="86"
                                                 width="86"
                                                 loading="lazy"
-                                                src={`${process.env.PUBLIC_URL}/images/${currentItemData.traderNormalizedName}-icon.jpg`}
+                                                src={`${process.env.PUBLIC_URL}/images/traders/${currentItemData.traderNormalizedName}-portrait.jpg`}
                                                 // title = {`Sell ${currentItemData.name} on the Flea market`}
                                             />
                                         </Link>
@@ -602,9 +602,9 @@ function Item() {
                                                     <img
                                                         alt={traderPrice.trader.name}
                                                         height="86"
-                                                        loading="lazy"
                                                         width="86"
-                                                        src={`${process.env.PUBLIC_URL}/images/${traderName}-icon.jpg`}
+                                                        loading="lazy"
+                                                        src={`${process.env.PUBLIC_URL}/images/traders/${traderName}-portrait.jpg`}
                                                         // title = {`Sell ${currentItemData.name} on the Flea market`}
                                                     />
                                                 </ConditionalWrapper>
@@ -683,9 +683,9 @@ function Item() {
                                                         <img
                                                             alt={buyPrice.vendor.name}
                                                             height="86"
-                                                            loading="lazy"
                                                             width="86"
-                                                            src={`${process.env.PUBLIC_URL}/images/${buyPrice.vendor.normalizedName}-icon.jpg`}
+                                                            loading="lazy"
+                                                            src={`${process.env.PUBLIC_URL}/images/traders/${buyPrice.vendor.normalizedName}-portrait.jpg`}
                                                         />
                                                     </ConditionalWrapper>
                                                 </div>

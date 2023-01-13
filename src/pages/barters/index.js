@@ -113,7 +113,7 @@ function Barters() {
                                             alt={trader.name}
                                             loading="lazy"
                                             title={trader.name}
-                                            src={`${process.env.PUBLIC_URL}/images/${trader.normalizedName}-icon.jpg`}
+                                            src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}-icon.jpg`}
                                         />
                                     }
                                     onClick={setSelectedTrader.bind(
