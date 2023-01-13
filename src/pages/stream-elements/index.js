@@ -36,7 +36,7 @@ function StreamElements() {
                 <img
                     alt="StreamElements step 1"
                     height={487}
-                    src={`${process.env.PUBLIC_URL}/images/streamelements-1.jpg`}
+                    src={`${process.env.PUBLIC_URL}/images/integrations/streamelements-1.jpg`}
                     width={900}
                     loading="lazy"
                 />
@@ -60,7 +60,7 @@ function StreamElements() {
                     alt="StreamElements step 2"
                     loading="lazy"
                     height={322}
-                    src={`${process.env.PUBLIC_URL}/images/streamelements-2.jpg`}
+                    src={`${process.env.PUBLIC_URL}/images/integrations/streamelements-2.jpg`}
                     width={900}
                 />
             </p>
@@ -82,7 +82,7 @@ function StreamElements() {
                     alt="StreamElements part 3"
                     loading="lazy"
                     height={502}
-                    src={`${process.env.PUBLIC_URL}/images/streamelements-3.jpg`}
+                    src={`${process.env.PUBLIC_URL}/images/integrations/streamelements-3.jpg`}
                     width={900}
                 />
             </p>
