@@ -1,12 +1,12 @@
 import { useCallback, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
+import SEO from '../../../components/SEO';
 import ErrorPage from '../../../components/error-page';
-
 import { Filter, InputFilter, ToggleFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
+
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 
 import { useMetaQuery } from '../../../features/meta/queries';
@@ -47,14 +47,10 @@ function BsgCategory() {
     }
 
     return [
-        <Helmet key={'bsg-category-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{category.name} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('bsg-category-description', 'Find out everything you need to know about {{category}} in Escape from Tarkov.', { category: category.name })}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${category.name} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('bsg-category-description', 'Find out everything you need to know about {{category}} in Escape from Tarkov.', { category: category.name })}
+        />,
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>

@@ -1,9 +1,10 @@
 import { useMemo, useCallback } from 'react';
 import Switch from 'react-switch';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
+import SEO from '../../components/SEO';
 import ItemGrid from '../../components/item-grid';
+
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 //import quests from '../../data/quests.json';
@@ -194,14 +195,10 @@ function ItemTracker() {
     ]);
 
     return [
-        <Helmet>
-            <meta charSet="utf-8" />
-            <title>{t('Item Tracker')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content="Track what items you need to Found in Raid for Escape from Tarkov quests"
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Item Tracker')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description="Track what items you need to Found in Raid for Escape from Tarkov quests"
+        />,
         <div
             className="display-wrapper item-tracker-wrapper"
             key={'display-wrapper'}

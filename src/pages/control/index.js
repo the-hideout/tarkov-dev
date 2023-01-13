@@ -3,13 +3,17 @@ import Select from 'react-select';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import Connect from './Connect.jsx';
+import SEO from '../../components/SEO';
 
 import { caliberMap } from '../../modules/format-ammo';
+
 import rawMapData from '../../data/maps.json';
 
-import './index.css';
 import { useItemsQuery } from '../../features/items/queries.js';
+
+import Connect from './Connect.jsx';
+
+import './index.css';
 
 const ammoTypes = Object.values(caliberMap).sort();
 
@@ -121,6 +125,10 @@ function Control(props) {
     };
 
     return (
+        <SEO 
+            title={`${t('Remote Control')} - ${t('Tarkov.dev')}`}
+            description={t('remote-control-page-description', 'This page contains all necessary tools to remote control another instance of Tarkov.dev website.')}
+        />,
         <div className="control-wrapper" key="">
             <h1>{t('Remote Control')}</h1>
             <div className={'control-section'}>

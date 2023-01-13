@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import {mdiSunglasses} from '@mdi/js';
 
+import SEO from '../../../components/SEO';
 import { Filter, ToggleFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 
@@ -13,14 +13,10 @@ function Glasses() {
     const [showAllItemSources, setShowAllItemSources] = useState(false);
 
     return [
-        <Helmet key={'glasses-table'}>
-            <meta charSet="utf-8" />
-            <title>{t('Glasses')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('glasses-page-description', 'This page includes a sortable table with information on the different types of glasses available in the game, including their price, armor class, and other characteristics.')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Glasses')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('glasses-page-description', 'This page includes a sortable table with information on the different types of glasses available in the game, including their price, armor class, and other characteristics.')}
+        />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>

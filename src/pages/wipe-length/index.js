@@ -1,8 +1,8 @@
-import { Helmet } from 'react-helmet';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 
+import SEO from '../../components/SEO';
 import DataTable from '../../components/data-table';
 import CenterCell from '../../components/center-cell';
 
@@ -152,31 +152,25 @@ const WipeLength = (props) => {
     // }, []);
 
     return (
-        <>
-            <Helmet key={'wipe-length-helmet'}>
-                <meta charSet="utf-8" />
-                <title>{t('Wipe Length')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-                <meta
-                    name="description"
-                    content={t('wipe-length-description', 'Get the latest information on the average wipe length in Escape from Tarkov. Find out how long wipes typically last, and prepare for the next wipe.')}
-                />
-            </Helmet>
-            <div className={'page-wrapper'}>
-                <h1 className="center-title">
-                    {t('Escape from Tarkov')} - {t('Wipe Length')}
-                </h1>
-                <div className="center-title">
-                    <h3>{t('Average Wipe Length among last 6 wipes:')}</h3>
-                    <h2>{t('{{count}} days', { count: lengthDaysAverage })} 📆</h2>
-                </div>
-                <DataTable
-                    columns={columns}
-                    data={data}
-                    disableSortBy={false}
-                />
-                {}
+        <SEO 
+            title={`${t('Wipe Length')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('wipe-length-description', 'Get the latest information on the average wipe length in Escape from Tarkov. Find out how long wipes typically last, and prepare for the next wipe.')}
+        />,
+        <div className={'page-wrapper'}>
+            <h1 className="center-title">
+                {t('Escape from Tarkov')} - {t('Wipe Length')}
+            </h1>
+            <div className="center-title">
+                <h3>{t('Average Wipe Length among last 6 wipes:')}</h3>
+                <h2>{t('{{count}} days', { count: lengthDaysAverage })} 📆</h2>
             </div>
-        </>
+            <DataTable
+                columns={columns}
+                data={data}
+                disableSortBy={false}
+            />
+            {}
+        </div>
     );
 };
 

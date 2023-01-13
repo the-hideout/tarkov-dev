@@ -1,5 +1,4 @@
 import { useState, useCallback, useMemo } from 'react';
-import { Helmet } from 'react-helmet';
 import debounce from 'lodash.debounce';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -7,16 +6,20 @@ import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
 import {mdiFinance} from '@mdi/js';
 
-import QueueBrowserTask from '../../modules/queue-browser-task';
-import ItemGrid from '../../components/item-grid';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+
+import SEO from '../../components/SEO';
+import ItemGrid from '../../components/item-grid';
 import {
     Filter,
     ToggleFilter,
     SelectFilter,
     InputFilter,
 } from '../../components/filter';
+
+import QueueBrowserTask from '../../modules/queue-browser-task';
 import capitalizeFirst from '../../modules/capitalize-first';
+
 import { useItemsQuery } from '../../features/items/queries';
 
 import './index.css';
@@ -334,14 +337,10 @@ function LootTier(props) {
     );
 
     return [
-        <Helmet key={'loot-tiers-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('Loot tiers')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('loot-tiers-page-description', 'Learn about the different types of loot available in the game, their value, rarity, and what to keep and what to trash.')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Loot tiers')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('loot-tiers-page-description', 'Learn about the different types of loot available in the game, their value, rarity, and what to keep and what to trash.')}
+        />,
         <div
             className="display-wrapper loot-tiers-main-wrapper"
             key={'display-wrapper'}

@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import {mdiTshirtCrew} from '@mdi/js';
 
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
+
+import SEO from '../../../components/SEO';
 import {
     Filter,
     ToggleFilter,
@@ -59,14 +60,10 @@ function Armors(props) {
     }
 
     return [
-        <Helmet key={'armors-table'}>
-            <meta charSet="utf-8" />
-            <title>{t('Armors')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('armors-page-description', 'This page includes a sortable table with information on the different types of armor available in the game, including their price, repairability, armor class, and other characteristics.')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Armors')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('armors-page-description', 'This page includes a sortable table with information on the different types of armor available in the game, including their price, repairability, armor class, and other characteristics.')}
+        />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>

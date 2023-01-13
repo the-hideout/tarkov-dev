@@ -1,12 +1,19 @@
 import { useTranslation } from 'react-i18next';
 
+import SEO from '../../components/SEO';
+
 import './index.css';
 
 function Nightbot() {
     const { t } = useTranslation();
+    const botName = 'Nightbot';
     return (
+        <SEO 
+            title={`${t('Tarkov.dev {{bot}} integration', { bot: botName })} - ${t('Tarkov.dev')}`}
+            description={t('bot-page-description', 'This page contains everything necessary to integrate {{bot}} with Tarkov.dev.', { bot: botName })}
+        />,
         <div className={'page-wrapper nightbot-page-wrapper'}>
-            <h1>{t('Tarkov.dev Nightbot integration')}</h1>
+            <h1>{t('Tarkov.dev {{bot}} integration', { bot: botName })}</h1>
             <p>
                 {t('You can add command to your nightbot to get price check in your twitch / youtube channel chat')}
             </p>

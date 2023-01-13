@@ -1,25 +1,21 @@
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
 import Icon from '@mdi/react';
 import {mdiArchive} from '@mdi/js';
 
+import SEO from '../../../components/SEO';
 import SmallItemTable from '../../../components/small-item-table';
 import { Filter, ToggleFilter } from '../../../components/filter';
-import { useState } from 'react';
 
 function Containers(props) {
     const [showNetPPS, setShowNetPPS] = useState(false);
     const { t } = useTranslation();
     return [
-        <Helmet key={'containers-table'}>
-            <meta charSet="utf-8" />
-            <title>{t('Containers')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content="This page includes a sortable table with information on the different types of containers available in the game, including their price, slot-ratio, size, and other characteristics."
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Containers')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description="This page includes a sortable table with information on the different types of containers available in the game, including their price, slot-ratio, size, and other characteristics."
+        />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>

@@ -1,5 +1,4 @@
 import React, { useState, useCallback, lazy, Suspense } from 'react';
-import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -8,6 +7,7 @@ import QueueBrowserTask from '../../modules/queue-browser-task';
 import rawMapData from '../../data/maps.json';
 import categoryPages from '../../data/category-pages.json';
 
+import SEO from '../../components/SEO';
 import ItemIconList from '../../components/item-icon-list';
 import LoadingSmall from '../../components/loading-small';
 
@@ -64,14 +64,11 @@ function Start() {
     };
 
     return [
-        <Helmet key={'start-helmet'}>
-            <meta key={'start-page-charset'} charSet="utf-8" />
-            <title key={'start-page-title'}>{t('Tarkov.dev')} - {t('Escape from Tarkov')}</title>
-            <meta
-                name="description"
-                content={t('start-page-description', 'Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, trader details, a free API, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Tarkov.dev')} - ${t('Escape from Tarkov')}`}
+            description={t('start-page-description', 'Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, trader details, a free API, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.')}
+            type='website'
+        />,
         <div
             className="display-wrapper page-wrapper start-wrapper"
             key={'display-wrapper-start-page'}

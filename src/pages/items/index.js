@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import { mdiViewGrid } from '@mdi/js';
 
+import SEO from '../../components/SEO';
 import ItemSearch from '../../components/item-search';
 import ItemIconList from '../../components/item-icon-list';
 
@@ -15,14 +15,10 @@ import './index.css';
 function Items(props) {
     const { t } = useTranslation();
     return [
-        <Helmet key={'items-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('Items')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('items-page-description', 'This page includes links to pages with information on different item categories, including armor, backpacks, barter items, containers, glasses, grenades, guns, headsets, helmet, keys, gun mods, pistol grips, provisions, rigs, suppressors, and more.')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Items')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('items-page-description', 'This page includes links to pages with information on different item categories, including armor, backpacks, barter items, containers, glasses, grenades, guns, headsets, helmet, keys, gun mods, pistol grips, provisions, rigs, suppressors, and more.')}
+        />,
         <div className={'page-wrapper'} key="map-page-wrapper">
             <h1 className="center-title">
                 {t('Escape from Tarkov')}

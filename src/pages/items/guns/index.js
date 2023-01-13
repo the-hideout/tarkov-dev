@@ -1,12 +1,13 @@
 import { useCallback, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import {mdiPistol} from '@mdi/js';
 
+import SEO from '../../../components/SEO';
 import { Filter, InputFilter, ToggleFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
+
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 
 function Guns() {
@@ -33,14 +34,10 @@ function Guns() {
     );
 
     return [
-        <Helmet key={'guns-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('Guns')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('guns-page-description', 'This page includes a sortable table with information on the different types of guns available in the game, including their price, damage, accuracy, and other characteristics.')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Guns')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('guns-page-description', 'This page includes a sortable table with information on the different types of guns available in the game, including their price, damage, accuracy, and other characteristics.')}
+        />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
