@@ -1,18 +1,20 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import Icon from '@mdi/react';
-import { mdiAccountGroup } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 
+import Icon from '@mdi/react';
+import { mdiAccountGroup } from '@mdi/js';
+
+import SEO from '../../components/SEO';
 import TraderResetTime from '../../components/trader-reset-time';
 import LoadingSmall from '../../components/loading-small';
 
 import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
 
-import './index.css';
 import i18n from '../../i18n';
+
+import './index.css';
 
 function Traders(props) {
     const { t } = useTranslation();
@@ -43,14 +45,10 @@ function Traders(props) {
         'lightkeeper',
     ];
     return [
-        <Helmet key={'traders-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('Traders')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('traders-page-description', 'Find out everything you need to know about traders in Escape from Tarkov. Learn about the different traders available in the game, their locations, and the items they sell.')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Traders')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('traders-page-description', 'Find out everything you need to know about traders in Escape from Tarkov. Learn about the different traders available in the game, their locations, and the items they sell.')}
+        />,
         <div className={'page-wrapper'} key="traders-page-wrapper">
             <h1 className="center-title">
                 {t('Escape from Tarkov')}

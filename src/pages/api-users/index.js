@@ -1,13 +1,20 @@
 import { useTranslation } from 'react-i18next';
 
+import SEO from '../../components/SEO';
+
 import apiUsers from '../../data/api-users.json';
+
 import './index.css';
 
 function ApiUsers() {
     const { t } = useTranslation();
     return (
+        <SEO 
+            title={`${t('API Users')} - ${t('Tarkov.dev')}`}
+            description={t('api-users-page-description', 'This page contains a list of all users of public API on Tarkov.dev and their projects.')}
+        />,
         <div className={'page-wrapper api-users-page-wrapper'}>
-            <h1>{t('Tarkov.dev API Users')}</h1>
+            <h1>{t('API Users')} - {t('Tarkov.dev')}</h1>
             <p>
                 {t('Want to be included on this page? Join the')}{' '}
                 <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer">Discord</a>{' '}

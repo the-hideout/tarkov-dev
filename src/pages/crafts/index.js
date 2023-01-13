@@ -1,14 +1,19 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+
+import Icon from '@mdi/react';
+import { mdiProgressWrench } from '@mdi/js';
 
 import {
     selectAllCrafts,
     fetchCrafts,
 } from '../../features/crafts/craftsSlice';
-import CraftsTable from '../../components/crafts-table';
+
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+
+import SEO from '../../components/SEO';
+import CraftsTable from '../../components/crafts-table';
 import {
     Filter,
     InputFilter,
@@ -16,9 +21,6 @@ import {
     ButtonGroupFilterButton,
     ToggleFilter,
 } from '../../components/filter';
-
-import Icon from '@mdi/react';
-import { mdiProgressWrench } from '@mdi/js';
 
 import './index.css';
 
@@ -78,14 +80,10 @@ function Crafts() {
     }, [crafts]);
 
     return [
-        <Helmet key={'crafts-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('Escape from Tarkov')} - {t('Hideout Crafts')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('crafts-page-description', 'This page includes information on the different items that can be crafted in the hideout, the materials and resources required, and the profits that can be made from selling the finished products.')}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Escape from Tarkov')} - {t('Hideout Crafts')} - {t('Tarkov.dev')}`}
+            description={t('crafts-page-description', 'This page includes information on the different items that can be crafted in the hideout, the materials and resources required, and the profits that can be made from selling the finished products.')}
+        />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="crafts-headline-wrapper" key="crafts-filters">
                 <h1 className="crafts-page-title">

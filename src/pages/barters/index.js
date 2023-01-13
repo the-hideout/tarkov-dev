@@ -1,12 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+
 import Icon from '@mdi/react';
 import { mdiAccountSwitch } from '@mdi/js';
 
+import SEO from '../../components/SEO';
 import BartersTable from '../../components/barters-table';
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import {
     Filter,
     InputFilter,
@@ -15,8 +15,9 @@ import {
     ToggleFilter,
 } from '../../components/filter';
 
-import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
+import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 
 import './index.css';
@@ -65,11 +66,10 @@ function Barters() {
     }, [allTraders]);
 
     return [
-        <Helmet key={'barters-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('Barter Profits')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta name="description" content={t('barters-page-description', 'This page includes information on the different items that can be traded with NPC vendors, the barter prices, and the profits that can be made from selling the items.')} />
-        </Helmet>,
+        <SEO 
+            title={`${t('Barter Profits')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('barters-page-description', 'This page includes information on the different items that can be traded with NPC vendors, the barter prices, and the profits that can be made from selling the items.')}
+        />,
         <div className={'page-wrapper'} key="barters-page-wrapper">
             <div className="barters-headline-wrapper" key="barters-headline">
                 <h1 className="barters-page-title">

@@ -1,12 +1,13 @@
 import { useCallback, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import {mdiPliers} from '@mdi/js';
 
+import SEO from '../../../components/SEO';
 import { Filter, InputFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
+
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 
 function BarterItems() {
@@ -32,14 +33,10 @@ function BarterItems() {
     );
 
     return [
-        <Helmet key={'barter-items-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{t('Barter Items')} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={"This page includes a sortable table with information on the different types of barter items available in the game, including their price, rarity, and other characteristics."}
-            />
-        </Helmet>,
+        <SEO 
+            title={`${t('Barter Items')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={"This page includes a sortable table with information on the different types of barter items available in the game, including their price, rarity, and other characteristics."}
+        />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>

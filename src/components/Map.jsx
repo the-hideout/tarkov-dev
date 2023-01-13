@@ -4,11 +4,11 @@ import {
     TransformWrapper,
     TransformComponent,
 } from '@kokarn/react-zoom-pan-pinch';
-import { Helmet } from 'react-helmet';
 
 import { useMapImages } from '../features/maps/queries';
 
 import Time from './Time';
+import SEO from './SEO';
 
 import ErrorPage from './error-page';
 
@@ -46,15 +46,16 @@ function Map() {
         return <ErrorPage />;
     }
 
-    const { displayText, source, sourceLink, normalizedName, description, duration, players, image } = allMaps[currentMap];
+    const { displayText, source, sourceLink, normalizedName, description, duration, players, image, imageThumb } = allMaps[currentMap];
     const infoString = `${displayText} Map`;
 
     return [
-        <Helmet>
-            <meta charSet="utf-8" />
-            <title>{infoString}</title>
-            <meta name="description" content={description} />
-        </Helmet>,
+        <SEO 
+            title={`${infoString}`}
+            description={description}
+            image={`${window.location.origin}${process.env.PUBLIC_URL}${imageThumb}`}
+            card='summary_large_image'
+        />,
         <div className="display-wrapper" key="map-wrapper">
             <Time
                 currentMap={currentMap}

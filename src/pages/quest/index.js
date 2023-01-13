@@ -1,14 +1,15 @@
 import React, { useMemo, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import Icon from '@mdi/react';
-import { mdiClipboardCheck } from '@mdi/js';
 import Tippy from '@tippyjs/react';
 
+import Icon from '@mdi/react';
+import { mdiClipboardCheck } from '@mdi/js';
+
+import SEO from '../../components/SEO';
 import ErrorPage from '../../components/error-page';
 import ItemSearch from '../../components/item-search';
 
@@ -194,15 +195,11 @@ function Quest() {
     }
 
     return [
-        <Helmet key={'task-helmet'}>
-            <meta charSet="utf-8" />
-            <title>{currentQuest.name} - {t('Escape from Tarkov')} - {t('Tarkov.dev')}</title>
-            <meta
-                name="description"
-                content={t('task-page-description', 'This page includes information on the objectives, rewards, and strategies for completing task {{questName}}. Get tips on how to prepare for and succeed in your mission.', { questName: currentQuest.name })}
-            />
-            <link rel="canonical" href={`https://tarkov.dev/task/${currentQuest.normalizedName}`} />
-        </Helmet>,
+        <SEO 
+            title={`${currentQuest.name} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={t('task-page-description', 'This page includes information on the objectives, rewards, and strategies for completing task {{questName}}. Get tips on how to prepare for and succeed in your mission.', { questName: currentQuest.name })}
+            url={`https://tarkov.dev/task/${currentQuest.normalizedName}`}
+        />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className={'item-page-wrapper'}>
                 <ItemSearch showDropdown />
