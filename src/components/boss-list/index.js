@@ -35,7 +35,7 @@ export function BossPageList() {
                         <img
                             alt={boss.name}
                             loading='lazy'
-                            src={`https://assets.tarkov.dev/${key}.jpg`}
+                            src={`${process.env.PUBLIC_URL}/images/bosses/${key}-portrait.png`}
                         />
                     </Link>
                 )
@@ -107,7 +107,7 @@ function BossList() {
                                 alt={boss.name}
                                 loading='lazy'
                                 className="boss-icon"
-                                src={`https://assets.tarkov.dev/${key}-icon.jpg`}
+                                src={`${process.env.PUBLIC_URL}/images/bosses/${key}-icon.jpg`}
                             />
                             {boss.name}
                         </Link>

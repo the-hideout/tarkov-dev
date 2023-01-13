@@ -118,9 +118,7 @@ function ItemsForHideout(props) {
                                             alt={item.moduleName}
                                             className="quest-giver-image"
                                             loading="lazy"
-                                            src={`${
-                                                process.env.PUBLIC_URL
-                                            }/images/${item.normalizedName}-icon.png`}
+                                            src={`${process.env.PUBLIC_URL}/images/stations/${item.normalizedName}-icon.png`}
                                         />
                                         <div>
                                             {item.moduleName}

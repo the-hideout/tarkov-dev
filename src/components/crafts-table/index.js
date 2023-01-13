@@ -221,7 +221,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         wikiLink: craftRow.rewardItems[0].item.wikiLink,
                         itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
                         source: `${station} (${t('Level')} ${level})`,
-                        iconLink: craftRow.rewardItems[0].item.iconLink || 'https://tarkov.dev/images/unknown-item-icon.jpg',
+                        iconLink: craftRow.rewardItems[0].item.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                         count: craftRow.rewardItems[0].count,
                         sellValue: 0, 
                     },

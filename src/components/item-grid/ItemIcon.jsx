@@ -9,7 +9,7 @@ function ItemIcon(props) {
             <img
                 alt={sellTo}
                 loading="lazy"
-                src={`${process.env.PUBLIC_URL}/images/${sellToNormalized}-icon.jpg`}
+                src={`${process.env.PUBLIC_URL}/images/traders/${sellToNormalized}-icon.jpg`}
                 title={sellTo}
             />
         );

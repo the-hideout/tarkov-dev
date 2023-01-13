@@ -320,7 +320,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                         source: `${barterRow.trader.name} ${t('LL{{level}}', { level: level })}`,
                         iconLink:
                             barterRow.rewardItems[0].item.iconLink ||
-                            'https://tarkov.dev/images/unknown-item-icon.jpg',
+                            `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                         itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,
                     },
                     cached: barterRow.cached,

@@ -28,7 +28,7 @@ function Moobot() {
                 <img
                     alt={'Moobot step 1'}
                     height={361}
-                    src={`${process.env.PUBLIC_URL}/images/moobot-1.jpg`}
+                    src={`${process.env.PUBLIC_URL}/images/integrations/moobot-1.jpg`}
                     width={900}
                     loading="lazy"
                 />
@@ -44,7 +44,7 @@ function Moobot() {
                     alt={'Moobot step 2'}
                     loading="lazy"
                     height={469}
-                    src={`${process.env.PUBLIC_URL}/images/moobot-2.jpg`}
+                    src={`${process.env.PUBLIC_URL}/images/integrations/moobot-2.jpg`}
                     width={900}
                 />
             </p>
@@ -62,7 +62,7 @@ function Moobot() {
                     alt={'Moobot step 3'}
                     loading="lazy"
                     height={551}
-                    src={`${process.env.PUBLIC_URL}/images/moobot-3.jpg`}
+                    src={`${process.env.PUBLIC_URL}/images/integrations/moobot-3.jpg`}
                     width={900}
                 />
             </p>
@@ -74,7 +74,7 @@ function Moobot() {
                     alt={'Moobot step 4'}
                     loading="lazy"
                     height={286}
-                    src={`${process.env.PUBLIC_URL}/images/moobot-4.jpg`}
+                    src={`${process.env.PUBLIC_URL}/images/integrations/moobot-4.jpg`}
                     width={900}
                 />
             </p>

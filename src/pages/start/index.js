@@ -263,7 +263,7 @@ function Start() {
                                 alt="Prapor icon"
                                 className="trader-icon"
                                 loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/prapor-icon.jpg`}
+                                src={`${process.env.PUBLIC_URL}/images/traders/prapor-icon.jpg`}
                             />
                             {t('Prapor')}
                         </Link>
@@ -274,7 +274,7 @@ function Start() {
                                 alt="Therapist icon"
                                 className="trader-icon"
                                 loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/therapist-icon.jpg`}
+                                src={`${process.env.PUBLIC_URL}/images/traders/therapist-icon.jpg`}
                             />
                             {t('Therapist')}
                         </Link>
@@ -285,7 +285,7 @@ function Start() {
                                 alt="Skier icon"
                                 className="trader-icon"
                                 loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/skier-icon.jpg`}
+                                src={`${process.env.PUBLIC_URL}/images/traders/skier-icon.jpg`}
                             />
                             {t('Skier')}
                         </Link>
@@ -296,7 +296,7 @@ function Start() {
                                 alt="Peacekeeper icon"
                                 className="trader-icon"
                                 loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/peacekeeper-icon.jpg`}
+                                src={`${process.env.PUBLIC_URL}/images/traders/peacekeeper-icon.jpg`}
                             />
                             {t('Peacekeeper')}
                         </Link>
@@ -307,7 +307,7 @@ function Start() {
                                 alt="Prapor icon"
                                 className="trader-icon"
                                 loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/mechanic-icon.jpg`}
+                                src={`${process.env.PUBLIC_URL}/images/traders/mechanic-icon.jpg`}
                             />
                             {t('Mechanic')}
                         </Link>
@@ -318,7 +318,7 @@ function Start() {
                                 alt="Ragman icon"
                                 className="trader-icon"
                                 loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/ragman-icon.jpg`}
+                                src={`${process.env.PUBLIC_URL}/images/traders/ragman-icon.jpg`}
                             />
                             {t('Ragman')}
                         </Link>
@@ -329,7 +329,7 @@ function Start() {
                                 alt="Jaeger icon"
                                 className="trader-icon"
                                 loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/jaeger-icon.jpg`}
+                                src={`${process.env.PUBLIC_URL}/images/traders/jaeger-icon.jpg`}
                             />
                             {t('Jaeger')}
                         </Link>
