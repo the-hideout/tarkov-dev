@@ -540,7 +540,7 @@ function Item() {
                                                 alt="Flea market"
                                                 height="86"
                                                 width="86"
-                                                src={`${process.env.PUBLIC_URL}/images/traders/flea-market-portrait.jpg`}
+                                                src={`${process.env.PUBLIC_URL}/images/traders/flea-market-portrait.png`}
                                                 loading="lazy"
                                                 // title = {`Sell ${currentItemData.name} on the Flea market`}
                                             />
@@ -561,7 +561,7 @@ function Item() {
                                                 height="86"
                                                 width="86"
                                                 loading="lazy"
-                                                src={`${process.env.PUBLIC_URL}/images/traders/${currentItemData.traderNormalizedName}-portrait.jpg`}
+                                                src={`${process.env.PUBLIC_URL}/images/traders/${currentItemData.traderNormalizedName}-portrait.png`}
                                                 // title = {`Sell ${currentItemData.name} on the Flea market`}
                                             />
                                         </Link>
@@ -604,7 +604,7 @@ function Item() {
                                                         height="86"
                                                         width="86"
                                                         loading="lazy"
-                                                        src={`${process.env.PUBLIC_URL}/images/traders/${traderName}-portrait.jpg`}
+                                                        src={`${process.env.PUBLIC_URL}/images/traders/${traderName}-portrait.png`}
                                                         // title = {`Sell ${currentItemData.name} on the Flea market`}
                                                     />
                                                 </ConditionalWrapper>
@@ -685,7 +685,7 @@ function Item() {
                                                             height="86"
                                                             width="86"
                                                             loading="lazy"
-                                                            src={`${process.env.PUBLIC_URL}/images/traders/${buyPrice.vendor.normalizedName}-portrait.jpg`}
+                                                            src={`${process.env.PUBLIC_URL}/images/traders/${buyPrice.vendor.normalizedName}-portrait.png`}
                                                         />
                                                     </ConditionalWrapper>
                                                 </div>

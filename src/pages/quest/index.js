@@ -241,7 +241,7 @@ function Quest() {
                                 height="86"
                                 width="86"
                                 loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/traders/${currentQuest.trader.normalizedName}-icon.jpg`}
+                                src={`${process.env.PUBLIC_URL}/images/traders/${currentQuest.trader.normalizedName}-portrait.png`}
                                 // title = {`Sell ${currentItemData.name} on the Flea market`}
                             />
                         </Link>
