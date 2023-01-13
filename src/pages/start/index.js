@@ -5,11 +5,12 @@ import { useTranslation } from 'react-i18next';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
 
-import rawMapData from '../../data/maps.json';
 import categoryPages from '../../data/category-pages.json';
 
 import ItemIconList from '../../components/item-icon-list';
 import LoadingSmall from '../../components/loading-small';
+
+import { useMapImages } from '../../features/maps/queries';
 
 import Icon from '@mdi/react';
 import {
@@ -44,6 +45,8 @@ function Start() {
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const { t } = useTranslation();
+
+    const mapImages = useMapImages();
 
     const handleNameFilterChange = useCallback(
         (value) => {
@@ -212,14 +215,12 @@ function Start() {
                     </Link>
                 </h3>
                 <ul key="maps-list">
-                    {rawMapData.map((mapsGroup) => (
-                        mapsGroup.maps.map((map) => (
-                            <li key={`map-link-${map.key}`}>
-                                <Link to={`/map/${map.key}`}>
-                                    {map.displayText}
-                                </Link>
-                            </li>
-                        ))
+                    {Object.values(mapImages).sort((a,b) => a.displayText.localeCompare(b.displayText)).map((map) => (
+                        <li key={`map-link-${map.key}`}>
+                            <Link to={`/map/${map.key}`}>
+                                {map.displayText}
+                            </Link>
+                        </li>
                     ))}
                 </ul>
                 <h3>

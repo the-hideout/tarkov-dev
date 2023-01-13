@@ -16,10 +16,11 @@ import UkraineButton from '../ukraine-button';
 //import { BossListNav } from '../boss-list';
 
 import { caliberMap } from '../../modules/format-ammo';
-import rawMapData from '../../data/maps.json';
 import itemsData from '../../data/category-pages.json';
 import { useMapsQuery } from '../../features/maps/queries';
 import formatBossData from '../../modules/format-boss-data';
+
+import { useMapImages } from '../../features/maps/queries';
 
 import IntersectionObserverWrapper from './intersection-observer-wrapper';
 
@@ -67,6 +68,8 @@ const Menu = () => {
     const { t } = useTranslation();
 
     const { data: maps } = useMapsQuery();
+
+    const mapImages = useMapImages();
 
     const bosses = useMemo(() => {
         if (!maps || maps.length === 0) {
@@ -150,15 +153,13 @@ const Menu = () => {
                     <li className="submenu-wrapper submenu-items" key="menu-maps" data-targetid="maps">
                         <Link to="/maps/">{t('Maps')}</Link>
                         <ul>
-                            {rawMapData.map((mapsGroup) => (
-                                mapsGroup.maps.map((map) => (
-                                    <MenuItem
-                                        displayText={map.displayText}
-                                        key={`menu-item-${map.key}`}
-                                        to={`/map/${map.key}`}
-                                        //onClick={setIsOpen.bind(this, false)}
-                                    />
-                                ))
+                            {Object.values(mapImages).sort((a, b) => a.displayText.localeCompare(b.displayText)).map((map) => (
+                                <MenuItem
+                                    displayText={map.displayText}
+                                    key={`menu-item-${map.key}`}
+                                    to={`/map/${map.key}`}
+                                    //onClick={setIsOpen.bind(this, false)}
+                                />
                             ))}
                         </ul>
                     </li>

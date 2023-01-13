@@ -103,6 +103,29 @@ const getTraderNames = (langs) => {
     }).then((response) => response.json()).then(response => response.data);
 };
 
+const getMapNames = (langs) => {
+    const queries = langs.map(language => {
+        return `${language}: maps(lang: ${language}) {
+            id
+            name
+            description
+        }`;
+    });
+    const QueryBody = JSON.stringify({
+        query: `{
+            ${queries.join('\n')}
+        }`,
+    });
+    return fetch('https://api.tarkov.dev/graphql', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: QueryBody,
+    }).then((response) => response.json()).then(response => response.data);
+};
+
 console.time('Caching API data');
 try {
     const allLangs = await getLanguageCodes();
@@ -213,6 +236,20 @@ try {
 
     apiPromises.push(doFetchMaps('en', true).then(maps => {
         fs.writeFileSync('./src/data/maps_cached.json', JSON.stringify(maps));
+        return getMapNames(langs).then(mapResults => {
+            const mapLangs = {};
+            for (const lang in mapResults) {
+                const localization = {};
+                mapResults[lang].forEach(map => {
+                    localization[map.id] = {
+                        name: map.name,
+                        description: map.description,
+                    };
+                });
+                mapLangs[lang] = localization;
+            }
+            fs.writeFileSync(`./src/data/maps_locale.json`, JSON.stringify(mapLangs));
+        });
     }));
 
     apiPromises.push(doFetchMeta('en', true).then(meta => {
@@ -245,6 +282,7 @@ try {
 
     await Promise.all(apiPromises);
 } catch (error) {
-    console.log(error);
-}
+    //console.log(error);
+    throw error;
+} 
 console.timeEnd('Caching API data');

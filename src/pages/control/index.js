@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 import Connect from './Connect.jsx';
 
 import { caliberMap } from '../../modules/format-ammo';
-import rawMapData from '../../data/maps.json';
 
 import './index.css';
 import { useItemsQuery } from '../../features/items/queries.js';
+import { useMapImages } from '../../features/maps/queries.js';
 
 const ammoTypes = Object.values(caliberMap).sort();
 
@@ -56,6 +56,9 @@ const selectFilterStyle = {
 
 function Control(props) {
     const { data: items } = useItemsQuery();
+
+    const mapImages = useMapImages();
+    console.log(mapImages)
 
     const socketConnected = useSelector((state) => state.sockets.connected);
     const { t } = useTranslation();
@@ -131,12 +134,10 @@ function Control(props) {
                     onChange={handleMapChange}
                     ref={typeRefs['map']}
                 >
-                    {rawMapData.map((mapsGroup) => (
-                        mapsGroup.maps.map((map) => (
-                            <option key={map.key} value={map.key}>
-                                {map.displayText}
-                            </option>
-                        ))
+                    {Object.values(mapImages).sort((a, b) => a.displayText.localeCompare(b.displayText)).map((map) => (
+                        <option key={map.key} value={map.key}>
+                            {map.displayText}
+                        </option>
                     ))}
                 </select>
                 <button disabled={!socketConnected} onClick={handleMapChange}>

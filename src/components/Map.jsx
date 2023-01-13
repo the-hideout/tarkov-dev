@@ -6,11 +6,11 @@ import {
 } from '@kokarn/react-zoom-pan-pinch';
 import { Helmet } from 'react-helmet';
 
+import { useMapImages } from '../features/maps/queries';
+
 import Time from './Time';
 
 import ErrorPage from './error-page';
-
-import rawMapData from '../data/maps.json';
 
 function Map() {
     let { currentMap } = useParams();
@@ -40,20 +40,7 @@ function Map() {
         ref?.current?.resetTransform();
     }, [currentMap]);
 
-    let allMaps = {};
-
-    for(const mapsGroup of rawMapData) {
-        for(const map of mapsGroup.maps) {
-            allMaps[map.key] = {
-                ...map,
-                normalizedName: mapsGroup.normalizedName,
-                description: mapsGroup.description,
-                duration: mapsGroup.duration,
-                players: mapsGroup.players,
-                image: `/maps/${map.key}.jpg`,
-            }
-        }
-    }
+    let allMaps = useMapImages();
 
     if (!allMaps[currentMap]) {
         return <ErrorPage />;

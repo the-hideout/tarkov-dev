@@ -15,11 +15,9 @@ import ItemSearch from '../../components/item-search';
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
 import { useTradersQuery } from '../../features/traders/queries';
 import { useItemsQuery } from '../../features/items/queries';
-import { useMapsQuery } from '../../features/maps/queries';
+import { useMapsQuery, useMapImages } from '../../features/maps/queries';
 
 import './index.css';
-
-import mapJson from '../../data/maps.json';
 
 dayjs.extend(relativeTime);
 
@@ -47,6 +45,8 @@ function Quest() {
     const maps = useMemo(() => {
         return mapsResult.data;
     }, [mapsResult]);
+
+    const mapImages = useMapImages();
 
     const dispatch = useDispatch();
     const quests = useSelector(selectQuests);
@@ -280,9 +280,12 @@ function Quest() {
 
                 {/* loop through all the values in mapJson array and if there is a match, add a link to the map */}
                 {currentQuest.map &&
-                    mapJson.map((map) => {
+                    Object.values(mapImages).reduce((foundMap, map) => {
+                        if (foundMap) {
+                            return foundMap;
+                        }
                         if (map.normalizedName === currentQuest.map.normalizedName) {
-                            return (
+                            foundMap = (
                                 <div key={`map-link-${map.normalizedName}`}>
                                     <Link to={map.primaryPath}>
                                         {t('View Map')} - {t(map.name)}
@@ -290,8 +293,8 @@ function Quest() {
                                 </div>
                             );
                         }
-                        return null;
-                    })}
+                        return foundMap;
+                    }, null)}
 
                 <h2>🏆 {t('Objectives')}</h2>
                 <div key="task-objectives">
