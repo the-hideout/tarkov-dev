@@ -276,7 +276,8 @@ function SmallItemTable(props) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
-    if (typeof showAllSources === 'undefined') showAllSources = true;
+    if (typeof showAllSources === 'undefined') 
+        showAllSources = true;
 
     // Use the primary items API query to fetch all items
     const result = useItemsQuery();
@@ -299,7 +300,7 @@ function SmallItemTable(props) {
     // Create a constant of all data returned
     const items = result.data;
 
-    const itemCount = items.length;
+    const itemCount = items ? items.length : 0;
     const randomSeeds = useMemo(() => {
         const seeds = [];
         if (!defaultRandom) {
@@ -337,7 +338,8 @@ function SmallItemTable(props) {
     }, [bartersStatus, barterPrice, cheapestPrice, dispatch]);
 
     const containedItems = useMemo(() => {
-        if (!containedInFilter) return {};
+        if (!containedInFilter) 
+            return {};
         const filterItems = {};
         containedInFilter.forEach(ci => {
             filterItems[ci.item.id] = ci.count;
@@ -365,14 +367,18 @@ function SmallItemTable(props) {
                 traderCurrency: itemData.traderCurrency,
                 types: itemData.types,
                 buyFor: itemData.buyFor.filter(buyFor => {
-                    if (buyFor.vendor.normalizedName === 'flea-market' && !showAllSources && !settings.hasFlea) return false;
-                    if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) return false;
+                    if (buyFor.vendor.normalizedName === 'flea-market' && !showAllSources && !settings.hasFlea) 
+                        return false;
+                    if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) 
+                        return false;
                     return true;
                 }),
                 sellFor: itemData.sellFor,
                 bestSell: itemData.sellFor.filter(sellFor => {
-                    if (sellFor.vendor.normalizedName === 'flea-market') return false;
-                    if (!showAllSources && sellFor.vendor.normalizedName === 'jaeger' && !settings.jaeger) return false;
+                    if (sellFor.vendor.normalizedName === 'flea-market') 
+                        return false;
+                    if (!showAllSources && sellFor.vendor.normalizedName === 'jaeger' && !settings.jaeger) 
+                        return false;
                     return true;
                 }),
                 buyOnFleaPrice: itemData.buyFor.find(
@@ -404,7 +410,8 @@ function SmallItemTable(props) {
 
             if (formattedItem.bestSell.length > 1) {
                 formattedItem.bestSell = formattedItem.bestSell.reduce((prev, current) => {
-                    if (prev.priceRUB > current.priceRUB) return prev;
+                    if (prev.priceRUB > current.priceRUB) 
+                        return prev;
                     return current;
                 }, {priceRUB: 0})
             } else if (formattedItem.bestSell.length === 1) {
@@ -511,10 +518,7 @@ function SmallItemTable(props) {
                 }
 
                 //console.log(item.properties[minPropertyFilter.property], minPropertyFilter.value);
-                if (
-                    item.properties[minPropertyFilter.property] <
-                    minPropertyFilter.value
-                ) {
+                if (item.properties[minPropertyFilter.property] < minPropertyFilter.value) {
                     return false;
                 }
 
@@ -525,10 +529,7 @@ function SmallItemTable(props) {
                     return true;
                 }
 
-                if (
-                    item.properties[maxPropertyFilter.property] >
-                    maxPropertyFilter.value
-                ) {
+                if (item.properties[maxPropertyFilter.property] > maxPropertyFilter.value) {
                     return false;
                 }
 
@@ -678,13 +679,15 @@ function SmallItemTable(props) {
         if (showAttachments) {
             returnData.forEach(item => {
                 item.subRows = items.filter(linkedItem => {
-                    if (!item.properties?.slots) return false;
+                    if (!item.properties?.slots) 
+                        return false;
                     for (const slot of item.properties.slots) {
                         const included = slot.filters.allowedItems.includes(linkedItem.id) ||
                             linkedItem.categoryIds.some(catId => slot.filters.allowedCategories.includes(catId));
                         const excluded = slot.filters.excludedItems.includes(linkedItem.id) ||
                             linkedItem.categoryIds.some(catId => slot.filters.excludedCategories.includes(catId));
-                        if (included && !excluded) return true;
+                        if (included && !excluded) 
+                            return true;
                     }
                     return false;
                 }).map(item => formatItem(item));
@@ -1149,7 +1152,7 @@ function SmallItemTable(props) {
 
         if (gridSlots) {
             useColumns.push({
-                Header: t('Grid slots'),
+                Header: t('Slots occupied'),
                 accessor: 'slots',
                 Cell: CenterCell,
                 position: gridSlots,
@@ -1158,7 +1161,7 @@ function SmallItemTable(props) {
 
         if (innerSize) {
             useColumns.push({
-                Header: t('Inner size'),
+                Header: t('Slots inside'),
                 accessor: 'size',
                 Cell: CenterCell,
                 position: innerSize
@@ -1167,7 +1170,7 @@ function SmallItemTable(props) {
 
         if (slotRatio) {
             useColumns.push({
-                Header: t('Slot ratio'),
+                Header: t('Slots ratio'),
                 accessor: 'ratio',
                 Cell: CenterCell,
                 position: slotRatio,
