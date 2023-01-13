@@ -321,7 +321,7 @@ function QuestTable({
                                     alt={questData.trader.name}
                                     loading="lazy"
                                     className="quest-giver-image"
-                                    src={`${process.env.PUBLIC_URL}/images/${questData.trader.normalizedName}-icon.jpg`}
+                                    src={`${process.env.PUBLIC_URL}/images/traders/${questData.trader.normalizedName}-icon.jpg`}
                                 />
                             </Link>
                             <Link

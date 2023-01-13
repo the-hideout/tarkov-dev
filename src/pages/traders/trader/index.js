@@ -101,7 +101,7 @@ function Trader() {
         <SEO 
             title={`${t('Trader {{trader}}', { trader: trader.name })} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('trader-page-description', 'Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty', { trader: trader.name })}
-            image={`${window.location.origin}${process.env.PUBLIC_URL}/images/${trader.normalizedName}-icon.jpg`}
+            image={`${window.location.origin}${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}-portrait.png`}
             card='summary_large_image'
         />,
         <div className="page-wrapper" key={'page-wrapper'}>

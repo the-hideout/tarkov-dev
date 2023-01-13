@@ -73,6 +73,8 @@ import ErrorPage from './components/error-page';
 import Loading from './components/loading';
 import Debug from './components/Debug';
 
+import supportedLanguages from './data/supported-languages.json';
+
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
 // import APIDocs from './pages/api-docs';
 
@@ -254,6 +256,7 @@ function App() {
             onClick={(e) => dispatch(enableConnection())}
         />
     );
+    const alternateLangs = supportedLanguages.filter(lang => lang !== i18n.language); 
 
     // dayjs locale needs to be loaded so it output localized text, but this suggested method throws a loader error...
     // maybe we should use i18n DateTime and RelativeTime instead
@@ -262,7 +265,10 @@ function App() {
     return (
         <div className="App">
             <Helmet htmlAttributes={{ lang: i18n.language }}>
-                <meta charSet="utf-8" />
+                <meta property="og:locale" content={i18n.language} />
+                {alternateLangs.map((lang) => (
+                    <meta property="og:locale:alternate" content={lang} />
+                ))}
             </Helmet>
             <Menu />
             {/* <Suspense fallback={<Loading />}> */}

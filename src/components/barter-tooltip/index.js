@@ -80,7 +80,7 @@ function BarterToolip({ barter, source, requiredItems, showTitle = true, title, 
                                     alt={t('Barter')}
                                     className="barter-icon"
                                     loading="lazy"
-                                    src={`${process.env.PUBLIC_URL}/images/${sourceName}-icon.jpg`}
+                                    src={`${process.env.PUBLIC_URL}/images/traders/${sourceName}-icon.jpg`}
                                 />
                                 {requiredItem.count} <span>X</span>{' '}
                                 {formatPrice(price)}{' '}

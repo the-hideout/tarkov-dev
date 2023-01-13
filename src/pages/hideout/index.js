@@ -86,7 +86,7 @@ function Hideout() {
                                     <img
                                         alt={station.name}
                                         loading="lazy"
-                                        src={`${process.env.PUBLIC_URL}/images/${station.normalizedName}-icon.png`}
+                                        src={`${process.env.PUBLIC_URL}/images/stations/${station.normalizedName}-icon.png`}
                                     />
                                 }
                                 onClick={setSelectedStation.bind(

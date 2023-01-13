@@ -45,7 +45,7 @@ function ItemCost({
             <img
                 alt={vendor.name}
                 className="barter-icon"
-                src={`${process.env.PUBLIC_URL}/images/${vendor.normalizedName}-icon.jpg`}
+                src={`${process.env.PUBLIC_URL}/images/traders/${vendor.normalizedName}-icon.jpg`}
                 loading="lazy"
             />
         );

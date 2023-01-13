@@ -242,7 +242,7 @@ function BossPage(params) {
                             alt={bossData.name}
                             className={'item-image'}
                             loading="lazy"
-                            src={`https://assets.tarkov.dev/${bossData.normalizedName}.jpg`}
+                            src={`${process.env.PUBLIC_URL}/images/bosses/${bossData.normalizedName}.jpg`}
                         />
                     </div>
                 </div>
@@ -363,7 +363,7 @@ function Boss() {
             title={`${boss} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('boss-page-description', 'This page includes information on {{bossName}} location, loot, and strategies for defeating him.', { bossName: boss })}
             url={`https://tarkov.dev/boss/${bossName}`}
-            image={`https://assets.tarkov.dev/${bossName}.jpg`}
+            image={`${window.location.origin}${process.env.PUBLIC_URL}/images/traders/${bossName}-portrait.png`}
             card='summary_large_image'
         />,
         <Suspense fallback={<Loading />} key={`suspense-boss-page-${bossName}`}>
