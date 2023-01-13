@@ -81,7 +81,7 @@ function Crafts() {
 
     return [
         <SEO 
-            title={`${t('Escape from Tarkov')} - {t('Hideout Crafts')} - {t('Tarkov.dev')}`}
+            title={`${t('Hideout Crafts')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('crafts-page-description', 'This page includes information on the different items that can be crafted in the hideout, the materials and resources required, and the profits that can be made from selling the finished products.')}
         />,
         <div className="display-wrapper" key={'display-wrapper'}>

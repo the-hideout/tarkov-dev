@@ -23,7 +23,7 @@ function Suppressors() {
 
     return [
         <SEO 
-            title={`${t('Escape from Tarkov')} - {t('Suppressors')} - {t('Tarkov.dev')}`}
+            title={`${t('Suppressors')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('suppressors-page-description', 'This page includes a sortable table with information on the different types of suppressors available in the game, including their ergonomics, recoil, and cheapest price.')}
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
