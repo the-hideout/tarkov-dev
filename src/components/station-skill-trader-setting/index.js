@@ -91,7 +91,6 @@ const StationSkillTraderSetting = React.forwardRef((props, ref) => {
 
     let selector;
     let options;
-    let folder;
     let iconExt = 'png';
     const toolTip = label || capitalizeFirst(camelcaseToDashes(stateKey).replace(/-/g, ' '));
     if (type === 'station') {
