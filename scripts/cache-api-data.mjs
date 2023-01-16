@@ -9,6 +9,7 @@ import doFetchMaps from '../src/features/maps/do-fetch-maps.js';
 import doFetchMeta from '../src/features/meta/do-fetch-meta.js';
 import doFetchHideout from '../src/features/hideout/do-fetch-hideout.js';
 import doFetchQuests from '../src/features/quests/do-fetch-quests.js';
+import doFetchBosses from '../src/features/bosses/do-fetch-bosses.js';
 
 function getLanguageCodes() {
     const QueryBody = JSON.stringify({
@@ -109,6 +110,28 @@ const getMapNames = (langs) => {
             id
             name
             description
+        }`;
+    });
+    const QueryBody = JSON.stringify({
+        query: `{
+            ${queries.join('\n')}
+        }`,
+    });
+    return fetch('https://api.tarkov.dev/graphql', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: QueryBody,
+    }).then((response) => response.json()).then(response => response.data);
+};
+
+const getBossNames = (langs) => {
+    const queries = langs.map(language => {
+        return `${language}: bosses(lang: ${language}) {
+            name
+            normalizedName
         }`;
     });
     const QueryBody = JSON.stringify({
@@ -249,6 +272,23 @@ try {
                 mapLangs[lang] = localization;
             }
             fs.writeFileSync(`./src/data/maps_locale.json`, JSON.stringify(mapLangs));
+        });
+    }));
+
+    apiPromises.push(doFetchBosses('en', true).then(bosses => {
+        fs.writeFileSync('./src/data/bosses.json', JSON.stringify(bosses));
+        return getBossNames(langs).then(bossResults => {
+            const bossLangs = {};
+            for (const lang in bossResults) {
+                const localization = {};
+                bossResults[lang].forEach(boss => {
+                    localization[boss.normalizedName] = {
+                        name: boss.name,
+                    };
+                });
+                bossLangs[lang] = localization;
+            }
+            fs.writeFileSync(`./src/data/bosses_locale.json`, JSON.stringify(bossLangs));
         });
     }));
 

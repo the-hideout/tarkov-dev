@@ -138,6 +138,8 @@ src/data/barters.json
 src/data/crafts.json
 src/data/maps_cached.json
 src/data/maps_locale.json
+src/data/bosses.json
+src/data/bosses_locale.json
 src/data/meta.json
 src/data/supported-languages.json
 public/sitemap.xml
