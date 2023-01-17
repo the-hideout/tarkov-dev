@@ -131,16 +131,15 @@ function TaskObjectiveTable({ objectives }) {
                     </span>
                 ) : null,
         });
-        useColumns.push(
-            {
-                Header: t('Objective'),
-                accessor: 'description',
-                Cell: (props) => {
-                    //console.log(props.row.original)
-                    return props.value;
-                },
+        useColumns.push({
+            Header: t('Objective'),
+            id: 'description',
+            accessor: 'description',
+            Cell: (props) => {
+                //console.log(props.row.original)
+                return props.value;
             },
-        );
+        });
 
         const claimedPositions = [];
         for (let i = 1; i < useColumns.length; i++) {
@@ -187,10 +186,10 @@ function TaskObjectiveTable({ objectives }) {
     return (
         <DataTable
             className={`small-data-table`}
-            extraRow={extraRow}
-            columns={columns}
             key="small-item-table"
+            columns={columns}
             data={data}
+            extraRow={extraRow}
             autoResetSortBy={false}
         />
     );

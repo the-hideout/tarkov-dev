@@ -227,14 +227,14 @@ function BossPage(params) {
                             />
                         </h1>
                         {bossJsonData &&
-                            <span className="wiki-link-wrapper">
-                                <a href={bossJsonData.wikiLink} target="_blank" rel="noopener noreferrer">
-                                    {t('Wiki')}
-                                </a>
-                            </span>
-                        }
-                        {bossJsonData &&
-                            <p className='boss-details'>{bossJsonData.details}</p>
+                            <>
+                                <span className="wiki-link-wrapper">
+                                    <a href={bossJsonData.wikiLink} target="_blank" rel="noopener noreferrer">
+                                        {t('Wiki')}
+                                    </a>
+                                </span>
+                                <p className='boss-details'>{bossJsonData.details}</p>
+                            </>
                         }
                     </div>
                     <div className="icon-and-link-wrapper">
@@ -257,26 +257,26 @@ function BossPage(params) {
                 <PropertyList properties={bossProperties} />
 
                 {bossJsonData &&
-                    <h2 className='item-h2' key={'boss-loot-header'}>
-                        {t('Special Boss Loot')}
-                        <Icon
-                            path={mdiDiamondStone}
-                            size={1.5}
-                            className="icon-with-text"
-                        />
-                    </h2>
-                }
-                {bossJsonData &&
-                    <div className='loot-table-boss'>
-                        <SmallItemTable
-                            idFilter={bossJsonData.loot.reduce((prev, current) => {
-                                prev.push(current.id);
-                                return prev;
-                            }, [])}
-                            fleaValue
-                            traderValue
-                        />
-                    </div>
+                    <>
+                        <h2 className='item-h2' key={'boss-loot-header'}>
+                            {t('Special Boss Loot')}
+                            <Icon
+                                path={mdiDiamondStone}
+                                size={1.5}
+                                className="icon-with-text"
+                            />
+                        </h2>
+                        <div className='loot-table-boss'>
+                            <SmallItemTable
+                                idFilter={bossJsonData.loot.reduce((prev, current) => {
+                                    prev.push(current.id);
+                                    return prev;
+                                }, [])}
+                                fleaValue
+                                traderValue
+                            />
+                        </div>
+                    </>
                 }
 
                 <h2 className='item-h2' key={'boss-spawn-table-header'}>
@@ -310,7 +310,7 @@ function BossPage(params) {
                         className="icon-with-text"
                     />
                 </h2>
-                {escorts.length > 0 &&
+                {escorts.length > 0 ?
                     <DataTable
                         columns={columnsEscorts}
                         data={escorts}
@@ -320,9 +320,8 @@ function BossPage(params) {
                         sortByDesc={true}
                         autoResetSortBy={false}
                     />
-                }
-                {escorts.length === 0 &&
-                    <p>This boss does not have any escorts</p>
+                    :
+                    <p>{t('This boss does not have any escorts')}</p>
                 }
 
                 {/* cheeki breeki */}
