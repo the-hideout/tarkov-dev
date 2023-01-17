@@ -42,6 +42,7 @@ function Containers(props) {
                 pricePerSlot
                 showContainedItems
                 showNetPPS={showNetPPS}
+                sortBy='pricePerSlot'
             />
 
             <div className="page-wrapper items-page-wrapper">
