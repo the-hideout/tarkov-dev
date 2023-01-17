@@ -412,6 +412,7 @@ function Boss() {
             url={`https://tarkov.dev/boss/${bossName}`}
             image={`${window.location.origin}${process.env.PUBLIC_URL}/images/traders/${bossName}-portrait.png`}
             card='summary_large_image'
+            key="seo-wrapper"
         />,
         <Suspense fallback={<Loading />} key={`suspense-boss-page-${bossName}`}>
             <BossPage bossName={bossName} />

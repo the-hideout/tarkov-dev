@@ -218,6 +218,7 @@ function Settings() {
         <SEO 
             title={`${t('Settings')} - ${t('Tarkov.dev')}`}
             description={t('settings-page-description', 'This page contains user settings on Tarkov.dev.')}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper'}>
             <h1>{t('Settings')}</h1>

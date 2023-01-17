@@ -17,6 +17,7 @@ function Backpacks() {
         <SEO 
             title={`${t('Backpacks')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('backpacks-page-description', 'This page includes a sortable table with information on the different types of backpacks available in the game, including their price, size, capacity, and other characteristics.')}
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">

@@ -52,6 +52,7 @@ function Helmets() {
         <SEO 
             title={`${t('Helmets')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('helmet-page-description', 'This page includes a sortable table with information on the different types of helmet available in the game, including their price, armor class, and other characteristics.')}
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">

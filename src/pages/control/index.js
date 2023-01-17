@@ -130,6 +130,7 @@ function Control(props) {
         <SEO 
             title={`${t('Remote Control')} - ${t('Tarkov.dev')}`}
             description={t('remote-control-page-description', 'This page contains all necessary tools to remote control another instance of Tarkov.dev website.')}
+            key="seo-wrapper"
         />,
         <div className="control-wrapper" key="">
             <h1>{t('Remote Control')}</h1>

@@ -14,6 +14,7 @@ function APIDocs() {
         <SEO 
             title={`${t('API Documentation')} - ${t('Tarkov.dev')}`}
             description={t('api-docs-page-description', 'Escape from Tarkov\'s community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT.')}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper api-docs-page-wrapper'}>
             <h1>{t('Tarkov.dev API')}</h1>

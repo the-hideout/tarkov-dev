@@ -103,6 +103,7 @@ function Trader() {
             description={t('trader-page-description', 'Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty', { trader: trader.name })}
             image={`${window.location.origin}${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}-portrait.png`}
             card='summary_large_image'
+            key="seo-wrapper"
         />,
         <div className="page-wrapper" key={'page-wrapper'}>
             <div className="page-headline-wrapper">

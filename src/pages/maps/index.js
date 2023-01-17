@@ -28,6 +28,7 @@ function Maps() {
         <SEO 
             title={`${t('Maps')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('maps-page-description', 'Get the latest information on all maps in Escape from Tarkov, including extract points and loot locations. Find out where to find the best gear and resources in the game')}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper'} key="map-page-wrapper">
             <h1 className="center-title">

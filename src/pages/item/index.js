@@ -467,6 +467,7 @@ function Item() {
             url={`https://tarkov.dev/item/${currentItemData.normalizedName}`}
             image={currentItemData.image512pxLink}
             card='summary_large_image'
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className={'item-page-wrapper'}>

@@ -55,6 +55,7 @@ function Map() {
             description={description}
             image={`${window.location.origin}${process.env.PUBLIC_URL}${imageThumb}`}
             card='summary_large_image'
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key="map-wrapper">
             <Time

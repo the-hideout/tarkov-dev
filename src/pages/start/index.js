@@ -71,6 +71,7 @@ function Start() {
             title={`${t('Tarkov.dev')} - ${t('Escape from Tarkov')}`}
             description={t('start-page-description', 'Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, trader details, a free API, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.')}
             type='website'
+            key="seo-wrapper"
         />,
         <div
             className="display-wrapper page-wrapper start-wrapper"

@@ -715,7 +715,6 @@ function SmallItemTable(props) {
                 item.subRows = items.filter(attachmentItem => {
                     return attachmentMap[item.id]?.includes(attachmentItem.id);
                 }).map(item => formatItem(item));
-                console.log(item.name, item.subRows)
             });
         }
 
