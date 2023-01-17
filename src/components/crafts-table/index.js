@@ -372,6 +372,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         () => [
             {
                 Header: t('Reward'),
+                id: 'reward',
                 accessor: 'reward',
                 Cell: ({ value }) => {
                     return <RewardCell {...value} />;
@@ -379,14 +380,23 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
             },
             {
                 Header: t('Cost'),
+                id: 'costItems',
                 accessor: 'costItems',
+                sortType: (a, b, columnId, desc) => {
+                    const aCostItems = a.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bCostItems = b.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    
+                    return aCostItems - bCostItems;
+                },
                 Cell: ({ value }) => {
                     return <CostItemsCell costItems={value} />;
                 },
             },
             {
                 Header: t('Duration') + '\n' + t('Finishes'),
+                id: 'craftTime',
                 accessor: 'craftTime',
+                sortType: 'basic',
                 Cell: ({ value }) => {
                     return (
                         <CenterCell nowrap>
@@ -401,10 +411,10 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         </CenterCell>
                     );
                 },
-                sortType: 'basic',
             },
             {
                 Header: t('Cost ₽'),
+                id: 'cost',
                 accessor: (d) => Number(d.cost),
                 Cell: (props) => {
                     if (props.row.original.cached) {
@@ -416,14 +426,15 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     }
                     return <ValueCell value={props.value} valueCount={props.row.original.reward.count}/>;
                 },
-                id: 'cost',
             },
             ...(includeFlea
                 ? [
-                      {
-                          Header: t('Flea throughput/h'),
-                          accessor: 'fleaThroughput',
-                          Cell: (props) => {
+                    {
+                        Header: t('Flea throughput/h'),
+                        id: 'fleaThroughput',
+                        accessor: 'fleaThroughput',
+                        sortType: 'basic',
+                        Cell: (props) => {
                             if (props.row.original.cached) {
                                 return (
                                     <div className="center-content">
@@ -433,13 +444,14 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                             }
                             return <ValueCell value={props.value}/>;
                         },
-                          sortType: 'basic',
-                      },
+                    },
                   ]
                 : []),
             {
                 Header: t('Estimated profit'),
+                id: 'profit',
                 accessor: 'profit',
+                sortType: 'basic',
                 Cell: (props) => {
                     if (props.row.original.cached) {
                         return (
@@ -450,11 +462,12 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     }
                     return <ValueCell value={props.value} valueDetails={props.row.original.profitParts} highlightProfit />;
                 },
-                sortType: 'basic',
             },
             {
                 Header: t('Estimated profit/h'),
+                id: 'profitPerHour',
                 accessor: 'profitPerHour',
+                sortType: 'basic',
                 Cell: (props) => {
                     if (props.row.original.cached) {
                         return (
@@ -465,7 +478,6 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     }
                     return <ValueCell value={props.value} highlightProfit />;
                 },
-                sortType: 'basic',
             },
         ],
         [t, includeFlea],
