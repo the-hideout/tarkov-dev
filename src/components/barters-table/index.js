@@ -56,6 +56,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
         () => [
             {
                 Header: t('Reward'),
+                id: 'reward',
                 accessor: 'reward',
                 Cell: ({ value }) => {
                     return <RewardCell {...value} />;
@@ -63,6 +64,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
             },
             {
                 Header: t('Cost'),
+                id: 'costItems',
                 accessor: 'costItems',
                 Cell: ({ value }) => {
                     return <CostItemsCell costItems={value} />;
@@ -70,6 +72,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
             },
             {
                 Header: t('Cost ₽'),
+                id: 'cost',
                 accessor: 'cost',
                 Cell: (props) => {
                     if (props.row.original.cached) {
@@ -84,7 +87,14 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
             },
             {
                 Header: t('Estimated savings'),
+                id: 'savings',
                 accessor: (d) => Number(d.savings),
+                sortType: (a, b, columnId, desc) => {
+                    const aSell = a.values.savings || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bSell = b.values.savings || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    
+                    return aSell - bSell;
+                },
                 Cell: (props) => {
                     if (props.row.original.cached) {
                         return (
@@ -95,21 +105,12 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     }
                     return <ValueCell value={props.value} highlightProfit valueDetails={props.row.original.savingsParts} />;
                 },
-                sortType: (a, b) => {
-                    if (a.sellValue > b.sellValue) {
-                        return 1;
-                    }
-
-                    if (a.sellValue < b.sellValue) {
-                        return -1;
-                    }
-
-                    return 0;
-                },
             },
             {
                 Header: t('InstaProfit'),
+                id: 'instaProfit',
                 accessor: 'instaProfit',
+                sortType: 'basic',
                 Cell: (props) => {
                     if (props.row.original.cached) {
                         return (
@@ -121,12 +122,11 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     return (
                         <ValueCell value={props.value} highlightProfit valueDetails={props.row.original.instaProfitDetails}>
                             <div className="duration-wrapper">
-                                {props.row.original.instaProfitSource.vendor.name}
+                                {props.row.original.instaProfitSource.vendor.normalizedName!=='unknown' ? props.row.original.instaProfitSource.vendor.name : ''}
                             </div>
                         </ValueCell>
                     );
                 },
-                sortType: 'basic',
             },
         ],
         [t],
@@ -458,10 +458,12 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
 
     return (
         <DataTable
-            columns={columns}
-            extraRow={extraRow}
             key="barters-table"
+            columns={columns}
             data={data}
+            extraRow={extraRow}
+            sortBy={'instaProfit'}
+            sortByDesc={true}
         />
     );
 }
