@@ -1240,7 +1240,7 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Weight (kg)'),
                 accessor: 'weight',
-                sortType: (a, b, columnId, desc) => {
+                sortType: (a, b) => {
                     return a.original.weight - b.original.weight;
                 },
                 Cell: CenterCell,
@@ -1330,6 +1330,9 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Hydration'),
                 accessor: (item) => item.properties.hydration,
+                sortType: (a, b) => {
+                    return a.original.properties.hydration - b.original.properties.hydration;
+                },
                 Cell: CenterCell,
                 position: hydration,
             });
@@ -1482,6 +1485,9 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Recoil'),
                 accessor: (item) => item.properties.recoilModifier,
+                sortType: (a, b) => {
+                    return b.original.properties.recoilModifier - a.original.properties.recoilModifier;
+                },
                 Cell: ({value}) => {
                     if (!value) {
                         value = '-'
@@ -1499,10 +1505,9 @@ function SmallItemTable(props) {
                 Header: t('Cheapest Price'),
                 accessor: 'cheapestPrice',
                 sortType: (a, b) => {
-                    if (b.original.cheapestPrice && !a.original.cheapestPrice) {
-                        return b.original.cheapestPrice;
-                    }
-                    return a.original.cheapestPrice - b.original.cheapestPrice;
+                    let asd = a.original.cheapestPrice || Number.MAX_SAFE_INTEGER;
+                    let bsd = b.original.cheapestPrice || Number.MAX_SAFE_INTEGER;
+                    return asd - bsd;
                 },
                 Cell: (props) => {
                     let tipContent = '';
