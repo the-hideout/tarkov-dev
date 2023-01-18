@@ -119,6 +119,7 @@ function Helmets() {
                 maxDurability={5}
                 stats={6}
                 cheapestPrice={7}
+                sortBy='armorClass'
             />
 
             <div className="page-wrapper items-page-wrapper">

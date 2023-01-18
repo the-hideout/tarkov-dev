@@ -47,6 +47,7 @@ function Glasses() {
                 blindnessProtection={2}
                 stats={3}
                 cheapestPrice={4}
+                sortBy='armorClass'
             />
 
             <div className="page-wrapper items-page-wrapper">

@@ -57,6 +57,7 @@ function Backpacks() {
                 weight={3}
                 cheapestPrice={4}
                 pricePerSlot={5}
+                sortBy='pricePerSlot'
             />
             
             <div className="page-wrapper items-page-wrapper">

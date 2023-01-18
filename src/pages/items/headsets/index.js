@@ -74,6 +74,7 @@ function Headsets() {
                 traderValue={2}
                 fleaValue={3}
                 cheapestPrice={4}
+                sortBy={'traderPrice'}
             />
 
             <div className="page-wrapper items-page-wrapper">

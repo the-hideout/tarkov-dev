@@ -133,6 +133,7 @@ function Armors(props) {
                 weight
                 stats
                 showAllSources={showAllArmorSources}
+                sortBy='armorClass'
             />
             
             <div className="page-wrapper items-page-wrapper">

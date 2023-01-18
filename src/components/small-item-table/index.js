@@ -198,11 +198,15 @@ const ConditionalWrapper = ({ condition, wrapper, children }) => {
 
 function SmallItemTable(props) {
     let {
+        // common
         maxItems,
         nameFilter,
         defaultRandom,
         typeFilter,
         containedInFilter,
+        sortBy,
+        sortByDesc,
+        // columns
         instaProfit,
         traderPrice,
         traderFilter,
@@ -865,25 +869,25 @@ function SmallItemTable(props) {
                     ) : null,
             });
         }
-        useColumns.push(
-            {
-                Header: t('Name'),
-                accessor: 'name',
-                Cell: (props) => {
-                    return (
-                        <ItemNameCell
-                            item={props.row.original}
-                            showContainedItems={showContainedItems}
-                            showRestrictedType={showRestrictedType}
-                        />
-                    );
-                },
+        useColumns.push({
+            Header: t('Name'),
+            id: 'name',
+            accessor: 'name',
+            Cell: (props) => {
+                return (
+                    <ItemNameCell
+                        item={props.row.original}
+                        showContainedItems={showContainedItems}
+                        showRestrictedType={showRestrictedType}
+                    />
+                );
             },
-        );
+        });
 
         if (fleaValue) {
             useColumns.push({
                 Header: t('Sell to Flea'),
+                id: 'fleaValue',
                 accessor: (d) => Number(d.lastLowPrice),
                 Cell: (allData) => {
                     if (allData.row.original.types.includes('noFlea')) {
@@ -936,7 +940,6 @@ function SmallItemTable(props) {
                         />
                     );
                 },
-                id: 'fleaSellPrice',
                 position: fleaValue,
             });
         }
@@ -944,9 +947,8 @@ function SmallItemTable(props) {
         if (fleaPrice) {
             useColumns.push({
                 Header: t('Buy on Flea'),
+                id: 'fleaPrice',
                 accessor: (d) => Number(d.buyOnFleaPrice?.price),
-                Cell: FleaPriceCell,
-                id: 'fleaBuyPrice',
                 sortType: (a, b, columnId, desc) => {
                     if (a.values.fleaBuyPrice === 0 || isNaN(a.values.fleaBuyPrice)) {
                         if (desc) {
@@ -974,6 +976,7 @@ function SmallItemTable(props) {
 
                     return 0;
                 },
+                Cell: FleaPriceCell,
                 position: fleaPrice,
             });
         }
@@ -981,19 +984,18 @@ function SmallItemTable(props) {
         if (barterPrice) {
             useColumns.push({
                 Header: t('Barter'),
+                id: 'barterPrice',
                 accessor: (d) => Number(d.barterPrice?.price),
+                sortType: (a, b, columnId, desc) => {
+                    const aBart = a.values.barterPrice || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bBart = b.values.barterPrice || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    
+                    return aBart - bBart;
+                },
                 Cell: (props) => {
-                    // return <ValueCell
-                    //     value = {props.value}
-                    // />;
-                    /*
-                        For some reason this
-                        */
                     return (
                         <Tippy
                             placement="bottom"
-                            // followCursor = {'horizontal'}
-                            // showOnCreate = {true}
                             interactive={true}
                             content={
                                 <BarterToolTip
@@ -1001,41 +1003,12 @@ function SmallItemTable(props) {
                                     showAllSources={showAllSources}
                                 />
                             }
-                        // plugins={[followCursor]}
                         >
                             <div className="center-content">
                                 {props.value ? formatPrice(props.value) : '-'}
                             </div>
                         </Tippy>
                     );
-                },
-                id: 'barterPrice',
-                sortType: (a, b, columnId, desc) => {
-                    if (a.values.barterPrice === 0 || isNaN(a.values.barterPrice)) {
-                        if (desc) {
-                            return -1;
-                        }
-
-                        return 1;
-                    }
-
-                    if (b.values.barterPrice === 0 || isNaN(b.values.barterPrice)) {
-                        if (desc) {
-                            return 1;
-                        }
-
-                        return -1;
-                    }
-
-                    if (a.values.barterPrice > b.values.barterPrice) {
-                        return -1;
-                    }
-
-                    if (a.values.barterPrice < b.values.barterPrice) {
-                        return 1;
-                    }
-
-                    return 0;
                 },
                 position: barterPrice,
             });
@@ -1044,9 +1017,9 @@ function SmallItemTable(props) {
         if (traderValue) {
             useColumns.push({
                 Header: t('Sell to Trader'),
+                id: 'traderValue',
                 accessor: (d) => Number(totalTraderPrice? d.bestSell?.totalPriceRUB : d.bestSell?.priceRUB),
                 Cell: (datum) => TraderSellCell(datum, totalTraderPrice, showSlotValue),
-                id: 'traderPrice',
                 summable: true,
                 position: traderValue,
             });
@@ -1055,38 +1028,16 @@ function SmallItemTable(props) {
         if (instaProfit) {
             useColumns.push({
                 Header: t('InstaProfit'),
-                accessor: 'instaProfit',
-                Cell: ValueCell,
                 id: 'instaProfit',
+                accessor: 'instaProfit',
                 sortDescFirst: true,
-                // sortType: 'basic',
                 sortType: (a, b, columnId, desc) => {
-                    if (a.values.instaProfit === 0) {
-                        if (desc) {
-                            return -1;
-                        }
-
-                        return 1;
-                    }
-
-                    if (b.values.instaProfit === 0) {
-                        if (desc) {
-                            return 1;
-                        }
-
-                        return -1;
-                    }
-
-                    if (a.values.instaProfit > b.values.instaProfit) {
-                        return 1;
-                    }
-
-                    if (a.values.instaProfit < b.values.instaProfit) {
-                        return -1;
-                    }
-
-                    return 0;
+                    const aInsta = a.values.instaProfit || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bInsta = b.values.instaProfit || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    
+                    return aInsta - bInsta;
                 },
+                Cell: ValueCell,
                 position: instaProfit,
             });
         }
@@ -1094,9 +1045,9 @@ function SmallItemTable(props) {
         if (traderPrice) {
             useColumns.push({
                 Header: t('Trader buy'),
+                id: 'traderPrice',
                 accessor: (d) => Number(d.instaProfit),
                 Cell: TraderPriceCell,
-                id: 'traderBuyCell',
                 position: traderPrice,
             });
         }
@@ -1104,9 +1055,11 @@ function SmallItemTable(props) {
         if (traderBuyback) {
             useColumns.push({
                 Header: t('Buyback ratio'),
+                id: 'traderBuyback',
                 accessor: 'buyback',
+                sortDescFirst: true,
+                sortType: 'basic',
                 Cell: ({ value }) => {
-                    // allData.row.original.itemLink
                     return (
                         <Tippy
                             content={t('The percent recovered if you buy this item on the flea and sell to the trader')}
@@ -1117,9 +1070,6 @@ function SmallItemTable(props) {
                         </Tippy>
                     );
                 },
-                id: 'buyback',
-                sortDescFirst: true,
-                sortType: 'basic',
                 position: traderBuyback,
             });
         }
@@ -1127,16 +1077,8 @@ function SmallItemTable(props) {
         if (grid) {
             useColumns.push({
                 Header: t('Grid'),
+                id: 'grid',
                 accessor: 'grid',
-                Cell: ({ value }) => {
-                    return (
-                        <CanvasGrid
-                            width={value.width}
-                            height={value.height}
-                            grid={value.pockets}
-                        />
-                    );
-                },
                 sortType: (a, b, columnId, desc) => {
                     const aSize = a.values.grid.pockets.reduce((totalSize, pocket) => {
                         return totalSize += (pocket.width * pocket.height);
@@ -1146,6 +1088,15 @@ function SmallItemTable(props) {
                     }, 0);
                     return aSize - bSize;
                 },
+                Cell: ({ value }) => {
+                    return (
+                        <CanvasGrid
+                            width={value.width}
+                            height={value.height}
+                            grid={value.pockets}
+                        />
+                    );
+                },
                 position: grid,
             });
         }
@@ -1153,6 +1104,7 @@ function SmallItemTable(props) {
         if (gridSlots) {
             useColumns.push({
                 Header: t('Slots occupied'),
+                id: 'gridSlots',
                 accessor: 'slots',
                 Cell: CenterCell,
                 position: gridSlots,
@@ -1162,6 +1114,7 @@ function SmallItemTable(props) {
         if (innerSize) {
             useColumns.push({
                 Header: t('Slots inside'),
+                id: 'innerSize',
                 accessor: 'size',
                 Cell: CenterCell,
                 position: innerSize
@@ -1171,6 +1124,7 @@ function SmallItemTable(props) {
         if (slotRatio) {
             useColumns.push({
                 Header: t('Slots ratio'),
+                id: 'slotRatio',
                 accessor: 'ratio',
                 Cell: CenterCell,
                 position: slotRatio,
@@ -1180,7 +1134,14 @@ function SmallItemTable(props) {
         if (pricePerSlot) {
             useColumns.push({
                 Header: t('Price per slot'),
+                id: 'pricePerSlot',
                 accessor: 'pricePerSlot',
+                sortType: (a, b, columnId, desc) => {
+                    const aPPS = a.values.pricePerSlot || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bPPS = b.values.pricePerSlot || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    
+                    return aPPS - bPPS;
+                },
                 Cell: ValueCell,
                 position: pricePerSlot,
             });
@@ -1189,7 +1150,22 @@ function SmallItemTable(props) {
         if (armorClass) {
             useColumns.push({
                 Header: t('Armor class'),
+                id: 'armorClass',
                 accessor: 'armorClass',
+                sortType: (a, b) => {
+                    const aArmor = a.values.armorClass;
+                    const bArmor = b.values.armorClass;
+                    if (aArmor===bArmor) {
+                        if (effectiveDurability)
+                            return a.values.effectiveDurability - b.values.effectiveDurability;
+                        else if (blindnessProtection)
+                            return a.values.blindnessProtection - b.values.blindnessProtection;
+                        else
+                            return a.values.maxDurability - b.values.maxDurability;
+                    }
+                    
+                    return aArmor - bArmor;
+                },
                 Cell: CenterCell,
                 position: armorClass,
             });
@@ -1198,6 +1174,7 @@ function SmallItemTable(props) {
         if (armorZones) {
             useColumns.push({
                 Header: t('Zones'),
+                id: 'armorZone',
                 accessor: 'armorZone',
                 Cell: CenterCell,
                 position: armorZones,
@@ -1207,6 +1184,7 @@ function SmallItemTable(props) {
         if (maxDurability) {
             useColumns.push({
                 Header: t('Max Durability'),
+                id: 'maxDurability',
                 accessor: 'maxDurability',
                 Cell: CenterCell,
                 position: maxDurability,
@@ -1216,6 +1194,7 @@ function SmallItemTable(props) {
         if (effectiveDurability) {
             useColumns.push({
                 Header: t('Effective Durability'),
+                id: 'effectiveDurability',
                 accessor: (item) => {
                     if (useClassEffectiveDurability) {
                         return item.effectiveDurability * (item.armorClass * item.armorClass);
@@ -1230,6 +1209,7 @@ function SmallItemTable(props) {
         if (repairability) {
             useColumns.push({
                 Header: t('Repairability'),
+                id: 'repairability',
                 accessor: 'repairability',
                 Cell: CenterCell,
                 position: repairability,
@@ -1239,6 +1219,7 @@ function SmallItemTable(props) {
         if (weight) {
             useColumns.push({
                 Header: t('Weight (kg)'),
+                id: 'weight',
                 accessor: 'weight',
                 sortType: (a, b) => {
                     return a.original.weight - b.original.weight;
@@ -1256,6 +1237,7 @@ function SmallItemTable(props) {
                         <div>{t('Mov/Turn/Ergo')}</div>
                     </div>
                 ),
+                id: 'stats',
                 accessor: 'stats',
                 Cell: ({ value }) => {
                     return <CenterCell value={value} nowrap />;
@@ -1267,9 +1249,11 @@ function SmallItemTable(props) {
         if (caliber) {
             useColumns.push({
                 Header: t('Caliber'),
+                id: 'caliber',
                 accessor: (item) => {
                     let caliber = item.properties.caliber;
-                    if (!caliber) return '-';
+                    if (!caliber) 
+                        return '-';
                     caliber = formatCaliber(caliber);
                     if (caliber === '12 Gauge Shot' && item.properties.ammoType === 'bullet') {
                         caliber = caliber.replace('Shot', 'Slug');
@@ -1284,6 +1268,7 @@ function SmallItemTable(props) {
         if (damage) {
             useColumns.push({
                 Header: t('Damage'),
+                id: 'damage',
                 accessor: (ammoData) => useAllProjectileDamage ? ammoData.properties.projectileCount * ammoData.properties.damage : ammoData.properties.damage,
                 Cell: CenterCell,
                 position: damage,
@@ -1293,6 +1278,7 @@ function SmallItemTable(props) {
         if (penetrationPower) {
             useColumns.push({
                 Header: t('Penetration'),
+                id: 'penetrationPower',
                 accessor: (item) => item.properties.penetrationPower,
                 Cell: CenterCell,
                 position: penetrationPower,
@@ -1302,6 +1288,7 @@ function SmallItemTable(props) {
         if (armorDamage) {
             useColumns.push({
                 Header: t('Armor damage'),
+                id: 'armorDamage',
                 accessor: (item) => item.properties.armorDamage,
                 Cell: CenterCell,
                 position: armorDamage,
@@ -1311,6 +1298,7 @@ function SmallItemTable(props) {
         if (fragChance) {
             useColumns.push({
                 Header: t('Fragmentation chance'),
+                id: 'fragChance',
                 accessor: (item) => `${Math.floor(item.properties.fragmentationChance * 100)}%`,
                 Cell: CenterCell,
                 position: fragChance,
@@ -1320,8 +1308,17 @@ function SmallItemTable(props) {
         if (blindnessProtection) {
             useColumns.push({
                 Header: t('Blindness protection'),
-                accessor: (item) => item.properties.blindnessProtection ? `${item.properties.blindnessProtection*100}%` : '-',
-                Cell: CenterCell,
+                id: 'blindnessProtection',
+                accessor: (item) => item.properties.blindnessProtection,
+                Cell: ({ value }) => {
+                    let valueStr;
+                    if (!value) {
+                        valueStr = '-';
+                    } else {
+                        valueStr = `${value*100}%`;
+                    }
+                    return <CenterCell value={valueStr} nowrap />;
+                },
                 position: blindnessProtection,
             });
         }
@@ -1329,6 +1326,7 @@ function SmallItemTable(props) {
         if (hydration) {
             useColumns.push({
                 Header: t('Hydration'),
+                id: 'hydration',
                 accessor: (item) => item.properties.hydration,
                 sortType: (a, b) => {
                     return a.original.properties.hydration - b.original.properties.hydration;
@@ -1341,6 +1339,7 @@ function SmallItemTable(props) {
         if (energy) {
             useColumns.push({
                 Header: t('Energy'),
+                id: 'energy',
                 accessor: (item) => item.properties.energy,
                 Cell: CenterCell,
                 position: energy,
@@ -1350,6 +1349,7 @@ function SmallItemTable(props) {
         if (hydrationCost) {
             useColumns.push({
                 Header: t('Hydration Cost'),
+                id: 'hydrationCost',
                 accessor: (item) => {
                     if (!item.cheapestPrice) {
                         return 0;
@@ -1376,6 +1376,7 @@ function SmallItemTable(props) {
         if (energyCost) {
             useColumns.push({
                 Header: t('Energy Cost'),
+                id: 'energyCost',
                 accessor: (item) => {
                     if (!item.cheapestPrice) {
                         return 0;
@@ -1406,6 +1407,7 @@ function SmallItemTable(props) {
         if (provisionValue) {
             useColumns.push({
                 Header: t('Hydration + Energy Value'),
+                id: 'provisionValue',
                 accessor: (item) => {
                     let hydValue = 0;
                     let engValue = 0;
@@ -1434,6 +1436,7 @@ function SmallItemTable(props) {
         if (soundSuppression) {
             useColumns.push({
                 Header: t('Sound suppression'),
+                id: 'soundSuppression',
                 accessor: (item) => item.properties.deafening,
                 Cell: CenterCell,
                 position: soundSuppression,
@@ -1443,6 +1446,7 @@ function SmallItemTable(props) {
         if (blocksHeadset) {
             useColumns.push({
                 Header: t('Blocks earpiece'),
+                id: 'blocksHeadset',
                 accessor: (item) => item.properties.blocksHeadset ? t('Yes') : t('No'),
                 Cell: CenterCell,
                 position: blocksHeadset,
@@ -1452,7 +1456,20 @@ function SmallItemTable(props) {
         if (ergonomics) {
             useColumns.push({
                 Header: t('Ergonomics'),
+                id: 'ergonomics',
                 accessor: (item) => item.properties.ergonomics,
+                sortType: (a, b, columnId, desc) => {
+                    const aErgo = a.values.ergonomics;
+                    const bErgo = b.values.ergonomics;
+                    if (aErgo===bErgo) {
+                        if (desc)
+                            return b.values.ergoCost - a.values.ergoCost;
+                        else
+                            return a.values.ergoCost - b.values.ergoCost;
+                    }
+                    
+                    return aErgo - bErgo;
+                },
                 Cell: CenterCell,
                 position: ergonomics,
             });
@@ -1461,6 +1478,7 @@ function SmallItemTable(props) {
         if (ergoCost) {
             useColumns.push({
                 Header: t('Cost per ergo'),
+                id: 'ergoCost',
                 accessor: (item) => {
                     if (item.cheapestPrice) {
                         return item.cheapestPrice / item.properties.ergonomics;
@@ -1484,6 +1502,7 @@ function SmallItemTable(props) {
         if (recoilModifier) {
             useColumns.push({
                 Header: t('Recoil'),
+                id: 'recoilModifier',
                 accessor: (item) => item.properties.recoilModifier,
                 sortType: (a, b) => {
                     return b.original.properties.recoilModifier - a.original.properties.recoilModifier;
@@ -1503,6 +1522,7 @@ function SmallItemTable(props) {
         if (cheapestPrice) {
             useColumns.push({
                 Header: t('Cheapest Price'),
+                id: 'cheapestPrice',
                 accessor: 'cheapestPrice',
                 sortType: (a, b) => {
                     let asd = a.original.cheapestPrice || Number.MAX_SAFE_INTEGER;
@@ -1741,15 +1761,17 @@ function SmallItemTable(props) {
     return (
         <DataTable
             className={`small-data-table ${hideBorders ? 'no-borders' : ''}`}
-            columns={columns}
-            extraRow={extraRow}
             key="small-item-table"
+            columns={columns}
+            sumColumns={sumColumns}
             data={data}
+            extraRow={extraRow}
+            sortBy={sortBy}
+            sortByDesc={sortByDesc}
             autoResetSortBy={false}
             maxItems={maxItems}
             nameFilter={nameFilter}
             autoScroll={autoScroll}
-            sumColumns={sumColumns}
         />
     );
 }

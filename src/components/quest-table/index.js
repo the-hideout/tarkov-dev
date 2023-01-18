@@ -299,6 +299,7 @@ function QuestTable({
         const useColumns = [
             {
                 Header: t('Task'),
+                id: 'name',
                 accessor: 'name',
                 Cell: (props) => {
                     const questData = props.row.original;
@@ -339,6 +340,7 @@ function QuestTable({
         if (requiredItems) {
             useColumns.push({
                 Header: t('Required items'),
+                id: 'requiredItems',
                 accessor: (quest) => {
                     return quest.requiredItems[0]?.item.name;
                 },
@@ -357,6 +359,7 @@ function QuestTable({
         if (rewardItems) {
             useColumns.push({
                 Header: t('Reward items'),
+                id: 'rewardItems',
                 accessor: (quest) => {
                     return quest.rewardItems[0]?.item.name;
                 },
@@ -375,6 +378,7 @@ function QuestTable({
         if (questRequirements) {
             useColumns.push({
                 Header: t('Required tasks'),
+                id: 'questRequirements',
                 accessor: (questData) => {
                     return quests.find(quest => quest.id === questData.taskRequirements[0]?.task.id)?.name;
                 },
@@ -423,13 +427,14 @@ function QuestTable({
                         );
                     });
                 },
-                position: rewardItems,
+                position: questRequirements,
             });
         }
 
         if (minimumLevel) {
             useColumns.push({
                 Header: t('Minimum level'),
+                id: 'minimumLevel',
                 accessor: 'minPlayerLevel',
                 Cell: (props) => {
                     if (!props.value) {
@@ -446,6 +451,7 @@ function QuestTable({
         if (minimumTraderLevel) {
             useColumns.push({
                 Header: t('Minimum trader level'),
+                id: 'minimumTraderLevel',
                 accessor: (questData) => {
                     return questData.traderLevelRequirements[0]?.level;
                 },
@@ -461,7 +467,11 @@ function QuestTable({
         if (reputationRewards) {
             useColumns.push({
                 Header: t('Reputation rewards'),
+                id: 'reputationRewards',
                 accessor: 'totalRepReward',
+                sortType: (a, b, columnId, desc) => {
+                    return a.original.totalRepReward - b.original.totalRepReward;
+                },
                 Cell: (props) => {
                     return (
                         <CenterCell value={props.row.original.finishRewards.traderStanding?.reduce((standings, current) => {
@@ -476,10 +486,7 @@ function QuestTable({
                         }, [])}/>
                     );
                 },
-                sortType: (a, b, columnId, desc) => {
-                    return a.original.totalRepReward - b.original.totalRepReward;
-                },
-                position: minimumTraderLevel,
+                position: reputationRewards,
             });
         }
 
@@ -525,21 +532,18 @@ function QuestTable({
     if (allQuestData.length <= 0) {
         extraRow = t('No quests found');
     } else if (allQuestData.length !== shownQuests.length) {
-        extraRow = (
-            <>
-                {t('Some tasks hidden by filter settings')}
-            </>
-        );
+        extraRow = t('Some tasks hidden by filter settings');
     }
 
     return (
         <DataTable
             className={`quest-table ${hideBorders ? 'no-borders' : ''}`}
-            columns={columns}
-            extraRow={extraRow}
             key="small-item-table"
+            columns={columns}
             data={shownQuests}
+            extraRow={extraRow}
             autoResetSortBy={false}
+            sortBy='progression'
         />
     );
 }
