@@ -93,6 +93,7 @@ function Provisions() {
                 hydrationCost={6}
                 energyCost={7}
                 provisionValue={8}
+                sortBy='provisionValue'
             />
 
             <div className="page-wrapper items-page-wrapper">

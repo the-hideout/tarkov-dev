@@ -81,6 +81,8 @@ function PistolGrips() {
                 ergonomics={1}
                 cheapestPrice={2}
                 ergoCost={2}
+                sortBy='ergonomics'
+                sortByDesc={true}
             />
 
             <div className="page-wrapper items-page-wrapper">

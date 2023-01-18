@@ -9,34 +9,43 @@ import formatPrice from '../../modules/format-price';
 import './index.css';
 
 function DataTable({
-    columns,
-    data,
-    autoResetSortBy,
     className,
-    maxItems,
+    columns,
+    sumColumns,
+    data,
     extraRow,
+    sortBy,
+    sortByDesc,
+    disableSortBy,
+    autoResetSortBy,
+    maxItems,
     nameFilter,
     autoScroll,
-    disableSortBy,
-    sumColumns,
 }) {
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
 
     const storageKey = columns
-        .map(({ Header }) => {
+        .map(({ Header, id }) => {
+            if (typeof id === 'string') {
+                return id;
+            }
+
             if (!Header || typeof Header !== 'string') {
                 return '';
             }
 
             return Header.toLowerCase()
-                .replace(/\s/, '-')
-                .replace(/[^a-z-]/g, '');
+                         .replace(/\s/, '-')
+                         .replace(/[^a-zа-я-]/g, '');
         })
         .join(',');
     const [initialSortBy, storageSetSortBy] = useStateWithLocalStorage(
         storageKey,
-        [],
+        [{
+            "id": sortBy,
+            "desc": sortByDesc
+        }],
     );
     const { ref, inView } = useInView({
         threshold: 0,

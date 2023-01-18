@@ -357,7 +357,7 @@ function BossPage(params) {
                         className="icon-with-text"
                     />
                 </h2>
-                {escorts.length > 0 &&
+                {escorts.length > 0 ?
                     <DataTable
                         columns={columnsEscorts}
                         data={escorts}
@@ -367,9 +367,8 @@ function BossPage(params) {
                         sortByDesc={true}
                         autoResetSortBy={false}
                     />
-                }
-                {escorts.length === 0 &&
-                    <p>This boss does not have any escorts</p>
+                    :
+                    <p>{t('This boss does not have any escorts')}</p>
                 }
 
                 {/* cheeki breeki */}

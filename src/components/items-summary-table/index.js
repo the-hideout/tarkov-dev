@@ -84,28 +84,31 @@ function ItemsSummaryTable(props) {
         const useColumns = [
             {
                 Header: t('Name'),
+                id: 'name',
                 accessor: 'name',
                 Cell: ItemNameCell,
             },
             {
                 Header: t('Amount'),
+                id: 'quantity',
                 accessor: 'quantity',
                 Cell: CenterCell,
             },
             {
                 Header: t('Buy on Flea'),
+                id: 'fleaBuy',
                 accessor: (d) => Number(d.buyOnFleaPrice?.price),
                 Cell: FleaPriceCell,
-                id: 'fleaBuyPrice',
             },
             {
                 Header: t('Trader buy'),
+                id: 'traderBuy',
                 accessor: (d) => Number(d.instaProfit),
                 Cell: TraderPriceCell,
-                id: 'traderBuyCell',
             },
             {
                 Header: t('Cost'),
+                id: 'totalPrice',
                 accessor: 'totalPrice',
                 Cell: (props) => {
                     if (!props.value && props.row.original.cached) {
@@ -117,7 +120,6 @@ function ItemsSummaryTable(props) {
                     }
                     return <ValueCell value={props.value}/>;
                 },
-                id: 'totalPriceCell',
             },
         ];
 
@@ -138,10 +140,10 @@ function ItemsSummaryTable(props) {
     return (
         <DataTable
             className="data-table"
-            columns={displayColumns}
-            extraRow={extraRow}
             key="item-summary-table"
+            columns={displayColumns}
             data={data}
+            extraRow={extraRow}
             autoResetSortBy={false}
         />
     );

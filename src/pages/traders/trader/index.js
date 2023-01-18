@@ -177,6 +177,8 @@ function Trader() {
                     fleaPrice={selectedTable === 'spending' ? 2 : 1}
                     traderPrice={selectedTable === 'spending' ? false : 2}
                     traderBuyback={selectedTable === 'spending' ? 3 : false}
+                    sortBy={selectedTable === 'spending' ? 'traderBuyback' : null}
+                    sortByDesc={true}
                 />
             )}
             {selectedTable === 'tasks' && (
