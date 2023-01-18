@@ -239,6 +239,12 @@ function QuestTable({
                 return false
             }
 
+            const minLevels = questData.taskRequirements.map(item => {
+                const quest = quests.find(q => q.id === item.task.id)
+                return quest.minPlayerLevel;
+            });
+            questData.speculativeMinPlayerLevel = Math.max(...minLevels, questData.minPlayerLevel);
+
             return questData;
         }).filter(Boolean);
     }, [
@@ -374,6 +380,43 @@ function QuestTable({
                 position: rewardItems,
             });
         }
+
+        //if (progression) {
+            useColumns.push({
+                Header: t('Progression'),
+                id: 'progression',
+                sortType: (a, b, columnId, desc) => {
+                    const aQ = a.original;
+                    const bQ = b.original;
+
+                    // tasks required to be completed before starting aQ
+                    const bQreqA = bQ.taskRequirements.find(quest => quest.task.id === aQ.id)
+                    // tasks required to be completed before starting bQ
+                    const aQreqB = aQ.taskRequirements.find(quest => quest.task.id === bQ.id)
+                    if (bQreqA)
+                        return -1;
+                    if (aQreqB)
+                        return 1;
+
+                    const aQm = aQ.speculativeMinPlayerLevel || Number.MAX_SAFE_INTEGER;
+                    const bQm = bQ.speculativeMinPlayerLevel || Number.MAX_SAFE_INTEGER;
+                    if (aQm < bQm)
+                        return -1;
+                    if (aQm > bQm)
+                        return 1;
+                    
+                    // if (aQ.traderLevelRequirements[0]?.level < bQ.traderLevelRequirements[0]?.level)
+                    //     return -1;
+                    // return bQ.name.localeCompare(aQ.name);
+                    return 0;
+                },
+                accessor: (questData) => {
+                    return '';
+                },
+                Cell: CenterCell,
+                //position: progression,
+            });
+        //}
 
         if (questRequirements) {
             useColumns.push({
