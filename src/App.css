@@ -166,6 +166,9 @@ cite {
 .screen-link {
     margin-left: 8px;
     margin-right: 8px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .price-wrapper {
