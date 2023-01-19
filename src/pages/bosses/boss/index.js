@@ -326,28 +326,31 @@ function BossPage(params) {
                     />
                 </div>
 
-                <h2 className='item-h2' key={'boss-spawn-table-header'}>
-                    {t('Spawn Locations')}
-                    <Icon
-                        path={mdiMapLegend}
-                        size={1.5}
-                        className="icon-with-text"
+                {spawnStatsMsg.length > 0 && 
+                <>
+                    <h2 className='item-h2' key={'boss-spawn-table-header'}>
+                        {t('Spawn Locations')}
+                        <Icon
+                            path={mdiMapLegend}
+                            size={1.5}
+                            className="icon-with-text"
+                        />
+                    </h2>
+                    <ul>
+                        <li>Map: The name of the map which the boss can spawn on</li>
+                        <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
+                        <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
+                    </ul>
+                    <DataTable
+                        columns={columnsLocations}
+                        data={spawnLocations}
+                        disableSortBy={false}
+                        key={'boss-spawn-table'}
+                        sortBy={'map'}
+                        sortByDesc={true}
+                        autoResetSortBy={false}
                     />
-                </h2>
-                <ul>
-                    <li>Map: The name of the map which the boss can spawn on</li>
-                    <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
-                    <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
-                </ul>
-                <DataTable
-                    columns={columnsLocations}
-                    data={spawnLocations}
-                    disableSortBy={false}
-                    key={'boss-spawn-table'}
-                    sortBy={'map'}
-                    sortByDesc={true}
-                    autoResetSortBy={false}
-                />
+                </>}
 
                 <h2 className='item-h2' key={'boss-escort-table-header'}>
                     {t('Boss Escorts')}
