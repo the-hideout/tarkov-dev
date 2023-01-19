@@ -239,12 +239,6 @@ function QuestTable({
                 return false
             }
 
-            const minLevels = questData.taskRequirements.map(item => {
-                const quest = quests.find(q => q.id === item.task.id)
-                return quest.minPlayerLevel;
-            });
-            questData.speculativeMinPlayerLevel = Math.max(...minLevels, questData.minPlayerLevel);
-
             return questData;
         }).filter(Boolean);
     }, [
@@ -398,8 +392,8 @@ function QuestTable({
                     if (aQreqB)
                         return 1;
 
-                    const aQm = aQ.speculativeMinPlayerLevel || Number.MAX_SAFE_INTEGER;
-                    const bQm = bQ.speculativeMinPlayerLevel || Number.MAX_SAFE_INTEGER;
+                    const aQm = aQ.minPlayerLevel || Number.MAX_SAFE_INTEGER;
+                    const bQm = bQ.minPlayerLevel || Number.MAX_SAFE_INTEGER;
                     if (aQm < bQm)
                         return -1;
                     if (aQm > bQm)
