@@ -143,6 +143,11 @@ function Footer() {
                 <p>
                     <iframe className='discord' title="discord-iframe" src="https://discord.com/widget?id=956236955815907388&theme=dark" allowtransparency="true" frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
                 </p>
+                <p>
+                    <a href="https://stellate.co/?ref=powered-by" target="_blank" rel="noopener noreferrer">
+                        <img src="https://stellate.co/badge.svg" alt="Powered by Stellate, the GraphQL Edge Cache" />
+                    </a>
+                </p>
             </div>
             <div className="copyright-wrapper">
                 {t(
