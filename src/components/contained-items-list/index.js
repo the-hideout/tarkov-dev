@@ -65,7 +65,7 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
             if (!allItems.some(item => item.id === current.id))
                 allItems.push(current);
             return allItems;
-        }, []).sort((a,b) => {
+        }, []).sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
     }, [

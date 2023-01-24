@@ -48,7 +48,7 @@ function Start() {
 
     const mapImages = useMapImages();
     const uniqueMaps = Object.values(mapImages);
-    uniqueMaps.sort((a,b) => {
+    uniqueMaps.sort((a, b) => {
         if (a.normalizedName === 'openworld')
             return 1;
         if (b.normalizedName === 'openworld')
