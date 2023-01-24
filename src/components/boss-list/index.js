@@ -1,30 +1,26 @@
 import { Link } from 'react-router-dom';
 
-import formatBossData from '../../modules/format-boss-data';
 import MenuItem from '../menu/MenuItem';
 import LoadingSmall from '../loading-small';
-import { useMapsQuery } from '../../features/maps/queries';
+import { useBossDetails } from '../../features/bosses/queries';
 
 import './index.css';
 
 
 // BossPageList component for the main boss page
 export function BossPageList() {
-    // Fetch maps
-    const { data: maps } = useMapsQuery();
+    // Fetch bosses
+    const bosses = useBossDetails();
 
     // If no maps have been returned yet, return 'loading'
-    if (!maps || maps.length === 0) {
+    if (!bosses || bosses.length === 0) {
         return <LoadingSmall />;
     }
-
-    // Format the boss data
-    const bossArray = formatBossData(maps);
 
     // Return the home page boss React component
     return (
         <>
-            {bossArray.map((boss) => {
+            {bosses.filter(boss => boss.maps.length > 0).map((boss) => {
 
                 // Format the boss name for links
                 var key = boss.normalizedName;
@@ -46,22 +42,19 @@ export function BossPageList() {
 
 // BossListNav component for homepage nav bar
 export function BossListNav(onClick) {
-    // Fetch maps
-    const { data: maps } = useMapsQuery();
+    // Fetch bosses
+    const bosses = useBossDetails();
 
     // If no maps have been returned yet, return 'loading'
-    if (!maps || maps.length === 0) {
+    if (!bosses || bosses.length === 0) {
         return null;
     }
-
-    // Format the boss data
-    const bossArray = formatBossData(maps);
 
     // Return the home page nav boss React component
     return (
         <>
             <ul>
-                {bossArray.map((boss) => {
+                {bosses.map((boss) => {
                     // Format the boss name for links
                     var key = boss.normalizedName;
 
@@ -81,21 +74,18 @@ export function BossListNav(onClick) {
 
 // BossList component for homepage
 function BossList() {
-    // Fetch maps
-    const { data: maps } = useMapsQuery();
+    // Fetch bosses
+    const bosses = useBossDetails();
 
     // If no maps have been returned yet, return 'loading'
-    if (!maps || maps.length === 0) {
+    if (!bosses || bosses.length === 0) {
         return <LoadingSmall />;
     }
-
-    // Format the boss data
-    const bossArray = formatBossData(maps);
 
     // Return the home page boss React component
     return (
         <>
-            {bossArray.map((boss) => {
+            {bosses.filter(boss => boss.maps.length > 0).map((boss) => {
 
                 // Format the boss name for links
                 var key = boss.normalizedName;

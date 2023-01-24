@@ -61,6 +61,7 @@ function Hideout() {
         <SEO 
             title={`${t('Hideout')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('hideout-page-description', 'This page includes information on the different station and modules that can be build with the materials and resources required to upgrade your hideout.')}
+            key="seo-wrapper"
         />,
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">

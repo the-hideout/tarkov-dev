@@ -264,9 +264,9 @@ function App() {
     return (
         <div className="App">
             <Helmet htmlAttributes={{ lang: i18n.language }}>
-                <meta property="og:locale" content={i18n.language} />
+                <meta property="og:locale" content={i18n.language} key="meta-locale" />
                 {alternateLangs.map((lang) => (
-                    <meta property="og:locale:alternate" content={lang} />
+                    <meta property="og:locale:alternate" content={lang} key={`meta-locale-alt-${lang}`} />
                 ))}
             </Helmet>
             <Menu />

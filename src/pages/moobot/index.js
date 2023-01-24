@@ -11,6 +11,7 @@ function Moobot() {
         <SEO 
             title={`${t('Tarkov.dev {{bot}} integration', { bot: botName })} - ${t('Tarkov.dev')}`}
             description={t('bot-page-description', 'This page contains everything necessary to integrate {{bot}} with Tarkov.dev.', { bot: botName })}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper moobot-page-wrapper'}>
             <h1>{t('Tarkov.dev {{bot}} integration', { bot: botName })}</h1>

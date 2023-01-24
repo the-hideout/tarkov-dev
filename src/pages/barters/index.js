@@ -69,6 +69,7 @@ function Barters() {
         <SEO 
             title={`${t('Barter Profits')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('barters-page-description', 'This page includes information on the different items that can be traded with NPC vendors, the barter prices, and the profits that can be made from selling the items.')}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper'} key="barters-page-wrapper">
             <div className="barters-headline-wrapper" key="barters-headline">

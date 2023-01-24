@@ -9,6 +9,10 @@ import cachedItemsLocale from '../data/items_locale.json';
 import cachedMeta from '../data/meta.json';
 
 import cachedMaps from '../data/maps_cached.json';
+import cachedMapsLocale from '../data/maps_locale.json';
+
+import cachedBosses from '../data/bosses.json';
+import cachedBossesLocale from '../data/bosses_locale.json';
 
 import cachedTasks from '../data/quests.json';
 import cachedTasksLocale from '../data/quests_locale.json';
@@ -41,7 +45,27 @@ export function placeholderItems(language = 'en') {
 }
 
 export function placeholderMaps(language = 'en') {
+    if (language !== 'en' && cachedMapsLocale[language]) {
+        return cachedMaps.map(map => {
+            return {
+                ...map,
+                ...cachedMapsLocale[language][map.id]
+            }
+        });
+    }
     return cachedMaps;
+}
+
+export function placeholderBosses(language = 'en') {
+    if (language !== 'en' && cachedBossesLocale[language]) {
+        return cachedBosses.map(boss => {
+            return {
+                ...boss,
+                ...cachedBossesLocale[language][boss.normalizedName]
+            }
+        });
+    }
+    return cachedBosses;
 }
 
 export function placeholderMeta(language = 'en') {

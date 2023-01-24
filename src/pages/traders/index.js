@@ -48,6 +48,7 @@ function Traders(props) {
         <SEO 
             title={`${t('Traders')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('traders-page-description', 'Find out everything you need to know about traders in Escape from Tarkov. Learn about the different traders available in the game, their locations, and the items they sell.')}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper'} key="traders-page-wrapper">
             <h1 className="center-title">

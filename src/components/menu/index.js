@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 //import { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -16,10 +15,10 @@ import UkraineButton from '../ukraine-button';
 //import { BossListNav } from '../boss-list';
 
 import { caliberMap } from '../../modules/format-ammo';
-import rawMapData from '../../data/maps.json';
 import itemsData from '../../data/category-pages.json';
-import { useMapsQuery } from '../../features/maps/queries';
-import formatBossData from '../../modules/format-boss-data';
+import { useBossDetails } from '../../features/bosses/queries';
+
+import { useMapImages } from '../../features/maps/queries';
 
 import IntersectionObserverWrapper from './intersection-observer-wrapper';
 
@@ -66,14 +65,17 @@ const Menu = () => {
     };*/
     const { t } = useTranslation();
 
-    const { data: maps } = useMapsQuery();
+    const mapImages = useMapImages();
+    const uniqueMaps = Object.values(mapImages);
+    uniqueMaps.sort((a, b) => {
+        if (a.normalizedName === 'openworld')
+            return 1;
+        if (b.normalizedName === 'openworld')
+            return -1;
+        return a.displayText.localeCompare(b.displayText);
+    });
 
-    const bosses = useMemo(() => {
-        if (!maps || maps.length === 0) {
-            return [];
-        }
-        return formatBossData(maps);
-    }, [maps]);
+    const bosses = useBossDetails();
 
     return (
         <>
@@ -150,15 +152,13 @@ const Menu = () => {
                     <li className="submenu-wrapper submenu-items" key="menu-maps" data-targetid="maps">
                         <Link to="/maps/">{t('Maps')}</Link>
                         <ul>
-                            {rawMapData.map((mapsGroup) => (
-                                mapsGroup.maps.map((map) => (
-                                    <MenuItem
-                                        displayText={map.displayText}
-                                        key={`menu-item-${map.key}`}
-                                        to={`/map/${map.key}`}
-                                        //onClick={setIsOpen.bind(this, false)}
-                                    />
-                                ))
+                            {uniqueMaps.map((map) => (
+                                <MenuItem
+                                    displayText={map.displayText}
+                                    key={`menu-item-${map.key}`}
+                                    to={`/map/${map.key}`}
+                                    //onClick={setIsOpen.bind(this, false)}
+                                />
                             ))}
                         </ul>
                     </li>
@@ -225,7 +225,7 @@ const Menu = () => {
                     <li className="submenu-wrapper submenu-items" key="menu-bosses" data-targetid="bosses">
                         <Link to="/bosses/">{t('Bosses')}</Link>
                         <ul>
-                            {bosses.map(boss => {
+                            {bosses.filter(boss => boss.maps.length > 0).map(boss => {
                                 return (
                                     <li key={`boss-${boss.normalizedName}`}><Link to={`/boss/${boss.normalizedName}`}>{boss.name}</Link></li>
                                 );

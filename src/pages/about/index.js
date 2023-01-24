@@ -16,6 +16,7 @@ function About() {
         <SEO 
             title={`${t('About the tarkov.dev project')} - ${t('Tarkov.dev')}`}
             description={t('about-page-description', 'Learn more about the-hideout and tarkov.dev. A free, community made, open source Escape from Tarkov ecosystem! Use our tools to help you play the game, or build your own projects with our free API.')}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper'} key="about-page-content">
             <h1>{t('About')}</h1>
