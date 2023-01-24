@@ -61,7 +61,14 @@ function Control(props) {
     const { data: items } = useItemsQuery();
 
     const mapImages = useMapImages();
-    console.log(mapImages)
+    const uniqueMaps = Object.values(mapImages);
+    uniqueMaps.sort((a,b) => {
+        if (a.normalizedName === 'openworld')
+            return 1;
+        if (b.normalizedName === 'openworld')
+            return -1;
+        return a.displayText.localeCompare(b.displayText);
+    });
 
     const socketConnected = useSelector((state) => state.sockets.connected);
     const { t } = useTranslation();
@@ -142,7 +149,7 @@ function Control(props) {
                     onChange={handleMapChange}
                     ref={typeRefs['map']}
                 >
-                    {Object.values(mapImages).sort((a, b) => a.displayText.localeCompare(b.displayText)).map((map) => (
+                    {uniqueMaps.map((map) => (
                         <option key={map.key} value={map.key}>
                             {map.displayText}
                         </option>
