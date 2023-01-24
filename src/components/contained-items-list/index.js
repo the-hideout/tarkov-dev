@@ -66,9 +66,7 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
                 allItems.push(current);
             return allItems;
         }, []).sort((a,b) => {
-            const textA = a.normalizedName;
-            const textB = b.normalizedName;
-            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+            return a.name.localeCompare(b.name);
         });
     }, [
         items,
