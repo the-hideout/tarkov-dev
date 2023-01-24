@@ -24,6 +24,13 @@ function Maps() {
         }
         return maps;
     }, []);
+    uniqueMaps.sort((a,b) => {
+        if (a.normalizedName === 'openworld')
+            return 1;
+        if (b.normalizedName === 'openworld')
+            return -1;
+        return a.name.localeCompare(b.name);
+    });
     return [
         <SEO 
             title={`${t('Maps')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
@@ -41,10 +48,15 @@ function Maps() {
                     {"There are 12 different locations on the Escape from Tarkov map, of which 9 have been released publicly so far. Although eventually all maps will be connected, they are currently all apart from one another."}
                 </p>
             </div>
-            {uniqueMaps.sort((a,b) => a.name.localeCompare(b.name)).map((mapsGroup) => {
+            {uniqueMaps.map((mapsGroup) => {
                 return (
                     <div key={mapsGroup.normalizedName}>
-                        <h2>{maps.some(m => m.normalizedName === mapsGroup.normalizedName) ? mapsGroup.name : t(mapsGroup.name)}</h2>
+                        <h2>
+                            {
+                                // t('Openworld')
+                                maps.some(m => m.normalizedName === mapsGroup.normalizedName) ? mapsGroup.name : t(mapsGroup.name)
+                            }
+                            </h2>
                         <div className="page-wrapper map-page-wrapper">
                             {mapsGroup.description}
                         </div>

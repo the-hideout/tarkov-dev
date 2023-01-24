@@ -47,6 +47,14 @@ function Start() {
     const { t } = useTranslation();
 
     const mapImages = useMapImages();
+    const uniqueMaps = Object.values(mapImages);
+    uniqueMaps.sort((a,b) => {
+        if (a.normalizedName === 'openworld')
+            return 1;
+        if (b.normalizedName === 'openworld')
+            return -1;
+        return a.displayText.localeCompare(b.displayText);
+    });
 
     const handleNameFilterChange = useCallback(
         (value) => {
@@ -213,7 +221,7 @@ function Start() {
                     </Link>
                 </h3>
                 <ul key="maps-list">
-                    {Object.values(mapImages).sort((a,b) => a.displayText.localeCompare(b.displayText)).map((map) => (
+                    {uniqueMaps.map((map) => (
                         <li key={`map-link-${map.key}`}>
                             <Link to={`/map/${map.key}`}>
                                 {map.displayText}

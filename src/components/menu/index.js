@@ -66,6 +66,14 @@ const Menu = () => {
     const { t } = useTranslation();
 
     const mapImages = useMapImages();
+    const uniqueMaps = Object.values(mapImages);
+    uniqueMaps.sort((a,b) => {
+        if (a.normalizedName === 'openworld')
+            return 1;
+        if (b.normalizedName === 'openworld')
+            return -1;
+        return a.displayText.localeCompare(b.displayText);
+    });
 
     const bosses = useBossDetails();
 
@@ -144,7 +152,7 @@ const Menu = () => {
                     <li className="submenu-wrapper submenu-items" key="menu-maps" data-targetid="maps">
                         <Link to="/maps/">{t('Maps')}</Link>
                         <ul>
-                            {Object.values(mapImages).sort((a, b) => a.displayText.localeCompare(b.displayText)).map((map) => (
+                            {uniqueMaps.map((map) => (
                                 <MenuItem
                                     displayText={map.displayText}
                                     key={`menu-item-${map.key}`}
