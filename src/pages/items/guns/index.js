@@ -37,6 +37,7 @@ function Guns() {
         <SEO 
             title={`${t('Guns')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('guns-page-description', 'This page includes a sortable table with information on the different types of guns available in the game, including their price, damage, accuracy, and other characteristics.')}
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">

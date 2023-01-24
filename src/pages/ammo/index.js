@@ -198,6 +198,7 @@ function Ammo() {
         <SEO 
             title={`${t('Ammo chart')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('ammo-page-description', 'This page contains a list of every type of ammo in Escape from Tarkov. To filter the complete list of available cartridges, click the name of a caliber.')}
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key="ammo-wrapper">
             <h1 className="center-title">

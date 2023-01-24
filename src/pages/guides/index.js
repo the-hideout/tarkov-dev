@@ -20,6 +20,7 @@ function Guides() {
         <SEO 
             title={`Escape from Tarkov Guides`}
             description={`Escape from Tarkov Guides`}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper'} key="guides-page-wrapper">
             <Suspense fallback={Loading}>

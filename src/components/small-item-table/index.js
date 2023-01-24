@@ -276,6 +276,7 @@ function SmallItemTable(props) {
         showSlotValue,
         showPresets,
         showRestrictedType,
+        attachmentMap,
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -713,6 +714,14 @@ function SmallItemTable(props) {
             });
         }
 
+        if (attachmentMap) {
+            returnData.forEach(item => {
+                item.subRows = items.filter(attachmentItem => {
+                    return attachmentMap[item.id]?.includes(attachmentItem.id);
+                }).map(item => formatItem(item));
+            });
+        }
+
         if (showAttachTo || attachesToItemFilter) {
             returnData.forEach(item => {
                 item.fitsTo = getGuns(items, item);
@@ -785,6 +794,7 @@ function SmallItemTable(props) {
         showAttachTo,
         attachesToItemFilter,
         showPresets,
+        attachmentMap,
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {
@@ -835,7 +845,7 @@ function SmallItemTable(props) {
 
     const columns = useMemo(() => {
         const useColumns = [];
-        if (showAttachments || showAttachTo || showPresets) {
+        if (showAttachments || showAttachTo || showPresets || attachmentMap) {
             useColumns.push({
                 id: 'expander',
                 Header: ({
@@ -1670,7 +1680,7 @@ function SmallItemTable(props) {
             const column = useColumns[i];
             if (Number.isInteger(column.position)) {
                 let position = parseInt(column.position);
-                if (showAttachments || showAttachTo || showPresets) {
+                if (showAttachments || showAttachTo || showPresets || attachmentMap) {
                     position++;
                 }
                 if (position < 1) {
@@ -1743,6 +1753,7 @@ function SmallItemTable(props) {
         showAllSources,
         showPresets,
         showRestrictedType,
+        attachmentMap,
     ]);
 
     let extraRow = false;

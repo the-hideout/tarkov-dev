@@ -37,6 +37,7 @@ function Grenades() {
         <SEO 
             title={`${t('Grenades')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('grenades-page-description', 'This page includes a sortable table with information on the different types of grenades available in the game, including their price, damage, and other characteristics.')}
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">

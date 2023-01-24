@@ -50,6 +50,7 @@ function BsgCategory() {
         <SEO 
             title={`${category.name} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('bsg-category-description', 'Find out everything you need to know about {{category}} in Escape from Tarkov.', { category: category.name })}
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">

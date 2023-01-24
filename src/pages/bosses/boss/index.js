@@ -1,6 +1,6 @@
 import React, { Suspense, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import Icon from '@mdi/react';
 import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper } from '@mdi/js';
@@ -15,11 +15,9 @@ import PropertyList from '../../../components/property-list';
 import CheekiBreekiEffect from '../../../components/cheeki-breeki-effect';
 
 import capitalize from '../../../modules/capitalize-first';
-import formatBossData from '../../../modules/format-boss-data';
 
-import { useMapsQuery } from '../../../features/maps/queries';
-
-import bossJson from '../../../data/boss.json';
+import { useBossDetails } from '../../../features/bosses/queries';
+import { useItemsQuery } from '../../../features/items/queries';
 
 import './index.css';
 
@@ -28,6 +26,10 @@ function BossPage(params) {
 
     // cheeki breeki
     const [isShown, setIsShown] = useState(false);
+
+    const bosses = useBossDetails();
+
+    const {data: items} = useItemsQuery();
 
     let audio = new Audio("/audio/killa.mp3")
     const handleClick = event => {
@@ -68,7 +70,18 @@ function BossPage(params) {
             {
                 Header: t('Name'),
                 accessor: 'name',
-                Cell: CenterCell
+                Cell: (props) => {
+                    if (bosses.some(boss => boss.normalizedName === props.row.original.normalizedName)) {
+                        return (
+                            <CenterCell>
+                                <Link to={`/boss/${props.row.original.normalizedName}`}>
+                                    {props.value}
+                                </Link>
+                            </CenterCell>
+                        );
+                    }
+                    return <CenterCell value={props.value} nowrap />;
+                },
             },
             {
                 Header: t('Count'),
@@ -81,31 +94,73 @@ function BossPage(params) {
                 Cell: CenterCell
             }
         ];
-    }, [t]);
+    }, [t, bosses]);
 
     const bossNameLower = params.bossName
 
-    // Fetch maps
-    const { data: maps } = useMapsQuery();
-
-    // If no maps have been returned yet, return 'loading'
-    if (!maps || maps.length === 0) {
+    // If no bosses have been returned yet, return 'loading'
+    if (!bosses || bosses.length === 0) {
         return <Loading />;
     }
 
     // Format the boss data
-    const bossArray = formatBossData(maps);
+    //const bossSpawns = formatBossData(maps);
 
     // Get the correct individual boss data
-    var bossData = bossArray.find(boss => boss.normalizedName === bossNameLower);
+    //var bossSpawnData = bossSpawns.find(boss => boss.normalizedName === bossNameLower);
+    const bossData = bosses.find(boss => boss.normalizedName === bossNameLower);
 
     // If no boss data has been found, return the error page
     if (!bossData) {
         return <ErrorPage />;
     }
 
+    const loot = [];
+    const attachmentMap = {};
+
+    const lootValueCutoff = 80000;
+    const getItemSlotValue = (item) => {
+        return item.sellFor.reduce((best, current) => {
+            if (current.priceRUB > best) {
+                return current.priceRUB;
+            }
+            return best;
+        }, 0) / (item.width * item.height);
+    };
+    gearLoop:
+    for (const gear of bossData.equipment) {
+        const item = items.find(it => it.id === gear.item.id);
+        const itemValue = getItemSlotValue(item);
+        if (item.types.includes('noFlea') || itemValue > lootValueCutoff) {
+            loot.push(gear.item);
+            attachmentMap[item.id] = gear.item.containsItems.map(ci => ci.item.id);
+            continue;
+        }
+        for ( const attach of gear.item.containsItems) {
+            const attachItem = items.find(it => it.id === attach.item.id);
+            const attachItemValue = getItemSlotValue(item);
+            if (attachItem.types.includes('noFlea') || attachItemValue > lootValueCutoff) {
+                loot.push(gear.item);
+                attachmentMap[item.id] = gear.item.containsItems.map(ci => ci.item.id);
+                continue gearLoop;
+            }
+        }
+    }
+    for (const lootItem of bossData.items) {
+        const item = items.find(it => it.id === lootItem.id);
+        const itemValue = getItemSlotValue(item);
+        if (item.types.includes('noFlea') || itemValue > lootValueCutoff) {
+            loot.push(lootItem);
+        }
+    }
+    loot.sort((a, b) => {
+        const itemA = items.find(it => it.id === a.id);
+        const itemB = items.find(it => it.id === b.id);
+        return getItemSlotValue(itemB) - getItemSlotValue(itemA);
+    });
+
     // Get static boss data from json file
-    var bossJsonData = bossJson.find(boss => boss.normalizedName === bossNameLower);
+    //var bossJsonData = bossJson.find(boss => boss.normalizedName === bossNameLower);
 
     // Collect a list of all maps without duplicates
     var bossMaps = [];
@@ -125,7 +180,7 @@ function BossPage(params) {
 
     for (const map of bossData.maps) {
         // If a specific boss override exists, use that instead of the default from the API
-        const spawnChanceOverride = bossJsonData?.spawnChanceOverride?.find(override => override.map === map.normalizedName);
+        const spawnChanceOverride = bossData.spawnChanceOverride?.find(override => override.map === map.normalizedName);
         if (spawnChanceOverride) {
             spawnStatsMsg.push(`${spawnChanceOverride.chance * 100}% (${map.name})`);
             continue;
@@ -140,8 +195,8 @@ function BossPage(params) {
             lowerBound = lowerBound > spawn.spawnChance ? spawn.spawnChance : lowerBound;
             upperBound = upperBound < spawn.spawnChance ? spawn.spawnChance : upperBound;
         }
-        upperBound = upperBound * 100;
-        lowerBound = lowerBound * 100;
+        upperBound = Math.round(upperBound * 100);
+        lowerBound = Math.round(lowerBound * 100);
         let displayPercent = `${lowerBound}-${upperBound}`;
         if (lowerBound === upperBound || upperBound === 100) {
             displayPercent = upperBound;
@@ -149,34 +204,28 @@ function BossPage(params) {
         spawnStatsMsg.push(`${displayPercent}% (${map.name})`)
     }
 
-    bossProperties['spawnChance'] = {
-        value: spawnStatsMsg.join(', '),
-        label: `${t('Spawn chance')} 🎲`,
-        tooltip: t('Chance that the boss spawns on a given map'),
-    };
-
-    // Display health stats
-    if (bossJsonData) {
-        bossProperties['health'] = {
-            value: bossJsonData.health,
-            label: `${t('Health')} 🖤`,
-            tooltip: t('Total boss health'),
+    if (spawnStatsMsg.length > 0) {
+        bossProperties['spawnChance'] = {
+            value: spawnStatsMsg.join(', '),
+            label: `${t('Spawn chance')} 🎲`,
+            tooltip: t('Chance that the boss spawns on a given map'),
         };
     }
 
+    // Display health stats
+    bossProperties['health'] = {
+        value: bossData.health.reduce((totalHealth, current) => {
+            totalHealth += current.max;
+            return totalHealth;
+        }, 0),
+        label: `${t('Health')} 🖤`,
+        tooltip: t('Total boss health'),
+    };
+
     // Display behavior info
-    if (bossJsonData) {
+    if (bossData.behavior) {
         bossProperties['behavior'] = {
-            // t('patrol')
-            // t('rush')
-            // t('stalker')
-            // t('hostile and accurate')
-            // t('patrol and highly armored')
-            // t('group patrol')
-            // t('frequent healing and stim injections')
-            // t('sniper')
-            // t('batshit insane')
-            value: t(bossJsonData.behavior),
+            value: t(bossData.behavior),
             label: `${t('Behavior')} 💡`,
             tooltip: t("The boss's general AI behavior"),
         };
@@ -205,6 +254,7 @@ function BossPage(params) {
                 escorts.push({
                     map: map.name,
                     name: escort.name,
+                    normalizedName: escort.normalizedName,
                     chance: `${parseInt(amount.chance * 100)}%`,
                     count: amount.count
                 });
@@ -226,15 +276,15 @@ function BossPage(params) {
                                 className="icon-with-text"
                             />
                         </h1>
-                        {bossJsonData &&
-                            <>
-                                <span className="wiki-link-wrapper">
-                                    <a href={bossJsonData.wikiLink} target="_blank" rel="noopener noreferrer">
-                                        {t('Wiki')}
-                                    </a>
-                                </span>
-                                <p className='boss-details'>{bossJsonData.details}</p>
-                            </>
+                        {bossData.wikiLink &&
+                            <span className="wiki-link-wrapper">
+                                <a href={bossData.wikiLink} target="_blank" rel="noopener noreferrer">
+                                    {t('Wiki')}
+                                </a>
+                            </span>
+                        }
+                        {bossData.details &&
+                            <p className='boss-details'>{bossData.details}</p>
                         }
                     </div>
                     <div className="icon-and-link-wrapper">
@@ -256,51 +306,51 @@ function BossPage(params) {
                 </h2>
                 <PropertyList properties={bossProperties} />
 
-                {bossJsonData &&
-                    <>
-                        <h2 className='item-h2' key={'boss-loot-header'}>
-                            {t('Special Boss Loot')}
-                            <Icon
-                                path={mdiDiamondStone}
-                                size={1.5}
-                                className="icon-with-text"
-                            />
-                        </h2>
-                        <div className='loot-table-boss'>
-                            <SmallItemTable
-                                idFilter={bossJsonData.loot.reduce((prev, current) => {
-                                    prev.push(current.id);
-                                    return prev;
-                                }, [])}
-                                fleaValue
-                                traderValue
-                            />
-                        </div>
-                    </>
-                }
-
-                <h2 className='item-h2' key={'boss-spawn-table-header'}>
-                    {t('Spawn Locations')}
+                <h2 className='item-h2' key={'boss-loot-header'}>
+                    {t('Special Boss Loot')}
                     <Icon
-                        path={mdiMapLegend}
+                        path={mdiDiamondStone}
                         size={1.5}
                         className="icon-with-text"
                     />
                 </h2>
-                <ul>
-                    <li>Map: The name of the map which the boss can spawn on</li>
-                    <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
-                    <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
-                </ul>
-                <DataTable
-                    columns={columnsLocations}
-                    data={spawnLocations}
-                    disableSortBy={false}
-                    key={'boss-spawn-table'}
-                    sortBy={'map'}
-                    sortByDesc={true}
-                    autoResetSortBy={false}
-                />
+                <div className='loot-table-boss'>
+                    <SmallItemTable
+                        idFilter={loot.reduce((prev, current) => {
+                            prev.push(current.id);
+                            return prev;
+                        }, [])}
+                        attachmentMap={attachmentMap}
+                        fleaValue
+                        traderValue
+                    />
+                </div>
+
+                {spawnStatsMsg.length > 0 && 
+                <>
+                    <h2 className='item-h2' key={'boss-spawn-table-header'}>
+                        {t('Spawn Locations')}
+                        <Icon
+                            path={mdiMapLegend}
+                            size={1.5}
+                            className="icon-with-text"
+                        />
+                    </h2>
+                    <ul>
+                        <li>Map: The name of the map which the boss can spawn on</li>
+                        <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
+                        <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
+                    </ul>
+                    <DataTable
+                        columns={columnsLocations}
+                        data={spawnLocations}
+                        disableSortBy={false}
+                        key={'boss-spawn-table'}
+                        sortBy={'map'}
+                        sortByDesc={true}
+                        autoResetSortBy={false}
+                    />
+                </>}
 
                 <h2 className='item-h2' key={'boss-escort-table-header'}>
                     {t('Boss Escorts')}
@@ -364,6 +414,7 @@ function Boss() {
             url={`https://tarkov.dev/boss/${bossName}`}
             image={`${window.location.origin}${process.env.PUBLIC_URL}/images/traders/${bossName}-portrait.png`}
             card='summary_large_image'
+            key="seo-wrapper"
         />,
         <Suspense fallback={<Loading />} key={`suspense-boss-page-${bossName}`}>
             <BossPage bossName={bossName} />
