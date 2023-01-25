@@ -18,6 +18,7 @@ function Items(props) {
         <SEO 
             title={`${t('Items')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('items-page-description', 'This page includes links to pages with information on different item categories, including armor, backpacks, barter items, containers, glasses, grenades, guns, headsets, helmet, keys, gun mods, pistol grips, provisions, rigs, suppressors, and more.')}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper'} key="map-page-wrapper">
             <h1 className="center-title">

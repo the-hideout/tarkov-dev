@@ -36,6 +36,7 @@ function BarterItems() {
         <SEO 
             title={`${t('Barter Items')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={"This page includes a sortable table with information on the different types of barter items available in the game, including their price, rarity, and other characteristics."}
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">

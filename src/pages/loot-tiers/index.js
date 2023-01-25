@@ -340,6 +340,7 @@ function LootTier(props) {
         <SEO 
             title={`${t('Loot tiers')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('loot-tiers-page-description', 'Learn about the different types of loot available in the game, their value, rarity, and what to keep and what to trash.')}
+            key="seo-wrapper"
         />,
         <div
             className="display-wrapper loot-tiers-main-wrapper"

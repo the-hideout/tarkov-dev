@@ -7,9 +7,8 @@ import SEO from '../../components/SEO';
 
 import { caliberMap } from '../../modules/format-ammo';
 
-import rawMapData from '../../data/maps.json';
-
 import { useItemsQuery } from '../../features/items/queries.js';
+import { useMapImages } from '../../features/maps/queries.js';
 
 import Connect from './Connect.jsx';
 
@@ -60,6 +59,16 @@ const selectFilterStyle = {
 
 function Control(props) {
     const { data: items } = useItemsQuery();
+
+    const mapImages = useMapImages();
+    const uniqueMaps = Object.values(mapImages);
+    uniqueMaps.sort((a,b) => {
+        if (a.normalizedName === 'openworld')
+            return 1;
+        if (b.normalizedName === 'openworld')
+            return -1;
+        return a.displayText.localeCompare(b.displayText);
+    });
 
     const socketConnected = useSelector((state) => state.sockets.connected);
     const { t } = useTranslation();
@@ -128,6 +137,7 @@ function Control(props) {
         <SEO 
             title={`${t('Remote Control')} - ${t('Tarkov.dev')}`}
             description={t('remote-control-page-description', 'This page contains all necessary tools to remote control another instance of Tarkov.dev website.')}
+            key="seo-wrapper"
         />,
         <div className="control-wrapper" key="">
             <h1>{t('Remote Control')}</h1>
@@ -139,12 +149,10 @@ function Control(props) {
                     onChange={handleMapChange}
                     ref={typeRefs['map']}
                 >
-                    {rawMapData.map((mapsGroup) => (
-                        mapsGroup.maps.map((map) => (
-                            <option key={map.key} value={map.key}>
-                                {map.displayText}
-                            </option>
-                        ))
+                    {uniqueMaps.map((map) => (
+                        <option key={map.key} value={map.key}>
+                            {map.displayText}
+                        </option>
                     ))}
                 </select>
                 <button disabled={!socketConnected} onClick={handleMapChange}>

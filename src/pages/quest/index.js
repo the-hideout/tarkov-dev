@@ -16,9 +16,7 @@ import ItemSearch from '../../components/item-search';
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
 import { useTradersQuery } from '../../features/traders/queries';
 import { useItemsQuery } from '../../features/items/queries';
-import { useMapsQuery } from '../../features/maps/queries';
-
-import mapJson from '../../data/maps.json';
+import { useMapsQuery, useMapImages } from '../../features/maps/queries';
 
 import './index.css';
 
@@ -48,6 +46,8 @@ function Quest() {
     const maps = useMemo(() => {
         return mapsResult.data;
     }, [mapsResult]);
+
+    const mapImages = useMapImages();
 
     const dispatch = useDispatch();
     const quests = useSelector(selectQuests);
@@ -199,6 +199,7 @@ function Quest() {
             title={`${currentQuest.name} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('task-page-description', 'This page includes information on the objectives, rewards, and strategies for completing task {{questName}}. Get tips on how to prepare for and succeed in your mission.', { questName: currentQuest.name })}
             url={`https://tarkov.dev/task/${currentQuest.normalizedName}`}
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className={'item-page-wrapper'}>
@@ -277,9 +278,12 @@ function Quest() {
 
                 {/* loop through all the values in mapJson array and if there is a match, add a link to the map */}
                 {currentQuest.map &&
-                    mapJson.map((map) => {
+                    Object.values(mapImages).reduce((foundMap, map) => {
+                        if (foundMap) {
+                            return foundMap;
+                        }
                         if (map.normalizedName === currentQuest.map.normalizedName) {
-                            return (
+                            foundMap = (
                                 <div key={`map-link-${map.normalizedName}`}>
                                     <Link to={map.primaryPath}>
                                         {t('View Map')} - {t(map.name)}
@@ -287,8 +291,8 @@ function Quest() {
                                 </div>
                             );
                         }
-                        return null;
-                    })}
+                        return foundMap;
+                    }, null)}
 
                 <h2>🏆 {t('Objectives')}</h2>
                 <div key="task-objectives">

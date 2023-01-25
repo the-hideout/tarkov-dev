@@ -28,6 +28,7 @@ function PistolGrips() {
         <SEO 
             title={`${t('Pistol Grips')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('pistol-page-description', 'This page includes a sortable table with information on the different types of pistol grips available in the game, including their price, ergonomics, compatibility, and other characteristics.')}
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">

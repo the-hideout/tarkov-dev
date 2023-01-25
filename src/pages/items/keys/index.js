@@ -37,6 +37,7 @@ function Keys() {
         <SEO 
             title={`${t('Keys')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('keys-page-description', 'This page includes a sortable table with information on the different types of keys available in the game, including their price, rarity, and other characteristics.')}
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">

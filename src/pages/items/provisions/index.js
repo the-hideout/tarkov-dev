@@ -38,6 +38,7 @@ function Provisions() {
         <SEO 
             title={`${t('Provisions')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('provisions-page-description', 'This page includes a sortable table with information on the different types of provisions available in the game, including their hydration, energy, cheapest price and traders or flea market value.')}
+            key="seo-wrapper"
         />,
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">

@@ -16,6 +16,7 @@ function Bosses(props) {
         <SEO 
             title={`${t('Bosses')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('bosses-page-description', 'This page includes information on the all the bosses in the game, their location, loot, escort and strategies for defeating them.')}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper'} key="bosses-page-wrapper">
             <h1 className="center-title">

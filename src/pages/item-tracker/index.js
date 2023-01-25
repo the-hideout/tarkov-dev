@@ -198,6 +198,7 @@ function ItemTracker() {
         <SEO 
             title={`${t('Item Tracker')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description="Track what items you need to Found in Raid for Escape from Tarkov quests"
+            key="seo-wrapper"
         />,
         <div
             className="display-wrapper item-tracker-wrapper"
