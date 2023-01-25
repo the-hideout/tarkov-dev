@@ -2,8 +2,6 @@ import React, { useMemo, useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import Tippy from '@tippyjs/react';
 
 import Icon from '@mdi/react';
@@ -19,8 +17,6 @@ import { useItemsQuery } from '../../features/items/queries';
 import { useMapsQuery, useMapImages } from '../../features/maps/queries';
 
 import './index.css';
-
-dayjs.extend(relativeTime);
 
 function Quest() {
     const settings = useSelector((state) => state.settings);

@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 
 import Icon from '@mdi/react';
 import { mdiClipboardList, mdiTimerSand } from '@mdi/js';
@@ -50,8 +48,6 @@ import { getRelativeTimeAndUnit } from '../../modules/format-duration';
 import i18n from '../../i18n';
 
 import './index.css';
-
-dayjs.extend(relativeTime);
 
 const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
