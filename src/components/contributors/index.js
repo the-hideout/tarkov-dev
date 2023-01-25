@@ -23,6 +23,7 @@ function Contributors(props) {
                         src={`${contributor.avatar_url}&size=${quality}`}
                         alt={contributor.login}
                         size={props.size}
+                        loading='lazy'
                     ></Avatar>
                 ))}
             </AvatarStack>
@@ -36,6 +37,7 @@ function Contributors(props) {
                             key={contributor.login}
                             size={props.size}
                             src={`${contributor.avatar_url}&size=${quality}`}
+                            loading='lazy'
                         />
                     </a>
                 ))}
