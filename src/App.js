@@ -67,8 +67,6 @@ import Hideout from './pages/hideout';
 import WipeLength from './pages/wipe-length';
 import About from './pages/about/';
 
-import Guides from './pages/guides';
-
 import ErrorPage from './components/error-page';
 import Loading from './components/loading';
 import Debug from './components/Debug';
@@ -651,13 +649,6 @@ function App() {
                     element={[
                         <Control send={send} />
                     ]} 
-                />
-                <Route
-                    path={'/guides/:guideKey'}
-                    key="guides-name-route"
-                    element={[
-                        <Guides />
-                    ]}
                 />
                 <Route
                     path="/items/:bsgCategoryName"
