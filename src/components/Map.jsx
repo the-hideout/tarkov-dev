@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import {
     TransformWrapper,
     TransformComponent,
-} from '@kokarn/react-zoom-pan-pinch';
+} from 'react-zoom-pan-pinch';
 
 import { useMapImages } from '../features/maps/queries';
 

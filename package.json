@@ -4,9 +4,6 @@
   "private": true,
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
-    "@emotion/react": "^11.8.2",
-    "@emotion/styled": "^11.8.1",
-    "@kokarn/react-zoom-pan-pinch": "^2.1.4",
     "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@mdi/js": "^6.1.95",
@@ -48,6 +45,7 @@
     "react-switch": "^6.0.0",
     "react-syntax-highlighter": "^15.4.3",
     "react-table": "^7.6.2",
+    "react-zoom-pan-pinch": "^2.2.1",
     "resize-observer-polyfill": "^1.5.1",
     "sharp": "0.30.7",
     "source-map-explorer": "^2.5.2",
