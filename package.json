@@ -16,7 +16,7 @@
     "@testing-library/react": "^12.1.5",
     "@tippyjs/react": "^4.2.6",
     "classnames": "^2.3.2",
-    "critical": "^4.0.1",
+    "critical": "^5.0.4",
     "cross-fetch": "^3.1.5",
     "dayjs": "^1.11.7",
     "fast-deep-equal": "^3.1.3",
