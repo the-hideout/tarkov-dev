@@ -35,17 +35,19 @@ const doFetchHideout = async (language, prebuild = false) => {
     const queryData = await response.json();
 
     if (queryData.errors) {
-        for (const error of queryData.errors) {
-            let badItem = false;
-            if (error.path) {
-                badItem = queryData.data;
-                for (let i = 0; i < 2; i++) {
-                    badItem = badItem[error.path[i]];
+        if (queryData.data) {
+            for (const error of queryData.errors) {
+                let badItem = false;
+                if (error.path) {
+                    badItem = queryData.data;
+                    for (let i = 0; i < 2; i++) {
+                        badItem = badItem[error.path[i]];
+                    }
                 }
-            }
-            console.log(`Error in hideoutStations API query: ${error.message}`);
-            if (badItem) {
-                console.log(badItem)
+                console.log(`Error in hideoutStations API query: ${error.message}`);
+                if (badItem) {
+                    console.log(badItem)
+                }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned

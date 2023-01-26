@@ -189,17 +189,19 @@ export default async function doFetchCrafts(language, prebuild = false) {
     const craftsData = await response.json();
     
     if (craftsData.errors) {
-        for (const error of craftsData.errors) {
-            let badItem = false;
-            if (error.path) {
-                badItem = craftsData.data;
-                for (let i = 0; i < 2; i++) {
-                    badItem = badItem[error.path[i]];
+        if (craftsData.data) {
+            for (const error of craftsData.errors) {
+                let badItem = false;
+                if (error.path) {
+                    badItem = craftsData.data;
+                    for (let i = 0; i < 2; i++) {
+                        badItem = badItem[error.path[i]];
+                    }
                 }
-            }
-            console.log(`Error in crafts API query: ${error.message}`);
-            if (badItem) {
-                console.log(badItem)
+                console.log(`Error in crafts API query: ${error.message}`);
+                if (badItem) {
+                    console.log(badItem)
+                }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned

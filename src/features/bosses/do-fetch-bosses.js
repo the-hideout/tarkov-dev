@@ -44,17 +44,19 @@ const doFetchBosses = async (language = 'en', prebuild = false) => {
     const bossesData = await response.json();
 
     if (bossesData.errors) {
-        for (const error of bossesData.errors) {
-            let badItem = false;
-            if (error.path) {
-                badItem = bossesData.data;
-                for (let i = 0; i < 2; i++) {
-                    badItem = badItem[error.path[i]];
+        if (bossesData.data) {
+            for (const error of bossesData.errors) {
+                let badItem = false;
+                if (error.path) {
+                    badItem = bossesData.data;
+                    for (let i = 0; i < 2; i++) {
+                        badItem = badItem[error.path[i]];
+                    }
                 }
-            }
-            console.log(`Error in maps API query: ${error.message}`);
-            if (badItem) {
-                console.log(badItem)
+                console.log(`Error in maps API query: ${error.message}`);
+                if (badItem) {
+                    console.log(badItem)
+                }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned
