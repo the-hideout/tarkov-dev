@@ -48,7 +48,7 @@
     "react-table": "^7.8.0",
     "react-zoom-pan-pinch": "^2.2.1",
     "resize-observer-polyfill": "^1.5.1",
-    "sharp": "0.30.7",
+    "sharp": "^0.31.3",
     "source-map-explorer": "^2.5.3",
     "victory": "^36.6.8"
   },
