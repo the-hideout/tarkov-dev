@@ -35,7 +35,7 @@
     "react-helmet": "^6.1.0",
     "react-hotkeys-hook": "^4.3.2",
     "react-i18next": "^12.1.4",
-    "react-intersection-observer": "^8.34.0",
+    "react-intersection-observer": "^9.4.1",
     "react-loader-spinner": "^5.3.4",
     "react-query": "^3.39.3",
     "react-redux": "^7.2.9",
