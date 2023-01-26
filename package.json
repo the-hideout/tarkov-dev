@@ -37,7 +37,7 @@
     "react-i18next": "^12.1.4",
     "react-intersection-observer": "^8.34.0",
     "react-loader-spinner": "^5.3.4",
-    "react-query": "^3.39.2",
+    "react-query": "^3.39.3",
     "react-redux": "^7.2.9",
     "react-router-dom": "^6.7.0",
     "react-router-hash-link": "^2.4.3",
