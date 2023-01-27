@@ -4,7 +4,7 @@ import languages from '../data/supported-languages.json';
 
 export function langCode() {
     if (!i18n.isInitialized) {
-        console.log('i18n still not ready');
+        //console.log('i18n still not ready');
         return 'en';
     }
 
