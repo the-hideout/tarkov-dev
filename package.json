@@ -25,6 +25,7 @@
     "got": "^11.8.6",
     "i18next": "^22.4.9",
     "i18next-browser-languagedetector": "^7.0.1",
+    "i18next-http-backend": "^2.1.1",
     "intersection-observer": "^0.12.2",
     "lodash.debounce": "^4.0.8",
     "prettier": "^2.8.3",
