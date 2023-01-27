@@ -19,6 +19,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # pin@v3.0.2
 
+      # check to ensure all JSON files are valid in the repository
+      - name: json syntax check
+        uses: limitusus/json-syntax-check@94555527ace7b96df4a600874a4aafd735842780 # pin@v2.0.0
+        with:
+          pattern: "\\.json$"
+
       - name: Cache node modules
         uses: actions/cache@48af2dc4a9e8278b89d7fa154b955c30c6aaab09 # pin@v3.0.2
         env:
