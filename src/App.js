@@ -246,12 +246,14 @@ function App() {
         (state) => state.settings.hideRemoteControl,
     );
     const remoteControlSessionElement = hideRemoteControlId ? null : (
-        <RemoteControlId
-            key="connection-wrapper"
-            sessionID={sessionID}
-            socketEnabled={socketEnabled}
-            onClick={(e) => dispatch(enableConnection())}
-        />
+        <Suspense fallback={<Loading />} key="suspense-connection-wrapper">
+            <RemoteControlId
+                key="connection-wrapper"
+                sessionID={sessionID}
+                socketEnabled={socketEnabled}
+                onClick={(e) => dispatch(enableConnection())}
+            />
+        </Suspense>
     );
     const alternateLangs = supportedLanguages.filter(lang => lang !== i18n.language); 
 
