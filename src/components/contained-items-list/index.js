@@ -22,6 +22,8 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
             });
             return [...restrictedItems].map(id => {
                 const rItem = items.find(testItem => testItem.id === id);
+                if (!rItem)
+                    return false;
                 if (typeof showRestrictedType === 'boolean' || rItem.types.includes(showRestrictedType)) {
                     return rItem;
                 }
