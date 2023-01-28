@@ -120,6 +120,8 @@ function BossPage(params) {
 
     const lootValueCutoff = 80000;
     const getItemSlotValue = (item) => {
+        if (!item)
+            return 0;
         return item.sellFor.reduce((best, current) => {
             if (current.priceRUB > best) {
                 return current.priceRUB;
@@ -130,6 +132,8 @@ function BossPage(params) {
     gearLoop:
     for (const gear of bossData.equipment) {
         const item = items.find(it => it.id === gear.item.id);
+        if (!item)
+            continue;
         const itemValue = getItemSlotValue(item);
         if (item.types.includes('noFlea') || itemValue > lootValueCutoff) {
             loot.push(gear.item);
@@ -148,6 +152,8 @@ function BossPage(params) {
     }
     for (const lootItem of bossData.items) {
         const item = items.find(it => it.id === lootItem.id);
+        if (!item)
+            continue;
         const itemValue = getItemSlotValue(item);
         if (item.types.includes('noFlea') || itemValue > lootValueCutoff) {
             loot.push(lootItem);
