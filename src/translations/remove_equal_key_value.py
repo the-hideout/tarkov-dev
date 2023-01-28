@@ -19,13 +19,13 @@ for lang in languages:
             # Read JSON data from file
             with open(os.path.join(lang, file), encoding='utf-8') as json_file:
                 data = json.load(json_file)
-                
+
             # remove key where key == value
             for key in list(data.keys()):
                 if key == data[key]:
                     # del data[key]
                     data[key] = ''
-            
+
             # Write the modified data to the output folder with language appended to the file name
             new_file = file.replace('.json', f'_{lang}.json')
             with open(os.path.join(output_dir, new_file), 'w', encoding='utf-8') as json_file:
