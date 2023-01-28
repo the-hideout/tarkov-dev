@@ -156,6 +156,7 @@ try {
     const langs = allLangs.filter(lang => lang !== 'en')
     const apiPromises = [];
     apiPromises.push(doFetchItems('en', true).then(items => {
+        items.splice(200);
         for (const item of items) {
             item.lastLowPrice = 0;
             item.avg24hPrice = 0;
@@ -171,10 +172,12 @@ try {
                 for (const lang in itemResults) {
                     const localization = {};
                     itemResults[lang].forEach(item => {
-                        localization[item.id] =  {
-                            name: item.name,
-                            shortName: item.shortName
-                        };
+                        if (items.find(allItem => allItem.id == item.id)) {
+                            localization[item.id] =  {
+                                name: item.name,
+                                shortName: item.shortName
+                            };
+                        }
                     });
                     itemLangs[lang] = localization;
                 }
@@ -185,6 +188,7 @@ try {
     }));
 
     apiPromises.push(doFetchBarters('en', true).then(barters => {
+        barters.splice(100);
         for (const barter of barters) {
             barter.rewardItems.forEach(containedItem => {
                 const item = containedItem.item;
@@ -208,6 +212,7 @@ try {
     }));
 
     apiPromises.push(doFetchCrafts('en', true).then(crafts => {
+        crafts.splice(100);
         for (const craft of crafts) {
             craft.rewardItems.forEach(containedItem => {
                 const item = containedItem.item;
