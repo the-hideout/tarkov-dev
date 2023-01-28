@@ -156,15 +156,24 @@ try {
     const langs = allLangs.filter(lang => lang !== 'en')
     const apiPromises = [];
     apiPromises.push(doFetchItems('en', true).then(items => {
-        items.splice(200);
-        for (const item of items) {
+        const groupedItemsDic = items.reduce((acc, item) => {
+            if (!acc[item.bsgCategoryId]) {
+              acc[item.bsgCategoryId] = []
+            }
+            acc[item.bsgCategoryId].push(item);
+            return acc;
+        }, {});
+        const filteredItemsDic = Object.values(groupedItemsDic).map(group => group.slice(0, 8));
+        const filteredItems = [].concat(...filteredItemsDic);
+
+        for (const item of filteredItems) {
             item.lastLowPrice = 0;
             item.avg24hPrice = 0;
             item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
             item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
             item.cached = true;
         }
-        fs.writeFileSync('./src/data/items.json', JSON.stringify(items));
+        fs.writeFileSync('./src/data/items.json', JSON.stringify(filteredItems));
 
         return new Promise(async resolve => {
             const itemLangs = {};
@@ -172,7 +181,7 @@ try {
                 for (const lang in itemResults) {
                     const localization = {};
                     itemResults[lang].forEach(item => {
-                        if (items.find(allItem => allItem.id == item.id)) {
+                        if (filteredItems.find(allItem => allItem.id == item.id)) {
                             localization[item.id] =  {
                                 name: item.name,
                                 shortName: item.shortName
