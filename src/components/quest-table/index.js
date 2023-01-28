@@ -386,6 +386,8 @@ function QuestTable({
                     const questData = props.row.original;
                     return questData.taskRequirements.map(req => {
                         const reqQuest = quests.find(quest => quest.id === req.task.id);
+                        if (!reqQuest)
+                            return null;
                         let completedIcon = '';
                         if (req.status.includes('complete') && settings.completedQuests.includes(questData.iu)) {
                             completedIcon = (
