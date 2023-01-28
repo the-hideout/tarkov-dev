@@ -81,3 +81,8 @@
     animation-duration: 2s;
     animation-play-state: pause;
 }
+
+.stellate-wrapper img {
+    width: 150px;
+    margin: 5px 0 0 0;
+}

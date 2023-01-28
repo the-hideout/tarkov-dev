@@ -141,6 +141,11 @@ function Footer() {
                     <a href="https://tarkovtracker.io/" target="_blank" rel="noopener noreferrer">TarkovTracker</a>
                 </p>
                 <p>
+                    <a className="stellate-wrapper" href="https://stellate.co/?ref=powered-by" target="_blank" rel="noopener noreferrer">
+                        <img src={`${process.env.PUBLIC_URL}/images/stellate-light.svg`} alt="Powered by Stellate, the GraphQL Edge Cache" width={200} />
+                    </a>
+                </p>
+                <p>
                     <iframe className='discord' title="discord-iframe" src="https://discord.com/widget?id=956236955815907388&theme=dark" allowtransparency="true" frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
                 </p>
             </div>
