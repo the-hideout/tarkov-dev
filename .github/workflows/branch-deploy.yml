@@ -18,7 +18,7 @@ jobs:
 
     steps:
 
-      - uses: github/branch-deploy@668add1b55ab3b7aff46668d95c4501aebdf2541 # pin@v3.0.3
+      - uses: github/branch-deploy@31399807a76e56a3f3bd575bc6e91291d233b4cb # pin@v4.0.0
         id: branch-deploy
         with:
           admins: the-hideout/core-contributors
