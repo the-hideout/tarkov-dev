@@ -231,6 +231,15 @@ function BossPage(params) {
     // Display behavior info
     if (bossData.behavior) {
         bossProperties['behavior'] = {
+            // t('patrol')
+            // t('rush')
+            // t('stalker')
+            // t('hostile and accurate')
+            // t('patrol and highly armored')
+            // t('group patrol')
+            // t('frequent healing and stim injections')
+            // t('sniper')
+            // t('batshit insane')
             value: t(bossData.behavior),
             label: `${t('Behavior')} 💡`,
             tooltip: t("The boss's general AI behavior"),
