@@ -58,7 +58,7 @@ function ID(props) {
                 </button>
             </div>
             <span className="session-id">
-                {props.socketEnabled ? props.sessionID : 'Click to connect'}
+                {props.socketEnabled ? props.sessionID : t('Click to connect')}
             </span>
         </div>
     );

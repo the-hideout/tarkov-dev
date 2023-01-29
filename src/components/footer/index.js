@@ -43,8 +43,8 @@ function Footer() {
                     <Link to="/about">{t('About')} tarkov.dev</Link>
                 </p>
                 <h3>{t('Contributors')}</h3>
-                <p>Massive thanks to all the people who help build and maintain this project!</p>
-                <p>Made with ❤️ by:</p>
+                <p>{t('Massive thanks to all the people who help build and maintain this project!')}</p>
+                <p>{t('Made with ❤️ by:')}</p>
                 <Contributors quality={20} />
             </div>
             <div className="footer-section-wrapper">
@@ -104,15 +104,13 @@ function Footer() {
                     <Link to={'/api/'}>{t('Tarkov.dev API')}</Link>
                 </p>
                 <p>
-                    <Link to={'/nightbot/'}>{t('Nightbot integration')}</Link>
+                    <Link to={'/nightbot/'}>{t('{{bot}} integration', { bot: 'Nightbot' })}</Link>
                 </p>
                 <p>
-                    <Link to={'/streamelements/'}>
-                        {t('StreamElements integration')}
-                    </Link>
+                    <Link to={'/streamelements/'}>{t('{{bot}} integration', { bot: 'StreamElements' })}</Link>
                 </p>
                 <p>
-                    <Link to={'/moobot'}>{t('Moobot integration')}</Link>
+                    <Link to={'/moobot'}>{t('{{bot}} integration', { bot: 'Moobot' })}</Link>
                 </p>
                 {/*<p>*/}
                 {/*    <Link to={'/api-users/'}>{t('API Users')}</Link>*/}
@@ -160,7 +158,7 @@ function Footer() {
                 )}
             </div>
             <div className="copyright-wrapper">
-                {'version: '}
+                {t('version:')} {' '}
                 <a href="https://github.com/the-hideout/tarkov-dev/commits/main" target="_blank" rel="noopener noreferrer">{version}</a>
             </div>
         </div>
