@@ -1,5 +1,7 @@
 # tarkov.dev 💻
 
+test
+
 [![ci](https://github.com/the-hideout/tarkov-dev/actions/workflows/ci.yml/badge.svg)](https://github.com/the-hideout/tarkov-dev/actions/workflows/ci.yml) [![CodeQL](https://github.com/the-hideout/tarkov-dev/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/the-hideout/tarkov-dev/actions/workflows/codeql-analysis.yml) ![contributors](https://img.shields.io/github/contributors-anon/the-hideout/tarkov-dev) [![Discord](https://img.shields.io/discord/956236955815907388?color=7388DA&label=Discord)](https://discord.gg/XPAsKGHSzH)
 
 ![react](https://img.shields.io/badge/lib-react-blue) ![JS](https://img.shields.io/badge/language-JS-blue)
