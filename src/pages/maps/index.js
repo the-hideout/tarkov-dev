@@ -24,7 +24,7 @@ function Maps() {
         }
         return maps;
     }, []);
-    uniqueMaps.sort((a, b) => {
+    uniqueMaps.sort((a, b) => { 
         if (a.normalizedName === 'openworld')
             return 1;
         if (b.normalizedName === 'openworld')
@@ -53,6 +53,15 @@ function Maps() {
                     <div key={mapsGroup.normalizedName}>
                         <h2>
                             {
+                                // t('Streets of Tarkov')
+                                // t('Customs')
+                                // t('Factory')
+                                // t('Interchange')
+                                // t('The Lab')
+                                // t('Lighthouse')
+                                // t('Reserve')
+                                // t('Shoreline')
+                                // t('Woods')
                                 // t('Openworld')
                                 maps.some(m => m.normalizedName === mapsGroup.normalizedName) ? mapsGroup.name : t(mapsGroup.name)
                             }
