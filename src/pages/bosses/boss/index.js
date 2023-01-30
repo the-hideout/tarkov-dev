@@ -280,10 +280,10 @@ function BossPage(params) {
     // Return the main react component for the boss page
     return [
         <div className="display-wrapper" key={'boss-display-wrapper'}>
-            <div className={'item-page-wrapper'} key={'boss-page-display-wrapper'}>
-                <div className="main-information-grid">
-                    <div className="item-information-wrapper">
-                        <h1 className='h1-boss-name'>
+            <div className={'boss-page-wrapper'} key={'boss-page-display-wrapper'}>
+                <div className="boss-information-grid">
+                    <div className="boss-information-wrapper">
+                        <h1>
                             {bossData.name}
                             <Icon
                                 path={mdiEmoticonDevil}
@@ -302,16 +302,15 @@ function BossPage(params) {
                             <p className='boss-details'>{bossData.details}</p>
                         }
                     </div>
-                    <div className="icon-and-link-wrapper">
+                    <div className="boss-icon-and-link-wrapper">
                         <img
                             alt={bossData.name}
-                            className={'item-image'}
                             loading="lazy"
                             src={`${process.env.PUBLIC_URL}/images/bosses/${bossData.normalizedName}.jpg`}
                         />
                     </div>
                 </div>
-                <h2 className='item-h2' key={'boss-stats-header'}>
+                <h2 key={'boss-stats-header'}>
                     {t('Boss Stats')}
                     <Icon
                         path={mdiPoll}
@@ -321,7 +320,7 @@ function BossPage(params) {
                 </h2>
                 <PropertyList properties={bossProperties} />
 
-                <h2 className='item-h2' key={'boss-loot-header'}>
+                <h2 key={'boss-loot-header'}>
                     {t('Special Boss Loot')}
                     <Icon
                         path={mdiDiamondStone}
@@ -329,21 +328,19 @@ function BossPage(params) {
                         className="icon-with-text"
                     />
                 </h2>
-                <div className='loot-table-boss'>
-                    <SmallItemTable
-                        idFilter={loot.reduce((prev, current) => {
-                            prev.push(current.id);
-                            return prev;
-                        }, [])}
-                        attachmentMap={attachmentMap}
-                        fleaValue
-                        traderValue
-                    />
-                </div>
+                <SmallItemTable
+                    idFilter={loot.reduce((prev, current) => {
+                        prev.push(current.id);
+                        return prev;
+                    }, [])}
+                    attachmentMap={attachmentMap}
+                    fleaValue
+                    traderValue
+                />
 
                 {spawnStatsMsg.length > 0 && 
                 <>
-                    <h2 className='item-h2' key={'boss-spawn-table-header'}>
+                    <h2 key={'boss-spawn-table-header'}>
                         {t('Spawn Locations')}
                         <Icon
                             path={mdiMapLegend}
@@ -357,17 +354,17 @@ function BossPage(params) {
                         <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
                     </ul>
                     <DataTable
+                        key="boss-spawn-table"
                         columns={columnsLocations}
                         data={spawnLocations}
                         disableSortBy={false}
-                        key={'boss-spawn-table'}
                         sortBy={'map'}
                         sortByDesc={true}
                         autoResetSortBy={false}
                     />
                 </>}
 
-                <h2 className='item-h2' key={'boss-escort-table-header'}>
+                <h2 key={'boss-escort-table-header'}>
                     {t('Boss Escorts')}
                     <Icon
                         path={mdiAccountGroup}
@@ -377,10 +374,10 @@ function BossPage(params) {
                 </h2>
                 {escorts.length > 0 ?
                     <DataTable
+                        key="boss-escort-table"
                         columns={columnsEscorts}
                         data={escorts}
                         disableSortBy={false}
-                        key={'boss-escort-table'}
                         sortBy={'name'}
                         sortByDesc={true}
                         autoResetSortBy={false}
@@ -392,7 +389,7 @@ function BossPage(params) {
                 {/* cheeki breeki */}
                 {bossData.normalizedName === 'killa' &&
                     <div className='killa-party-time'>
-                        <h3 className='item-h2' key={'killa-party-time'}>
+                        <h3 key={'killa-party-time'}>
                             {'Killa Party Time?'}
                             <Icon
                                 path={mdiPartyPopper}

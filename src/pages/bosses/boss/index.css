@@ -1,15 +1,71 @@
-.boss-details {
-    max-width: 80%;
-}
-
-.h1-boss-name {
-    display: block !important;
-}
-
 .killa-party-time {
     margin-top: 5rem;
 }
 
 .killa-party-time-text {
     font-size: 1rem;
+}
+
+.boss-page-wrapper {
+    margin: 0 auto 100px auto;
+    max-width: 1200px;
+    padding-top: 10px;
+    position: relative;
+}
+
+.boss-page-wrapper h2 {
+    margin-top: 40px;
+    font-size: 24px;
+}
+
+.boss-information-grid h1 {
+    display: block;
+}
+
+.boss-information-grid h1,
+.boss-icon-and-link-wrapper {
+    margin: 0 0 10px 0;
+}
+
+.boss-details {
+    max-width: 80%;
+}
+
+.boss-icon-and-link-wrapper {
+    align-items: flex-start;
+    display: none;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.boss-icon-and-link-wrapper img {
+    max-height: 50px;
+}
+
+@media screen and (min-width: 800px) {
+    .boss-page-wrapper {
+        padding-top: 20px;
+    }
+
+    .boss-information-grid {
+        display: flex;
+    }
+
+    .boss-information-grid h1 img {
+        display: none;
+    }
+
+    .boss-information-grid h1,
+    .boss-icon-and-link-wrapper {
+        margin: 0 0;
+    }
+
+    .boss-icon-and-link-wrapper {
+        display: flex;
+    }
+
+    .boss-icon-and-link-wrapper img {
+        max-height: 200px;
+    }
 }
