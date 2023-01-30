@@ -68,7 +68,7 @@ function LootTier(props) {
         },
         // {
         //     value: 'marked',
-        //     label: 'Marked',
+        //     label: t('Marked'),
         //     default: false,
         // },
         {
