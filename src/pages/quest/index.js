@@ -318,6 +318,8 @@ function Quest() {
                         }
                         if (objective.type === 'buildWeapon') {
                             const baseItem = items.find((i) => i.id === objective.item.id);
+                            if (!baseItem)
+                                return null;
                             const attributes = objective.attributes
                                 .map((att) => {
                                     if (!att.requirement.value) {
@@ -353,9 +355,9 @@ function Quest() {
                                             <h4>{t('Contains All')}</h4>
                                             <ul>
                                                 {objective.containsAll.map((part) => {
-                                                    const item = items.find(
-                                                        (i) => i.id === part.id,
-                                                    );
+                                                    const item = items.find((i) => i.id === part.id);
+                                                    if (!item)
+                                                        return null;
                                                     return (
                                                         <li
                                                             key={item.id}
@@ -429,6 +431,8 @@ function Quest() {
                         }
                         if (objective.type === 'giveItem' || objective.type === 'findItem') {
                             const item = items.find((i) => i.id === objective.item.id);
+                            if (!item)
+                                return null;
                             const attributes = [];
                             if (objective.foundInRaid) {
                                 attributes.push({
@@ -481,6 +485,8 @@ function Quest() {
                         }
                         if (objective.type === 'mark') {
                             const item = items.find((i) => i.id === objective.markerItem.id);
+                            if (!item)
+                                return null;
                             taskDetails = (
                                 <>
                                     <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
@@ -488,17 +494,15 @@ function Quest() {
                             );
                         }
                         if (objective.type === 'shoot') {
-                            let verb = 'Kill';
+                            let verb = t('Kill');
                             if (objective.shotType !== 'kill') {
-                                verb = 'Shoot';
+                                verb = t('Shoot');
                             }
                             taskDetails = (
                                 <>
                                     <>
                                         {t('{{shootOrKill}} {{target}} {{count}} times', {
-                                            // t('Shoot)
-                                            // t('Kill')
-                                            shootOrKill: t(verb),
+                                            shootOrKill: verb,
                                             target: objective.target,
                                             count: objective.count,
                                         })}
@@ -536,9 +540,9 @@ function Quest() {
                                             {t('Using weapon:')}{' '}
                                             <ul>
                                                 {objective.usingWeapon.map((weap) => {
-                                                    const item = items.find(
-                                                        (i) => i.id === weap.id,
-                                                    );
+                                                    const item = items.find((i) => i.id === weap.id,);
+                                                    if (!item)
+                                                        return null;
                                                     return (
                                                         <li
                                                             key={`weapon-${item.id}`}
@@ -562,9 +566,9 @@ function Quest() {
                                                 return (
                                                     <ul key={`modset-${index}`}>
                                                         {modSet.map((mod) => {
-                                                            const item = items.find(
-                                                                (i) => i.id === mod.id,
-                                                            );
+                                                            const item = items.find((i) => i.id === mod.id);
+                                                            if (!item)
+                                                                return null;
                                                             return (
                                                                 <li
                                                                     key={`mod-${item.id}`}
@@ -590,9 +594,9 @@ function Quest() {
                                                 return (
                                                     <ul key={`outfit-${index}`}>
                                                         {outfit.map((accessory) => {
-                                                            const item = items.find(
-                                                                (i) => i.id === accessory.id,
-                                                            );
+                                                            const item = items.find((i) => i.id === accessory.id);
+                                                            if (!item)
+                                                                return null;
                                                             return (
                                                                 <li
                                                                     key={`accessory-${item.id}`}
@@ -616,9 +620,9 @@ function Quest() {
                                             {t('Not wearing:')}{' '}
                                             <ul>
                                                 {objective.notWearing.map((accessory) => {
-                                                    const item = items.find(
-                                                        (i) => i.id === accessory.id,
-                                                    );
+                                                    const item = items.find((i) => i.id === accessory.id);
+                                                    if (!item)
+                                                        return null;
                                                     return (
                                                         <li
                                                             key={`accessory-${item.id}`}
@@ -698,6 +702,8 @@ function Quest() {
                         }
                         if (objective.type === 'taskStatus') {
                             const task = quests.find((q) => q.id === objective.task.id);
+                            if (!task)
+                                return null;
                             taskDetails = (
                                 <>
                                     <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>
@@ -752,6 +758,8 @@ function Quest() {
                                         {mapKeys.keys
                                             .map((key) => {
                                                 const item = items.find((i) => i.id === key.id);
+                                                if (!item)
+                                                    return null;
                                                 return (
                                                     <Link
                                                         key={item.id}
@@ -786,6 +794,8 @@ function Quest() {
                         <ul>
                             {currentQuest.finishRewards?.items.map((rewardItem, index) => {
                                 const item = items.find((it) => it.id === rewardItem.item.id);
+                                if (!item)
+                                    return null;
                                 return (
                                     <li
                                         className="quest-list-item"
@@ -840,6 +850,8 @@ function Quest() {
                             {currentQuest.finishRewards.offerUnlock.map((unlock) => {
                                 const trader = traders.find((t) => t.id === unlock.trader.id);
                                 const item = items.find((i) => i.id === unlock.item.id);
+                                if (!item)
+                                    return null;
                                 return (
                                     <li className="quest-list-item" key={unlock.item.id}>
                                         <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
