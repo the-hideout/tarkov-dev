@@ -158,7 +158,7 @@ function Footer() {
                 )}
             </div>
             <div className="copyright-wrapper">
-                {t('version:')} {' '}
+                {t('version')} {': '}
                 <a href="https://github.com/the-hideout/tarkov-dev/commits/main" target="_blank" rel="noopener noreferrer">{version}</a>
             </div>
         </div>
