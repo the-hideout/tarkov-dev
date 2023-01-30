@@ -234,6 +234,7 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
     return (
         <>
             <DataTable
+                key="bitcoin-farm-table"
                 disableSortBy={true}
                 data={data}
                 columns={columns}

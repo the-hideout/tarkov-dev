@@ -540,7 +540,7 @@ function QuestTable({
     return (
         <DataTable
             className={`quest-table ${hideBorders ? 'no-borders' : ''}`}
-            key="small-item-table"
+            key="quest-table"
             columns={columns}
             data={shownQuests}
             extraRow={extraRow}

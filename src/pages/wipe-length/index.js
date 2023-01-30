@@ -166,6 +166,7 @@ const WipeLength = (props) => {
                 <h2>{t('{{count}} days', { count: lengthDaysAverage })} 📆</h2>
             </div>
             <DataTable
+                key="wipe-length-table"
                 columns={columns}
                 data={data}
                 disableSortBy={false}

@@ -139,7 +139,6 @@ function ItemsSummaryTable(props) {
 
     return (
         <DataTable
-            className="data-table"
             key="item-summary-table"
             columns={displayColumns}
             data={data}

@@ -185,8 +185,8 @@ function TaskObjectiveTable({ objectives }) {
 
     return (
         <DataTable
-            className={`small-data-table`}
-            key="small-item-table"
+            className="small-data-table"
+            key="task-objective-table"
             columns={columns}
             data={data}
             extraRow={extraRow}
