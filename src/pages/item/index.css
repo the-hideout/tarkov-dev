@@ -54,10 +54,6 @@
     width: 100%;
 }
 
-.wiki-link-wrapper {
-    font-size: larger;
-}
-
 .item-short-name-wrapper {
     font-size: x-large;
 }
@@ -181,10 +177,6 @@
 .item-quest-headline-wrapper h2 {
     flex-grow: 1;
     margin: 0;
-}
-
-.item-h2 {
-    margin-top: 10px;
 }
 
 @media screen and (min-width: 800px) {

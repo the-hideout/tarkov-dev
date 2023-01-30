@@ -741,7 +741,7 @@ function Item() {
                     </div>
                 )}
                 <div>
-                    <h2 className='item-h2'>
+                    <h2>
                         {t('Stats')}
                     </h2>
                     {hasProperties
