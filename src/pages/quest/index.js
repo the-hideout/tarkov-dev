@@ -153,6 +153,8 @@ function Quest() {
                     <h3>{t('Prerequisite Tasks')}</h3>
                     {currentQuest.taskRequirements.map((taskReq) => {
                         const task = quests.find((quest) => quest.id === taskReq.task.id);
+                        if (!task)
+                            return null;
                         return (
                             <div key={`req-task-${task.id}`}>
                                 <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>
@@ -198,12 +200,12 @@ function Quest() {
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
-            <div className={'item-page-wrapper'}>
+            <div className={'quest-page-wrapper'}>
                 <ItemSearch showDropdown />
-                <div className="main-information-grid">
-                    <div className="item-information-wrapper">
+                <div className="quest-information-grid">
+                    <div className="quest-information-wrapper">
                         <h1>
-                            <div className={'item-font'}>
+                            <div className={'quest-font'}>
                                 {currentQuest.name}
                                 {currentQuest.factionName === 'Any'
                                     ? ''
@@ -211,7 +213,7 @@ function Quest() {
                             </div>
                             <img
                                 alt={currentQuest.trader.name}
-                                className={'item-icon'}
+                                className={'quest-icon'}
                                 loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/traders/${currentQuest.trader.normalizedName}-icon.jpg`}
                             />
@@ -223,15 +225,11 @@ function Quest() {
                         )}
                         {typeof currentQuest.tarkovDataId !== 'undefined' && (
                             <div className="wiki-link-wrapper">
-                                <a
-                                    href={`https://tarkovtracker.io/quest/${currentQuest.tarkovDataId}`}
-                                >
-                                    {t('TarkovTracker')}
-                                </a>
+                                <a href={`https://tarkovtracker.io/quest/${currentQuest.tarkovDataId}`} target="_blank" rel="noopener noreferrer">{t('TarkovTracker')}</a>
                             </div>
                         )}
                     </div>
-                    <div className={`icon-and-link-wrapper`}>
+                    <div className={`quest-icon-and-link-wrapper`}>
                         <Link to={`/traders/${currentQuest.trader.normalizedName}`}>
                             <img
                                 alt={currentQuest.trader.name}
@@ -282,7 +280,7 @@ function Quest() {
                             foundMap = (
                                 <div key={`map-link-${map.normalizedName}`}>
                                     <Link to={map.primaryPath}>
-                                        {t('View Map')} - {t(map.name)}
+                                        {t('View Map')} - {map.name}
                                     </Link>
                                 </div>
                             );
@@ -731,9 +729,7 @@ function Quest() {
                         }
                         return (
                             <div key={objective.id}>
-                                <h3>{`✔️ ${objective.description}${
-                                    objective.optional ? ` (${t('optional')})` : ''
-                                }`}</h3>
+                                <h3>{`✔️ ${objective.description} ${objective.optional ? `(${t('optional')})` : ''}`}</h3>
                                 {objective.maps.length > 0 && (
                                     <div key="objective-maps">
                                         {`${t('Maps')}: ${objective.maps
