@@ -20,8 +20,6 @@
 }
 
 .quest-image-wrapper img {
-    outline: 1px solid #4a5154;
-    outline-offset: -1px;
     width: 48px;
     height: 48px;
 }

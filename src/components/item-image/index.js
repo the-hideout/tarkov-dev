@@ -32,7 +32,8 @@ function ItemImage({ item }) {
             </svg>')`,
         //backgroundSize: '2px 2px',
         position: 'relative',
-        border: '2px solid #495154',
+        outline: '2px solid #495154',
+        outlineOffset: '-2px',
     };
 
     if (item.types?.includes('loading')) {
