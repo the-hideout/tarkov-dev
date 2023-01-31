@@ -10,6 +10,7 @@ import translationES from './translations/es/translation.json';
 import translationFR from './translations/fr/translation.json';
 import translationJA from './translations/ja/translation.json';
 import translationPL from './translations/pl/translation.json';
+import translationPT from './translations/pt/translation.json';
 
 i18n.use(LanguageDetector)
     .use(initReactI18next) // passes i18n down to react-i18next
@@ -41,7 +42,11 @@ i18n.use(LanguageDetector)
             },
             pl: {
                 translation: translationPL,
+            },
+            pt: {
+                translation: translationPT,
             }
+
         },
         // lng: "en", // if you're using a language detector, do not define the lng option
         fallbackLng: 'en',

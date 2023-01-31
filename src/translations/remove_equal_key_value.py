@@ -4,7 +4,7 @@ import json
 import os
 
 # List of languages
-languages = ['de', 'es', 'fr', 'it', 'ja', 'pl', 'ru']
+languages = ['de', 'es', 'fr', 'it', 'ja', 'pl', 'pt', 'ru']
 
 # Output directory
 output_dir = 'poeditor'
