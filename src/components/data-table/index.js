@@ -83,7 +83,7 @@ function DataTable({
     }, [storageSetSortBy, sortByState]);
 
     useEffect(() => {
-        if (nameFilter && sortByState[0]?.id === 'name' || sortByState[0]?.id === undefined) {
+        if (nameFilter && (sortByState[0]?.id === 'name' || sortByState[0]?.id === undefined)) {
             setSortBy([]);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
