@@ -4,12 +4,13 @@ import { useTranslation } from 'react-i18next';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
 
-import rawMapData from '../../data/maps.json';
 import categoryPages from '../../data/category-pages.json';
 
 import SEO from '../../components/SEO';
 import ItemIconList from '../../components/item-icon-list';
 import LoadingSmall from '../../components/loading-small';
+
+import { useMapImages } from '../../features/maps/queries';
 
 import Icon from '@mdi/react';
 import {
@@ -45,6 +46,16 @@ function Start() {
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const { t } = useTranslation();
 
+    const mapImages = useMapImages();
+    const uniqueMaps = Object.values(mapImages);
+    uniqueMaps.sort((a, b) => {
+        if (a.normalizedName === 'openworld')
+            return 1;
+        if (b.normalizedName === 'openworld')
+            return -1;
+        return a.displayText.localeCompare(b.displayText);
+    });
+
     const handleNameFilterChange = useCallback(
         (value) => {
             if (typeof window !== 'undefined') {
@@ -68,6 +79,7 @@ function Start() {
             title={`${t('Tarkov.dev')} - ${t('Escape from Tarkov')}`}
             description={t('start-page-description', 'Checkout all information for items, crafts, barters, maps, loot tiers, hideout profits, trader details, a free API, and more with tarkov.dev! A free, community made, and open source ecosystem of Escape from Tarkov tools and guides.')}
             type='website'
+            key="seo-wrapper"
         />,
         <div
             className="display-wrapper page-wrapper start-wrapper"
@@ -102,7 +114,7 @@ function Start() {
                     }
                 </Suspense>
             </div>
-            <div className="start-section-wrapper" key={'server-status-div'}>
+            <div className="start-section-wrapper" key={'sidebar-div'}>
                 <Suspense fallback={<LoadingSmall />} key={'server-status'}>
                     <ServerStatus key={"server-status"} />
                 </Suspense>
@@ -209,14 +221,12 @@ function Start() {
                     </Link>
                 </h3>
                 <ul key="maps-list">
-                    {rawMapData.map((mapsGroup) => (
-                        mapsGroup.maps.map((map) => (
-                            <li key={`map-link-${map.key}`}>
-                                <Link to={`/map/${map.key}`}>
-                                    {map.displayText}
-                                </Link>
-                            </li>
-                        ))
+                    {uniqueMaps.map((map) => (
+                        <li key={`map-link-${map.key}`}>
+                            <Link to={`/map/${map.key}`}>
+                                {map.displayText}
+                            </Link>
+                        </li>
                     ))}
                 </ul>
                 <h3>

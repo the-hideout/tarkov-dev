@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 
 import Icon from '@mdi/react';
 import { mdiClipboardList, mdiTimerSand } from '@mdi/js';
@@ -45,10 +43,11 @@ import formatPrice from '../../modules/format-price';
 import fleaFee from '../../modules/flea-market-fee';
 import bestPrice from '../../modules/best-price';
 import { isAnyDogtag } from '../../modules/dogtags';
+import { getRelativeTimeAndUnit } from '../../modules/format-duration';
+
+import i18n from '../../i18n';
 
 import './index.css';
-
-dayjs.extend(relativeTime);
 
 const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
@@ -460,6 +459,10 @@ function Item() {
 
     const buySources = currentItemData.buyFor.filter(buyFor => buyFor.price > 0);
 
+    let dateParsed = Date.parse(currentItemData.updated);
+    let date = new Date(dateParsed);
+    let relativeTime = getRelativeTimeAndUnit(dateParsed);
+
     return [
         <SEO 
             title={`${currentItemData.name} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
@@ -467,6 +470,7 @@ function Item() {
             url={`https://tarkov.dev/item/${currentItemData.normalizedName}`}
             image={currentItemData.image512pxLink}
             card='summary_large_image'
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className={'item-page-wrapper'}>
@@ -729,15 +733,15 @@ function Item() {
                                 <div>
                                     {t('Highest scanned price last 24h: {{high24hPrice}}', {high24hPrice: formatPrice(currentItemData.high24hPrice)})}
                                 </div>
-                                <div title={dayjs(currentItemData.updated,).format('YYYY-MM-DD HH:mm:ss')}>
-                                    {t('Updated: {{updated}}', {updated: dayjs(currentItemData.updated).fromNow()})}
+                                <div title={date.toLocaleString(i18n.language)}>
+                                    {t('Updated: {{val, relativetime}}', { val: relativeTime[0], range: relativeTime[1] })}
                                 </div>
                             </div>
                         </div>
                     </div>
                 )}
                 <div>
-                    <h2 className='item-h2'>
+                    <h2>
                         {t('Stats')}
                     </h2>
                     {hasProperties

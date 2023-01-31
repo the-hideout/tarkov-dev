@@ -15,6 +15,7 @@ function Containers(props) {
         <SEO 
             title={`${t('Containers')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description="This page includes a sortable table with information on the different types of containers available in the game, including their price, slot-ratio, size, and other characteristics."
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">

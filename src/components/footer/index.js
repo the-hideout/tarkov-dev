@@ -43,8 +43,8 @@ function Footer() {
                     <Link to="/about">{t('About')} tarkov.dev</Link>
                 </p>
                 <h3>{t('Contributors')}</h3>
-                <p>Massive thanks to all the people who help build and maintain this project!</p>
-                <p>Made with ❤️ by:</p>
+                <p>{t('Massive thanks to all the people who help build and maintain this project!')}</p>
+                <p>{t('Made with ❤️ by:')}</p>
                 <Contributors quality={20} />
             </div>
             <div className="footer-section-wrapper">
@@ -104,15 +104,13 @@ function Footer() {
                     <Link to={'/api/'}>{t('Tarkov.dev API')}</Link>
                 </p>
                 <p>
-                    <Link to={'/nightbot/'}>{t('Nightbot integration')}</Link>
+                    <Link to={'/nightbot/'}>{t('{{bot}} integration', { bot: 'Nightbot' })}</Link>
                 </p>
                 <p>
-                    <Link to={'/streamelements/'}>
-                        {t('StreamElements integration')}
-                    </Link>
+                    <Link to={'/streamelements/'}>{t('{{bot}} integration', { bot: 'StreamElements' })}</Link>
                 </p>
                 <p>
-                    <Link to={'/moobot'}>{t('Moobot integration')}</Link>
+                    <Link to={'/moobot'}>{t('{{bot}} integration', { bot: 'Moobot' })}</Link>
                 </p>
                 {/*<p>*/}
                 {/*    <Link to={'/api-users/'}>{t('API Users')}</Link>*/}
@@ -141,7 +139,12 @@ function Footer() {
                     <a href="https://tarkovtracker.io/" target="_blank" rel="noopener noreferrer">TarkovTracker</a>
                 </p>
                 <p>
-                    <iframe className='discord' title="discord-iframe" src="https://discord.com/widget?id=956236955815907388&theme=dark" allowtransparency="true" frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                    <a className="stellate-wrapper" href="https://stellate.co/?ref=powered-by" target="_blank" rel="noopener noreferrer">
+                        <img src={`${process.env.PUBLIC_URL}/images/stellate-light.svg`} alt="Powered by Stellate, the GraphQL Edge Cache" width={200} />
+                    </a>
+                </p>
+                <p>
+                    <iframe className='discord' title="discord-iframe" src="https://discord.com/widget?id=956236955815907388&theme=dark" loading="lazy" allowtransparency="true" frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
                 </p>
             </div>
             <div className="copyright-wrapper">
@@ -155,7 +158,7 @@ function Footer() {
                 )}
             </div>
             <div className="copyright-wrapper">
-                {'version: '}
+                {t('version')} {': '}
                 <a href="https://github.com/the-hideout/tarkov-dev/commits/main" target="_blank" rel="noopener noreferrer">{version}</a>
             </div>
         </div>

@@ -14,6 +14,7 @@ function APIDocs() {
         <SEO 
             title={`${t('API Documentation')} - ${t('Tarkov.dev')}`}
             description={t('api-docs-page-description', 'Escape from Tarkov\'s community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT.')}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper api-docs-page-wrapper'}>
             <h1>{t('Tarkov.dev API')}</h1>
@@ -26,7 +27,7 @@ function APIDocs() {
                  To learn about GraphQL queries generally, the GraphQL Foundation has helpful resources.`)}
                 <ul>
                     <li>
-                        <a href="https://api.tarkov.dev/___graphql" target="_blank" rel="noopener noreferrer">{t('Tarkov.dev GraphQL playground')}</a>
+                        <a href="https://api.tarkov.dev/" target="_blank" rel="noopener noreferrer">{t('Tarkov.dev GraphQL playground')}</a>
                     </li>
                     <li>
                         <a href="https://graphql.org/learn/" target="_blank" rel="noopener noreferrer">{t('GraphQL Foundation resources')}</a>
@@ -206,7 +207,7 @@ print(result)`}
             <div className="example-wrapper">
                 <h3 id="ruby">Ruby {t('example')}</h3>
                 <cite>
-                    <span>Contributed by </span>
+                    <span>{t('Contributed by')} </span>
                     <a href="https://github.com/GrantBirki" target="_blank" rel="noopener noreferrer">GrantBirki</a>
                 </cite>
                 <SyntaxHighlighter language="ruby" style={atomOneDark}>
@@ -271,7 +272,7 @@ return json_decode($data, true);`}
                 <h3 id="java-11">
                     <span>Java 11's HttpClient {t('example')}</span>
                     <cite>
-                        <span>Contributed by </span>
+                        <span>{t('Contributed by')} </span>
                         <a href="https://github.com/HeyBanditoz" target="_blank" rel="noopener noreferrer">HeyBanditoz</a>
                     </cite>
                 </h3>
@@ -303,7 +304,7 @@ class Scratch {
             <div className="example-wrapper">
                 <h3 id="csharp">
                     <span>C# {t('example')}</span>
-                    <cite>Contributed by BambusBo</cite>
+                    <cite>{t('Contributed by')} BambusBo</cite>
                 </h3>
                 <SyntaxHighlighter language="csharp" style={atomOneDark}>
                     {`var data = new Dictionary<string, string>()
@@ -330,7 +331,7 @@ using (var httpClient = new HttpClient())
                 <h3 id="go">
                     <span>Go {t('example')}</span>
                     <cite>
-                        <span>Contributed by </span>
+                        <span>{t('Contributed by')} </span>
                         <a href="https://github.com/HeyBanditoz" target="_blank" rel="noopener noreferrer">HeyBanditoz</a>
                     </cite>
                 </h3>
@@ -373,7 +374,7 @@ func main() {
                 <h3 id="luvit">
                     <span>Lua (Luvit) {t('example')}</span>
                     <cite>
-                        <span>Contributed by </span>
+                        <span>{t('Contributed by')} </span>
                         <a href="https://github.com/AntwanR942" target="_blank" rel="noopener noreferrer">AntwanR942</a>
                     </cite>
                 </h3>

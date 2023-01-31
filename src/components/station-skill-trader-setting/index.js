@@ -70,7 +70,7 @@ const getOptionsForTrader = (t, traderKey) => {
     if (traderKey === 'jaeger') {
         options.unshift({
             value: 0,
-            label: 'Locked',
+            label: t('Locked'),
         });
     }
 
@@ -92,11 +92,13 @@ const StationSkillTraderSetting = React.forwardRef((props, ref) => {
     let selector;
     let options;
     let iconExt = 'png';
-    const toolTip = label || capitalizeFirst(camelcaseToDashes(stateKey).replace(/-/g, ' '));
+    const toolTip = label || t(capitalizeFirst(camelcaseToDashes(stateKey).replace(/-/g, ' ')));
     if (type === 'station') {
         selector = selectAllStations;
         options = getOptionsForStation(t, stateKey);
     } else if (type === 'skill') {
+        // t('Crafting')
+        // t('Hideout Management')
         selector = selectAllSkills;
         options = getOptionsForSkill(t, stateKey);
     } else if (type === 'trader') {

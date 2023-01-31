@@ -191,6 +191,10 @@ cite {
     display: inline-flex;
 }
 
+.wiki-link-wrapper {
+    font-size: larger;
+}
+
 div.tippy-box {
     background-color: #2d2c2e;
     color: #c7c5b3;

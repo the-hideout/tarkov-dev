@@ -40,44 +40,18 @@
     }
 }
 
-@keyframes discord {
-    0% {
-        height: 70px;
-        width: 250px;
-    }
-
-    100% {
-        height: 500px;
-        width: 350px;
-    }
-}
-
-@keyframes discord-c {
-    0% {
-        height: 500px;
-        width: 350px;
-    }
-
-    100% {
-        height: 70px;
-        width: 250px;
-    }
-}
-
 .discord {
-    animation-name: discord-c;
-    animation-duration: 2s;
-    animation-play-state: pause;
-    float: left;
+    width: 300px;
     height: 70px;
-    width: 250px;
+    transition: all 0.5s ease-in-out;
 }
 
 .discord:hover {
     height: 500px;
-    width: 350px;
-    float: left;
-    animation-name: discord;
-    animation-duration: 2s;
-    animation-play-state: pause;
+    width: 300px;
+}
+
+.stellate-wrapper img {
+    width: 150px;
+    margin: 5px 0 0 0;
 }

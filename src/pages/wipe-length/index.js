@@ -155,6 +155,7 @@ const WipeLength = (props) => {
         <SEO 
             title={`${t('Wipe Length')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('wipe-length-description', 'Get the latest information on the average wipe length in Escape from Tarkov. Find out how long wipes typically last, and prepare for the next wipe.')}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper'}>
             <h1 className="center-title">
@@ -165,6 +166,7 @@ const WipeLength = (props) => {
                 <h2>{t('{{count}} days', { count: lengthDaysAverage })} 📆</h2>
             </div>
             <DataTable
+                key="wipe-length-table"
                 columns={columns}
                 data={data}
                 disableSortBy={false}

@@ -59,6 +59,7 @@ const BitcoinFarmCalculator = () => {
         <SEO 
             title={`${t('Bitcoin Farm Calculator')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('bitcoin-farm-calculator-page-description', 'This page includes a calculator tool that helps you determine the price of building and maintaining a Bitcoin Farm, based on the number of GPUs, electricity costs, and bitcoin cost.')}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper'} key={'display-wrapper'}>
             <div className="page-headline-wrapper" key="btc-profit-settings">

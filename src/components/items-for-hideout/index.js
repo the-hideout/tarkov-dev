@@ -82,7 +82,7 @@ function ItemsForHideout(props) {
     } else if (unbuilt.length !== data.length && !showAll) {
         extraRow = (
             <>
-                {t('No unbuilt hideout moduels for selected filters but some were hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
+                {t('No unbuilt hideout modules for selected filters but some were hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
             </>
         );
     }

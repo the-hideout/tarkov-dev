@@ -11,6 +11,7 @@ function Nightbot() {
         <SEO 
             title={`${t('Tarkov.dev {{bot}} integration', { bot: botName })} - ${t('Tarkov.dev')}`}
             description={t('bot-page-description', 'This page contains everything necessary to integrate {{bot}} with Tarkov.dev.', { bot: botName })}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper nightbot-page-wrapper'}>
             <h1>{t('Tarkov.dev {{bot}} integration', { bot: botName })}</h1>
@@ -60,7 +61,7 @@ function Nightbot() {
                     {t('Message:')}
                     <pre>
                         $(urlfetch
-                        https://api.tarkov.dev/webhook/nightbot?q=$(querystring))
+                        https://streamer.tarkov.dev/webhook/nightbot?q=$(querystring))
                     </pre>
                 </li>
                 <li>{t('Press "Submit"')}</li>

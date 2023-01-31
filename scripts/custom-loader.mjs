@@ -21,6 +21,7 @@ export async function load(url, context, defaultLoad) {
         'do-fetch-meta.js',
         'do-fetch-traders.js',
         'do-fetch-quests.js',
+        'do-fetch-bosses.js',
     ];
 
     for (const fileName of forceConvert) {

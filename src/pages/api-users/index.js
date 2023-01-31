@@ -12,6 +12,7 @@ function ApiUsers() {
         <SEO 
             title={`${t('API Users')} - ${t('Tarkov.dev')}`}
             description={t('api-users-page-description', 'This page contains a list of all users of public API on Tarkov.dev and their projects.')}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper api-users-page-wrapper'}>
             <h1>{t('API Users')} - {t('Tarkov.dev')}</h1>

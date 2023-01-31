@@ -67,6 +67,7 @@ function Quests() {
         <SEO 
             title={`${t('Tasks')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('tasks-page-description', 'Find out everything you need to know about tasks in Escape from Tarkov. Learn about the different types of tasks available in the game, how to complete them, and the rewards you can earn.')}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper'} key="quests-page-wrapper">
             <div className="quests-headline-wrapper" key="quests-headline">

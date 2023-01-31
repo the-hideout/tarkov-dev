@@ -9,12 +9,13 @@ import {
 import { useTranslation } from 'react-i18next';
 
 function Connect() {
-    const [connectionText, setConnectionText] = useState('Connect');
+    const { t } = useTranslation();
+    
+    const [connectionText, setConnectionText] = useState(t('Connect'));
     const controlId = useSelector((state) => state.sockets.controlId);
     let navigate = useNavigate();
     const inputRef = useRef(null);
     const dispatch = useDispatch();
-    const { t } = useTranslation();
 
     const handleIDChange = (event) => {
         const tempConnectID = event.target.value

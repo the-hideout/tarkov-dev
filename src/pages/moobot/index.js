@@ -11,6 +11,7 @@ function Moobot() {
         <SEO 
             title={`${t('Tarkov.dev {{bot}} integration', { bot: botName })} - ${t('Tarkov.dev')}`}
             description={t('bot-page-description', 'This page contains everything necessary to integrate {{bot}} with Tarkov.dev.', { bot: botName })}
+            key="seo-wrapper"
         />,
         <div className={'page-wrapper moobot-page-wrapper'}>
             <h1>{t('Tarkov.dev {{bot}} integration', { bot: botName })}</h1>
@@ -53,7 +54,7 @@ function Moobot() {
                     {t('In response choose URL Fetch - Full (plain) response')}
                 </li>
                 <li>
-                    <pre>https://api.tarkov.dev/webhook/moobot?q=</pre>
+                    <pre>https://streamer.tarkov.dev/webhook/moobot?q=</pre>
                     {t('and after insert "Command arguments"')}
                 </li>
             </ul>

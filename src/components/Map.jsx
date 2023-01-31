@@ -3,14 +3,14 @@ import { useParams } from 'react-router-dom';
 import {
     TransformWrapper,
     TransformComponent,
-} from '@kokarn/react-zoom-pan-pinch';
+} from 'react-zoom-pan-pinch';
+
+import { useMapImages } from '../features/maps/queries';
 
 import Time from './Time';
 import SEO from './SEO';
 
 import ErrorPage from './error-page';
-
-import rawMapData from '../data/maps.json';
 
 function Map() {
     let { currentMap } = useParams();
@@ -40,21 +40,7 @@ function Map() {
         ref?.current?.resetTransform();
     }, [currentMap]);
 
-    let allMaps = {};
-
-    for(const mapsGroup of rawMapData) {
-        for(const map of mapsGroup.maps) {
-            allMaps[map.key] = {
-                ...map,
-                normalizedName: mapsGroup.normalizedName,
-                description: mapsGroup.description,
-                duration: mapsGroup.duration,
-                players: mapsGroup.players,
-                image: `/maps/${map.key}.jpg`,
-                imageThumb: `/maps/${map.key}_thumb.jpg`,
-            }
-        }
-    }
+    let allMaps = useMapImages();
 
     if (!allMaps[currentMap]) {
         return <ErrorPage />;
@@ -69,6 +55,7 @@ function Map() {
             description={description}
             image={`${window.location.origin}${process.env.PUBLIC_URL}${imageThumb}`}
             card='summary_large_image'
+            key="seo-wrapper"
         />,
         <div className="display-wrapper" key="map-wrapper">
             <Time
