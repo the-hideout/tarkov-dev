@@ -144,7 +144,7 @@ function Footer() {
                     </a>
                 </p>
                 <p>
-                    <iframe className='discord' title="discord-iframe" src="https://discord.com/widget?id=956236955815907388&theme=dark" allowtransparency="true" frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                    <iframe className='discord' title="discord-iframe" src="https://discord.com/widget?id=956236955815907388&theme=dark" loading="lazy" allowtransparency="true" frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
                 </p>
             </div>
             <div className="copyright-wrapper">
@@ -158,7 +158,7 @@ function Footer() {
                 )}
             </div>
             <div className="copyright-wrapper">
-                {t('version:')} {' '}
+                {t('version')} {': '}
                 <a href="https://github.com/the-hideout/tarkov-dev/commits/main" target="_blank" rel="noopener noreferrer">{version}</a>
             </div>
         </div>

@@ -8,10 +8,7 @@ import './App.css';
 import i18n from './i18n';
 import loadPolyfills from './modules/polyfills';
 
-import Map from './components/Map.jsx';
 import RemoteControlId from './components/remote-control-id';
-import Menu from './components/menu';
-import Footer from './components/footer';
 import { fetchTarkovTrackerProgress } from './features/settings/settingsSlice';
 
 import {
@@ -21,62 +18,63 @@ import {
 import useStateWithLocalStorage from './hooks/useStateWithLocalStorage';
 import makeID from './modules/make-id';
 
-import Ammo from './pages/ammo';
-import Control from './pages/control';
-import LootTiers from './pages/loot-tiers';
-import Barters from './pages/barters';
-import Maps from './pages/maps/';
-import Crafts from './pages/crafts';
-import Item from './pages/item';
-import Start from './pages/start';
-import Settings from './pages/settings';
-import Nightbot from './pages/nightbot';
-import StreamElements from './pages/stream-elements';
-import ApiUsers from './pages/api-users';
-import Moobot from './pages/moobot';
-
-import Items from './pages/items/';
-import Armors from './pages/items/armors';
-import Backpacks from './pages/items/backpacks';
-import BarterItems from './pages/items/barter-items';
-import Containers from './pages/items/containers';
-import Glasses from './pages/items/glasses';
-import Grenades from './pages/items/grenades';
-import Guns from './pages/items/guns';
-import Headsets from './pages/items/headsets';
-import Helmets from './pages/items/helmets';
-import Keys from './pages/items/keys';
-import Mods from './pages/items/mods';
-import PistolGrips from './pages/items/pistol-grips';
-import Provisions from './pages/items/provisions';
-import Rigs from './pages/items/rigs';
-import Suppressors from './pages/items/suppressors';
-import BsgCategory from './pages/items/bsg-category';
-import BitcoinFarmCalculator from './pages/bitcoin-farm-calculator';
-import Quests from './pages/quests';
-import Quest from './pages/quest';
-
-import Bosses from './pages/bosses';
-import Boss from './pages/bosses/boss';
-
-import Trader from './pages/traders/trader';
-import Traders from './pages/traders';
-
-import ItemTracker from './pages/item-tracker/';
-import Hideout from './pages/hideout';
-import WipeLength from './pages/wipe-length';
-import About from './pages/about/';
-
-import Guides from './pages/guides';
-
-import ErrorPage from './components/error-page';
 import Loading from './components/loading';
-import Debug from './components/Debug';
 
 import supportedLanguages from './data/supported-languages.json';
 
+const Map = React.lazy(() => import('./components/Map.jsx'));
+const Menu = React.lazy(() => import('./components/menu'));
+const Footer = React.lazy(() => import('./components/footer'));
+const ErrorPage = React.lazy(() => import('./components/error-page'));
+const Debug = React.lazy(() => import('./components/Debug'));
+
+const Ammo = React.lazy(() => import('./pages/ammo'));
+const Control = React.lazy(() => import('./pages/control'));
+const LootTiers = React.lazy(() => import('./pages/loot-tiers'));
+const Barters = React.lazy(() => import('./pages/barters'));
+const Maps = React.lazy(() => import('./pages/maps/'));
+const Crafts = React.lazy(() => import('./pages/crafts'));
+const Item = React.lazy(() => import('./pages/item'));
+const Start = React.lazy(() => import('./pages/start'));
+const Settings = React.lazy(() => import('./pages/settings'));
+const Nightbot = React.lazy(() => import('./pages/nightbot'));
+const StreamElements = React.lazy(() => import('./pages/stream-elements'));
+const ApiUsers = React.lazy(() => import('./pages/api-users'));
+const Moobot = React.lazy(() => import('./pages/moobot'));
+
+const Items = React.lazy(() => import('./pages/items/'));
+const Armors = React.lazy(() => import('./pages/items/armors'));
+const Backpacks = React.lazy(() => import('./pages/items/backpacks'));
+const BarterItems = React.lazy(() => import('./pages/items/barter-items'));
+const Containers = React.lazy(() => import('./pages/items/containers'));
+const Glasses = React.lazy(() => import('./pages/items/glasses'));
+const Grenades = React.lazy(() => import('./pages/items/grenades'));
+const Guns = React.lazy(() => import('./pages/items/guns'));
+const Headsets = React.lazy(() => import('./pages/items/headsets'));
+const Helmets = React.lazy(() => import('./pages/items/helmets'));
+const Keys = React.lazy(() => import('./pages/items/keys'));
+const Mods = React.lazy(() => import('./pages/items/mods'));
+const PistolGrips = React.lazy(() => import('./pages/items/pistol-grips'));
+const Provisions = React.lazy(() => import('./pages/items/provisions'));
+const Rigs = React.lazy(() => import('./pages/items/rigs'));
+const Suppressors = React.lazy(() => import('./pages/items/suppressors'));
+const BsgCategory = React.lazy(() => import('./pages/items/bsg-category'));
+const BitcoinFarmCalculator = React.lazy(() => import('./pages/bitcoin-farm-calculator'));
+const Quests = React.lazy(() => import('./pages/quests'));
+const Quest = React.lazy(() => import('./pages/quest'));
+
+const Bosses = React.lazy(() => import('./pages/bosses'));
+const Boss = React.lazy(() => import('./pages/bosses/boss'));
+
+const Trader = React.lazy(() => import('./pages/traders/trader'));
+const Traders = React.lazy(() => import('./pages/traders'));
+
+const ItemTracker = React.lazy(() => import('./pages/item-tracker/'));
+const Hideout = React.lazy(() => import('./pages/hideout'));
+const WipeLength = React.lazy(() => import('./pages/wipe-length'));
+const About = React.lazy(() => import('./pages/about/'));
+
 const APIDocs = React.lazy(() => import('./pages/api-docs'));
-// import APIDocs from './pages/api-docs';
 
 const socketServer = `wss://socket.tarkov.dev`;
 
@@ -248,12 +246,14 @@ function App() {
         (state) => state.settings.hideRemoteControl,
     );
     const remoteControlSessionElement = hideRemoteControlId ? null : (
-        <RemoteControlId
-            key="connection-wrapper"
-            sessionID={sessionID}
-            socketEnabled={socketEnabled}
-            onClick={(e) => dispatch(enableConnection())}
-        />
+        <Suspense fallback={<Loading />} key="suspense-connection-wrapper">
+            <RemoteControlId
+                key="connection-wrapper"
+                sessionID={sessionID}
+                socketEnabled={socketEnabled}
+                onClick={(e) => dispatch(enableConnection())}
+            />
+        </Suspense>
     );
     const alternateLangs = supportedLanguages.filter(lang => lang !== i18n.language); 
 
@@ -269,14 +269,18 @@ function App() {
                     <meta property="og:locale:alternate" content={lang} key={`meta-locale-alt-${lang}`} />
                 ))}
             </Helmet>
-            <Menu />
+            <Suspense fallback={<Loading />} key="suspense-menu-wrapper">
+                <Menu />
+            </Suspense>
             {/* <Suspense fallback={<Loading />}> */}
             <Routes>
                 <Route
                     path={'/'}
                     key="start-route"
                     element={[
-                        <Start key="start-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-start-wrapper">
+                            <Start key="start-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -284,7 +288,9 @@ function App() {
                     path={'/ammo'}
                     key="ammo-route"
                     element={[
-                        <Ammo key="ammo-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-ammo-wrapper">
+                            <Ammo key="ammo-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -292,7 +298,9 @@ function App() {
                     path={'/ammo/:currentAmmo'}
                     key="ammo-current-route"
                     element={[
-                        <Ammo key="ammo-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-ammo-wrapper">
+                            <Ammo key="ammo-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -300,7 +308,9 @@ function App() {
                     path={'/maps/'}
                     key="maps-route"
                     element={[
-                        <Maps key="maps-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-maps-wrapper">
+                            <Maps key="maps-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -308,15 +318,9 @@ function App() {
                     path={'/map/:currentMap'}
                     key="map-current-route"
                     element={[
-                        <Map key="map-wrapper" />,
-                        remoteControlSessionElement,
-                    ]}
-                />
-                <Route
-                    path={'/barter'}
-                    key="barter-route"
-                    element={[
-                        <LootTiers sessionID={sessionID} key="barter-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-map-wrapper">
+                            <Map key="map-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -324,7 +328,9 @@ function App() {
                     path={'/loot-tier/:currentLoot'}
                     key="loot-tier-current-route"
                     element={[
-                        <LootTiers sessionID={sessionID} key="loot-tier-current-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-loot-tier-current-wrapper">
+                            <LootTiers sessionID={sessionID} key="loot-tier-current-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -332,23 +338,37 @@ function App() {
                     path={'/loot-tier'}
                     key="loot-tier-route"
                     element={[
-                        <LootTiers sessionID={sessionID} key="loot-tier-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-loot-tier-wrapper">
+                            <LootTiers sessionID={sessionID} key="loot-tier-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
                 <Route
-                    path={'/barters/'}
+                    path={'/barters'}
                     key="barters-route"
                     element={[
-                        <Barters key="barters-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-barters-wrapper">
+                            <Barters key="barters-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
                 <Route
-                    path={'/items/'}
+                    path={'/barter'}
+                    key="barter-route"
+                    element={[
+                        <Navigate to="/barters" />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/items'}
                     key="items-route"
                     element={[
-                        <Items key="items-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-items-wrapper">
+                            <Items key="items-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -356,7 +376,9 @@ function App() {
                     path={'/items/helmets'}
                     key="helmets-route"
                     element={[
-                        <Helmets sessionID={sessionID} key="helmets-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-helmets-wrapper">
+                            <Helmets sessionID={sessionID} key="helmets-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -365,7 +387,9 @@ function App() {
                     path={'/items/glasses'}
                     key="glasses-route"
                     element={[
-                        <Glasses sessionID={sessionID} key="glasses-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-glasses-wrapper">
+                            <Glasses sessionID={sessionID} key="glasses-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -373,7 +397,9 @@ function App() {
                     path={'/items/armors'}
                     key="armors-route"
                     element={[
-                        <Armors sessionID={sessionID} key="armors-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-armors-wrapper">
+                            <Armors sessionID={sessionID} key="armors-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -381,7 +407,9 @@ function App() {
                     path={'/items/backpacks'}
                     key="backpacks-route"
                     element={[
-                        <Backpacks sessionID={sessionID} key="backpacks-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-backpacks-wrapper">
+                            <Backpacks sessionID={sessionID} key="backpacks-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -389,7 +417,9 @@ function App() {
                     path={'/items/rigs'}
                     key="rigs-route"
                     element={[
-                        <Rigs sessionID={sessionID} key="rigs-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-rigs-wrapper">
+                            <Rigs sessionID={sessionID} key="rigs-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -397,7 +427,9 @@ function App() {
                     path={'/items/suppressors'}
                     key="suppressors-route"
                     element={[
-                        <Suppressors sessionID={sessionID} key="suppressors-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-suppressors-wrapper">
+                            <Suppressors sessionID={sessionID} key="suppressors-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -405,7 +437,9 @@ function App() {
                     path={'/items/guns'}
                     key="guns-route"
                     element={[
-                        <Guns sessionID={sessionID} key="guns-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-guns-wrapper">
+                            <Guns sessionID={sessionID} key="guns-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -413,7 +447,9 @@ function App() {
                     path={'/items/mods'}
                     key="mods-route"
                     element={[
-                        <Mods sessionID={sessionID} key="mods-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-mods-wrapper">
+                            <Mods sessionID={sessionID} key="mods-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -421,7 +457,9 @@ function App() {
                     path={'/items/pistol-grips'}
                     key="pistol-grips-route"
                     element={[
-                        <PistolGrips sessionID={sessionID} key="pistol-grips-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-pistol-grips-wrapper">
+                            <PistolGrips sessionID={sessionID} key="pistol-grips-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -429,7 +467,9 @@ function App() {
                     path={'/items/barter-items'}
                     key="barter-items-route"
                     element={[
-                        <BarterItems sessionID={sessionID} key="barter-items-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-barter-items-wrapper">
+                            <BarterItems sessionID={sessionID} key="barter-items-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -437,7 +477,9 @@ function App() {
                     path={'/items/containers'}
                     key="containers-route"
                     element={[
-                        <Containers sessionID={sessionID} key="containers-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-containers-wrapper">
+                            <Containers sessionID={sessionID} key="containers-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -445,7 +487,9 @@ function App() {
                     path={'/items/food-and-drink'}
                     key="food-and-drink-route"
                     element={[
-                        <Provisions sessionID={sessionID} key="provisions-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-provisions-wrapper">
+                            <Provisions sessionID={sessionID} key="provisions-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -453,7 +497,9 @@ function App() {
                     path={'/items/grenades'}
                     key="grenades-route"
                     element={[
-                        <Grenades sessionID={sessionID} key="grenades-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-grenades-wrapper">
+                            <Grenades sessionID={sessionID} key="grenades-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -461,7 +507,7 @@ function App() {
                     path={'/items/headphones'}
                     key="headphones-route"
                     element={[
-                        <Headsets sessionID={sessionID} key="headphones-wrapper" />,
+                        <Navigate to="/items/headsets" />,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -469,7 +515,9 @@ function App() {
                     path={'/items/headsets'}
                     key="headsets-route"
                     element={[
-                        <Headsets sessionID={sessionID} key="headsets-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-headsets-wrapper">
+                            <Headsets sessionID={sessionID} key="headsets-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -477,7 +525,9 @@ function App() {
                     path={'/items/keys'}
                     key="keys-route"
                     element={[
-                        <Keys sessionID={sessionID} key="keys-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-keys-wrapper">
+                            <Keys sessionID={sessionID} key="keys-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -485,7 +535,9 @@ function App() {
                     path={'/items/provisions'}
                     key="provisions-route"
                     element={[
-                        <Provisions sessionID={sessionID} key="provisions-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-provisions-wrapper">
+                            <Provisions sessionID={sessionID} key="provisions-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -493,7 +545,9 @@ function App() {
                     path={'/bosses'}
                     key="bosses-route"
                     element={[
-                        <Bosses sessionID={sessionID} key="bosses-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-bosses-wrapper">
+                            <Bosses sessionID={sessionID} key="bosses-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -507,9 +561,11 @@ function App() {
                 />
                 <Route
                     path={'/boss/:bossName'}
-                    key="boss-name-route"
+                    key="boss-route"
                     element={[
-                        <Boss sessionID={sessionID} key="specific-boss-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-boss-wrapper">
+                            <Boss sessionID={sessionID} key="boss-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -517,7 +573,9 @@ function App() {
                     path={'/traders'}
                     key="traders-route"
                     element={[
-                        <Traders sessionID={sessionID} key="traders-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-traders-wrapper">
+                            <Traders sessionID={sessionID} key="traders-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -525,7 +583,9 @@ function App() {
                     path={'/traders/:traderName'}
                     key="traders-name-route"
                     element={[
-                        <Trader sessionID={sessionID} key="trader-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-trader-wrapper">
+                            <Trader sessionID={sessionID} key="trader-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -533,7 +593,9 @@ function App() {
                     path={'/hideout-profit/'}
                     key="hideout-profit-route"
                     element={[
-                        <Crafts key="hideout-profit-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-hideout-profit-wrapper">
+                            <Crafts key="hideout-profit-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -541,15 +603,19 @@ function App() {
                     path={'/item-tracker/'}
                     key="item-tracker-route"
                     element={[
-                        <ItemTracker key="item-tracker-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-item-tracker-wrapper">
+                            <ItemTracker key="item-tracker-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
                 <Route
                     path={'/item/:itemName'}
-                    key="item-name-route"
+                    key="item-route"
                     element={[
-                        <Item sessionID={sessionID} key="specific-item-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-item-wrapper">
+                            <Item sessionID={sessionID} key="item-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -557,7 +623,9 @@ function App() {
                     path={'/debug/'}
                     key="debug-route"
                     element={[
-                        <Debug key="debug-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-debug-wrapper">
+                            <Debug key="debug-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -565,7 +633,9 @@ function App() {
                     path={'/about'}
                     key="about-route"
                     element={[
-                        <About key="about-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-about-wrapper">
+                            <About key="about-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -573,8 +643,8 @@ function App() {
                     path={'/api/'}
                     key="api-route"
                     element={[
-                        <Suspense fallback={<Loading />} key="api-docs-wrapper">
-                            <APIDocs />
+                        <Suspense fallback={<Loading />} key="suspense-api-docs-wrapper">
+                            <APIDocs key="api-docs-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
@@ -583,7 +653,9 @@ function App() {
                     path={'/nightbot/'}
                     key="nightbot-route"
                     element={[
-                        <Nightbot />,
+                        <Suspense fallback={<Loading />} key="suspense-nightbot-wrapper">
+                            <Nightbot />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -591,7 +663,9 @@ function App() {
                     path={'/streamelements/'}
                     key="streamelements-route"
                     element={[
-                        <StreamElements />,
+                        <Suspense fallback={<Loading />} key="suspense-streamelements-wrapper">
+                            <StreamElements />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -599,7 +673,9 @@ function App() {
                     path={'/moobot'}
                     key="moobot-route"
                     element={[
-                        <Moobot />,
+                        <Suspense fallback={<Loading />} key="suspense-moobot-wrapper">
+                            <Moobot />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -607,7 +683,7 @@ function App() {
                     path={'/api-users/'}
                     key="api-users-route"
                     element={[
-                        <Suspense fallback={<Loading />} key="api-users-wrapper">
+                        <Suspense fallback={<Loading />} key="suspense-api-users-wrapper">
                             <ApiUsers />
                         </Suspense>,
                         remoteControlSessionElement,
@@ -617,7 +693,9 @@ function App() {
                     path={'/hideout'}
                     key="hideout-route"
                     element={[
-                        <Hideout key="hideout-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-hideout-wrapper">
+                            <Hideout key="hideout-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -625,7 +703,9 @@ function App() {
                     path={'/wipe-length'}
                     key="wipe-length-route"
                     element={[
-                        <WipeLength key="wipe-length-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-wipe-length-wrapper">
+                            <WipeLength key="wipe-length-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -633,7 +713,9 @@ function App() {
                     path={'/bitcoin-farm-calculator'}
                     key="bitcoin-farm-calculator-route"
                     element={[
-                        <BitcoinFarmCalculator key="bitcoin-farm-calculator" />,
+                        <Suspense fallback={<Loading />} key="suspense-bitcoin-farm-wrapper">
+                            <BitcoinFarmCalculator key="bitcoin-farm-calculator" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -641,7 +723,9 @@ function App() {
                     path={'/settings/'}
                     key="settings-route"
                     element={[
-                        <Settings key="settings-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-settings-wrapper">
+                            <Settings key="settings-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -649,21 +733,18 @@ function App() {
                     path={'/control'} 
                     key="control-route"
                     element={[
-                        <Control send={send} />
+                        <Suspense fallback={<Loading />} key="suspense-control-wrapper">
+                            <Control send={send} />
+                        </Suspense>,
                     ]} 
-                />
-                <Route
-                    path={'/guides/:guideKey'}
-                    key="guides-name-route"
-                    element={[
-                        <Guides />
-                    ]}
                 />
                 <Route
                     path="/items/:bsgCategoryName"
                     key="items-category-route"
                     element={[
-                        <BsgCategory />,
+                        <Suspense fallback={<Loading />} key="suspense-items-category-wrapper">
+                            <BsgCategory />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -671,7 +752,9 @@ function App() {
                     path={'/tasks/'}
                     key="tasks-route"
                     element={[
-                        <Quests key="quests-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-tasks-wrapper">
+                            <Quests key="tasks-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -679,17 +762,26 @@ function App() {
                     path={'/task/:taskIdentifier'}
                     key="task-route"
                     element={[
-                        <Quest key="quest-wrapper" />,
+                        <Suspense fallback={<Loading />} key="suspense-task-wrapper">
+                            <Quest key="task-wrapper" />
+                        </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
                 <Route
                     path="*"
-                    element={[<ErrorPage />, remoteControlSessionElement]}
+                    element={[
+                        <Suspense fallback={<Loading />} key="suspense-errorpage-wrapper">
+                            <ErrorPage />
+                        </Suspense>,
+                        remoteControlSessionElement,
+                    ]}
                 />
             </Routes>
             {/* </Suspense> */}
-            <Footer />
+            <Suspense fallback={<Loading />} key="suspense-footer-wrapper">
+                <Footer />
+            </Suspense>
         </div>
     );
 }

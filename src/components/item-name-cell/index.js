@@ -14,7 +14,6 @@ function ItemNameCell(props) {
             <div className="small-item-table-image-wrapper">
                 <Link
                     to={item.itemLink}
-                    className="small-item-table-image-link"
                 >
                     <img
                         alt={item.name}
@@ -26,7 +25,6 @@ function ItemNameCell(props) {
             </div>
             <div className="small-item-table-name-wrapper">
                 <Link
-                    className="craft-reward-item-title"
                     to={item.itemLink}
                 >
                     {item.name}{item.count > 1 ? ` x ${item.count}` : ''}

@@ -83,7 +83,7 @@ function DataTable({
     }, [storageSetSortBy, sortByState]);
 
     useEffect(() => {
-        if (nameFilter && sortByState[0]?.id === 'name') {
+        if (nameFilter && (sortByState[0]?.id === 'name' || sortByState[0]?.id === undefined)) {
             setSortBy([]);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -130,13 +130,13 @@ function DataTable({
     // Render the UI for your table
     return (
         <div className="table-wrapper">
-            <table className={`data-table ${className}`} {...getTableProps()}>
+            <table className={`data-table ${className ?? ''}`} {...getTableProps()}>
                 <thead>
                     {headerGroups.map((headerGroup) => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map((column) => (
                                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                    <span className={'header-text'}>
+                                    <span>
                                         {column.render('Header')}
                                     </span>
                                     {/* Add a sort direction indicator */}

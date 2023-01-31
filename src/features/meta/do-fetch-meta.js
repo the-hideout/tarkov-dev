@@ -44,21 +44,23 @@ const doFetchMeta = async (language, prebuild = false) => {
     const metaData = await response.json();
 
     if (metaData.errors) {
-        for (const error of metaData.errors) {
-            let badItem = false;
-            if (error.path) {
-                let traverseLimit = 2;
-                if (error.path[0] === 'fleaMarket') {
-                    traverseLimit = 1;
+        if (metaData.data) {
+            for (const error of metaData.errors) {
+                let badItem = false;
+                if (error.path) {
+                    let traverseLimit = 2;
+                    if (error.path[0] === 'fleaMarket') {
+                        traverseLimit = 1;
+                    }
+                    badItem = metaData.data;
+                    for (let i = 0; i < traverseLimit; i++) {
+                        badItem = badItem[error.path[i]];
+                    }
                 }
-                badItem = metaData.data;
-                for (let i = 0; i < traverseLimit; i++) {
-                    badItem = badItem[error.path[i]];
+                console.log(`Error in meta API query: ${error.message}`, error.path);
+                if (badItem) {
+                    console.log(badItem)
                 }
-            }
-            console.log(`Error in meta API query: ${error.message}`, error.path);
-            if (badItem) {
-                console.log(badItem)
             }
         }
         // only throw error if this is for prebuild or data wasn't returned

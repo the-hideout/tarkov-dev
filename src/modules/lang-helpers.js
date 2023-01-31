@@ -3,6 +3,11 @@ import i18n from '../i18n';
 import languages from '../data/supported-languages.json';
 
 export function langCode() {
+    if (!i18n.isInitialized) {
+        //console.log('i18n still not ready');
+        return 'en';
+    }
+
     // Convert to two digit language code
     const langFmt = i18n.language.replace(/-[a-zA-Z]{2}/, "");
 

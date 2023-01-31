@@ -3,6 +3,10 @@
 import json
 import os
 
+# Translations dir
+#translations_dir = '../public/translations'
+translations_dir = './'
+
 # List of languages
 languages = ['de', 'es', 'fr', 'it', 'ja', 'pl', 'pt', 'ru']
 
@@ -14,10 +18,10 @@ if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
 for lang in languages:
-    for file in os.listdir(lang):
+    for file in os.listdir(os.path.join(translations_dir, lang)):
         if file.endswith('.json'):
             # Read JSON data from file
-            with open(os.path.join(lang, file), encoding='utf-8') as json_file:
+            with open(os.path.join(translations_dir, lang, file), encoding='utf-8') as json_file:
                 data = json.load(json_file)
 
             # remove key where key == value

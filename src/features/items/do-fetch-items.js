@@ -441,21 +441,23 @@ const doFetchItems = async (language, prebuild = false) => {
     ]);
     //console.timeEnd('items query');
     if (itemData.errors) {
-        for (const error of itemData.errors) {
-            let badItem = false;
-            if (error.path) {
-                let traverseLimit = 2;
-                if (error.path[0] === 'fleaMarket') {
-                    traverseLimit = 1;
+        if (itemData.data) {
+            for (const error of itemData.errors) {
+                let badItem = false;
+                if (error.path) {
+                    let traverseLimit = 2;
+                    if (error.path[0] === 'fleaMarket') {
+                        traverseLimit = 1;
+                    }
+                    badItem = itemData.data;
+                    for (let i = 0; i < traverseLimit; i++) {
+                        badItem = badItem[error.path[i]];
+                    }
                 }
-                badItem = itemData.data;
-                for (let i = 0; i < traverseLimit; i++) {
-                    badItem = badItem[error.path[i]];
+                console.log(`Error in items API query: ${error.message}`, error.path);
+                if (badItem) {
+                    console.log(badItem)
                 }
-            }
-            console.log(`Error in items API query: ${error.message}`, error.path);
-            if (badItem) {
-                console.log(badItem)
             }
         }
         // only throw error if this is for prebuild or data wasn't returned

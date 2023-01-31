@@ -114,7 +114,7 @@ function Start() {
                     }
                 </Suspense>
             </div>
-            <div className="start-section-wrapper" key={'server-status-div'}>
+            <div className="start-section-wrapper" key={'sidebar-div'}>
                 <Suspense fallback={<LoadingSmall />} key={'server-status'}>
                     <ServerStatus key={"server-status"} />
                 </Suspense>
