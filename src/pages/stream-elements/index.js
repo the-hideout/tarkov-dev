@@ -72,7 +72,7 @@ function StreamElements() {
                     <pre>
                         {
                             // eslint-disable-next-line no-template-curly-in-string
-                            '${urlfetch https://api.tarkov.dev/webhook/stream-elements?q=${queryencode ${1:}}}'
+                            '${urlfetch https://streamer.tarkov.dev/webhook/stream-elements?q=${queryencode ${1:}}}'
                         }
                     </pre>
                 </li>
