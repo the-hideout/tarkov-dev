@@ -51,7 +51,8 @@ export default {
   // Namespace separator used in your translation keys
   // If you want to use plain english keys, separators such as `.` and `:` will conflict. You might want to set `keySeparator: false` and `namespaceSeparator: false`. That way, `t('Status: Loading...')` will not think that there are a namespace and three separator dots for instance.
 
-  output: 'public/translations/$LOCALE/$NAMESPACE.json',
+  //output: 'public/translations/$LOCALE/$NAMESPACE.json',
+  output: 'src/translations/$LOCALE/$NAMESPACE.json',
   // Supports $LOCALE and $NAMESPACE injection
   // Supports JSON (.json) and YAML (.yml) file formats
   // Where to write the locale files relative to process.cwd()

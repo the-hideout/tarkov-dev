@@ -4,7 +4,8 @@ import json
 import os
 
 # Translations dir
-translations_dir = '../public/translations'
+#translations_dir = '../public/translations'
+translations_dir = './'
 
 # List of languages
 languages = ['de', 'es', 'fr', 'it', 'ja', 'pl', 'ru']
