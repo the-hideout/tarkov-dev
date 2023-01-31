@@ -273,17 +273,19 @@ const doFetchQuests = async (language, prebuild = false) => {
     const questsData = await response.json();
 
     if (questsData.errors) {
-        for (const error of questsData.errors) {
-            let badItem = false;
-            if (error.path) {
-                badItem = questsData.data;
-                for (let i = 0; i < 2; i++) {
-                    badItem = badItem[error.path[i]];
+        if (questsData.data) {
+            for (const error of questsData.errors) {
+                let badItem = false;
+                if (error.path) {
+                    badItem = questsData.data;
+                    for (let i = 0; i < 2; i++) {
+                        badItem = badItem[error.path[i]];
+                    }
                 }
-            }
-            console.log(`Error in tasks API query: ${error.message}`);
-            if (badItem) {
-                console.log(badItem)
+                console.log(`Error in tasks API query: ${error.message}`);
+                if (badItem) {
+                    console.log(badItem)
+                }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned

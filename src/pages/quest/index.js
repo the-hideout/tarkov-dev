@@ -2,8 +2,6 @@ import React, { useMemo, useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import Tippy from '@tippyjs/react';
 
 import Icon from '@mdi/react';
@@ -19,8 +17,6 @@ import { useItemsQuery } from '../../features/items/queries';
 import { useMapsQuery, useMapImages } from '../../features/maps/queries';
 
 import './index.css';
-
-dayjs.extend(relativeTime);
 
 function Quest() {
     const settings = useSelector((state) => state.settings);
@@ -157,6 +153,8 @@ function Quest() {
                     <h3>{t('Prerequisite Tasks')}</h3>
                     {currentQuest.taskRequirements.map((taskReq) => {
                         const task = quests.find((quest) => quest.id === taskReq.task.id);
+                        if (!task)
+                            return null;
                         return (
                             <div key={`req-task-${task.id}`}>
                                 <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>
@@ -202,12 +200,12 @@ function Quest() {
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
-            <div className={'item-page-wrapper'}>
+            <div className={'quest-page-wrapper'}>
                 <ItemSearch showDropdown />
-                <div className="main-information-grid">
-                    <div className="item-information-wrapper">
+                <div className="quest-information-grid">
+                    <div className="quest-information-wrapper">
                         <h1>
-                            <div className={'item-font'}>
+                            <div className={'quest-font'}>
                                 {currentQuest.name}
                                 {currentQuest.factionName === 'Any'
                                     ? ''
@@ -215,7 +213,7 @@ function Quest() {
                             </div>
                             <img
                                 alt={currentQuest.trader.name}
-                                className={'item-icon'}
+                                className={'quest-icon'}
                                 loading="lazy"
                                 src={`${process.env.PUBLIC_URL}/images/traders/${currentQuest.trader.normalizedName}-icon.jpg`}
                             />
@@ -227,15 +225,11 @@ function Quest() {
                         )}
                         {typeof currentQuest.tarkovDataId !== 'undefined' && (
                             <div className="wiki-link-wrapper">
-                                <a
-                                    href={`https://tarkovtracker.io/quest/${currentQuest.tarkovDataId}`}
-                                >
-                                    {t('TarkovTracker')}
-                                </a>
+                                <a href={`https://tarkovtracker.io/quest/${currentQuest.tarkovDataId}`} target="_blank" rel="noopener noreferrer">{t('TarkovTracker')}</a>
                             </div>
                         )}
                     </div>
-                    <div className={`icon-and-link-wrapper`}>
+                    <div className={`quest-icon-and-link-wrapper`}>
                         <Link to={`/traders/${currentQuest.trader.normalizedName}`}>
                             <img
                                 alt={currentQuest.trader.name}
@@ -286,7 +280,7 @@ function Quest() {
                             foundMap = (
                                 <div key={`map-link-${map.normalizedName}`}>
                                     <Link to={map.primaryPath}>
-                                        {t('View Map')} - {t(map.name)}
+                                        {t('View Map')} - {map.name}
                                     </Link>
                                 </div>
                             );
@@ -322,6 +316,8 @@ function Quest() {
                         }
                         if (objective.type === 'buildWeapon') {
                             const baseItem = items.find((i) => i.id === objective.item.id);
+                            if (!baseItem)
+                                return null;
                             const attributes = objective.attributes
                                 .map((att) => {
                                     if (!att.requirement.value) {
@@ -357,9 +353,9 @@ function Quest() {
                                             <h4>{t('Contains All')}</h4>
                                             <ul>
                                                 {objective.containsAll.map((part) => {
-                                                    const item = items.find(
-                                                        (i) => i.id === part.id,
-                                                    );
+                                                    const item = items.find((i) => i.id === part.id);
+                                                    if (!item)
+                                                        return null;
                                                     return (
                                                         <li
                                                             key={item.id}
@@ -433,6 +429,8 @@ function Quest() {
                         }
                         if (objective.type === 'giveItem' || objective.type === 'findItem') {
                             const item = items.find((i) => i.id === objective.item.id);
+                            if (!item)
+                                return null;
                             const attributes = [];
                             if (objective.foundInRaid) {
                                 attributes.push({
@@ -485,6 +483,8 @@ function Quest() {
                         }
                         if (objective.type === 'mark') {
                             const item = items.find((i) => i.id === objective.markerItem.id);
+                            if (!item)
+                                return null;
                             taskDetails = (
                                 <>
                                     <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
@@ -492,17 +492,15 @@ function Quest() {
                             );
                         }
                         if (objective.type === 'shoot') {
-                            let verb = 'Kill';
+                            let verb = t('Kill');
                             if (objective.shotType !== 'kill') {
-                                verb = 'Shoot';
+                                verb = t('Shoot');
                             }
                             taskDetails = (
                                 <>
                                     <>
                                         {t('{{shootOrKill}} {{target}} {{count}} times', {
-                                            // t('Shoot)
-                                            // t('Kill')
-                                            shootOrKill: t(verb),
+                                            shootOrKill: verb,
                                             target: objective.target,
                                             count: objective.count,
                                         })}
@@ -540,9 +538,9 @@ function Quest() {
                                             {t('Using weapon:')}{' '}
                                             <ul>
                                                 {objective.usingWeapon.map((weap) => {
-                                                    const item = items.find(
-                                                        (i) => i.id === weap.id,
-                                                    );
+                                                    const item = items.find((i) => i.id === weap.id,);
+                                                    if (!item)
+                                                        return null;
                                                     return (
                                                         <li
                                                             key={`weapon-${item.id}`}
@@ -566,9 +564,9 @@ function Quest() {
                                                 return (
                                                     <ul key={`modset-${index}`}>
                                                         {modSet.map((mod) => {
-                                                            const item = items.find(
-                                                                (i) => i.id === mod.id,
-                                                            );
+                                                            const item = items.find((i) => i.id === mod.id);
+                                                            if (!item)
+                                                                return null;
                                                             return (
                                                                 <li
                                                                     key={`mod-${item.id}`}
@@ -594,9 +592,9 @@ function Quest() {
                                                 return (
                                                     <ul key={`outfit-${index}`}>
                                                         {outfit.map((accessory) => {
-                                                            const item = items.find(
-                                                                (i) => i.id === accessory.id,
-                                                            );
+                                                            const item = items.find((i) => i.id === accessory.id);
+                                                            if (!item)
+                                                                return null;
                                                             return (
                                                                 <li
                                                                     key={`accessory-${item.id}`}
@@ -620,9 +618,9 @@ function Quest() {
                                             {t('Not wearing:')}{' '}
                                             <ul>
                                                 {objective.notWearing.map((accessory) => {
-                                                    const item = items.find(
-                                                        (i) => i.id === accessory.id,
-                                                    );
+                                                    const item = items.find((i) => i.id === accessory.id);
+                                                    if (!item)
+                                                        return null;
                                                     return (
                                                         <li
                                                             key={`accessory-${item.id}`}
@@ -702,6 +700,8 @@ function Quest() {
                         }
                         if (objective.type === 'taskStatus') {
                             const task = quests.find((q) => q.id === objective.task.id);
+                            if (!task)
+                                return null;
                             taskDetails = (
                                 <>
                                     <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>
@@ -729,9 +729,7 @@ function Quest() {
                         }
                         return (
                             <div key={objective.id}>
-                                <h3>{`✔️ ${objective.description}${
-                                    objective.optional ? ` (${t('optional')})` : ''
-                                }`}</h3>
+                                <h3>{`✔️ ${objective.description} ${objective.optional ? `(${t('optional')})` : ''}`}</h3>
                                 {objective.maps.length > 0 && (
                                     <div key="objective-maps">
                                         {`${t('Maps')}: ${objective.maps
@@ -756,6 +754,8 @@ function Quest() {
                                         {mapKeys.keys
                                             .map((key) => {
                                                 const item = items.find((i) => i.id === key.id);
+                                                if (!item)
+                                                    return null;
                                                 return (
                                                     <Link
                                                         key={item.id}
@@ -790,6 +790,8 @@ function Quest() {
                         <ul>
                             {currentQuest.finishRewards?.items.map((rewardItem, index) => {
                                 const item = items.find((it) => it.id === rewardItem.item.id);
+                                if (!item)
+                                    return null;
                                 return (
                                     <li
                                         className="quest-list-item"
@@ -844,6 +846,8 @@ function Quest() {
                             {currentQuest.finishRewards.offerUnlock.map((unlock) => {
                                 const trader = traders.find((t) => t.id === unlock.trader.id);
                                 const item = items.find((i) => i.id === unlock.item.id);
+                                if (!item)
+                                    return null;
                                 return (
                                     <li className="quest-list-item" key={unlock.item.id}>
                                         <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>

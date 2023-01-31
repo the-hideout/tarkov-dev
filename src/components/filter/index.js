@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import Switch from 'react-switch';
 import Select from 'react-select';
-import Slider, { Range } from 'rc-slider';
+import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -91,7 +91,8 @@ function RangeFilter({
     return (
         <div className={'filter-slider-wrapper'}>
             <div className={'filter-slider-label'}>{label}</div>
-            <Range
+            <Slider
+                range={true}
                 allowCross={false}
                 defaultValue={defaultValue}
                 min={min}

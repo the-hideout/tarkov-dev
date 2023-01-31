@@ -130,13 +130,13 @@ function DataTable({
     // Render the UI for your table
     return (
         <div className="table-wrapper">
-            <table className={`data-table ${className}`} {...getTableProps()}>
+            <table className={`data-table ${className ?? ''}`} {...getTableProps()}>
                 <thead>
                     {headerGroups.map((headerGroup) => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map((column) => (
                                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                    <span className={'header-text'}>
+                                    <span>
                                         {column.render('Header')}
                                     </span>
                                     {/* Add a sort direction indicator */}

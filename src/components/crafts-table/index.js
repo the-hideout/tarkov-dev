@@ -507,8 +507,8 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 
     return (
         <DataTable
-            columns={columns}
             key="crafts-table"
+            columns={columns}
             data={data}
             extraRow={extraRow}
             sortBy={'profit'}

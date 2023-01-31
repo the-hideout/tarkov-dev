@@ -1,7 +1,7 @@
-function Icon(props) {
+function Icon({className}) {
     return (
         <svg
-            className={`arrow-icon ${props.className}`}
+            className={`arrow-icon ${className ?? ''}`}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 284.9 284.9"
         >

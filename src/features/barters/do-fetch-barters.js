@@ -193,17 +193,19 @@ const doFetchBarters = async (language, prebuild = false) => {
     const bartersData = await response.json();
 
     if (bartersData.errors) {
-        for (const error of bartersData.errors) {
-            let badItem = false;
-            if (error.path) {
-                badItem = bartersData.data;
-                for (let i = 0; i < 2; i++) {
-                    badItem = badItem[error.path[i]];
+        if (bartersData.data) {
+            for (const error of bartersData.errors) {
+                let badItem = false;
+                if (error.path) {
+                    badItem = bartersData.data;
+                    for (let i = 0; i < 2; i++) {
+                        badItem = badItem[error.path[i]];
+                    }
                 }
-            }
-            console.log(`Error in barters API query: ${error.message}`);
-            if (badItem) {
-                console.log(badItem)
+                console.log(`Error in barters API query: ${error.message}`);
+                if (badItem) {
+                    console.log(badItem)
+                }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned
