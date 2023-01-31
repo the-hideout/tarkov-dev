@@ -1,42 +1,15 @@
 import './index.css';
 
 const colors = {
-    violet: [
-        '#271d2a',
-        '#2c232f',
-    ],
-    grey: [
-        '#191a1a',
-        '#1e1e1e',
-    ],
-    yellow: [
-        '#2f301d',
-        '#343421',
-    ],
-    orange: [
-        '#221611',
-        '#261d14',
-    ],
-    green: [
-        '#161c11',
-        '#1a2314',
-    ],
-    red: [
-        '#311c18',
-        '#38221f',
-    ],
-    default: [
-        '#363537',
-        '#3a3c3b',
-    ],
-    black: [
-        '#100f11',
-        '#141614',
-    ],
-    blue: [
-        '#1d262f',
-        '#202d32',
-    ],
+    black: {r: 0, g: 0, b: 0, alpha: 77/255},
+    blue: {r: 28, g: 65, b: 86, alpha: 77/255},
+    default: {r: 127, g: 127, b: 127, alpha: 77/255},
+    green: {r: 21, g: 45, b: 0, alpha: 77/255},
+    grey: {r: 29, g: 29, b: 29, alpha: 77/255},
+    orange: {r: 60, g: 25, b: 0, alpha: 77/255},
+    red: {r: 109, g: 36, b: 24, alpha: 77/255},
+    violet: {r: 76, g: 42, b: 85, alpha: 77/255},
+    yellow: {r: 104, g: 102, b: 40, alpha: 77/255},
 };
 
 function ItemImage({ item }) {
@@ -45,16 +18,21 @@ function ItemImage({ item }) {
     }
 
     const color = colors[item.backgroundColor];
+    const colorString = `${color.r}, ${color.g}, ${color.b}, ${color.alpha}`;
 
     const backgroundStyle = {
-        backgroundColor: color[1],
+        backgroundColor: '#000000',
         backgroundImage: `url('data:image/svg+xml,\
-            <svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" fill-opacity=".25" >\
-                <rect x="2" width="2" height="2" />\
-                <rect y="2" width="2" height="2" />\
+            <svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" style="fill:rgba(0, 0, 0, 1)" >\
+                <rect x="0" y="0" width="2" height="2" style="fill:rgba(29, 29, 29, .62)" />\
+                <rect x="0" y="2" width="2" height="2" style="fill:rgba(44, 44, 44, .62)" />\
+                <rect x="2" y="0" width="2" height="2" style="fill:rgba(44, 44, 44, .62)" />\
+                <rect x="2" y="2" width="2" height="2" style="fill:rgba(29, 29, 29, .62)" />\
+                <rect x="0" y="0" width="4" height="4" style="fill:rgba(${colorString})" />\
             </svg>')`,
-        backgroundSize: '2px 2px',
+        //backgroundSize: '2px 2px',
         position: 'relative',
+        border: '2px solid #495154',
     };
 
     if (item.types?.includes('loading')) {
