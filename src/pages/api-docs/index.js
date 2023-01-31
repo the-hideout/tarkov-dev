@@ -27,7 +27,7 @@ function APIDocs() {
                  To learn about GraphQL queries generally, the GraphQL Foundation has helpful resources.`)}
                 <ul>
                     <li>
-                        <a href="https://api.tarkov.dev/___graphql" target="_blank" rel="noopener noreferrer">{t('Tarkov.dev GraphQL playground')}</a>
+                        <a href="https://api.tarkov.dev/" target="_blank" rel="noopener noreferrer">{t('Tarkov.dev GraphQL playground')}</a>
                     </li>
                     <li>
                         <a href="https://graphql.org/learn/" target="_blank" rel="noopener noreferrer">{t('GraphQL Foundation resources')}</a>
