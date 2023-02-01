@@ -208,25 +208,6 @@ try {
         const filteredBartersDic = Object.values(groupedBartersDic).map(group => group.slice(0, 6));
         const filteredBarters = [].concat(...filteredBartersDic);
 
-        for (const barter of filteredBarters) {
-            barter.rewardItems.forEach(containedItem => {
-                const item = containedItem.item;
-                item.lastLowPrice = 0;
-                item.avg24hPrice = 0;
-                item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.cached = true;
-            });
-            barter.requiredItems.forEach(containedItem => {
-                const item = containedItem.item;
-                item.lastLowPrice = 0;
-                item.avg24hPrice = 0;
-                item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.cached = true;
-            });
-            barter.cached = true;
-        }
         fs.writeFileSync('./src/data/barters.json', JSON.stringify(filteredBarters));
     }));
 
@@ -241,25 +222,6 @@ try {
         const filteredCraftsDic = Object.values(groupedCraftsDic).map(group => group.slice(0, 6));
         const filteredCrafts = [].concat(...filteredCraftsDic);
 
-        for (const craft of filteredCrafts) {
-            craft.rewardItems.forEach(containedItem => {
-                const item = containedItem.item;
-                item.lastLowPrice = 0;
-                item.avg24hPrice = 0;
-                item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.cached = true;
-            });
-            craft.requiredItems.forEach(containedItem => {
-                const item = containedItem.item;
-                item.lastLowPrice = 0;
-                item.avg24hPrice = 0;
-                item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.cached = true;
-            });
-            craft.cached = true;
-        }
         fs.writeFileSync('./src/data/crafts.json', JSON.stringify(filteredCrafts));
     }));
 

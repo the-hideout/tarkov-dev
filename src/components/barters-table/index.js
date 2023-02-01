@@ -11,6 +11,7 @@ import {
     fetchBarters,
 } from '../../features/barters/bartersSlice';
 import { selectAllTraders } from '../../features/settings/settingsSlice';
+import { useItemsQuery } from '../../features/items/queries';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import { formatCostItems, getCheapestItemPrice, getCheapestItemPriceWithBarters } from '../../modules/format-cost-items';
@@ -30,10 +31,40 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
     const traders = useSelector(selectAllTraders);
     const skippedByLevelRef = useRef(false);
 
-    const barters = useSelector(selectAllBarters);
+    const barterSelector = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
         return state.barters.status;
     });
+
+    const {data: items} = useItemsQuery();
+
+    const barters = useMemo(() => {
+        return barterSelector.map(b => {
+            return {
+                ...b,
+                requiredItems: b.requiredItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return req;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }),
+                rewardItems: b.rewardItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return req;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }),
+            };
+        });
+    }, [barterSelector, items]);
 
     useEffect(() => {
         let timer = false;

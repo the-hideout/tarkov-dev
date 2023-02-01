@@ -317,7 +317,7 @@ function SmallItemTable(props) {
         return seeds;
     },[itemCount, defaultRandom]);
 
-    const barters = useSelector(selectAllBarters);
+    const barterSelector = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
         return state.barters.status;
     });
@@ -341,6 +341,34 @@ function SmallItemTable(props) {
             clearInterval(timer);
         };
     }, [bartersStatus, barterPrice, cheapestPrice, dispatch]);
+
+    const barters = useMemo(() => {
+        return barterSelector.map(b => {
+            return {
+                ...b,
+                requiredItems: b.requiredItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return req;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }),
+                rewardItems: b.rewardItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return req;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }),
+            };
+        });
+    }, [barterSelector, items]);
 
     const containedItems = useMemo(() => {
         if (!containedInFilter) 

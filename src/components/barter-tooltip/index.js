@@ -65,7 +65,7 @@ function BarterToolip({ barter, source, requiredItems, showTitle = true, title, 
                     >
                         <RewardImage
                             count={requiredItem.count}
-                            iconLink={`https://assets.tarkov.dev/${requiredItem.item.id}-icon.jpg`}
+                            iconLink={requiredItem.item.iconLink}
                         />
                         <div className="cost-barter-details-wrapper">
                             <div>
