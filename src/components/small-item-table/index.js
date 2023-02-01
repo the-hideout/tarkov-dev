@@ -18,7 +18,7 @@ import TraderPriceCell from '../trader-price-cell';
 import CenterCell from '../center-cell';
 import ItemNameCell from '../item-name-cell';
 import FleaPriceCell from '../flea-price-cell';
-import BarterToolTip from '../barter-tooltip';
+import BarterTooltip from '../barter-tooltip';
 import DataTable from '../data-table';
 import LoadingSmall from '../loading-small';
 import ArrowIcon from '../../components/data-table/Arrow.js';
@@ -1036,7 +1036,7 @@ function SmallItemTable(props) {
                             placement="bottom"
                             interactive={true}
                             content={
-                                <BarterToolTip
+                                <BarterTooltip
                                     barter={props.row.original.barterPrice?.barter}
                                     showAllSources={showAllSources}
                                 />
@@ -1644,7 +1644,7 @@ function SmallItemTable(props) {
                             priceSource += ` ${t('LL{{level}}', { level: priceInfo.barter.level })}`;
                             barterIcon = (
                                 <Icon
-                                key="barter-tooltip-icon"
+                                    key="barter-tooltip-icon"
                                     path={mdiAccountSwitch}
                                     size={1}
                                     className="icon-with-text"
@@ -1667,7 +1667,7 @@ function SmallItemTable(props) {
                                 );
                             }
                             tipContent = (
-                                <BarterToolTip
+                                <BarterTooltip
                                     barter={props.row.original.barterPrice.barter}
                                     showTitle={taskIcon !== ''}
                                     title={barterTipTitle}

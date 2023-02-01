@@ -31,7 +31,7 @@ i18n
         //     addPath: '/translations/add/{{lng}}/{{ns}}.json'
         // },
 
-        debug: true,
+        //debug: true,
         
         // the translations
         // (tip move them in a JSON file and import them,

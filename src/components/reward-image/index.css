@@ -4,7 +4,7 @@
     font-size: 0;
 }
 
-.reward-count-wrapper {
+.reward-image-count {
     background-color: rgba(0, 0, 0, 0.8);
     border-top-left-radius: 3px;
     bottom: 1px;
@@ -16,6 +16,16 @@
     position: absolute;
     right: 1px;
     text-align: center;
+}
+
+.reward-image-img {
+    max-width: 64px;
+    max-height: 64px;
+}
+
+.reward-image-img-tool {
+    outline: 1px solid #0292c0;
+    outline-offset: -1px;
 }
 
 @media screen and (min-width: 800px) {

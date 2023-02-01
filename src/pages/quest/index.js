@@ -10,6 +10,7 @@ import { mdiClipboardCheck } from '@mdi/js';
 import SEO from '../../components/SEO';
 import ErrorPage from '../../components/error-page';
 import ItemSearch from '../../components/item-search';
+import LoadingSmall from '../../components/loading-small';
 
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
 import { useTradersQuery } from '../../features/traders/queries';
@@ -25,6 +26,12 @@ function Quest() {
 
     const loadingData = {
         name: t('Loading...'),
+        factionName: 'Any',
+        trader: {
+            name: t('Loading...'),
+            normalizedName: 'flea-market'
+        },
+        objectives: [],
         loading: true,
     };
 
@@ -89,22 +96,14 @@ function Quest() {
         return <Navigate to={`/task/${currentQuest.normalizedName}`} replace />;
     }
 
-    if (!currentQuest) {
-        return <ErrorPage />;
-    }
-
-    if (!currentQuest) {
-        currentQuest = loadingData;
-    }
-
     // checks for item data loaded
-    /*if (!currentQuest && (questStatus === 'idle' || questStatus === 'loading')) {
+    if (!currentQuest && (questsStatus === 'idle' || questsStatus === 'loading')) {
         currentQuest = loadingData;
     }
 
-    if (!currentQuest && (questStatus === 'success' || questStatus === 'failed')) {
+    if (!currentQuest && (questsStatus === 'success' || questsStatus === 'failed')) {
         return <ErrorPage />;
-    }*/
+    }
 
     const nextQuests = quests.filter((quest) =>
         quest.taskRequirements.some(
@@ -116,7 +115,7 @@ function Quest() {
     if (
         currentQuest.minPlayerLevel ||
         currentQuest.taskRequirements?.length > 0 ||
-        currentQuest.traderLevelRequirements.length > 0
+        currentQuest.traderLevelRequirements?.length > 0
     ) {
         let playerLevel = '';
         let tasksReqs = '';
@@ -206,10 +205,11 @@ function Quest() {
                     <div className="quest-information-wrapper">
                         <h1>
                             <div className={'quest-font'}>
-                                {currentQuest.name}
-                                {currentQuest.factionName === 'Any'
-                                    ? ''
-                                    : ` (${t(currentQuest.factionName)})`}
+                                {!currentQuest.loading
+                                    ? (currentQuest.name)
+                                    : (<LoadingSmall />)
+                                }
+                                {currentQuest.factionName === 'Any' ? '' : ` (${t(currentQuest.factionName)})`}
                             </div>
                             <img
                                 alt={currentQuest.trader.name}
