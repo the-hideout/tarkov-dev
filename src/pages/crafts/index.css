@@ -11,16 +11,8 @@
     text-align: center;
 }
 
-.source-wrapper {
-    font-size: 14px;
-}
-
 .crafts-page-wrapper {
     min-height: 0;
-}
-
-.station-toggle-handle {
-    width: 26px;
 }
 
 @media screen and (min-width: 800px) {

@@ -28,14 +28,6 @@
     margin-right: 10px;
 }
 
-img.barter-icon {
-    border: 0;
-    position: relative;
-    top: 2px;
-    width: 14px;
-    margin-right: 3px;
-}
-
 .cost-item-text-wrapper {
     flex-grow: 1;
     white-space: nowrap;
