@@ -11,6 +11,7 @@ import translationES from './translations/es/translation.json';
 import translationFR from './translations/fr/translation.json';
 import translationJA from './translations/ja/translation.json';
 import translationPL from './translations/pl/translation.json';
+import translationPT from './translations/pt/translation.json';
 
 i18n
     // loads translations from your server
@@ -59,7 +60,11 @@ i18n
             },
             pl: {
                 translation: translationPL,
+            },
+            pt: {
+                translation: translationPT,
             }
+
         },
 
         // lng: "en", // if you're using a language detector, do not define the lng option

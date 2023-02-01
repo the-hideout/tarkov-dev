@@ -8,7 +8,7 @@ import os
 translations_dir = './'
 
 # List of languages
-languages = ['de', 'es', 'fr', 'it', 'ja', 'pl', 'ru']
+languages = ['de', 'es', 'fr', 'it', 'ja', 'pl', 'pt', 'ru']
 
 # Output directory
 output_dir = 'poeditor'
