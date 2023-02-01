@@ -54,10 +54,10 @@ function RewardCell({
                     {shownPrice}{sellType === 'custom' ? '*' : ''}
                 </span>
                 <span
-                    className={editingCustomPrice ? '' : ' hidden'}
+                    className={editingCustomPrice ? '' : 'hidden'}
                 >
                     <input 
-                        className="custom-price" 
+                        className="reward-custom-price" 
                         value={customPrice}
                         inputMode="numeric"
                         onChange={(e) => {
@@ -72,7 +72,7 @@ function RewardCell({
                     <Icon
                         path={mdiCheckboxMarked}
                         size={1}
-                        className="icon-with-text no-click muted-green"
+                        className="icon-with-text no-click reward-muted-green"
                         onClick={(event) => {
                             dispatch(
                                 setBarterRewardValue({
@@ -92,7 +92,7 @@ function RewardCell({
                     <Icon
                         path={mdiCloseBox}
                         size={1}
-                        className="icon-with-text no-click muted-red"
+                        className="icon-with-text no-click reward-muted-red"
                         onClick={(event) => {
                             dispatch(
                                 setBarterRewardValue({
@@ -132,7 +132,7 @@ function RewardCell({
                         {name}
                     </Link>
                 </div>
-                <div className="source-wrapper">{source}</div>
+                <div className="reward-info-source">{source}</div>
                 <Tippy
                     content={valueTooltip}
                     placement="bottom"

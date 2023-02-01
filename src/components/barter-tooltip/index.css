@@ -1,31 +1,42 @@
-.cost-with-barter-wrapper {
+.barter-tooltip-wrapper {
     display: flex;
     flex-wrap: wrap;
-    margin-block-end: .5em;
 }
 
-.cost-barter-details-wrapper > div {
+.barter-tooltip-details-wrapper > div {
     line-height: 20px;
 }
 
-.cost-with-barter-wrapper h3 {
+.barter-tooltip-wrapper h3 {
     text-align: center;
     width: 100%;
 }
 
-.cost-with-barter-wrapper .reward-image-wrapper img {
+.barter-tooltip-wrapper .reward-image-wrapper img {
     height: 48px;
     width: 48px;
 }
 
-.cost-with-barter-wrapper .cost-item-wrappper {
-    margin-bottom: 10px;
+.barter-tooltip-item-wrapper {
+    align-items: center;
+    display: flex;
+    position: relative;
+    width: 100%;
+    padding: 5px 0px;
 }
 
-.cost-barter-details-wrapper a {
+.barter-tooltip-details-wrapper a {
     font-size: 16px;
 }
 
-.cost-barter-details-wrapper .price-wrapper {
+.barter-tooltip-details-wrapper .price-wrapper {
     white-space: nowrap;
+}
+
+.barter-tooltip-icon {
+    border: 0;
+    position: relative;
+    top: 2px;
+    width: 14px;
+    margin-right: 3px;
 }

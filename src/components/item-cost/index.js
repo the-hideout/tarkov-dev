@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
 import { mdiTimerSand, mdiCloseBox, mdiCheckboxMarked } from '@mdi/js';
 
-import BarterToolip from '../barter-tooltip';
+import BarterTooltip from '../barter-tooltip';
 import formatPrice from '../../modules/format-price';
 
 import { setItemCost as setCraftItemCost } from '../../features/crafts/craftsSlice';
@@ -44,7 +44,7 @@ function ItemCost({
         let displayImage = (
             <img
                 alt={vendor.name}
-                className="barter-icon"
+                className="item-cost-barter-icon"
                 src={`${process.env.PUBLIC_URL}/images/traders/${vendor.normalizedName}-icon.jpg`}
                 loading="lazy"
             />
@@ -77,7 +77,7 @@ function ItemCost({
                         className={`no-click${editingCustomPrice ? '' : ' hidden'}`}
                     >
                         <input 
-                            className="no-click custom-price" 
+                            className="no-click item-cost-custom-price" 
                             value={customPrice}
                             inputMode="numeric"
                             onChange={(e) => {
@@ -92,7 +92,7 @@ function ItemCost({
                         <Icon
                             path={mdiCheckboxMarked}
                             size={1}
-                            className="icon-with-text no-click muted-green"
+                            className="icon-with-text no-click item-cost-muted-green"
                             onClick={(event) => {
                                 dispatch(
                                     setBarterItemCost({
@@ -112,7 +112,7 @@ function ItemCost({
                         <Icon
                             path={mdiCloseBox}
                             size={1}
-                            className="icon-with-text no-click muted-red"
+                            className="icon-with-text no-click item-cost-muted-red"
                             onClick={(event) => {
                                 dispatch(
                                     setBarterItemCost({
@@ -141,13 +141,13 @@ function ItemCost({
         displayImage = (
             <img
                 alt={t('Barter')}
-                className="barter-icon"
+                className="item-cost-barter-icon"
                 loading="lazy"
                 src={`${process.env.PUBLIC_URL}/images/icon-barter.png`}
             />
         );
         tooltip = (
-            <BarterToolip
+            <BarterTooltip
                 source={vendor.name}
                 requiredItems={priceDetails.requiredItems}
             />
