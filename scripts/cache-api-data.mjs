@@ -198,31 +198,13 @@ try {
     }));
 
     apiPromises.push(doFetchBarters('en', true).then(barters => {
-        const groupedBartersDic = barters.reduce((acc, barter) => {
-            if (!acc[barter.source]) {
-                acc[barter.source] = []
-            }
-            acc[barter.source].push(barter);
-            return acc;
-        }, {});
-        const filteredBartersDic = Object.values(groupedBartersDic).map(group => group.slice(0, 6));
-        const filteredBarters = [].concat(...filteredBartersDic);
-
-        fs.writeFileSync('./src/data/barters.json', JSON.stringify(filteredBarters));
+        fs.writeFileSync('./src/data/barters.json', JSON.stringify(barters));
+        return barters;
     }));
 
     apiPromises.push(doFetchCrafts('en', true).then(crafts => {
-        const groupedCraftsDic = crafts.reduce((acc, craft) => {
-            if (!acc[craft.source]) {
-                acc[craft.source] = []
-            }
-            acc[craft.source].push(craft);
-            return acc;
-        }, {});
-        const filteredCraftsDic = Object.values(groupedCraftsDic).map(group => group.slice(0, 6));
-        const filteredCrafts = [].concat(...filteredCraftsDic);
-
-        fs.writeFileSync('./src/data/crafts.json', JSON.stringify(filteredCrafts));
+        fs.writeFileSync('./src/data/crafts.json', JSON.stringify(crafts));
+        return crafts;
     }));
 
     apiPromises.push(doFetchHideout('en', true).then(hideout => {
