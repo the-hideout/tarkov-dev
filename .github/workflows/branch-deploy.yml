@@ -43,20 +43,11 @@ jobs:
       - name: deploy - dev
         id: dev-deploy
         if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' && steps.branch-deploy.outputs.environment == 'development' }}
-        uses: cloudflare/pages-action@v1 # pin@2.0.0
+        uses: cloudflare/wrangler-action@4c10c1822abba527d820b29e6333e7f5dac2cabd # pin@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          projectName: tarkov-dev
-          directory: build/
-          githubToken: ${{ secrets.HIDEOUT_BOT_TOKEN }}
-          
-      - name: dev-deploy output
-        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' && steps.branch-deploy.outputs.environment == 'development' }}
-        run: |
-          echo 'DEPLOY_MESSAGE<<EOF' >> $GITHUB_ENV
-          echo "Deployment URL -> ${{ steps.dev-deploy.outputs.url }}" >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+          command: pages publish build/ --project-name=tarkov-dev --branch=preview
 
       - name: deploy - prod
         id: prod-deploy
