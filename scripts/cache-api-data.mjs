@@ -156,55 +156,73 @@ try {
     const langs = allLangs.filter(lang => lang !== 'en')
     const apiPromises = [];
 
-    apiPromises.push(doFetchItems('en', true).then(items => {
-        const groupedItemsDic = items.reduce((acc, item) => {
-            if (!acc[item.bsgCategoryId]) {
-                acc[item.bsgCategoryId] = []
-            }
-            acc[item.bsgCategoryId].push(item);
-            return acc;
-        }, {});
-        const filteredItemsDic = Object.values(groupedItemsDic).map(group => group.slice(0, 7));
-        const filteredItems = [].concat(...filteredItemsDic);
+    apiPromises.push(Promise.all([
+        doFetchBarters('en', true).then(barters => {
+            fs.writeFileSync('./src/data/barters.json', JSON.stringify(barters));
+            return barters;
+        }),
+        doFetchCrafts('en', true).then(crafts => {
+            fs.writeFileSync('./src/data/crafts.json', JSON.stringify(crafts));
+            return crafts;
+        })
+    ]).then((bartersAndCrafts) => {
+        return doFetchItems('en', true).then(items => {
 
-        for (const item of filteredItems) {
-            item.lastLowPrice = 0;
-            item.avg24hPrice = 0;
-            item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-            item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-            item.cached = true;
-        }
-        fs.writeFileSync('./src/data/items.json', JSON.stringify(filteredItems));
-
-        return new Promise(async resolve => {
-            const itemLangs = {};
-            await getItemNames(langs).then(itemResults => {
-                for (const lang in itemResults) {
-                    const localization = {};
-                    itemResults[lang].forEach(item => {
-                        if (filteredItems.find(filteredItem => filteredItem.id == item.id)) {
-                            localization[item.id] =  {
-                                name: item.name,
-                                shortName: item.shortName
-                            };
+            const filteredItems = [];
+            for (const bartersCrafts of bartersAndCrafts) {
+                bartersCrafts.forEach(bc => {
+                    for (const cItem of bc.rewardItems) {
+                        if (!filteredItems.some(i => i.id === cItem.item.id)) {
+                            filteredItems.push(items.find(i => i.id === cItem.item.id));
                         }
-                    });
-                    itemLangs[lang] = localization;
+                    }
+                    for (const cItem of bc.requiredItems) {
+                        if (!filteredItems.some(i => i.id === cItem.item.id)) {
+                            filteredItems.push(items.find(i => i.id === cItem.item.id));
+                        }
+                    }
+                });
+            }
+
+            /*const groupedItemsDic = items.reduce((acc, item) => {
+                if (!acc[item.bsgCategoryId]) {
+                    acc[item.bsgCategoryId] = []
                 }
+                acc[item.bsgCategoryId].push(item);
+                return acc;
+            }, {});
+            const filteredItemsDic = Object.values(groupedItemsDic).map(group => group.slice(0, 7));
+            const filteredItems = [].concat(...filteredItemsDic);*/
+    console.log(filteredItems.length)
+            for (const item of filteredItems) {
+                item.lastLowPrice = 0;
+                item.avg24hPrice = 0;
+                item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
+                item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
+                item.cached = true;
+            }
+            fs.writeFileSync('./src/data/items.json', JSON.stringify(filteredItems));
+    
+            return new Promise(async resolve => {
+                const itemLangs = {};
+                await getItemNames(langs).then(itemResults => {
+                    for (const lang in itemResults) {
+                        const localization = {};
+                        itemResults[lang].forEach(item => {
+                            if (filteredItems.find(filteredItem => filteredItem.id == item.id)) {
+                                localization[item.id] =  {
+                                    name: item.name,
+                                    shortName: item.shortName
+                                };
+                            }
+                        });
+                        itemLangs[lang] = localization;
+                    }
+                });
+                fs.writeFileSync(`./src/data/items_locale.json`, JSON.stringify(itemLangs));
+                resolve();
             });
-            fs.writeFileSync(`./src/data/items_locale.json`, JSON.stringify(itemLangs));
-            resolve();
         });
-    }));
-
-    apiPromises.push(doFetchBarters('en', true).then(barters => {
-        fs.writeFileSync('./src/data/barters.json', JSON.stringify(barters));
-        return barters;
-    }));
-
-    apiPromises.push(doFetchCrafts('en', true).then(crafts => {
-        fs.writeFileSync('./src/data/crafts.json', JSON.stringify(crafts));
-        return crafts;
     }));
 
     apiPromises.push(doFetchHideout('en', true).then(hideout => {
