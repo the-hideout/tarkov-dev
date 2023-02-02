@@ -36,6 +36,7 @@ import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
 import {
     useItemByNameQuery,
     useItemByIdQuery,
+    useItemsQuery,
 } from '../../features/items/queries';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 
@@ -120,11 +121,11 @@ function Item() {
 
     const { data: meta } = useMetaQuery();
     const dispatch = useDispatch();
-    const barters = useSelector(selectAllBarters);
+    const barterSelector = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
         return state.barters.status;
     });
-    const crafts = useSelector(selectAllCrafts);
+    const craftSelector = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
         return state.crafts.status;
     });
@@ -137,6 +138,64 @@ function Item() {
         return state.quests.status;
     });
     const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
+
+    const {data: items} = useItemsQuery();
+
+    const barters = useMemo(() => {
+        return barterSelector.map(b => {
+            return {
+                ...b,
+                requiredItems: b.requiredItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return req;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }),
+                rewardItems: b.rewardItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return req;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }),
+            };
+        });
+    }, [barterSelector, items]);
+
+    const crafts = useMemo(() => {
+        return craftSelector.map(c => {
+            return {
+                ...c,
+                requiredItems: c.requiredItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return req;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }),
+                rewardItems: c.rewardItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return req;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }),
+            };
+        });
+    }, [craftSelector, items]);
 
     useEffect(() => {
         let timer = false;
