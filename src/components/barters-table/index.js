@@ -18,6 +18,7 @@ import { formatCostItems, getCheapestItemPrice, getCheapestItemPriceWithBarters 
 import RewardCell from '../reward-cell';
 import { isAnyDogtag, isBothDogtags } from '../../modules/dogtags';
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
+import { useQuestsQuery } from '../../features/quests/queries';
 
 import './index.css';
 
@@ -38,8 +39,14 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
 
     const {data: items} = useItemsQuery();
 
+    const {data: tasks} = useQuestsQuery();
+
     const barters = useMemo(() => {
         return barterSelector.map(b => {
+            let taskUnlock = b.taskUnlock;
+            if (taskUnlock) {
+                taskUnlock = tasks.find(t => t.id === taskUnlock.id);
+            }
             return {
                 ...b,
                 requiredItems: b.requiredItems.map(req => {
@@ -62,6 +69,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                         item: matchedItem,
                     };
                 }).filter(Boolean),
+                taskUnlock: taskUnlock,
             };
         });
     }, [barterSelector, items]);
@@ -353,6 +361,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                             barterRow.rewardItems[0].item.iconLink ||
                             `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                         itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,
+                        taskUnlock: barterRow.taskUnlock,
                     },
                     cached: barterRow.cached,
                 };

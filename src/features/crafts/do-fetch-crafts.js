@@ -29,6 +29,9 @@ export default async function doFetchCrafts(language, prebuild = false) {
                     }
                 }
                 source
+                taskUnlock {
+                    id
+                }
             }
         }`,
     });

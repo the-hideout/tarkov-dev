@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Tippy from '@tippyjs/react';
 import Icon from '@mdi/react';
-import { mdiCloseBox, mdiCheckboxMarked } from '@mdi/js';
+import { mdiCloseBox, mdiCheckboxMarked, mdiClipboardList } from '@mdi/js';
 
 import RewardImage from '../reward-image';
 
@@ -27,6 +27,7 @@ function RewardCell({
     sellNote = false,
     valueTooltip,
     sellType,
+    taskUnlock,
 }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -37,6 +38,32 @@ function RewardCell({
     useEffect(() => {
         setCustomPrice(sellValue);
     }, [sellValue, setCustomPrice]);
+
+    const taskTooltip = useMemo(() => {
+        if (!taskUnlock) {
+            return '';
+        }
+        const tooltipContent = (
+            <Link to={`/task/${taskUnlock.normalizedName}`}>
+                {t('Task: {{taskName}}', {taskName: taskUnlock.name})}
+            </Link>
+        );
+        return (
+            <span>
+                <Tippy
+                    content={tooltipContent}
+                    placement="right"
+                    interactive={true}
+                >
+                    <Icon
+                        path={mdiClipboardList}
+                        size={1}
+                        className="icon-with-text no-click"
+                    />
+                </Tippy>
+            </span>
+        );
+    }, [taskUnlock]);
 
     const displayValue = useMemo(() => {
         let shownPrice = 'N/A';
@@ -132,7 +159,7 @@ function RewardCell({
                         {name}
                     </Link>
                 </div>
-                <div className="reward-info-source">{source}</div>
+                <div className="reward-info-source">{source}{taskTooltip}</div>
                 <Tippy
                     content={valueTooltip}
                     placement="bottom"

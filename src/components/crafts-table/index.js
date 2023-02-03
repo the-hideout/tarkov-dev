@@ -32,6 +32,7 @@ import {
 } from '../../modules/format-duration';
 import bestPrice from '../../modules/best-price';
 import { useMetaQuery } from '../../features/meta/queries';
+import { useQuestsQuery } from '../../features/quests/queries';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
@@ -57,6 +58,8 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     });
 
     const {data: items} = useItemsQuery();
+
+    const {data: tasks} = useQuestsQuery();
 
     const barters = useMemo(() => {
         return barterSelector.map(b => {
@@ -88,6 +91,10 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 
     const crafts = useMemo(() => {
         return craftSelector.map(c => {
+            let taskUnlock = c.taskUnlock;
+            if (taskUnlock) {
+                taskUnlock = tasks.find(t => t.id === taskUnlock.id);
+            }
             return {
                 ...c,
                 requiredItems: c.requiredItems.map(req => {
@@ -110,9 +117,10 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         item: matchedItem,
                     };
                 }).filter(Boolean),
+                taskUnlock: taskUnlock,
             };
         });
-    }, [craftSelector, items]);
+    }, [craftSelector, items, tasks]);
 
     const { data: meta } = useMetaQuery();
 
@@ -283,6 +291,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         iconLink: craftRow.rewardItems[0].item.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                         count: craftRow.rewardItems[0].count,
                         sellValue: 0, 
+                        taskUnlock: craftRow.taskUnlock,
                     },
                     cached: craftRow.cached,
                 };
