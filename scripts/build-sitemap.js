@@ -44,64 +44,69 @@ const addPath = (sitemap, url) => {
 }
 
 (async () => {
-    let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+    try {
+        let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
 
-    console.time('build-sitemap');
+        console.time('build-sitemap');
 
-    for(const path of standardPaths){
-        sitemap = addPath(sitemap, path);
-    }
-
-    for(const mapsGroup of maps){
-        for(const map of mapsGroup.maps){
-            sitemap = addPath(sitemap, `/map/${map.key}`);
+        for (const path of standardPaths) {
+            sitemap = addPath(sitemap, path);
         }
-    }
 
-    const itemTypes = await got('https://api.tarkov.dev/graphql?query={%20itemCategories{%20normalizedName%20}%20}', {
-        responseType: 'json',
-    });
-
-    for (const itemType of itemTypes.body.data.itemCategories) {
-        sitemap = addPath(sitemap, `/items/${itemType.normalizedName}`);
-    }
-
-    const allItems = await got('https://api.tarkov.dev/graphql?query={%20items{%20normalizedName%20}%20}', {
-        responseType: 'json',
-    });
-
-    for(const item of allItems.body.data.items){
-        sitemap = addPath(sitemap, `/item/${item.normalizedName}`);
-    }
-
-    const allBosses = await got('https://api.tarkov.dev/graphql?query={maps{bosses{name}}}', {
-        responseType: 'json',
-    });
-
-    var bossNames = [];
-    for (const map of allBosses.body.data.maps) {
-        for (const boss of map.bosses) {
-            var bossName = boss.name.toLowerCase().replace(/ /g, '-')
-            if (!bossNames.includes(bossName)) {
-                bossNames.push(bossName)
+        for (const mapsGroup of maps) {
+            for (const map of mapsGroup.maps) {
+                sitemap = addPath(sitemap, `/map/${map.key}`);
             }
         }
+
+        const itemTypes = await got('https://api.tarkov.dev/graphql?query={%20itemCategories{%20normalizedName%20}%20}', {
+            responseType: 'json',
+        });
+
+        for (const itemType of itemTypes.body.data.itemCategories) {
+            sitemap = addPath(sitemap, `/items/${itemType.normalizedName}`);
+        }
+
+        const allItems = await got('https://api.tarkov.dev/graphql?query={%20items{%20normalizedName%20}%20}', {
+            responseType: 'json',
+        });
+
+        for (const item of allItems.body.data.items) {
+            sitemap = addPath(sitemap, `/item/${item.normalizedName}`);
+        }
+
+        const allBosses = await got('https://api.tarkov.dev/graphql?query={maps{bosses{name}}}', {
+            responseType: 'json',
+        });
+
+        var bossNames = [];
+        for (const map of allBosses.body.data.maps) {
+            for (const boss of map.bosses) {
+                var bossName = boss.name.toLowerCase().replace(/ /g, '-')
+                if (!bossNames.includes(bossName)) {
+                    bossNames.push(bossName)
+                }
+            }
+        }
+
+        for (const bossName of bossNames) {
+            sitemap = addPath(sitemap, `/boss/${bossName}`);
+        }
+
+        let ammoTypes = Object.values(caliberMap).sort();
+
+        for (const ammoType of ammoTypes) {
+            sitemap = addPath(sitemap, `/ammo/${ammoType.replace(/ /g, '%20')}`);
+        }
+
+        sitemap = `${sitemap}
+        </urlset>`;
+
+        fs.writeFileSync(path.join(__dirname, '..', 'public', 'sitemap.xml'), sitemap);
+        console.timeEnd('build-sitemap');
+    } catch (error) {
+        console.error(error)
+        console.log('trying to use pre-built sitemap (offline mode?)')
     }
-
-    for (const bossName of bossNames) {
-        sitemap = addPath(sitemap, `/boss/${bossName}`);
-    }
-    
-    let ammoTypes = Object.values(caliberMap).sort();
-
-    for(const ammoType of ammoTypes){
-        sitemap = addPath(sitemap, `/ammo/${ammoType.replace(/ /g, '%20')}`);
-    }
-
-    sitemap = `${sitemap}
-    </urlset>`;
-
-    fs.writeFileSync(path.join(__dirname, '..', 'public', 'sitemap.xml'), sitemap);
-    console.timeEnd('build-sitemap');
 })();
