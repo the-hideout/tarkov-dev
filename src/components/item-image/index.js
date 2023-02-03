@@ -41,8 +41,8 @@ function ItemImage({ item }) {
                     <rect x="0" y="0" width="100%" height="100%" style={{fill:`rgba(${colorString})`}} />
                 </pattern>
             </defs>
-            <rect width='100%' height='100%' fill='#000'/>
-            <rect width='100%' height='100%' fill='url(#gridCell)'/>
+            <rect width="100%" height="100%" fill="#000"/>
+            <rect width="100%" height="100%" fill="url(#gridCell)"/>
         </svg>;
     const backgroundStyle = {
         backgroundImage: `url('data:image/svg+xml,${encodeURIComponent(renderToStaticMarkup(gridSvg()))}')`,
