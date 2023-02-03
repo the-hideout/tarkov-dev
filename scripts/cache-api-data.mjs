@@ -182,7 +182,7 @@ try {
                 for (const lang in itemResults) {
                     const localization = {};
                     itemResults[lang].forEach(item => {
-                        if (filteredItems.find(filteredItem => filteredItem.id == item.id)) {
+                        if (filteredItems.find(filteredItem => filteredItem.id === item.id)) {
                             localization[item.id] =  {
                                 name: item.name,
                                 shortName: item.shortName
@@ -353,7 +353,7 @@ try {
                 for (const lang in taskResults) {
                     const localization = {};
                     taskResults[lang].forEach(task => {
-                        if (filteredQuests.find(filteredQuest => filteredQuest.id == task.id)) {
+                        if (filteredQuests.find(filteredQuest => filteredQuest.id === task.id)) {
                             localization[task.id] =  {
                                 name: task.name,
                                 objectives: {}
@@ -373,7 +373,11 @@ try {
 
     await Promise.all(apiPromises);
 } catch (error) {
-    //console.log(error);
-    throw error;
+    if (process.env.CI) {
+        throw error;
+    } else {
+        console.log(error)
+        console.log("attempting to use pre-cached values (offline mode?)")
+    }
 } 
 console.timeEnd('Caching API data');
