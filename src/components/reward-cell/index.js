@@ -63,7 +63,7 @@ function RewardCell({
                 </Tippy>
             </span>
         );
-    }, [taskUnlock]);
+    }, [taskUnlock, t]);
 
     const displayValue = useMemo(() => {
         let shownPrice = 'N/A';

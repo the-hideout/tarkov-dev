@@ -72,7 +72,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                 taskUnlock: taskUnlock,
             };
         });
-    }, [barterSelector, items]);
+    }, [barterSelector, items, tasks]);
 
     useEffect(() => {
         let timer = false;
