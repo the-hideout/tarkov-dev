@@ -349,23 +349,23 @@ function SmallItemTable(props) {
                 requiredItems: b.requiredItems.map(req => {
                     const matchedItem = items.find(it => it.id === req.item.id);
                     if (!matchedItem) {
-                        return req;
+                        return false;
                     }
                     return {
                         ...req,
                         item: matchedItem,
                     };
-                }),
+                }).filter(Boolean),
                 rewardItems: b.rewardItems.map(req => {
                     const matchedItem = items.find(it => it.id === req.item.id);
                     if (!matchedItem) {
-                        return req;
+                        return false;
                     }
                     return {
                         ...req,
                         item: matchedItem,
                     };
-                }),
+                }).filter(Boolean),
             };
         });
     }, [barterSelector, items]);

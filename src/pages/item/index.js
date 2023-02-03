@@ -148,23 +148,23 @@ function Item() {
                 requiredItems: b.requiredItems.map(req => {
                     const matchedItem = items.find(it => it.id === req.item.id);
                     if (!matchedItem) {
-                        return req;
+                        return false;
                     }
                     return {
                         ...req,
                         item: matchedItem,
                     };
-                }),
+                }).filter(Boolean),
                 rewardItems: b.rewardItems.map(req => {
                     const matchedItem = items.find(it => it.id === req.item.id);
                     if (!matchedItem) {
-                        return req;
+                        return false;
                     }
                     return {
                         ...req,
                         item: matchedItem,
                     };
-                }),
+                }).filter(Boolean),
             };
         });
     }, [barterSelector, items]);
@@ -176,7 +176,7 @@ function Item() {
                 requiredItems: c.requiredItems.map(req => {
                     const matchedItem = items.find(it => it.id === req.item.id);
                     if (!matchedItem) {
-                        return req;
+                        return false;
                     }
                     return {
                         ...req,
@@ -186,13 +186,13 @@ function Item() {
                 rewardItems: c.rewardItems.map(req => {
                     const matchedItem = items.find(it => it.id === req.item.id);
                     if (!matchedItem) {
-                        return req;
+                        return false;
                     }
                     return {
                         ...req,
                         item: matchedItem,
                     };
-                }),
+                }).filter(Boolean),
             };
         });
     }, [craftSelector, items]);

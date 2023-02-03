@@ -65,23 +65,23 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 requiredItems: b.requiredItems.map(req => {
                     const matchedItem = items.find(it => it.id === req.item.id);
                     if (!matchedItem) {
-                        return req;
+                        return false;
                     }
                     return {
                         ...req,
                         item: matchedItem,
                     };
-                }),
+                }).filter(Boolean),
                 rewardItems: b.rewardItems.map(req => {
                     const matchedItem = items.find(it => it.id === req.item.id);
                     if (!matchedItem) {
-                        return req;
+                        return false;
                     }
                     return {
                         ...req,
                         item: matchedItem,
                     };
-                }),
+                }).filter(Boolean),
             };
         });
     }, [barterSelector, items]);
@@ -93,23 +93,23 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 requiredItems: c.requiredItems.map(req => {
                     const matchedItem = items.find(it => it.id === req.item.id);
                     if (!matchedItem) {
-                        return req;
+                        return false;
                     }
                     return {
                         ...req,
                         item: matchedItem,
                     };
-                }),
+                }).filter(Boolean),
                 rewardItems: c.rewardItems.map(req => {
                     const matchedItem = items.find(it => it.id === req.item.id);
                     if (!matchedItem) {
-                        return req;
+                        return false;
                     }
                     return {
                         ...req,
                         item: matchedItem,
                     };
-                }),
+                }).filter(Boolean),
             };
         });
     }, [craftSelector, items]);
