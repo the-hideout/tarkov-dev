@@ -193,7 +193,7 @@ try {
             }, {});
             const filteredItemsDic = Object.values(groupedItemsDic).map(group => group.slice(0, 7));
             const filteredItems = [].concat(...filteredItemsDic);*/
-    console.log(filteredItems.length)
+
             for (const item of filteredItems) {
                 item.lastLowPrice = 0;
                 item.avg24hPrice = 0;
