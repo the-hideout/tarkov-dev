@@ -167,7 +167,6 @@ try {
         })
     ]).then((bartersAndCrafts) => {
         return doFetchItems('en', true).then(items => {
-
             const filteredItems = [];
             for (const bartersCrafts of bartersAndCrafts) {
                 bartersCrafts.forEach(bc => {
@@ -315,7 +314,7 @@ try {
                 for (const lang in taskResults) {
                     const localization = {};
                     taskResults[lang].forEach(task => {
-                        if (filteredQuests.find(filteredQuest => filteredQuest.id == task.id)) {
+                        if (filteredQuests.find(filteredQuest => filteredQuest.id === task.id)) {
                             localization[task.id] =  {
                                 name: task.name,
                                 objectives: {}
@@ -335,7 +334,11 @@ try {
 
     await Promise.all(apiPromises);
 } catch (error) {
-    //console.log(error);
-    throw error;
+    if (process.env.CI) {
+        throw error;
+    } else {
+        console.log(error)
+        console.log("attempting to use pre-cached values (offline mode?)")
+    }
 } 
 console.timeEnd('Caching API data');
