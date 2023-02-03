@@ -66,7 +66,14 @@ if (token) {
             ];
         } else {
             console.log(`error fetching contributors: ${error}`);
-            process.exit(1);
+            console.log('using mock contributors data (offline mode?)')
+            allContributors = [
+                {
+                    login: "hideout-bot",
+                    html_url: "https://github.com/hideout-bot",
+                    avatar_url: "https://avatars.githubusercontent.com/u/121582168?v=4"
+                }
+            ];
         }
     }
 
