@@ -23,8 +23,8 @@ function ItemImage({ item }) {
     const colorString = `${color.r}, ${color.g}, ${color.b}, ${color.alpha}`;
     const itemWidth = item.properties?.defaultPreset?.width || item.width;
     const itemHeight = item.properties?.defaultPreset?.height || item.height;
-    const gridPercentX = Math.round((1 / itemWidth) * 100);
-    const gridPercentY = Math.round((1 / itemHeight) * 100);
+    const gridPercentX = (1 / itemWidth) * 100;
+    const gridPercentY = (1 / itemHeight) * 100;
     const gridSvg = () => 
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
             <defs>
