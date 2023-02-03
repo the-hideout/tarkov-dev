@@ -1,3 +1,5 @@
+import {renderToStaticMarkup} from "react-dom/server";
+
 import './index.css';
 
 const colors = {
@@ -19,18 +21,32 @@ function ItemImage({ item }) {
 
     const color = colors[item.backgroundColor];
     const colorString = `${color.r}, ${color.g}, ${color.b}, ${color.alpha}`;
-
+    const itemWidth = item.properties?.defaultPreset?.width || item.width;
+    const itemHeight = item.properties?.defaultPreset?.height || item.height;
+    const gridPercentX = Math.round((1 / itemWidth) * 100);
+    const gridPercentY = Math.round((1 / itemHeight) * 100);
+    const gridSvg = () => 
+        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+            <defs>
+                <pattern id="smallChecks" width="4" height="4" patternUnits="userSpaceOnUse">
+                    <rect x="0" y="0" width="2" height="2" style={{fill:'rgba(29, 29, 29, .62)'}} />
+                    <rect x="0" y="2" width="2" height="2" style={{fill:'rgba(44, 44, 44, .62)'}} />
+                    <rect x="2" y="0" width="2" height="2" style={{fill:'rgba(44, 44, 44, .62)'}} />
+                    <rect x="2" y="2" width="2" height="2" style={{fill:'rgba(29, 29, 29, .62)'}} />
+                </pattern>
+                <pattern id="gridCell" width="100%" height="100%" patternUnits="userSpaceOnUse">
+                    <rect x="0" y="0" width="100%" height="100%" fill="url(#smallChecks)"/>
+                    <line x1="0" x2="0" y1="0" y2="100%" stroke="rgba(50, 50, 50, .75)" strokeWidth="4"/>
+                    <line x1="0" x2="100%" y1="0" y2="0" stroke="rgba(50, 50, 50, .75)" strokeWidth="4"/>
+                    <rect x="0" y="0" width="100%" height="100%" style={{fill:`rgba(${colorString})`}} />
+                </pattern>
+            </defs>
+            <rect width='100%' height='100%' fill='#000'/>
+            <rect width='100%' height='100%' fill='url(#gridCell)'/>
+        </svg>;
     const backgroundStyle = {
-        backgroundColor: '#000000',
-        backgroundImage: `url('data:image/svg+xml,\
-            <svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" style="fill:rgba(0, 0, 0, 1)" >\
-                <rect x="0" y="0" width="2" height="2" style="fill:rgba(29, 29, 29, .62)" />\
-                <rect x="0" y="2" width="2" height="2" style="fill:rgba(44, 44, 44, .62)" />\
-                <rect x="2" y="0" width="2" height="2" style="fill:rgba(44, 44, 44, .62)" />\
-                <rect x="2" y="2" width="2" height="2" style="fill:rgba(29, 29, 29, .62)" />\
-                <rect x="0" y="0" width="4" height="4" style="fill:rgba(${colorString})" />\
-            </svg>')`,
-        //backgroundSize: '2px 2px',
+        backgroundImage: `url('data:image/svg+xml,${encodeURIComponent(renderToStaticMarkup(gridSvg()))}')`,
+        backgroundSize: `${gridPercentX}% ${gridPercentY}%`,
         position: 'relative',
         outline: '2px solid #495154',
         outlineOffset: '-2px',

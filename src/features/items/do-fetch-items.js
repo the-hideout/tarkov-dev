@@ -375,6 +375,8 @@ const doFetchItems = async (language, prebuild = false) => {
                             gridImageLink
                             iconLink
                             image512pxLink
+                            width
+                            height
                         }
                     }
                     ...on ItemPropertiesWeaponMod {
