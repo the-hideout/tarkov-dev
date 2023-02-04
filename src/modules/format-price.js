@@ -1,5 +1,4 @@
 module.exports = (price, currency = 'RUB') => {
-    console.log(price)
     if (typeof price === 'undefined' || isNaN(price)) 
         price = 0;
     
