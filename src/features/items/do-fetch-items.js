@@ -4,7 +4,7 @@ import fleaMarketFee from '../../modules/flea-market-fee.js';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes.js';
 
 const doFetchItems = async (language, prebuild = false) => {
-    const itemLimit = 500;
+    const itemLimit = 2000;
     const QueryBody = offset => {
         return JSON.stringify({
             query: `{
@@ -438,6 +438,11 @@ const doFetchItems = async (language, prebuild = false) => {
                     }
                     retrievedItems.data.items = retrievedItems.data.items.concat(itemBatch.data.items);
                     if (itemBatch.data.items.length < itemLimit) {
+                        break;
+                    }
+                }
+                if (!itemBatch.errors) {
+                    if (!itemBatch.data || !itemBatch.data.items || !itemBatch.data.items.length) {
                         break;
                     }
                 }
