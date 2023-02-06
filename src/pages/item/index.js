@@ -363,8 +363,8 @@ function Item() {
                     </div>
                 </div>
                 {t(
-                    `The last observed low price for this item on the Flea Market was {{lastSeenPrice}}.
-                    However, due to how fees are calculated, you're better off selling for {{bestPrice}}.`, 
+`The last observed low price for this item on the Flea Market was {{lastSeenPrice}}.
+However, due to how fees are calculated, you're better off selling for {{bestPrice}}.`,
                     {
                         lastSeenPrice: formatPrice(currentItemData.lastLowPrice),
                         bestPrice: formatPrice(currentItemData.bestPrice)
@@ -403,13 +403,13 @@ function Item() {
                     </div>
                 </div>
                 {t(
-                    `This item has not been observed on the Flea Market. 
-                    The maximum profitable price is {{bestPrice}}, but
-                    the item may not sell at that price. 
-                    The max profitable price is impacted by the intel center and hideout management skill levels in your settings.
-                    `,{
+`This item has not been observed on the Flea Market.
+The maximum profitable price is {{bestPrice}}, but the item may not sell at that price.
+The max profitable price is impacted by the intel center and hideout management skill levels in your settings.`,
+                    {
                         bestPrice: formatPrice(currentItemData.bestPrice)
-                    })}
+                    }
+                )}
             </div>
         )
         if (currentItemData.cached) {

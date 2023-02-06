@@ -396,6 +396,12 @@ function LootTier(props) {
                     items={items}
                 />
             ))}
+
+            <div className="page-wrapper loot-tiers-wrapper">
+                <p>
+                    {t('loot-tiers-page-description', 'Learn about the different types of loot available in the game, their value, rarity, and what to keep and what to trash.')}
+                </p>
+            </div>
         </div>,
     ];
 }

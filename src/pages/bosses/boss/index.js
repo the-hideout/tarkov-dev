@@ -1,5 +1,5 @@
 import React, { Suspense, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useParams, Link } from 'react-router-dom';
 
 import Icon from '@mdi/react';
@@ -349,9 +349,11 @@ function BossPage(params) {
                         />
                     </h2>
                     <ul>
-                        <li>{t('Map: The name of the map which the boss can spawn on')}</li>
-                        <li>{t('Spawn Location: The exact location on the given map which the boss can spawn')}</li>
-                        <li>{t('Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map')}</li>
+                        <Trans i18nKey="boss-spawn-table-description">
+                            <li>Map: The name of the map which the boss can spawn on</li>
+                            <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
+                            <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
+                        </Trans>
                     </ul>
                     <DataTable
                         key="boss-spawn-table"

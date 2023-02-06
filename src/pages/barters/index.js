@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import { mdiAccountSwitch } from '@mdi/js';
@@ -152,13 +152,17 @@ function Barters() {
             />
 
             <div className="page-wrapper barters-page-wrapper">
-                <p>
-                    {"Except for Fence, every trader in Escape from Tarkov offers goods by barter rather than for purchase outright."}<br/>
-                    <br/>
-                    {"In exchange for a variety of inexpensive things, the player can frequently trade them for more valuable objects that can be utilized or sold for a profit or higher level gear at lower loyalty levels."}<br/>
-                    <br/>
-                    {"Be sure to check back after reset for your favorite transactions because the majority of these valued trades have strict limits per trader reset and frequently sell out."}
-                </p>
+                <Trans i18nKey={'barters-page-p'}>
+                    <p>
+                        Except for Fence, every trader in Escape from Tarkov offers goods by barter rather than for purchase outright.
+                    <p>
+                    </p>
+                        In exchange for a variety of inexpensive things, the player can frequently trade them for more valuable objects that can be utilized or sold for a profit or higher level gear at lower loyalty levels.
+                    <p>
+                    </p>
+                        Be sure to check back after reset for your favorite transactions because the majority of these valued trades have strict limits per trader reset and frequently sell out.
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];

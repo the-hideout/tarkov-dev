@@ -1,4 +1,6 @@
-.supporter-wrapper svg {
-    height: 32px;
-    width: 32px;
+p svg {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    top: 4px;
 }

@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 // import Supporter from '../supporter';
@@ -23,22 +23,16 @@ function Footer() {
         <div className={'footer-wrapper'}>
             <div className="footer-section-wrapper about-section-wrapper">
                 <h3>{t('Tarkov.dev')}</h3>
-                <p>
-                    {t(
-                        'The whole platform is open source and focused around developers. All code is available on',
-                    )}{' '}
-                    <a href="https://github.com/the-hideout/tarkov-dev" target="_blank" rel="noopener noreferrer">
-                        <GithubIcon /> <span>GitHub</span>
-                    </a>
-                </p>
-                <p>
-                    {t(
-                        'If you wanna have a chat, ask questions or request features, we have a',
-                    )}{' '}
-                    <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer">
-                        <DiscordIcon /> {t('Discord server')}
-                    </a>
-                </p>
+                <Trans i18nKey={'about-open-source-p'}>
+                    <p>
+                        The whole platform is open source and focused around developers. All code is available on <a href="https://github.com/the-hideout/tarkov-dev" target="_blank" rel="noopener noreferrer"><GithubIcon /> GitHub</a>.
+                    </p>
+                </Trans>
+                <Trans i18nKey={'about-discord-p'}>
+                    <p>
+                        If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
+                    </p>
+                </Trans>
                 <p>
                     <Link to="/about">{t('About')} tarkov.dev</Link>
                 </p>
@@ -49,18 +43,21 @@ function Footer() {
             </div>
             <div className="footer-section-wrapper">
                 <h3>{t('Supporters')}</h3>
+                <Trans i18nKey={'about-support-ukraine-p'}>
                 <p>
-                    {t('We encourage everyone who can to donate to support the people of Ukraine using the button below')}
+                    We encourage everyone who can to donate to support the people of Ukraine using the button below.
                 </p>
+                </Trans>
                 <UkraineButton
                     linkStyle={{
                         width: '100%',
                     }}
                 />
+                <Trans i18nKey={'about-support-collective-p'}>
                 <p>
-                    {t("If you'd also like to support this project, you can make a donation and/or become a backer on")}{' '}
-                    <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noopener noreferrer">Open Collective</a>
+                    If you'd also like to support this project, you can make a donation and/or become a backer on <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noopener noreferrer">Open Collective</a>.
                 </p>
+                </Trans>
                 <OpenCollectiveButton />
                 <h3>{t('Item Data')}</h3>
                 <p>
