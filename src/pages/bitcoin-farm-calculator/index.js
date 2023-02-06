@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import { useItemByIdQuery } from '../../features/items/queries';
 
@@ -11,6 +12,7 @@ import RewardCell from '../../components/reward-cell';
 import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
 
 import formatPrice from '../../modules/format-price';
+import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length';
 
 import {
     BitcoinItemId,
@@ -134,6 +136,11 @@ const BitcoinFarmCalculator = () => {
                         key="btc-price-display"
                     />
                 )}
+            </div>
+            <div className="included-items-wrapper">
+                <Link to="/wipe-length">
+                    <div>{t('Estimated remaining days in wipe: {{remainingWipeDays}}', {remainingWipeDays: averageWipeLength() - currentWipeLength()})}</div>
+                </Link>
             </div>
             {/* <BtcGraph /> */}
         </div>,
