@@ -509,7 +509,7 @@
     "About Traders": "About Traders",
     "traders-page-p": "<0>The backbones of trade in the destroyed, besieged Norvinsk. In Escape from Tarkov, each merchant specialized in a particular kind of products, such as medical supplies, weaponry, or military equipment. Although their prices are typically high, you get what you pay for.</0><1>More importantly, you can develop a reputation with each trader through Quests, which will enable you to receive better offers generally and reduce the commission they receive (an additional markup you pay on sales and purchases), among other benefits.</1><2>Additionally, traders provide other services like insurance and repairs (allowing you to recover your gear in case of death during a raid).</2>",
     "Trader {{trader}}": "Trader {{trader}}",
-    "trader-page-description": "Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty",
+    "trader-page-description": "Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty.",
     "Items with the best cash back prices for leveling when buying from flea": "Items with the best cash back prices for leveling when buying from flea",
     "Spending": "Spending",
     "Unlocks at Loyalty Level {{level}}": "Unlocks at Loyalty Level {{level}}",
