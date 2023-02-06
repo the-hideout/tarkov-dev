@@ -366,12 +366,13 @@ function LootTier(props) {
                     checked={groupByType}
                 />
                 <SelectFilter
+                    placeholder={t('Select...')}
                     defaultValue={filters.types?.map((filter) => {
                         return filterOptions.find(
                             (defaultFilter) => defaultFilter.value === filter,
                         );
                     })}
-                    isMulti
+                    isMulti={true}
                     options={filterOptions}
                     onChange={handleFilterChange}
                 />
