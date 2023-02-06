@@ -232,7 +232,7 @@ const Graph = (props) => {
             />
             <VictoryAxis
                 dependentAxis
-                tickFormat={(t) => (t === 70 ? '' : `Class ${t / 10}`)}
+                tickFormat={(tick) => (tick === 70 ? '' : t('Class {{tier}}', { tier: tick / 10 }))}
                 tickLabelComponent={<VictoryLabel dx={24} dy={-4} />}
                 label={t('Penetration')}
                 tickValues={yTickValues}
