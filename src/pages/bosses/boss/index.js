@@ -231,15 +231,15 @@ function BossPage(params) {
     // Display behavior info
     if (bossData.behavior) {
         bossProperties['behavior'] = {
-            // t('patrol')
-            // t('rush')
-            // t('stalker')
-            // t('hostile and accurate')
-            // t('patrol and highly armored')
-            // t('group patrol')
-            // t('frequent healing and stim injections')
-            // t('sniper')
-            // t('batshit insane')
+            // t('Patrol')
+            // t('Rush')
+            // t('Stalker')
+            // t('Hostile and accurate')
+            // t('Patrol and highly armored')
+            // t('Group patrol')
+            // t('Frequent healing and stim injections')
+            // t('Sniper')
+            // t('Batshit insane')
             value: t(bossData.behavior),
             label: `${t('Behavior')} 💡`,
             tooltip: t("The boss's general AI behavior"),
@@ -349,9 +349,9 @@ function BossPage(params) {
                         />
                     </h2>
                     <ul>
-                        <li>Map: The name of the map which the boss can spawn on</li>
-                        <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
-                        <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
+                        <li>{t('Map: The name of the map which the boss can spawn on')}</li>
+                        <li>{t('Spawn Location: The exact location on the given map which the boss can spawn')}</li>
+                        <li>{t('Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map')}</li>
                     </ul>
                     <DataTable
                         key="boss-spawn-table"
