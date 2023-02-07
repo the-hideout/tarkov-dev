@@ -89,21 +89,22 @@ const craftsSlice = createSlice({
             state.crafts = newCrafts;
         },
     },
-    extraReducers: {
-        [fetchCrafts.pending]: (state, action) => {
+    extraReducers: (builder) => {
+        builder.addCase(fetchCrafts.pending, (state, action) => {
             state.status = 'loading';
-        },
-        [fetchCrafts.fulfilled]: (state, action) => {
+        });
+        builder.addCase(fetchCrafts.fulfilled, (state, action) => {
             state.status = 'succeeded';
 
             if (!equal(state.crafts, action.payload)) {
                 state.crafts = action.payload;
             }
-        },
-        [fetchCrafts.rejected]: (state, action) => {
+        });
+        builder.addCase(fetchCrafts.rejected, (state, action) => {
             state.status = 'failed';
+            console.log(action.error);
             state.error = action.payload;
-        },
+        });
     },
 });
 

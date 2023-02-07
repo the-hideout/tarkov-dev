@@ -6,79 +6,13 @@ import SEO from '../../components/SEO';
 import DataTable from '../../components/data-table';
 import CenterCell from '../../components/center-cell';
 
-import wipeDetailsJson from '../../data/wipe-details.json';
+import { averageWipeLength, wipeDetails } from '../../modules/wipe-length';
 
 import './index.css';
 
-// number or wipes to use when calculating the average
-const CountLastNumWipesForAverage = 6; //Infinity;
+const lengthDaysAverage = averageWipeLength();
 
-const wipeDetails = wipeDetailsJson.map((wipeDetailJson) => {
-    return {
-        ...wipeDetailJson,
-        start: new Date(wipeDetailJson.start),
-    };
-});
-
-const data = [];
-for (let i = 0; i < wipeDetails.length; i += 1) {
-    const currentWipe = wipeDetails[i];
-    const nextWipe = wipeDetails[i + 1];
-
-    let end;
-    let ongoing;
-    if (nextWipe) {
-        end = nextWipe.start;
-        ongoing = false;
-    } else {
-        end = new Date();
-        ongoing = true;
-    }
-
-    const lengthDays = Math.floor(
-        (end.getTime() - currentWipe.start.getTime()) / (1000 * 60 * 60 * 24),
-    );
-
-    const addData = {
-        ...currentWipe,
-        lengthDays,
-        end,
-        ongoing,
-    };
-    data.push(addData);
-}
-
-// calculate average wipe length
-const calculateAverage = (wipeDatas) => {
-    const endedWipes = wipeDatas.filter(({ ongoing }) => !ongoing);
-    endedWipes.sort((a, b) => b.start.getTime() - a.start.getTime());
-    const calculateUsingWipes = endedWipes.slice(
-        0,
-        CountLastNumWipesForAverage,
-    );
-
-    let sum = 0;
-    for (const endedWipe of calculateUsingWipes) {
-        sum += endedWipe.lengthDays;
-    }
-    const average = sum / calculateUsingWipes.length;
-
-    return Math.floor(average);
-};
-
-const lengthDaysAverage = calculateAverage(data);
-
-// Add average wipe length to the table
-// data.push({
-//     name: `Average${
-//         Number.isFinite(CountLastNumWipesForAverage)
-//             ? ` last ${CountLastNumWipesForAverage} wipes`
-//             : ''
-//     }`,
-//     lengthDays: lengthDaysAverage,
-// });
-
-data.reverse();
+const data = wipeDetails();
 
 const WipeLength = (props) => {
     const { t } = useTranslation();

@@ -17,22 +17,22 @@ const itemsSlice = createSlice({
     name: 'items',
     initialState,
     reducers: {},
-    extraReducers: {
-        [fetchItems.pending]: (state, action) => {
+    extraReducers: (builder) => {
+        builder.addCase(fetchItems.pending, (state, action) => {
             state.status = 'loading';
-        },
-        [fetchItems.fulfilled]: (state, action) => {
+        });
+        builder.addCase(fetchItems.fulfilled, (state, action) => {
             state.status = 'succeeded';
 
             if (!equal(state.items, action.payload)) {
                 state.items = action.payload;
             }
-        },
-        [fetchItems.rejected]: (state, action) => {
+        });
+        builder.addCase(fetchItems.rejected, (state, action) => {
             state.status = 'failed';
             console.log(action.error);
             state.error = action.payload;
-        },
+        });
     },
 });
 
