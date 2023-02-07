@@ -142,6 +142,9 @@ function BossPage(params) {
         }
         for ( const attach of gear.item.containsItems) {
             const attachItem = items.find(it => it.id === attach.item.id);
+            if (!attachItem) {
+                continue;
+            }
             const attachItemValue = getItemSlotValue(item);
             if (attachItem.types.includes('noFlea') || attachItemValue > lootValueCutoff) {
                 loot.push(gear.item);

@@ -96,21 +96,21 @@ const bartersSlice = createSlice({
             state.barters = newBarters;
         },
     },
-    extraReducers: {
-        [fetchBarters.pending]: (state, action) => {
+    extraReducers: (builder) => {
+        builder.addCase(fetchBarters.pending, (state, action) => {
             state.status = 'loading';
-        },
-        [fetchBarters.fulfilled]: (state, action) => {
+        });
+        builder.addCase(fetchBarters.fulfilled, (state, action) => {
             state.status = 'succeeded';
 
             if (!equal(state.barters, action.payload)) {
                 state.barters = action.payload;
             }
-        },
-        [fetchBarters.rejected]: (state, action) => {
+        });
+        builder.addCase(fetchBarters.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.payload;
-        },
+        });
     },
 });
 

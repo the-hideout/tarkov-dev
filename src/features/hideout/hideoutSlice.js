@@ -21,21 +21,22 @@ const hideoutSlice = createSlice({
     name: 'hideout',
     initialState,
     reducers: {},
-    extraReducers: {
-        [fetchHideout.pending]: (state, action) => {
+    extraReducers: (builder) => {
+        builder.addCase(fetchHideout.pending, (state, action) => {
             state.status = 'loading';
-        },
-        [fetchHideout.fulfilled]: (state, action) => {
+        });
+        builder.addCase(fetchHideout.fulfilled, (state, action) => {
             state.status = 'succeeded';
 
             if (!equal(state.hideout, action.payload)) {
                 state.hideout = action.payload;
             }
-        },
-        [fetchHideout.rejected]: (state, action) => {
+        });
+        builder.addCase(fetchHideout.rejected, (state, action) => {
             state.status = 'failed';
+            console.log(action.error);
             state.error = action.payload;
-        },
+        });
     },
 });
 
