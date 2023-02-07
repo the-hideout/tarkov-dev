@@ -3,13 +3,14 @@ import {
     VictoryChart,
     VictoryLine,
     VictoryTheme,
-    // VictoryAxis,
+    VictoryAxis,
     // VictoryTooltip,
     VictoryVoronoiContainer,
 } from 'victory';
 import { useTranslation } from 'react-i18next';
 
 import formatPrice from '../../modules/format-price';
+// import { getRelativeTimeAndUnit } from '../../modules/format-duration';
 
 import './index.css';
 
@@ -79,6 +80,20 @@ function PriceGraph({ itemId, itemChange24 }) {
                     />
                 }
             >
+                <VictoryAxis
+                    tickFormat={(dateParsed) => {
+                        // let relativeTime = getRelativeTimeAndUnit(dateParsed);
+                        // 
+                        // return t('{{val, relativetime}}', { val: relativeTime[0], range: relativeTime[1] })
+
+                        return t('{{val, datetime}}', { val: dateParsed,
+                            formatParams: {
+                                val: { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' },
+                            },
+                        })
+                    }}
+                />
+                <VictoryAxis dependentAxis/>
                 <VictoryLine
                     padding={{ right: -120 }}
                     scale={{

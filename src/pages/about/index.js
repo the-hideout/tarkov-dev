@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Avatar } from '@primer/react';
+
+import { ReactComponent as GithubIcon } from '../../components/supporter/Github.svg';
+import { ReactComponent as DiscordIcon } from '../../components/supporter/Discord.svg';
 
 // import SupportersList from '../../components/supporters-list';
 
@@ -21,71 +24,62 @@ function About() {
         <div className={'page-wrapper'} key="about-page-content">
             <h1>{t('About')}</h1>
             <h2>{t('Open source')}</h2>
-            <p>
-                {t(
-                    'The whole platform is open source and focused around developers. All code is available on',
-                )}{' '}
-                <a href="https://github.com/the-hideout/tarkov-dev" target="_blank" rel="noopener noreferrer">GitHub</a>
-                <span>.</span>
-            </p>
+            <Trans i18nKey={'about-open-source-p'}>
+                <p>
+                    The whole platform is open source and focused around developers. All code is available on <a href="https://github.com/the-hideout/tarkov-dev" target="_blank" rel="noopener noreferrer"><GithubIcon /> GitHub</a>.
+                </p>
+            </Trans>
             <h2>{t('Discussions & feedback')}</h2>
-            <p>
-                {t('If you wanna have a chat, ask questions or request features, we have a')}{' '}
-                <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer">Discord</a> {t('server')}
-            </p>
+            <Trans i18nKey={'about-discord-p'}>
+                <p>
+                    If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
+                </p>
+            </Trans>
             <h2>{t('Support')}</h2>
+            <Trans i18nKey={'about-support-ukraine-p'}>
             <p>
-                {t(
-                    'We encourage everyone who can to donate to support the people of Ukraine using the button below',
-                )}
-                <span>.</span>
+                We encourage everyone who can to donate to support the people of Ukraine using the button below.
             </p>
+            </Trans>
             <UkraineButton />
+            <Trans i18nKey={'about-support-collective-p'}>
             <p>
-                {t(
-                    "If you'd also like to support this project, you can make a donation and/or become a backer on",
-                )}{' '}
-                <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noopener noreferrer">
-                    Open Collective
-                </a>
-                <span>.</span>
+                If you'd also like to support this project, you can make a donation and/or become a backer on <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noopener noreferrer">Open Collective</a>.
             </p>
+            </Trans>
+            <Trans i18nKey={'about-support-more-p'}>
             <p>
-                {t(
-                    'You can also help by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site.',
-                )}
+                You can also help by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site.
             </p>
+            </Trans>
             <h2>{t('API')}</h2>
+            <Trans i18nKey={'about-api-p'}>
             <p>
-                {t(
-                    'We offer a 100% free and publically accessible API for all your Tarkov development needs - ',
-                )}{' '}
-                <Link to="/api/">API</Link>{' '}
+                We offer a 100% free and publically accessible API for all your Tarkov development needs - <Link to="/api/">API</Link>.
             </p>
+            </Trans>
             <h2>{t('History')}</h2>
+            <Trans i18nKey={'about-history-p'}>
             <p>
-                {t('This project is a fork of')}{' '}
-                <a href="https://github.com/kokarn/tarkov-tools" target="_blank" rel="noopener noreferrer">tarkov-tools.com</a>
-                {'. '}
-                {t('The original creator')} <a href="https://github.com/kokarn">@kokarn</a>{' '}
-                {t(
-                    'decided to shut the site down. In the spirit of open source, a group of developers came together to revive the site in order to continue providing a great website for the Tarkov community and an API to power further development for creators. This project is now 100% open source and developer first. Our GitHub Organization',
-                )}
-                {' ('}
-                <a href="https://github.com/the-hideout" target="_blank" rel="noopener noreferrer">the-hideout</a>
-                {') '}
-                {t(
-                    'contains all the repos which power the API, this website, the community Discord bot, server infrastructure, and much more! We are passionate about open source and love pull requests to improve our ecosystem for all.',
-                )}{' '}
+                This project is a fork of <a href="https://github.com/kokarn/tarkov-tools" target="_blank" rel="noopener noreferrer">tarkov-tools.com</a>.
+                The original creator <a href="https://github.com/kokarn">@kokarn</a> decided to shut the site down.
+                In the spirit of open source, a group of developers came together to revive the site in order to continue providing a great website for the Tarkov community and an API to power further development for creators.
+                This project is now 100% open source and developer first.
+                Our GitHub Organization (<a href="https://github.com/the-hideout" target="_blank" rel="noopener noreferrer">the-hideout</a>) contains all the repos which power the API, this website, the community Discord bot, server infrastructure, and much more! We are passionate about open source and love pull requests to improve our ecosystem for all.
             </p>
+            </Trans>
             <h2>{t('Core Contributors')}</h2>
-            {t('The core contributors to this project (in no particular order) are:')}
+            <Trans i18nKey={'about-core-contributors-p'}>
+            <p>
+                The core contributors to this project (in no particular order) are:
+            </p>
+            </Trans>
             <ul>
                 <li>
                     <a href="https://github.com/Razzmatazzz" target="_blank" rel="noopener noreferrer">
                         <Avatar src="https://avatars.githubusercontent.com/Razzmatazzz?size=24" />
                         {' @Razzmatazzz'}
-                    </a>{' '}
+                    </a>
                 </li>
                 <li>
                     <a href="https://github.com/austinhodak" target="_blank" rel="noopener noreferrer">
@@ -115,7 +109,7 @@ function About() {
                     <a href="https://github.com/johndongus" target="_blank" rel="noopener noreferrer">
                         <Avatar src="https://avatars.githubusercontent.com/johndongus?size=24" />
                         {' @johndongus'}
-                    </a>{' '}
+                    </a>
                 </li>
                 <li>
                     <a href="https://github.com/Shebuka" target="_blank" rel="noopener noreferrer">
@@ -125,24 +119,12 @@ function About() {
                 </li>
             </ul>
             <h2>{t('All Contributors')}</h2>
+            <Trans i18nKey={'about-all-contributors-p'}>
             <p>
-                Massive thank you to all the people that have contributed to this project to make it
-                possible! ❤️
+                Massive thank you to all the people that have contributed to this project to make it possible! ❤️
             </p>
+            </Trans>
             <Contributors size={36} />
-
-            {/* <h3>{t('Gold supporters')}</h3>
-            <SupportersList tierFilter={'Gold supporter'} />
-            <h3>{t('Silver supporters')}</h3>
-            <SupportersList tierFilter={'Silver supporter'} />
-            <h3>{t('Expert supporters')}</h3>
-            <SupportersList tierFilter={'Expert'} />
-            <h3>{t('Advanced Supporters')}</h3>
-            <SupportersList tierFilter={'Advanced'} />
-            <h3>{t('Basic Supporters')}</h3>
-            <SupportersList tierFilter={'Basic'} type={'inline'} />
-            <h3>{t('Contributors')}</h3>
-            <SupportersList typeFilter={'github'} type={'inline'} /> */}
         </div>,
     ];
 }

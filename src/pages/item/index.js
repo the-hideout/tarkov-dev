@@ -36,6 +36,7 @@ import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
 import {
     useItemByNameQuery,
     useItemByIdQuery,
+    useItemsQuery,
 } from '../../features/items/queries';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 
@@ -120,11 +121,11 @@ function Item() {
 
     const { data: meta } = useMetaQuery();
     const dispatch = useDispatch();
-    const barters = useSelector(selectAllBarters);
+    const barterSelector = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
         return state.barters.status;
     });
-    const crafts = useSelector(selectAllCrafts);
+    const craftSelector = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
         return state.crafts.status;
     });
@@ -137,6 +138,64 @@ function Item() {
         return state.quests.status;
     });
     const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
+
+    const {data: items} = useItemsQuery();
+
+    const barters = useMemo(() => {
+        return barterSelector.map(b => {
+            return {
+                ...b,
+                requiredItems: b.requiredItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return false;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }).filter(Boolean),
+                rewardItems: b.rewardItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return false;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }).filter(Boolean),
+            };
+        });
+    }, [barterSelector, items]);
+
+    const crafts = useMemo(() => {
+        return craftSelector.map(c => {
+            return {
+                ...c,
+                requiredItems: c.requiredItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return false;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }),
+                rewardItems: c.rewardItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return false;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }).filter(Boolean),
+            };
+        });
+    }, [craftSelector, items]);
 
     useEffect(() => {
         let timer = false;
@@ -363,8 +422,8 @@ function Item() {
                     </div>
                 </div>
                 {t(
-                    `The last observed low price for this item on the Flea Market was {{lastSeenPrice}}.
-                    However, due to how fees are calculated, you're better off selling for {{bestPrice}}.`, 
+`The last observed low price for this item on the Flea Market was {{lastSeenPrice}}.
+However, due to how fees are calculated, you're better off selling for {{bestPrice}}.`,
                     {
                         lastSeenPrice: formatPrice(currentItemData.lastLowPrice),
                         bestPrice: formatPrice(currentItemData.bestPrice)
@@ -403,13 +462,13 @@ function Item() {
                     </div>
                 </div>
                 {t(
-                    `This item has not been observed on the Flea Market. 
-                    The maximum profitable price is {{bestPrice}}, but
-                    the item may not sell at that price. 
-                    The max profitable price is impacted by the intel center and hideout management skill levels in your settings.
-                    `,{
+`This item has not been observed on the Flea Market.
+The maximum profitable price is {{bestPrice}}, but the item may not sell at that price.
+The max profitable price is impacted by the intel center and hideout management skill levels in your settings.`,
+                    {
                         bestPrice: formatPrice(currentItemData.bestPrice)
-                    })}
+                    }
+                )}
             </div>
         )
         if (currentItemData.cached) {

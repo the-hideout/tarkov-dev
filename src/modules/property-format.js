@@ -4,6 +4,8 @@ import { isValidElement } from 'react';
 import camelcaseToDashes from './camelcase-to-dashes';
 import { formatCaliber } from './format-ammo';
 
+import i18n from '../i18n';
+
 const defaultFormat = (inputString) => {
     const baseFormat = camelcaseToDashes(inputString).replace(/-/g, ' ');
 
@@ -43,7 +45,7 @@ const formatter = (key, value) => {
         value = value.value;
     } 
 
-    let displayKey = defaultFormat(key);
+    let displayKey = i18n.t(key, { ns: 'properties' })
 
     if (key === 'weight') {
         value = `${value} kg`;
@@ -53,20 +55,11 @@ const formatter = (key, value) => {
         value = `${value*100}%`;
     }
 
-    if (key === 'ricochetY') {
-        displayKey = 'Ricochet chance';
-    }
-
     if (key === 'armorZone') {
-        if (value?.length > 1) {
-            displayKey = `${displayKey}s`;
-        }
-
         value = value?.map(defaultFormat).join(', ');
     }
 
     if (key === 'turnPenalty') {
-        displayKey = 'Turn speed';
         value = `${value*100}%`;
     }
 

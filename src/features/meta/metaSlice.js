@@ -18,22 +18,22 @@ const metaSlice = createSlice({
     name: 'meta',
     initialState,
     reducers: {},
-    extraReducers: {
-        [fetchMeta.pending]: (state, action) => {
+    extraReducers: (builder) => {
+        builder.addCase(fetchMeta.pending, (state, action) => {
             state.status = 'loading';
-        },
-        [fetchMeta.fulfilled]: (state, action) => {
+        });
+        builder.addCase(fetchMeta.fulfilled, (state, action) => {
             state.status = 'succeeded';
 
             if (!equal(state.meta, action.payload)) {
                 state.meta = action.payload;
             }
-        },
-        [fetchMeta.rejected]: (state, action) => {
+        });
+        builder.addCase(fetchMeta.rejected, (state, action) => {
             state.status = 'failed';
             console.log(action.error);
             state.error = action.payload;
-        },
+        });
     },
 });
 

@@ -183,6 +183,7 @@ function Control(props) {
                 // isMulti = {isMulti}
                 isDisabled={!socketConnected}
                 name="colors"
+                placeholder={t('Select...')}
                 options={itemList}
                 className="basic-multi-select"
                 onChange={handleSelectChange}
