@@ -11,7 +11,7 @@
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Rogues",
         "health": 770,
-        "behavior": "patrol",
+        "behavior": "Patrol",
         "loot": [
             {
                 "id": "5b44d0de86f774503d30cba8",
@@ -79,7 +79,7 @@
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/raiders",
         "health": 750,
-        "behavior": "rush",
+        "behavior": "Rush",
         "loot": [
             {
                 "id": "5ac66d725acfc43b321d4b60",
@@ -123,7 +123,7 @@
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/cultists",
-        "behavior": "stalker"
+        "behavior": "Stalker"
     },
     {
         "name": "Death Knight",
@@ -161,7 +161,7 @@
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/knight",
-        "behavior": "rush"
+        "behavior": "Rush"
     },
     {
         "name": "Glukhar",
@@ -179,7 +179,7 @@
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/glukhar",
-        "behavior": "hostile and accurate"
+        "behavior": "Hostile and accurate"
     },
     {
         "name": "Killa",
@@ -197,7 +197,7 @@
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/killa",
-        "behavior": "patrol and highly armored"
+        "behavior": "Patrol and highly armored"
     },
     {
         "name": "Reshala",
@@ -215,7 +215,7 @@
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/reshala",
-        "behavior": "group patrol"
+        "behavior": "Group patrol"
     },
     {
         "name": "Sanitar",
@@ -241,7 +241,7 @@
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/sanitar",
-        "behavior": "frequent healing and stim injections"
+        "behavior": "Frequent healing and stim injections"
     },
     {
         "name": "Shturman",
@@ -259,7 +259,7 @@
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/shturman",
-        "behavior": "sniper"
+        "behavior": "Sniper"
     },
     {
         "name": "Tagilla",
@@ -293,7 +293,7 @@
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/tagilla",
-        "behavior": "batshit insane"
+        "behavior": "Batshit insane"
     },
     {
         "name": "Zryachiy",
@@ -327,6 +327,6 @@
             }
         ],
         "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Zryachiy",
-        "behavior": "sniper"
+        "behavior": "Sniper"
     }
 ]

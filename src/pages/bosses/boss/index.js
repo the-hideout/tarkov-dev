@@ -182,7 +182,7 @@ function BossPage(params) {
 
     // Format the bossProperties data for the 'stats' section
     var bossProperties = {}
-    bossProperties[t('map') + ' 🗺️'] = bossMaps;
+    bossProperties[t('Map') + ' 🗺️'] = bossMaps;
 
     // Collect spawn stats for each map
     var spawnStatsMsg = [];
