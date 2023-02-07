@@ -366,12 +366,13 @@ function LootTier(props) {
                     checked={groupByType}
                 />
                 <SelectFilter
+                    placeholder={t('Select...')}
                     defaultValue={filters.types?.map((filter) => {
                         return filterOptions.find(
                             (defaultFilter) => defaultFilter.value === filter,
                         );
                     })}
-                    isMulti
+                    isMulti={true}
                     options={filterOptions}
                     onChange={handleFilterChange}
                 />
@@ -395,6 +396,12 @@ function LootTier(props) {
                     items={items}
                 />
             ))}
+
+            <div className="page-wrapper loot-tiers-wrapper">
+                <p>
+                    {t('loot-tiers-page-description', 'Learn about the different types of loot available in the game, their value, rarity, and what to keep and what to trash.')}
+                </p>
+            </div>
         </div>,
     ];
 }

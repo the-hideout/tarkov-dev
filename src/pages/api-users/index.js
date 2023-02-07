@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import SEO from '../../components/SEO';
 
@@ -16,11 +16,11 @@ function ApiUsers() {
         />,
         <div className={'page-wrapper api-users-page-wrapper'}>
             <h1>{t('API Users')} - {t('Tarkov.dev')}</h1>
-            <p>
-                {t('Want to be included on this page? Join the')}{' '}
-                <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer">Discord</a>{' '}
-                {t("and tell us about what you've made!")}
-            </p>
+            <Trans i18nKey={'api-users-p'}>
+                <p>
+                    Want to be included on this page? Join the <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer">Discord</a> and tell us about what you've made!
+                </p>
+            </Trans>
             {apiUsers.map((apiUser) => {
                 const projectKey = apiUser.title
                     .toLowerCase()
