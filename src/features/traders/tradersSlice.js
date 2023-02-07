@@ -19,22 +19,22 @@ const tradersSlice = createSlice({
     name: 'traders',
     initialState,
     reducers: {},
-    extraReducers: {
-        [fetchTraders.pending]: (state, action) => {
+    extraReducers: (builder) => {
+        builder.addCase(fetchTraders.pending, (state, action) => {
             state.status = 'loading';
-        },
-        [fetchTraders.fulfilled]: (state, action) => {
+        });
+        builder.addCase(fetchTraders.fulfilled, (state, action) => {
             state.status = 'succeeded';
 
             if (!equal(state.traders, action.payload)) {
                 state.traders = action.payload;
             }
-        },
-        [fetchTraders.rejected]: (state, action) => {
+        });
+        builder.addCase(fetchTraders.rejected, (state, action) => {
             state.status = 'failed';
             console.log(action.error);
             state.error = action.payload;
-        },
+        });
     },
 });
 

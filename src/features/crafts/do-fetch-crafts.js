@@ -14,155 +14,12 @@ export default async function doFetchCrafts(language, prebuild = false) {
                 rewardItems {
                     item {
                         id
-                        basePrice
-                        name
-                        normalizedName
-                        iconLink
-                        wikiLink
-                        properties {
-                            ...on ItemPropertiesWeapon {
-                                defaultPreset {
-                                    iconLink
-                                }
-                            }
-                        }
-                        avg24hPrice
-                        lastLowPrice
-                        traderPrices {
-                            price
-                            currency
-                            priceRUB
-                            trader {
-                                name
-                                normalizedName
-                            }
-                        }
-                        buyFor {
-                            source
-                            vendor {
-                                name
-                                normalizedName
-                                __typename
-                                ...on TraderOffer {
-                                    trader {
-                                        id
-                                        name
-                                        normalizedName
-                                    }
-                                    minTraderLevel
-                                    taskUnlock {
-                                        id
-                                        tarkovDataId
-                                        name
-                                    }
-                                }
-                            }
-                            price
-                            priceRUB
-                            currency
-                        }
-                        sellFor {
-                            source
-                            vendor {
-                                name
-                                normalizedName
-                                __typename
-                                ...on TraderOffer {
-                                    trader {
-                                        id
-                                        name
-                                        normalizedName
-                                    }
-                                    minTraderLevel
-                                    taskUnlock {
-                                        id
-                                        tarkovDataId
-                                        name
-                                    }
-                                }
-                            }
-                            price
-                            priceRUB
-                            currency
-                        }
-                        types
                     }
                     count
                 }
                 requiredItems {
                     item {
                         id
-                        basePrice
-                        name
-                        normalizedName
-                        iconLink
-                        wikiLink
-                        properties {
-                            ...on ItemPropertiesWeapon {
-                                defaultPreset {
-                                    iconLink
-                                }
-                            }
-                        }
-                        avg24hPrice
-                        lastLowPrice
-                        traderPrices {
-                            price
-                            currency
-                            priceRUB
-                            trader {
-                                name
-                                normalizedName
-                            }
-                        }
-                        buyFor {
-                            source
-                            vendor {
-                                name
-                                normalizedName
-                                __typename
-                                ...on TraderOffer {
-                                    trader {
-                                        id
-                                        name
-                                        normalizedName
-                                    }
-                                    minTraderLevel
-                                    taskUnlock {
-                                        id
-                                        tarkovDataId
-                                        name
-                                    }
-                                }
-                            }
-                            price
-                            priceRUB
-                            currency
-                        }
-                        sellFor {
-                            source
-                            vendor {
-                                name
-                                normalizedName
-                                __typename
-                                ...on TraderOffer {
-                                    trader {
-                                        id
-                                        name
-                                        normalizedName
-                                    }
-                                    minTraderLevel
-                                    taskUnlock {
-                                        id
-                                        tarkovDataId
-                                        name
-                                    }
-                                }
-                            }
-                            price
-                            priceRUB
-                            currency
-                        }
                     }
                     count
                     attributes {
@@ -172,6 +29,9 @@ export default async function doFetchCrafts(language, prebuild = false) {
                     }
                 }
                 source
+                taskUnlock {
+                    id
+                }
             }
         }`,
     });
