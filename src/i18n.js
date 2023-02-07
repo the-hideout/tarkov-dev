@@ -16,6 +16,9 @@ import translationPT from './translations/pt/translation.json';
 import propertiesEN from './translations/en/properties.json';
 import propertiesRU from './translations/ru/properties.json';
 
+import bossesEN from './translations/en/bosses.json';
+import bossesRU from './translations/ru/bosses.json';
+
 i18n
     // loads translations from your server
     // https://github.com/i18next/i18next-http-backend
@@ -43,6 +46,7 @@ i18n
             en: {
                 translation: translationEN,
                 properties: propertiesEN,
+                bosses: bossesEN,
             },
             de: {
                 translation: translationDE,
@@ -50,6 +54,7 @@ i18n
             ru: {
                 translation: translationRU,
                 properties: propertiesRU,
+                bosses: bossesRU,
             },
             // it: {
             //     translation: translationIT,

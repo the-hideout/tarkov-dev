@@ -299,7 +299,9 @@ function BossPage(params) {
                             </span>
                         }
                         {bossData.details &&
-                            <p className='boss-details'>{bossData.details}</p>
+                            <p className='boss-details'>
+                                {t(`${bossData.normalizedName}-description`, { ns: 'bosses' })}
+                            </p>
                         }
                     </div>
                     <div className="boss-icon-and-link-wrapper">
