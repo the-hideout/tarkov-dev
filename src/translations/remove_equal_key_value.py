@@ -8,7 +8,7 @@ import os
 translations_dir = './'
 
 # List of languages
-languages = ['de', 'es', 'fr', 'it', 'ja', 'pl', 'ru']
+languages = ['de', 'es', 'fr', 'it', 'ja', 'pl', 'pt', 'ru']
 
 # Output directory
 output_dir = 'poeditor'
@@ -17,16 +17,25 @@ output_dir = 'poeditor'
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
+# Read JSON data from file
+with open(os.path.join(translations_dir, 'en', 'translation.json'), encoding='utf-8') as json_file:
+    data_en = json.load(json_file)
+
 for lang in languages:
     for file in os.listdir(os.path.join(translations_dir, lang)):
-        if file.endswith('.json'):
+        if file.endswith('translation.json'):
             # Read JSON data from file
             with open(os.path.join(translations_dir, lang, file), encoding='utf-8') as json_file:
                 data = json.load(json_file)
 
             # remove key where key == value
             for key in list(data.keys()):
-                if key == data[key]:
+                # but first check the en version
+                if key in data_en:
+                    if data_en[key] == data[key]:
+                        # del data[key]
+                        data[key] = ''
+                elif key == data[key]:
                     # del data[key]
                     data[key] = ''
 

@@ -179,11 +179,11 @@ const settingsSlice = createSlice({
             );
         },
     },
-    extraReducers: {
-        [fetchTarkovTrackerProgress.pending]: (state, action) => {
-            state.progressStatus = 'loading';
-        },
-        [fetchTarkovTrackerProgress.fulfilled]: (state, action) => {
+    extraReducers: (builder) => {
+        builder.addCase(fetchTarkovTrackerProgress.pending, (state, action) => {
+            state.status = 'loading';
+        });
+        builder.addCase(fetchTarkovTrackerProgress.fulfilled, (state, action) => {
             state.progressStatus = 'succeeded';
 
             if (action.payload) {
@@ -199,11 +199,11 @@ const settingsSlice = createSlice({
                     });
                 }
             }
-        },
-        [fetchTarkovTrackerProgress.rejected]: (state, action) => {
+        });
+        builder.addCase(fetchTarkovTrackerProgress.rejected, (state, action) => {
             state.progressStatus = 'failed';
             state.error = action.payload;
-        },
+        });
     },
 });
 

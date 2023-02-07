@@ -1,5 +1,5 @@
 import React, { Suspense, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useParams, Link } from 'react-router-dom';
 
 import Icon from '@mdi/react';
@@ -142,6 +142,9 @@ function BossPage(params) {
         }
         for ( const attach of gear.item.containsItems) {
             const attachItem = items.find(it => it.id === attach.item.id);
+            if (!attachItem) {
+                continue;
+            }
             const attachItemValue = getItemSlotValue(item);
             if (attachItem.types.includes('noFlea') || attachItemValue > lootValueCutoff) {
                 loot.push(gear.item);
@@ -179,7 +182,7 @@ function BossPage(params) {
 
     // Format the bossProperties data for the 'stats' section
     var bossProperties = {}
-    bossProperties[t('map') + ' 🗺️'] = bossMaps;
+    bossProperties[t('Map') + ' 🗺️'] = bossMaps;
 
     // Collect spawn stats for each map
     var spawnStatsMsg = [];
@@ -231,15 +234,15 @@ function BossPage(params) {
     // Display behavior info
     if (bossData.behavior) {
         bossProperties['behavior'] = {
-            // t('patrol')
-            // t('rush')
-            // t('stalker')
-            // t('hostile and accurate')
-            // t('patrol and highly armored')
-            // t('group patrol')
-            // t('frequent healing and stim injections')
-            // t('sniper')
-            // t('batshit insane')
+            // t('Patrol')
+            // t('Rush')
+            // t('Stalker')
+            // t('Hostile and accurate')
+            // t('Patrol and highly armored')
+            // t('Group patrol')
+            // t('Frequent healing and stim injections')
+            // t('Sniper')
+            // t('Batshit insane')
             value: t(bossData.behavior),
             label: `${t('Behavior')} 💡`,
             tooltip: t("The boss's general AI behavior"),
@@ -299,7 +302,9 @@ function BossPage(params) {
                             </span>
                         }
                         {bossData.details &&
-                            <p className='boss-details'>{bossData.details}</p>
+                            <p className='boss-details'>
+                                {t(`${bossData.normalizedName}-description`, { ns: 'bosses' })}
+                            </p>
                         }
                     </div>
                     <div className="boss-icon-and-link-wrapper">
@@ -349,9 +354,11 @@ function BossPage(params) {
                         />
                     </h2>
                     <ul>
-                        <li>Map: The name of the map which the boss can spawn on</li>
-                        <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
-                        <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
+                        <Trans i18nKey="boss-spawn-table-description">
+                            <li>Map: The name of the map which the boss can spawn on</li>
+                            <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
+                            <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
+                        </Trans>
                     </ul>
                     <DataTable
                         key="boss-spawn-table"

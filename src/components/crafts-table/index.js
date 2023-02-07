@@ -14,6 +14,7 @@ import {
     selectAllBarters,
     fetchBarters,
 } from '../../features/barters/bartersSlice';
+import { useItemsQuery } from '../../features/items/queries';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
@@ -31,6 +32,7 @@ import {
 } from '../../modules/format-duration';
 import bestPrice from '../../modules/best-price';
 import { useMetaQuery } from '../../features/meta/queries';
+import { useQuestsQuery } from '../../features/quests/queries';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
@@ -45,15 +47,80 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     const skippedByLevelRef = useRef();
     const feeReduction = stations['intelligence-center'] === 3 ? 0.7 - (0.003 * skills['hideout-management']) : 1;
 
-    const crafts = useSelector(selectAllCrafts);
+    const craftSelector = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
         return state.crafts.status;
     });
 
-    const barters = useSelector(selectAllBarters);
+    const barterSelector = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
         return state.barters.status;
     });
+
+    const {data: items} = useItemsQuery();
+
+    const {data: tasks} = useQuestsQuery();
+
+    const barters = useMemo(() => {
+        return barterSelector.map(b => {
+            return {
+                ...b,
+                requiredItems: b.requiredItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return false;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }).filter(Boolean),
+                rewardItems: b.rewardItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return false;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }).filter(Boolean),
+            };
+        });
+    }, [barterSelector, items]);
+
+    const crafts = useMemo(() => {
+        return craftSelector.map(c => {
+            let taskUnlock = c.taskUnlock;
+            if (taskUnlock) {
+                taskUnlock = tasks.find(t => t.id === taskUnlock.id);
+            }
+            return {
+                ...c,
+                requiredItems: c.requiredItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return false;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }).filter(Boolean),
+                rewardItems: c.rewardItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return false;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }).filter(Boolean),
+                taskUnlock: taskUnlock,
+            };
+        });
+    }, [craftSelector, items, tasks]);
 
     const { data: meta } = useMetaQuery();
 
@@ -224,6 +291,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         iconLink: craftRow.rewardItems[0].item.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                         count: craftRow.rewardItems[0].count,
                         sellValue: 0, 
+                        taskUnlock: craftRow.taskUnlock,
                     },
                     cached: craftRow.cached,
                 };

@@ -18,7 +18,7 @@ import TraderPriceCell from '../trader-price-cell';
 import CenterCell from '../center-cell';
 import ItemNameCell from '../item-name-cell';
 import FleaPriceCell from '../flea-price-cell';
-import BarterToolTip from '../barter-tooltip';
+import BarterTooltip from '../barter-tooltip';
 import DataTable from '../data-table';
 import LoadingSmall from '../loading-small';
 import ArrowIcon from '../../components/data-table/Arrow.js';
@@ -317,7 +317,7 @@ function SmallItemTable(props) {
         return seeds;
     },[itemCount, defaultRandom]);
 
-    const barters = useSelector(selectAllBarters);
+    const barterSelector = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
         return state.barters.status;
     });
@@ -341,6 +341,34 @@ function SmallItemTable(props) {
             clearInterval(timer);
         };
     }, [bartersStatus, barterPrice, cheapestPrice, dispatch]);
+
+    const barters = useMemo(() => {
+        return barterSelector.map(b => {
+            return {
+                ...b,
+                requiredItems: b.requiredItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return false;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }).filter(Boolean),
+                rewardItems: b.rewardItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return false;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }).filter(Boolean),
+            };
+        });
+    }, [barterSelector, items]);
 
     const containedItems = useMemo(() => {
         if (!containedInFilter) 
@@ -1008,7 +1036,7 @@ function SmallItemTable(props) {
                             placement="bottom"
                             interactive={true}
                             content={
-                                <BarterToolTip
+                                <BarterTooltip
                                     barter={props.row.original.barterPrice?.barter}
                                     showAllSources={showAllSources}
                                 />
@@ -1616,7 +1644,7 @@ function SmallItemTable(props) {
                             priceSource += ` ${t('LL{{level}}', { level: priceInfo.barter.level })}`;
                             barterIcon = (
                                 <Icon
-                                key="barter-tooltip-icon"
+                                    key="barter-tooltip-icon"
                                     path={mdiAccountSwitch}
                                     size={1}
                                     className="icon-with-text"
@@ -1639,7 +1667,7 @@ function SmallItemTable(props) {
                                 );
                             }
                             tipContent = (
-                                <BarterToolTip
+                                <BarterTooltip
                                     barter={props.row.original.barterPrice.barter}
                                     showTitle={taskIcon !== ''}
                                     title={barterTipTitle}

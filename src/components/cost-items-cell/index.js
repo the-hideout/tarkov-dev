@@ -18,9 +18,7 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                 return (
                     <div
                         key={`cost-item-${itemIndex}`}
-                        className={`cost-item-wrapper ${
-                            costItem.count === 0 ? 'disabled' : ''
-                        }`}
+                        className={`cost-item-wrapper ${costItem.count === 0 ? 'disabled' : ''}`}
                         onClick={(event) => {
                             // Don't allow to toggle/disable tools
                             if (costItem.isTool === true) {
@@ -51,7 +49,7 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                         <div className="cost-image-wrapper">
                             <RewardImage
                                 count={costItem.count}
-                                iconLink={`https://assets.tarkov.dev/${costItem.id}-icon.jpg`}
+                                iconLink={costItem.iconLink}
                                 isTool={costItem.isTool}
                             />
                         </div>

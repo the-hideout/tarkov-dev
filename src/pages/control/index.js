@@ -142,7 +142,7 @@ function Control(props) {
         <div className="control-wrapper" key="">
             <h1>{t('Remote Control')}</h1>
             <div className={'control-section'}>
-                <span>{t('View map')}:</span>
+                <span>{t('View Map')}:</span>
                 <select
                     disabled={!socketConnected}
                     name="map"
@@ -183,6 +183,7 @@ function Control(props) {
                 // isMulti = {isMulti}
                 isDisabled={!socketConnected}
                 name="colors"
+                placeholder={t('Select...')}
                 options={itemList}
                 className="basic-multi-select"
                 onChange={handleSelectChange}

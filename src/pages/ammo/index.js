@@ -2,7 +2,7 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import Icon from '@mdi/react';
@@ -218,11 +218,14 @@ function Ammo() {
             </div>
             
             <div className="page-wrapper ammo-page-wrapper">
+            <Trans i18nKey={'ammo-page-p'}>
                 <p>
-                    {"The wilderness of Tarkov includes a diverse range of ammunition. To combat different opponents, different types of ammunition are needed."}<br/>
-                    <br/>
-                    {"This page contains a list of every type of ammo in Escape from Tarkov. To filter the complete list of available cartridges, click the name of a caliber."}
+                    The wilderness of Tarkov includes a diverse range of ammunition. To combat different opponents, different types of ammunition are needed.
                 </p>
+                <p>
+                    This page contains a list of every type of ammo in Escape from Tarkov. To filter the complete list of available cartridges, click the name of a caliber.
+                </p>
+            </Trans>
             </div>
             <Filter>
                 <ToggleFilter

@@ -156,111 +156,72 @@ try {
     const langs = allLangs.filter(lang => lang !== 'en')
     const apiPromises = [];
 
-    apiPromises.push(doFetchItems('en', true).then(items => {
-        const groupedItemsDic = items.reduce((acc, item) => {
-            if (!acc[item.bsgCategoryId]) {
-                acc[item.bsgCategoryId] = []
-            }
-            acc[item.bsgCategoryId].push(item);
-            return acc;
-        }, {});
-        const filteredItemsDic = Object.values(groupedItemsDic).map(group => group.slice(0, 7));
-        const filteredItems = [].concat(...filteredItemsDic);
-
-        for (const item of filteredItems) {
-            item.lastLowPrice = 0;
-            item.avg24hPrice = 0;
-            item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-            item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-            item.cached = true;
-        }
-        fs.writeFileSync('./src/data/items.json', JSON.stringify(filteredItems));
-
-        return new Promise(async resolve => {
-            const itemLangs = {};
-            await getItemNames(langs).then(itemResults => {
-                for (const lang in itemResults) {
-                    const localization = {};
-                    itemResults[lang].forEach(item => {
-                        if (filteredItems.find(filteredItem => filteredItem.id == item.id)) {
-                            localization[item.id] =  {
-                                name: item.name,
-                                shortName: item.shortName
-                            };
+    apiPromises.push(Promise.all([
+        doFetchBarters('en', true).then(barters => {
+            fs.writeFileSync('./src/data/barters.json', JSON.stringify(barters));
+            return barters;
+        }),
+        doFetchCrafts('en', true).then(crafts => {
+            fs.writeFileSync('./src/data/crafts.json', JSON.stringify(crafts));
+            return crafts;
+        })
+    ]).then((bartersAndCrafts) => {
+        return doFetchItems('en', true).then(items => {
+            const filteredItems = [];
+            for (const bartersCrafts of bartersAndCrafts) {
+                bartersCrafts.forEach(bc => {
+                    for (const cItem of bc.rewardItems) {
+                        if (!filteredItems.some(i => i.id === cItem.item.id)) {
+                            filteredItems.push(items.find(i => i.id === cItem.item.id));
                         }
-                    });
-                    itemLangs[lang] = localization;
+                    }
+                    for (const cItem of bc.requiredItems) {
+                        if (!filteredItems.some(i => i.id === cItem.item.id)) {
+                            filteredItems.push(items.find(i => i.id === cItem.item.id));
+                        }
+                    }
+                });
+            }
+
+            /*const groupedItemsDic = items.reduce((acc, item) => {
+                if (!acc[item.bsgCategoryId]) {
+                    acc[item.bsgCategoryId] = []
                 }
+                acc[item.bsgCategoryId].push(item);
+                return acc;
+            }, {});
+            const filteredItemsDic = Object.values(groupedItemsDic).map(group => group.slice(0, 7));
+            const filteredItems = [].concat(...filteredItemsDic);*/
+
+            for (const item of filteredItems) {
+                item.lastLowPrice = 0;
+                item.avg24hPrice = 0;
+                item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
+                item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
+                item.cached = true;
+            }
+            fs.writeFileSync('./src/data/items.json', JSON.stringify(filteredItems));
+    
+            return new Promise(async resolve => {
+                const itemLangs = {};
+                await getItemNames(langs).then(itemResults => {
+                    for (const lang in itemResults) {
+                        const localization = {};
+                        itemResults[lang].forEach(item => {
+                            if (filteredItems.find(filteredItem => filteredItem.id == item.id)) {
+                                localization[item.id] =  {
+                                    name: item.name,
+                                    shortName: item.shortName
+                                };
+                            }
+                        });
+                        itemLangs[lang] = localization;
+                    }
+                });
+                fs.writeFileSync(`./src/data/items_locale.json`, JSON.stringify(itemLangs));
+                resolve();
             });
-            fs.writeFileSync(`./src/data/items_locale.json`, JSON.stringify(itemLangs));
-            resolve();
         });
-    }));
-
-    apiPromises.push(doFetchBarters('en', true).then(barters => {
-        const groupedBartersDic = barters.reduce((acc, barter) => {
-            if (!acc[barter.source]) {
-                acc[barter.source] = []
-            }
-            acc[barter.source].push(barter);
-            return acc;
-        }, {});
-        const filteredBartersDic = Object.values(groupedBartersDic).map(group => group.slice(0, 6));
-        const filteredBarters = [].concat(...filteredBartersDic);
-
-        for (const barter of filteredBarters) {
-            barter.rewardItems.forEach(containedItem => {
-                const item = containedItem.item;
-                item.lastLowPrice = 0;
-                item.avg24hPrice = 0;
-                item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.cached = true;
-            });
-            barter.requiredItems.forEach(containedItem => {
-                const item = containedItem.item;
-                item.lastLowPrice = 0;
-                item.avg24hPrice = 0;
-                item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.cached = true;
-            });
-            barter.cached = true;
-        }
-        fs.writeFileSync('./src/data/barters.json', JSON.stringify(filteredBarters));
-    }));
-
-    apiPromises.push(doFetchCrafts('en', true).then(crafts => {
-        const groupedCraftsDic = crafts.reduce((acc, craft) => {
-            if (!acc[craft.source]) {
-                acc[craft.source] = []
-            }
-            acc[craft.source].push(craft);
-            return acc;
-        }, {});
-        const filteredCraftsDic = Object.values(groupedCraftsDic).map(group => group.slice(0, 6));
-        const filteredCrafts = [].concat(...filteredCraftsDic);
-
-        for (const craft of filteredCrafts) {
-            craft.rewardItems.forEach(containedItem => {
-                const item = containedItem.item;
-                item.lastLowPrice = 0;
-                item.avg24hPrice = 0;
-                item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.cached = true;
-            });
-            craft.requiredItems.forEach(containedItem => {
-                const item = containedItem.item;
-                item.lastLowPrice = 0;
-                item.avg24hPrice = 0;
-                item.buyFor = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.sellFor = item.sellFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
-                item.cached = true;
-            });
-            craft.cached = true;
-        }
-        fs.writeFileSync('./src/data/crafts.json', JSON.stringify(filteredCrafts));
     }));
 
     apiPromises.push(doFetchHideout('en', true).then(hideout => {
@@ -353,7 +314,7 @@ try {
                 for (const lang in taskResults) {
                     const localization = {};
                     taskResults[lang].forEach(task => {
-                        if (filteredQuests.find(filteredQuest => filteredQuest.id == task.id)) {
+                        if (filteredQuests.find(filteredQuest => filteredQuest.id === task.id)) {
                             localization[task.id] =  {
                                 name: task.name,
                                 objectives: {}
@@ -373,7 +334,11 @@ try {
 
     await Promise.all(apiPromises);
 } catch (error) {
-    //console.log(error);
-    throw error;
+    if (process.env.CI) {
+        throw error;
+    } else {
+        console.log(error)
+        console.log("attempting to use pre-cached values (offline mode?)")
+    }
 } 
 console.timeEnd('Caching API data');

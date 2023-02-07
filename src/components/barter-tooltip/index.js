@@ -14,7 +14,7 @@ import {
 
 import './index.css';
 
-function BarterToolip({ barter, source, requiredItems, showTitle = true, title, allowAllSources }) {
+function BarterTooltip({ barter, source, requiredItems, showTitle = true, title, allowAllSources }) {
     const settings = useSelector((state) => state.settings);
     const { t } = useTranslation();
     source = source || barter?.source;
@@ -44,7 +44,7 @@ function BarterToolip({ barter, source, requiredItems, showTitle = true, title, 
     }
 
     return (
-        <div className="cost-with-barter-wrapper">
+        <div className="barter-tooltip-wrapper">
 
             {titleElement}
             {requiredItems.map((requiredItem) => {
@@ -60,14 +60,14 @@ function BarterToolip({ barter, source, requiredItems, showTitle = true, title, 
                 }
                 return (
                     <div
-                        className="cost-item-wrapper"
+                        className="barter-tooltip-item-wrapper"
                         key={`reward-tooltip-item-${requiredItem.item.id}`}
                     >
                         <RewardImage
                             count={requiredItem.count}
-                            iconLink={`https://assets.tarkov.dev/${requiredItem.item.id}-icon.jpg`}
+                            iconLink={requiredItem.item.iconLink}
                         />
-                        <div className="cost-barter-details-wrapper">
+                        <div className="barter-tooltip-details-wrapper">
                             <div>
                                 <Link
                                     to={`/item/${requiredItem.item.normalizedName}`}
@@ -78,7 +78,7 @@ function BarterToolip({ barter, source, requiredItems, showTitle = true, title, 
                             <div className="price-wrapper">
                                 <img
                                     alt={t('Barter')}
-                                    className="barter-icon"
+                                    className="barter-tooltip-icon"
                                     loading="lazy"
                                     src={`${process.env.PUBLIC_URL}/images/traders/${sourceName}-icon.jpg`}
                                 />
@@ -98,4 +98,4 @@ function BarterToolip({ barter, source, requiredItems, showTitle = true, title, 
     );
 }
 
-export default BarterToolip;
+export default BarterTooltip;

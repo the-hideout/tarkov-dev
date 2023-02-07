@@ -3,8 +3,8 @@
 }
 
 .desc-line-break {
-    margin-top: 6rem;
-    margin-bottom: 6rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     width: 50%;
 }
 
@@ -176,6 +176,11 @@ cite {
     font-size: 14px;
 }
 
+.price-wrapper-tool {
+    color: #0292c0;
+    font-size: 14px;
+}
+
 .page-headline-wrapper {
     display: flex;
     align-items: center;
@@ -217,10 +222,12 @@ div.tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
 
 div.tippy-box[data-placement^='left'] > .tippy-arrow::before {
     border-left-color: #4f4f4f;
+    right: -10px;
 }
 
 div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
     border-right-color: #4f4f4f;
+    left: -10px;
 }
 
 .hr-muted {

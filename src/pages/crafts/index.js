@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import { mdiProgressWrench } from '@mdi/js';
@@ -177,13 +177,17 @@ function Crafts() {
             />
 
             <div className="page-wrapper crafts-page-wrapper">
-                <p>
-                    {"In Escape from Tarkov, crafts allow you create a variety of things. It is accomplished using a variety of hideout modules, including the water collector, workbench, medstation, lavatory, and nutrition unit."}<br/>
-                    <br/>
-                    {"The \"Found in Raid\" status will be applied to each item created in the hideout. The entire list of these crafts is shown above. The Crafting skill has an impact on item creation time."}<br/>
-                    <br/>
-                    {"When an item's icon has a blue border, it will be utilized as an auxiliary tool and, once manufacturing is finished, it will be returned to your stash."}
-                </p>
+                <Trans i18nKey={'crafts-page-p'}>
+                    <p>
+                        In Escape from Tarkov, crafts allow you create a variety of things. It is accomplished using a variety of hideout modules, including the water collector, workbench, medstation, lavatory, and nutrition unit.
+                    </p>
+                    <p>
+                        The "Found in Raid" status will be applied to each item created in the hideout. The entire list of these crafts is shown above. The Crafting skill has an impact on item creation time.
+                    </p>
+                    <p>
+                        When an item's icon has a blue border, it will be utilized as an auxiliary tool and, once manufacturing is finished, it will be returned to your stash.
+                    </p>
+                </Trans>
             </div>
         </div>
     ];

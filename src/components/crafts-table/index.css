@@ -6,13 +6,3 @@
 .finish-wrapper {
     cursor: pointer;
 }
-
-.price-wrapper-tool {
-    color: #0292c0;
-    font-size: 14px;
-}
-
-.table-image-tool {
-    outline: 1px solid #0292c0;
-    outline-offset: -1px;
-}
