@@ -13,6 +13,9 @@ import translationJA from './translations/ja/translation.json';
 import translationPL from './translations/pl/translation.json';
 import translationPT from './translations/pt/translation.json';
 
+import propertiesEN from './translations/en/properties.json';
+import propertiesRU from './translations/ru/properties.json';
+
 i18n
     // loads translations from your server
     // https://github.com/i18next/i18next-http-backend
@@ -39,12 +42,14 @@ i18n
         resources: {
             en: {
                 translation: translationEN,
+                properties: propertiesEN,
             },
             de: {
                 translation: translationDE,
             },
             ru: {
                 translation: translationRU,
+                properties: propertiesRU,
             },
             it: {
                 translation: translationIT,
