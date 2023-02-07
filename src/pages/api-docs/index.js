@@ -1,6 +1,6 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark as atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { HashLink } from 'react-router-hash-link';
 
 import SEO from '../../components/SEO';
@@ -19,73 +19,61 @@ function APIDocs() {
         <div className={'page-wrapper api-docs-page-wrapper'}>
             <h1>{t('Tarkov.dev API')}</h1>
             <h2>{t('About')}</h2>
-            <div className="section-text-wrapper">
-                {t(`The API is written in GraphQL and we try our hardest to follow spec and not to make breaking changes.
-                 To learn about what queries you can make and how the schema is structured, 
-                 visit the playground and click the 'Docs' tab on the right side. 
-                 Once you're ready to try some queries, you can also test them out in the playground.
-                 To learn about GraphQL queries generally, the GraphQL Foundation has helpful resources.`)}
-                <ul>
-                    <li>
-                        <a href="https://api.tarkov.dev/" target="_blank" rel="noopener noreferrer">{t('Tarkov.dev GraphQL playground')}</a>
-                    </li>
-                    <li>
-                        <a href="https://graphql.org/learn/" target="_blank" rel="noopener noreferrer">{t('GraphQL Foundation resources')}</a>
-                    </li>
-                </ul>
-            </div>
-            <div className="section-text-wrapper">
-                {t('Once you\'re ready to send API queries from outside the playground, the endpoint is:')}{' '}
-                <a href="https://api.tarkov.dev/graphql" target="_blank" rel="noopener noreferrer">
-                    https://api.tarkov.dev/graphql
-                </a>
-            </div>
+            <Trans i18nKey={'api-about-p'}>
+                <div className="section-text-wrapper">
+                    The API is written in GraphQL and we try our hardest to follow spec and not to make breaking changes.
+                    To learn about what queries you can make and how the schema is structured, visit the playground and click the 'Docs' tab on the right side.
+                    Once you're ready to try some queries, you can also test them out in the playground.
+                    To learn about GraphQL queries generally, the GraphQL Foundation has helpful resources.
+                    <ul>
+                        <li>
+                            <a href="https://api.tarkov.dev/" target="_blank" rel="noopener noreferrer">Tarkov.dev GraphQL playground</a>
+                        </li>
+                        <li>
+                            <a href="https://graphql.org/learn/" target="_blank" rel="noopener noreferrer">GraphQL Foundation resources</a>
+                        </li>
+                    </ul>
+                </div>
+                <div className="section-text-wrapper">
+                    Once you're ready to send API queries from outside the playground, the endpoint is: <a href="https://api.tarkov.dev/graphql" target="_blank" rel="noopener noreferrer">https://api.tarkov.dev/graphql</a>.
+                </div>
+            </Trans>
             <h2>{t('Current API Performance')}</h2>
             <ApiMetricsGraph graph={true} />
-            <p>{'For full API metrics and performance, check out our'} <a href="https://status.tarkov.dev" target="_blank" rel="noopener noreferrer">status page</a></p>
+            <Trans i18nKey={'api-performance-p'}>
+                <p>
+                    For full API metrics and performance, check out our <a href="https://status.tarkov.dev" target="_blank" rel="noopener noreferrer">status page</a>.
+                </p>
+            </Trans>
             <h2>{t('FAQ')}</h2>
             <div className="section-text-wrapper">
                 <h3>{t('Is it free?')}</h3>
-                {t('Yes')}{' '}
+                {t('Yes')}
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Is it open source?')}</h3>
-                {t('Of course! Source code for the API can be found in its GitHub repo:')}{' '}
-                <a href="https://github.com/the-hideout/tarkov-api" target="_blank" rel="noopener noreferrer">
-                    github.com/the-hideout/tarkov-api
-                </a>
+                <Trans i18nKey={'api-faq-open-source-p'}>
+                    Of course! Source code for the API can be found in its GitHub repo: <a href="https://github.com/the-hideout/tarkov-api" target="_blank" rel="noopener noreferrer">github.com/the-hideout/tarkov-api</a>.
+                </Trans>
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Is there a rate limit?')}</h3>
-                {t(
-                    'Nope! We currently do not have a rate-limit enabled. That being said, please respect this and do not hammer the API with requests just because you can. Use common sense!',
-                )}
-                <div></div>
-                {t(
-                    "Price data is updated every 5 minutes, so there's really no need to query faster than that. ",
-                )}
-                {t(
-                    "To view an up-to-date definition of our rate-limits (or lack there-of), check our Cloudflare GitHub repo where they are defined: ",
-                )}
-                <a href="https://github.com/the-hideout/cloudflare/blob/main/terraform/security.tf" target="_blank" rel="noopener noreferrer">
-                    rate limit definition
-                </a>
+                <Trans i18nKey={'api-faq-rate-limit-p'}>
+                    Nope! We currently do not have a rate-limit enabled. That being said, please respect this and do not hammer the API with requests just because you can. Use common sense!
+                    Price data is updated every 5 minutes, so there's really no need to query faster than that.
+                    To view an up-to-date definition of our rate-limits (or lack there-of), check our Cloudflare GitHub repo where they are defined: <a href="https://github.com/the-hideout/cloudflare/blob/main/terraform/security.tf" target="_blank" rel="noopener noreferrer">rate limit definition</a>.
+                </Trans>
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('What about caching?')}</h3>
-                {t(
-                    'Since our data is updated every 5 minutes, we also cache all GraphQL queries for 5 minutes as well.',
-                )}
-                <div></div>
-                {t(
-                    'This helps to greatly reduce the load on our servers while making your requests speedy quick!',
-                )}
+                <Trans i18nKey={'api-faq-caching-p'}>
+                    Since our data is updated every 5 minutes, we also cache all GraphQL queries for 5 minutes as well.
+                    This helps to greatly reduce the load on our servers while making your requests speedy quick!
+                </Trans>
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Where is the data from?')}</h3>
-                {t(
-                    'We source data from multiple places to build an API as complete as possible. We use data from:',
-                )}
+                {t('We source data from multiple places to build an API as complete as possible. We use data from:')}
                 <ul>
                     <li>
                         <a href="https://tarkov-changes.com/" target="_blank" rel="noopener noreferrer">
@@ -183,7 +171,8 @@ request('https://api.tarkov.dev/graphql', query).then((data) => console.log(data
                     {`import requests
 
 def run_query(query):
-    response = requests.post('https://api.tarkov.dev/graphql', json={'query': query})
+    headers = {"Content-Type": "application/json"}
+    response = requests.post('https://api.tarkov.dev/graphql', headers=headers, json={'query': query})
     if response.status_code == 200:
         return response.json()
     else:
