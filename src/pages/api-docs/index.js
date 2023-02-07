@@ -183,7 +183,8 @@ request('https://api.tarkov.dev/graphql', query).then((data) => console.log(data
                     {`import requests
 
 def run_query(query):
-    response = requests.post('https://api.tarkov.dev/graphql', json={'query': query})
+    headers = {"Content-Type": "application/json"}
+    response = requests.post('https://api.tarkov.dev/graphql', headers=headers, json={'query': query})
     if response.status_code == 200:
         return response.json()
     else:
