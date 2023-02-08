@@ -4,12 +4,10 @@ import { Link, useNavigate, useMatch } from 'react-router-dom';
 function MenuItem(props) {
     const routeMatch = useMatch('/ammo/:currentAmmo');
     let currentAmmo = '';
+    let ammoTypes = [];
     if (routeMatch) {
         currentAmmo = routeMatch.params.currentAmmo;
-    }
-    let ammoTypes = currentAmmo?.split(',');
-    if (!ammoTypes) {
-        ammoTypes = [];
+        ammoTypes = currentAmmo.split(',');
     }
 
     const [checked, setChecked] = useState(
@@ -33,6 +31,9 @@ function MenuItem(props) {
     useEffect(() => {
         if (currentAmmo) {
             setChecked(currentAmmo.split(',').includes(props.displayText));
+        }
+        else {
+            setChecked(false);
         }
     }, [currentAmmo, props.displayText]);
 
