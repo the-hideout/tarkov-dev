@@ -4,7 +4,7 @@ const path = require('path');
 const got = require('got');
 
 const maps = require('../src/data/maps.json');
-const { caliberMap } = require('../src/modules/format-ammo');
+const { caliberArrayWithSplit } = require('../src/modules/format-ammo');
 
 const standardPaths = [
     '',
@@ -94,7 +94,7 @@ const addPath = (sitemap, url) => {
             sitemap = addPath(sitemap, `/boss/${bossName}`);
         }
 
-        let ammoTypes = Object.values(caliberMap).sort();
+        const ammoTypes = caliberArrayWithSplit();
 
         for (const ammoType of ammoTypes) {
             sitemap = addPath(sitemap, `/ammo/${ammoType.replace(/ /g, '%20')}`);

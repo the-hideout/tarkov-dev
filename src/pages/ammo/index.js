@@ -35,19 +35,33 @@ const skipTypes = [
 
 function Ammo() {
     const { currentAmmo } = useParams();
-    let currentAmmoList = [];
+    let currentAmmoList = useMemo(() => [], []);
+    let redirect = false;
     if (currentAmmo) {
-        currentAmmoList = currentAmmo.split(',');
+        if (currentAmmo === '12 Gauge' || currentAmmo === '20 Gauge') {
+            currentAmmoList = [`${currentAmmo} Shot`, `${currentAmmo} Slug`];
+            redirect = true;
+        }
+        else {
+            currentAmmoList = currentAmmo.split(',');
+        }
     }
     const navigate = useNavigate();
-    const [selectedLegendName, setSelectedLegendName] =
-        useState(currentAmmoList);
+
+    // if the name we got from the params is 12/20 Gauge, redirect to a nice looking path 
+    useEffect(() => {
+        if (redirect) {
+            navigate(`/ammo/${currentAmmoList.join(',')}`);
+        }
+    }, [redirect, currentAmmoList, navigate]);
+    
+    const [selectedLegendName, setSelectedLegendName] = useState(currentAmmoList);
     const [showAllTraderPrices, setShowAllTraderPrices] = useState(false);
     const [useAllProjectileDamage, setUseAllProjectileDamage] = useState(false);
     const shiftPress = useKeyPress('Shift');
-    const { t } = useTranslation();
     const { data: items } = useItemsQuery();
     const settings = useSelector((state) => state.settings);
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (currentAmmo === []) {
@@ -66,18 +80,17 @@ function Ammo() {
     let typeCache = [];
     const legendData = [];
     const formattedData = items.filter(item => {
-        return item.categories.some(cat => cat.id === '5485a8684bdc2da71d8b4567') &&
-            !skipTypes.includes(item.properties.caliber)
+        return item.categories.some(cat => cat.id === '5485a8684bdc2da71d8b4567') && !skipTypes.includes(item.properties.caliber)
     }).map(ammoData => {
         const returnData = {
             ...ammoData,
             ...ammoData.properties,
-            type: formatCaliber(ammoData.properties.caliber) || ammoData.properties.caliber.replace('Caliber', ''),
+            type: formatCaliber(ammoData.properties.caliber, ammoData.properties.ammoType),
             displayDamage: useAllProjectileDamage ? ammoData.properties.projectileCount * ammoData.properties.damage : ammoData.properties.damage,
             displayPenetration: ammoData.properties.penetrationPower,
         };
-        if (!returnData.type) console.log(returnData);
-        if (returnData.type === '12 Gauge Shot' && returnData.ammoType === 'bullet') returnData.type = returnData.type.replace('Shot', 'Slug');
+        if (!returnData.type) 
+            console.log(returnData);
 
         if (returnData.displayDamage > MAX_DAMAGE) {
             returnData.name = `${ammoData.name} (${returnData.displayDamage})`;

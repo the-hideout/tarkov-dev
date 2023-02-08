@@ -183,15 +183,23 @@ try {
                 });
             }
 
-            /*const groupedItemsDic = items.reduce((acc, item) => {
-                if (!acc[item.bsgCategoryId]) {
-                    acc[item.bsgCategoryId] = []
+            const groupedAmmoDic = items.reduce((acc, item) => {
+                if (!item.categories.some(cat => cat.id === '5485a8684bdc2da71d8b4567'))
+                    return acc;
+                
+                if (filteredItems.some(i => i.id === item.id))
+                    return acc;
+                
+                const caliberType = item.properties.caliber + item.properties.ammoType;
+                if (!acc[caliberType]) {
+                    acc[caliberType] = []
                 }
-                acc[item.bsgCategoryId].push(item);
+                acc[caliberType].push(item);
                 return acc;
             }, {});
-            const filteredItemsDic = Object.values(groupedItemsDic).map(group => group.slice(0, 7));
-            const filteredItems = [].concat(...filteredItemsDic);*/
+            const filteredAmmoDic = Object.values(groupedAmmoDic).map(group => group.sort((a, b) => b.properties.damage - a.properties.damage).slice(0, 2));
+            const filteredAmmo = [].concat(...filteredAmmoDic);
+            filteredItems.push(...filteredAmmo);
 
             for (const item of filteredItems) {
                 item.lastLowPrice = 0;
