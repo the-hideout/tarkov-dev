@@ -707,7 +707,7 @@ function SmallItemTable(props) {
                 if (caliberA === caliberB) {
                     const damageA = a.properties.damage;
                     const damageB = b.properties.damage;
-                    if (damageA == damageB)
+                    if (damageA === damageB)
                         return a.name.localeCompare(b.name);
                     return damageB - damageA;
                 }
