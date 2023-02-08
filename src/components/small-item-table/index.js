@@ -696,16 +696,22 @@ function SmallItemTable(props) {
             returnData = returnData.filter(item => {
                 if (caliberFilter.length < 1) 
                     return true;
-                let caliber = formatCaliber(item.properties.caliber);
+                let caliber = formatCaliber(item.properties.caliber, item.properties.ammoType);
                 if (!caliber) {
                     return false;
                 }
-                if (caliber === '12 Gauge Shot' && item.properties.ammoType === 'bullet') {
-                    caliber = caliber.replace('Shot', 'Slug');
-                }
                 return caliberFilter.includes(caliber);
             }).sort((a, b) => {
-                return formatCaliber(a.properties.caliber).localeCompare(formatCaliber(b.properties.caliber));
+                const caliberA = formatCaliber(a.properties.caliber, a.properties.ammoType);
+                const caliberB = formatCaliber(b.properties.caliber, b.properties.ammoType);
+                if (caliberA === caliberB) {
+                    const damageA = a.properties.damage;
+                    const damageB = b.properties.damage;
+                    if (damageA == damageB)
+                        return a.name.localeCompare(b.name);
+                    return damageB - damageA;
+                }
+                return caliberA.localeCompare(caliberB);
             });
         }
 
@@ -1292,10 +1298,7 @@ function SmallItemTable(props) {
                     let caliber = item.properties.caliber;
                     if (!caliber) 
                         return '-';
-                    caliber = formatCaliber(caliber);
-                    if (caliber === '12 Gauge Shot' && item.properties.ammoType === 'bullet') {
-                        caliber = caliber.replace('Shot', 'Slug');
-                    }
+                    caliber = formatCaliber(caliber, item.properties.ammoType);
                     return caliber;
                 },
                 Cell: CenterCell,
