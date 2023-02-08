@@ -14,7 +14,7 @@ import UkraineButton from '../ukraine-button';
 //import LoadingSmall from '../loading-small';
 //import { BossListNav } from '../boss-list';
 
-import { caliberMap } from '../../modules/format-ammo';
+import { caliberArrayWithSplit } from '../../modules/format-ammo';
 import itemsData from '../../data/category-pages.json';
 import { useBossDetails } from '../../features/bosses/queries';
 
@@ -31,10 +31,9 @@ import './index.css';
 // }
 // End of banner alert toggle
 
-const ammoTypes = Object.values(caliberMap).sort();
+const ammoTypes = caliberArrayWithSplit();
 
 const getAmmoMenu = (setIsOpen) => {
-    const shotIndex = ammoTypes.findIndex(ammoType => ammoType === '12 Gauge Shot');
     const ammoMenu = ammoTypes.map((ammoType) => (
         <MenuItem
             checkbox
@@ -42,16 +41,6 @@ const getAmmoMenu = (setIsOpen) => {
             key={`menu-item-${ammoType}`}
             prefix="/ammo"
             to={`/ammo/${ammoType}`}
-            //onClick={setIsOpen.bind(this, false)}
-        />
-    ));
-    ammoMenu.splice(shotIndex+1, 0, (
-        <MenuItem
-            checkbox
-            displayText="12 Gauge Slug"
-            key="menu-item-12 Gauge Slug"
-            prefix="/ammo"
-            to="/ammo/12 Gauge Slug"
             //onClick={setIsOpen.bind(this, false)}
         />
     ));
