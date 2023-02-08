@@ -48,7 +48,7 @@ function Ammo() {
     }
     const navigate = useNavigate();
 
-    // if the name we got from the params is 12/20 Gauge, redirect to a nice looking path
+    // if the name we got from the params is 12/20 Gauge, redirect to a nice looking path 
     useEffect(() => {
         if (redirect) {
             navigate(`/ammo/${currentAmmoList.join(',')}`);
