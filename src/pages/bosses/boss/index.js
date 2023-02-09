@@ -96,7 +96,7 @@ function BossPage(params) {
         ];
     }, [t, bosses]);
 
-    const bossNameLower = params.bossName
+    const bossNameLower = params.bossName.toLowerCase();
 
     // If no bosses have been returned yet, return 'loading'
     if (!bosses || bosses.length === 0) {

@@ -47,7 +47,7 @@ function Trader() {
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [selectedTable, setSelectedTable] = useStateWithLocalStorage(
-        `${traderName}SelectedTable`,
+        `${traderName.toLowerCase()}SelectedTable`,
         'spending',
     );
     //const [showAllTraders, setShowAllTraders] = useState(false);
@@ -89,7 +89,7 @@ function Trader() {
         };
     }, [tradersStatus, dispatch]);
     
-    const trader = traders.find(tr => tr.normalizedName === traderName);
+    const trader = traders.find(tr => tr.normalizedName === traderName.toLowerCase());
 
     const levelProperties = useMemo(() => {
         const props = {};
@@ -188,7 +188,7 @@ function Trader() {
                     <PropertyList properties={levelProperties} />
                     <SmallItemTable
                         nameFilter={nameFilter}
-                        traderFilter={traderName}
+                        traderFilter={trader.normalizedName}
                         loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
                         traderBuybackFilter={selectedTable === 'spending' ? true : false}
                         maxItems={selectedTable === 'spending' ? 50 : false}
