@@ -8,9 +8,11 @@ export default async function doFetchTraders(language, prebuild = false) {
                 name
                 description
                 normalizedName
+                imageLink
                 currency {
                     id
                     name
+                    normalizedName
                 }
                 resetTime
                 discount

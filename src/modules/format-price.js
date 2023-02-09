@@ -4,7 +4,7 @@ module.exports = (price, currency = 'RUB') => {
     
     price = Math.floor(price);
 
-    if (currency === 'USD') {
+    if (currency === 'USD' || currency === 'dollars') {
         return new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
@@ -12,7 +12,7 @@ module.exports = (price, currency = 'RUB') => {
         }).format(price);
     }
 
-    if (currency === 'EUR') {
+    if (currency === 'EUR' || currency === 'euros') {
         return new Intl.NumberFormat('de-DE', {
             style: 'currency',
             currency: 'EUR',

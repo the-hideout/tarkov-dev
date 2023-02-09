@@ -96,7 +96,7 @@ function BossPage(params) {
         ];
     }, [t, bosses]);
 
-    const bossNameLower = params.bossName
+    const bossNameLower = params.bossName.toLowerCase();
 
     // If no bosses have been returned yet, return 'loading'
     if (!bosses || bosses.length === 0) {
@@ -311,7 +311,7 @@ function BossPage(params) {
                         <img
                             alt={bossData.name}
                             loading="lazy"
-                            src={`${process.env.PUBLIC_URL}/images/bosses/${bossData.normalizedName}.jpg`}
+                            src={bossData.imagePosterLink}
                         />
                     </div>
                 </div>

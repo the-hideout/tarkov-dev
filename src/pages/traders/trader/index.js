@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,8 @@ import QuestTable from '../../../components/quest-table';
 import TraderResetTime from '../../../components/trader-reset-time';
 import ErrorPage from '../../../components/error-page';
 import LoadingSmall from '../../../components/loading-small';
+import PropertyList from '../../../components/property-list';
+import formatPrice from '../../../modules/format-price';
 
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 
@@ -45,7 +47,7 @@ function Trader() {
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [selectedTable, setSelectedTable] = useStateWithLocalStorage(
-        `${traderName}SelectedTable`,
+        `${traderName.toLowerCase()}SelectedTable`,
         'spending',
     );
     //const [showAllTraders, setShowAllTraders] = useState(false);
@@ -87,7 +89,23 @@ function Trader() {
         };
     }, [tradersStatus, dispatch]);
     
-    const trader = traders.find(tr => tr.normalizedName === traderName);
+    const trader = traders.find(tr => tr.normalizedName === traderName.toLowerCase());
+
+    const levelProperties = useMemo(() => {
+        const props = {};
+        if (!Number.isInteger(selectedTable)) {
+            return props;
+        }
+        const levelInfo = trader.levels.find(l => l.level === selectedTable);
+        if (levelInfo.requiredPlayerLevel > 1) {
+            props.requiredPlayerLevel = {value: levelInfo.requiredPlayerLevel, label: `${t('Player Level')} 💪`};
+        }
+        props.requiredReputation = {value: levelInfo.requiredReputation, label: `${t('Reputation')} 📈`};
+        if (levelInfo.requiredCommerce > 0) {
+            props.requiredCommerce = {value: formatPrice(levelInfo.requiredCommerce, trader.currency.normalizedName), label: `${t('Commerce')} 💵`};
+        }
+        return props;
+    }, [trader, selectedTable, t]);
     if (!trader) 
         return <ErrorPage />;
     
@@ -127,14 +145,14 @@ function Trader() {
                             onClick={setSelectedTable.bind(undefined, 'spending')}
                         />
                     </ButtonGroupFilter>
-                    {trader.normalizedName !== 'fence' ? (
+                    {trader.normalizedName !== 'lightkeeper' ? (
                         <ButtonGroupFilter>
                             {trader.levels.map(level => (
                                 <ButtonGroupFilterButton
                                     key={level.level}
                                     tooltipContent={
                                         <>
-                                            {t('Unlocks at Loyalty Level {{level}}', { level: level.level})}
+                                            {t('Loyalty Level {{level}}', { level: level.level})}
                                         </>
                                     }
                                     selected={selectedTable === level.level}
@@ -166,20 +184,23 @@ function Trader() {
             </div>
 
             {selectedTable !== 'tasks' && (
-                <SmallItemTable
-                    nameFilter={nameFilter}
-                    traderFilter={traderName}
-                    loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
-                    traderBuybackFilter={selectedTable === 'spending' ? true : false}
-                    maxItems={selectedTable === 'spending' ? 50 : false}
-                    totalTraderPrice={true}
-                    traderValue={selectedTable === 'spending' ? 1 : false}
-                    fleaPrice={selectedTable === 'spending' ? 2 : 1}
-                    traderPrice={selectedTable === 'spending' ? false : 2}
-                    traderBuyback={selectedTable === 'spending' ? 3 : false}
-                    sortBy={selectedTable === 'spending' ? 'traderBuyback' : null}
-                    sortByDesc={true}
-                />
+                <div>
+                    <PropertyList properties={levelProperties} />
+                    <SmallItemTable
+                        nameFilter={nameFilter}
+                        traderFilter={trader.normalizedName}
+                        loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
+                        traderBuybackFilter={selectedTable === 'spending' ? true : false}
+                        maxItems={selectedTable === 'spending' ? 50 : false}
+                        totalTraderPrice={true}
+                        traderValue={selectedTable === 'spending' ? 1 : false}
+                        fleaPrice={selectedTable === 'spending' ? 2 : 1}
+                        traderPrice={selectedTable === 'spending' ? false : 2}
+                        traderBuyback={selectedTable === 'spending' ? 3 : false}
+                        sortBy={selectedTable === 'spending' ? 'traderBuyback' : null}
+                        sortByDesc={true}
+                    />
+                </div>
             )}
             {selectedTable === 'tasks' && (
                 <QuestTable

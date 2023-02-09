@@ -6,6 +6,8 @@ const doFetchBosses = async (language = 'en', prebuild = false) => {
             bosses(lang: ${language}) {
                 name
                 normalizedName
+                imagePortraitLink
+                imagePosterLink
                 health {
                     id
                     max
