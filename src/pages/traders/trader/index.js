@@ -98,11 +98,11 @@ function Trader() {
         }
         const levelInfo = trader.levels.find(l => l.level === selectedTable);
         if (levelInfo.requiredPlayerLevel > 1) {
-            props.requiredPlayerLevel = {value: levelInfo.requiredPlayerLevel, label: t('Player Level 💪')};
+            props.requiredPlayerLevel = {value: levelInfo.requiredPlayerLevel, label: `${t('Player Level')} 💪`};
         }
-        props.requiredReputation = {value: levelInfo.requiredReputation, label: t('Reputation 📈')};
+        props.requiredReputation = {value: levelInfo.requiredReputation, label: `${t('Reputation')} 📈`};
         if (levelInfo.requiredCommerce > 0) {
-            props.requiredCommerce = {value: formatPrice(levelInfo.requiredCommerce, trader.currency.normalizedName), label: t('Commerce 💵')};
+            props.requiredCommerce = {value: formatPrice(levelInfo.requiredCommerce, trader.currency.normalizedName), label: `${t('Commerce')} 💵`};
         }
         return props;
     }, [trader, selectedTable, t]);
