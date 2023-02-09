@@ -30,6 +30,10 @@ function PropertyList({ properties }) {
         [properties],
     );
 
+    if (data.length === 0) {
+        return '';
+    }
+
     return (
         <div className="property-list">
             {data.map(([property, value]) => {

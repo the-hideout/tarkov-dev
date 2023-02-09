@@ -31,7 +31,7 @@ export function BossPageList() {
                         <img
                             alt={boss.name}
                             loading='lazy'
-                            src={`${process.env.PUBLIC_URL}/images/bosses/${key}-portrait.png`}
+                            src={boss.imagePortraitLink}
                         />
                     </Link>
                 )

@@ -311,7 +311,7 @@ function BossPage(params) {
                         <img
                             alt={bossData.name}
                             loading="lazy"
-                            src={`${process.env.PUBLIC_URL}/images/bosses/${bossData.normalizedName}.jpg`}
+                            src={bossData.imagePosterLink}
                         />
                     </div>
                 </div>
