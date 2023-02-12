@@ -1,11 +1,11 @@
 import './index.css';
 
-function RewardImage({ count, iconLink, height = '64', width = '64', isTool = false, functional = false }) {
+function RewardImage({ count, iconLink, height = '64', width = '64', isTool = false, nonFunctional = false }) {
     let imageClass = 'reward-image-img';
     if (isTool) {
         imageClass = 'reward-image-img-tool';
-    } else if (functional) {
-        imageClass = 'reward-image-img-functional';
+    } else if (nonFunctional) {
+        imageClass = 'reward-image-img-nonfunctional';
     }
     return (
         <div className="reward-image-wrapper">

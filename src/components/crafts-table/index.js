@@ -98,7 +98,12 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
             return {
                 ...c,
                 requiredItems: c.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
+                    let matchedItem = items.find(it => it.id === req.item.id);
+                    if (matchedItem && matchedItem.types.includes('gun')) {
+                        if (req.attributes?.some(element => element.type === 'functional' && Boolean(element.value))) {
+                            matchedItem = items.find(it => it.id === matchedItem.properties?.defaultPreset?.id);
+                        }
+                    }
                     if (!matchedItem) {
                         return false;
                     }

@@ -204,7 +204,10 @@ const formatCostItems = (
         }
 
         const isTool = requiredItem.attributes?.some(element => element.type === 'tool');
-        const functional = requiredItem.attributes?.some(element => element.type === 'functional' && Boolean(element.value));
+        let nonFunctional = false;
+        if (requiredItem.item?.types.includes('gun')) {
+            nonFunctional = !requiredItem.attributes?.some(element => element.type === 'functional' && Boolean(element.value))
+        }
 
         const returnData = {
             id: requiredItem.item.id,
@@ -229,7 +232,7 @@ const formatCostItems = (
             wikiLink: requiredItem.item.wikiLink,
             itemLink: `/item/${requiredItem.item.normalizedName}`,
             isTool: isTool,
-            functional: functional,
+            nonFunctional,
             cached: requiredItem.item.cached,
         };
 

@@ -28,8 +28,8 @@
     outline-offset: -1px;
 }
 
-.reward-image-img-functional {
-    outline: 1px solid #02c061;
+.reward-image-img-nonfunctional {
+    outline: 1px solid #c00802;
     outline-offset: -1px;
 }
 
