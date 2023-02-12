@@ -680,14 +680,14 @@ The max profitable price is impacted by the intel center and hideout management 
                                                         condition={traderPrice.currency !== 'RUB'}
                                                         wrapper={(children) => 
                                                             <Tippy
-                                                                content={formatPrice(traderPrice.PriceRUB)}
+                                                                content={formatPrice(traderPrice.priceRUB)}
                                                                 placement="bottom"
                                                             >
                                                                 <div>{children}</div>
                                                             </Tippy>
                                                         }
                                                     >
-                                                        {formatPrice(traderPrice.Price, traderPrice.currency)}
+                                                        {formatPrice(traderPrice.price, traderPrice.currency)}
                                                     </ConditionalWrapper>
                                                 </div>
                                             </div>
