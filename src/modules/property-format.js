@@ -96,6 +96,10 @@ const formatter = (key, value) => {
         value = itemLinkFormat(value);
     }
 
+    if (key === 'defaultPreset' && value) {
+        value = itemLinkFormat(value);
+    }
+
     if (key === 'categories') {
         value = value?.map(category => {
             if (ignoreCategories.includes(category.id)) return false;

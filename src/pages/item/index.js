@@ -382,6 +382,10 @@ function Item() {
         };
     }
 
+    if (currentItemData.properties?.defaultPreset) {
+        currentItemData.properties.defaultPreset = items.find(i => i.id === currentItemData.properties.defaultPreset.id);
+    }
+
     const itemFleaFee = fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
 
     const traderIsBest = currentItemData.traderTotalPriceRUB > currentItemData.lastLowPrice - itemFleaFee;

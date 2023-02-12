@@ -129,6 +129,24 @@ try {
                     }
                 });
             }
+            for (const item of filteredItems) {
+                if (!item.types.includes('preset')) {
+                    continue;
+                }
+                const baseItem = items.find(i => i.id === item.properties.baseItem.id);
+                if (!filteredItems.some(i => i.id === baseItem.id)) {
+                    filteredItems.push(baseItem);
+                }
+            }
+            for (const item of filteredItems) {
+                if (!item.types.includes('gun')) {
+                    continue;
+                }
+                const defaultPreset = items.find(i => i.id === item.properties?.defaultPreset?.id);
+                if (defaultPreset && !filteredItems.some(i => i.id === defaultPreset.id)) {
+                    filteredItems.push(defaultPreset);
+                }
+            }
 
             const groupedAmmoDic = items.reduce((acc, item) => {
                 if (!item.categories.some(cat => cat.id === '5485a8684bdc2da71d8b4567'))

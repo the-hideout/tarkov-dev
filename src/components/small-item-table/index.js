@@ -505,6 +505,26 @@ function SmallItemTable(props) {
                     return true;
                 }
 
+                if (typeFilter === 'gun') {
+                    if (item.types.includes('gun')) {
+                        if (!item.properties?.defaultPreset) {
+                            return true;
+                        }
+                        return false;
+                    }
+                    if (!item.types.includes('preset')) {
+                        return false;
+                    }
+                    const baseItem = items.find(i => i.id === item.properties.baseItem.id);
+                    if (!baseItem.types.includes('gun')) {
+                        return false;
+                    }
+                    if (baseItem.properties.defaultPreset.id !== item.id) {
+                        return false;
+                    }
+                    return true;
+                }
+
                 let typeFilterList = typeFilter;
 
                 if (typeFilter && !Array.isArray(typeFilter)) {
@@ -739,9 +759,10 @@ function SmallItemTable(props) {
                     if (!linkedItem.types.includes('preset')){ 
                         return false;
                     }
-                    return linkedItem.properties.baseItem.id === item.id;
+                    return linkedItem.properties.baseItem.id === item.properties?.baseItem?.id && linkedItem.id !== item.id;
                 }).filter(linkedItem => {
-                    return linkedItem.properties.baseItem.properties.defaultPreset.id !== linkedItem.id;
+                    //return linkedItem.properties.baseItem.properties.defaultPreset.id !== linkedItem.id;
+                    return true;
                 }).sort((a, b) => {
                     return a.shortName.localeCompare(b.shortName);
                 }).map(item => formatItem(item));

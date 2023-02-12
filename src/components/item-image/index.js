@@ -23,6 +23,7 @@ function ItemImage({ item }) {
     const colorString = `${color.r}, ${color.g}, ${color.b}, ${color.alpha}`;
     const itemWidth = item.width; //item.properties?.defaultPreset?.width || item.width;
     const itemHeight = item.height; //item.properties?.defaultPreset?.height || item.height;
+    console.log(itemWidth, itemHeight)
     const gridPercentX = (1 / itemWidth) * 100;
     const gridPercentY = (1 / itemHeight) * 100;
     const gridSvg = () => 

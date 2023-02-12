@@ -9,6 +9,7 @@
     "class": "Class",
     "material": "Material",
     "zones": "Zones",
+    "defaultPreset": "Default Preset",
     "durability": "Durability",
     "ergoPenalty": "Ergo penalty",
     "speedPenalty": "Speed penalty",

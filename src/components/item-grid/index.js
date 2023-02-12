@@ -28,7 +28,7 @@ function ItemGrid(props) {
     const { t } = useTranslation();
     let minPrice = false;
     let maxPrice = false;
-
+//console.log(props)
     for (const item of props.items) {
         if (!minPrice || item.pricePerSlot < minPrice) {
             minPrice = item.pricePerSlot;
