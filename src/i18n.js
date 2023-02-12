@@ -15,9 +15,11 @@ import translationPT from './translations/pt/translation.json';
 
 import propertiesEN from './translations/en/properties.json';
 import propertiesRU from './translations/ru/properties.json';
+import propertiesPL from './translations/pl/properties.json';
 
 import bossesEN from './translations/en/bosses.json';
 import bossesRU from './translations/ru/bosses.json';
+import bossesPL from './translations/pl/bosses.json';
 
 i18n
     // loads translations from your server
@@ -70,6 +72,8 @@ i18n
             // },
             pl: {
                 translation: translationPL,
+                properties: propertiesPL,
+                bosses: bossesPL,
             },
             pt: {
                 translation: translationPT,
