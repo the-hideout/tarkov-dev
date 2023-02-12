@@ -339,6 +339,7 @@ function BossPage(params) {
                         return prev;
                     }, [])}
                     attachmentMap={attachmentMap}
+                    showGunDefaultPresetImages={true}
                     fleaValue
                     traderValue
                 />

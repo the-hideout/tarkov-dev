@@ -277,6 +277,7 @@ function SmallItemTable(props) {
         showPresets,
         showRestrictedType,
         attachmentMap,
+        showGunDefaultPresetImages,
     } = props;
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -777,6 +778,18 @@ function SmallItemTable(props) {
             });
         }
 
+        if (showGunDefaultPresetImages) {
+            returnData.forEach(item => {
+                if (!item.types.includes('gun')) {
+                    return;
+                }
+                const preset = items.find(it => it.id === item.properties?.defaultPreset?.id);
+                if (preset) {
+                    item.iconLink = preset.iconLink;
+                }
+            });
+        }
+
         if (showAttachTo || attachesToItemFilter) {
             returnData.forEach(item => {
                 item.fitsTo = getGuns(items, item);
@@ -850,6 +863,7 @@ function SmallItemTable(props) {
         attachesToItemFilter,
         showPresets,
         attachmentMap,
+        showGunDefaultPresetImages,
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {
