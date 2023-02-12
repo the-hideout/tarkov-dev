@@ -116,6 +116,7 @@ function BossPage(params) {
     }
 
     const loot = [];
+    let lootKeys = [];
     const attachmentMap = {};
 
     const lootValueCutoff = 80000;
@@ -158,7 +159,15 @@ function BossPage(params) {
         if (!item)
             continue;
         const itemValue = getItemSlotValue(item);
-        if (item.types.includes('noFlea') || itemValue > lootValueCutoff) {
+        if (item.types.includes('noFlea')) {
+            loot.push(lootItem);
+            continue;
+        }
+        if (itemValue > lootValueCutoff) {
+            if (item.types.includes('keys') && !item.normalizedName.includes('keycard') && !item.normalizedName.includes('marked')) {
+                lootKeys.push(lootItem);
+                continue;
+            }
             loot.push(lootItem);
         }
     }
@@ -167,6 +176,13 @@ function BossPage(params) {
         const itemB = items.find(it => it.id === b.id);
         return getItemSlotValue(itemB) - getItemSlotValue(itemA);
     });
+    lootKeys.sort((a, b) => {
+        const itemA = items.find(it => it.id === a.id);
+        const itemB = items.find(it => it.id === b.id);
+        return getItemSlotValue(itemB) - getItemSlotValue(itemA);
+    });
+    lootKeys = lootKeys.slice(0, 5);
+    loot.push(...lootKeys);
 
     // Get static boss data from json file
     //var bossJsonData = bossJson.find(boss => boss.normalizedName === bossNameLower);
