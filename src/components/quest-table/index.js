@@ -216,14 +216,20 @@ function QuestTable({
 
             if (rewardItemFilter || rewardItems) {
                 questData.rewardItems = getRewardQuestItems(rawQuest, rewardItemFilter).map(rew => {
+                    const foundItem = items.find(i => i.id === rew.item.id);
+                    if (!foundItem) {
+                        return false;
+                    }
                     const contained = rew.item.containsItems;
                     const mapped = {
                         ...rew,
-                        item: items.find(i => i.id === rew.item.id),
+                        item: {
+                            ...foundItem,
+                            containsItems: contained,
+                        },
                     };
-                    mapped.item.containsItems = contained;
                     return mapped;
-                });
+                }).filter(Boolean);
                 if (rewardItemFilter && questData.rewardItems.length === 0) {
                     return false;
                 }
