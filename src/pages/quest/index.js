@@ -795,7 +795,7 @@ function Quest() {
                                 return (
                                     <li
                                         className="quest-list-item"
-                                        key={`reward-index-${rewardItem.item.id}`}
+                                        key={`reward-index-${rewardItem.item.id}-${index}`}
                                     >
                                         <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
                                         <span>{` x ${rewardItem.count.toLocaleString()}`}</span>
@@ -843,13 +843,13 @@ function Quest() {
                     <>
                         <h3>{t('Trader Offer Unlock')}</h3>
                         <ul>
-                            {currentQuest.finishRewards.offerUnlock.map((unlock) => {
+                            {currentQuest.finishRewards.offerUnlock.map((unlock, index) => {
                                 const trader = traders.find((t) => t.id === unlock.trader.id);
                                 const item = items.find((i) => i.id === unlock.item.id);
                                 if (!item)
                                     return null;
                                 return (
-                                    <li className="quest-list-item" key={unlock.item.id}>
+                                    <li className="quest-list-item" key={`${unlock.item.id}-${index}`}>
                                         <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
                                         <span>{' @ '}</span>
                                         <Link to={`/traders/${trader.normalizedName}`}>
