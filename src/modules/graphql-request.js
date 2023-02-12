@@ -2,7 +2,7 @@ import fetch  from 'cross-fetch';
 
 const apiUrlProd = 'https://api.tarkov.dev/graphql';
 const apiUrlDev = 'https://dev-api.tarkov.dev/graphql';
-const apiUrl = apiUrlDev;
+const apiUrl = apiUrlProd;
 
 export default async function graphqlRequest(queryString) {
     if (process.env.NODE_ENV === 'production' && apiUrl === apiUrlDev && apiUrlDev !== apiUrlProd) {
