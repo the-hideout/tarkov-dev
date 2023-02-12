@@ -388,7 +388,7 @@ function Item() {
 
     const itemFleaFee = fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
 
-    const traderIsBest = currentItemData.traderTotalPriceRUB > currentItemData.lastLowPrice - itemFleaFee;
+    const traderIsBest = currentItemData.traderPriceRUB > currentItemData.lastLowPrice - itemFleaFee;
     const useFleaPrice = currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
     let fleaSellPriceDisplay = formatPrice(currentItemData.lastLowPrice);
@@ -637,14 +637,14 @@ The max profitable price is impacted by the intel center and hideout management 
                                                 condition={currentItemData.traderCurrency !== 'RUB'}
                                                 wrapper={(children) => 
                                                     <Tippy
-                                                        content={formatPrice(currentItemData.traderTotalPriceRUB)}
+                                                        content={formatPrice(currentItemData.traderPriceRUB)}
                                                         placement="bottom"
                                                     >
                                                         <div>{children}</div>
                                                     </Tippy>
                                                 }
                                             >
-                                                {formatPrice(currentItemData.traderTotalPrice, currentItemData.traderCurrency)}
+                                                {formatPrice(currentItemData.traderPrice, currentItemData.traderCurrency)}
                                             </ConditionalWrapper>
                                         </div>
                                     </div>
@@ -680,14 +680,14 @@ The max profitable price is impacted by the intel center and hideout management 
                                                         condition={traderPrice.currency !== 'RUB'}
                                                         wrapper={(children) => 
                                                             <Tippy
-                                                                content={formatPrice(traderPrice.totalPriceRUB)}
+                                                                content={formatPrice(traderPrice.PriceRUB)}
                                                                 placement="bottom"
                                                             >
                                                                 <div>{children}</div>
                                                             </Tippy>
                                                         }
                                                     >
-                                                        {formatPrice(traderPrice.totalPrice, traderPrice.currency)}
+                                                        {formatPrice(traderPrice.Price, traderPrice.currency)}
                                                     </ConditionalWrapper>
                                                 </div>
                                             </div>

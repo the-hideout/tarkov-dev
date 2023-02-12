@@ -136,7 +136,7 @@ function LootTier(props) {
                 let height = item.height;
                 let slots = item.slots;
                 let itemTypes = item.types;
-                let priceRUB = item.traderTotalPriceRUB;
+                let priceRUB = item.traderPriceRUB;
                 let normalizedName = item.normalizedName;
                 if (item.types.includes('gun')) {
                     // Overrides guns' dimensions using their default height and width.
@@ -149,7 +149,7 @@ function LootTier(props) {
                             height = preset.height;
                             slots = width * height;
                             gridImageLink = preset.gridImageLink;
-                            priceRUB = preset.traderTotalPriceRUB;
+                            priceRUB = preset.traderPriceRUB;
                             normalizedName = preset.normalizedName;
                         }
                     }

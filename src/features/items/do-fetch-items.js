@@ -617,12 +617,13 @@ const doFetchItems = async (language, prebuild = false) => {
             properties: {
                 weight: rawItem.weight,
                 ...rawItem.properties
-            }
+            },
+            containsItems: rawItem.types.includes('gun') ? [] : rawItem.containsItems,
         };
     });
 
     for (const item of allItems) {
-        if (item.types.includes('gun') && item.containsItems?.length > 0) {
+        /*if (item.types.includes('gun') && item.containsItems?.length > 0) {
             item.sellFor = item.sellFor.map((sellFor) => {
                 if (sellFor.vendor.normalizedName === 'flea-market') {
                     return {
@@ -668,7 +669,7 @@ const doFetchItems = async (language, prebuild = false) => {
                     totalPriceRUB: sellFor.priceRUB
                 };
             });
-        }
+        }*/
         /*if (item.types.includes('gun') && item.properties.defaultPreset) {
             // use default preset images for item
             item.receiverImages = {
@@ -686,25 +687,21 @@ const doFetchItems = async (language, prebuild = false) => {
         item.traderPrices = traderOnlySellFor.map(sellFor => {
             return {
                 price: sellFor.price,
-                totalPrice: sellFor.totalPrice,
                 currency: sellFor.currency,
                 priceRUB: sellFor.priceRUB,
-                totalPriceRUB: sellFor.totalPriceRUB,
                 trader: {
                     name: sellFor.vendor.name,
                     normalizedName: sellFor.vendor.normalizedName
                 }
             }
         }).sort((a, b) => {
-            return b.totalPriceRUB - a.totalPriceRUB;
+            return b.priceRUB - a.priceRUB;
         });
 
         const bestTraderPrice = item.traderPrices.shift();
 
         item.traderPrice = bestTraderPrice?.price || 0;
-        item.traderTotalPrice = bestTraderPrice?.totalPrice || 0;
         item.traderPriceRUB = bestTraderPrice?.priceRUB || 0;
-        item.traderTotalPriceRUB = bestTraderPrice?.totalPriceRUB || 0;
         item.traderCurrency = bestTraderPrice?.currency || 'RUB';
         item.traderName = bestTraderPrice?.trader.name || '?';
         item.traderNormalizedName = bestTraderPrice?.trader.normalizedName || '?';

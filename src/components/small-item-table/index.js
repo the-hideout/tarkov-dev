@@ -58,8 +58,8 @@ function TraderSellCell(datum, totalTraderPrice = false, showSlotValue = false) 
     }
 
     const count = datum.row.original.count;
-    const priceRUB = totalTraderPrice ? datum.row.original.bestSell.totalPriceRUB : datum.row.original.bestSell.priceRUB;
-    const price = totalTraderPrice ? datum.row.original.bestSell.totalPrice : datum.row.original.bestSell.price;
+    const priceRUB = totalTraderPrice ? datum.row.original.bestSell.priceRUB : datum.row.original.bestSell.priceRUB;
+    const price = totalTraderPrice ? datum.row.original.bestSell.price : datum.row.original.bestSell.price;
     const slots = datum.row.original.width * datum.row.original.height;
     let slotValue = '';
     if (showSlotValue && slots > 1) {
@@ -1097,7 +1097,7 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Sell to Trader'),
                 id: 'traderValue',
-                accessor: (d) => Number(totalTraderPrice? d.bestSell?.totalPriceRUB : d.bestSell?.priceRUB),
+                accessor: (d) => Number(totalTraderPrice? d.bestSell?.priceRUB : d.bestSell?.priceRUB),
                 Cell: (datum) => TraderSellCell(datum, totalTraderPrice, showSlotValue),
                 summable: true,
                 position: traderValue,
