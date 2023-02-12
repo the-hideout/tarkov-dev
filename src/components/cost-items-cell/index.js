@@ -51,6 +51,7 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                                 count={costItem.count}
                                 iconLink={costItem.iconLink}
                                 isTool={costItem.isTool}
+                                functional={costItem.functional}
                             />
                         </div>
                         <div className="cost-item-text-wrapper">

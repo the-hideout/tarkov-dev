@@ -21,8 +21,8 @@ function ItemImage({ item }) {
 
     const color = colors[item.backgroundColor];
     const colorString = `${color.r}, ${color.g}, ${color.b}, ${color.alpha}`;
-    const itemWidth = item.properties?.defaultPreset?.width || item.width;
-    const itemHeight = item.properties?.defaultPreset?.height || item.height;
+    const itemWidth = item.width; //item.properties?.defaultPreset?.width || item.width;
+    const itemHeight = item.height; //item.properties?.defaultPreset?.height || item.height;
     const gridPercentX = (1 / itemWidth) * 100;
     const gridPercentY = (1 / itemHeight) * 100;
     const gridSvg = () => 
@@ -65,9 +65,17 @@ function ItemImage({ item }) {
         )
     }
 
+    let nonFunctional = (<></>);
+    if (item.types.includes('gun') && item.properties?.defaultPreset) {
+        nonFunctional = (
+            <div className='item-nonfunctional-mask'/>
+        );
+    }
+
     return (
         <div style={backgroundStyle}>
             <img src={item.image512pxLink} alt={item.name}/>
+            {nonFunctional}
             <div className='item-image-text'>{item.shortName}</div>
         </div>
     );

@@ -15,6 +15,15 @@ import formatPrice from '../../modules/format-price';
 import './index.css';
 
 function PriceGraph({ itemId, itemChange24 }) {
+    const dataQuery = JSON.stringify({
+        query: `{
+            historicalItemPrices(id:"${itemId}"){
+                price
+                timestamp
+            }
+        }`,
+    });
+    
     const { t } = useTranslation();
     const { status, data } = useQuery(
         `historical-price-${itemId}`,
@@ -37,15 +46,6 @@ function PriceGraph({ itemId, itemChange24 }) {
     if (window.innerWidth < 760) {
         height = 1280;
     }
-
-    const dataQuery = JSON.stringify({
-        query: `{
-        historicalItemPrices(id:"${itemId}"){
-            price
-            timestamp
-        }
-    }`,
-    });
 
     if (status !== 'success') {
         return null;

@@ -1,47 +1,35 @@
-import fetch  from 'cross-fetch';
+import graphqlRequest from '../../modules/graphql-request.js';
 
 const doFetchMeta = async (language, prebuild = false) => {
-    const bodyQuery = JSON.stringify({
-        query: `{
-            fleaMarket(lang: ${language}) {
-                name
-                normalizedName
-                enabled
-                minPlayerLevel
-                sellOfferFeeRate
-                sellRequirementFeeRate
-            }
-            armorMaterials(lang: ${language}) {
+    const query = `{
+        fleaMarket(lang: ${language}) {
+            name
+            normalizedName
+            enabled
+            minPlayerLevel
+            sellOfferFeeRate
+            sellRequirementFeeRate
+        }
+        armorMaterials(lang: ${language}) {
+            id
+            name
+            destructibility
+            minRepairDegradation
+            maxRepairDegradation
+            minRepairKitDegradation
+            maxRepairKitDegradation
+        }
+        itemCategories(lang: ${language}) {
+            id
+            name
+            normalizedName
+            parent {
                 id
-                name
-                destructibility
-                minRepairDegradation
-                maxRepairDegradation
-                minRepairKitDegradation
-                maxRepairKitDegradation
             }
-            itemCategories(lang: ${language}) {
-                id
-                name
-                normalizedName
-                parent {
-                    id
-                }
-            }
-        }`,
-    });
+        }
+    }`;
 
-    const response = await fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        cache: 'no-store',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: bodyQuery,
-    });
-
-    const metaData = await response.json();
+    const metaData = await graphqlRequest(query);
 
     if (metaData.errors) {
         if (metaData.data) {

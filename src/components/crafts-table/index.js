@@ -86,7 +86,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     };
                 }).filter(Boolean),
             };
-        });
+        }).filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
     }, [barterSelector, items]);
 
     const crafts = useMemo(() => {
@@ -119,7 +119,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 }).filter(Boolean),
                 taskUnlock: taskUnlock,
             };
-        });
+        }).filter(craft => craft.rewardItems.length > 0 && craft.rewardItems.length > 0);
     }, [craftSelector, items, tasks]);
 
     const { data: meta } = useMetaQuery();

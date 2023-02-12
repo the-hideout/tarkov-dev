@@ -202,10 +202,9 @@ const formatCostItems = (
         if (freeFuel && fuelIds.includes(requiredItem.item.id)) {
             calculationPrice = 0;
         }
-        
-        let isTool = false;
-        if (requiredItem.attributes)
-            isTool = requiredItem.attributes.some(element => element.type === "tool");
+
+        const isTool = requiredItem.attributes?.some(element => element.type === 'tool');
+        const functional = requiredItem.attributes?.some(element => element.type === 'functional' && Boolean(element.value));
 
         const returnData = {
             id: requiredItem.item.id,
@@ -230,6 +229,7 @@ const formatCostItems = (
             wikiLink: requiredItem.item.wikiLink,
             itemLink: `/item/${requiredItem.item.normalizedName}`,
             isTool: isTool,
+            functional: functional,
             cached: requiredItem.item.cached,
         };
 

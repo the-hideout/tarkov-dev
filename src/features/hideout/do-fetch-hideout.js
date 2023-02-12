@@ -1,38 +1,26 @@
-import fetch  from 'cross-fetch';
+import graphqlRequest from '../../modules/graphql-request.js';
 
 const doFetchHideout = async (language, prebuild = false) => {
-    const bodyQuery = JSON.stringify({
-        query: `{
-            hideoutStations(lang: ${language}) {
-                id
-                name
-                normalizedName
-                levels {
-                    level
-                        itemRequirements {
-                            quantity
-                            item {
-                                name
-                                id
-                                iconLink
-                            }
-                        } 
+    const query = `{
+        hideoutStations(lang: ${language}) {
+            id
+            name
+            normalizedName
+            levels {
+                level
+                itemRequirements {
+                    quantity
+                    item {
+                        name
+                        id
+                        iconLink
                     }
-                }
-            }`,
-    });
+                } 
+            }
+        }
+    }`;
 
-    const response = await fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        cache: 'no-store',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: bodyQuery,
-    });
-
-    const queryData = await response.json();
+    const queryData = await graphqlRequest(query);
 
     if (queryData.errors) {
         if (queryData.data) {

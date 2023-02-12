@@ -23,21 +23,13 @@ export function PresetSelector({ item, alt = '' }) {
     const selectedValue = useMemo(() => {
         return {
             label: selected.shortName,
-            value: selected.id
+            value: selected.normalizedName || 'loading'
         };
     }, [selected]);
 
     const items = result.data.filter(
-        testItem => testItem.id === baseId || (testItem.types.includes('preset') && testItem.properties.baseItem.id === baseId)
-    ).filter(testItem => {
-        if (!testItem.types.includes('preset')) {
-            return true;
-        }
-        if (!testItem.properties?.baseItem?.properties?.defaultPreset) {
-            return true;
-        }
-        return testItem.properties.baseItem.properties.defaultPreset.id !== testItem.id;
-    }).sort((a, b) => {
+        testItem => testItem.id === baseId || testItem.properties?.baseItem?.id === baseId
+    ).sort((a, b) => {
         return a.shortName.localeCompare(b.shortName);
     });
 
@@ -57,6 +49,7 @@ export function PresetSelector({ item, alt = '' }) {
                     }
                     navigate(`/item/${event.value}`);
                 }}
+                valueField={'normalizedName'}
             />
         </div>
     );

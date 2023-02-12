@@ -1,53 +1,41 @@
-import fetch  from 'cross-fetch';
+import graphqlRequest from '../../modules/graphql-request.js';
 
 const doFetchBarters = async (language, prebuild = false) => {
-    const bodyQuery = JSON.stringify({
-        query: `{
-            barters(lang: ${language}) {
-                rewardItems {
-                    item {
-                        id
-                    }
-                    count
-                }
-                requiredItems {
-                    item {
-                        id
-                    }
-                    count
-                    attributes {
-                        name
-                        value
-                    }
-                }
-                source
-                trader {
+    const query = `{
+        barters(lang: ${language}) {
+            rewardItems {
+                item {
                     id
-                    name
-                    normalizedName
                 }
-                level
-                taskUnlock {
+                count
+            }
+            requiredItems {
+                item {
                     id
-                    tarkovDataId
+                }
+                count
+                attributes {
                     name
-                    normalizedName
+                    value
                 }
             }
-        }`,
-    });
+            source
+            trader {
+                id
+                name
+                normalizedName
+            }
+            level
+            taskUnlock {
+                id
+                tarkovDataId
+                name
+                normalizedName
+            }
+        }
+    }`;
 
-    const response = await fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        cache: 'no-store',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: bodyQuery,
-    });
-
-    const bartersData = await response.json();
+    const bartersData = await graphqlRequest(query);
 
     if (bartersData.errors) {
         if (bartersData.data) {
@@ -74,15 +62,15 @@ const doFetchBarters = async (language, prebuild = false) => {
         }
     }
 
-    return bartersData.data.barters.map(barter => {
-        barter.rewardItems.forEach(contained => {
-            contained.item.iconLink = contained.item.properties?.defaultPreset?.iconLink || contained.item.iconLink;
-        });
-        barter.requiredItems.forEach(contained => {
-            contained.item.iconLink = contained.item.properties?.defaultPreset?.iconLink || contained.item.iconLink;
-        });
-        return barter;
-    });
+    // validate to make sure barters all have valid requirements and rewards
+    return bartersData.data.barters.reduce((barters, barter) => {
+        barter.requiredItems = barter.requiredItems.filter(Boolean);
+        barter.rewardItems = barter.rewardItems.filter(Boolean);
+        if (barter.requiredItems.length > 0 && barter.rewardItems.length > 0) {
+            barters.push(barter);
+        }
+        return barters;
+    }, []);
 };
 
 export default doFetchBarters;
