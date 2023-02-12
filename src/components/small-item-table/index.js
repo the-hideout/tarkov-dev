@@ -760,12 +760,12 @@ function SmallItemTable(props) {
                         return false;
                     }
                     return linkedItem.properties.baseItem.id === item.properties?.baseItem?.id && linkedItem.id !== item.id;
-                }).filter(linkedItem => {
-                    //return linkedItem.properties.baseItem.properties.defaultPreset.id !== linkedItem.id;
-                    return true;
                 }).sort((a, b) => {
-                    return a.shortName.localeCompare(b.shortName);
+                    return a.name.localeCompare(b.name);
                 }).map(item => formatItem(item));
+            });
+            returnData.sort((a, b) => {
+                return a.name.localeCompare(b.name);
             });
         }
 

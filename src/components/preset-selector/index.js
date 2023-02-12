@@ -30,6 +30,11 @@ export function PresetSelector({ item, alt = '' }) {
     const items = result.data.filter(
         testItem => testItem.id === baseId || testItem.properties?.baseItem?.id === baseId
     ).sort((a, b) => {
+        if (a.types.includes('gun')) return -1;
+        if (b.types.includes('gun')) return 1;
+        const baseItem = result.data.find(i => i.id === baseId);
+        if (baseItem.properties?.defaultPreset?.id === a.id) return -1;
+        if (baseItem.properties?.defaultPreset?.id === b.id) return 1;
         return a.shortName.localeCompare(b.shortName);
     });
 

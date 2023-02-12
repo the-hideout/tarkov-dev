@@ -366,7 +366,6 @@ function BossPage(params) {
                         data={spawnLocations}
                         disableSortBy={false}
                         sortBy={'map'}
-                        sortByDesc={true}
                         autoResetSortBy={false}
                     />
                 </>}
@@ -385,8 +384,7 @@ function BossPage(params) {
                         columns={columnsEscorts}
                         data={escorts}
                         disableSortBy={false}
-                        sortBy={'name'}
-                        sortByDesc={true}
+                        sortBy={'map'}
                         autoResetSortBy={false}
                     />
                     :
