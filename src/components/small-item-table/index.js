@@ -517,7 +517,7 @@ function SmallItemTable(props) {
                         return false;
                     }
                     const baseItem = items.find(i => i.id === item.properties.baseItem.id);
-                    if (!baseItem.types.includes('gun')) {
+                    if (!baseItem?.types.includes('gun')) {
                         return false;
                     }
                     if (baseItem.properties.defaultPreset.id !== item.id) {
