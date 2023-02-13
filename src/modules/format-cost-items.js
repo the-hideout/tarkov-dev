@@ -106,7 +106,7 @@ function getCheapestBarter(item, barters, settings, allowAllSources) {
 }
 
 function getCheapestItemPriceWithBarters(item, barters, settings, allowAllSources) {
-    const useFlea = settings.useFlea;
+    const useFlea = settings.useFlea || allowAllSources;
     const bestPrice = getCheapestItemPrice(item, settings, allowAllSources);
 
     const itemBarters = getItemBarters(item, barters, settings, allowAllSources);
