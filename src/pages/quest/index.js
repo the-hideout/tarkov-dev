@@ -83,7 +83,7 @@ function Quest() {
             if (String(quest.tarkovDataId) === taskIdentifier) {
                 return true;
             }
-            if (quest.normalizedName === taskIdentifier) {
+            if (quest.normalizedName === (taskIdentifier ? String(taskIdentifier).toLowerCase() : '')) {
                 return true;
             }
             return false;
@@ -101,7 +101,7 @@ function Quest() {
         currentQuest = loadingData;
     }
 
-    if (!currentQuest && (questsStatus === 'success' || questsStatus === 'failed')) {
+    if (!currentQuest && (questsStatus === 'succeeded' || questsStatus === 'failed')) {
         return <ErrorPage />;
     }
 
