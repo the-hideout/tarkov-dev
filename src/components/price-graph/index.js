@@ -14,7 +14,14 @@ import formatPrice from '../../modules/format-price';
 
 import './index.css';
 
-function PriceGraph({ itemId, itemChange24 }) {
+function PriceGraph({ item, itemId, itemChange24 }) {
+    if (item && !itemId) {
+        itemId = item.id;
+        if (item.properties?.baseItem?.properties?.defaultPreset?.id === item.id) {
+            itemId = item.properties.baseItem.id;
+        }
+    }
+
     const dataQuery = JSON.stringify({
         query: `{
             historicalItemPrices(id:"${itemId}"){

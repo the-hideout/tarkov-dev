@@ -781,7 +781,7 @@ The max profitable price is impacted by the intel center and hideout management 
                     <div>
                         <h2>{t('Flea price last 7 days')}</h2>
                         <PriceGraph
-                            itemId={currentItemData.id}
+                            item={currentItemData}
                             itemChange24={currentItemData.changeLast48h}
                         />
                         <br />
