@@ -27,3 +27,17 @@
         background-position: -200% center;
     }
 }
+
+.item-nonfunctional-mask {
+    position: absolute;
+    box-sizing: border-box;
+    top: 2px;
+    left: 2px;
+    width: -webkit-calc(100% - 4px);
+    width:    -moz-calc(100% - 4px);
+    width:         calc(100% - 4px);
+    height: -webkit-calc(100% - 4px);
+    height:    -moz-calc(100% - 4px);
+    height:         calc(100% - 4px);
+    background-color: #4400008f;
+}

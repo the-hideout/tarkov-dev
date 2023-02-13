@@ -2,410 +2,402 @@ import fetch  from 'cross-fetch';
 
 import fleaMarketFee from '../../modules/flea-market-fee.js';
 import camelcaseToDashes from '../../modules/camelcase-to-dashes.js';
+import graphqlRequest from '../../modules/graphql-request.js';
 
 const doFetchItems = async (language, prebuild = false) => {
     const itemLimit = 2000;
     const QueryBody = offset => {
-        return JSON.stringify({
-            query: `{
-                items(lang: ${language}, limit: ${itemLimit}, offset: ${offset}) {
+        return `{
+            items(lang: ${language}, limit: ${itemLimit}, offset: ${offset}) {
+                id
+                bsgCategoryId
+                categories {
                     id
-                    bsgCategoryId
-                    categories {
-                        id
+                    name
+                    normalizedName
+                }
+                name
+                shortName
+                basePrice
+                normalizedName
+                backgroundColor
+                types
+                width
+                height
+                weight
+                avg24hPrice
+                wikiLink
+                changeLast48h
+                changeLast48hPercent
+                low24hPrice
+                high24hPrice
+                lastLowPrice
+                gridImageLink
+                iconLink
+                image512pxLink
+                updated
+                sellFor {
+                    source
+                    vendor {
                         name
                         normalizedName
-                    }
-                    name
-                    shortName
-                    basePrice
-                    normalizedName
-                    backgroundColor
-                    types
-                    width
-                    height
-                    weight
-                    avg24hPrice
-                    wikiLink
-                    changeLast48h
-                    changeLast48hPercent
-                    low24hPrice
-                    high24hPrice
-                    lastLowPrice
-                    gridImageLink
-                    iconLink
-                    image512pxLink
-                    updated
-                    sellFor {
-                        source
-                        vendor {
-                            name
-                            normalizedName
-                            __typename
-                            ...on TraderOffer {
-                                trader {
-                                    id
-                                    name
-                                    normalizedName
-                                }
-                                minTraderLevel
-                                taskUnlock {
-                                    id
-                                    tarkovDataId
-                                    name
-                                }
-                            }
-                        }
-                        price
-                        currency
-                        priceRUB
-                        requirements {
-                            type
-                            value
-                        }
-                    }
-                    buyFor {
-                        source
-                        vendor {
-                            name
-                            normalizedName
-                            __typename
-                            ...on TraderOffer {
-                                trader {
-                                    id
-                                    name
-                                    normalizedName
-                                }
-                                minTraderLevel
-                                taskUnlock {
-                                    id
-                                    tarkovDataId
-                                    name
-                                    normalizedName
-                                }
-                            }
-                        }
-                        price
-                        currency
-                        priceRUB
-                        requirements {
-                            type
-                            value
-                        }
-                    }
-                    containsItems {
-                        count
-                        item {
-                            id
-                        }
-                    }
-                    properties {
                         __typename
-                        ...on ItemPropertiesAmmo {
-                            caliber
-                            damage
-                            projectileCount
-                            penetrationPower
-                            armorDamage
-                            fragmentationChance
-                            ammoType
-                        }
-                        ...on ItemPropertiesArmor {
-                            class
-                            material {
-                                id
-                                name
-                            }
-                            zones
-                            durability
-                            ergoPenalty
-                            speedPenalty
-                            turnPenalty
-                        }
-                        ...on ItemPropertiesArmorAttachment {
-                            class
-                            material {
-                                id
-                                name
-                            }
-                            headZones
-                            durability
-                            ergoPenalty
-                            speedPenalty
-                            turnPenalty
-                        }
-                        ...on ItemPropertiesBackpack {
-                            capacity
-                            grids {
-                                width
-                                height
-                                filters {
-                                    allowedCategories {
-                                        id
-                                    }
-                                    allowedItems {
-                                        id
-                                    }
-                                    excludedCategories {
-                                        id
-                                    }
-                                    excludedItems {
-                                        id
-                                    }
-                                }
-                            }
-                        }
-                        ...on ItemPropertiesChestRig {
-                            capacity
-                            class
-                            material {
-                                id
-                                name
-                            }
-                            zones
-                            durability
-                            ergoPenalty
-                            speedPenalty
-                            turnPenalty
-                            grids {
-                                width
-                                height
-                                filters {
-                                    allowedCategories {
-                                        id
-                                    }
-                                    allowedItems {
-                                        id
-                                    }
-                                    excludedCategories {
-                                        id
-                                    }
-                                    excludedItems {
-                                        id
-                                    }
-                                }
-                            }
-                        }
-                        ...on ItemPropertiesContainer {
-                            capacity
-                            grids {
-                                width
-                                height
-                                filters {
-                                    allowedCategories {
-                                        id
-                                    }
-                                    allowedItems {
-                                        id
-                                    }
-                                    excludedCategories {
-                                        id
-                                    }
-                                    excludedItems {
-                                        id
-                                    }
-                                }
-                            }
-                        }
-                        ...on ItemPropertiesFoodDrink {
-                            energy
-                            hydration
-                            units
-                            stimEffects {
-                                type
-                                chance
-                                delay
-                                duration
-                                value
-                                percent
-                                skillName
-                            }
-                        }
-                        ...on ItemPropertiesGlasses {
-                            class
-                            durability
-                            blindnessProtection
-                            material {
-                                id
-                                name
-                            }
-                        }
-                        ...on ItemPropertiesGrenade {
-                            type
-                            fuse
-                            maxExplosionDistance
-                            fragments
-                        }
-                        ...on ItemPropertiesHelmet {
-                            class
-                            material {
-                                id
-                                name
-                            }
-                            headZones
-                            durability
-                            ergoPenalty
-                            speedPenalty
-                            turnPenalty
-                            deafening
-                            blocksHeadset
-                            ricochetY
-                            slots {
-                                filters {
-                                    allowedCategories {
-                                        id
-                                    }
-                                    allowedItems {
-                                        id
-                                    }
-                                    excludedCategories {
-                                        id
-                                    }
-                                    excludedItems {
-                                        id
-                                    }
-                                }
-                            }
-                        }
-                        ...on ItemPropertiesKey {
-                            uses
-                        }
-                        ...on ItemPropertiesMagazine {
-                            capacity
-                            malfunctionChance
-                            ergonomics
-                            recoil
-                            capacity
-                            loadModifier
-                            ammoCheckModifier
-                        }
-                        ...on ItemPropertiesMedicalItem {
-                            uses
-                            useTime
-                            cures
-                        }
-                        ...on ItemPropertiesMedKit {
-                            hitpoints
-                            useTime
-                            maxHealPerUse
-                            cures
-                            hpCostLightBleeding
-                            hpCostHeavyBleeding
-                        }
-                        ...on ItemPropertiesPainkiller {
-                            uses
-                            useTime
-                            cures
-                            painkillerDuration
-                            energyImpact
-                            hydrationImpact
-                        }
-                        ...on ItemPropertiesPreset {
-                            baseItem {
+                        ...on TraderOffer {
+                            trader {
                                 id
                                 name
                                 normalizedName
-                                properties {
-                                    ...on ItemPropertiesWeapon {
-                                        defaultPreset {
-                                            id
-                                        }
+                            }
+                            minTraderLevel
+                            taskUnlock {
+                                id
+                                tarkovDataId
+                                name
+                            }
+                        }
+                    }
+                    price
+                    currency
+                    priceRUB
+                    requirements {
+                        type
+                        value
+                    }
+                }
+                buyFor {
+                    source
+                    vendor {
+                        name
+                        normalizedName
+                        __typename
+                        ...on TraderOffer {
+                            trader {
+                                id
+                                name
+                                normalizedName
+                            }
+                            minTraderLevel
+                            taskUnlock {
+                                id
+                                tarkovDataId
+                                name
+                                normalizedName
+                            }
+                        }
+                    }
+                    price
+                    currency
+                    priceRUB
+                    requirements {
+                        type
+                        value
+                    }
+                }
+                containsItems {
+                    count
+                    item {
+                        id
+                    }
+                }
+                properties {
+                    __typename
+                    ...on ItemPropertiesAmmo {
+                        caliber
+                        damage
+                        projectileCount
+                        penetrationPower
+                        armorDamage
+                        fragmentationChance
+                        ammoType
+                    }
+                    ...on ItemPropertiesArmor {
+                        class
+                        material {
+                            id
+                            name
+                        }
+                        zones
+                        durability
+                        ergoPenalty
+                        speedPenalty
+                        turnPenalty
+                    }
+                    ...on ItemPropertiesArmorAttachment {
+                        class
+                        material {
+                            id
+                            name
+                        }
+                        headZones
+                        durability
+                        ergoPenalty
+                        speedPenalty
+                        turnPenalty
+                    }
+                    ...on ItemPropertiesBackpack {
+                        capacity
+                        grids {
+                            width
+                            height
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
+                        }
+                    }
+                    ...on ItemPropertiesChestRig {
+                        capacity
+                        class
+                        material {
+                            id
+                            name
+                        }
+                        zones
+                        durability
+                        ergoPenalty
+                        speedPenalty
+                        turnPenalty
+                        grids {
+                            width
+                            height
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
+                        }
+                    }
+                    ...on ItemPropertiesContainer {
+                        capacity
+                        grids {
+                            width
+                            height
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
+                        }
+                    }
+                    ...on ItemPropertiesFoodDrink {
+                        energy
+                        hydration
+                        units
+                        stimEffects {
+                            type
+                            chance
+                            delay
+                            duration
+                            value
+                            percent
+                            skillName
+                        }
+                    }
+                    ...on ItemPropertiesGlasses {
+                        class
+                        durability
+                        blindnessProtection
+                        material {
+                            id
+                            name
+                        }
+                    }
+                    ...on ItemPropertiesGrenade {
+                        type
+                        fuse
+                        maxExplosionDistance
+                        fragments
+                    }
+                    ...on ItemPropertiesHelmet {
+                        class
+                        material {
+                            id
+                            name
+                        }
+                        headZones
+                        durability
+                        ergoPenalty
+                        speedPenalty
+                        turnPenalty
+                        deafening
+                        blocksHeadset
+                        ricochetY
+                        slots {
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
+                                }
+                            }
+                        }
+                    }
+                    ...on ItemPropertiesKey {
+                        uses
+                    }
+                    ...on ItemPropertiesMagazine {
+                        capacity
+                        malfunctionChance
+                        ergonomics
+                        recoil
+                        capacity
+                        loadModifier
+                        ammoCheckModifier
+                    }
+                    ...on ItemPropertiesMedicalItem {
+                        uses
+                        useTime
+                        cures
+                    }
+                    ...on ItemPropertiesMedKit {
+                        hitpoints
+                        useTime
+                        maxHealPerUse
+                        cures
+                        hpCostLightBleeding
+                        hpCostHeavyBleeding
+                    }
+                    ...on ItemPropertiesPainkiller {
+                        uses
+                        useTime
+                        cures
+                        painkillerDuration
+                        energyImpact
+                        hydrationImpact
+                    }
+                    ...on ItemPropertiesPreset {
+                        baseItem {
+                            id
+                            name
+                            normalizedName
+                            properties {
+                                ...on ItemPropertiesWeapon {
+                                    defaultPreset {
+                                        id
                                     }
                                 }
                             }
-                            ergonomics
-                            recoilVertical
-                            recoilHorizontal
                         }
-                        ...on ItemPropertiesScope {
-                            ergonomics
-                            recoil
-                            zoomLevels
+                        ergonomics
+                        recoilVertical
+                        recoilHorizontal
+                    }
+                    ...on ItemPropertiesScope {
+                        ergonomics
+                        recoil
+                        zoomLevels
+                    }
+                    ...on ItemPropertiesStim {
+                        cures
+                        useTime
+                        stimEffects {
+                            type
+                            chance
+                            delay
+                            duration
+                            value
+                            percent
+                            skillName
                         }
-                        ...on ItemPropertiesStim {
-                            cures
-                            useTime
-                            stimEffects {
-                                type
-                                chance
-                                delay
-                                duration
-                                value
-                                percent
-                                skillName
-                            }
-                        }
-                        ...on ItemPropertiesSurgicalKit {
-                            uses
-                            useTime
-                            cures
-                            minLimbHealth
-                            maxLimbHealth
-                        }
-                        ...on ItemPropertiesWeapon {
-                            caliber
-                            effectiveDistance
-                            ergonomics
-                            fireModes
-                            fireRate
-                            recoilVertical
-                            recoilHorizontal
-                            sightingRange
-                            defaultWidth
-                            defaultHeight
-                            defaultErgonomics
-                            defaultRecoilVertical
-                            defaultRecoilHorizontal
-                            defaultWeight
-                            slots {
-                                filters {
-                                    allowedCategories {
-                                        id
-                                    }
-                                    allowedItems {
-                                        id
-                                    }
-                                    excludedCategories {
-                                        id
-                                    }
-                                    excludedItems {
-                                        id
-                                    }
+                    }
+                    ...on ItemPropertiesSurgicalKit {
+                        uses
+                        useTime
+                        cures
+                        minLimbHealth
+                        maxLimbHealth
+                    }
+                    ...on ItemPropertiesWeapon {
+                        caliber
+                        effectiveDistance
+                        ergonomics
+                        fireModes
+                        fireRate
+                        recoilVertical
+                        recoilHorizontal
+                        sightingRange
+                        slots {
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
                                 }
                             }
-                            defaultPreset {
-                                gridImageLink
-                                iconLink
-                                image512pxLink
-                                width
-                                height
-                            }
                         }
-                        ...on ItemPropertiesWeaponMod {
-                            ergonomics
-                            recoilModifier
-                            recoil
-                            slots {
-                                filters {
-                                    allowedCategories {
-                                        id
-                                    }
-                                    allowedItems {
-                                        id
-                                    }
-                                    excludedCategories {
-                                        id
-                                    }
-                                    excludedItems {
-                                        id
-                                    }
+                        defaultPreset {
+                            id
+                        }
+                        presets {
+                            id
+                        }
+                    }
+                    ...on ItemPropertiesWeaponMod {
+                        ergonomics
+                        recoilModifier
+                        recoil
+                        slots {
+                            filters {
+                                allowedCategories {
+                                    id
+                                }
+                                allowedItems {
+                                    id
+                                }
+                                excludedCategories {
+                                    id
+                                }
+                                excludedItems {
+                                    id
                                 }
                             }
                         }
                     }
                 }
-            }`,
-        })
+            }
+        }`;
     };
     //console.time('items query');
     const [itemData, miscData, itemGrids] = await Promise.all([
@@ -417,15 +409,7 @@ const doFetchItems = async (language, prebuild = false) => {
                 },
             };
             while (true) {
-                const itemBatch = await fetch('https://api.tarkov.dev/graphql', {
-                    method: 'POST',
-                    cache: 'no-store',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json',
-                    },
-                    body: QueryBody(offset),
-                }).then((response) => response.json());
+                const itemBatch = await graphqlRequest(QueryBody(offset));
                 if (itemBatch.errors) {
                     if (!retrievedItems.errors) {
                         retrievedItems.errors = [];
@@ -450,30 +434,22 @@ const doFetchItems = async (language, prebuild = false) => {
             }
             resolve(retrievedItems);
         }),
-        fetch('https://api.tarkov.dev/graphql', {
-            method: 'POST',
-            cache: 'no-store',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-            body: JSON.stringify({query: `{
-                fleaMarket {
-                    sellOfferFeeRate
-                    sellRequirementFeeRate
+        graphqlRequest(`{
+            fleaMarket {
+                sellOfferFeeRate
+                sellRequirementFeeRate
+            }
+            traders {
+                normalizedName
+                levels {
+                    payRate
                 }
-                traders {
-                    normalizedName
-                    levels {
-                        payRate
-                    }
-                }
-                currencies: items(categoryNames: [Money]) {
-                    shortName
-                    basePrice
-                }
-            }`}),
-        }).then((response) => response.json()),
+            }
+            currencies: items(categoryNames: [Money]) {
+                shortName
+                basePrice
+            }
+        }`),
         new Promise(resolve => {
             if (prebuild) {
                 return resolve({});
@@ -641,12 +617,13 @@ const doFetchItems = async (language, prebuild = false) => {
             properties: {
                 weight: rawItem.weight,
                 ...rawItem.properties
-            }
+            },
+            containsItems: rawItem.types.includes('gun') ? [] : rawItem.containsItems,
         };
     });
 
     for (const item of allItems) {
-        if (item.types.includes('gun') && item.containsItems?.length > 0) {
+        /*if (item.types.includes('gun') && item.containsItems?.length > 0) {
             item.sellFor = item.sellFor.map((sellFor) => {
                 if (sellFor.vendor.normalizedName === 'flea-market') {
                     return {
@@ -692,8 +669,8 @@ const doFetchItems = async (language, prebuild = false) => {
                     totalPriceRUB: sellFor.priceRUB
                 };
             });
-        }
-        if (item.types.includes('gun') && item.properties.defaultPreset) {
+        }*/
+        /*if (item.types.includes('gun') && item.properties.defaultPreset) {
             // use default preset images for item
             item.receiverImages = {
                 iconLink: item.iconLInk,
@@ -703,32 +680,28 @@ const doFetchItems = async (language, prebuild = false) => {
             item.iconLink = item.properties.defaultPreset.iconLink;
             item.gridImageLink = item.properties.defaultPreset.gridImageLink;
             item.image512pxLink = item.properties.defaultPreset.image512pxLink;
-        }
+        }*/
 
         const traderOnlySellFor = item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
 
         item.traderPrices = traderOnlySellFor.map(sellFor => {
             return {
                 price: sellFor.price,
-                totalPrice: sellFor.totalPrice,
                 currency: sellFor.currency,
                 priceRUB: sellFor.priceRUB,
-                totalPriceRUB: sellFor.totalPriceRUB,
                 trader: {
                     name: sellFor.vendor.name,
                     normalizedName: sellFor.vendor.normalizedName
                 }
             }
         }).sort((a, b) => {
-            return b.totalPriceRUB - a.totalPriceRUB;
+            return b.priceRUB - a.priceRUB;
         });
 
         const bestTraderPrice = item.traderPrices.shift();
 
         item.traderPrice = bestTraderPrice?.price || 0;
-        item.traderTotalPrice = bestTraderPrice?.totalPrice || 0;
         item.traderPriceRUB = bestTraderPrice?.priceRUB || 0;
-        item.traderTotalPriceRUB = bestTraderPrice?.totalPriceRUB || 0;
         item.traderCurrency = bestTraderPrice?.currency || 'RUB';
         item.traderName = bestTraderPrice?.trader.name || '?';
         item.traderNormalizedName = bestTraderPrice?.trader.normalizedName || '?';

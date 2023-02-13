@@ -1,49 +1,37 @@
-import fetch  from 'cross-fetch';
+import graphqlRequest from '../../modules/graphql-request.js';
 
 const doFetchBosses = async (language = 'en', prebuild = false) => {
-    const bodyQuery = JSON.stringify({
-        query: `{
-            bosses(lang: ${language}) {
-                name
-                normalizedName
-                imagePortraitLink
-                imagePosterLink
-                health {
+    const query = `{
+        bosses(lang: ${language}) {
+            name
+            normalizedName
+            imagePortraitLink
+            imagePosterLink
+            health {
+                id
+                max
+            }
+            equipment {
+                item {
                     id
-                    max
-                }
-                equipment {
-                    item {
-                        id
-                        containsItems {
-                            item {
-                                id
-                            }
+                    containsItems {
+                        item {
+                            id
                         }
                     }
-                    attributes {
-                        name
-                        value
-                    }
                 }
-                items {
-                    id
+                attributes {
+                    name
+                    value
                 }
             }
-        }`,
-    });
+            items {
+                id
+            }
+        }
+    }`;
 
-    const response = await fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        cache: 'no-store',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: bodyQuery,
-    });
-
-    const bossesData = await response.json();
+    const bossesData = await graphqlRequest(query);
 
     if (bossesData.errors) {
         if (bossesData.data) {

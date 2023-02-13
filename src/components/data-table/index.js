@@ -25,21 +25,19 @@ function DataTable({
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
 
-    const storageKey = columns
-        .map(({ Header, id }) => {
-            if (typeof id === 'string') {
-                return id;
-            }
+    const storageKey = columns.map(({ Header, id }) => {
+        if (typeof id === 'string') {
+            return id;
+        }
 
-            if (!Header || typeof Header !== 'string') {
-                return '';
-            }
+        if (!Header || typeof Header !== 'string') {
+            return '';
+        }
 
-            return Header.toLowerCase()
-                         .replace(/\s/, '-')
-                         .replace(/[^a-zа-я-]/g, '');
-        })
-        .join(',');
+        return Header.toLowerCase()
+                        .replace(/\s/, '-')
+                        .replace(/[^a-zа-я-]/g, '');
+    }).join(',');
     const [initialSortBy, storageSetSortBy] = useStateWithLocalStorage(
         storageKey,
         [{

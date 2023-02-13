@@ -1,52 +1,40 @@
-import fetch  from 'cross-fetch';
+import graphqlRequest from '../../modules/graphql-request.js';
 
 export default async function doFetchCrafts(language, prebuild = false) {
-    const bodyQuery = JSON.stringify({
-        query: `{
-            crafts(lang: ${language}) {
-                station {
+    const query = `{
+        crafts(lang: ${language}) {
+            station {
+                id
+                name
+                normalizedName
+            }
+            level
+            duration
+            rewardItems {
+                item {
                     id
+                }
+                count
+            }
+            requiredItems {
+                item {
+                    id
+                }
+                count
+                attributes {
+                    type
                     name
-                    normalizedName
-                }
-                level
-                duration
-                rewardItems {
-                    item {
-                        id
-                    }
-                    count
-                }
-                requiredItems {
-                    item {
-                        id
-                    }
-                    count
-                    attributes {
-                        type
-                        name
-                        value
-                    }
-                }
-                source
-                taskUnlock {
-                    id
+                    value
                 }
             }
-        }`,
-    });
+            source
+            taskUnlock {
+                id
+            }
+        }
+    }`;
 
-    const response = await fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        cache: 'no-store',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: bodyQuery,
-    });
-
-    const craftsData = await response.json();
+    const craftsData = await graphqlRequest(query);
     
     if (craftsData.errors) {
         if (craftsData.data) {
@@ -73,13 +61,13 @@ export default async function doFetchCrafts(language, prebuild = false) {
         }
     }
 
-    return craftsData.data.crafts.map(craft => {
-        craft.rewardItems.forEach(contained => {
-            contained.item.iconLink = contained.item.properties?.defaultPreset?.iconLink || contained.item.iconLink;
-        });
-        craft.requiredItems.forEach(contained => {
-            contained.item.iconLink = contained.item.properties?.defaultPreset?.iconLink || contained.item.iconLink;
-        });
-        return craft;
-    });;
+    // validate to make sure crafts all have valid requirements and rewards
+    return craftsData.data.crafts.reduce((crafts, craft) => {
+        craft.requiredItems = craft.requiredItems.filter(Boolean);
+        craft.rewardItems = craft.rewardItems.filter(Boolean);
+        if (craft.requiredItems.length > 0 && craft.rewardItems.length > 0) {
+            crafts.push(craft);
+        }
+        return crafts;
+    }, []);
 };

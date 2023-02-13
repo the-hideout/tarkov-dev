@@ -290,7 +290,8 @@ function SelectItemFilter({
     wide,
     items,
     showImage = true,
-    shortNames
+    shortNames,
+    valueField = 'id',
 }) {
     const [selectedItem, setSelectedItem] = useState(false);
     const selectInputRef = useRef(null);
@@ -303,7 +304,7 @@ function SelectItemFilter({
             options={items.map((item) => {
                 return {
                     label: shortNames? item.shortName : item.name,
-                    value: item.id,
+                    value: item[valueField],
                     selected: selection && selection.id === item.id
                 };
             })}

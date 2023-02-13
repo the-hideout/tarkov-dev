@@ -83,7 +83,7 @@ function Quest() {
             if (String(quest.tarkovDataId) === taskIdentifier) {
                 return true;
             }
-            if (quest.normalizedName === taskIdentifier) {
+            if (quest.normalizedName === (taskIdentifier ? String(taskIdentifier).toLowerCase() : '')) {
                 return true;
             }
             return false;
@@ -101,7 +101,7 @@ function Quest() {
         currentQuest = loadingData;
     }
 
-    if (!currentQuest && (questsStatus === 'success' || questsStatus === 'failed')) {
+    if (!currentQuest && (questsStatus === 'succeeded' || questsStatus === 'failed')) {
         return <ErrorPage />;
     }
 
@@ -223,7 +223,7 @@ function Quest() {
                                 <a href={currentQuest.wikiLink} target="_blank" rel="noopener noreferrer">{t('Wiki')}</a>
                             </div>
                         )}
-                        {typeof currentQuest.tarkovDataId !== 'undefined' && (
+                        {false && typeof currentQuest.tarkovDataId !== 'undefined' && (
                             <div className="wiki-link-wrapper">
                                 <a href={`https://tarkovtracker.io/quest/${currentQuest.tarkovDataId}`} target="_blank" rel="noopener noreferrer">{t('TarkovTracker')}</a>
                             </div>
@@ -795,7 +795,7 @@ function Quest() {
                                 return (
                                     <li
                                         className="quest-list-item"
-                                        key={`reward-index-${rewardItem.item.id}`}
+                                        key={`reward-index-${rewardItem.item.id}-${index}`}
                                     >
                                         <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
                                         <span>{` x ${rewardItem.count.toLocaleString()}`}</span>
@@ -843,13 +843,13 @@ function Quest() {
                     <>
                         <h3>{t('Trader Offer Unlock')}</h3>
                         <ul>
-                            {currentQuest.finishRewards.offerUnlock.map((unlock) => {
+                            {currentQuest.finishRewards.offerUnlock.map((unlock, index) => {
                                 const trader = traders.find((t) => t.id === unlock.trader.id);
                                 const item = items.find((i) => i.id === unlock.item.id);
                                 if (!item)
                                     return null;
                                 return (
-                                    <li className="quest-list-item" key={unlock.item.id}>
+                                    <li className="quest-list-item" key={`${unlock.item.id}-${index}`}>
                                         <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
                                         <span>{' @ '}</span>
                                         <Link to={`/traders/${trader.normalizedName}`}>

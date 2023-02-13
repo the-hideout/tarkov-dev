@@ -22,6 +22,7 @@ export async function load(url, context, defaultLoad) {
         'do-fetch-traders.js',
         'do-fetch-quests.js',
         'do-fetch-bosses.js',
+        'graphql-request.js',
     ];
 
     for (const fileName of forceConvert) {

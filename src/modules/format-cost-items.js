@@ -202,10 +202,12 @@ const formatCostItems = (
         if (freeFuel && fuelIds.includes(requiredItem.item.id)) {
             calculationPrice = 0;
         }
-        
-        let isTool = false;
-        if (requiredItem.attributes)
-            isTool = requiredItem.attributes.some(element => element.type === "tool");
+
+        const isTool = requiredItem.attributes?.some(element => element.type === 'tool');
+        let nonFunctional = false;
+        if (requiredItem.item?.types.includes('gun')) {
+            nonFunctional = !requiredItem.attributes?.some(element => element.type === 'functional' && Boolean(element.value))
+        }
 
         const returnData = {
             id: requiredItem.item.id,
@@ -230,6 +232,7 @@ const formatCostItems = (
             wikiLink: requiredItem.item.wikiLink,
             itemLink: `/item/${requiredItem.item.normalizedName}`,
             isTool: isTool,
+            nonFunctional,
             cached: requiredItem.item.cached,
         };
 

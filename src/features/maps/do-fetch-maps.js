@@ -1,53 +1,41 @@
-import fetch  from 'cross-fetch';
+import graphqlRequest from '../../modules/graphql-request.js';
 
 const doFetchMaps = async (language, prebuild = false) => {
-    const bodyQuery = JSON.stringify({
-        query: `{
-            maps(lang: ${language}) {
-                id
-                tarkovDataId
+    const query = `{
+        maps(lang: ${language}) {
+            id
+            tarkovDataId
+            name
+            normalizedName
+            wiki
+            description
+            enemies
+            raidDuration
+            players
+            bosses {
                 name
                 normalizedName
-                wiki
-                description
-                enemies
-                raidDuration
-                players
-                bosses {
+                spawnChance
+                spawnLocations {
+                    name
+                    chance
+                }
+                escorts {
                     name
                     normalizedName
-                    spawnChance
-                    spawnLocations {
-                        name
+                    amount {
+                        count
                         chance
                     }
-                    escorts {
-                        name
-                        normalizedName
-                        amount {
-                            count
-                            chance
-                        }
-                    }
-                    spawnTime
-                    spawnTimeRandom
-                    spawnTrigger
                 }
+                spawnTime
+                spawnTimeRandom
+                spawnTrigger
             }
-        }`,
-    });
+        }
+    }`;
 
-    const response = await fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        cache: 'no-store',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: bodyQuery,
-    });
-
-    const mapsData = await response.json();
+    const mapsData = await graphqlRequest(query);
 
     if (mapsData.errors) {
         if (mapsData.data) {

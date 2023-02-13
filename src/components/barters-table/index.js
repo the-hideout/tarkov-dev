@@ -54,12 +54,32 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     if (!matchedItem) {
                         return false;
                     }
+                    if (matchedItem.properties?.defaultPreset) {
+                        const preset = items.find(it => it.id === matchedItem.properties.defaultPreset.id);
+                        if (preset) {
+                            matchedItem.properties.defaultPreset = preset;
+                        } else {
+                            matchedItem.properties.defaultPreset = undefined;
+                        }
+                    }
+                    if (matchedItem.properties?.presets) {
+                        matchedItem.properties.presets = matchedItem.properties.presets.reduce((presets, currentPreset) => {
+                            const preset = items.find(it => it.id === currentPreset.id);
+                            if (preset) {
+                                presets.push(preset);
+                            }
+                            return presets;
+                        }, []);
+                    }
                     return {
                         ...req,
                         item: matchedItem,
                     };
                 }).filter(Boolean),
                 rewardItems: b.rewardItems.map(req => {
+                    if (!req) {
+                        console.log(b)
+                    }
                     const matchedItem = items.find(it => it.id === req.item.id);
                     if (!matchedItem) {
                         return false;
@@ -71,7 +91,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                 }).filter(Boolean),
                 taskUnlock: taskUnlock,
             };
-        });
+        }).filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
     }, [barterSelector, items, tasks]);
 
     useEffect(() => {
