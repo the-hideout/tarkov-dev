@@ -63,8 +63,9 @@ jobs:
       #     environment: production
       #     sourcemaps: ./build/static/
 
+      # Always run this step on push to main
       - name: CDN Purge
-        if: ${{ steps.deployment-check.outputs.continue == 'true' }}
+        # if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         uses: jakejarvis/cloudflare-purge-action@eee6dba0236093358f25bb1581bd615dc8b3d8e3 # pin@v0.3.0
         env:
           CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
