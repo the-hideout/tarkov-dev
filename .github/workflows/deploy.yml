@@ -1,0 +1,72 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    if: github.event_name == 'push'
+    environment: production
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: deployment check
+        uses: github/branch-deploy@59cb87ca11d478e3aefc58737799879d270bd49d # pin@v4.1.0
+        id: deployment-check
+        with:
+          merge_deploy_mode: "true" # tells the Action to use the merge commit workflow strategy
+          environment: production
+
+      - name: checkout
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # pin@v3
+        if: ${{ steps.deployment-check.outputs.continue == 'true' }} # only run if the Action returned 'true' for the 'continue' output
+
+      # check to ensure all JSON files are valid in the repository
+      - name: json syntax check
+        if: ${{ steps.deployment-check.outputs.continue == 'true' }}
+        uses: limitusus/json-syntax-check@94555527ace7b96df4a600874a4aafd735842780 # pin@v2.0.0
+        with:
+          pattern: "\\.json$"
+
+      - name: Install
+        if: ${{ steps.deployment-check.outputs.continue == 'true' }}
+        run: npm ci
+
+      - name: Build
+        if: ${{ steps.deployment-check.outputs.continue == 'true' }}
+        run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
+
+      - name: Test
+        if: ${{ steps.deployment-check.outputs.continue == 'true' }}
+        run: npm run test
+
+      - name: deploy
+        if: ${{ steps.deployment-check.outputs.continue == 'true' }}
+        uses: cloudflare/wrangler-action@4c10c1822abba527d820b29e6333e7f5dac2cabd # pin@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          command: pages publish build/ --project-name=tarkov-dev --branch=main
+
+      # Uncomment to enable Sentry releases via CI
+      # - name: Create Sentry release
+      #   uses: getsentry/action-release@744e4b262278339b79fb39c8922efcae71e98e39 # pin@v1.1.6
+      #   env:
+      #     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      #     SENTRY_ORG: tarkov-dev
+      #     SENTRY_PROJECT: tarkovdev
+      #   with:
+      #     environment: production
+      #     sourcemaps: ./build/static/
+
+      - name: CDN Purge
+        if: ${{ steps.deployment-check.outputs.continue == 'true' }}
+        uses: jakejarvis/cloudflare-purge-action@eee6dba0236093358f25bb1581bd615dc8b3d8e3 # pin@v0.3.0
+        env:
+          CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
+          CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_PURGE_TOKEN }}
+          PURGE_URLS: '["https://tarkov.dev/data/item-grids.min.json", "https://tarkov.dev/data/item-props.min.json"]'

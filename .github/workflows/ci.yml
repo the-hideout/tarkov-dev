@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3 # pin@v3
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # pin@v3
 
       # check to ensure all JSON files are valid in the repository
       - name: json syntax check
@@ -26,7 +26,7 @@ jobs:
           pattern: "\\.json$"
 
       - name: Cache node modules
-        uses: actions/cache@v3 # pin@v3
+        uses: actions/cache@6998d139ddd3e68c71e9e398d8e40b71a2f39812 # pin@v3
         env:
           cache-name: cache-node-modules
         with:
@@ -38,7 +38,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3 # pin@v3
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # pin@v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -52,45 +52,3 @@ jobs:
 
       - name: Test
         run: npm run test
-
-  deploy:
-    if: github.event_name == 'push'
-    environment: production
-    runs-on: ubuntu-latest
-    needs: [ test ]
-
-    steps:
-      - uses: actions/checkout@v3 # pin@v3
-
-      - name: Install
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-        env:
-          GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
-
-      - name: deploy
-        uses: cloudflare/wrangler-action@4c10c1822abba527d820b29e6333e7f5dac2cabd # pin@2.0.0
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages publish build/ --project-name=tarkov-dev --branch=main
-
-      # Uncomment to enable Sentry releases via CI
-      # - name: Create Sentry release
-      #   uses: getsentry/action-release@744e4b262278339b79fb39c8922efcae71e98e39 # pin@v1.1.6
-      #   env:
-      #     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      #     SENTRY_ORG: tarkov-dev
-      #     SENTRY_PROJECT: tarkovdev
-      #   with:
-      #     environment: production
-      #     sourcemaps: ./build/static/
-
-      - name: CDN Purge
-        uses: jakejarvis/cloudflare-purge-action@eee6dba0236093358f25bb1581bd615dc8b3d8e3 # pin@v0.3.0
-        env:
-          CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
-          CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_PURGE_TOKEN }}
-          PURGE_URLS: '["https://tarkov.dev/data/item-grids.min.json", "https://tarkov.dev/data/item-props.min.json"]'
