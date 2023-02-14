@@ -26,12 +26,14 @@ const doFetchQuests = async (language, prebuild = false) => {
                 }
                 status
             }
-            traderLevelRequirements {
+            traderRequirements {
                 trader {
                     id
                     name
                 }
-                level
+                requirementType
+                compareMethod
+                value
             }
             objectives {
                 __typename
