@@ -20,7 +20,7 @@ jobs:
           environment: production
 
       - name: checkout
-        uses: actions/checkout@v3 # pin@v3
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # pin@v3
         if: ${{ steps.deployment-check.outputs.continue == 'true' }} # only run if the Action returned 'true' for the 'continue' output
 
       # check to ensure all JSON files are valid in the repository
