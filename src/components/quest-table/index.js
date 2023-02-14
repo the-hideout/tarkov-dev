@@ -272,9 +272,9 @@ function QuestTable({
 
             let lockedPassed = true;
             if (hideLocked) {
-                for (const req of quest.traderLevelRequirements) {
+                for (const req of quest.traderRequirements.filter(req => req.requirementType === 'level')) {
                     const trader = traders.find(t => t.id === req.trader.id);
-                    if (settings[trader.normalizedName] < req.level) {
+                    if (settings[trader.normalizedName] < req.value) {
                         lockedPassed = false;
                         break;
                     }
@@ -444,6 +444,17 @@ function QuestTable({
                 Header: t('Minimum level'),
                 id: 'minimumLevel',
                 accessor: 'minPlayerLevel',
+                sortType: (a, b, columnId, desc) => {
+                    let minA = a.original.minPlayerLevel;
+                    let minB = b.original.minPlayerLevel;
+                    if (minA === 0) {
+                        minA = desc ? -1 : 100;
+                    }
+                    if (minB === 0) {
+                        minB = desc ? -1 : 100;
+                    }
+                    return minA - minB;
+                },
                 Cell: (props) => {
                     if (!props.value) {
                         return '';
@@ -461,11 +472,11 @@ function QuestTable({
                 Header: t('Minimum trader level'),
                 id: 'minimumTraderLevel',
                 accessor: (questData) => {
-                    return questData.traderLevelRequirements[0]?.level;
+                    return questData.traderRequirements.filter(req => req.requirementType === 'level')[0]?.value;
                 },
                 Cell: (props) => {
                     return (
-                        <CenterCell value={props.row.original.traderLevelRequirements.map(req => req.level).join(', ')}/>
+                        <CenterCell value={props.row.original.traderRequirements.filter(req => req.requirementType === 'level').map(req => req.value).join(', ')}/>
                     );
                 },
                 position: minimumTraderLevel,

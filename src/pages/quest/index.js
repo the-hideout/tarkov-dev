@@ -115,11 +115,12 @@ function Quest() {
     if (
         currentQuest.minPlayerLevel ||
         currentQuest.taskRequirements?.length > 0 ||
-        currentQuest.traderLevelRequirements?.length > 0
+        currentQuest.traderRequirements?.length > 0
     ) {
         let playerLevel = '';
         let tasksReqs = '';
         let traderLevels = '';
+        let traderReps = '';
 
         if (currentQuest.minPlayerLevel) {
             playerLevel = (
@@ -128,17 +129,34 @@ function Quest() {
                 </div>
             );
         }
-
-        if (currentQuest.traderLevelRequirements?.length > 0) {
+        const levelReqs = currentQuest.traderRequirements.filter(req => req.requirementType === 'level');
+        if (levelReqs.length > 0) {
             traderLevels = (
                 <div key={'trader-level-req'}>
                     <h3>{t('Trader Levels')}</h3>
-                    {currentQuest.traderLevelRequirements.map((traderReq) => {
+                    {levelReqs.map((traderReq) => {
                         const trader = traders.find((trad) => trad.id === traderReq.trader.id);
                         return (
                             <div key={`req-trader-${trader.id}`}>
                                 <Link to={`/traders/${trader.normalizedName}`}>{trader.name}</Link>
-                                <span>{` ${t('LL{{level}}', { level: traderReq.level })}`}</span>
+                                <span>{` ${t('LL{{level}}', { level: traderReq.value })}`}</span>
+                            </div>
+                        );
+                    })}
+                </div>
+            );
+        }
+        const repReqs = currentQuest.traderRequirements.filter(req => req.requirementType === 'reputation');
+        if (repReqs.length > 0) {
+            traderReps = (
+                <div key={'trader-rep-req'}>
+                    <h3>{t('Trader Reputation')}</h3>
+                    {repReqs.map((traderRep) => {
+                        const trader = traders.find((trad) => trad.id === traderRep.trader.id);
+                        return (
+                            <div key={`req-trader-${trader.id}`}>
+                                <Link to={`/traders/${trader.normalizedName}`}>{trader.name}</Link>
+                                <span>{` ${traderRep.compareMethod} ${traderRep.value}`}</span>
                             </div>
                         );
                     })}
@@ -186,6 +204,7 @@ function Quest() {
                 <h2>📋 {t('Start Requirements')}</h2>
                 {playerLevel}
                 {traderLevels}
+                {traderReps}
                 {tasksReqs}
             </div>
         );
