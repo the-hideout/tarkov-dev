@@ -26,7 +26,10 @@ function ItemImage({ item, textSize = 11, backgroundScale = 1, backgroundImageFi
             });
         }
     }, [refContainer]);
-console.log(dimensions)
+    if (false) {
+        console.log(dimensions);
+    }
+
     const color = colors[item.backgroundColor];
     const colorString = `${color.r}, ${color.g}, ${color.b}, ${color.alpha}`;
     const itemWidth = item.width;
