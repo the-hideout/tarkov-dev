@@ -2,6 +2,7 @@ import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import ImageViewer from 'react-simple-image-viewer';
 
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
 
@@ -25,6 +26,8 @@ import QueueBrowserTask from '../../../modules/queue-browser-task';
 import { selectAllTraders, fetchTraders } from '../../../features/traders/tradersSlice';
 
 import i18n from '../../../i18n';
+
+import './index.css';
 
 const romanLevels = {
     0: '0',
@@ -52,6 +55,17 @@ function Trader() {
     );
     //const [showAllTraders, setShowAllTraders] = useState(false);
     const { t } = useTranslation();
+
+    const [isViewerOpen, setIsViewerOpen] = useState(false);
+    const openImageViewer = useCallback(() => {
+        setIsViewerOpen(true);
+      }, []);
+    const closeImageViewer = () => {
+        setIsViewerOpen(false);
+    };
+    const backgroundStyle = {
+        backgroundColor: 'rgba(0,0,0,.9)',
+    };
 
     const handleNameFilterChange = useCallback(
         (e) => {
@@ -211,11 +225,46 @@ function Trader() {
                 />
             )}
 
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
-                <p>
-                    {trader.description}
-                </p>
+            <div className="trader-information-grid">
+                <div className="trader-information-wrapper">
+                    <h1>
+                        {trader.name}
+                        <img
+                            alt={trader.name}
+                            className={'trader-icon'}
+                            loading="lazy"
+                            src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}-portrait.png`}
+                            onClick={() => openImageViewer(0)}
+                        />
+                    </h1>
+                    <span className="wiki-link-wrapper">
+                        <a href={`https://escapefromtarkov.fandom.com/wiki/${trader.normalizedName}`} target="_blank" rel="noopener noreferrer">
+                            {t('Wiki')}
+                        </a>
+                    </span>
+                    <p className='trader-details'>
+                        {trader.description}
+                    </p>
+                </div>
+                <div className="trader-icon-and-link-wrapper">
+                    <img
+                        alt={trader.name}
+                        loading="lazy"
+                        src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg`}
+                        onClick={() => openImageViewer(0)}
+                    />
+                </div>
             </div>
+            {isViewerOpen && (
+                <ImageViewer
+                    src={[`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg`]}
+                    currentIndex={0}
+                    backgroundStyle={backgroundStyle}
+                    disableScroll={true}
+                    closeOnClickOutside={true}
+                    onClose={closeImageViewer}
+                />
+            )}
         </div>,
     ];
 }
