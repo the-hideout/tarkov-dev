@@ -48,6 +48,7 @@ function BossPage(params) {
     };
     const backgroundStyle = {
         backgroundColor: 'rgba(0,0,0,.9)',
+        zIndex: 20,
     };
 
     // Format the boss table columns for locations
@@ -325,7 +326,7 @@ function BossPage(params) {
                             </div>
                             <img
                                 alt={bossData.name}
-                                className={'boss-icon'}
+                                className={'boss-information-icon'}
                                 loading="lazy"
                                 src={bossData.imagePortraitLink}
                                 onClick={() => openImageViewer(0)}

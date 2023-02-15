@@ -65,6 +65,7 @@ function Trader() {
     };
     const backgroundStyle = {
         backgroundColor: 'rgba(0,0,0,.9)',
+        zIndex: 20,
     };
 
     const handleNameFilterChange = useCallback(
@@ -138,9 +139,49 @@ function Trader() {
             key="seo-wrapper"
         />,
         <div className="page-wrapper" key={'page-wrapper'}>
+            <div className="trader-information-grid">
+                <div className="trader-information-wrapper">
+                    <h1>
+                        {trader.name}
+                        <img
+                            alt={trader.name}
+                            className={'trader-information-icon'}
+                            loading="lazy"
+                            src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}-portrait.png`}
+                            onClick={() => openImageViewer(0)}
+                        />
+                    </h1>
+                    <span className="wiki-link-wrapper">
+                        <a href={`https://escapefromtarkov.fandom.com/wiki/${trader.normalizedName}`} target="_blank" rel="noopener noreferrer">
+                            {t('Wiki')}
+                        </a>
+                    </span>
+                    <p className='trader-details'>
+                        {trader.description}
+                    </p>
+                </div>
+                <PropertyList properties={levelProperties} />
+                <div className="trader-icon-and-link-wrapper">
+                    <img
+                        alt={trader.name}
+                        loading="lazy"
+                        src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg`}
+                        onClick={() => openImageViewer(0)}
+                    />
+                </div>
+            </div>
+            {isViewerOpen && (
+                <ImageViewer
+                    src={[`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg`]}
+                    currentIndex={0}
+                    backgroundStyle={backgroundStyle}
+                    disableScroll={true}
+                    closeOnClickOutside={true}
+                    onClose={closeImageViewer}
+                />
+            )}
             <div className="page-headline-wrapper">
                 <h1>
-                    {trader.name}
                     <cite>
                         {resetTime}
                     </cite>
@@ -198,23 +239,20 @@ function Trader() {
             </div>
 
             {selectedTable !== 'tasks' && (
-                <div>
-                    <PropertyList properties={levelProperties} />
-                    <SmallItemTable
-                        nameFilter={nameFilter}
-                        traderFilter={trader.normalizedName}
-                        loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
-                        traderBuybackFilter={selectedTable === 'spending' ? true : false}
-                        maxItems={selectedTable === 'spending' ? 50 : false}
-                        totalTraderPrice={true}
-                        traderValue={selectedTable === 'spending' ? 1 : false}
-                        fleaPrice={selectedTable === 'spending' ? 2 : 1}
-                        traderPrice={selectedTable === 'spending' ? false : 2}
-                        traderBuyback={selectedTable === 'spending' ? 3 : false}
-                        sortBy={selectedTable === 'spending' ? 'traderBuyback' : null}
-                        sortByDesc={true}
-                    />
-                </div>
+                <SmallItemTable
+                    nameFilter={nameFilter}
+                    traderFilter={trader.normalizedName}
+                    loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
+                    traderBuybackFilter={selectedTable === 'spending' ? true : false}
+                    maxItems={selectedTable === 'spending' ? 50 : false}
+                    totalTraderPrice={true}
+                    traderValue={selectedTable === 'spending' ? 1 : false}
+                    fleaPrice={selectedTable === 'spending' ? 2 : 1}
+                    traderPrice={selectedTable === 'spending' ? false : 2}
+                    traderBuyback={selectedTable === 'spending' ? 3 : false}
+                    sortBy={selectedTable === 'spending' ? 'traderBuyback' : null}
+                    sortByDesc={true}
+                />
             )}
             {selectedTable === 'tasks' && (
                 <QuestTable
@@ -222,47 +260,6 @@ function Trader() {
                     nameFilter={nameFilter}
                     questRequirements={1}
                     minimumLevel={2}
-                />
-            )}
-
-            <div className="trader-information-grid">
-                <div className="trader-information-wrapper">
-                    <h1>
-                        {trader.name}
-                        <img
-                            alt={trader.name}
-                            className={'trader-icon'}
-                            loading="lazy"
-                            src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}-portrait.png`}
-                            onClick={() => openImageViewer(0)}
-                        />
-                    </h1>
-                    <span className="wiki-link-wrapper">
-                        <a href={`https://escapefromtarkov.fandom.com/wiki/${trader.normalizedName}`} target="_blank" rel="noopener noreferrer">
-                            {t('Wiki')}
-                        </a>
-                    </span>
-                    <p className='trader-details'>
-                        {trader.description}
-                    </p>
-                </div>
-                <div className="trader-icon-and-link-wrapper">
-                    <img
-                        alt={trader.name}
-                        loading="lazy"
-                        src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg`}
-                        onClick={() => openImageViewer(0)}
-                    />
-                </div>
-            </div>
-            {isViewerOpen && (
-                <ImageViewer
-                    src={[`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg`]}
-                    currentIndex={0}
-                    backgroundStyle={backgroundStyle}
-                    disableScroll={true}
-                    closeOnClickOutside={true}
-                    onClose={closeImageViewer}
                 />
             )}
         </div>,

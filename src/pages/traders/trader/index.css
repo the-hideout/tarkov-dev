@@ -13,7 +13,7 @@
     margin: 0 0 10px 0;
 }
 
-.trader-icon {
+.trader-information-icon {
     width: 64px;
     height: 64px;
     cursor: zoom-in;
@@ -36,6 +36,10 @@
     .trader-information-grid {
         padding-top: 20px;
         display: flex;
+    }
+
+    .trader-information-grid .property-list {
+        margin: 0px;
     }
 
     .trader-information-grid h1 img {
