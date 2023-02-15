@@ -23,6 +23,8 @@ jobs:
         with:
           admins: the-hideout/core-contributors
           admins_pat: ${{ secrets.BRANCH_DEPLOY_ADMINS_PAT }}
+          skip_ci: "development"
+          skip_reviews: "development"
 
       - name: Checkout
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
