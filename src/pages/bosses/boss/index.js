@@ -1,6 +1,7 @@
-import React, { Suspense, useMemo, useState } from 'react';
+import React, { Suspense, useCallback, useMemo, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { useParams, Link } from 'react-router-dom';
+import ImageViewer from 'react-simple-image-viewer';
 
 import Icon from '@mdi/react';
 import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper } from '@mdi/js';
@@ -37,6 +38,17 @@ function BossPage(params) {
         audio.play()
     };
     // end cheeki breeki
+
+    const [isViewerOpen, setIsViewerOpen] = useState(false);
+    const openImageViewer = useCallback(() => {
+        setIsViewerOpen(true);
+      }, []);
+    const closeImageViewer = () => {
+        setIsViewerOpen(false);
+    };
+    const backgroundStyle = {
+        backgroundColor: 'rgba(0,0,0,.9)',
+    };
 
     // Format the boss table columns for locations
     const columnsLocations = useMemo(() => {
@@ -303,11 +315,20 @@ function BossPage(params) {
                 <div className="boss-information-grid">
                     <div className="boss-information-wrapper">
                         <h1>
-                            {bossData.name}
-                            <Icon
-                                path={mdiEmoticonDevil}
-                                size={1.5}
-                                className="icon-with-text"
+                            <div>
+                                {bossData.name}
+                                <Icon
+                                    path={mdiEmoticonDevil}
+                                    size={1.4}
+                                    className="icon-with-text"
+                                />
+                            </div>
+                            <img
+                                alt={bossData.name}
+                                className={'boss-icon'}
+                                loading="lazy"
+                                src={bossData.imagePortraitLink}
+                                onClick={() => openImageViewer(0)}
                             />
                         </h1>
                         {bossData.wikiLink &&
@@ -328,9 +349,20 @@ function BossPage(params) {
                             alt={bossData.name}
                             loading="lazy"
                             src={bossData.imagePosterLink}
+                            onClick={() => openImageViewer(0)}
                         />
                     </div>
                 </div>
+                {isViewerOpen && (
+                    <ImageViewer
+                        src={[bossData.imagePosterLink]}
+                        currentIndex={0}
+                        backgroundStyle={backgroundStyle}
+                        disableScroll={true}
+                        closeOnClickOutside={true}
+                        onClose={closeImageViewer}
+                    />
+                )}
                 <h2 key={'boss-stats-header'}>
                     {t('Boss Stats')}
                     <Icon
