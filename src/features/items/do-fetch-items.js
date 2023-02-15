@@ -34,6 +34,7 @@ const doFetchItems = async (language, prebuild = false) => {
                 lastLowPrice
                 gridImageLink
                 iconLink
+                baseImageLink
                 image512pxLink
                 updated
                 sellFor {
