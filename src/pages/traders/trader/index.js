@@ -98,7 +98,7 @@ function Trader() {
         }
         const levelInfo = trader.levels.find(l => l.level === selectedTable);
         if (levelInfo.requiredPlayerLevel > 1) {
-            props.requiredPlayerLevel = {value: levelInfo.requiredPlayerLevel, label: `${t('Player Level')} 💪`};
+            props.requiredPlayerLevel = {value: levelInfo.requiredPlayerLevel, label: `${t('Player level')} 💪`};
         }
         props.requiredReputation = {value: levelInfo.requiredReputation, label: `${t('Reputation')} 📈`};
         if (levelInfo.requiredCommerce > 0) {
@@ -152,7 +152,7 @@ function Trader() {
                                     key={level.level}
                                     tooltipContent={
                                         <>
-                                            {t('Loyalty Level {{level}}', { level: level.level})}
+                                            {t('Unlocks at Loyalty Level {{level}}', { level: level.level})}
                                         </>
                                     }
                                     selected={selectedTable === level.level}
