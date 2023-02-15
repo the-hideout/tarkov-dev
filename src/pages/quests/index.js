@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import { mdiClipboardList } from '@mdi/js';
@@ -153,12 +153,14 @@ function Quests() {
             />
 
             <div>
-                <p>
-                    {"Traders in Escape from Tarkov have a number of tasks you can complete."}
-                </p>
-                <p>
-                    {"In exchange for retrieving items, eliminating targets, and performing other actions in raid, you can increase your standing with the traders and earn valuable items."}
-                </p>
+                <Trans i18nKey={'quests-page-p'}>
+                    <p>
+                        Traders in Escape from Tarkov have a number of tasks you can complete.
+                    </p>
+                    <p>
+                        In exchange for retrieving items, eliminating targets, and performing other actions in raid, you can increase your standing with the traders and earn valuable items.
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];
