@@ -853,9 +853,15 @@ function Quest() {
                 {currentQuest.finishRewards?.skillLevelReward?.length > 0 && (
                     <>
                         <h3>{t('Skill Level')}</h3>
-                        {currentQuest.finishRewards.skillLevelReward.map((skillReward) => {
-                            return <>{`${skillReward.name} +${skillReward.level}`}</>;
-                        })}
+                        <ul>
+                            {currentQuest.finishRewards.skillLevelReward.map((skillReward) => {
+                                return (
+                                    <li className="quest-list-item" key={skillReward.name}>
+                                        {`${skillReward.name} +${skillReward.level}`};
+                                    </li>
+                                )
+                            })}
+                        </ul>
                     </>
                 )}
                 {currentQuest.finishRewards?.offerUnlock?.length > 0 && (

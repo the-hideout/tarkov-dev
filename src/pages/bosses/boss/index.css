@@ -19,7 +19,9 @@
 }
 
 .boss-information-grid h1 {
-    display: block;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
 }
 
 .boss-information-grid h1,
@@ -27,8 +29,14 @@
     margin: 0 0 10px 0;
 }
 
+.boss-information-icon {
+    width: 64px;
+    height: 64px;
+    cursor: zoom-in;
+}
+
 .boss-details {
-    max-width: 80%;
+    margin-right: 1em;
 }
 
 .boss-icon-and-link-wrapper {
@@ -37,6 +45,7 @@
     flex-wrap: wrap;
     justify-content: flex-end;
     flex-grow: 1;
+    cursor: zoom-in;
 }
 
 .boss-icon-and-link-wrapper img {
