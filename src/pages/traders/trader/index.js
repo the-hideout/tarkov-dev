@@ -2,6 +2,7 @@ import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import ImageViewer from 'react-simple-image-viewer';
 
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
 
@@ -25,6 +26,8 @@ import QueueBrowserTask from '../../../modules/queue-browser-task';
 import { selectAllTraders, fetchTraders } from '../../../features/traders/tradersSlice';
 
 import i18n from '../../../i18n';
+
+import './index.css';
 
 const romanLevels = {
     0: '0',
@@ -52,6 +55,18 @@ function Trader() {
     );
     //const [showAllTraders, setShowAllTraders] = useState(false);
     const { t } = useTranslation();
+
+    const [isViewerOpen, setIsViewerOpen] = useState(false);
+    const openImageViewer = useCallback(() => {
+        setIsViewerOpen(true);
+      }, []);
+    const closeImageViewer = () => {
+        setIsViewerOpen(false);
+    };
+    const backgroundStyle = {
+        backgroundColor: 'rgba(0,0,0,.9)',
+        zIndex: 20,
+    };
 
     const handleNameFilterChange = useCallback(
         (e) => {
@@ -98,7 +113,7 @@ function Trader() {
         }
         const levelInfo = trader.levels.find(l => l.level === selectedTable);
         if (levelInfo.requiredPlayerLevel > 1) {
-            props.requiredPlayerLevel = {value: levelInfo.requiredPlayerLevel, label: `${t('Player Level')} 💪`};
+            props.requiredPlayerLevel = {value: levelInfo.requiredPlayerLevel, label: `${t('Player level')} 💪`};
         }
         props.requiredReputation = {value: levelInfo.requiredReputation, label: `${t('Reputation')} 📈`};
         if (levelInfo.requiredCommerce > 0) {
@@ -124,9 +139,49 @@ function Trader() {
             key="seo-wrapper"
         />,
         <div className="page-wrapper" key={'page-wrapper'}>
+            <div className="trader-information-grid">
+                <div className="trader-information-wrapper">
+                    <h1>
+                        {trader.name}
+                        <img
+                            alt={trader.name}
+                            className={'trader-information-icon'}
+                            loading="lazy"
+                            src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}-portrait.png`}
+                            onClick={() => openImageViewer(0)}
+                        />
+                    </h1>
+                    <span className="wiki-link-wrapper">
+                        <a href={`https://escapefromtarkov.fandom.com/wiki/${trader.normalizedName}`} target="_blank" rel="noopener noreferrer">
+                            {t('Wiki')}
+                        </a>
+                    </span>
+                    <p className='trader-details'>
+                        {trader.description}
+                    </p>
+                </div>
+                <PropertyList properties={levelProperties} />
+                <div className="trader-icon-and-link-wrapper">
+                    <img
+                        alt={trader.name}
+                        loading="lazy"
+                        src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg`}
+                        onClick={() => openImageViewer(0)}
+                    />
+                </div>
+            </div>
+            {isViewerOpen && (
+                <ImageViewer
+                    src={[`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg`]}
+                    currentIndex={0}
+                    backgroundStyle={backgroundStyle}
+                    disableScroll={true}
+                    closeOnClickOutside={true}
+                    onClose={closeImageViewer}
+                />
+            )}
             <div className="page-headline-wrapper">
                 <h1>
-                    {trader.name}
                     <cite>
                         {resetTime}
                     </cite>
@@ -152,7 +207,7 @@ function Trader() {
                                     key={level.level}
                                     tooltipContent={
                                         <>
-                                            {t('Loyalty Level {{level}}', { level: level.level})}
+                                            {t('Unlocks at Loyalty Level {{level}}', { level: level.level})}
                                         </>
                                     }
                                     selected={selectedTable === level.level}
@@ -184,23 +239,20 @@ function Trader() {
             </div>
 
             {selectedTable !== 'tasks' && (
-                <div>
-                    <PropertyList properties={levelProperties} />
-                    <SmallItemTable
-                        nameFilter={nameFilter}
-                        traderFilter={trader.normalizedName}
-                        loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
-                        traderBuybackFilter={selectedTable === 'spending' ? true : false}
-                        maxItems={selectedTable === 'spending' ? 50 : false}
-                        totalTraderPrice={true}
-                        traderValue={selectedTable === 'spending' ? 1 : false}
-                        fleaPrice={selectedTable === 'spending' ? 2 : 1}
-                        traderPrice={selectedTable === 'spending' ? false : 2}
-                        traderBuyback={selectedTable === 'spending' ? 3 : false}
-                        sortBy={selectedTable === 'spending' ? 'traderBuyback' : null}
-                        sortByDesc={true}
-                    />
-                </div>
+                <SmallItemTable
+                    nameFilter={nameFilter}
+                    traderFilter={trader.normalizedName}
+                    loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
+                    traderBuybackFilter={selectedTable === 'spending' ? true : false}
+                    maxItems={selectedTable === 'spending' ? 50 : false}
+                    totalTraderPrice={true}
+                    traderValue={selectedTable === 'spending' ? 1 : false}
+                    fleaPrice={selectedTable === 'spending' ? 2 : 1}
+                    traderPrice={selectedTable === 'spending' ? false : 2}
+                    traderBuyback={selectedTable === 'spending' ? 3 : false}
+                    sortBy={selectedTable === 'spending' ? 'traderBuyback' : null}
+                    sortByDesc={true}
+                />
             )}
             {selectedTable === 'tasks' && (
                 <QuestTable
@@ -210,12 +262,6 @@ function Trader() {
                     minimumLevel={2}
                 />
             )}
-
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
-                <p>
-                    {trader.description}
-                </p>
-            </div>
         </div>,
     ];
 }

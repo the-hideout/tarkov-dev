@@ -59,6 +59,10 @@ const formatter = (key, value) => {
         value = value?.map(defaultFormat).join(', ');
     }
 
+    if (key === 'armorDamage') {
+        value = `${value}%`;
+    }
+
     if (key === 'turnPenalty') {
         value = `${value*100}%`;
     }
