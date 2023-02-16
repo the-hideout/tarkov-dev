@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {renderToStaticMarkup} from "react-dom/server";
 
 import './index.css';
@@ -15,27 +15,72 @@ const colors = {
     yellow: {r: 104, g: 102, b: 40, alpha: 77/255},
 };
 
-function ItemImage({ item, textSize = 11, backgroundScale = 1, backgroundImageField = 'baseImageLink', children = '', nonFunctionalOverlay = true }) {
+function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', nonFunctionalOverlay = true, children = '' }) {
     const refContainer = useRef();
-    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+    /*const [containerDimensions, setDimensions] = useState({ width: 0, height: 0 });
     useEffect(() => {
-        if (refContainer.current) {
+        if (!refContainer.current) return;
+        const resizeObserver = new ResizeObserver(() => {
             setDimensions({
                 width: refContainer.current.offsetWidth,
                 height: refContainer.current.offsetHeight,
             });
-        }
-    }, [refContainer]);
-    if (false) {
-        console.log(dimensions);
-    }
+        });
+        resizeObserver.observe(refContainer.current);
+        return () => resizeObserver.disconnect();
+    }, []);*/
 
-    const color = colors[item.backgroundColor];
-    const colorString = `${color.r}, ${color.g}, ${color.b}, ${color.alpha}`;
-    const itemWidth = item.width;
-    const itemHeight = item.height;
-    const gridPercentX = (1 / itemWidth) * 100;
-    const gridPercentY = (1 / itemHeight) * 100;
+    const refImage = useRef();
+    const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0});
+    useEffect(() => {
+        if (!refImage.current) return;
+        const resizeObserver = new ResizeObserver(() => {
+            setImageDimensions({
+                width: refImage.current.width,
+                height: refImage.current.height,
+            });
+        });
+        resizeObserver.observe(refImage.current);
+        return () => resizeObserver.disconnect();
+    }, []);
+
+    const loadingImage = useMemo(() => {
+        const loadingStyle = {
+            WebkitMask:`url(${item[imageField]}) center/cover`,
+                  mask:`url(${item[imageField]}) center/cover`,
+        };
+        if (!item.types?.includes('loading')) {
+            loadingStyle.display = 'none';
+        }
+        
+        return (
+            <div className="item-image-mask" style={loadingStyle}></div>
+        );
+    }, [item, imageField]);
+
+    const imageElement = useMemo(() => {
+        const imageStyle = {};
+        if (item.types?.includes('loading')) {
+            imageStyle.display = 'none';
+        }
+        //console.log(dimensions);
+        return <img ref={refImage} src={item[imageField]} alt={item.name} loading="lazy" style={imageStyle}/>;
+    }, [item, refImage, imageField]);
+    
+    const textSize = useMemo(() => {
+        const baseWidth = (item.width * 63) +1;
+        return Math.min(12 * (imageDimensions.width / baseWidth), 16);
+    }, [imageDimensions, item]);
+
+    const { colorString, gridPercentX, gridPercentY } = useMemo(() => {
+        const color = colors[item.backgroundColor];
+        return {
+            colorString: `${color.r}, ${color.g}, ${color.b}, ${color.alpha}`,
+            gridPercentX: (1 / item.width) * 100,
+            gridPercentY: (1 / item.height) * 100,
+        };
+    }, [item]);
+    
     const gridSvg = () => 
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
             <defs>
@@ -80,20 +125,8 @@ function ItemImage({ item, textSize = 11, backgroundScale = 1, backgroundImageFi
         fontWeight: 'bold',
         textShadow: '1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000',
         fontSize: `${textSize}px`,
-        whiteSpace: 'nowrap',
-    }
-
-    if (item.types?.includes('loading')) {
-        const loadingStyle = {
-            WebkitMask:`url(${item[backgroundImageField]}) center/cover`,
-                  mask:`url(${item[backgroundImageField]}) center/cover`,
-        };
-        
-        return (
-            <div style={backgroundStyle} ref={refContainer}>
-                <div className="item-image-mask" style={loadingStyle}></div>
-            </div>
-        )
+        textAlign: 'right',
+        //whiteSpace: 'nowrap',
     }
 
     let nonFunctional = (<></>);
@@ -119,7 +152,8 @@ function ItemImage({ item, textSize = 11, backgroundScale = 1, backgroundImageFi
 
     return (
         <div ref={refContainer} style={backgroundStyle}>
-            <img src={item[backgroundImageField]} alt={item.name} loading="lazy"/>
+            {loadingImage}
+            {imageElement}
             {nonFunctional}
             <div style={imageTextStyle}>{item.shortName}</div>
             {children}
