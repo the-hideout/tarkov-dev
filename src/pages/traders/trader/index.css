@@ -24,12 +24,7 @@
     display: none;
     flex-wrap: wrap;
     justify-content: flex-end;
-    flex-grow: 1;
     cursor: zoom-in;
-}
-
-.trader-icon-and-link-wrapper img {
-    max-height: 50px;
 }
 
 @media screen and (min-width: 800px) {
@@ -38,8 +33,13 @@
         display: flex;
     }
 
+    .trader-information-wrapper {
+        flex-grow: 1;
+    }
+
     .trader-information-grid .property-list {
-        margin: 0px;
+        margin: 0 1em 0 0;
+        flex-direction: column;
     }
 
     .trader-information-grid h1 img {
@@ -52,7 +52,7 @@
 
     .trader-information-grid h1,
     .trader-icon-and-link-wrapper {
-        margin: 0 0;
+        margin: 0;
     }
 
     .trader-icon-and-link-wrapper {
