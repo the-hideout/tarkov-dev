@@ -35,26 +35,21 @@
     cursor: zoom-in;
 }
 
-.boss-details {
-    margin-right: 1em;
-}
-
 .boss-icon-and-link-wrapper {
     align-items: flex-start;
     display: none;
     flex-wrap: wrap;
     justify-content: flex-end;
-    flex-grow: 1;
     cursor: zoom-in;
-}
-
-.boss-icon-and-link-wrapper img {
-    max-height: 50px;
 }
 
 @media screen and (min-width: 800px) {
     .boss-page-wrapper {
         padding-top: 20px;
+    }
+
+    .boss-information-wrapper {
+        flex-grow: 1;
     }
 
     .boss-information-grid {
@@ -65,9 +60,13 @@
         display: none;
     }
 
+    .boss-details {
+        margin-right: 1em;
+    }
+
     .boss-information-grid h1,
     .boss-icon-and-link-wrapper {
-        margin: 0 0;
+        margin: 0;
     }
 
     .boss-icon-and-link-wrapper {
