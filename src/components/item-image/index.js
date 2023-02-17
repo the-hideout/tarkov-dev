@@ -61,8 +61,11 @@ function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', no
 
     const [isViewerOpen, setIsViewerOpen] = useState(false);
     const openImageViewer = useCallback(() => {
+        if (!imageViewer) {
+            return;
+        }
         setIsViewerOpen(true);
-      }, []);
+      }, [imageViewer]);
     const closeImageViewer = () => {
         setIsViewerOpen(false);
     };
@@ -103,7 +106,7 @@ function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', no
         if (!nonFunctionalOverlay || !item.types.includes('gun') || !item.properties?.defaultPreset) {
             return <></>;
         }
-        return <div className='item-nonfunctional-mask' onClick={openImageViewer} style={{
+        const nonFunctionalStyle = {
             position: 'absolute',
             boxSizing: 'border-box',
             top: `${1*backgroundScale}px`, 
@@ -117,8 +120,12 @@ function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', no
                 {height:    `-moz-calc(100% - ${2*backgroundScale}px)`},
             ],
             backgroundColor: '#4400008f',
-        }}/>;
-    }, [item, nonFunctionalOverlay, backgroundScale, openImageViewer]);
+        };
+        if (imageViewer) {
+            nonFunctionalStyle.cursor = 'zoom-in';
+        }
+        return <div className='item-nonfunctional-mask' onClick={openImageViewer} style={nonFunctionalStyle}/>;
+    }, [item, nonFunctionalOverlay, backgroundScale, openImageViewer, imageViewer]);
 
     const gridSvg = () => 
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
