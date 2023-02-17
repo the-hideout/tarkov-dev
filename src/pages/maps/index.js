@@ -65,9 +65,9 @@ function Maps() {
                                 // t('Shoreline')
                                 // t('Woods')
                                 // t('Openworld')
-                                maps.some(m => m.normalizedName === mapsGroup.normalizedName) ? mapsGroup.name : t(mapsGroup.name)
+                                mapsGroup.name
                             }
-                            </h2>
+                        </h2>
                         <div className="page-wrapper map-page-wrapper">
                             {mapsGroup.description}
                         </div>
