@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -18,9 +19,22 @@ function BarterTooltip({ barter, source, requiredItems, showTitle = true, title,
     const settings = useSelector((state) => state.settings);
     const { t } = useTranslation();
     source = source || barter?.source;
-    requiredItems = requiredItems || barter?.requiredItems;
 
-    if (!source || !requiredItems) {
+    const requirements = useMemo(() => {
+        const items = requiredItems || barter?.requiredItems;
+        if (!items) {
+            return false;
+        }
+        return items.map(req => {
+            const cheapestPrice = getCheapestItemPrice(req.item, settings, allowAllSources);
+            return {
+                ...req,
+                cheapestPrice,
+            };
+        });
+    }, [requiredItems, barter, settings, allowAllSources]);
+
+    if (!source || !requirements) {
         return "No barters found for this item";
     }
 
@@ -47,11 +61,10 @@ function BarterTooltip({ barter, source, requiredItems, showTitle = true, title,
         <div className="barter-tooltip-wrapper">
 
             {titleElement}
-            {requiredItems.map((requiredItem) => {
+            {requirements.map((requiredItem) => {
                 let itemName = requiredItem.item.name;
-                const cheapestPrice = getCheapestItemPrice(requiredItem.item, settings, allowAllSources);
-                let price = cheapestPrice.priceRUB;
-                let sourceName = cheapestPrice.vendor.normalizedName;
+                let price = requiredItem.cheapestPrice.priceRUB;
+                let sourceName = requiredItem.cheapestPrice.vendor.normalizedName;
                 if (isAnyDogtag(requiredItem.item.id)) {
                     const dogtagCost = getDogTagCost(requiredItem, settings);
                     itemName = dogtagCost.name;
