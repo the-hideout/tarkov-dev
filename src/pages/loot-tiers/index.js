@@ -132,6 +132,7 @@ function LootTier(props) {
         return items
             .map((item) => {
                 let gridImageLink = item.gridImageLink;
+                let baseImageLink = item.baseImageLink;
                 let width = item.width;
                 let height = item.height;
                 let slots = item.slots;
@@ -149,6 +150,7 @@ function LootTier(props) {
                             height = preset.height;
                             slots = width * height;
                             gridImageLink = preset.gridImageLink;
+                            baseImageLink = preset.baseImageLink;
                             priceRUB = preset.traderPriceRUB;
                             normalizedName = preset.normalizedName;
                         }
@@ -178,6 +180,7 @@ function LootTier(props) {
                     height,
                     slots,
                     gridImageLink,
+                    baseImageLink,
                     types: itemTypes,
                 }
             })

@@ -1,12 +1,3 @@
-.item-image-text {
-    position: absolute;
-    top: 4px;
-    right: 7px;
-    cursor: default;
-    color: #a4aeb4;
-    font-weight: bold;
-    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
-}
 .item-image-mask {
     background: linear-gradient(to left, #9a8866 20%, #c7c5b3 40%, #c7c5b3 60%, #9a8866 80%);
     background-size: 200% auto;
@@ -28,16 +19,7 @@
     }
 }
 
-.item-nonfunctional-mask {
-    position: absolute;
-    box-sizing: border-box;
-    top: 2px;
-    left: 2px;
-    width: -webkit-calc(100% - 4px);
-    width:    -moz-calc(100% - 4px);
-    width:         calc(100% - 4px);
-    height: -webkit-calc(100% - 4px);
-    height:    -moz-calc(100% - 4px);
-    height:         calc(100% - 4px);
-    background-color: #4400008f;
+.react-simple-image-viewer__modal-content img {
+    max-width: 100% !important;
+    max-height: 100% !important;
 }

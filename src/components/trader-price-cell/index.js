@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import Icon from '@mdi/react';
@@ -68,8 +69,9 @@ function TraderPriceCell(props) {
                 {printString}
                 {getItemCountPrice(trader.price, trader.currency, count)}
                 <Tippy 
-                    content={`${t('Task')}: ${questLocked.name}`}
+                    content={<Link to={`/task/${questLocked.normalizedName}`}>{t('Task')}: {questLocked.name}</Link>}
                     placement="bottom"
+                    interactive={true}
                 >
                     <div className="trader-unlock-wrapper">
                         <Icon
