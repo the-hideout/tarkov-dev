@@ -12,7 +12,6 @@ import './index.css';
 
 function Maps() {
     const { t } = useTranslation();
-    const {data: maps} = useMapsQuery();
     const mapImages = useMapImages();
     const uniqueMaps = Object.values(mapImages).reduce((maps, current) => {
         if (!maps.some(storedMap => storedMap.normalizedName === current.normalizedName)) {
