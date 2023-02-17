@@ -18,3 +18,8 @@
         background-position: -200% center;
     }
 }
+
+.react-simple-image-viewer__modal-content img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+}

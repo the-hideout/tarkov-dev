@@ -587,6 +587,7 @@ The max profitable price is impacted by the intel center and hideout management 
                             item={currentItemData}
                             backgroundScale={2}
                             imageField={'image512pxLink'}
+                            imageViewer={true}
                         />
                     </div>
                 </div>

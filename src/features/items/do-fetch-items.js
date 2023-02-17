@@ -36,6 +36,7 @@ const doFetchItems = async (language, prebuild = false) => {
                 iconLink
                 baseImageLink
                 image512pxLink
+                image8xLink
                 updated
                 sellFor {
                     source

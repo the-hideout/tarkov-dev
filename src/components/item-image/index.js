@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import {renderToStaticMarkup} from "react-dom/server";
+import ImageViewer from 'react-simple-image-viewer';
 
 import './index.css';
 
@@ -15,7 +16,7 @@ const colors = {
     yellow: {r: 104, g: 102, b: 40, alpha: 77/255},
 };
 
-function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', nonFunctionalOverlay = true, children = '' }) {
+function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', nonFunctionalOverlay = true, imageViewer = false, children = '' }) {
     const refContainer = useRef();
     /*const [containerDimensions, setDimensions] = useState({ width: 0, height: 0 });
     useEffect(() => {
@@ -58,14 +59,31 @@ function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', no
         );
     }, [item, imageField]);
 
+    const [isViewerOpen, setIsViewerOpen] = useState(false);
+    const openImageViewer = useCallback(() => {
+        setIsViewerOpen(true);
+      }, []);
+    const closeImageViewer = () => {
+        setIsViewerOpen(false);
+    };
+    const viewerBackgroundStyle = {
+        backgroundColor: 'rgba(0,0,0,.9)',
+        zIndex: 20,
+        maxWidth: '100%',
+        maxHeight: '100%',
+    };
+
     const imageElement = useMemo(() => {
         const imageStyle = {};
         if (item.types?.includes('loading')) {
             imageStyle.display = 'none';
         }
+        if (imageViewer) {
+            imageStyle.cursor = 'zoom-in';
+        }
         //console.log(dimensions);
-        return <img ref={refImage} src={item[imageField]} alt={item.name} loading="lazy" style={imageStyle}/>;
-    }, [item, refImage, imageField]);
+        return <img ref={refImage} onClick={openImageViewer} src={item[imageField]} alt={item.name} loading="lazy" style={imageStyle}/>;
+    }, [item, refImage, imageField, openImageViewer, imageViewer]);
     
     const textSize = useMemo(() => {
         const baseWidth = (item.width * 63) +1;
@@ -80,7 +98,28 @@ function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', no
             gridPercentY: (1 / item.height) * 100,
         };
     }, [item]);
-    
+
+    const nonFunctional = useMemo(() => {
+        if (!nonFunctionalOverlay || !item.types.includes('gun') || !item.properties?.defaultPreset) {
+            return <></>;
+        }
+        return <div className='item-nonfunctional-mask' onClick={openImageViewer} style={{
+            position: 'absolute',
+            boxSizing: 'border-box',
+            top: `${1*backgroundScale}px`, 
+            left: `${1*backgroundScale}px`,
+            height: `calc(100% - ${2*backgroundScale}px)`,
+            width:  `calc(100% - ${2*backgroundScale}px)`,
+            fallbacks: [
+                {width: `-webkit-calc(100% - ${2*backgroundScale}px)`},
+                {width:    `-moz-calc(100% - ${2*backgroundScale}px)`},
+                {height: `-webkit-calc(100% - ${2*backgroundScale}px)`},
+                {height:    `-moz-calc(100% - ${2*backgroundScale}px)`},
+            ],
+            backgroundColor: '#4400008f',
+        }}/>;
+    }, [item, nonFunctionalOverlay, backgroundScale, openImageViewer]);
+
     const gridSvg = () => 
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
             <defs>
@@ -126,28 +165,6 @@ function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', no
         textShadow: '1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000',
         fontSize: `${textSize}px`,
         textAlign: 'right',
-        //whiteSpace: 'nowrap',
-    }
-
-    let nonFunctional = (<></>);
-    if (nonFunctionalOverlay && item.types.includes('gun') && item.properties?.defaultPreset) {
-        nonFunctional = (
-            <div className='item-nonfunctional-mask' style={{
-                position: 'absolute',
-                boxSizing: 'border-box',
-                top: `${1*backgroundScale}px`, 
-                left: `${1*backgroundScale}px`,
-                height: `calc(100% - ${2*backgroundScale}px)`,
-                width:  `calc(100% - ${2*backgroundScale}px)`,
-                fallbacks: [
-                    {width: `-webkit-calc(100% - ${2*backgroundScale}px)`},
-                    {width:    `-moz-calc(100% - ${2*backgroundScale}px)`},
-                    {height: `-webkit-calc(100% - ${2*backgroundScale}px)`},
-                    {height:    `-moz-calc(100% - ${2*backgroundScale}px)`},
-                ],
-                backgroundColor: '#4400008f',
-            }}/>
-        );
     }
 
     return (
@@ -157,6 +174,20 @@ function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', no
             {nonFunctional}
             <div style={imageTextStyle}>{item.shortName}</div>
             {children}
+            {isViewerOpen && (
+                <ImageViewer
+                    src={[item.image8xLink]}
+                    currentIndex={0}
+                    backgroundStyle={viewerBackgroundStyle}
+                    disableScroll={true}
+                    closeOnClickOutside={true}
+                    onClose={closeImageViewer}
+                    style={{                
+                        maxWidth: '100%',
+                        maxHeight: '100%',
+                    }}
+                />
+            )}
         </div>
     );
 }
