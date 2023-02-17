@@ -339,11 +339,12 @@ function BossPage(params) {
                                 </a>
                             </span>
                         }
-                        {bossData.details &&
-                            <p className='boss-details'>
-                                {t(`${bossData.normalizedName}-description`, { ns: 'bosses' })}
-                            </p>
-                        }
+                        <p className='boss-details'>
+                            <Trans i18nKey={`${bossData.normalizedName}-description`} ns={'bosses'} />
+                        </p>
+                        <p className='boss-details'>
+                            <Trans i18nKey={`${bossData.normalizedName}-bio`} ns={'bosses'} />
+                        </p>
                     </div>
                     <div className="boss-icon-and-link-wrapper">
                         <img
