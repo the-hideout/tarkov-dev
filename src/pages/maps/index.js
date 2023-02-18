@@ -6,13 +6,12 @@ import { mdiMap } from '@mdi/js';
 
 import SEO from '../../components/SEO';
 
-import { useMapsQuery, useMapImages } from '../../features/maps/queries';
+import { useMapImages } from '../../features/maps/queries';
 
 import './index.css';
 
 function Maps() {
     const { t } = useTranslation();
-    const {data: maps} = useMapsQuery();
     const mapImages = useMapImages();
     const uniqueMaps = Object.values(mapImages).reduce((maps, current) => {
         if (!maps.some(storedMap => storedMap.normalizedName === current.normalizedName)) {
@@ -65,9 +64,9 @@ function Maps() {
                                 // t('Shoreline')
                                 // t('Woods')
                                 // t('Openworld')
-                                maps.some(m => m.normalizedName === mapsGroup.normalizedName) ? mapsGroup.name : t(mapsGroup.name)
+                                mapsGroup.name
                             }
-                            </h2>
+                        </h2>
                         <div className="page-wrapper map-page-wrapper">
                             {mapsGroup.description}
                         </div>
