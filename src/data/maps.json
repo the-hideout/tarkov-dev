@@ -5,12 +5,13 @@
         "maps": [
             {
                 "key": "streets-3d",
+                "projection": "3D",
                 "source": "re3mr",
                 "sourceLink": "https://reemr.se"
             },
             {
                 "key": "streets-2d",
-                "appendTitle": "2D",
+                "projection": "2D",
                 "source": "Jindouz",
                 "sourceLink": "https://www.reddit.com/user/Jindouz"
             }
@@ -22,24 +23,27 @@
         "maps": [
             {
                 "key": "customs-3d",
+                "projection": "3D",
                 "source": "re3mr",
                 "sourceLink": "https://reemr.se"
             },
             {
                 "key": "customs-2d",
-                "appendTitle": "2D cardinal",
+                "projection": "2D",
+                "orientation": "Cardinal",
                 "source": "Tactical_Otter",
                 "sourceLink": "https://www.reddit.com/user/9877531/"
             },
             {
                 "key": "customs-2d-monkix3",
-                "appendTitle": "2D",
+                "projection": "2D",
                 "source": "monkimonkimonk",
                 "sourceLink": "https://www.reddit.com/user/monkimonkimonk/"
             },
             {
                 "key": "customs-2d-dorms",
-                "appendTitle": "Dorms",
+                "projection": "2D",
+                "specific": "Dorms",
                 "source": "OffaPerry",
                 "sourceLink": "https://www.reddit.com/user/OffaPerry/"
             }
@@ -51,6 +55,7 @@
         "maps": [
             {
                 "key": "factory-3d",
+                "projection": "3D",
                 "source": "JohnnyTushonka",
                 "sourceLink": "https://www.reddit.com/user/JohnnyTushonka/"
             }
@@ -62,12 +67,14 @@
         "maps": [
             {
                 "key": "interchange-2d",
+                "projection": "2D",
                 "source": "Lorathor",
                 "sourceLink": "https://www.reddit.com/user/Lorathor6/"
             },
             {
                 "key": "interchange-2d-stashes",
-                "appendTitle": "Stashes",
+                "projection": "2D",
+                "specific": "Stashes",
                 "source": "Austindj3",
                 "sourceLink": "https://www.reddit.com/user/Austindj3/"
             }
@@ -79,6 +86,7 @@
         "maps": [
             {
                 "key": "labs-2d",
+                "projection": "2D",
                 "source": "monkimonkimonk",
                 "sourceLink": "https://www.reddit.com/user/monkimonkimonk/"
             }
@@ -90,17 +98,19 @@
         "maps": [
             {
                 "key": "lighthouse-3d",
+                "projection": "3D",
                 "source": "re3mr",
                 "sourceLink": "https://reemr.se"
             },
             {
                 "key": "lighthouse-2d",
-                "appendTitle": "2D",
+                "projection": "2D",
                 "source": "Kokarn & Jindouz"
             },
             {
                 "key": "lighthouse-2d-landscape",
-                "appendTitle": "Landscape",
+                "projection": "2D",
+                "orientation": "Landscape",
                 "source": "Jindouz",
                 "sourceLink": "https://www.reddit.com/user/Jindouz"
             }
@@ -112,24 +122,27 @@
         "maps": [
             {
                 "key": "reserve-3d",
+                "projection": "3D",
                 "source": "re3mr",
                 "sourceLink": "https://reemr.se"
             },
             {
                 "key": "reserve-2d-jindouz",
-                "appendTitle": "2D",
+                "projection": "2D",
                 "source": "Jindouz",
                 "sourceLink": "https://www.reddit.com/user/Jindouz"
             },
             {
                 "key": "reserve-2d",
-                "appendTitle": "2D - Vex",
+                "projection": "2D",
+                "extra": "Vex",
                 "source": "Vex",
                 "sourceLink": "https://vexnet.xyz"
             },
             {
                 "key": "reserve-2d-underground",
-                "appendTitle": "Underground",
+                "projection": "2D",
+                "specific": "Underground",
                 "source": "re3mr",
                 "sourceLink": "https://reemr.se"
             }
@@ -141,18 +154,20 @@
         "maps": [
             {
                 "key": "shoreline-3d",
+                "projection": "3D",
                 "source": "re3mr",
                 "sourceLink": "https://reemr.se"
             },
             {
                 "key": "shoreline-2d",
-                "appendTitle": "2D",
+                "projection": "2D",
                 "source": "monkimonkimonk",
                 "sourceLink": "https://www.reddit.com/user/monkimonkimonk/"
             },
             {
                 "key": "shoreline-3d-resort",
-                "appendTitle": "Resort",
+                "projection": "3D",
+                "specific": "Resort",
                 "source": "TaroMochi",
                 "sourceLink": "https://www.clanunknownsoldiers.com/"
             }
@@ -164,12 +179,13 @@
         "maps": [
             {
                 "key": "woods-3d",
+                "projection": "3D",
                 "source": "re3mr",
                 "sourceLink": "https://reemr.se"
             },
             {
                 "key": "woods-2d",
-                "appendTitle": "2D",
+                "projection": "2D",
                 "source": "Jindouz",
                 "sourceLink": "https://www.reddit.com/user/Jindouz"
             }
@@ -183,7 +199,7 @@
         "maps": [
             {
                 "key": "openworld-2d",
-                "appendTitle": "2D",
+                "projection": "2D",
                 "source": "LastNickLeft",
                 "sourceLink": "https://www.reddit.com/user/LastNickLeft"
             }

@@ -21,6 +21,9 @@ import bossesEN from './translations/en/bosses.json';
 import bossesRU from './translations/ru/bosses.json';
 import bossesPL from './translations/pl/bosses.json';
 
+import mapsEN from './translations/en/maps.json';
+import mapsRU from './translations/ru/maps.json';
+
 i18n
     // loads translations from your server
     // https://github.com/i18next/i18next-http-backend
@@ -49,6 +52,7 @@ i18n
                 translation: translationEN,
                 properties: propertiesEN,
                 bosses: bossesEN,
+                maps: mapsEN,
             },
             de: {
                 translation: translationDE,
@@ -57,6 +61,7 @@ i18n
                 translation: translationRU,
                 properties: propertiesRU,
                 bosses: bossesRU,
+                maps: mapsRU,
             },
             // it: {
             //     translation: translationIT,
