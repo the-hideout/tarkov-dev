@@ -4,49 +4,57 @@ const path = require('path');
 const got = require('got');
 
 const maps = require('../src/data/maps.json');
+const categoryPages = require('../src/data/category-pages.json');
 const { caliberArrayWithSplit } = require('../src/modules/format-ammo');
 
 const standardPaths = [
     '',
-    '/about',
     '/ammo',
+    '/barters',
+    '/hideout-profit',
+    '/loot-tier',
+    '/traders/prapor',
+    '/traders/therapist',
+    '/traders/skier',
+    '/traders/fence',
+    '/traders/peacekeeper',
+    '/traders/mechanic',
+    '/traders/ragman',
+    '/traders/jaeger',
+    '/traders/lightkeeper',
+    '/wipe-length',
+    '/bitcoin-farm-calculator',
+];
+
+const standardPathsWeekly = [
+    '/about',
     '/api',
     '/api-users',
-    '/barters',
     '/control',
-    '/hideout-profit',
-    /// 'history-graphs',
-    /// 'item-tracker',
     '/items',
-    '/loot-tier',
     '/maps',
     '/moobot',
     '/nightbot',
     '/settings',
     '/streamelements',
     '/traders',
-    '/traders/prapor',
-    '/traders/therapist',
-    '/traders/skier',
-    '/traders/peacekeeper',
-    '/traders/mechanic',
-    '/traders/ragman',
-    '/traders/jaeger',
-    '/bosses'
+    '/bosses',
+    '/tasks',
+    '/hideout',
 ];
 
-const addPath = (sitemap, url) => {
+const addPath = (sitemap, url, change = 'hourly') => {
     return `${sitemap}
     <url>
         <loc>https://tarkov.dev${url}</loc>
-        <changefreq>hourly</changefreq>
+        <changefreq>${change}</changefreq>
     </url>`;
 }
 
 (async () => {
     try {
         let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
 
         console.time('build-sitemap');
 
@@ -54,54 +62,55 @@ const addPath = (sitemap, url) => {
             sitemap = addPath(sitemap, path);
         }
 
+        for (const path of standardPathsWeekly) {
+            sitemap = addPath(sitemap, path, 'weekly');
+        }
+
         for (const mapsGroup of maps) {
             for (const map of mapsGroup.maps) {
-                sitemap = addPath(sitemap, `/map/${map.key}`);
+                sitemap = addPath(sitemap, `/map/${map.key}`, 'weekly');
             }
         }
 
-        const itemTypes = await got('https://api.tarkov.dev/graphql?query={%20itemCategories{%20normalizedName%20}%20}', {
+        const itemCategories = await got('https://api.tarkov.dev/graphql?query={itemCategories{normalizedName}}', {
             responseType: 'json',
         });
-
-        for (const itemType of itemTypes.body.data.itemCategories) {
-            sitemap = addPath(sitemap, `/items/${itemType.normalizedName}`);
+        for (const itemCategorie of itemCategories.body.data.itemCategories) {
+            sitemap = addPath(sitemap, `/items/${itemCategorie.normalizedName}`);
         }
 
-        const allItems = await got('https://api.tarkov.dev/graphql?query={%20items{%20normalizedName%20}%20}', {
+        for (const categoryPage of categoryPages) {
+            sitemap = addPath(sitemap, `/items/${categoryPage.key}`);
+        };
+
+        const allItems = await got('https://api.tarkov.dev/graphql?query={items{normalizedName}}', {
             responseType: 'json',
         });
-
         for (const item of allItems.body.data.items) {
             sitemap = addPath(sitemap, `/item/${item.normalizedName}`);
         }
 
-        const allBosses = await got('https://api.tarkov.dev/graphql?query={maps{bosses{name}}}', {
+        const allBosses = await got('https://api.tarkov.dev/graphql?query={bosses{normalizedName}}', {
             responseType: 'json',
         });
-
-        var bossNames = [];
-        for (const map of allBosses.body.data.maps) {
-            for (const boss of map.bosses) {
-                var bossName = boss.name.toLowerCase().replace(/ /g, '-')
-                if (!bossNames.includes(bossName)) {
-                    bossNames.push(bossName)
-                }
-            }
+        for (const boss of allBosses.body.data.bosses) {
+            sitemap = addPath(sitemap, `/boss/${boss.normalizedName}`);
         }
 
-        for (const bossName of bossNames) {
-            sitemap = addPath(sitemap, `/boss/${bossName}`);
+        const allTasks = await got('https://api.tarkov.dev/graphql?query={tasks{normalizedName}}', {
+            responseType: 'json',
+        });
+        for (const task of allTasks.body.data.tasks) {
+            sitemap = addPath(sitemap, `/task/${task.normalizedName}`, 'weekly');
         }
 
         const ammoTypes = caliberArrayWithSplit();
-
         for (const ammoType of ammoTypes) {
             sitemap = addPath(sitemap, `/ammo/${ammoType.replace(/ /g, '%20')}`);
         }
 
         sitemap = `${sitemap}
-        </urlset>`;
+</urlset>`;
 
         fs.writeFileSync(path.join(__dirname, '..', 'public', 'sitemap.xml'), sitemap);
         console.timeEnd('build-sitemap');
