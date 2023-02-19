@@ -15,7 +15,7 @@ import UkraineButton from '../ukraine-button';
 //import { BossListNav } from '../boss-list';
 
 import { caliberArrayWithSplit } from '../../modules/format-ammo';
-import itemsData from '../../data/category-pages.json';
+import categoryPages from '../../data/category-pages.json';
 import { useBossDetails } from '../../features/bosses/queries';
 
 import { useMapImages } from '../../features/maps/queries';
@@ -154,7 +154,7 @@ const Menu = () => {
                     <li className="submenu-wrapper submenu-items" key="menu-items" data-targetid="items">
                         <Link to="/items/">{t('Items')}</Link>
                         <ul>
-                            {itemsData.map((categoryPage) => (
+                            {categoryPages.map((categoryPage) => (
                                 <MenuItem
                                     displayText={t(categoryPage.displayText)}
                                     key={categoryPage.key}
