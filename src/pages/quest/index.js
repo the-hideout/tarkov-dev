@@ -9,7 +9,7 @@ import { mdiClipboardCheck } from '@mdi/js';
 
 import SEO from '../../components/SEO';
 import ErrorPage from '../../components/error-page';
-import ItemSearch from '../../components/item-search';
+import TaskSearch from '../../components/task-search';
 import LoadingSmall from '../../components/loading-small';
 
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
@@ -689,7 +689,7 @@ function Quest() {
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className={'quest-page-wrapper'}>
-                <ItemSearch showDropdown />
+                <TaskSearch showDropdown />
                 <div className="quest-information-grid">
                     <div className="quest-information-wrapper">
                         <h1>
