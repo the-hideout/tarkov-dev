@@ -9,7 +9,7 @@ import { mdiClipboardCheck } from '@mdi/js';
 
 import SEO from '../../components/SEO';
 import ErrorPage from '../../components/error-page';
-import ItemSearch from '../../components/item-search';
+import TaskSearch from '../../components/task-search';
 import LoadingSmall from '../../components/loading-small';
 
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
@@ -209,6 +209,477 @@ function Quest() {
         );
     }
 
+    const getObjective = (objective) => {
+        let taskDetails = '';
+        if (objective.type.includes('QuestItem')) {
+            let verb = t('Pick up');
+            if (objective.type === 'giveQuestItem') {
+                verb = t('Hand over');
+            }
+            taskDetails = (
+                <>
+                    <span>{verb} </span>
+                    <Tippy
+                        content={
+                            <span>
+                                <img src={objective.questItem.iconLink} alt={''} />
+                            </span>
+                        }
+                    >
+                        <span className="hover-item-name">
+                            {objective.questItem.name}
+                        </span>
+                    </Tippy>
+                </>
+            );
+        }
+        if (objective.type === 'buildWeapon') {
+            const baseItem = items.find((i) => i.id === objective.item.id);
+            if (!baseItem)
+                return null;
+            const attributes = objective.attributes
+                .map((att) => {
+                    if (!att.requirement.value) {
+                        return false;
+                    }
+                    return att;
+                })
+                .filter(Boolean);
+            taskDetails = (
+                <>
+                    <>
+                        <Link to={`/item/${baseItem.normalizedName}`}>
+                            {baseItem.name}
+                        </Link>
+                    </>
+                    {attributes.length > 0 && (
+                        <>
+                            <h4>{t('Attributes')}</h4>
+                            <ul>
+                                {attributes.map((att) => {
+                                    return (
+                                        <li
+                                            key={att.name}
+                                            className={'quest-list-item'}
+                                        >{`${att.name}: ${att.requirement.compareMethod} ${att.requirement.value}`}</li>
+                                    );
+                                })}
+                            </ul>
+                        </>
+                    )}
+                    {objective.containsAll?.length > 0 && (
+                        <>
+                            <h4>{t('Contains All')}</h4>
+                            <ul>
+                                {objective.containsAll.map((part) => {
+                                    const item = items.find((i) => i.id === part.id);
+                                    if (!item)
+                                        return null;
+                                    return (
+                                        <li
+                                            key={item.id}
+                                            className={'quest-list-item'}
+                                        >
+                                            <Link
+                                                to={`/item/${item.normalizedName}`}
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </>
+                    )}
+                    {objective.containsCategory?.length > 0 && (
+                        <>
+                            <h4>{t('Contains Item in Category')}</h4>
+                            <ul>
+                                {objective.containsCategory.map((cat) => {
+                                    return (
+                                        <li
+                                            key={cat.id}
+                                            className={'quest-list-item-category'}
+                                        >
+                                            <Link
+                                                to={`/items/${cat.normalizedName}`}
+                                            >
+                                                {cat.name}
+                                            </Link>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </>
+                    )}
+                </>
+            );
+        }
+        if (objective.type === 'experience') {
+            taskDetails = (
+                <>
+                    {t('Have the {{effectNames, list}} effect(s) on your {{bodyParts, list}} for {{operator}} {{count}} seconds', {
+                            effectNames: objective.healthEffect.effects,
+                            bodyParts: objective.healthEffect.bodyParts,
+                            operator: objective.healthEffect.time.compareMethod,
+                            count: objective.healthEffect.time.value,
+                        },
+                    )}
+                </>
+            );
+        }
+        if (objective.type === 'extract') {
+            taskDetails = (
+                <>
+                    {t('Extract with the status(es): {{extractStatuses, list}}', {
+                        extractStatuses: objective.exitStatus,
+                    })}
+                </>
+            );
+        }
+        if (objective.type === 'giveItem' || objective.type === 'findItem') {
+            const item = items.find((i) => i.id === objective.item.id);
+            if (!item)
+                return null;
+            const attributes = [];
+            if (objective.foundInRaid) {
+                attributes.push({
+                    name: t('Found in raid'),
+                    value: t('Yes'),
+                });
+            }
+            if (objective.dogTagLevel) {
+                attributes.push({
+                    name: t('Dogtag level'),
+                    value: objective.dogTagLevel,
+                });
+            }
+            if (objective.maxDurability && objective.maxDurability < 100) {
+                attributes.push({
+                    name: t('Max durability'),
+                    value: objective.maxDurability,
+                });
+            }
+            if (objective.minDurability > 0) {
+                attributes.push({
+                    name: t('Min durability'),
+                    value: objective.minDurability,
+                });
+            }
+            taskDetails = (
+                <>
+                    <>
+                        <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
+                        {objective.count > 1 && (
+                            <span>{` x ${objective.count}`}</span>
+                        )}
+                    </>
+                    {attributes.length > 0 && (
+                        <ul>
+                            {attributes.map((att) => {
+                                return (
+                                    <li
+                                        key={att.name}
+                                        className={'quest-list-item'}
+                                    >
+                                        {`${att.name}: ${att.value}`}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    )}
+                </>
+            );
+        }
+        if (objective.type === 'mark') {
+            const item = items.find((i) => i.id === objective.markerItem.id);
+            if (!item)
+                return null;
+            taskDetails = (
+                <>
+                    <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
+                </>
+            );
+        }
+        if (objective.type === 'shoot') {
+            let verb = t('Kill');
+            if (objective.shotType !== 'kill') {
+                verb = t('Shoot');
+            }
+            taskDetails = (
+                <>
+                    <>
+                        {t('{{shootOrKill}} {{target}} {{count}} times', {
+                            shootOrKill: verb,
+                            target: objective.target,
+                            count: objective.count,
+                        })}
+                    </>
+                    {objective.distance && (
+                        <div>
+                            {t('From distance: {{operator}} {{count}} meters', {
+                                operator: objective.distance.compareMethod,
+                                count: objective.distance.value,
+                            })}
+                        </div>
+                    )}
+                    {objective.zoneNames?.length > 0 && (
+                        <div>
+                            {t('While inside: {{zoneList, list}}', {
+                                zoneList: objective.zoneNames,
+                            })}
+                        </div>
+                    )}
+                    {objective.bodyParts?.length > 0 && (
+                        <div>
+                            {t('Hitting: {{bodyPartList, list}}', {
+                                bodyPartList: objective.bodyParts,
+                            })}
+                        </div>
+                    )}
+                    {objective.usingWeapon?.length > 0 && (
+                        <div>
+                            {t('Using weapon:')}{' '}
+                            <ul>
+                                {objective.usingWeapon.map((weap) => {
+                                    const item = items.find((i) => i.id === weap.id,);
+                                    if (!item)
+                                        return null;
+                                    return (
+                                        <li
+                                            key={`weapon-${item.id}`}
+                                            className={'quest-list-item'}
+                                        >
+                                            <Link
+                                                to={`/item/${item.normalizedName}`}
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                    )}
+                    {objective.usingWeaponMods?.length > 0 && (
+                        <div>
+                            {t('Using weapon mods:')}{' '}
+                            {objective.usingWeaponMods.map((modSet, index) => {
+                                return (
+                                    <ul key={`modset-${index}`}>
+                                        {modSet.map((mod) => {
+                                            const item = items.find((i) => i.id === mod.id);
+                                            if (!item)
+                                                return null;
+                                            return (
+                                                <li
+                                                    key={`mod-${item.id}`}
+                                                    className={'quest-list-item'}
+                                                >
+                                                    <Link
+                                                        to={`/item/${item.normalizedName}`}
+                                                    >
+                                                        {item.name}
+                                                    </Link>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                );
+                            })}
+                        </div>
+                    )}
+                    {objective.wearing?.length > 0 && (
+                        <div>
+                            {t('While wearing:')}{' '}
+                            {objective.wearing.map((outfit, index) => {
+                                return (
+                                    <ul key={`outfit-${index}`}>
+                                        {outfit.map((accessory) => {
+                                            const item = items.find((i) => i.id === accessory.id);
+                                            if (!item)
+                                                return null;
+                                            return (
+                                                <li
+                                                    key={`accessory-${item.id}`}
+                                                    className={'quest-list-item'}
+                                                >
+                                                    <Link
+                                                        to={`/item/${item.normalizedName}`}
+                                                    >
+                                                        {item.name}
+                                                    </Link>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                );
+                            })}
+                        </div>
+                    )}
+                    {objective.notWearing?.length > 0 && (
+                        <div>
+                            {t('Not wearing:')}{' '}
+                            <ul>
+                                {objective.notWearing.map((accessory) => {
+                                    const item = items.find((i) => i.id === accessory.id);
+                                    if (!item)
+                                        return null;
+                                    return (
+                                        <li
+                                            key={`accessory-${item.id}`}
+                                            className={'quest-list-item'}
+                                        >
+                                            <Link
+                                                to={`/item/${item.normalizedName}`}
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                    )}
+                    {objective.playerHealthEffect && (
+                        <div>
+                            {objective.playerHealthEffect.time ?
+                                t('While having the {{effectNames, list}} effect(s) on your {{bodyParts, list}} for {{operator}} {{count}} seconds', {
+                                    effectNames: objective.playerHealthEffect.effects,
+                                    bodyParts: objective.playerHealthEffect.bodyParts,
+                                    operator: objective.playerHealthEffect.time?.compareMethod,
+                                    count: objective.playerHealthEffect.time?.value,
+                                })
+                            :
+                                t('While having the {{effectNames, list}} effect(s) on your {{bodyParts, list}}', {
+                                    effectNames: objective.playerHealthEffect.effects,
+                                    bodyParts: objective.playerHealthEffect.bodyParts,
+                                })
+                            }
+                        </div>
+                    )}
+                    {objective.enemyHealthEffect && (
+                        <div>
+                            {objective.enemyHealthEffect.time ?
+                                t('While target has the {{effectNames, list}} effect(s) on their {{bodyParts, list}} for {{operator}} {{count}} seconds', {
+                                    effectNames: objective.enemyHealthEffect.effects,
+                                    bodyParts: objective.enemyHealthEffect.bodyParts,
+                                    operator: objective.enemyHealthEffect.time?.compareMethod,
+                                    count: objective.enemyHealthEffect.time?.value,
+                                })
+                            :
+                                t('While target has the {{effectNames, list}} effect(s) on their {{bodyParts, list}}', {
+                                    effectNames: objective.enemyHealthEffect.effects,
+                                    bodyParts: objective.enemyHealthEffect.bodyParts,
+                                })
+                            }
+                        </div>
+                    )}
+                </>
+            );
+        }
+        if (objective.type === 'skill') {
+            taskDetails = (
+                <>
+                    {t('Obtain level {{level}} {{skillName}} skill', {
+                        level: objective.skillLevel.level,
+                        skillName: objective.skillLevel.name,
+                    })}
+                </>
+            );
+        }
+        if (objective.type === 'taskStatus') {
+            const task = quests.find((q) => q.id === objective.task.id);
+            if (!task)
+                return null;
+            taskDetails = (
+                <>
+                    <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>
+                    <span>
+                        :{' '}
+                        {objective.status
+                            .map((status) => {
+                                return t(status);
+                            })
+                            .join(', ')}
+                    </span>
+                </>
+            );
+        }
+        if (objective.type === 'traderLevel') {
+            const trader = traders.find((t) => t.id === objective.trader.id);
+            taskDetails = (
+                <>
+                    <Link to={`/traders/${trader.normalizedName}`}>
+                        {trader.name}
+                    </Link>
+                    <span>{` ${t('LL{{level}}', { level: objective.level })}`}</span>
+                </>
+            );
+        }
+        if (objective.type === 'traderStanding') {
+            const trader = traders.find((t) => t.id === objective.trader.id);
+            taskDetails = (
+                <>
+                    <Link to={`/traders/${trader.normalizedName}`}>
+                        {trader.name}
+                    </Link>
+                    <span>{` ${t('{{compareMethod}} {{reputation}} reputation', { reputation: objective.value, compareMethod: objective.compareMethod })}`}</span>
+                </>
+            );
+        }
+        if (objective.type === 'useItem') {
+            let zones = <></>;
+            if (objective.zoneNames.length > 0) {
+                zones = (
+                    <div>{t('In area(s): {{areaList}}', {areaList: objective.zoneNames.join(', ')})}</div>
+                );
+            }
+            taskDetails = (
+                <div>
+                    {t('Use any of:')}{' '}
+                    <ul>
+                        {objective.useAny.map((useItem, index) => {
+                            const item = items.find((i) => i.id === useItem.id);
+                            if (!item)
+                                return null;
+                            return (
+                                <li
+                                    key={`item-${index}-${item.id}`}
+                                    className={'quest-list-item'}
+                                >
+                                    <Link
+                                        to={`/item/${item.normalizedName}`}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    {zones}
+                </div>
+            );
+        }
+        let objectiveDescription = null;
+        if (objective.description) {
+            objectiveDescription = <h3>{`✔️ ${objective.description} ${objective.optional ? `(${t('optional')})` : ''}`}</h3>;
+        }
+        return (
+            <div key={objective.id}>
+                {objectiveDescription}
+                {objective.maps.length > 0 && (
+                    <div key="objective-maps">
+                        {`${t('Maps')}: ${objective.maps
+                            .map((m) => m.name)
+                            .join(', ')}`}
+                    </div>
+                )}
+                {taskDetails}
+            </div>
+        );
+    };
+
     return [
         <SEO 
             title={`${currentQuest.name} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
@@ -218,7 +689,7 @@ function Quest() {
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className={'quest-page-wrapper'}>
-                <ItemSearch showDropdown />
+                <TaskSearch showDropdown />
                 <div className="quest-information-grid">
                     <div className="quest-information-wrapper">
                         <h1>
@@ -309,428 +780,19 @@ function Quest() {
                 <h2>🏆 {t('Objectives')}</h2>
                 <div key="task-objectives">
                     {currentQuest.objectives.map((objective) => {
-                        let taskDetails = '';
-                        if (objective.type.includes('QuestItem')) {
-                            let verb = t('Pick up');
-                            if (objective.type === 'giveQuestItem') {
-                                verb = t('Hand over');
-                            }
-                            taskDetails = (
-                                <>
-                                    <span>{verb} </span>
-                                    <Tippy
-                                        content={
-                                            <span>
-                                                <img src={objective.questItem.iconLink} alt={''} />
-                                            </span>
-                                        }
-                                    >
-                                        <span className="hover-item-name">
-                                            {objective.questItem.name}
-                                        </span>
-                                    </Tippy>
-                                </>
-                            );
-                        }
-                        if (objective.type === 'buildWeapon') {
-                            const baseItem = items.find((i) => i.id === objective.item.id);
-                            if (!baseItem)
-                                return null;
-                            const attributes = objective.attributes
-                                .map((att) => {
-                                    if (!att.requirement.value) {
-                                        return false;
-                                    }
-                                    return att;
-                                })
-                                .filter(Boolean);
-                            taskDetails = (
-                                <>
-                                    <>
-                                        <Link to={`/item/${baseItem.normalizedName}`}>
-                                            {baseItem.name}
-                                        </Link>
-                                    </>
-                                    {attributes.length > 0 && (
-                                        <>
-                                            <h4>{t('Attributes')}</h4>
-                                            <ul>
-                                                {attributes.map((att) => {
-                                                    return (
-                                                        <li
-                                                            key={att.name}
-                                                            className={'quest-list-item'}
-                                                        >{`${att.name}: ${att.requirement.compareMethod} ${att.requirement.value}`}</li>
-                                                    );
-                                                })}
-                                            </ul>
-                                        </>
-                                    )}
-                                    {objective.containsAll?.length > 0 && (
-                                        <>
-                                            <h4>{t('Contains All')}</h4>
-                                            <ul>
-                                                {objective.containsAll.map((part) => {
-                                                    const item = items.find((i) => i.id === part.id);
-                                                    if (!item)
-                                                        return null;
-                                                    return (
-                                                        <li
-                                                            key={item.id}
-                                                            className={'quest-list-item'}
-                                                        >
-                                                            <Link
-                                                                to={`/item/${item.normalizedName}`}
-                                                            >
-                                                                {item.name}
-                                                            </Link>
-                                                        </li>
-                                                    );
-                                                })}
-                                            </ul>
-                                        </>
-                                    )}
-                                    {objective.containsCategory?.length > 0 && (
-                                        <>
-                                            <h4>{t('Contains Item in Category')}</h4>
-                                            <ul>
-                                                {objective.containsCategory.map((cat) => {
-                                                    return (
-                                                        <li
-                                                            key={cat.id}
-                                                            className={'quest-list-item-category'}
-                                                        >
-                                                            <Link
-                                                                to={`/items/${cat.normalizedName}`}
-                                                            >
-                                                                {cat.name}
-                                                            </Link>
-                                                        </li>
-                                                    );
-                                                })}
-                                            </ul>
-                                        </>
-                                    )}
-                                </>
-                            );
-                        }
-                        if (objective.type === 'experience') {
-                            taskDetails = (
-                                <>
-                                    {t('Have the {{effectNames, list}} effect(s) on your {{bodyParts, list}} for {{operator}} {{count}} seconds', {
-                                            effectNames: objective.healthEffect.effects,
-                                            bodyParts: objective.healthEffect.bodyParts,
-                                            operator: objective.healthEffect.time.compareMethod,
-                                            count: objective.healthEffect.time.value,
-                                        },
-                                    )}
-                                </>
-                            );
-                        }
-                        if (objective.type === 'extract') {
-                            taskDetails = (
-                                <>
-                                    {t('Extract with the status(es): {{extractStatuses, list}}', {
-                                        extractStatuses: objective.exitStatus,
-                                    })}
-                                </>
-                            );
-                        }
-                        if (objective.type === 'giveItem' || objective.type === 'findItem') {
-                            const item = items.find((i) => i.id === objective.item.id);
-                            if (!item)
-                                return null;
-                            const attributes = [];
-                            if (objective.foundInRaid) {
-                                attributes.push({
-                                    name: t('Found in raid'),
-                                    value: t('Yes'),
-                                });
-                            }
-                            if (objective.dogTagLevel) {
-                                attributes.push({
-                                    name: t('Dogtag level'),
-                                    value: objective.dogTagLevel,
-                                });
-                            }
-                            if (objective.maxDurability && objective.maxDurability < 100) {
-                                attributes.push({
-                                    name: t('Max durability'),
-                                    value: objective.maxDurability,
-                                });
-                            }
-                            if (objective.minDurability > 0) {
-                                attributes.push({
-                                    name: t('Min durability'),
-                                    value: objective.minDurability,
-                                });
-                            }
-                            taskDetails = (
-                                <>
-                                    <>
-                                        <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
-                                        {objective.count > 1 && (
-                                            <span>{` x ${objective.count}`}</span>
-                                        )}
-                                    </>
-                                    {attributes.length > 0 && (
-                                        <ul>
-                                            {attributes.map((att) => {
-                                                return (
-                                                    <li
-                                                        key={att.name}
-                                                        className={'quest-list-item'}
-                                                    >
-                                                        {`${att.name}: ${att.value}`}
-                                                    </li>
-                                                );
-                                            })}
-                                        </ul>
-                                    )}
-                                </>
-                            );
-                        }
-                        if (objective.type === 'mark') {
-                            const item = items.find((i) => i.id === objective.markerItem.id);
-                            if (!item)
-                                return null;
-                            taskDetails = (
-                                <>
-                                    <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
-                                </>
-                            );
-                        }
-                        if (objective.type === 'shoot') {
-                            let verb = t('Kill');
-                            if (objective.shotType !== 'kill') {
-                                verb = t('Shoot');
-                            }
-                            taskDetails = (
-                                <>
-                                    <>
-                                        {t('{{shootOrKill}} {{target}} {{count}} times', {
-                                            shootOrKill: verb,
-                                            target: objective.target,
-                                            count: objective.count,
-                                        })}
-                                    </>
-                                    {objective.distance && (
-                                        <div>
-                                            {t('From distance: {{operator}} {{count}} meters', {
-                                                operator: objective.distance.compareMethod,
-                                                count: objective.distance.value,
-                                            })}
-                                        </div>
-                                    )}
-                                    {objective.zoneNames?.length > 0 && (
-                                        <div>
-                                            {t('While inside: {{zoneList, list}}', {
-                                                zoneList: objective.zoneNames,
-                                            })}
-                                        </div>
-                                    )}
-                                    {objective.bodyParts?.length > 0 && (
-                                        <div>
-                                            {t('Hitting: {{bodyPartList, list}}', {
-                                                bodyPartList: objective.bodyParts,
-                                            })}
-                                        </div>
-                                    )}
-                                    {objective.usingWeapon?.length > 0 && (
-                                        <div>
-                                            {t('Using weapon:')}{' '}
-                                            <ul>
-                                                {objective.usingWeapon.map((weap) => {
-                                                    const item = items.find((i) => i.id === weap.id,);
-                                                    if (!item)
-                                                        return null;
-                                                    return (
-                                                        <li
-                                                            key={`weapon-${item.id}`}
-                                                            className={'quest-list-item'}
-                                                        >
-                                                            <Link
-                                                                to={`/item/${item.normalizedName}`}
-                                                            >
-                                                                {item.name}
-                                                            </Link>
-                                                        </li>
-                                                    );
-                                                })}
-                                            </ul>
-                                        </div>
-                                    )}
-                                    {objective.usingWeaponMods?.length > 0 && (
-                                        <div>
-                                            {t('Using weapon mods:')}{' '}
-                                            {objective.usingWeaponMods.map((modSet, index) => {
-                                                return (
-                                                    <ul key={`modset-${index}`}>
-                                                        {modSet.map((mod) => {
-                                                            const item = items.find((i) => i.id === mod.id);
-                                                            if (!item)
-                                                                return null;
-                                                            return (
-                                                                <li
-                                                                    key={`mod-${item.id}`}
-                                                                    className={'quest-list-item'}
-                                                                >
-                                                                    <Link
-                                                                        to={`/item/${item.normalizedName}`}
-                                                                    >
-                                                                        {item.name}
-                                                                    </Link>
-                                                                </li>
-                                                            );
-                                                        })}
-                                                    </ul>
-                                                );
-                                            })}
-                                        </div>
-                                    )}
-                                    {objective.wearing?.length > 0 && (
-                                        <div>
-                                            {t('While wearing:')}{' '}
-                                            {objective.wearing.map((outfit, index) => {
-                                                return (
-                                                    <ul key={`outfit-${index}`}>
-                                                        {outfit.map((accessory) => {
-                                                            const item = items.find((i) => i.id === accessory.id);
-                                                            if (!item)
-                                                                return null;
-                                                            return (
-                                                                <li
-                                                                    key={`accessory-${item.id}`}
-                                                                    className={'quest-list-item'}
-                                                                >
-                                                                    <Link
-                                                                        to={`/item/${item.normalizedName}`}
-                                                                    >
-                                                                        {item.name}
-                                                                    </Link>
-                                                                </li>
-                                                            );
-                                                        })}
-                                                    </ul>
-                                                );
-                                            })}
-                                        </div>
-                                    )}
-                                    {objective.notWearing?.length > 0 && (
-                                        <div>
-                                            {t('Not wearing:')}{' '}
-                                            <ul>
-                                                {objective.notWearing.map((accessory) => {
-                                                    const item = items.find((i) => i.id === accessory.id);
-                                                    if (!item)
-                                                        return null;
-                                                    return (
-                                                        <li
-                                                            key={`accessory-${item.id}`}
-                                                            className={'quest-list-item'}
-                                                        >
-                                                            <Link
-                                                                to={`/item/${item.normalizedName}`}
-                                                            >
-                                                                {item.name}
-                                                            </Link>
-                                                        </li>
-                                                    );
-                                                })}
-                                            </ul>
-                                        </div>
-                                    )}
-                                    {objective.playerHealthEffect && (
-                                        <div>
-                                            {objective.playerHealthEffect.time ?
-                                                t('While having the {{effectNames, list}} effect(s) on your {{bodyParts, list}} for {{operator}} {{count}} seconds', {
-                                                    effectNames: objective.playerHealthEffect.effects,
-                                                    bodyParts: objective.playerHealthEffect.bodyParts,
-                                                    operator: objective.playerHealthEffect.time?.compareMethod,
-                                                    count: objective.playerHealthEffect.time?.value,
-                                                })
-                                            :
-                                                t('While having the {{effectNames, list}} effect(s) on your {{bodyParts, list}}', {
-                                                    effectNames: objective.playerHealthEffect.effects,
-                                                    bodyParts: objective.playerHealthEffect.bodyParts,
-                                                })
-                                            }
-                                        </div>
-                                    )}
-                                    {objective.enemyHealthEffect && (
-                                        <div>
-                                            {objective.enemyHealthEffect.time ?
-                                                t('While target has the {{effectNames, list}} effect(s) on their {{bodyParts, list}} for {{operator}} {{count}} seconds', {
-                                                    effectNames: objective.enemyHealthEffect.effects,
-                                                    bodyParts: objective.enemyHealthEffect.bodyParts,
-                                                    operator: objective.enemyHealthEffect.time?.compareMethod,
-                                                    count: objective.enemyHealthEffect.time?.value,
-                                                })
-                                            :
-                                                t('While target has the {{effectNames, list}} effect(s) on their {{bodyParts, list}}', {
-                                                    effectNames: objective.enemyHealthEffect.effects,
-                                                    bodyParts: objective.enemyHealthEffect.bodyParts,
-                                                })
-                                            }
-                                        </div>
-                                    )}
-                                </>
-                            );
-                        }
-                        if (objective.type === 'skill') {
-                            taskDetails = (
-                                <>
-                                    {t('Obtain level {{level}} {{skillName}} skill', {
-                                        level: objective.skillLevel.level,
-                                        skillName: objective.skillLevel.name,
-                                    })}
-                                </>
-                            );
-                        }
-                        if (objective.type === 'taskStatus') {
-                            const task = quests.find((q) => q.id === objective.task.id);
-                            if (!task)
-                                return null;
-                            taskDetails = (
-                                <>
-                                    <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>
-                                    <span>
-                                        :{' '}
-                                        {objective.status
-                                            .map((status) => {
-                                                return t(status);
-                                            })
-                                            .join(', ')}
-                                    </span>
-                                </>
-                            );
-                        }
-                        if (objective.type === 'traderLevel') {
-                            const trader = traders.find((t) => t.id === objective.trader.id);
-                            taskDetails = (
-                                <>
-                                    <Link to={`/traders/${trader.normalizedName}`}>
-                                        {trader.name}
-                                    </Link>
-                                    <span>{` ${t('LL{{level}}', { level: objective.level })}`}</span>
-                                </>
-                            );
-                        }
-                        return (
-                            <div key={objective.id}>
-                                <h3>{`✔️ ${objective.description} ${objective.optional ? `(${t('optional')})` : ''}`}</h3>
-                                {objective.maps.length > 0 && (
-                                    <div key="objective-maps">
-                                        {`${t('Maps')}: ${objective.maps
-                                            .map((m) => m.name)
-                                            .join(', ')}`}
-                                    </div>
-                                )}
-                                {taskDetails}
-                            </div>
-                        );
+                        return getObjective(objective);
                     })}
                 </div>
+                {currentQuest.failConditions?.length > 0 && (
+                    <div>
+                        <h2>❌ {t('Fail On')}</h2>
+                        <div key="task-fail-conditions">
+                            {currentQuest.failConditions.map((objective) => {
+                                return getObjective(objective);
+                            })}
+                        </div>
+                    </div>
+                )}
                 {currentQuest.neededKeys?.length > 0 && (
                     <div key="task-keys">
                         <h2>🗝️ {t('Needed Keys')}</h2>

@@ -35,138 +35,12 @@ const doFetchQuests = async (language, prebuild = false) => {
                 compareMethod
                 value
             }
+            restartable
             objectives {
-                __typename
-                id
-                type
-                description
-                maps {
-                    id
-                    name
-                }
-                optional
-                ...on TaskObjectiveBuildItem {
-                    item {
-                        id
-                    }
-                    containsAll {
-                        id
-                    }
-                    containsCategory {
-                        id
-                        name
-                        normalizedName
-                    }
-                    attributes {
-                        name
-                        requirement {
-                            compareMethod
-                            value
-                        }
-                    }
-                }
-                ...on TaskObjectiveExperience {
-                    healthEffect {
-                        bodyParts
-                        effects
-                        time {
-                            compareMethod
-                            value
-                        }
-                    }
-                }
-                ...on TaskObjectiveExtract {
-                    exitStatus
-                    zoneNames
-                }
-                ...on TaskObjectiveItem {
-                    item {
-                        id
-                    }
-                    count
-                    foundInRaid
-                    dogTagLevel
-                    maxDurability
-                    minDurability
-                }
-                ...on TaskObjectiveMark {
-                    markerItem {
-                        id
-                    }
-                }
-                ...on TaskObjectivePlayerLevel {
-                    playerLevel
-                }
-                ...on TaskObjectiveQuestItem {
-                    questItem {
-                        id
-                        name
-                        shortName
-                        width
-                        height
-                        iconLink
-                        gridImageLink
-                        image512pxLink
-                    }
-                    count
-                }
-                ...on TaskObjectiveShoot {
-                    target
-                    count
-                    shotType
-                    zoneNames
-                    bodyParts
-                    usingWeapon {
-                        id
-                    }
-                    usingWeaponMods {
-                        id
-                    }
-                    wearing {
-                        id
-                    }
-                    notWearing {
-                        id
-                    }
-                    distance {
-                        compareMethod
-                        value
-                    }
-                    playerHealthEffect {
-                        bodyParts
-                        effects
-                        time {
-                            compareMethod
-                            value
-                        }
-                    }
-                    enemyHealthEffect {
-                        bodyParts
-                        effects
-                        time {
-                            compareMethod
-                            value
-                        }
-                    }
-                }
-                ...on TaskObjectiveSkill {
-                    skillLevel {
-                        name
-                        level
-                    }
-                }
-                ...on TaskObjectiveTaskStatus {
-                    task {
-                        id
-                    }
-                    status
-                }
-                ...on TaskObjectiveTraderLevel {
-                    trader {
-                        id
-                    }
-                    level
-                }
+                ...TaskObjectiveInfo
+            }
+            failConditions {
+                ...TaskObjectiveInfo
             }
             startRewards {
                 traderStanding {
@@ -257,6 +131,154 @@ const doFetchQuests = async (language, prebuild = false) => {
                     id
                 }
             }
+        }
+    }
+    fragment TaskObjectiveInfo on TaskObjective {
+        __typename
+        id
+        type
+        description
+        maps {
+            id
+            name
+        }
+        optional
+        ...on TaskObjectiveBuildItem {
+            item {
+                id
+            }
+            containsAll {
+                id
+            }
+            containsCategory {
+                id
+                name
+                normalizedName
+            }
+            attributes {
+                name
+                requirement {
+                    compareMethod
+                    value
+                }
+            }
+        }
+        ...on TaskObjectiveExperience {
+            healthEffect {
+                bodyParts
+                effects
+                time {
+                    compareMethod
+                    value
+                }
+            }
+        }
+        ...on TaskObjectiveExtract {
+            exitStatus
+            zoneNames
+        }
+        ...on TaskObjectiveItem {
+            item {
+                id
+            }
+            count
+            foundInRaid
+            dogTagLevel
+            maxDurability
+            minDurability
+        }
+        ...on TaskObjectiveMark {
+            markerItem {
+                id
+            }
+        }
+        ...on TaskObjectivePlayerLevel {
+            playerLevel
+        }
+        ...on TaskObjectiveQuestItem {
+            questItem {
+                id
+                name
+                shortName
+                width
+                height
+                iconLink
+                gridImageLink
+                image512pxLink
+            }
+            count
+        }
+        ...on TaskObjectiveShoot {
+            target
+            count
+            shotType
+            zoneNames
+            bodyParts
+            usingWeapon {
+                id
+            }
+            usingWeaponMods {
+                id
+            }
+            wearing {
+                id
+            }
+            notWearing {
+                id
+            }
+            distance {
+                compareMethod
+                value
+            }
+            playerHealthEffect {
+                bodyParts
+                effects
+                time {
+                    compareMethod
+                    value
+                }
+            }
+            enemyHealthEffect {
+                bodyParts
+                effects
+                time {
+                    compareMethod
+                    value
+                }
+            }
+        }
+        ...on TaskObjectiveSkill {
+            skillLevel {
+                name
+                level
+            }
+        }
+        ...on TaskObjectiveTaskStatus {
+            task {
+                id
+            }
+            status
+        }
+        ...on TaskObjectiveTraderLevel {
+            trader {
+                id
+            }
+            level
+        }
+        ...on TaskObjectiveTraderStanding {
+            trader {
+                id
+            }
+            compareMethod
+            value
+        }
+        ...on TaskObjectiveUseItem {
+            useAny {
+                id
+            }
+            compareMethod
+            count
+            zoneNames
         }
     }`;
 
