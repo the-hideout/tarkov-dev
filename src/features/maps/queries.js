@@ -45,6 +45,7 @@ export const useMapImages = () => {
                     duration: apiMap?.raidDuration ? apiMap?.raidDuration + ' min' : undefined,
                     players: apiMap?.players || mapsGroup.players,
                     image: `/maps/${map.key}.jpg`,
+                    imageThumb: `/maps/${map.key}_thumb.jpg`,
                 };
                 if (map.projection && map.projection !== '3D') {
                     mapImages[map.key].displayText += ` - ${i18n.t(map.projection, { ns: 'maps' })}`;

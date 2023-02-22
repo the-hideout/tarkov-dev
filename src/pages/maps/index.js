@@ -74,7 +74,7 @@ function Maps() {
                         {Object.values(mapImages)
                         .filter(map => map.normalizedName === mapsGroup.normalizedName)
                         .map((map) => {
-                            const { displayText, key } = map;
+                            const { displayText, key, imageThumb } = map;
                             return (
                                 <div className="map-wrapper" key={`map-wrapper-${key}`}>
                                     <h3>{displayText}</h3>
@@ -84,7 +84,7 @@ function Maps() {
                                             className="map-image"
                                             loading="lazy"
                                             title={`Map of ${displayText}`}
-                                            src={`${process.env.PUBLIC_URL}/maps/${key}_thumb.jpg`}
+                                            src={`${process.env.PUBLIC_URL}${imageThumb}`}
                                         />
                                     </Link>
                                 </div>
