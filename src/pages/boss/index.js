@@ -20,6 +20,8 @@ import capitalize from '../../modules/capitalize-first';
 import { useBossDetails } from '../../features/bosses/queries';
 import { useItemsQuery } from '../../features/items/queries';
 
+import i18n from '../../i18n';
+
 import './index.css';
 
 function BossPage(params) {
@@ -339,12 +341,16 @@ function BossPage(params) {
                                 </a>
                             </span>
                         }
-                        <p className='boss-details'>
-                            <Trans i18nKey={`${bossData.normalizedName}-description`} ns={'bosses'} />
-                        </p>
-                        <p className='boss-details'>
-                            <Trans i18nKey={`${bossData.normalizedName}-bio`} ns={'bosses'} />
-                        </p>
+                        {i18n.exists(`${bossData.normalizedName}-description`, { ns: 'bosses' }) &&
+                            <p className='boss-details'>
+                                <Trans i18nKey={`${bossData.normalizedName}-description`} ns={'bosses'} />
+                            </p>
+                        }
+                        {i18n.exists(`${bossData.normalizedName}-bio`, { ns: 'bosses' }) &&
+                            <p className='boss-details'>
+                                <Trans i18nKey={`${bossData.normalizedName}-bio`} ns={'bosses'} />
+                            </p>
+                        }
                     </div>
                     <div className="boss-icon-and-link-wrapper">
                         <img
