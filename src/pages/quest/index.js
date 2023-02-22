@@ -138,7 +138,7 @@ function Quest() {
                         const trader = traders.find((trad) => trad.id === traderReq.trader.id);
                         return (
                             <div key={`req-trader-${trader.id}`}>
-                                <Link to={`/traders/${trader.normalizedName}`}>{trader.name}</Link>
+                                <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
                                 <span>{` ${t('LL{{level}}', { level: traderReq.value })}`}</span>
                             </div>
                         );
@@ -155,7 +155,7 @@ function Quest() {
                         const trader = traders.find((trad) => trad.id === traderRep.trader.id);
                         return (
                             <div key={`req-trader-${trader.id}`}>
-                                <Link to={`/traders/${trader.normalizedName}`}>{trader.name}</Link>
+                                <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
                                 <span>{` ${traderRep.compareMethod} ${traderRep.value}`}</span>
                             </div>
                         );
@@ -610,7 +610,7 @@ function Quest() {
             const trader = traders.find((t) => t.id === objective.trader.id);
             taskDetails = (
                 <>
-                    <Link to={`/traders/${trader.normalizedName}`}>
+                    <Link to={`/trader/${trader.normalizedName}`}>
                         {trader.name}
                     </Link>
                     <span>{` ${t('LL{{level}}', { level: objective.level })}`}</span>
@@ -621,7 +621,7 @@ function Quest() {
             const trader = traders.find((t) => t.id === objective.trader.id);
             taskDetails = (
                 <>
-                    <Link to={`/traders/${trader.normalizedName}`}>
+                    <Link to={`/trader/${trader.normalizedName}`}>
                         {trader.name}
                     </Link>
                     <span>{` ${t('{{compareMethod}} {{reputation}} reputation', { reputation: objective.value, compareMethod: objective.compareMethod })}`}</span>
@@ -719,7 +719,7 @@ function Quest() {
                         )}
                     </div>
                     <div className={`quest-icon-and-link-wrapper`}>
-                        <Link to={`/traders/${currentQuest.trader.normalizedName}`}>
+                        <Link to={`/trader/${currentQuest.trader.normalizedName}`}>
                             <img
                                 alt={currentQuest.trader.name}
                                 height="86"
@@ -868,7 +868,7 @@ function Quest() {
                                 }
                                 return (
                                     <li className="quest-list-item" key={standing.trader.id}>
-                                        <Link to={`/traders/${trader.normalizedName}`}>
+                                        <Link to={`/trader/${trader.normalizedName}`}>
                                             {trader.name}
                                         </Link>
                                         <span>
@@ -909,7 +909,7 @@ function Quest() {
                                     <li className="quest-list-item" key={`${unlock.item.id}-${index}`}>
                                         <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
                                         <span>{' @ '}</span>
-                                        <Link to={`/traders/${trader.normalizedName}`}>
+                                        <Link to={`/trader/${trader.normalizedName}`}>
                                             {trader.name}
                                         </Link>
                                         <span>{` ${t('LL{{level}}', { level: unlock.level })}`}</span>
@@ -927,7 +927,7 @@ function Quest() {
                                 const trader = traders.find((t) => t.id === unlock.id);
                                 return (
                                     <li className="quest-list-item" key={unlock.id}>
-                                        <Link to={`/traders/${trader.normalizedName}`}>
+                                        <Link to={`/trader/${trader.normalizedName}`}>
                                             {trader.name}
                                         </Link>
                                     </li>

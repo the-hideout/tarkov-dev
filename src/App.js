@@ -64,10 +64,10 @@ const Quests = React.lazy(() => import('./pages/quests'));
 const Quest = React.lazy(() => import('./pages/quest'));
 
 const Bosses = React.lazy(() => import('./pages/bosses'));
-const Boss = React.lazy(() => import('./pages/bosses/boss'));
+const Boss = React.lazy(() => import('./pages/boss'));
 
-const Trader = React.lazy(() => import('./pages/traders/trader'));
 const Traders = React.lazy(() => import('./pages/traders'));
+const Trader = React.lazy(() => import('./pages/trader'));
 
 const ItemTracker = React.lazy(() => import('./pages/item-tracker/'));
 const Hideout = React.lazy(() => import('./pages/hideout'));
@@ -612,7 +612,7 @@ function App() {
                 />
                 <Route
                     path={'/boss/:bossName'}
-                    key="boss-route"
+                    key="boss-name-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-boss-wrapper">
                             <Boss key="boss-wrapper" />
@@ -631,8 +631,16 @@ function App() {
                     ]}
                 />
                 <Route
-                    path={'/traders/:traderName'}
-                    key="traders-name-route"
+                    path={'/trader'}
+                    key="trader-route"
+                    element={[
+                        <Navigate to="/traders" />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/trader/:traderName'}
+                    key="trader-name-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-trader-wrapper">
                             <Trader key="trader-wrapper" />

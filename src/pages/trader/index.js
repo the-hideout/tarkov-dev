@@ -4,28 +4,28 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ImageViewer from 'react-simple-image-viewer';
 
-import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
-import SEO from '../../../components/SEO';
+import SEO from '../../components/SEO';
 import {
     Filter,
     InputFilter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
-} from '../../../components/filter';
-import SmallItemTable from '../../../components/small-item-table';
-import QuestTable from '../../../components/quest-table';
-import TraderResetTime from '../../../components/trader-reset-time';
-import ErrorPage from '../../../components/error-page';
-import LoadingSmall from '../../../components/loading-small';
-import PropertyList from '../../../components/property-list';
-import formatPrice from '../../../modules/format-price';
+} from '../../components/filter';
+import SmallItemTable from '../../components/small-item-table';
+import QuestTable from '../../components/quest-table';
+import TraderResetTime from '../../components/trader-reset-time';
+import ErrorPage from '../../components/error-page';
+import LoadingSmall from '../../components/loading-small';
+import PropertyList from '../../components/property-list';
+import formatPrice from '../../modules/format-price';
 
-import QueueBrowserTask from '../../../modules/queue-browser-task';
+import QueueBrowserTask from '../../modules/queue-browser-task';
 
-import { selectAllTraders, fetchTraders } from '../../../features/traders/tradersSlice';
+import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
 
-import i18n from '../../../i18n';
+import i18n from '../../i18n';
 
 import './index.css';
 

@@ -6,19 +6,19 @@ import ImageViewer from 'react-simple-image-viewer';
 import Icon from '@mdi/react';
 import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper } from '@mdi/js';
 
-import SEO from '../../../components/SEO';
-import CenterCell from '../../../components/center-cell';
-import ErrorPage from '../../../components/error-page';
-import Loading from '../../../components/loading';
-import SmallItemTable from '../../../components/small-item-table';
-import DataTable from '../../../components/data-table';
-import PropertyList from '../../../components/property-list';
-import CheekiBreekiEffect from '../../../components/cheeki-breeki-effect';
+import SEO from '../../components/SEO';
+import CenterCell from '../../components/center-cell';
+import ErrorPage from '../../components/error-page';
+import Loading from '../../components/loading';
+import SmallItemTable from '../../components/small-item-table';
+import DataTable from '../../components/data-table';
+import PropertyList from '../../components/property-list';
+import CheekiBreekiEffect from '../../components/cheeki-breeki-effect';
 
-import capitalize from '../../../modules/capitalize-first';
+import capitalize from '../../modules/capitalize-first';
 
-import { useBossDetails } from '../../../features/bosses/queries';
-import { useItemsQuery } from '../../../features/items/queries';
+import { useBossDetails } from '../../features/bosses/queries';
+import { useItemsQuery } from '../../features/items/queries';
 
 import './index.css';
 

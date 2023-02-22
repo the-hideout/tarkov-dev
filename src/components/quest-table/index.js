@@ -322,7 +322,7 @@ function QuestTable({
                     return (
                         <div className="quest-link-wrapper">
                             <Link
-                                to={`/traders/${questData.trader.normalizedName}`}
+                                to={`/trader/${questData.trader.normalizedName}`}
                             >
                                 <img
                                     alt={questData.trader.name}
@@ -497,7 +497,7 @@ function QuestTable({
                             const trader = traders.find(t => t.id === current.trader.id);
                             standings.push((
                                 <div key={trader.id}>
-                                    <Link to={`/traders/${trader.normalizedName}`}>{trader.name}</Link>
+                                    <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
                                     <span>: {current.standing}</span>
                                 </div>
                             ));
