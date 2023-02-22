@@ -1,7 +1,8 @@
 .items-list-wrapper {
-    display: flex;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill,minmax(256px,1fr));
     justify-content: space-between;
-    flex-flow: wrap;
 }
 
 .items-page-wrapper {
@@ -9,7 +10,7 @@
 }
 
 .items-list-wrapper a {
-    max-width: 30%;
+    white-space: nowrap;
 }
 
 .items-list-wrapper img {

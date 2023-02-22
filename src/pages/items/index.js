@@ -38,7 +38,7 @@ function Items(props) {
                             <Icon
                                 path={ItemIconList(categoryPage.icon)}
                                 size={1}
-                                className="icon-with-text"
+                                className="screen-link-icon"
                             />
                             {t(categoryPage.displayText)}
                         </h2>
