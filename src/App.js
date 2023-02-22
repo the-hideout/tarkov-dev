@@ -593,6 +593,26 @@ function App() {
                     ]}
                 />
                 <Route
+                    path="/items/:bsgCategoryName"
+                    key="items-category-route"
+                    element={[
+                        <Suspense fallback={<Loading />} key="suspense-items-category-wrapper">
+                            <BsgCategory />
+                        </Suspense>,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/item/:itemName'}
+                    key="item-route"
+                    element={[
+                        <Suspense fallback={<Loading />} key="suspense-item-wrapper">
+                            <Item key="item-wrapper" />
+                        </Suspense>,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
                     path={'/bosses'}
                     key="bosses-route"
                     element={[
@@ -664,16 +684,6 @@ function App() {
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-item-tracker-wrapper">
                             <ItemTracker key="item-tracker-wrapper" />
-                        </Suspense>,
-                        remoteControlSessionElement,
-                    ]}
-                />
-                <Route
-                    path={'/item/:itemName'}
-                    key="item-route"
-                    element={[
-                        <Suspense fallback={<Loading />} key="suspense-item-wrapper">
-                            <Item key="item-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
@@ -796,16 +806,6 @@ function App() {
                             <Control send={send} />
                         </Suspense>,
                     ]} 
-                />
-                <Route
-                    path="/items/:bsgCategoryName"
-                    key="items-category-route"
-                    element={[
-                        <Suspense fallback={<Loading />} key="suspense-items-category-wrapper">
-                            <BsgCategory />
-                        </Suspense>,
-                        remoteControlSessionElement,
-                    ]}
                 />
                 <Route
                     path={'/tasks/'}
