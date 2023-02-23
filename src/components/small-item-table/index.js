@@ -53,7 +53,7 @@ function getItemCountPrice(item) {
 function TraderSellCell(datum, totalTraderPrice = false, showSlotValue = false) {
     const { t } = useTranslation();
     
-    if (!datum.row.original.bestSell?.source || datum.row.original.bestSell.source === '?') {
+    if (!datum.row.original.bestSell) {
         return null;
     }
 
@@ -450,6 +450,8 @@ function SmallItemTable(props) {
                 }, {priceRUB: 0})
             } else if (formattedItem.bestSell.length === 1) {
                 formattedItem.bestSell = formattedItem.bestSell[0];
+            } else {
+                formattedItem.bestSell = null;
             }
 
             if (!showAllSources && !settings.hasFlea) {
