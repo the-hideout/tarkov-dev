@@ -239,14 +239,14 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                 return false;
             })
             .filter((barter) => {
-                let trader = barter.trader.normalizedName;
+                let traderNormalizedName = barter.trader.normalizedName;
                 let level = barter.level;
 
                 if (
                     !nameFilter &&
                     selectedTrader &&
                     selectedTrader !== 'all' &&
-                    selectedTrader !== trader.toLowerCase().replace(/\s/g, '-')
+                    selectedTrader !== traderNormalizedName
                 ) {
                     return false;
                 }
@@ -255,7 +255,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     skippedByLevelRef.current = false;
                 }
 
-                if (!showAll && level > traders[trader.toLowerCase()]) {
+                if (!showAll && level > traders[traderNormalizedName]) {
                     skippedByLevelRef.current = true;
                     return false;
                 }
@@ -324,36 +324,30 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     showAll,
                 );
                 costItems.map(
-                    (costItem) =>
-                        (cost = cost + costItem.price * costItem.count),
+                    (costItem) => (cost = cost + costItem.price * costItem.count),
                 );
 
                 const bestSellTo = barterRow.rewardItems[0].item.sellFor.reduce(
-                    (previousSellForObject, sellForObject) => {
-                        if (sellForObject.vendor.normalizedName === 'flea-market') {
-                            return previousSellForObject;
+                    (previousSellFor, currentSellFor) => {
+                        if (currentSellFor.vendor.normalizedName === 'flea-market') {
+                            return previousSellFor;
                         }
-
-                        if (sellForObject.vendor.normalizedName === 'jaeger' && !hasJaeger) {
-                            return previousSellForObject;
+                        if (currentSellFor.vendor.normalizedName === 'jaeger' && !hasJaeger) {
+                            return previousSellFor;
                         }
-
-                        if (previousSellForObject.priceRUB > sellForObject.priceRUB) {
-                            return previousSellForObject;
+                        if (previousSellFor.priceRUB > currentSellFor.priceRUB) {
+                            return previousSellFor;
                         }
-
-                        return sellForObject;
+                        return currentSellFor;
                     },
                     {
                         vendor: {
-                            name: 'unkonwn',
+                            name: t('N/A'),
                             normalizedName: 'unknown'
                         },
                         priceRUB: 0,
                     },
                 );
-
-                let level = barterRow.level;
 
                 const tradeData = {
                     costItems: costItems,
@@ -372,41 +366,18 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     ],
                     reward: {
                         id: barterRow.rewardItems[0].item.id,
-                        sellTo: t('N/A'),
-                        sellToNormalized: 'none',
                         name: barterRow.rewardItems[0].item.name,
-                        sellValue: 0,
-                        source: `${barterRow.trader.name} ${t('LL{{level}}', { level: level })}`,
-                        iconLink:
-                            barterRow.rewardItems[0].item.iconLink ||
-                            `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                         itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,
+                        iconLink: barterRow.rewardItems[0].item.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+                        source: `${barterRow.trader.name} ${t('LL{{level}}', { level: barterRow.level })}`,
+                        sellTo: bestSellTo.vendor.name,
+                        sellToNormalized: bestSellTo.vendor.normalizedName,
+                        sellValue: bestSellTo.priceRUB,
                         taskUnlock: barterRow.taskUnlock,
                     },
                     cached: barterRow.cached,
                 };
 
-                const bestTrade = barterRow.rewardItems[0].item.sellFor.reduce((prev, current) => {
-                    if (current.vendor.normalizedName === 'flea-market') 
-                        return prev;
-                    if (!hasJaeger && current.vendor.normalizedName === 'jaeger') 
-                        return prev;
-                    if (!prev) 
-                        return current;
-                    if (prev.priceRUB < current.priceRUB) 
-                        return current;
-                    return prev;
-                }, false);
-
-                if (
-                    (bestTrade && bestTrade.priceRUB > tradeData.reward.value) ||
-                    (bestTrade && !includeFlea)
-                ) {
-                    // console.log(barterRow.rewardItems[0].item.sellTo);
-                    tradeData.reward.sellValue = bestTrade.priceRUB;
-                    tradeData.reward.sellTo = bestTrade.vendor.name;
-                    tradeData.reward.sellToNormalized = bestTrade.vendor.normalizedName;
-                }
                 if (barterRow.rewardItems[0].priceCustom) {
                     tradeData.reward.sellValue = barterRow.rewardItems[0].priceCustom;
                     tradeData.reward.sellType = 'custom';
