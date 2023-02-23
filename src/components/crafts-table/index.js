@@ -39,8 +39,10 @@ import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
-    const includeFlea = useSelector((state) => state.settings.hasFlea);
     const settings = useSelector((state) => state.settings);
+    const { includeFlea, hasJaeger } = useMemo(() => {
+        return {includeFlea: settings.includeFlea, hasJaeger: settings.jaeger !== 0};
+    }, [settings]);
     const stations = useSelector(selectAllStations);
     const skills = useSelector(selectAllSkills);
     // const [skippedByLevel, setSkippedByLevel] = useState(false);
@@ -288,7 +290,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         if (currentSellFor.vendor.normalizedName === 'flea-market') {
                             return previousSellFor;
                         }
-                        if (currentSellFor.vendor.normalizedName === 'jaeger' && !settings.jaeger) {
+                        if (currentSellFor.vendor.normalizedName === 'jaeger' && !hasJaeger) {
                             return previousSellFor;
                         }
                         if (previousSellFor.priceRUB > currentSellFor.priceRUB) {
@@ -406,15 +408,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
             })
             .filter(Boolean)
             .sort((itemA, itemB) => {
-                if (itemB.profit < itemA.profit) {
-                    return -1;
-                }
-
-                if (itemB.profit > itemA.profit) {
-                    return 1;
-                }
-
-                return 0;
+                return itemB.profit - itemA.profit;
             })
             .filter((craft) => {
                 // This is done after profit sorting
@@ -437,6 +431,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         crafts,
         barters,
         includeFlea,
+        hasJaeger,
         itemFilter,
         stations,
         skills,
