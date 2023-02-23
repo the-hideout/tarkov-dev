@@ -40,8 +40,8 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
-    const { includeFlea, hasJaeger } = useMemo(() => {
-        return {includeFlea: settings.includeFlea, hasJaeger: settings.jaeger !== 0};
+    const { includeFlea, hasJaeger, completedQuests } = useMemo(() => {
+        return {includeFlea: settings.includeFlea, hasJaeger: settings.jaeger !== 0, completedQuests: settings.completedQuests};
     }, [settings]);
     const stations = useSelector(selectAllStations);
     const skills = useSelector(selectAllSkills);
@@ -245,6 +245,12 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     }
                 }
 
+                if (!showAll && craftRow.taskUnlock && completedQuests?.length > 0) {
+                    if (!completedQuests.some(taskId => taskId === craftRow.taskUnlock.id)) {
+                        return false;
+                    }
+                }
+
                 const station = craftRow.station.name;
                 const stationNormalized = craftRow.station.normalizedName;
                 const level = craftRow.level;
@@ -430,6 +436,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         freeFuel,
         crafts,
         barters,
+        completedQuests,
         includeFlea,
         hasJaeger,
         itemFilter,

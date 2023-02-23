@@ -26,8 +26,8 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
-    const { hasJaeger, removeDogtags } = useMemo(() => {
-        return {hasJaeger: settings.jaeger !== 0, removeDogtags: settings.hideDogtagBarters};
+    const { hasJaeger, removeDogtags, completedQuests } = useMemo(() => {
+        return {hasJaeger: settings.jaeger !== 0, removeDogtags: settings.hideDogtagBarters, completedQuests: settings.completedQuests};
     }, [settings]);
     const traders = useSelector(selectAllTraders);
     const skippedByLevelRef = useRef(false);
@@ -316,6 +316,12 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     }
                 }
 
+                if (!showAll && barterRow.taskUnlock && completedQuests?.length > 0) {
+                    if (!completedQuests.some(taskId => taskId === barterRow.taskUnlock.id)) {
+                        return false;
+                    }
+                }
+
                 const costItems = formatCostItems(
                     barterRow.requiredItems,
                     settings,
@@ -449,6 +455,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
         barters,
         itemFilter,
         traders,
+        completedQuests,
         hasJaeger,
         t,
         removeDogtags,
