@@ -41,7 +41,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
     const { includeFlea, hasJaeger, completedQuests } = useMemo(() => {
-        return {includeFlea: settings.includeFlea, hasJaeger: settings.jaeger !== 0, completedQuests: settings.completedQuests};
+        return {includeFlea: settings.hasFlea, hasJaeger: settings.jaeger !== 0, completedQuests: settings.completedQuests};
     }, [settings]);
     const stations = useSelector(selectAllStations);
     const skills = useSelector(selectAllSkills);
