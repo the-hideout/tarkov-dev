@@ -66,9 +66,11 @@ function RewardCell({
     }, [taskUnlock, t]);
 
     const displayValue = useMemo(() => {
-        let shownPrice = 'N/A';
+        let shownPrice = t('N/A');
+        let shownSellTo = '';
         if (sellValue) {
             shownPrice = formatPrice(sellValue);
+            shownSellTo = ` @ ${sellTo}`;
         }
         return (
             <span>
@@ -137,16 +139,16 @@ function RewardCell({
                         }}
                     />
                 </span>
-                <span> @ {sellTo}</span>
+                <span>{shownSellTo}</span>
             </span>
         );
-    }, [dispatch, id, sellValue, sellType, sellTo, customPrice, setCustomPrice, editingCustomPrice, setEditingCustomPrice]);
+    }, [dispatch, id, sellValue, sellType, sellTo, customPrice, setCustomPrice, editingCustomPrice, setEditingCustomPrice, t]);
 
     if (sellNote) {
         sellNote = (<span> ({sellNote})</span>);
     }
     
-    if(!valueTooltip) {
+    if (!valueTooltip) {
         valueTooltip = t('Sell value');
     }
 
