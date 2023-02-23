@@ -107,7 +107,7 @@ function ItemSearch({
                 };
 
                 const buyOnFleaPrice = itemData.buyFor.find(
-                    (buyPrice) => buyPrice.source === 'flea-market',
+                    (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market',
                 );
 
                 if (buyOnFleaPrice) {

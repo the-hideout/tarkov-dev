@@ -19,7 +19,6 @@ const doFetchBarters = async (language, prebuild = false) => {
                     value
                 }
             }
-            source
             trader {
                 id
                 name

@@ -1,7 +1,6 @@
 import fetch  from 'cross-fetch';
 
 import fleaMarketFee from '../../modules/flea-market-fee.js';
-import camelcaseToDashes from '../../modules/camelcase-to-dashes.js';
 import graphqlRequest from '../../modules/graphql-request.js';
 
 const doFetchItems = async (language, prebuild = false) => {
@@ -39,7 +38,6 @@ const doFetchItems = async (language, prebuild = false) => {
                 image8xLink
                 updated
                 sellFor {
-                    source
                     vendor {
                         name
                         normalizedName
@@ -47,8 +45,6 @@ const doFetchItems = async (language, prebuild = false) => {
                         ...on TraderOffer {
                             trader {
                                 id
-                                name
-                                normalizedName
                             }
                             minTraderLevel
                             taskUnlock {
@@ -67,7 +63,6 @@ const doFetchItems = async (language, prebuild = false) => {
                     }
                 }
                 buyFor {
-                    source
                     vendor {
                         name
                         normalizedName
@@ -75,8 +70,6 @@ const doFetchItems = async (language, prebuild = false) => {
                         ...on TraderOffer {
                             trader {
                                 id
-                                name
-                                normalizedName
                             }
                             minTraderLevel
                             taskUnlock {
@@ -580,20 +573,6 @@ const doFetchItems = async (language, prebuild = false) => {
 
         rawItem.buyFor = rawItem.buyFor.sort((a, b) => {
             return a.priceRUB - b.priceRUB;
-        });
-
-        rawItem.sellFor = rawItem.sellFor.map((sellPrice) => {
-            return {
-                ...sellPrice,
-                source: camelcaseToDashes(sellPrice.source),
-            };
-        });
-
-        rawItem.buyFor = rawItem.buyFor.map((buyPrice) => {
-            return {
-                ...buyPrice,
-                source: camelcaseToDashes(buyPrice.source),
-            };
         });
 
         const container = rawItem.properties?.slots || rawItem.properties?.grids;

@@ -97,13 +97,11 @@ function Item() {
         backgroundColor: 'default',
         sellFor: [
             {
-                source: 'fleaMarket',
                 price: 0,
             },
         ],
         buyFor: [
             {
-                source: 'flea-market',
                 price: 0,
                 requirements: [],
             },
@@ -710,10 +708,10 @@ The max profitable price is impacted by the intel center and hideout management 
                                         return (
                                             <div
                                                 className={`text-and-image-information-wrapper`}
-                                                key={`${currentItemData.id}-trader-price-${buyPrice.source}-${index}`}
+                                                key={`${currentItemData.id}-trader-price-${buyPrice.vendor.normalizedName}-${index}`}
                                             >
                                                 <div className="source-wrapper">
-                                                    {buyPrice.source !== 'flea-market' && (
+                                                    {buyPrice.vendor.normalizedName !== 'flea-market' && (
                                                         <LoyaltyLevelIcon
                                                             loyaltyLevel={
                                                                 loyaltyLevel
