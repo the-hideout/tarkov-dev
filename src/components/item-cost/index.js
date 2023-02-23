@@ -148,8 +148,7 @@ function ItemCost({
         );
         tooltip = (
             <BarterTooltip
-                source={vendor.name}
-                requiredItems={priceDetails.requiredItems}
+                barter={priceDetails}
             />
         );
     }

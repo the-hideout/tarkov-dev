@@ -15,13 +15,12 @@ import {
 
 import './index.css';
 
-function BarterTooltip({ barter, source, requiredItems, showTitle = true, title, allowAllSources }) {
+function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
     const settings = useSelector((state) => state.settings);
     const { t } = useTranslation();
-    source = source || barter?.source;
 
     const requirements = useMemo(() => {
-        const items = requiredItems || barter?.requiredItems;
+        const items = barter.requiredItems;
         if (!items) {
             return false;
         }
@@ -32,9 +31,9 @@ function BarterTooltip({ barter, source, requiredItems, showTitle = true, title,
                 cheapestPrice,
             };
         });
-    }, [requiredItems, barter, settings, allowAllSources]);
+    }, [barter, settings, allowAllSources]);
 
-    if (!source || !requirements) {
+    if (!barter.trader || !requirements) {
         return "No barters found for this item";
     }
 
@@ -47,7 +46,7 @@ function BarterTooltip({ barter, source, requiredItems, showTitle = true, title,
                     size={1}
                     className="icon-with-text"
                 />
-                {t('Barter at {{trader}}', { trader: source })}
+                {t('Barter at {{trader}}', { trader: `${barter.trader.name} ${t('LL{{level}}', { level: barter.level })}` })}
             </h3>
         );
         if (title) {
