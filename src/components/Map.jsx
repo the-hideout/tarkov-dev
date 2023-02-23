@@ -49,7 +49,7 @@ function Map() {
         return <ErrorPage />;
     }
 
-    const { displayText, source, sourceLink, normalizedName, description, duration, players, image, imageThumb } = allMaps[currentMap];
+    const { displayText, author, authorLink, normalizedName, description, duration, players, image, imageThumb } = allMaps[currentMap];
 
     return [
         <SEO 
@@ -65,8 +65,8 @@ function Map() {
                 normalizedName={normalizedName}
                 duration={duration}
                 players={players}
-                source={source}
-                sourceLink={sourceLink}
+                author={author}
+                authorLink={authorLink}
             />
             <TransformWrapper
                 ref={ref}
