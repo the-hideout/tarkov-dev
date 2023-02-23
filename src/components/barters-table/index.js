@@ -26,8 +26,8 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
-    const { includeFlea, hasJaeger, removeDogtags } = useMemo(() => {
-        return {includeFlea: settings.includeFlea, hasJaeger: settings.jaeger !== 0, removeDogtags: settings.hideDogtagBarters};
+    const { hasJaeger, removeDogtags } = useMemo(() => {
+        return {hasJaeger: settings.jaeger !== 0, removeDogtags: settings.hideDogtagBarters};
     }, [settings]);
     const traders = useSelector(selectAllTraders);
     const skippedByLevelRef = useRef(false);
@@ -424,15 +424,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
             })
             .filter(Boolean)
             .sort((itemA, itemB) => {
-                if (itemB.savings > itemA.savings) {
-                    return -1;
-                }
-
-                if (itemB.savings < itemA.savings) {
-                    return 1;
-                }
-
-                return 0;
+                return itemB.savings - itemA.savings;
             })
             .filter((barter) => {
                 if (selectedTrader !== 'all') {
@@ -455,7 +447,6 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
         nameFilter,
         selectedTrader,
         barters,
-        includeFlea,
         itemFilter,
         traders,
         hasJaeger,
