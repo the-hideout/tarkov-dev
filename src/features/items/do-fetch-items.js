@@ -276,7 +276,7 @@ const doFetchItems = async (language, prebuild = false) => {
                         capacity
                         malfunctionChance
                         ergonomics
-                        recoil
+                        recoilModifier
                         capacity
                         loadModifier
                         ammoCheckModifier
@@ -321,7 +321,7 @@ const doFetchItems = async (language, prebuild = false) => {
                     }
                     ...on ItemPropertiesScope {
                         ergonomics
-                        recoil
+                        recoilModifier
                         zoomLevels
                     }
                     ...on ItemPropertiesStim {
@@ -379,7 +379,6 @@ const doFetchItems = async (language, prebuild = false) => {
                     ...on ItemPropertiesWeaponMod {
                         ergonomics
                         recoilModifier
-                        recoil
                         slots {
                             filters {
                                 allowedCategories {
