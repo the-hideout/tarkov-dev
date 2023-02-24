@@ -149,6 +149,9 @@ const doFetchItems = async (language, prebuild = false) => {
                                 }
                             }
                         }
+                        speedPenalty
+                        turnPenalty
+                        ergoPenalty
                     }
                     ...on ItemPropertiesChestRig {
                         capacity
