@@ -171,6 +171,11 @@ cite {
     align-items: center;
 }
 
+.screen-link-icon {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
 .price-wrapper {
     color: #b0b0b0;
     font-size: 14px;

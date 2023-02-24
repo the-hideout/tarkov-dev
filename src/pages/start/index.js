@@ -267,7 +267,7 @@ function Start() {
                 </h3>
                 <ul className="traders-list" key="traders-list">
                     <li key="start-link-prapor">
-                        <Link to={`/traders/prapor`}>
+                        <Link to={`/trader/prapor`}>
                             <img
                                 alt="Prapor icon"
                                 className="trader-icon"
@@ -278,7 +278,7 @@ function Start() {
                         </Link>
                     </li>
                     <li key="start-link-therapist">
-                        <Link to={`/traders/therapist`}>
+                        <Link to={`/trader/therapist`}>
                             <img
                                 alt="Therapist icon"
                                 className="trader-icon"
@@ -289,7 +289,7 @@ function Start() {
                         </Link>
                     </li>
                     <li key="start-link-skier">
-                        <Link to={`/traders/skier`}>
+                        <Link to={`/trader/skier`}>
                             <img
                                 alt="Skier icon"
                                 className="trader-icon"
@@ -300,7 +300,7 @@ function Start() {
                         </Link>
                     </li>
                     <li key="start-link-peacekeeper">
-                        <Link to={`/traders/peacekeeper`}>
+                        <Link to={`/trader/peacekeeper`}>
                             <img
                                 alt="Peacekeeper icon"
                                 className="trader-icon"
@@ -311,7 +311,7 @@ function Start() {
                         </Link>
                     </li>
                     <li key="start-link-mechanic">
-                        <Link to={`/traders/mechanic`}>
+                        <Link to={`/trader/mechanic`}>
                             <img
                                 alt="Prapor icon"
                                 className="trader-icon"
@@ -322,7 +322,7 @@ function Start() {
                         </Link>
                     </li>
                     <li key="start-link-ragman">
-                        <Link to={`/traders/ragman`}>
+                        <Link to={`/trader/ragman`}>
                             <img
                                 alt="Ragman icon"
                                 className="trader-icon"
@@ -333,7 +333,7 @@ function Start() {
                         </Link>
                     </li>
                     <li key="start-link-jaeger">
-                        <Link to={`/traders/jaeger`}>
+                        <Link to={`/trader/jaeger`}>
                             <img
                                 alt="Jaeger icon"
                                 className="trader-icon"

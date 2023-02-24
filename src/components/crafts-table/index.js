@@ -39,8 +39,10 @@ import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
-    const includeFlea = useSelector((state) => state.settings.hasFlea);
     const settings = useSelector((state) => state.settings);
+    const { includeFlea, hasJaeger, completedQuests } = useMemo(() => {
+        return {includeFlea: settings.hasFlea, hasJaeger: settings.jaeger !== 0, completedQuests: settings.completedQuests};
+    }, [settings]);
     const stations = useSelector(selectAllStations);
     const skills = useSelector(selectAllSkills);
     // const [skippedByLevel, setSkippedByLevel] = useState(false);
@@ -243,6 +245,12 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     }
                 }
 
+                if (!showAll && craftRow.taskUnlock && completedQuests?.length > 0) {
+                    if (!completedQuests.some(taskId => taskId === craftRow.taskUnlock.id)) {
+                        return false;
+                    }
+                }
+
                 const station = craftRow.station.name;
                 const stationNormalized = craftRow.station.normalizedName;
                 const level = craftRow.level;
@@ -283,6 +291,28 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     (costItem) => (totalCost = totalCost + costItem.price * costItem.count),
                 );
 
+                const bestSellTo = craftRow.rewardItems[0].item.sellFor.reduce(
+                    (previousSellFor, currentSellFor) => {
+                        if (currentSellFor.vendor.normalizedName === 'flea-market') {
+                            return previousSellFor;
+                        }
+                        if (currentSellFor.vendor.normalizedName === 'jaeger' && !hasJaeger) {
+                            return previousSellFor;
+                        }
+                        if (previousSellFor.priceRUB > currentSellFor.priceRUB) {
+                            return previousSellFor;
+                        }
+                        return currentSellFor;
+                    },
+                    {
+                        vendor: {
+                            name: t('N/A'),
+                            normalizedName: 'unknown'
+                        },
+                        priceRUB: 0,
+                    },
+                );
+
                 const tradeData = {
                     costItems: costItems,
                     cost: totalCost,
@@ -292,31 +322,16 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         name: craftRow.rewardItems[0].item.name,
                         wikiLink: craftRow.rewardItems[0].item.wikiLink,
                         itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
-                        source: `${station} (${t('Level')} ${level})`,
                         iconLink: craftRow.rewardItems[0].item.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+                        source: `${station} (${t('Level')} ${level})`,
                         count: craftRow.rewardItems[0].count,
-                        sellValue: 0, 
+                        sellTo: bestSellTo.vendor.name,
+                        sellToNormalized: bestSellTo.vendor.normalizedName,
+                        sellValue: bestSellTo.priceRUB,
                         taskUnlock: craftRow.taskUnlock,
                     },
                     cached: craftRow.cached,
                 };
-
-                const bestTrade = craftRow.rewardItems[0].item.sellFor.reduce((prev, current) => {
-                    if (current.vendor.normalizedName === 'flea-market') 
-                        return prev;
-                    if (!settings.jaeger && current.vendor.normalizedName === 'jaeger') 
-                        return prev;
-                    if (!prev) 
-                        return current;
-                    if (prev.priceRUB < current.priceRUB) 
-                        return current;
-                    return prev;
-                }, false);
-
-                if ((bestTrade && bestTrade.priceRUB > tradeData.reward.sellValue) || (bestTrade && !includeFlea)) {
-                    tradeData.reward.sellValue = bestTrade.priceRUB;
-                    tradeData.reward.sellTo = bestTrade.vendor.name;
-                }
 
                 let fleaFeeSingle = 0;
                 let fleaFeeTotal = 0;
@@ -399,15 +414,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
             })
             .filter(Boolean)
             .sort((itemA, itemB) => {
-                if (itemB.profit < itemA.profit) {
-                    return -1;
-                }
-
-                if (itemB.profit > itemA.profit) {
-                    return 1;
-                }
-
-                return 0;
+                return itemB.profit - itemA.profit;
             })
             .filter((craft) => {
                 // This is done after profit sorting
@@ -429,7 +436,9 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         freeFuel,
         crafts,
         barters,
+        completedQuests,
         includeFlea,
+        hasJaeger,
         itemFilter,
         stations,
         skills,

@@ -64,10 +64,10 @@ const Quests = React.lazy(() => import('./pages/quests'));
 const Quest = React.lazy(() => import('./pages/quest'));
 
 const Bosses = React.lazy(() => import('./pages/bosses'));
-const Boss = React.lazy(() => import('./pages/bosses/boss'));
+const Boss = React.lazy(() => import('./pages/boss'));
 
-const Trader = React.lazy(() => import('./pages/traders/trader'));
 const Traders = React.lazy(() => import('./pages/traders'));
+const Trader = React.lazy(() => import('./pages/trader'));
 
 const ItemTracker = React.lazy(() => import('./pages/item-tracker/'));
 const Hideout = React.lazy(() => import('./pages/hideout'));
@@ -325,21 +325,11 @@ function App() {
                     ]}
                 />
                 <Route
-                    path={'/loot-tier/:currentLoot'}
-                    key="loot-tier-current-route"
-                    element={[
-                        <Suspense fallback={<Loading />} key="suspense-loot-tier-current-wrapper">
-                            <LootTiers sessionID={sessionID} key="loot-tier-current-wrapper" />
-                        </Suspense>,
-                        remoteControlSessionElement,
-                    ]}
-                />
-                <Route
                     path={'/loot-tier'}
                     key="loot-tier-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-loot-tier-wrapper">
-                            <LootTiers sessionID={sessionID} key="loot-tier-wrapper" />
+                            <LootTiers key="loot-tier-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
@@ -373,22 +363,29 @@ function App() {
                     ]}
                 />
                 <Route
+                    path={'/item'}
+                    key="item-route"
+                    element={[
+                        <Navigate to="/items" />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
                     path={'/items/helmets'}
                     key="helmets-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-helmets-wrapper">
-                            <Helmets sessionID={sessionID} key="helmets-wrapper" />
+                            <Helmets key="helmets-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
-
                 <Route
                     path={'/items/glasses'}
                     key="glasses-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-glasses-wrapper">
-                            <Glasses sessionID={sessionID} key="glasses-wrapper" />
+                            <Glasses key="glasses-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
@@ -398,7 +395,7 @@ function App() {
                     key="armors-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-armors-wrapper">
-                            <Armors sessionID={sessionID} key="armors-wrapper" />
+                            <Armors key="armors-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
@@ -408,8 +405,16 @@ function App() {
                     key="backpacks-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-backpacks-wrapper">
-                            <Backpacks sessionID={sessionID} key="backpacks-wrapper" />
+                            <Backpacks key="backpacks-wrapper" />
                         </Suspense>,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/items/backpack'}
+                    key="backpack-route"
+                    element={[
+                        <Navigate to="/items/backpacks" />,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -418,8 +423,16 @@ function App() {
                     key="rigs-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-rigs-wrapper">
-                            <Rigs sessionID={sessionID} key="rigs-wrapper" />
+                            <Rigs key="rigs-wrapper" />
                         </Suspense>,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/items/chest-rig'}
+                    key="chest-rig-route"
+                    element={[
+                        <Navigate to="/items/rigs" />,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -428,8 +441,16 @@ function App() {
                     key="suppressors-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-suppressors-wrapper">
-                            <Suppressors sessionID={sessionID} key="suppressors-wrapper" />
+                            <Suppressors key="suppressors-wrapper" />
                         </Suspense>,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/items/silencer'}
+                    key="silencer-route"
+                    element={[
+                        <Navigate to="/items/suppressors" />,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -438,7 +459,7 @@ function App() {
                     key="guns-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-guns-wrapper">
-                            <Guns sessionID={sessionID} key="guns-wrapper" />
+                            <Guns key="guns-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
@@ -448,8 +469,16 @@ function App() {
                     key="mods-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-mods-wrapper">
-                            <Mods sessionID={sessionID} key="mods-wrapper" />
+                            <Mods key="mods-wrapper" />
                         </Suspense>,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/items/weapon-mod'}
+                    key="weapon-mod-route"
+                    element={[
+                        <Navigate to="/items/mods" />,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -458,7 +487,7 @@ function App() {
                     key="pistol-grips-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-pistol-grips-wrapper">
-                            <PistolGrips sessionID={sessionID} key="pistol-grips-wrapper" />
+                            <PistolGrips key="pistol-grips-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
@@ -468,7 +497,7 @@ function App() {
                     key="barter-items-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-barter-items-wrapper">
-                            <BarterItems sessionID={sessionID} key="barter-items-wrapper" />
+                            <BarterItems key="barter-items-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
@@ -478,18 +507,16 @@ function App() {
                     key="containers-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-containers-wrapper">
-                            <Containers sessionID={sessionID} key="containers-wrapper" />
+                            <Containers key="containers-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
                 <Route
-                    path={'/items/food-and-drink'}
-                    key="food-and-drink-route"
+                    path={'/items/common-container'}
+                    key="common-container-route"
                     element={[
-                        <Suspense fallback={<Loading />} key="suspense-provisions-wrapper">
-                            <Provisions sessionID={sessionID} key="provisions-wrapper" />
-                        </Suspense>,
+                        <Navigate to="/items/containers" />,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -498,7 +525,25 @@ function App() {
                     key="grenades-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-grenades-wrapper">
-                            <Grenades sessionID={sessionID} key="grenades-wrapper" />
+                            <Grenades key="grenades-wrapper" />
+                        </Suspense>,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/items/throwable-weapon'}
+                    key="throwable-weapon-route"
+                    element={[
+                        <Navigate to="/items/grenades" />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/items/headsets'}
+                    key="headsets-route"
+                    element={[
+                        <Suspense fallback={<Loading />} key="suspense-headsets-wrapper">
+                            <Headsets key="headsets-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
@@ -512,22 +557,20 @@ function App() {
                     ]}
                 />
                 <Route
-                    path={'/items/headsets'}
-                    key="headsets-route"
+                    path={'/items/keys'}
+                    key="keys-route"
                     element={[
-                        <Suspense fallback={<Loading />} key="suspense-headsets-wrapper">
-                            <Headsets sessionID={sessionID} key="headsets-wrapper" />
+                        <Suspense fallback={<Loading />} key="suspense-keys-wrapper">
+                            <Keys key="keys-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
                 <Route
-                    path={'/items/keys'}
-                    key="keys-route"
+                    path={'/items/key'}
+                    key="key-route"
                     element={[
-                        <Suspense fallback={<Loading />} key="suspense-keys-wrapper">
-                            <Keys sessionID={sessionID} key="keys-wrapper" />
-                        </Suspense>,
+                        <Navigate to="/items/keys" />,
                         remoteControlSessionElement,
                     ]}
                 />
@@ -536,7 +579,35 @@ function App() {
                     key="provisions-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-provisions-wrapper">
-                            <Provisions sessionID={sessionID} key="provisions-wrapper" />
+                            <Provisions key="provisions-wrapper" />
+                        </Suspense>,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/items/food-and-drink'}
+                    key="food-and-drink-route"
+                    element={[
+                        <Navigate to="/items/provisions" />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path="/items/:bsgCategoryName"
+                    key="items-category-route"
+                    element={[
+                        <Suspense fallback={<Loading />} key="suspense-items-category-wrapper">
+                            <BsgCategory />
+                        </Suspense>,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/item/:itemName'}
+                    key="item-route"
+                    element={[
+                        <Suspense fallback={<Loading />} key="suspense-item-wrapper">
+                            <Item key="item-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
@@ -546,7 +617,7 @@ function App() {
                     key="bosses-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-bosses-wrapper">
-                            <Bosses sessionID={sessionID} key="bosses-wrapper" />
+                            <Bosses key="bosses-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
@@ -561,10 +632,10 @@ function App() {
                 />
                 <Route
                     path={'/boss/:bossName'}
-                    key="boss-route"
+                    key="boss-name-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-boss-wrapper">
-                            <Boss sessionID={sessionID} key="boss-wrapper" />
+                            <Boss key="boss-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
@@ -574,17 +645,25 @@ function App() {
                     key="traders-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-traders-wrapper">
-                            <Traders sessionID={sessionID} key="traders-wrapper" />
+                            <Traders key="traders-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
                 />
                 <Route
-                    path={'/traders/:traderName'}
-                    key="traders-name-route"
+                    path={'/trader'}
+                    key="trader-route"
+                    element={[
+                        <Navigate to="/traders" />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
+                    path={'/trader/:traderName'}
+                    key="trader-name-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-trader-wrapper">
-                            <Trader sessionID={sessionID} key="trader-wrapper" />
+                            <Trader key="trader-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
@@ -605,16 +684,6 @@ function App() {
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-item-tracker-wrapper">
                             <ItemTracker key="item-tracker-wrapper" />
-                        </Suspense>,
-                        remoteControlSessionElement,
-                    ]}
-                />
-                <Route
-                    path={'/item/:itemName'}
-                    key="item-route"
-                    element={[
-                        <Suspense fallback={<Loading />} key="suspense-item-wrapper">
-                            <Item sessionID={sessionID} key="item-wrapper" />
                         </Suspense>,
                         remoteControlSessionElement,
                     ]}
@@ -737,16 +806,6 @@ function App() {
                             <Control send={send} />
                         </Suspense>,
                     ]} 
-                />
-                <Route
-                    path="/items/:bsgCategoryName"
-                    key="items-category-route"
-                    element={[
-                        <Suspense fallback={<Loading />} key="suspense-items-category-wrapper">
-                            <BsgCategory />
-                        </Suspense>,
-                        remoteControlSessionElement,
-                    ]}
                 />
                 <Route
                     path={'/tasks/'}

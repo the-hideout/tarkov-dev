@@ -87,7 +87,10 @@ function PistolGrips() {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {"In Escape from Tarkov a pistol grip is a vital part of a weapon."}
+                    {"In Escape from Tarkov a pistol grips and stocks are vital parts of a weapon."}
+                </p>
+                <p>
+                    {"On this page you can sort them buy ergonomics improvement or their cost and see on which weapon they can be mounted."}
                 </p>
             </div>
         </div>,

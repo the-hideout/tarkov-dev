@@ -170,43 +170,43 @@ const Menu = () => {
                             <MenuItem
                                 displayText={t('Prapor')}
                                 key="menu-item-prapor"
-                                to={`/traders/prapor`}
+                                to={`/trader/prapor`}
                                 //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Therapist')}
                                 key="menu-item-therapist"
-                                to={`/traders/therapist`}
+                                to={`/trader/therapist`}
                                 //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Skier')}
                                 key="menu-item-skier"
-                                to={`/traders/skier`}
+                                to={`/trader/skier`}
                                 //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Peacekeeper')}
                                 key="menu-item-peacekeeper"
-                                to={`/traders/peacekeeper`}
+                                to={`/trader/peacekeeper`}
                                 //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Mechanic')}
                                 key="menu-item-mechanic"
-                                to={`/traders/mechanic`}
+                                to={`/trader/mechanic`}
                                 //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Ragman')}
                                 key="menu-item-ragman"
-                                to={`/traders/ragman`}
+                                to={`/trader/ragman`}
                                 //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Jaeger')}
                                 key="menu-item-jaeger"
-                                to={`/traders/jaeger`}
+                                to={`/trader/jaeger`}
                                 //onClick={setIsOpen.bind(this, false)}
                             />
                         </ul>

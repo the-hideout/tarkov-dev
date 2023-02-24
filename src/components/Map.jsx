@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
     TransformWrapper,
     TransformComponent,
@@ -14,6 +15,8 @@ import ErrorPage from './error-page';
 
 function Map() {
     let { currentMap } = useParams();
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
@@ -46,12 +49,11 @@ function Map() {
         return <ErrorPage />;
     }
 
-    const { displayText, source, sourceLink, normalizedName, description, duration, players, image, imageThumb } = allMaps[currentMap];
-    const infoString = `${displayText} Map`;
+    const { displayText, author, authorLink, normalizedName, description, duration, players, image, imageThumb } = allMaps[currentMap];
 
     return [
         <SEO 
-            title={`${infoString}`}
+            title={`${displayText} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={description}
             image={`${window.location.origin}${process.env.PUBLIC_URL}${imageThumb}`}
             card='summary_large_image'
@@ -63,24 +65,24 @@ function Map() {
                 normalizedName={normalizedName}
                 duration={duration}
                 players={players}
-                source={source}
-                sourceLink={sourceLink}
+                author={author}
+                authorLink={authorLink}
             />
             <TransformWrapper
                 ref={ref}
                 initialScale={1}
                 centerOnInit={true}
                 wheel={{
-                    step: 0.2,
+                    step: 0.1,
                 }}
             >
                 <TransformComponent>
                     <div className="map-image-wrapper">
                         <img
-                            alt={`Map of ${displayText}`}
+                            alt={`${displayText} ${t('Map')}`}
                             loading="lazy"
                             className="map-image"
-                            title={infoString}
+                            title={`${displayText} ${t('Map')}`}
                             src={`${process.env.PUBLIC_URL}${image}`}
                         />
                     </div>

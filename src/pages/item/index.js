@@ -97,13 +97,11 @@ function Item() {
         backgroundColor: 'default',
         sellFor: [
             {
-                source: 'fleaMarket',
                 price: 0,
             },
         ],
         buyFor: [
             {
-                source: 'flea-market',
                 price: 0,
                 requirements: [],
             },
@@ -624,7 +622,7 @@ The max profitable price is impacted by the intel center and hideout management 
                                 {currentItemData.traderName && currentItemData.traderPrice !== 0 && (
                                     <div className={`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''} first-trader-price`}>
                                         <Link
-                                            to={`/traders/${currentItemData.traderNormalizedName}`}
+                                            to={`/trader/${currentItemData.traderNormalizedName}`}
                                         >
                                             <img
                                                 alt={currentItemData.traderName}
@@ -664,7 +662,7 @@ The max profitable price is impacted by the intel center and hideout management 
                                                 <ConditionalWrapper
                                                     condition={traderName !== 'fence'}
                                                     wrapper={(children) => 
-                                                        <Link to={`/traders/${traderName}`}>
+                                                        <Link to={`/trader/${traderName}`}>
                                                             {children}
                                                         </Link>
                                                     }
@@ -710,10 +708,10 @@ The max profitable price is impacted by the intel center and hideout management 
                                         return (
                                             <div
                                                 className={`text-and-image-information-wrapper`}
-                                                key={`${currentItemData.id}-trader-price-${buyPrice.source}-${index}`}
+                                                key={`${currentItemData.id}-trader-price-${buyPrice.vendor.normalizedName}-${index}`}
                                             >
                                                 <div className="source-wrapper">
-                                                    {buyPrice.source !== 'flea-market' && (
+                                                    {buyPrice.vendor.normalizedName !== 'flea-market' && (
                                                         <LoyaltyLevelIcon
                                                             loyaltyLevel={
                                                                 loyaltyLevel
@@ -745,7 +743,7 @@ The max profitable price is impacted by the intel center and hideout management 
                                                     <ConditionalWrapper
                                                         condition={buyPrice.vendor.normalizedName !== 'flea-market'}
                                                         wrapper={(children) => 
-                                                            <Link to={`/traders/${buyPrice.vendor.normalizedName}`}>
+                                                            <Link to={`/trader/${buyPrice.vendor.normalizedName}`}>
                                                                 {children}
                                                             </Link>
                                                         }

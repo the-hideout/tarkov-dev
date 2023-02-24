@@ -27,7 +27,6 @@ export default async function doFetchCrafts(language, prebuild = false) {
                     value
                 }
             }
-            source
             taskUnlock {
                 id
             }

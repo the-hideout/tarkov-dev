@@ -42,10 +42,10 @@ function ItemsSummaryTable(props) {
                         (barter) => barter.rewardItems[0].item.id === item.id,
                     ),
                     buyOnFleaPrice: item.buyFor.find(
-                        (buyPrice) => buyPrice.source === 'flea-market',
+                        (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market',
                     ),
                     buyFromTraderPrice: item.buyFor.find(
-                        (buyPrice) => buyPrice.source !== 'flea-market',
+                        (buyPrice) => buyPrice.vendor.normalizedName !== 'flea-market',
                     ),
                 };
 
