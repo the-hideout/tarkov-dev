@@ -73,7 +73,7 @@ const formatter = (key, value) => {
     }
 
     if (typeof value === 'boolean') {
-        value = value ? 'Yes' : 'No';
+        value = value ? i18n.t('Yes') : i18n.t('No');
     }
 
     if (key === 'zoomLevels') {
