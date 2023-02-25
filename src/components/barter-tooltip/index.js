@@ -20,7 +20,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
     const { t } = useTranslation();
 
     const requirements = useMemo(() => {
-        const items = barter.requiredItems;
+        const items = barter?.requiredItems;
         if (!items) {
             return false;
         }
@@ -33,7 +33,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
         });
     }, [barter, settings, allowAllSources]);
 
-    if (!barter.trader || !requirements) {
+    if (!barter?.trader || !requirements) {
         return "No barters found for this item";
     }
 
