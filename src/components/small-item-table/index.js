@@ -1303,7 +1303,7 @@ function SmallItemTable(props) {
                 id: 'weight',
                 accessor: 'weight',
                 sortType: (a, b) => {
-                    return a.original.weight - b.original.weight;
+                    return a.values.weight - b.values.weight;
                 },
                 Cell: CenterCell,
                 position: weight,
@@ -1407,7 +1407,7 @@ function SmallItemTable(props) {
                 id: 'hydration',
                 accessor: (item) => item.properties.hydration,
                 sortType: (a, b) => {
-                    return a.original.properties.hydration - b.original.properties.hydration;
+                    return a.values.hydration - b.values.hydration;
                 },
                 Cell: CenterCell,
                 position: hydration,
@@ -1515,7 +1515,9 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Sound suppression'),
                 id: 'soundSuppression',
-                accessor: (item) => item.properties.deafening,
+                // t('Low')
+                // t('None')
+                accessor: (item) => t(item.properties.deafening),
                 Cell: CenterCell,
                 position: soundSuppression,
             });
@@ -1583,7 +1585,7 @@ function SmallItemTable(props) {
                 id: 'recoilModifier',
                 accessor: (item) => item.properties.recoilModifier,
                 sortType: (a, b) => {
-                    return b.original.properties.recoilModifier - a.original.properties.recoilModifier;
+                    return b.values.recoilModifier - a.values.recoilModifier;
                 },
                 Cell: ({value}) => {
                     if (!value) {
@@ -1603,58 +1605,15 @@ function SmallItemTable(props) {
                 id: 'cheapestPrice',
                 accessor: 'cheapestObtainPrice',
                 sortType: (a, b) => {
-                    let asd = a.original.cheapestPrice || Number.MAX_SAFE_INTEGER;
-                    let bsd = b.original.cheapestPrice || Number.MAX_SAFE_INTEGER;
+                    let asd = a.values.cheapestPrice || Number.MAX_SAFE_INTEGER;
+                    let bsd = b.values.cheapestPrice || Number.MAX_SAFE_INTEGER;
                     return asd - bsd;
                 },
                 Cell: (props) => {
                     let tipContent = '';
                     const priceContent = [];
                     const cheapestObtainInfo = props.row.original.cheapestObtainInfo;
-                    if (!cheapestObtainInfo) {
-                        tipContent = [];
-                        if (props.row.original.types.includes('noFlea')) {
-                            priceContent.push((
-                                <Icon
-                                    path={mdiCloseOctagon}
-                                    size={1}
-                                    className="icon-with-text"
-                                    key="no-flea-icon"
-                                />
-                            ));
-                            tipContent.push((
-                                <div key={'no-flea-tooltip'}>
-                                    {t('This item can\'t be sold on the Flea Market')}
-                                </div>
-                            ));
-                        } else {
-                            let tipText = t('Not scanned on the Flea Market');
-                            let icon = mdiHelpRhombus;
-                            if (props.row.original.cached) {
-                                tipText = t('Flea market prices loading');
-                                icon = mdiTimerSand;
-                            }
-                            priceContent.push((
-                                <Icon
-                                    path={icon}
-                                    size={1}
-                                    className="icon-with-text"
-                                    key="no-prices-icon"
-                                />
-                            ));
-                            tipContent.push((
-                                <div key={'no-flea-tooltip'}>
-                                    {tipText}
-                                </div>
-                            ));
-                        }
-                        tipContent.push((
-                            <div key={'no-trader-sell-tooltip'}>
-                                {t('No trader offers available')}
-                            </div>
-                        ));
-                    }
-                    if (props.value) {
+                    if (cheapestObtainInfo) {
                         let priceSource = '';
                         const displayedPrice = [];
                         let taskIcon = '';
@@ -1718,6 +1677,50 @@ function SmallItemTable(props) {
                         displayedPrice.push(taskIcon);
                         priceContent.push((<div key="price-info">{formatPrice(props.value*props.row.original.count)}</div>));
                         priceContent.push((<div key="price-source-info" className="trader-unlock-wrapper">{displayedPrice}</div>))
+                    } 
+                    else {
+                        tipContent = [];
+                        if (props.row.original.types.includes('noFlea')) {
+                            priceContent.push((
+                                <Icon
+                                    path={mdiCloseOctagon}
+                                    size={1}
+                                    className="icon-with-text"
+                                    key="no-flea-icon"
+                                />
+                            ));
+                            tipContent.push((
+                                <div key={'no-flea-tooltip'}>
+                                    {t('This item can\'t be sold on the Flea Market')}
+                                </div>
+                            ));
+                        } 
+                        else {
+                            let tipText = t('Not scanned on the Flea Market');
+                            let icon = mdiHelpRhombus;
+                            if (props.row.original.cached) {
+                                tipText = t('Flea market prices loading');
+                                icon = mdiTimerSand;
+                            }
+                            priceContent.push((
+                                <Icon
+                                    path={icon}
+                                    size={1}
+                                    className="icon-with-text"
+                                    key="no-prices-icon"
+                                />
+                            ));
+                            tipContent.push((
+                                <div key={'no-flea-tooltip'}>
+                                    {tipText}
+                                </div>
+                            ));
+                        }
+                        tipContent.push((
+                            <div key={'no-trader-sell-tooltip'}>
+                                {t('No trader offers available')}
+                            </div>
+                        ));
                     }
                     return (
                         <ConditionalWrapper

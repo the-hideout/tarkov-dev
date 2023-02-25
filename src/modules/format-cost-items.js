@@ -211,14 +211,8 @@ const formatCostItems = (
 
         const returnData = {
             id: requiredItem.item.id,
-            count:
-                requiredItem.count === 0.66
-                    ? (
-                          requiredItem.count -
-                          (requiredItem.count *
-                              (hideoutManagementSkillLevel * 0.5)) /
-                              100
-                      ).toFixed(2)
+            count: requiredItem.count === 0.66
+                    ? (requiredItem.count - (requiredItem.count * (hideoutManagementSkillLevel * 0.5)) / 100).toFixed(2)
                     : requiredItem.count,
             name: itemName,
             price: calculationPrice,
@@ -226,9 +220,7 @@ const formatCostItems = (
             priceType: requiredItem.item.cached ? 'cached' : bestPrice.type,
             vendor: bestPrice.vendor,
             priceDetails: bestPrice.barter,
-            iconLink:
-                requiredItem.item.iconLink ||
-                `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+            iconLink: requiredItem.item.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
             wikiLink: requiredItem.item.wikiLink,
             itemLink: `/item/${requiredItem.item.normalizedName}`,
             isTool: isTool,
