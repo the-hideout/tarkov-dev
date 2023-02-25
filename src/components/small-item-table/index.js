@@ -970,6 +970,11 @@ function SmallItemTable(props) {
                 Header: t('Sell to Flea'),
                 id: 'fleaValue',
                 accessor: (d) => Number(d.lastLowPrice),
+                sortType: (a, b, columnId, desc) => {
+                    const aFlea = a.values.fleaValue || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bFlea = b.values.fleaValue || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    return aFlea - bFlea;
+                },
                 Cell: (allData) => {
                     if (allData.row.original.types.includes('noFlea')) {
                         return (
@@ -1031,31 +1036,10 @@ function SmallItemTable(props) {
                 id: 'fleaPrice',
                 accessor: (d) => Number(d.buyOnFleaPrice?.price),
                 sortType: (a, b, columnId, desc) => {
-                    if (a.values.fleaBuyPrice === 0 || isNaN(a.values.fleaBuyPrice)) {
-                        if (desc) {
-                            return -1;
-                        }
-
-                        return 1;
-                    }
-
-                    if (b.values.fleaBuyPrice === 0 || isNaN(b.values.fleaBuyPrice)) {
-                        if (desc) {
-                            return 1;
-                        }
-
-                        return -1;
-                    }
-
-                    if (a.values.fleaBuyPrice > b.values.fleaBuyPrice) {
-                        return -1;
-                    }
-
-                    if (a.values.fleaBuyPrice < b.values.fleaBuyPrice) {
-                        return 1;
-                    }
-
-                    return 0;
+                    const aFlea = a.values.fleaPrice || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bFlea = b.values.fleaPrice || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    
+                    return aFlea - bFlea;
                 },
                 Cell: FleaPriceCell,
                 position: fleaPrice,
@@ -1563,7 +1547,12 @@ function SmallItemTable(props) {
                     if (item.cheapestObtainPrice) {
                         return item.cheapestObtainPrice / item.properties.ergonomics;
                     }
-                    return Number.MAX_SAFE_INTEGER;
+                    return 0;
+                },
+                sortType: (a, b, columnId, desc) => {
+                    const aErgoCost = a.values.ergoCost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bErgoCost = b.values.ergoCost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    return aErgoCost - bErgoCost;
                 },
                 Cell: ({ value }) => {
                     if (!value) {
@@ -1604,10 +1593,10 @@ function SmallItemTable(props) {
                 Header: t('Cheapest Price'),
                 id: 'cheapestPrice',
                 accessor: 'cheapestObtainPrice',
-                sortType: (a, b) => {
-                    let asd = a.values.cheapestPrice || Number.MAX_SAFE_INTEGER;
-                    let bsd = b.values.cheapestPrice || Number.MAX_SAFE_INTEGER;
-                    return asd - bsd;
+                sortType: (a, b, columnId, desc) => {
+                    const aCheap = a.values.cheapestPrice || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bCheap = b.values.cheapestPrice || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    return aCheap - bCheap;
                 },
                 Cell: (props) => {
                     let tipContent = '';
@@ -1619,7 +1608,12 @@ function SmallItemTable(props) {
                         let taskIcon = '';
                         let barterIcon = '';
                         if (cheapestObtainInfo.vendor) {
-                            priceSource = `${cheapestObtainInfo.vendor.name} ${t('LL{{level}}', { level: cheapestObtainInfo.vendor.minTraderLevel })}`;
+                            if (cheapestObtainInfo.vendor.normalizedName === 'flea-market') {
+                                priceSource = cheapestObtainInfo.vendor.name
+                            }
+                            else {
+                                priceSource = `${cheapestObtainInfo.vendor.name} ${t('LL{{level}}', { level: cheapestObtainInfo.vendor.minTraderLevel })}`;
+                            }
                             if (cheapestObtainInfo.vendor.taskUnlock) {
                                 taskIcon = (
                                     <Icon
