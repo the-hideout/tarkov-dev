@@ -20,8 +20,12 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
     const { t } = useTranslation();
 
     const requirements = useMemo(() => {
-        const items = barter?.requiredItems;
+        if (!barter) {
+            return false;
+        }
+        const items = barter.requiredItems;
         if (!items) {
+            // Should never happen
             return false;
         }
         return items.map(req => {
@@ -33,11 +37,21 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
         });
     }, [barter, settings, allowAllSources]);
 
-    if (!barter?.trader || !requirements) {
-        return "No barters found for this item";
+    if (!barter) {
+        return t('No barters found for this item');
+    }
+    if (!barter.trader) {
+        // Should never happen
+        return "Missing trader for this barter";
+    }
+    if (!requirements) {
+        // Should never happen
+        return "Missing requirements for this barter";
     }
 
     let titleElement = '';
+    let trader = `${barter.trader.name} ${t('LL{{level}}', { level: barter.level })}`;
+
     if (showTitle) {
         titleElement = (
             <h3>
@@ -46,7 +60,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
                     size={1}
                     className="icon-with-text"
                 />
-                {t('Barter at {{trader}}', { trader: `${barter.trader.name} ${t('LL{{level}}', { level: barter.level })}` })}
+                {t('Barter at {{trader}}', { trader: trader })}
             </h3>
         );
         if (title) {
