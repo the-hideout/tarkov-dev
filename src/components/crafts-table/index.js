@@ -26,10 +26,7 @@ import CenterCell from '../center-cell';
 
 import './index.css';
 import RewardCell from '../reward-cell';
-import {
-    getDurationDisplay,
-    getFinishDisplay,
-} from '../../modules/format-duration';
+import { getDurationDisplay } from '../../modules/format-duration';
 import bestPrice from '../../modules/best-price';
 import { useMetaQuery } from '../../features/meta/queries';
 import { useQuestsQuery } from '../../features/quests/queries';
@@ -492,9 +489,9 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                                 {getDurationDisplay(value * 1000)}
                             </div>
                             <div className="finish-wrapper" title={t('Start now')} onClick={((e) => {
-                                e.target.innerText = getFinishDisplay(value * 1000);
+                                e.target.innerText = getLocalFinishes(value, t);
                             })}>
-                                {getFinishDisplay(value * 1000)}
+                                {getLocalFinishes(value, t)}
                             </div>
                         </CenterCell>
                     );
@@ -604,6 +601,16 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
             autoResetSortBy={false}
         />
     );
+}
+
+function getLocalFinishes(time, t) {
+    const finishes = t('{{val, datetime}}', { val: Date.now() + time*1000,
+        formatParams: {
+            val: { weekday: 'short', hour: 'numeric', minute: 'numeric', second: 'numeric' },
+        },
+    })
+
+    return finishes;
 }
 
 export default CraftTable;
