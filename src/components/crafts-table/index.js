@@ -456,6 +456,12 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 Header: t('Reward'),
                 id: 'reward',
                 accessor: 'reward',
+                sortType: (a, b, columnId, desc) => {
+                    const aName = a.values.reward.name;
+                    const bName = b.values.reward.name;
+                    
+                    return aName.localeCompare(bName);
+                },
                 Cell: ({ value }) => {
                     return <RewardCell {...value} />;
                 },
