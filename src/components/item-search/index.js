@@ -97,11 +97,6 @@ function ItemSearch({
                     iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                     instaProfit: 0,
                     itemLink: `/item/${itemData.normalizedName}`,
-                    traderName: itemData.traderName,
-                    traderNormalizedName: itemData.traderNormalizedName,
-                    traderPrice: itemData.traderPrice,
-                    traderPriceRUB: itemData.traderPriceRUB,
-                    traderCurrency: itemData.traderCurrency,
                     types: itemData.types,
                     buyFor: itemData.buyFor,
                 };
@@ -111,7 +106,7 @@ function ItemSearch({
                 );
 
                 if (buyOnFleaPrice) {
-                    formattedItem.instaProfit = itemData.traderPriceRUB - buyOnFleaPrice.price;
+                    formattedItem.instaProfit = itemData.sellForTradersBest.priceRUB - buyOnFleaPrice.price;
                 }
 
                 return formattedItem;

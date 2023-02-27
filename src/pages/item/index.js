@@ -386,7 +386,7 @@ function Item() {
 
     const itemFleaFee = fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
 
-    const traderIsBest = currentItemData.traderPriceRUB > currentItemData.lastLowPrice - itemFleaFee;
+    const traderIsBest = currentItemData.sellForTradersBest.priceRUB > currentItemData.lastLowPrice - itemFleaFee;
     const useFleaPrice = currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
     let fleaSellPriceDisplay = formatPrice(currentItemData.lastLowPrice);
@@ -619,76 +619,34 @@ The max profitable price is impacted by the intel center and hideout management 
                                         </div>
                                     </Tippy>
                                 )}
-                                {currentItemData.traderName && currentItemData.traderPrice !== 0 && (
-                                    <div className={`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''} first-trader-price`}>
-                                        <Link
-                                            to={`/trader/${currentItemData.traderNormalizedName}`}
-                                        >
-                                            <img
-                                                alt={currentItemData.traderName}
-                                                height="86"
-                                                width="86"
-                                                loading="lazy"
-                                                src={`${process.env.PUBLIC_URL}/images/traders/${currentItemData.traderNormalizedName}-portrait.png`}
-                                                // title = {`Sell ${currentItemData.name} on the Flea market`}
-                                            />
-                                        </Link>
-                                        <div className={`price-wrapper${settings[currentItemData.traderNormalizedName] ? '' : ' locked'}`}>
-                                            <ConditionalWrapper
-                                                condition={currentItemData.traderCurrency !== 'RUB'}
-                                                wrapper={(children) => 
-                                                    <Tippy
-                                                        content={formatPrice(currentItemData.traderPriceRUB)}
-                                                        placement="bottom"
-                                                    >
-                                                        <div>{children}</div>
-                                                    </Tippy>
-                                                }
-                                            >
-                                                {formatPrice(currentItemData.traderPrice, currentItemData.traderCurrency)}
-                                            </ConditionalWrapper>
-                                        </div>
-                                    </div>
-                                )}
-                                {currentItemData.traderPrices && currentItemData.traderPrices.map(
-                                    (traderPrice, traderPriceIndex) => {
-                                        const traderName = traderPrice.trader.normalizedName;
+                                {currentItemData.sellForTraders && currentItemData.sellForTraders.map(
+                                    (sellForTrader) => {
+                                        const traderNormalizedName = sellForTrader.vendor.normalizedName;
 
                                         return (
-                                            <div
-                                                className={`text-and-image-information-wrapper`}
-                                                key={`${currentItemData.id}-trader-price-${traderName}-${traderPriceIndex}`}
-                                            >
-                                                <ConditionalWrapper
-                                                    condition={traderName !== 'fence'}
-                                                    wrapper={(children) => 
-                                                        <Link to={`/trader/${traderName}`}>
-                                                            {children}
-                                                        </Link>
-                                                    }
-                                                >
+                                            <div className={`text-and-image-information-wrapper ${traderIsBest && sellForTrader === currentItemData.sellForTradersBest ? 'best-profit' : ''}`}>
+                                                <Link to={`/trader/${traderNormalizedName}`} >
                                                     <img
-                                                        alt={traderPrice.trader.name}
+                                                        alt={sellForTrader.vendor.name}
                                                         height="86"
                                                         width="86"
                                                         loading="lazy"
-                                                        src={`${process.env.PUBLIC_URL}/images/traders/${traderName}-portrait.png`}
-                                                        // title = {`Sell ${currentItemData.name} on the Flea market`}
+                                                        src={`${process.env.PUBLIC_URL}/images/traders/${traderNormalizedName}-portrait.png`}
                                                     />
-                                                </ConditionalWrapper>
-                                                <div className={`price-wrapper${traderName === 'fence' || settings[traderName] ? '' : ' locked'}`}>
+                                                </Link>
+                                                <div className={`price-wrapper${traderNormalizedName === 'fence' || settings[traderNormalizedName] ? '' : ' locked'}`}>
                                                     <ConditionalWrapper
-                                                        condition={traderPrice.currency !== 'RUB'}
+                                                        condition={sellForTrader.currency !== 'RUB'}
                                                         wrapper={(children) => 
                                                             <Tippy
-                                                                content={formatPrice(traderPrice.priceRUB)}
+                                                                content={formatPrice(sellForTrader.priceRUB)}
                                                                 placement="bottom"
                                                             >
                                                                 <div>{children}</div>
                                                             </Tippy>
                                                         }
                                                     >
-                                                        {formatPrice(traderPrice.price, traderPrice.currency)}
+                                                        {formatPrice(sellForTrader.price, sellForTrader.currency)}
                                                     </ConditionalWrapper>
                                                 </div>
                                             </div>
@@ -708,7 +666,7 @@ The max profitable price is impacted by the intel center and hideout management 
                                         return (
                                             <div
                                                 className={`text-and-image-information-wrapper`}
-                                                key={`${currentItemData.id}-trader-price-${buyPrice.vendor.normalizedName}-${index}`}
+                                                key={`${currentItemData.id}-trader-price-buy-${buyPrice.vendor.normalizedName}`}
                                             >
                                                 <div className="source-wrapper">
                                                     {buyPrice.vendor.normalizedName !== 'flea-market' && (

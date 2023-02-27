@@ -43,9 +43,7 @@ function getItemCountPrice(item) {
     if (item.count < 2) return '';
     return (
         <div key="countprice">
-            {formatPrice(
-                item.bestSell.priceRUB,
-            )} x {item.count}
+            {formatPrice(item.sellForTradersBest.priceRUB)} x {item.count}
         </div>
     );
 }
@@ -53,13 +51,15 @@ function getItemCountPrice(item) {
 function TraderSellCell(datum, totalTraderPrice = false, showSlotValue = false) {
     const { t } = useTranslation();
     
-    if (!datum.row.original.bestSell) {
+    if (!datum.row.original.sellForTradersBest) {
         return null;
     }
 
+    const sellForTradersBest = datum.row.original.sellForTradersBest;
+
     const count = datum.row.original.count;
-    const priceRUB = totalTraderPrice ? datum.row.original.bestSell.priceRUB : datum.row.original.bestSell.priceRUB;
-    const price = totalTraderPrice ? datum.row.original.bestSell.price : datum.row.original.bestSell.price;
+    const priceRUB = sellForTradersBest.priceRUB;
+    const price = sellForTradersBest.price;
     const slots = datum.row.original.width * datum.row.original.height;
     let slotValue = '';
     if (showSlotValue && slots > 1) {
@@ -79,23 +79,23 @@ function TraderSellCell(datum, totalTraderPrice = false, showSlotValue = false) 
         <div className="trader-price-content" key="item-sell-to-trader-value">
             <span>
                 <img
-                    alt={datum.row.original.bestSell.vendor.name}
+                    alt={sellForTradersBest.vendor.name}
                     className="trader-icon"
                     loading="lazy"
                     height="40"
-                    src={`${process.env.PUBLIC_URL}/images/traders/${datum.row.original.bestSell.vendor.normalizedName}-icon.jpg`}
-                    title={datum.row.original.bestSell.vendor.name}
+                    src={`${process.env.PUBLIC_URL}/images/traders/${sellForTradersBest.vendor.normalizedName}-icon.jpg`}
+                    title={sellForTradersBest.vendor.name}
                     width="40"
                 />
             </span>
             <span>
-                {datum.row.original.bestSell.currency !== 'RUB' ? (
+                {sellForTradersBest.currency !== 'RUB' ? (
                     <Tippy
                         content={formatPrice(priceRUB*count)}
                         placement="bottom"
                     >
                         <div>
-                            {formatPrice(price*count, datum.row.original.bestSell.currency)}
+                            {formatPrice(price*count, sellForTradersBest.currency)}
                         </div>
                     </Tippy>
                 ) : (
@@ -394,27 +394,16 @@ function SmallItemTable(props) {
                 iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                 instaProfit: 0,
                 itemLink: `/item/${itemData.normalizedName}`,
-                traderName: itemData.traderName,
-                traderNormalizedName: itemData.traderNormalizedName,
-                traderPrice: itemData.traderPrice,
-                traderPriceRUB: itemData.traderPriceRUB,
-                traderCurrency: itemData.traderCurrency,
                 types: itemData.types,
                 buyFor: itemData.buyFor.filter(buyFor => {
-                    if (buyFor.vendor.normalizedName === 'flea-market' && !showAllSources && !settings.hasFlea) 
+                    if (!showAllSources && !settings.hasFlea && buyFor.vendor.normalizedName === 'flea-market') 
                         return false;
                     if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) 
                         return false;
                     return true;
                 }),
                 sellFor: itemData.sellFor,
-                bestSell: itemData.sellFor.filter(sellFor => {
-                    if (sellFor.vendor.normalizedName === 'flea-market') 
-                        return false;
-                    if (!showAllSources && sellFor.vendor.normalizedName === 'jaeger' && !settings.jaeger) 
-                        return false;
-                    return true;
-                }),
+                sellForTradersBest: null,
                 buyOnFleaPrice: itemData.buyFor.find(
                     (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market' && (showAllSources || settings.hasFlea),
                 ),
@@ -442,24 +431,30 @@ function SmallItemTable(props) {
                 cached: itemData.cached,
             };
 
-            if (formattedItem.bestSell.length > 1) {
-                formattedItem.bestSell = formattedItem.bestSell.reduce((prev, current) => {
-                    if (prev.priceRUB > current.priceRUB) 
-                        return prev;
-                    return current;
-                }, {priceRUB: 0})
-            } else if (formattedItem.bestSell.length === 1) {
-                formattedItem.bestSell = formattedItem.bestSell[0];
-            } else {
-                formattedItem.bestSell = null;
+            let sellForTraders = itemData.sellFor.filter(sellFor => {
+                if (sellFor.vendor.normalizedName === 'flea-market') 
+                    return false;
+                if (!showAllSources && !settings.jaeger && sellFor.vendor.normalizedName === 'jaeger') 
+                    return false;
+                return true;
+            });
+            const noneTrader = {
+                price: 0,
+                priceRUB: 0,
+                currency: 'RUB',
+                vendor: {
+                    name: 'unknown',
+                    normalizedName: 'unknown',
+                },
             }
+            formattedItem.sellForTradersBest = sellForTraders[0] || noneTrader;
 
             if (!showAllSources && !settings.hasFlea) {
                 formattedItem.buyOnFleaPrice = 0
             }
 
             if (formattedItem.buyOnFleaPrice && formattedItem.buyOnFleaPrice.price > 0) {
-                formattedItem.instaProfit = itemData.traderPriceRUB - formattedItem.buyOnFleaPrice.price;
+                formattedItem.instaProfit = formattedItem.sellForTradersBest.priceRUB - formattedItem.buyOnFleaPrice.price;
             }
 
             if (formattedItem.barters.length > 0) {
@@ -641,12 +636,12 @@ function SmallItemTable(props) {
                 item.sellFor = item.sellFor?.filter(
                     (sell) => sell.vendor.normalizedName === traderFilter,
                 );
-                item.bestSell = item.sellFor?.sort((a, b) => {
+                item.sellForTradersBest = item.sellFor?.sort((a, b) => {
                     return b.priceRUB - a.priceRUB;
                 })[0];
 
                 if (item.buyOnFleaPrice) {
-                    item.instaProfit = item.bestSell?.priceRUB - item.buyOnFleaPrice.price;
+                    item.instaProfit = item.sellForTradersBest?.priceRUB - item.buyOnFleaPrice.price;
                 }
 
                 if (traderBuybackFilter) {
@@ -671,7 +666,7 @@ function SmallItemTable(props) {
             returnData = returnData
                 .filter((item) => item.instaProfit !== 0)
                 .filter((item) => item.lastLowPrice && item.lastLowPrice > 0)
-                .filter((item) => item.bestSell && item.bestSell.priceRUB > 500)
+                .filter((item) => item.sellForTradersBest && item.sellForTradersBest.priceRUB > 500)
                 .filter(
                     (item) => item.buyOnFleaPrice && item.buyOnFleaPrice.price > 0,
                 )
@@ -1083,7 +1078,7 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Sell to Trader'),
                 id: 'traderValue',
-                accessor: (d) => Number(totalTraderPrice? d.bestSell?.priceRUB : d.bestSell?.priceRUB),
+                accessor: (d) => Number(d.sellForTradersBest.priceRUB),
                 Cell: (datum) => TraderSellCell(datum, totalTraderPrice, showSlotValue),
                 summable: true,
                 position: traderValue,

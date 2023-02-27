@@ -137,8 +137,11 @@ function LootTier(props) {
                 let height = item.height;
                 let slots = item.slots;
                 let itemTypes = item.types;
-                let priceRUB = item.traderPriceRUB;
+                let priceRUB = item.sellForTradersBest.priceRUB;
+                let sellTo = item.sellForTradersBest.name;
+                let sellToNormalized = item.sellForTradersBest.normalizedName;
                 let normalizedName = item.normalizedName;
+
                 if (item.types.includes('gun')) {
                     // Overrides guns' dimensions using their default height and width.
                     // Fixes a bug where PPS was calculated using just a weapon receiver.
@@ -151,15 +154,15 @@ function LootTier(props) {
                             slots = width * height;
                             gridImageLink = preset.gridImageLink;
                             baseImageLink = preset.baseImageLink;
-                            priceRUB = preset.traderPriceRUB;
+                            priceRUB = preset.sellForTradersBest.priceRUB;
+                            sellTo = preset.sellForTradersBest.name;
+                            sellToNormalized = preset.sellForTradersBest.normalizedName;
                             normalizedName = preset.normalizedName;
                         }
                     }
                     itemTypes = item.types.filter((type) => type !== 'wearable');
                 }
 
-                let sellTo = item.traderName;
-                let sellToNormalized = item.traderNormalizedName;
 
                 if (hasFlea && !item.types.includes('noFlea')) {
                     const fleaPrice = item.avg24hPrice - item.fee;
