@@ -327,7 +327,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         sellValue: bestSellTo.priceRUB,
                         taskUnlock: craftRow.taskUnlock,
                     },
-                    cached: craftRow.cached,
+                    cached: craftRow.cached || craftRow.rewardItems[0].item.cached,
                 };
 
                 let fleaFeeSingle = 0;
@@ -341,7 +341,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     tradeData.reward.sellType = 'custom';
                 }
 
-                if (!craftRow.rewardItems[0].item.types.includes('noFlea') && (showAll || includeFlea)) {
+                if (!tradeData.cached && !craftRow.rewardItems[0].item.types.includes('noFlea') && (showAll || includeFlea)) {
                     const bestFleaPrice = bestPrice(craftRow.rewardItems[0].item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate, fleaPriceToUse);
                     if (!craftRow.rewardItems[0].priceCustom && (fleaPriceToUse === 0 || bestFleaPrice.bestPrice < fleaPriceToUse)) {
                         fleaPriceToUse = bestFleaPrice.bestPrice;
