@@ -26,10 +26,10 @@ export const useTraderByIdQuery = (traderId, queryOptions) => {
     return traderQuery;
 };
 
-export const useTraderByNormalizedNameQuery = (traderName, queryOptions) => {
+export const useTraderByNormalizedNameQuery = (traderNormalizedName, queryOptions) => {
     const traderQuery = useTradersQuery({
         select: (traders) =>
-            traders.find((trader) => trader.normalizedName === traderName),
+            traders.find((trader) => trader.normalizedName === traderNormalizedName),
         ...queryOptions,
     });
 
