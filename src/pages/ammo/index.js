@@ -60,7 +60,6 @@ function Ammo() {
     const [useAllProjectileDamage, setUseAllProjectileDamage] = useState(false);
     const shiftPress = useKeyPress('Shift');
     const { data: items } = useItemsQuery();
-    const settings = useSelector((state) => state.settings);
     const { t } = useTranslation();
 
     useEffect(() => {
