@@ -103,9 +103,10 @@ function Ammo() {
         }
         let symbol = symbols[typeCache.length];
 
-        if(typeCache.includes(returnData.type)) {
+        if (typeCache.includes(returnData.type)) {
             symbol = symbols[typeCache.indexOf(returnData.type)];
-        } else {
+        } 
+        else {
             typeCache.push(returnData.type);
             legendData.push({
                 ...returnData,
@@ -116,21 +117,9 @@ function Ammo() {
         }
         returnData.symbol = symbol;
 
-        if(!symbol) {
+        if (!symbol) {
             console.log(`Missing symbol for ${returnData.type}, the graph will crash. Add more symbols to src/symbols.json`);
             process.exit(1);
-        }
-
-        if (!showAllTraderPrices) {
-            returnData.buyFor = returnData.buyFor.filter(buyFor => {
-                if (buyFor.vendor.normalizedName === 'flea-market') {
-                    return true;
-                }
-                if (buyFor.vendor.minTraderLevel <= settings[buyFor.vendor.normalizedName]) {
-                    return true;
-                }
-                return false;
-            });
         }
 
         return returnData;
