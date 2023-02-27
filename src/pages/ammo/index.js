@@ -1,6 +1,5 @@
 /* eslint-disable no-restricted-globals */
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
