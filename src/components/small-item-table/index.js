@@ -463,29 +463,29 @@ function SmallItemTable(props) {
             }
 
             if (formattedItem.barters.length > 0) {
-                formattedItem.barterPrice = getCheapestBarter(itemData, formattedItem.barters, settings, showAllSources);
+                formattedItem.cheapestBarter = getCheapestBarter(itemData, formattedItem.barters, settings, showAllSources);
 
-                if (formattedItem.barterPrice && (!itemData.avg24hPrice || formattedItem.barterPrice.price < itemData.avg24hPrice)) {
-                    formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.barterPrice.price / (itemData.properties.capacity - itemData.slots))
-                                                 : formattedItem.barterPrice.price / itemData.properties.capacity;
+                if (formattedItem.cheapestBarter && (!itemData.avg24hPrice || formattedItem.cheapestBarter.price < itemData.avg24hPrice)) {
+                    formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.cheapestBarter.price / (itemData.properties.capacity - itemData.slots))
+                                                 : formattedItem.cheapestBarter.price / itemData.properties.capacity;
                 }
             }
-            formattedItem.cheapestPrice = Number.MAX_SAFE_INTEGER;
-            formattedItem.cheapestPriceInfo = false;
-            if (formattedItem.barterPrice) {
-                //console.log(formattedItem.barterPrice.barter, settings[formattedItem.barterPrice.barter.trader.normalizedName]);
+            formattedItem.cheapestObtainPrice = Number.MAX_SAFE_INTEGER;
+            formattedItem.cheapestObtainInfo = null;
+            if (formattedItem.cheapestBarter) {
+                //console.log(formattedItem.cheapestBarter.barter, settings[formattedItem.cheapestBarter.barter.trader.normalizedName]);
                 //if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel)
-                formattedItem.cheapestPrice = formattedItem.barterPrice.price;
-                formattedItem.cheapestPriceInfo = formattedItem.barterPrice;
+                formattedItem.cheapestObtainPrice = formattedItem.cheapestBarter.price;
+                formattedItem.cheapestObtainInfo = formattedItem.cheapestBarter;
             }
             for (const buyFor of formattedItem.buyFor) {
-                if (buyFor.priceRUB && buyFor.priceRUB < formattedItem.cheapestPrice) {
-                    formattedItem.cheapestPrice = buyFor.priceRUB;
-                    formattedItem.cheapestPriceInfo = buyFor;
+                if (buyFor.priceRUB && buyFor.priceRUB < formattedItem.cheapestObtainPrice) {
+                    formattedItem.cheapestObtainPrice = buyFor.priceRUB;
+                    formattedItem.cheapestObtainInfo = buyFor;
                 }
             }
-            if (formattedItem.cheapestPrice === Number.MAX_SAFE_INTEGER) {
-                formattedItem.cheapestPrice = 0;
+            if (formattedItem.cheapestObtainPrice === Number.MAX_SAFE_INTEGER) {
+                formattedItem.cheapestObtainPrice = 0;
             }
 
             if (traderBuybackFilter && formattedItem.buyOnFleaPrice) {
@@ -622,7 +622,7 @@ function SmallItemTable(props) {
                     return true;
                 }
 
-                if (item.cheapestPrice > maxPrice) {
+                if (item.cheapestObtainPrice > maxPrice) {
                     return false;
                 }
 
@@ -874,8 +874,8 @@ function SmallItemTable(props) {
         let lowHyd = Number.MAX_SAFE_INTEGER;
         data.forEach(item => {
             if (item.properties.hydration > 0) {
-                if (item.cheapestPrice) {
-                    const hydrationCost = item.cheapestPrice / item.properties.hydration;
+                if (item.cheapestObtainPrice) {
+                    const hydrationCost = item.cheapestObtainPrice / item.properties.hydration;
                     if (hydrationCost < lowHyd) {
                         lowHyd = hydrationCost;
                     }
@@ -895,8 +895,8 @@ function SmallItemTable(props) {
         let lowEng = Number.MAX_SAFE_INTEGER;
         data.forEach(item => {
             if (item.properties.energy > 0) {
-                if (item.cheapestPrice) {
-                    let energyCost = item.cheapestPrice / item.properties.energy;
+                if (item.cheapestObtainPrice) {
+                    let energyCost = item.cheapestObtainPrice / item.properties.energy;
                     if (item.properties.hydration < 0 && totalEnergyCost) {
                         energyCost = energyCost + ((item.properties.hydration * -1) * lowHydrationCost);
                     }
@@ -970,6 +970,11 @@ function SmallItemTable(props) {
                 Header: t('Sell to Flea'),
                 id: 'fleaValue',
                 accessor: (d) => Number(d.lastLowPrice),
+                sortType: (a, b, columnId, desc) => {
+                    const aFlea = a.values.fleaValue || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bFlea = b.values.fleaValue || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    return aFlea - bFlea;
+                },
                 Cell: (allData) => {
                     if (allData.row.original.types.includes('noFlea')) {
                         return (
@@ -1031,31 +1036,10 @@ function SmallItemTable(props) {
                 id: 'fleaPrice',
                 accessor: (d) => Number(d.buyOnFleaPrice?.price),
                 sortType: (a, b, columnId, desc) => {
-                    if (a.values.fleaBuyPrice === 0 || isNaN(a.values.fleaBuyPrice)) {
-                        if (desc) {
-                            return -1;
-                        }
-
-                        return 1;
-                    }
-
-                    if (b.values.fleaBuyPrice === 0 || isNaN(b.values.fleaBuyPrice)) {
-                        if (desc) {
-                            return 1;
-                        }
-
-                        return -1;
-                    }
-
-                    if (a.values.fleaBuyPrice > b.values.fleaBuyPrice) {
-                        return -1;
-                    }
-
-                    if (a.values.fleaBuyPrice < b.values.fleaBuyPrice) {
-                        return 1;
-                    }
-
-                    return 0;
+                    const aFlea = a.values.fleaPrice || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bFlea = b.values.fleaPrice || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    
+                    return aFlea - bFlea;
                 },
                 Cell: FleaPriceCell,
                 position: fleaPrice,
@@ -1066,7 +1050,7 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Barter'),
                 id: 'barterPrice',
-                accessor: (d) => Number(d.barterPrice?.price),
+                accessor: (d) => Number(d.cheapestBarter?.price),
                 sortType: (a, b, columnId, desc) => {
                     const aBart = a.values.barterPrice || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
                     const bBart = b.values.barterPrice || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
@@ -1080,7 +1064,7 @@ function SmallItemTable(props) {
                             interactive={true}
                             content={
                                 <BarterTooltip
-                                    barter={props.row.original.barterPrice?.barter}
+                                    barter={props.row.original.cheapestBarter?.barter}
                                     showAllSources={showAllSources}
                                 />
                             }
@@ -1303,7 +1287,7 @@ function SmallItemTable(props) {
                 id: 'weight',
                 accessor: 'weight',
                 sortType: (a, b) => {
-                    return a.original.weight - b.original.weight;
+                    return a.values.weight - b.values.weight;
                 },
                 Cell: CenterCell,
                 position: weight,
@@ -1407,7 +1391,7 @@ function SmallItemTable(props) {
                 id: 'hydration',
                 accessor: (item) => item.properties.hydration,
                 sortType: (a, b) => {
-                    return a.original.properties.hydration - b.original.properties.hydration;
+                    return a.values.hydration - b.values.hydration;
                 },
                 Cell: CenterCell,
                 position: hydration,
@@ -1429,13 +1413,13 @@ function SmallItemTable(props) {
                 Header: t('Hydration Cost'),
                 id: 'hydrationCost',
                 accessor: (item) => {
-                    if (!item.cheapestPrice) {
+                    if (!item.cheapestObtainPrice) {
                         return 0;
                     }
                     if (!item.properties.hydration || item.properties.hydration < 0) {
                         return Number.MAX_SAFE_INTEGER;
                     }
-                    return item.cheapestPrice / item.properties.hydration;
+                    return item.cheapestObtainPrice / item.properties.hydration;
                 },
                 Cell: ({ value }) => {
                     if (!value) {
@@ -1456,7 +1440,7 @@ function SmallItemTable(props) {
                 Header: t('Energy Cost'),
                 id: 'energyCost',
                 accessor: (item) => {
-                    if (!item.cheapestPrice) {
+                    if (!item.cheapestObtainPrice) {
                         return 0;
                     }
                     if (!item.properties.energy || item.properties.energy < 0) {
@@ -1464,9 +1448,9 @@ function SmallItemTable(props) {
                     }
                     
                     if (item.properties.hydration && item.properties.hydration < 0 && totalEnergyCost) {
-                        return (item.cheapestPrice / item.properties.energy) + (item.properties.hydration * -1) * lowHydrationCost;
+                        return (item.cheapestObtainPrice / item.properties.energy) + (item.properties.hydration * -1) * lowHydrationCost;
                     }
-                    return item.cheapestPrice / item.properties.energy;
+                    return item.cheapestObtainPrice / item.properties.energy;
                 },
                 Cell: ({ value }) => {
                     if (!value) {
@@ -1515,7 +1499,9 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Sound suppression'),
                 id: 'soundSuppression',
-                accessor: (item) => item.properties.deafening,
+                // t('Low')
+                // t('None')
+                accessor: (item) => t(item.properties.deafening),
                 Cell: CenterCell,
                 position: soundSuppression,
             });
@@ -1558,10 +1544,15 @@ function SmallItemTable(props) {
                 Header: t('Cost per ergo'),
                 id: 'ergoCost',
                 accessor: (item) => {
-                    if (item.cheapestPrice) {
-                        return item.cheapestPrice / item.properties.ergonomics;
+                    if (item.cheapestObtainPrice) {
+                        return item.cheapestObtainPrice / item.properties.ergonomics;
                     }
-                    return Number.MAX_SAFE_INTEGER;
+                    return 0;
+                },
+                sortType: (a, b, columnId, desc) => {
+                    const aErgoCost = a.values.ergoCost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bErgoCost = b.values.ergoCost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    return aErgoCost - bErgoCost;
                 },
                 Cell: ({ value }) => {
                     if (!value) {
@@ -1583,7 +1574,7 @@ function SmallItemTable(props) {
                 id: 'recoilModifier',
                 accessor: (item) => item.properties.recoilModifier,
                 sortType: (a, b) => {
-                    return b.original.properties.recoilModifier - a.original.properties.recoilModifier;
+                    return b.values.recoilModifier - a.values.recoilModifier;
                 },
                 Cell: ({value}) => {
                     if (!value) {
@@ -1601,16 +1592,87 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Cheapest Price'),
                 id: 'cheapestPrice',
-                accessor: 'cheapestPrice',
-                sortType: (a, b) => {
-                    let asd = a.original.cheapestPrice || Number.MAX_SAFE_INTEGER;
-                    let bsd = b.original.cheapestPrice || Number.MAX_SAFE_INTEGER;
-                    return asd - bsd;
+                accessor: 'cheapestObtainPrice',
+                sortType: (a, b, columnId, desc) => {
+                    const aCheap = a.values.cheapestPrice || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bCheap = b.values.cheapestPrice || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    return aCheap - bCheap;
                 },
                 Cell: (props) => {
                     let tipContent = '';
                     const priceContent = [];
-                    if (!props.row.original.cheapestPrice) {
+                    const cheapestObtainInfo = props.row.original.cheapestObtainInfo;
+                    if (cheapestObtainInfo) {
+                        let priceSource = '';
+                        const displayedPrice = [];
+                        let taskIcon = '';
+                        let barterIcon = '';
+                        if (cheapestObtainInfo.vendor) {
+                            if (cheapestObtainInfo.vendor.normalizedName === 'flea-market') {
+                                priceSource = cheapestObtainInfo.vendor.name
+                            }
+                            else {
+                                priceSource = `${cheapestObtainInfo.vendor.name} ${t('LL{{level}}', { level: cheapestObtainInfo.vendor.minTraderLevel })}`;
+                            }
+                            if (cheapestObtainInfo.vendor.taskUnlock) {
+                                taskIcon = (
+                                    <Icon
+                                        key="price-task-tooltip-icon"
+                                        path={mdiClipboardList}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                );
+                                tipContent = (
+                                    <div>
+                                        <Link to={`/task/${cheapestObtainInfo.vendor.taskUnlock.normalizedName}`}>
+                                            {t('Task: {{taskName}}', {taskName: cheapestObtainInfo.vendor.taskUnlock.name})}
+                                        </Link>
+                                    </div>
+                                );
+                            }
+                        } else if (cheapestObtainInfo.barter) {
+                            priceSource = `${cheapestObtainInfo.barter.trader.name} ${t('LL{{level}}', { level: cheapestObtainInfo.barter.level })}`;
+                            barterIcon = (
+                                <Icon
+                                    key="barter-tooltip-icon"
+                                    path={mdiAccountSwitch}
+                                    size={1}
+                                    className="icon-with-text"
+                                />
+                            );
+                            let barterTipTitle = '';
+                            if (cheapestObtainInfo.barter.taskUnlock) {
+                                taskIcon = (
+                                    <Icon
+                                        key="barter-task-tooltip-icon"
+                                        path={mdiClipboardList}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                );
+                                barterTipTitle = (
+                                    <Link to={`/task/${cheapestObtainInfo.barter.taskUnlock.normalizedName}`}>
+                                        {t('Task: {{taskName}}', {taskName: cheapestObtainInfo.barter.taskUnlock.name})}
+                                    </Link>
+                                );
+                            }
+                            tipContent = (
+                                <BarterTooltip
+                                    barter={props.row.original.cheapestBarter.barter}
+                                    showTitle={taskIcon !== ''}
+                                    title={barterTipTitle}
+                                    showAllSources={showAllSources}
+                                />
+                            );
+                        }
+                        displayedPrice.push(priceSource);
+                        displayedPrice.push(barterIcon);
+                        displayedPrice.push(taskIcon);
+                        priceContent.push((<div key="price-info">{formatPrice(props.value*props.row.original.count)}</div>));
+                        priceContent.push((<div key="price-source-info" className="trader-unlock-wrapper">{displayedPrice}</div>))
+                    } 
+                    else {
                         tipContent = [];
                         if (props.row.original.types.includes('noFlea')) {
                             priceContent.push((
@@ -1626,7 +1688,8 @@ function SmallItemTable(props) {
                                     {t('This item can\'t be sold on the Flea Market')}
                                 </div>
                             ));
-                        } else {
+                        } 
+                        else {
                             let tipText = t('Not scanned on the Flea Market');
                             let icon = mdiHelpRhombus;
                             if (props.row.original.cached) {
@@ -1653,74 +1716,6 @@ function SmallItemTable(props) {
                             </div>
                         ));
                     }
-                    if (props.value) {
-                        const priceInfo = props.row.original.cheapestPriceInfo;
-                        let priceSource = priceInfo.vendor?.name || priceInfo.barter?.trader.name;
-                        const displayedPrice = [];
-                        let taskIcon = '';
-                        let barterIcon = '';
-                        if (priceInfo.vendor?.minTraderLevel) {
-                            priceSource += ` ${t('LL{{level}}', { level: priceInfo.vendor.minTraderLevel })}`;
-                            if (priceInfo.vendor.taskUnlock) {
-                                taskIcon = (
-                                    <Icon
-                                        key="price-task-tooltip-icon"
-                                        path={mdiClipboardList}
-                                        size={1}
-                                        className="icon-with-text"
-                                    />
-                                );
-                                tipContent = (
-                                    <div>
-                                        <Link 
-                                            to={`/task/${priceInfo.vendor.taskUnlock.normalizedName}`}
-                                        >
-                                            {t('Task: {{taskName}}', {taskName: priceInfo.vendor.taskUnlock.name})}
-                                        </Link>
-                                    </div>
-                                );
-                            }
-                        } else if (priceInfo.barter?.level) {
-                            priceSource += ` ${t('LL{{level}}', { level: priceInfo.barter.level })}`;
-                            barterIcon = (
-                                <Icon
-                                    key="barter-tooltip-icon"
-                                    path={mdiAccountSwitch}
-                                    size={1}
-                                    className="icon-with-text"
-                                />
-                            );
-                            let barterTipTitle = '';
-                            if (priceInfo.barter.taskUnlock) {
-                                taskIcon = (
-                                    <Icon
-                                        key="barter-task-tooltip-icon"
-                                        path={mdiClipboardList}
-                                        size={1}
-                                        className="icon-with-text"
-                                    />
-                                );
-                                barterTipTitle = (
-                                    <Link to={`/task/${priceInfo.barter.taskUnlock.normalizedName}`}>
-                                        {t('Task: {{taskName}}', {taskName: priceInfo.barter.taskUnlock.name})}
-                                    </Link>
-                                );
-                            }
-                            tipContent = (
-                                <BarterTooltip
-                                    barter={props.row.original.barterPrice.barter}
-                                    showTitle={taskIcon !== ''}
-                                    title={barterTipTitle}
-                                    showAllSources={showAllSources}
-                                />
-                            );
-                        }
-                        displayedPrice.push(priceSource);
-                        displayedPrice.push(barterIcon);
-                        displayedPrice.push(taskIcon);
-                        priceContent.push((<div key="price-info">{formatPrice(props.value*props.row.original.count)}</div>));
-                        priceContent.push((<div key="price-source-info" className="trader-unlock-wrapper">{displayedPrice}</div>))
-                    } 
                     return (
                         <ConditionalWrapper
                             condition={tipContent}

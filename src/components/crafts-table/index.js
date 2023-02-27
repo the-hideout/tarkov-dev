@@ -26,10 +26,7 @@ import CenterCell from '../center-cell';
 
 import './index.css';
 import RewardCell from '../reward-cell';
-import {
-    getDurationDisplay,
-    getFinishDisplay,
-} from '../../modules/format-duration';
+import { getDurationDisplay } from '../../modules/format-duration';
 import bestPrice from '../../modules/best-price';
 import { useMetaQuery } from '../../features/meta/queries';
 import { useQuestsQuery } from '../../features/quests/queries';
@@ -330,7 +327,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         sellValue: bestSellTo.priceRUB,
                         taskUnlock: craftRow.taskUnlock,
                     },
-                    cached: craftRow.cached,
+                    cached: craftRow.cached || craftRow.rewardItems[0].item.cached,
                 };
 
                 let fleaFeeSingle = 0;
@@ -344,7 +341,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     tradeData.reward.sellType = 'custom';
                 }
 
-                if (!craftRow.rewardItems[0].item.types.includes('noFlea') && (showAll || includeFlea)) {
+                if (!tradeData.cached && !craftRow.rewardItems[0].item.types.includes('noFlea') && (showAll || includeFlea)) {
                     const bestFleaPrice = bestPrice(craftRow.rewardItems[0].item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate, fleaPriceToUse);
                     if (!craftRow.rewardItems[0].priceCustom && (fleaPriceToUse === 0 || bestFleaPrice.bestPrice < fleaPriceToUse)) {
                         fleaPriceToUse = bestFleaPrice.bestPrice;
@@ -456,6 +453,12 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 Header: t('Reward'),
                 id: 'reward',
                 accessor: 'reward',
+                sortType: (a, b, columnId, desc) => {
+                    const aName = a.values.reward.name;
+                    const bName = b.values.reward.name;
+                    
+                    return aName.localeCompare(bName);
+                },
                 Cell: ({ value }) => {
                     return <RewardCell {...value} />;
                 },
@@ -486,9 +489,9 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                                 {getDurationDisplay(value * 1000)}
                             </div>
                             <div className="finish-wrapper" title={t('Start now')} onClick={((e) => {
-                                e.target.innerText = getFinishDisplay(value * 1000);
+                                e.target.innerText = getLocalFinishes(value, t);
                             })}>
-                                {getFinishDisplay(value * 1000)}
+                                {getLocalFinishes(value, t)}
                             </div>
                         </CenterCell>
                     );
@@ -598,6 +601,16 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
             autoResetSortBy={false}
         />
     );
+}
+
+function getLocalFinishes(time, t) {
+    const finishes = t('{{val, datetime}}', { val: Date.now() + time*1000,
+        formatParams: {
+            val: { weekday: 'short', hour: 'numeric', minute: 'numeric', second: 'numeric' },
+        },
+    })
+
+    return finishes;
 }
 
 export default CraftTable;

@@ -105,10 +105,16 @@ try {
 
     apiPromises.push(Promise.all([
         doFetchBarters('en', true).then(barters => {
+            for (const barter of barters) {
+                barter.cached = true;
+            }
             fs.writeFileSync('./src/data/barters.json', JSON.stringify(barters));
             return barters;
         }),
         doFetchCrafts('en', true).then(crafts => {
+            for (const craft of crafts) {
+                craft.cached = true;
+            }
             fs.writeFileSync('./src/data/crafts.json', JSON.stringify(crafts));
             return crafts;
         })

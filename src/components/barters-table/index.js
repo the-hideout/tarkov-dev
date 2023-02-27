@@ -381,7 +381,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                         sellValue: bestSellTo.priceRUB,
                         taskUnlock: barterRow.taskUnlock,
                     },
-                    cached: barterRow.cached,
+                    cached: barterRow.cached || barterRow.rewardItems[0].item.cached,
                 };
 
                 if (barterRow.rewardItems[0].priceCustom) {
