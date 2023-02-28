@@ -371,6 +371,14 @@ function App() {
                     ]}
                 />
                 <Route
+                    path={'/items/ammo'}
+                    key="items-ammo-route"
+                    element={[
+                        <Navigate to="/ammo" />,
+                        remoteControlSessionElement,
+                    ]}
+                />
+                <Route
                     path={'/items/helmets'}
                     key="helmets-route"
                     element={[
