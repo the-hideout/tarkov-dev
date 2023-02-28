@@ -383,10 +383,12 @@ function Item() {
     if (currentItemData.properties?.defaultPreset) {
         currentItemData.properties.defaultPreset = items.find(i => i.id === currentItemData.properties.defaultPreset.id);
     }
+    
+    const sellForTraders = currentItemData.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
 
     const itemFleaFee = fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
 
-    const traderIsBest = currentItemData.sellForTradersBest.priceRUB > currentItemData.lastLowPrice - itemFleaFee;
+    const sellForTradersIsTheBest = currentItemData.sellForTradersBest.priceRUB > currentItemData.lastLowPrice - itemFleaFee;
     const useFleaPrice = currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
     let fleaSellPriceDisplay = formatPrice(currentItemData.lastLowPrice);
@@ -518,8 +520,6 @@ The max profitable price is impacted by the intel center and hideout management 
         );
     }
 
-    const buySources = currentItemData.buyFor.filter(buyFor => buyFor.price > 0);
-
     let dateParsed = Date.parse(currentItemData.updated);
     let date = new Date(dateParsed);
     let relativeTime = getRelativeTimeAndUnit(dateParsed);
@@ -603,7 +603,8 @@ The max profitable price is impacted by the intel center and hideout management 
                                         placement="bottom"
                                         content={fleaTooltip}
                                     >
-                                        <div className={`text-and-image-information-wrapper ${traderIsBest ? '' : 'best-profit'}`}>
+                                        <div className={`text-and-image-information-wrapper ${sellForTradersIsTheBest ? '' : 'best-profit'}`}
+                                                    key={`${currentItemData.id}-flea-market-price-sell`}>
                                             <img
                                                 alt="Flea market"
                                                 height="86"
@@ -619,12 +620,14 @@ The max profitable price is impacted by the intel center and hideout management 
                                         </div>
                                     </Tippy>
                                 )}
-                                {currentItemData.sellForTraders && currentItemData.sellForTraders.map(
+                                {sellForTraders && sellForTraders.map(
                                     (sellForTrader) => {
                                         const traderNormalizedName = sellForTrader.vendor.normalizedName;
+                                        const traderIsBest = sellForTradersIsTheBest && traderNormalizedName === currentItemData.sellForTradersBest.vendor.normalizedName;
 
                                         return (
-                                            <div className={`text-and-image-information-wrapper ${traderIsBest && sellForTrader === currentItemData.sellForTradersBest ? 'best-profit' : ''}`}>
+                                            <div className={`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''}`}
+                                                    key={`${currentItemData.id}-trader-price-sell-${sellForTrader.vendor.normalizedName}`}>
                                                 <Link to={`/trader/${traderNormalizedName}`} >
                                                     <img
                                                         alt={sellForTrader.vendor.name}
@@ -656,33 +659,33 @@ The max profitable price is impacted by the intel center and hideout management 
                             </div>
                         </div>
                     )}
-                    {buySources && buySources.length > 0 && (
+                    {currentItemData.buyFor && currentItemData.buyFor.length > 0 && (
                         <div>
                             <h2>{t('Buy for')}</h2>
                             <div className="information-grid single-line-grid buy">
-                                {buySources.map(
-                                    (buyPrice, index) => {
-                                        const loyaltyLevel = buyPrice.requirements.find((requirement) => requirement.type === 'loyaltyLevel')?.value;
+                                {currentItemData.buyFor.map(
+                                    (buyForSource, index) => {
+                                        const loyaltyLevel = buyForSource.requirements.find((requirement) => requirement.type === 'loyaltyLevel')?.value;
                                         return (
                                             <div
                                                 className={`text-and-image-information-wrapper`}
-                                                key={`${currentItemData.id}-trader-price-buy-${buyPrice.vendor.normalizedName}`}
+                                                key={`${currentItemData.id}-trader-price-buy-${buyForSource.vendor.normalizedName}`}
                                             >
                                                 <div className="source-wrapper">
-                                                    {buyPrice.vendor.normalizedName !== 'flea-market' && (
+                                                    {buyForSource.vendor.normalizedName !== 'flea-market' && (
                                                         <LoyaltyLevelIcon
                                                             loyaltyLevel={
                                                                 loyaltyLevel
                                                             }
                                                         />
                                                     )}
-                                                    {buyPrice?.vendor?.taskUnlock && (
+                                                    {buyForSource.vendor.taskUnlock && (
                                                         <div>
                                                             <Tippy
                                                                 content={(
-                                                                    <Link to={`/task/${buyPrice.vendor.taskUnlock.normalizedName}`}>
+                                                                    <Link to={`/task/${buyForSource.vendor.taskUnlock.normalizedName}`}>
                                                                         <div style={{whiteSpace: 'nowrap'}}>
-                                                                            {t('Task: {{taskName}}', {taskName: buyPrice.vendor.taskUnlock.name})}
+                                                                            {t('Task: {{taskName}}', {taskName: buyForSource.vendor.taskUnlock.name})}
                                                                         </div>
                                                                     </Link>
                                                                 )}
@@ -699,32 +702,32 @@ The max profitable price is impacted by the intel center and hideout management 
                                                         </div>
                                                     )}
                                                     <ConditionalWrapper
-                                                        condition={buyPrice.vendor.normalizedName !== 'flea-market'}
+                                                        condition={buyForSource.vendor.normalizedName !== 'flea-market'}
                                                         wrapper={(children) => 
-                                                            <Link to={`/trader/${buyPrice.vendor.normalizedName}`}>
+                                                            <Link to={`/trader/${buyForSource.vendor.normalizedName}`}>
                                                                 {children}
                                                             </Link>
                                                         }
                                                     >
                                                         <img
-                                                            alt={buyPrice.vendor.name}
+                                                            alt={buyForSource.vendor.name}
                                                             height="86"
                                                             width="86"
                                                             loading="lazy"
-                                                            src={`${process.env.PUBLIC_URL}/images/traders/${buyPrice.vendor.normalizedName}-portrait.png`}
+                                                            src={`${process.env.PUBLIC_URL}/images/traders/${buyForSource.vendor.normalizedName}-portrait.png`}
                                                         />
                                                     </ConditionalWrapper>
                                                 </div>
-                                                <div className={`price-wrapper ${ index === 0 ? 'best-profit': ''}${priceIsLocked(buyPrice, settings)}`}>
+                                                <div className={`price-wrapper ${ index === 0 ? 'best-profit': ''}${priceIsLocked(buyForSource, settings)}`}>
                                                     <TraderPrice
                                                         currency={
-                                                            buyPrice.currency
+                                                            buyForSource.currency
                                                         }
                                                         price={
-                                                            buyPrice.price
+                                                            buyForSource.price
                                                         }
                                                         priceRUB={
-                                                            buyPrice.priceRUB
+                                                            buyForSource.priceRUB
                                                         }
                                                     />
                                                 </div>
