@@ -44,30 +44,19 @@ function ItemsSummaryTable(props) {
                     buyOnFleaPrice: item.buyFor.find(
                         (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market',
                     ),
-                    buyFromTraderPrice: item.buyFor.find(
-                        (buyPrice) => buyPrice.vendor.normalizedName !== 'flea-market',
-                    ),
                 };
 
-                let traderPrice = formattedItem.buyFromTraderPrice?.priceRUB;
+                let tradersBestPrice = formattedItem.buyForTradersBest.priceRUB;
                 let fleaPrice = formattedItem.buyOnFleaPrice?.price;
 
-                if (traderPrice && fleaPrice && traderPrice < fleaPrice) {
-                    formattedItem.totalPrice =
-                        traderPrice * formattedItem.quantity;
-                } else if (
-                    traderPrice &&
-                    fleaPrice &&
-                    traderPrice > fleaPrice
-                ) {
-                    formattedItem.totalPrice =
-                        fleaPrice * formattedItem.quantity;
-                } else if (traderPrice) {
-                    formattedItem.totalPrice =
-                        traderPrice * formattedItem.quantity;
+                if (tradersBestPrice && fleaPrice && tradersBestPrice < fleaPrice) {
+                    formattedItem.totalPrice = tradersBestPrice * formattedItem.quantity;
+                } else if (tradersBestPrice && fleaPrice && tradersBestPrice > fleaPrice) {
+                    formattedItem.totalPrice = fleaPrice * formattedItem.quantity;
+                } else if (tradersBestPrice) {
+                    formattedItem.totalPrice = tradersBestPrice * formattedItem.quantity;
                 } else if (fleaPrice) {
-                    formattedItem.totalPrice =
-                        fleaPrice * formattedItem.quantity;
+                    formattedItem.totalPrice = fleaPrice * formattedItem.quantity;
                 } else if (formattedItem.id === '5449016a4bdc2d6f028b456f') {
                     formattedItem.totalPrice = formattedItem.quantity;
                 } else {

@@ -574,10 +574,6 @@ const doFetchItems = async (language, prebuild = false) => {
             }
         }
 
-        rawItem.buyFor = rawItem.buyFor.sort((a, b) => {
-            return a.priceRUB - b.priceRUB;
-        });
-
         const container = rawItem.properties?.slots || rawItem.properties?.grids;
         if (container) {
             for (const slot of container) {
@@ -592,9 +588,7 @@ const doFetchItems = async (language, prebuild = false) => {
         return {
             ...rawItem,
             fee: fleaMarketFee(rawItem.basePrice, rawItem.lastLowPrice, 1, flea.sellOfferFeeRate, flea.sellRequirementFeeRate),
-            fallbackImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
             slots: rawItem.width * rawItem.height,
-            // iconLink: `https://assets.tarkov.dev/${rawItem.id}-icon.jpg`,
             iconLink: rawItem.iconLink,
             grid: grid,
             properties: {
@@ -665,29 +659,37 @@ const doFetchItems = async (language, prebuild = false) => {
             item.image512pxLink = item.properties.defaultPreset.image512pxLink;
         }*/
 
-        const traderOnlySellFor = item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
+        const noneTrader = {
+            price: 0,
+            priceRUB: 0,
+            currency: 'RUB',
+            vendor: {
+                name: 'unknown',
+                normalizedName: 'unknown',
+            },
+        }
 
-        item.traderPrices = traderOnlySellFor.map(sellFor => {
-            return {
-                price: sellFor.price,
-                currency: sellFor.currency,
-                priceRUB: sellFor.priceRUB,
-                trader: {
-                    name: sellFor.vendor.name,
-                    normalizedName: sellFor.vendor.normalizedName
-                }
-            }
-        }).sort((a, b) => {
+        // cheapest first
+        item.buyFor = item.buyFor.sort((a, b) => {
+            return a.priceRUB - b.priceRUB;
+        });
+
+        item.buyForBest = item.buyFor[0];
+
+        const buyForTraders = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
+
+        item.buyForTradersBest = buyForTraders[0] || noneTrader;
+
+        // most profitable first
+        item.sellFor = item.sellFor.sort((a, b) => {
             return b.priceRUB - a.priceRUB;
         });
 
-        const bestTraderPrice = item.traderPrices.shift();
+        item.sellForBest = item.sellFor[0];
 
-        item.traderPrice = bestTraderPrice?.price || 0;
-        item.traderPriceRUB = bestTraderPrice?.priceRUB || 0;
-        item.traderCurrency = bestTraderPrice?.currency || 'RUB';
-        item.traderName = bestTraderPrice?.trader.name || '?';
-        item.traderNormalizedName = bestTraderPrice?.trader.normalizedName || '?';
+        const sellForTraders = item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
+
+        item.sellForTradersBest = sellForTraders[0] || noneTrader;
     }
 
     return allItems;

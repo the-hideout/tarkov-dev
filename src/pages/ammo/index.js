@@ -1,6 +1,5 @@
 /* eslint-disable no-restricted-globals */
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -60,7 +59,6 @@ function Ammo() {
     const [useAllProjectileDamage, setUseAllProjectileDamage] = useState(false);
     const shiftPress = useKeyPress('Shift');
     const { data: items } = useItemsQuery();
-    const settings = useSelector((state) => state.settings);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -103,9 +101,10 @@ function Ammo() {
         }
         let symbol = symbols[typeCache.length];
 
-        if(typeCache.includes(returnData.type)) {
+        if (typeCache.includes(returnData.type)) {
             symbol = symbols[typeCache.indexOf(returnData.type)];
-        } else {
+        } 
+        else {
             typeCache.push(returnData.type);
             legendData.push({
                 ...returnData,
@@ -116,21 +115,9 @@ function Ammo() {
         }
         returnData.symbol = symbol;
 
-        if(!symbol) {
+        if (!symbol) {
             console.log(`Missing symbol for ${returnData.type}, the graph will crash. Add more symbols to src/symbols.json`);
             process.exit(1);
-        }
-
-        if (!showAllTraderPrices) {
-            returnData.buyFor = returnData.buyFor.filter(buyFor => {
-                if (buyFor.vendor.normalizedName === 'flea-market') {
-                    return true;
-                }
-                if (buyFor.vendor.minTraderLevel <= settings[buyFor.vendor.normalizedName]) {
-                    return true;
-                }
-                return false;
-            });
         }
 
         return returnData;
