@@ -153,7 +153,7 @@ function Crafts() {
                         onChange={(e) => setFreeFuel(!freeFuel)}
                         tooltipContent={
                             <>
-                                {t('Sets fuel canister cost to 0 for crafts requiring fuel canisters when using non-FIR fuel canisters.')}
+                                {t('Sets fuel canister cost for crafts requiring them to vendors\' minimum sell price when using non-FIR fuel canisters.')}
                             </>
                         }
                     />

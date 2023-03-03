@@ -7,7 +7,7 @@ export function isBothDogtags(id) {
 };
 
 export function getDogTagCost(requiredItem, settings = {minDogtagLevel: 1}) {
-    const bestSell = requiredItem.item.sellFor.reduce((bestPrice, sellFor) => {
+    const sellForBest = requiredItem.item.sellFor.reduce((bestPrice, sellFor) => {
         if (sellFor.priceRUB > bestPrice.priceRUB) {
             return sellFor;
         }
@@ -20,9 +20,9 @@ export function getDogTagCost(requiredItem, settings = {minDogtagLevel: 1}) {
     }
     return {
         name: itemName,
-        price: bestSell.priceRUB * minLevel,
-        sourceName: bestSell.vendor.name,
-        sourceNormalizedName: bestSell.vendor.normalizedName
+        price: sellForBest.priceRUB * minLevel,
+        sourceName: sellForBest.vendor.name,
+        sourceNormalizedName: sellForBest.vendor.normalizedName
     }
 }
 

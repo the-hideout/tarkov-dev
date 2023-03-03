@@ -346,6 +346,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         sellToNormalized: bestSellTo.vendor.normalizedName,
                         sellValue: bestSellTo.priceRUB,
                         taskUnlock: craftRow.taskUnlock,
+                        isFIR: true,
                     },
                     cached: craftRow.cached || craftRow.rewardItems[0].item.cached,
                 };

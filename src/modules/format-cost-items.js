@@ -200,7 +200,8 @@ const formatCostItems = (
         }
 
         if (freeFuel && fuelIds.includes(requiredItem.item.id)) {
-            calculationPrice = 0;
+            bestPrice = requiredItem.item.sellForTradersBest;
+            calculationPrice = requiredItem.item.sellForTradersBest.priceRUB * 0.1;
         }
 
         const isTool = requiredItem.attributes?.some(element => element.type === 'tool');
