@@ -16,7 +16,15 @@ export const fetchItems = createAsyncThunk('items/fetchItems', () =>
 const itemsSlice = createSlice({
     name: 'items',
     initialState,
-    reducers: {},
+    reducers: {
+        setCustomSellValue: (state, action) => {
+            const item = state.items.find(i => i.id === action.payload.itemId);
+            if (!item) {
+                return;
+            }
+            item.priceCustom = action.payload.price;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchItems.pending, (state, action) => {
             state.status = 'loading';
@@ -35,6 +43,8 @@ const itemsSlice = createSlice({
         });
     },
 });
+
+export const { setCustomSellValue } = itemsSlice.actions;
 
 export default itemsSlice.reducer;
 

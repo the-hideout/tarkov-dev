@@ -10,8 +10,7 @@ import RewardImage from '../reward-image';
 
 import formatPrice from '../../modules/format-price';
 
-import { setRewardValue as setCraftRewardValue } from '../../features/crafts/craftsSlice';
-import { setRewardValue as setBarterRewardValue } from '../../features/barters/bartersSlice';
+import { setCustomSellValue } from '../../features/items/itemsSlice';
 
 import './index.css';
 
@@ -104,13 +103,7 @@ function RewardCell({
                         className="icon-with-text no-click reward-muted-green"
                         onClick={(event) => {
                             dispatch(
-                                setBarterRewardValue({
-                                    itemId: id,
-                                    price: customPrice
-                                }),
-                            );
-                            dispatch(
-                                setCraftRewardValue({
+                                setCustomSellValue({
                                     itemId: id,
                                     price: customPrice
                                 }),
@@ -124,13 +117,7 @@ function RewardCell({
                         className="icon-with-text no-click reward-muted-red"
                         onClick={(event) => {
                             dispatch(
-                                setBarterRewardValue({
-                                    itemId: id,
-                                    price: false
-                                }),
-                            );
-                            dispatch(
-                                setCraftRewardValue({
+                                setCustomSellValue({
                                     itemId: id,
                                     price: false
                                 }),

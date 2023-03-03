@@ -10,8 +10,8 @@ import {
     selectAllBarters,
     fetchBarters,
 } from '../../features/barters/bartersSlice';
+import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import { selectAllTraders } from '../../features/settings/settingsSlice';
-import { useItemsQuery } from '../../features/items/queries';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import { formatCostItems, getCheapestItemPrice, getCheapestItemPriceWithBarters } from '../../modules/format-cost-items';
@@ -32,12 +32,32 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
     const traders = useSelector(selectAllTraders);
     const skippedByLevelRef = useRef(false);
 
+    const items = useSelector(selectAllItems);
+    const itemsStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        let timer = false;
+        if (itemsStatus === 'idle') {
+            dispatch(fetchItems());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchItems());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [itemsStatus, dispatch]);
+
     const barterSelector = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
         return state.barters.status;
     });
-
-    const {data: items} = useItemsQuery();
 
     const {data: tasks} = useQuestsQuery();
 
@@ -50,10 +70,12 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
             return {
                 ...b,
                 requiredItems: b.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
+                    let matchedItem = items.find(it => it.id === req.item.id);
                     if (!matchedItem) {
                         return false;
                     }
+                    matchedItem = {...matchedItem};
+                    matchedItem.properties = {...matchedItem.properties};
                     if (matchedItem.properties?.defaultPreset) {
                         const preset = items.find(it => it.id === matchedItem.properties.defaultPreset.id);
                         if (preset) {
@@ -384,8 +406,8 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     cached: barterRow.cached || barterRow.rewardItems[0].item.cached,
                 };
 
-                if (barterRow.rewardItems[0].priceCustom) {
-                    tradeData.reward.sellValue = barterRow.rewardItems[0].priceCustom;
+                if (barterRow.rewardItems[0].item.priceCustom) {
+                    tradeData.reward.sellValue = barterRow.rewardItems[0].item.priceCustom;
                     tradeData.reward.sellType = 'custom';
                 }
                 

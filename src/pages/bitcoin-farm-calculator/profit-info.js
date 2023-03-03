@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { useItemByIdQuery } from '../../features/items/queries';
+import { fetchItems, selectAllItems } from '../../features/items/itemsSlice'
 import { BitcoinItemId, GraphicCardItemId, ProduceBitcoinData } from './data';
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
@@ -52,14 +52,42 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
     
     const { t } = useTranslation();
 
-    const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
-    const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
+    const itemsSelector = useSelector(selectAllItems);
+    const itemsStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        let timer = false;
+        if (itemsStatus === 'idle') {
+            dispatch(fetchItems());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchItems());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [itemsStatus, dispatch]);
+
+    const bitcoinItem = useMemo(() => {
+        return itemsSelector.find(i => i.id === BitcoinItemId);
+    }, [itemsSelector]);
+
+    const graphicCardItem = useMemo(() => {
+        return itemsSelector.find(i => i.id === GraphicCardItemId);
+    }, [itemsSelector]);
 
     const solarCost = useMemo(() => {
         const solar = hideout.find(station => station.normalizedName === 'solar-power');
         let buildCost = 0;
         for (const req of solar.levels[0].itemRequirements) {
             const item = items.find(i => i.id === req.item.id);
+            if (!item) continue;
             const itemCost = item.buyFor.reduce((lowPrice, buyFor) => {
                 if (!lowPrice || (buyFor.priceRUB && buyFor.priceRUB < lowPrice)) {
                     return buyFor.priceRUB;
@@ -94,13 +122,13 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
         if (!bitcoinItem || !graphicCardItem) {
             return [];
         }
-        const btcSellPrice = bitcoinItem.sellFor?.reduce((bestPrice, currentPrice) => {
+        const btcSellPrice = bitcoinItem.priceCustom || bitcoinItem.sellFor?.reduce((bestPrice, currentPrice) => {
             if (bestPrice < currentPrice.priceRUB) {
                 return currentPrice.priceRUB;
             }
             return bestPrice;
         }, 0);
-        const graphicsCardBuyPrice = graphicCardItem.buyFor?.reduce((bestPrice, currentPrice) => {
+        const graphicsCardBuyPrice = graphicCardItem.priceCustom || graphicCardItem.buyFor?.reduce((bestPrice, currentPrice) => {
             if (bestPrice === 0 || bestPrice > currentPrice.priceRUB) {
                 return currentPrice.priceRUB;
             }

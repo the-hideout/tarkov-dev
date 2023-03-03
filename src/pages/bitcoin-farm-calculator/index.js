@@ -1,7 +1,9 @@
+import { useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { useItemByIdQuery } from '../../features/items/queries';
+import { fetchItems, selectAllItems } from '../../features/items/itemsSlice'
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
@@ -28,6 +30,7 @@ import ProfitInfo from './profit-info';
 import './index.css';
 
 const BitcoinFarmCalculator = () => {
+    const dispatch = useDispatch();
     const { t } = useTranslation();
 
     const [graphicCardsCount, setGraphicCardsCount] = useStateWithLocalStorage(
@@ -40,16 +43,55 @@ const BitcoinFarmCalculator = () => {
     const [calculateWithBuildCost, setCalculateWithBuildCost] =
         useStateWithLocalStorage('btc-farm-calculate-with-build-cost', false);
 
-    const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
-    const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
+    const itemsSelector = useSelector(selectAllItems);
+    const itemsStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        let timer = false;
+        if (itemsStatus === 'idle') {
+            dispatch(fetchItems());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchItems());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [itemsStatus, dispatch]);
+
+    const bitcoinItem = useMemo(() => {
+        return itemsSelector.find(i => i?.id === BitcoinItemId);
+    }, [itemsSelector]);
+
+    const graphicCardItem = useMemo(() => {
+        return itemsSelector.find(i => i.id === GraphicCardItemId);
+    }, [itemsSelector]);
+
+    //const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
+    //const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
+
     const fuelPricePerDay = useFuelPricePerDay();
 
-    if (bitcoinItem.cached || graphicCardItem.cached) {
+    if (!bitcoinItem || bitcoinItem.cached || !graphicCardItem || graphicCardItem.cached) {
         return <Loading />;
     }
 
     const btcSell = getMaxSellFor(bitcoinItem);
+    if (bitcoinItem.priceCustom) {
+        btcSell.priceRUB = bitcoinItem.priceCustom;
+        btcSell.sellType = 'custom';
+    }
     const graphicsCardBuy = getMaxSellFor(graphicCardItem);
+    if (graphicCardItem.priceCustom) {
+        graphicsCardBuy.priceRUB = graphicCardItem.priceCustom;
+        graphicsCardBuy.sellType = 'custom';
+    }
 
     const graphicsCardsList = [1, 10, 25, 50];
 
@@ -115,24 +157,28 @@ const BitcoinFarmCalculator = () => {
             <div className="included-items-wrapper" key="btc-item-prices">
                 {Boolean(graphicCardItem) && (
                     <RewardCell
+                        id={graphicCardItem.id}
                         count={1}
                         iconLink={graphicCardItem.iconLink}
                         itemLink={`/item/${graphicCardItem.normalizedName}`}
                         name={graphicCardItem.name}
                         sellValue={graphicsCardBuy.priceRUB}
                         sellTo={graphicsCardBuy.vendor.name}
+                        sellType={graphicsCardBuy.sellType}
                         valueTooltip={t('Purchase cost')}
                         key="gpu-price-display"
                     />
                 )}
                 {Boolean(bitcoinItem) && (
                     <RewardCell
+                        id={bitcoinItem.id}
                         count={1}
                         iconLink={bitcoinItem.iconLink}
                         itemLink={`/item/${bitcoinItem.normalizedName}`}
                         name={bitcoinItem.name}
                         sellValue={btcSell.priceRUB}
                         sellTo={btcSell.vendor.name}
+                        sellType={btcSell.sellType}
                         key="btc-price-display"
                     />
                 )}

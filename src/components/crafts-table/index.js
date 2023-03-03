@@ -14,7 +14,7 @@ import {
     selectAllBarters,
     fetchBarters,
 } from '../../features/barters/bartersSlice';
-import { useItemsQuery } from '../../features/items/queries';
+import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
@@ -46,6 +46,28 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     const skippedByLevelRef = useRef();
     const feeReduction = stations['intelligence-center'] === 3 ? 0.7 - (0.003 * skills['hideout-management']) : 1;
 
+    const items = useSelector(selectAllItems);
+    const itemsStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        let timer = false;
+        if (itemsStatus === 'idle') {
+            dispatch(fetchItems());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchItems());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [itemsStatus, dispatch]);
+
     const craftSelector = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
         return state.crafts.status;
@@ -55,8 +77,6 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     const bartersStatus = useSelector((state) => {
         return state.barters.status;
     });
-
-    const {data: items} = useItemsQuery();
 
     const {data: tasks} = useQuestsQuery();
 
@@ -336,10 +356,6 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 if (fleaPriceToUse === 0) {
                     fleaPriceToUse = craftRow.rewardItems[0].item.lastLowPrice;
                 }
-                if (craftRow.rewardItems[0].priceCustom) {
-                    fleaPriceToUse = craftRow.rewardItems[0].priceCustom;
-                    tradeData.reward.sellType = 'custom';
-                }
 
                 if (!tradeData.cached && !craftRow.rewardItems[0].item.types.includes('noFlea') && (showAll || includeFlea)) {
                     const bestFleaPrice = bestPrice(craftRow.rewardItems[0].item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate, fleaPriceToUse);
@@ -372,6 +388,11 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     }
                 } else if (craftRow.rewardItems[0].item.types.includes('noFlea')) {
                     tradeData.reward.sellNote = t('Flea banned');
+                }
+
+                if (craftRow.rewardItems[0].item.priceCustom) {
+                    tradeData.reward.sellValue = craftRow.rewardItems[0].item.priceCustom;
+                    tradeData.reward.sellType = 'custom';
                 }
 
                 tradeData.profitParts = [
