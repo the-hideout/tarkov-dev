@@ -28,6 +28,7 @@ function RewardCell({
     valueTooltip,
     sellType,
     taskUnlock,
+    isFIR,
 }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -154,7 +155,11 @@ function RewardCell({
 
     return (
         <div className="reward-wrapper">
-            <RewardImage count={count} iconLink={iconLink} />
+            <RewardImage 
+                count={count} 
+                iconLink={iconLink} 
+                isFIR={isFIR}
+            />
             <div className="reward-info-wrapper">
                 <div>
                     <Link className="reward-item-title" to={itemLink}>

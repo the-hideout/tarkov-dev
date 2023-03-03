@@ -4,17 +4,28 @@
     font-size: 0;
 }
 
+.reward-image-extra-wrapper {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.reward-image-fir {
+    max-width: 16px;
+    max-height: 16px;
+}
+
 .reward-image-count {
     background-color: rgba(0, 0, 0, 0.8);
     border-top-left-radius: 3px;
-    bottom: 1px;
     color: #c7c5b3;
     font-size: 14px;
     height: 18px;
     line-height: 20px;
     padding: 0 5px;
-    position: absolute;
-    right: 1px;
     text-align: center;
 }
 

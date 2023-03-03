@@ -380,6 +380,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                         sellToNormalized: bestSellTo.vendor.normalizedName,
                         sellValue: bestSellTo.priceRUB,
                         taskUnlock: barterRow.taskUnlock,
+                        isFIR: false,
                     },
                     cached: barterRow.cached || barterRow.rewardItems[0].item.cached,
                 };
