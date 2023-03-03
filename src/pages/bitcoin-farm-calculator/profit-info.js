@@ -11,6 +11,7 @@ import { getDurationDisplay } from '../../modules/format-duration';
 import { useItemsQuery } from '../../features/items/queries';
 import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
 import { selectAllStations } from '../../features/settings/settingsSlice';
+import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length';
 // import ProfitableGraph from './profitable-graph';
 
 const cardSlots = {
@@ -169,6 +170,14 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
                 profitableDay = Math.ceil(totalCosts / btcProfitPerDay);
             }
 
+            let remainingProfit;
+            const daysLeft = averageWipeLength() - currentWipeLength();
+            if (profitableDay && daysLeft > profitableDay) {
+                if (daysLeft > 0) {
+                    remainingProfit = (daysLeft - profitableDay) * btcProfitPerDay;
+                }
+            }
+
             const values = [];
             for (let day = 0; day <= showDays; day = day + 1) {
                 const fuelCost = fuelPricePerDay * day;
@@ -191,6 +200,7 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
                 fuelPricePerDay,
                 btcProfitPerDay,
                 buildCosts,
+                remainingProfit,
             };
         }).filter(Boolean);
     }, [
@@ -258,6 +268,12 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
             Cell: CenterCell,
         });
     }
+    columns.push({
+        Header: t('Remaining profit'),
+        accessor: ({ remainingProfit }) =>
+            formatPrice(remainingProfit),
+        Cell: CenterCell,
+    })
 
     return (
         <>
