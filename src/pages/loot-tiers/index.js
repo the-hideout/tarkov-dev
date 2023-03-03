@@ -138,8 +138,8 @@ function LootTier(props) {
                 let slots = item.slots;
                 let itemTypes = item.types;
                 let priceRUB = item.sellForTradersBest.priceRUB;
-                let sellTo = item.sellForTradersBest.name;
-                let sellToNormalized = item.sellForTradersBest.normalizedName;
+                let sellTo = item.sellForTradersBest.vendor.name;
+                let sellToNormalized = item.sellForTradersBest.vendor.normalizedName;
                 let normalizedName = item.normalizedName;
 
                 if (item.types.includes('gun')) {
@@ -155,8 +155,8 @@ function LootTier(props) {
                             gridImageLink = preset.gridImageLink;
                             baseImageLink = preset.baseImageLink;
                             priceRUB = preset.sellForTradersBest.priceRUB;
-                            sellTo = preset.sellForTradersBest.name;
-                            sellToNormalized = preset.sellForTradersBest.normalizedName;
+                            sellTo = preset.sellForTradersBest.vendor.name;
+                            sellToNormalized = preset.sellForTradersBest.vendor.normalizedName;
                             normalizedName = preset.normalizedName;
                         }
                     }
