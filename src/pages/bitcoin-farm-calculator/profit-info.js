@@ -20,7 +20,7 @@ const cardSlots = {
     3: 50,
 };
 
-const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBuildCosts }) => {
+const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBuildCosts, wipeDaysRemaining }) => {
     const stations = useSelector(selectAllStations);
 
     const itemsResult = useItemsQuery();
@@ -119,6 +119,13 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
         return farmCosts;
     }, [hideout, items]);
 
+    const daysLeft = useMemo(() => {
+        if (wipeDaysRemaining) {
+            return wipeDaysRemaining;
+        }
+        return averageWipeLength() - currentWipeLength();
+    }, [wipeDaysRemaining]);
+
     const data = useMemo(() => {
         if (!bitcoinItem || !graphicCardItem) {
             return [];
@@ -171,7 +178,6 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
             }
 
             let remainingProfit;
-            const daysLeft = averageWipeLength() - currentWipeLength();
             if (profitableDay && daysLeft > profitableDay) {
                 if (daysLeft > 0) {
                     remainingProfit = (daysLeft - profitableDay) * btcProfitPerDay;
@@ -212,7 +218,8 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
         solarCost,
         farmCosts,
         stations,
-        useBuildCosts
+        useBuildCosts,
+        daysLeft
     ]);
 
     if (data.length <= 0) {

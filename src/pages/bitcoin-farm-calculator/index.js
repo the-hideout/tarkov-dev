@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -42,6 +42,10 @@ const BitcoinFarmCalculator = () => {
     
     const [calculateWithBuildCost, setCalculateWithBuildCost] =
         useStateWithLocalStorage('btc-farm-calculate-with-build-cost', false);
+
+    const [wipeDaysRemaining, setWipeDaysRemaining] = useState(
+        Math.max(averageWipeLength() - currentWipeLength(), 0),
+    );
 
     const itemsSelector = useSelector(selectAllItems);
     const itemsStatus = useSelector((state) => {
@@ -152,6 +156,7 @@ const BitcoinFarmCalculator = () => {
                 fuelPricePerDay={calculateWithFuelCost ? fuelPricePerDay : 0}
                 useBuildCosts={calculateWithBuildCost}
                 profitForNumCards={graphicsCardsList}
+                wipeDaysRemaining={wipeDaysRemaining}
                 key="btc-profit-table"
             />
             <div className="included-items-wrapper" key="btc-item-prices">
@@ -184,9 +189,23 @@ const BitcoinFarmCalculator = () => {
                 )}
             </div>
             <div className="included-items-wrapper">
-                <Link to="/wipe-length">
-                    <div>{t('Estimated remaining days in wipe: {{remainingWipeDays}}', {remainingWipeDays: averageWipeLength() - currentWipeLength()})}</div>
-                </Link>
+                <label className={'single-filter-wrapper'}>
+                    <Link to="/wipe-length">
+                        <span className={'single-filter-label'}>{t('Remaining days in wipe:', {remainingWipeDays: averageWipeLength() - currentWipeLength()})}</span>
+                    </Link>
+                    <input
+                        className={'filter-input wipe-days'}
+                        defaultValue={wipeDaysRemaining?.toString() ?? ''}
+                        type={'number'}
+                        onChange={(event) => {
+                            const parsed = parseInt(event.target.value, 10);
+                            if (Number.isFinite(parsed)) {
+                                setWipeDaysRemaining(parsed);
+                            }
+                        }}
+                        min={0}
+                    />
+                </label>
             </div>
             {/* <BtcGraph /> */}
         </div>,
