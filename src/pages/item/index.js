@@ -95,17 +95,9 @@ function Item() {
         gridImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
         image512pxLink: `${process.env.PUBLIC_URL}/images/unknown-item-512.webp`,
         backgroundColor: 'default',
-        sellFor: [
-            {
-                price: 0,
-            },
-        ],
-        buyFor: [
-            {
-                price: 0,
-                requirements: [],
-            },
-        ],
+        sellFor: [],
+        buyFor: [],
+        sellForTradersBest: null,
     };
 
     // item name may be an id
@@ -388,7 +380,7 @@ function Item() {
 
     const itemFleaFee = fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
 
-    const sellForTradersIsTheBest = currentItemData.sellForTradersBest.priceRUB > currentItemData.lastLowPrice - itemFleaFee;
+    const sellForTradersIsTheBest = currentItemData.sellForTradersBest ? currentItemData.sellForTradersBest.priceRUB > currentItemData.lastLowPrice - itemFleaFee : false;
     const useFleaPrice = currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
     let fleaSellPriceDisplay = formatPrice(currentItemData.lastLowPrice);
