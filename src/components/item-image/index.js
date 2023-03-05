@@ -34,8 +34,13 @@ function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', no
     const refImage = useRef();
     const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0});
     useEffect(() => {
-        if (!refImage.current) return;
+        if (!refImage.current) {
+            return;
+        }
         const resizeObserver = new ResizeObserver(() => {
+            if (!refImage.current) {
+                return;
+            }
             setImageDimensions({
                 width: refImage.current.width,
                 height: refImage.current.height,
