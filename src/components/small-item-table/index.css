@@ -10,20 +10,6 @@
     padding: 10px;
 }
 
-.small-item-table-description-wrapper {
-    align-items: center;
-    display: flex;
-}
-
-.small-item-table-image-wrapper {
-    margin-right: 10px;
-}
-
-.small-item-table-image-wrapper img {
-    width: 32px;
-    height: 32px;
-}
-
 .small-data-table .trader-icon {
     max-width: 40px;
 }
@@ -32,19 +18,4 @@
     align-items: center;
     display: flex;
     gap: 15px;
-}
-
-.small-item-table-name-wrapper cite {
-    display: none;
-}
-
-@media screen and (min-width: 800px) {
-    .small-item-table-image-wrapper img {
-        width: 64px;
-        height: 64px;
-    }
-
-    .small-item-table-name-wrapper cite {
-        display: block;
-    }
 }

@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { useItemsQuery } from '../../features/items/queries';
 import { useMetaQuery } from '../../features/meta/queries';
 
+import './index.css';
+
 const ContainedItemsList = ({ item, showRestrictedType }) => {
     const { data: items } = useItemsQuery();
     const { data: meta, isFetched: metaFetched } = useMetaQuery();

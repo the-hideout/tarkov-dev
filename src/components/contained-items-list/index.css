@@ -1,0 +1,9 @@
+.contained-item-title-wrapper,
+.contained-item-link-wrapper {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.contained-item-link {
+    white-space: nowrap;
+}
