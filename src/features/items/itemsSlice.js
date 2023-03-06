@@ -2,10 +2,11 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
 import doFetchItems from './do-fetch-items';
+import { placeholderItems } from '../../modules/placeholder-data';
 import { langCode } from '../../modules/lang-helpers';
 
 const initialState = {
-    items: [],
+    items: placeholderItems(langCode()),
     status: 'idle',
     error: null,
 };
