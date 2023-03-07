@@ -210,7 +210,6 @@ function Quest() {
     }
 
     const getObjective = (objective) => {
-        console.log(objective)
         let taskDetails = '';
         if (objective.type.includes('QuestItem')) {
             taskDetails = (
