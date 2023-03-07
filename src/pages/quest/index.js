@@ -2,7 +2,6 @@ import React, { useMemo, useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import Tippy from '@tippyjs/react';
 
 import Icon from '@mdi/react';
 import { mdiClipboardCheck } from '@mdi/js';
@@ -11,6 +10,7 @@ import SEO from '../../components/SEO';
 import ErrorPage from '../../components/error-page';
 import TaskSearch from '../../components/task-search';
 import LoadingSmall from '../../components/loading-small';
+import ItemImage from '../../components/item-image';
 
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
 import { useTradersQuery } from '../../features/traders/queries';
@@ -212,31 +212,32 @@ function Quest() {
     const getObjective = (objective) => {
         let taskDetails = '';
         if (objective.type.includes('QuestItem')) {
-            let verb = t('Pick up');
-            if (objective.type === 'giveQuestItem') {
-                verb = t('Hand over');
-            }
             taskDetails = (
-                <>
-                    <span>{verb} </span>
-                    <Tippy
-                        content={
-                            <span>
-                                <img src={objective.questItem.iconLink} alt={''} />
-                            </span>
-                        }
-                    >
-                        <span className="hover-item-name">
-                            {objective.questItem.name}
-                        </span>
-                    </Tippy>
-                </>
+                <ItemImage
+                    item={{
+                        ...objective.questItem,
+                        backgroundColor: 'yellow',
+                        types: ['quest'],
+                    }}
+                    imageField="baseImageLink"
+                    nonFunctionalOverlay={false}
+                    imageViewer={true}
+                />
             );
         }
         if (objective.type === 'buildWeapon') {
-            const baseItem = items.find((i) => i.id === objective.item.id);
+            let baseItem = items.find((i) => i.id === objective.item.id);
             if (!baseItem)
                 return null;
+            if (baseItem.properties?.defaultPreset) {
+                const preset = items.find(i => i.id === baseItem.properties.defaultPreset.id);
+                baseItem = {
+                    ...baseItem,
+                    baseImageLink: preset.baseImageLink,
+                    width: preset.width,
+                    height: preset.height,
+                };
+            }
             const attributes = objective.attributes
                 .map((att) => {
                     if (!att.requirement.value) {
@@ -248,9 +249,12 @@ function Quest() {
             taskDetails = (
                 <>
                     <>
-                        <Link to={`/item/${baseItem.normalizedName}`}>
-                            {baseItem.name}
-                        </Link>
+                        <ItemImage
+                            item={baseItem}
+                            imageField="baseImageLink"
+                            nonFunctionalOverlay={false}
+                            linkToItem={true}
+                        />
                     </>
                     {attributes.length > 0 && (
                         <>
@@ -270,7 +274,7 @@ function Quest() {
                     {objective.containsAll?.length > 0 && (
                         <>
                             <h4>{t('Contains All')}</h4>
-                            <ul>
+                            <ul className="quest-item-list">
                                 {objective.containsAll.map((part) => {
                                     const item = items.find((i) => i.id === part.id);
                                     if (!item)
@@ -278,13 +282,13 @@ function Quest() {
                                     return (
                                         <li
                                             key={item.id}
-                                            className={'quest-list-item'}
                                         >
-                                            <Link
-                                                to={`/item/${item.normalizedName}`}
-                                            >
-                                                {item.name}
-                                            </Link>
+                                            <ItemImage
+                                                item={item}
+                                                imageField="baseImageLink"
+                                                nonFunctionalOverlay={false}
+                                                linkToItem={true}
+                                            />
                                         </li>
                                     );
                                 })}
@@ -338,16 +342,19 @@ function Quest() {
             );
         }
         if (objective.type === 'giveItem' || objective.type === 'findItem') {
-            const item = items.find((i) => i.id === objective.item.id);
+            let item = items.find((i) => i.id === objective.item.id);
             if (!item)
                 return null;
-            const attributes = [];
-            if (objective.foundInRaid) {
-                attributes.push({
-                    name: t('Found in raid'),
-                    value: t('Yes'),
-                });
+            if (item.properties?.defaultPreset) {
+                const preset = items.find(i => i.id === item.properties.defaultPreset.id);
+                item = {
+                    ...item,
+                    baseImageLink: preset.baseImageLink,
+                    width: preset.width,
+                    height: preset.height,
+                };
             }
+            const attributes = [];
             if (objective.dogTagLevel) {
                 attributes.push({
                     name: t('Dogtag level'),
@@ -369,10 +376,14 @@ function Quest() {
             taskDetails = (
                 <>
                     <>
-                        <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
-                        {objective.count > 1 && (
-                            <span>{` x ${objective.count}`}</span>
-                        )}
+                    <ItemImage
+                        item={item}
+                        imageField="baseImageLink"
+                        nonFunctionalOverlay={false}
+                        linkToItem={true}
+                        count={objective.count}
+                        isFIR={objective.foundInRaid}
+                    />
                     </>
                     {attributes.length > 0 && (
                         <ul>
@@ -397,7 +408,12 @@ function Quest() {
                 return null;
             taskDetails = (
                 <>
-                    <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
+                    <ItemImage
+                        item={item}
+                        imageField="baseImageLink"
+                        nonFunctionalOverlay={false}
+                        linkToItem={true}
+                    />
                 </>
             );
         }
@@ -440,21 +456,31 @@ function Quest() {
                     {objective.usingWeapon?.length > 0 && (
                         <div>
                             {t('Using weapon:')}{' '}
-                            <ul>
+                            <ul className="quest-item-list">
                                 {objective.usingWeapon.map((weap) => {
-                                    const item = items.find((i) => i.id === weap.id,);
+                                    let item = items.find((i) => i.id === weap.id,);
                                     if (!item)
                                         return null;
+                                    if (item.properties?.defaultPreset) {
+                                        const preset = items.find(i => i.id === item.properties.defaultPreset.id);
+                                        item = {
+                                            ...item,
+                                            baseImageLink: preset.baseImageLink,
+                                            width: preset.width,
+                                            height: preset.height,
+                                        };
+                                    }
                                     return (
                                         <li
                                             key={`weapon-${item.id}`}
                                             className={'quest-list-item'}
                                         >
-                                            <Link
-                                                to={`/item/${item.normalizedName}`}
-                                            >
-                                                {item.name}
-                                            </Link>
+                                            <ItemImage
+                                                item={item}
+                                                imageField="baseImageLink"
+                                                nonFunctionalOverlay={false}
+                                                linkToItem={true}
+                                            />
                                         </li>
                                     );
                                 })}
@@ -466,7 +492,7 @@ function Quest() {
                             {t('Using weapon mods:')}{' '}
                             {objective.usingWeaponMods.map((modSet, index) => {
                                 return (
-                                    <ul key={`modset-${index}`}>
+                                    <ul key={`modset-${index}`} className="quest-item-list">
                                         {modSet.map((mod) => {
                                             const item = items.find((i) => i.id === mod.id);
                                             if (!item)
@@ -476,11 +502,12 @@ function Quest() {
                                                     key={`mod-${item.id}`}
                                                     className={'quest-list-item'}
                                                 >
-                                                    <Link
-                                                        to={`/item/${item.normalizedName}`}
-                                                    >
-                                                        {item.name}
-                                                    </Link>
+                                                    <ItemImage
+                                                        item={item}
+                                                        imageField="baseImageLink"
+                                                        nonFunctionalOverlay={false}
+                                                        linkToItem={true}
+                                                    />
                                                 </li>
                                             );
                                         })}
@@ -494,7 +521,7 @@ function Quest() {
                             {t('While wearing:')}{' '}
                             {objective.wearing.map((outfit, index) => {
                                 return (
-                                    <ul key={`outfit-${index}`}>
+                                    <ul key={`outfit-${index}`} className="quest-item-list">
                                         {outfit.map((accessory) => {
                                             const item = items.find((i) => i.id === accessory.id);
                                             if (!item)
@@ -504,11 +531,12 @@ function Quest() {
                                                     key={`accessory-${item.id}`}
                                                     className={'quest-list-item'}
                                                 >
-                                                    <Link
-                                                        to={`/item/${item.normalizedName}`}
-                                                    >
-                                                        {item.name}
-                                                    </Link>
+                                                    <ItemImage
+                                                        item={item}
+                                                        imageField="baseImageLink"
+                                                        nonFunctionalOverlay={false}
+                                                        linkToItem={true}
+                                                    />
                                                 </li>
                                             );
                                         })}
@@ -520,7 +548,7 @@ function Quest() {
                     {objective.notWearing?.length > 0 && (
                         <div>
                             {t('Not wearing:')}{' '}
-                            <ul>
+                            <ul className="quest-item-list">
                                 {objective.notWearing.map((accessory) => {
                                     const item = items.find((i) => i.id === accessory.id);
                                     if (!item)
@@ -530,11 +558,12 @@ function Quest() {
                                             key={`accessory-${item.id}`}
                                             className={'quest-list-item'}
                                         >
-                                            <Link
-                                                to={`/item/${item.normalizedName}`}
-                                            >
-                                                {item.name}
-                                            </Link>
+                                            <ItemImage
+                                                item={item}
+                                                imageField="baseImageLink"
+                                                nonFunctionalOverlay={false}
+                                                linkToItem={true}
+                                            />
                                         </li>
                                     );
                                 })}
@@ -638,7 +667,7 @@ function Quest() {
             taskDetails = (
                 <div>
                     {t('Use any of:')}{' '}
-                    <ul>
+                    <ul className="quest-item-list">
                         {objective.useAny.map((useItem, index) => {
                             const item = items.find((i) => i.id === useItem.id);
                             if (!item)
@@ -646,13 +675,13 @@ function Quest() {
                             return (
                                 <li
                                     key={`item-${index}-${item.id}`}
-                                    className={'quest-list-item'}
                                 >
-                                    <Link
-                                        to={`/item/${item.normalizedName}`}
-                                    >
-                                        {item.name}
-                                    </Link>
+                                    <ItemImage
+                                        item={item}
+                                        imageField="baseImageLink"
+                                        nonFunctionalOverlay={false}
+                                        linkToItem={true}
+                                    />
                                 </li>
                             );
                         })}
@@ -838,18 +867,24 @@ function Quest() {
                 {currentQuest.finishRewards?.items?.length > 0 && (
                     <div key="finishRewards">
                         <h3>{t('Items')}</h3>
-                        <ul>
+                        <ul className="quest-item-list">
                             {currentQuest.finishRewards?.items.map((rewardItem, index) => {
                                 const item = items.find((it) => it.id === rewardItem.item.id);
                                 if (!item)
                                     return null;
                                 return (
                                     <li
-                                        className="quest-list-item"
                                         key={`reward-index-${rewardItem.item.id}-${index}`}
                                     >
-                                        <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
-                                        <span>{` x ${rewardItem.count.toLocaleString()}`}</span>
+                                        <ItemImage
+                                            key={`reward-index-${rewardItem.item.id}-${index}`}
+                                            item={item}
+                                            imageField="baseImageLink"
+                                            nonFunctionalOverlay={false}
+                                            linkToItem={true}
+                                            count={rewardItem.count}
+                                            isFIR={true}
+                                        />
                                     </li>
                                 );
                             })}

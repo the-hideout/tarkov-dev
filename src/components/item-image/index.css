@@ -23,3 +23,19 @@
     max-width: 100% !important;
     max-height: 100% !important;
 }
+
+.item-image-fir {
+    max-width: 16px;
+    max-height: 16px;
+}
+
+.item-image-count {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-top-left-radius: 3px;
+    color: #c7c5b3;
+    font-size: 14px;
+    height: 18px;
+    line-height: 20px;
+    padding: 0 5px;
+    text-align: center;
+}
