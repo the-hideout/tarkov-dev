@@ -850,10 +850,10 @@ function Quest() {
                     <div key="task-keys">
                         <h2>🗝️ {t('Needed Keys')}</h2>
                         <ul>
-                            {currentQuest.neededKeys.map((mapKeys) => {
+                            {currentQuest.neededKeys.map((mapKeys, mapIndex) => {
                                 const map = maps.find((m) => m.id === mapKeys.map.id);
                                 return (
-                                    <li key={map.id} className="quest-list-item">
+                                    <li key={`${map.id}-${mapIndex}`} className="quest-list-item">
                                         {`${map.name}: `}
                                         {mapKeys.keys
                                             .map((key) => {
