@@ -205,6 +205,8 @@ const doFetchQuests = async (language, prebuild = false) => {
                 iconLink
                 gridImageLink
                 image512pxLink
+                baseImageLink
+                image8xLink
             }
             count
         }

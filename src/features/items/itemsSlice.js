@@ -2,10 +2,11 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
 import doFetchItems from './do-fetch-items';
+import { placeholderItems } from '../../modules/placeholder-data';
 import { langCode } from '../../modules/lang-helpers';
 
 const initialState = {
-    items: [],
+    items: placeholderItems(langCode()),
     status: 'idle',
     error: null,
 };
@@ -16,7 +17,15 @@ export const fetchItems = createAsyncThunk('items/fetchItems', () =>
 const itemsSlice = createSlice({
     name: 'items',
     initialState,
-    reducers: {},
+    reducers: {
+        setCustomSellValue: (state, action) => {
+            const item = state.items.find(i => i.id === action.payload.itemId);
+            if (!item) {
+                return;
+            }
+            item.priceCustom = action.payload.price;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchItems.pending, (state, action) => {
             state.status = 'loading';
@@ -35,6 +44,8 @@ const itemsSlice = createSlice({
         });
     },
 });
+
+export const { setCustomSellValue } = itemsSlice.actions;
 
 export default itemsSlice.reducer;
 

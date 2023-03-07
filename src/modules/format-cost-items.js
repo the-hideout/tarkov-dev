@@ -186,8 +186,8 @@ const formatCostItems = (
             settings,
             allowAllSources
         );
-        if (requiredItem.priceCustom) {
-            bestPrice.priceRUB = requiredItem.priceCustom;
+        if (requiredItem.item.priceCustom) {
+            bestPrice.priceRUB = requiredItem.item.priceCustom;
             bestPrice.type = 'custom';
         }
         let calculationPrice = bestPrice.priceRUB;

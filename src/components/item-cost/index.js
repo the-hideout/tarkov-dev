@@ -10,8 +10,7 @@ import { mdiTimerSand, mdiCloseBox, mdiCheckboxMarked } from '@mdi/js';
 import BarterTooltip from '../barter-tooltip';
 import formatPrice from '../../modules/format-price';
 
-import { setItemCost as setCraftItemCost } from '../../features/crafts/craftsSlice';
-import { setItemCost as setBarterItemCost } from '../../features/barters/bartersSlice';
+import { setCustomSellValue } from '../../features/items/itemsSlice';
 
 import './index.css';
 
@@ -95,13 +94,7 @@ function ItemCost({
                             className="icon-with-text no-click item-cost-muted-green"
                             onClick={(event) => {
                                 dispatch(
-                                    setBarterItemCost({
-                                        itemId: itemId,
-                                        price: customPrice
-                                    }),
-                                );
-                                dispatch(
-                                    setCraftItemCost({
+                                    setCustomSellValue({
                                         itemId: itemId,
                                         price: customPrice
                                     }),
@@ -115,13 +108,7 @@ function ItemCost({
                             className="icon-with-text no-click item-cost-muted-red"
                             onClick={(event) => {
                                 dispatch(
-                                    setBarterItemCost({
-                                        itemId: itemId,
-                                        price: false
-                                    }),
-                                );
-                                dispatch(
-                                    setCraftItemCost({
+                                    setCustomSellValue({
                                         itemId: itemId,
                                         price: false
                                     }),

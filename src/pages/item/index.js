@@ -373,7 +373,10 @@ function Item() {
     }
 
     if (currentItemData.properties?.defaultPreset) {
-        currentItemData.properties.defaultPreset = items.find(i => i.id === currentItemData.properties.defaultPreset.id);
+        currentItemData.properties = {
+            ...currentItemData.properties,
+            defaultPreset: items.find(i => i.id === currentItemData.properties.defaultPreset.id),
+        };
     }
     
     const sellForTraders = currentItemData.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');

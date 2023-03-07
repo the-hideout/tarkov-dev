@@ -56,7 +56,7 @@ export const getMaxSellFor = (item) => {
         }
     }
 
-    return max;
+    return {...max};
 };
 
 export const getMinBuyFor = (item) => {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import {renderToStaticMarkup} from "react-dom/server";
+import { Link } from "react-router-dom";
 import ImageViewer from 'react-simple-image-viewer';
 
 import './index.css';
@@ -16,7 +17,18 @@ const colors = {
     yellow: {r: 104, g: 102, b: 40, alpha: 77/255},
 };
 
-function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', nonFunctionalOverlay = true, imageViewer = false, children = '' }) {
+function ItemImage({ 
+    item, 
+    backgroundScale = 1, 
+    imageField = 'baseImageLink', 
+    nonFunctionalOverlay = true, 
+    imageViewer = false, 
+    children = '',
+    attributes = [],
+    count,
+    isFIR = false,
+    linkToItem = false,
+}) {
     const refContainer = useRef();
     /*const [containerDimensions, setDimensions] = useState({ width: 0, height: 0 });
     useEffect(() => {
@@ -90,8 +102,14 @@ function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', no
             imageStyle.cursor = 'zoom-in';
         }
         //console.log(dimensions);
-        return <img ref={refImage} onClick={openImageViewer} src={item[imageField]} alt={item.name} loading="lazy" style={imageStyle}/>;
-    }, [item, refImage, imageField, openImageViewer, imageViewer]);
+        const img = <img ref={refImage} onClick={openImageViewer} src={item[imageField]} alt={item.name} loading="lazy" style={imageStyle}/>;
+        if (linkToItem && !item.types.includes('quest')) {
+            return <Link to={`/item/${item.normalizedName}`}>
+                {img}
+            </Link>;
+        }
+        return img;
+    }, [item, refImage, imageField, openImageViewer, imageViewer, linkToItem]);
     
     const textSize = useMemo(() => {
         const baseWidth = (item.width * 63) +1;
@@ -132,6 +150,16 @@ function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', no
         return <div className='item-nonfunctional-mask' onClick={openImageViewer} style={nonFunctionalStyle}/>;
     }, [item, nonFunctionalOverlay, backgroundScale, openImageViewer, imageViewer]);
 
+    let borderColor = 'rgb(73, 81, 84)';
+    if (attributes?.some(att => att.type === 'tool')) {
+        borderColor = '#0292c0';
+    }
+    if (item.types.includes('gun')) {
+        if (attributes?.some(att => att.type === 'functional' && !Boolean(att.value))) {
+            borderColor = '#c00802';
+        }
+    }
+
     const gridSvg = () => 
         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
             <defs>
@@ -155,7 +183,7 @@ function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', no
         backgroundImage: `url('data:image/svg+xml,${encodeURIComponent(renderToStaticMarkup(gridSvg()))}')`,
         backgroundSize: `${gridPercentX}% ${gridPercentY}%`,
         position: 'relative',
-        outline: `${1*backgroundScale}px solid #495154`,
+        outline: `${1*backgroundScale}px solid ${borderColor}`,
         outlineOffset: `-${1*backgroundScale}px`,
         maxHeight: `calc(100% - ${2*backgroundScale}px)`,
         maxWidth:  `calc(100% - ${2*backgroundScale}px)`,
@@ -177,7 +205,29 @@ function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', no
         textShadow: '1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000',
         fontSize: `${textSize}px`,
         textAlign: 'right',
+    };
+    if (imageField === 'iconLink') {
+        imageTextStyle.display = 'none';
+        for (const field in backgroundStyle) {
+            delete backgroundStyle[field];
+        }
+        backgroundStyle.position = 'relative';
+        backgroundStyle.maxHeight = '64px';
+        backgroundStyle.maxWidth = '64px';
     }
+    if (imageField === 'baseImageLink') {
+        backgroundStyle.maxHeight = `${(item.height * 63) +1}px`;
+        backgroundStyle.maxWidth = `${(item.width * 63) +1}px`;
+    }
+
+    const itemExtraStyle = {
+        position: 'absolute',
+        bottom: `${backgroundScale}px`,
+        right: `${backgroundScale}px`,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+    };
 
     return (
         <div ref={refContainer} style={backgroundStyle}>
@@ -185,6 +235,10 @@ function ItemImage({ item, backgroundScale = 1, imageField = 'baseImageLink', no
             {imageElement}
             {nonFunctional}
             <div style={imageTextStyle}>{item.shortName}</div>
+            <div style={itemExtraStyle}>
+                {isFIR && <img alt="" className="item-image-fir" loading="lazy" src={`${process.env.PUBLIC_URL}/images/icon-fir.png`} />}
+                {count && <span className="item-image-count">{count}</span>}
+            </div>
             {children}
             {isViewerOpen && (
                 <ImageViewer

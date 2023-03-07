@@ -1,7 +1,9 @@
+import { useMemo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { useItemByIdQuery } from '../../features/items/queries';
+import { fetchItems, selectAllItems } from '../../features/items/itemsSlice'
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
@@ -28,6 +30,7 @@ import ProfitInfo from './profit-info';
 import './index.css';
 
 const BitcoinFarmCalculator = () => {
+    const dispatch = useDispatch();
     const { t } = useTranslation();
 
     const [graphicCardsCount, setGraphicCardsCount] = useStateWithLocalStorage(
@@ -40,16 +43,59 @@ const BitcoinFarmCalculator = () => {
     const [calculateWithBuildCost, setCalculateWithBuildCost] =
         useStateWithLocalStorage('btc-farm-calculate-with-build-cost', false);
 
-    const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
-    const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
+    const [wipeDaysRemaining, setWipeDaysRemaining] = useState(
+        Math.max(averageWipeLength() - currentWipeLength(), 0),
+    );
+
+    const itemsSelector = useSelector(selectAllItems);
+    const itemsStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        let timer = false;
+        if (itemsStatus === 'idle') {
+            dispatch(fetchItems());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchItems());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [itemsStatus, dispatch]);
+
+    const bitcoinItem = useMemo(() => {
+        return itemsSelector.find(i => i?.id === BitcoinItemId);
+    }, [itemsSelector]);
+
+    const graphicCardItem = useMemo(() => {
+        return itemsSelector.find(i => i.id === GraphicCardItemId);
+    }, [itemsSelector]);
+
+    //const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
+    //const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
+
     const fuelPricePerDay = useFuelPricePerDay();
 
-    if (bitcoinItem.cached || graphicCardItem.cached) {
+    if (!bitcoinItem || bitcoinItem.cached || !graphicCardItem || graphicCardItem.cached) {
         return <Loading />;
     }
 
     const btcSell = getMaxSellFor(bitcoinItem);
+    if (bitcoinItem.priceCustom) {
+        btcSell.priceRUB = bitcoinItem.priceCustom;
+        btcSell.sellType = 'custom';
+    }
     const graphicsCardBuy = getMaxSellFor(graphicCardItem);
+    if (graphicCardItem.priceCustom) {
+        graphicsCardBuy.priceRUB = graphicCardItem.priceCustom;
+        graphicsCardBuy.sellType = 'custom';
+    }
 
     const graphicsCardsList = [1, 10, 25, 50];
 
@@ -110,37 +156,56 @@ const BitcoinFarmCalculator = () => {
                 fuelPricePerDay={calculateWithFuelCost ? fuelPricePerDay : 0}
                 useBuildCosts={calculateWithBuildCost}
                 profitForNumCards={graphicsCardsList}
+                wipeDaysRemaining={wipeDaysRemaining}
                 key="btc-profit-table"
             />
             <div className="included-items-wrapper" key="btc-item-prices">
                 {Boolean(graphicCardItem) && (
                     <RewardCell
+                        id={graphicCardItem.id}
                         count={1}
                         iconLink={graphicCardItem.iconLink}
                         itemLink={`/item/${graphicCardItem.normalizedName}`}
                         name={graphicCardItem.name}
                         sellValue={graphicsCardBuy.priceRUB}
                         sellTo={graphicsCardBuy.vendor.name}
+                        sellType={graphicsCardBuy.sellType}
                         valueTooltip={t('Purchase cost')}
                         key="gpu-price-display"
                     />
                 )}
                 {Boolean(bitcoinItem) && (
                     <RewardCell
+                        id={bitcoinItem.id}
                         count={1}
                         iconLink={bitcoinItem.iconLink}
                         itemLink={`/item/${bitcoinItem.normalizedName}`}
                         name={bitcoinItem.name}
                         sellValue={btcSell.priceRUB}
                         sellTo={btcSell.vendor.name}
+                        sellType={btcSell.sellType}
                         key="btc-price-display"
                     />
                 )}
             </div>
             <div className="included-items-wrapper">
-                <Link to="/wipe-length">
-                    <div>{t('Estimated remaining days in wipe: {{remainingWipeDays}}', {remainingWipeDays: averageWipeLength() - currentWipeLength()})}</div>
-                </Link>
+                <label className={'single-filter-wrapper'}>
+                    <Link to="/wipe-length">
+                        <span className={'single-filter-label'}>{t('Remaining days in wipe:', {remainingWipeDays: averageWipeLength() - currentWipeLength()})}</span>
+                    </Link>
+                    <input
+                        className={'filter-input wipe-days'}
+                        defaultValue={wipeDaysRemaining?.toString() ?? ''}
+                        type={'number'}
+                        onChange={(event) => {
+                            const parsed = parseInt(event.target.value, 10);
+                            if (Number.isFinite(parsed)) {
+                                setWipeDaysRemaining(parsed);
+                            }
+                        }}
+                        min={0}
+                    />
+                </label>
             </div>
             {/* <BtcGraph /> */}
         </div>,
