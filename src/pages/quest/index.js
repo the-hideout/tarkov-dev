@@ -210,6 +210,7 @@ function Quest() {
     }
 
     const getObjective = (objective) => {
+        console.log(objective)
         let taskDetails = '';
         if (objective.type.includes('QuestItem')) {
             taskDetails = (
@@ -406,6 +407,30 @@ function Quest() {
             const item = items.find((i) => i.id === objective.markerItem.id);
             if (!item)
                 return null;
+            taskDetails = (
+                <>
+                    <ItemImage
+                        item={item}
+                        imageField="baseImageLink"
+                        nonFunctionalOverlay={false}
+                        linkToItem={true}
+                    />
+                </>
+            );
+        }
+        if (objective.type === 'plantItem') {
+            let item = items.find((i) => i.id === objective.item.id);
+            if (!item)
+                return null;
+            if (item.properties?.defaultPreset) {
+                const preset = items.find(i => i.id === item.properties.defaultPreset.id);
+                item = {
+                    ...item,
+                    baseImageLink: preset.baseImageLink,
+                    width: preset.width,
+                    height: preset.height,
+                };
+            }
             taskDetails = (
                 <>
                     <ItemImage
