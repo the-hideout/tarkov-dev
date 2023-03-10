@@ -322,7 +322,7 @@ function Quest() {
         if (objective.type === 'experience') {
             taskDetails = (
                 <>
-                    {t('Have the {{effectNames, list}} effect(s) on your {{bodyParts, list}} for {{operator}} {{count}} seconds', {
+                    {t('Have the {{effectNames, list}} effect(s) on your {{bodyParts, list(type: disjunction)}} for {{operator}} {{count}} seconds', {
                             effectNames: objective.healthEffect.effects,
                             bodyParts: objective.healthEffect.bodyParts,
                             operator: objective.healthEffect.time.compareMethod,
@@ -335,7 +335,7 @@ function Quest() {
         if (objective.type === 'extract') {
             taskDetails = (
                 <>
-                    {t('Extract with the status(es): {{extractStatuses, list}}', {
+                    {t('Extract with the status(es): {{extractStatuses, list(type: disjunction)}}', {
                         extractStatuses: objective.exitStatus,
                     })}
                 </>
@@ -446,10 +446,14 @@ function Quest() {
             if (objective.shotType !== 'kill') {
                 verb = t('Shoot');
             }
+            let shootString = '{{shootOrKill}} {{target}} x {{count}}';
+            if (objective.count < 2) {
+                shootString = '{{shootOrKill}} {{target}}';
+            }
             taskDetails = (
                 <>
                     <>
-                        {t('{{shootOrKill}} {{target}} {{count}} times', {
+                        {t(shootString, {
                             shootOrKill: verb,
                             target: objective.target,
                             count: objective.count,
@@ -465,14 +469,14 @@ function Quest() {
                     )}
                     {objective.zoneNames?.length > 0 && (
                         <div>
-                            {t('While inside: {{zoneList, list}}', {
+                            {t('While inside: {{zoneList, list(type: disjunction)}}', {
                                 zoneList: objective.zoneNames,
                             })}
                         </div>
                     )}
                     {objective.bodyParts?.length > 0 && (
                         <div>
-                            {t('Hitting: {{bodyPartList, list}}', {
+                            {t('Hitting: {{bodyPartList, list(type: disjunction)}}', {
                                 bodyPartList: objective.bodyParts,
                             })}
                         </div>
@@ -597,14 +601,14 @@ function Quest() {
                     {objective.playerHealthEffect && (
                         <div>
                             {objective.playerHealthEffect.time ?
-                                t('While having the {{effectNames, list}} effect(s) on your {{bodyParts, list}} for {{operator}} {{count}} seconds', {
+                                t('While having the {{effectNames, list}} effect(s) on your {{bodyParts, list(type: disjunction)}} for {{operator}} {{count}} seconds', {
                                     effectNames: objective.playerHealthEffect.effects,
                                     bodyParts: objective.playerHealthEffect.bodyParts,
                                     operator: objective.playerHealthEffect.time?.compareMethod,
                                     count: objective.playerHealthEffect.time?.value,
                                 })
                             :
-                                t('While having the {{effectNames, list}} effect(s) on your {{bodyParts, list}}', {
+                                t('While having the {{effectNames, list}} effect(s) on your {{bodyParts, list(type: disjunction)}}', {
                                     effectNames: objective.playerHealthEffect.effects,
                                     bodyParts: objective.playerHealthEffect.bodyParts,
                                 })
@@ -614,14 +618,14 @@ function Quest() {
                     {objective.enemyHealthEffect && (
                         <div>
                             {objective.enemyHealthEffect.time ?
-                                t('While target has the {{effectNames, list}} effect(s) on their {{bodyParts, list}} for {{operator}} {{count}} seconds', {
+                                t('While target has the {{effectNames, list}} effect(s) on their {{bodyParts, list(type: disjunction)}} for {{operator}} {{count}} seconds', {
                                     effectNames: objective.enemyHealthEffect.effects,
                                     bodyParts: objective.enemyHealthEffect.bodyParts,
                                     operator: objective.enemyHealthEffect.time?.compareMethod,
                                     count: objective.enemyHealthEffect.time?.value,
                                 })
                             :
-                                t('While target has the {{effectNames, list}} effect(s) on their {{bodyParts, list}}', {
+                                t('While target has the {{effectNames, list}} effect(s) on their {{bodyParts, list(type: disjunction)}}', {
                                     effectNames: objective.enemyHealthEffect.effects,
                                     bodyParts: objective.enemyHealthEffect.bodyParts,
                                 })
@@ -685,7 +689,7 @@ function Quest() {
             let zones = <></>;
             if (objective.zoneNames.length > 0) {
                 zones = (
-                    <div>{t('In area(s): {{areaList}}', {areaList: objective.zoneNames.join(', ')})}</div>
+                    <div>{t('In area(s): {{areaList, list(type: disjunction)}}', {areaList: objective.zoneNames})}</div>
                 );
             }
             taskDetails = (

@@ -58,7 +58,7 @@ function PriceGraph({ item, itemId, itemChange24 }) {
         return null;
     }
 
-    if (status === 'success' && data.data.historicalItemPrices.length === 0) {
+    if (status === 'success' && data.data.historicalItemPrices.length < 2) {
         return t('No data');
     }
 
