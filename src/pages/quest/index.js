@@ -446,18 +446,14 @@ function Quest() {
             if (objective.shotType !== 'kill') {
                 verb = t('Shoot');
             }
-            let shootString = '{{shootOrKill}} {{target}} x {{count}}';
-            if (objective.count < 2) {
-                shootString = '{{shootOrKill}} {{target}}';
+            let shootString = `${verb} ${objective.target}`;
+            if (objective.count > 1) {
+                shootString += ` x ${objective.count}`;
             }
             taskDetails = (
                 <>
                     <>
-                        {t(shootString, {
-                            shootOrKill: verb,
-                            target: objective.target,
-                            count: objective.count,
-                        })}
+                        {shootString}
                     </>
                     {objective.distance && (
                         <div>
