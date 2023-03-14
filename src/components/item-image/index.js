@@ -110,11 +110,15 @@ function ItemImage({
         }
         return img;
     }, [item, refImage, imageField, openImageViewer, imageViewer, linkToItem]);
+
+    const imageScale = useMemo(() => {
+        const w = imageDimensions.width || (item.width * 63) + 1
+        return w / ((item.width * 63) + 1);
+    }, [imageDimensions, item]);
     
     const textSize = useMemo(() => {
-        const baseWidth = (item.width * 63) +1;
-        return Math.min(12 * (imageDimensions.width / baseWidth), 16);
-    }, [imageDimensions, item]);
+        return Math.min(12 * imageScale, 16);
+    }, [imageScale]);
 
     const { colorString, gridPercentX, gridPercentY } = useMemo(() => {
         const color = colors[item.backgroundColor];
@@ -207,20 +211,22 @@ function ItemImage({
         return backgroundStyle;
     }, [backgroundScale, borderColor, colorString, imageField, gridPercentX, gridPercentY, item, imageDimensions]);
 
-    const imageTextStyle = {
-        position: 'absolute',
-        top: `${2*backgroundScale}px`,
-        right: `${3.5*backgroundScale}px`,
-        cursor: 'default',
-        color: '#a4aeb4',
-        fontWeight: 'bold',
-        textShadow: '1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000',
-        fontSize: `${textSize}px`,
-        textAlign: 'right',
-    };
-    if (imageField === 'iconLink') {
-        imageTextStyle.display = 'none';
-    }
+    const imageTextStyle = useMemo(() => {
+        if (imageField === 'iconLink') {
+            return {display: 'none'};
+        }
+        return {
+            position: 'absolute',
+            top: `${Math.min(backgroundScale + imageScale, 4)}px`,
+            right: `${Math.min(backgroundScale + (1.5*imageScale), 7)}px`,
+            cursor: 'default',
+            color: '#a4aeb4',
+            fontWeight: 'bold',
+            textShadow: '1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000',
+            fontSize: `${textSize}px`,
+            textAlign: 'right',
+        };
+    }, [imageField, imageScale, textSize, backgroundScale]); 
 
     const itemExtraStyle = {
         position: 'absolute',
