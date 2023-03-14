@@ -28,7 +28,7 @@ export function PresetSelector({ item, alt = '' }) {
     }, [selected]);
 
     const items = result.data.filter(
-        testItem => testItem.id === baseId || testItem.properties?.baseItem?.id === baseId
+        testItem => baseId && (testItem.id === baseId || testItem.properties?.baseItem?.id === baseId)
     ).sort((a, b) => {
         if (a.types.includes('gun')) return -1;
         if (b.types.includes('gun')) return 1;

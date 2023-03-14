@@ -63,13 +63,13 @@ function ItemImage({
     }, []);
 
     const loadingImage = useMemo(() => {
+        if (!item.types?.includes('loading')) {
+            return <></>;
+        }
         const loadingStyle = {
             WebkitMask:`url(${item[imageField]}) center/cover`,
                   mask:`url(${item[imageField]}) center/cover`,
         };
-        if (!item.types?.includes('loading')) {
-            loadingStyle.display = 'none';
-        }
         
         return (
             <div className="item-image-mask" style={loadingStyle}></div>
@@ -110,11 +110,15 @@ function ItemImage({
         }
         return img;
     }, [item, refImage, imageField, openImageViewer, imageViewer, linkToItem]);
+
+    const imageScale = useMemo(() => {
+        const w = imageDimensions.width || (item.width * 63) + 1
+        return w / ((item.width * 63) + 1);
+    }, [imageDimensions, item]);
     
     const textSize = useMemo(() => {
-        const baseWidth = (item.width * 63) +1;
-        return Math.min(12 * (imageDimensions.width / baseWidth), 16);
-    }, [imageDimensions, item]);
+        return Math.min(12 * imageScale, 16);
+    }, [imageScale]);
 
     const { colorString, gridPercentX, gridPercentY } = useMemo(() => {
         const color = colors[item.backgroundColor];
@@ -160,65 +164,69 @@ function ItemImage({
         }
     }
 
-    const gridSvg = () => 
-        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-            <defs>
-                <pattern id="smallChecks" width={2*backgroundScale} height={2*backgroundScale} patternUnits="userSpaceOnUse">
-                    <rect x="0" y="0" width={1*backgroundScale} height={1*backgroundScale} style={{fill:'rgba(29, 29, 29, .62)'}} />
-                    <rect x="0" y={1*backgroundScale} width={1*backgroundScale} height={1*backgroundScale} style={{fill:'rgba(44, 44, 44, .62)'}} />
-                    <rect x={1*backgroundScale} y="0" width={1*backgroundScale} height={1*backgroundScale} style={{fill:'rgba(44, 44, 44, .62)'}} />
-                    <rect x={1*backgroundScale} y={1*backgroundScale} width={1*backgroundScale} height={1*backgroundScale} style={{fill:'rgba(29, 29, 29, .62)'}} />
-                </pattern>
-                <pattern id="gridCell" width="100%" height="100%" patternUnits="userSpaceOnUse">
-                    <rect x="0" y="0" width="100%" height="100%" fill="url(#smallChecks)"/>
-                    <line x1="0" x2="0" y1="0" y2="100%" stroke="rgba(50, 50, 50, .75)" strokeWidth={`${2*backgroundScale}`}/>
-                    <line x1="0" x2="100%" y1="0" y2="0" stroke="rgba(50, 50, 50, .75)" strokeWidth={`${2*backgroundScale}`}/>
-                    <rect x="0" y="0" width="100%" height="100%" style={{fill:`rgba(${colorString})`}} />
-                </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="#000"/>
-            <rect width="100%" height="100%" fill="url(#gridCell)"/>
-        </svg>;
-    const backgroundStyle = {
-        backgroundImage: `url('data:image/svg+xml,${encodeURIComponent(renderToStaticMarkup(gridSvg()))}')`,
-        backgroundSize: `${gridPercentX}% ${gridPercentY}%`,
-        position: 'relative',
-        outline: `${1*backgroundScale}px solid ${borderColor}`,
-        outlineOffset: `-${1*backgroundScale}px`,
-        maxHeight: `calc(100% - ${2*backgroundScale}px)`,
-        maxWidth:  `calc(100% - ${2*backgroundScale}px)`,
-        fallbacks: [
-            {maxWidth: `-webkit-calc(100% - ${2*backgroundScale}px)`},
-            {maxWidth:    `-moz-calc(100% - ${2*backgroundScale}px)`},
-            {maxHeight: `-webkit-calc(100% - ${2*backgroundScale}px)`},
-            {maxHeight:    `-moz-calc(100% - ${2*backgroundScale}px)`},
-        ],
-    };
-
-    const imageTextStyle = {
-        position: 'absolute',
-        top: `${2*backgroundScale}px`,
-        right: `${3.5*backgroundScale}px`,
-        cursor: 'default',
-        color: '#a4aeb4',
-        fontWeight: 'bold',
-        textShadow: '1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000',
-        fontSize: `${textSize}px`,
-        textAlign: 'right',
-    };
-    if (imageField === 'iconLink') {
-        imageTextStyle.display = 'none';
-        for (const field in backgroundStyle) {
-            delete backgroundStyle[field];
+    const backgroundStyle = useMemo(() => {
+        let sizeFactor = 1;
+        if (imageField === 'iconLink') {
+            return {position: 'relative'};
         }
-        backgroundStyle.position = 'relative';
-        backgroundStyle.maxHeight = '64px';
-        backgroundStyle.maxWidth = '64px';
-    }
-    if (imageField === 'baseImageLink') {
-        backgroundStyle.maxHeight = `${(item.height * 63) +1}px`;
-        backgroundStyle.maxWidth = `${(item.width * 63) +1}px`;
-    }
+        if (imageField === 'image512pxLink') {
+            sizeFactor = 512 / ((item.width * 63) + 1);
+            if (item.height > item.width) {
+                sizeFactor = 512 / ((item.height * 63) + 1);
+            }
+        }
+        if (imageField === 'image8xLink') {
+            sizeFactor = 8;
+        }
+        let width = imageDimensions.width || (((item.width * 63) + 1) * sizeFactor);
+        let height = imageDimensions.height || (((item.height * 63) + 1) * sizeFactor);
+        const gridSvg = () => 
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                <defs>
+                    <pattern id="smallChecks" width={2*backgroundScale} height={2*backgroundScale} patternUnits="userSpaceOnUse">
+                        <rect x="0" y="0" width={1*backgroundScale} height={1*backgroundScale} style={{fill:'rgba(29, 29, 29, .62)'}} />
+                        <rect x="0" y={1*backgroundScale} width={1*backgroundScale} height={1*backgroundScale} style={{fill:'rgba(44, 44, 44, .62)'}} />
+                        <rect x={1*backgroundScale} y="0" width={1*backgroundScale} height={1*backgroundScale} style={{fill:'rgba(44, 44, 44, .62)'}} />
+                        <rect x={1*backgroundScale} y={1*backgroundScale} width={1*backgroundScale} height={1*backgroundScale} style={{fill:'rgba(29, 29, 29, .62)'}} />
+                    </pattern>
+                    <pattern id="gridCell" width="100%" height="100%" patternUnits="userSpaceOnUse">
+                        <rect x="0" y="0" width="100%" height="100%" fill="url(#smallChecks)"/>
+                        <line x1="0" x2="0" y1="0" y2="100%" stroke="rgba(50, 50, 50, .75)" strokeWidth={`${2*backgroundScale}`}/>
+                        <line x1="0" x2="100%" y1="0" y2="0" stroke="rgba(50, 50, 50, .75)" strokeWidth={`${2*backgroundScale}`}/>
+                        <rect x="0" y="0" width="100%" height="100%" style={{fill:`rgba(${colorString})`}} />
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="#000"/>
+                <rect width="100%" height="100%" fill="url(#gridCell)"/>
+            </svg>;
+        const backgroundStyle = {
+            backgroundImage: `url('data:image/svg+xml,${encodeURIComponent(renderToStaticMarkup(gridSvg()))}')`,
+            backgroundSize: `${gridPercentX}% ${gridPercentY}%`,
+            position: 'relative',
+            outline: `${1*backgroundScale}px solid ${borderColor}`,
+            outlineOffset: `-${1*backgroundScale}px`,
+            maxHeight: `${height}px`,
+            maxWidth:  `${width}px`,
+        };
+        return backgroundStyle;
+    }, [backgroundScale, borderColor, colorString, imageField, gridPercentX, gridPercentY, item, imageDimensions]);
+
+    const imageTextStyle = useMemo(() => {
+        if (imageField === 'iconLink' || item.types.includes('loading')) {
+            return {display: 'none'};
+        }
+        return {
+            position: 'absolute',
+            top: `${Math.min(backgroundScale + imageScale, 4)}px`,
+            right: `${Math.min(backgroundScale + (1.5*imageScale), 7)}px`,
+            cursor: 'default',
+            color: '#a4aeb4',
+            fontWeight: 'bold',
+            textShadow: '1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000',
+            fontSize: `${textSize}px`,
+            textAlign: 'right',
+        };
+    }, [imageField, imageScale, textSize, backgroundScale, item]); 
 
     const itemExtraStyle = {
         position: 'absolute',
