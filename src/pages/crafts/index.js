@@ -32,7 +32,7 @@ function Crafts() {
     const [freeFuel, setFreeFuel] = useState(false);
     const [averagePrices, setAveragePrices] = useStateWithLocalStorage(
         'averageCraftingPrices',
-        true,
+        false,
     );
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
         'selectedStation',
