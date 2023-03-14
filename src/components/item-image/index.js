@@ -63,13 +63,13 @@ function ItemImage({
     }, []);
 
     const loadingImage = useMemo(() => {
+        if (!item.types?.includes('loading')) {
+            return <></>;
+        }
         const loadingStyle = {
             WebkitMask:`url(${item[imageField]}) center/cover`,
                   mask:`url(${item[imageField]}) center/cover`,
         };
-        if (!item.types?.includes('loading')) {
-            loadingStyle.display = 'none';
-        }
         
         return (
             <div className="item-image-mask" style={loadingStyle}></div>
@@ -212,7 +212,7 @@ function ItemImage({
     }, [backgroundScale, borderColor, colorString, imageField, gridPercentX, gridPercentY, item, imageDimensions]);
 
     const imageTextStyle = useMemo(() => {
-        if (imageField === 'iconLink') {
+        if (imageField === 'iconLink' || item.types.includes('loading')) {
             return {display: 'none'};
         }
         return {
@@ -226,7 +226,7 @@ function ItemImage({
             fontSize: `${textSize}px`,
             textAlign: 'right',
         };
-    }, [imageField, imageScale, textSize, backgroundScale]); 
+    }, [imageField, imageScale, textSize, backgroundScale, item]); 
 
     const itemExtraStyle = {
         position: 'absolute',
