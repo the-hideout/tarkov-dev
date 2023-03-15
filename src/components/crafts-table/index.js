@@ -445,13 +445,16 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 };
                 if (sortState.length > 0) {
                     sortField = sortState[0].id;
-                    desc = sortState[0].desc;
+                    //desc = sortState[0].desc;
                 }
                 if (columnSwap[sortField]) {
                     sortField = columnSwap[sortField];
                 }
+                if (sortField === 'craftTime' || sortField === 'cost') {
+                    desc = false;
+                }
                 if (!desc) {
-                    //return itemA[sortField] - itemB[sortField];
+                    return itemA[sortField] - itemB[sortField];
                 }
                 return itemB[sortField] - itemA[sortField];
             })
