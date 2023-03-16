@@ -463,7 +463,9 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 if (selectedStation !== 'top') {
                     return true;
                 }
-
+                if (!craft.cost && !craft.profit && !craft.profitPerHour) {
+                    return false;
+                }
                 if (!addedStations[craft.stationId]) {
                     addedStations[craft.stationId] = 0;
                 }
