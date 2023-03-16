@@ -62,7 +62,7 @@ function Barters() {
     const { t } = useTranslation();
 
     const traders = useMemo(() => {
-        return allTraders.filter(trader => trader.normalizedName !== 'fence');
+        return allTraders.filter(trader => trader.normalizedName !== 'fence' && trader.normalizedName !== 'lightkeeper');
     }, [allTraders]);
 
     return [

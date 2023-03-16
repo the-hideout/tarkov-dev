@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useRef } from 'react';
+import { useMemo, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -33,7 +33,7 @@ import { useQuestsQuery } from '../../features/quests/queries';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
-function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices }) {
+function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices, excludeBarterIngredients }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
@@ -45,6 +45,8 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     // const [skippedByLevel, setSkippedByLevel] = useState(false);
     const skippedByLevelRef = useRef();
     const feeReduction = stations['intelligence-center'] === 3 ? 0.7 - (0.003 * skills['hideout-management']) : 1;
+
+    const [sortState, setSortState] = useState([{id: 'profit', desc: true}]);
 
     const items = useSelector(selectAllItems);
     const itemsStatus = useSelector((state) => {
@@ -105,8 +107,9 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     };
                 }).filter(Boolean),
             };
-        }).filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
-    }, [barterSelector, items]);
+        }).filter(() => !excludeBarterIngredients)
+        .filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
+    }, [barterSelector, items, excludeBarterIngredients]);
 
     const crafts = useMemo(() => {
         return craftSelector.map(c => {
@@ -183,7 +186,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     }, [craftsStatus, dispatch]);
 
     const data = useMemo(() => {
-        let addedStations = [];
+        let addedStations = {};
 
         skippedByLevelRef.current = false;
         return crafts
@@ -349,6 +352,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         isFIR: true,
                     },
                     cached: craftRow.cached || craftRow.rewardItems[0].item.cached,
+                    stationId: craftRow.station.id,
                 };
 
                 let fleaFeeSingle = 0;
@@ -433,19 +437,43 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
             })
             .filter(Boolean)
             .sort((itemA, itemB) => {
-                return itemB.profit - itemA.profit;
+                let sortField = 'profit';
+                let desc = true;
+                const columnSwap = {
+                    costItems: 'cost',
+                    reward: 'profit',
+                };
+                if (sortState.length > 0) {
+                    sortField = sortState[0].id;
+                    //desc = sortState[0].desc;
+                }
+                if (columnSwap[sortField]) {
+                    sortField = columnSwap[sortField];
+                }
+                if (sortField === 'craftTime' || sortField === 'cost') {
+                    desc = false;
+                }
+                if (!desc) {
+                    return itemA[sortField] - itemB[sortField];
+                }
+                return itemB[sortField] - itemA[sortField];
             })
             .filter((craft) => {
                 // This is done after profit sorting
                 if (selectedStation !== 'top') {
                     return true;
                 }
-
-                if (addedStations.includes(craft.reward.source)) {
+                if (!craft.cost && !craft.profit && !craft.profitPerHour) {
+                    return false;
+                }
+                if (!addedStations[craft.stationId]) {
+                    addedStations[craft.stationId] = 0;
+                }
+                if (addedStations[craft.stationId] >= 2) {
                     return false;
                 }
 
-                addedStations.push(craft.reward.source);
+                addedStations[craft.stationId]++;
 
                 return true;
             });
@@ -466,7 +494,8 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         showAll,
         averagePrices,
         meta,
-        settings
+        settings,
+        sortState,
     ]);
 
     const columns = useMemo(
@@ -621,6 +650,9 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
             sortBy={'profit'}
             sortByDesc={true}
             autoResetSortBy={false}
+            onSort={newSortState => {
+                setSortState(newSortState);
+            }}
         />
     );
 }

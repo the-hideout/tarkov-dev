@@ -34,6 +34,10 @@ function Crafts() {
         'averageCraftingPrices',
         false,
     );
+    const [excludeBarterIngredients, setExcludeBarterIngredients] = useStateWithLocalStorage(
+        'excludeBarterIngredients',
+        false,
+    );
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
         'selectedStation',
         'top',
@@ -112,6 +116,16 @@ function Crafts() {
                             </>
                         }
                     />
+                    <ToggleFilter
+                        checked={excludeBarterIngredients}
+                        label={t('Exclude barters')}
+                        onChange={(e) => setExcludeBarterIngredients(!excludeBarterIngredients)}
+                        tooltipContent={
+                            <>
+                                {t('Exclude barter trades as item sources')}
+                            </>
+                        }
+                    />
                     <ButtonGroupFilter>
                         {stations.map((station) => {
                             return (
@@ -173,6 +187,7 @@ function Crafts() {
                 showAll={showAll}
                 averagePrices={averagePrices}
                 selectedStation={selectedStation}
+                excludeBarterIngredients={excludeBarterIngredients}
                 key="crafts-page-crafts-table"
             />
 

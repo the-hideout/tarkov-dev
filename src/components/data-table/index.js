@@ -21,6 +21,7 @@ function DataTable({
     maxItems,
     nameFilter,
     autoScroll,
+    onSort,
 }) {
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
@@ -78,7 +79,10 @@ function DataTable({
 
     useEffect(() => {
         storageSetSortBy(sortByState);
-    }, [storageSetSortBy, sortByState]);
+        if (typeof onSort === 'function') {
+            onSort(sortByState);
+        }
+    }, [storageSetSortBy, sortByState, onSort]);
 
     useEffect(() => {
         if (nameFilter && (sortByState[0]?.id === 'name' || sortByState[0]?.id === undefined)) {
