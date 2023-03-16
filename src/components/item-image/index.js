@@ -29,6 +29,8 @@ function ItemImage({
     attributes = [],
     count,
     isFIR = false,
+    isTool = false,
+    nonFunctional = false,
     linkToItem = false,
     className,
     style,
@@ -134,7 +136,7 @@ function ItemImage({
         };
     }, [item]);
 
-    const nonFunctional = useMemo(() => {
+    const nonFunctionalElement = useMemo(() => {
         if (!nonFunctionalOverlay || !item.types.includes('gun') || !item.properties?.defaultPreset) {
             return <></>;
         }
@@ -159,17 +161,37 @@ function ItemImage({
         return <div className='item-nonfunctional-mask' onClick={openImageViewer} style={nonFunctionalStyle}/>;
     }, [item, nonFunctionalOverlay, backgroundScale, openImageViewer, imageViewer]);
 
-    let borderColor = 'rgb(73, 81, 84)';
-    if (attributes?.some(att => att.type === 'tool')) {
-        borderColor = '#0292c0';
-    }
-    if (item.types.includes('gun')) {
-        if (attributes?.some(att => att.type === 'functional' && !Boolean(att.value))) {
-            borderColor = '#c00802';
+    const toolOverride = useMemo(() => {
+        return isTool || attributes?.some(att => att.name === 'tool');
+    }, [attributes, isTool]);
+
+    const borderColor = useMemo(() => {
+        let color = 'rgb(73, 81, 84)';
+        if (toolOverride) {
+            color = '#0292c0';
         }
-    }
+        if (item.types.includes('gun')) {
+            if (nonFunctional) {
+                color = '#c00802';
+            }
+        }
+        return color;
+    }, [item, toolOverride, nonFunctional]);
+    
 
     const backgroundStyle = useMemo(() => {
+        if (imageField === 'iconLink') {
+            const iconStyle = {
+                position: 'relative',
+                maxHeight: `${imageDimensions.height || 64}px`,
+                maxWidth:  `${imageDimensions.width || 64}px`,
+            };
+            if (toolOverride || nonFunctional) {
+                iconStyle.outline = `1px solid ${borderColor}`;
+                iconStyle.outlineOffset = `-1px`;
+            }
+            return iconStyle;
+        }
         let sizeFactor = 1;
         if (imageField === 'image512pxLink') {
             sizeFactor = 512 / ((item.width * 63) + 1);
@@ -182,13 +204,6 @@ function ItemImage({
         }
         let width = imageDimensions.width || (((item.width * 63) + 1) * sizeFactor);
         let height = imageDimensions.height || (((item.height * 63) + 1) * sizeFactor);
-        if (imageField === 'iconLink') {
-            return {
-                position: 'relative',
-                maxHeight: `${height}px`,
-                maxWidth:  `${width}px`,
-            };
-        }
         const gridSvg = () => 
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
                 <defs>
@@ -218,7 +233,7 @@ function ItemImage({
             maxWidth:  `${width}px`,
         };
         return backgroundStyle;
-    }, [backgroundScale, borderColor, colorString, imageField, gridPercentX, gridPercentY, item, imageDimensions]);
+    }, [backgroundScale, borderColor, colorString, imageField, gridPercentX, gridPercentY, item, imageDimensions, toolOverride, nonFunctional]);
 
     const imageTextStyle = useMemo(() => {
         if (imageField === 'iconLink' || item.types.includes('loading')) {
@@ -250,7 +265,7 @@ function ItemImage({
         <div ref={refContainer} style={{...backgroundStyle, ...style}} className={className}>
             {loadingImage}
             {imageElement}
-            {nonFunctional}
+            {nonFunctionalElement}
             <div style={imageTextStyle}>{item.shortName}</div>
             <div style={itemExtraStyle}>
                 {isFIR && <Tippy

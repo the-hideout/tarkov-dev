@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import ItemCost from '../item-cost';
-import RewardImage from '../reward-image';
+import ItemImage from '../item-image';
 
 import './index.css';
 
@@ -47,10 +47,13 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                         }}
                     >
                         <div className="cost-image-wrapper">
-                            <RewardImage
+                            <ItemImage
+                                item={costItem.item}
+                                attributes={costItem.attributes}
                                 count={costItem.count}
-                                iconLink={costItem.iconLink}
-                                isTool={costItem.isTool}
+                                imageField="iconLink"
+                                nonFunctionalOverlay={false}
+                                linkToItem={true}
                                 nonFunctional={costItem.nonFunctional}
                             />
                         </div>
