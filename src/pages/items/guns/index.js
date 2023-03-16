@@ -69,7 +69,6 @@ function Guns() {
 
             <SmallItemTable
                 nameFilter={nameFilter}
-                totalTraderPrice={true}
                 typeFilter="gun"
                 showAllSources={showAllItemSources}
                 showPresets

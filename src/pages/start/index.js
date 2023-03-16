@@ -99,7 +99,6 @@ function Start() {
                         nameFilter={nameFilter}
                         defaultRandom={true}
                         autoScroll={loadMoreState}
-                        totalTraderPrice={true}
                         showSlotValue
                         fleaValue
                         traderValue={1}

@@ -48,11 +48,24 @@ function getItemCountPrice(item) {
     );
 }
 
-function TraderSellCell(datum, totalTraderPrice = false, showSlotValue = false) {
+function TraderSellCell(datum, showSlotValue = false) {
     const { t } = useTranslation();
     
     if (!datum.row.original.sellForTradersBest) {
-        return null;
+        return (
+            <div className="center-content">
+                <Tippy
+                    placement="bottom"
+                    content={t("This item can't be sold to traders")}
+                >
+                    <Icon
+                        path={mdiCloseOctagon}
+                        size={1}
+                        className="icon-with-text"
+                    />
+                </Tippy>
+            </div>
+        );
     }
 
     const sellForTradersBest = datum.row.original.sellForTradersBest;
@@ -243,7 +256,6 @@ function SmallItemTable(props) {
         showAllSources,
         cheapestPrice,
         sumColumns,
-        totalTraderPrice,
         idFilter,
         useClassEffectiveDurability,
         excludeArmor,
@@ -403,7 +415,6 @@ function SmallItemTable(props) {
                     return true;
                 }),
                 sellFor: itemData.sellFor,
-                sellForTradersBest: null,
                 buyOnFleaPrice: itemData.buyFor.find(
                     (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market' && (showAllSources || settings.hasFlea),
                 ),
@@ -431,30 +442,28 @@ function SmallItemTable(props) {
                 cached: itemData.cached,
             };
 
-            let sellForTraders = itemData.sellFor.filter(sellFor => {
-                if (sellFor.vendor.normalizedName === 'flea-market') 
-                    return false;
-                if (!showAllSources && !settings.jaeger && sellFor.vendor.normalizedName === 'jaeger') 
-                    return false;
-                return true;
-            });
-            const noneTrader = {
-                price: 0,
-                priceRUB: 0,
-                currency: 'RUB',
-                vendor: {
-                    name: 'unknown',
-                    normalizedName: 'unknown',
-                },
-            }
-            formattedItem.sellForTradersBest = sellForTraders[0] || noneTrader;
+            formattedItem.sellForTradersBest = itemData.sellFor.reduce((best, sellFor) => {
+                if (sellFor.vendor.normalizedName === 'flea-market') {
+                    return best;
+                }
+
+                if (!showAllSources && !settings.jaeger && sellFor.vendor.normalizedName === 'jaeger') {
+                    return best;
+                }
+
+                if (!best || best.priceRUB < sellFor.priceRUB) {
+                    return sellFor;
+                }
+
+                return best;
+            }, undefined);
 
             if (!showAllSources && !settings.hasFlea) {
                 formattedItem.buyOnFleaPrice = 0
             }
 
             if (formattedItem.buyOnFleaPrice && formattedItem.buyOnFleaPrice.price > 0) {
-                formattedItem.instaProfit = formattedItem.sellForTradersBest.priceRUB - formattedItem.buyOnFleaPrice.price;
+                formattedItem.instaProfit = formattedItem.sellForTradersBest?.priceRUB - formattedItem.buyOnFleaPrice.price;
             }
 
             if (formattedItem.barters.length > 0) {
@@ -636,9 +645,6 @@ function SmallItemTable(props) {
                 item.sellFor = item.sellFor?.filter(
                     (sell) => sell.vendor.normalizedName === traderFilter,
                 );
-                item.sellForTradersBest = item.sellFor?.sort((a, b) => {
-                    return b.priceRUB - a.priceRUB;
-                })[0];
 
                 if (item.buyOnFleaPrice) {
                     item.instaProfit = item.sellForTradersBest?.priceRUB - item.buyOnFleaPrice.price;
@@ -1078,8 +1084,8 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Sell to Trader'),
                 id: 'traderValue',
-                accessor: (d) => Number(d.sellForTradersBest.priceRUB),
-                Cell: (datum) => TraderSellCell(datum, totalTraderPrice, showSlotValue),
+                accessor: (d) => Number(d.sellForTradersBest?.priceRUB || 0),
+                Cell: (datum) => TraderSellCell(datum, showSlotValue),
                 summable: true,
                 position: traderValue,
             });
@@ -1789,7 +1795,6 @@ function SmallItemTable(props) {
         fragChance,
         cheapestPrice,
         blindnessProtection,
-        totalTraderPrice,
         useClassEffectiveDurability,
         useAllProjectileDamage,
         hydration,

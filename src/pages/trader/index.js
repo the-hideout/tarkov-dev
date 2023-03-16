@@ -245,7 +245,6 @@ function Trader() {
                     loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
                     traderBuybackFilter={selectedTable === 'spending' ? true : false}
                     maxItems={selectedTable === 'spending' ? 50 : false}
-                    totalTraderPrice={true}
                     traderValue={selectedTable === 'spending' ? 1 : false}
                     fleaPrice={selectedTable === 'spending' ? 2 : 1}
                     traderPrice={selectedTable === 'spending' ? false : 2}
