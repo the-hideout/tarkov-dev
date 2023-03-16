@@ -163,7 +163,7 @@ const BitcoinFarmCalculator = () => {
                 {Boolean(graphicCardItem) && (
                     <RewardCell
                         id={graphicCardItem.id}
-                        count={1}
+                        item={graphicCardItem}
                         iconLink={graphicCardItem.iconLink}
                         itemLink={`/item/${graphicCardItem.normalizedName}`}
                         name={graphicCardItem.name}
@@ -177,7 +177,7 @@ const BitcoinFarmCalculator = () => {
                 {Boolean(bitcoinItem) && (
                     <RewardCell
                         id={bitcoinItem.id}
-                        count={1}
+                        item={bitcoinItem}
                         iconLink={bitcoinItem.iconLink}
                         itemLink={`/item/${bitcoinItem.normalizedName}`}
                         name={bitcoinItem.name}

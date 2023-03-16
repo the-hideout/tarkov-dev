@@ -393,6 +393,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                         }
                     ],
                     reward: {
+                        item: barterRow.rewardItems[0].item,
                         id: barterRow.rewardItems[0].item.id,
                         name: barterRow.rewardItems[0].item.name,
                         itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,

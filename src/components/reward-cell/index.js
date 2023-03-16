@@ -6,7 +6,7 @@ import Tippy from '@tippyjs/react';
 import Icon from '@mdi/react';
 import { mdiCloseBox, mdiCheckboxMarked, mdiClipboardList } from '@mdi/js';
 
-import RewardImage from '../reward-image';
+import ItemImage from '../item-image';
 
 import formatPrice from '../../modules/format-price';
 
@@ -15,11 +15,8 @@ import { setCustomSellValue } from '../../features/items/itemsSlice';
 import './index.css';
 
 function RewardCell({
-    id,
+    item,
     count,
-    iconLink,
-    itemLink,
-    name,
     source,
     sellValue,
     sellTo,
@@ -105,7 +102,7 @@ function RewardCell({
                         onClick={(event) => {
                             dispatch(
                                 setCustomSellValue({
-                                    itemId: id,
+                                    itemId: item.id,
                                     price: customPrice
                                 }),
                             );
@@ -119,7 +116,7 @@ function RewardCell({
                         onClick={(event) => {
                             dispatch(
                                 setCustomSellValue({
-                                    itemId: id,
+                                    itemId: item.id,
                                     price: false
                                 }),
                             );
@@ -130,7 +127,7 @@ function RewardCell({
                 <span>{shownSellTo}</span>
             </span>
         );
-    }, [dispatch, id, sellValue, sellType, sellTo, customPrice, setCustomPrice, editingCustomPrice, setEditingCustomPrice, t]);
+    }, [dispatch, item, sellValue, sellType, sellTo, customPrice, setCustomPrice, editingCustomPrice, setEditingCustomPrice, t]);
 
     if (sellNote) {
         sellNote = (<span> ({sellNote})</span>);
@@ -142,15 +139,18 @@ function RewardCell({
 
     return (
         <div className="reward-wrapper">
-            <RewardImage 
-                count={count} 
-                iconLink={iconLink} 
+            <ItemImage
+                item={item}
+                count={count}
+                imageField={'iconLink'}
                 isFIR={isFIR}
+                linkToItem={true}
+                style={{marginRight: '10px'}}
             />
             <div className="reward-info-wrapper">
                 <div>
-                    <Link className="reward-item-title" to={itemLink}>
-                        {name}
+                    <Link className="reward-item-title" to={`/item/${item.normalizedName}`}>
+                        {item.name}
                     </Link>
                 </div>
                 <div className="reward-info-source">{source}{taskTooltip}</div>

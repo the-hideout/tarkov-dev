@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import {renderToStaticMarkup} from "react-dom/server";
 import { Link } from "react-router-dom";
 import ImageViewer from 'react-simple-image-viewer';
+import { useTranslation } from 'react-i18next';
+import Tippy from '@tippyjs/react';
 
 import './index.css';
 
@@ -28,7 +30,10 @@ function ItemImage({
     count,
     isFIR = false,
     linkToItem = false,
+    className,
+    style,
 }) {
+    const { t } = useTranslation();
     const refContainer = useRef();
     /*const [containerDimensions, setDimensions] = useState({ width: 0, height: 0 });
     useEffect(() => {
@@ -166,9 +171,6 @@ function ItemImage({
 
     const backgroundStyle = useMemo(() => {
         let sizeFactor = 1;
-        if (imageField === 'iconLink') {
-            return {position: 'relative'};
-        }
         if (imageField === 'image512pxLink') {
             sizeFactor = 512 / ((item.width * 63) + 1);
             if (item.height > item.width) {
@@ -180,6 +182,13 @@ function ItemImage({
         }
         let width = imageDimensions.width || (((item.width * 63) + 1) * sizeFactor);
         let height = imageDimensions.height || (((item.height * 63) + 1) * sizeFactor);
+        if (imageField === 'iconLink') {
+            return {
+                position: 'relative',
+                maxHeight: `${height}px`,
+                maxWidth:  `${width}px`,
+            };
+        }
         const gridSvg = () => 
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
                 <defs>
@@ -238,13 +247,18 @@ function ItemImage({
     };
 
     return (
-        <div ref={refContainer} style={backgroundStyle}>
+        <div ref={refContainer} style={{...backgroundStyle, ...style}} className={className}>
             {loadingImage}
             {imageElement}
             {nonFunctional}
             <div style={imageTextStyle}>{item.shortName}</div>
             <div style={itemExtraStyle}>
-                {isFIR && <img alt="" className="item-image-fir" loading="lazy" src={`${process.env.PUBLIC_URL}/images/icon-fir.png`} />}
+                {isFIR && <Tippy
+                    placement="bottom"
+                    content={t('Found In Raid')}
+                >
+                    <img alt="" className="item-image-fir" loading="lazy" src={`${process.env.PUBLIC_URL}/images/icon-fir.png`} />
+                </Tippy>}
                 {count && <span className="item-image-count">{count}</span>}
             </div>
             {children}

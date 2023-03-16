@@ -339,6 +339,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     craftTime: craftDuration,
                     reward: {
                         id: craftRow.rewardItems[0].item.id,
+                        item: craftRow.rewardItems[0].item,
                         name: craftRow.rewardItems[0].item.name,
                         wikiLink: craftRow.rewardItems[0].item.wikiLink,
                         itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
