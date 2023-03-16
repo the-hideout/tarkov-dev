@@ -26,7 +26,7 @@ jobs:
           skip_ci: "development"
           skip_reviews: "development"
           environment_targets: "production,development"
-          environment_urls: "production|https://tarkov.dev,development|''"
+          environment_urls: "production|https://tarkov.dev,development|disabled"
 
       - name: Checkout
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
