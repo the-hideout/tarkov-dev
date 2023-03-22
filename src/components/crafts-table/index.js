@@ -311,7 +311,9 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     (costItem) => (totalCost = totalCost + costItem.price * costItem.count),
                 );
 
-                const bestSellTo = craftRow.rewardItems[0].item.sellFor.reduce(
+                const craftRewardItem = craftRow.rewardItems[0].item;
+
+                const bestSellTo = craftRewardItem.sellFor.reduce(
                     (previousSellFor, currentSellFor) => {
                         if (currentSellFor.vendor.normalizedName === 'flea-market') {
                             return previousSellFor;
@@ -338,11 +340,11 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     cost: totalCost,
                     craftTime: craftDuration,
                     reward: {
-                        id: craftRow.rewardItems[0].item.id,
-                        name: craftRow.rewardItems[0].item.name,
-                        wikiLink: craftRow.rewardItems[0].item.wikiLink,
-                        itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
-                        iconLink: craftRow.rewardItems[0].item.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+                        id: craftRewardItem.id,
+                        name: craftRewardItem.name,
+                        wikiLink: craftRewardItem.wikiLink,
+                        itemLink: `/item/${craftRewardItem.normalizedName}`,
+                        iconLink: craftRewardItem.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                         source: `${station} (${t('Level')} ${level})`,
                         count: craftRow.rewardItems[0].count,
                         sellTo: bestSellTo.vendor.name,
@@ -351,25 +353,25 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         taskUnlock: craftRow.taskUnlock,
                         isFIR: true,
                     },
-                    cached: craftRow.cached || craftRow.rewardItems[0].item.cached,
+                    cached: craftRow.cached || craftRewardItem.cached,
                     stationId: craftRow.station.id,
                 };
 
                 let fleaFeeSingle = 0;
                 let fleaFeeTotal = 0;
-                let fleaPriceToUse = craftRow.rewardItems[0].item[averagePrices === true ? 'avg24hPrice' : 'lastLowPrice'];
+                let fleaPriceToUse = craftRewardItem[averagePrices === true ? 'avg24hPrice' : 'lastLowPrice'];
                 if (fleaPriceToUse === 0) {
-                    fleaPriceToUse = craftRow.rewardItems[0].item.lastLowPrice;
+                    fleaPriceToUse = craftRewardItem.lastLowPrice;
                 }
 
-                if (!tradeData.cached && !craftRow.rewardItems[0].item.types.includes('noFlea') && (showAll || includeFlea)) {
-                    const bestFleaPrice = bestPrice(craftRow.rewardItems[0].item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate, fleaPriceToUse);
+                if (!tradeData.cached && !craftRewardItem.types.includes('noFlea') && (showAll || includeFlea)) {
+                    const bestFleaPrice = bestPrice(craftRewardItem, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate, fleaPriceToUse);
                     if (!craftRow.rewardItems[0].priceCustom && (fleaPriceToUse === 0 || bestFleaPrice.bestPrice < fleaPriceToUse)) {
                         fleaPriceToUse = bestFleaPrice.bestPrice;
                         fleaFeeSingle = bestFleaPrice.bestPriceFee;
                     } else {
                         fleaFeeSingle = fleaMarketFee(
-                            craftRow.rewardItems[0].item.basePrice,
+                            craftRewardItem.basePrice,
                             fleaPriceToUse,
                             1,
                             meta?.flea?.sellOfferFeeRate,
@@ -377,7 +379,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         ) * feeReduction;
                     }
                     fleaFeeTotal = fleaMarketFee(
-                        craftRow.rewardItems[0].item.basePrice,
+                        craftRewardItem.basePrice,
                         fleaPriceToUse,
                         craftRow.rewardItems[0].count,
                         meta?.flea?.sellOfferFeeRate,
@@ -391,12 +393,12 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         fleaFeeSingle = 0;
                         fleaFeeTotal = 0;
                     }
-                } else if (craftRow.rewardItems[0].item.types.includes('noFlea')) {
+                } else if (craftRewardItem.types.includes('noFlea')) {
                     tradeData.reward.sellNote = t('Flea banned');
                 }
 
-                if (craftRow.rewardItems[0].item.priceCustom) {
-                    tradeData.reward.sellValue = craftRow.rewardItems[0].item.priceCustom;
+                if (craftRewardItem.priceCustom) {
+                    tradeData.reward.sellValue = craftRewardItem.priceCustom;
                     tradeData.reward.sellType = 'custom';
                 }
 
