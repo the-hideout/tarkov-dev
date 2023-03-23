@@ -50,6 +50,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          wranglerVersion: '2.13.0'
           command: pages publish build/ --project-name=tarkov-dev --branch=main
 
       # Uncomment to enable Sentry releases via CI
