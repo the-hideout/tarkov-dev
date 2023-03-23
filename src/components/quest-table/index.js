@@ -395,7 +395,7 @@ function QuestTable({
                         if (!reqQuest)
                             return null;
                         let completedIcon = '';
-                        if (req.status.includes('complete') && settings.completedQuests.includes(questData.iu)) {
+                        if (req.status.includes('complete') && settings.completedQuests.includes(questData.id)) {
                             completedIcon = (
                                 <Icon
                                     path={mdiClipboardCheck}
