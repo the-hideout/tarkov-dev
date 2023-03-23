@@ -374,13 +374,13 @@ function Quest() {
             if (objective.maxDurability && objective.maxDurability < 100) {
                 attributes.push({
                     name: t('Max durability'),
-                    value: objective.maxDurability,
+                    value: objective.maxDurability+'%',
                 });
             }
             if (objective.minDurability > 0) {
                 attributes.push({
                     name: t('Min durability'),
-                    value: objective.minDurability,
+                    value: objective.minDurability+'%',
                 });
             }
             taskDetails = (
