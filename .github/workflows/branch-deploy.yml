@@ -57,16 +57,15 @@ jobs:
           wranglerVersion: '2.13.0'
           command: pages publish build/ --project-name=tarkov-dev --branch=preview | tee output.txt
 
-      # fetch the dev url from the stdout and save it to an output variable
-      - name: fetch development url
+      # fetch the dev url from stdout and save add it to the deploy message
+      - name: add development url to deploy message
         if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
           steps.branch-deploy.outputs.noop != 'true' &&
           steps.branch-deploy.outputs.environment == 'development' }}
-        id: dev-url
         run: |
           dev_url=$(cat output.txt | grep 'Deployment complete! Take a peek over at' | awk '{print $NF}')
           dev_url=$(echo $text | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
-          echo "dev_url=${dev_url}" >> $GITHUB_OUTPUT
+          echo "DEPLOY_MESSAGE=${dev_url}" >> $GITHUB_ENV
 
       - name: deploy - prod
         id: prod-deploy
