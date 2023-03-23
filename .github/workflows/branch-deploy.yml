@@ -18,13 +18,15 @@ jobs:
 
     steps:
 
-      - uses: github/branch-deploy@v5.0.0
+      - uses: github/branch-deploy@v5.1.0
         id: branch-deploy
         with:
           admins: the-hideout/core-contributors
           admins_pat: ${{ secrets.BRANCH_DEPLOY_ADMINS_PAT }}
-          skip_ci: "development"
-          skip_reviews: "development"
+          skip_ci: development
+          skip_reviews: development
+          environment_targets: production,development
+          environment_urls: production|https://tarkov.dev,development|disabled
 
       - name: Checkout
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
