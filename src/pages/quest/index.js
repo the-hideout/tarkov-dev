@@ -936,10 +936,6 @@ function Quest() {
                         <ul className="quest-item-list">
                             {currentQuest.finishRewards.traderStanding.map((standing) => {
                                 const trader = traders.find((t) => t.id === standing.trader.id);
-                                let sign = '';
-                                if (standing.standing > 0) {
-                                    sign = '+';
-                                }
                                 return (
                                     <li className="quest-list-item" key={standing.trader.id}>
                                         <TraderImage
