@@ -333,11 +333,20 @@ function Quest() {
             );
         }
         if (objective.type === 'extract') {
+            let extract = <></>;
+            if (objective.exitName) {
+                extract = (
+                    <div>{t('using extract: {{extractName}}', {extractName: objective.exitName})}</div>
+                );
+            }
             taskDetails = (
                 <>
-                    {t('Extract with the status(es): {{extractStatuses, list(type: disjunction)}}', {
-                        extractStatuses: objective.exitStatus,
-                    })}
+                    <>
+                        {t('Extract with the status(es): {{extractStatuses, list(type: disjunction)}}', {
+                            extractStatuses: objective.exitStatus,
+                        })}
+                    </>
+                    {extract}
                 </>
             );
         }
@@ -455,6 +464,11 @@ function Quest() {
                     <>
                         {shootString}
                     </>
+                    {objective.timeFromHour && (
+                        <div>
+                            {t('During hours: {{hourStart}}:00 to {{hourEnd}}:00', {hourStart: objective.timeFromHour, hourEnd: objective.timeUntilHour})}
+                        </div>
+                    )}
                     {objective.distance && (
                         <div>
                             {t('From distance: {{operator}} {{count}} meters', {
@@ -958,7 +972,7 @@ function Quest() {
                 {currentQuest.finishRewards?.offerUnlock?.length > 0 && (
                     <>
                         <h3>{t('Trader Offer Unlock')}</h3>
-                        <ul>
+                        <ul className="quest-item-list">
                             {currentQuest.finishRewards.offerUnlock.map((unlock, index) => {
                                 const trader = traders.find((t) => t.id === unlock.trader.id);
                                 const item = items.find((i) => i.id === unlock.item.id);
@@ -966,12 +980,15 @@ function Quest() {
                                     return null;
                                 return (
                                     <li className="quest-list-item" key={`${unlock.item.id}-${index}`}>
-                                        <Link to={`/item/${item.normalizedName}`}>{item.name}</Link>
-                                        <span>{' @ '}</span>
-                                        <Link to={`/trader/${trader.normalizedName}`}>
-                                            {trader.name}
-                                        </Link>
-                                        <span>{` ${t('LL{{level}}', { level: unlock.level })}`}</span>
+                                        <ItemImage
+                                            key={`reward-index-${item.id}-${index}`}
+                                            item={item}
+                                            imageField="baseImageLink"
+                                            nonFunctionalOverlay={false}
+                                            linkToItem={true}
+                                            trader={trader}
+                                            count={t('LL{{level}}', { level: unlock.level })}
+                                        />
                                     </li>
                                 );
                             })}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import {renderToStaticMarkup} from "react-dom/server";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ImageViewer from 'react-simple-image-viewer';
 import { useTranslation } from 'react-i18next';
 import Tippy from '@tippyjs/react';
@@ -32,10 +32,12 @@ function ItemImage({
     isTool = false,
     nonFunctional = false,
     linkToItem = false,
+    trader,
     className,
     style,
 }) {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const refContainer = useRef();
     /*const [containerDimensions, setDimensions] = useState({ width: 0, height: 0 });
     useEffect(() => {
@@ -239,7 +241,7 @@ function ItemImage({
         if (imageField === 'iconLink' || item.types.includes('loading')) {
             return {display: 'none'};
         }
-        return {
+        const style = {
             position: 'absolute',
             top: `${Math.min(backgroundScale + imageScale, 4)}px`,
             right: `${Math.min(backgroundScale + (1.5*imageScale), 7)}px`,
@@ -250,7 +252,20 @@ function ItemImage({
             fontSize: `${textSize}px`,
             textAlign: 'right',
         };
-    }, [imageField, imageScale, textSize, backgroundScale, item]); 
+        if (linkToItem) {
+            style.cursor = 'pointer';
+        }
+        return style;
+    }, [imageField, imageScale, textSize, backgroundScale, item, linkToItem]);
+
+    const imageTextClick = useMemo(() => {
+        if (!linkToItem) {
+            return () => {};
+        }
+        return () => {
+            navigate(`/item/${item.normalizedName}`);
+        };
+    }, [item, linkToItem, navigate]);
 
     const itemExtraStyle = {
         position: 'absolute',
@@ -261,12 +276,32 @@ function ItemImage({
         alignItems: 'flex-end',
     };
 
+    const traderElementStyle = useMemo(() => {
+        return {
+            position: 'absolute',
+            bottom: `${backgroundScale}px`,
+            left: `${backgroundScale}px`,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-end',
+            maxWidth: `${24 * imageScale}px`,
+            maxHeight: `${24 * imageScale}px`,
+        };
+    }, [backgroundScale, imageScale]);
+
+    const traderImageStyle = useMemo(() => {
+        return {
+            maxWidth: `${24 * imageScale}px`,
+            maxHeight: `${24 * imageScale}px`,
+        };
+    }, [imageScale]);
+
     return (
         <div ref={refContainer} style={{...backgroundStyle, ...style}} className={className}>
             {loadingImage}
             {imageElement}
             {nonFunctionalElement}
-            <div style={imageTextStyle}>{item.shortName}</div>
+            <div style={imageTextStyle} onClick={imageTextClick}>{item.shortName}</div>
             <div style={itemExtraStyle}>
                 {isFIR && <Tippy
                     placement="bottom"
@@ -276,6 +311,16 @@ function ItemImage({
                 </Tippy>}
                 {count && <span className="item-image-count">{count}</span>}
             </div>
+            {trader && <div style={traderElementStyle}>
+                <Tippy
+                    placement="top"
+                    content={trader.name}
+                >
+                    <Link to={`/trader/${trader.normalizedName}`}>
+                        <img alt={trader.name} src={`/images/traders/${trader.normalizedName}-icon.jpg`} style={traderImageStyle}/>
+                    </Link>
+                </Tippy>
+            </div>}
             {children}
             {isViewerOpen && (
                 <ImageViewer

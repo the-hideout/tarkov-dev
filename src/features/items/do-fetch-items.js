@@ -349,6 +349,10 @@ const doFetchItems = async (language, prebuild = false) => {
                         recoilVertical
                         recoilHorizontal
                         sightingRange
+                        recoilAngle
+                        recoilDispersion
+                        convergence
+                        cameraRecoil
                         slots {
                             filters {
                                 allowedCategories {
