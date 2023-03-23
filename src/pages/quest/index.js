@@ -11,6 +11,7 @@ import ErrorPage from '../../components/error-page';
 import TaskSearch from '../../components/task-search';
 import LoadingSmall from '../../components/loading-small';
 import ItemImage from '../../components/item-image';
+import TraderImage from '../../components/trader-image'
 
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
 import { useTradersQuery } from '../../features/traders/queries';
@@ -932,7 +933,7 @@ function Quest() {
                 {currentQuest.finishRewards?.traderStanding?.length > 0 && (
                     <>
                         <h3>{t('Trader Standing')}</h3>
-                        <ul>
+                        <ul className="quest-item-list">
                             {currentQuest.finishRewards.traderStanding.map((standing) => {
                                 const trader = traders.find((t) => t.id === standing.trader.id);
                                 let sign = '';
@@ -941,14 +942,10 @@ function Quest() {
                                 }
                                 return (
                                     <li className="quest-list-item" key={standing.trader.id}>
-                                        <Link to={`/trader/${trader.normalizedName}`}>
-                                            {trader.name}
-                                        </Link>
-                                        <span>
-                                            {' '}
-                                            {sign}
-                                            {standing.standing}
-                                        </span>
+                                        <TraderImage
+                                            trader={trader}
+                                            reputationChange={standing.standing}
+                                        />
                                     </li>
                                 );
                             })}
