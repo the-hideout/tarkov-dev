@@ -26,7 +26,7 @@ function About() {
             <h2>{t('Open source')}</h2>
             <Trans i18nKey={'about-open-source-p'}>
                 <p>
-                    The whole platform is open source and focused around developers. All code is available on <a href="https://github.com/the-hideout/tarkov-dev" target="_blank" rel="noopener noreferrer"><GithubIcon /> GitHub</a>.
+                    The whole platform is open source MAGIC and focused around developers. All code is available on <a href="https://github.com/the-hideout/tarkov-dev" target="_blank" rel="noopener noreferrer"><GithubIcon /> GitHub</a>.
                 </p>
             </Trans>
             <h2>{t('Discussions & feedback')}</h2>
