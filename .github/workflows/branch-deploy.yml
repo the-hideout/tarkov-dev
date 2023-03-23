@@ -44,6 +44,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
 
+      # deploy to the dev env and also save the stdout to a file
       - name: deploy - dev
         id: dev-deploy
         if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
@@ -54,7 +55,18 @@ jobs:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           wranglerVersion: '2.13.0'
-          command: pages publish build/ --project-name=tarkov-dev --branch=preview
+          command: pages publish build/ --project-name=tarkov-dev --branch=preview | tee output.txt
+
+      # fetch the dev url from the stdout and save it to an output variable
+      - name: fetch development url
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
+          steps.branch-deploy.outputs.noop != 'true' &&
+          steps.branch-deploy.outputs.environment == 'development' }}
+        id: dev-url
+        run: |
+          dev_url=$(cat output.txt | grep 'Deployment complete! Take a peek over at' | awk '{print $NF}')
+          dev_url=$(echo $text | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+          echo "dev_url=${dev_url}" >> $GITHUB_OUTPUT
 
       - name: deploy - prod
         id: prod-deploy
