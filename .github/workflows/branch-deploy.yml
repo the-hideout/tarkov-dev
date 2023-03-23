@@ -18,7 +18,7 @@ jobs:
 
     steps:
 
-      - uses: github/branch-deploy@v5.1.0
+      - uses: github/branch-deploy@v5.1.1
         id: branch-deploy
         with:
           admins: the-hideout/core-contributors
@@ -30,7 +30,7 @@ jobs:
 
       - name: Checkout
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
         with:
           ref: ${{ steps.branch-deploy.outputs.ref }}
 
