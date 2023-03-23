@@ -391,7 +391,7 @@ function Quest() {
                         imageField="baseImageLink"
                         nonFunctionalOverlay={false}
                         linkToItem={true}
-                        count={objective.count}
+                        count={objective.count > 1 ? objective.count : false}
                         isFIR={objective.foundInRaid}
                     />
                     </>
@@ -921,7 +921,7 @@ function Quest() {
                                             imageField="baseImageLink"
                                             nonFunctionalOverlay={false}
                                             linkToItem={true}
-                                            count={rewardItem.count}
+                                            count={rewardItem.count > 1 ? rewardItem.count : false}
                                             isFIR={true}
                                         />
                                     </li>
