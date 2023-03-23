@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
 
       # check to ensure all JSON files are valid in the repository
       - name: json syntax check
