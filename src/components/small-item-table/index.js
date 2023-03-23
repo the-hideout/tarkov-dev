@@ -419,7 +419,12 @@ function SmallItemTable(props) {
                     (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market' && (showAllSources || settings.hasFlea),
                 ),
                 barters: barters.filter(
-                    (barter) => barter.rewardItems[0].item.id === itemData.id,
+                    (barter) => {
+                        if (!barter.rewardItems[0]) {
+                            return false;
+                        }
+                        return barter.rewardItems[0].item.id === itemData.id;
+                    },
                 ),
                 grid: itemData.grid,
                 pricePerSlot: showNetPPS ? Math.floor(itemData.avg24hPrice / (itemData.properties.capacity - (itemData.width * itemData.height)))
@@ -733,7 +738,7 @@ function SmallItemTable(props) {
                     const damageB = b.properties.damage;
                     if (damageA === damageB)
                         return a.name.localeCompare(b.name);
-                    return damageB - damageA;
+                    return damageA - damageB;
                 }
                 return caliberA.localeCompare(caliberB);
             });

@@ -354,7 +354,9 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     (costItem) => (cost = cost + costItem.price * costItem.count),
                 );
 
-                const bestSellTo = barterRow.rewardItems[0].item.sellFor.reduce(
+                const barterRewardItem = barterRow.rewardItems[0].item;
+
+                const bestSellTo = barterRewardItem.sellFor.reduce(
                     (previousSellFor, currentSellFor) => {
                         if (currentSellFor.vendor.normalizedName === 'flea-market') {
                             return previousSellFor;
@@ -392,7 +394,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                         }
                     ],
                     reward: {
-                        item: barterRow.rewardItems[0].item,
+                        item: barterRewardItem,
                         source: `${barterRow.trader.name} ${t('LL{{level}}', { level: barterRow.level })}`,
                         sellTo: bestSellTo.vendor.name,
                         sellToNormalized: bestSellTo.vendor.normalizedName,
@@ -400,19 +402,19 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                         taskUnlock: barterRow.taskUnlock,
                         isFIR: false,
                     },
-                    cached: barterRow.cached || barterRow.rewardItems[0].item.cached,
+                    cached: barterRow.cached || barterRewardItem.cached,
                 };
 
-                if (barterRow.rewardItems[0].item.priceCustom) {
-                    tradeData.reward.sellValue = barterRow.rewardItems[0].item.priceCustom;
+                if (barterRewardItem.priceCustom) {
+                    tradeData.reward.sellValue = barterRewardItem.priceCustom;
                     tradeData.reward.sellType = 'custom';
                 }
                 
                 //tradeData.reward.sellTo = t(tradeData.reward.sellTo)
 
                 tradeData.savingsParts = [];
-                const cheapestPrice = getCheapestItemPrice(barterRow.rewardItems[0].item, settings, showAll);
-                const cheapestBarter = getCheapestItemPriceWithBarters(barterRow.rewardItems[0].item, barters, settings, showAll);
+                const cheapestPrice = getCheapestItemPrice(barterRewardItem, settings, showAll);
+                const cheapestBarter = getCheapestItemPriceWithBarters(barterRewardItem, barters, settings, showAll);
                 if (cheapestPrice.type === 'cash-sell'){
                     //this item cannot be purchased for cash
                     if (cheapestBarter.priceRUB !== cost) {
