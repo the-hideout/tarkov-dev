@@ -64,8 +64,9 @@ jobs:
           steps.branch-deploy.outputs.environment == 'development' }}
         run: |
           dev_url=$(cat output.txt | grep 'Deployment complete! Take a peek over at' | awk '{print $NF}')
-          dev_url=$(echo $text | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+          dev_url=$(echo $dev_url | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
           echo "DEPLOY_MESSAGE=${dev_url}" >> $GITHUB_ENV
+          echo "DEPLOY_MESSAGE=${dev_url}"
 
       - name: deploy - prod
         id: prod-deploy
