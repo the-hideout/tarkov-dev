@@ -6,7 +6,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import translationEN from './translations/en/translation.json';
 import translationDE from './translations/de/translation.json';
 import translationRU from './translations/ru/translation.json';
-// import translationIT from './translations/it/translation.json';
+import translationIT from './translations/it/translation.json';
 // import translationES from './translations/es/translation.json';
 import translationFR from './translations/fr/translation.json';
 // import translationJA from './translations/ja/translation.json';
@@ -15,14 +15,17 @@ import translationPT from './translations/pt/translation.json';
 
 import propertiesEN from './translations/en/properties.json';
 import propertiesRU from './translations/ru/properties.json';
+import propertiesIT from './translations/it/properties.json';
 import propertiesPL from './translations/pl/properties.json';
 
 import bossesEN from './translations/en/bosses.json';
 import bossesRU from './translations/ru/bosses.json';
+import bossesIT from './translations/it/bosses.json';
 import bossesPL from './translations/pl/bosses.json';
 
 import mapsEN from './translations/en/maps.json';
 import mapsRU from './translations/ru/maps.json';
+import mapsIT from './translations/it/maps.json';
 
 i18n
     // loads translations from your server
@@ -63,9 +66,12 @@ i18n
                 bosses: bossesRU,
                 maps: mapsRU,
             },
-            // it: {
-            //     translation: translationIT,
-            // },
+            it: {
+                translation: translationIT,
+                properties: propertiesIT,
+                bosses: bossesIT,
+                maps: mapsIT,
+            },
             // es: {
             //     translation: translationES,
             // },
