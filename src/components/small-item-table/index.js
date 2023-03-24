@@ -451,6 +451,9 @@ function SmallItemTable(props) {
                 if (sellFor.vendor.normalizedName === 'flea-market') {
                     return best;
                 }
+                if (traderBuybackFilter && traderFilter !== sellFor.vendor.normalizedName) {
+                    return best;
+                }
 
                 if (!showAllSources && !settings.jaeger && sellFor.vendor.normalizedName === 'jaeger') {
                     return best;
