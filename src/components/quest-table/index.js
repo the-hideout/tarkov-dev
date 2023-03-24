@@ -322,16 +322,10 @@ function QuestTable({
                     }
                     return (
                         <div className="quest-link-wrapper">
-                            <Link
-                                to={`/trader/${questData.trader.normalizedName}`}
-                            >
-                                <img
-                                    alt={questData.trader.name}
-                                    loading="lazy"
-                                    className="quest-giver-image"
-                                    src={`${process.env.PUBLIC_URL}/images/traders/${questData.trader.normalizedName}-icon.jpg`}
-                                />
-                            </Link>
+                            <TraderImage
+                                trader={questData.trader}
+                                style={{marginRight: '10px'}}
+                            />
                             <Link
                                 to={`/task/${questData.normalizedName}`}
                             >
@@ -501,19 +495,7 @@ function QuestTable({
                                 reputationChange={reward.standing}
                             />
                         })}
-                    </CenterCell>
-                    return (
-                        <CenterCell value={props.row.original.finishRewards.traderStanding?.reduce((standings, current) => {
-                            const trader = traders.find(t => t.id === current.trader.id);
-                            standings.push((
-                                <div key={trader.id}>
-                                    <Link to={`/trader/${trader.normalizedName}`}>{trader.name}</Link>
-                                    <span>: {current.standing}</span>
-                                </div>
-                            ));
-                            return standings;
-                        }, [])}/>
-                    );
+                    </CenterCell>;
                 },
                 position: reputationRewards,
             });
