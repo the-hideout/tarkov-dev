@@ -562,7 +562,7 @@ function QuestTable({
             data={shownQuests}
             extraRow={extraRow}
             autoResetSortBy={false}
-            sortBy='progression'
+            sortBy={'minimumLevel'}
         />
     );
 }
