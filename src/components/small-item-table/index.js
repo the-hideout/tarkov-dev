@@ -659,6 +659,9 @@ function SmallItemTable(props) {
                 }
 
                 if (traderBuybackFilter) {
+                    if (item.types.includes('preset')) {
+                        return false;
+                    }
                     return true;
                 }
 
