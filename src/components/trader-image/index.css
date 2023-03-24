@@ -8,3 +8,11 @@
     padding: 0 5px;
     text-align: center;
 }
+
+.positive-rep {
+    color: #00a700;
+}
+
+.negative-rep {
+    color: #a70000;
+}

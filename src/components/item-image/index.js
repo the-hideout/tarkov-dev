@@ -277,6 +277,10 @@ function ItemImage({
     };
 
     const traderElementStyle = useMemo(() => {
+        let scale = 24;
+        if (item.width > 1 && item.height > 1) {
+            scale = 48;
+        }
         return {
             position: 'absolute',
             bottom: `${backgroundScale}px`,
@@ -284,17 +288,21 @@ function ItemImage({
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'flex-end',
-            maxWidth: `${24 * imageScale}px`,
-            maxHeight: `${24 * imageScale}px`,
+            maxWidth: `${scale * imageScale}px`,
+            maxHeight: `${scale * imageScale}px`,
         };
-    }, [backgroundScale, imageScale]);
+    }, [backgroundScale, imageScale, item]);
 
     const traderImageStyle = useMemo(() => {
+        let scale = 24;
+        if (item.width > 1 && item.height > 1) {
+            scale = 48;
+        }
         return {
-            maxWidth: `${24 * imageScale}px`,
-            maxHeight: `${24 * imageScale}px`,
+            maxWidth: `${scale * imageScale}px`,
+            maxHeight: `${scale * imageScale}px`,
         };
-    }, [imageScale]);
+    }, [imageScale, item]);
 
     return (
         <div ref={refContainer} style={{...backgroundStyle, ...style}} className={className}>
