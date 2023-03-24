@@ -11,6 +11,7 @@ import CenterCell from '../center-cell';
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
 import { useItemsQuery } from '../../features/items/queries';
 import { useTradersQuery } from '../../features/traders/queries';
+import TraderImage from '../trader-image';
 
 import './index.css';
 
@@ -492,6 +493,15 @@ function QuestTable({
                     return a.original.totalRepReward - b.original.totalRepReward;
                 },
                 Cell: (props) => {
+                    return <CenterCell>
+                        {props.row.original.finishRewards.traderStanding.map(reward => {
+                            const trader = traders.find(t => t.id === reward.trader.id);
+                            return <TraderImage
+                                trader={trader}
+                                reputationChange={reward.standing}
+                            />
+                        })}
+                    </CenterCell>
                     return (
                         <CenterCell value={props.row.original.finishRewards.traderStanding?.reduce((standings, current) => {
                             const trader = traders.find(t => t.id === current.trader.id);

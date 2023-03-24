@@ -17,6 +17,16 @@ export default function TraderImage({trader, image = 'icon', reputationChange}) 
         return `${reputationChange}`;
     }, [reputationChange]);
 
+    const repClass = useMemo(() => {
+        if (isNaN(reputationChange) || !reputationChange) {
+            return 'trader-image-reputation';
+        }
+        if (reputationChange < 0) {
+            return 'trader-image-reputation negative-rep';
+        };
+        return 'trader-image-reputation positive-rep';
+    }, [reputationChange]);
+
     const traderExtraStyle = {
         position: 'absolute',
         bottom: '1px',
@@ -32,12 +42,13 @@ export default function TraderImage({trader, image = 'icon', reputationChange}) 
         position: 'relative', 
         maxWidth: '64px',
         maxHeight: '64px',
+        display: 'inline',
     }}>
         <Link to={`/trader/${trader.normalizedName}`}>
-            <img alt={trader.name} src={`/images/traders/${trader.normalizedName}-${image}.jpg`}/>
+            <img alt={trader.name} src={`/images/traders/${trader.normalizedName}-${image}.jpg`} loading="lazy"/>
         </Link>
         <div style={traderExtraStyle}>
-            {reputationChange && <span className="trader-image-reputation">{formattedRep}</span>}
+            {reputationChange && <span className={repClass}>{formattedRep}</span>}
         </div>
     </div>
 }
