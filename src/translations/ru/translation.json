@@ -112,6 +112,8 @@
     "Donate": "Пожертвовать",
     "Become a patron": "Стать патроном",
     "{{val, relativetime}}": "{{val, relativetime}}",
+    "On Task Completion": "По завершению задания",
+    "On Task Start": "На старте задания",
     "Task": "Задача",
     "Required items": "Требуемые предметы",
     "Reward items": "Наградные предметы",
