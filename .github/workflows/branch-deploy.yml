@@ -18,7 +18,7 @@ jobs:
 
     steps:
 
-      - uses: github/branch-deploy@v5.1.0
+      - uses: github/branch-deploy@v5.1.1
         id: branch-deploy
         with:
           admins: the-hideout/core-contributors
@@ -30,7 +30,7 @@ jobs:
 
       - name: Checkout
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
         with:
           ref: ${{ steps.branch-deploy.outputs.ref }}
 
@@ -44,6 +44,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
 
+      # deploy to the dev env and also save the stdout to a file
       - name: deploy - dev
         id: dev-deploy
         if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
@@ -53,7 +54,18 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages publish build/ --project-name=tarkov-dev --branch=preview
+          wranglerVersion: '2.13.0'
+          command: pages publish build/ --project-name=tarkov-dev --branch=preview | tee output.txt
+
+      # fetch the dev url from stdout and save add it to the deploy message
+      - name: add development url to deploy message
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
+          steps.branch-deploy.outputs.noop != 'true' &&
+          steps.branch-deploy.outputs.environment == 'development' }}
+        run: |
+          dev_url=$(cat output.txt | grep 'Deployment complete! Take a peek over at' | awk '{print $NF}')
+          dev_url=$(echo $text | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+          echo "DEPLOY_MESSAGE=${dev_url}" >> $GITHUB_ENV
 
       - name: deploy - prod
         id: prod-deploy
@@ -64,4 +76,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          wranglerVersion: '2.13.0'
           command: pages publish build/ --project-name=tarkov-dev --branch=main
