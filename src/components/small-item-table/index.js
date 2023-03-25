@@ -498,7 +498,7 @@ function SmallItemTable(props) {
                     formattedItem.cheapestObtainInfo = buyFor;
                 }
             }
-            if (formattedItem.cheapestObtainPrice === Number.MAX_SAFE_INTEGER) {
+            if (formattedItem.cheapestObtainInfo === null) {
                 formattedItem.cheapestObtainPrice = 0;
             }
 
@@ -660,6 +660,10 @@ function SmallItemTable(props) {
                     item.instaProfit = item.sellForTradersBest?.priceRUB - item.buyOnFleaPrice.price;
                 } else if (traderBuybackFilter && item.cheapestObtainPrice) {
                     item.instaProfit = item.sellForTradersBest?.priceRUB - item.cheapestObtainPrice;
+                }
+
+                if (traderBuybackFilter) {
+                    return true;
                 }
 
                 if (!loyaltyLevelFilter) {
