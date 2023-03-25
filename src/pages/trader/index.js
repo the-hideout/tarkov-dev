@@ -191,7 +191,7 @@ function Trader() {
                         <ButtonGroupFilterButton
                             tooltipContent={
                                 <>
-                                    {t('Items with the best cash back prices for leveling when buying from flea')}
+                                    {t('Items with the best cash back prices for leveling')}
                                 </>
                             }
                             selected={selectedTable === 'spending'}
