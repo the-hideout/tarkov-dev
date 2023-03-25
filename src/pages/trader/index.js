@@ -245,12 +245,14 @@ function Trader() {
                     loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
                     traderBuybackFilter={selectedTable === 'spending' ? true : false}
                     maxItems={selectedTable === 'spending' ? 50 : false}
-                    traderValue={selectedTable === 'spending' ? 1 : false}
-                    fleaPrice={selectedTable === 'spending' ? 2 : 1}
+                    fleaPrice={selectedTable === 'spending' ? false : 1}
                     traderPrice={selectedTable === 'spending' ? false : 2}
+                    cheapestPrice={selectedTable === 'spending' ? 1 : false}
+                    traderValue={selectedTable === 'spending' ? 2 : false}
                     traderBuyback={selectedTable === 'spending' ? 3 : false}
                     sortBy={selectedTable === 'spending' ? 'traderBuyback' : null}
                     sortByDesc={true}
+                    showAllSources={selectedTable === 'spending' ? false : true}
                 />
             )}
             {selectedTable === 'tasks' && (

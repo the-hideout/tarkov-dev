@@ -412,6 +412,8 @@ function SmallItemTable(props) {
                         return false;
                     if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) 
                         return false;
+                    if (!showAllSources && settings.useTarkovTracker && !settings.completedQuests.includes(buyFor.vendor.taskUnlock?.id)) 
+                        return false;
                     return true;
                 }),
                 sellFor: itemData.sellFor,
@@ -484,7 +486,7 @@ function SmallItemTable(props) {
             }
             formattedItem.cheapestObtainPrice = Number.MAX_SAFE_INTEGER;
             formattedItem.cheapestObtainInfo = null;
-            if (formattedItem.cheapestBarter) {
+            if (formattedItem.cheapestBarter && settings.hasFlea) {
                 //console.log(formattedItem.cheapestBarter.barter, settings[formattedItem.cheapestBarter.barter.trader.normalizedName]);
                 //if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel)
                 formattedItem.cheapestObtainPrice = formattedItem.cheapestBarter.price;
@@ -500,10 +502,10 @@ function SmallItemTable(props) {
                 formattedItem.cheapestObtainPrice = 0;
             }
 
-            if (traderBuybackFilter && formattedItem.buyOnFleaPrice) {
+            if (traderBuybackFilter && formattedItem.cheapestObtainPrice) {
                 const thisTraderSell = formattedItem.sellFor.find(sellFor => sellFor.vendor.normalizedName === traderFilter);
                 if (thisTraderSell) {
-                    formattedItem.buyback = thisTraderSell.priceRUB / formattedItem.buyOnFleaPrice.price;
+                    formattedItem.buyback = thisTraderSell.priceRUB / formattedItem.cheapestObtainPrice;
                 }
             }
 
@@ -656,13 +658,8 @@ function SmallItemTable(props) {
 
                 if (item.buyOnFleaPrice) {
                     item.instaProfit = item.sellForTradersBest?.priceRUB - item.buyOnFleaPrice.price;
-                }
-
-                if (traderBuybackFilter) {
-                    if (item.types.includes('preset')) {
-                        return false;
-                    }
-                    return true;
+                } else if (traderBuybackFilter && item.cheapestObtainPrice) {
+                    item.instaProfit = item.sellForTradersBest?.priceRUB - item.cheapestObtainPrice;
                 }
 
                 if (!loyaltyLevelFilter) {
@@ -682,11 +679,8 @@ function SmallItemTable(props) {
         if (traderBuybackFilter) {
             returnData = returnData
                 .filter((item) => item.instaProfit !== 0)
-                .filter((item) => item.lastLowPrice && item.lastLowPrice > 0)
+                .filter((item) => item.cheapestObtainPrice > 0)
                 .filter((item) => item.sellForTradersBest && item.sellForTradersBest.priceRUB > 500)
-                .filter(
-                    (item) => item.buyOnFleaPrice && item.buyOnFleaPrice.price > 0,
-                )
                 .sort((a, b) => {
                     return b.buyback - a.buyback;
                 });
