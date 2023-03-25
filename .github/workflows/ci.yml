@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: checkout
         uses: actions/checkout@v3.5.0
 
       # check to ensure all JSON files are valid in the repository
@@ -32,7 +32,7 @@ jobs:
           node-version: ${{ steps.node-version.outputs.version }}
           cache: 'npm'
 
-      - name: Install
+      - name: install dependencies
         run: npm ci
 
       - name: Get files needed
@@ -40,5 +40,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
 
-      - name: Test
+      - name: test
         run: npm run test

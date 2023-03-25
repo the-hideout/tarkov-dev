@@ -41,17 +41,17 @@ jobs:
           node-version: ${{ steps.node-version.outputs.version }}
           cache: 'npm'
 
-      - name: Install
+      - name: install dependencies
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         run: npm ci
 
-      - name: Build
+      - name: build
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
 
-      - name: Test
+      - name: test
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         run: npm run test
 

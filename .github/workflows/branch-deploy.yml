@@ -9,6 +9,7 @@ permissions:
   pull-requests: write
   deployments: write
   contents: write
+  checks: read
 
 jobs:
   deploy:
@@ -28,7 +29,7 @@ jobs:
           environment_targets: production,development
           environment_urls: production|https://tarkov.dev,development|disabled
 
-      - name: Checkout
+      - name: checkout
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         uses: actions/checkout@v3.5.0
         with:
@@ -45,11 +46,11 @@ jobs:
           node-version: ${{ steps.node-version.outputs.version }}
           cache: 'npm'
 
-      - name: Install
+      - name: install dependencies
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         run: npm ci
 
-      - name: Build
+      - name: build
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         run: npm run build
         env:
