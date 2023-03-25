@@ -20,7 +20,7 @@ jobs:
           environment: production
 
       - name: checkout
-        uses: actions/checkout@v3.4.0
+        uses: actions/checkout@v3.5.0
         if: ${{ steps.deployment-check.outputs.continue == 'true' }} # only run if the Action returned 'true' for the 'continue' output
 
       # check to ensure all JSON files are valid in the repository
@@ -30,17 +30,28 @@ jobs:
         with:
           pattern: "\\.json$"
 
-      - name: Install
+      # check the node version from the .node-version file
+      - name: fetch node version
+        id: node-version
+        run: |
+          version=$(cat .node-version)
+          echo "version=${version}" >> $GITHUB_OUTPUT
+      - uses: actions/setup-node@v3.6.0
+        with:
+          node-version: ${{ steps.node-version.outputs.version }}
+          cache: 'npm'
+
+      - name: install dependencies
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         run: npm ci
 
-      - name: Build
+      - name: build
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
 
-      - name: Test
+      - name: test
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         run: npm run test
 
