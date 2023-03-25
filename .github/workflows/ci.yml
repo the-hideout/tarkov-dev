@@ -11,13 +11,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [ 16.x ]
-
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.4.0
+        uses: actions/checkout@v3.5.0
 
       # check to ensure all JSON files are valid in the repository
       - name: json syntax check
@@ -25,22 +21,16 @@ jobs:
         with:
           pattern: "\\.json$"
 
-      - name: Cache node modules
-        uses: actions/cache@v3.3.1
-        env:
-          cache-name: cache-node-modules
+      # check the node version from the .node-version file
+      - name: fetch node version
+        id: node-version
+        run: |
+          version=$(cat .node-version)
+          echo "version=${version}" >> $GITHUB_OUTPUT
+      - uses: actions/setup-node@v3.6.0
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # pin@v3
-        with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ steps.node-version.outputs.version }}
+          cache: 'npm'
 
       - name: Install
         run: npm ci
