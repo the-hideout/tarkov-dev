@@ -343,7 +343,6 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                         return false;
                     }
                 }
-
                 const costItems = formatCostItems(
                     barterRow.requiredItems,
                     settings,
@@ -395,10 +394,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                         }
                     ],
                     reward: {
-                        id: barterRewardItem.id,
-                        name: barterRewardItem.name,
-                        itemLink: `/item/${barterRewardItem.normalizedName}`,
-                        iconLink: barterRewardItem.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+                        item: barterRewardItem,
                         source: `${barterRow.trader.name} ${t('LL{{level}}', { level: barterRow.level })}`,
                         sellTo: bestSellTo.vendor.name,
                         sellToNormalized: bestSellTo.vendor.normalizedName,

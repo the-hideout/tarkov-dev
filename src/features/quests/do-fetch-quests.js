@@ -175,7 +175,7 @@ const doFetchQuests = async (language, prebuild = false) => {
         }
         ...on TaskObjectiveExtract {
             exitStatus
-            zoneNames
+            exitName
         }
         ...on TaskObjectiveItem {
             item {
@@ -216,6 +216,8 @@ const doFetchQuests = async (language, prebuild = false) => {
             shotType
             zoneNames
             bodyParts
+            timeFromHour
+            timeUntilHour
             usingWeapon {
                 id
             }

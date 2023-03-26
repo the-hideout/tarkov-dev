@@ -14,7 +14,8 @@
 }
 
 .amount-wrapper,
-.found-in-raid-wrapper {
+.found-in-raid-wrapper,
+.reward-type-wrapper {
     color: #636363;
     font-size: 14px;
 }

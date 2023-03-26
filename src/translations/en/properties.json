@@ -62,5 +62,9 @@
     "weight": "Weight",
     "baseItem": "Base Item",
     "categories": "Categories",
-    "type": "Type"
+    "type": "Type",
+    "convergence": "Convergence",
+    "cameraRecoil": "Camera Recoil",
+    "recoilAngle": "Recoil Angle",
+    "recoilDispersion": "Recoil Dispersion"
 }

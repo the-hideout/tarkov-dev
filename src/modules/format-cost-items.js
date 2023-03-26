@@ -60,6 +60,10 @@ function getItemBarters(item, barters, settings, allowAllSources) {
             continue;
         }
 
+        if (!allowAllSources && settings.useTarkovTracker && !settings.completedQuests.includes[barter.taskUnlock?.id]) {
+            continue;
+        }
+
         matchedBarters.push(barter);
     }
 
@@ -204,13 +208,15 @@ const formatCostItems = (
             calculationPrice = requiredItem.item.sellForTradersBest.priceRUB * 0.1;
         }
 
-        const isTool = requiredItem.attributes?.some(element => element.type === 'tool');
+        const isTool = requiredItem.attributes?.some(att => att.name === 'tool' && Boolean(att.value));
         let nonFunctional = false;
         if (requiredItem.item?.types.includes('gun')) {
-            nonFunctional = !requiredItem.attributes?.some(element => element.type === 'functional' && Boolean(element.value))
+            nonFunctional = !requiredItem.attributes?.some(att => att.name === 'functional' && Boolean(att.value))
         }
 
         const returnData = {
+            item: requiredItem.item,
+            attributes: requiredItem.attributes,
             id: requiredItem.item.id,
             count: requiredItem.count === 0.66
                     ? (requiredItem.count - (requiredItem.count * (hideoutManagementSkillLevel * 0.5)) / 100).toFixed(2)

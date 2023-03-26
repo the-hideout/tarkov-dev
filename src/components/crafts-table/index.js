@@ -340,11 +340,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     cost: totalCost,
                     craftTime: craftDuration,
                     reward: {
-                        id: craftRewardItem.id,
-                        name: craftRewardItem.name,
-                        wikiLink: craftRewardItem.wikiLink,
-                        itemLink: `/item/${craftRewardItem.normalizedName}`,
-                        iconLink: craftRewardItem.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+                        item: craftRewardItem,
                         source: `${station} (${t('Level')} ${level})`,
                         count: craftRow.rewardItems[0].count,
                         sellTo: bestSellTo.vendor.name,
@@ -507,8 +503,8 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 id: 'reward',
                 accessor: 'reward',
                 sortType: (a, b, columnId, desc) => {
-                    const aName = a.values.reward.name;
-                    const bName = b.values.reward.name;
+                    const aName = a.values.reward.item.name;
+                    const bName = b.values.reward.item.name;
                     
                     return aName.localeCompare(bName);
                 },

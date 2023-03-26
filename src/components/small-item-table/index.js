@@ -48,11 +48,24 @@ function getItemCountPrice(item) {
     );
 }
 
-function TraderSellCell(datum, totalTraderPrice = false, showSlotValue = false) {
+function TraderSellCell(datum, showSlotValue = false) {
     const { t } = useTranslation();
     
     if (!datum.row.original.sellForTradersBest) {
-        return null;
+        return (
+            <div className="center-content">
+                <Tippy
+                    placement="bottom"
+                    content={t("This item can't be sold to traders")}
+                >
+                    <Icon
+                        path={mdiCloseOctagon}
+                        size={1}
+                        className="icon-with-text"
+                    />
+                </Tippy>
+            </div>
+        );
     }
 
     const sellForTradersBest = datum.row.original.sellForTradersBest;
@@ -243,7 +256,6 @@ function SmallItemTable(props) {
         showAllSources,
         cheapestPrice,
         sumColumns,
-        totalTraderPrice,
         idFilter,
         useClassEffectiveDurability,
         excludeArmor,
@@ -400,10 +412,11 @@ function SmallItemTable(props) {
                         return false;
                     if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) 
                         return false;
+                    if (!showAllSources && settings.useTarkovTracker && !settings.completedQuests.includes(buyFor.vendor.taskUnlock?.id)) 
+                        return false;
                     return true;
                 }),
                 sellFor: itemData.sellFor,
-                sellForTradersBest: null,
                 buyOnFleaPrice: itemData.buyFor.find(
                     (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market' && (showAllSources || settings.hasFlea),
                 ),
@@ -436,30 +449,31 @@ function SmallItemTable(props) {
                 cached: itemData.cached,
             };
 
-            let sellForTraders = itemData.sellFor.filter(sellFor => {
-                if (sellFor.vendor.normalizedName === 'flea-market') 
-                    return false;
-                if (!showAllSources && !settings.jaeger && sellFor.vendor.normalizedName === 'jaeger') 
-                    return false;
-                return true;
-            });
-            const noneTrader = {
-                price: 0,
-                priceRUB: 0,
-                currency: 'RUB',
-                vendor: {
-                    name: 'unknown',
-                    normalizedName: 'unknown',
-                },
-            }
-            formattedItem.sellForTradersBest = sellForTraders[0] || noneTrader;
+            formattedItem.sellForTradersBest = itemData.sellFor.reduce((best, sellFor) => {
+                if (sellFor.vendor.normalizedName === 'flea-market') {
+                    return best;
+                }
+                if (traderBuybackFilter && traderFilter !== sellFor.vendor.normalizedName) {
+                    return best;
+                }
+
+                if (!showAllSources && !settings.jaeger && sellFor.vendor.normalizedName === 'jaeger') {
+                    return best;
+                }
+
+                if (!best || best.priceRUB < sellFor.priceRUB) {
+                    return sellFor;
+                }
+
+                return best;
+            }, undefined);
 
             if (!showAllSources && !settings.hasFlea) {
                 formattedItem.buyOnFleaPrice = 0
             }
 
             if (formattedItem.buyOnFleaPrice && formattedItem.buyOnFleaPrice.price > 0) {
-                formattedItem.instaProfit = formattedItem.sellForTradersBest.priceRUB - formattedItem.buyOnFleaPrice.price;
+                formattedItem.instaProfit = formattedItem.sellForTradersBest?.priceRUB - formattedItem.buyOnFleaPrice.price;
             }
 
             if (formattedItem.barters.length > 0) {
@@ -472,7 +486,7 @@ function SmallItemTable(props) {
             }
             formattedItem.cheapestObtainPrice = Number.MAX_SAFE_INTEGER;
             formattedItem.cheapestObtainInfo = null;
-            if (formattedItem.cheapestBarter) {
+            if (formattedItem.cheapestBarter && settings.hasFlea) {
                 //console.log(formattedItem.cheapestBarter.barter, settings[formattedItem.cheapestBarter.barter.trader.normalizedName]);
                 //if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel)
                 formattedItem.cheapestObtainPrice = formattedItem.cheapestBarter.price;
@@ -484,14 +498,14 @@ function SmallItemTable(props) {
                     formattedItem.cheapestObtainInfo = buyFor;
                 }
             }
-            if (formattedItem.cheapestObtainPrice === Number.MAX_SAFE_INTEGER) {
+            if (formattedItem.cheapestObtainInfo === null) {
                 formattedItem.cheapestObtainPrice = 0;
             }
 
-            if (traderBuybackFilter && formattedItem.buyOnFleaPrice) {
+            if (traderBuybackFilter && formattedItem.cheapestObtainPrice) {
                 const thisTraderSell = formattedItem.sellFor.find(sellFor => sellFor.vendor.normalizedName === traderFilter);
                 if (thisTraderSell) {
-                    formattedItem.buyback = thisTraderSell.priceRUB / formattedItem.buyOnFleaPrice.price;
+                    formattedItem.buyback = thisTraderSell.priceRUB / formattedItem.cheapestObtainPrice;
                 }
             }
 
@@ -641,12 +655,11 @@ function SmallItemTable(props) {
                 item.sellFor = item.sellFor?.filter(
                     (sell) => sell.vendor.normalizedName === traderFilter,
                 );
-                item.sellForTradersBest = item.sellFor?.sort((a, b) => {
-                    return b.priceRUB - a.priceRUB;
-                })[0];
 
                 if (item.buyOnFleaPrice) {
                     item.instaProfit = item.sellForTradersBest?.priceRUB - item.buyOnFleaPrice.price;
+                } else if (traderBuybackFilter && item.cheapestObtainPrice) {
+                    item.instaProfit = item.sellForTradersBest?.priceRUB - item.cheapestObtainPrice;
                 }
 
                 if (traderBuybackFilter) {
@@ -670,11 +683,8 @@ function SmallItemTable(props) {
         if (traderBuybackFilter) {
             returnData = returnData
                 .filter((item) => item.instaProfit !== 0)
-                .filter((item) => item.lastLowPrice && item.lastLowPrice > 0)
+                .filter((item) => item.cheapestObtainPrice > 0)
                 .filter((item) => item.sellForTradersBest && item.sellForTradersBest.priceRUB > 500)
-                .filter(
-                    (item) => item.buyOnFleaPrice && item.buyOnFleaPrice.price > 0,
-                )
                 .sort((a, b) => {
                     return b.buyback - a.buyback;
                 });
@@ -1083,8 +1093,8 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Sell to Trader'),
                 id: 'traderValue',
-                accessor: (d) => Number(d.sellForTradersBest.priceRUB),
-                Cell: (datum) => TraderSellCell(datum, totalTraderPrice, showSlotValue),
+                accessor: (d) => Number(d.sellForTradersBest?.priceRUB || 0),
+                Cell: (datum) => TraderSellCell(datum, showSlotValue),
                 summable: true,
                 position: traderValue,
             });
@@ -1127,7 +1137,7 @@ function SmallItemTable(props) {
                 Cell: ({ value }) => {
                     return (
                         <Tippy
-                            content={t('The percent recovered if you buy this item on the flea and sell to the trader')}
+                            content={t('The percent recovered if you buy this item and sell to the trader')}
                         >
                             <div className="center-content">
                                 {`${Math.floor((Math.round(value * 100) / 100) * 100)}%`}
@@ -1794,7 +1804,6 @@ function SmallItemTable(props) {
         fragChance,
         cheapestPrice,
         blindnessProtection,
-        totalTraderPrice,
         useClassEffectiveDurability,
         useAllProjectileDamage,
         hydration,

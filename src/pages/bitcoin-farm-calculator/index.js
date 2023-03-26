@@ -162,11 +162,7 @@ const BitcoinFarmCalculator = () => {
             <div className="included-items-wrapper" key="btc-item-prices">
                 {Boolean(graphicCardItem) && (
                     <RewardCell
-                        id={graphicCardItem.id}
-                        count={1}
-                        iconLink={graphicCardItem.iconLink}
-                        itemLink={`/item/${graphicCardItem.normalizedName}`}
-                        name={graphicCardItem.name}
+                        item={graphicCardItem}
                         sellValue={graphicsCardBuy.priceRUB}
                         sellTo={graphicsCardBuy.vendor.name}
                         sellType={graphicsCardBuy.sellType}
@@ -176,11 +172,7 @@ const BitcoinFarmCalculator = () => {
                 )}
                 {Boolean(bitcoinItem) && (
                     <RewardCell
-                        id={bitcoinItem.id}
-                        count={1}
-                        iconLink={bitcoinItem.iconLink}
-                        itemLink={`/item/${bitcoinItem.normalizedName}`}
-                        name={bitcoinItem.name}
+                        item={bitcoinItem}
                         sellValue={btcSell.priceRUB}
                         sellTo={btcSell.vendor.name}
                         sellType={btcSell.sellType}

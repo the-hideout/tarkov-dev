@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import {renderToStaticMarkup} from "react-dom/server";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ImageViewer from 'react-simple-image-viewer';
+import { useTranslation } from 'react-i18next';
+import Tippy from '@tippyjs/react';
 
 import './index.css';
 
@@ -27,8 +29,15 @@ function ItemImage({
     attributes = [],
     count,
     isFIR = false,
+    isTool = false,
+    nonFunctional = false,
     linkToItem = false,
+    trader,
+    className,
+    style,
 }) {
+    const { t } = useTranslation();
+    const navigate = useNavigate();
     const refContainer = useRef();
     /*const [containerDimensions, setDimensions] = useState({ width: 0, height: 0 });
     useEffect(() => {
@@ -129,7 +138,7 @@ function ItemImage({
         };
     }, [item]);
 
-    const nonFunctional = useMemo(() => {
+    const nonFunctionalElement = useMemo(() => {
         if (!nonFunctionalOverlay || !item.types.includes('gun') || !item.properties?.defaultPreset) {
             return <></>;
         }
@@ -154,21 +163,38 @@ function ItemImage({
         return <div className='item-nonfunctional-mask' onClick={openImageViewer} style={nonFunctionalStyle}/>;
     }, [item, nonFunctionalOverlay, backgroundScale, openImageViewer, imageViewer]);
 
-    let borderColor = 'rgb(73, 81, 84)';
-    if (attributes?.some(att => att.type === 'tool')) {
-        borderColor = '#0292c0';
-    }
-    if (item.types.includes('gun')) {
-        if (attributes?.some(att => att.type === 'functional' && !Boolean(att.value))) {
-            borderColor = '#c00802';
+    const toolOverride = useMemo(() => {
+        return isTool || attributes?.some(att => att.name === 'tool');
+    }, [attributes, isTool]);
+
+    const borderColor = useMemo(() => {
+        let color = 'rgb(73, 81, 84)';
+        if (toolOverride) {
+            color = '#0292c0';
         }
-    }
+        if (item.types.includes('gun')) {
+            if (nonFunctional) {
+                color = '#c00802';
+            }
+        }
+        return color;
+    }, [item, toolOverride, nonFunctional]);
+    
 
     const backgroundStyle = useMemo(() => {
-        let sizeFactor = 1;
         if (imageField === 'iconLink') {
-            return {position: 'relative'};
+            const iconStyle = {
+                position: 'relative',
+                maxHeight: `${imageDimensions.height || 64}px`,
+                maxWidth:  `${imageDimensions.width || 64}px`,
+            };
+            if (toolOverride || nonFunctional) {
+                iconStyle.outline = `1px solid ${borderColor}`;
+                iconStyle.outlineOffset = `-1px`;
+            }
+            return iconStyle;
         }
+        let sizeFactor = 1;
         if (imageField === 'image512pxLink') {
             sizeFactor = 512 / ((item.width * 63) + 1);
             if (item.height > item.width) {
@@ -209,13 +235,13 @@ function ItemImage({
             maxWidth:  `${width}px`,
         };
         return backgroundStyle;
-    }, [backgroundScale, borderColor, colorString, imageField, gridPercentX, gridPercentY, item, imageDimensions]);
+    }, [backgroundScale, borderColor, colorString, imageField, gridPercentX, gridPercentY, item, imageDimensions, toolOverride, nonFunctional]);
 
     const imageTextStyle = useMemo(() => {
         if (imageField === 'iconLink' || item.types.includes('loading')) {
             return {display: 'none'};
         }
-        return {
+        const style = {
             position: 'absolute',
             top: `${Math.min(backgroundScale + imageScale, 4)}px`,
             right: `${Math.min(backgroundScale + (1.5*imageScale), 7)}px`,
@@ -226,7 +252,20 @@ function ItemImage({
             fontSize: `${textSize}px`,
             textAlign: 'right',
         };
-    }, [imageField, imageScale, textSize, backgroundScale, item]); 
+        if (linkToItem) {
+            style.cursor = 'pointer';
+        }
+        return style;
+    }, [imageField, imageScale, textSize, backgroundScale, item, linkToItem]);
+
+    const imageTextClick = useMemo(() => {
+        if (!linkToItem) {
+            return () => {};
+        }
+        return () => {
+            navigate(`/item/${item.normalizedName}`);
+        };
+    }, [item, linkToItem, navigate]);
 
     const itemExtraStyle = {
         position: 'absolute',
@@ -237,16 +276,59 @@ function ItemImage({
         alignItems: 'flex-end',
     };
 
+    const traderElementStyle = useMemo(() => {
+        let scale = 24;
+        if (item.width > 1 && item.height > 1) {
+            scale = 48;
+        }
+        return {
+            position: 'absolute',
+            bottom: `${backgroundScale}px`,
+            left: `${backgroundScale}px`,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-end',
+            maxWidth: `${scale * imageScale}px`,
+            maxHeight: `${scale * imageScale}px`,
+        };
+    }, [backgroundScale, imageScale, item]);
+
+    const traderImageStyle = useMemo(() => {
+        let scale = 24;
+        if (item.width > 1 && item.height > 1) {
+            scale = 48;
+        }
+        return {
+            maxWidth: `${scale * imageScale}px`,
+            maxHeight: `${scale * imageScale}px`,
+        };
+    }, [imageScale, item]);
+
     return (
-        <div ref={refContainer} style={backgroundStyle}>
+        <div ref={refContainer} style={{...backgroundStyle, ...style}} className={className}>
             {loadingImage}
             {imageElement}
-            {nonFunctional}
-            <div style={imageTextStyle}>{item.shortName}</div>
+            {nonFunctionalElement}
+            <div style={imageTextStyle} onClick={imageTextClick}>{item.shortName}</div>
             <div style={itemExtraStyle}>
-                {isFIR && <img alt="" className="item-image-fir" loading="lazy" src={`${process.env.PUBLIC_URL}/images/icon-fir.png`} />}
+                {isFIR && <Tippy
+                    placement="bottom"
+                    content={t('Found In Raid')}
+                >
+                    <img alt="" className="item-image-fir" loading="lazy" src={`${process.env.PUBLIC_URL}/images/icon-fir.png`} />
+                </Tippy>}
                 {count && <span className="item-image-count">{count}</span>}
             </div>
+            {trader && <div style={traderElementStyle}>
+                <Tippy
+                    placement="top"
+                    content={trader.name}
+                >
+                    <Link to={`/trader/${trader.normalizedName}`}>
+                        <img alt={trader.name} src={`/images/traders/${trader.normalizedName}-icon.jpg`} style={traderImageStyle}/>
+                    </Link>
+                </Tippy>
+            </div>}
             {children}
             {isViewerOpen && (
                 <ImageViewer
