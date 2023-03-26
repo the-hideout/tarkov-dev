@@ -37,6 +37,7 @@ jobs:
 
       # check the node version from the .node-version file
       - name: fetch node version
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         id: node-version
         run: |
           version=$(cat .node-version)
