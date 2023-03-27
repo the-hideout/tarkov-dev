@@ -412,7 +412,7 @@ function SmallItemTable(props) {
                         return false;
                     if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) 
                         return false;
-                    if (!showAllSources && settings.useTarkovTracker && !settings.completedQuests.includes(buyFor.vendor.taskUnlock?.id)) 
+                    if (!showAllSources && settings.useTarkovTracker && buyFor.vendor.taskUnlock && !settings.completedQuests.includes(buyFor.vendor.taskUnlock.id)) 
                         return false;
                     return true;
                 }),
