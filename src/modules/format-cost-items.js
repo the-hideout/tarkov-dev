@@ -60,6 +60,10 @@ function getItemBarters(item, barters, settings, allowAllSources) {
             continue;
         }
 
+        if (!allowAllSources && settings.useTarkovTracker && !settings.completedQuests.includes[barter.taskUnlock?.id]) {
+            continue;
+        }
+
         matchedBarters.push(barter);
     }
 
