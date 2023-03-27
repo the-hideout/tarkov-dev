@@ -7,42 +7,36 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [ 16.x ]
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3.4.0
+      - name: checkout
+        uses: actions/checkout@v3.5.0
 
       # check to ensure all JSON files are valid in the repository
-      - name: json syntax check
-        uses: limitusus/json-syntax-check@94555527ace7b96df4a600874a4aafd735842780 # pin@v2.0.0
+      - name: json-yaml-validate
+        uses: GrantBirki/json-yaml-validate@v1.2.0
         with:
-          pattern: "\\.json$"
+          comment: "true"
 
-      - name: Cache node modules
-        uses: actions/cache@v3.3.1
-        env:
-          cache-name: cache-node-modules
+      # check the node version from the .node-version file
+      - name: fetch node version
+        id: node-version
+        run: |
+          version=$(cat .node-version)
+          echo "version=${version}" >> $GITHUB_OUTPUT
+      - uses: actions/setup-node@v3.6.0
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          node-version: ${{ steps.node-version.outputs.version }}
+          cache: 'npm'
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # pin@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install
+      - name: install dependencies
         run: npm ci
 
       - name: Get files needed
@@ -50,5 +44,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
 
-      - name: Test
+      - name: test
         run: npm run test

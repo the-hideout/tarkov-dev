@@ -9,6 +9,7 @@ permissions:
   pull-requests: write
   deployments: write
   contents: write
+  checks: read
 
 jobs:
   deploy:
@@ -28,17 +29,31 @@ jobs:
           environment_targets: production,development
           environment_urls: production|https://tarkov.dev,development|disabled
 
-      - name: Checkout
+      - name: checkout
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
-        uses: actions/checkout@v3.4.0
+        uses: actions/checkout@v3.5.0
         with:
           ref: ${{ steps.branch-deploy.outputs.ref }}
 
-      - name: Install
+      # check the node version from the .node-version file
+      - name: fetch node version
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
+        id: node-version
+        run: |
+          version=$(cat .node-version)
+          echo "version=${version}" >> $GITHUB_OUTPUT
+
+      - uses: actions/setup-node@v3.6.0
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
+        with:
+          node-version: ${{ steps.node-version.outputs.version }}
+          cache: 'npm'
+
+      - name: install dependencies
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         run: npm ci
 
-      - name: Build
+      - name: build
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         run: npm run build
         env:
