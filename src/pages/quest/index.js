@@ -20,6 +20,13 @@ import { useMapsQuery, useMapImages } from '../../features/maps/queries';
 
 import './index.css';
 
+const intelCashMultiplier = {
+    0: 1,
+    1: 1.05,
+    2: 1.1,
+    3: 1.1,
+};
+
 function Quest() {
     const settings = useSelector((state) => state.settings);
     const { taskIdentifier } = useParams();
@@ -911,6 +918,11 @@ function Quest() {
                                 const item = items.find((it) => it.id === rewardItem.item.id);
                                 if (!item)
                                     return null;
+                                let itemCount = rewardItem.count;
+                                if (item.categories.some(cat => cat.normalizedName === 'money')) {
+                                    const multiplier = intelCashMultiplier[settings['intelligence-center']];
+                                    itemCount = Math.round(itemCount * multiplier);
+                                }
                                 return (
                                     <li
                                         key={`reward-index-${rewardItem.item.id}-${index}`}
@@ -921,7 +933,7 @@ function Quest() {
                                             imageField="baseImageLink"
                                             nonFunctionalOverlay={false}
                                             linkToItem={true}
-                                            count={rewardItem.count > 1 ? rewardItem.count : false}
+                                            count={rewardItem.count > 1 ? itemCount : false}
                                             isFIR={true}
                                         />
                                     </li>
