@@ -429,8 +429,6 @@ function SmallItemTable(props) {
                     },
                 ),
                 grid: itemData.grid,
-                pricePerSlot: showNetPPS ? Math.floor(itemData.avg24hPrice / (itemData.properties.capacity - (itemData.width * itemData.height)))
-                              : itemData.avg24hPrice / itemData.properties.capacity,
                 ratio: (itemData.properties.capacity / (itemData.width * itemData.height)).toFixed(2),
                 size: itemData.properties.capacity,
                 slots: itemData.width * itemData.height,
@@ -508,6 +506,13 @@ function SmallItemTable(props) {
                     formattedItem.buyback = thisTraderSell.priceRUB / formattedItem.cheapestObtainPrice;
                 }
             }
+            
+            let ppsPrice = itemData.avg24hPrice;
+            if (formattedItem.cheapestObtainPrice && formattedItem.cheapestObtainPrice < ppsPrice) {
+                ppsPrice = formattedItem.cheapestObtainPrice;
+            }
+            formattedItem.pricePerSlot = showNetPPS ? Math.floor(ppsPrice / (itemData.properties.capacity - (itemData.width * itemData.height)))
+                              : ppsPrice / itemData.properties.capacity
 
             formattedItem.count = containedItems[itemData.id] || 1;
 
