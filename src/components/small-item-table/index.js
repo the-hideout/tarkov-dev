@@ -1698,8 +1698,21 @@ function SmallItemTable(props) {
                                     {t('This item can\'t be sold on the Flea Market')}
                                 </div>
                             ));
-                        } 
-                        else {
+                        } else if (!settings.hasFlea) {
+                            priceContent.push((
+                                <Icon
+                                    path={mdiCloseOctagon}
+                                    size={1}
+                                    className="icon-with-text"
+                                    key="no-prices-icon"
+                                />
+                            ));
+                            tipContent.push((
+                                <div key={'no-flea-tooltip'}>
+                                    {t('Flea Market not available')}
+                                </div>
+                            ));
+                        } else {
                             let tipText = t('Not scanned on the Flea Market');
                             let icon = mdiHelpRhombus;
                             if (props.row.original.cached) {
