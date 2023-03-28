@@ -9,6 +9,7 @@ import SmallItemTable from '../../../components/small-item-table';
 import { Filter, ToggleFilter } from '../../../components/filter';
 
 function Containers(props) {
+    const [showAllItemSources, setShowAllItemSources] = useState(false);
     const [showNetPPS, setShowNetPPS] = useState(false);
     const { t } = useTranslation();
     return [
@@ -25,6 +26,18 @@ function Containers(props) {
                     {t('Containers')}
                 </h1>
                 <Filter>
+                    <ToggleFilter
+                        checked={showAllItemSources}
+                        label={t('Ignore settings')}
+                        onChange={(e) =>
+                            setShowAllItemSources(!showAllItemSources)
+                        }
+                        tooltipContent={
+                            <>
+                                {t('Shows all sources of items regardless of your settings')}
+                            </>
+                        }
+                    />
                     <ToggleFilter
                         label={t('Net price per slot')}
                         tooltipContent={t('Show price per additional slot of storage gained from the container')}
@@ -43,6 +56,7 @@ function Containers(props) {
                 pricePerSlot
                 showContainedItems
                 showNetPPS={showNetPPS}
+                showAllSources={showAllItemSources}
                 sortBy='pricePerSlot'
             />
 

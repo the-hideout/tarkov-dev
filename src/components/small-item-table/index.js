@@ -477,15 +477,10 @@ function SmallItemTable(props) {
 
             if (formattedItem.barters.length > 0) {
                 formattedItem.cheapestBarter = getCheapestBarter(itemData, formattedItem.barters, settings, showAllSources);
-
-                if (formattedItem.cheapestBarter && (!itemData.avg24hPrice || formattedItem.cheapestBarter.price < itemData.avg24hPrice)) {
-                    formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.cheapestBarter.price / (itemData.properties.capacity - itemData.slots))
-                                                 : formattedItem.cheapestBarter.price / itemData.properties.capacity;
-                }
             }
             formattedItem.cheapestObtainPrice = Number.MAX_SAFE_INTEGER;
             formattedItem.cheapestObtainInfo = null;
-            if (formattedItem.cheapestBarter && settings.hasFlea) {
+            if (formattedItem.cheapestBarter && (settings.hasFlea || showAllSources)) {
                 //console.log(formattedItem.cheapestBarter.barter, settings[formattedItem.cheapestBarter.barter.trader.normalizedName]);
                 //if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel)
                 formattedItem.cheapestObtainPrice = formattedItem.cheapestBarter.price;
