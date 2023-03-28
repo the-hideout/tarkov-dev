@@ -295,7 +295,7 @@ function SmallItemTable(props) {
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
     if (typeof showAllSources === 'undefined') 
-        showAllSources = true;
+        showAllSources = false;
 
     // Use the primary items API query to fetch all items
     const result = useItemsQuery();
