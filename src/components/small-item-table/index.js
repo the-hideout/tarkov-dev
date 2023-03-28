@@ -253,7 +253,7 @@ function SmallItemTable(props) {
         showContainedItems,
         weight,
         showNetPPS,
-        showAllSources,
+        showAllSources = false,
         cheapestPrice,
         sumColumns,
         idFilter,
@@ -294,8 +294,6 @@ function SmallItemTable(props) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
-    if (typeof showAllSources === 'undefined') 
-        showAllSources = true;
 
     // Use the primary items API query to fetch all items
     const result = useItemsQuery();
@@ -429,8 +427,6 @@ function SmallItemTable(props) {
                     },
                 ),
                 grid: itemData.grid,
-                pricePerSlot: showNetPPS ? Math.floor(itemData.avg24hPrice / (itemData.properties.capacity - (itemData.width * itemData.height)))
-                              : itemData.avg24hPrice / itemData.properties.capacity,
                 ratio: (itemData.properties.capacity / (itemData.width * itemData.height)).toFixed(2),
                 size: itemData.properties.capacity,
                 slots: itemData.width * itemData.height,
@@ -447,6 +443,7 @@ function SmallItemTable(props) {
                 width: itemData.width,
                 height: itemData.height,
                 cached: itemData.cached,
+                pricePerSlot: 0,
             };
 
             formattedItem.sellForTradersBest = itemData.sellFor.reduce((best, sellFor) => {
@@ -478,15 +475,10 @@ function SmallItemTable(props) {
 
             if (formattedItem.barters.length > 0) {
                 formattedItem.cheapestBarter = getCheapestBarter(itemData, formattedItem.barters, settings, showAllSources);
-
-                if (formattedItem.cheapestBarter && (!itemData.avg24hPrice || formattedItem.cheapestBarter.price < itemData.avg24hPrice)) {
-                    formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.cheapestBarter.price / (itemData.properties.capacity - itemData.slots))
-                                                 : formattedItem.cheapestBarter.price / itemData.properties.capacity;
-                }
             }
             formattedItem.cheapestObtainPrice = Number.MAX_SAFE_INTEGER;
             formattedItem.cheapestObtainInfo = null;
-            if (formattedItem.cheapestBarter && settings.hasFlea) {
+            if (formattedItem.cheapestBarter && (settings.hasFlea || showAllSources)) {
                 //console.log(formattedItem.cheapestBarter.barter, settings[formattedItem.cheapestBarter.barter.trader.normalizedName]);
                 //if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel)
                 formattedItem.cheapestObtainPrice = formattedItem.cheapestBarter.price;
@@ -507,6 +499,11 @@ function SmallItemTable(props) {
                 if (thisTraderSell) {
                     formattedItem.buyback = thisTraderSell.priceRUB / formattedItem.cheapestObtainPrice;
                 }
+            }
+            
+            if (formattedItem.cheapestObtainPrice) {
+                formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.cheapestObtainPrice / (itemData.properties.capacity - (itemData.width * itemData.height)))
+                              : formattedItem.cheapestObtainPrice / itemData.properties.capacity
             }
 
             formattedItem.count = containedItems[itemData.id] || 1;
@@ -892,6 +889,9 @@ function SmallItemTable(props) {
                 }
             }
         });
+        if (lowHyd === Number.MAX_SAFE_INTEGER) {
+            lowHyd = 0;
+        }
         return lowHyd;
     }, [
         data,
@@ -1698,8 +1698,21 @@ function SmallItemTable(props) {
                                     {t('This item can\'t be sold on the Flea Market')}
                                 </div>
                             ));
-                        } 
-                        else {
+                        } else if (!settings.hasFlea) {
+                            priceContent.push((
+                                <Icon
+                                    path={mdiCloseOctagon}
+                                    size={1}
+                                    className="icon-with-text"
+                                    key="no-prices-icon"
+                                />
+                            ));
+                            tipContent.push((
+                                <div key={'no-flea-tooltip'}>
+                                    {t('Flea Market not available')}
+                                </div>
+                            ));
+                        } else {
                             let tipText = t('Not scanned on the Flea Market');
                             let icon = mdiHelpRhombus;
                             if (props.row.original.cached) {
@@ -1826,6 +1839,7 @@ function SmallItemTable(props) {
         showPresets,
         showRestrictedType,
         attachmentMap,
+        settings,
     ]);
 
     let extraRow = false;
