@@ -7,6 +7,7 @@ import ItemImage from '../item-image';
 import formatPrice from '../../modules/format-price';
 import { isAnyDogtag, getDogTagCost } from '../../modules/dogtags';
 import { getCheapestItemPrice } from '../../modules/format-cost-items';
+import { getDurationDisplay } from '../../modules/format-duration';
 
 import Icon from '@mdi/react';
 import {
@@ -132,6 +133,12 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
                     </div>
                 );
             })}
+            {barter.station && <div
+                className="barter-tooltip-item-wrapper"
+                key={`reward-tooltip-details`}
+            >
+                {t('Crafts {{count}} in {{duration}}', {count: barter.rewardItems[0].count, duration: getDurationDisplay(barter.duration * 1000)})}
+            </div>}
         </div>
     );
 }
