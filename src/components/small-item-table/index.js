@@ -445,6 +445,7 @@ function SmallItemTable(props) {
                 width: itemData.width,
                 height: itemData.height,
                 cached: itemData.cached,
+                pricePerSlot: 0,
             };
 
             formattedItem.sellForTradersBest = itemData.sellFor.reduce((best, sellFor) => {
@@ -507,12 +508,10 @@ function SmallItemTable(props) {
                 }
             }
             
-            let ppsPrice = itemData.avg24hPrice;
-            if (formattedItem.cheapestObtainPrice && formattedItem.cheapestObtainPrice < ppsPrice) {
-                ppsPrice = formattedItem.cheapestObtainPrice;
+            if (formattedItem.cheapestObtainPrice) {
+                formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.cheapestObtainPrice / (itemData.properties.capacity - (itemData.width * itemData.height)))
+                              : formattedItem.cheapestObtainPrice / itemData.properties.capacity
             }
-            formattedItem.pricePerSlot = showNetPPS ? Math.floor(ppsPrice / (itemData.properties.capacity - (itemData.width * itemData.height)))
-                              : ppsPrice / itemData.properties.capacity
 
             formattedItem.count = containedItems[itemData.id] || 1;
 
