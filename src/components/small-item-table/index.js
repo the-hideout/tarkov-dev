@@ -1839,6 +1839,7 @@ function SmallItemTable(props) {
         showPresets,
         showRestrictedType,
         attachmentMap,
+        settings,
     ]);
 
     let extraRow = false;
