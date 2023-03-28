@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiProgressWrench } from '@mdi/js';
+import { mdiProgressWrench, mdiCancel } from '@mdi/js';
 
 import {
     selectAllCrafts,
@@ -159,6 +159,16 @@ function Crafts() {
                             selected={selectedStation === 'top'}
                             content={t('Best')}
                             onClick={setSelectedStation.bind(undefined, 'top')}
+                        />
+                        <ButtonGroupFilterButton
+                            tooltipContent={
+                                <>
+                                    {t('Flea Market banned items')}
+                                </>
+                            }
+                            selected={selectedStation === 'banned'}
+                            content={<Icon path={mdiCancel} size={1} className="icon-with-text"/>}
+                            onClick={setSelectedStation.bind(undefined, 'banned')}
                         />
                     </ButtonGroupFilter>
                     <ToggleFilter

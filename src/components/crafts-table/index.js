@@ -275,12 +275,18 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 const stationNormalized = craftRow.station.normalizedName;
                 const level = craftRow.level;
 
-                if (!nameFilter && selectedStation && selectedStation !== 'top' && selectedStation !== stationNormalized) {
+                if (!nameFilter && selectedStation && selectedStation !== 'top' && selectedStation !== 'banned' && selectedStation !== stationNormalized) {
                     return false;
                 }
 
-                if (selectedStation === 'top' && stationNormalized === 'bitcoin-farm') {
+                if ((selectedStation === 'top' || selectedStation === 'banned') && stationNormalized === 'bitcoin-farm') {
                     return false;
+                }
+
+                if (selectedStation === 'banned') {
+                    if (!craftRow.rewardItems[0].item.types.includes('noFlea')) {
+                        return false;
+                    }
                 }
 
                 if (showAll) {
@@ -517,8 +523,12 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 id: 'costItems',
                 accessor: 'costItems',
                 sortType: (a, b, columnId, desc) => {
-                    const aCostItems = a.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                    const bCostItems = b.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    let aCostItems = a.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    let bCostItems = b.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    if (selectedStation === 'banned') {
+                        aCostItems = a.original.cost / a.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        bCostItems = b.original.cost / b.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    }
                     
                     return aCostItems - bCostItems;
                 },
@@ -550,6 +560,15 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 Header: t('Cost ₽'),
                 id: 'cost',
                 accessor: (d) => Number(d.cost),
+                sortType: (a, b, columnId, desc) => {
+                    let aCostItems = a.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    let bCostItems = b.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    if (selectedStation === 'banned') {
+                        aCostItems = a.original.cost / a.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        bCostItems = b.original.cost / b.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    }
+                    return aCostItems - bCostItems;
+                },
                 Cell: (props) => {
                     if (props.row.original.cached) {
                         return (
@@ -614,7 +633,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 },
             },
         ],
-        [t, includeFlea],
+        [t, includeFlea, selectedStation],
     );
 
     let extraRow = false;
