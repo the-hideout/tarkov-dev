@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import RewardImage from '../reward-image';
 import ItemImage from '../item-image';
 import formatPrice from '../../modules/format-price';
 import { isAnyDogtag, getDogTagCost } from '../../modules/dogtags';

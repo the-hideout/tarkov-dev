@@ -1742,7 +1742,6 @@ function SmallItemTable(props) {
                                 />
                             );
                         } else if (cheapestObtainInfo.craft) {
-                            console.log(props.row.original)
                             const craft = cheapestObtainInfo.craft;
                             priceSource = `${craft.station.name} ${craft.level}`;
                             let barterTipTitle = '';
