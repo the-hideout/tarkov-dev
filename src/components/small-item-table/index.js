@@ -891,6 +891,9 @@ function SmallItemTable(props) {
                 }
             }
         });
+        if (lowHyd === Number.MAX_SAFE_INTEGER) {
+            lowHyd = 0;
+        }
         return lowHyd;
     }, [
         data,
