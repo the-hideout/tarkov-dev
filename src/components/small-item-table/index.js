@@ -25,7 +25,7 @@ import ArrowIcon from '../../components/data-table/Arrow.js';
 
 import formatPrice from '../../modules/format-price';
 import itemSearch from '../../modules/item-search';
-import { getCheapestBarter } from '../../modules/format-cost-items';
+import { getCheapestBarter, getCheapestCraft } from '../../modules/format-cost-items';
 import { formatCaliber } from '../../modules/format-ammo';
 import itemCanContain from '../../modules/item-can-contain';
 
@@ -33,6 +33,10 @@ import {
     selectAllBarters,
     fetchBarters,
 } from '../../features/barters/bartersSlice';
+import {
+    selectAllCrafts,
+    fetchCrafts,
+} from '../../features/crafts/craftsSlice';
 import { useItemsQuery } from '../../features/items/queries';
 import { useMetaQuery } from '../../features/meta/queries';
 import CanvasGrid from '../../components/canvas-grid';
@@ -235,6 +239,7 @@ function SmallItemTable(props) {
         slotRatio,
         pricePerSlot,
         barterPrice,
+        craftPrice,
         fleaValue,
         hideBorders,
         autoScroll = true,
@@ -381,6 +386,59 @@ function SmallItemTable(props) {
         });
     }, [barterSelector, items]);
 
+    const craftSelector = useSelector(selectAllCrafts);
+    const craftsStatus = useSelector((state) => {
+        return state.crafts.status;
+    });
+
+    useEffect(() => {
+        if (!craftPrice && !cheapestPrice)
+            return;
+
+        let timer = false;
+        if (craftsStatus === 'idle') {
+            dispatch(fetchCrafts());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchCrafts());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [craftsStatus, craftPrice, cheapestPrice, dispatch]);
+
+    const crafts = useMemo(() => {
+        return craftSelector.map(c => {
+            return {
+                ...c,
+                requiredItems: c.requiredItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return false;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }).filter(Boolean),
+                rewardItems: c.rewardItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return false;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }).filter(Boolean),
+            };
+        });
+    }, [craftSelector, items]);
+
     const containedItems = useMemo(() => {
         if (!containedInFilter) 
             return {};
@@ -488,6 +546,13 @@ function SmallItemTable(props) {
                 if (buyFor.priceRUB && buyFor.priceRUB < formattedItem.cheapestObtainPrice) {
                     formattedItem.cheapestObtainPrice = buyFor.priceRUB;
                     formattedItem.cheapestObtainInfo = buyFor;
+                }
+            }
+            if (!formattedItem.cheapestObtainInfo) {
+                const cheapestCraft = getCheapestCraft(itemData, crafts, settings, showAllSources);
+                if (cheapestCraft) {
+                    formattedItem.cheapestObtainInfo = cheapestCraft;
+                    formattedItem.cheapestObtainPrice = Math.round(cheapestCraft.price / cheapestCraft.count);
                 }
             }
             if (formattedItem.cheapestObtainInfo === null) {
@@ -849,6 +914,7 @@ function SmallItemTable(props) {
         loyaltyLevelFilter,
         traderBuybackFilter,
         barters,
+        crafts,
         excludeTypeFilter,
         typeLimit,
         minPropertyFilter,
@@ -1075,7 +1141,7 @@ function SmallItemTable(props) {
                             content={
                                 <BarterTooltip
                                     barter={props.row.original.cheapestBarter?.barter}
-                                    showAllSources={showAllSources}
+                                    allowAllSources={showAllSources}
                                 />
                             }
                         >
@@ -1672,7 +1738,35 @@ function SmallItemTable(props) {
                                     barter={props.row.original.cheapestBarter.barter}
                                     showTitle={taskIcon !== ''}
                                     title={barterTipTitle}
-                                    showAllSources={showAllSources}
+                                    allowAllSources={showAllSources}
+                                />
+                            );
+                        } else if (cheapestObtainInfo.craft) {
+                            console.log(props.row.original)
+                            const craft = cheapestObtainInfo.craft;
+                            priceSource = `${craft.station.name} ${craft.level}`;
+                            let barterTipTitle = '';
+                            if (craft.taskUnlock) {
+                                taskIcon = (
+                                    <Icon
+                                        key="craft-task-tooltip-icon"
+                                        path={mdiClipboardList}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                );
+                                barterTipTitle = (
+                                    <Link to={`/task/${craft.taskUnlock.normalizedName}`}>
+                                        {t('Task: {{taskName}}', {taskName: craft.taskUnlock.name})}
+                                    </Link>
+                                );
+                            }
+                            tipContent = (
+                                <BarterTooltip
+                                    barter={craft}
+                                    showTitle={taskIcon !== ''}
+                                    title={barterTipTitle}
+                                    allowAllSources={showAllSources}
                                 />
                             );
                         }
@@ -1681,8 +1775,7 @@ function SmallItemTable(props) {
                         displayedPrice.push(taskIcon);
                         priceContent.push((<div key="price-info">{formatPrice(props.value*props.row.original.count)}</div>));
                         priceContent.push((<div key="price-source-info" className="trader-unlock-wrapper">{displayedPrice}</div>))
-                    } 
-                    else {
+                    } else {
                         tipContent = [];
                         if (props.row.original.types.includes('noFlea')) {
                             priceContent.push((
