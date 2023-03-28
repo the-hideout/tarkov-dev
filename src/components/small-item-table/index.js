@@ -253,7 +253,7 @@ function SmallItemTable(props) {
         showContainedItems,
         weight,
         showNetPPS,
-        showAllSources,
+        showAllSources = false,
         cheapestPrice,
         sumColumns,
         idFilter,
@@ -294,8 +294,6 @@ function SmallItemTable(props) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
-    if (typeof showAllSources === 'undefined') 
-        showAllSources = false;
 
     // Use the primary items API query to fetch all items
     const result = useItemsQuery();
