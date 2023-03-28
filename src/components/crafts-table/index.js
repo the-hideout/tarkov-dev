@@ -275,12 +275,18 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 const stationNormalized = craftRow.station.normalizedName;
                 const level = craftRow.level;
 
-                if (!nameFilter && selectedStation && selectedStation !== 'top' && selectedStation !== stationNormalized) {
+                if (!nameFilter && selectedStation && selectedStation !== 'top' && selectedStation !== 'banned' && selectedStation !== stationNormalized) {
                     return false;
                 }
 
-                if (selectedStation === 'top' && stationNormalized === 'bitcoin-farm') {
+                if ((selectedStation === 'top' || selectedStation === 'banned') && stationNormalized === 'bitcoin-farm') {
                     return false;
+                }
+
+                if (selectedStation === 'banned') {
+                    if (!craftRow.rewardItems[0].item.types.includes('noFlea')) {
+                        return false;
+                    }
                 }
 
                 if (showAll) {

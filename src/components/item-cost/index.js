@@ -21,7 +21,7 @@ const ConditionalWrapper = ({ condition, wrapper, children }) => {
 function ItemCost({
     itemId,
     count,
-    price,
+    price = 0,
     vendor = {name: 'Flea Market', normalizedName: 'flea-market'},
     priceType = 'cash',
     priceDetails,
