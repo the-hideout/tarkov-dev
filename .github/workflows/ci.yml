@@ -31,6 +31,7 @@ jobs:
         run: |
           version=$(cat .node-version)
           echo "version=${version}" >> $GITHUB_OUTPUT
+
       - uses: actions/setup-node@v3.6.0
         with:
           node-version: ${{ steps.node-version.outputs.version }}
