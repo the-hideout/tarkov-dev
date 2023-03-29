@@ -1,6 +1,7 @@
 {
   "name": "tarkov.dev",
-  "version": "2.0.2",
+  "version": "0.0.0",
+  "description": "The official site for tarkov.dev - A web app to track item prices, view trader barters, quests, maps, and much more!",
   "private": true,
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.2.0",
