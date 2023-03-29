@@ -24,7 +24,6 @@ jobs:
 
       - name: checkout
         uses: actions/checkout@v3.5.0
-        if: ${{ steps.deployment-check.outputs.continue == 'true' }} # only run if the Action returned 'true' for the 'continue' output
 
       # check to ensure all JSON files are valid in the repository
       - name: json-yaml-validate
