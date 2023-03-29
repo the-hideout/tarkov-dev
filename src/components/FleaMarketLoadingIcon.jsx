@@ -4,10 +4,7 @@ import 'tippy.js/dist/tippy.css'; // optional
 import Icon from '@mdi/react';
 import { mdiTimerSand } from '@mdi/js';
 
-function FleaMarketLoadingIcon({
-    size = 1,
-    tooltip
-}) {
+function FleaMarketLoadingIcon({ size = 1, tooltip }) {
     const { t } = useTranslation();
 
     if (!tooltip) {
@@ -15,15 +12,8 @@ function FleaMarketLoadingIcon({
     }
 
     return (
-        <Tippy
-            placement="bottom"
-            content={tooltip}
-        >
-            <Icon
-                path={mdiTimerSand}
-                size={size}
-                className="icon-with-text"
-            />
+        <Tippy placement="bottom" content={tooltip}>
+            <Icon path={mdiTimerSand} size={size} className="icon-with-text" />
         </Tippy>
     );
 }

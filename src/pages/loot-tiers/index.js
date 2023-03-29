@@ -4,18 +4,13 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiFinance} from '@mdi/js';
+import { mdiFinance } from '@mdi/js';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 import SEO from '../../components/SEO';
 import ItemGrid from '../../components/item-grid';
-import {
-    Filter,
-    ToggleFilter,
-    SelectFilter,
-    InputFilter,
-} from '../../components/filter';
+import { Filter, ToggleFilter, SelectFilter, InputFilter } from '../../components/filter';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
 import capitalizeFirst from '../../modules/capitalize-first';
@@ -46,14 +41,8 @@ function LootTier(props) {
     const [numberFilter, setNumberFilter] = useState(DEFAULT_MAX_ITEMS);
     const [minPrice, setMinPrice] = useStateWithLocalStorage('minPrice', 0);
     const hasFlea = useSelector((state) => state.settings.hasFlea);
-    const [includeMarked, setIncludeMarked] = useStateWithLocalStorage(
-        'includeMarked',
-        false,
-    );
-    const [groupByType, setGroupByType] = useStateWithLocalStorage(
-        'groupByType',
-        false,
-    );
+    const [includeMarked, setIncludeMarked] = useStateWithLocalStorage('includeMarked', false);
+    const [groupByType, setGroupByType] = useStateWithLocalStorage('groupByType', false);
     const { t } = useTranslation();
     const filterOptions = [
         {
@@ -147,7 +136,7 @@ function LootTier(props) {
                     // Fixes a bug where PPS was calculated using just a weapon receiver.
                     if (item.properties.defaultPreset) {
                         // use default preset images for item
-                        const preset = items.find(i => i.id === item.properties.defaultPreset.id);
+                        const preset = items.find((i) => i.id === item.properties.defaultPreset.id);
                         if (preset) {
                             width = preset.width;
                             height = preset.height;
@@ -162,7 +151,6 @@ function LootTier(props) {
                     }
                     itemTypes = item.types.filter((type) => type !== 'wearable');
                 }
-
 
                 if (hasFlea && !item.types.includes('noFlea')) {
                     const fleaPrice = item.avg24hPrice - item.fee;
@@ -185,7 +173,7 @@ function LootTier(props) {
                     gridImageLink,
                     baseImageLink,
                     types: itemTypes,
-                }
+                };
             })
             .filter((item) => {
                 if (item.types.includes('unLootable')) {
@@ -202,9 +190,7 @@ function LootTier(props) {
                 return false;
             }
 
-            const intersection = item.types.filter((type) =>
-                filters.types?.includes(type),
-            );
+            const intersection = item.types.filter((type) => filters.types?.includes(type));
 
             // No categories matching
             if (intersection.length === 0) {
@@ -262,10 +248,7 @@ function LootTier(props) {
     }, 400);
 
     const selectedItems = useMemo(() => {
-        return filteredItems.slice(
-            0,
-            Math.min(filteredItems.length, numberFilter),
-        );
+        return filteredItems.slice(0, Math.min(filteredItems.length, numberFilter));
     }, [filteredItems, numberFilter]);
 
     const { groupNames, itemChunks } = useMemo(() => {
@@ -321,15 +304,13 @@ function LootTier(props) {
                 if (itemA.height === itemB.height) {
                     if (itemA.slots > itemB.slots) {
                         return -1;
-                    }
-                    else if (itemA.slots === itemB.slots) {
+                    } else if (itemA.slots === itemB.slots) {
                         return 0;
-                    }
-                    else if (itemA.slots < itemB.slots) {
+                    } else if (itemA.slots < itemB.slots) {
                         return 1;
                     }
                 }
-                
+
                 if (itemA.height < itemB.height) {
                     return 1;
                 }
@@ -363,22 +344,24 @@ function LootTier(props) {
     );
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Loot tiers')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('loot-tiers-page-description', 'Learn about the different types of loot available in the game, their value, rarity, and what to keep and what to trash.')}
+            description={t(
+                'loot-tiers-page-description',
+                'Learn about the different types of loot available in the game, their value, rarity, and what to keep and what to trash.',
+            )}
             key="seo-wrapper"
         />,
-        <div
-            className="display-wrapper loot-tiers-main-wrapper"
-            key={'display-wrapper'}
-        >
-            <div className='loot-tiers-wrapper'>
-                <h1 className='loot-tiers-text'>
+        <div className="display-wrapper loot-tiers-main-wrapper" key={'display-wrapper'}>
+            <div className="loot-tiers-wrapper">
+                <h1 className="loot-tiers-text">
                     {t('Escape from Tarkov')}
-                    <Icon path={mdiFinance} size={1.5} className="icon-with-text" /> 
+                    <Icon path={mdiFinance} size={1.5} className="icon-with-text" />
                     {t('Loot tiers')}
                 </h1>
-                <p className='loot-tiers-text'>{t('Ranking the most valuable items in the game')}</p>
+                <p className="loot-tiers-text">
+                    {t('Ranking the most valuable items in the game')}
+                </p>
             </div>
             <Filter fullWidth>
                 <ToggleFilter
@@ -425,7 +408,10 @@ function LootTier(props) {
 
             <div className="loot-tiers-wrapper">
                 <p>
-                    {t('loot-tiers-page-description', 'Learn about the different types of loot available in the game, their value, rarity, and what to keep and what to trash.')}
+                    {t(
+                        'loot-tiers-page-description',
+                        'Learn about the different types of loot available in the game, their value, rarity, and what to keep and what to trash.',
+                    )}
                 </p>
             </div>
         </div>,

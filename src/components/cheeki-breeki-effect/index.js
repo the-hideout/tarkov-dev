@@ -1,10 +1,10 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 import './index.css';
 
 function CheekiBreekiEffect() {
     return (
-        <div className='cheeki-breeki'>
+        <div className="cheeki-breeki">
             <motion.div
                 className="block"
                 animate={{ rotate: 360 }}
@@ -30,7 +30,7 @@ function CheekiBreekiEffect() {
             <motion.div
                 className="block"
                 animate={{ rotate: 360, scale: 4, x: -100 }}
-                transition={{ yoyo: Infinity, duration: 0.30 }}
+                transition={{ yoyo: Infinity, duration: 0.3 }}
             >
                 <img
                     alt={'killa'}

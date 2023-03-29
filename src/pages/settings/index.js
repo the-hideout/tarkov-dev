@@ -22,14 +22,8 @@ import {
     toggleHideDogtagBarters,
     // selectCompletedQuests,
 } from '../../features/settings/settingsSlice';
-import {
-    selectAllCrafts,
-    fetchCrafts,
-} from '../../features/crafts/craftsSlice';
-import {
-    selectAllHideoutModules,
-    fetchHideout,
-} from '../../features/hideout/hideoutSlice';
+import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
+import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
 import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
 
 import supportedLanguages from '../../data/supported-languages.json';
@@ -49,8 +43,8 @@ import './index.css';
     { value: 'ja', label: 'ja' },
     { value: 'pl', label: 'pl' },
 ]*/
-const langOptions = supportedLanguages.map(lang => {
-    return {value: lang, label: lang};
+const langOptions = supportedLanguages.map((lang) => {
+    return { value: lang, label: lang };
 });
 
 export function getNumericSelect(min, max) {
@@ -73,9 +67,7 @@ function Settings() {
     const allStations = useSelector(selectAllStations);
     const allSkills = useSelector(selectAllSkills);
     const hasFlea = useSelector((state) => state.settings.hasFlea);
-    const useTarkovTracker = useSelector(
-        (state) => state.settings.useTarkovTracker,
-    );
+    const useTarkovTracker = useSelector((state) => state.settings.useTarkovTracker);
     const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
 
     const refs = {
@@ -83,15 +75,15 @@ function Settings() {
         'booze-generator': useRef(null),
         'christmas-tree': useRef(null),
         'intelligence-center': useRef(null),
-        'lavatory': useRef(null),
-        'medstation': useRef(null),
+        lavatory: useRef(null),
+        medstation: useRef(null),
         'nutrition-unit': useRef(null),
         'water-collector': useRef(null),
-        'workbench': useRef(null),
+        workbench: useRef(null),
         'solar-power': useRef(null),
     };
 
-    const traders = useSelector(selectAllTraders).filter(t => t.normalizedName !== 'lightkeeper');
+    const traders = useSelector(selectAllTraders).filter((t) => t.normalizedName !== 'lightkeeper');
     const tradersStatus = useSelector((state) => {
         return state.traders.status;
     });
@@ -155,15 +147,15 @@ function Settings() {
             clearInterval(timer);
         };
     }, [craftsStatus, dispatch]);
-    
+
     const stations = useMemo(() => {
         const stn = [];
         for (const craft of crafts) {
-            if (!stn.some(station => station.id === craft.station.id)) {
+            if (!stn.some((station) => station.id === craft.station.id)) {
                 stn.push(craft.station);
             }
         }
-        stn.push(hideout.find(h => h.normalizedName === 'solar-power'));
+        stn.push(hideout.find((h) => h.normalizedName === 'solar-power'));
         return stn.sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
@@ -187,16 +179,14 @@ function Settings() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [useTarkovTracker, allStations]);
 
-    const hideRemoteControlValue = useSelector(
-        (state) => state.settings.hideRemoteControl,
-    );
+    const hideRemoteControlValue = useSelector((state) => state.settings.hideRemoteControl);
     const handleHideRemoteValueToggle = useCallback(() => {
         dispatch(toggleHideRemoteControl());
     }, [dispatch]);
 
     // Setup language selector
-    const [language, setLanguage] = useState("id");
-    const handleLangChange = event => {
+    const [language, setLanguage] = useState('id');
+    const handleLangChange = (event) => {
         const lang = event.value;
         setLanguage(lang);
         i18n.changeLanguage(lang);
@@ -205,164 +195,180 @@ function Settings() {
     // cheeki breeki
     const [isShown, setIsShown] = useState(false);
 
-    let audio = new Audio("/audio/killa.mp3")
-    const handleClick = event => {
-        setIsShown(current => !current);
-        audio.play()
+    let audio = new Audio('/audio/killa.mp3');
+    const handleClick = (event) => {
+        setIsShown((current) => !current);
+        audio.play();
     };
 
     const wipeLength = getWipeData()[0].lengthDays;
     const estimatedAvgPlayerLevel = Math.round(30 * Math.atan(wipeLength / 38));
 
     return (
-        <SEO 
-            title={`${t('Settings')} - ${t('Tarkov.dev')}`}
-            description={t('settings-page-description', 'This page contains user settings on Tarkov.dev.')}
-            key="seo-wrapper"
-        />,
-        <div className={'page-wrapper'}>
-            <h1>{t('Settings')}</h1>
-            <div className="language-toggle-wrapper settings-group-wrapper">
-                <h2>{t('Language')}</h2>
-                <Select
-                    placeholder={i18n.language}
-                    options={langOptions}
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                    onChange={(event) => {
-                        handleLangChange({
-                            target: language,
-                            value: event.value,
-                        })
-                    }}
-                />
-            </div>
-            <div className={'settings-group-wrapper'}>
-                <h2>{t('General')}</h2>
-                <ToggleFilter
-                    label={t('Has flea')}
-                    onChange={() => dispatch(toggleFlea(!hasFlea))}
-                    checked={hasFlea}
-                    disabled={useTarkovTracker}
-                />
-                <ToggleFilter
-                    label={t('Use TarkovTracker')}
-                    onChange={() =>
-                        dispatch(toggleTarkovTracker(!useTarkovTracker))
-                    }
-                    checked={useTarkovTracker}
-                />
-                <InputFilter
-                    label={
-                        <a href="https://tarkovtracker.io/settings/" target="_blank" rel="noopener noreferrer">
-                            {t('TarkovTracker API Token')}
-                        </a>
-                    }
-                    defaultValue={useSelector(
-                        (state) => state.settings.tarkovTrackerAPIKey,
-                    )}
-                    type="text"
-                    placeholder={t('API Token')}
-                    onChange={(event) => {
-                        dispatch(setTarkovTrackerAPIKey(event.target.value));
-                    }}
-                />
-            </div>
-            <div className="settings-group-wrapper">
-                <h2>{t('Traders')}</h2>
-                {traders.map((trader) => {
-                    return (
-                        <StationSkillTraderSetting
-                            key={trader.normalizedName}
-                            label={trader.name}
-                            type="trader"
-                            stateKey={trader.normalizedName}
-                            ref={refs[trader.normalizedName]}
-                        />
-                    );
-                })}
-            </div>
-            <div className="settings-group-wrapper">
-                <h2>{t('Stations')}</h2>
-                {stations.map((station) => {
-                    return (
-                        <StationSkillTraderSetting
-                            key={station.normalizedName}
-                            label={station.name}
-                            type="station"
-                            stateKey={station.normalizedName}
-                            ref={refs[station.normalizedName]}
-                            isDisabled={useTarkovTracker}
-                        />
-                    );
-                })}
-            </div>
-            <div className="settings-group-wrapper">
-                <h2>{t('Skills')}</h2>
-                {Object.keys(allSkills).map((skillKey) => {
-                    return (
-                        <StationSkillTraderSetting
-                            key={skillKey}
-                            type="skill"
-                            stateKey={skillKey}
-                            ref={refs[skillKey]}
-                        />
-                    );
-                })}
-            </div>
-            <div className="settings-group-wrapper">
-                <h2>{t('Dogtag Barters')}</h2>
-                <ToggleFilter
-                    checked={hideDogtagBarters}
-                    label={t('Exclude')}
-                    onChange={(e) => dispatch(toggleHideDogtagBarters(!hideDogtagBarters))}
-                    tooltipContent={
-                        <>
-                            {t('The true "cost" of barters using Dogtags is difficult to estimate, so you may want to exclude dogtag barters')}
-                        </>
-                    }
-                />
-                <InputFilter
-                    label={t('Minimum dogtag level')}
-                    defaultValue={useSelector(
-                        (state) => state.settings.minDogtagLevel,
-                    )}
-                    type="text"
-                    inputMode="numeric"
-                    placeholder={'1-72'}
-                    onChange={(event) => {
-                        if (!event.target.value) {
-                            event.target.value = '1';
-                        }
-                        event.target.value = event.target.value.replaceAll(/[^0-9]/g, '');
-                        if (!event.target.value) {
-                            event.target.value = '1';
-                        }
-                        dispatch(setMinDogtagLevel(event.target.value));
-                    }}
-                    tooltip={(
-                        <div>
-                            <div>{t('Minimum dogtag level to use for calculating the cost of dogtag barter trades')}</div>
-                            <div>{t(`The current estimated average player level is {{avgPlayerLevel}}`, {avgPlayerLevel: estimatedAvgPlayerLevel})}</div>
-                        </div>
-                    )}
-                />
-                <h2>{t('Miscellaneous')}</h2>
-                <ToggleFilter
-                    label={t('Hide remote control')}
-                    onChange={handleHideRemoteValueToggle}
-                    checked={hideRemoteControlValue}
-                />
-            </div>
-            {/* cheeki breeki */}
-            <div>
-                <button style={{ padding: '.2rem', borderRadius: '4px' }} onClick={handleClick}>cheeki breeki</button>
-                {isShown && (
-                    <CheekiBreekiEffect />
+        (
+            <SEO
+                title={`${t('Settings')} - ${t('Tarkov.dev')}`}
+                description={t(
+                    'settings-page-description',
+                    'This page contains user settings on Tarkov.dev.',
                 )}
+                key="seo-wrapper"
+            />
+        ),
+        (
+            <div className={'page-wrapper'}>
+                <h1>{t('Settings')}</h1>
+                <div className="language-toggle-wrapper settings-group-wrapper">
+                    <h2>{t('Language')}</h2>
+                    <Select
+                        placeholder={i18n.language}
+                        options={langOptions}
+                        className="basic-multi-select"
+                        classNamePrefix="select"
+                        onChange={(event) => {
+                            handleLangChange({
+                                target: language,
+                                value: event.value,
+                            });
+                        }}
+                    />
+                </div>
+                <div className={'settings-group-wrapper'}>
+                    <h2>{t('General')}</h2>
+                    <ToggleFilter
+                        label={t('Has flea')}
+                        onChange={() => dispatch(toggleFlea(!hasFlea))}
+                        checked={hasFlea}
+                        disabled={useTarkovTracker}
+                    />
+                    <ToggleFilter
+                        label={t('Use TarkovTracker')}
+                        onChange={() => dispatch(toggleTarkovTracker(!useTarkovTracker))}
+                        checked={useTarkovTracker}
+                    />
+                    <InputFilter
+                        label={
+                            <a
+                                href="https://tarkovtracker.io/settings/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {t('TarkovTracker API Token')}
+                            </a>
+                        }
+                        defaultValue={useSelector((state) => state.settings.tarkovTrackerAPIKey)}
+                        type="text"
+                        placeholder={t('API Token')}
+                        onChange={(event) => {
+                            dispatch(setTarkovTrackerAPIKey(event.target.value));
+                        }}
+                    />
+                </div>
+                <div className="settings-group-wrapper">
+                    <h2>{t('Traders')}</h2>
+                    {traders.map((trader) => {
+                        return (
+                            <StationSkillTraderSetting
+                                key={trader.normalizedName}
+                                label={trader.name}
+                                type="trader"
+                                stateKey={trader.normalizedName}
+                                ref={refs[trader.normalizedName]}
+                            />
+                        );
+                    })}
+                </div>
+                <div className="settings-group-wrapper">
+                    <h2>{t('Stations')}</h2>
+                    {stations.map((station) => {
+                        return (
+                            <StationSkillTraderSetting
+                                key={station.normalizedName}
+                                label={station.name}
+                                type="station"
+                                stateKey={station.normalizedName}
+                                ref={refs[station.normalizedName]}
+                                isDisabled={useTarkovTracker}
+                            />
+                        );
+                    })}
+                </div>
+                <div className="settings-group-wrapper">
+                    <h2>{t('Skills')}</h2>
+                    {Object.keys(allSkills).map((skillKey) => {
+                        return (
+                            <StationSkillTraderSetting
+                                key={skillKey}
+                                type="skill"
+                                stateKey={skillKey}
+                                ref={refs[skillKey]}
+                            />
+                        );
+                    })}
+                </div>
+                <div className="settings-group-wrapper">
+                    <h2>{t('Dogtag Barters')}</h2>
+                    <ToggleFilter
+                        checked={hideDogtagBarters}
+                        label={t('Exclude')}
+                        onChange={(e) => dispatch(toggleHideDogtagBarters(!hideDogtagBarters))}
+                        tooltipContent={
+                            <>
+                                {t(
+                                    'The true "cost" of barters using Dogtags is difficult to estimate, so you may want to exclude dogtag barters',
+                                )}
+                            </>
+                        }
+                    />
+                    <InputFilter
+                        label={t('Minimum dogtag level')}
+                        defaultValue={useSelector((state) => state.settings.minDogtagLevel)}
+                        type="text"
+                        inputMode="numeric"
+                        placeholder={'1-72'}
+                        onChange={(event) => {
+                            if (!event.target.value) {
+                                event.target.value = '1';
+                            }
+                            event.target.value = event.target.value.replaceAll(/[^0-9]/g, '');
+                            if (!event.target.value) {
+                                event.target.value = '1';
+                            }
+                            dispatch(setMinDogtagLevel(event.target.value));
+                        }}
+                        tooltip={
+                            <div>
+                                <div>
+                                    {t(
+                                        'Minimum dogtag level to use for calculating the cost of dogtag barter trades',
+                                    )}
+                                </div>
+                                <div>
+                                    {t(
+                                        `The current estimated average player level is {{avgPlayerLevel}}`,
+                                        { avgPlayerLevel: estimatedAvgPlayerLevel },
+                                    )}
+                                </div>
+                            </div>
+                        }
+                    />
+                    <h2>{t('Miscellaneous')}</h2>
+                    <ToggleFilter
+                        label={t('Hide remote control')}
+                        onChange={handleHideRemoteValueToggle}
+                        checked={hideRemoteControlValue}
+                    />
+                </div>
+                {/* cheeki breeki */}
+                <div>
+                    <button style={{ padding: '.2rem', borderRadius: '4px' }} onClick={handleClick}>
+                        cheeki breeki
+                    </button>
+                    {isShown && <CheekiBreekiEffect />}
+                </div>
+                {/* end cheeki breeki */}
             </div>
-            {/* end cheeki breeki */}
-        </div>
+        )
     );
 }
 

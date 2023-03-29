@@ -9,16 +9,9 @@ import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 import SEO from '../../components/SEO';
 import ItemsSummaryTable from '../../components/items-summary-table';
-import {
-    Filter,
-    ButtonGroupFilter,
-    ButtonGroupFilterButton,
-} from '../../components/filter';
+import { Filter, ButtonGroupFilter, ButtonGroupFilterButton } from '../../components/filter';
 
-import {
-    selectAllHideoutModules,
-    fetchHideout,
-} from '../../features/hideout/hideoutSlice';
+import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
 
 import './index.css';
 
@@ -52,22 +45,27 @@ function Hideout() {
     }, [hideoutStatus, dispatch]);
 
     const stations = useMemo(() => {
-        return hideout.map(station => station).sort((a, b) => {
-            return a.name.localeCompare(b.name);
-        });
+        return hideout
+            .map((station) => station)
+            .sort((a, b) => {
+                return a.name.localeCompare(b.name);
+            });
     }, [hideout]);
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Hideout')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('hideout-page-description', 'This page includes information on the different station and modules that can be build with the materials and resources required to upgrade your hideout.')}
+            description={t(
+                'hideout-page-description',
+                'This page includes information on the different station and modules that can be build with the materials and resources required to upgrade your hideout.',
+            )}
             key="seo-wrapper"
         />,
         <div className="page-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
-                    <Icon path={mdiHome} size={1.5} className="icon-with-text"/>
+                    <Icon path={mdiHome} size={1.5} className="icon-with-text" />
                     {t('Hideout')}
                 </h1>
             </div>
@@ -77,11 +75,7 @@ function Hideout() {
                         return (
                             <ButtonGroupFilterButton
                                 key={`station-tooltip-${station.normalizedName}`}
-                                tooltipContent={
-                                    <>
-                                        {station.name}
-                                    </>
-                                }
+                                tooltipContent={<>{station.name}</>}
                                 selected={station.normalizedName === selectedStation}
                                 content={
                                     <img
@@ -90,19 +84,12 @@ function Hideout() {
                                         src={`${process.env.PUBLIC_URL}/images/stations/${station.normalizedName}-icon.png`}
                                     />
                                 }
-                                onClick={setSelectedStation.bind(
-                                    undefined,
-                                    station.normalizedName,
-                                )}
+                                onClick={setSelectedStation.bind(undefined, station.normalizedName)}
                             />
                         );
                     })}
                     <ButtonGroupFilterButton
-                        tooltipContent={
-                            <>
-                                {t('Show all stations & modules')}
-                            </>
-                        }
+                        tooltipContent={<>{t('Show all stations & modules')}</>}
                         selected={selectedStation === 'all'}
                         content={t('All')}
                         onClick={setSelectedStation.bind(undefined, 'all')}
@@ -117,8 +104,7 @@ function Hideout() {
                 if (
                     selectedStation &&
                     selectedStation !== 'all' &&
-                    hideoutModule.normalizedName !==
-                        selectedStation
+                    hideoutModule.normalizedName !== selectedStation
                 ) {
                     return null;
                 }
@@ -137,18 +123,16 @@ function Hideout() {
                                 {hideoutModule.name} {level.level}
                             </h2>
                             <ItemsSummaryTable
-                                includeItems={level.itemRequirements.map(
-                                    (itemRequirement) => {
-                                        return {
-                                            ...itemRequirement.item,
-                                            quantity: itemRequirement.quantity,
-                                        };
-                                    },
-                                )}
+                                includeItems={level.itemRequirements.map((itemRequirement) => {
+                                    return {
+                                        ...itemRequirement.item,
+                                        quantity: itemRequirement.quantity,
+                                    };
+                                })}
                             />
                         </div>
                     );
-                })
+                });
             })}
         </div>,
     ];

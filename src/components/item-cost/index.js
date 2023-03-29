@@ -22,7 +22,7 @@ function ItemCost({
     itemId,
     count,
     price = 0,
-    vendor = {name: 'Flea Market', normalizedName: 'flea-market'},
+    vendor = { name: 'Flea Market', normalizedName: 'flea-market' },
     priceType = 'cash',
     priceDetails,
     isTool,
@@ -37,7 +37,7 @@ function ItemCost({
         setCustomPrice(price);
     }, [price, setCustomPrice]);
 
-    let { displayPrice, tooltip, displayImage} = useMemo(() => {
+    let { displayPrice, tooltip, displayImage } = useMemo(() => {
         let displayPrice = '';
         let tooltip = false;
         let displayImage = (
@@ -50,33 +50,26 @@ function ItemCost({
         );
         if (priceType === 'cached') {
             displayPrice = count;
-            displayImage =  (
-                <Icon
-                    path={mdiTimerSand}
-                    size={0.5}
-                    className="icon-with-text"
-                />
-            );
+            displayImage = <Icon path={mdiTimerSand} size={0.5} className="icon-with-text" />;
             tooltip = t('Flea market prices loading');
         } else if (isTool) {
-            displayPrice = `${count} x ${formatPrice(price)} = ${formatPrice(count * price)}`
+            displayPrice = `${count} x ${formatPrice(price)} = ${formatPrice(count * price)}`;
         } else {
             displayPrice = (
                 <span>
                     <span>{count} x </span>
-                    <span 
+                    <span
                         className={`no-click${editingCustomPrice ? ' hidden' : ''}`}
                         onClick={(event) => {
                             setEditingCustomPrice(true);
                         }}
                     >
-                        {formatPrice(price)}{priceType === 'custom' ? '*' : ''}
+                        {formatPrice(price)}
+                        {priceType === 'custom' ? '*' : ''}
                     </span>
-                    <span
-                        className={`no-click${editingCustomPrice ? '' : ' hidden'}`}
-                    >
-                        <input 
-                            className="no-click item-cost-custom-price" 
+                    <span className={`no-click${editingCustomPrice ? '' : ' hidden'}`}>
+                        <input
+                            className="no-click item-cost-custom-price"
                             value={customPrice}
                             inputMode="numeric"
                             onChange={(e) => {
@@ -96,7 +89,7 @@ function ItemCost({
                                 dispatch(
                                     setCustomSellValue({
                                         itemId: itemId,
-                                        price: customPrice
+                                        price: customPrice,
                                     }),
                                 );
                                 setEditingCustomPrice(false);
@@ -110,7 +103,7 @@ function ItemCost({
                                 dispatch(
                                     setCustomSellValue({
                                         itemId: itemId,
-                                        price: false
+                                        price: false,
                                     }),
                                 );
                                 setEditingCustomPrice(false);
@@ -121,8 +114,21 @@ function ItemCost({
                 </span>
             );
         }
-        return {displayPrice: displayPrice, tooltip: tooltip, displayImage: displayImage};
-    }, [dispatch, t, vendor, priceType, itemId, count, price, isTool, customPrice, setCustomPrice, editingCustomPrice, setEditingCustomPrice]);
+        return { displayPrice: displayPrice, tooltip: tooltip, displayImage: displayImage };
+    }, [
+        dispatch,
+        t,
+        vendor,
+        priceType,
+        itemId,
+        count,
+        price,
+        isTool,
+        customPrice,
+        setCustomPrice,
+        editingCustomPrice,
+        setEditingCustomPrice,
+    ]);
 
     if (priceType === 'barter') {
         displayImage = (
@@ -133,11 +139,7 @@ function ItemCost({
                 src={`${process.env.PUBLIC_URL}/images/icon-barter.png`}
             />
         );
-        tooltip = (
-            <BarterTooltip
-                barter={priceDetails}
-            />
-        );
+        tooltip = <BarterTooltip barter={priceDetails} />;
     }
 
     return (
@@ -145,7 +147,7 @@ function ItemCost({
             condition={tooltip}
             wrapper={(children) => {
                 return (
-                    <Tippy 
+                    <Tippy
                         placement="bottom"
                         followCursor={'horizontal'}
                         // showOnCreate = {true}

@@ -6,7 +6,7 @@
     opacity: 0.9;
 
     -webkit-animation: shine 1s linear infinite;
-            animation: shine 1s linear infinite;
+    animation: shine 1s linear infinite;
 }
 @-webkit-keyframes shine {
     to {

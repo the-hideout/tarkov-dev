@@ -6,22 +6,13 @@ import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../data-table';
 import fleaMarketFee from '../../modules/flea-market-fee';
-import {
-    selectAllCrafts,
-    fetchCrafts,
-} from '../../features/crafts/craftsSlice';
-import {
-    selectAllBarters,
-    fetchBarters,
-} from '../../features/barters/bartersSlice';
+import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
+import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
-import {
-    selectAllStations,
-    selectAllSkills,
-} from '../../features/settings/settingsSlice';
+import { selectAllStations, selectAllSkills } from '../../features/settings/settingsSlice';
 import CenterCell from '../center-cell';
 
 import './index.css';
@@ -33,20 +24,33 @@ import { useQuestsQuery } from '../../features/quests/queries';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
-function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices, excludeBarterIngredients }) {
+function CraftTable({
+    selectedStation,
+    freeFuel,
+    nameFilter,
+    itemFilter,
+    showAll,
+    averagePrices,
+    excludeBarterIngredients,
+}) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
     const { includeFlea, hasJaeger, completedQuests } = useMemo(() => {
-        return {includeFlea: settings.hasFlea, hasJaeger: settings.jaeger !== 0, completedQuests: settings.completedQuests};
+        return {
+            includeFlea: settings.hasFlea,
+            hasJaeger: settings.jaeger !== 0,
+            completedQuests: settings.completedQuests,
+        };
     }, [settings]);
     const stations = useSelector(selectAllStations);
     const skills = useSelector(selectAllSkills);
     // const [skippedByLevel, setSkippedByLevel] = useState(false);
     const skippedByLevelRef = useRef();
-    const feeReduction = stations['intelligence-center'] === 3 ? 0.7 - (0.003 * skills['hideout-management']) : 1;
+    const feeReduction =
+        stations['intelligence-center'] === 3 ? 0.7 - 0.003 * skills['hideout-management'] : 1;
 
-    const [sortState, setSortState] = useState([{id: 'profit', desc: true}]);
+    const [sortState, setSortState] = useState([{ id: 'profit', desc: true }]);
 
     const items = useSelector(selectAllItems);
     const itemsStatus = useSelector((state) => {
@@ -80,73 +84,92 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         return state.barters.status;
     });
 
-    const {data: tasks} = useQuestsQuery();
+    const { data: tasks } = useQuestsQuery();
 
     const barters = useMemo(() => {
-        return barterSelector.map(b => {
-            return {
-                ...b,
-                requiredItems: b.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                rewardItems: b.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-            };
-        }).filter(() => !excludeBarterIngredients)
-        .filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
+        return barterSelector
+            .map((b) => {
+                return {
+                    ...b,
+                    requiredItems: b.requiredItems
+                        .map((req) => {
+                            const matchedItem = items.find((it) => it.id === req.item.id);
+                            if (!matchedItem) {
+                                return false;
+                            }
+                            return {
+                                ...req,
+                                item: matchedItem,
+                            };
+                        })
+                        .filter(Boolean),
+                    rewardItems: b.rewardItems
+                        .map((req) => {
+                            const matchedItem = items.find((it) => it.id === req.item.id);
+                            if (!matchedItem) {
+                                return false;
+                            }
+                            return {
+                                ...req,
+                                item: matchedItem,
+                            };
+                        })
+                        .filter(Boolean),
+                };
+            })
+            .filter(() => !excludeBarterIngredients)
+            .filter((barter) => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
     }, [barterSelector, items, excludeBarterIngredients]);
 
     const crafts = useMemo(() => {
-        return craftSelector.map(c => {
-            let taskUnlock = c.taskUnlock;
-            if (taskUnlock) {
-                taskUnlock = tasks.find(t => t.id === taskUnlock.id);
-            }
-            return {
-                ...c,
-                requiredItems: c.requiredItems.map(req => {
-                    let matchedItem = items.find(it => it.id === req.item.id);
-                    if (matchedItem && matchedItem.types.includes('gun')) {
-                        if (req.attributes?.some(element => element.type === 'functional' && Boolean(element.value))) {
-                            matchedItem = items.find(it => it.id === matchedItem.properties?.defaultPreset?.id);
-                        }
-                    }
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                rewardItems: c.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                taskUnlock: taskUnlock,
-            };
-        }).filter(craft => craft.rewardItems.length > 0 && craft.rewardItems.length > 0);
+        return craftSelector
+            .map((c) => {
+                let taskUnlock = c.taskUnlock;
+                if (taskUnlock) {
+                    taskUnlock = tasks.find((t) => t.id === taskUnlock.id);
+                }
+                return {
+                    ...c,
+                    requiredItems: c.requiredItems
+                        .map((req) => {
+                            let matchedItem = items.find((it) => it.id === req.item.id);
+                            if (matchedItem && matchedItem.types.includes('gun')) {
+                                if (
+                                    req.attributes?.some(
+                                        (element) =>
+                                            element.type === 'functional' && Boolean(element.value),
+                                    )
+                                ) {
+                                    matchedItem = items.find(
+                                        (it) => it.id === matchedItem.properties?.defaultPreset?.id,
+                                    );
+                                }
+                            }
+                            if (!matchedItem) {
+                                return false;
+                            }
+                            return {
+                                ...req,
+                                item: matchedItem,
+                            };
+                        })
+                        .filter(Boolean),
+                    rewardItems: c.rewardItems
+                        .map((req) => {
+                            const matchedItem = items.find((it) => it.id === req.item.id);
+                            if (!matchedItem) {
+                                return false;
+                            }
+                            return {
+                                ...req,
+                                item: matchedItem,
+                            };
+                        })
+                        .filter(Boolean),
+                    taskUnlock: taskUnlock,
+                };
+            })
+            .filter((craft) => craft.rewardItems.length > 0 && craft.rewardItems.length > 0);
     }, [craftSelector, items, tasks]);
 
     const { data: meta } = useMetaQuery();
@@ -227,9 +250,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 
                 if (nameFilter?.length > 0) {
                     let matchesFilter = false;
-                    const findString = nameFilter
-                        .toLowerCase()
-                        .replace(/\s/g, '');
+                    const findString = nameFilter.toLowerCase().replace(/\s/g, '');
                     for (const requiredItem of craftRow.requiredItems) {
                         if (requiredItem === null) {
                             continue;
@@ -266,7 +287,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 }
 
                 if (!showAll && craftRow.taskUnlock && completedQuests?.length > 0) {
-                    if (!completedQuests.some(taskId => taskId === craftRow.taskUnlock.id)) {
+                    if (!completedQuests.some((taskId) => taskId === craftRow.taskUnlock.id)) {
                         return false;
                     }
                 }
@@ -275,11 +296,20 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 const stationNormalized = craftRow.station.normalizedName;
                 const level = craftRow.level;
 
-                if (!nameFilter && selectedStation && selectedStation !== 'top' && selectedStation !== 'banned' && selectedStation !== stationNormalized) {
+                if (
+                    !nameFilter &&
+                    selectedStation &&
+                    selectedStation !== 'top' &&
+                    selectedStation !== 'banned' &&
+                    selectedStation !== stationNormalized
+                ) {
                     return false;
                 }
 
-                if ((selectedStation === 'top' || selectedStation === 'banned') && stationNormalized === 'bitcoin-farm') {
+                if (
+                    (selectedStation === 'top' || selectedStation === 'banned') &&
+                    stationNormalized === 'bitcoin-farm'
+                ) {
                     return false;
                 }
 
@@ -305,14 +335,16 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     settings,
                     barters,
                     freeFuel,
-                    showAll
+                    showAll,
                 );
 
                 const craftDuration = Math.floor(
                     craftRow.duration - (craftRow.duration * (skills.crafting * 0.75)) / 100,
                 );
 
-                var costItemsWithoutTools = costItems.filter(costItem => costItem.isTool === false)
+                var costItemsWithoutTools = costItems.filter(
+                    (costItem) => costItem.isTool === false,
+                );
                 costItemsWithoutTools.map(
                     (costItem) => (totalCost = totalCost + costItem.price * costItem.count),
                 );
@@ -335,7 +367,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     {
                         vendor: {
                             name: t('N/A'),
-                            normalizedName: 'unknown'
+                            normalizedName: 'unknown',
                         },
                         priceRUB: 0,
                     },
@@ -361,35 +393,50 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 
                 let fleaFeeSingle = 0;
                 let fleaFeeTotal = 0;
-                let fleaPriceToUse = craftRewardItem[averagePrices === true ? 'avg24hPrice' : 'lastLowPrice'];
+                let fleaPriceToUse =
+                    craftRewardItem[averagePrices === true ? 'avg24hPrice' : 'lastLowPrice'];
                 if (fleaPriceToUse === 0) {
                     fleaPriceToUse = craftRewardItem.lastLowPrice;
                 }
 
-                if (!tradeData.cached && !craftRewardItem.types.includes('noFlea') && (showAll || includeFlea)) {
-                    const bestFleaPrice = bestPrice(craftRewardItem, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate, fleaPriceToUse);
-                    if (!craftRow.rewardItems[0].priceCustom && (fleaPriceToUse === 0 || bestFleaPrice.bestPrice < fleaPriceToUse)) {
+                if (
+                    !tradeData.cached &&
+                    !craftRewardItem.types.includes('noFlea') &&
+                    (showAll || includeFlea)
+                ) {
+                    const bestFleaPrice = bestPrice(
+                        craftRewardItem,
+                        meta?.flea?.sellOfferFeeRate,
+                        meta?.flea?.sellRequirementFeeRate,
+                        fleaPriceToUse,
+                    );
+                    if (
+                        !craftRow.rewardItems[0].priceCustom &&
+                        (fleaPriceToUse === 0 || bestFleaPrice.bestPrice < fleaPriceToUse)
+                    ) {
                         fleaPriceToUse = bestFleaPrice.bestPrice;
                         fleaFeeSingle = bestFleaPrice.bestPriceFee;
                     } else {
-                        fleaFeeSingle = fleaMarketFee(
+                        fleaFeeSingle =
+                            fleaMarketFee(
+                                craftRewardItem.basePrice,
+                                fleaPriceToUse,
+                                1,
+                                meta?.flea?.sellOfferFeeRate,
+                                meta?.flea?.sellRequirementFeeRate,
+                            ) * feeReduction;
+                    }
+                    fleaFeeTotal =
+                        fleaMarketFee(
                             craftRewardItem.basePrice,
                             fleaPriceToUse,
-                            1,
+                            craftRow.rewardItems[0].count,
                             meta?.flea?.sellOfferFeeRate,
                             meta?.flea?.sellRequirementFeeRate,
                         ) * feeReduction;
-                    }
-                    fleaFeeTotal = fleaMarketFee(
-                        craftRewardItem.basePrice,
-                        fleaPriceToUse,
-                        craftRow.rewardItems[0].count,
-                        meta?.flea?.sellOfferFeeRate,
-                        meta?.flea?.sellRequirementFeeRate,
-                    ) * feeReduction;
                     if (fleaPriceToUse - fleaFeeSingle > tradeData.reward.sellValue) {
                         tradeData.reward.sellValue = fleaPriceToUse;
-                    
+
                         tradeData.reward.sellTo = t('Flea Market');
                     } else {
                         fleaFeeSingle = 0;
@@ -424,18 +471,20 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 }
 
                 tradeData.fleaThroughput = Math.floor(
-                    (tradeData.reward.sellValue * craftRow.rewardItems[0].count) / (craftDuration / 3600),
+                    (tradeData.reward.sellValue * craftRow.rewardItems[0].count) /
+                        (craftDuration / 3600),
                 );
 
-                tradeData.profit = tradeData.reward.sellValue * craftRow.rewardItems[0].count - totalCost - fleaFeeTotal;
+                tradeData.profit =
+                    tradeData.reward.sellValue * craftRow.rewardItems[0].count -
+                    totalCost -
+                    fleaFeeTotal;
 
                 if (tradeData.profit === Infinity) {
                     tradeData.profit = 0;
                 }
 
-                tradeData.profitPerHour = Math.floor(
-                    tradeData.profit / (craftDuration / 3600),
-                );
+                tradeData.profitPerHour = Math.floor(tradeData.profit / (craftDuration / 3600));
 
                 return tradeData;
             })
@@ -511,7 +560,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 sortType: (a, b, columnId, desc) => {
                     const aName = a.values.reward.item.name;
                     const bName = b.values.reward.item.name;
-                    
+
                     return aName.localeCompare(bName);
                 },
                 Cell: ({ value }) => {
@@ -523,13 +572,21 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 id: 'costItems',
                 accessor: 'costItems',
                 sortType: (a, b, columnId, desc) => {
-                    let aCostItems = a.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                    let bCostItems = b.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    let aCostItems =
+                        a.original.cost ||
+                        (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    let bCostItems =
+                        b.original.cost ||
+                        (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
                     if (selectedStation === 'banned') {
-                        aCostItems = a.original.cost / a.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                        bCostItems = b.original.cost / b.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        aCostItems =
+                            a.original.cost / a.original.reward.count ||
+                            (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        bCostItems =
+                            b.original.cost / b.original.reward.count ||
+                            (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
                     }
-                    
+
                     return aCostItems - bCostItems;
                 },
                 Cell: ({ value }) => {
@@ -547,9 +604,13 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                             <div className="duration-wrapper">
                                 {getDurationDisplay(value * 1000)}
                             </div>
-                            <div className="finish-wrapper" title={t('Start now')} onClick={((e) => {
-                                e.target.innerText = getLocalFinishes(value, t);
-                            })}>
+                            <div
+                                className="finish-wrapper"
+                                title={t('Start now')}
+                                onClick={(e) => {
+                                    e.target.innerText = getLocalFinishes(value, t);
+                                }}
+                            >
                                 {getLocalFinishes(value, t)}
                             </div>
                         </CenterCell>
@@ -561,11 +622,19 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 id: 'cost',
                 accessor: (d) => Number(d.cost),
                 sortType: (a, b, columnId, desc) => {
-                    let aCostItems = a.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                    let bCostItems = b.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    let aCostItems =
+                        a.original.cost ||
+                        (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    let bCostItems =
+                        b.original.cost ||
+                        (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
                     if (selectedStation === 'banned') {
-                        aCostItems = a.original.cost / a.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                        bCostItems = b.original.cost / b.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        aCostItems =
+                            a.original.cost / a.original.reward.count ||
+                            (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        bCostItems =
+                            b.original.cost / b.original.reward.count ||
+                            (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
                     }
                     return aCostItems - bCostItems;
                 },
@@ -573,31 +642,36 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <FleaMarketLoadingIcon/>
+                                <FleaMarketLoadingIcon />
                             </div>
                         );
                     }
-                    return <ValueCell value={props.value} valueCount={props.row.original.reward.count}/>;
+                    return (
+                        <ValueCell
+                            value={props.value}
+                            valueCount={props.row.original.reward.count}
+                        />
+                    );
                 },
             },
             ...(includeFlea
                 ? [
-                    {
-                        Header: t('Flea throughput/h'),
-                        id: 'fleaThroughput',
-                        accessor: 'fleaThroughput',
-                        sortType: 'basic',
-                        Cell: (props) => {
-                            if (props.row.original.cached) {
-                                return (
-                                    <div className="center-content">
-                                        <FleaMarketLoadingIcon/>
-                                    </div>
-                                );
-                            }
-                            return <ValueCell value={props.value}/>;
-                        },
-                    },
+                      {
+                          Header: t('Flea throughput/h'),
+                          id: 'fleaThroughput',
+                          accessor: 'fleaThroughput',
+                          sortType: 'basic',
+                          Cell: (props) => {
+                              if (props.row.original.cached) {
+                                  return (
+                                      <div className="center-content">
+                                          <FleaMarketLoadingIcon />
+                                      </div>
+                                  );
+                              }
+                              return <ValueCell value={props.value} />;
+                          },
+                      },
                   ]
                 : []),
             {
@@ -609,11 +683,17 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <FleaMarketLoadingIcon/>
+                                <FleaMarketLoadingIcon />
                             </div>
                         );
                     }
-                    return <ValueCell value={props.value} valueDetails={props.row.original.profitParts} highlightProfit />;
+                    return (
+                        <ValueCell
+                            value={props.value}
+                            valueDetails={props.row.original.profitParts}
+                            highlightProfit
+                        />
+                    );
                 },
             },
             {
@@ -625,7 +705,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <FleaMarketLoadingIcon/>
+                                <FleaMarketLoadingIcon />
                             </div>
                         );
                     }
@@ -645,7 +725,8 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     if (data.length <= 0 && skippedByLevelRef.current) {
         extraRow = (
             <>
-                {t('No crafts available for selected filters but some were hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
+                {t('No crafts available for selected filters but some were hidden by ')}
+                <Link to="/settings/">{t('your settings')}</Link>
             </>
         );
     }
@@ -653,7 +734,8 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     if (data.length > 0 && skippedByLevelRef.current) {
         extraRow = (
             <>
-                {t('Some crafts hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
+                {t('Some crafts hidden by ')}
+                <Link to="/settings/">{t('your settings')}</Link>
             </>
         );
     }
@@ -667,7 +749,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
             sortBy={'profit'}
             sortByDesc={true}
             autoResetSortBy={false}
-            onSort={newSortState => {
+            onSort={(newSortState) => {
                 setSortState(newSortState);
             }}
         />
@@ -675,11 +757,12 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 }
 
 function getLocalFinishes(time, t) {
-    const finishes = t('{{val, datetime}}', { val: Date.now() + time*1000,
+    const finishes = t('{{val, datetime}}', {
+        val: Date.now() + time * 1000,
         formatParams: {
             val: { weekday: 'short', hour: 'numeric', minute: 'numeric', second: 'numeric' },
         },
-    })
+    });
 
     return finishes;
 }

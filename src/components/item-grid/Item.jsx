@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import ItemTooltip from './ItemTooltip';
 import ItemIcon from './ItemIcon';
@@ -31,7 +31,7 @@ function Item(props) {
         <Link
             to={props.itemLink}
             className={`grid-item`}
-            style={{gridRowEnd: `span ${props.height}`, gridColumnEnd: `span ${props.width}`}}
+            style={{ gridRowEnd: `span ${props.height}`, gridColumnEnd: `span ${props.width}` }}
         >
             <ItemTooltip
                 pricePerSlot={props.pricePerSlot}

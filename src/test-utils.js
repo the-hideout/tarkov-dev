@@ -6,10 +6,7 @@ import { Provider } from 'react-redux';
 import defaultStore from './store';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-function render(
-    ui,
-    { preloadedState, store = defaultStore, ...renderOptions } = {},
-) {
+function render(ui, { preloadedState, store = defaultStore, ...renderOptions } = {}) {
     function Wrapper({ children }) {
         return (
             <Provider store={store}>

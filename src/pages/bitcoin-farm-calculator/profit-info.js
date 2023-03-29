@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchItems, selectAllItems } from '../../features/items/itemsSlice'
+import { fetchItems, selectAllItems } from '../../features/items/itemsSlice';
 import { BitcoinItemId, GraphicCardItemId, ProduceBitcoinData } from './data';
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
@@ -20,7 +20,13 @@ const cardSlots = {
     3: 50,
 };
 
-const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBuildCosts, wipeDaysRemaining }) => {
+const ProfitInfo = ({
+    profitForNumCards,
+    showDays = 100,
+    fuelPricePerDay,
+    useBuildCosts,
+    wipeDaysRemaining,
+}) => {
     const stations = useSelector(selectAllStations);
 
     const itemsResult = useItemsQuery();
@@ -50,7 +56,7 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
             clearInterval(timer);
         };
     }, [hideoutStatus, dispatch]);
-    
+
     const { t } = useTranslation();
 
     const itemsSelector = useSelector(selectAllItems);
@@ -76,18 +82,18 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
     }, [itemsStatus, dispatch]);
 
     const bitcoinItem = useMemo(() => {
-        return itemsSelector.find(i => i.id === BitcoinItemId);
+        return itemsSelector.find((i) => i.id === BitcoinItemId);
     }, [itemsSelector]);
 
     const graphicCardItem = useMemo(() => {
-        return itemsSelector.find(i => i.id === GraphicCardItemId);
+        return itemsSelector.find((i) => i.id === GraphicCardItemId);
     }, [itemsSelector]);
 
     const solarCost = useMemo(() => {
-        const solar = hideout.find(station => station.normalizedName === 'solar-power');
+        const solar = hideout.find((station) => station.normalizedName === 'solar-power');
         let buildCost = 0;
         for (const req of solar.levels[0].itemRequirements) {
-            const item = items.find(i => i.id === req.item.id);
+            const item = items.find((i) => i.id === req.item.id);
             if (!item) continue;
             const itemCost = item.buyFor.reduce((lowPrice, buyFor) => {
                 if (!lowPrice || (buyFor.priceRUB && buyFor.priceRUB < lowPrice)) {
@@ -99,14 +105,14 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
         }
         return buildCost;
     }, [hideout, items]);
-    
+
     const farmCosts = useMemo(() => {
-        const farmData = hideout.find(station => station.normalizedName === 'bitcoin-farm');
+        const farmData = hideout.find((station) => station.normalizedName === 'bitcoin-farm');
         const farmCosts = {};
         for (const level of farmData.levels) {
             farmCosts[level.level] = 0;
             for (const req of level.itemRequirements) {
-                const item = items.find(i => i.id === req.item.id);
+                const item = items.find((i) => i.id === req.item.id);
                 const itemCost = item.buyFor.reduce((lowPrice, buyFor) => {
                     if (!lowPrice || (buyFor.priceRUB && buyFor.priceRUB < lowPrice)) {
                         return buyFor.priceRUB;
@@ -130,85 +136,91 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
         if (!bitcoinItem || !graphicCardItem) {
             return [];
         }
-        const btcSellPrice = bitcoinItem.priceCustom || bitcoinItem.sellFor?.reduce((bestPrice, currentPrice) => {
-            if (bestPrice < currentPrice.priceRUB) {
-                return currentPrice.priceRUB;
-            }
-            return bestPrice;
-        }, 0);
-        const graphicsCardBuyPrice = graphicCardItem.priceCustom || graphicCardItem.buyFor?.reduce((bestPrice, currentPrice) => {
-            if (bestPrice === 0 || bestPrice > currentPrice.priceRUB) {
-                return currentPrice.priceRUB;
-            }
-            return bestPrice;
-        }, 0);
-
-        return profitForNumCards.map((graphicCardsCount) => {
-            const data = ProduceBitcoinData[graphicCardsCount];
-            if (!data) {
-                return false;
-            }
-
-            const graphicCardsCost = graphicsCardBuyPrice * graphicCardsCount;
-            const btcRevenuePerDay = data.btcPerDay * btcSellPrice;
-            const btcProfitPerDay = btcRevenuePerDay - fuelPricePerDay;
-
-            let buildCosts = 0;
-            if (useBuildCosts) {
-                if (stations['solar-power'] === 1) {
-                    buildCosts += solarCost;
+        const btcSellPrice =
+            bitcoinItem.priceCustom ||
+            bitcoinItem.sellFor?.reduce((bestPrice, currentPrice) => {
+                if (bestPrice < currentPrice.priceRUB) {
+                    return currentPrice.priceRUB;
                 }
-                let farmLevelNeeded = 3;
-                for (let i = Object.values(cardSlots).length; i > 0; i--) {
-                    if (cardSlots[i] < graphicCardsCount) {
-                        break;
+                return bestPrice;
+            }, 0);
+        const graphicsCardBuyPrice =
+            graphicCardItem.priceCustom ||
+            graphicCardItem.buyFor?.reduce((bestPrice, currentPrice) => {
+                if (bestPrice === 0 || bestPrice > currentPrice.priceRUB) {
+                    return currentPrice.priceRUB;
+                }
+                return bestPrice;
+            }, 0);
+
+        return profitForNumCards
+            .map((graphicCardsCount) => {
+                const data = ProduceBitcoinData[graphicCardsCount];
+                if (!data) {
+                    return false;
+                }
+
+                const graphicCardsCost = graphicsCardBuyPrice * graphicCardsCount;
+                const btcRevenuePerDay = data.btcPerDay * btcSellPrice;
+                const btcProfitPerDay = btcRevenuePerDay - fuelPricePerDay;
+
+                let buildCosts = 0;
+                if (useBuildCosts) {
+                    if (stations['solar-power'] === 1) {
+                        buildCosts += solarCost;
                     }
-                    farmLevelNeeded = i;
+                    let farmLevelNeeded = 3;
+                    for (let i = Object.values(cardSlots).length; i > 0; i--) {
+                        if (cardSlots[i] < graphicCardsCount) {
+                            break;
+                        }
+                        farmLevelNeeded = i;
+                    }
+                    for (let i = 1; i <= farmLevelNeeded; i++) {
+                        buildCosts += farmCosts[i];
+                    }
                 }
-                for (let i = 1; i <= farmLevelNeeded; i++) {
-                    buildCosts += farmCosts[i];
+
+                const totalCosts = graphicCardsCost + buildCosts;
+
+                let profitableDay;
+                if (btcProfitPerDay > 0) {
+                    profitableDay = Math.ceil(totalCosts / btcProfitPerDay);
                 }
-            }
 
-            const totalCosts = graphicCardsCost + buildCosts;
-
-            let profitableDay;
-            if (btcProfitPerDay > 0) {
-                profitableDay = Math.ceil(totalCosts / btcProfitPerDay);
-            }
-
-            let remainingProfit;
-            if (profitableDay && daysLeft > profitableDay) {
-                if (daysLeft > 0) {
-                    remainingProfit = (daysLeft - profitableDay) * btcProfitPerDay;
+                let remainingProfit;
+                if (profitableDay && daysLeft > profitableDay) {
+                    if (daysLeft > 0) {
+                        remainingProfit = (daysLeft - profitableDay) * btcProfitPerDay;
+                    }
                 }
-            }
 
-            const values = [];
-            for (let day = 0; day <= showDays; day = day + 1) {
-                const fuelCost = fuelPricePerDay * day;
-                const revenue = btcRevenuePerDay * day;
-                const profit = revenue - totalCosts - fuelCost;
+                const values = [];
+                for (let day = 0; day <= showDays; day = day + 1) {
+                    const fuelCost = fuelPricePerDay * day;
+                    const revenue = btcRevenuePerDay * day;
+                    const profit = revenue - totalCosts - fuelCost;
 
-                values.push({
-                    x: day,
-                    y: profit,
-                });
-            }
+                    values.push({
+                        x: day,
+                        y: profit,
+                    });
+                }
 
-            return {
-                ...data,
-                graphicCardsCount,
-                values,
-                profitableDay,
-                graphicCardsCost,
-                btcRevenuePerDay,
-                fuelPricePerDay,
-                btcProfitPerDay,
-                buildCosts,
-                remainingProfit,
-            };
-        }).filter(Boolean);
+                return {
+                    ...data,
+                    graphicCardsCount,
+                    values,
+                    profitableDay,
+                    graphicCardsCost,
+                    btcRevenuePerDay,
+                    fuelPricePerDay,
+                    btcProfitPerDay,
+                    buildCosts,
+                    remainingProfit,
+                };
+            })
+            .filter(Boolean);
     }, [
         bitcoinItem,
         graphicCardItem,
@@ -219,7 +231,7 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
         farmCosts,
         stations,
         useBuildCosts,
-        daysLeft
+        daysLeft,
     ]);
 
     if (data.length <= 0) {
@@ -234,8 +246,7 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
 
         {
             Header: t('Time to produce 1 bitcoin'),
-            accessor: ({ msToProduceBTC }) =>
-                getDurationDisplay(msToProduceBTC),
+            accessor: ({ msToProduceBTC }) => getDurationDisplay(msToProduceBTC),
             Cell: CenterCell,
         },
         {
@@ -245,8 +256,7 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
         },
         {
             Header: t('Estimated profit/day'),
-            accessor: ({ btcProfitPerDay }) =>
-                formatPrice(btcProfitPerDay),
+            accessor: ({ btcProfitPerDay }) => formatPrice(btcProfitPerDay),
             Cell: CenterCell,
         },
         {
@@ -256,31 +266,27 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
         },
         {
             Header: t('Total cost of graphic cards'),
-            accessor: ({ graphicCardsCost }) =>
-                formatPrice(graphicCardsCost),
+            accessor: ({ graphicCardsCost }) => formatPrice(graphicCardsCost),
             Cell: CenterCell,
         },
     ];
     if (useBuildCosts) {
         columns.push({
             Header: t('Build costs'),
-            accessor: ({ buildCosts }) =>
-                formatPrice(buildCosts),
+            accessor: ({ buildCosts }) => formatPrice(buildCosts),
             Cell: CenterCell,
         });
         columns.push({
             Header: t('GPU + build costs'),
-            accessor: (data) =>
-                formatPrice(data.graphicCardsCost + data.buildCosts),
+            accessor: (data) => formatPrice(data.graphicCardsCost + data.buildCosts),
             Cell: CenterCell,
         });
     }
     columns.push({
         Header: t('Remaining profit'),
-        accessor: ({ remainingProfit }) =>
-            formatPrice(remainingProfit),
+        accessor: ({ remainingProfit }) => formatPrice(remainingProfit),
         Cell: CenterCell,
-    })
+    });
 
     return (
         <>

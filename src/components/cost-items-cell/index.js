@@ -59,7 +59,11 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                         </div>
                         <div className="cost-item-text-wrapper">
                             <Link to={costItem.itemLink}>{costItem.name}</Link>
-                            <div className={`${costItem.isTool ? 'price-wrapper-tool' : 'price-wrapper'}`}>
+                            <div
+                                className={`${
+                                    costItem.isTool ? 'price-wrapper-tool' : 'price-wrapper'
+                                }`}
+                            >
                                 <ItemCost
                                     itemId={costItem.id}
                                     priceDetails={costItem.priceDetails}

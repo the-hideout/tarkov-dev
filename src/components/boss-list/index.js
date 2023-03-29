@@ -6,7 +6,6 @@ import { useBossDetails } from '../../features/bosses/queries';
 
 import './index.css';
 
-
 // BossPageList component for the main boss page
 export function BossPageList() {
     // Fetch bosses
@@ -20,22 +19,19 @@ export function BossPageList() {
     // Return the home page boss React component
     return (
         <>
-            {bosses.filter(boss => boss.maps.length > 0).map((boss) => {
+            {bosses
+                .filter((boss) => boss.maps.length > 0)
+                .map((boss) => {
+                    // Format the boss name for links
+                    var key = boss.normalizedName;
 
-                // Format the boss name for links
-                var key = boss.normalizedName;
-
-                return (
-                    <Link to={`/boss/${key}`} className="screen-link" key={`boss-${key}`}>
-                        <h2 className="center-title">{boss.name}</h2>
-                        <img
-                            alt={boss.name}
-                            loading='lazy'
-                            src={boss.imagePortraitLink}
-                        />
-                    </Link>
-                )
-            })}
+                    return (
+                        <Link to={`/boss/${key}`} className="screen-link" key={`boss-${key}`}>
+                            <h2 className="center-title">{boss.name}</h2>
+                            <img alt={boss.name} loading="lazy" src={boss.imagePortraitLink} />
+                        </Link>
+                    );
+                })}
         </>
     );
 }
@@ -65,7 +61,7 @@ export function BossListNav(onClick) {
                             to={`/boss/${key}`}
                             onClick={onClick.onClick}
                         />
-                    )
+                    );
                 })}
             </ul>
         </>
@@ -85,25 +81,26 @@ function BossList() {
     // Return the home page boss React component
     return (
         <>
-            {bosses.filter(boss => boss.maps.length > 0).map((boss) => {
+            {bosses
+                .filter((boss) => boss.maps.length > 0)
+                .map((boss) => {
+                    // Format the boss name for links
+                    var key = boss.normalizedName;
 
-                // Format the boss name for links
-                var key = boss.normalizedName;
-
-                return (
-                    <li key={`boss-link-${key}`}>
-                        <Link to={`/boss/${key}`} key={`boss-${key}`}>
-                            <img
-                                alt={boss.name}
-                                loading='lazy'
-                                className="boss-icon"
-                                src={`${process.env.PUBLIC_URL}/images/bosses/${key}-icon.jpg`}
-                            />
-                            {boss.name}
-                        </Link>
-                    </li>
-                )
-            })}
+                    return (
+                        <li key={`boss-link-${key}`}>
+                            <Link to={`/boss/${key}`} key={`boss-${key}`}>
+                                <img
+                                    alt={boss.name}
+                                    loading="lazy"
+                                    className="boss-icon"
+                                    src={`${process.env.PUBLIC_URL}/images/bosses/${key}-icon.jpg`}
+                                />
+                                {boss.name}
+                            </Link>
+                        </li>
+                    );
+                })}
         </>
     );
 }

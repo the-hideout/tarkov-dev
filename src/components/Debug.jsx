@@ -5,11 +5,7 @@ function Debug() {
 
     return (
         <div>
-            <input
-                type="text"
-                value={itemId}
-                onChange={(e) => setItemId(e.target.value)}
-            />
+            <input type="text" value={itemId} onChange={(e) => setItemId(e.target.value)} />
             <pre>Nothing here</pre>
         </div>
     );

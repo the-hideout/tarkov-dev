@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import ItemImage from '../item-image';
 import ItemTooltip from './ItemTooltip';
@@ -20,11 +20,7 @@ const getSubtitle = (text, minPrice, maxPrice, t) => {
         );
     }
 
-    return (
-        <div className="item-group-subtitle-wrapper">
-            {text}
-        </div>
-    );
+    return <div className="item-group-subtitle-wrapper">{text}</div>;
 };
 
 function ItemGrid(props) {
@@ -64,12 +60,12 @@ function ItemGrid(props) {
                         key={`${item.normalizedName}-${item.id}`}
                         to={`/item/${item.normalizedName}`}
                         className={`grid-item`}
-                        style={{gridRowEnd: `span ${item.baseImageLink ? item.height : 1}`, gridColumnEnd: `span ${item.baseImageLink ? item.width : 1}`}}
+                        style={{
+                            gridRowEnd: `span ${item.baseImageLink ? item.height : 1}`,
+                            gridColumnEnd: `span ${item.baseImageLink ? item.width : 1}`,
+                        }}
                     >
-                        <ItemImage
-                            item={item}
-                            nonFunctionalOverlay={false}
-                        >
+                        <ItemImage item={item} nonFunctionalOverlay={false}>
                             <ItemTooltip
                                 key={`${item.id}-tooltip`}
                                 pricePerSlot={item.pricePerSlot}

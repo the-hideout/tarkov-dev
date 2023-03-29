@@ -41,22 +41,22 @@ function ItemsForHideout(props) {
             curr.levels.map((level) => {
                 return acc.push(
                     ...level.itemRequirements
-                    .filter((c) => {
-                        if (!c) {
-                            return false;
-                        }
+                        .filter((c) => {
+                            if (!c) {
+                                return false;
+                            }
 
-                        return c.item.id === itemFilter;
-                    })
-                    .map((c) => {
-                        return {
-                            ...c,
-                            moduleName: curr.name,
-                            normalizedName: curr.normalizedName,
-                            level: level.level,
-                        };
-                    }),
-                )
+                            return c.item.id === itemFilter;
+                        })
+                        .map((c) => {
+                            return {
+                                ...c,
+                                moduleName: curr.name,
+                                normalizedName: curr.normalizedName,
+                                level: level.level,
+                            };
+                        }),
+                );
             });
 
             return acc;
@@ -72,7 +72,7 @@ function ItemsForHideout(props) {
     // }
 
     const unbuilt = useMemo(() => {
-        return data.filter(module => settings[module.normalizedName] < module.level);
+        return data.filter((module) => settings[module.normalizedName] < module.level);
     }, [data, settings]);
 
     let extraRow = false;
@@ -82,7 +82,8 @@ function ItemsForHideout(props) {
     } else if (unbuilt.length !== data.length && !showAll) {
         extraRow = (
             <>
-                {t('No unbuilt hideout modules for selected filters but some were hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
+                {t('No unbuilt hideout modules for selected filters but some were hidden by ')}
+                <Link to="/settings/">{t('your settings')}</Link>
             </>
         );
     }
@@ -101,10 +102,7 @@ function ItemsForHideout(props) {
                 <tbody>
                     {extraRow && (
                         <tr className="hideout-item-list-row hideout-item-list-extra-row">
-                            <td
-                                colSpan={2}
-                                className="hideout-item-list-column"
-                            >
+                            <td colSpan={2} className="hideout-item-list-column">
                                 {extraRow}
                             </td>
                         </tr>

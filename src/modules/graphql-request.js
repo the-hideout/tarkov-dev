@@ -1,4 +1,4 @@
-import fetch  from 'cross-fetch';
+import fetch from 'cross-fetch';
 
 const apiUrlProd = 'https://api.tarkov.dev/graphql';
 const apiUrlDev = 'https://dev-api.tarkov.dev/graphql';
@@ -17,7 +17,7 @@ export default async function graphqlRequest(queryString) {
             Accept: 'application/json',
         },
         body: JSON.stringify({
-            query: queryString
+            query: queryString,
         }),
-    }).then(response => response.json());
+    }).then((response) => response.json());
 }

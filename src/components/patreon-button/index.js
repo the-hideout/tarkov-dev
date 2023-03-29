@@ -7,9 +7,7 @@ function PatreonButton({ onlyLarge, linkStyle, wrapperStyle, text, children }) {
 
     return (
         <p
-            className={`become-supporter-wrapper ${
-                onlyLarge ? 'only-large' : ''
-            }`}
+            className={`become-supporter-wrapper ${onlyLarge ? 'only-large' : ''}`}
             style={wrapperStyle}
         >
             <a

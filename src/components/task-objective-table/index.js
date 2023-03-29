@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
-import { 
-    mdiCloseOctagon, 
+import {
+    mdiCloseOctagon,
     mdiHelpRhombus,
     mdiAccountSwitch,
     mdiClipboardList,
@@ -26,7 +26,7 @@ function TaskObjectiveTable({ objectives }) {
 
     const itemsResult = useItemsQuery();
     const items = useMemo(() => {
-        console.log(itemsResult)
+        console.log(itemsResult);
         return itemsResult.data;
     }, [itemsResult]);
     /*const items = useSelector(selectAllItems);
@@ -74,16 +74,18 @@ function TaskObjectiveTable({ objectives }) {
     }, [tradersStatus, dispatch]);
 
     const data = useMemo(() => {
-        return objectives.map(objective => {
+        return objectives.map((objective) => {
             const obj = {
                 ...objective,
-                subRows: []
+                subRows: [],
             };
             let subRow = false;
             if (objective.type === 'giveItem' || objective.type === 'findItem') {
-                console.log(objective.item.id, items)
+                console.log(objective.item.id, items);
                 subRow = {
-                    description: `${items.find(item => item.id === objective.item.id)?.name}: ${objective.count}`
+                    description: `${items.find((item) => item.id === objective.item.id)?.name}: ${
+                        objective.count
+                    }`,
                 };
             }
             if (description) {
@@ -91,20 +93,13 @@ function TaskObjectiveTable({ objectives }) {
             }
             return obj;
         });
-    }, [
-        objectives,
-        items,
-        traders,
-    ]);
+    }, [objectives, items, traders]);
 
     const columns = useMemo(() => {
         const useColumns = [];
         useColumns.push({
             id: 'expander',
-            Header: ({
-                getToggleAllRowsExpandedProps,
-                isAllRowsExpanded,
-            }) =>
+            Header: ({ getToggleAllRowsExpandedProps, isAllRowsExpanded }) =>
                 // <span {...getToggleAllRowsExpandedProps()}>
                 //     {isAllRowsExpanded ? 'v' : '>'}
                 // </span>
@@ -123,11 +118,7 @@ function TaskObjectiveTable({ objectives }) {
                             },
                         })}
                     >
-                        {row.isExpanded ? (
-                            <ArrowIcon />
-                        ) : (
-                            <ArrowIcon className={'arrow-right'} />
-                        )}
+                        {row.isExpanded ? <ArrowIcon /> : <ArrowIcon className={'arrow-right'} />}
                     </span>
                 ) : null,
         });
@@ -145,12 +136,12 @@ function TaskObjectiveTable({ objectives }) {
         for (let i = 1; i < useColumns.length; i++) {
             const column = useColumns[i];
             if (Number.isInteger(column.position)) {
-                let position = parseInt(column.position)+1;
+                let position = parseInt(column.position) + 1;
                 if (position < 2) {
                     position = 2;
                 }
                 if (position >= useColumns.length) {
-                    position = useColumns.length-1;
+                    position = useColumns.length - 1;
                 }
                 if (position !== i && !claimedPositions.includes(position)) {
                     //console.log(`Moving ${column.Header} from ${i} to ${position}`);
@@ -165,9 +156,7 @@ function TaskObjectiveTable({ objectives }) {
         }
 
         return useColumns;
-    }, [
-        t,
-    ]);
+    }, [t]);
 
     let extraRow = false;
 

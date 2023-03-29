@@ -6,13 +6,13 @@ import formatPrice from '../../modules/format-price';
 import './index.css';
 
 function ValueCell(props) {
-    const { 
-        value, 
-        highlightProfit, 
-        children, 
-        noValue = '-', 
-        count = 1, 
-        slots, 
+    const {
+        value,
+        highlightProfit,
+        children,
+        noValue = '-',
+        count = 1,
+        slots,
         showSlotValue,
         valueCount = 1,
         valueDetails,
@@ -29,10 +29,7 @@ function ValueCell(props) {
     }
     if (valueCount > 1) {
         countTag = (
-            <Tippy
-                content={t('Cost per unit')}
-                placement="bottom"
-            >
+            <Tippy content={t('Cost per unit')} placement="bottom">
                 <div className="trader-unlock-wrapper">
                     {formatPrice(Math.round(value / valueCount))}
                 </div>
@@ -42,10 +39,7 @@ function ValueCell(props) {
     let slotValue = '';
     if (value && showSlotValue && slots > 1) {
         slotValue = (
-            <Tippy
-                content={t('Per slot')}
-                placement="bottom"
-            >
+            <Tippy content={t('Per slot')} placement="bottom">
                 <div className="trader-unlock-wrapper">
                     {formatPrice(Math.round(value / slots))}
                 </div>
@@ -58,19 +52,20 @@ function ValueCell(props) {
         className = value > 0 ? 'craft-profit' : 'craft-loss';
     }
     let displayValue = (
-        <div className={className}>
-            {value ? formatPrice(value*count) : noValue}
-        </div>
+        <div className={className}>{value ? formatPrice(value * count) : noValue}</div>
     );
 
-    if (valueDetails && Array.isArray(valueDetails) & valueDetails.length > 0) {
+    if (valueDetails && Array.isArray(valueDetails) & (valueDetails.length > 0)) {
         displayValue = (
             <Tippy
-                content={valueDetails.map(detail => {
+                content={valueDetails.map((detail) => {
                     return (
                         <div key={detail.name}>
                             <span>{`${detail.name}: `}</span>
-                            <span style={{float:'right', paddingLeft: '5px'}} className={detail.value > 0 ? 'craft-profit' : 'craft-loss'}>
+                            <span
+                                style={{ float: 'right', paddingLeft: '5px' }}
+                                className={detail.value > 0 ? 'craft-profit' : 'craft-loss'}
+                            >
                                 {formatPrice(detail.value)}
                             </span>
                         </div>

@@ -1,9 +1,5 @@
 import Icon from '@mdi/react';
-import { 
-    mdiCloseOctagon,
-    mdiHelpRhombus,
-    mdiTimerSand,
-} from '@mdi/js';
+import { mdiCloseOctagon, mdiHelpRhombus, mdiTimerSand } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -21,15 +17,9 @@ const FleaPriceCell = function (props) {
                     <div className="center-content">
                         <Tippy
                             placement="bottom"
-                            content={t(
-                                "This item can't be sold on the Flea Market",
-                            )}
+                            content={t("This item can't be sold on the Flea Market")}
                         >
-                            <Icon
-                                path={mdiCloseOctagon}
-                                size={1}
-                                className="icon-with-text"
-                            />
+                            <Icon path={mdiCloseOctagon} size={1} className="icon-with-text" />
                         </Tippy>
                     </div>
                 }
@@ -49,15 +39,8 @@ const FleaPriceCell = function (props) {
             count={props.row.original.count}
             noValue={
                 <div className="center-content">
-                    <Tippy
-                        placement="bottom"
-                        content={noFleaTip}
-                    >
-                        <Icon
-                            path={noFleaIcon}
-                            size={1}
-                            className="icon-with-text"
-                        />
+                    <Tippy placement="bottom" content={noFleaTip}>
+                        <Icon path={noFleaIcon} size={1} className="icon-with-text" />
                     </Tippy>
                 </div>
             }

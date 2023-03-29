@@ -6,15 +6,16 @@ import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../../components/data-table';
 // import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
-import {
-    selectAllBarters,
-    fetchBarters,
-} from '../../features/barters/bartersSlice';
+import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
 import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import { selectAllTraders } from '../../features/settings/settingsSlice';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
-import { formatCostItems, getCheapestItemPrice, getCheapestItemPriceWithBarters } from '../../modules/format-cost-items';
+import {
+    formatCostItems,
+    getCheapestItemPrice,
+    getCheapestItemPriceWithBarters,
+} from '../../modules/format-cost-items';
 import RewardCell from '../reward-cell';
 import { isAnyDogtag, isBothDogtags } from '../../modules/dogtags';
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
@@ -27,7 +28,11 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
     const { hasJaeger, removeDogtags, completedQuests } = useMemo(() => {
-        return {hasJaeger: settings.jaeger !== 0, removeDogtags: settings.hideDogtagBarters, completedQuests: settings.completedQuests};
+        return {
+            hasJaeger: settings.jaeger !== 0,
+            removeDogtags: settings.hideDogtagBarters,
+            completedQuests: settings.completedQuests,
+        };
     }, [settings]);
     const traders = useSelector(selectAllTraders);
     const skippedByLevelRef = useRef(false);
@@ -59,61 +64,75 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
         return state.barters.status;
     });
 
-    const {data: tasks} = useQuestsQuery();
+    const { data: tasks } = useQuestsQuery();
 
     const barters = useMemo(() => {
-        return barterSelector.map(b => {
-            let taskUnlock = b.taskUnlock;
-            if (taskUnlock) {
-                taskUnlock = tasks.find(t => t.id === taskUnlock.id);
-            }
-            return {
-                ...b,
-                requiredItems: b.requiredItems.map(req => {
-                    let matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    matchedItem = {...matchedItem};
-                    matchedItem.properties = {...matchedItem.properties};
-                    if (matchedItem.properties?.defaultPreset) {
-                        const preset = items.find(it => it.id === matchedItem.properties.defaultPreset.id);
-                        if (preset) {
-                            matchedItem.properties.defaultPreset = preset;
-                        } else {
-                            matchedItem.properties.defaultPreset = undefined;
-                        }
-                    }
-                    if (matchedItem.properties?.presets) {
-                        matchedItem.properties.presets = matchedItem.properties.presets.reduce((presets, currentPreset) => {
-                            const preset = items.find(it => it.id === currentPreset.id);
-                            if (preset) {
-                                presets.push(preset);
+        return barterSelector
+            .map((b) => {
+                let taskUnlock = b.taskUnlock;
+                if (taskUnlock) {
+                    taskUnlock = tasks.find((t) => t.id === taskUnlock.id);
+                }
+                return {
+                    ...b,
+                    requiredItems: b.requiredItems
+                        .map((req) => {
+                            let matchedItem = items.find((it) => it.id === req.item.id);
+                            if (!matchedItem) {
+                                return false;
                             }
-                            return presets;
-                        }, []);
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                rewardItems: b.rewardItems.map(req => {
-                    if (!req) {
-                        console.log(b)
-                    }
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                taskUnlock: taskUnlock,
-            };
-        }).filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
+                            matchedItem = { ...matchedItem };
+                            matchedItem.properties = { ...matchedItem.properties };
+                            if (matchedItem.properties?.defaultPreset) {
+                                const preset = items.find(
+                                    (it) => it.id === matchedItem.properties.defaultPreset.id,
+                                );
+                                if (preset) {
+                                    matchedItem.properties.defaultPreset = preset;
+                                } else {
+                                    matchedItem.properties.defaultPreset = undefined;
+                                }
+                            }
+                            if (matchedItem.properties?.presets) {
+                                matchedItem.properties.presets =
+                                    matchedItem.properties.presets.reduce(
+                                        (presets, currentPreset) => {
+                                            const preset = items.find(
+                                                (it) => it.id === currentPreset.id,
+                                            );
+                                            if (preset) {
+                                                presets.push(preset);
+                                            }
+                                            return presets;
+                                        },
+                                        [],
+                                    );
+                            }
+                            return {
+                                ...req,
+                                item: matchedItem,
+                            };
+                        })
+                        .filter(Boolean),
+                    rewardItems: b.rewardItems
+                        .map((req) => {
+                            if (!req) {
+                                console.log(b);
+                            }
+                            const matchedItem = items.find((it) => it.id === req.item.id);
+                            if (!matchedItem) {
+                                return false;
+                            }
+                            return {
+                                ...req,
+                                item: matchedItem,
+                            };
+                        })
+                        .filter(Boolean),
+                    taskUnlock: taskUnlock,
+                };
+            })
+            .filter((barter) => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
     }, [barterSelector, items, tasks]);
 
     useEffect(() => {
@@ -159,11 +178,11 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <FleaMarketLoadingIcon/>
+                                <FleaMarketLoadingIcon />
                             </div>
                         );
                     }
-                    return <ValueCell value={props.value}/>;
+                    return <ValueCell value={props.value} />;
                 },
             },
             {
@@ -171,20 +190,30 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                 id: 'savings',
                 accessor: (d) => Number(d.savings),
                 sortType: (a, b, columnId, desc) => {
-                    const aSell = a.values.savings || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                    const bSell = b.values.savings || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                    
+                    const aSell =
+                        a.values.savings ||
+                        (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    const bSell =
+                        b.values.savings ||
+                        (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+
                     return aSell - bSell;
                 },
                 Cell: (props) => {
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <FleaMarketLoadingIcon/>
+                                <FleaMarketLoadingIcon />
                             </div>
                         );
                     }
-                    return <ValueCell value={props.value} highlightProfit valueDetails={props.row.original.savingsParts} />;
+                    return (
+                        <ValueCell
+                            value={props.value}
+                            highlightProfit
+                            valueDetails={props.row.original.savingsParts}
+                        />
+                    );
                 },
             },
             {
@@ -196,14 +225,21 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     if (props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <FleaMarketLoadingIcon/>
+                                <FleaMarketLoadingIcon />
                             </div>
                         );
                     }
                     return (
-                        <ValueCell value={props.value} highlightProfit valueDetails={props.row.original.instaProfitDetails}>
+                        <ValueCell
+                            value={props.value}
+                            highlightProfit
+                            valueDetails={props.row.original.instaProfitDetails}
+                        >
                             <div className="duration-wrapper">
-                                {props.row.original.instaProfitSource.vendor.normalizedName!=='unknown' ? props.row.original.instaProfitSource.vendor.name : ''}
+                                {props.row.original.instaProfitSource.vendor.normalizedName !==
+                                'unknown'
+                                    ? props.row.original.instaProfitSource.vendor.name
+                                    : ''}
                             </div>
                         </ValueCell>
                     );
@@ -296,10 +332,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     }
 
                     if (
-                        requiredItem.item.name
-                            .toLowerCase()
-                            .replace(/\s/g, '')
-                            .includes(findString)
+                        requiredItem.item.name.toLowerCase().replace(/\s/g, '').includes(findString)
                     ) {
                         return true;
                     }
@@ -307,10 +340,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
 
                 for (const rewardItem of barter.rewardItems) {
                     if (
-                        rewardItem.item.name
-                            .toLowerCase()
-                            .replace(/\s/g, '')
-                            .includes(findString)
+                        rewardItem.item.name.toLowerCase().replace(/\s/g, '').includes(findString)
                     ) {
                         return true;
                     }
@@ -339,7 +369,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                 }
 
                 if (!showAll && barterRow.taskUnlock && completedQuests?.length > 0) {
-                    if (!completedQuests.some(taskId => taskId === barterRow.taskUnlock.id)) {
+                    if (!completedQuests.some((taskId) => taskId === barterRow.taskUnlock.id)) {
                         return false;
                     }
                 }
@@ -350,9 +380,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     false,
                     showAll,
                 );
-                costItems.map(
-                    (costItem) => (cost = cost + costItem.price * costItem.count),
-                );
+                costItems.map((costItem) => (cost = cost + costItem.price * costItem.count));
 
                 const barterRewardItem = barterRow.rewardItems[0].item;
 
@@ -372,7 +400,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     {
                         vendor: {
                             name: t('N/A'),
-                            normalizedName: 'unknown'
+                            normalizedName: 'unknown',
                         },
                         priceRUB: 0,
                     },
@@ -391,11 +419,13 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                         {
                             name: t('Barter cost'),
                             value: cost * -1,
-                        }
+                        },
                     ],
                     reward: {
                         item: barterRewardItem,
-                        source: `${barterRow.trader.name} ${t('LL{{level}}', { level: barterRow.level })}`,
+                        source: `${barterRow.trader.name} ${t('LL{{level}}', {
+                            level: barterRow.level,
+                        })}`,
                         sellTo: bestSellTo.vendor.name,
                         sellToNormalized: bestSellTo.vendor.normalizedName,
                         sellValue: bestSellTo.priceRUB,
@@ -409,18 +439,25 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     tradeData.reward.sellValue = barterRewardItem.priceCustom;
                     tradeData.reward.sellType = 'custom';
                 }
-                
+
                 //tradeData.reward.sellTo = t(tradeData.reward.sellTo)
 
                 tradeData.savingsParts = [];
                 const cheapestPrice = getCheapestItemPrice(barterRewardItem, settings, showAll);
-                const cheapestBarter = getCheapestItemPriceWithBarters(barterRewardItem, barters, settings, showAll);
-                if (cheapestPrice.type === 'cash-sell'){
+                const cheapestBarter = getCheapestItemPriceWithBarters(
+                    barterRewardItem,
+                    barters,
+                    settings,
+                    showAll,
+                );
+                if (cheapestPrice.type === 'cash-sell') {
                     //this item cannot be purchased for cash
                     if (cheapestBarter.priceRUB !== cost) {
                         tradeData.savingsParts.push({
-                            name: `${cheapestBarter.vendor.name} ${t('LL{{level}}', { level: cheapestBarter.vendor.minTraderLevel })} ${t('Barter')}`,
-                            value: cheapestBarter.priceRUB
+                            name: `${cheapestBarter.vendor.name} ${t('LL{{level}}', {
+                                level: cheapestBarter.vendor.minTraderLevel,
+                            })} ${t('Barter')}`,
+                            value: cheapestBarter.priceRUB,
                         });
                     }
                     tradeData.savings = cheapestBarter.priceRUB - cost;
@@ -428,18 +465,20 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     // savings based on cheapest cash price
                     let sellerName = cheapestPrice.vendor.name;
                     if (cheapestPrice.vendor.minTraderLevel) {
-                        sellerName += ` ${t('LL{{level}}', { level: cheapestPrice.vendor.minTraderLevel })}`;
+                        sellerName += ` ${t('LL{{level}}', {
+                            level: cheapestPrice.vendor.minTraderLevel,
+                        })}`;
                     }
                     tradeData.savingsParts.push({
                         name: sellerName,
-                        value: cheapestPrice.priceRUB
+                        value: cheapestPrice.priceRUB,
                     });
                     tradeData.savings = cheapestPrice.priceRUB - cost;
                 }
                 if (tradeData.savingsParts.length > 0) {
                     tradeData.savingsParts.push({
                         name: t('Barter cost'),
-                        value: cost * -1
+                        value: cost * -1,
                     });
                 }
 
@@ -493,7 +532,8 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
     if (data.length <= 0 && skippedByLevelRef.current) {
         extraRow = (
             <>
-                {t('No barters available for selected filters but some were hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
+                {t('No barters available for selected filters but some were hidden by ')}
+                <Link to="/settings/">{t('your settings')}</Link>
             </>
         );
     }
@@ -501,7 +541,8 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
     if (data.length > 0 && skippedByLevelRef.current) {
         extraRow = (
             <>
-                {t('Some barters hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
+                {t('Some barters hidden by ')}
+                <Link to="/settings/">{t('your settings')}</Link>
             </>
         );
     }

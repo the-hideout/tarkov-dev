@@ -49,11 +49,7 @@ const getOptionsForStation = (t, stationKey) => {
         },
     ];
 
-    if (
-        ['booze-generator', 'christmas-tree', 'solar-power'].includes(
-            stationKey,
-        )
-    ) {
+    if (['booze-generator', 'christmas-tree', 'solar-power'].includes(stationKey)) {
         options = [...options.slice(0, 2)];
     }
 
@@ -109,15 +105,10 @@ const StationSkillTraderSetting = React.forwardRef((props, ref) => {
     const dispatch = useDispatch();
     const state = useSelector(selector);
 
-    const selectedOption = options.find(
-        (option) => option.value === state[stateKey],
-    );
+    const selectedOption = options.find((option) => option.value === state[stateKey]);
 
     return (
-        <Tippy
-            placement="top"
-            content={toolTip}
-        >
+        <Tippy placement="top" content={toolTip}>
             <div className="station-skill-trader-setting-wrapper">
                 <img
                     alt={`${stateKey}-icon`}

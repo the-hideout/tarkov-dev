@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiSunglasses} from '@mdi/js';
+import { mdiSunglasses } from '@mdi/js';
 
 import SEO from '../../../components/SEO';
 import { Filter, ToggleFilter } from '../../../components/filter';
@@ -13,29 +13,28 @@ function Glasses() {
     const [showAllItemSources, setShowAllItemSources] = useState(false);
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Glasses')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('glasses-page-description', 'This page includes a sortable table with information on the different types of glasses available in the game, including their price, armor class, and other characteristics.')}
+            description={t(
+                'glasses-page-description',
+                'This page includes a sortable table with information on the different types of glasses available in the game, including their price, armor class, and other characteristics.',
+            )}
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    {t('Escape from Tarkov')} 
-                    <Icon path={mdiSunglasses} size={1.5} className="icon-with-text" /> 
+                    {t('Escape from Tarkov')}
+                    <Icon path={mdiSunglasses} size={1.5} className="icon-with-text" />
                     {t('Glasses')}
                 </h1>
                 <Filter center>
                     <ToggleFilter
                         checked={showAllItemSources}
                         label={t('Ignore settings')}
-                        onChange={(e) =>
-                            setShowAllItemSources(!showAllItemSources)
-                        }
+                        onChange={(e) => setShowAllItemSources(!showAllItemSources)}
                         tooltipContent={
-                            <>
-                                {t('Shows all sources of items regardless of your settings')}
-                            </>
+                            <>{t('Shows all sources of items regardless of your settings')}</>
                         }
                     />
                 </Filter>
@@ -48,12 +47,14 @@ function Glasses() {
                 blindnessProtection={2}
                 stats={3}
                 cheapestPrice={4}
-                sortBy='armorClass'
+                sortBy="armorClass"
             />
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {"Eyewear in Escape from Tarkov can be used to decrease the number and quantity of raindrops on the players' screens as well as the length of flashbang effects."}
+                    {
+                        "Eyewear in Escape from Tarkov can be used to decrease the number and quantity of raindrops on the players' screens as well as the length of flashbang effects."
+                    }
                 </p>
             </div>
         </div>,

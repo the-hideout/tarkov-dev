@@ -44,14 +44,11 @@ function PropertyList({ properties }) {
                             <div className="property-key-wrapper">
                                 <ConditionalWrapper
                                     condition={value.tooltip}
-                                    wrapper={(children) => 
-                                        <Tippy
-                                            content={value.tooltip}
-                                            placement="bottom"
-                                        >
+                                    wrapper={(children) => (
+                                        <Tippy content={value.tooltip} placement="bottom">
                                             <div>{children}</div>
                                         </Tippy>
-                                    }
+                                    )}
                                 >
                                     {value.label ? value.label : t(property)}
                                 </ConditionalWrapper>

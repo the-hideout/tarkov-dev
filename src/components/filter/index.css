@@ -142,7 +142,7 @@
 
 .button-group-button:hover img,
 .button-group-button.selected img {
-    opacity: 1.0;
+    opacity: 1;
 }
 
 .button-group-button:first-child {

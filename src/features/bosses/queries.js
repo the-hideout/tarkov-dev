@@ -35,7 +35,9 @@ export const useBossDetails = () => {
         for (const boss of bosses) {
             boss.maps = [];
             boss.spawnChanceOverride = [];
-            const bossJson = rawBossData.find(json => json.normalizedName === boss.normalizedName);
+            const bossJson = rawBossData.find(
+                (json) => json.normalizedName === boss.normalizedName,
+            );
             if (bossJson) {
                 boss.details = bossJson.details;
                 boss.wikiLink = bossJson.wikiLink;
@@ -49,24 +51,26 @@ export const useBossDetails = () => {
         for (const map of maps) {
             // Loop through each boss for each map
             for (const bossSpawn of map.bosses) {
-                const boss = bosses.find(boss => boss.normalizedName === bossSpawn.normalizedName);
+                const boss = bosses.find(
+                    (boss) => boss.normalizedName === bossSpawn.normalizedName,
+                );
                 if (!boss) {
                     continue;
                 }
-                let bossMap = boss.maps.find(savedMap => savedMap.id === map.id);
+                let bossMap = boss.maps.find((savedMap) => savedMap.id === map.id);
                 if (!bossMap) {
                     bossMap = {
                         name: map.name,
                         normalizedName: map.normalizedName,
                         id: map.id,
                         escorts: bossSpawn.escorts,
-                        spawns: []
-                    }
+                        spawns: [],
+                    };
                     boss.maps.push(bossMap);
                 }
                 bossMap.spawns.push({
                     spawnChance: bossSpawn.spawnChance,
-                    locations: bossSpawn.spawnLocations
+                    locations: bossSpawn.spawnLocations,
                 });
             }
         }

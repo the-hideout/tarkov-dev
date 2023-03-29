@@ -48,14 +48,16 @@ const doFetchBarters = async (language, prebuild = false) => {
                 }
                 console.log(`Error in barters API query: ${error.message}`);
                 if (badItem) {
-                    console.log(badItem)
+                    console.log(badItem);
                 }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned
         if (
-            prebuild || !bartersData.data || 
-            !bartersData.data.barters || !bartersData.data.barters.length
+            prebuild ||
+            !bartersData.data ||
+            !bartersData.data.barters ||
+            !bartersData.data.barters.length
         ) {
             return Promise.reject(new Error(bartersData.errors[0].message));
         }

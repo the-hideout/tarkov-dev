@@ -42,18 +42,20 @@ export default async function doFetchTraders(language, prebuild = false) {
                 }
                 console.log(`Error in traders API query: ${error.message}`);
                 if (badItem) {
-                    console.log(badItem)
+                    console.log(badItem);
                 }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned
         if (
-            prebuild || !tradersData.data || 
-            !tradersData.data.traders || !tradersData.data.traders.length
+            prebuild ||
+            !tradersData.data ||
+            !tradersData.data.traders ||
+            !tradersData.data.traders.length
         ) {
             return Promise.reject(new Error(tradersData.errors[0].message));
         }
     }
 
     return tradersData.data.traders;
-};
+}

@@ -22,22 +22,11 @@ import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSl
 import './index.css';
 
 function Quests() {
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
+    const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
-    const [selectedTrader, setSelectedTrader] = useStateWithLocalStorage(
-        'selectedTrader',
-        'all',
-    );
-    const [hideCompleted, setHideCompleted] = useStateWithLocalStorage(
-        'hideCompletedTasks',
-        false,
-    );
-    const [hideLocked, setHideLocked] = useStateWithLocalStorage(
-        'hideLockedTasks',
-        false,
-    );
+    const [selectedTrader, setSelectedTrader] = useStateWithLocalStorage('selectedTrader', 'all');
+    const [hideCompleted, setHideCompleted] = useStateWithLocalStorage('hideCompletedTasks', false);
+    const [hideLocked, setHideLocked] = useStateWithLocalStorage('hideLockedTasks', false);
 
     const dispatch = useDispatch();
     const allTraders = useSelector(selectAllTraders);
@@ -64,15 +53,18 @@ function Quests() {
     const { t } = useTranslation();
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Tasks')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('tasks-page-description', 'Find out everything you need to know about tasks in Escape from Tarkov. Learn about the different types of tasks available in the game, how to complete them, and the rewards you can earn.')}
+            description={t(
+                'tasks-page-description',
+                'Find out everything you need to know about tasks in Escape from Tarkov. Learn about the different types of tasks available in the game, how to complete them, and the rewards you can earn.',
+            )}
             key="seo-wrapper"
         />,
         <div className={'page-wrapper'} key="quests-page-wrapper">
             <div className="quests-headline-wrapper" key="quests-headline">
                 <h1 className="quests-page-title">
-                    <Icon path={mdiClipboardList} size={1.5} className="icon-with-text"/>
+                    <Icon path={mdiClipboardList} size={1.5} className="icon-with-text" />
                     {t('Tasks')}
                 </h1>
                 <Filter>
@@ -80,32 +72,20 @@ function Quests() {
                         checked={hideCompleted}
                         label={t('Hide completed')}
                         onChange={(e) => setHideCompleted(!hideCompleted)}
-                        tooltipContent={
-                            <>
-                                {t('Hides completed tasks')}
-                            </>
-                        }
+                        tooltipContent={<>{t('Hides completed tasks')}</>}
                     />
                     <ToggleFilter
                         checked={hideLocked}
                         label={t('Hide locked')}
                         onChange={(e) => setHideLocked(!hideLocked)}
-                        tooltipContent={
-                            <>
-                                {t('Hides locked tasks')}
-                            </>
-                        }
+                        tooltipContent={<>{t('Hides locked tasks')}</>}
                     />
                     <ButtonGroupFilter>
                         {allTraders.map((trader) => {
                             return (
                                 <ButtonGroupFilterButton
                                     key={`trader-tooltip-${trader.normalizedName}`}
-                                    tooltipContent={
-                                        <>
-                                            {trader.name}
-                                        </>
-                                    }
+                                    tooltipContent={<>{trader.name}</>}
                                     selected={trader.normalizedName === selectedTrader}
                                     content={
                                         <img
@@ -117,16 +97,13 @@ function Quests() {
                                     }
                                     onClick={setSelectedTrader.bind(
                                         undefined,
-                                        trader.normalizedName)}
+                                        trader.normalizedName,
+                                    )}
                                 />
                             );
                         })}
                         <ButtonGroupFilterButton
-                            tooltipContent={
-                                <>
-                                    {t('Show all tasks')}
-                                </>
-                            }
+                            tooltipContent={<>{t('Show all tasks')}</>}
                             selected={selectedTrader === 'all'}
                             content={t('All')}
                             onClick={setSelectedTrader.bind(undefined, 'all')}
@@ -154,11 +131,11 @@ function Quests() {
 
             <div>
                 <Trans i18nKey={'quests-page-p'}>
+                    <p>Traders in Escape from Tarkov have a number of tasks you can complete.</p>
                     <p>
-                        Traders in Escape from Tarkov have a number of tasks you can complete.
-                    </p>
-                    <p>
-                        In exchange for retrieving items, eliminating targets, and performing other actions in raid, you can increase your standing with the traders and earn valuable items.
+                        In exchange for retrieving items, eliminating targets, and performing other
+                        actions in raid, you can increase your standing with the traders and earn
+                        valuable items.
                     </p>
                 </Trans>
             </div>

@@ -9,7 +9,7 @@ import './index.css';
 function ErrorPage(props) {
     const { t } = useTranslation();
     return [
-        <SEO 
+        <SEO
             title={`${t('Page not found')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('error-page-description', 'This is not the page you are looking for')}
             key="seo-wrapper"

@@ -28,8 +28,12 @@ const itemLinkFormat = (inputItem) => {
     return <Link to={`/item/${inputItem.normalizedName}`}>{inputItem.name}</Link>;
 };
 
-const itemCategoryLinkFormat = inputCategory => {
-    return <Link to={`/items/${inputCategory.normalizedName}`} key={inputCategory.normalizedName}>{inputCategory.name}</Link>;
+const itemCategoryLinkFormat = (inputCategory) => {
+    return (
+        <Link to={`/items/${inputCategory.normalizedName}`} key={inputCategory.normalizedName}>
+            {inputCategory.name}
+        </Link>
+    );
 };
 
 const formatter = (key, value) => {
@@ -43,16 +47,16 @@ const formatter = (key, value) => {
             tooltip = value.tooltip;
         }
         value = value.value;
-    } 
+    }
 
-    let displayKey = i18n.t(key, { ns: 'properties' })
+    let displayKey = i18n.t(key, { ns: 'properties' });
 
     if (key === 'weight') {
         value = `${value} kg`;
     }
 
     if (key === 'speedPenalty') {
-        value = `${value*100}%`;
+        value = `${value * 100}%`;
     }
 
     if (key === 'armorZone') {
@@ -64,7 +68,7 @@ const formatter = (key, value) => {
     }
 
     if (key === 'turnPenalty') {
-        value = `${value*100}%`;
+        value = `${value * 100}%`;
     }
 
     if (key === 'caliber') {
@@ -78,17 +82,19 @@ const formatter = (key, value) => {
 
     if (key === 'zoomLevels') {
         const zoomLevels = new Set();
-        value?.forEach(levels => zoomLevels.add(...levels));
+        value?.forEach((levels) => zoomLevels.add(...levels));
         value = [...zoomLevels].join(', ');
     }
 
     if (key === 'grids') {
         const gridCounts = {};
-        value?.sort((a, b) => (a.width*a.height) - (b.width*b.height)).forEach(grid => {
-            const gridLabel = grid.width+'x'+grid.height;
-            if (!gridCounts[gridLabel]) gridCounts[gridLabel] = 0;
-            gridCounts[gridLabel]++;
-        })
+        value
+            ?.sort((a, b) => a.width * a.height - b.width * b.height)
+            .forEach((grid) => {
+                const gridLabel = grid.width + 'x' + grid.height;
+                if (!gridCounts[gridLabel]) gridCounts[gridLabel] = 0;
+                gridCounts[gridLabel]++;
+            });
         const displayGrids = [];
         for (const label in gridCounts) {
             displayGrids.push(`${label}${gridCounts[label] > 1 ? `: ${gridCounts[label]}` : ''}`);
@@ -105,27 +111,37 @@ const formatter = (key, value) => {
     }
 
     if (key === 'categories') {
-        value = value?.map(category => {
-            if (ignoreCategories.includes(category.id)) return false;
-            return itemCategoryLinkFormat(category);
-        }).filter(Boolean).reduce((prev, curr, currentIndex) => [prev, (<span key={`spacer-${currentIndex}`}>, </span>), curr]);
+        value = value
+            ?.map((category) => {
+                if (ignoreCategories.includes(category.id)) return false;
+                return itemCategoryLinkFormat(category);
+            })
+            .filter(Boolean)
+            .reduce((prev, curr, currentIndex) => [
+                prev,
+                <span key={`spacer-${currentIndex}`}>, </span>,
+                curr,
+            ]);
     }
 
     if (key === 'stimEffects') {
-        value = value?.map((effect, effectIndex) => {
-            const displayName = effect.skillName || effect.type;
-            let displayValue = `${effect.value > 0 ? '+' : ''}${effect.value}${effect.percent ? '%' : ''}`;
-            if (effect.value === 0) {
-                displayValue = '';
-            }
-            const chance = effect.chance === 1 ? '' : ` ${effect.chance * 100}%`;
-            const formattedValue = displayValue || chance ? `${displayName}: ${displayValue}${chance}` : displayName;
-            return (
-                <div key={`effect-${effectIndex}`}>
-                    {formattedValue}
-                </div>
-            );
-        }).filter(Boolean);//.reduce((prev, curr) => [prev, (<br/>), curr])];
+        value = value
+            ?.map((effect, effectIndex) => {
+                const displayName = effect.skillName || effect.type;
+                let displayValue = `${effect.value > 0 ? '+' : ''}${effect.value}${
+                    effect.percent ? '%' : ''
+                }`;
+                if (effect.value === 0) {
+                    displayValue = '';
+                }
+                const chance = effect.chance === 1 ? '' : ` ${effect.chance * 100}%`;
+                const formattedValue =
+                    displayValue || chance
+                        ? `${displayName}: ${displayValue}${chance}`
+                        : displayName;
+                return <div key={`effect-${effectIndex}`}>{formattedValue}</div>;
+            })
+            .filter(Boolean); //.reduce((prev, curr) => [prev, (<br/>), curr])];
     }
 
     if (key === 'material' && value) {
@@ -155,7 +171,7 @@ const formatter = (key, value) => {
         value: value,
         label: label ? label : displayKey,
         tooltip: tooltip,
-    }
+    };
 
     return [key, value];
 };

@@ -9,13 +9,7 @@ import useKeyPress from '../../hooks/useKeyPress';
 import './index.css';
 import { useQuestsQuery } from '../../features/quests/queries';
 
-function TaskSearch({
-    defaultValue,
-    onChange,
-    placeholder,
-    autoFocus,
-    showDropdown,
-}) {
+function TaskSearch({ defaultValue, onChange, placeholder, autoFocus, showDropdown }) {
     const { data: tasks } = useQuestsQuery();
     const { t } = useTranslation();
 
@@ -68,9 +62,7 @@ function TaskSearch({
 
     useEffect(() => {
         if (upPress) {
-            setCursor((prevState) =>
-                prevState > 0 ? prevState - 1 : prevState,
-            );
+            setCursor((prevState) => (prevState > 0 ? prevState - 1 : prevState));
         }
     }, [upPress]);
 

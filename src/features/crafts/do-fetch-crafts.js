@@ -34,7 +34,7 @@ export default async function doFetchCrafts(language, prebuild = false) {
     }`;
 
     const craftsData = await graphqlRequest(query);
-    
+
     if (craftsData.errors) {
         if (craftsData.data) {
             for (const error of craftsData.errors) {
@@ -47,14 +47,16 @@ export default async function doFetchCrafts(language, prebuild = false) {
                 }
                 console.log(`Error in crafts API query: ${error.message}`);
                 if (badItem) {
-                    console.log(badItem)
+                    console.log(badItem);
                 }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned
         if (
-            prebuild || !craftsData.data || 
-            !craftsData.data.crafts || !craftsData.data.crafts.length
+            prebuild ||
+            !craftsData.data ||
+            !craftsData.data.crafts ||
+            !craftsData.data.crafts.length
         ) {
             return Promise.reject(new Error(craftsData.errors[0].message));
         }
@@ -69,4 +71,4 @@ export default async function doFetchCrafts(language, prebuild = false) {
         }
         return crafts;
     }, []);
-};
+}

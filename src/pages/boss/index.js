@@ -4,7 +4,14 @@ import { useParams, Link } from 'react-router-dom';
 import ImageViewer from 'react-simple-image-viewer';
 
 import Icon from '@mdi/react';
-import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper } from '@mdi/js';
+import {
+    mdiEmoticonDevil,
+    mdiPoll,
+    mdiDiamondStone,
+    mdiMapLegend,
+    mdiAccountGroup,
+    mdiPartyPopper,
+} from '@mdi/js';
 
 import SEO from '../../components/SEO';
 import CenterCell from '../../components/center-cell';
@@ -32,19 +39,19 @@ function BossPage(params) {
 
     const bosses = useBossDetails();
 
-    const {data: items} = useItemsQuery();
+    const { data: items } = useItemsQuery();
 
-    let audio = new Audio("/audio/killa.mp3")
-    const handleClick = event => {
-        setIsShown(current => !current);
-        audio.play()
+    let audio = new Audio('/audio/killa.mp3');
+    const handleClick = (event) => {
+        setIsShown((current) => !current);
+        audio.play();
     };
     // end cheeki breeki
 
     const [isViewerOpen, setIsViewerOpen] = useState(false);
     const openImageViewer = useCallback(() => {
         setIsViewerOpen(true);
-      }, []);
+    }, []);
     const closeImageViewer = () => {
         setIsViewerOpen(false);
     };
@@ -59,18 +66,18 @@ function BossPage(params) {
             {
                 Header: t('Map'),
                 accessor: 'map',
-                Cell: CenterCell
+                Cell: CenterCell,
             },
             {
                 Header: t('Spawn Location'),
                 accessor: 'spawnLocations',
-                Cell: CenterCell
+                Cell: CenterCell,
             },
             {
                 Header: t('Chance'),
                 accessor: 'chance',
-                Cell: CenterCell
-            }
+                Cell: CenterCell,
+            },
         ];
     }, [t]);
 
@@ -80,13 +87,17 @@ function BossPage(params) {
             {
                 Header: t('Map'),
                 accessor: 'map',
-                Cell: CenterCell
+                Cell: CenterCell,
             },
             {
                 Header: t('Name'),
                 accessor: 'name',
                 Cell: (props) => {
-                    if (bosses.some(boss => boss.normalizedName === props.row.original.normalizedName)) {
+                    if (
+                        bosses.some(
+                            (boss) => boss.normalizedName === props.row.original.normalizedName,
+                        )
+                    ) {
                         return (
                             <CenterCell>
                                 <Link to={`/boss/${props.row.original.normalizedName}`}>
@@ -101,13 +112,13 @@ function BossPage(params) {
             {
                 Header: t('Count'),
                 accessor: 'count',
-                Cell: CenterCell
+                Cell: CenterCell,
             },
             {
                 Header: t('Chance'),
                 accessor: 'chance',
-                Cell: CenterCell
-            }
+                Cell: CenterCell,
+            },
         ];
     }, [t, bosses]);
 
@@ -123,7 +134,7 @@ function BossPage(params) {
 
     // Get the correct individual boss data
     //var bossSpawnData = bossSpawns.find(boss => boss.normalizedName === bossNameLower);
-    const bossData = bosses.find(boss => boss.normalizedName === bossNameLower);
+    const bossData = bosses.find((boss) => boss.normalizedName === bossNameLower);
 
     // If no boss data has been found, return the error page
     if (!bossData) {
@@ -136,50 +147,53 @@ function BossPage(params) {
 
     const lootValueCutoff = 80000;
     const getItemSlotValue = (item) => {
-        if (!item)
-            return 0;
-        return item.sellFor.reduce((best, current) => {
-            if (current.priceRUB > best) {
-                return current.priceRUB;
-            }
-            return best;
-        }, 0) / (item.width * item.height);
+        if (!item) return 0;
+        return (
+            item.sellFor.reduce((best, current) => {
+                if (current.priceRUB > best) {
+                    return current.priceRUB;
+                }
+                return best;
+            }, 0) /
+            (item.width * item.height)
+        );
     };
-    gearLoop:
-    for (const gear of bossData.equipment) {
-        const item = items.find(it => it.id === gear.item.id);
-        if (!item)
-            continue;
+    gearLoop: for (const gear of bossData.equipment) {
+        const item = items.find((it) => it.id === gear.item.id);
+        if (!item) continue;
         const itemValue = getItemSlotValue(item);
         if (item.types.includes('noFlea') || itemValue > lootValueCutoff) {
             loot.push(gear.item);
-            attachmentMap[item.id] = gear.item.containsItems.map(ci => ci.item.id);
+            attachmentMap[item.id] = gear.item.containsItems.map((ci) => ci.item.id);
             continue;
         }
-        for ( const attach of gear.item.containsItems) {
-            const attachItem = items.find(it => it.id === attach.item.id);
+        for (const attach of gear.item.containsItems) {
+            const attachItem = items.find((it) => it.id === attach.item.id);
             if (!attachItem) {
                 continue;
             }
             const attachItemValue = getItemSlotValue(item);
             if (attachItem.types.includes('noFlea') || attachItemValue > lootValueCutoff) {
                 loot.push(gear.item);
-                attachmentMap[item.id] = gear.item.containsItems.map(ci => ci.item.id);
+                attachmentMap[item.id] = gear.item.containsItems.map((ci) => ci.item.id);
                 continue gearLoop;
             }
         }
     }
     for (const lootItem of bossData.items) {
-        const item = items.find(it => it.id === lootItem.id);
-        if (!item)
-            continue;
+        const item = items.find((it) => it.id === lootItem.id);
+        if (!item) continue;
         const itemValue = getItemSlotValue(item);
         if (item.types.includes('noFlea')) {
             loot.push(lootItem);
             continue;
         }
         if (itemValue > lootValueCutoff) {
-            if (item.types.includes('keys') && !item.normalizedName.includes('keycard') && !item.normalizedName.includes('marked')) {
+            if (
+                item.types.includes('keys') &&
+                !item.normalizedName.includes('keycard') &&
+                !item.normalizedName.includes('marked')
+            ) {
                 lootKeys.push(lootItem);
                 continue;
             }
@@ -187,13 +201,13 @@ function BossPage(params) {
         }
     }
     loot.sort((a, b) => {
-        const itemA = items.find(it => it.id === a.id);
-        const itemB = items.find(it => it.id === b.id);
+        const itemA = items.find((it) => it.id === a.id);
+        const itemB = items.find((it) => it.id === b.id);
         return getItemSlotValue(itemB) - getItemSlotValue(itemA);
     });
     lootKeys.sort((a, b) => {
-        const itemA = items.find(it => it.id === a.id);
-        const itemB = items.find(it => it.id === b.id);
+        const itemA = items.find((it) => it.id === a.id);
+        const itemB = items.find((it) => it.id === b.id);
         return getItemSlotValue(itemB) - getItemSlotValue(itemA);
     });
     lootKeys = lootKeys.slice(0, 5);
@@ -212,7 +226,7 @@ function BossPage(params) {
     }
 
     // Format the bossProperties data for the 'stats' section
-    var bossProperties = {}
+    var bossProperties = {};
     bossProperties[t('Map') + ' 🗺️'] = bossMaps;
 
     // Collect spawn stats for each map
@@ -220,7 +234,9 @@ function BossPage(params) {
 
     for (const map of bossData.maps) {
         // If a specific boss override exists, use that instead of the default from the API
-        const spawnChanceOverride = bossData.spawnChanceOverride?.find(override => override.map === map.normalizedName);
+        const spawnChanceOverride = bossData.spawnChanceOverride?.find(
+            (override) => override.map === map.normalizedName,
+        );
         if (spawnChanceOverride) {
             spawnStatsMsg.push(`${spawnChanceOverride.chance * 100}% (${map.name})`);
             continue;
@@ -240,8 +256,8 @@ function BossPage(params) {
         let displayPercent = `${lowerBound}-${upperBound}`;
         if (lowerBound === upperBound || upperBound === 100) {
             displayPercent = upperBound;
-        } 
-        spawnStatsMsg.push(`${displayPercent}% (${map.name})`)
+        }
+        spawnStatsMsg.push(`${displayPercent}% (${map.name})`);
     }
 
     if (spawnStatsMsg.length > 0) {
@@ -281,22 +297,25 @@ function BossPage(params) {
     }
 
     // Format the boss table spawnLocation data
-    const spawnLocations = []
+    const spawnLocations = [];
     for (const map of bossData.maps) {
         for (const spawn of map.spawns) {
             for (const location of spawn.locations) {
-                const chance = map.spawns.length > 1 && location.chance === 1 ? spawn.spawnChance : location.chance;
+                const chance =
+                    map.spawns.length > 1 && location.chance === 1
+                        ? spawn.spawnChance
+                        : location.chance;
                 spawnLocations.push({
                     spawnLocations: location.name,
                     chance: `${parseInt(chance * 100)}%`,
-                    map: map.name
+                    map: map.name,
                 });
             }
         }
     }
 
     // Format the boss table escorts data
-    const escorts = []
+    const escorts = [];
     for (const map of bossData.maps) {
         for (const escort of map.escorts) {
             for (const amount of escort.amount) {
@@ -305,7 +324,7 @@ function BossPage(params) {
                     name: escort.name,
                     normalizedName: escort.normalizedName,
                     chance: `${parseInt(amount.chance * 100)}%`,
-                    count: amount.count
+                    count: amount.count,
                 });
             }
         }
@@ -334,23 +353,32 @@ function BossPage(params) {
                                 onClick={() => openImageViewer(0)}
                             />
                         </h1>
-                        {bossData.wikiLink &&
+                        {bossData.wikiLink && (
                             <span className="wiki-link-wrapper">
-                                <a href={bossData.wikiLink} target="_blank" rel="noopener noreferrer">
+                                <a
+                                    href={bossData.wikiLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
                                     {t('Wiki')}
                                 </a>
                             </span>
-                        }
-                        {i18n.exists(`${bossData.normalizedName}-description`, { ns: 'bosses' }) &&
-                            <p className='boss-details'>
-                                <Trans i18nKey={`${bossData.normalizedName}-description`} ns={'bosses'} />
+                        )}
+                        {i18n.exists(`${bossData.normalizedName}-description`, {
+                            ns: 'bosses',
+                        }) && (
+                            <p className="boss-details">
+                                <Trans
+                                    i18nKey={`${bossData.normalizedName}-description`}
+                                    ns={'bosses'}
+                                />
                             </p>
-                        }
-                        {i18n.exists(`${bossData.normalizedName}-bio`, { ns: 'bosses' }) &&
-                            <p className='boss-details'>
+                        )}
+                        {i18n.exists(`${bossData.normalizedName}-bio`, { ns: 'bosses' }) && (
+                            <p className="boss-details">
                                 <Trans i18nKey={`${bossData.normalizedName}-bio`} ns={'bosses'} />
                             </p>
-                        }
+                        )}
                     </div>
                     <div className="boss-icon-and-link-wrapper">
                         <img
@@ -373,21 +401,13 @@ function BossPage(params) {
                 )}
                 <h2 key={'boss-stats-header'}>
                     {t('Boss Stats')}
-                    <Icon
-                        path={mdiPoll}
-                        size={1.5}
-                        className="icon-with-text"
-                    />
+                    <Icon path={mdiPoll} size={1.5} className="icon-with-text" />
                 </h2>
                 <PropertyList properties={bossProperties} />
 
                 <h2 key={'boss-loot-header'}>
                     {t('Special Boss Loot')}
-                    <Icon
-                        path={mdiDiamondStone}
-                        size={1.5}
-                        className="icon-with-text"
-                    />
+                    <Icon path={mdiDiamondStone} size={1.5} className="icon-with-text" />
                 </h2>
                 <SmallItemTable
                     idFilter={loot.reduce((prev, current) => {
@@ -400,42 +420,42 @@ function BossPage(params) {
                     traderValue
                 />
 
-                {spawnStatsMsg.length > 0 && 
-                <>
-                    <h2 key={'boss-spawn-table-header'}>
-                        {t('Spawn Locations')}
-                        <Icon
-                            path={mdiMapLegend}
-                            size={1.5}
-                            className="icon-with-text"
+                {spawnStatsMsg.length > 0 && (
+                    <>
+                        <h2 key={'boss-spawn-table-header'}>
+                            {t('Spawn Locations')}
+                            <Icon path={mdiMapLegend} size={1.5} className="icon-with-text" />
+                        </h2>
+                        <ul>
+                            <Trans i18nKey="boss-spawn-table-description">
+                                <li>Map: The name of the map which the boss can spawn on</li>
+                                <li>
+                                    Spawn Location: The exact location on the given map which the
+                                    boss can spawn
+                                </li>
+                                <li>
+                                    Chance: If the "Spawn Chance" is activated for the map, this is
+                                    the estimated chance that the boss will spawn at a given
+                                    location on that map
+                                </li>
+                            </Trans>
+                        </ul>
+                        <DataTable
+                            key="boss-spawn-table"
+                            columns={columnsLocations}
+                            data={spawnLocations}
+                            disableSortBy={false}
+                            sortBy={'map'}
+                            autoResetSortBy={false}
                         />
-                    </h2>
-                    <ul>
-                        <Trans i18nKey="boss-spawn-table-description">
-                            <li>Map: The name of the map which the boss can spawn on</li>
-                            <li>Spawn Location: The exact location on the given map which the boss can spawn</li>
-                            <li>Chance: If the "Spawn Chance" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</li>
-                        </Trans>
-                    </ul>
-                    <DataTable
-                        key="boss-spawn-table"
-                        columns={columnsLocations}
-                        data={spawnLocations}
-                        disableSortBy={false}
-                        sortBy={'map'}
-                        autoResetSortBy={false}
-                    />
-                </>}
+                    </>
+                )}
 
                 <h2 key={'boss-escort-table-header'}>
                     {t('Boss Escorts')}
-                    <Icon
-                        path={mdiAccountGroup}
-                        size={1.5}
-                        className="icon-with-text"
-                    />
+                    <Icon path={mdiAccountGroup} size={1.5} className="icon-with-text" />
                 </h2>
-                {escorts.length > 0 ?
+                {escorts.length > 0 ? (
                     <DataTable
                         key="boss-escort-table"
                         columns={columnsEscorts}
@@ -444,37 +464,36 @@ function BossPage(params) {
                         sortBy={'map'}
                         autoResetSortBy={false}
                     />
-                    :
+                ) : (
                     <p>{t('This boss does not have any escorts')}</p>
-                }
+                )}
 
                 {/* cheeki breeki */}
-                {bossData.normalizedName === 'killa' &&
-                    <div className='killa-party-time'>
+                {bossData.normalizedName === 'killa' && (
+                    <div className="killa-party-time">
                         <h3 key={'killa-party-time'}>
                             {'Killa Party Time?'}
-                            <Icon
-                                path={mdiPartyPopper}
-                                size={1.5}
-                                className="icon-with-text"
-                            />
-                            <p className='killa-party-time-text'>Warning: LOUD</p>
+                            <Icon path={mdiPartyPopper} size={1.5} className="icon-with-text" />
+                            <p className="killa-party-time-text">Warning: LOUD</p>
                         </h3>
-                        <button style={{ padding: '.2rem', borderRadius: '4px' }} onClick={handleClick}>cheeki breeki</button>
-                        {isShown && (
-                            <CheekiBreekiEffect />
-                        )}
+                        <button
+                            style={{ padding: '.2rem', borderRadius: '4px' }}
+                            onClick={handleClick}
+                        >
+                            cheeki breeki
+                        </button>
+                        {isShown && <CheekiBreekiEffect />}
                     </div>
-                }
+                )}
                 {/* end cheeki breeki */}
             </div>
-        </div>
-    ]
+        </div>,
+    ];
 }
 
 function Boss() {
     const { t } = useTranslation();
-    
+
     // Get the boss name from the url
     const { bossName } = useParams();
     // Capitalize the first letter of the boss name
@@ -482,17 +501,21 @@ function Boss() {
 
     // Return the main react component for the individual boss page
     return [
-        <SEO 
+        <SEO
             title={`${boss} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('boss-page-description', 'This page includes information on {{bossName}} location, loot, and strategies for defeating him.', { bossName: boss })}
+            description={t(
+                'boss-page-description',
+                'This page includes information on {{bossName}} location, loot, and strategies for defeating him.',
+                { bossName: boss },
+            )}
             url={`https://tarkov.dev/boss/${bossName}`}
             image={`${window.location.origin}${process.env.PUBLIC_URL}/images/traders/${bossName}-portrait.png`}
-            card='summary_large_image'
+            card="summary_large_image"
             key="seo-wrapper"
         />,
         <Suspense fallback={<Loading />} key={`suspense-boss-page-${bossName}`}>
             <BossPage bossName={bossName} />
-        </Suspense>
+        </Suspense>,
     ];
 }
 

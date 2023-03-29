@@ -12,9 +12,8 @@ const initialState = {
     error: null,
 };
 
-export const fetchHideout = createAsyncThunk(
-    'hideout/fetchHideout',
-    async () => doFetchHideout(langCode())
+export const fetchHideout = createAsyncThunk('hideout/fetchHideout', async () =>
+    doFetchHideout(langCode()),
 );
 
 const hideoutSlice = createSlice({

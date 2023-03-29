@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiBottleWine} from '@mdi/js';
+import { mdiBottleWine } from '@mdi/js';
 
 import SEO from '../../../components/SEO';
 import { Filter, ToggleFilter, SelectItemFilter } from '../../../components/filter';
@@ -18,33 +18,34 @@ function Suppressors() {
     const { t } = useTranslation();
 
     const activeGuns = useMemo(() => {
-        return items.filter(item => item.types.includes('gun')).sort((a, b) => a.name.localeCompare(b.name));
+        return items
+            .filter((item) => item.types.includes('gun'))
+            .sort((a, b) => a.name.localeCompare(b.name));
     }, [items]);
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Suppressors')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('suppressors-page-description', 'This page includes a sortable table with information on the different types of suppressors available in the game, including their ergonomics, recoil, and cheapest price.')}
+            description={t(
+                'suppressors-page-description',
+                'This page includes a sortable table with information on the different types of suppressors available in the game, including their ergonomics, recoil, and cheapest price.',
+            )}
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
-                    <Icon path={mdiBottleWine} size={1.5} className="icon-with-text" /> 
+                    <Icon path={mdiBottleWine} size={1.5} className="icon-with-text" />
                     {t('Suppressors')}
                 </h1>
                 <Filter center>
                     <ToggleFilter
                         checked={showAllItemSources}
                         label={t('Ignore settings')}
-                        onChange={(e) =>
-                            setShowAllItemSources(!showAllItemSources)
-                        }
+                        onChange={(e) => setShowAllItemSources(!showAllItemSources)}
                         tooltipContent={
-                            <>
-                                {t('Shows all sources of items regardless of your settings')}
-                            </>
+                            <>{t('Shows all sources of items regardless of your settings')}</>
                         }
                     />
                     <SelectItemFilter
@@ -61,9 +62,7 @@ function Suppressors() {
                             }
 
                             setSelectedGun(
-                                activeGuns.find(
-                                    (activeGun) => activeGun.id === event.value,
-                                ),
+                                activeGuns.find((activeGun) => activeGun.id === event.value),
                             );
                         }}
                         wide
@@ -83,10 +82,14 @@ function Suppressors() {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {"In Escape from Tarkov, a suppressor is a muzzle device (a functional mod) and can be installed on a weapon to muffle gunshot sound."}
+                    {
+                        'In Escape from Tarkov, a suppressor is a muzzle device (a functional mod) and can be installed on a weapon to muffle gunshot sound.'
+                    }
                 </p>
                 <p>
-                    {"On this page you can sort them buy ergonomics penalty, recoil improvement or their cost and see on which weapon they can be directly mounted."}
+                    {
+                        'On this page you can sort them buy ergonomics penalty, recoil improvement or their cost and see on which weapon they can be directly mounted.'
+                    }
                 </p>
             </div>
         </div>,

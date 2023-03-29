@@ -10,8 +10,7 @@ const renderer = ({ days, hours, minutes, seconds, completed }) => {
         // Render a countdown
         return (
             <span className="countdown-wrapper">
-                {days} days {hours} hours {minutes} minutes {seconds} seconds to
-                wipe
+                {days} days {hours} hours {minutes} minutes {seconds} seconds to wipe
             </span>
         );
     }

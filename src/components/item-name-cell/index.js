@@ -5,16 +5,14 @@ import ContainedItemsList from '../contained-items-list';
 import './index.css';
 
 function ItemNameCell(props) {
-    let {item, showContainedItems, showRestrictedType} = props;
+    let { item, showContainedItems, showRestrictedType } = props;
     if (!item) {
         item = props.row.original;
     }
     return (
         <div className="small-item-table-description-wrapper">
             <div className="small-item-table-image-wrapper">
-                <Link
-                    to={item.itemLink}
-                >
+                <Link to={item.itemLink}>
                     <img
                         alt={item.name}
                         className="table-image"
@@ -24,10 +22,9 @@ function ItemNameCell(props) {
                 </Link>
             </div>
             <div className="small-item-table-name-wrapper">
-                <Link
-                    to={item.itemLink}
-                >
-                    {item.name}{item.count > 1 ? ` x ${item.count}` : ''}
+                <Link to={item.itemLink}>
+                    {item.name}
+                    {item.count > 1 ? ` x ${item.count}` : ''}
                 </Link>
                 {showRestrictedType && (
                     <cite>

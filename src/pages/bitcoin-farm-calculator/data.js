@@ -1,9 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useItemByIdQuery } from '../../features/items/queries';
-import {
-    selectAllSkills,
-    selectAllStations,
-} from '../../features/settings/settingsSlice';
+import { selectAllSkills, selectAllStations } from '../../features/settings/settingsSlice';
 
 // https://escapefromtarkov.fandom.com/wiki/Hideout
 const calculateMSToProduceBTC = (numCards) => {
@@ -29,11 +26,7 @@ export const MaxNumGraphicsCards = 50;
 export const MinNumGraphicsCards = 1;
 
 export const ProduceBitcoinData = {};
-for (
-    let count = MinNumGraphicsCards;
-    count <= MaxNumGraphicsCards;
-    count = count + 1
-) {
+for (let count = MinNumGraphicsCards; count <= MaxNumGraphicsCards; count = count + 1) {
     const msToProduceBTC = calculateMSToProduceBTC(count);
     const hoursToProduceBTC = msToProduceBTC / 60 / 60 / 1000;
     const btcPerHour = 1 / hoursToProduceBTC;
@@ -56,7 +49,7 @@ export const getMaxSellFor = (item) => {
         }
     }
 
-    return {...max};
+    return { ...max };
 };
 
 export const getMinBuyFor = (item) => {
@@ -75,9 +68,7 @@ export const useFuelPricePerDay = () => {
     const stations = useSelector(selectAllStations);
 
     const { data: metalFuelTankItem } = useItemByIdQuery(MetalFuelTankItemId);
-    const { data: expeditionaryFuelTankItem } = useItemByIdQuery(
-        ExpeditionaryFuelTankItemId,
-    );
+    const { data: expeditionaryFuelTankItem } = useItemByIdQuery(ExpeditionaryFuelTankItemId);
 
     if (!metalFuelTankItem || !expeditionaryFuelTankItem) {
         return undefined;
@@ -92,10 +83,7 @@ export const useFuelPricePerDay = () => {
 
     // https://escapefromtarkov.fandom.com/wiki/Hideout_management
     // 0.5% per level, but 25% max
-    const skillFuelDecreasedConsumptionRate = Math.min(
-        0.005 * skills['hideout-management'],
-        0.25,
-    );
+    const skillFuelDecreasedConsumptionRate = Math.min(0.005 * skills['hideout-management'], 0.25);
     durationMs = durationMs / (1 - skillFuelDecreasedConsumptionRate);
 
     if (stations['solar-power'] === 1) {

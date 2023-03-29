@@ -14,7 +14,7 @@ const localStorageReadJson = (key, defaultValue) => {
     return defaultValue;
 };
 
-export default function fleaMarketFee(basePrice, sellPrice, count = 1, Ti = 0.05, Tr = 0.10) {
+export default function fleaMarketFee(basePrice, sellPrice, count = 1, Ti = 0.05, Tr = 0.1) {
     let V0 = basePrice;
     let VR = sellPrice;
     //let Ti = 0.05;
@@ -26,7 +26,6 @@ export default function fleaMarketFee(basePrice, sellPrice, count = 1, Ti = 0.05
     const intelligenceCenter = localStorageReadJson('intelligence-center', 3);
     const hideoutManagement = localStorageReadJson('hideout-management', 0);
 
-
     if (VR < V0) {
         P0 = Math.pow(P0, 1.08);
     }
@@ -36,10 +35,8 @@ export default function fleaMarketFee(basePrice, sellPrice, count = 1, Ti = 0.05
     }
 
     if (intelligenceCenter >= 3) {
-        IC = 1 - (((.01 * hideoutManagement) + 1) * 0.3);
+        IC = 1 - (0.01 * hideoutManagement + 1) * 0.3;
     }
 
-    return Math.ceil(
-        V0 * Ti * Math.pow(4, P0) * Q + VR * Tr * Math.pow(4, PR) * Q,
-    ) * IC;
-};
+    return Math.ceil(V0 * Ti * Math.pow(4, P0) * Q + VR * Tr * Math.pow(4, PR) * Q) * IC;
+}

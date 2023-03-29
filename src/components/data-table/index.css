@@ -14,7 +14,8 @@
     width: 100%;
 }
 
-.data-table thead, .data-table tfoot {
+.data-table thead,
+.data-table tfoot {
     background: rgba(0, 0, 0, 0.4);
     position: sticky;
     top: 0;
@@ -36,7 +37,8 @@
     padding: 20px 5px 10px;
 }
 
-.data-cell, .data-table tfoot th {
+.data-cell,
+.data-table tfoot th {
     padding: 5px 15px;
     border-top: 4px solid #1b1919;
     border-bottom: 4px solid #1b1919;

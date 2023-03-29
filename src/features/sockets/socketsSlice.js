@@ -23,7 +23,6 @@ const socketsSlice = createSlice({
     },
 });
 
-export const { setControlId, setConnectionStatus, enableConnection } =
-    socketsSlice.actions;
+export const { setControlId, setConnectionStatus, enableConnection } = socketsSlice.actions;
 
 export default socketsSlice.reducer;

@@ -37,20 +37,18 @@ const bartersSlice = createSlice({
             let newBarters = [...state.barters];
 
             newBarters = newBarters.map((barter) => {
-                barter.requiredItems = barter.requiredItems.map(
-                    (requiredItem) => {
-                        if (requiredItem.item.id === action.payload.itemId) {
-                            if (requiredItem.count === 0) {
-                                requiredItem.count = requiredItem.originalCount;
-                            } else {
-                                requiredItem.originalCount = requiredItem.count;
-                                requiredItem.count = 0;
-                            }
+                barter.requiredItems = barter.requiredItems.map((requiredItem) => {
+                    if (requiredItem.item.id === action.payload.itemId) {
+                        if (requiredItem.count === 0) {
+                            requiredItem.count = requiredItem.originalCount;
+                        } else {
+                            requiredItem.originalCount = requiredItem.count;
+                            requiredItem.count = 0;
                         }
+                    }
 
-                        return requiredItem;
-                    },
-                );
+                    return requiredItem;
+                });
 
                 return barter;
             });
@@ -61,15 +59,13 @@ const bartersSlice = createSlice({
             let newBarters = [...state.barters];
 
             newBarters = newBarters.map((barter) => {
-                barter.requiredItems = barter.requiredItems.map(
-                    (requiredItem) => {
-                        if (requiredItem.item.id === action.payload.itemId) {
-                            requiredItem.priceCustom = action.payload.price;
-                        }
+                barter.requiredItems = barter.requiredItems.map((requiredItem) => {
+                    if (requiredItem.item.id === action.payload.itemId) {
+                        requiredItem.priceCustom = action.payload.price;
+                    }
 
-                        return requiredItem;
-                    },
-                );
+                    return requiredItem;
+                });
 
                 return barter;
             });
@@ -80,15 +76,13 @@ const bartersSlice = createSlice({
             let newBarters = [...state.barters];
 
             newBarters = newBarters.map((barter) => {
-                barter.rewardItems = barter.rewardItems.map(
-                    (rewardItem) => {
-                        if (rewardItem.item.id === action.payload.itemId) {
-                            rewardItem.priceCustom = action.payload.price;
-                        }
+                barter.rewardItems = barter.rewardItems.map((rewardItem) => {
+                    if (rewardItem.item.id === action.payload.itemId) {
+                        rewardItem.priceCustom = action.payload.price;
+                    }
 
-                        return rewardItem;
-                    },
-                );
+                    return rewardItem;
+                });
 
                 return barter;
             });

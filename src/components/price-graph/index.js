@@ -30,7 +30,7 @@ function PriceGraph({ item, itemId, itemChange24 }) {
             }
         }`,
     });
-    
+
     const { t } = useTranslation();
     const { status, data } = useQuery(
         `historical-price-${itemId}`,
@@ -82,25 +82,29 @@ function PriceGraph({ item, itemId, itemChange24 }) {
                 maxDomain={{ y: max + max * 0.1 }}
                 theme={VictoryTheme.material}
                 containerComponent={
-                    <VictoryVoronoiContainer
-                        labels={({ datum }) => `${formatPrice(datum.y)}`}
-                    />
+                    <VictoryVoronoiContainer labels={({ datum }) => `${formatPrice(datum.y)}`} />
                 }
             >
                 <VictoryAxis
                     tickFormat={(dateParsed) => {
                         // let relativeTime = getRelativeTimeAndUnit(dateParsed);
-                        // 
+                        //
                         // return t('{{val, relativetime}}', { val: relativeTime[0], range: relativeTime[1] })
 
-                        return t('{{val, datetime}}', { val: dateParsed,
+                        return t('{{val, datetime}}', {
+                            val: dateParsed,
                             formatParams: {
-                                val: { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' },
+                                val: {
+                                    weekday: 'long',
+                                    year: 'numeric',
+                                    month: 'numeric',
+                                    day: 'numeric',
+                                },
                             },
-                        })
+                        });
                     }}
                 />
-                <VictoryAxis dependentAxis/>
+                <VictoryAxis dependentAxis />
                 <VictoryLine
                     padding={{ right: -120 }}
                     scale={{

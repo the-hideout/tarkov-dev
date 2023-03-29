@@ -11,9 +11,7 @@ const initialState = {
     error: null,
 };
 
-export const fetchMeta = createAsyncThunk('meta/fetchMeta', () =>
-    doFetchMeta(langCode()),
-);
+export const fetchMeta = createAsyncThunk('meta/fetchMeta', () => doFetchMeta(langCode()));
 const metaSlice = createSlice({
     name: 'meta',
     initialState,

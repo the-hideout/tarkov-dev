@@ -34,14 +34,16 @@ const doFetchHideout = async (language, prebuild = false) => {
                 }
                 console.log(`Error in hideoutStations API query: ${error.message}`);
                 if (badItem) {
-                    console.log(badItem)
+                    console.log(badItem);
                 }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned
         if (
-            prebuild || !queryData.data || 
-            !queryData.data.hideoutStations || !queryData.data.hideoutStations.length
+            prebuild ||
+            !queryData.data ||
+            !queryData.data.hideoutStations ||
+            !queryData.data.hideoutStations.length
         ) {
             return Promise.reject(new Error(queryData.errors[0].message));
         }

@@ -11,10 +11,7 @@ import loadPolyfills from './modules/polyfills';
 import RemoteControlId from './components/remote-control-id';
 import { fetchTarkovTrackerProgress } from './features/settings/settingsSlice';
 
-import {
-    setConnectionStatus,
-    enableConnection,
-} from './features/sockets/socketsSlice';
+import { setConnectionStatus, enableConnection } from './features/sockets/socketsSlice';
 import useStateWithLocalStorage from './hooks/useStateWithLocalStorage';
 import makeID from './modules/make-id';
 
@@ -84,9 +81,7 @@ let tarkovTrackerProgressInterval = false;
 loadPolyfills();
 
 function App() {
-    const connectToId = new URLSearchParams(window.location.search).get(
-        'connection',
-    );
+    const connectToId = new URLSearchParams(window.location.search).get('connection');
     if (connectToId) {
         localStorage.setItem('sessionId', JSON.stringify(connectToId));
     }
@@ -100,17 +95,13 @@ function App() {
         dispatch(enableConnection());
     }
 
-    const useTarkovTracker = useSelector(
-        (state) => state.settings.useTarkovTracker,
-    );
-    
+    const useTarkovTracker = useSelector((state) => state.settings.useTarkovTracker);
+
     const progressStatus = useSelector((state) => {
         return state.settings.progressStatus;
     });
 
-    const tarkovTrackerAPIKey = useSelector(
-        (state) => state.settings.tarkovTrackerAPIKey,
-    );
+    const tarkovTrackerAPIKey = useSelector((state) => state.settings.tarkovTrackerAPIKey);
 
     useEffect(() => {
         if (useTarkovTracker && progressStatus !== 'loading' && !tarkovTrackerProgressInterval) {
@@ -222,11 +213,7 @@ function App() {
             if (socket.readyState !== 1) {
                 // Wait a bit if we're not connected
                 setTimeout(() => {
-                    socket.send(
-                        JSON.stringify({ sessionID: controlId,
-                            ...messageData,
-                        }),
-                    );
+                    socket.send(JSON.stringify({ sessionID: controlId, ...messageData }));
                 }, 500);
 
                 return true;
@@ -242,9 +229,7 @@ function App() {
         [controlId],
     );
 
-    const hideRemoteControlId = useSelector(
-        (state) => state.settings.hideRemoteControl,
-    );
+    const hideRemoteControlId = useSelector((state) => state.settings.hideRemoteControl);
     const remoteControlSessionElement = hideRemoteControlId ? null : (
         <Suspense fallback={<Loading />} key="suspense-connection-wrapper">
             <RemoteControlId
@@ -255,7 +240,7 @@ function App() {
             />
         </Suspense>
     );
-    const alternateLangs = supportedLanguages.filter(lang => lang !== i18n.language); 
+    const alternateLangs = supportedLanguages.filter((lang) => lang !== i18n.language);
 
     // dayjs locale needs to be loaded so it output localized text, but this suggested method throws a loader error...
     // maybe we should use i18n DateTime and RelativeTime instead
@@ -266,7 +251,11 @@ function App() {
             <Helmet htmlAttributes={{ lang: i18n.language }}>
                 <meta property="og:locale" content={i18n.language} key="meta-locale" />
                 {alternateLangs.map((lang) => (
-                    <meta property="og:locale:alternate" content={lang} key={`meta-locale-alt-${lang}`} />
+                    <meta
+                        property="og:locale:alternate"
+                        content={lang}
+                        key={`meta-locale-alt-${lang}`}
+                    />
                 ))}
             </Helmet>
             <Suspense fallback={<Loading />} key="suspense-menu-wrapper">
@@ -347,10 +336,7 @@ function App() {
                 <Route
                     path={'/barter'}
                     key="barter-route"
-                    element={[
-                        <Navigate to="/barters" />,
-                        remoteControlSessionElement,
-                    ]}
+                    element={[<Navigate to="/barters" />, remoteControlSessionElement]}
                 />
                 <Route
                     path={'/items'}
@@ -365,18 +351,12 @@ function App() {
                 <Route
                     path={'/item'}
                     key="item-route"
-                    element={[
-                        <Navigate to="/items" />,
-                        remoteControlSessionElement,
-                    ]}
+                    element={[<Navigate to="/items" />, remoteControlSessionElement]}
                 />
                 <Route
                     path={'/items/ammo'}
                     key="items-ammo-route"
-                    element={[
-                        <Navigate to="/ammo" />,
-                        remoteControlSessionElement,
-                    ]}
+                    element={[<Navigate to="/ammo" />, remoteControlSessionElement]}
                 />
                 <Route
                     path={'/items/helmets'}
@@ -421,10 +401,7 @@ function App() {
                 <Route
                     path={'/items/backpack'}
                     key="backpack-route"
-                    element={[
-                        <Navigate to="/items/backpacks" />,
-                        remoteControlSessionElement,
-                    ]}
+                    element={[<Navigate to="/items/backpacks" />, remoteControlSessionElement]}
                 />
                 <Route
                     path={'/items/rigs'}
@@ -439,10 +416,7 @@ function App() {
                 <Route
                     path={'/items/chest-rig'}
                     key="chest-rig-route"
-                    element={[
-                        <Navigate to="/items/rigs" />,
-                        remoteControlSessionElement,
-                    ]}
+                    element={[<Navigate to="/items/rigs" />, remoteControlSessionElement]}
                 />
                 <Route
                     path={'/items/suppressors'}
@@ -457,10 +431,7 @@ function App() {
                 <Route
                     path={'/items/silencer'}
                     key="silencer-route"
-                    element={[
-                        <Navigate to="/items/suppressors" />,
-                        remoteControlSessionElement,
-                    ]}
+                    element={[<Navigate to="/items/suppressors" />, remoteControlSessionElement]}
                 />
                 <Route
                     path={'/items/guns'}
@@ -485,10 +456,7 @@ function App() {
                 <Route
                     path={'/items/weapon-mod'}
                     key="weapon-mod-route"
-                    element={[
-                        <Navigate to="/items/mods" />,
-                        remoteControlSessionElement,
-                    ]}
+                    element={[<Navigate to="/items/mods" />, remoteControlSessionElement]}
                 />
                 <Route
                     path={'/items/pistol-grips'}
@@ -523,10 +491,7 @@ function App() {
                 <Route
                     path={'/items/common-container'}
                     key="common-container-route"
-                    element={[
-                        <Navigate to="/items/containers" />,
-                        remoteControlSessionElement,
-                    ]}
+                    element={[<Navigate to="/items/containers" />, remoteControlSessionElement]}
                 />
                 <Route
                     path={'/items/grenades'}
@@ -541,10 +506,7 @@ function App() {
                 <Route
                     path={'/items/throwable-weapon'}
                     key="throwable-weapon-route"
-                    element={[
-                        <Navigate to="/items/grenades" />,
-                        remoteControlSessionElement,
-                    ]}
+                    element={[<Navigate to="/items/grenades" />, remoteControlSessionElement]}
                 />
                 <Route
                     path={'/items/headsets'}
@@ -559,10 +521,7 @@ function App() {
                 <Route
                     path={'/items/headphones'}
                     key="headphones-route"
-                    element={[
-                        <Navigate to="/items/headsets" />,
-                        remoteControlSessionElement,
-                    ]}
+                    element={[<Navigate to="/items/headsets" />, remoteControlSessionElement]}
                 />
                 <Route
                     path={'/items/keys'}
@@ -577,10 +536,7 @@ function App() {
                 <Route
                     path={'/items/key'}
                     key="key-route"
-                    element={[
-                        <Navigate to="/items/keys" />,
-                        remoteControlSessionElement,
-                    ]}
+                    element={[<Navigate to="/items/keys" />, remoteControlSessionElement]}
                 />
                 <Route
                     path={'/items/provisions'}
@@ -595,10 +551,7 @@ function App() {
                 <Route
                     path={'/items/food-and-drink'}
                     key="food-and-drink-route"
-                    element={[
-                        <Navigate to="/items/provisions" />,
-                        remoteControlSessionElement,
-                    ]}
+                    element={[<Navigate to="/items/provisions" />, remoteControlSessionElement]}
                 />
                 <Route
                     path="/items/:bsgCategoryName"
@@ -633,10 +586,7 @@ function App() {
                 <Route
                     path={'/boss'}
                     key="boss-route"
-                    element={[
-                        <Navigate to="/bosses" />,
-                        remoteControlSessionElement,
-                    ]}
+                    element={[<Navigate to="/bosses" />, remoteControlSessionElement]}
                 />
                 <Route
                     path={'/boss/:bossName'}
@@ -661,10 +611,7 @@ function App() {
                 <Route
                     path={'/trader'}
                     key="trader-route"
-                    element={[
-                        <Navigate to="/traders" />,
-                        remoteControlSessionElement,
-                    ]}
+                    element={[<Navigate to="/traders" />, remoteControlSessionElement]}
                 />
                 <Route
                     path={'/trader/:traderName'}
@@ -806,14 +753,14 @@ function App() {
                         remoteControlSessionElement,
                     ]}
                 />
-                <Route 
-                    path={'/control'} 
+                <Route
+                    path={'/control'}
                     key="control-route"
                     element={[
                         <Suspense fallback={<Loading />} key="suspense-control-wrapper">
                             <Control send={send} />
                         </Suspense>,
-                    ]} 
+                    ]}
                 />
                 <Route
                     path={'/tasks/'}

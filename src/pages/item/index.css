@@ -212,7 +212,7 @@
     .single-line-grid.sell {
         justify-content: flex-start;
     }
-    
+
     .single-line-grid.buy {
         justify-content: flex-end;
     }

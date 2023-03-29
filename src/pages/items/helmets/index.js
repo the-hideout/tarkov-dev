@@ -2,18 +2,13 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiRacingHelmet} from '@mdi/js';
+import { mdiRacingHelmet } from '@mdi/js';
 
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
 
 import SEO from '../../../components/SEO';
 import SmallItemTable from '../../../components/small-item-table';
-import {
-    Filter,
-    ToggleFilter,
-    RangeFilter,
-    InputFilter,
-} from '../../../components/filter';
+import { Filter, ToggleFilter, RangeFilter, InputFilter } from '../../../components/filter';
 
 const marks = {
     1: 1,
@@ -26,20 +21,13 @@ const marks = {
 
 function Helmets() {
     const [showAllItemSources, setShowAllItemSources] = useState(false);
-    const [includeBlockingHeadset, setIncludeBlockingHeadset] =
-        useStateWithLocalStorage('includeBlockingHeadset', true);
-    const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage(
-        'minHelmetArmorClass',
-        1,
+    const [includeBlockingHeadset, setIncludeBlockingHeadset] = useStateWithLocalStorage(
+        'includeBlockingHeadset',
+        true,
     );
-    const [maxArmorClass, setMaxArmorClass] = useStateWithLocalStorage(
-        'maxHelmetArmorClass',
-        6,
-    );
-    const [maxPrice, setMaxPrice] = useStateWithLocalStorage(
-        'helmetMaxPrice',
-        '',
-    );
+    const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage('minHelmetArmorClass', 1);
+    const [maxArmorClass, setMaxArmorClass] = useStateWithLocalStorage('maxHelmetArmorClass', 6);
+    const [maxPrice, setMaxPrice] = useStateWithLocalStorage('helmetMaxPrice', '');
 
     const handleArmorClassChange = ([min, max]) => {
         setMinArmorClass(min);
@@ -49,35 +37,32 @@ function Helmets() {
     const { t } = useTranslation();
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Helmets')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('helmet-page-description', 'This page includes a sortable table with information on the different types of helmet available in the game, including their price, armor class, and other characteristics.')}
+            description={t(
+                'helmet-page-description',
+                'This page includes a sortable table with information on the different types of helmet available in the game, including their price, armor class, and other characteristics.',
+            )}
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    <Icon path={mdiRacingHelmet} size={1.5} className="icon-with-text" /> 
+                    <Icon path={mdiRacingHelmet} size={1.5} className="icon-with-text" />
                     {t('Helmets')}
                 </h1>
                 <Filter center>
                     <ToggleFilter
                         checked={showAllItemSources}
                         label={t('Ignore settings')}
-                        onChange={(e) =>
-                            setShowAllItemSources(!showAllItemSources)
-                        }
+                        onChange={(e) => setShowAllItemSources(!showAllItemSources)}
                         tooltipContent={
-                            <>
-                                {t('Shows all sources of items regardless of your settings')}
-                            </>
+                            <>{t('Shows all sources of items regardless of your settings')}</>
                         }
                     />
                     <ToggleFilter
                         label={t('Show blocking headset')}
-                        onChange={(e) =>
-                            setIncludeBlockingHeadset(!includeBlockingHeadset)
-                        }
+                        onChange={(e) => setIncludeBlockingHeadset(!includeBlockingHeadset)}
                         checked={includeBlockingHeadset}
                     />
                     <RangeFilter
@@ -120,18 +105,24 @@ function Helmets() {
                 maxDurability={5}
                 stats={6}
                 cheapestPrice={7}
-                sortBy='armorClass'
+                sortBy="armorClass"
             />
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {"In Escape from Tarkov, headgear serves a variety of functions."}
-                    <br/>
-                    {"There are useful objects, vanity items, and safety headgear. Before entering combat, choosing a helmet that will protect different parts of the head becomes crucial."}
-                    <br/>
-                    {"The impact that different helmets will have on how much sound they suppress is another crucial factor to take into account. Escape from Tarkov's gameplay heavily relies on sound."}
-                    <br/>
-                    {"Modular helmets, which have an assortment of different components, are another aspect of Escape from Tarkov. These helmets may modify the number of segments they protect. Top, Nape, Ears, Eyes, and Jaws are the segments."}
+                    {'In Escape from Tarkov, headgear serves a variety of functions.'}
+                    <br />
+                    {
+                        'There are useful objects, vanity items, and safety headgear. Before entering combat, choosing a helmet that will protect different parts of the head becomes crucial.'
+                    }
+                    <br />
+                    {
+                        "The impact that different helmets will have on how much sound they suppress is another crucial factor to take into account. Escape from Tarkov's gameplay heavily relies on sound."
+                    }
+                    <br />
+                    {
+                        'Modular helmets, which have an assortment of different components, are another aspect of Escape from Tarkov. These helmets may modify the number of segments they protect. Top, Nape, Ears, Eyes, and Jaws are the segments.'
+                    }
                 </p>
             </div>
         </div>,

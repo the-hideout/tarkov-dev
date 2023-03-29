@@ -15,15 +15,18 @@ import './index.css';
 function Items(props) {
     const { t } = useTranslation();
     return [
-        <SEO 
+        <SEO
             title={`${t('Items')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('items-page-description', 'This page includes links to pages with information on different item categories, including armor, backpacks, barter items, containers, glasses, grenades, guns, headsets, helmet, keys, gun mods, pistol grips, provisions, rigs, suppressors, and more.')}
+            description={t(
+                'items-page-description',
+                'This page includes links to pages with information on different item categories, including armor, backpacks, barter items, containers, glasses, grenades, guns, headsets, helmet, keys, gun mods, pistol grips, provisions, rigs, suppressors, and more.',
+            )}
             key="seo-wrapper"
         />,
         <div className={'page-wrapper'} key="map-page-wrapper">
             <h1 className="center-title">
                 {t('Escape from Tarkov')}
-                <Icon path={mdiViewGrid} size={1.5} className="icon-with-text"/>
+                <Icon path={mdiViewGrid} size={1.5} className="icon-with-text" />
                 {t('Items')}
             </h1>
             <ItemSearch showDropdown />
@@ -53,7 +56,10 @@ function Items(props) {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {t('items-page-description', 'This page includes links to pages with information on different item categories, including armor, backpacks, barter items, containers, glasses, grenades, guns, headsets, helmet, keys, gun mods, pistol grips, provisions, rigs, suppressors, and more.')}
+                    {t(
+                        'items-page-description',
+                        'This page includes links to pages with information on different item categories, including armor, backpacks, barter items, containers, glasses, grenades, guns, headsets, helmet, keys, gun mods, pistol grips, provisions, rigs, suppressors, and more.',
+                    )}
                 </p>
             </div>
         </div>,

@@ -11,15 +11,13 @@ const initialState = {
     error: null,
 };
 
-export const fetchItems = createAsyncThunk('items/fetchItems', () =>
-    doFetchItems(langCode()),
-);
+export const fetchItems = createAsyncThunk('items/fetchItems', () => doFetchItems(langCode()));
 const itemsSlice = createSlice({
     name: 'items',
     initialState,
     reducers: {
         setCustomSellValue: (state, action) => {
-            const item = state.items.find(i => i.id === action.payload.itemId);
+            const item = state.items.find((i) => i.id === action.payload.itemId);
             if (!item) {
                 return;
             }

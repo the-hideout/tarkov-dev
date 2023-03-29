@@ -15,13 +15,7 @@ const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
 };
 
-function ButtonGroupFilterButton({
-    tooltipContent,
-    onClick,
-    content,
-    selected,
-    type = 'image',
-}) {
+function ButtonGroupFilterButton({ tooltipContent, onClick, content, selected, type = 'image' }) {
     return (
         <Tippy placement="top" content={tooltipContent}>
             <button
@@ -40,15 +34,7 @@ function ButtonGroupFilter({ children }) {
     return <div className="button-group-wrapper">{children}</div>;
 }
 
-function SliderFilter({
-    label,
-    defaultValue,
-    min,
-    max,
-    marks,
-    onChange,
-    reverse = false,
-}) {
+function SliderFilter({ label, defaultValue, min, max, marks, onChange, reverse = false }) {
     return (
         <div className={'filter-slider-wrapper'}>
             <div className={'filter-slider-label'}>{label}</div>
@@ -79,15 +65,7 @@ function SliderFilter({
     );
 }
 
-function RangeFilter({
-    label,
-    defaultValue,
-    min,
-    max,
-    marks,
-    onChange,
-    reverse = false,
-}) {
+function RangeFilter({ label, defaultValue, min, max, marks, onChange, reverse = false }) {
     return (
         <div className={'filter-slider-wrapper'}>
             <div className={'filter-slider-label'}>{label}</div>
@@ -168,7 +146,7 @@ const selectFilterStyle = {
     multiValueLabel: (provided) => ({
         ...provided,
         color: '#E0DFD6',
-        padding: '0.1rem'
+        padding: '0.1rem',
     }),
     menu: (provided) => ({
         ...provided,
@@ -230,11 +208,7 @@ function SelectFilter({
             condition={tooltip}
             wrapper={(children) => {
                 return (
-                    <Tippy
-                        disabled={tooltipDisabled}
-                        placement="bottom"
-                        content={tooltip}
-                    >
+                    <Tippy disabled={tooltipDisabled} placement="bottom" content={tooltip}>
                         {children}
                     </Tippy>
                 );
@@ -252,7 +226,7 @@ function SelectFilter({
                             <span className={'single-filter-label'}>{label}</span>
                             {labelChildren}
                         </label>
-                    )
+                    );
                 }}
             >
                 <Select
@@ -296,16 +270,16 @@ function SelectItemFilter({
     const [selectedItem, setSelectedItem] = useState(false);
     const selectInputRef = useRef(null);
 
-    const elements = [(
+    const elements = [
         <SelectFilter
             key={'select-item-filter'}
             placeholder={placeholder}
             label={label}
             options={items.map((item) => {
                 return {
-                    label: shortNames? item.shortName : item.name,
+                    label: shortNames ? item.shortName : item.name,
                     value: item[valueField],
-                    selected: selection && selection.id === item.id
+                    selected: selection && selection.id === item.id,
                 };
             })}
             onChange={(event) => {
@@ -313,11 +287,7 @@ function SelectItemFilter({
                     return true;
                 }
 
-                setSelectedItem(
-                    items.find(
-                        (item) => item.id === event.value,
-                    ),
-                );
+                setSelectedItem(items.find((item) => item.id === event.value));
                 if (onChange) {
                     onChange(event);
                 }
@@ -331,11 +301,11 @@ function SelectItemFilter({
             tooltipDisabled={tooltipDisabled}
             onMenuOpen={onMenuOpen}
             onMenuClose={onMenuClose}
-        />
-    )];
+        />,
+    ];
 
     if (selectedItem && showImage) {
-        elements.push((
+        elements.push(
             <img
                 key={'select-item-filter-selected-icon'}
                 alt={`${selectedItem.name}-icon`}
@@ -343,13 +313,13 @@ function SelectItemFilter({
                     selectInputRef.current?.clearValue();
                     setSelectedItem(false);
                     if (onChange) {
-                        onChange({label: '', value: false});
+                        onChange({ label: '', value: false });
                     }
                 }}
                 loading="lazy"
                 src={selectedItem.iconLink}
-            />
-        ))
+            />,
+        );
     }
     return elements;
 }
@@ -370,10 +340,7 @@ function InputFilter({
             condition={tooltip}
             wrapper={(children) => {
                 return (
-                    <Tippy
-                        placement="bottom"
-                        content={tooltip}
-                    >
+                    <Tippy placement="bottom" content={tooltip}>
                         {children}
                     </Tippy>
                 );

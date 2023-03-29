@@ -7,7 +7,7 @@ import './index.css';
 
 const rewardMap = {
     finishRewards: 'On Task Completion',
-    startRewards: 'On Task Start'
+    startRewards: 'On Task Start',
 };
 
 function QuestItemsCell({ questItems }) {
@@ -25,16 +25,12 @@ function QuestItemsCell({ questItems }) {
                     />
                 </div>
                 <div className="quest-item-text-wrapper">
-                    <Link to={`/item/${questItem.item.normalizedName}`}>
-                        {questItem.item.name}
-                    </Link>
+                    <Link to={`/item/${questItem.item.normalizedName}`}>{questItem.item.name}</Link>
                     <div className="amount-wrapper">
                         {t('Amount')}
                         <span>:</span> {questItem.count.toLocaleString()}
                     </div>
-                    <div className="reward-type-wrapper">
-                        {t(rewardMap[questItem.rewardType])}
-                    </div>
+                    <div className="reward-type-wrapper">{t(rewardMap[questItem.rewardType])}</div>
                 </div>
             </div>
         );

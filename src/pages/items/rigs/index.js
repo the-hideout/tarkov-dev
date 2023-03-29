@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiTshirtCrewOutline} from '@mdi/js';
+import { mdiTshirtCrewOutline } from '@mdi/js';
 
 import SEO from '../../../components/SEO';
 import { Filter, ToggleFilter, SliderFilter } from '../../../components/filter';
@@ -24,8 +24,10 @@ const marks = {
 function Rigs() {
     const { data: items } = useItemsQuery();
 
-    const [includeArmoredRigs, setIncludeArmoredRigs] =
-        useStateWithLocalStorage('includeArmoredRigs', true);
+    const [includeArmoredRigs, setIncludeArmoredRigs] = useStateWithLocalStorage(
+        'includeArmoredRigs',
+        true,
+    );
     const [minSlots, setMinSlots] = useStateWithLocalStorage('minSlots', 0);
     const [has3Slot, setHas3Slot] = useState(false);
     const [has4Slot, setHas4Slot] = useState(false);
@@ -33,15 +35,10 @@ function Rigs() {
     const [showAllItemSources, setShowAllItemSources] = useState(false);
     const { t } = useTranslation();
 
-    const displayItems = useMemo(
-        () => items.filter((item) => item.types.includes('rig')),
-        [items],
-    );
+    const displayItems = useMemo(() => items.filter((item) => item.types.includes('rig')), [items]);
 
     let maxSlots = Math.max(
-        ...displayItems.map(
-            (displayItem) => displayItem.properties.capacity || 0,
-        ),
+        ...displayItems.map((displayItem) => displayItem.properties.capacity || 0),
     );
     if (maxSlots === Infinity) {
         maxSlots = 1;
@@ -52,35 +49,32 @@ function Rigs() {
     };
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Rigs')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('rigs-page-description', 'This page includes a sortable table with information on the different types of rigs available in the game, including their price, inside and outside size, weight, compression, and other characteristics.')}
+            description={t(
+                'rigs-page-description',
+                'This page includes a sortable table with information on the different types of rigs available in the game, including their price, inside and outside size, weight, compression, and other characteristics.',
+            )}
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    <Icon path={mdiTshirtCrewOutline} size={1.5} className="icon-with-text" /> 
+                    <Icon path={mdiTshirtCrewOutline} size={1.5} className="icon-with-text" />
                     {t('Rigs')}
                 </h1>
                 <Filter center>
                     <ToggleFilter
                         checked={showAllItemSources}
                         label={t('Ignore settings')}
-                        onChange={(e) =>
-                            setShowAllItemSources(!showAllItemSources)
-                        }
+                        onChange={(e) => setShowAllItemSources(!showAllItemSources)}
                         tooltipContent={
-                            <>
-                                {t('Shows all sources of items regardless of your settings')}
-                            </>
+                            <>{t('Shows all sources of items regardless of your settings')}</>
                         }
                     />
                     <ToggleFilter
                         label={t('Armored rigs?')}
-                        onChange={(e) =>
-                            setIncludeArmoredRigs(!includeArmoredRigs)
-                        }
+                        onChange={(e) => setIncludeArmoredRigs(!includeArmoredRigs)}
                         checked={includeArmoredRigs}
                     />
                     <SliderFilter
@@ -104,7 +98,9 @@ function Rigs() {
                     />
                     <ToggleFilter
                         label={t('Net price per slot')}
-                        tooltipContent={t('Show price per additional slot of storage gained from the container')}
+                        tooltipContent={t(
+                            'Show price per additional slot of storage gained from the container',
+                        )}
                         onChange={(e) => setShowNetPPS(!showNetPPS)}
                         checked={showNetPPS}
                     />
@@ -130,7 +126,9 @@ function Rigs() {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {"When it comes to carrying and storing ammunition and magazines during your excursions in Escape from Tarkov, chest rigs are crucial. Some even provide you with additional security."}
+                    {
+                        'When it comes to carrying and storing ammunition and magazines during your excursions in Escape from Tarkov, chest rigs are crucial. Some even provide you with additional security.'
+                    }
                 </p>
             </div>
         </div>,

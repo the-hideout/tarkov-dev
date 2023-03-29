@@ -92,13 +92,7 @@ function CanvasGrid(props) {
         ctx.fillRect(info.x, info.y, info.width, info.height);
     };
 
-    return (
-        <canvas
-            height={props.height * 22}
-            width={props.width * 22}
-            ref={canvas}
-        ></canvas>
-    );
+    return <canvas height={props.height * 22} width={props.width * 22} ref={canvas}></canvas>;
 }
 
 export default CanvasGrid;

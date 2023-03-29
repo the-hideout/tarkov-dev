@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiKeyVariant} from '@mdi/js';
+import { mdiKeyVariant } from '@mdi/js';
 
 import SEO from '../../../components/SEO';
 import { Filter, InputFilter, ToggleFilter } from '../../../components/filter';
@@ -11,9 +11,7 @@ import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 
 function Keys() {
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
+    const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [showAllItemSources, setShowAllItemSources] = useState(false);
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const { t } = useTranslation();
@@ -34,29 +32,28 @@ function Keys() {
     );
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Keys')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('keys-page-description', 'This page includes a sortable table with information on the different types of keys available in the game, including their price, rarity, and other characteristics.')}
+            description={t(
+                'keys-page-description',
+                'This page includes a sortable table with information on the different types of keys available in the game, including their price, rarity, and other characteristics.',
+            )}
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
-                    <Icon path={mdiKeyVariant} size={1.5} className="icon-with-text" /> 
+                    <Icon path={mdiKeyVariant} size={1.5} className="icon-with-text" />
                     {t('Keys')}
                 </h1>
                 <Filter center>
                     <ToggleFilter
                         checked={showAllItemSources}
                         label={t('Ignore settings')}
-                        onChange={(e) =>
-                            setShowAllItemSources(!showAllItemSources)
-                        }
+                        onChange={(e) => setShowAllItemSources(!showAllItemSources)}
                         tooltipContent={
-                            <>
-                                {t('Shows all sources of items regardless of your settings')}
-                            </>
+                            <>{t('Shows all sources of items regardless of your settings')}</>
                         }
                     />
                     <InputFilter
@@ -78,9 +75,13 @@ function Keys() {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {"Maps, keys, key cards, and other useful objects are included in intelligence items. These will help you stay one step ahead of the competition—or at the very least, know where you are in Escape from Tarkov."}
-                    <br/>
-                    {"The remaining durability of keys and keycards with a limited number of uses is displayed in the bottom right corner of their icons and on their inspection screens."}
+                    {
+                        'Maps, keys, key cards, and other useful objects are included in intelligence items. These will help you stay one step ahead of the competition—or at the very least, know where you are in Escape from Tarkov.'
+                    }
+                    <br />
+                    {
+                        'The remaining durability of keys and keycards with a limited number of uses is displayed in the bottom right corner of their icons and on their inspection screens.'
+                    }
                 </p>
             </div>
         </div>,

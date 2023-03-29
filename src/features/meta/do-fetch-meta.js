@@ -47,22 +47,29 @@ const doFetchMeta = async (language, prebuild = false) => {
                 }
                 console.log(`Error in meta API query: ${error.message}`, error.path);
                 if (badItem) {
-                    console.log(badItem)
+                    console.log(badItem);
                 }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned
         if (
-            prebuild || !metaData.data || 
-            !metaData.data.fleaMarket || 
-            !metaData.data.armorMaterials || !metaData.data.armorMaterials.length || 
-            !metaData.data.itemCategories || !metaData.data.itemCategories.length
+            prebuild ||
+            !metaData.data ||
+            !metaData.data.fleaMarket ||
+            !metaData.data.armorMaterials ||
+            !metaData.data.armorMaterials.length ||
+            !metaData.data.itemCategories ||
+            !metaData.data.itemCategories.length
         ) {
             return Promise.reject(new Error(metaData.errors[0].message));
         }
     }
 
-    return {flea: metaData.data.fleaMarket, armor: metaData.data.armorMaterials, categories: metaData.data.itemCategories};
+    return {
+        flea: metaData.data.fleaMarket,
+        armor: metaData.data.armorMaterials,
+        categories: metaData.data.itemCategories,
+    };
 };
 
 export default doFetchMeta;

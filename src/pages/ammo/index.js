@@ -29,7 +29,7 @@ const skipTypes = [
     'Caliber40x46',
     'Caliber127x108',
     'Caliber26x75',
-    'Caliber40mmRU'
+    'Caliber40mmRU',
 ];
 
 function Ammo() {
@@ -40,20 +40,19 @@ function Ammo() {
         if (currentAmmo === '12 Gauge' || currentAmmo === '20 Gauge') {
             currentAmmoList = [`${currentAmmo} Shot`, `${currentAmmo} Slug`];
             redirect = true;
-        }
-        else {
+        } else {
             currentAmmoList = currentAmmo.split(',');
         }
     }
     const navigate = useNavigate();
 
-    // if the name we got from the params is 12/20 Gauge, redirect to a nice looking path 
+    // if the name we got from the params is 12/20 Gauge, redirect to a nice looking path
     useEffect(() => {
         if (redirect) {
             navigate(`/ammo/${currentAmmoList.join(',')}`);
         }
     }, [redirect, currentAmmoList, navigate]);
-    
+
     const [selectedLegendName, setSelectedLegendName] = useState(currentAmmoList);
     const [showAllTraderPrices, setShowAllTraderPrices] = useState(false);
     const [useAllProjectileDamage, setUseAllProjectileDamage] = useState(false);
@@ -77,62 +76,69 @@ function Ammo() {
 
     let typeCache = [];
     const legendData = [];
-    const formattedData = items.filter(item => {
-        return item.categories.some(cat => cat.id === '5485a8684bdc2da71d8b4567') && !skipTypes.includes(item.properties.caliber)
-    }).sort((a, b) => {
-        const caliberA = formatCaliber(a.properties.caliber, a.properties.ammoType);
-        const caliberB = formatCaliber(b.properties.caliber, b.properties.ammoType);
-        if (caliberA === caliberB) {
-            const damageA = a.properties.damage;
-            const damageB = b.properties.damage;
-            if (damageA === damageB)
-                return a.name.localeCompare(b.name);
-            return damageA - damageB;
-        }
-        return caliberA.localeCompare(caliberB);
-    }).map(ammoData => {
-        const returnData = {
-            ...ammoData,
-            ...ammoData.properties,
-            type: formatCaliber(ammoData.properties.caliber, ammoData.properties.ammoType),
-            displayDamage: useAllProjectileDamage ? ammoData.properties.projectileCount * ammoData.properties.damage : ammoData.properties.damage,
-            displayPenetration: ammoData.properties.penetrationPower,
-        };
-        if (!returnData.type) 
-            console.log(returnData);
+    const formattedData = items
+        .filter((item) => {
+            return (
+                item.categories.some((cat) => cat.id === '5485a8684bdc2da71d8b4567') &&
+                !skipTypes.includes(item.properties.caliber)
+            );
+        })
+        .sort((a, b) => {
+            const caliberA = formatCaliber(a.properties.caliber, a.properties.ammoType);
+            const caliberB = formatCaliber(b.properties.caliber, b.properties.ammoType);
+            if (caliberA === caliberB) {
+                const damageA = a.properties.damage;
+                const damageB = b.properties.damage;
+                if (damageA === damageB) return a.name.localeCompare(b.name);
+                return damageA - damageB;
+            }
+            return caliberA.localeCompare(caliberB);
+        })
+        .map((ammoData) => {
+            const returnData = {
+                ...ammoData,
+                ...ammoData.properties,
+                type: formatCaliber(ammoData.properties.caliber, ammoData.properties.ammoType),
+                displayDamage: useAllProjectileDamage
+                    ? ammoData.properties.projectileCount * ammoData.properties.damage
+                    : ammoData.properties.damage,
+                displayPenetration: ammoData.properties.penetrationPower,
+            };
+            if (!returnData.type) console.log(returnData);
 
-        if (returnData.displayDamage > MAX_DAMAGE) {
-            returnData.name = `${ammoData.name} (${returnData.displayDamage})`;
-            returnData.displayDamage = MAX_DAMAGE;
-        }
+            if (returnData.displayDamage > MAX_DAMAGE) {
+                returnData.name = `${ammoData.name} (${returnData.displayDamage})`;
+                returnData.displayDamage = MAX_DAMAGE;
+            }
 
-        if (returnData.penetrationPower > MAX_PENETRATION) {
-            returnData.name = `${ammoData.name} (${returnData.penetrationPower})`;
-            returnData.displayPenetration = MAX_PENETRATION;
-        }
-        let symbol = symbols[typeCache.length];
+            if (returnData.penetrationPower > MAX_PENETRATION) {
+                returnData.name = `${ammoData.name} (${returnData.penetrationPower})`;
+                returnData.displayPenetration = MAX_PENETRATION;
+            }
+            let symbol = symbols[typeCache.length];
 
-        if (typeCache.includes(returnData.type)) {
-            symbol = symbols[typeCache.indexOf(returnData.type)];
-        } 
-        else {
-            typeCache.push(returnData.type);
-            legendData.push({
-                ...returnData,
-                name: returnData.type,
-                caliber: returnData.properties.caliber,
-                symbol: symbol,
-            });
-        }
-        returnData.symbol = symbol;
+            if (typeCache.includes(returnData.type)) {
+                symbol = symbols[typeCache.indexOf(returnData.type)];
+            } else {
+                typeCache.push(returnData.type);
+                legendData.push({
+                    ...returnData,
+                    name: returnData.type,
+                    caliber: returnData.properties.caliber,
+                    symbol: symbol,
+                });
+            }
+            returnData.symbol = symbol;
 
-        if (!symbol) {
-            console.log(`Missing symbol for ${returnData.type}, the graph will crash. Add more symbols to src/symbols.json`);
-            process.exit(1);
-        }
+            if (!symbol) {
+                console.log(
+                    `Missing symbol for ${returnData.type}, the graph will crash. Add more symbols to src/symbols.json`,
+                );
+                process.exit(1);
+            }
 
-        return returnData;
-    });
+            return returnData;
+        });
 
     legendData.sort((a, b) => {
         return a.type.localeCompare(b.type);
@@ -181,11 +187,7 @@ function Ammo() {
     const handleLegendClick = useCallback(
         (event, { datum: { name } }) => {
             let newSelectedAmmo = [...selectedLegendName];
-            const metaKey =
-                event.altKey ||
-                event.ctrlKey ||
-                event.metaKey ||
-                event.shiftKey;
+            const metaKey = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
 
             if (newSelectedAmmo.includes(name) && metaKey) {
                 newSelectedAmmo.splice(newSelectedAmmo.indexOf(name), 1);
@@ -204,15 +206,18 @@ function Ammo() {
     );
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Ammo chart')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('ammo-page-description', 'This page contains a list of every type of ammo in Escape from Tarkov. To filter the complete list of available cartridges, click the name of a caliber.')}
+            description={t(
+                'ammo-page-description',
+                'This page contains a list of every type of ammo in Escape from Tarkov. To filter the complete list of available cartridges, click the name of a caliber.',
+            )}
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key="ammo-wrapper">
             <h1 className="center-title">
                 {t('Escape from Tarkov')}
-                <Icon path={mdiAmmunition} size={1.5} className="icon-with-text"/>
+                <Icon path={mdiAmmunition} size={1.5} className="icon-with-text" />
                 {t('Ammo chart')}
             </h1>
             <div className="page-wrapper ammo-page-wrapper">
@@ -225,46 +230,37 @@ function Ammo() {
                     yMax={MAX_PENETRATION}
                 />
             </div>
-            
+
             <div className="page-wrapper ammo-page-wrapper">
-            <Trans i18nKey={'ammo-page-p'}>
-                <p>
-                    The wilderness of Tarkov includes a diverse range of ammunition. To combat different opponents, different types of ammunition are needed.
-                </p>
-                <p>
-                    This page contains a list of every type of ammo in Escape from Tarkov. To filter the complete list of available cartridges, click the name of a caliber.
-                </p>
-            </Trans>
+                <Trans i18nKey={'ammo-page-p'}>
+                    <p>
+                        The wilderness of Tarkov includes a diverse range of ammunition. To combat
+                        different opponents, different types of ammunition are needed.
+                    </p>
+                    <p>
+                        This page contains a list of every type of ammo in Escape from Tarkov. To
+                        filter the complete list of available cartridges, click the name of a
+                        caliber.
+                    </p>
+                </Trans>
             </div>
             <Filter>
                 <ToggleFilter
                     checked={useAllProjectileDamage}
                     label={t('Total damage')}
-                    onChange={(e) =>
-                        setUseAllProjectileDamage(!useAllProjectileDamage)
-                    }
-                    tooltipContent={
-                        <>
-                            {t('Use total damage of all projectiles in a round')}
-                        </>
-                    }
+                    onChange={(e) => setUseAllProjectileDamage(!useAllProjectileDamage)}
+                    tooltipContent={<>{t('Use total damage of all projectiles in a round')}</>}
                 />
                 <ToggleFilter
                     checked={showAllTraderPrices}
                     label={t('Ignore settings')}
-                    onChange={(e) =>
-                        setShowAllTraderPrices(!showAllTraderPrices)
-                    }
+                    onChange={(e) => setShowAllTraderPrices(!showAllTraderPrices)}
                     tooltipContent={
-                        <>
-                            {t('Shows all sources of items regardless of your settings')}
-                        </>
+                        <>{t('Shows all sources of items regardless of your settings')}</>
                     }
                 />
             </Filter>
-            <h2 className="center-title">
-                {t('Ammo Statistics Table')}
-            </h2>
+            <h2 className="center-title">{t('Ammo Statistics Table')}</h2>
             <SmallItemTable
                 bsgCategoryFilter={'5485a8684bdc2da71d8b4567'}
                 showAllSources={showAllTraderPrices}

@@ -26,26 +26,27 @@ function DataTable({
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
 
-    const storageKey = columns.map(({ Header, id }) => {
-        if (typeof id === 'string') {
-            return id;
-        }
+    const storageKey = columns
+        .map(({ Header, id }) => {
+            if (typeof id === 'string') {
+                return id;
+            }
 
-        if (!Header || typeof Header !== 'string') {
-            return '';
-        }
+            if (!Header || typeof Header !== 'string') {
+                return '';
+            }
 
-        return Header.toLowerCase()
-                        .replace(/\s/, '-')
-                        .replace(/[^a-zа-я-]/g, '');
-    }).join(',');
-    const [initialSortBy, storageSetSortBy] = useStateWithLocalStorage(
-        storageKey,
-        [{
-            "id": sortBy,
-            "desc": sortByDesc
-        }],
-    );
+            return Header.toLowerCase()
+                .replace(/\s/, '-')
+                .replace(/[^a-zа-я-]/g, '');
+        })
+        .join(',');
+    const [initialSortBy, storageSetSortBy] = useStateWithLocalStorage(storageKey, [
+        {
+            id: sortBy,
+            desc: sortByDesc,
+        },
+    ]);
     const { ref, inView } = useInView({
         threshold: 0,
     });
@@ -109,17 +110,12 @@ function DataTable({
             prepareRow(row);
             const tableProps = row.getRowProps();
 
-            tableProps.className = `${
-                row.depth >= 1 ? 'expanded' : ''
-            }`;
+            tableProps.className = `${row.depth >= 1 ? 'expanded' : ''}`;
             return (
                 <tr key={row.original.id} {...tableProps}>
                     {row.cells.map((cell) => {
                         return (
-                            <td
-                                className={'data-cell'}
-                                {...cell.getCellProps()}
-                            >
+                            <td className={'data-cell'} {...cell.getCellProps()}>
                                 {cell.render('Cell')}
                             </td>
                         );
@@ -138,25 +134,17 @@ function DataTable({
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map((column) => (
                                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                                    <span>
-                                        {column.render('Header')}
-                                    </span>
+                                    <span>{column.render('Header')}</span>
                                     {/* Add a sort direction indicator */}
-                                    <div
-                                        className={'header-sort-icon'}
-                                    >
+                                    <div className={'header-sort-icon'}>
                                         {column.isSorted ? (
                                             column.isSortedDesc ? (
                                                 <ArrowIcon />
                                             ) : (
-                                                <ArrowIcon
-                                                    className={'arrow-up'}
-                                                />
+                                                <ArrowIcon className={'arrow-up'} />
                                             )
                                         ) : (
-                                            <div
-                                                className={'arrow-placeholder'}
-                                            />
+                                            <div className={'arrow-placeholder'} />
                                         )}
                                     </div>
                                 </th>
@@ -168,10 +156,7 @@ function DataTable({
                     {getRows()}
                     {extraRow && (
                         <tr key="extra">
-                            <td
-                                className="data-cell table-extra-row"
-                                colSpan={999}
-                            >
+                            <td className="data-cell table-extra-row" colSpan={999}>
                                 {extraRow}
                             </td>
                         </tr>
@@ -181,11 +166,26 @@ function DataTable({
                 {sumColumns && rows.length > 1 && (
                     <tfoot>
                         <tr>
-                            {columns.map((col, colIndex) => (<th key={`col-sum-${colIndex}`}>{col.summable ? formatPrice(rows.map(row => {
-                                const val = row.cells[colIndex].value;
-                                if (isNaN(val)) return false;
-                                return val;
-                            }).filter(Boolean).reduce((previousValue, currentValue) => previousValue + currentValue, 0)) : ''}</th>))}
+                            {columns.map((col, colIndex) => (
+                                <th key={`col-sum-${colIndex}`}>
+                                    {col.summable
+                                        ? formatPrice(
+                                              rows
+                                                  .map((row) => {
+                                                      const val = row.cells[colIndex].value;
+                                                      if (isNaN(val)) return false;
+                                                      return val;
+                                                  })
+                                                  .filter(Boolean)
+                                                  .reduce(
+                                                      (previousValue, currentValue) =>
+                                                          previousValue + currentValue,
+                                                      0,
+                                                  ),
+                                          )
+                                        : ''}
+                                </th>
+                            ))}
                         </tr>
                     </tfoot>
                 )}

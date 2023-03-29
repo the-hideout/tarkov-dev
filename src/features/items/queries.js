@@ -27,8 +27,7 @@ export const useItemByIdQuery = (itemId, queryOptions) => {
 
 export const useItemByNameQuery = (itemName, queryOptions) => {
     const itemQuery = useItemsQuery({
-        select: (items) =>
-            items.find((item) => item.normalizedName === itemName),
+        select: (items) => items.find((item) => item.normalizedName === itemName),
         ...queryOptions,
     });
 

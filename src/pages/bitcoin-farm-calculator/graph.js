@@ -20,18 +20,12 @@ const BtcGraph = () => {
             containerComponent={
                 <VictoryVoronoiContainer
                     labels={({ datum }) =>
-                        `${datum.count}: ${getDurationDisplay(
-                            datum.msToProduceBTC,
-                        )}`
+                        `${datum.count}: ${getDurationDisplay(datum.msToProduceBTC)}`
                     }
                 />
             }
         >
-            <VictoryLine
-                data={Object.values(ProduceBitcoinData)}
-                x="count"
-                y="hoursToProduceBTC"
-            />
+            <VictoryLine data={Object.values(ProduceBitcoinData)} x="count" y="hoursToProduceBTC" />
             <VictoryAxis label={t('Num graphic cards')} />
             <VictoryAxis label={t('Hours')} dependentAxis />
         </VictoryChart>

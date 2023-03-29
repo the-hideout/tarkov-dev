@@ -11,9 +11,12 @@ import './index.css';
 function APIDocs() {
     const { t } = useTranslation();
     return [
-        <SEO 
+        <SEO
             title={`${t('API Documentation')} - ${t('Tarkov.dev')}`}
-            description={t('api-docs-page-description', 'Escape from Tarkov\'s community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT.')}
+            description={t(
+                'api-docs-page-description',
+                "Escape from Tarkov's community made API and its documentation. Learn more about our free and easy to use GraphQL API for EFT.",
+            )}
             key="seo-wrapper"
         />,
         <div className={'page-wrapper api-docs-page-wrapper'}>
@@ -21,28 +24,55 @@ function APIDocs() {
             <h2>{t('About')}</h2>
             <Trans i18nKey={'api-about-p'}>
                 <div className="section-text-wrapper">
-                    The API is written in GraphQL and we try our hardest to follow spec and not to make breaking changes.
-                    To learn about what queries you can make and how the schema is structured, visit the playground and click the 'Docs' tab on the right side.
-                    Once you're ready to try some queries, you can also test them out in the playground.
-                    To learn about GraphQL queries generally, the GraphQL Foundation has helpful resources.
+                    The API is written in GraphQL and we try our hardest to follow spec and not to
+                    make breaking changes. To learn about what queries you can make and how the
+                    schema is structured, visit the playground and click the 'Docs' tab on the right
+                    side. Once you're ready to try some queries, you can also test them out in the
+                    playground. To learn about GraphQL queries generally, the GraphQL Foundation has
+                    helpful resources.
                     <ul>
                         <li>
-                            <a href="https://api.tarkov.dev/" target="_blank" rel="noopener noreferrer">Tarkov.dev GraphQL playground</a>
+                            <a
+                                href="https://api.tarkov.dev/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Tarkov.dev GraphQL playground
+                            </a>
                         </li>
                         <li>
-                            <a href="https://graphql.org/learn/" target="_blank" rel="noopener noreferrer">GraphQL Foundation resources</a>
+                            <a
+                                href="https://graphql.org/learn/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                GraphQL Foundation resources
+                            </a>
                         </li>
                     </ul>
                 </div>
                 <div className="section-text-wrapper">
-                    Once you're ready to send API queries from outside the playground, the endpoint is: <a href="https://api.tarkov.dev/graphql" target="_blank" rel="noopener noreferrer">https://api.tarkov.dev/graphql</a>.
+                    Once you're ready to send API queries from outside the playground, the endpoint
+                    is:{' '}
+                    <a
+                        href="https://api.tarkov.dev/graphql"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        https://api.tarkov.dev/graphql
+                    </a>
+                    .
                 </div>
             </Trans>
             <h2>{t('Current API Performance')}</h2>
             <ApiMetricsGraph graph={true} />
             <Trans i18nKey={'api-performance-p'}>
                 <p>
-                    For full API metrics and performance, check out our <a href="https://status.tarkov.dev" target="_blank" rel="noopener noreferrer">status page</a>.
+                    For full API metrics and performance, check out our{' '}
+                    <a href="https://status.tarkov.dev" target="_blank" rel="noopener noreferrer">
+                        status page
+                    </a>
+                    .
                 </p>
             </Trans>
             <h2>{t('FAQ')}</h2>
@@ -53,40 +83,73 @@ function APIDocs() {
             <div className="section-text-wrapper">
                 <h3>{t('Is it open source?')}</h3>
                 <Trans i18nKey={'api-faq-open-source-p'}>
-                    Of course! Source code for the API can be found in its GitHub repo: <a href="https://github.com/the-hideout/tarkov-api" target="_blank" rel="noopener noreferrer">github.com/the-hideout/tarkov-api</a>.
+                    Of course! Source code for the API can be found in its GitHub repo:{' '}
+                    <a
+                        href="https://github.com/the-hideout/tarkov-api"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        github.com/the-hideout/tarkov-api
+                    </a>
+                    .
                 </Trans>
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Is there a rate limit?')}</h3>
                 <Trans i18nKey={'api-faq-rate-limit-p'}>
-                    Nope! We currently do not have a rate-limit enabled. That being said, please respect this and do not hammer the API with requests just because you can. Use common sense!
-                    Price data is updated every 5 minutes, so there's really no need to query faster than that.
-                    To view an up-to-date definition of our rate-limits (or lack there-of), check our Cloudflare GitHub repo where they are defined: <a href="https://github.com/the-hideout/cloudflare/blob/main/terraform/security.tf" target="_blank" rel="noopener noreferrer">rate limit definition</a>.
+                    Nope! We currently do not have a rate-limit enabled. That being said, please
+                    respect this and do not hammer the API with requests just because you can. Use
+                    common sense! Price data is updated every 5 minutes, so there's really no need
+                    to query faster than that. To view an up-to-date definition of our rate-limits
+                    (or lack there-of), check our Cloudflare GitHub repo where they are defined:{' '}
+                    <a
+                        href="https://github.com/the-hideout/cloudflare/blob/main/terraform/security.tf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        rate limit definition
+                    </a>
+                    .
                 </Trans>
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('What about caching?')}</h3>
                 <Trans i18nKey={'api-faq-caching-p'}>
-                    Since our data is updated every 5 minutes, we also cache all GraphQL queries for 5 minutes as well.
-                    This helps to greatly reduce the load on our servers while making your requests speedy quick!
+                    Since our data is updated every 5 minutes, we also cache all GraphQL queries for
+                    5 minutes as well. This helps to greatly reduce the load on our servers while
+                    making your requests speedy quick!
                 </Trans>
             </div>
             <div className="section-text-wrapper">
                 <h3>{t('Where is the data from?')}</h3>
-                {t('We source data from multiple places to build an API as complete as possible. We use data from:')}
+                {t(
+                    'We source data from multiple places to build an API as complete as possible. We use data from:',
+                )}
                 <ul>
                     <li>
-                        <a href="https://tarkov-changes.com/" target="_blank" rel="noopener noreferrer">
+                        <a
+                            href="https://tarkov-changes.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             Tarkov Changes
                         </a>
                     </li>
                     <li>
-                        <a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki" target="_blank" rel="noopener noreferrer">
+                        <a
+                            href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             Escape from Tarkov Wiki
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/TarkovTracker/tarkovdata/" target="_blank" rel="noopener noreferrer">
+                        <a
+                            href="https://github.com/TarkovTracker/tarkovdata/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             TarkovTracker/tarkovdata
                         </a>
                     </li>
@@ -197,7 +260,13 @@ print(result)`}
                 <h3 id="ruby">Ruby {t('example')}</h3>
                 <cite>
                     <span>{t('Contributed by')} </span>
-                    <a href="https://github.com/GrantBirki" target="_blank" rel="noopener noreferrer">GrantBirki</a>
+                    <a
+                        href="https://github.com/GrantBirki"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        GrantBirki
+                    </a>
                 </cite>
                 <SyntaxHighlighter language="ruby" style={atomOneDark}>
                     {`# frozen_string_literal: true
@@ -262,7 +331,13 @@ return json_decode($data, true);`}
                     <span>Java 11's HttpClient {t('example')}</span>
                     <cite>
                         <span>{t('Contributed by')} </span>
-                        <a href="https://github.com/HeyBanditoz" target="_blank" rel="noopener noreferrer">HeyBanditoz</a>
+                        <a
+                            href="https://github.com/HeyBanditoz"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            HeyBanditoz
+                        </a>
                     </cite>
                 </h3>
                 <SyntaxHighlighter language="java" style={atomOneDark}>
@@ -321,7 +396,13 @@ using (var httpClient = new HttpClient())
                     <span>Go {t('example')}</span>
                     <cite>
                         <span>{t('Contributed by')} </span>
-                        <a href="https://github.com/HeyBanditoz" target="_blank" rel="noopener noreferrer">HeyBanditoz</a>
+                        <a
+                            href="https://github.com/HeyBanditoz"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            HeyBanditoz
+                        </a>
                     </cite>
                 </h3>
                 <SyntaxHighlighter language="go" style={atomOneDark}>
@@ -364,7 +445,13 @@ func main() {
                     <span>Lua (Luvit) {t('example')}</span>
                     <cite>
                         <span>{t('Contributed by')} </span>
-                        <a href="https://github.com/AntwanR942" target="_blank" rel="noopener noreferrer">AntwanR942</a>
+                        <a
+                            href="https://github.com/AntwanR942"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            AntwanR942
+                        </a>
                     </cite>
                 </h3>
                 <SyntaxHighlighter language="lua" style={atomOneDark}>

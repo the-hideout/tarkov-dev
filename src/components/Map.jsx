@@ -1,10 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import {
-    TransformWrapper,
-    TransformComponent,
-} from 'react-zoom-pan-pinch';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 import { useMapImages } from '../features/maps/queries';
 
@@ -19,21 +16,16 @@ function Map() {
     const { t } = useTranslation();
 
     useEffect(() => {
-        let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
+        let viewableHeight =
+            window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
         if (viewableHeight < 100) {
             viewableHeight = window.innerHeight;
         }
 
-        document.documentElement.style.setProperty(
-            '--display-height',
-            `${viewableHeight}px`,
-        );
+        document.documentElement.style.setProperty('--display-height', `${viewableHeight}px`);
 
         return function cleanup() {
-            document.documentElement.style.setProperty(
-                '--display-height',
-                `auto`,
-            );
+            document.documentElement.style.setProperty('--display-height', `auto`);
         };
     });
 
@@ -49,14 +41,24 @@ function Map() {
         return <ErrorPage />;
     }
 
-    const { displayText, author, authorLink, normalizedName, description, duration, players, image, imageThumb } = allMaps[currentMap];
+    const {
+        displayText,
+        author,
+        authorLink,
+        normalizedName,
+        description,
+        duration,
+        players,
+        image,
+        imageThumb,
+    } = allMaps[currentMap];
 
     return [
-        <SEO 
+        <SEO
             title={`${displayText} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={description}
             image={`${window.location.origin}${process.env.PUBLIC_URL}${imageThumb}`}
-            card='summary_large_image'
+            card="summary_large_image"
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key="map-wrapper">

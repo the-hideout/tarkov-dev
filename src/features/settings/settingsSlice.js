@@ -13,15 +13,12 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             quests: [],
         };
 
-        const response = await fetch(
-            'https://tarkovtracker.io/api/v2/progress',
-            {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${apiKey}`,
-                },
+        const response = await fetch('https://tarkovtracker.io/api/v2/progress', {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${apiKey}`,
             },
-        ).then((resp) => resp.json());
+        }).then((resp) => resp.json());
 
         const progressData = response.data;
 
@@ -54,8 +51,9 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
                 Accept: 'application/json',
             },
             body: bodyQuery,
-        }).then((resp) => resp.json())
-        .then((resp) => resp.data.hideoutStations);
+        })
+            .then((resp) => resp.json())
+            .then((resp) => resp.data.hideoutStations);
 
         for (const station of hideoutData) {
             returnData.hideout[station.normalizedName] = 0;
@@ -140,10 +138,7 @@ const settingsSlice = createSlice({
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
             state.tarkovTrackerAPIKey = action.payload;
-            localStorageWriteJson(
-                'tarkovTrackerAPIKey',
-                action.payload,
-            );
+            localStorageWriteJson('tarkovTrackerAPIKey', action.payload);
         },
         toggleFlea: (state, action) => {
             state.hasFlea = action.payload;
@@ -159,24 +154,15 @@ const settingsSlice = createSlice({
         },
         setStationOrTraderLevel: (state, action) => {
             state[action.payload.target] = action.payload.value;
-            localStorageWriteJson(
-                action.payload.target,
-                action.payload.value,
-            );
+            localStorageWriteJson(action.payload.target, action.payload.value);
         },
         toggleTarkovTracker: (state, action) => {
             state.useTarkovTracker = action.payload;
-            localStorageWriteJson(
-                'useTarkovTracker',
-                action.payload,
-            );
+            localStorageWriteJson('useTarkovTracker', action.payload);
         },
         toggleHideRemoteControl: (state, action) => {
             state.hideRemoteControl = !state.hideRemoteControl;
-            localStorageWriteJson(
-                'hide-remote-control',
-                state.hideRemoteControl,
-            );
+            localStorageWriteJson('hide-remote-control', state.hideRemoteControl);
         },
     },
     extraReducers: (builder) => {

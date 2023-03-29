@@ -12,7 +12,10 @@ import SEO from '../../components/SEO';
 import SmallItemTable from '../../components/small-item-table';
 import CraftsTable from '../../components/crafts-table';
 import BartersTable from '../../components/barters-table';
-import QuestTable, { getRequiredQuestItems, getRewardQuestItems } from '../../components/quest-table';
+import QuestTable, {
+    getRequiredQuestItems,
+    getRewardQuestItems,
+} from '../../components/quest-table';
 import CanvasGrid from '../../components/canvas-grid';
 import ErrorPage from '../../components/error-page';
 import LoyaltyLevelIcon from '../../components/loyalty-level-icon';
@@ -29,15 +32,11 @@ import { PresetSelector } from '../../components/preset-selector';
 import warningIcon from '../../images/icon-warning.png';
 
 import { useMetaQuery } from '../../features/meta/queries';
-import { selectAllBarters, fetchBarters, } from '../../features/barters/bartersSlice';
+import { selectAllBarters, fetchBarters } from '../../features/barters/bartersSlice';
 import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
 import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
-import {
-    useItemByNameQuery,
-    useItemByIdQuery,
-    useItemsQuery,
-} from '../../features/items/queries';
+import { useItemByNameQuery, useItemByIdQuery, useItemsQuery } from '../../features/items/queries';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 
 import formatPrice from '../../modules/format-price';
@@ -68,7 +67,10 @@ function TraderPrice({ currency, price, priceRUB }) {
 
 function priceIsLocked(buyFor, settings) {
     let className = '';
-    if (buyFor.vendor.trader && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) {
+    if (
+        buyFor.vendor.trader &&
+        settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel
+    ) {
         className = ' locked';
     } else if (buyFor.vendor.normalizedName === 'flea-market' && !settings.hasFlea) {
         className = ' locked';
@@ -129,42 +131,46 @@ function Item() {
     });
     const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
 
-    const {data: items} = useItemsQuery();
+    const { data: items } = useItemsQuery();
 
     const barters = useMemo(() => {
-        return barterSelector.map(b => {
+        return barterSelector.map((b) => {
             return {
                 ...b,
-                requiredItems: b.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                rewardItems: b.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
+                requiredItems: b.requiredItems
+                    .map((req) => {
+                        const matchedItem = items.find((it) => it.id === req.item.id);
+                        if (!matchedItem) {
+                            return false;
+                        }
+                        return {
+                            ...req,
+                            item: matchedItem,
+                        };
+                    })
+                    .filter(Boolean),
+                rewardItems: b.rewardItems
+                    .map((req) => {
+                        const matchedItem = items.find((it) => it.id === req.item.id);
+                        if (!matchedItem) {
+                            return false;
+                        }
+                        return {
+                            ...req,
+                            item: matchedItem,
+                        };
+                    })
+                    .filter(Boolean),
             };
         });
     }, [barterSelector, items]);
 
     const crafts = useMemo(() => {
-        return craftSelector.map(c => {
+        return craftSelector.map((c) => {
             return {
                 ...c,
-                requiredItems: c.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
+                requiredItems: c.requiredItems.map((req) => {
+                    const matchedItem = items.find((it) => it.id === req.item.id);
                     if (!matchedItem) {
                         return false;
                     }
@@ -173,16 +179,18 @@ function Item() {
                         item: matchedItem,
                     };
                 }),
-                rewardItems: c.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
+                rewardItems: c.rewardItems
+                    .map((req) => {
+                        const matchedItem = items.find((it) => it.id === req.item.id);
+                        if (!matchedItem) {
+                            return false;
+                        }
+                        return {
+                            ...req,
+                            item: matchedItem,
+                        };
+                    })
+                    .filter(Boolean),
             };
         });
     }, [craftSelector, items]);
@@ -266,10 +274,12 @@ function Item() {
         if (!currentItemData) {
             return [];
         }
-        
-        return quests.map((questData) => {
-            return getRequiredQuestItems(questData, currentItemData.id);
-        }).filter(required => required.length > 0).length;
+
+        return quests
+            .map((questData) => {
+                return getRequiredQuestItems(questData, currentItemData.id);
+            })
+            .filter((required) => required.length > 0).length;
     }, [currentItemData, quests]);
 
     const questsProvidingCount = useMemo(() => {
@@ -277,9 +287,11 @@ function Item() {
             return [];
         }
 
-        return quests.map(questData => {
-            return getRewardQuestItems(questData, currentItemData.id);
-        }).filter(reward => reward.length > 0).length;
+        return quests
+            .map((questData) => {
+                return getRewardQuestItems(questData, currentItemData.id);
+            })
+            .filter((reward) => reward.length > 0).length;
     }, [currentItemData, quests]);
 
     const questsToggle = useMemo(() => {
@@ -288,14 +300,8 @@ function Item() {
                 <ToggleFilter
                     checked={hideCompletedQuests}
                     label={t('Hide completed')}
-                    onChange={(e) =>
-                        setHideCompletedQuests(!hideCompletedQuests)
-                    }
-                    tooltipContent={
-                        <>
-                            {t('Hide tasks you\'ve completed')}
-                        </>
-                    }
+                    onChange={(e) => setHideCompletedQuests(!hideCompletedQuests)}
+                    tooltipContent={<>{t("Hide tasks you've completed")}</>}
                 />
             );
         }
@@ -303,11 +309,14 @@ function Item() {
     }, [settings, hideCompletedQuests, t]);
 
     currentItemData = useMemo(() => {
-        if (!currentItemData || !currentItemData.bestPrice) 
-            return currentItemData;
+        if (!currentItemData || !currentItemData.bestPrice) return currentItemData;
         return {
             ...currentItemData,
-            ...bestPrice(currentItemData, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
+            ...bestPrice(
+                currentItemData,
+                meta?.flea?.sellOfferFeeRate,
+                meta?.flea?.sellRequirementFeeRate,
+            ),
         };
     }, [meta, currentItemData]);
 
@@ -337,7 +346,9 @@ function Item() {
                 onChange={(e) => dispatch(toggleHideDogtagBarters(!hideDogtagBarters))}
                 tooltipContent={
                     <>
-                        {t('The true "cost" of barters using Dogtags is difficult to estimate, so you may want to exclude dogtag barters')}
+                        {t(
+                            'The true "cost" of barters using Dogtags is difficult to estimate, so you may want to exclude dogtag barters',
+                        )}
                     </>
                 }
             />
@@ -348,57 +359,79 @@ function Item() {
 
     const containsItems = currentItemData?.containsItems?.length > 0;
 
-    const hasBarters = barters.some(barter => {
-        let requiredItems = barter.requiredItems.some(contained => contained.item.id === currentItemData.id);
-        let rewardItems = barter.rewardItems.some(contained => contained.item.id === currentItemData.id || 
-                                                               contained.item.containsItems.some(ci => ci.item.id === currentItemData.id));
+    const hasBarters = barters.some((barter) => {
+        let requiredItems = barter.requiredItems.some(
+            (contained) => contained.item.id === currentItemData.id,
+        );
+        let rewardItems = barter.rewardItems.some(
+            (contained) =>
+                contained.item.id === currentItemData.id ||
+                contained.item.containsItems.some((ci) => ci.item.id === currentItemData.id),
+        );
 
         return requiredItems || rewardItems;
     });
 
-    const hasCrafts = crafts.some(craft => {
-        let requiredItems = craft.requiredItems.some(contained => contained.item.id === currentItemData.id);
-        let rewardItems = craft.rewardItems.some(contained => contained.item.id === currentItemData.id);
+    const hasCrafts = crafts.some((craft) => {
+        let requiredItems = craft.requiredItems.some(
+            (contained) => contained.item.id === currentItemData.id,
+        );
+        let rewardItems = craft.rewardItems.some(
+            (contained) => contained.item.id === currentItemData.id,
+        );
 
         return requiredItems || rewardItems;
     });
 
-    const usedInHideout = hideout?.some(station => station.levels.some(module => module.itemRequirements.some(contained => contained.item.id === currentItemData.id)));
+    const usedInHideout = hideout?.some((station) =>
+        station.levels.some((module) =>
+            module.itemRequirements.some((contained) => contained.item.id === currentItemData.id),
+        ),
+    );
 
     if (!currentItemData.bestPrice) {
         currentItemData = {
             ...currentItemData,
-            ...bestPrice(currentItemData, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
+            ...bestPrice(
+                currentItemData,
+                meta?.flea?.sellOfferFeeRate,
+                meta?.flea?.sellRequirementFeeRate,
+            ),
         };
     }
 
     if (currentItemData.properties?.defaultPreset) {
         currentItemData.properties = {
             ...currentItemData.properties,
-            defaultPreset: items.find(i => i.id === currentItemData.properties.defaultPreset.id),
+            defaultPreset: items.find((i) => i.id === currentItemData.properties.defaultPreset.id),
         };
     }
-    
-    const sellForTraders = currentItemData.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
 
-    const itemFleaFee = fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
+    const sellForTraders = currentItemData.sellFor.filter(
+        (sellFor) => sellFor.vendor.normalizedName !== 'flea-market',
+    );
 
-    const sellForTradersIsTheBest = currentItemData.sellForTradersBest ? currentItemData.sellForTradersBest.priceRUB > currentItemData.lastLowPrice - itemFleaFee : false;
+    const itemFleaFee = fleaFee(
+        currentItemData.basePrice,
+        currentItemData.lastLowPrice,
+        1,
+        meta?.flea?.sellOfferFeeRate,
+        meta?.flea?.sellRequirementFeeRate,
+    );
+
+    const sellForTradersIsTheBest = currentItemData.sellForTradersBest
+        ? currentItemData.sellForTradersBest.priceRUB > currentItemData.lastLowPrice - itemFleaFee
+        : false;
     const useFleaPrice = currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
     let fleaSellPriceDisplay = formatPrice(currentItemData.lastLowPrice);
     let fleaSellIcon = '';
     let fleaTooltip;
-    
+
     if (!useFleaPrice && currentItemData.bestPrice) {
         fleaSellPriceDisplay = formatPrice(currentItemData.bestPrice);
         fleaSellIcon = (
-            <img
-                alt="Warning"
-                loading="lazy"
-                className="warning-icon"
-                src={warningIcon}
-            />
+            <img alt="Warning" loading="lazy" className="warning-icon" src={warningIcon} />
         );
         fleaTooltip = (
             <div>
@@ -421,24 +454,19 @@ function Item() {
                     </div>
                 </div>
                 {t(
-`The last observed low price for this item on the Flea Market was {{lastSeenPrice}}.
+                    `The last observed low price for this item on the Flea Market was {{lastSeenPrice}}.
 However, due to how fees are calculated, you're better off selling for {{bestPrice}}.`,
                     {
                         lastSeenPrice: formatPrice(currentItemData.lastLowPrice),
-                        bestPrice: formatPrice(currentItemData.bestPrice)
-                    }
+                        bestPrice: formatPrice(currentItemData.bestPrice),
+                    },
                 )}
             </div>
         );
     } else if (!currentItemData.lastLowPrice) {
         fleaSellPriceDisplay = '';
         fleaSellIcon = (
-            <img
-                alt="Warning"
-                loading="lazy"
-                className="warning-icon"
-                src={warningIcon}
-            />
+            <img alt="Warning" loading="lazy" className="warning-icon" src={warningIcon} />
         );
         fleaTooltip = (
             <div>
@@ -461,28 +489,18 @@ However, due to how fees are calculated, you're better off selling for {{bestPri
                     </div>
                 </div>
                 {t(
-`This item has not been observed on the Flea Market.
+                    `This item has not been observed on the Flea Market.
 The maximum profitable price is {{bestPrice}}, but the item may not sell at that price.
 The max profitable price is impacted by the intel center and hideout management skill levels in your settings.`,
                     {
-                        bestPrice: formatPrice(currentItemData.bestPrice)
-                    }
+                        bestPrice: formatPrice(currentItemData.bestPrice),
+                    },
                 )}
             </div>
-        )
+        );
         if (currentItemData.cached) {
-            fleaSellIcon = (
-                <Icon
-                    path={mdiTimerSand}
-                    size={1}
-                    className="icon-with-text"
-                />
-            );
-            fleaTooltip = (
-                <div>
-                    {t('Flea market prices loading')}
-                </div>
-            );
+            fleaSellIcon = <Icon path={mdiTimerSand} size={1} className="icon-with-text" />;
+            fleaTooltip = <div>{t('Flea market prices loading')}</div>;
         }
     } else {
         fleaTooltip = (
@@ -520,12 +538,16 @@ The max profitable price is impacted by the intel center and hideout management 
     let relativeTime = getRelativeTimeAndUnit(dateParsed);
 
     return [
-        <SEO 
+        <SEO
             title={`${currentItemData.name} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('item-page-description', 'This page includes information on the characteristics, uses, and strategies for {{itemName}}.', { itemName: currentItemData.name })}
+            description={t(
+                'item-page-description',
+                'This page includes information on the characteristics, uses, and strategies for {{itemName}}.',
+                { itemName: currentItemData.name },
+            )}
             url={`https://tarkov.dev/item/${currentItemData.normalizedName}`}
             image={currentItemData.image512pxLink}
-            card='summary_large_image'
+            card="summary_large_image"
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
@@ -535,10 +557,11 @@ The max profitable price is impacted by the intel center and hideout management 
                     <div className="item-information-wrapper">
                         <h1>
                             <div className={'item-font'}>
-                                {!currentItemData.types.includes('loading')
-                                    ? (currentItemData.name)
-                                    : (<LoadingSmall />)
-                                }
+                                {!currentItemData.types.includes('loading') ? (
+                                    currentItemData.name
+                                ) : (
+                                    <LoadingSmall />
+                                )}
                             </div>
                             <img
                                 alt={currentItemData.name}
@@ -547,22 +570,27 @@ The max profitable price is impacted by the intel center and hideout management 
                                 src={currentItemData.iconLink}
                             />
                         </h1>
-                        <PresetSelector 
+                        <PresetSelector
                             item={currentItemData}
-                            alt={(
+                            alt={
                                 <cite className="item-short-name-wrapper">
                                     {currentItemData.shortName}
                                 </cite>
-                            )}
+                            }
                         />
                         {currentItemData.wikiLink && (
                             <span className="wiki-link-wrapper">
-                                <a href={currentItemData.wikiLink} target="_blank" rel="noopener noreferrer">
+                                <a
+                                    href={currentItemData.wikiLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
                                     {t('Wiki')}
                                 </a>
                             </span>
                         )}
-                        {(currentItemData.properties?.grids || currentItemData.properties?.slots) && (
+                        {(currentItemData.properties?.grids ||
+                            currentItemData.properties?.slots) && (
                             <div>
                                 <ContainedItemsList item={currentItemData} />
                             </div>
@@ -587,19 +615,20 @@ The max profitable price is impacted by the intel center and hideout management 
 
                 {/* Divider between sections */}
                 <hr className="hr-muted"></hr>
-                
+
                 <div className="trader-wrapper">
                     {currentItemData.sellFor && currentItemData.sellFor.length > 0 && (
                         <div>
                             <h2>{t('Sell for')}</h2>
                             <div className={'information-grid single-line-grid sell'}>
                                 {!currentItemData.types.includes('noFlea') && (
-                                    <Tippy
-                                        placement="bottom"
-                                        content={fleaTooltip}
-                                    >
-                                        <div className={`text-and-image-information-wrapper ${sellForTradersIsTheBest ? '' : 'best-profit'}`}
-                                                    key={`${currentItemData.id}-flea-market-price-sell`}>
+                                    <Tippy placement="bottom" content={fleaTooltip}>
+                                        <div
+                                            className={`text-and-image-information-wrapper ${
+                                                sellForTradersIsTheBest ? '' : 'best-profit'
+                                            }`}
+                                            key={`${currentItemData.id}-flea-market-price-sell`}
+                                        >
                                             <img
                                                 alt="Flea market"
                                                 height="86"
@@ -615,15 +644,24 @@ The max profitable price is impacted by the intel center and hideout management 
                                         </div>
                                     </Tippy>
                                 )}
-                                {sellForTraders && sellForTraders.map(
-                                    (sellForTrader) => {
-                                        const traderNormalizedName = sellForTrader.vendor.normalizedName;
-                                        const traderIsBest = sellForTradersIsTheBest && traderNormalizedName === currentItemData.sellForTradersBest.vendor.normalizedName;
+                                {sellForTraders &&
+                                    sellForTraders.map((sellForTrader) => {
+                                        const traderNormalizedName =
+                                            sellForTrader.vendor.normalizedName;
+                                        const traderIsBest =
+                                            sellForTradersIsTheBest &&
+                                            traderNormalizedName ===
+                                                currentItemData.sellForTradersBest.vendor
+                                                    .normalizedName;
 
                                         return (
-                                            <div className={`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''}`}
-                                                    key={`${currentItemData.id}-trader-price-sell-${sellForTrader.vendor.normalizedName}`}>
-                                                <Link to={`/trader/${traderNormalizedName}`} >
+                                            <div
+                                                className={`text-and-image-information-wrapper ${
+                                                    traderIsBest ? 'best-profit' : ''
+                                                }`}
+                                                key={`${currentItemData.id}-trader-price-sell-${sellForTrader.vendor.normalizedName}`}
+                                            >
+                                                <Link to={`/trader/${traderNormalizedName}`}>
                                                     <img
                                                         alt={sellForTrader.vendor.name}
                                                         height="86"
@@ -632,25 +670,36 @@ The max profitable price is impacted by the intel center and hideout management 
                                                         src={`${process.env.PUBLIC_URL}/images/traders/${traderNormalizedName}-portrait.png`}
                                                     />
                                                 </Link>
-                                                <div className={`price-wrapper${traderNormalizedName === 'fence' || settings[traderNormalizedName] ? '' : ' locked'}`}>
+                                                <div
+                                                    className={`price-wrapper${
+                                                        traderNormalizedName === 'fence' ||
+                                                        settings[traderNormalizedName]
+                                                            ? ''
+                                                            : ' locked'
+                                                    }`}
+                                                >
                                                     <ConditionalWrapper
                                                         condition={sellForTrader.currency !== 'RUB'}
-                                                        wrapper={(children) => 
+                                                        wrapper={(children) => (
                                                             <Tippy
-                                                                content={formatPrice(sellForTrader.priceRUB)}
+                                                                content={formatPrice(
+                                                                    sellForTrader.priceRUB,
+                                                                )}
                                                                 placement="bottom"
                                                             >
                                                                 <div>{children}</div>
                                                             </Tippy>
-                                                        }
+                                                        )}
                                                     >
-                                                        {formatPrice(sellForTrader.price, sellForTrader.currency)}
+                                                        {formatPrice(
+                                                            sellForTrader.price,
+                                                            sellForTrader.currency,
+                                                        )}
                                                     </ConditionalWrapper>
                                                 </div>
                                             </div>
                                         );
-                                    }
-                                )}
+                                    })}
                             </div>
                         </div>
                     )}
@@ -658,78 +707,89 @@ The max profitable price is impacted by the intel center and hideout management 
                         <div>
                             <h2>{t('Buy for')}</h2>
                             <div className="information-grid single-line-grid buy">
-                                {currentItemData.buyFor.map(
-                                    (buyForSource, index) => {
-                                        const loyaltyLevel = buyForSource.requirements.find((requirement) => requirement.type === 'loyaltyLevel')?.value;
-                                        return (
-                                            <div
-                                                className={`text-and-image-information-wrapper`}
-                                                key={`${currentItemData.id}-trader-price-buy-${buyForSource.vendor.normalizedName}`}
-                                            >
-                                                <div className="source-wrapper">
-                                                    {buyForSource.vendor.normalizedName !== 'flea-market' && (
-                                                        <LoyaltyLevelIcon
-                                                            loyaltyLevel={
-                                                                loyaltyLevel
+                                {currentItemData.buyFor.map((buyForSource, index) => {
+                                    const loyaltyLevel = buyForSource.requirements.find(
+                                        (requirement) => requirement.type === 'loyaltyLevel',
+                                    )?.value;
+                                    return (
+                                        <div
+                                            className={`text-and-image-information-wrapper`}
+                                            key={`${currentItemData.id}-trader-price-buy-${buyForSource.vendor.normalizedName}`}
+                                        >
+                                            <div className="source-wrapper">
+                                                {buyForSource.vendor.normalizedName !==
+                                                    'flea-market' && (
+                                                    <LoyaltyLevelIcon loyaltyLevel={loyaltyLevel} />
+                                                )}
+                                                {buyForSource.vendor.taskUnlock && (
+                                                    <div>
+                                                        <Tippy
+                                                            content={
+                                                                <Link
+                                                                    to={`/task/${buyForSource.vendor.taskUnlock.normalizedName}`}
+                                                                >
+                                                                    <div
+                                                                        style={{
+                                                                            whiteSpace: 'nowrap',
+                                                                        }}
+                                                                    >
+                                                                        {t('Task: {{taskName}}', {
+                                                                            taskName:
+                                                                                buyForSource.vendor
+                                                                                    .taskUnlock
+                                                                                    .name,
+                                                                        })}
+                                                                    </div>
+                                                                </Link>
                                                             }
-                                                        />
+                                                            interactive={true}
+                                                        >
+                                                            <div className="quest-icon-wrapper">
+                                                                <Icon
+                                                                    path={mdiClipboardList}
+                                                                    size={1}
+                                                                    className="icon-with-text"
+                                                                />
+                                                            </div>
+                                                        </Tippy>
+                                                    </div>
+                                                )}
+                                                <ConditionalWrapper
+                                                    condition={
+                                                        buyForSource.vendor.normalizedName !==
+                                                        'flea-market'
+                                                    }
+                                                    wrapper={(children) => (
+                                                        <Link
+                                                            to={`/trader/${buyForSource.vendor.normalizedName}`}
+                                                        >
+                                                            {children}
+                                                        </Link>
                                                     )}
-                                                    {buyForSource.vendor.taskUnlock && (
-                                                        <div>
-                                                            <Tippy
-                                                                content={(
-                                                                    <Link to={`/task/${buyForSource.vendor.taskUnlock.normalizedName}`}>
-                                                                        <div style={{whiteSpace: 'nowrap'}}>
-                                                                            {t('Task: {{taskName}}', {taskName: buyForSource.vendor.taskUnlock.name})}
-                                                                        </div>
-                                                                    </Link>
-                                                                )}
-                                                                interactive={true}
-                                                            >
-                                                                <div className="quest-icon-wrapper">
-                                                                    <Icon
-                                                                        path={mdiClipboardList}
-                                                                        size={1}
-                                                                        className="icon-with-text"
-                                                                    />
-                                                                </div>
-                                                            </Tippy>
-                                                        </div>
-                                                    )}
-                                                    <ConditionalWrapper
-                                                        condition={buyForSource.vendor.normalizedName !== 'flea-market'}
-                                                        wrapper={(children) => 
-                                                            <Link to={`/trader/${buyForSource.vendor.normalizedName}`}>
-                                                                {children}
-                                                            </Link>
-                                                        }
-                                                    >
-                                                        <img
-                                                            alt={buyForSource.vendor.name}
-                                                            height="86"
-                                                            width="86"
-                                                            loading="lazy"
-                                                            src={`${process.env.PUBLIC_URL}/images/traders/${buyForSource.vendor.normalizedName}-portrait.png`}
-                                                        />
-                                                    </ConditionalWrapper>
-                                                </div>
-                                                <div className={`price-wrapper ${ index === 0 ? 'best-profit': ''}${priceIsLocked(buyForSource, settings)}`}>
-                                                    <TraderPrice
-                                                        currency={
-                                                            buyForSource.currency
-                                                        }
-                                                        price={
-                                                            buyForSource.price
-                                                        }
-                                                        priceRUB={
-                                                            buyForSource.priceRUB
-                                                        }
+                                                >
+                                                    <img
+                                                        alt={buyForSource.vendor.name}
+                                                        height="86"
+                                                        width="86"
+                                                        loading="lazy"
+                                                        src={`${process.env.PUBLIC_URL}/images/traders/${buyForSource.vendor.normalizedName}-portrait.png`}
                                                     />
-                                                </div>
+                                                </ConditionalWrapper>
                                             </div>
-                                        );
-                                    },
-                                )}
+                                            <div
+                                                className={`price-wrapper ${
+                                                    index === 0 ? 'best-profit' : ''
+                                                }${priceIsLocked(buyForSource, settings)}`}
+                                            >
+                                                <TraderPrice
+                                                    currency={buyForSource.currency}
+                                                    price={buyForSource.price}
+                                                    priceRUB={buyForSource.priceRUB}
+                                                />
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     )}
@@ -745,35 +805,55 @@ The max profitable price is impacted by the intel center and hideout management 
                         <div className={`text-and-image-information-wrapper price-info-wrapper`}>
                             <div className="price-wrapper price-wrapper-bright">
                                 <div>
-                                    {t('Change vs yesterday: {{changeLast48h}} ₽ / {{changeLast48Percent}} %', {changeLast48h: currentItemData.changeLast48h, changeLast48Percent: currentItemData.changeLast48hPercent})}
+                                    {t(
+                                        'Change vs yesterday: {{changeLast48h}} ₽ / {{changeLast48Percent}} %',
+                                        {
+                                            changeLast48h: currentItemData.changeLast48h,
+                                            changeLast48Percent:
+                                                currentItemData.changeLast48hPercent,
+                                        },
+                                    )}
                                 </div>
                                 <div>
-                                    {t('Lowest scanned price last 24h: {{low24hPrice}}', {low24hPrice: formatPrice(currentItemData.low24hPrice)})}
+                                    {t('Lowest scanned price last 24h: {{low24hPrice}}', {
+                                        low24hPrice: formatPrice(currentItemData.low24hPrice),
+                                    })}
                                 </div>
                                 <div>
-                                    {t('Highest scanned price last 24h: {{high24hPrice}}', {high24hPrice: formatPrice(currentItemData.high24hPrice)})}
+                                    {t('Highest scanned price last 24h: {{high24hPrice}}', {
+                                        high24hPrice: formatPrice(currentItemData.high24hPrice),
+                                    })}
                                 </div>
                                 <div title={date.toLocaleString(i18n.language)}>
-                                    {t('Updated: {{val, relativetime}}', { val: relativeTime[0], range: relativeTime[1] })}
+                                    {t('Updated: {{val, relativetime}}', {
+                                        val: relativeTime[0],
+                                        range: relativeTime[1],
+                                    })}
                                 </div>
                             </div>
                         </div>
                     </div>
                 )}
                 <div>
-                    <h2>
-                        {t('Stats')}
-                    </h2>
-                    {hasProperties
-                        ? (<PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} />)
-                        : (<LoadingSmall />)
-                    }
+                    <h2>{t('Stats')}</h2>
+                    {hasProperties ? (
+                        <PropertyList
+                            properties={{
+                                ...currentItemData.properties,
+                                categories: currentItemData.categories,
+                            }}
+                        />
+                    ) : (
+                        <LoadingSmall />
+                    )}
                 </div>
                 {containsItems && (
                     <div>
                         <div className="item-contents-headline-wrapper">
                             <h2>
-                                {t('Items contained in {{itemName}}', {itemName: currentItemData.name})}
+                                {t('Items contained in {{itemName}}', {
+                                    itemName: currentItemData.name,
+                                })}
                             </h2>
                             <ToggleFilter
                                 checked={showAllContainedItemSources}
@@ -783,7 +863,9 @@ The max profitable price is impacted by the intel center and hideout management 
                                 }
                                 tooltipContent={
                                     <>
-                                        {t('Shows all sources of items regardless of your settings')}
+                                        {t(
+                                            'Shows all sources of items regardless of your settings',
+                                        )}
                                     </>
                                 }
                             />
@@ -804,80 +886,69 @@ The max profitable price is impacted by the intel center and hideout management 
                     <div>
                         <div className="item-barters-headline-wrapper">
                             <h2>
-                                {t('Barters with {{itemName}}', {itemName: currentItemData.name})}
+                                {t('Barters with {{itemName}}', { itemName: currentItemData.name })}
                             </h2>
                             <ToggleFilter
                                 checked={showAllBarters}
                                 label={t('Ignore settings')}
-                                onChange={(e) =>
-                                    setShowAllBarters(!showAllBarters)
-                                }
+                                onChange={(e) => setShowAllBarters(!showAllBarters)}
                                 tooltipContent={
-                                    <>
-                                        {t('Shows all barters regardless of your settings')}
-                                    </>
+                                    <>{t('Shows all barters regardless of your settings')}</>
                                 }
                             />
                             {dogtagToggle}
                         </div>
-                        <BartersTable
-                            itemFilter={currentItemData.id}
-                            showAll={showAllBarters}
-                        />
+                        <BartersTable itemFilter={currentItemData.id} showAll={showAllBarters} />
                     </div>
                 )}
                 {hasCrafts && (
                     <div>
                         <div className="item-crafts-headline-wrapper">
                             <h2>
-                                {t('Crafts with {{itemName}}', {itemName: currentItemData.name})}
+                                {t('Crafts with {{itemName}}', { itemName: currentItemData.name })}
                             </h2>
                             <ToggleFilter
                                 checked={showAllCrafts}
                                 label={t('Ignore settings')}
-                                onChange={(e) =>
-                                    setShowAllCrafts(!showAllCrafts)
-                                }
+                                onChange={(e) => setShowAllCrafts(!showAllCrafts)}
                                 tooltipContent={
-                                    <>
-                                        {t('Shows all crafts regardless of your settings')}
-                                    </>
+                                    <>{t('Shows all crafts regardless of your settings')}</>
                                 }
                             />
                         </div>
-                        <CraftsTable
-                            itemFilter={currentItemData.id}
-                            showAll={showAllCrafts}
-                        />
+                        <CraftsTable itemFilter={currentItemData.id} showAll={showAllCrafts} />
                     </div>
                 )}
                 {usedInHideout && (
                     <div>
                         <div className="item-crafts-headline-wrapper">
                             <h2>
-                                {t('Hideout modules needing {{itemName}}', {itemName: currentItemData.name})}
+                                {t('Hideout modules needing {{itemName}}', {
+                                    itemName: currentItemData.name,
+                                })}
                             </h2>
                             <ToggleFilter
                                 checked={showAllHideoutStations}
                                 label={t('Show built')}
-                                onChange={(e) =>
-                                    setShowAllHideoutStations(!showAllHideoutStations)
-                                }
+                                onChange={(e) => setShowAllHideoutStations(!showAllHideoutStations)}
                                 tooltipContent={
-                                    <>
-                                        {t('Shows all modules regardless of your settings')}
-                                    </>
+                                    <>{t('Shows all modules regardless of your settings')}</>
                                 }
                             />
                         </div>
-                        <ItemsForHideout itemFilter={currentItemData.id} showAll={showAllHideoutStations} />
+                        <ItemsForHideout
+                            itemFilter={currentItemData.id}
+                            showAll={showAllHideoutStations}
+                        />
                     </div>
                 )}
                 {questsRequiringCount > 0 && (
                     <div>
                         <div className="item-crafts-headline-wrapper">
                             <h2>
-                                {t('Quests requiring {{itemName}}', {itemName: currentItemData.name})}
+                                {t('Quests requiring {{itemName}}', {
+                                    itemName: currentItemData.name,
+                                })}
                             </h2>
                             {questsToggle}
                         </div>
@@ -892,7 +963,9 @@ The max profitable price is impacted by the intel center and hideout management 
                     <div>
                         <div className="item-crafts-headline-wrapper">
                             <h2>
-                                {t('Quests rewarding {{itemName}}', {itemName: currentItemData.name})}
+                                {t('Quests rewarding {{itemName}}', {
+                                    itemName: currentItemData.name,
+                                })}
                             </h2>
                             {questsToggle}
                         </div>

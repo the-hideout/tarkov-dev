@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchItems, selectAllItems } from '../../features/items/itemsSlice'
+import { fetchItems, selectAllItems } from '../../features/items/itemsSlice';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
@@ -37,11 +37,15 @@ const BitcoinFarmCalculator = () => {
         'num-graphic-cards',
         MaxNumGraphicsCards,
     );
-    const [calculateWithFuelCost, setCalculateWithFuelCost] =
-        useStateWithLocalStorage('btc-farm-calculate-with-fuel-cost', false);
-    
-    const [calculateWithBuildCost, setCalculateWithBuildCost] =
-        useStateWithLocalStorage('btc-farm-calculate-with-build-cost', false);
+    const [calculateWithFuelCost, setCalculateWithFuelCost] = useStateWithLocalStorage(
+        'btc-farm-calculate-with-fuel-cost',
+        false,
+    );
+
+    const [calculateWithBuildCost, setCalculateWithBuildCost] = useStateWithLocalStorage(
+        'btc-farm-calculate-with-build-cost',
+        false,
+    );
 
     const [wipeDaysRemaining, setWipeDaysRemaining] = useState(
         Math.max(averageWipeLength() - currentWipeLength(), 0),
@@ -70,11 +74,11 @@ const BitcoinFarmCalculator = () => {
     }, [itemsStatus, dispatch]);
 
     const bitcoinItem = useMemo(() => {
-        return itemsSelector.find(i => i?.id === BitcoinItemId);
+        return itemsSelector.find((i) => i?.id === BitcoinItemId);
     }, [itemsSelector]);
 
     const graphicCardItem = useMemo(() => {
-        return itemsSelector.find(i => i.id === GraphicCardItemId);
+        return itemsSelector.find((i) => i.id === GraphicCardItemId);
     }, [itemsSelector]);
 
     //const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
@@ -104,9 +108,14 @@ const BitcoinFarmCalculator = () => {
     }
 
     return [
-        <SEO 
-            title={`${t('Bitcoin Farm Calculator')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('bitcoin-farm-calculator-page-description', 'This page includes a calculator tool that helps you determine the price of building and maintaining a Bitcoin Farm, based on the number of GPUs, electricity costs, and bitcoin cost.')}
+        <SEO
+            title={`${t('Bitcoin Farm Calculator')} - ${t('Escape from Tarkov')} - ${t(
+                'Tarkov.dev',
+            )}`}
+            description={t(
+                'bitcoin-farm-calculator-page-description',
+                'This page includes a calculator tool that helps you determine the price of building and maintaining a Bitcoin Farm, based on the number of GPUs, electricity costs, and bitcoin cost.',
+            )}
             key="seo-wrapper"
         />,
         <div className={'page-wrapper'} key={'display-wrapper'}>
@@ -126,29 +135,19 @@ const BitcoinFarmCalculator = () => {
                         min={MinNumGraphicsCards}
                         max={MaxNumGraphicsCards}
                     />
-                    <StationSkillTraderSetting
-                        stateKey={'hideout-management'}
-                        type="skill"
-                    />
-                    <StationSkillTraderSetting
-                        stateKey={'solar-power'}
-                        type="station"
-                    />
+                    <StationSkillTraderSetting stateKey={'hideout-management'} type="skill" />
+                    <StationSkillTraderSetting stateKey={'solar-power'} type="station" />
                     <ToggleFilter
                         label={t('Use fuel cost: {{price}}/day', {
                             price: formatPrice(fuelPricePerDay),
                         })}
                         checked={calculateWithFuelCost}
-                        onChange={() =>
-                            setCalculateWithFuelCost((prev) => !prev)
-                        }
+                        onChange={() => setCalculateWithFuelCost((prev) => !prev)}
                     />
                     <ToggleFilter
                         label={t('Use station build costs')}
                         checked={calculateWithBuildCost}
-                        onChange={() =>
-                            setCalculateWithBuildCost((prev) => !prev)
-                        }
+                        onChange={() => setCalculateWithBuildCost((prev) => !prev)}
                     />
                 </Filter>
             </div>
@@ -183,7 +182,11 @@ const BitcoinFarmCalculator = () => {
             <div className="included-items-wrapper">
                 <label className={'single-filter-wrapper'}>
                     <Link to="/wipe-length">
-                        <span className={'single-filter-label'}>{t('Remaining days in wipe:', {remainingWipeDays: averageWipeLength() - currentWipeLength()})}</span>
+                        <span className={'single-filter-label'}>
+                            {t('Remaining days in wipe:', {
+                                remainingWipeDays: averageWipeLength() - currentWipeLength(),
+                            })}
+                        </span>
                     </Link>
                     <input
                         className={'filter-input wipe-days'}

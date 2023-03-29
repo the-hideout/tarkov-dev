@@ -300,14 +300,16 @@ const doFetchQuests = async (language, prebuild = false) => {
                 }
                 console.log(`Error in tasks API query: ${error.message}`);
                 if (badItem) {
-                    console.log(badItem)
+                    console.log(badItem);
                 }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned
         if (
-            prebuild || !questsData.data || 
-            !questsData.data.tasks || !questsData.data.tasks.length
+            prebuild ||
+            !questsData.data ||
+            !questsData.data.tasks ||
+            !questsData.data.tasks.length
         ) {
             return Promise.reject(new Error(questsData.errors[0].message));
         }

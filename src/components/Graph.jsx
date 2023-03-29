@@ -124,12 +124,7 @@ const getMarkerLine = (xMax, xTarget, label) => {
             labels={[label]}
             key={label}
             labelComponent={
-                <VictoryLabel
-                    textAnchor="middle"
-                    verticalAnchor="middle"
-                    dx={xMax - 40}
-                    dy={-3}
-                />
+                <VictoryLabel textAnchor="middle" verticalAnchor="middle" dx={xMax - 40} dy={-3} />
             }
             x={() => xTarget}
         />
@@ -155,8 +150,8 @@ const getMarkerLine = (xMax, xTarget, label) => {
 // };
 
 const xTickValues = [
-    10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170,
-    180, 190, 200, 210, 220, 230, 240,
+    10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210,
+    220, 230, 240,
 ];
 const yTickValues = [10, 20, 30, 40, 50, 60, 70];
 
@@ -278,9 +273,7 @@ const Graph = (props) => {
                 data={props.legendData}
                 dataComponent={<Symbol link={false} />}
                 title={t('Filter by caliber')}
-                labelComponent={
-                    <LegendLabel selectedDatumName={props.selectedLegendName} />
-                }
+                labelComponent={<LegendLabel selectedDatumName={props.selectedLegendName} />}
                 events={[
                     {
                         target: 'labels',

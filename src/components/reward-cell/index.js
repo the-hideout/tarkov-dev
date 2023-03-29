@@ -42,21 +42,13 @@ function RewardCell({
         }
         const tooltipContent = (
             <Link to={`/task/${taskUnlock.normalizedName}`}>
-                {t('Task: {{taskName}}', {taskName: taskUnlock.name})}
+                {t('Task: {{taskName}}', { taskName: taskUnlock.name })}
             </Link>
         );
         return (
             <span>
-                <Tippy
-                    content={tooltipContent}
-                    placement="right"
-                    interactive={true}
-                >
-                    <Icon
-                        path={mdiClipboardList}
-                        size={1}
-                        className="icon-with-text no-click"
-                    />
+                <Tippy content={tooltipContent} placement="right" interactive={true}>
+                    <Icon path={mdiClipboardList} size={1} className="icon-with-text no-click" />
                 </Tippy>
             </span>
         );
@@ -77,13 +69,12 @@ function RewardCell({
                         setEditingCustomPrice(true);
                     }}
                 >
-                    {shownPrice}{sellType === 'custom' ? '*' : ''}
+                    {shownPrice}
+                    {sellType === 'custom' ? '*' : ''}
                 </span>
-                <span
-                    className={editingCustomPrice ? '' : 'hidden'}
-                >
-                    <input 
-                        className="reward-custom-price" 
+                <span className={editingCustomPrice ? '' : 'hidden'}>
+                    <input
+                        className="reward-custom-price"
                         value={customPrice}
                         inputMode="numeric"
                         onChange={(e) => {
@@ -103,7 +94,7 @@ function RewardCell({
                             dispatch(
                                 setCustomSellValue({
                                     itemId: item.id,
-                                    price: customPrice
+                                    price: customPrice,
                                 }),
                             );
                             setEditingCustomPrice(false);
@@ -117,7 +108,7 @@ function RewardCell({
                             dispatch(
                                 setCustomSellValue({
                                     itemId: item.id,
-                                    price: false
+                                    price: false,
                                 }),
                             );
                             setEditingCustomPrice(false);
@@ -127,12 +118,23 @@ function RewardCell({
                 <span>{shownSellTo}</span>
             </span>
         );
-    }, [dispatch, item, sellValue, sellType, sellTo, customPrice, setCustomPrice, editingCustomPrice, setEditingCustomPrice, t]);
+    }, [
+        dispatch,
+        item,
+        sellValue,
+        sellType,
+        sellTo,
+        customPrice,
+        setCustomPrice,
+        editingCustomPrice,
+        setEditingCustomPrice,
+        t,
+    ]);
 
     if (sellNote) {
-        sellNote = (<span> ({sellNote})</span>);
+        sellNote = <span> ({sellNote})</span>;
     }
-    
+
     if (!valueTooltip) {
         valueTooltip = t('Sell value');
     }
@@ -145,7 +147,7 @@ function RewardCell({
                 imageField={'iconLink'}
                 isFIR={isFIR}
                 linkToItem={true}
-                style={{marginRight: '10px'}}
+                style={{ marginRight: '10px' }}
             />
             <div className="reward-info-wrapper">
                 <div>
@@ -153,11 +155,11 @@ function RewardCell({
                         {item.name}
                     </Link>
                 </div>
-                <div className="reward-info-source">{source}{taskTooltip}</div>
-                <Tippy
-                    content={valueTooltip}
-                    placement="bottom"
-                >
+                <div className="reward-info-source">
+                    {source}
+                    {taskTooltip}
+                </div>
+                <Tippy content={valueTooltip} placement="bottom">
                     <div className="price-wrapper">
                         {displayValue}
                         {sellNote}

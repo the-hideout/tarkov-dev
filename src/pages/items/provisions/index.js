@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiFoodForkDrink} from '@mdi/js';
+import { mdiFoodForkDrink } from '@mdi/js';
 
 import SEO from '../../../components/SEO';
 import { Filter, InputFilter, ToggleFilter } from '../../../components/filter';
@@ -11,9 +11,7 @@ import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 
 function Provisions() {
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
+    const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [showAllItemSources, setShowAllItemSources] = useState(false);
     const [useTotalEnergyCost, setUseTotalEnergyCost] = useState(true);
@@ -35,9 +33,12 @@ function Provisions() {
     );
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Provisions')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('provisions-page-description', 'This page includes a sortable table with information on the different types of provisions available in the game, including their hydration, energy, cheapest price and traders or flea market value.')}
+            description={t(
+                'provisions-page-description',
+                'This page includes a sortable table with information on the different types of provisions available in the game, including their hydration, energy, cheapest price and traders or flea market value.',
+            )}
             key="seo-wrapper"
         />,
         <div className="page-wrapper" key={'display-wrapper'}>
@@ -51,25 +52,17 @@ function Provisions() {
                     <ToggleFilter
                         checked={showAllItemSources}
                         label={t('Ignore settings')}
-                        onChange={(e) =>
-                            setShowAllItemSources(!showAllItemSources)
-                        }
+                        onChange={(e) => setShowAllItemSources(!showAllItemSources)}
                         tooltipContent={
-                            <>
-                                {t('Shows all sources of items regardless of your settings')}
-                            </>
+                            <>{t('Shows all sources of items regardless of your settings')}</>
                         }
                     />
                     <ToggleFilter
                         checked={useTotalEnergyCost}
                         label={t('Total energy cost')}
-                        onChange={(e) =>
-                            setUseTotalEnergyCost(!useTotalEnergyCost)
-                        }
+                        onChange={(e) => setUseTotalEnergyCost(!useTotalEnergyCost)}
                         tooltipContent={
-                            <>
-                                {t('Include the cost of lost hydration in the cost of energy')}
-                            </>
+                            <>{t('Include the cost of lost hydration in the cost of energy')}</>
                         }
                     />
                     <InputFilter
@@ -93,14 +86,16 @@ function Provisions() {
                 hydrationCost={6}
                 energyCost={7}
                 provisionValue={8}
-                sortBy='provisionValue'
+                sortBy="provisionValue"
             />
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {"In Escape from Tarkov, provisions are utilized to replenish energy and hydration."}
-                    <br/>
-                    {"Your Metabolism skill level will determine how effective they are."}
+                    {
+                        'In Escape from Tarkov, provisions are utilized to replenish energy and hydration.'
+                    }
+                    <br />
+                    {'Your Metabolism skill level will determine how effective they are.'}
                 </p>
             </div>
         </div>,

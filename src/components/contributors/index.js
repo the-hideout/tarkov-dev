@@ -23,7 +23,7 @@ function Contributors(props) {
                         src={`${contributor.avatar_url}&size=${quality}`}
                         alt={contributor.login}
                         size={props.size}
-                        loading='lazy'
+                        loading="lazy"
                     ></Avatar>
                 ))}
             </AvatarStack>
@@ -32,12 +32,17 @@ function Contributors(props) {
         return (
             <>
                 {contributorJson.map((contributor) => (
-                    <a href={contributor.html_url} target="_blank" rel="noopener noreferrer" key={contributor.login}>
+                    <a
+                        href={contributor.html_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        key={contributor.login}
+                    >
                         <Avatar
                             key={contributor.login}
                             size={props.size}
                             src={`${contributor.avatar_url}&size=${quality}`}
-                            loading='lazy'
+                            loading="lazy"
                         />
                     </a>
                 ))}

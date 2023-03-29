@@ -1,11 +1,11 @@
-import fetch  from 'cross-fetch';
+import fetch from 'cross-fetch';
 
 import fleaMarketFee from '../../modules/flea-market-fee.js';
 import graphqlRequest from '../../modules/graphql-request.js';
 
 const doFetchItems = async (language, prebuild = false) => {
     const itemLimit = 2000;
-    const QueryBody = offset => {
+    const QueryBody = (offset) => {
         return `{
             items(lang: ${language}, limit: ${itemLimit}, offset: ${offset}) {
                 id
@@ -402,7 +402,7 @@ const doFetchItems = async (language, prebuild = false) => {
     };
     //console.time('items query');
     const [itemData, miscData, itemGrids] = await Promise.all([
-        new Promise(async resolve => {
+        new Promise(async (resolve) => {
             let offset = 0;
             const retrievedItems = {
                 data: {
@@ -421,7 +421,9 @@ const doFetchItems = async (language, prebuild = false) => {
                     if (itemBatch.data.items.length === 0) {
                         break;
                     }
-                    retrievedItems.data.items = retrievedItems.data.items.concat(itemBatch.data.items);
+                    retrievedItems.data.items = retrievedItems.data.items.concat(
+                        itemBatch.data.items,
+                    );
                     if (itemBatch.data.items.length < itemLimit) {
                         break;
                     }
@@ -451,17 +453,19 @@ const doFetchItems = async (language, prebuild = false) => {
                 basePrice
             }
         }`),
-        new Promise(resolve => {
+        new Promise((resolve) => {
             if (prebuild) {
                 return resolve({});
             }
-            return resolve(fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`).then(
-                (response) => response.json(),
-            )).catch(error => {
+            return resolve(
+                fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`).then((response) =>
+                    response.json(),
+                ),
+            ).catch((error) => {
                 console.log('Error retrieving item grids', error);
                 return {};
             });
-        })
+        }),
     ]);
     //console.timeEnd('items query');
     if (itemData.errors) {
@@ -480,15 +484,12 @@ const doFetchItems = async (language, prebuild = false) => {
                 }
                 console.log(`Error in items API query: ${error.message}`, error.path);
                 if (badItem) {
-                    console.log(badItem)
+                    console.log(badItem);
                 }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned
-        if (
-            prebuild || !itemData.data || 
-            !itemData.data.items || !itemData.data.items.length
-        ) {
+        if (prebuild || !itemData.data || !itemData.data.items || !itemData.data.items.length) {
             return Promise.reject(new Error(itemData.errors[0].message));
         }
     }
@@ -509,16 +510,19 @@ const doFetchItems = async (language, prebuild = false) => {
                 }
                 console.log(`Error in items API query: ${error.message}`, error.path);
                 if (badItem) {
-                    console.log(badItem)
+                    console.log(badItem);
                 }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned
         if (
-            prebuild || !miscData.data || 
-            !miscData.data.fleaMarket || 
-            !miscData.data.traders || !miscData.data.traders.length || 
-            !miscData.data.currencies || !miscData.data.currencies.length
+            prebuild ||
+            !miscData.data ||
+            !miscData.data.fleaMarket ||
+            !miscData.data.traders ||
+            !miscData.data.traders.length ||
+            !miscData.data.currencies ||
+            !miscData.data.currencies.length
         ) {
             return Promise.reject(new Error(miscData.errors[0].message));
         }
@@ -564,12 +568,8 @@ const doFetchItems = async (language, prebuild = false) => {
             };
 
             if (gridPockets.length > 1) {
-                grid.height = Math.max(
-                    ...gridPockets.map((pocket) => pocket.row + pocket.height),
-                );
-                grid.width = Math.max(
-                    ...gridPockets.map((pocket) => pocket.col + pocket.width),
-                );
+                grid.height = Math.max(...gridPockets.map((pocket) => pocket.row + pocket.height));
+                grid.width = Math.max(...gridPockets.map((pocket) => pocket.col + pocket.width));
             }
 
             // Rigs we haven't configured shouldn't break
@@ -581,23 +581,33 @@ const doFetchItems = async (language, prebuild = false) => {
         const container = rawItem.properties?.slots || rawItem.properties?.grids;
         if (container) {
             for (const slot of container) {
-                slot.filters.allowedCategories = slot.filters.allowedCategories.map(cat => cat.id);
-                slot.filters.allowedItems = slot.filters.allowedItems.map(it => it.id);
-                slot.filters.excludedCategories = slot.filters.excludedCategories.map(cat => cat.id);
-                slot.filters.excludedItems = slot.filters.excludedItems.map(it => it.id);
+                slot.filters.allowedCategories = slot.filters.allowedCategories.map(
+                    (cat) => cat.id,
+                );
+                slot.filters.allowedItems = slot.filters.allowedItems.map((it) => it.id);
+                slot.filters.excludedCategories = slot.filters.excludedCategories.map(
+                    (cat) => cat.id,
+                );
+                slot.filters.excludedItems = slot.filters.excludedItems.map((it) => it.id);
             }
         }
-        rawItem.categoryIds = rawItem.categories.map(cat => cat.id);
+        rawItem.categoryIds = rawItem.categories.map((cat) => cat.id);
 
         return {
             ...rawItem,
-            fee: fleaMarketFee(rawItem.basePrice, rawItem.lastLowPrice, 1, flea.sellOfferFeeRate, flea.sellRequirementFeeRate),
+            fee: fleaMarketFee(
+                rawItem.basePrice,
+                rawItem.lastLowPrice,
+                1,
+                flea.sellOfferFeeRate,
+                flea.sellRequirementFeeRate,
+            ),
             slots: rawItem.width * rawItem.height,
             iconLink: rawItem.iconLink,
             grid: grid,
             properties: {
                 weight: rawItem.weight,
-                ...rawItem.properties
+                ...rawItem.properties,
             },
             containsItems: rawItem.types.includes('gun') ? [] : rawItem.containsItems,
         };
@@ -671,7 +681,7 @@ const doFetchItems = async (language, prebuild = false) => {
                 name: 'unknown',
                 normalizedName: 'unknown',
             },
-        }
+        };
 
         // cheapest first
         item.buyFor = item.buyFor.sort((a, b) => {
@@ -680,7 +690,9 @@ const doFetchItems = async (language, prebuild = false) => {
 
         item.buyForBest = item.buyFor[0];
 
-        const buyForTraders = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
+        const buyForTraders = item.buyFor.filter(
+            (buyFor) => buyFor.vendor.normalizedName !== 'flea-market',
+        );
 
         item.buyForTradersBest = buyForTraders[0] || noneTrader;
 
@@ -691,7 +703,9 @@ const doFetchItems = async (language, prebuild = false) => {
 
         item.sellForBest = item.sellFor[0];
 
-        const sellForTraders = item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
+        const sellForTraders = item.sellFor.filter(
+            (sellFor) => sellFor.vendor.normalizedName !== 'flea-market',
+        );
 
         item.sellForTradersBest = sellForTraders[0] || noneTrader;
     }

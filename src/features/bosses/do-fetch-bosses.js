@@ -45,15 +45,12 @@ const doFetchBosses = async (language = 'en', prebuild = false) => {
                 }
                 console.log(`Error in maps API query: ${error.message}`);
                 if (badItem) {
-                    console.log(badItem)
+                    console.log(badItem);
                 }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned
-        if (
-            prebuild || !bossesData.data || 
-            !bossesData.data.maps || !bossesData.data.maps.length
-        ) {
+        if (prebuild || !bossesData.data || !bossesData.data.maps || !bossesData.data.maps.length) {
             return Promise.reject(new Error(bossesData.errors[0].message));
         }
     }

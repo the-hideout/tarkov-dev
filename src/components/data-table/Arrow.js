@@ -1,4 +1,4 @@
-function Icon({className}) {
+function Icon({ className }) {
     return (
         <svg
             className={`arrow-icon ${className ?? ''}`}

@@ -17,22 +17,27 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
     const sortedItems = useMemo(() => {
         if (showRestrictedType) {
             const restrictedItems = new Set();
-            item.properties?.grids?.forEach(grid => {
+            item.properties?.grids?.forEach((grid) => {
                 for (const id of grid.filters.excludedItems) {
-                    restrictedItems.add(id)
+                    restrictedItems.add(id);
                 }
             });
-            return [...restrictedItems].map(id => {
-                const rItem = items.find(testItem => testItem.id === id);
-                if (!rItem)
+            return [...restrictedItems]
+                .map((id) => {
+                    const rItem = items.find((testItem) => testItem.id === id);
+                    if (!rItem) return false;
+                    if (
+                        typeof showRestrictedType === 'boolean' ||
+                        rItem.types.includes(showRestrictedType)
+                    ) {
+                        return rItem;
+                    }
                     return false;
-                if (typeof showRestrictedType === 'boolean' || rItem.types.includes(showRestrictedType)) {
-                    return rItem;
-                }
-                return false;
-            }).filter(Boolean).sort((a, b) => {
-                return a.name.localeCompare(b.name);
-            });
+                })
+                .filter(Boolean)
+                .sort((a, b) => {
+                    return a.name.localeCompare(b.name);
+                });
         }
         if (
             !containers ||
@@ -42,21 +47,23 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
         ) {
             return [];
         }
-        let sorted = items.filter(linkedItem => {
+        let sorted = items.filter((linkedItem) => {
             for (const slot of containers) {
                 /*const included = slot.filters.allowedItems.includes(linkedItem.id) ||
                     linkedItem.categoryIds.some(catId => slot.filters.allowedCategories.includes(catId));
                 const excluded = slot.filters.excludedItems.includes(linkedItem.id) ||
                     linkedItem.categoryIds.some(catId => slot.filters.excludedCategories.includes(catId));*/
                 const included = slot.filters.allowedItems.includes(linkedItem.id);
-                const excluded = linkedItem.categoryIds.some(catId => slot.filters.excludedCategories.includes(catId));
+                const excluded = linkedItem.categoryIds.some((catId) =>
+                    slot.filters.excludedCategories.includes(catId),
+                );
                 if (included && !excluded) return true;
             }
             return false;
         });
 
         if (metaFetched) {
-            meta.categories.forEach(category => {
+            meta.categories.forEach((category) => {
                 for (const slot of containers) {
                     if (slot.filters.allowedCategories.includes(category.id)) {
                         sorted.push(category);
@@ -65,26 +72,20 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
             });
         }
 
-        return sorted.reduce((allItems, current) => {
-            if (!allItems.some(item => item.id === current.id))
-                allItems.push(current);
-            return allItems;
-        }, []).sort((a, b) => {
-            return a.name.localeCompare(b.name);
-        });
-    }, [
-        items,
-        meta,
-        metaFetched,
-        containers,
-        item,
-        showRestrictedType
-    ]);
+        return sorted
+            .reduce((allItems, current) => {
+                if (!allItems.some((item) => item.id === current.id)) allItems.push(current);
+                return allItems;
+            }, [])
+            .sort((a, b) => {
+                return a.name.localeCompare(b.name);
+            });
+    }, [items, meta, metaFetched, containers, item, showRestrictedType]);
     //console.log(item.name, item.showRestricted, sortedItems)
 
     let itemsText = t('Can hold:');
     if (showRestrictedType) {
-        itemsText = t('Can\'t hold:');
+        itemsText = t("Can't hold:");
     }
 
     if (sortedItems.length === 0) {
@@ -116,9 +117,7 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
                         >
                             {linked.name}
                         </Link>
-                        <span>
-                            {sortedItems.length > index + 1 ? ',' : ''}
-                        </span>
+                        <span>{sortedItems.length > index + 1 ? ',' : ''}</span>
                     </span>
                 );
             })}

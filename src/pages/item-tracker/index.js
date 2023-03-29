@@ -16,17 +16,11 @@ import './index.css';
 
 function ItemTracker() {
     const { data: quests } = useQuestsQuery();
-    const [questData, setQuestData] = useStateWithLocalStorage(
-        'quests',
-        quests,
-    );
-    
+    const [questData, setQuestData] = useStateWithLocalStorage('quests', quests);
+
     // const [questData, setQuestData] = useState(quests.data);
     // const [groupByQuest, setGroupByQuest] = useStateWithLocalStorage('groupByQuest', true);
-    const [onlyFoundInRaid, setOnlyFoundInRaid] = useStateWithLocalStorage(
-        'onlyFoundInRaid',
-        true,
-    );
+    const [onlyFoundInRaid, setOnlyFoundInRaid] = useStateWithLocalStorage('onlyFoundInRaid', true);
     const { data: items } = useItemsQuery();
     const { data: traders } = useTradersQuery();
     const { t } = useTranslation();
@@ -102,56 +96,49 @@ function ItemTracker() {
                         count: 1,
                         foundInRaid: false,
                         onClick: handleItemClick,
-                        questId: questData.questId
-                    }
+                        questId: questData.questId,
+                    };
                     if (questItem.__typename === 'TaskObjectiveBuildItem' && !onlyFoundInRaid) {
                         questItems.push({
-                            ...items.find(
-                                (item) => item.id === questItem.item.id,
-                            ),
-                            ...questTemplate
+                            ...items.find((item) => item.id === questItem.item.id),
+                            ...questTemplate,
                         });
                         for (const part of questItem.containsAll) {
                             questItems.push({
-                                ...items.find(
-                                    (item) => item.id === part.id,
-                                ),
-                                ...questTemplate
+                                ...items.find((item) => item.id === part.id),
+                                ...questTemplate,
                             });
                         }
                         return;
                     }
-                    if (questItem.__typename === 'TaskObjectiveItem' && !(onlyFoundInRaid && !questItem.foundInRaid)) {
+                    if (
+                        questItem.__typename === 'TaskObjectiveItem' &&
+                        !(onlyFoundInRaid && !questItem.foundInRaid)
+                    ) {
                         questItems.push({
-                            ...items.find(
-                                (item) => item.id === questItem.item.id,
-                            ),
+                            ...items.find((item) => item.id === questItem.item.id),
                             count: questItem.count,
                             foundInRaid: questItem.foundInRaid,
                             onClick: handleItemClick,
-                            questId: questData.questId
+                            questId: questData.questId,
                         });
                         return;
                     }
                     if (questItem.__typename === 'TaskObjectiveMark' && !onlyFoundInRaid) {
                         questItems.push({
-                            ...items.find(
-                                (item) => item.id === questItem.markerItem.id,
-                            ),
-                            ...questTemplate
+                            ...items.find((item) => item.id === questItem.markerItem.id),
+                            ...questTemplate,
                         });
                         return;
                     }
 
                     if (!(onlyFoundInRaid && !questItem.foundInRaid)) {
                         questItems.push({
-                            ...items.find(
-                                (item) => item.id === questItem.id,
-                            ),
+                            ...items.find((item) => item.id === questItem.id),
                             count: questItem.count,
                             foundInRaid: questItem.foundInRaid,
                             onClick: handleItemClick,
-                            questId: questData.questId
+                            questId: questData.questId,
                         });
                     }
                 });
@@ -161,7 +148,9 @@ function ItemTracker() {
                 }
 
                 if (traders.length > 0) {
-                    let trader = traders.find(trader => trader.normalizedName === questData.traderId);
+                    let trader = traders.find(
+                        (trader) => trader.normalizedName === questData.traderId,
+                    );
                     questData.traderName = trader.name || '';
                 }
 
@@ -172,38 +161,22 @@ function ItemTracker() {
                         subtitle={questData.traderName}
                         items={questItems}
                         extraTitleProps={
-                            <button
-                                onClick={handleDoneClick.bind(
-                                    this,
-                                    questData.questId,
-                                )}
-                            >
+                            <button onClick={handleDoneClick.bind(this, questData.questId)}>
                                 {t('Collected')}
                             </button>
                         }
                     />
                 );
             });
-    }, [
-        onlyFoundInRaid,
-        handleItemClick,
-        questData,
-        handleDoneClick,
-        items,
-        traders,
-        t,
-    ]);
+    }, [onlyFoundInRaid, handleItemClick, questData, handleDoneClick, items, traders, t]);
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Item Tracker')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description="Track what items you need to Found in Raid for Escape from Tarkov quests"
             key="seo-wrapper"
         />,
-        <div
-            className="display-wrapper item-tracker-wrapper"
-            key={'display-wrapper'}
-        >
+        <div className="display-wrapper item-tracker-wrapper" key={'display-wrapper'}>
             <h1 className="center-title">
                 {t('Escape from Tarkov')} {t('Item Tracker')}
             </h1>
@@ -229,9 +202,7 @@ function ItemTracker() {
                         </span>
                         <Switch
                             className={'filter-toggle'}
-                            onChange={(e) =>
-                                setOnlyFoundInRaid(!onlyFoundInRaid)
-                            }
+                            onChange={(e) => setOnlyFoundInRaid(!onlyFoundInRaid)}
                             checked={onlyFoundInRaid}
                         />
                     </label>

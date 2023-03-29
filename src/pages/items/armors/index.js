@@ -2,17 +2,12 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiTshirtCrew} from '@mdi/js';
+import { mdiTshirtCrew } from '@mdi/js';
 
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
 
 import SEO from '../../../components/SEO';
-import {
-    Filter,
-    ToggleFilter,
-    InputFilter,
-    RangeFilter,
-} from '../../../components/filter';
+import { Filter, ToggleFilter, InputFilter, RangeFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 
 const marks = {
@@ -30,22 +25,10 @@ function Armors(props) {
         'useClassEffectiveDurability',
         false,
     );
-    const [includeRigs, setIncludeRigs] = useStateWithLocalStorage(
-        'includeRigs',
-        true,
-    );
-    const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage(
-        'minArmorClass',
-        1,
-    );
-    const [maxArmorClass, setMaxArmorClass] = useStateWithLocalStorage(
-        'maxArmorClass',
-        6,
-    );
-    const [maxPrice, setMaxPrice] = useStateWithLocalStorage(
-        'armorMaxPrice',
-        '',
-    );
+    const [includeRigs, setIncludeRigs] = useStateWithLocalStorage('includeRigs', true);
+    const [minArmorClass, setMinArmorClass] = useStateWithLocalStorage('minArmorClass', 1);
+    const [maxArmorClass, setMaxArmorClass] = useStateWithLocalStorage('maxArmorClass', 6);
+    const [maxPrice, setMaxPrice] = useStateWithLocalStorage('armorMaxPrice', '');
     const { t } = useTranslation();
 
     const handleArmorClassChange = ([min, max]) => {
@@ -60,33 +43,34 @@ function Armors(props) {
     }
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Armors')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('armors-page-description', 'This page includes a sortable table with information on the different types of armor available in the game, including their price, repairability, armor class, and other characteristics.')}
+            description={t(
+                'armors-page-description',
+                'This page includes a sortable table with information on the different types of armor available in the game, including their price, repairability, armor class, and other characteristics.',
+            )}
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
-                    <Icon path={mdiTshirtCrew} size={1.5} className="icon-with-text" /> 
+                    <Icon path={mdiTshirtCrew} size={1.5} className="icon-with-text" />
                     {t('Armors')}
                 </h1>
                 <Filter center>
                     <ToggleFilter
                         checked={showAllArmorSources}
                         label={t('Ignore settings')}
-                        onChange={(e) =>
-                            setShowAllArmorSources(!showAllArmorSources)
-                        }
+                        onChange={(e) => setShowAllArmorSources(!showAllArmorSources)}
                         tooltipContent={
-                            <>
-                                {t('Shows all sources of items regardless of your settings')}
-                            </>
+                            <>{t('Shows all sources of items regardless of your settings')}</>
                         }
                     />
                     <ToggleFilter
                         label={t('Class effective durability')}
-                        onChange={(e) => setUseClassEffectiveDurability(!useClassEffectiveDurability)}
+                        onChange={(e) =>
+                            setUseClassEffectiveDurability(!useClassEffectiveDurability)
+                        }
                         checked={useClassEffectiveDurability}
                     />
                     <ToggleFilter
@@ -134,12 +118,14 @@ function Armors(props) {
                 weight
                 stats
                 showAllSources={showAllArmorSources}
-                sortBy='armorClass'
+                sortBy="armorClass"
             />
-            
+
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {"In the video game Escape from Tarkov, armor vests are worn to lessen bullet damage. Helmets are typically used in addition to them."}
+                    {
+                        'In the video game Escape from Tarkov, armor vests are worn to lessen bullet damage. Helmets are typically used in addition to them.'
+                    }
                 </p>
             </div>
         </div>,

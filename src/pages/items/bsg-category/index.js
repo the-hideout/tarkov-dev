@@ -12,9 +12,7 @@ import QueueBrowserTask from '../../../modules/queue-browser-task';
 import { useMetaQuery } from '../../../features/meta/queries';
 
 function BsgCategory() {
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
+    const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [showAllItemSources, setShowAllItemSources] = useState(false);
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     let { bsgCategoryName } = useParams();
@@ -25,7 +23,7 @@ function BsgCategory() {
     );*/
 
     const { data: meta } = useMetaQuery();
-    const category = meta.categories.find(cat => bsgCategoryName === cat.normalizedName);
+    const category = meta.categories.find((cat) => bsgCategoryName === cat.normalizedName);
 
     const handleNameFilterChange = useCallback(
         (e) => {
@@ -47,9 +45,13 @@ function BsgCategory() {
     }
 
     return [
-        <SEO 
+        <SEO
             title={`${category.name} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('bsg-category-description', 'Find out everything you need to know about {{category}} in Escape from Tarkov.', { category: category.name })}
+            description={t(
+                'bsg-category-description',
+                'Find out everything you need to know about {{category}} in Escape from Tarkov.',
+                { category: category.name },
+            )}
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
@@ -63,13 +65,9 @@ function BsgCategory() {
                     <ToggleFilter
                         checked={showAllItemSources}
                         label={t('Ignore settings')}
-                        onChange={(e) =>
-                            setShowAllItemSources(!showAllItemSources)
-                        }
+                        onChange={(e) => setShowAllItemSources(!showAllItemSources)}
                         tooltipContent={
-                            <>
-                                {t('Shows all sources of items regardless of your settings')}
-                            </>
+                            <>{t('Shows all sources of items regardless of your settings')}</>
                         }
                     />
                     <InputFilter

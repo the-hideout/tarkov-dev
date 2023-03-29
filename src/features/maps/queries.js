@@ -33,25 +33,33 @@ export const useMapImages = () => {
     let allMaps = useMemo(() => {
         const mapImages = {};
         for (const mapsGroup of rawMapData) {
-            const apiMap = maps.find(map => map.normalizedName === mapsGroup.normalizedName);
+            const apiMap = maps.find((map) => map.normalizedName === mapsGroup.normalizedName);
             for (const map of mapsGroup.maps) {
                 mapImages[map.key] = {
                     ...map,
-                    name: apiMap?.name || i18n.t(`${mapsGroup.normalizedName}-name`, { ns: 'maps' }),
+                    name:
+                        apiMap?.name || i18n.t(`${mapsGroup.normalizedName}-name`, { ns: 'maps' }),
                     normalizedName: mapsGroup.normalizedName,
                     primaryPath: mapsGroup.primaryPath,
-                    displayText: apiMap?.name || i18n.t(`${mapsGroup.normalizedName}-name`, { ns: 'maps' }),
-                    description: apiMap?.description || i18n.t(`${mapsGroup.normalizedName}-description`, { ns: 'maps' }),
+                    displayText:
+                        apiMap?.name || i18n.t(`${mapsGroup.normalizedName}-name`, { ns: 'maps' }),
+                    description:
+                        apiMap?.description ||
+                        i18n.t(`${mapsGroup.normalizedName}-description`, { ns: 'maps' }),
                     duration: apiMap?.raidDuration ? apiMap?.raidDuration + ' min' : undefined,
                     players: apiMap?.players || mapsGroup.players,
                     image: `/maps/${map.key}.jpg`,
                     imageThumb: `/maps/${map.key}_thumb.jpg`,
                 };
                 if (map.projection && map.projection !== '3D') {
-                    mapImages[map.key].displayText += ` - ${i18n.t(map.projection, { ns: 'maps' })}`;
+                    mapImages[map.key].displayText += ` - ${i18n.t(map.projection, {
+                        ns: 'maps',
+                    })}`;
                 }
                 if (map.orientation) {
-                    mapImages[map.key].displayText += ` - ${i18n.t(map.orientation, { ns: 'maps' })}`;
+                    mapImages[map.key].displayText += ` - ${i18n.t(map.orientation, {
+                        ns: 'maps',
+                    })}`;
                 }
                 if (map.specific) {
                     mapImages[map.key].displayText += ` - ${i18n.t(map.specific, { ns: 'maps' })}`;

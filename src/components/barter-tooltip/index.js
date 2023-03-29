@@ -10,9 +10,7 @@ import { getCheapestItemPrice } from '../../modules/format-cost-items';
 import { getDurationDisplay } from '../../modules/format-duration';
 
 import Icon from '@mdi/react';
-import {
-    mdiAccountSwitch
-} from '@mdi/js';
+import { mdiAccountSwitch } from '@mdi/js';
 
 import './index.css';
 
@@ -29,7 +27,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
             // Should never happen
             return false;
         }
-        return items.map(req => {
+        return items.map((req) => {
             const cheapestPrice = getCheapestItemPrice(req.item, settings, allowAllSources);
             return {
                 ...req,
@@ -43,43 +41,36 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
     }
     if (!barter.trader && !barter.station) {
         // Should never happen
-        return "Missing trader for this barter";
+        return 'Missing trader for this barter';
     }
     if (!requirements) {
         // Should never happen
-        return "Missing requirements for this barter";
+        return 'Missing requirements for this barter';
     }
 
     let titleElement = '';
-    let trader = barter.trader ? 
-        `${barter.trader.name} ${t('LL{{level}}', { level: barter.level })}` :
-        `${barter.station.name} ${barter.level}`;
+    let trader = barter.trader
+        ? `${barter.trader.name} ${t('LL{{level}}', { level: barter.level })}`
+        : `${barter.station.name} ${barter.level}`;
 
     if (showTitle) {
-        const tipTitle = barter.trader ?
-            t('Barter at {{trader}}', { trader: trader }) : 
-            t('Craft at {{station}}', {station: trader});
-            
+        const tipTitle = barter.trader
+            ? t('Barter at {{trader}}', { trader: trader })
+            : t('Craft at {{station}}', { station: trader });
+
         titleElement = (
             <h3>
-                <Icon
-                    path={mdiAccountSwitch}
-                    size={1}
-                    className="icon-with-text"
-                />
+                <Icon path={mdiAccountSwitch} size={1} className="icon-with-text" />
                 {tipTitle}
             </h3>
         );
         if (title) {
-            titleElement = (
-                <h4>{title}</h4>
-            );
+            titleElement = <h4>{title}</h4>;
         }
     }
 
     return (
         <div className="barter-tooltip-wrapper">
-
             {titleElement}
             {requirements.map((requiredItem) => {
                 let itemName = requiredItem.item.name;
@@ -108,9 +99,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
                         </div>
                         <div className="barter-tooltip-details-wrapper">
                             <div>
-                                <Link
-                                    to={`/item/${requiredItem.item.normalizedName}`}
-                                >
+                                <Link to={`/item/${requiredItem.item.normalizedName}`}>
                                     {itemName}
                                 </Link>
                             </div>
@@ -121,24 +110,21 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
                                     loading="lazy"
                                     src={`${process.env.PUBLIC_URL}/images/traders/${sourceName}-icon.jpg`}
                                 />
-                                {requiredItem.count} <span>X</span>{' '}
-                                {formatPrice(price)}{' '}
-                                <span>=</span>{' '}
-                                {formatPrice(
-                                    requiredItem.count *
-                                    price,
-                                )}
+                                {requiredItem.count} <span>X</span> {formatPrice(price)}{' '}
+                                <span>=</span> {formatPrice(requiredItem.count * price)}
                             </div>
                         </div>
                     </div>
                 );
             })}
-            {barter.station && <div
-                className="barter-tooltip-item-wrapper"
-                key={`reward-tooltip-details`}
-            >
-                {t('Crafts {{count}} in {{duration}}', {count: barter.rewardItems[0].count, duration: getDurationDisplay(barter.duration * 1000)})}
-            </div>}
+            {barter.station && (
+                <div className="barter-tooltip-item-wrapper" key={`reward-tooltip-details`}>
+                    {t('Crafts {{count}} in {{duration}}', {
+                        count: barter.rewardItems[0].count,
+                        duration: getDurationDisplay(barter.duration * 1000),
+                    })}
+                </div>
+            )}
         </div>
     );
 }

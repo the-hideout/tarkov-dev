@@ -11,7 +11,8 @@ function UkraineButton({ onlyLarge, linkStyle, wrapperStyle, text, children }) {
             className={'ua-button'}
             variant="contained"
             href="https://www.icrc.org/en/donate/ukraine"
-            target="_blank" rel="noopener noreferrer"
+            target="_blank"
+            rel="noopener noreferrer"
         >
             {t('Support Ukraine')}
         </Button>

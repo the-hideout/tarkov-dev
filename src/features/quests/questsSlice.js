@@ -11,9 +11,7 @@ const initialState = {
     error: null,
 };
 
-export const fetchQuests = createAsyncThunk('quests/fetchQuests', () =>
-    doFetchQuests(langCode()),
-);
+export const fetchQuests = createAsyncThunk('quests/fetchQuests', () => doFetchQuests(langCode()));
 const questsSlice = createSlice({
     name: 'quests',
     initialState,

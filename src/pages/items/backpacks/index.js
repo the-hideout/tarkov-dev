@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiBagPersonal} from '@mdi/js';
+import { mdiBagPersonal } from '@mdi/js';
 
 import SEO from '../../../components/SEO';
 import { Filter, ToggleFilter } from '../../../components/filter';
@@ -14,34 +14,35 @@ function Backpacks() {
     const { t } = useTranslation();
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Backpacks')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('backpacks-page-description', 'This page includes a sortable table with information on the different types of backpacks available in the game, including their price, size, capacity, and other characteristics.')}
+            description={t(
+                'backpacks-page-description',
+                'This page includes a sortable table with information on the different types of backpacks available in the game, including their price, size, capacity, and other characteristics.',
+            )}
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
-                    <Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" /> 
+                    <Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" />
                     {t('Backpacks')}
                 </h1>
                 <Filter>
                     <ToggleFilter
                         checked={showAllItemSources}
                         label={t('Ignore settings')}
-                        onChange={(e) =>
-                            setShowAllItemSources(!showAllItemSources)
-                        }
+                        onChange={(e) => setShowAllItemSources(!showAllItemSources)}
                         tooltipContent={
-                            <>
-                                {t('Shows all sources of items regardless of your settings')}
-                            </>
+                            <>{t('Shows all sources of items regardless of your settings')}</>
                         }
                     />
                     <ToggleFilter
                         label={t('Net price per slot')}
-                        tooltipContent={t('Show price per additional slot of storage gained from the container')}
+                        tooltipContent={t(
+                            'Show price per additional slot of storage gained from the container',
+                        )}
                         onChange={(e) => setShowNetPPS(!showNetPPS)}
                         checked={showNetPPS}
                     />
@@ -58,12 +59,14 @@ function Backpacks() {
                 weight={3}
                 cheapestPrice={4}
                 pricePerSlot={5}
-                sortBy='pricePerSlot'
+                sortBy="pricePerSlot"
             />
-            
+
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {"Backpacks in the Escape from Tarkov game are various-sized containers for carrying your hard-earned riches."}
+                    {
+                        'Backpacks in the Escape from Tarkov game are various-sized containers for carrying your hard-earned riches.'
+                    }
                 </p>
             </div>
         </div>,

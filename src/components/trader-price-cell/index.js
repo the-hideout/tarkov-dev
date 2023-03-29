@@ -14,10 +14,7 @@ function getItemCountPrice(price, currency = 'RUB', count = 1) {
     if (count < 2) return '';
     return (
         <div key="countprice">
-            {formatPrice(
-                price,
-                currency,
-            )} x {count}
+            {formatPrice(price, currency)} x {count}
         </div>
     );
 }
@@ -28,39 +25,27 @@ function TraderPriceCell(props) {
         return null;
     }
 
-    const bestBuyFor = props.row.original.buyFor
-        ?.reduce((previous, current) => {
-            if (current.vendor.normalizedName === 'flea-market') {
-                return previous;
-            }
-            if (!previous || current.priceRUB < previous.priceRUB) 
-                return current;
+    const bestBuyFor = props.row.original.buyFor?.reduce((previous, current) => {
+        if (current.vendor.normalizedName === 'flea-market') {
             return previous;
-        }, false);
+        }
+        if (!previous || current.priceRUB < previous.priceRUB) return current;
+        return previous;
+    }, false);
 
     if (!bestBuyFor) {
         return null;
     }
     let count = 1;
-    if (props.row.original.count)
-        count = props.row.original.count;
-    let printString = 
+    if (props.row.original.count) count = props.row.original.count;
+    let printString =
         bestBuyFor.currency !== 'RUB' ? (
-            <Tippy
-                content={formatPrice(
-                    bestBuyFor.priceRUB*count,
-                )}
-                placement="bottom"
-            >
-                <div>
-                    {formatPrice(
-                        bestBuyFor.price*count,
-                        bestBuyFor.currency,
-                    )}
-                </div>
+            <Tippy content={formatPrice(bestBuyFor.priceRUB * count)} placement="bottom">
+                <div>{formatPrice(bestBuyFor.price * count, bestBuyFor.currency)}</div>
             </Tippy>
-        ) : 
-            formatPrice(bestBuyFor.price*count);
+        ) : (
+            formatPrice(bestBuyFor.price * count)
+        );
     const questLocked = bestBuyFor.vendor.taskUnlock;
     const loyaltyString = t('LL{{level}}', { level: bestBuyFor.vendor.minTraderLevel });
 
@@ -69,17 +54,17 @@ function TraderPriceCell(props) {
             <>
                 {printString}
                 {getItemCountPrice(bestBuyFor.price, bestBuyFor.currency, count)}
-                <Tippy 
-                    content={<Link to={`/task/${questLocked.normalizedName}`}>{t('Task')}: {questLocked.name}</Link>}
+                <Tippy
+                    content={
+                        <Link to={`/task/${questLocked.normalizedName}`}>
+                            {t('Task')}: {questLocked.name}
+                        </Link>
+                    }
                     placement="bottom"
                     interactive={true}
                 >
                     <div className="trader-unlock-wrapper">
-                        <Icon
-                            path={mdiClipboardList}
-                            size={1}
-                            className="icon-with-text"
-                        />
+                        <Icon path={mdiClipboardList} size={1} className="icon-with-text" />
                         <span>{`${bestBuyFor.vendor.name} ${loyaltyString}`}</span>
                     </div>
                 </Tippy>

@@ -5,11 +5,7 @@ import './index.css';
 function LoadingSmall() {
     const { t } = useTranslation();
 
-    return (
-        <div className={`loading-wipe`}>
-            {t('Loading...')}
-        </div>
-    );
+    return <div className={`loading-wipe`}>{t('Loading...')}</div>;
 }
 
 export default LoadingSmall;

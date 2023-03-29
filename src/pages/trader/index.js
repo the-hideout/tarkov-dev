@@ -40,14 +40,12 @@ const romanLevels = {
     7: 'VII',
     8: 'VIII',
     9: 'IX',
-    10: 'X'
+    10: 'X',
 };
 
 function Trader() {
     const { traderName } = useParams();
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
+    const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [selectedTable, setSelectedTable] = useStateWithLocalStorage(
         `${traderName.toLowerCase()}SelectedTable`,
@@ -59,7 +57,7 @@ function Trader() {
     const [isViewerOpen, setIsViewerOpen] = useState(false);
     const openImageViewer = useCallback(() => {
         setIsViewerOpen(true);
-      }, []);
+    }, []);
     const closeImageViewer = () => {
         setIsViewerOpen(false);
     };
@@ -103,39 +101,51 @@ function Trader() {
             clearInterval(timer);
         };
     }, [tradersStatus, dispatch]);
-    
-    const trader = traders.find(tr => tr.normalizedName === traderName.toLowerCase());
+
+    const trader = traders.find((tr) => tr.normalizedName === traderName.toLowerCase());
 
     const levelProperties = useMemo(() => {
         const props = {};
         if (!Number.isInteger(selectedTable)) {
             return props;
         }
-        const levelInfo = trader.levels.find(l => l.level === selectedTable);
+        const levelInfo = trader.levels.find((l) => l.level === selectedTable);
         if (levelInfo.requiredPlayerLevel > 1) {
-            props.requiredPlayerLevel = {value: levelInfo.requiredPlayerLevel, label: `${t('Player level')} 💪`};
+            props.requiredPlayerLevel = {
+                value: levelInfo.requiredPlayerLevel,
+                label: `${t('Player level')} 💪`,
+            };
         }
-        props.requiredReputation = {value: levelInfo.requiredReputation, label: `${t('Reputation')} 📈`};
+        props.requiredReputation = {
+            value: levelInfo.requiredReputation,
+            label: `${t('Reputation')} 📈`,
+        };
         if (levelInfo.requiredCommerce > 0) {
-            props.requiredCommerce = {value: formatPrice(levelInfo.requiredCommerce, trader.currency.normalizedName), label: `${t('Commerce')} 💵`};
+            props.requiredCommerce = {
+                value: formatPrice(levelInfo.requiredCommerce, trader.currency.normalizedName),
+                label: `${t('Commerce')} 💵`,
+            };
         }
         return props;
     }, [trader, selectedTable, t]);
-    if (!trader) 
-        return <ErrorPage />;
-    
-    let resetTime = (<LoadingSmall/>);
+    if (!trader) return <ErrorPage />;
+
+    let resetTime = <LoadingSmall />;
     if (trader.resetTime) {
-        resetTime = (
-            <TraderResetTime timestamp={trader.resetTime} locale={i18n.language} />
-        );
+        resetTime = <TraderResetTime timestamp={trader.resetTime} locale={i18n.language} />;
     }
     return [
-        <SEO 
-            title={`${t('Trader {{trader}}', { trader: trader.name })} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('trader-page-description', 'Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty.', { trader: trader.name })}
+        <SEO
+            title={`${t('Trader {{trader}}', { trader: trader.name })} - ${t(
+                'Escape from Tarkov',
+            )} - ${t('Tarkov.dev')}`}
+            description={t(
+                'trader-page-description',
+                'Get the latest information on the trader {{trader}} in Escape from Tarkov. Learn about the items he sells on certain Loyalty level and how to maximize your cash back money to level Loyalty.',
+                { trader: trader.name },
+            )}
             image={`${window.location.origin}${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}-portrait.png`}
-            card='summary_large_image'
+            card="summary_large_image"
             key="seo-wrapper"
         />,
         <div className="page-wrapper" key={'page-wrapper'}>
@@ -152,13 +162,15 @@ function Trader() {
                         />
                     </h1>
                     <span className="wiki-link-wrapper">
-                        <a href={`https://escapefromtarkov.fandom.com/wiki/${trader.normalizedName}`} target="_blank" rel="noopener noreferrer">
+                        <a
+                            href={`https://escapefromtarkov.fandom.com/wiki/${trader.normalizedName}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             {t('Wiki')}
                         </a>
                     </span>
-                    <p className='trader-details'>
-                        {trader.description}
-                    </p>
+                    <p className="trader-details">{trader.description}</p>
                 </div>
                 <PropertyList properties={levelProperties} />
                 <div className="trader-icon-and-link-wrapper">
@@ -182,17 +194,13 @@ function Trader() {
             )}
             <div className="page-headline-wrapper">
                 <h1>
-                    <cite>
-                        {resetTime}
-                    </cite>
+                    <cite>{resetTime}</cite>
                 </h1>
                 <Filter center>
                     <ButtonGroupFilter>
                         <ButtonGroupFilterButton
                             tooltipContent={
-                                <>
-                                    {t('Items with the best cash back prices for leveling')}
-                                </>
+                                <>{t('Items with the best cash back prices for leveling')}</>
                             }
                             selected={selectedTable === 'spending'}
                             content={t('Spending')}
@@ -202,12 +210,14 @@ function Trader() {
                     </ButtonGroupFilter>
                     {trader.normalizedName !== 'lightkeeper' ? (
                         <ButtonGroupFilter>
-                            {trader.levels.map(level => (
+                            {trader.levels.map((level) => (
                                 <ButtonGroupFilterButton
                                     key={level.level}
                                     tooltipContent={
                                         <>
-                                            {t('Unlocks at Loyalty Level {{level}}', { level: level.level})}
+                                            {t('Unlocks at Loyalty Level {{level}}', {
+                                                level: level.level,
+                                            })}
                                         </>
                                     }
                                     selected={selectedTable === level.level}
@@ -216,12 +226,16 @@ function Trader() {
                                 />
                             ))}
                         </ButtonGroupFilter>
-                    ) : ''}
+                    ) : (
+                        ''
+                    )}
                     <ButtonGroupFilter>
                         <ButtonGroupFilterButton
                             tooltipContent={
                                 <>
-                                    {t('Tasks given by {{traderName}}', {traderName: trader.name})}
+                                    {t('Tasks given by {{traderName}}', {
+                                        traderName: trader.name,
+                                    })}
                                 </>
                             }
                             selected={selectedTable === 'tasks'}

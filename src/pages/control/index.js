@@ -62,11 +62,9 @@ function Control(props) {
 
     const mapImages = useMapImages();
     const uniqueMaps = Object.values(mapImages);
-    uniqueMaps.sort((a,b) => {
-        if (a.normalizedName === 'openworld')
-            return 1;
-        if (b.normalizedName === 'openworld')
-            return -1;
+    uniqueMaps.sort((a, b) => {
+        if (a.normalizedName === 'openworld') return 1;
+        if (b.normalizedName === 'openworld') return -1;
         return a.displayText.localeCompare(b.displayText);
     });
 
@@ -134,65 +132,71 @@ function Control(props) {
     };
 
     return (
-        <SEO 
-            title={`${t('Remote Control')} - ${t('Tarkov.dev')}`}
-            description={t('remote-control-page-description', 'This page contains all necessary tools to remote control another instance of Tarkov.dev website.')}
-            key="seo-wrapper"
-        />,
-        <div className="control-wrapper" key="">
-            <h1>{t('Remote Control')}</h1>
-            <div className={'control-section'}>
-                <span>{t('View Map')}:</span>
-                <select
-                    disabled={!socketConnected}
-                    name="map"
-                    onChange={handleMapChange}
-                    ref={typeRefs['map']}
-                >
-                    {uniqueMaps.map((map) => (
-                        <option key={map.key} value={map.key}>
-                            {map.displayText}
-                        </option>
-                    ))}
-                </select>
-                <button disabled={!socketConnected} onClick={handleMapChange}>
-                    {t('Go')}
-                </button>
-            </div>
-            <div className={'control-section'}>
-                <span>{t('View caliber')}:</span>
-                <select
-                    disabled={!socketConnected}
-                    multiple
-                    name="ammo"
-                    onChange={handleAmmoChange}
-                    ref={typeRefs['ammo']}
-                >
-                    {ammoTypes.map((ammoType) => (
-                        <option key={ammoType} value={ammoType}>
-                            {ammoType}
-                        </option>
-                    ))}
-                </select>
-                <button disabled={!socketConnected} onClick={handleAmmoChange}>
-                    {t('Go')}
-                </button>
-            </div>
-            <Select
-                // defaultValue = {defaultValue}
-                // isMulti = {isMulti}
-                isDisabled={!socketConnected}
-                name="colors"
-                placeholder={t('Select...')}
-                options={itemList}
-                className="basic-multi-select"
-                onChange={handleSelectChange}
-                classNamePrefix="select"
-                // onMenuClose = {onMenuClose}
-                // onMenuOpen = {onMenuOpen}
-                styles={selectFilterStyle}
+        (
+            <SEO
+                title={`${t('Remote Control')} - ${t('Tarkov.dev')}`}
+                description={t(
+                    'remote-control-page-description',
+                    'This page contains all necessary tools to remote control another instance of Tarkov.dev website.',
+                )}
+                key="seo-wrapper"
             />
-            {/* <div
+        ),
+        (
+            <div className="control-wrapper" key="">
+                <h1>{t('Remote Control')}</h1>
+                <div className={'control-section'}>
+                    <span>{t('View Map')}:</span>
+                    <select
+                        disabled={!socketConnected}
+                        name="map"
+                        onChange={handleMapChange}
+                        ref={typeRefs['map']}
+                    >
+                        {uniqueMaps.map((map) => (
+                            <option key={map.key} value={map.key}>
+                                {map.displayText}
+                            </option>
+                        ))}
+                    </select>
+                    <button disabled={!socketConnected} onClick={handleMapChange}>
+                        {t('Go')}
+                    </button>
+                </div>
+                <div className={'control-section'}>
+                    <span>{t('View caliber')}:</span>
+                    <select
+                        disabled={!socketConnected}
+                        multiple
+                        name="ammo"
+                        onChange={handleAmmoChange}
+                        ref={typeRefs['ammo']}
+                    >
+                        {ammoTypes.map((ammoType) => (
+                            <option key={ammoType} value={ammoType}>
+                                {ammoType}
+                            </option>
+                        ))}
+                    </select>
+                    <button disabled={!socketConnected} onClick={handleAmmoChange}>
+                        {t('Go')}
+                    </button>
+                </div>
+                <Select
+                    // defaultValue = {defaultValue}
+                    // isMulti = {isMulti}
+                    isDisabled={!socketConnected}
+                    name="colors"
+                    placeholder={t('Select...')}
+                    options={itemList}
+                    className="basic-multi-select"
+                    onChange={handleSelectChange}
+                    classNamePrefix="select"
+                    // onMenuClose = {onMenuClose}
+                    // onMenuOpen = {onMenuOpen}
+                    styles={selectFilterStyle}
+                />
+                {/* <div
             className = {'control-section'}
         >
             <span>View loot tiers:</span>
@@ -223,11 +227,12 @@ function Control(props) {
                 Go
             </button>
         </div> */}
-            <div className="info-wrapper">
-                {t('Load tarkov.dev in another browser or window to control it from here')}
+                <div className="info-wrapper">
+                    {t('Load tarkov.dev in another browser or window to control it from here')}
+                </div>
+                <Connect />
             </div>
-            <Connect />
-        </div>
+        )
     );
 }
 

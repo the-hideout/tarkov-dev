@@ -10,9 +10,7 @@ function MenuItem(props) {
         ammoTypes = currentAmmo.split(',');
     }
 
-    const [checked, setChecked] = useState(
-        ammoTypes.includes(props.displayText),
-    );
+    const [checked, setChecked] = useState(ammoTypes.includes(props.displayText));
     const navigate = useNavigate();
 
     const handleChange = (event) => {
@@ -31,8 +29,7 @@ function MenuItem(props) {
     useEffect(() => {
         if (currentAmmo) {
             setChecked(currentAmmo.split(',').includes(props.displayText));
-        }
-        else {
+        } else {
             setChecked(false);
         }
     }, [currentAmmo, props.displayText]);

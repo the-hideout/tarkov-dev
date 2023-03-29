@@ -34,13 +34,10 @@ function ItemsSummaryTable(props) {
             .map((item) => {
                 const formattedItem = {
                     ...item,
-                    quantity: includeItems.find(
-                        (includeItem) => includeItem.id === item.id,
-                    ).quantity,
+                    quantity: includeItems.find((includeItem) => includeItem.id === item.id)
+                        .quantity,
                     itemLink: `/item/${item.normalizedName}`,
-                    barters: barters.filter(
-                        (barter) => barter.rewardItems[0].item.id === item.id,
-                    ),
+                    barters: barters.filter((barter) => barter.rewardItems[0].item.id === item.id),
                     buyOnFleaPrice: item.buyFor.find(
                         (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market',
                     ),
@@ -103,11 +100,11 @@ function ItemsSummaryTable(props) {
                     if (!props.value && props.row.original.cached) {
                         return (
                             <div className="center-content">
-                                <FleaMarketLoadingIcon/>
+                                <FleaMarketLoadingIcon />
                             </div>
                         );
                     }
-                    return <ValueCell value={props.value}/>;
+                    return <ValueCell value={props.value} />;
                 },
             },
         ];

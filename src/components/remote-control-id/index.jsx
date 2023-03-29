@@ -32,12 +32,8 @@ function ID(props) {
     return (
         <div
             className={`id-wrapper ${sideClass}`}
-            alt={t(
-                'open this page in another browser or window and connect using this id',
-            )}
-            title={t(
-                'open this page in another browser or window and connect using this id',
-            )}
+            alt={t('open this page in another browser or window and connect using this id')}
+            title={t('open this page in another browser or window and connect using this id')}
             onClick={props.onClick}
         >
             <div className="update-label">
@@ -50,10 +46,7 @@ function ID(props) {
                         )}
                     </div>
                 </span>
-                <button
-                    className="session-switch-side"
-                    onClick={handleSwitchSideClick}
-                >
+                <button className="session-switch-side" onClick={handleSwitchSideClick}>
                     {sideButtonContent}
                 </button>
             </div>

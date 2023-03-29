@@ -1,24 +1,22 @@
 module.exports = (price, currency = 'RUB') => {
-    if (typeof price === 'undefined' || isNaN(price)) 
-        price = 0;
-    
+    if (typeof price === 'undefined' || isNaN(price)) price = 0;
+
     price = Math.floor(price);
 
     if (currency === 'USD' || currency === 'dollars') {
         let dollarsString = '';
-        
+
         if (price > 0) {
             dollarsString = new Intl.NumberFormat('en-US', {
                 style: 'currency',
                 currency: 'USD',
                 maximumSignificantDigits: 6,
             }).format(price);
-        }
-        else {
+        } else {
             dollarsString = '< $1';
         }
 
-        return dollarsString
+        return dollarsString;
     }
 
     if (currency === 'EUR' || currency === 'euros') {

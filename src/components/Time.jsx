@@ -32,9 +32,7 @@ export function realTimeToTarkovTime(time, left) {
     const russia = hrs(3);
 
     const offset = russia + (left ? 0 : hrs(12));
-    const tarkovTime = new Date(
-        (offset + time.getTime() * tarkovRatio) % oneDay,
-    );
+    const tarkovTime = new Date((offset + time.getTime() * tarkovRatio) % oneDay);
 
     return tarkovTime;
 }
@@ -88,7 +86,10 @@ function MapDetails(props) {
         overlayItem.push(
             <div key={`${props.currentMap}-attribution`}>
                 {t('By')}
-                <span>:</span> <a href={props.authorLink} target="_blank" rel="noopener noreferrer">{props.author}</a>
+                <span>:</span>{' '}
+                <a href={props.authorLink} target="_blank" rel="noopener noreferrer">
+                    {props.author}
+                </a>
             </div>,
         );
     }

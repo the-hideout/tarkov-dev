@@ -12,7 +12,7 @@ const initialState = {
     error: null,
 };
 
-export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () => 
+export const fetchCrafts = createAsyncThunk('crafts/fetchCrafts', async () =>
     doFetchCrafts(langCode()),
 );
 
@@ -24,26 +24,26 @@ const craftsSlice = createSlice({
             let newCrafts = [...state.crafts];
 
             newCrafts = newCrafts.map((craft) => {
-                craft.requiredItems = craft.requiredItems.map(
-                    (requiredItem) => {
-                        // Filter an item only if it's not a tool
-                        const isTool = requiredItem.attributes.some(element => element.type === "tool");
-                        if (isTool === true) {
-                            return requiredItem;
-                        }
-
-                        if (requiredItem.item.id === action.payload.itemId) {
-                            if (requiredItem.count === 0) {
-                                requiredItem.count = requiredItem.originalCount;
-                            } else {
-                                requiredItem.originalCount = requiredItem.count;
-                                requiredItem.count = 0;
-                            }
-                        }
-
+                craft.requiredItems = craft.requiredItems.map((requiredItem) => {
+                    // Filter an item only if it's not a tool
+                    const isTool = requiredItem.attributes.some(
+                        (element) => element.type === 'tool',
+                    );
+                    if (isTool === true) {
                         return requiredItem;
-                    },
-                );
+                    }
+
+                    if (requiredItem.item.id === action.payload.itemId) {
+                        if (requiredItem.count === 0) {
+                            requiredItem.count = requiredItem.originalCount;
+                        } else {
+                            requiredItem.originalCount = requiredItem.count;
+                            requiredItem.count = 0;
+                        }
+                    }
+
+                    return requiredItem;
+                });
 
                 return craft;
             });
@@ -54,15 +54,13 @@ const craftsSlice = createSlice({
             let newCrafts = [...state.crafts];
 
             newCrafts = newCrafts.map((craft) => {
-                craft.requiredItems = craft.requiredItems.map(
-                    (requiredItem) => {
-                        if (requiredItem.item.id === action.payload.itemId) {
-                            requiredItem.priceCustom = action.payload.price;
-                        }
+                craft.requiredItems = craft.requiredItems.map((requiredItem) => {
+                    if (requiredItem.item.id === action.payload.itemId) {
+                        requiredItem.priceCustom = action.payload.price;
+                    }
 
-                        return requiredItem;
-                    },
-                );
+                    return requiredItem;
+                });
 
                 return craft;
             });
@@ -73,15 +71,13 @@ const craftsSlice = createSlice({
             let newCrafts = [...state.crafts];
 
             newCrafts = newCrafts.map((craft) => {
-                craft.rewardItems = craft.rewardItems.map(
-                    (rewardItem) => {
-                        if (rewardItem.item.id === action.payload.itemId) {
-                            rewardItem.priceCustom = action.payload.price;
-                        }
+                craft.rewardItems = craft.rewardItems.map((rewardItem) => {
+                    if (rewardItem.item.id === action.payload.itemId) {
+                        rewardItem.priceCustom = action.payload.price;
+                    }
 
-                        return rewardItem;
-                    },
-                );
+                    return rewardItem;
+                });
 
                 return craft;
             });

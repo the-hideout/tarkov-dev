@@ -1,7 +1,7 @@
 import cachedBarters from '../data/barters.json';
 import cachedCrafts from '../data/crafts.json';
 
-import cachedHideout from '../data/hideout.json'
+import cachedHideout from '../data/hideout.json';
 
 import cachedItems from '../data/items.json';
 import cachedItemsLocale from '../data/items_locale.json';
@@ -17,7 +17,7 @@ import cachedBossesLocale from '../data/bosses_locale.json';
 import cachedTasks from '../data/quests.json';
 import cachedTasksLocale from '../data/quests_locale.json';
 
-import cachedTraders from '../data/traders.json'
+import cachedTraders from '../data/traders.json';
 import cachedTradersLocale from '../data/traders_locale.json';
 
 export function placeholderBarters(language = 'en') {
@@ -34,10 +34,10 @@ export function placeholderHideout(language = 'en') {
 
 export function placeholderItems(language = 'en') {
     if (language !== 'en' && cachedItemsLocale[language]) {
-        return cachedItems.map(item => {
+        return cachedItems.map((item) => {
             return {
                 ...item,
-                ...cachedItemsLocale[language][item.id]
+                ...cachedItemsLocale[language][item.id],
             };
         });
     }
@@ -46,11 +46,11 @@ export function placeholderItems(language = 'en') {
 
 export function placeholderMaps(language = 'en') {
     if (language !== 'en' && cachedMapsLocale[language]) {
-        return cachedMaps.map(map => {
+        return cachedMaps.map((map) => {
             return {
                 ...map,
-                ...cachedMapsLocale[language][map.id]
-            }
+                ...cachedMapsLocale[language][map.id],
+            };
         });
     }
     return cachedMaps;
@@ -58,11 +58,11 @@ export function placeholderMaps(language = 'en') {
 
 export function placeholderBosses(language = 'en') {
     if (language !== 'en' && cachedBossesLocale[language]) {
-        return cachedBosses.map(boss => {
+        return cachedBosses.map((boss) => {
             return {
                 ...boss,
-                ...cachedBossesLocale[language][boss.normalizedName]
-            }
+                ...cachedBossesLocale[language][boss.normalizedName],
+            };
         });
     }
     return cachedBosses;
@@ -74,16 +74,16 @@ export function placeholderMeta(language = 'en') {
 
 export function placeholderTasks(language = 'en') {
     if (language !== 'en' && cachedTasksLocale[language]) {
-        return cachedTasks.map(task => {
+        return cachedTasks.map((task) => {
             return {
                 ...task,
                 name: cachedTasksLocale[language][task.id].name,
-                objectives: task.objectives.map(defObj => {
+                objectives: task.objectives.map((defObj) => {
                     return {
                         ...defObj,
-                        description: cachedTasksLocale[language][task.id].objectives[defObj.id]
-                    }
-                })
+                        description: cachedTasksLocale[language][task.id].objectives[defObj.id],
+                    };
+                }),
             };
         });
     }
@@ -92,10 +92,10 @@ export function placeholderTasks(language = 'en') {
 
 export function placeholderTraders(language = 'en') {
     if (language !== 'en' && cachedTradersLocale[language]) {
-        return cachedTraders.map(trader => {
+        return cachedTraders.map((trader) => {
             return {
                 ...trader,
-                ...cachedTradersLocale[language][trader.id]
+                ...cachedTradersLocale[language][trader.id],
             };
         });
     }

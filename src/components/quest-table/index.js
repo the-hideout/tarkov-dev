@@ -21,12 +21,12 @@ export function getRequiredQuestItems(quest, itemFilter = false) {
         if (itemFilter && item.id !== itemFilter) {
             return;
         }
-        let req = requiredItems.find(reqItem => reqItem.item.id === item.id);
+        let req = requiredItems.find((reqItem) => reqItem.item.id === item.id);
         if (!req) {
             req = {
                 item: item,
                 count: 0,
-                foundInRaid: foundInRaid
+                foundInRaid: foundInRaid,
             };
             requiredItems.push(req);
         }
@@ -39,22 +39,22 @@ export function getRequiredQuestItems(quest, itemFilter = false) {
         if (objectiveData.markerItem?.id) {
             addItem(objectiveData.markerItem);
         }
-        objectiveData.containsAll?.forEach(part => {
+        objectiveData.containsAll?.forEach((part) => {
             addItem(part);
         });
         if (objectiveData.usingWeapon?.length === 1) {
-            objectiveData.usingWeapon?.forEach(item => {
+            objectiveData.usingWeapon?.forEach((item) => {
                 addItem(item);
             });
         }
         if (objectiveData.usingWeaponMods?.length === 1) {
-            objectiveData.usingWeaponMods[0].forEach(item => {
+            objectiveData.usingWeaponMods[0].forEach((item) => {
                 addItem(item);
             });
         } else if (objectiveData.usingWeaponMods?.length) {
             let requiredCount = {};
-            objectiveData.usingWeaponMods?.forEach(modSet => {
-                modSet.forEach(item => {
+            objectiveData.usingWeaponMods?.forEach((modSet) => {
+                modSet.forEach((item) => {
                     if (!requiredCount[item.id]) {
                         requiredCount[item.id] = 0;
                     }
@@ -63,20 +63,20 @@ export function getRequiredQuestItems(quest, itemFilter = false) {
             });
             for (const id of Object.keys(requiredCount)) {
                 if (requiredCount[id] === objectiveData.usingWeaponMods.length) {
-                    addItem(objectiveData.usingWeaponMods[0].find(mod => mod.id === id));
+                    addItem(objectiveData.usingWeaponMods[0].find((mod) => mod.id === id));
                 }
             }
         }
         if (objectiveData.wearing?.length === 1) {
-            objectiveData.wearing?.forEach(outfit => {
-                outfit.forEach(item => {
+            objectiveData.wearing?.forEach((outfit) => {
+                outfit.forEach((item) => {
                     addItem(item);
                 });
             });
         } else if (objectiveData.wearing?.length) {
             let requiredCount = {};
-            objectiveData.wearing?.forEach(outfit => {
-                outfit.forEach(item => {
+            objectiveData.wearing?.forEach((outfit) => {
+                outfit.forEach((item) => {
                     if (!requiredCount[item.id]) {
                         requiredCount[item.id] = 0;
                     }
@@ -85,14 +85,14 @@ export function getRequiredQuestItems(quest, itemFilter = false) {
             });
             for (const id of Object.keys(requiredCount)) {
                 if (requiredCount[id] === objectiveData.wearing.length) {
-                    addItem(objectiveData.wearing[0].find(item => item.id === id));
+                    addItem(objectiveData.wearing[0].find((item) => item.id === id));
                 }
             }
         }
     });
 
-    quest.neededKeys?.forEach(taskKey => {
-        taskKey.keys.forEach(key => {
+    quest.neededKeys?.forEach((taskKey) => {
+        taskKey.keys.forEach((key) => {
             addItem(key);
         });
     });
@@ -119,19 +119,19 @@ export function getRewardQuestItems(quest, itemFilter = false) {
                 return;
             }
         }
-        let rew = rewardItems.find(rewItem => rewItem.item.id === item.id);
+        let rew = rewardItems.find((rewItem) => rewItem.item.id === item.id);
         if (!rew) {
             rew = {
                 item: item,
                 count: 0,
-                rewardType: rewardType
+                rewardType: rewardType,
             };
             rewardItems.push(rew);
         }
         rew.count += count;
     };
-    rewardTypes.forEach(rewardType => {
-        quest[rewardType].items.forEach(contained => {
+    rewardTypes.forEach((rewardType) => {
+        quest[rewardType].items.forEach((contained) => {
             addItem(contained.item, contained.count, rewardType);
         });
     });
@@ -153,7 +153,7 @@ function QuestTable({
     requiredItems,
     rewardItems,
     reputationRewards,
- }) {
+}) {
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
 
@@ -164,7 +164,7 @@ function QuestTable({
     const traders = useMemo(() => {
         return tradersResult.data;
     }, [tradersResult]);
-    
+
     const dispatch = useDispatch();
     const quests = useSelector(selectQuests);
     const questsStatus = useSelector((state) => {
@@ -189,67 +189,80 @@ function QuestTable({
     }, [questsStatus, dispatch]);
 
     const allQuestData = useMemo(() => {
-        return quests.map(rawQuest => {
-            const questData = {
-                ...rawQuest,
-                requiredItems: [],
-                rewardItems: [],
-            };
+        return quests
+            .map((rawQuest) => {
+                const questData = {
+                    ...rawQuest,
+                    requiredItems: [],
+                    rewardItems: [],
+                };
 
-            if (reputationRewards) {
-                questData.totalRepReward = rawQuest.finishRewards.traderStanding?.reduce((total, current) => {
-                    total += current.standing;
-                    return Math.round(total * 100) / 100;
-                }, 0);
-            }
-
-            if (requiredItemFilter || requiredItems) {
-                questData.requiredItems = getRequiredQuestItems(rawQuest, requiredItemFilter).map(req => {
-                    return {
-                        ...req,
-                        item: items.find(i => i.id === req.item.id)
-                    };
-                });
-                if (requiredItemFilter && questData.requiredItems.length === 0) {
-                    return false;
+                if (reputationRewards) {
+                    questData.totalRepReward = rawQuest.finishRewards.traderStanding?.reduce(
+                        (total, current) => {
+                            total += current.standing;
+                            return Math.round(total * 100) / 100;
+                        },
+                        0,
+                    );
                 }
-            }
 
-            if (rewardItemFilter || rewardItems) {
-                questData.rewardItems = getRewardQuestItems(rawQuest, rewardItemFilter).map(rew => {
-                    const foundItem = items.find(i => i.id === rew.item.id);
-                    if (!foundItem) {
+                if (requiredItemFilter || requiredItems) {
+                    questData.requiredItems = getRequiredQuestItems(
+                        rawQuest,
+                        requiredItemFilter,
+                    ).map((req) => {
+                        return {
+                            ...req,
+                            item: items.find((i) => i.id === req.item.id),
+                        };
+                    });
+                    if (requiredItemFilter && questData.requiredItems.length === 0) {
                         return false;
                     }
-                    const contained = rew.item.containsItems;
-                    const mapped = {
-                        ...rew,
-                        item: {
-                            ...foundItem,
-                            containsItems: contained,
-                        },
-                    };
-                    return mapped;
-                }).filter(Boolean);
-                if (rewardItemFilter && questData.rewardItems.length === 0) {
+                }
+
+                if (rewardItemFilter || rewardItems) {
+                    questData.rewardItems = getRewardQuestItems(rawQuest, rewardItemFilter)
+                        .map((rew) => {
+                            const foundItem = items.find((i) => i.id === rew.item.id);
+                            if (!foundItem) {
+                                return false;
+                            }
+                            const contained = rew.item.containsItems;
+                            const mapped = {
+                                ...rew,
+                                item: {
+                                    ...foundItem,
+                                    containsItems: contained,
+                                },
+                            };
+                            return mapped;
+                        })
+                        .filter(Boolean);
+                    if (rewardItemFilter && questData.rewardItems.length === 0) {
+                        return false;
+                    }
+                }
+
+                if (giverFilter && giverFilter !== 'all') {
+                    if (questData.trader.normalizedName !== giverFilter) {
+                        return false;
+                    }
+                }
+
+                if (
+                    nameFilter &&
+                    !questData.name.toLowerCase().includes(nameFilter.toLowerCase())
+                ) {
                     return false;
                 }
-            }
 
-            if (giverFilter && giverFilter !== 'all') {
-                if (questData.trader.normalizedName !== giverFilter) {
-                    return false;
-                }
-            }
-
-            if (nameFilter && !questData.name.toLowerCase().includes(nameFilter.toLowerCase())) {
-                return false
-            }
-
-            return questData;
-        }).filter(Boolean);
+                return questData;
+            })
+            .filter(Boolean);
     }, [
-        quests, 
+        quests,
         items,
         giverFilter,
         nameFilter,
@@ -261,29 +274,33 @@ function QuestTable({
     ]);
 
     const shownQuests = useMemo(() => {
-        return allQuestData.filter(quest => {
+        return allQuestData.filter((quest) => {
             if (!hideCompleted && !hideLocked) {
                 return true;
             }
 
             let completedPassed = true;
             if (hideCompleted) {
-                completedPassed = !settings.completedQuests.some(taskId => taskId === quest.id);
+                completedPassed = !settings.completedQuests.some((taskId) => taskId === quest.id);
             }
 
             let lockedPassed = true;
             if (hideLocked) {
-                for (const req of quest.traderRequirements.filter(req => req.requirementType === 'level')) {
-                    const trader = traders.find(t => t.id === req.trader.id);
+                for (const req of quest.traderRequirements.filter(
+                    (req) => req.requirementType === 'level',
+                )) {
+                    const trader = traders.find((t) => t.id === req.trader.id);
                     if (settings[trader.normalizedName] < req.value) {
                         lockedPassed = false;
                         break;
                     }
                 }
                 for (const req of quest.taskRequirements) {
-                    const questReq = allQuestData.find(q => q.id === req.task.id);
+                    const questReq = allQuestData.find((q) => q.id === req.task.id);
                     if (req.status.includes('complete')) {
-                        const isComplete = settings.completedQuests.some(taskId => taskId === questReq.id);
+                        const isComplete = settings.completedQuests.some(
+                            (taskId) => taskId === questReq.id,
+                        );
                         if (!isComplete) {
                             lockedPassed = false;
                             break;
@@ -294,13 +311,7 @@ function QuestTable({
 
             return completedPassed && lockedPassed;
         });
-    }, [
-        settings,
-        allQuestData,
-        traders,
-        hideCompleted,
-        hideLocked,
-    ]);
+    }, [settings, allQuestData, traders, hideCompleted, hideLocked]);
 
     const columns = useMemo(() => {
         const useColumns = [
@@ -313,29 +324,26 @@ function QuestTable({
                     let completedIcon = '';
                     if (settings.completedQuests.includes(questData.id)) {
                         completedIcon = (
-                            <Icon
-                                path={mdiClipboardCheck}
-                                size={1}
-                                className="icon-with-text"
-                            />
+                            <Icon path={mdiClipboardCheck} size={1} className="icon-with-text" />
                         );
                     }
                     return (
                         <div className="quest-link-wrapper">
                             <TraderImage
                                 trader={questData.trader}
-                                style={{marginRight: '10px'}}
+                                style={{ marginRight: '10px' }}
                             />
-                            <Link
-                                to={`/task/${questData.normalizedName}`}
-                            >
-                                {questData.name} {questData.factionName !== 'Any' ? ` (${questData.factionName})` : ''}
+                            <Link to={`/task/${questData.normalizedName}`}>
+                                {questData.name}{' '}
+                                {questData.factionName !== 'Any'
+                                    ? ` (${questData.factionName})`
+                                    : ''}
                             </Link>
                             {completedIcon}
                         </div>
                     );
                 },
-            }
+            },
         ];
 
         if (requiredItems) {
@@ -347,11 +355,7 @@ function QuestTable({
                 },
                 Cell: (props) => {
                     const questData = props.row.original;
-                    return (
-                        <QuestItemsCell
-                            questItems={questData.requiredItems}
-                        />
-                    );
+                    return <QuestItemsCell questItems={questData.requiredItems} />;
                 },
                 position: requiredItems,
             });
@@ -366,11 +370,7 @@ function QuestTable({
                 },
                 Cell: (props) => {
                     const questData = props.row.original;
-                    return (
-                        <QuestItemsCell
-                            questItems={questData.rewardItems}
-                        />
-                    );
+                    return <QuestItemsCell questItems={questData.rewardItems} />;
                 },
                 position: rewardItems,
             });
@@ -381,16 +381,20 @@ function QuestTable({
                 Header: t('Required tasks'),
                 id: 'questRequirements',
                 accessor: (questData) => {
-                    return quests.find(quest => quest.id === questData.taskRequirements[0]?.task.id)?.name;
+                    return quests.find(
+                        (quest) => quest.id === questData.taskRequirements[0]?.task.id,
+                    )?.name;
                 },
                 Cell: (props) => {
                     const questData = props.row.original;
-                    return questData.taskRequirements.map(req => {
-                        const reqQuest = quests.find(quest => quest.id === req.task.id);
-                        if (!reqQuest)
-                            return null;
+                    return questData.taskRequirements.map((req) => {
+                        const reqQuest = quests.find((quest) => quest.id === req.task.id);
+                        if (!reqQuest) return null;
                         let completedIcon = '';
-                        if (req.status.includes('complete') && settings.completedQuests.includes(questData.id)) {
+                        if (
+                            req.status.includes('complete') &&
+                            settings.completedQuests.includes(questData.id)
+                        ) {
                             completedIcon = (
                                 <Icon
                                     path={mdiClipboardCheck}
@@ -399,7 +403,11 @@ function QuestTable({
                                 />
                             );
                         }
-                        if (req.status.length === 1 && req.status[0] === 'active' && settings.completedQuests.includes(questData.id)) {
+                        if (
+                            req.status.length === 1 &&
+                            req.status[0] === 'active' &&
+                            settings.completedQuests.includes(questData.id)
+                        ) {
                             completedIcon = (
                                 <Icon
                                     path={mdiClipboardRemove}
@@ -410,10 +418,11 @@ function QuestTable({
                         }
                         return (
                             <div key={`quest-req-${req.task.id}`}>
-                                <Link
-                                    to={`/task/${reqQuest.normalizedName}`}
-                                >
-                                    {reqQuest.name}{reqQuest.factionName !== 'Any' ? ` (${reqQuest.factionName})` : ''}
+                                <Link to={`/task/${reqQuest.normalizedName}`}>
+                                    {reqQuest.name}
+                                    {reqQuest.factionName !== 'Any'
+                                        ? ` (${reqQuest.factionName})`
+                                        : ''}
                                 </Link>
                                 <span>
                                     {`: ${
@@ -422,7 +431,7 @@ function QuestTable({
                                         // t('succeeded')
                                         // t('complete')
                                         // t('failed')
-                                        req.status.map(status => t(status)).join(', ')
+                                        req.status.map((status) => t(status)).join(', ')
                                     }`}
                                     {completedIcon}
                                 </span>
@@ -454,9 +463,7 @@ function QuestTable({
                     if (!props.value) {
                         return '';
                     }
-                    return (
-                        <CenterCell value={props.value}/>
-                    );
+                    return <CenterCell value={props.value} />;
                 },
                 position: minimumLevel,
             });
@@ -467,11 +474,18 @@ function QuestTable({
                 Header: t('Minimum trader level'),
                 id: 'minimumTraderLevel',
                 accessor: (questData) => {
-                    return questData.traderRequirements.filter(req => req.requirementType === 'level')[0]?.value;
+                    return questData.traderRequirements.filter(
+                        (req) => req.requirementType === 'level',
+                    )[0]?.value;
                 },
                 Cell: (props) => {
                     return (
-                        <CenterCell value={props.row.original.traderRequirements.filter(req => req.requirementType === 'level').map(req => req.value).join(', ')}/>
+                        <CenterCell
+                            value={props.row.original.traderRequirements
+                                .filter((req) => req.requirementType === 'level')
+                                .map((req) => req.value)
+                                .join(', ')}
+                        />
                     );
                 },
                 position: minimumTraderLevel,
@@ -487,15 +501,19 @@ function QuestTable({
                     return a.original.totalRepReward - b.original.totalRepReward;
                 },
                 Cell: (props) => {
-                    return <CenterCell>
-                        {props.row.original.finishRewards.traderStanding.map(reward => {
-                            const trader = traders.find(t => t.id === reward.trader.id);
-                            return <TraderImage
-                                trader={trader}
-                                reputationChange={reward.standing}
-                            />
-                        })}
-                    </CenterCell>;
+                    return (
+                        <CenterCell>
+                            {props.row.original.finishRewards.traderStanding.map((reward) => {
+                                const trader = traders.find((t) => t.id === reward.trader.id);
+                                return (
+                                    <TraderImage
+                                        trader={trader}
+                                        reputationChange={reward.standing}
+                                    />
+                                );
+                            })}
+                        </CenterCell>
+                    );
                 },
                 position: reputationRewards,
             });
@@ -510,7 +528,7 @@ function QuestTable({
                     position = 1;
                 }
                 if (position >= useColumns.length) {
-                    position = useColumns.length-1;
+                    position = useColumns.length - 1;
                 }
                 if (position !== i && !claimedPositions.includes(position)) {
                     //console.log(`Moving ${column.Header} from ${i} to ${position}`);

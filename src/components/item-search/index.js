@@ -10,13 +10,7 @@ import itemSearch from '../../modules/item-search';
 import './index.css';
 import { useItemsQuery } from '../../features/items/queries';
 
-function ItemSearch({
-    defaultValue,
-    onChange,
-    placeholder,
-    autoFocus,
-    showDropdown,
-}) {
+function ItemSearch({ defaultValue, onChange, placeholder, autoFocus, showDropdown }) {
     const { data: items } = useItemsQuery();
     const { t } = useTranslation();
 
@@ -69,9 +63,7 @@ function ItemSearch({
 
     useEffect(() => {
         if (upPress) {
-            setCursor((prevState) =>
-                prevState > 0 ? prevState - 1 : prevState,
-            );
+            setCursor((prevState) => (prevState > 0 ? prevState - 1 : prevState));
         }
     }, [upPress]);
 
@@ -94,7 +86,9 @@ function ItemSearch({
                     avg24hPrice: itemData.avg24hPrice,
                     lastLowPrice: itemData.lastLowPrice,
                     // iconLink: `https://assets.tarkov.dev/${itemData.id}-icon.jpg`,
-                    iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+                    iconLink:
+                        itemData.iconLink ||
+                        `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                     instaProfit: 0,
                     itemLink: `/item/${itemData.normalizedName}`,
                     types: itemData.types,
@@ -106,7 +100,8 @@ function ItemSearch({
                 );
 
                 if (buyOnFleaPrice) {
-                    formattedItem.instaProfit = itemData.sellForTradersBest.priceRUB - buyOnFleaPrice.price;
+                    formattedItem.instaProfit =
+                        itemData.sellForTradersBest.priceRUB - buyOnFleaPrice.price;
                 }
 
                 return formattedItem;
@@ -164,11 +159,7 @@ function ItemSearch({
                                 key={`search-result-wrapper-${item.id}`}
                                 to={`${item.itemLink}`}
                             >
-                                <img
-                                    alt={`${item.name}`}
-                                    loading="lazy"
-                                    src={item.iconLink}
-                                />
+                                <img alt={`${item.name}`} loading="lazy" src={item.iconLink} />
                                 {item.name}
                             </Link>
                         );

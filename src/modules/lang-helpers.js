@@ -9,7 +9,7 @@ export function langCode() {
     }
 
     // Convert to two digit language code
-    const langFmt = i18n.language.replace(/-[a-zA-Z]{2}/, "");
+    const langFmt = i18n.language.replace(/-[a-zA-Z]{2}/, '');
 
     // Check if the language is supported
     if (languages.includes(langFmt)) {
@@ -18,4 +18,4 @@ export function langCode() {
         // If the language is not supported, fall back to en
         return 'en';
     }
-};
+}

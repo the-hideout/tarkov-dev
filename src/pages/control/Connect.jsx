@@ -2,15 +2,12 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    enableConnection,
-    setControlId,
-} from '../../features/sockets/socketsSlice';
+import { enableConnection, setControlId } from '../../features/sockets/socketsSlice';
 import { useTranslation } from 'react-i18next';
 
 function Connect() {
     const { t } = useTranslation();
-    
+
     const [connectionText, setConnectionText] = useState(t('Connect'));
     const controlId = useSelector((state) => state.sockets.controlId);
     let navigate = useNavigate();
@@ -18,10 +15,7 @@ function Connect() {
     const dispatch = useDispatch();
 
     const handleIDChange = (event) => {
-        const tempConnectID = event.target.value
-            .trim()
-            .toUpperCase()
-            .substring(0, 4);
+        const tempConnectID = event.target.value.trim().toUpperCase().substring(0, 4);
         dispatch(setControlId(tempConnectID));
     };
 

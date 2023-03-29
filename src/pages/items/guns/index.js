@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import {mdiPistol} from '@mdi/js';
+import { mdiPistol } from '@mdi/js';
 
 import SEO from '../../../components/SEO';
 import { Filter, InputFilter, ToggleFilter } from '../../../components/filter';
@@ -11,9 +11,7 @@ import SmallItemTable from '../../../components/small-item-table';
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 
 function Guns() {
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
+    const defaultQuery = new URLSearchParams(window.location.search).get('search');
     const [showAllItemSources, setShowAllItemSources] = useState(false);
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const { t } = useTranslation();
@@ -34,29 +32,28 @@ function Guns() {
     );
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Guns')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={t('guns-page-description', 'This page includes a sortable table with information on the different types of guns available in the game, including their price, damage, accuracy, and other characteristics.')}
+            description={t(
+                'guns-page-description',
+                'This page includes a sortable table with information on the different types of guns available in the game, including their price, damage, accuracy, and other characteristics.',
+            )}
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className="page-headline-wrapper">
                 <h1>
                     {t('Escape from Tarkov')}
-                    <Icon path={mdiPistol} size={1.5} className="icon-with-text" /> 
+                    <Icon path={mdiPistol} size={1.5} className="icon-with-text" />
                     {t('Guns')}
                 </h1>
                 <Filter center>
                     <ToggleFilter
                         checked={showAllItemSources}
                         label={t('Ignore settings')}
-                        onChange={(e) =>
-                            setShowAllItemSources(!showAllItemSources)
-                        }
+                        onChange={(e) => setShowAllItemSources(!showAllItemSources)}
                         tooltipContent={
-                            <>
-                                {t('Shows all sources of items regardless of your settings')}
-                            </>
+                            <>{t('Shows all sources of items regardless of your settings')}</>
                         }
                     />
                     <InputFilter
@@ -81,7 +78,9 @@ function Guns() {
 
             <div className="page-wrapper items-page-wrapper">
                 <p>
-                    {"Your main tool for survival is a weapon. Almost all weapons are completely modular, allowing them to be customized for various scenarios. All of the weaponry used in Escape from Tarkov are listed on this page."}
+                    {
+                        'Your main tool for survival is a weapon. Almost all weapons are completely modular, allowing them to be customized for various scenarios. All of the weaponry used in Escape from Tarkov are listed on this page.'
+                    }
                 </p>
             </div>
         </div>,

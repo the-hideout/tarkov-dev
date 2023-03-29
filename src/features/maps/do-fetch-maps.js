@@ -49,15 +49,12 @@ const doFetchMaps = async (language, prebuild = false) => {
                 }
                 console.log(`Error in maps API query: ${error.message}`);
                 if (badItem) {
-                    console.log(badItem)
+                    console.log(badItem);
                 }
             }
         }
         // only throw error if this is for prebuild or data wasn't returned
-        if (
-            prebuild || !mapsData.data || 
-            !mapsData.data.maps || !mapsData.data.maps.length
-        ) {
+        if (prebuild || !mapsData.data || !mapsData.data.maps || !mapsData.data.maps.length) {
             return Promise.reject(new Error(mapsData.errors[0].message));
         }
     }
