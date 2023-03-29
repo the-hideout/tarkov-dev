@@ -3,10 +3,11 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import RewardImage from '../reward-image';
+import ItemImage from '../item-image';
 import formatPrice from '../../modules/format-price';
 import { isAnyDogtag, getDogTagCost } from '../../modules/dogtags';
 import { getCheapestItemPrice } from '../../modules/format-cost-items';
+import { getDurationDisplay } from '../../modules/format-duration';
 
 import Icon from '@mdi/react';
 import {
@@ -40,7 +41,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
     if (!barter) {
         return t('No barters found for this item');
     }
-    if (!barter.trader) {
+    if (!barter.trader && !barter.station) {
         // Should never happen
         return "Missing trader for this barter";
     }
@@ -50,9 +51,15 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
     }
 
     let titleElement = '';
-    let trader = `${barter.trader.name} ${t('LL{{level}}', { level: barter.level })}`;
+    let trader = barter.trader ? 
+        `${barter.trader.name} ${t('LL{{level}}', { level: barter.level })}` :
+        `${barter.station.name} ${barter.level}`;
 
     if (showTitle) {
+        const tipTitle = barter.trader ?
+            t('Barter at {{trader}}', { trader: trader }) : 
+            t('Craft at {{station}}', {station: trader});
+            
         titleElement = (
             <h3>
                 <Icon
@@ -60,7 +67,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
                     size={1}
                     className="icon-with-text"
                 />
-                {t('Barter at {{trader}}', { trader: trader })}
+                {tipTitle}
             </h3>
         );
         if (title) {
@@ -89,10 +96,16 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
                         className="barter-tooltip-item-wrapper"
                         key={`reward-tooltip-item-${requiredItem.item.id}`}
                     >
-                        <RewardImage
-                            count={requiredItem.count}
-                            iconLink={requiredItem.item.iconLink}
-                        />
+                        <div className="barter-required-item-image">
+                            <ItemImage
+                                item={requiredItem.item}
+                                attributes={requiredItem.attributes}
+                                count={requiredItem.count}
+                                imageField="iconLink"
+                                nonFunctionalOverlay={false}
+                                linkToItem={true}
+                            />
+                        </div>
                         <div className="barter-tooltip-details-wrapper">
                             <div>
                                 <Link
@@ -120,6 +133,12 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
                     </div>
                 );
             })}
+            {barter.station && <div
+                className="barter-tooltip-item-wrapper"
+                key={`reward-tooltip-details`}
+            >
+                {t('Crafts {{count}} in {{duration}}', {count: barter.rewardItems[0].count, duration: getDurationDisplay(barter.duration * 1000)})}
+            </div>}
         </div>
     );
 }

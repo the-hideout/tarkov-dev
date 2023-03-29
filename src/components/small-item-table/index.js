@@ -25,7 +25,7 @@ import ArrowIcon from '../../components/data-table/Arrow.js';
 
 import formatPrice from '../../modules/format-price';
 import itemSearch from '../../modules/item-search';
-import { getCheapestBarter } from '../../modules/format-cost-items';
+import { getCheapestBarter, getCheapestCraft } from '../../modules/format-cost-items';
 import { formatCaliber } from '../../modules/format-ammo';
 import itemCanContain from '../../modules/item-can-contain';
 
@@ -33,6 +33,10 @@ import {
     selectAllBarters,
     fetchBarters,
 } from '../../features/barters/bartersSlice';
+import {
+    selectAllCrafts,
+    fetchCrafts,
+} from '../../features/crafts/craftsSlice';
 import { useItemsQuery } from '../../features/items/queries';
 import { useMetaQuery } from '../../features/meta/queries';
 import CanvasGrid from '../../components/canvas-grid';
@@ -235,6 +239,7 @@ function SmallItemTable(props) {
         slotRatio,
         pricePerSlot,
         barterPrice,
+        craftPrice,
         fleaValue,
         hideBorders,
         autoScroll = true,
@@ -253,7 +258,7 @@ function SmallItemTable(props) {
         showContainedItems,
         weight,
         showNetPPS,
-        showAllSources,
+        showAllSources = false,
         cheapestPrice,
         sumColumns,
         idFilter,
@@ -294,8 +299,6 @@ function SmallItemTable(props) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
-    if (typeof showAllSources === 'undefined') 
-        showAllSources = true;
 
     // Use the primary items API query to fetch all items
     const result = useItemsQuery();
@@ -383,6 +386,59 @@ function SmallItemTable(props) {
         });
     }, [barterSelector, items]);
 
+    const craftSelector = useSelector(selectAllCrafts);
+    const craftsStatus = useSelector((state) => {
+        return state.crafts.status;
+    });
+
+    useEffect(() => {
+        if (!craftPrice && !cheapestPrice)
+            return;
+
+        let timer = false;
+        if (craftsStatus === 'idle') {
+            dispatch(fetchCrafts());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchCrafts());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [craftsStatus, craftPrice, cheapestPrice, dispatch]);
+
+    const crafts = useMemo(() => {
+        return craftSelector.map(c => {
+            return {
+                ...c,
+                requiredItems: c.requiredItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return false;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }).filter(Boolean),
+                rewardItems: c.rewardItems.map(req => {
+                    const matchedItem = items.find(it => it.id === req.item.id);
+                    if (!matchedItem) {
+                        return false;
+                    }
+                    return {
+                        ...req,
+                        item: matchedItem,
+                    };
+                }).filter(Boolean),
+            };
+        });
+    }, [craftSelector, items]);
+
     const containedItems = useMemo(() => {
         if (!containedInFilter) 
             return {};
@@ -412,7 +468,7 @@ function SmallItemTable(props) {
                         return false;
                     if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) 
                         return false;
-                    if (!showAllSources && settings.useTarkovTracker && !settings.completedQuests.includes(buyFor.vendor.taskUnlock?.id)) 
+                    if (!showAllSources && settings.useTarkovTracker && buyFor.vendor.taskUnlock && !settings.completedQuests.includes(buyFor.vendor.taskUnlock.id)) 
                         return false;
                     return true;
                 }),
@@ -429,8 +485,6 @@ function SmallItemTable(props) {
                     },
                 ),
                 grid: itemData.grid,
-                pricePerSlot: showNetPPS ? Math.floor(itemData.avg24hPrice / (itemData.properties.capacity - (itemData.width * itemData.height)))
-                              : itemData.avg24hPrice / itemData.properties.capacity,
                 ratio: (itemData.properties.capacity / (itemData.width * itemData.height)).toFixed(2),
                 size: itemData.properties.capacity,
                 slots: itemData.width * itemData.height,
@@ -447,6 +501,7 @@ function SmallItemTable(props) {
                 width: itemData.width,
                 height: itemData.height,
                 cached: itemData.cached,
+                pricePerSlot: 0,
             };
 
             formattedItem.sellForTradersBest = itemData.sellFor.reduce((best, sellFor) => {
@@ -478,15 +533,10 @@ function SmallItemTable(props) {
 
             if (formattedItem.barters.length > 0) {
                 formattedItem.cheapestBarter = getCheapestBarter(itemData, formattedItem.barters, settings, showAllSources);
-
-                if (formattedItem.cheapestBarter && (!itemData.avg24hPrice || formattedItem.cheapestBarter.price < itemData.avg24hPrice)) {
-                    formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.cheapestBarter.price / (itemData.properties.capacity - itemData.slots))
-                                                 : formattedItem.cheapestBarter.price / itemData.properties.capacity;
-                }
             }
             formattedItem.cheapestObtainPrice = Number.MAX_SAFE_INTEGER;
             formattedItem.cheapestObtainInfo = null;
-            if (formattedItem.cheapestBarter && settings.hasFlea) {
+            if (formattedItem.cheapestBarter && (settings.hasFlea || showAllSources)) {
                 //console.log(formattedItem.cheapestBarter.barter, settings[formattedItem.cheapestBarter.barter.trader.normalizedName]);
                 //if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel)
                 formattedItem.cheapestObtainPrice = formattedItem.cheapestBarter.price;
@@ -498,6 +548,13 @@ function SmallItemTable(props) {
                     formattedItem.cheapestObtainInfo = buyFor;
                 }
             }
+            if (!formattedItem.cheapestObtainInfo) {
+                const cheapestCraft = getCheapestCraft(itemData, crafts, settings, showAllSources);
+                if (cheapestCraft) {
+                    formattedItem.cheapestObtainInfo = cheapestCraft;
+                    formattedItem.cheapestObtainPrice = Math.round(cheapestCraft.price / cheapestCraft.count);
+                }
+            }
             if (formattedItem.cheapestObtainInfo === null) {
                 formattedItem.cheapestObtainPrice = 0;
             }
@@ -507,6 +564,11 @@ function SmallItemTable(props) {
                 if (thisTraderSell) {
                     formattedItem.buyback = thisTraderSell.priceRUB / formattedItem.cheapestObtainPrice;
                 }
+            }
+            
+            if (formattedItem.cheapestObtainPrice) {
+                formattedItem.pricePerSlot = showNetPPS ? Math.floor(formattedItem.cheapestObtainPrice / (itemData.properties.capacity - (itemData.width * itemData.height)))
+                              : formattedItem.cheapestObtainPrice / itemData.properties.capacity
             }
 
             formattedItem.count = containedItems[itemData.id] || 1;
@@ -852,6 +914,7 @@ function SmallItemTable(props) {
         loyaltyLevelFilter,
         traderBuybackFilter,
         barters,
+        crafts,
         excludeTypeFilter,
         typeLimit,
         minPropertyFilter,
@@ -892,6 +955,9 @@ function SmallItemTable(props) {
                 }
             }
         });
+        if (lowHyd === Number.MAX_SAFE_INTEGER) {
+            lowHyd = 0;
+        }
         return lowHyd;
     }, [
         data,
@@ -1075,7 +1141,7 @@ function SmallItemTable(props) {
                             content={
                                 <BarterTooltip
                                     barter={props.row.original.cheapestBarter?.barter}
-                                    showAllSources={showAllSources}
+                                    allowAllSources={showAllSources}
                                 />
                             }
                         >
@@ -1672,7 +1738,34 @@ function SmallItemTable(props) {
                                     barter={props.row.original.cheapestBarter.barter}
                                     showTitle={taskIcon !== ''}
                                     title={barterTipTitle}
-                                    showAllSources={showAllSources}
+                                    allowAllSources={showAllSources}
+                                />
+                            );
+                        } else if (cheapestObtainInfo.craft) {
+                            const craft = cheapestObtainInfo.craft;
+                            priceSource = `${craft.station.name} ${craft.level}`;
+                            let barterTipTitle = '';
+                            if (craft.taskUnlock) {
+                                taskIcon = (
+                                    <Icon
+                                        key="craft-task-tooltip-icon"
+                                        path={mdiClipboardList}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                );
+                                barterTipTitle = (
+                                    <Link to={`/task/${craft.taskUnlock.normalizedName}`}>
+                                        {t('Task: {{taskName}}', {taskName: craft.taskUnlock.name})}
+                                    </Link>
+                                );
+                            }
+                            tipContent = (
+                                <BarterTooltip
+                                    barter={craft}
+                                    showTitle={taskIcon !== ''}
+                                    title={barterTipTitle}
+                                    allowAllSources={showAllSources}
                                 />
                             );
                         }
@@ -1681,8 +1774,7 @@ function SmallItemTable(props) {
                         displayedPrice.push(taskIcon);
                         priceContent.push((<div key="price-info">{formatPrice(props.value*props.row.original.count)}</div>));
                         priceContent.push((<div key="price-source-info" className="trader-unlock-wrapper">{displayedPrice}</div>))
-                    } 
-                    else {
+                    } else {
                         tipContent = [];
                         if (props.row.original.types.includes('noFlea')) {
                             priceContent.push((
@@ -1698,8 +1790,21 @@ function SmallItemTable(props) {
                                     {t('This item can\'t be sold on the Flea Market')}
                                 </div>
                             ));
-                        } 
-                        else {
+                        } else if (!settings.hasFlea) {
+                            priceContent.push((
+                                <Icon
+                                    path={mdiCloseOctagon}
+                                    size={1}
+                                    className="icon-with-text"
+                                    key="no-prices-icon"
+                                />
+                            ));
+                            tipContent.push((
+                                <div key={'no-flea-tooltip'}>
+                                    {t('Flea Market not available')}
+                                </div>
+                            ));
+                        } else {
                             let tipText = t('Not scanned on the Flea Market');
                             let icon = mdiHelpRhombus;
                             if (props.row.original.cached) {
@@ -1826,6 +1931,7 @@ function SmallItemTable(props) {
         showPresets,
         showRestrictedType,
         attachmentMap,
+        settings,
     ]);
 
     let extraRow = false;
