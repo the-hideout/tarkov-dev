@@ -60,7 +60,7 @@ function getItemBarters(item, barters, settings, allowAllSources) {
             continue;
         }
 
-        if (!allowAllSources && settings.useTarkovTracker && !settings.completedQuests.includes[barter.taskUnlock?.id]) {
+        if (!allowAllSources && barter.taskUnlock && settings.useTarkovTracker && !settings.completedQuests.includes[barter.taskUnlock?.id]) {
             continue;
         }
 
@@ -175,6 +175,63 @@ function getCheapestItemPriceWithBarters(item, barters, settings, allowAllSource
     return bestPrice;
 }
 
+function getItemCrafts(item, crafts, settings, allowAllSources) {
+    return crafts.reduce((matchedCrafts, craft) => {
+        if (craft.rewardItems[0].item.id !== item.id) {
+            return matchedCrafts;
+        }
+
+        if (!allowAllSources && settings[craft.station.normalizedName] < craft.level) {
+            return matchedCrafts;
+        }
+
+        if (!allowAllSources && craft.taskUnlock && settings.useTarkovTracker && !settings.completedQuests.includes[craft.taskUnlock.id]) {
+            return matchedCrafts;
+        }
+
+        matchedCrafts.push(craft);
+        return matchedCrafts;
+    }, []);
+}
+
+function getCheapestCraft(item, crafts, settings, allowAllSources) {
+    const itemCrafts = getItemCrafts(item, crafts, settings, allowAllSources);
+    const bestPrice = itemCrafts.reduce((bestCraft, craft) => {
+        const thisCraftCost = craft.requiredItems.reduce(
+            (accumulatedPrice, requiredItem) => {
+                if (requiredItem.attributes.some(att => att.type === 'tool')) {
+                    return accumulatedPrice;
+                }
+                let price = getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB;
+                if (isAnyDogtag(requiredItem.item.id)) {
+                    if (settings.hideDogtagBarters) {
+                        return 0;
+                    }
+                    const dogtagCost = getDogTagCost(requiredItem, settings);
+                    price = dogtagCost.price;
+                }
+                return accumulatedPrice + (price * requiredItem.count);
+            },
+            0,
+        );
+        if (thisCraftCost && thisCraftCost < bestCraft.price) {
+            bestCraft.craft = craft;
+            bestCraft.price = thisCraftCost;
+            bestCraft.count = craft.rewardItems[0].count;
+        }
+        return bestCraft;
+    }, {
+        price: Number.MAX_SAFE_INTEGER,
+        type: 'craft',
+    });
+
+    if (!bestPrice.craft) {
+        return undefined;
+    }
+    bestPrice.priceRUB = bestPrice.price;
+    return bestPrice;
+}
+
 const formatCostItems = (
     itemsList,
     settings,
@@ -239,6 +296,6 @@ const formatCostItems = (
     });
 };
 
-export { formatCostItems, getItemBarters, getCheapestItemPrice, getCheapestItemPriceWithBarters, getCheapestBarter };
+export { formatCostItems, getItemBarters, getCheapestItemPrice, getCheapestItemPriceWithBarters, getCheapestBarter, getItemCrafts, getCheapestCraft };
 
 export default formatCostItems;
