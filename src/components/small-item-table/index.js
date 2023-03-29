@@ -1137,7 +1137,7 @@ function SmallItemTable(props) {
                 Cell: ({ value }) => {
                     return (
                         <Tippy
-                            content={t('The percent recovered if you buy this item and sell to the trader')}
+                            content={t('The percent recovered if you buy this item and sell it to the trader')}
                         >
                             <div className="center-content">
                                 {`${Math.floor((Math.round(value * 100) / 100) * 100)}%`}

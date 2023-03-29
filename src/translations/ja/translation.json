@@ -139,7 +139,7 @@
     "Sell to Flea": "蚤の市への販売",
     "Sell to Trader": "トレーダーへの販売",
     "Buyback ratio": "自己株式取得率",
-    "The percent recovered if you buy this item and sell to the trader": "このアイテムを購入し、トレーダーに売却した場合に回収されるパーセント",
+    "The percent recovered if you buy this item and sell it to the trader": "このアイテムを購入し、トレーダーに売却した場合に回収されるパーセント",
     "Grid": "グリッド",
     "Slots occupied": "占有するスロット",
     "Slots inside": "内スロット",
