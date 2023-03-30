@@ -33,7 +33,11 @@ function QuestItemsCell({ questItems }) {
                         <span>:</span> {questItem.count.toLocaleString()}
                     </div>
                     <div className="reward-type-wrapper">
-                        {t(rewardMap[questItem.rewardType])}
+                        {
+                            // t('On Task Completion')
+                            // t('On Task Start')
+                            t(rewardMap[questItem.rewardType])
+                        }
                     </div>
                 </div>
             </div>

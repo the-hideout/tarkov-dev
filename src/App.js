@@ -22,9 +22,10 @@ import Loading from './components/loading';
 
 import supportedLanguages from './data/supported-languages.json';
 
+import Menu from './components/menu';
+import Footer from './components/footer';
+
 const Map = React.lazy(() => import('./components/Map.jsx'));
-const Menu = React.lazy(() => import('./components/menu'));
-const Footer = React.lazy(() => import('./components/footer'));
 const ErrorPage = React.lazy(() => import('./components/error-page'));
 const Debug = React.lazy(() => import('./components/Debug'));
 
@@ -269,9 +270,7 @@ function App() {
                     <meta property="og:locale:alternate" content={lang} key={`meta-locale-alt-${lang}`} />
                 ))}
             </Helmet>
-            <Suspense fallback={<Loading />} key="suspense-menu-wrapper">
-                <Menu />
-            </Suspense>
+            <Menu />
             {/* <Suspense fallback={<Loading />}> */}
             <Routes>
                 <Route
@@ -846,9 +845,7 @@ function App() {
                 />
             </Routes>
             {/* </Suspense> */}
-            <Suspense fallback={<Loading />} key="suspense-footer-wrapper">
-                <Footer />
-            </Suspense>
+            <Footer />
         </div>
     );
 }
