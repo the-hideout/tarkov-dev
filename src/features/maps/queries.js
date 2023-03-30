@@ -12,6 +12,32 @@ import rawMapData from '../../data/maps.json';
 
 import i18n from '../../i18n';
 
+import {
+    mdiCity,
+    mdiWarehouse,
+    mdiFactory,
+    mdiStore24Hour,
+    mdiNeedle,
+    mdiLighthouse,
+    mdiTank,
+    mdiBeach,
+    mdiPineTree,
+    mdiEarthBox,
+} from '@mdi/js';
+
+export const mapIcons = {
+    'streets-of-tarkov': mdiCity,
+    'customs': mdiWarehouse,
+    'factory': mdiFactory,
+    'interchange': mdiStore24Hour,
+    'the-lab': mdiNeedle,
+    'lighthouse': mdiLighthouse,
+    'reserve': mdiTank,
+    'shoreline': mdiBeach,
+    'woods': mdiPineTree,
+    'openworld': mdiEarthBox,
+  };
+
 export const useMapsQuery = (queryOptions) => {
     const mapsQuery = useQuery('maps', () => doFetchMaps(langCode()), {
         refetchInterval: 600000,
