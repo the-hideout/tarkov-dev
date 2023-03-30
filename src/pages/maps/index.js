@@ -76,7 +76,7 @@ function Maps() {
                         .map((map) => {
                             const { displayText, key, imageThumb } = map;
                             return (
-                                <div className="map-wrapper" key={`map-wrapper-${key}`}>
+                                <div className="map-wrapper" key={`map-wrapper-${key}`} id={key}>
                                     <h3>{displayText}</h3>
                                     <Link to={`/map/${key}`}>
                                         <img

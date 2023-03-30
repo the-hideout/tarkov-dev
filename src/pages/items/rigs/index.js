@@ -85,7 +85,7 @@ function Rigs() {
                     />
                     <SliderFilter
                         defaultValue={25 - minSlots}
-                        label={t('Min. slots')}
+                        label={t('Min slots')}
                         min={0}
                         max={25}
                         marks={marks}
