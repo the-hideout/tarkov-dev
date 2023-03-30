@@ -14,11 +14,11 @@ const alertConfig = {
     alertLevel: 'info',
 
     // The text to display in the alert banner
-    text: 'This is a test alert banner',
+    text: 'If you enjoy using tarkov.dev, please consider donating to help keep it running. All donations go directly towards server costs and operational expenses. This banner will only be up for a week. Thank you! ❤️',
 
     linkEnabled: true,
-    linkText: 'This is a test link',
-    link: 'https://www.google.com',
+    linkText: 'Donate',
+    link: 'https://opencollective.com/tarkov-dev',
 }
 
 export default alertConfig
