@@ -11,7 +11,14 @@ const alertConfig = {
     },
 
     // set this variable to the severity of the alert banner
-    alertLevel: 'info'
+    alertLevel: 'info',
+
+    // The text to display in the alert banner
+    text: 'This is a test alert banner',
+
+    linkEnabled: true,
+    linkText: 'This is a test link',
+    link: 'https://www.google.com',
 }
 
 export default alertConfig

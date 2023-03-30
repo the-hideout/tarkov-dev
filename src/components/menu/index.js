@@ -95,7 +95,19 @@ const Menu = () => {
                             </IconButton>
                         }
                     >
-                        {"Notice: Flea market scanners are now fully online and live prices are being updated! 🎉"}
+                        {alertConfig.text}
+
+                        {alertConfig.linkEnabled === true && (
+                            <>
+                            <span>{' - '}</span>
+                            <Link
+                                to={alertConfig.link}
+                                style={{ color: 'inherit', textDecoration: 'underline' }}
+                            >
+                                {alertConfig.linkText}
+                            </Link>
+                            </>
+                        )}
                     </Alert>
                 </Collapse>
             </Box>
