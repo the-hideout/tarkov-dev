@@ -532,7 +532,7 @@ function SmallItemTable(props) {
             }
 
             if (formattedItem.barters.length > 0) {
-                formattedItem.cheapestBarter = getCheapestBarter(itemData, formattedItem.barters, settings, showAllSources);
+                formattedItem.cheapestBarter = getCheapestBarter(itemData, {barters: formattedItem.barters, settings, allowAllSources: showAllSources});
             }
             formattedItem.cheapestObtainPrice = Number.MAX_SAFE_INTEGER;
             formattedItem.cheapestObtainInfo = null;
@@ -549,7 +549,7 @@ function SmallItemTable(props) {
                 }
             }
             if (!formattedItem.cheapestObtainInfo) {
-                const cheapestCraft = getCheapestCraft(itemData, crafts, settings, showAllSources);
+                const cheapestCraft = getCheapestCraft(itemData, {crafts, settings, allowAllSources: showAllSources});
                 if (cheapestCraft) {
                     formattedItem.cheapestObtainInfo = cheapestCraft;
                     formattedItem.cheapestObtainPrice = Math.round(cheapestCraft.price / cheapestCraft.count);

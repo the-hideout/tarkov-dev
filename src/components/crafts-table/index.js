@@ -33,7 +33,7 @@ import { useQuestsQuery } from '../../features/quests/queries';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
-function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices, excludeBarterIngredients }) {
+function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices, useBarterIngredients, useCraftIngredients }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
@@ -107,9 +107,9 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     };
                 }).filter(Boolean),
             };
-        }).filter(() => !excludeBarterIngredients)
+        }).filter(() => useBarterIngredients)
         .filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
-    }, [barterSelector, items, excludeBarterIngredients]);
+    }, [barterSelector, items, useBarterIngredients]);
 
     const crafts = useMemo(() => {
         return craftSelector.map(c => {
@@ -300,22 +300,26 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     return false;
                 }
 
-                const costItems = formatCostItems(
-                    craftRow.requiredItems,
+                const costItems = formatCostItems(craftRow.requiredItems, {
                     settings,
                     barters,
+                    crafts: useCraftIngredients ? crafts : false,
                     freeFuel,
-                    showAll
-                );
+                    allowAllSources: showAll,
+                });
 
                 const craftDuration = Math.floor(
                     craftRow.duration - (craftRow.duration * (skills.crafting * 0.75)) / 100,
                 );
 
-                var costItemsWithoutTools = costItems.filter(costItem => costItem.isTool === false)
-                costItemsWithoutTools.map(
-                    (costItem) => (totalCost = totalCost + costItem.price * costItem.count),
-                );
+                var costItemsWithoutTools = costItems.filter(costItem => costItem.isTool === false);
+                costItemsWithoutTools.forEach((costItem) => {
+                    let pricePerUnit = costItem.price;
+                    if (costItem.priceDetails?.rewardItems) {
+                        pricePerUnit = Math.round(costItem.price / costItem.priceDetails.rewardItems[0].count);
+                    }
+                    totalCost = totalCost + pricePerUnit * costItem.count;
+                });
 
                 const craftRewardItem = craftRow.rewardItems[0].item;
 
@@ -500,6 +504,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         meta,
         settings,
         sortState,
+        useCraftIngredients,
     ]);
 
     const columns = useMemo(
@@ -533,7 +538,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     return aCostItems - bCostItems;
                 },
                 Cell: ({ value }) => {
-                    return <CostItemsCell costItems={value} />;
+                    return <CostItemsCell costItems={value} allowAllSources={showAll} barters={barters} crafts={crafts} />;
                 },
             },
             {
@@ -633,7 +638,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 },
             },
         ],
-        [t, includeFlea, selectedStation],
+        [t, includeFlea, selectedStation, showAll, crafts, barters],
     );
 
     let extraRow = false;

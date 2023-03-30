@@ -9,7 +9,7 @@ import './index.css';
 import { toggleItem as toggleCraftItem } from '../../features/crafts/craftsSlice';
 import { toggleItem as toggleBarterItem } from '../../features/barters/bartersSlice';
 
-function CostItemsCell({ costItems, craftId, barterId }) {
+function CostItemsCell({ costItems, craftId, barterId, allowAllSources = false, crafts, barters }) {
     const dispatch = useDispatch();
 
     return (
@@ -70,6 +70,9 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                                     vendor={costItem.vendor}
                                     priceType={costItem.priceType}
                                     isTool={costItem.isTool}
+                                    allowAllSources={allowAllSources}
+                                    barters={barters}
+                                    crafts={crafts}
                                 />
                             </div>
                         </div>

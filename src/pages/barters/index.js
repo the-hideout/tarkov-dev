@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiAccountSwitch } from '@mdi/js';
+import { mdiAccountSwitch, mdiProgressWrench } from '@mdi/js';
 
 import SEO from '../../components/SEO';
 import BartersTable from '../../components/barters-table';
@@ -33,6 +33,14 @@ function Barters() {
     );
     const [showAll, setShowAll] = useStateWithLocalStorage(
         'showAllBarters',
+        false,
+    );
+    const [includeBarterIngredients, setIncludeBarterIngredients] = useStateWithLocalStorage(
+        'includeBarterIngredients',
+        true,
+    );
+    const [includeCraftIngredients, setIncludeCraftIngredients] = useStateWithLocalStorage(
+        'includeCraftIngredients',
         false,
     );
     const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
@@ -134,6 +142,28 @@ function Barters() {
                             onClick={setSelectedTrader.bind(undefined, 'all')}
                         />
                     </ButtonGroupFilter>
+                    <ButtonGroupFilter>
+                        <ButtonGroupFilterButton
+                            tooltipContent={
+                                <>
+                                    {t('Use barters for item sources')}
+                                </>
+                            }
+                            selected={includeBarterIngredients}
+                            content={<Icon path={mdiAccountSwitch} size={1} className="icon-with-text"/>}
+                            onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
+                        />
+                        <ButtonGroupFilterButton
+                            tooltipContent={
+                                <>
+                                    {t('Use crafts for item sources')}
+                                </>
+                            }
+                            selected={includeCraftIngredients}
+                            content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text"/>}
+                            onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
+                        />
+                    </ButtonGroupFilter>
                     <InputFilter
                         defaultValue={nameFilter || ''}
                         label={t('Item filter')}
@@ -149,6 +179,8 @@ function Barters() {
                 selectedTrader={selectedTrader}
                 key="barters-page-barters-table"
                 showAll={showAll}
+                useBarterIngredients={includeBarterIngredients}
+                useCraftIngredients={includeCraftIngredients}
             />
 
             <div className="page-wrapper barters-page-wrapper">
