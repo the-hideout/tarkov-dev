@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { Trans, useTranslation } from 'react-i18next';
 
@@ -23,10 +24,8 @@ import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 import './index.css';
 
 function Barters() {
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
-    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [nameFilter, setNameFilter] = useState(searchParams.get('search') || '');
     const [selectedTrader, setSelectedTrader] = useStateWithLocalStorage(
         'selectedTrader',
         'all',
@@ -68,6 +67,10 @@ function Barters() {
     }, [tradersStatus, dispatch]);
 
     const { t } = useTranslation();
+
+    useEffect(() => {
+        setNameFilter(searchParams.get('search') || '');
+    }, [searchParams]);
 
     const traders = useMemo(() => {
         return allTraders.filter(trader => trader.normalizedName !== 'fence' && trader.normalizedName !== 'lightkeeper');
@@ -169,7 +172,9 @@ function Barters() {
                         label={t('Item filter')}
                         type={'text'}
                         placeholder={t('filter on item')}
-                        onChange={(e) => setNameFilter(e.target.value)}
+                        onChange={(e) => {
+                            setSearchParams({'search': e.target.value});
+                        }}
                     />
                 </Filter>
             </div>
