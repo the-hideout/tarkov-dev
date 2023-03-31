@@ -1,4 +1,5 @@
 //import { Suspense } from 'react';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
@@ -6,6 +7,12 @@ import {
     mdiCogOutline,
     mdiRemote,
 } from '@mdi/js';
+
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
 
 import MenuItem from './MenuItem';
 //import SubMenu from './SubMenu';
@@ -20,16 +27,14 @@ import { useBossDetails } from '../../features/bosses/queries';
 
 import { useMapImages } from '../../features/maps/queries';
 
+import alertConfig from './alert-config';
+
 import IntersectionObserverWrapper from './intersection-observer-wrapper';
 
 import './index.css';
 
-// Comment / uncomment for banner alert
-// import MuiAlert from '@material-ui/lab/Alert';
-// function Alert(props) {
-//     return <MuiAlert elevation={6} variant="filled" {...props} />;
-// }
-// End of banner alert toggle
+// automatically selects the alert color
+const alertColor = alertConfig.alertColors[alertConfig.alertLevel];
 
 const ammoTypes = caliberArrayWithSplit();
 
@@ -53,6 +58,7 @@ const Menu = () => {
         setIsOpen(!isOpen);
     };*/
     const { t } = useTranslation();
+    const [open, setOpen] = useStateWithLocalStorage('alertBanner', true);
 
     const mapImages = useMapImages();
     const uniqueMaps = Object.values(mapImages);
@@ -68,9 +74,44 @@ const Menu = () => {
 
     return (
         <>
-            {/* ALERT BANNER SECTION - uncomment the lines below to enable the alert banner */}
-            {/* severity can be 'error', 'info', 'success', or 'warning' */}
-            {/* <div><Alert severity="success">{"Notice: Flea market scanners are now fully online and live prices are being updated! 🎉"}</Alert></div> */}
+            {/* ALERT BANNER SECTION */}
+            {alertConfig?.alertEnabled && alertConfig.alertEnabled === true && (
+                <Box>
+                <Collapse in={open}>
+                    <Alert
+                        severity={alertConfig.alertLevel}
+                        variant='filled'
+                        sx={{ backgroundColor: `${alertColor} !important`, borderRadius: '0px !important' }}
+                        action={
+                            <IconButton
+                                aria-label="close"
+                                color="inherit"
+                                size="small"
+                                onClick={() => {
+                                    setOpen(false);
+                                }}
+                            >
+                                <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                        }
+                    >
+                        {alertConfig.text}
+
+                        {alertConfig.linkEnabled === true && (
+                            <>
+                            <span>{' - '}</span>
+                            <Link
+                                to={alertConfig.link}
+                                style={{ color: 'inherit', textDecoration: 'underline' }}
+                            >
+                                {alertConfig.linkText}
+                            </Link>
+                            </>
+                        )}
+                    </Alert>
+                </Collapse>
+            </Box>
+            )}
             {/* END ALERT BANNER SECTION */}
             <nav key="main-navigation" className="navigation">
                 <ul className={`menu`}>
