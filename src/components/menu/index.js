@@ -1,5 +1,5 @@
 //import { Suspense } from 'react';
-import * as React from 'react';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
@@ -58,7 +58,7 @@ const Menu = () => {
         setIsOpen(!isOpen);
     };*/
     const { t } = useTranslation();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = useStateWithLocalStorage('alertBanner', true);
 
     const mapImages = useMapImages();
     const uniqueMaps = Object.values(mapImages);
