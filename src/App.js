@@ -3,6 +3,7 @@ import React, { useEffect, useCallback, Suspense } from 'react';
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
+import CookieConsent from "react-cookie-consent";
 
 import './App.css';
 import i18n from './i18n';
@@ -271,6 +272,9 @@ function App() {
                 ))}
             </Helmet>
             <Menu />
+            <CookieConsent>
+                tarkov.dev uses cookies to enhance your experience. By continuing to use this site, you agree to the usage of cookies. Cookies are used to remember your settings and features that you enable.
+            </CookieConsent>
             {/* <Suspense fallback={<Loading />}> */}
             <Routes>
                 <Route
