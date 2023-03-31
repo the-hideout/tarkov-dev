@@ -1,5 +1,6 @@
 import React, { useState, useCallback, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 import { useTranslation } from 'react-i18next';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
@@ -10,7 +11,7 @@ import SEO from '../../components/SEO';
 import ItemIconList from '../../components/item-icon-list';
 import LoadingSmall from '../../components/loading-small';
 
-import { useMapImages } from '../../features/maps/queries';
+import { mapIcons, useMapImages } from '../../features/maps/queries';
 
 import Icon from '@mdi/react';
 import {
@@ -47,13 +48,30 @@ function Start() {
     const { t } = useTranslation();
 
     const mapImages = useMapImages();
-    const uniqueMaps = Object.values(mapImages);
-    uniqueMaps.sort((a, b) => {
+    // const uniqueMaps = Object.values(mapImages);
+    // uniqueMaps.sort((a, b) => {
+    //     if (a.normalizedName === 'openworld')
+    //         return 1;
+    //     if (b.normalizedName === 'openworld')
+    //         return -1;
+    //     return a.displayText.localeCompare(b.displayText);
+    // });
+    const uniqueMaps = Object.values(mapImages).reduce((maps, current) => {
+        if (!maps.some(storedMap => storedMap.normalizedName === current.normalizedName)) {
+            maps.push({
+                name: current.name,
+                normalizedName: current.normalizedName,
+                description: current.description,
+            });
+        }
+        return maps;
+    }, []);
+    uniqueMaps.sort((a, b) => { 
         if (a.normalizedName === 'openworld')
             return 1;
         if (b.normalizedName === 'openworld')
             return -1;
-        return a.displayText.localeCompare(b.displayText);
+        return a.name.localeCompare(b.name);
     });
 
     const handleNameFilterChange = useCallback(
@@ -221,10 +239,15 @@ function Start() {
                 </h3>
                 <ul key="maps-list">
                     {uniqueMaps.map((map) => (
-                        <li key={`map-link-${map.key}`}>
-                            <Link to={`/map/${map.key}`}>
-                                {map.displayText}
-                            </Link>
+                        <li key={`map-link-${map.normalizedName}`}>
+                            <HashLink to={`/maps#${map.normalizedName}`}>
+                                <Icon 
+                                    path={mapIcons[map.normalizedName]} 
+                                    size={1}
+                                    className="icon-with-text"
+                                />
+                                {map.name}
+                            </HashLink>
                         </li>
                     ))}
                 </ul>

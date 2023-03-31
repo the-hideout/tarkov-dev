@@ -6,7 +6,7 @@ import { mdiMap } from '@mdi/js';
 
 import SEO from '../../components/SEO';
 
-import { useMapImages } from '../../features/maps/queries';
+import { mapIcons, useMapImages } from '../../features/maps/queries';
 
 import './index.css';
 
@@ -51,7 +51,7 @@ function Maps() {
             </div>
             {uniqueMaps.map((mapsGroup) => {
                 return (
-                    <div key={mapsGroup.normalizedName}>
+                    <div key={mapsGroup.normalizedName} id={mapsGroup.normalizedName}>
                         <h2>
                             {
                                 // t('Streets of Tarkov')
@@ -66,6 +66,11 @@ function Maps() {
                                 // t('Openworld')
                                 mapsGroup.name
                             }
+                            <Icon 
+                                path={mapIcons[mapsGroup.normalizedName]} 
+                                size={1}
+                                className="icon-with-text"
+                            />
                         </h2>
                         <div className="page-wrapper map-page-wrapper">
                             {mapsGroup.description}
@@ -76,7 +81,7 @@ function Maps() {
                         .map((map) => {
                             const { displayText, key, imageThumb } = map;
                             return (
-                                <div className="map-wrapper" key={`map-wrapper-${key}`} id={key}>
+                                <div className="map-wrapper" key={`map-wrapper-${key}`}>
                                     <h3>{displayText}</h3>
                                     <Link to={`/map/${key}`}>
                                         <img
