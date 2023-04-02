@@ -8,4 +8,7 @@ on:
 jobs:
   combine-prs:
     uses: the-hideout/reusable-workflows/.github/workflows/combine-prs.yml@main
-    secrets: inherit
+    secrets:
+      COMBINE_PRS_APP_ID: ${{ secrets.COMBINE_PRS_APP_ID }}
+      COMBINE_PRS_PRIVATE_KEY: ${{ secrets.COMBINE_PRS_PRIVATE_KEY }}
+      fallback: ${{ secrets.GITHUB_TOKEN }} # fall back to the default token if the app token is not available
