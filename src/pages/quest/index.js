@@ -23,8 +23,8 @@ import './index.css';
 const intelCashMultiplier = {
     0: 1,
     1: 1.05,
-    2: 1.1,
-    3: 1.1,
+    2: 1.15,
+    3: 1.15,
 };
 
 function Quest() {
