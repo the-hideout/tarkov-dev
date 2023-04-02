@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Switch from 'react-switch';
 import Select from 'react-select';
 import Slider from 'rc-slider';
@@ -356,6 +356,7 @@ function SelectItemFilter({
 
 function InputFilter({
     defaultValue,
+    value = undefined,
     type = 'text',
     placeholder,
     onChange,
@@ -384,6 +385,7 @@ function InputFilter({
                 <input
                     className={`filter-input ${type}`}
                     defaultValue={defaultValue}
+                    value={value}
                     type={type}
                     inputMode={inputMode}
                     placeholder={placeholder}
@@ -398,11 +400,28 @@ function InputFilter({
 
 function Filter({ center, children, fullWidth }) {
     const [showFilter, setShowFilter] = useState(false);
+    const toggleButton = useRef();
+    useEffect(() => {
+        if (!toggleButton.current) {
+            return;
+        }
+        const intersectionObserver = new IntersectionObserver(entries => {
+            if (!toggleButton.current) {
+                return;
+            }
+            if (!entries[0].isIntersecting && showFilter) {
+                setShowFilter(false);
+            }
+        });
+        intersectionObserver.observe(toggleButton.current);
+        return () => intersectionObserver.disconnect();
+    }, [showFilter]);
     return [
         <div
             className={`filter-toggle-icon-wrapper`}
             key="filter-toggle-icon"
             onClick={(e) => setShowFilter(!showFilter)}
+            ref={toggleButton}
         >
             <Fab
                 style={{ backgroundColor: '#9a8866' }}
@@ -414,9 +433,9 @@ function Filter({ center, children, fullWidth }) {
             </Fab>
         </div>,
         <div
-            className={`filter-wrapper ${showFilter ? 'open' : ''} ${
-                center ? 'filter-wrapper-center' : ''
-            } ${fullWidth ? 'full-width' : ''}`}
+            className={`filter-wrapper${showFilter ? ' open' : ''}${
+                center ? ' filter-wrapper-center' : ''
+            }${fullWidth ? ' full-width' : ''}`}
             key="page-filter"
         >
             <div className={'filter-content-wrapper'}>

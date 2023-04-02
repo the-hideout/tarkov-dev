@@ -1,9 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiAccountSwitch } from '@mdi/js';
+import { mdiAccountSwitch, mdiProgressWrench } from '@mdi/js';
 
 import SEO from '../../components/SEO';
 import BartersTable from '../../components/barters-table';
@@ -23,16 +24,22 @@ import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 import './index.css';
 
 function Barters() {
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
-    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [nameFilter, setNameFilter] = useState(searchParams.get('search') || '');
     const [selectedTrader, setSelectedTrader] = useStateWithLocalStorage(
         'selectedTrader',
         'all',
     );
     const [showAll, setShowAll] = useStateWithLocalStorage(
         'showAllBarters',
+        false,
+    );
+    const [includeBarterIngredients, setIncludeBarterIngredients] = useStateWithLocalStorage(
+        'includeBarterIngredients',
+        true,
+    );
+    const [includeCraftIngredients, setIncludeCraftIngredients] = useStateWithLocalStorage(
+        'includeCraftIngredients',
         false,
     );
     const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
@@ -60,6 +67,10 @@ function Barters() {
     }, [tradersStatus, dispatch]);
 
     const { t } = useTranslation();
+
+    useEffect(() => {
+        setNameFilter(searchParams.get('search') || '');
+    }, [searchParams]);
 
     const traders = useMemo(() => {
         return allTraders.filter(trader => trader.normalizedName !== 'fence' && trader.normalizedName !== 'lightkeeper');
@@ -134,12 +145,36 @@ function Barters() {
                             onClick={setSelectedTrader.bind(undefined, 'all')}
                         />
                     </ButtonGroupFilter>
+                    <ButtonGroupFilter>
+                        <ButtonGroupFilterButton
+                            tooltipContent={
+                                <>
+                                    {t('Use barters for item sources')}
+                                </>
+                            }
+                            selected={includeBarterIngredients}
+                            content={<Icon path={mdiAccountSwitch} size={1} className="icon-with-text"/>}
+                            onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
+                        />
+                        <ButtonGroupFilterButton
+                            tooltipContent={
+                                <>
+                                    {t('Use crafts for item sources')}
+                                </>
+                            }
+                            selected={includeCraftIngredients}
+                            content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text"/>}
+                            onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
+                        />
+                    </ButtonGroupFilter>
                     <InputFilter
                         defaultValue={nameFilter || ''}
                         label={t('Item filter')}
                         type={'text'}
                         placeholder={t('filter on item')}
-                        onChange={(e) => setNameFilter(e.target.value)}
+                        onChange={(e) => {
+                            setSearchParams({'search': e.target.value});
+                        }}
                     />
                 </Filter>
             </div>
@@ -149,6 +184,8 @@ function Barters() {
                 selectedTrader={selectedTrader}
                 key="barters-page-barters-table"
                 showAll={showAll}
+                useBarterIngredients={includeBarterIngredients}
+                useCraftIngredients={includeCraftIngredients}
             />
 
             <div className="page-wrapper barters-page-wrapper">
