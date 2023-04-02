@@ -1,4 +1,5 @@
-import React, { useState, useCallback, lazy, Suspense } from 'react';
+import React, { useState, useCallback, useEffect, lazy, Suspense } from 'react';
+import { useSearchParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { useTranslation } from 'react-i18next';
@@ -41,10 +42,8 @@ const ItemSearch = lazy(() => import('../../components/item-search'));
 const BossList = lazy(() => import('../../components/boss-list'));
 
 function Start() {
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
-    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [nameFilter, setNameFilter] = useState(searchParams.get('search') || '');
     const { t } = useTranslation();
 
     const mapImages = useMapImages();
@@ -74,17 +73,21 @@ function Start() {
         return a.name.localeCompare(b.name);
     });
 
+    useEffect(() => {
+        setNameFilter(searchParams.get('search') || '');
+    }, [searchParams]);
+
     const handleNameFilterChange = useCallback(
         (value) => {
             if (typeof window !== 'undefined') {
                 // schedule this for the next loop so that the UI
                 // has time to update but we do the filtering as soon as possible
                 QueueBrowserTask.task(() => {
-                    setNameFilter(value);
+                    setSearchParams({'search': value});
                 });
             }
         },
-        [setNameFilter],
+        [setSearchParams],
     );
 
     const [loadMoreState, setLoadMoreState] = useState(false);
@@ -106,6 +109,7 @@ function Start() {
             <div className="start-section-wrapper item-section" key={'item-section-div'}>
                 <Suspense fallback={<LoadingSmall />} key={'item-search'}>
                     <ItemSearch
+                        defaultValue={nameFilter}
                         onChange={handleNameFilterChange}
                         autoFocus={true}
                         key={'item-search-box'}

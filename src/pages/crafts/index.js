@@ -1,9 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiProgressWrench, mdiCancel } from '@mdi/js';
+import { mdiProgressWrench, mdiCancel, mdiAccountSwitch } from '@mdi/js';
 
 import {
     selectAllCrafts,
@@ -25,25 +26,32 @@ import {
 import './index.css';
 
 function Crafts() {
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
-    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [nameFilter, setNameFilter] = useState(searchParams.get('search') || '');
+
     const [freeFuel, setFreeFuel] = useState(false);
     const [averagePrices, setAveragePrices] = useStateWithLocalStorage(
         'averageCraftingPrices',
-        false,
-    );
-    const [excludeBarterIngredients, setExcludeBarterIngredients] = useStateWithLocalStorage(
-        'excludeBarterIngredients',
         false,
     );
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
         'selectedStation',
         'top',
     );
+    const [includeBarterIngredients, setIncludeBarterIngredients] = useStateWithLocalStorage(
+        'includeBarterIngredients',
+        true,
+    );
+    const [includeCraftIngredients, setIncludeCraftIngredients] = useStateWithLocalStorage(
+        'includeCraftIngredients',
+        false,
+    );
     const [showAll, setShowAll] = useState(false);
     const { t } = useTranslation();
+
+    useEffect(() => {
+        setNameFilter(searchParams.get('search') || '');
+    }, [searchParams]);
 
     const dispatch = useDispatch();
     const crafts = useSelector(selectAllCrafts);
@@ -116,16 +124,6 @@ function Crafts() {
                             </>
                         }
                     />
-                    <ToggleFilter
-                        checked={excludeBarterIngredients}
-                        label={t('Exclude barters')}
-                        onChange={(e) => setExcludeBarterIngredients(!excludeBarterIngredients)}
-                        tooltipContent={
-                            <>
-                                {t('Exclude barter trades as item sources')}
-                            </>
-                        }
-                    />
                     <ButtonGroupFilter>
                         {stations.map((station) => {
                             return (
@@ -171,6 +169,28 @@ function Crafts() {
                             onClick={setSelectedStation.bind(undefined, 'banned')}
                         />
                     </ButtonGroupFilter>
+                    <ButtonGroupFilter>
+                        <ButtonGroupFilterButton
+                            tooltipContent={
+                                <>
+                                    {t('Use barters for item sources')}
+                                </>
+                            }
+                            selected={includeBarterIngredients}
+                            content={<Icon path={mdiAccountSwitch} size={1} className="icon-with-text"/>}
+                            onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
+                        />
+                        <ButtonGroupFilterButton
+                            tooltipContent={
+                                <>
+                                    {t('Use crafts for item sources')}
+                                </>
+                            }
+                            selected={includeCraftIngredients}
+                            content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text"/>}
+                            onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
+                        />
+                    </ButtonGroupFilter>
                     <ToggleFilter
                         checked={freeFuel}
                         label={t('Empty fuel')}
@@ -182,11 +202,13 @@ function Crafts() {
                         }
                     />
                     <InputFilter
-                        defaultValue={nameFilter || ''}
+                        value={nameFilter}
                         label={t('Item filter')}
                         type={'text'}
                         placeholder={t('filter on item')}
-                        onChange={(e) => setNameFilter(e.target.value)}
+                        onChange={(e) => {
+                            setSearchParams({'search': e.target.value});
+                        }}
                     />
                 </Filter>
             </div>
@@ -197,7 +219,8 @@ function Crafts() {
                 showAll={showAll}
                 averagePrices={averagePrices}
                 selectedStation={selectedStation}
-                excludeBarterIngredients={excludeBarterIngredients}
+                useBarterIngredients={includeBarterIngredients}
+                useCraftIngredients={includeCraftIngredients}
                 key="crafts-page-crafts-table"
             />
 

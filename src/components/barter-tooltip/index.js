@@ -6,17 +6,18 @@ import { Link } from 'react-router-dom';
 import ItemImage from '../item-image';
 import formatPrice from '../../modules/format-price';
 import { isAnyDogtag, getDogTagCost } from '../../modules/dogtags';
-import { getCheapestItemPrice } from '../../modules/format-cost-items';
+import { getCheapestPrice } from '../../modules/format-cost-items';
 import { getDurationDisplay } from '../../modules/format-duration';
 
 import Icon from '@mdi/react';
 import {
-    mdiAccountSwitch
+    mdiAccountSwitch,
+    mdiProgressWrench
 } from '@mdi/js';
 
 import './index.css';
 
-function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
+function BarterTooltip({ barter, showTitle = true, title, allowAllSources = false, crafts, barters }) {
     const settings = useSelector((state) => state.settings);
     const { t } = useTranslation();
 
@@ -30,13 +31,23 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
             return false;
         }
         return items.map(req => {
-            const cheapestPrice = getCheapestItemPrice(req.item, settings, allowAllSources);
+            const cheapestPrice = getCheapestPrice(req.item, {barters, crafts, settings, allowAllSources});
             return {
                 ...req,
                 cheapestPrice,
             };
         });
-    }, [barter, settings, allowAllSources]);
+    }, [barter, settings, allowAllSources, barters, crafts]);
+
+    const totalCost = useMemo(() => {
+        return requirements.reduce((total, req) => {
+            if (req.attributes.some(att => att.type === 'tool')) {
+                return total;
+            }
+            total += req.cheapestPrice.priceRUB * req.count;
+            return total;
+        }, 0);
+    }, [requirements]);
 
     if (!barter) {
         return t('No barters found for this item');
@@ -51,11 +62,12 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
     }
 
     let titleElement = '';
-    let trader = barter.trader ? 
-        `${barter.trader.name} ${t('LL{{level}}', { level: barter.level })}` :
-        `${barter.station.name} ${barter.level}`;
 
     if (showTitle) {
+        const trader = barter.trader ? 
+            `${barter.trader.name} ${t('LL{{level}}', { level: barter.level })}` :
+            `${barter.station.name} ${barter.level}`;
+
         const tipTitle = barter.trader ?
             t('Barter at {{trader}}', { trader: trader }) : 
             t('Craft at {{station}}', {station: trader});
@@ -63,7 +75,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
         titleElement = (
             <h3>
                 <Icon
-                    path={mdiAccountSwitch}
+                    path={barter.trader ? mdiAccountSwitch : mdiProgressWrench}
                     size={1}
                     className="icon-with-text"
                 />
@@ -91,6 +103,28 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
                     price = dogtagCost.price;
                     sourceName = dogtagCost.sourceNormalizedName;
                 }
+                let sourceImage = (
+                    <img
+                        alt={t('Barter')}
+                        className="barter-tooltip-icon"
+                        loading="lazy"
+                        src={`${process.env.PUBLIC_URL}/images/traders/${sourceName}-icon.jpg`}
+                    />
+                );
+                if (requiredItem.cheapestPrice.type === 'craft') {
+                    const craftInfo = t('Craft at {{stationName}} {{stationLevel}}', {stationName: requiredItem.cheapestPrice.craft.station.name, stationLevel: requiredItem.cheapestPrice.craft.level});
+                    sourceImage = (
+                        <Link to={`/hideout-profit/?search=${requiredItem.item.name}`}>
+                            <img
+                                alt={craftInfo}
+                                title={craftInfo}
+                                className="barter-tooltip-icon"
+                                loading="lazy"
+                                src={`${process.env.PUBLIC_URL}/images/stations/${sourceName}-icon.png`}
+                            />
+                        </Link>
+                    );
+                }
                 return (
                     <div
                         className="barter-tooltip-item-wrapper"
@@ -115,12 +149,17 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
                                 </Link>
                             </div>
                             <div className="price-wrapper">
-                                <img
-                                    alt={t('Barter')}
-                                    className="barter-tooltip-icon"
-                                    loading="lazy"
-                                    src={`${process.env.PUBLIC_URL}/images/traders/${sourceName}-icon.jpg`}
-                                />
+                                {sourceImage}
+                                {requiredItem.cheapestPrice.barter && 
+                                    <Link to={`/barters/?search=${requiredItem.item.name}`}>
+                                        <img
+                                            alt={t('Barter')}
+                                            className="item-cost-barter-icon"
+                                            loading="lazy"
+                                            src={`${process.env.PUBLIC_URL}/images/icon-barter.png`}
+                                        />
+                                    </Link>
+                                }
                                 {requiredItem.count} <span>X</span>{' '}
                                 {formatPrice(price)}{' '}
                                 <span>=</span>{' '}
@@ -137,7 +176,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources }) {
                 className="barter-tooltip-item-wrapper"
                 key={`reward-tooltip-details`}
             >
-                {t('Crafts {{count}} in {{duration}}', {count: barter.rewardItems[0].count, duration: getDurationDisplay(barter.duration * 1000)})}
+                {t('Crafts {{count}} in {{duration}} for {{totalCost}}', {count: barter.rewardItems[0].count, duration: getDurationDisplay(barter.duration * 1000), totalCost: formatPrice(totalCost)})}
             </div>}
         </div>
     );

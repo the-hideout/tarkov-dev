@@ -5,7 +5,7 @@ import { followCursor } from 'tippy.js';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
-import { mdiTimerSand, mdiCloseBox, mdiCheckboxMarked } from '@mdi/js';
+import { mdiTimerSand, mdiCloseBox, mdiCheckboxMarked, mdiProgressWrench } from '@mdi/js';
 
 import BarterTooltip from '../barter-tooltip';
 import formatPrice from '../../modules/format-price';
@@ -26,6 +26,9 @@ function ItemCost({
     priceType = 'cash',
     priceDetails,
     isTool,
+    allowAllSources = false,
+    crafts,
+    barters,
 }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -33,9 +36,16 @@ function ItemCost({
     const [customPrice, setCustomPrice] = useState(price);
     const [editingCustomPrice, setEditingCustomPrice] = useState(false);
 
+    const pricePerUnit = useMemo(() => {
+        if (!priceDetails?.rewardItems) {
+            return price;
+        }
+        return Math.round(price / priceDetails.rewardItems[0].count);
+    }, [price, priceDetails]);
+
     useEffect(() => {
-        setCustomPrice(price);
-    }, [price, setCustomPrice]);
+        setCustomPrice(pricePerUnit);
+    }, [pricePerUnit, setCustomPrice]);
 
     let { displayPrice, tooltip, displayImage} = useMemo(() => {
         let displayPrice = '';
@@ -59,7 +69,7 @@ function ItemCost({
             );
             tooltip = t('Flea market prices loading');
         } else if (isTool) {
-            displayPrice = `${count} x ${formatPrice(price)} = ${formatPrice(count * price)}`
+            displayPrice = `${count} x ${formatPrice(pricePerUnit)} = ${formatPrice(count * pricePerUnit)}`
         } else {
             displayPrice = (
                 <span>
@@ -70,7 +80,7 @@ function ItemCost({
                             setEditingCustomPrice(true);
                         }}
                     >
-                        {formatPrice(price)}{priceType === 'custom' ? '*' : ''}
+                        {formatPrice(pricePerUnit)}{priceType === 'custom' ? '*' : ''}
                     </span>
                     <span
                         className={`no-click${editingCustomPrice ? '' : ' hidden'}`}
@@ -117,12 +127,12 @@ function ItemCost({
                             }}
                         />
                     </span>
-                    <span>{` = ${formatPrice(count * price)}`}</span>
+                    <span>{` = ${formatPrice(count * pricePerUnit)}`}</span>
                 </span>
             );
         }
         return {displayPrice: displayPrice, tooltip: tooltip, displayImage: displayImage};
-    }, [dispatch, t, vendor, priceType, itemId, count, price, isTool, customPrice, setCustomPrice, editingCustomPrice, setEditingCustomPrice]);
+    }, [dispatch, t, vendor, priceType, itemId, count, pricePerUnit, isTool, customPrice, setCustomPrice, editingCustomPrice, setEditingCustomPrice]);
 
     if (priceType === 'barter') {
         displayImage = (
@@ -136,6 +146,25 @@ function ItemCost({
         tooltip = (
             <BarterTooltip
                 barter={priceDetails}
+                allowAllSources={allowAllSources}
+            />
+        );
+    }
+
+    if (priceType === 'craft') {
+        displayImage = (
+            <Icon
+                path={mdiProgressWrench}
+                size={0.60}
+                className="craft-barter-icon sno-click"
+            />
+        );
+        tooltip = (
+            <BarterTooltip
+                barter={priceDetails}
+                allowAllSources={allowAllSources}
+                barters={barters}
+                crafts={crafts}
             />
         );
     }

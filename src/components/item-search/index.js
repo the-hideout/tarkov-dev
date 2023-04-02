@@ -126,13 +126,15 @@ function ItemSearch({
         if (enterPress && data[cursor]) {
             navigate(data[cursor].itemLink);
             setCursor(0);
-            setNameFilter('');
+            //setNameFilter('');
         }
     }, [cursor, enterPress, data, navigate]);
 
     useEffect(() => {
         setCursor(0);
-        setNameFilter('');
+        if (!location.search) {
+            setNameFilter('');
+        }
     }, [location]);
 
     return (
