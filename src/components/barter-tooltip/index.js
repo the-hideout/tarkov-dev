@@ -40,6 +40,9 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
     }, [barter, settings, allowAllSources, barters, crafts]);
 
     const totalCost = useMemo(() => {
+        if (!requirements) {
+            return 0;
+        }
         return requirements.reduce((total, req) => {
             if (req.attributes.some(att => att.type === 'tool')) {
                 return total;
