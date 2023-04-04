@@ -44,7 +44,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
             if (req.attributes.some(att => att.type === 'tool')) {
                 return total;
             }
-            total += req.cheapestPrice.priceRUB * req.count;
+            total += req.cheapestPrice.pricePerUnit * req.count;
             return total;
         }, 0);
     }, [requirements]);
@@ -95,7 +95,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
             {titleElement}
             {requirements.map((requiredItem) => {
                 let itemName = requiredItem.item.name;
-                let price = requiredItem.cheapestPrice.priceRUB;
+                let price = requiredItem.cheapestPrice.pricePerUnit;
                 let sourceName = requiredItem.cheapestPrice.vendor.normalizedName;
                 if (isAnyDogtag(requiredItem.item.id)) {
                     const dogtagCost = getDogTagCost(requiredItem, settings);

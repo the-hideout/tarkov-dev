@@ -212,7 +212,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 id: 'costItems',
                 accessor: 'costItems',
                 Cell: ({ value }) => {
-                    return <CostItemsCell costItems={value} allowAllSources={showAll} />;
+                    return <CostItemsCell costItems={value} allowAllSources={showAll} barters={useBarterIngredients ? barters : false} crafts={useCraftIngredients ? crafts : false} />;
                 },
             },
             {
@@ -274,7 +274,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 },
             },
         ],
-        [t, showAll],
+        [t, showAll, useBarterIngredients, useCraftIngredients, barters, crafts],
     );
 
     const data = useMemo(() => {
