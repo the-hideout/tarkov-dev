@@ -62,14 +62,29 @@ function ItemImage({
             if (!refImage.current) {
                 return;
             }
+            if (refImage.current.width === imageDimensions.width && refImage.current.height === imageDimensions.height) {
+                return;
+            }
             setImageDimensions({
                 width: refImage.current.width,
                 height: refImage.current.height,
             });
         });
-        resizeObserver.observe(refImage.current);
-        return () => resizeObserver.disconnect();
-    }, []);
+        const intersectionObserver = new IntersectionObserver(entries => {
+            if (!refImage.current) {
+                return;
+            }
+            if (entries[0].isIntersecting) {
+                resizeObserver.observe(refImage.current);
+                intersectionObserver.disconnect();
+            }
+        });
+        intersectionObserver.observe(refImage.current);
+        return () => {
+            intersectionObserver.disconnect();
+            resizeObserver.disconnect();
+        };
+    }, [imageDimensions]);
 
     const loadingImage = useMemo(() => {
         if (!item.types?.includes('loading')) {

@@ -313,13 +313,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 );
 
                 var costItemsWithoutTools = costItems.filter(costItem => costItem.isTool === false);
-                costItemsWithoutTools.forEach((costItem) => {
-                    let pricePerUnit = costItem.price;
-                    if (costItem.priceDetails?.rewardItems) {
-                        pricePerUnit = Math.round(costItem.price / costItem.priceDetails.rewardItems[0].count);
-                    }
-                    totalCost = totalCost + pricePerUnit * costItem.count;
-                });
+                costItemsWithoutTools.forEach((costItem) => (totalCost += costItem.priceRUB * costItem.count));
 
                 const craftRewardItem = craftRow.rewardItems[0].item;
 
