@@ -195,7 +195,6 @@ function getCheapestCraft(item, {barters = [], crafts = [], settings = false, al
             bestCraft.craft = craft;
             bestCraft.price = thisCraftCost;
             bestCraft.count = craft.rewardItems[0].count;
-            bestCraft.vendor = craft.station;
             bestCraft.pricePerUnit = thisPricePerUnit;
         }
         return bestCraft;
