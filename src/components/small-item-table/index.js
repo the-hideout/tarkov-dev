@@ -836,7 +836,7 @@ function SmallItemTable(props) {
                     }
                     return linkedItem.properties.baseItem.id === item.properties?.baseItem?.id && linkedItem.id !== item.id;
                 }).sort((a, b) => {
-                    return a.name.localeCompare(b.name);
+                    return b.name.localeCompare(a.name);
                 }).map(item => formatItem(item));
             });
             returnData.sort((a, b) => {
