@@ -93,7 +93,6 @@ function getCheapestBarter(item, {barters = [], crafts = [], settings = false, a
     for (const barter of itemBarters) {
         const thisBarterCost = barter.requiredItems.reduce(
             (accumulatedPrice, requiredItem) => {
-                //let price = getCheapestCashPrice(requiredItem.item, settings, allowAllSources).priceRUB;
                 let price = !itemChain.includes(requiredItem.item.id) ? 
                     getCheapestPrice(requiredItem.item, {barters, crafts, settings, allowAllSources, itemChain}).pricePerUnit :
                     getCheapestCashPrice(requiredItem.item, settings, allowAllSources).priceRUB;
@@ -175,7 +174,6 @@ function getCheapestCraft(item, {barters = [], crafts = [], settings = false, al
                 if (requiredItem.attributes.some(att => att.type === 'tool')) {
                     return accumulatedPrice;
                 }
-                //let price = getCheapestCashPrice(requiredItem.item, settings, allowAllSources).priceRUB;
                 let price = !itemChain.includes(requiredItem.item.id) ? 
                     getCheapestPrice(requiredItem.item, {barters, crafts, settings, allowAllSources, itemChain}).pricePerUnit : 
                     getCheapestCashPrice(requiredItem.item, settings, allowAllSources).priceRUB;
@@ -258,7 +256,9 @@ const formatCostItems = (itemsList = [], {
         }); 
 
         if (requiredItem.item.priceCustom) {
+            bestPrice.price = requiredItem.priceCustom;
             bestPrice.priceRUB = requiredItem.item.priceCustom;
+            bestPrice.pricePerUnit = requiredItem.item.priceCustom;
             bestPrice.type = 'custom';
         }
         let calculationPrice = bestPrice.pricePerUnit;
