@@ -1679,7 +1679,6 @@ function SmallItemTable(props) {
                     const priceContent = [];
                     const cheapestObtainInfo = props.row.original.cheapestObtainInfo;
                     if (cheapestObtainInfo) {
-                        console.log(cheapestObtainInfo)
                         let priceSource = '';
                         const displayedPrice = [];
                         let taskIcon = '';
