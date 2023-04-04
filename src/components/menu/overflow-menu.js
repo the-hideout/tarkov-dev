@@ -30,6 +30,10 @@ export default function OverflowMenu({ children, className, visibilityMap }) {
         setMouseEntered(false);
     };
 
+    const handleItemClick = (event) => {
+      setAnchorEl(null);
+    };
+
     const shouldShowMenu = useMemo(() => 
         Object.values(visibilityMap).some((v) => v === false),
     [visibilityMap]);
@@ -70,7 +74,8 @@ export default function OverflowMenu({ children, className, visibilityMap }) {
           if (!visibilityMap[child.props["data-targetid"]]) {
             return (
               React.cloneElement(child, {
-                className: classnames(child.className, classes.inOverflowMenu)
+                className: classnames(child.className, classes.inOverflowMenu),
+                onClick: handleItemClick,
               })
             );
           }
