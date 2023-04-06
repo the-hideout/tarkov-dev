@@ -36,16 +36,9 @@ function ItemCost({
     const [customPrice, setCustomPrice] = useState(price);
     const [editingCustomPrice, setEditingCustomPrice] = useState(false);
 
-    const pricePerUnit = useMemo(() => {
-        if (!priceDetails?.rewardItems) {
-            return price;
-        }
-        return Math.round(price / priceDetails.rewardItems[0].count);
-    }, [price, priceDetails]);
-
     useEffect(() => {
-        setCustomPrice(pricePerUnit);
-    }, [pricePerUnit, setCustomPrice]);
+        setCustomPrice(price);
+    }, [price, setCustomPrice]);
 
     let { displayPrice, tooltip, displayImage} = useMemo(() => {
         let displayPrice = '';
@@ -69,7 +62,7 @@ function ItemCost({
             );
             tooltip = t('Flea market prices loading');
         } else if (isTool) {
-            displayPrice = `${count} x ${formatPrice(pricePerUnit)} = ${formatPrice(count * pricePerUnit)}`
+            displayPrice = `${count} x ${formatPrice(price)} = ${formatPrice(count * price)}`
         } else {
             displayPrice = (
                 <span>
@@ -80,7 +73,7 @@ function ItemCost({
                             setEditingCustomPrice(true);
                         }}
                     >
-                        {formatPrice(pricePerUnit)}{priceType === 'custom' ? '*' : ''}
+                        {formatPrice(price)}{priceType === 'custom' ? '*' : ''}
                     </span>
                     <span
                         className={`no-click${editingCustomPrice ? '' : ' hidden'}`}
@@ -127,12 +120,12 @@ function ItemCost({
                             }}
                         />
                     </span>
-                    <span>{` = ${formatPrice(count * pricePerUnit)}`}</span>
+                    <span>{` = ${formatPrice(count * price)}`}</span>
                 </span>
             );
         }
         return {displayPrice: displayPrice, tooltip: tooltip, displayImage: displayImage};
-    }, [dispatch, t, vendor, priceType, itemId, count, pricePerUnit, isTool, customPrice, setCustomPrice, editingCustomPrice, setEditingCustomPrice]);
+    }, [dispatch, t, vendor, priceType, itemId, count, price, isTool, customPrice, setCustomPrice, editingCustomPrice, setEditingCustomPrice]);
 
     if (priceType === 'barter') {
         displayImage = (

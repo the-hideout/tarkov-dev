@@ -40,11 +40,14 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
     }, [barter, settings, allowAllSources, barters, crafts]);
 
     const totalCost = useMemo(() => {
+        if (!requirements) {
+            return 0;
+        }
         return requirements.reduce((total, req) => {
             if (req.attributes.some(att => att.type === 'tool')) {
                 return total;
             }
-            total += req.cheapestPrice.priceRUB * req.count;
+            total += req.cheapestPrice.pricePerUnit * req.count;
             return total;
         }, 0);
     }, [requirements]);
@@ -95,8 +98,8 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
             {titleElement}
             {requirements.map((requiredItem) => {
                 let itemName = requiredItem.item.name;
-                let price = requiredItem.cheapestPrice.priceRUB;
-                let sourceName = requiredItem.cheapestPrice.vendor.normalizedName;
+                let price = requiredItem.cheapestPrice.pricePerUnit;
+                let sourceName = requiredItem.cheapestPrice.vendor?.normalizedName || requiredItem.cheapestPrice.craft.station.normalizedName;
                 if (isAnyDogtag(requiredItem.item.id)) {
                     const dogtagCost = getDogTagCost(requiredItem, settings);
                     itemName = dogtagCost.name;

@@ -548,7 +548,7 @@ function SmallItemTable(props) {
                     formattedItem.cheapestObtainInfo = buyFor;
                 }
             }
-            if (!formattedItem.cheapestObtainInfo) {
+            if (!formattedItem.cheapestObtainInfo && (settings.hasFlea || showAllSources)) {
                 const cheapestCraft = getCheapestCraft(itemData, {crafts, settings, allowAllSources: showAllSources});
                 if (cheapestCraft) {
                     formattedItem.cheapestObtainInfo = cheapestCraft;
@@ -836,7 +836,7 @@ function SmallItemTable(props) {
                     }
                     return linkedItem.properties.baseItem.id === item.properties?.baseItem?.id && linkedItem.id !== item.id;
                 }).sort((a, b) => {
-                    return a.name.localeCompare(b.name);
+                    return b.name.localeCompare(a.name);
                 }).map(item => formatItem(item));
             });
             returnData.sort((a, b) => {
@@ -1683,9 +1683,9 @@ function SmallItemTable(props) {
                         const displayedPrice = [];
                         let taskIcon = '';
                         let barterIcon = '';
-                        if (cheapestObtainInfo.vendor) {
+                        if (!cheapestObtainInfo.barter && !cheapestObtainInfo.craft) {
                             if (cheapestObtainInfo.vendor.normalizedName === 'flea-market') {
-                                priceSource = cheapestObtainInfo.vendor.name
+                                priceSource = cheapestObtainInfo.vendor.name;
                             }
                             else {
                                 priceSource = `${cheapestObtainInfo.vendor.name} ${t('LL{{level}}', { level: cheapestObtainInfo.vendor.minTraderLevel })}`;

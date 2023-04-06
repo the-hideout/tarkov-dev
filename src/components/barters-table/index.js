@@ -212,7 +212,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 id: 'costItems',
                 accessor: 'costItems',
                 Cell: ({ value }) => {
-                    return <CostItemsCell costItems={value} allowAllSources={showAll} />;
+                    return <CostItemsCell costItems={value} allowAllSources={showAll} barters={useBarterIngredients ? barters : false} crafts={useCraftIngredients ? crafts : false} />;
                 },
             },
             {
@@ -274,7 +274,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 },
             },
         ],
-        [t, showAll],
+        [t, showAll, useBarterIngredients, useCraftIngredients, barters, crafts],
     );
 
     const data = useMemo(() => {
@@ -413,9 +413,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                     crafts: useCraftIngredients ? crafts : false,
                     allowAllSources: showAll,
                 });
-                costItems.map(
-                    (costItem) => (cost = cost + costItem.price * costItem.count),
-                );
+                costItems.forEach((costItem) => (cost += costItem.pricePerUnit * costItem.count));
 
                 const barterRewardItem = barterRow.rewardItems[0].item;
 
@@ -477,10 +475,10 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
 
                 tradeData.savingsParts = [];
                 const cheapestPrice = getCheapestCashPrice(barterRewardItem, settings, showAll);
-                const cheapestBarter = getCheapestBarter(barterRewardItem, {barters, settings, allowAllSources: showAll});
+                const cheapestBarter = getCheapestBarter(barterRewardItem, {barters, crafts: useCraftIngredients ? crafts : false, settings, allowAllSources: showAll});
                 if (cheapestPrice.type === 'cash-sell'){
                     //this item cannot be purchased for cash
-                    if (cheapestBarter.priceRUB !== cost) {
+                    if (cheapestBarter?.priceRUB !== cost) {
                         tradeData.savingsParts.push({
                             name: `${cheapestBarter.vendor.name} ${t('LL{{level}}', { level: cheapestBarter.vendor.minTraderLevel })} ${t('Barter')}`,
                             value: cheapestBarter.priceRUB
