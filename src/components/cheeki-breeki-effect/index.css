@@ -1,0 +1,8 @@
+.cheeki-breeki {
+    display: flex;
+}
+
+.cheeki-breeki-button {
+    padding: .2rem;
+    border-radius: 4px;
+}

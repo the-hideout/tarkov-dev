@@ -210,6 +210,7 @@ function Settings() {
         setIsShown(current => !current);
         audio.play()
     };
+    // end cheeki breeki
 
     const wipeLength = getWipeData()[0].lengthDays;
     const estimatedAvgPlayerLevel = Math.round(30 * Math.atan(wipeLength / 38));
@@ -356,7 +357,7 @@ function Settings() {
             </div>
             {/* cheeki breeki */}
             <div>
-                <button style={{ padding: '.2rem', borderRadius: '4px' }} onClick={handleClick}>cheeki breeki</button>
+                <button className="cheeki-breeki-button" onClick={handleClick}>cheeki breeki</button>
                 {isShown && (
                     <CheekiBreekiEffect />
                 )}

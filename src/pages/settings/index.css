@@ -35,15 +35,6 @@
     color: #fff;
 }
 
-.cheeki-breeki {
-    display: flex;
-}
-
-.cheeki-breeki-button {
-    padding: .2rem;
-    border-radius: 4px;
-}
-
 @media screen and (min-width: 1280px) {
     .settings-group-wrapper {
         justify-content: flex-start;

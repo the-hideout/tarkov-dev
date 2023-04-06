@@ -27,12 +27,12 @@ import './index.css';
 function BossPage(params) {
     const { t } = useTranslation();
 
-    // cheeki breeki
-    const [isShown, setIsShown] = useState(false);
-
     const bosses = useBossDetails();
 
     const {data: items} = useItemsQuery();
+
+    // cheeki breeki
+    const [isShown, setIsShown] = useState(false);
 
     let audio = new Audio("/audio/killa.mp3")
     const handleClick = event => {
@@ -460,7 +460,7 @@ function BossPage(params) {
                             />
                             <p className='killa-party-time-text'>Warning: LOUD</p>
                         </h3>
-                        <button style={{ padding: '.2rem', borderRadius: '4px' }} onClick={handleClick}>cheeki breeki</button>
+                        <button className="cheeki-breeki-button" onClick={handleClick}>cheeki breeki</button>
                         {isShown && (
                             <CheekiBreekiEffect />
                         )}
