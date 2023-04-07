@@ -133,6 +133,10 @@ function Item() {
 
     const barters = useMemo(() => {
         return barterSelector.map(b => {
+            let taskUnlock = b.taskUnlock;
+            if (taskUnlock) {
+                taskUnlock = quests.find(t => t.id === taskUnlock.id);
+            }
             return {
                 ...b,
                 requiredItems: b.requiredItems.map(req => {
@@ -155,12 +159,17 @@ function Item() {
                         item: matchedItem,
                     };
                 }).filter(Boolean),
+                taskUnlock,
             };
-        });
+        }).filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
     }, [barterSelector, items]);
 
     const crafts = useMemo(() => {
         return craftSelector.map(c => {
+            let taskUnlock = c.taskUnlock;
+            if (taskUnlock) {
+                taskUnlock = quests.find(t => t.id === taskUnlock.id);
+            }
             return {
                 ...c,
                 requiredItems: c.requiredItems.map(req => {
@@ -172,7 +181,7 @@ function Item() {
                         ...req,
                         item: matchedItem,
                     };
-                }),
+                }).filter(Boolean),
                 rewardItems: c.rewardItems.map(req => {
                     const matchedItem = items.find(it => it.id === req.item.id);
                     if (!matchedItem) {
@@ -183,8 +192,9 @@ function Item() {
                         item: matchedItem,
                     };
                 }).filter(Boolean),
+                taskUnlock,
             };
-        });
+        }).filter(craft => craft.rewardItems.length > 0 && craft.requiredItems.length > 0);
     }, [craftSelector, items]);
 
     useEffect(() => {

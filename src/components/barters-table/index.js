@@ -103,9 +103,6 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                     };
                 }).filter(Boolean),
                 rewardItems: b.rewardItems.map(req => {
-                    if (!req) {
-                        console.log(b)
-                    }
                     const matchedItem = items.find(it => it.id === req.item.id);
                     if (!matchedItem) {
                         return false;
