@@ -403,13 +403,15 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 const cheapestBarter = getCheapestBarter(barterRewardItem, {barters, crafts: useCraftIngredients ? crafts : false, settings, allowAllSources: showAll});
                 if (cheapestPrice.type === 'cash-sell'){
                     //this item cannot be purchased for cash
-                    if (cheapestBarter && cheapestBarter.priceRUB !== cost) {
-                        tradeData.savingsParts.push({
-                            name: `${cheapestBarter.vendor.name} ${t('LL{{level}}', { level: cheapestBarter.vendor.minTraderLevel })} ${t('Barter')}`,
-                            value: cheapestBarter.priceRUB
-                        });
+                    if (cheapestBarter) {
+                        if (cheapestBarter.priceRUB !== cost) {
+                            tradeData.savingsParts.push({
+                                name: `${cheapestBarter.vendor.name} ${t('LL{{level}}', { level: cheapestBarter.vendor.minTraderLevel })} ${t('Barter')}`,
+                                value: cheapestBarter.priceRUB
+                            });
+                        }
+                        tradeData.savings = cheapestBarter.priceRUB - cost;
                     }
-                    tradeData.savings = cheapestBarter.priceRUB - cost;
                 } else {
                     // savings based on cheapest cash price
                     let sellerName = cheapestPrice.vendor.name;
