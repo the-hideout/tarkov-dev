@@ -99,6 +99,7 @@ const bartersSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchBarters.pending, (state, action) => {
             state.status = 'loading';
+            state.barters = bartersSlice.getInitialState().barters;
         });
         builder.addCase(fetchBarters.fulfilled, (state, action) => {
             state.status = 'succeeded';
@@ -118,4 +119,35 @@ export const { toggleItem, setItemCost, setRewardValue } = bartersSlice.actions;
 
 export default bartersSlice.reducer;
 
-export const selectAllBarters = (state) => state.barters.barters;
+export const selectAllBarters = (state) => {
+    return state.barters.barters.map(barter => {
+        let taskUnlock = barter.taskUnlock;
+        if (taskUnlock) {
+            taskUnlock = state.quests.quests.find(t => t.id === taskUnlock.id);
+        }
+        return {
+            ...barter,
+            requiredItems: barter.requiredItems.map(req => {
+                let matchedItem = state.items.items.find(it => it.id === req.item.id);
+                if (!matchedItem) {
+                    return false;
+                }
+                return {
+                    ...req,
+                    item: matchedItem,
+                };
+            }).filter(Boolean),
+            rewardItems: barter.rewardItems.map(req => {
+                const matchedItem = state.items.items.find(it => it.id === req.item.id);
+                if (!matchedItem) {
+                    return false;
+                }
+                return {
+                    ...req,
+                    item: matchedItem,
+                };
+            }).filter(Boolean),
+            taskUnlock: taskUnlock,
+        };
+    }).filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
+};

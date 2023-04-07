@@ -111,11 +111,11 @@ function Item() {
 
     const { data: meta } = useMetaQuery();
     const dispatch = useDispatch();
-    const barterSelector = useSelector(selectAllBarters);
+    const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
         return state.barters.status;
     });
-    const craftSelector = useSelector(selectAllCrafts);
+    const crafts = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
         return state.crafts.status;
     });
@@ -130,73 +130,6 @@ function Item() {
     const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
 
     const {data: items} = useItemsQuery();
-
-    const barters = useMemo(() => {
-        return barterSelector.map(b => {
-            let taskUnlock = b.taskUnlock;
-            if (taskUnlock) {
-                taskUnlock = quests.find(t => t.id === taskUnlock.id);
-            }
-            return {
-                ...b,
-                requiredItems: b.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                rewardItems: b.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                taskUnlock,
-
-            };
-        }).filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
-    }, [barterSelector, items, quests]);
-
-    const crafts = useMemo(() => {
-        return craftSelector.map(c => {
-            let taskUnlock = c.taskUnlock;
-            if (taskUnlock) {
-                taskUnlock = quests.find(t => t.id === taskUnlock.id);
-            }
-            return {
-                ...c,
-                requiredItems: c.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                rewardItems: c.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                taskUnlock,
-            };
-        }).filter(craft => craft.rewardItems.length > 0 && craft.requiredItems.length > 0);
-    }, [craftSelector, items, quests]);
 
     useEffect(() => {
         let timer = false;

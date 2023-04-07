@@ -5,6 +5,32 @@ import doFetchItems from './do-fetch-items';
 import { placeholderItems } from '../../modules/placeholder-data';
 import { langCode } from '../../modules/lang-helpers';
 
+const addPresets = (items) => {
+    return items.map(item => {
+        const newItem = {...item};
+        if (newItem.properties?.defaultPreset) {
+            newItem.properties = {...newItem.properties};
+            const preset = items.find(it => it.id === newItem.properties.defaultPreset.id);
+            if (preset) {
+                newItem.properties.defaultPreset = preset;
+            } else {
+                newItem.properties.defaultPreset = undefined;
+            }
+        }
+        if (newItem.properties?.presets) {
+            newItem.properties = {...newItem.properties};
+            newItem.properties.presets = newItem.properties.presets.reduce((presets, currentPreset) => {
+                const preset = items.find(it => it.id === currentPreset.id);
+                if (preset) {
+                    presets.push(preset);
+                }
+                return presets;
+            }, []);
+        }
+        return newItem;
+    });
+};
+
 const initialState = {
     items: placeholderItems(langCode()),
     status: 'idle',
@@ -29,12 +55,13 @@ const itemsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchItems.pending, (state, action) => {
             state.status = 'loading';
+            state.items = addPresets(itemsSlice.getInitialState().items);
         });
         builder.addCase(fetchItems.fulfilled, (state, action) => {
             state.status = 'succeeded';
-
-            if (!equal(state.items, action.payload)) {
-                state.items = action.payload;
+            const items = addPresets(action.payload);
+            if (!equal(state.items, items)) {
+                state.items = items;
             }
         });
         builder.addCase(fetchItems.rejected, (state, action) => {

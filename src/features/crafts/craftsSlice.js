@@ -92,6 +92,7 @@ const craftsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchCrafts.pending, (state, action) => {
             state.status = 'loading';
+            state.crafts = craftsSlice.getInitialState().crafts;
         });
         builder.addCase(fetchCrafts.fulfilled, (state, action) => {
             state.status = 'succeeded';
@@ -112,4 +113,40 @@ export const { toggleItem, setItemCost, setRewardValue } = craftsSlice.actions;
 
 export default craftsSlice.reducer;
 
-export const selectAllCrafts = (state) => state.crafts.crafts;
+export const selectAllCrafts = (state) => {
+    return state.crafts.crafts.map(craft => {
+        let taskUnlock = craft.taskUnlock;
+        if (taskUnlock) {
+            taskUnlock = state.quests.quests.find(t => t.id === taskUnlock.id);
+        }
+        return {
+            ...craft,
+            requiredItems: craft.requiredItems.map(req => {
+                let matchedItem = state.items.items.find(it => it.id === req.item.id);
+                if (matchedItem && matchedItem.types.includes('gun')) {
+                    if (req.attributes?.some(element => element.type === 'functional' && Boolean(element.value))) {
+                        matchedItem = state.items.items.find(it => it.id === matchedItem.properties?.defaultPreset?.id);
+                    }
+                }
+                if (!matchedItem) {
+                    return false;
+                }
+                return {
+                    ...req,
+                    item: matchedItem,
+                };
+            }).filter(Boolean),
+            rewardItems: craft.rewardItems.map(req => {
+                const matchedItem = state.items.items.find(it => it.id === req.item.id);
+                if (!matchedItem) {
+                    return false;
+                }
+                return {
+                    ...req,
+                    item: matchedItem,
+                };
+            }).filter(Boolean),
+            taskUnlock: taskUnlock,
+        };
+    }).filter(craft => craft.rewardItems.length > 0 && craft.requiredItems.length > 0);
+};

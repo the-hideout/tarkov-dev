@@ -37,7 +37,8 @@ import {
     selectAllCrafts,
     fetchCrafts,
 } from '../../features/crafts/craftsSlice';
-import { useItemsQuery } from '../../features/items/queries';
+import { fetchItems } from '../../features/items/itemsSlice';
+import { fetchQuests } from '../../features/quests/questsSlice';
 import { useMetaQuery } from '../../features/meta/queries';
 import CanvasGrid from '../../components/canvas-grid';
 
@@ -300,9 +301,6 @@ function SmallItemTable(props) {
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
 
-    // Use the primary items API query to fetch all items
-    const result = useItemsQuery();
-
     const { data: meta } = useMetaQuery();
     const { materialDestructibilityMap, materialRepairabilityMap } = useMemo(
         () => {
@@ -318,8 +316,29 @@ function SmallItemTable(props) {
         [meta]
     );
 
+    const itemsStatus = useSelector((state) => {
+        return state.items.status;
+    });
+
+    useEffect(() => {
+        let timer = false;
+        if (itemsStatus === 'idle') {
+            dispatch(fetchItems());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchItems());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [itemsStatus, dispatch]);
+
     // Create a constant of all data returned
-    const items = result.data;
+    const items = useSelector(state => state.items.items);
 
     const itemCount = items ? items.length : 0;
     const randomSeeds = useMemo(() => {
@@ -333,7 +352,7 @@ function SmallItemTable(props) {
         return seeds;
     },[itemCount, defaultRandom]);
 
-    const barterSelector = useSelector(selectAllBarters);
+    const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
         return state.barters.status;
     });
@@ -358,35 +377,7 @@ function SmallItemTable(props) {
         };
     }, [bartersStatus, barterPrice, cheapestPrice, dispatch]);
 
-    const barters = useMemo(() => {
-        return barterSelector.map(b => {
-            return {
-                ...b,
-                requiredItems: b.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                rewardItems: b.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-            };
-        });
-    }, [barterSelector, items]);
-
-    const craftSelector = useSelector(selectAllCrafts);
+    const crafts = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
         return state.crafts.status;
     });
@@ -411,33 +402,26 @@ function SmallItemTable(props) {
         };
     }, [craftsStatus, craftPrice, cheapestPrice, dispatch]);
 
-    const crafts = useMemo(() => {
-        return craftSelector.map(c => {
-            return {
-                ...c,
-                requiredItems: c.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                rewardItems: c.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-            };
-        });
-    }, [craftSelector, items]);
+    const questsStatus = useSelector((state) => {
+        return state.quests.status;
+    });
+
+    useEffect(() => {
+        let timer = false;
+        if (questsStatus === 'idle') {
+            dispatch(fetchQuests());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchQuests());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [questsStatus, dispatch]);
 
     const containedItems = useMemo(() => {
         if (!containedInFilter) 
@@ -1939,7 +1923,7 @@ function SmallItemTable(props) {
     // If there are no items returned by the API, we need to add a row to show
     if (data.length <= 0) {
         // If the API query has not yet completed
-        if (result.isFetched === false) {
+        if (itemsStatus.status === 'pending') {
             extraRow = <LoadingSmall />;
             // If the API query has completed, but no items were found
         } else {

@@ -14,7 +14,8 @@ import {
     selectAllBarters,
     fetchBarters,
 } from '../../features/barters/bartersSlice';
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
+import { fetchItems } from '../../features/items/itemsSlice';
+import { fetchQuests } from '../../features/quests/questsSlice';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
@@ -29,7 +30,6 @@ import RewardCell from '../reward-cell';
 import { getDurationDisplay } from '../../modules/format-duration';
 import bestPrice from '../../modules/best-price';
 import { useMetaQuery } from '../../features/meta/queries';
-import { useQuestsQuery } from '../../features/quests/queries';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
@@ -48,7 +48,6 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 
     const [sortState, setSortState] = useState([{id: 'profit', desc: true}]);
 
-    const items = useSelector(selectAllItems);
     const itemsStatus = useSelector((state) => {
         return state.items.status;
     });
@@ -70,84 +69,36 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         };
     }, [itemsStatus, dispatch]);
 
-    const craftSelector = useSelector(selectAllCrafts);
+    const questsStatus = useSelector((state) => {
+        return state.quests.status;
+    });
+
+    useEffect(() => {
+        let timer = false;
+        if (questsStatus === 'idle') {
+            dispatch(fetchQuests());
+        }
+
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchQuests());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [questsStatus, dispatch]);
+
+    const crafts = useSelector(selectAllCrafts);
     const craftsStatus = useSelector((state) => {
         return state.crafts.status;
     });
 
-    const barterSelector = useSelector(selectAllBarters);
+    const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
         return state.barters.status;
     });
-
-    const {data: tasks} = useQuestsQuery();
-
-    const barters = useMemo(() => {
-        return barterSelector.map(b => {
-            return {
-                ...b,
-                requiredItems: b.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                rewardItems: b.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-            };
-        }).filter(() => useBarterIngredients)
-        .filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
-    }, [barterSelector, items, useBarterIngredients]);
-
-    const crafts = useMemo(() => {
-        return craftSelector.map(c => {
-            let taskUnlock = c.taskUnlock;
-            if (taskUnlock) {
-                taskUnlock = tasks.find(t => t.id === taskUnlock.id);
-            }
-            return {
-                ...c,
-                requiredItems: c.requiredItems.map(req => {
-                    let matchedItem = items.find(it => it.id === req.item.id);
-                    if (matchedItem && matchedItem.types.includes('gun')) {
-                        if (req.attributes?.some(element => element.type === 'functional' && Boolean(element.value))) {
-                            matchedItem = items.find(it => it.id === matchedItem.properties?.defaultPreset?.id);
-                        }
-                    }
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                rewardItems: c.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                taskUnlock: taskUnlock,
-            };
-        }).filter(craft => craft.rewardItems.length > 0 && craft.rewardItems.length > 0);
-    }, [craftSelector, items, tasks]);
 
     const { data: meta } = useMetaQuery();
 
