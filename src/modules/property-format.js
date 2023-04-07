@@ -44,6 +44,13 @@ const formatter = (key, value) => {
         }
         value = value.value;
     } 
+    if (typeof value === 'object') {
+        if (Array.isArray(value)) {
+            value = [...value];
+        } else {
+            value = {...value};
+        }
+    }
 
     let displayKey = i18n.t(key, { ns: 'properties' })
 
