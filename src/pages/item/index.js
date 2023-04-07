@@ -160,9 +160,10 @@ function Item() {
                     };
                 }).filter(Boolean),
                 taskUnlock,
+
             };
         }).filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
-    }, [barterSelector, items]);
+    }, [barterSelector, items, quests]);
 
     const crafts = useMemo(() => {
         return craftSelector.map(c => {
@@ -195,7 +196,7 @@ function Item() {
                 taskUnlock,
             };
         }).filter(craft => craft.rewardItems.length > 0 && craft.requiredItems.length > 0);
-    }, [craftSelector, items]);
+    }, [craftSelector, items, quests]);
 
     useEffect(() => {
         let timer = false;
