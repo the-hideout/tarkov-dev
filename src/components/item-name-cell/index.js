@@ -5,7 +5,7 @@ import ContainedItemsList from '../contained-items-list';
 import './index.css';
 
 function ItemNameCell(props) {
-    let {item, showContainedItems, showRestrictedType} = props;
+    let {item, showContainedItems, showRestrictedType, items} = props;
     if (!item) {
         item = props.row.original;
     }
@@ -31,12 +31,12 @@ function ItemNameCell(props) {
                 </Link>
                 {showRestrictedType && (
                     <cite>
-                        <ContainedItemsList item={item} showRestrictedType={showRestrictedType} />
+                        <ContainedItemsList item={item} showRestrictedType={showRestrictedType} items={items} />
                     </cite>
                 )}
                 {showContainedItems && (item.properties?.grids || item.properties?.slots) && (
                     <cite>
-                        <ContainedItemsList item={item} />
+                        <ContainedItemsList item={item} items={items} />
                     </cite>
                 )}
             </div>

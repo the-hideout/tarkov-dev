@@ -209,7 +209,7 @@ function QuestTable({
                         ...req,
                         item: items.find(i => i.id === req.item.id)
                     };
-                });
+                }).filter(req => req.item);
                 if (requiredItemFilter && questData.requiredItems.length === 0) {
                     return false;
                 }
@@ -343,6 +343,7 @@ function QuestTable({
                 Header: t('Required items'),
                 id: 'requiredItems',
                 accessor: (quest) => {
+                    console.log(quest.requiredItems[0]);
                     return quest.requiredItems[0]?.item.name;
                 },
                 Cell: (props) => {

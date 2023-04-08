@@ -21,7 +21,9 @@ const questsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchQuests.pending, (state, action) => {
             state.status = 'loading';
-            state.quests = questsSlice.getInitialState().quests;
+            if (!state.quests) {
+                state.quests = questsSlice.getInitialState().quests;
+            }
         });
         builder.addCase(fetchQuests.fulfilled, (state, action) => {
             state.status = 'succeeded';

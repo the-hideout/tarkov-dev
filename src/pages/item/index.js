@@ -33,11 +33,7 @@ import { selectAllBarters, fetchBarters, } from '../../features/barters/bartersS
 import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
 import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
 import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
-import {
-    useItemByNameQuery,
-    useItemByIdQuery,
-    useItemsQuery,
-} from '../../features/items/queries';
+import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 
 import formatPrice from '../../modules/format-price';
@@ -81,56 +77,56 @@ function Item() {
     const navigate = useNavigate();
     const { itemName } = useParams();
     const { t } = useTranslation();
+    const dispatch = useDispatch();
     const [showAllCrafts, setShowAllCrafts] = useState(false);
     const [showAllBarters, setShowAllBarters] = useState(false);
     const [showAllContainedItemSources, setShowAllContainedItemSources] = useState(false);
     const [showAllHideoutStations, setShowAllHideoutStations] = useState(false);
     const [hideCompletedQuests, setHideCompletedQuests] = useState(true);
 
-    const loadingData = {
-        name: t('Loading...'),
-        shortName: t('Loading...'),
-        types: ['loading'],
-        iconLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
-        gridImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
-        image512pxLink: `${process.env.PUBLIC_URL}/images/unknown-item-512.webp`,
-        backgroundColor: 'default',
-        sellFor: [],
-        buyFor: [],
-        sellForTradersBest: null,
-    };
+    const loadingData = useMemo(() => {
+        return {
+            id: 'loading',
+            name: t('Loading...'),
+            shortName: t('Loading...'),
+            types: ['loading'],
+            iconLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+            gridImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+            image512pxLink: `${process.env.PUBLIC_URL}/images/unknown-item-512.webp`,
+            backgroundColor: 'default',
+            sellFor: [],
+            buyFor: [],
+            sellForTradersBest: null,
+        };
+    }, [t]);
 
-    // item name may be an id
-    const { data: currentItemByIdData } = useItemByIdQuery(itemName);
+    const items = useSelector(selectAllItems);
+    const itemsStatus = useSelector((state) => {
+        return state.items.status;
+    });
+    useEffect(() => {
+        let timer = false;
+        if (itemsStatus === 'idle') {
+            dispatch(fetchItems());
+        }
 
-    // TODO: This function needs to be greatly improved.
-    //  it currently only needs to get a single item via its ID but it
-    //  queries all items via graphql and then searches for said item.
-    //  This is slow and does a lot of extra processing that is not needed
-    const { data: currentItemByNameData, status: itemStatus } = useItemByNameQuery(itemName);
+        if (!timer) {
+            timer = setInterval(() => {
+                dispatch(fetchItems());
+            }, 600000);
+        }
+
+        return () => {
+            clearInterval(timer);
+        };
+    }, [itemsStatus, dispatch]);
 
     const { data: meta } = useMetaQuery();
-    const dispatch = useDispatch();
+
     const barters = useSelector(selectAllBarters);
     const bartersStatus = useSelector((state) => {
         return state.barters.status;
     });
-    const crafts = useSelector(selectAllCrafts);
-    const craftsStatus = useSelector((state) => {
-        return state.crafts.status;
-    });
-    const hideout = useSelector(selectAllHideoutModules);
-    const hideoutStatus = useSelector((state) => {
-        return state.hideout.status;
-    });
-    const quests = useSelector(selectQuests);
-    const questsStatus = useSelector((state) => {
-        return state.quests.status;
-    });
-    const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
-
-    const {data: items} = useItemsQuery();
-
     useEffect(() => {
         let timer = false;
         if (bartersStatus === 'idle') {
@@ -148,6 +144,10 @@ function Item() {
         };
     }, [bartersStatus, dispatch]);
 
+    const crafts = useSelector(selectAllCrafts);
+    const craftsStatus = useSelector((state) => {
+        return state.crafts.status;
+    });
     useEffect(() => {
         let timer = false;
         if (craftsStatus === 'idle') {
@@ -165,6 +165,10 @@ function Item() {
         };
     }, [craftsStatus, dispatch]);
 
+    const hideout = useSelector(selectAllHideoutModules);
+    const hideoutStatus = useSelector((state) => {
+        return state.hideout.status;
+    });
     useEffect(() => {
         let timer = false;
         if (hideoutStatus === 'idle') {
@@ -182,6 +186,10 @@ function Item() {
         };
     }, [hideoutStatus, dispatch]);
 
+    const quests = useSelector(selectQuests);
+    const questsStatus = useSelector((state) => {
+        return state.quests.status;
+    });
     useEffect(() => {
         let timer = false;
         if (questsStatus === 'idle') {
@@ -199,15 +207,25 @@ function Item() {
         };
     }, [questsStatus, dispatch]);
 
-    let currentItemData = useMemo(() => {
-        if (currentItemByIdData) {
-            return currentItemByIdData;
+    const currentItemData = useMemo(() => {
+        let item = items.find(i => i.normalizedName === itemName);
+        if (!item) {
+            item = items.find(i => i.id === itemName);
         }
-        return currentItemByNameData;
-    }, [currentItemByNameData, currentItemByIdData]);
+        if (!item && (itemsStatus === 'idle' || itemsStatus === 'loading')) {
+            return loadingData;
+        }
+        if (item) {
+            return {
+                ...item,
+                ...bestPrice(item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
+            };
+        }
+        return item;
+    }, [items, itemName, meta, itemsStatus, loadingData]);
 
     const questsRequiringCount = useMemo(() => {
-        if (!currentItemData) {
+        if (!currentItemData || currentItemData.id === 'loading') {
             return [];
         }
         
@@ -217,7 +235,7 @@ function Item() {
     }, [currentItemData, quests]);
 
     const questsProvidingCount = useMemo(() => {
-        if (!currentItemData) {
+        if (!currentItemData || currentItemData.id === 'loading') {
             return [];
         }
 
@@ -246,39 +264,15 @@ function Item() {
         return '';
     }, [settings, hideCompletedQuests, t]);
 
-    currentItemData = useMemo(() => {
-        if (!currentItemData || !currentItemData.bestPrice) 
-            return currentItemData;
-        return {
-            ...currentItemData,
-            ...bestPrice(currentItemData, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
-        };
-    }, [meta, currentItemData]);
-
-    // if the name we got from the params are the id of the item, redirect
-    // to a nice looking path
-    useEffect(() => {
-        if (currentItemByIdData) {
-            navigate(`/item/${currentItemByIdData.normalizedName}`);
+    const dogtagToggle = useMemo(() => {
+        if (!currentItemData || isAnyDogtag(currentItemData.id)) {
+            return '';
         }
-    }, [currentItemByIdData, navigate]);
-
-    // checks for item data loaded
-    if (!currentItemData && (itemStatus === 'idle' || itemStatus === 'loading')) {
-        currentItemData = loadingData;
-    }
-
-    if (!currentItemData && (itemStatus === 'success' || itemStatus === 'failed')) {
-        return <ErrorPage />;
-    }
-
-    let dogtagToggle = '';
-    if (isAnyDogtag(currentItemData.id)) {
-        dogtagToggle = (
+        return (
             <ToggleFilter
-                checked={hideDogtagBarters}
+                checked={settings.hideDogtagBarters}
                 label={t('Hide dogtag barters')}
-                onChange={(e) => dispatch(toggleHideDogtagBarters(!hideDogtagBarters))}
+                onChange={(e) => dispatch(toggleHideDogtagBarters(!settings.hideDogtagBarters))}
                 tooltipContent={
                     <>
                         {t('The true "cost" of barters using Dogtags is difficult to estimate, so you may want to exclude dogtag barters')}
@@ -286,6 +280,18 @@ function Item() {
                 }
             />
         );
+    }, [currentItemData, dispatch, settings, t]);
+
+    // if the name we got from the params are the id of the item, redirect
+    // to a nice looking path
+    useEffect(() => {
+        if (currentItemData?.id === itemName) {
+            navigate(`/item/${currentItemData.normalizedName}`);
+        }
+    }, [currentItemData, itemName, navigate]);
+
+    if (!currentItemData && (itemsStatus === 'success' || itemsStatus === 'failed')) {
+        return <ErrorPage />;
     }
 
     const hasProperties = !!currentItemData.properties;
@@ -308,20 +314,6 @@ function Item() {
     });
 
     const usedInHideout = hideout?.some(station => station.levels.some(module => module.itemRequirements.some(contained => contained.item.id === currentItemData.id)));
-
-    if (!currentItemData.bestPrice) {
-        currentItemData = {
-            ...currentItemData,
-            ...bestPrice(currentItemData, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
-        };
-    }
-
-    if (currentItemData.properties?.defaultPreset) {
-        currentItemData.properties = {
-            ...currentItemData.properties,
-            defaultPreset: items.find(i => i.id === currentItemData.properties.defaultPreset.id),
-        };
-    }
     
     const sellForTraders = currentItemData.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
 
@@ -508,7 +500,7 @@ The max profitable price is impacted by the intel center and hideout management 
                         )}
                         {(currentItemData.properties?.grids || currentItemData.properties?.slots) && (
                             <div>
-                                <ContainedItemsList item={currentItemData} />
+                                <ContainedItemsList item={currentItemData} items={items} />
                             </div>
                         )}
                     </div>

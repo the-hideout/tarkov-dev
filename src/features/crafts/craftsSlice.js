@@ -92,7 +92,9 @@ const craftsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchCrafts.pending, (state, action) => {
             state.status = 'loading';
-            state.crafts = craftsSlice.getInitialState().crafts;
+            if (!state.crafts) {
+                state.crafts = craftsSlice.getInitialState().crafts;
+            }
         });
         builder.addCase(fetchCrafts.fulfilled, (state, action) => {
             state.status = 'succeeded';

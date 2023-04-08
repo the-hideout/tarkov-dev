@@ -99,7 +99,9 @@ const bartersSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchBarters.pending, (state, action) => {
             state.status = 'loading';
-            state.barters = bartersSlice.getInitialState().barters;
+            if (!state.barters) {
+                state.barters = bartersSlice.getInitialState().barters;
+            }
         });
         builder.addCase(fetchBarters.fulfilled, (state, action) => {
             state.status = 'succeeded';

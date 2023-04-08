@@ -8,7 +8,6 @@ import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
 import CenterCell from '../../components/center-cell';
 import { getDurationDisplay } from '../../modules/format-duration';
-import { useItemsQuery } from '../../features/items/queries';
 import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
 import { selectAllStations } from '../../features/settings/settingsSlice';
 import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length';
@@ -22,11 +21,6 @@ const cardSlots = {
 
 const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBuildCosts, wipeDaysRemaining }) => {
     const stations = useSelector(selectAllStations);
-
-    const itemsResult = useItemsQuery();
-    const items = useMemo(() => {
-        return itemsResult.data;
-    }, [itemsResult]);
 
     const dispatch = useDispatch();
     const hideout = useSelector(selectAllHideoutModules);
@@ -53,7 +47,7 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
     
     const { t } = useTranslation();
 
-    const itemsSelector = useSelector(selectAllItems);
+    const items = useSelector(selectAllItems);
     const itemsStatus = useSelector((state) => {
         return state.items.status;
     });
@@ -76,12 +70,12 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
     }, [itemsStatus, dispatch]);
 
     const bitcoinItem = useMemo(() => {
-        return itemsSelector.find(i => i.id === BitcoinItemId);
-    }, [itemsSelector]);
+        return items.find(i => i.id === BitcoinItemId);
+    }, [items]);
 
     const graphicCardItem = useMemo(() => {
-        return itemsSelector.find(i => i.id === GraphicCardItemId);
-    }, [itemsSelector]);
+        return items.find(i => i.id === GraphicCardItemId);
+    }, [items]);
 
     const solarCost = useMemo(() => {
         const solar = hideout.find(station => station.normalizedName === 'solar-power');

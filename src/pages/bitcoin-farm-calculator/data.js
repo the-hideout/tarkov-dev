@@ -1,5 +1,6 @@
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { useItemByIdQuery } from '../../features/items/queries';
+import { selectAllItems } from '../../features/items/itemsSlice';
 import {
     selectAllSkills,
     selectAllStations,
@@ -73,13 +74,17 @@ export const getMinBuyFor = (item) => {
 export const useFuelPricePerDay = () => {
     const skills = useSelector(selectAllSkills);
     const stations = useSelector(selectAllStations);
+    const items = useSelector(selectAllItems);
 
-    const { data: metalFuelTankItem } = useItemByIdQuery(MetalFuelTankItemId);
-    const { data: expeditionaryFuelTankItem } = useItemByIdQuery(
-        ExpeditionaryFuelTankItemId,
-    );
+    const metalFuelTankItem = useMemo(() => {
+        return items.find(item => item.id === MetalFuelTankItemId);
+    }, [items]);
 
-    if (!metalFuelTankItem || !expeditionaryFuelTankItem) {
+    const expeditionaryFuelTankItem = useMemo(() => {
+        return items.find(item => item.id === ExpeditionaryFuelTankItemId);
+    }, [items]);
+
+    if (!metalFuelTankItem?.buyFor.length || !expeditionaryFuelTankItem?.buyFor.length) {
         return undefined;
     }
 

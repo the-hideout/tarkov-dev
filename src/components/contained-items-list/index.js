@@ -2,13 +2,11 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { useItemsQuery } from '../../features/items/queries';
 import { useMetaQuery } from '../../features/meta/queries';
 
 import './index.css';
 
-const ContainedItemsList = ({ item, showRestrictedType }) => {
-    const { data: items } = useItemsQuery();
+const ContainedItemsList = ({ item, showRestrictedType, items }) => {
     const { data: meta, isFetched: metaFetched } = useMetaQuery();
     const { t } = useTranslation();
 
@@ -42,7 +40,7 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
         ) {
             return [];
         }
-        let sorted = items.filter(linkedItem => {
+        let sorted = items?.filter(linkedItem => {
             for (const slot of containers) {
                 /*const included = slot.filters.allowedItems.includes(linkedItem.id) ||
                     linkedItem.categoryIds.some(catId => slot.filters.allowedCategories.includes(catId));
@@ -59,13 +57,13 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
             meta.categories.forEach(category => {
                 for (const slot of containers) {
                     if (slot.filters.allowedCategories.includes(category.id)) {
-                        sorted.push(category);
+                        sorted?.push(category);
                     }
                 }
             });
         }
 
-        return sorted.reduce((allItems, current) => {
+        return sorted?.reduce((allItems, current) => {
             if (!allItems.some(item => item.id === current.id))
                 allItems.push(current);
             return allItems;

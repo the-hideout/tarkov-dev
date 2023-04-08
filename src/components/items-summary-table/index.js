@@ -75,7 +75,14 @@ function ItemsSummaryTable(props) {
                 Header: t('Name'),
                 id: 'name',
                 accessor: 'name',
-                Cell: ItemNameCell,
+                Cell: (props) => {
+                    return (
+                        <ItemNameCell
+                            item={props.row.original}
+                            items={items}
+                        />
+                    );
+                },
             },
             {
                 Header: t('Amount'),
@@ -113,7 +120,7 @@ function ItemsSummaryTable(props) {
         ];
 
         return useColumns;
-    }, [t]);
+    }, [t, items]);
 
     const extraRow = (
         <>

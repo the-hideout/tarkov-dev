@@ -6,6 +6,9 @@ import { placeholderItems } from '../../modules/placeholder-data';
 import { langCode } from '../../modules/lang-helpers';
 
 const addPresets = (items) => {
+    if (!items) {
+        return [];
+    }
     return items.map(item => {
         const newItem = {...item};
         if (newItem.properties?.defaultPreset) {
@@ -37,9 +40,18 @@ const initialState = {
     error: null,
 };
 
-export const fetchItems = createAsyncThunk('items/fetchItems', () =>
-    doFetchItems(langCode()),
-);
+let queryTimer = false;
+
+export const fetchItems = createAsyncThunk('items/fetchItems', (_, {dispatch}) => {
+    return doFetchItems(langCode()).then(results => {
+        if (!queryTimer) {
+            queryTimer = setInterval(() => {
+                //dispatch(fetchItems());
+            }, 1000 * 60 * 10);
+        }
+        return results;
+    });
+});
 const itemsSlice = createSlice({
     name: 'items',
     initialState,
@@ -55,9 +67,12 @@ const itemsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchItems.pending, (state, action) => {
             state.status = 'loading';
-            state.items = addPresets(itemsSlice.getInitialState().items);
+            if (!state.items) {
+                state.items = addPresets(itemsSlice.getInitialState().items);
+            }
         });
         builder.addCase(fetchItems.fulfilled, (state, action) => {
+            console.log('items fetched')
             state.status = 'succeeded';
             const items = addPresets(action.payload);
             if (!equal(state.items, items)) {

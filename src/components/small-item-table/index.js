@@ -1020,6 +1020,7 @@ function SmallItemTable(props) {
                         item={props.row.original}
                         showContainedItems={showContainedItems}
                         showRestrictedType={showRestrictedType}
+                        items={items}
                     />
                 );
             },
@@ -1916,6 +1917,7 @@ function SmallItemTable(props) {
         showRestrictedType,
         attachmentMap,
         settings,
+        items,
     ]);
 
     let extraRow = false;
