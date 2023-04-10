@@ -102,5 +102,5 @@ export const useFuelPricePerDay = () => {
         durationMs = durationMs * 2;
     }
 
-    return (fuelBuyFor.priceRUB / durationMs) * 1000 * 60 * 60 * 24;
+    return (fuelBuyFor?.priceRUB / durationMs) * 1000 * 60 * 60 * 24;
 };
