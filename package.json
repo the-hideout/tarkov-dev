@@ -10,7 +10,7 @@
     "@mdi/js": "^6.9.96",
     "@mdi/react": "^1.6.1",
     "@mui/icons-material": "^5.11.16",
-    "@mui/material": "^5.11.15",
+    "@mui/material": "^5.11.16",
     "@primer/react": "~35.10.0",
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
