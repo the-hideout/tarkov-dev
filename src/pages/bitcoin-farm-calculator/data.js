@@ -71,6 +71,20 @@ export const getMinBuyFor = (item) => {
     return min;
 };
 
+const getBestFuelItem = (items) => {
+    return items.reduce((best, current) => {
+        if (!best) {
+            return current;
+        }
+        const currBuy = getMinBuyFor(current);
+        const bestBuy = getMinBuyFor(best);
+        if (currBuy.priceRUB / current.properties.units < bestBuy.priceRUB / best.properties.units) {
+            return current;
+        }
+        return best;
+    }, false)
+}
+
 export const useFuelPricePerDay = () => {
     const skills = useSelector(selectAllSkills);
     const stations = useSelector(selectAllStations);
@@ -88,7 +102,7 @@ export const useFuelPricePerDay = () => {
         return undefined;
     }
 
-    const fuelItem = metalFuelTankItem;
+    const fuelItem = getBestFuelItem([metalFuelTankItem, expeditionaryFuelTankItem]);
 
     const fuelBuyFor = getMinBuyFor(fuelItem);
     const durationObj = FuelDurations[fuelItem.id];
@@ -107,5 +121,5 @@ export const useFuelPricePerDay = () => {
         durationMs = durationMs * 2;
     }
 
-    return (fuelBuyFor.priceRUB / durationMs) * 1000 * 60 * 60 * 24;
+    return (fuelBuyFor?.priceRUB / durationMs) * 1000 * 60 * 60 * 24;
 };

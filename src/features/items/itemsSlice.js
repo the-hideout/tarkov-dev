@@ -72,7 +72,6 @@ const itemsSlice = createSlice({
             }
         });
         builder.addCase(fetchItems.fulfilled, (state, action) => {
-            console.log('items fetched')
             state.status = 'succeeded';
             const items = addPresets(action.payload);
             if (!equal(state.items, items)) {
