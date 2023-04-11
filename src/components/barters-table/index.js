@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useRef } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -34,7 +34,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
         return {hasJaeger: settings.jaeger !== 0, removeDogtags: settings.hideDogtagBarters, completedQuests: settings.completedQuests};
     }, [settings]);
     const traders = useSelector(selectAllTraders);
-    const skippedByLevelRef = useRef(false);
+    const [skippedBySettings, setSkippedBySettings] = useState(false);
 
     const itemsStatus = useSelector((state) => {
         return state.items.status;
@@ -204,7 +204,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
 
     const data = useMemo(() => {
         let addedTraders = [];
-        skippedByLevelRef.current = false;
+        setSkippedBySettings(false);
 
         return barters
             .filter((barter) => {
@@ -262,13 +262,34 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                     return false;
                 }
 
-                if (showAll) {
-                    skippedByLevelRef.current = false;
+                if (!showAll && level > traders[traderNormalizedName]) {
+                    setSkippedBySettings(true);
+                    return false;
                 }
 
-                if (!showAll && level > traders[traderNormalizedName]) {
-                    skippedByLevelRef.current = true;
-                    return false;
+                if (!showAll && barter.taskUnlock && settings.useTarkovTracker) {
+                    if (!completedQuests.some(taskId => taskId === barter.taskUnlock.id)) {
+                        setSkippedBySettings(true);
+                        return false;
+                    }
+                }
+
+                if (removeDogtags) {
+                    for (const requiredItem of barter.requiredItems) {
+                        if (requiredItem === null) {
+                            continue;
+                        }
+
+                        if (
+                            requiredItem.item.name
+                                .toLowerCase()
+                                .replace(/\s/g, '')
+                                .includes('dogtag')
+                        ) {
+                            setSkippedBySettings(true);
+                            return false;
+                        }
+                    }
                 }
 
                 return true;
@@ -309,29 +330,6 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
             })
             .map((barterRow) => {
                 let cost = 0;
-
-                if (removeDogtags) {
-                    for (const requiredItem of barterRow.requiredItems) {
-                        if (requiredItem === null) {
-                            continue;
-                        }
-
-                        if (
-                            requiredItem.item.name
-                                .toLowerCase()
-                                .replace(/\s/g, '')
-                                .includes('dogtag')
-                        ) {
-                            return false;
-                        }
-                    }
-                }
-
-                if (!showAll && barterRow.taskUnlock && completedQuests?.length > 0) {
-                    if (!completedQuests.some(taskId => taskId === barterRow.taskUnlock.id)) {
-                        return false;
-                    }
-                }
                 const costItems = formatCostItems(barterRow.requiredItems, {
                     settings,
                     barters: useBarterIngredients ? barters : false,
@@ -481,7 +479,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
         extraRow = t('No barters available for selected filters');
     }
 
-    if (data.length <= 0 && skippedByLevelRef.current) {
+    if (data.length <= 0 && skippedBySettings) {
         extraRow = (
             <>
                 {t('No barters available for selected filters but some were hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
@@ -489,7 +487,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
         );
     }
 
-    if (data.length > 0 && skippedByLevelRef.current) {
+    if (data.length > 0 && skippedBySettings) {
         extraRow = (
             <>
                 {t('Some barters hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
