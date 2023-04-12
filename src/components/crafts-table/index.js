@@ -33,8 +33,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     }, [settings]);
     const stations = useSelector(selectAllStations);
     const skills = useSelector(selectAllSkills);
-    // const [skippedByLevel, setSkippedByLevel] = useState(false);
-    const skippedByLevelRef = useRef();
+    const [skippedBySettings, setSkippedBySettings] = useState(false);
     const feeReduction = stations['intelligence-center'] === 3 ? 0.7 - (0.003 * skills['hideout-management']) : 1;
 
     const [sortState, setSortState] = useState([{id: 'profit', desc: true}]);
@@ -49,7 +48,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     const data = useMemo(() => {
         let addedStations = {};
 
-        skippedByLevelRef.current = false;
+        setSkippedBySettings(false);
         return crafts
             .map((craftRow) => {
                 let totalCost = 0;
@@ -126,12 +125,6 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     }
                 }
 
-                if (!showAll && craftRow.taskUnlock && completedQuests?.length > 0) {
-                    if (!completedQuests.some(taskId => taskId === craftRow.taskUnlock.id)) {
-                        return false;
-                    }
-                }
-
                 const station = craftRow.station.name;
                 const stationNormalized = craftRow.station.normalizedName;
                 const level = craftRow.level;
@@ -150,15 +143,18 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     }
                 }
 
-                if (showAll) {
-                    skippedByLevelRef.current = false;
-                }
-
                 if (!showAll && level > stations[stationNormalized]) {
                     //setSkippedByLevel(true);
-                    skippedByLevelRef.current = true;
+                    setSkippedBySettings(true);
 
                     return false;
+                }
+
+                if (!showAll && craftRow.taskUnlock && settings.useTarkovTracker) {
+                    if (!completedQuests.some(taskId => taskId === craftRow.taskUnlock.id)) {
+                        setSkippedBySettings(true);
+                        return false;
+                    }
                 }
 
                 const costItems = formatCostItems(craftRow.requiredItems, {
@@ -502,7 +498,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         extraRow = t('No crafts available for selected filters');
     }
 
-    if (data.length <= 0 && skippedByLevelRef.current) {
+    if (data.length <= 0 && skippedBySettings) {
         extraRow = (
             <>
                 {t('No crafts available for selected filters but some were hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
@@ -510,7 +506,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         );
     }
 
-    if (data.length > 0 && skippedByLevelRef.current) {
+    if (data.length > 0 && skippedBySettings) {
         extraRow = (
             <>
                 {t('Some crafts hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
