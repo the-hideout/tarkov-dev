@@ -8,7 +8,7 @@ import useKeyPress from '../../hooks/useKeyPress';
 import itemSearch from '../../modules/item-search';
 
 import './index.css';
-import { useItemsQuery } from '../../features/items/queries';
+import { useItemsData } from '../../features/items/itemsSlice';
 
 function ItemSearch({
     defaultValue,
@@ -17,7 +17,7 @@ function ItemSearch({
     autoFocus,
     showDropdown,
 }) {
-    const { data: items } = useItemsQuery();
+    const { data: items } = useItemsData();
     const { t } = useTranslation();
 
     const [nameFilter, setNameFilter] = useState(defaultValue || '');

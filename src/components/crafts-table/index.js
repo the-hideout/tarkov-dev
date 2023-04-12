@@ -1,21 +1,13 @@
-import { useMemo, useEffect, useRef, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useMemo, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../data-table';
 import fleaMarketFee from '../../modules/flea-market-fee';
-import {
-    selectAllCrafts,
-    fetchCrafts,
-} from '../../features/crafts/craftsSlice';
-import {
-    selectAllBarters,
-    fetchBarters,
-} from '../../features/barters/bartersSlice';
-import { fetchItems } from '../../features/items/itemsSlice';
-import { fetchQuests } from '../../features/quests/questsSlice';
+import { useCraftsData } from '../../features/crafts/craftsSlice';
+import { useBartersData } from '../../features/barters/bartersSlice';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
@@ -29,12 +21,11 @@ import './index.css';
 import RewardCell from '../reward-cell';
 import { getDurationDisplay } from '../../modules/format-duration';
 import bestPrice from '../../modules/best-price';
-import { useMetaQuery } from '../../features/meta/queries';
+import { useMetaData } from '../../features/meta/metaSlice';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
 function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices, useBarterIngredients, useCraftIngredients }) {
-    const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
     const { includeFlea, hasJaeger, completedQuests } = useMemo(() => {
@@ -48,93 +39,12 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 
     const [sortState, setSortState] = useState([{id: 'profit', desc: true}]);
 
-    const itemsStatus = useSelector((state) => {
-        return state.items.status;
-    });
+    const { data: crafts } = useCraftsData();
 
-    useEffect(() => {
-        let timer = false;
-        if (itemsStatus === 'idle') {
-            dispatch(fetchItems());
-        }
+    const { data: barters } = useBartersData();
 
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
+    const { data: meta } = useMetaData();
 
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemsStatus, dispatch]);
-
-    const questsStatus = useSelector((state) => {
-        return state.quests.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (questsStatus === 'idle') {
-            dispatch(fetchQuests());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchQuests());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [questsStatus, dispatch]);
-
-    const crafts = useSelector(selectAllCrafts);
-    const craftsStatus = useSelector((state) => {
-        return state.crafts.status;
-    });
-
-    const barters = useSelector(selectAllBarters);
-    const bartersStatus = useSelector((state) => {
-        return state.barters.status;
-    });
-
-    const { data: meta } = useMetaQuery();
-
-    useEffect(() => {
-        let timer = false;
-        if (bartersStatus === 'idle') {
-            dispatch(fetchBarters());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchBarters());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [bartersStatus, dispatch]);
-
-    useEffect(() => {
-        let timer = false;
-        if (craftsStatus === 'idle') {
-            dispatch(fetchCrafts());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchCrafts());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [craftsStatus, dispatch]);
 
     const data = useMemo(() => {
         let addedStations = {};

@@ -1,5 +1,5 @@
-import { useMemo, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
@@ -29,17 +29,10 @@ import { getCheapestBarter, getCheapestCraft } from '../../modules/format-cost-i
 import { formatCaliber } from '../../modules/format-ammo';
 import itemCanContain from '../../modules/item-can-contain';
 
-import {
-    selectAllBarters,
-    fetchBarters,
-} from '../../features/barters/bartersSlice';
-import {
-    selectAllCrafts,
-    fetchCrafts,
-} from '../../features/crafts/craftsSlice';
-import { fetchItems } from '../../features/items/itemsSlice';
-import { fetchQuests } from '../../features/quests/questsSlice';
-import { useMetaQuery } from '../../features/meta/queries';
+import { useBartersData } from '../../features/barters/bartersSlice';
+import { useCraftsData } from '../../features/crafts/craftsSlice';
+import { useItemsData } from '../../features/items/itemsSlice';
+import { useMetaData } from '../../features/meta/metaSlice';
 import CanvasGrid from '../../components/canvas-grid';
 
 import './index.css';
@@ -240,7 +233,6 @@ function SmallItemTable(props) {
         slotRatio,
         pricePerSlot,
         barterPrice,
-        craftPrice,
         fleaValue,
         hideBorders,
         autoScroll = true,
@@ -297,11 +289,10 @@ function SmallItemTable(props) {
         attachmentMap,
         showGunDefaultPresetImages,
     } = props;
-    const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
 
-    const { data: meta } = useMetaQuery();
+    const { data: meta } = useMetaData();
     const { materialDestructibilityMap, materialRepairabilityMap } = useMemo(
         () => {
             const destruct = {};
@@ -316,29 +307,8 @@ function SmallItemTable(props) {
         [meta]
     );
 
-    const itemsStatus = useSelector((state) => {
-        return state.items.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (itemsStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemsStatus, dispatch]);
-
     // Create a constant of all data returned
-    const items = useSelector(state => state.items.items);
+    const {data: items, status: itemsStatus} = useItemsData();
 
     const itemCount = items ? items.length : 0;
     const randomSeeds = useMemo(() => {
@@ -352,76 +322,9 @@ function SmallItemTable(props) {
         return seeds;
     },[itemCount, defaultRandom]);
 
-    const barters = useSelector(selectAllBarters);
-    const bartersStatus = useSelector((state) => {
-        return state.barters.status;
-    });
+    const { data: barters } = useBartersData();
 
-    useEffect(() => {
-        if (!barterPrice && !cheapestPrice)
-            return;
-
-        let timer = false;
-        if (bartersStatus === 'idle') {
-            dispatch(fetchBarters());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchBarters());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [bartersStatus, barterPrice, cheapestPrice, dispatch]);
-
-    const crafts = useSelector(selectAllCrafts);
-    const craftsStatus = useSelector((state) => {
-        return state.crafts.status;
-    });
-
-    useEffect(() => {
-        if (!craftPrice && !cheapestPrice)
-            return;
-
-        let timer = false;
-        if (craftsStatus === 'idle') {
-            dispatch(fetchCrafts());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchCrafts());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [craftsStatus, craftPrice, cheapestPrice, dispatch]);
-
-    const questsStatus = useSelector((state) => {
-        return state.quests.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (questsStatus === 'idle') {
-            dispatch(fetchQuests());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchQuests());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [questsStatus, dispatch]);
+    const { data: crafts } = useCraftsData();
 
     const containedItems = useMemo(() => {
         if (!containedInFilter) 

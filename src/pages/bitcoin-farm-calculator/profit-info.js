@@ -1,14 +1,14 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { selectAllItems } from '../../features/items/itemsSlice'
+import { useItemsData } from '../../features/items/itemsSlice'
 import { BitcoinItemId, GraphicCardItemId, ProduceBitcoinData } from './data';
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
 import CenterCell from '../../components/center-cell';
 import { getDurationDisplay } from '../../modules/format-duration';
-import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
+import { useHideoutData } from '../../features/hideout/hideoutSlice';
 import { selectAllStations } from '../../features/settings/settingsSlice';
 import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length';
 // import ProfitableGraph from './profitable-graph';
@@ -22,32 +22,11 @@ const cardSlots = {
 const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBuildCosts, wipeDaysRemaining }) => {
     const stations = useSelector(selectAllStations);
 
-    const dispatch = useDispatch();
-    const hideout = useSelector(selectAllHideoutModules);
-    const hideoutStatus = useSelector((state) => {
-        return state.hideout.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (hideoutStatus === 'idle') {
-            dispatch(fetchHideout());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchHideout());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [hideoutStatus, dispatch]);
+    const { data: hideout } = useHideoutData();
     
     const { t } = useTranslation();
 
-    const items = useSelector(selectAllItems);
+    const { data: items } = useItemsData();
 
     const bitcoinItem = useMemo(() => {
         return items.find(i => i.id === BitcoinItemId);

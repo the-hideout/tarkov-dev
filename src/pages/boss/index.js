@@ -17,8 +17,8 @@ import CheekiBreekiEffect from '../../components/cheeki-breeki-effect';
 
 import capitalize from '../../modules/capitalize-first';
 
-import { useBossDetails } from '../../features/bosses/queries';
-import { useItemsQuery } from '../../features/items/queries';
+import { useBossesData } from '../../features/bosses/bossesSlice';
+import { useItemsData } from '../../features/items/itemsSlice';
 
 import i18n from '../../i18n';
 
@@ -27,9 +27,9 @@ import './index.css';
 function BossPage(params) {
     const { t } = useTranslation();
 
-    const bosses = useBossDetails();
+    const { data: bosses } = useBossesData();
 
-    const {data: items} = useItemsQuery();
+    const {data: items} = useItemsData();
 
     // cheeki breeki
     const [isShown, setIsShown] = useState(false);

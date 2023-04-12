@@ -23,9 +23,9 @@ import UkraineButton from '../ukraine-button';
 
 import { caliberArrayWithSplit } from '../../modules/format-ammo';
 import categoryPages from '../../data/category-pages.json';
-import { useBossDetails } from '../../features/bosses/queries';
+import { useBossesData } from '../../features/bosses/bossesSlice';
 
-import { useMapImages } from '../../features/maps/queries';
+import { useMapImages } from '../../features/maps/mapsSlice';
 
 import alertConfig from './alert-config';
 
@@ -70,7 +70,7 @@ const Menu = () => {
         return a.displayText.localeCompare(b.displayText);
     });
 
-    const bosses = useBossDetails();
+    const { data: bosses } = useBossesData();
 
     return (
         <>

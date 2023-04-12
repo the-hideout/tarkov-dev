@@ -1,9 +1,9 @@
-import { useEffect, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
+import { useHideoutData } from '../../features/hideout/hideoutSlice';
 
 import './index.css';
 
@@ -12,28 +12,7 @@ function ItemsForHideout(props) {
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
 
-    const dispatch = useDispatch();
-    const hideout = useSelector(selectAllHideoutModules);
-    const hideoutStatus = useSelector((state) => {
-        return state.hideout.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (hideoutStatus === 'idle') {
-            dispatch(fetchHideout());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchHideout());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [hideoutStatus, dispatch]);
+    const { data: hideout } = useHideoutData;
 
     // Data manipulation section
     const data = useMemo(() => {

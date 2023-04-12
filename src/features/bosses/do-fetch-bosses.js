@@ -48,7 +48,7 @@ class BossesQuery extends APIQuery {
                             badItem = badItem[error.path[i]];
                         }
                     }
-                    console.log(`Error in maps API query: ${error.message}`);
+                    console.log(`Error in bosses API query: ${error.message}`);
                     if (badItem) {
                         console.log(badItem)
                     }

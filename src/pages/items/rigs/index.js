@@ -10,7 +10,7 @@ import SmallItemTable from '../../../components/small-item-table';
 
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
 
-import { useItemsQuery } from '../../../features/items/queries';
+import { useItemsData } from '../../../features/items/itemsSlice';
 
 const marks = {
     0: 25,
@@ -22,7 +22,7 @@ const marks = {
 };
 
 function Rigs() {
-    const { data: items } = useItemsQuery();
+    const { data: items } = useItemsData();
 
     const [includeArmoredRigs, setIncludeArmoredRigs] =
         useStateWithLocalStorage('includeArmoredRigs', true);

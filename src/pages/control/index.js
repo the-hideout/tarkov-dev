@@ -7,8 +7,8 @@ import SEO from '../../components/SEO';
 
 import { caliberArrayWithSplit } from '../../modules/format-ammo';
 
-import { useItemsQuery } from '../../features/items/queries.js';
-import { useMapImages } from '../../features/maps/queries.js';
+import { useItemsData } from '../../features/items/itemsSlice';
+import { useMapImages } from '../../features/maps/mapsSlice';
 
 import Connect from './Connect.jsx';
 
@@ -58,7 +58,7 @@ const selectFilterStyle = {
 };
 
 function Control(props) {
-    const { data: items } = useItemsQuery();
+    const { data: items } = useItemsData();
 
     const mapImages = useMapImages();
     const uniqueMaps = Object.values(mapImages);

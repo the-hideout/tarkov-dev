@@ -10,8 +10,8 @@ import FleaPriceCell from '../flea-price-cell';
 import ValueCell from '../value-cell';
 
 import formatPrice from '../../modules/format-price';
-import { useItemsQuery } from '../../features/items/queries';
-import { useBartersQuery } from '../../features/barters/bartersSlice';
+import { useItemsData } from '../../features/items/itemsSlice';
+import { useBartersData } from '../../features/barters/bartersSlice';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
@@ -21,8 +21,8 @@ function ItemsSummaryTable(props) {
     const { includeItems } = props;
     const { t } = useTranslation();
 
-    const { data: items } = useItemsQuery();
-    const { data: barters } = useBartersQuery();
+    const { data: items } = useItemsData();
+    const { data: barters } = useBartersData();
 
     const includeItemIds = useMemo(() => {
         return includeItems.map((includeItem) => includeItem.id);

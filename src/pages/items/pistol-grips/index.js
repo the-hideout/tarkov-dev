@@ -8,15 +8,13 @@ import SEO from '../../../components/SEO';
 import { Filter, ToggleFilter, SelectItemFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 
-import {
-    useItemsQuery,
-} from '../../../features/items/queries';
+import { useItemsData } from '../../../features/items/itemsSlice';
 
 function PistolGrips() {
     const [showAllItemSources, setShowAllItemSources] = useState(false);
     const [selectedGun, setSelectedGun] = useState(false);
 
-    const { data: items } = useItemsQuery();
+    const { data: items } = useItemsData();
 
     const { t } = useTranslation();
 

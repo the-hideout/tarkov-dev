@@ -1,6 +1,5 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
 
 import Icon from '@mdi/react';
 import { mdiHome } from '@mdi/js';
@@ -15,10 +14,7 @@ import {
     ButtonGroupFilterButton,
 } from '../../components/filter';
 
-import {
-    selectAllHideoutModules,
-    fetchHideout,
-} from '../../features/hideout/hideoutSlice';
+import { useHideoutData } from '../../features/hideout/hideoutSlice';
 
 import './index.css';
 
@@ -28,28 +24,7 @@ function Hideout() {
         'all',
     );
     const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const hideout = useSelector(selectAllHideoutModules);
-    const hideoutStatus = useSelector((state) => {
-        return state.hideout.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (hideoutStatus === 'idle') {
-            dispatch(fetchHideout());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchHideout());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [hideoutStatus, dispatch]);
+    const { data: hideout } = useHideoutData();
 
     const stations = useMemo(() => {
         return hideout.map(station => station).sort((a, b) => {

@@ -1,15 +1,11 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
 import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import { mdiProgressWrench, mdiCancel, mdiAccountSwitch } from '@mdi/js';
 
-import {
-    selectAllCrafts,
-    fetchCrafts,
-} from '../../features/crafts/craftsSlice';
+import { useCraftsData } from '../../features/crafts/craftsSlice';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
@@ -53,28 +49,7 @@ function Crafts() {
         setNameFilter(searchParams.get('search') || '');
     }, [searchParams]);
 
-    const dispatch = useDispatch();
-    const crafts = useSelector(selectAllCrafts);
-    const craftsStatus = useSelector((state) => {
-        return state.crafts.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (craftsStatus === 'idle') {
-            dispatch(fetchCrafts());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchCrafts());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [craftsStatus, dispatch]);
+    const { data: crafts } = useCraftsData();
     
     const stations = useMemo(() => {
         const stn = [];

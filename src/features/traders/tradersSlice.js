@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
@@ -7,7 +9,7 @@ import doFetchTraders from './do-fetch-traders';
 import { placeholderTraders } from '../../modules/placeholder-data';
 
 const initialState = {
-    traders: placeholderTraders(langCode()),
+    data: placeholderTraders(langCode()),
     status: 'idle',
     error: null,
 };
@@ -26,8 +28,8 @@ const tradersSlice = createSlice({
         builder.addCase(fetchTraders.fulfilled, (state, action) => {
             state.status = 'succeeded';
 
-            if (!equal(state.traders, action.payload)) {
-                state.traders = action.payload;
+            if (!equal(state.data, action.payload)) {
+                state.data = action.payload;
             }
         });
         builder.addCase(fetchTraders.rejected, (state, action) => {
@@ -40,4 +42,25 @@ const tradersSlice = createSlice({
 
 export default tradersSlice.reducer;
 
-export const selectAllTraders = (state) => state.traders.traders;
+export const selectAllTraders = (state) => state.traders.data;
+
+let isFetchingData = false;
+
+export const useTradersData = () => {
+    const dispatch = useDispatch();
+    const { data, status, error } = useSelector((state) => state.traders);
+    const intervalRef = useRef(false);
+
+    useEffect(() => {
+        if (!isFetchingData) {
+            isFetchingData = true;
+            dispatch(fetchTraders());
+            intervalRef.current = setInterval(() => {
+                dispatch(fetchTraders());
+            }, 600000);
+        }
+        return () => clearInterval(intervalRef.current);
+    }, [dispatch]);
+    
+    return { data, status, error };
+};

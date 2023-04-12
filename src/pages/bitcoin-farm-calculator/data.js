@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { selectAllItems } from '../../features/items/itemsSlice';
+import { useItemsData } from '../../features/items/itemsSlice';
 import {
     selectAllSkills,
     selectAllStations,
@@ -88,7 +88,7 @@ const getBestFuelItem = (items) => {
 export const useFuelPricePerDay = () => {
     const skills = useSelector(selectAllSkills);
     const stations = useSelector(selectAllStations);
-    const items = useSelector(selectAllItems);
+    const { data: items } = useItemsData();
 
     const metalFuelTankItem = useMemo(() => {
         return items.find(item => item.id === MetalFuelTankItemId);

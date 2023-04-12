@@ -28,12 +28,12 @@ import { PresetSelector } from '../../components/preset-selector';
 
 import warningIcon from '../../images/icon-warning.png';
 
-import { useMetaQuery } from '../../features/meta/queries';
-import { selectAllBarters, fetchBarters, } from '../../features/barters/bartersSlice';
-import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
-import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
-import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
+import { useMetaData } from '../../features/meta/metaSlice';
+import { useBartersData } from '../../features/barters/bartersSlice';
+import { useHideoutData } from '../../features/hideout/hideoutSlice';
+import { useCraftsData } from '../../features/crafts/craftsSlice';
+import { useQuestsData } from '../../features/quests/questsSlice';
+import { useItemsData } from '../../features/items/itemsSlice';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 
 import formatPrice from '../../modules/format-price';
@@ -100,112 +100,17 @@ function Item() {
         };
     }, [t]);
 
-    const items = useSelector(selectAllItems);
-    const itemsStatus = useSelector((state) => {
-        return state.items.status;
-    });
-    useEffect(() => {
-        let timer = false;
-        if (itemsStatus === 'idle') {
-            dispatch(fetchItems());
-        }
+    const { data: items, status: itemsStatus } = useItemsData();
 
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
+    const { data: meta } = useMetaData();
 
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemsStatus, dispatch]);
+    const { data: barters } = useBartersData();
 
-    const { data: meta } = useMetaQuery();
+    const { data: crafts } = useCraftsData();
 
-    const barters = useSelector(selectAllBarters);
-    const bartersStatus = useSelector((state) => {
-        return state.barters.status;
-    });
-    useEffect(() => {
-        let timer = false;
-        if (bartersStatus === 'idle') {
-            dispatch(fetchBarters());
-        }
+    const { data: hideout } = useHideoutData();
 
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchBarters());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [bartersStatus, dispatch]);
-
-    const crafts = useSelector(selectAllCrafts);
-    const craftsStatus = useSelector((state) => {
-        return state.crafts.status;
-    });
-    useEffect(() => {
-        let timer = false;
-        if (craftsStatus === 'idle') {
-            dispatch(fetchCrafts());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchCrafts());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [craftsStatus, dispatch]);
-
-    const hideout = useSelector(selectAllHideoutModules);
-    const hideoutStatus = useSelector((state) => {
-        return state.hideout.status;
-    });
-    useEffect(() => {
-        let timer = false;
-        if (hideoutStatus === 'idle') {
-            dispatch(fetchHideout());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchHideout());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [hideoutStatus, dispatch]);
-
-    const quests = useSelector(selectQuests);
-    const questsStatus = useSelector((state) => {
-        return state.quests.status;
-    });
-    useEffect(() => {
-        let timer = false;
-        if (questsStatus === 'idle') {
-            dispatch(fetchQuests());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchQuests());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [questsStatus, dispatch]);
+    const { data: quests } = useQuestsData();
 
     const currentItemData = useMemo(() => {
         let item = items.find(i => i.normalizedName === itemName);

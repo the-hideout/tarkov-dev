@@ -22,15 +22,9 @@ import {
     toggleHideDogtagBarters,
     // selectCompletedQuests,
 } from '../../features/settings/settingsSlice';
-import {
-    selectAllCrafts,
-    fetchCrafts,
-} from '../../features/crafts/craftsSlice';
-import {
-    selectAllHideoutModules,
-    fetchHideout,
-} from '../../features/hideout/hideoutSlice';
-import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
+import { useCraftsData} from '../../features/crafts/craftsSlice';
+import { useHideoutData } from '../../features/hideout/hideoutSlice';
+import { useTradersData } from '../../features/traders/tradersSlice';
 
 import supportedLanguages from '../../data/supported-languages.json';
 
@@ -91,70 +85,15 @@ function Settings() {
         'solar-power': useRef(null),
     };
 
-    const traders = useSelector(selectAllTraders).filter(t => t.normalizedName !== 'lightkeeper');
-    const tradersStatus = useSelector((state) => {
-        return state.traders.status;
-    });
-    useEffect(() => {
-        let timer = false;
-        if (tradersStatus === 'idle') {
-            dispatch(fetchTraders());
-        }
+    const { data: allTraders } = useTradersData();
 
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchTraders());
-            }, 600000);
-        }
+    const traders = useMemo(() => {
+        return allTraders.filter(t => t.normalizedName !== 'lightkeeper');
+    }, [allTraders]);
 
-        return () => {
-            clearInterval(timer);
-        };
-    }, [tradersStatus, dispatch]);
+    const { data: hideout } = useHideoutData();
 
-    const hideout = useSelector(selectAllHideoutModules);
-    const hideoutStatus = useSelector((state) => {
-        return state.hideout.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (hideoutStatus === 'idle') {
-            dispatch(fetchHideout());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchHideout());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [hideoutStatus, dispatch]);
-
-    const crafts = useSelector(selectAllCrafts);
-    const craftsStatus = useSelector((state) => {
-        return state.crafts.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (craftsStatus === 'idle') {
-            dispatch(fetchCrafts());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchCrafts());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [craftsStatus, dispatch]);
+    const { data: crafts } = useCraftsData();
     
     const stations = useMemo(() => {
         const stn = [];

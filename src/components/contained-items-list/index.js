@@ -2,12 +2,14 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { useMetaQuery } from '../../features/meta/queries';
+import { useMetaData } from '../../features/meta/metaSlice';
+import { useItemsData } from '../../features/items/itemsSlice';
 
 import './index.css';
 
-const ContainedItemsList = ({ item, showRestrictedType, items }) => {
-    const { data: meta, isFetched: metaFetched } = useMetaQuery();
+const ContainedItemsList = ({ item, showRestrictedType }) => {
+    const { data: meta, status: metaStatus } = useMetaData();
+    const { data: items } = useItemsData();
     const { t } = useTranslation();
 
     //const containers = item.properties?.slots || item.properties?.grids;
@@ -53,7 +55,7 @@ const ContainedItemsList = ({ item, showRestrictedType, items }) => {
             return false;
         });
 
-        if (metaFetched) {
+        if (metaStatus !== 'idle') {
             meta.categories.forEach(category => {
                 for (const slot of containers) {
                     if (slot.filters.allowedCategories.includes(category.id)) {
@@ -73,7 +75,7 @@ const ContainedItemsList = ({ item, showRestrictedType, items }) => {
     }, [
         items,
         meta,
-        metaFetched,
+        metaStatus,
         containers,
         item,
         showRestrictedType

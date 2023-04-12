@@ -12,7 +12,7 @@ import SEO from '../../components/SEO';
 import ItemIconList from '../../components/item-icon-list';
 import LoadingSmall from '../../components/loading-small';
 
-import { mapIcons, useMapImages } from '../../features/maps/queries';
+import { mapIcons, useMapImages } from '../../features/maps/mapsSlice';
 
 import Icon from '@mdi/react';
 import {

@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
@@ -5,59 +7,21 @@ import doFetchItems from './do-fetch-items';
 import { placeholderItems } from '../../modules/placeholder-data';
 import { langCode } from '../../modules/lang-helpers';
 
-const addPresets = (items) => {
-    if (!items) {
-        return [];
-    }
-    return items.map(item => {
-        const newItem = {...item};
-        if (newItem.properties?.defaultPreset) {
-            newItem.properties = {...newItem.properties};
-            const preset = items.find(it => it.id === newItem.properties.defaultPreset.id);
-            if (preset) {
-                newItem.properties.defaultPreset = preset;
-            } else {
-                newItem.properties.defaultPreset = undefined;
-            }
-        }
-        if (newItem.properties?.presets) {
-            newItem.properties = {...newItem.properties};
-            newItem.properties.presets = newItem.properties.presets.reduce((presets, currentPreset) => {
-                const preset = items.find(it => it.id === currentPreset.id);
-                if (preset) {
-                    presets.push(preset);
-                }
-                return presets;
-            }, []);
-        }
-        return newItem;
-    });
-};
-
 const initialState = {
-    items: placeholderItems(langCode()),
+    data: placeholderItems(langCode()),
     status: 'idle',
     error: null,
 };
 
-let queryTimer = false;
-
-export const fetchItems = createAsyncThunk('items/fetchItems', (_, {dispatch}) => {
-    return doFetchItems(langCode()).then(results => {
-        if (!queryTimer) {
-            queryTimer = setInterval(() => {
-                //dispatch(fetchItems());
-            }, 1000 * 60 * 10);
-        }
-        return results;
-    });
-});
+export const fetchItems = createAsyncThunk('items/fetchItems', () => 
+    doFetchItems(langCode())
+);
 const itemsSlice = createSlice({
     name: 'items',
     initialState,
     reducers: {
         setCustomSellValue: (state, action) => {
-            const item = state.items.find(i => i.id === action.payload.itemId);
+            const item = state.data.find(i => i.id === action.payload.itemId);
             if (!item) {
                 return;
             }
@@ -67,15 +31,11 @@ const itemsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchItems.pending, (state, action) => {
             state.status = 'loading';
-            if (!state.items) {
-                state.items = addPresets(itemsSlice.getInitialState().items);
-            }
         });
         builder.addCase(fetchItems.fulfilled, (state, action) => {
             state.status = 'succeeded';
-            const items = addPresets(action.payload);
-            if (!equal(state.items, items)) {
-                state.items = items;
+            if (!equal(state.data, action.payload)) {
+                state.data = action.payload;
             }
         });
         builder.addCase(fetchItems.rejected, (state, action) => {
@@ -90,4 +50,25 @@ export const { setCustomSellValue } = itemsSlice.actions;
 
 export default itemsSlice.reducer;
 
-export const selectAllItems = (state) => state.items.items;
+export const selectAllItems = (state) => state.items.data;
+
+let isFetchingData = false;
+
+export const useItemsData = () => {
+    const dispatch = useDispatch();
+    const { data, status, error } = useSelector((state) => state.items);
+    const intervalRef = useRef(false);
+
+    useEffect(() => {
+        if (!isFetchingData) {
+            isFetchingData = true;
+            dispatch(fetchItems());
+            intervalRef.current = setInterval(() => {
+                dispatch(fetchItems());
+            }, 600000);
+        }
+        return () => clearInterval(intervalRef.current);
+    }, [dispatch]);
+    
+    return { data, status, error };
+};

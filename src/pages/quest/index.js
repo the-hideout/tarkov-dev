@@ -1,6 +1,6 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
@@ -13,10 +13,10 @@ import LoadingSmall from '../../components/loading-small';
 import ItemImage from '../../components/item-image';
 import TraderImage from '../../components/trader-image'
 
-import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
-import { useTradersQuery } from '../../features/traders/queries';
-import { useItemsQuery } from '../../features/items/queries';
-import { useMapsQuery, useMapImages } from '../../features/maps/queries';
+import { useQuestsData } from '../../features/quests/questsSlice';
+import { useTradersData } from '../../features/traders/tradersSlice';
+import { useItemsData } from '../../features/items/itemsSlice';
+import { useMapsData, useMapImages } from '../../features/maps/mapsSlice';
 
 import './index.css';
 
@@ -43,45 +43,15 @@ function Quest() {
         loading: true,
     };
 
-    const tradersResult = useTradersQuery();
-    const traders = useMemo(() => {
-        return tradersResult.data;
-    }, [tradersResult]);
+    const { data: traders } = useTradersData();
 
-    const itemsResult = useItemsQuery();
-    const items = useMemo(() => {
-        return itemsResult.data;
-    }, [itemsResult]);
+    const { data: items } = useItemsData();
 
-    const mapsResult = useMapsQuery();
-    const maps = useMemo(() => {
-        return mapsResult.data;
-    }, [mapsResult]);
+    const { data: maps } = useMapsData();
 
     const mapImages = useMapImages();
 
-    const dispatch = useDispatch();
-    const quests = useSelector(selectQuests);
-    const questsStatus = useSelector((state) => {
-        return state.quests.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (questsStatus === 'idle') {
-            dispatch(fetchQuests());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchQuests());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [questsStatus, dispatch]);
+    const { data: quests, status: questsStatus } = useQuestsData();
 
     let currentQuest = useMemo(() => {
         return quests.find((quest) => {

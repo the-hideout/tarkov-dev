@@ -13,7 +13,7 @@ import Graph from '../../components/Graph.jsx';
 import useKeyPress from '../../hooks/useKeyPress';
 import SmallItemTable from '../../components/small-item-table';
 
-import { useItemsQuery } from '../../features/items/queries';
+import { useItemsData } from '../../features/items/itemsSlice';
 
 import { formatCaliber } from '../../modules/format-ammo';
 
@@ -58,7 +58,7 @@ function Ammo() {
     const [showAllTraderPrices, setShowAllTraderPrices] = useState(false);
     const [useAllProjectileDamage, setUseAllProjectileDamage] = useState(false);
     const shiftPress = useKeyPress('Shift');
-    const { data: items } = useItemsQuery();
+    const { data: items } = useItemsData();
     const { t } = useTranslation();
 
     useEffect(() => {

@@ -18,7 +18,7 @@ import {
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
-import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
+import { useTradersData } from '../../features/traders/tradersSlice';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 
 import './index.css';
@@ -45,26 +45,7 @@ function Barters() {
     const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
 
     const dispatch = useDispatch();
-    const allTraders = useSelector(selectAllTraders);
-    const tradersStatus = useSelector((state) => {
-        return state.traders.status;
-    });
-    useEffect(() => {
-        let timer = false;
-        if (tradersStatus === 'idle') {
-            dispatch(fetchTraders());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchTraders());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [tradersStatus, dispatch]);
+    const { data: allTraders } = useTradersData();
 
     const { t } = useTranslation();
 

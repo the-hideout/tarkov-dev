@@ -15,63 +15,17 @@ import 'tippy.js/dist/tippy.css'; // optional
 
 import ArrowIcon from '../../components/data-table/Arrow.js';
 import DataTable from '../data-table';
-import { selectAllItems, fetchItems } from '../../features/items/itemsSlice';
-import { useItemsQuery } from '../../features/items/queries.js';
-import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
+import { useItemsData } from '../../features/items/itemsSlice';
+import { useTradersData } from '../../features/traders/tradersSlice';
 
 function TaskObjectiveTable({ objectives }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
 
-    const itemsResult = useItemsQuery();
-    const items = useMemo(() => {
-        console.log(itemsResult)
-        return itemsResult.data;
-    }, [itemsResult]);
-    /*const items = useSelector(selectAllItems);
-    const itemsStatus = useSelector((state) => {
-        return state.items.status;
-    });
+    const { data: items } = useItemsData();
 
-    useEffect(() => {
-        let timer = false;
-        if (itemsStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemsStatus, dispatch]);*/
-
-    const traders = useSelector(selectAllTraders);
-    const tradersStatus = useSelector((state) => {
-        return state.traders.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (tradersStatus === 'idle') {
-            dispatch(fetchTraders());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchTraders());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [tradersStatus, dispatch]);
+    const { data: traders } = useTradersData();
 
     const data = useMemo(() => {
         return objectives.map(objective => {

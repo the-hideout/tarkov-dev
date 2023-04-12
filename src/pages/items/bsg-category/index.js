@@ -9,7 +9,7 @@ import SmallItemTable from '../../../components/small-item-table';
 
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 
-import { useMetaQuery } from '../../../features/meta/queries';
+import { useMetaData } from '../../../features/meta/metaSlice';
 
 function BsgCategory() {
     const defaultQuery = new URLSearchParams(window.location.search).get(
@@ -24,7 +24,7 @@ function BsgCategory() {
         (category) => category.urlName === bsgCategoryName?.toLowerCase(),
     );*/
 
-    const { data: meta } = useMetaQuery();
+    const { data: meta } = useMetaData();
     const category = meta.categories.find(cat => bsgCategoryName === cat.normalizedName);
 
     const handleNameFilterChange = useCallback(
