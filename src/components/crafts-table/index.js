@@ -34,7 +34,6 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     const stations = useSelector(selectAllStations);
     const skills = useSelector(selectAllSkills);
     const [skippedBySettings, setSkippedBySettings] = useState(false);
-    const feeReduction = stations['intelligence-center'] === 3 ? 0.7 - (0.003 * skills['hideout-management']) : 1;
 
     const [sortState, setSortState] = useState([{id: 'profit', desc: true}]);
 
@@ -233,7 +232,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                             1,
                             meta?.flea?.sellOfferFeeRate,
                             meta?.flea?.sellRequirementFeeRate,
-                        ) * feeReduction;
+                        );
                     }
                     fleaFeeTotal = fleaMarketFee(
                         craftRewardItem.basePrice,
@@ -241,7 +240,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         craftRow.rewardItems[0].count,
                         meta?.flea?.sellOfferFeeRate,
                         meta?.flea?.sellRequirementFeeRate,
-                    ) * feeReduction;
+                    );
                     if (fleaPriceToUse - fleaFeeSingle > tradeData.reward.sellValue) {
                         tradeData.reward.sellValue = fleaPriceToUse;
                     
@@ -348,7 +347,6 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         itemFilter,
         stations,
         skills,
-        feeReduction,
         t,
         showAll,
         averagePrices,
