@@ -159,7 +159,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 
                 const costItems = formatCostItems(craftRow.requiredItems, {
                     settings,
-                    barters,
+                    barters: useBarterIngredients ? barters : false,
                     crafts: useCraftIngredients ? crafts : false,
                     freeFuel,
                     allowAllSources: showAll,
@@ -356,6 +356,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         settings,
         sortState,
         useCraftIngredients,
+        useBarterIngredients,
     ]);
 
     const columns = useMemo(

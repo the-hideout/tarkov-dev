@@ -12,7 +12,7 @@ function ItemsForHideout(props) {
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
 
-    const { data: hideout } = useHideoutData;
+    const { data: hideout } = useHideoutData();
 
     // Data manipulation section
     const data = useMemo(() => {

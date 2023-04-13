@@ -6,7 +6,7 @@ import 'tippy.js/dist/tippy.css'; // optional
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiClipboardList, mdiTimerSand } from '@mdi/js';
+import { mdiClipboardList, mdiTimerSand, mdiCached, mdiProgressWrench } from '@mdi/js';
 
 import SEO from '../../components/SEO';
 import SmallItemTable from '../../components/small-item-table';
@@ -20,7 +20,7 @@ import PropertyList from '../../components/property-list';
 import ItemsForHideout from '../../components/items-for-hideout';
 import PriceGraph from '../../components/price-graph';
 import ItemSearch from '../../components/item-search';
-import { ToggleFilter } from '../../components/filter';
+import { ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton } from '../../components/filter';
 import ContainedItemsList from '../../components/contained-items-list';
 import LoadingSmall from '../../components/loading-small';
 import ItemImage from '../../components/item-image';
@@ -41,6 +41,8 @@ import fleaFee from '../../modules/flea-market-fee';
 import bestPrice from '../../modules/best-price';
 import { isAnyDogtag } from '../../modules/dogtags';
 import { getRelativeTimeAndUnit } from '../../modules/format-duration';
+
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 import i18n from '../../i18n';
 
@@ -83,6 +85,14 @@ function Item() {
     const [showAllContainedItemSources, setShowAllContainedItemSources] = useState(false);
     const [showAllHideoutStations, setShowAllHideoutStations] = useState(false);
     const [hideCompletedQuests, setHideCompletedQuests] = useState(true);
+    const [includeBarterIngredients, setIncludeBarterIngredients] = useStateWithLocalStorage(
+        'includeBarterIngredients',
+        true,
+    );
+    const [includeCraftIngredients, setIncludeCraftIngredients] = useStateWithLocalStorage(
+        'includeCraftIngredients',
+        false,
+    );
 
     const loadingData = useMemo(() => {
         return {
@@ -183,6 +193,7 @@ function Item() {
                         {t('The true "cost" of barters using Dogtags is difficult to estimate, so you may want to exclude dogtag barters')}
                     </>
                 }
+                style={{marginLeft: '3px'}}
             />
         );
     }, [currentItemData, dispatch, settings, t]);
@@ -660,10 +671,34 @@ The max profitable price is impacted by the intel center and hideout management 
                                 }
                             />
                             {dogtagToggle}
+                            <ButtonGroupFilter>
+                                <ButtonGroupFilterButton
+                                    tooltipContent={
+                                        <>
+                                            {t('Use barters for item sources')}
+                                        </>
+                                    }
+                                    selected={includeBarterIngredients}
+                                    content={<Icon path={mdiCached} size={1} className="icon-with-text"/>}
+                                    onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
+                                />
+                                <ButtonGroupFilterButton
+                                    tooltipContent={
+                                        <>
+                                            {t('Use crafts for item sources')}
+                                        </>
+                                    }
+                                    selected={includeCraftIngredients}
+                                    content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text"/>}
+                                    onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
+                                />
+                            </ButtonGroupFilter>
                         </div>
                         <BartersTable
                             itemFilter={currentItemData.id}
                             showAll={showAllBarters}
+                            useBarterIngredients={includeBarterIngredients}
+                            useCraftIngredients={includeCraftIngredients}
                         />
                     </div>
                 )}
@@ -685,10 +720,34 @@ The max profitable price is impacted by the intel center and hideout management 
                                     </>
                                 }
                             />
+                            <ButtonGroupFilter>
+                                <ButtonGroupFilterButton
+                                    tooltipContent={
+                                        <>
+                                            {t('Use barters for item sources')}
+                                        </>
+                                    }
+                                    selected={includeBarterIngredients}
+                                    content={<Icon path={mdiCached} size={1} className="icon-with-text"/>}
+                                    onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
+                                />
+                                <ButtonGroupFilterButton
+                                    tooltipContent={
+                                        <>
+                                            {t('Use crafts for item sources')}
+                                        </>
+                                    }
+                                    selected={includeCraftIngredients}
+                                    content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text"/>}
+                                    onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
+                                />
+                            </ButtonGroupFilter>
                         </div>
                         <CraftsTable
                             itemFilter={currentItemData.id}
                             showAll={showAllCrafts}
+                            useBarterIngredients={includeBarterIngredients}
+                            useCraftIngredients={includeCraftIngredients}
                         />
                     </div>
                 )}

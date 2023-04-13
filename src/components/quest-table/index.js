@@ -318,7 +318,6 @@ function QuestTable({
                 Header: t('Required items'),
                 id: 'requiredItems',
                 accessor: (quest) => {
-                    console.log(quest.requiredItems[0]);
                     return quest.requiredItems[0]?.item.name;
                 },
                 Cell: (props) => {
