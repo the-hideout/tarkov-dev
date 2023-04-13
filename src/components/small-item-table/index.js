@@ -435,7 +435,7 @@ function SmallItemTable(props) {
                     formattedItem.cheapestObtainInfo = buyFor;
                 }
             }
-            if (!formattedItem.cheapestObtainInfo && (settings.hasFlea || showAllSources)) {
+            if (!formattedItem.cheapestObtainInfo && (settings.hasFlea || showAllSources) && !traderBuybackFilter) {
                 const cheapestCraft = getCheapestCraft(itemData, {crafts, settings, allowAllSources: showAllSources});
                 if (cheapestCraft) {
                     formattedItem.cheapestObtainInfo = cheapestCraft;
