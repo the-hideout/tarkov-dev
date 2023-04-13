@@ -11,7 +11,7 @@ import { getDurationDisplay } from '../../modules/format-duration';
 
 import Icon from '@mdi/react';
 import {
-    mdiAccountSwitch,
+    mdiCached,
     mdiProgressWrench
 } from '@mdi/js';
 
@@ -78,7 +78,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
         titleElement = (
             <h3>
                 <Icon
-                    path={barter.trader ? mdiAccountSwitch : mdiProgressWrench}
+                    path={barter.trader ? mdiCached : mdiProgressWrench}
                     size={1}
                     className="icon-with-text"
                 />

@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiProgressWrench, mdiCancel, mdiAccountSwitch } from '@mdi/js';
+import { mdiProgressWrench, mdiCancel, mdiCached } from '@mdi/js';
 
 import { useCraftsData } from '../../features/crafts/craftsSlice';
 
@@ -152,7 +152,7 @@ function Crafts() {
                                 </>
                             }
                             selected={includeBarterIngredients}
-                            content={<Icon path={mdiAccountSwitch} size={1} className="icon-with-text"/>}
+                            content={<Icon path={mdiCached} size={1} className="icon-with-text"/>}
                             onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
                         />
                         <ButtonGroupFilterButton

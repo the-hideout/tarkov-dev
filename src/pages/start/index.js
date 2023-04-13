@@ -20,7 +20,7 @@ import {
     mdiAmmunition,
     mdiHammerWrench,
     mdiFinance,
-    mdiAccountSwitch,
+    mdiCached,
     mdiProgressWrench,
     mdiMap,
     mdiViewGrid,
@@ -161,7 +161,7 @@ function Start() {
                     <li key="start-link-barters">
                         <Link to="/barters/">
                             <Icon
-                                path={mdiAccountSwitch}
+                                path={mdiCached}
                                 size={1}
                                 className="icon-with-text"
                             />

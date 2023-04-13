@@ -6,7 +6,7 @@ import Icon from '@mdi/react';
 import { 
     mdiCloseOctagon, 
     mdiHelpRhombus,
-    mdiAccountSwitch,
+    mdiCached,
     mdiClipboardList,
     mdiTimerSand,
 } from '@mdi/js';
@@ -1600,7 +1600,7 @@ function SmallItemTable(props) {
                             barterIcon = (
                                 <Icon
                                     key="barter-tooltip-icon"
-                                    path={mdiAccountSwitch}
+                                    path={mdiCached}
                                     size={1}
                                     className="icon-with-text"
                                 />

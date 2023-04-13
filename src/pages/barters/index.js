@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiAccountSwitch, mdiProgressWrench } from '@mdi/js';
+import { mdiCached, mdiProgressWrench } from '@mdi/js';
 
 import SEO from '../../components/SEO';
 import BartersTable from '../../components/barters-table';
@@ -66,7 +66,7 @@ function Barters() {
         <div className={'page-wrapper'} key="barters-page-wrapper">
             <div className="barters-headline-wrapper" key="barters-headline">
                 <h1 className="barters-page-title">
-                    <Icon path={mdiAccountSwitch} size={1.5} className="icon-with-text"/>
+                    <Icon path={mdiCached} size={1.5} className="icon-with-text"/>
                     {t('Barter Profits')}
                 </h1>
                 <Filter>
@@ -134,7 +134,7 @@ function Barters() {
                                 </>
                             }
                             selected={includeBarterIngredients}
-                            content={<Icon path={mdiAccountSwitch} size={1} className="icon-with-text"/>}
+                            content={<Icon path={mdiCached} size={1} className="icon-with-text"/>}
                             onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
                         />
                         <ButtonGroupFilterButton

@@ -6,7 +6,6 @@ import Icon from '@mdi/react';
 import { 
     mdiCloseOctagon, 
     mdiHelpRhombus,
-    mdiAccountSwitch,
     mdiClipboardList,
     mdiTimerSand,
 } from '@mdi/js';
