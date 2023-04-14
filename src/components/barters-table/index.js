@@ -242,6 +242,8 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                     barters: useBarterIngredients ? barters : false,
                     crafts: useCraftIngredients ? crafts : false,
                     allowAllSources: showAll,
+                    useBarterIngredients,
+                    useCraftIngredients,
                 });
                 costItems.forEach((costItem) => (cost += costItem.pricePerUnit * costItem.count));
 

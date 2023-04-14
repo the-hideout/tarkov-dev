@@ -1631,6 +1631,10 @@ function SmallItemTable(props) {
                                     showTitle={taskIcon !== ''}
                                     title={barterTipTitle}
                                     allowAllSources={showAllSources}
+                                    barters={barters}
+                                    crafts={crafts}
+                                    useBarterIngredients={useBarterIngredients}
+                                    useCraftIngredients={useCraftIngredients}
                                 />
                             );
                         } else if (cheapestObtainInfo.craft) {

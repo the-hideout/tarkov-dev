@@ -219,6 +219,10 @@ function getCheapestPrice(item, {barters = [], crafts = [], settings = false, al
     if (useCraftIngredients || itemChain.length === 0) {
         bestCraft = getCheapestCraft(item, {barters, crafts, settings, allowAllSources, useBarterIngredients, useCraftIngredients, itemChain});
     }
+    if (bestCraft) {
+        console.log(useBarterIngredients, useCraftIngredients);
+        console.log(item.name, bestCraft)
+    }
     if (!bestPrice || (bestPrice.type === 'cash-sell' && bestBarter) || bestPrice.pricePerUnit > bestBarter?.pricePerUnit) {
         bestPrice = bestBarter;
     }
@@ -235,11 +239,19 @@ const formatCostItems = (itemsList = [], {
     barters = [],
     crafts = [],
     freeFuel = false,
-    allowAllSources = false
+    allowAllSources = false,
+    useBarterIngredients,
+    useCraftIngredients,
 }) => {
     if (!settings) {
         settings = {};
         allowAllSources = true;
+    }
+    if (barters && typeof useBarterIngredients === 'undefined') {
+        useBarterIngredients = true;
+    }
+    if (crafts && typeof useCraftIngredients === 'undefined') {
+        useCraftIngredients = true;
     }
     const hideoutManagementSkillLevel = settings['hideout-management'];
     return itemsList.map((requiredItem) => {
@@ -247,7 +259,9 @@ const formatCostItems = (itemsList = [], {
             barters,
             crafts,
             settings,
-            allowAllSources
+            allowAllSources,
+            useBarterIngredients,
+            useCraftIngredients,
         }); 
 
         if (requiredItem.item.priceCustom) {

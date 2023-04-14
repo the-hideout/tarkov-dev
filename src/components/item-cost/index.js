@@ -29,6 +29,8 @@ function ItemCost({
     allowAllSources = false,
     crafts,
     barters,
+    useBarterIngredients,
+    useCraftIngredients,
 }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -40,6 +42,12 @@ function ItemCost({
         setCustomPrice(price);
     }, [price, setCustomPrice]);
 
+    if (barters && typeof useBarterIngredients === 'undefined') {
+        useBarterIngredients = true;
+    }
+    if (crafts && typeof useCraftIngredients === 'undefined') {
+        useCraftIngredients = true;
+    }
     let { displayPrice, tooltip, displayImage} = useMemo(() => {
         let displayPrice = '';
         let tooltip = false;

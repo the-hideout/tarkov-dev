@@ -162,6 +162,8 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     crafts: useCraftIngredients ? crafts : false,
                     freeFuel,
                     allowAllSources: showAll,
+                    useBarterIngredients,
+                    useCraftIngredients,
                 });
 
                 const craftDuration = Math.floor(
@@ -169,7 +171,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 );
 
                 var costItemsWithoutTools = costItems.filter(costItem => costItem.isTool === false);
-                costItemsWithoutTools.forEach((costItem) => (totalCost += costItem.priceRUB * costItem.count));
+                costItemsWithoutTools.forEach((costItem) => (totalCost += costItem.pricePerUnit * costItem.count));
 
                 const craftRewardItem = craftRow.rewardItems[0].item;
 
@@ -388,7 +390,14 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     return aCostItems - bCostItems;
                 },
                 Cell: ({ value }) => {
-                    return <CostItemsCell costItems={value} allowAllSources={showAll} barters={barters} crafts={crafts} />;
+                    return <CostItemsCell 
+                        costItems={value} 
+                        allowAllSources={showAll} 
+                        barters={barters} 
+                        crafts={crafts} 
+                        useBarterIngredients={useBarterIngredients}
+                        useCraftIngredients={useCraftIngredients}
+                    />;
                 },
             },
             {
@@ -488,7 +497,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 },
             },
         ],
-        [t, includeFlea, selectedStation, showAll, crafts, barters],
+        [t, includeFlea, selectedStation, showAll, crafts, barters, useCraftIngredients, useBarterIngredients],
     );
 
     let extraRow = false;
