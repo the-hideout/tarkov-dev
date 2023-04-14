@@ -86,11 +86,7 @@ function getCheapestBarter(item, {barters = [], crafts = [], settings = false, a
         item.id,
     ];
     const itemBarters = getItemBarters(item, barters, settings, allowAllSources);
-    let bestBarter = false;
-    let barterTotalCost = Number.MAX_SAFE_INTEGER;
-    let bestPrice = {};
-
-    for (const barter of itemBarters) {
+    const bestPrice = itemBarters.reduce((bestBarter, barter) => {
         const thisBarterCost = barter.requiredItems.reduce(
             (accumulatedPrice, requiredItem) => {
                 let price = !itemChain.includes(requiredItem.item.id) ? 
@@ -107,29 +103,30 @@ function getCheapestBarter(item, {barters = [], crafts = [], settings = false, a
             },
             0,
         );
-        if (thisBarterCost && thisBarterCost < barterTotalCost) {
-            bestBarter = barter;
-            barterTotalCost = thisBarterCost;
+        const thisPricePerUnit = Math.round(thisBarterCost / barter.rewardItems[0].count);
+        if (thisPricePerUnit && thisPricePerUnit < bestBarter.price) {
+            bestBarter.barter = barter;
+            bestBarter.price = thisBarterCost;
+            bestBarter.pricePerUnit = thisPricePerUnit;
+            bestBarter.count = barter.rewardItems[0].count;
+            bestBarter.vendor = {
+                name: barter.trader.name,
+                normalizedName: barter.trader.normalizedName,
+                trader: barter.trader,
+                minTraderLevel: barter.level,
+                taskUnlock: barter.taskUnlock
+            };
         }
-    }
+        return bestBarter;
+    }, {
+        price: Number.MAX_SAFE_INTEGER,
+        type: 'barter',
+    });
 
-    if (bestBarter) {
-        bestPrice.price = barterTotalCost;
-        bestPrice.priceRUB = barterTotalCost;
-        bestPrice.type = 'barter';
-        bestPrice.barter = bestBarter;
-        bestPrice.vendor = {
-            name: bestBarter.trader.name,
-            normalizedName: bestBarter.trader.normalizedName,
-            trader: bestBarter.trader,
-            minTraderLevel: bestBarter.level,
-            taskUnlock: bestBarter.taskUnlock
-        }
-        bestPrice.pricePerUnit = bestPrice.priceRUB;
-    } else {
-        bestPrice = undefined;
+    if (!bestPrice.barter) {
+        return undefined;
     }
-
+    bestPrice.priceRUB = bestPrice.price;
     return bestPrice;
 }
 
@@ -213,13 +210,6 @@ function getCheapestPrice(item, {barters = [], crafts = [], settings = false, al
         allowAllSources = true;
         settings = {};
     }
-    if (!itemChain || !Array.isArray(itemChain)) {
-        itemChain = [];
-    }
-    itemChain = [
-        ...itemChain,
-        item.id,
-    ];
     let bestPrice = getCheapestCashPrice(item, settings, allowAllSources);
     const bestBarter = getCheapestBarter(item, {barters, crafts, settings, allowAllSources, itemChain});
     const bestCraft = getCheapestCraft(item, {barters, crafts, settings, allowAllSources, itemChain});

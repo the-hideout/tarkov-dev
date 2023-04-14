@@ -175,6 +175,12 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
                     </div>
                 );
             })}
+            {barter.rewardItems[0].count > 1 && barter.trader && <div
+                className="barter-tooltip-item-wrapper"
+                key={`reward-tooltip-details`}
+            >
+                {t('Provides {{count}} for {{totalCost}}', {count: barter.rewardItems[0].count, totalCost: formatPrice(totalCost)})}
+            </div>}
             {barter.station && <div
                 className="barter-tooltip-item-wrapper"
                 key={`reward-tooltip-details`}

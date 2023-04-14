@@ -426,7 +426,7 @@ function SmallItemTable(props) {
             if (formattedItem.cheapestBarter && (settings.hasFlea || showAllSources)) {
                 //console.log(formattedItem.cheapestBarter.barter, settings[formattedItem.cheapestBarter.barter.trader.normalizedName]);
                 //if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel)
-                formattedItem.cheapestObtainPrice = formattedItem.cheapestBarter.price;
+                formattedItem.cheapestObtainPrice = formattedItem.cheapestBarter.pricePerUnit;
                 formattedItem.cheapestObtainInfo = formattedItem.cheapestBarter;
             }
             for (const buyFor of formattedItem.buyFor) {

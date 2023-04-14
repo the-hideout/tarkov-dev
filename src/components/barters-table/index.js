@@ -59,7 +59,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                             </div>
                         );
                     }
-                    return <ValueCell value={props.value}/>;
+                    return <ValueCell value={props.value} valueCount={props.row.original.reward.count}/>;
                 },
             },
             {
@@ -292,6 +292,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                         sellValue: bestSellTo.priceRUB,
                         taskUnlock: barterRow.taskUnlock,
                         isFIR: false,
+                        count: barterRow.rewardItems[0].count,
                     },
                     cached: barterRow.cached || barterRewardItem.cached,
                 };

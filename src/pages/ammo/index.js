@@ -5,12 +5,13 @@ import { Trans, useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import Icon from '@mdi/react';
-import { mdiAmmunition } from '@mdi/js';
+import { mdiAmmunition, mdiCached, mdiProgressWrench } from '@mdi/js';
 
 import SEO from '../../components/SEO';
-import { Filter, ToggleFilter } from '../../components/filter';
+import { Filter, ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton } from '../../components/filter';
 import Graph from '../../components/Graph.jsx';
 import useKeyPress from '../../hooks/useKeyPress';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import SmallItemTable from '../../components/small-item-table';
 
 import { useItemsData } from '../../features/items/itemsSlice';
@@ -57,6 +58,14 @@ function Ammo() {
     const [selectedLegendName, setSelectedLegendName] = useState(currentAmmoList);
     const [showAllTraderPrices, setShowAllTraderPrices] = useState(false);
     const [useAllProjectileDamage, setUseAllProjectileDamage] = useState(false);
+    const [includeBarterIngredients, setIncludeBarterIngredients] = useStateWithLocalStorage(
+        'includeBarterIngredients',
+        true,
+    );
+    const [includeCraftIngredients, setIncludeCraftIngredients] = useStateWithLocalStorage(
+        'includeCraftIngredients',
+        false,
+    );
     const shiftPress = useKeyPress('Shift');
     const { data: items } = useItemsData();
     const { t } = useTranslation();
@@ -261,6 +270,28 @@ function Ammo() {
                         </>
                     }
                 />
+                <ButtonGroupFilter>
+                    <ButtonGroupFilterButton
+                        tooltipContent={
+                            <>
+                                {t('Use barters for item sources')}
+                            </>
+                        }
+                        selected={includeBarterIngredients}
+                        content={<Icon path={mdiCached} size={1} className="icon-with-text"/>}
+                        onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
+                    />
+                    <ButtonGroupFilterButton
+                        tooltipContent={
+                            <>
+                                {t('Use crafts for item sources')}
+                            </>
+                        }
+                        selected={includeCraftIngredients}
+                        content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text"/>}
+                        onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
+                    />
+                </ButtonGroupFilter>
             </Filter>
             <h2 className="center-title">
                 {t('Ammo Statistics Table')}
