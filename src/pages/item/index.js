@@ -37,7 +37,6 @@ import { useItemsData } from '../../features/items/itemsSlice';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 
 import formatPrice from '../../modules/format-price';
-import fleaFee from '../../modules/flea-market-fee';
 import bestPrice from '../../modules/best-price';
 import { isAnyDogtag } from '../../modules/dogtags';
 import { getRelativeTimeAndUnit } from '../../modules/format-duration';
@@ -233,9 +232,7 @@ function Item() {
     
     const sellForTraders = currentItemData.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
 
-    const itemFleaFee = fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
-
-    const sellForTradersIsTheBest = currentItemData.sellForTradersBest ? currentItemData.sellForTradersBest.priceRUB > currentItemData.lastLowPrice - itemFleaFee : false;
+    const sellForTradersIsTheBest = currentItemData.sellForTradersBest ? currentItemData.sellForTradersBest.priceRUB > currentItemData.lastLowPrice - currentItemData.fee : false;
     const useFleaPrice = currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
     let fleaSellPriceDisplay = formatPrice(currentItemData.lastLowPrice);
@@ -351,7 +348,7 @@ The max profitable price is impacted by the intel center and hideout management 
                     {t('Fee')}{' '}
                     <div className="tooltip-price-wrapper">
                         {useFleaPrice
-                            ? formatPrice(itemFleaFee)
+                            ? formatPrice(currentItemData.fee)
                             : formatPrice(currentItemData.bestPriceFee)}
                     </div>
                 </div>
@@ -359,7 +356,7 @@ The max profitable price is impacted by the intel center and hideout management 
                     {t('Profit')}{' '}
                     <div className="tooltip-price-wrapper">
                         {useFleaPrice
-                            ? formatPrice(currentItemData.lastLowPrice - itemFleaFee)
+                            ? formatPrice(currentItemData.lastLowPrice - currentItemData.fee)
                             : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}
                     </div>
                 </div>
