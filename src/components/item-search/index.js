@@ -125,8 +125,6 @@ function ItemSearch({
     useEffect(() => {
         if (enterPress && data[cursor]) {
             navigate(data[cursor].itemLink);
-            setCursor(0);
-            //setNameFilter('');
         }
     }, [cursor, enterPress, data, navigate]);
 
