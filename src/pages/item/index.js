@@ -364,6 +364,8 @@ The max profitable price is impacted by the intel center and hideout management 
         );
     }
 
+    let showRestrictedType = currentItemData.types.includes('backpack') ? 'backpack' : undefined;
+
     let dateParsed = Date.parse(currentItemData.updated);
     let date = new Date(dateParsed);
     let relativeTime = getRelativeTimeAndUnit(dateParsed);
@@ -411,9 +413,14 @@ The max profitable price is impacted by the intel center and hideout management 
                                 </a>
                             </span>
                         )}
+                        {showRestrictedType && (
+                            <div>
+                                <ContainedItemsList item={currentItemData} showRestrictedType={showRestrictedType} />
+                            </div>
+                        )}
                         {(currentItemData.properties?.grids || currentItemData.properties?.slots) && (
                             <div>
-                                <ContainedItemsList item={currentItemData} items={items} />
+                                <ContainedItemsList item={currentItemData} />
                             </div>
                         )}
                     </div>

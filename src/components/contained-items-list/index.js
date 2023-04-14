@@ -14,7 +14,11 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
 
     //const containers = item.properties?.slots || item.properties?.grids;
     const containers = item.properties?.grids;
-    const sortedItems = useMemo(() => {
+    const holdItems = useMemo(() => {
+        if (!items) {
+            return [];
+        }
+        
         if (showRestrictedType) {
             const restrictedItems = new Set();
             item.properties?.grids?.forEach(grid => {
@@ -24,9 +28,10 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
             });
             return [...restrictedItems].map(id => {
                 const rItem = items.find(testItem => testItem.id === id);
-                if (!rItem)
+                if (!rItem) {
                     return false;
-                if (typeof showRestrictedType === 'boolean' || rItem.types.includes(showRestrictedType)) {
+                }
+                if (rItem.types.includes(showRestrictedType)) {
                     return rItem;
                 }
                 return false;
@@ -34,44 +39,43 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
                 return a.name.localeCompare(b.name);
             });
         }
-        if (
-            !containers ||
-            (containers.length === 1 &&
-                containers[0].filters.allowedCategories.length === 1 &&
-                containers[0].filters.allowedCategories[0] === '54009119af1c881c07000029')
-        ) {
-            return [];
-        }
-        let sorted = items?.filter(linkedItem => {
-            for (const slot of containers) {
-                /*const included = slot.filters.allowedItems.includes(linkedItem.id) ||
-                    linkedItem.categoryIds.some(catId => slot.filters.allowedCategories.includes(catId));
-                const excluded = slot.filters.excludedItems.includes(linkedItem.id) ||
-                    linkedItem.categoryIds.some(catId => slot.filters.excludedCategories.includes(catId));*/
-                const included = slot.filters.allowedItems.includes(linkedItem.id);
-                const excluded = linkedItem.categoryIds.some(catId => slot.filters.excludedCategories.includes(catId));
-                if (included && !excluded) return true;
+        else {
+            if (!containers ||
+                (containers.length === 1 &&
+                    containers[0].filters.allowedCategories.length === 1 &&
+                    containers[0].filters.allowedCategories[0] === '54009119af1c881c07000029')) {
+                return [];
             }
-            return false;
-        });
-
-        if (metaStatus !== 'idle') {
-            meta.categories.forEach(category => {
+            let sorted = items.filter(linkedItem => {
                 for (const slot of containers) {
-                    if (slot.filters.allowedCategories.includes(category.id)) {
-                        sorted?.push(category);
-                    }
+                    // const included = slot.filters.allowedItems.includes(linkedItem.id) || linkedItem.categoryIds.some(catId => slot.filters.allowedCategories.includes(catId));
+                    // const excluded = slot.filters.excludedItems.includes(linkedItem.id) || linkedItem.categoryIds.some(catId => slot.filters.excludedCategories.includes(catId));
+                    const included = slot.filters.allowedItems.includes(linkedItem.id);
+                    const excluded = linkedItem.categoryIds.some(catId => slot.filters.excludedCategories.includes(catId));
+                    if (included && !excluded) 
+                        return true;
                 }
+                return false;
+            });
+    
+            if (metaStatus !== 'idle') {
+                meta.categories.forEach(category => {
+                    for (const slot of containers) {
+                        if (slot.filters.allowedCategories.includes(category.id)) {
+                            sorted.push(category);
+                        }
+                    }
+                });
+            }
+    
+            return sorted.reduce((allItems, current) => {
+                if (!allItems.some(item => item.id === current.id))
+                    allItems.push(current);
+                return allItems;
+            }, []).sort((a, b) => {
+                return a.name.localeCompare(b.name);
             });
         }
-
-        return sorted?.reduce((allItems, current) => {
-            if (!allItems.some(item => item.id === current.id))
-                allItems.push(current);
-            return allItems;
-        }, []).sort((a, b) => {
-            return a.name.localeCompare(b.name);
-        });
     }, [
         items,
         meta,
@@ -87,17 +91,17 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
         itemsText = t('Can\'t hold:');
     }
 
-    if (sortedItems.length === 0) {
+    if (holdItems.length === 0) {
         return null;
     }
-    if (sortedItems.length === 1 && sortedItems[0].id === '54009119af1c881c07000029') {
+    if (holdItems.length === 1 && holdItems[0].id === '54009119af1c881c07000029') {
         return null;
     }
 
     return (
         <div>
             <span className="contained-item-title-wrapper">{itemsText}</span>
-            {sortedItems.map((linked, index) => {
+            {holdItems.map((linked, index) => {
                 if (linked.id === '54009119af1c881c07000029') {
                     // Special case for items that can contain all items
 
@@ -117,7 +121,7 @@ const ContainedItemsList = ({ item, showRestrictedType }) => {
                             {linked.name}
                         </Link>
                         <span>
-                            {sortedItems.length > index + 1 ? ',' : ''}
+                            {holdItems.length > index + 1 ? ',' : ''}
                         </span>
                     </span>
                 );
