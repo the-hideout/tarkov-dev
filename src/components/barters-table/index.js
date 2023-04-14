@@ -274,12 +274,12 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 const tradeData = {
                     costItems: costItems,
                     cost: cost,
-                    instaProfit: bestSellTo.priceRUB - cost,
+                    instaProfit: (bestSellTo.priceRUB * barterRow.rewardItems[0].count) - cost,
                     instaProfitSource: bestSellTo,
                     instaProfitDetails: [
                         {
                             name: bestSellTo.vendor.name,
-                            value: bestSellTo.priceRUB,
+                            value: bestSellTo.priceRUB * barterRow.rewardItems[0].count,
                         },
                         {
                             name: t('Barter cost'),
