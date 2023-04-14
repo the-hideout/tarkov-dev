@@ -115,7 +115,7 @@ function TaskSearch({
     }, [location]);
 
     return (
-        <div className="item-search">
+        <div className="task-search">
             <input
                 type="text"
                 // defaultValue = {defaultValue || nameFilter}

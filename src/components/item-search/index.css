@@ -1,12 +1,13 @@
 .item-search {
     position: relative;
+    margin-bottom: 10px;
 }
 
 .item-search input[type='text'] {
     font-size: 20px;
-    margin-bottom: 20px;
-    padding: 24px 10px;
+    padding: 12px 10px;
     width: 100%;
+    max-height: 50px;
 }
 
 .item-list-wrapper {
