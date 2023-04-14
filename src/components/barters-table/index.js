@@ -315,7 +315,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                         if (cheapestBarter.priceRUB !== cost) {
                             tradeData.savingsParts.push({
                                 name: `${cheapestBarter.vendor.name} ${t('LL{{level}}', { level: cheapestBarter.vendor.minTraderLevel })} ${t('Barter')}`,
-                                value: cheapestBarter.priceRUB
+                                value: cheapestBarter.priceRUB,
                             });
                         }
                         tradeData.savings = cheapestBarter.priceRUB - cost;
@@ -328,14 +328,14 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                     }
                     tradeData.savingsParts.push({
                         name: sellerName,
-                        value: cheapestPrice.priceRUB
+                        value: cheapestPrice.priceRUB,
                     });
-                    tradeData.savings = cheapestPrice.priceRUB - cost;
+                    tradeData.savings = cheapestPrice.priceRUB - Math.round(cost / barterRow.rewardItems[0].count);
                 }
                 if (tradeData.savingsParts.length > 0) {
                     tradeData.savingsParts.push({
                         name: t('Barter cost'),
-                        value: cost * -1
+                        value: Math.round(cost / barterRow.rewardItems[0].count) * -1
                     });
                 }
 
