@@ -288,6 +288,8 @@ function SmallItemTable(props) {
         showRestrictedType,
         attachmentMap,
         showGunDefaultPresetImages,
+        useBarterIngredients,
+        useCraftIngredients,
     } = props;
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
@@ -419,7 +421,7 @@ function SmallItemTable(props) {
             }
 
             if (formattedItem.barters.length > 0) {
-                formattedItem.cheapestBarter = getCheapestBarter(itemData, {barters: formattedItem.barters, settings, allowAllSources: showAllSources});
+                formattedItem.cheapestBarter = getCheapestBarter(itemData, {barters: formattedItem.barters, settings, allowAllSources: showAllSources, useBarterIngredients, useCraftIngredients});
             }
             formattedItem.cheapestObtainPrice = Number.MAX_SAFE_INTEGER;
             formattedItem.cheapestObtainInfo = null;
@@ -436,7 +438,7 @@ function SmallItemTable(props) {
                 }
             }
             if (!formattedItem.cheapestObtainInfo && (settings.hasFlea || showAllSources) && !traderBuybackFilter) {
-                const cheapestCraft = getCheapestCraft(itemData, {crafts, settings, allowAllSources: showAllSources});
+                const cheapestCraft = getCheapestCraft(itemData, {crafts, settings, allowAllSources: showAllSources, useBarterIngredients, useCraftIngredients});
                 if (cheapestCraft) {
                     formattedItem.cheapestObtainInfo = cheapestCraft;
                     formattedItem.cheapestObtainPrice = Math.round(cheapestCraft.price / cheapestCraft.count);
@@ -826,6 +828,8 @@ function SmallItemTable(props) {
         showPresets,
         attachmentMap,
         showGunDefaultPresetImages,
+        useBarterIngredients,
+        useCraftIngredients,
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {
@@ -1654,6 +1658,10 @@ function SmallItemTable(props) {
                                     showTitle={taskIcon !== ''}
                                     title={barterTipTitle}
                                     allowAllSources={showAllSources}
+                                    barters={barters}
+                                    crafts={crafts}
+                                    useBarterIngredients={useBarterIngredients}
+                                    useCraftIngredients={useCraftIngredients}
                                 />
                             );
                         }
@@ -1821,6 +1829,10 @@ function SmallItemTable(props) {
         attachmentMap,
         settings,
         items,
+        barters,
+        crafts,
+        useBarterIngredients,
+        useCraftIngredients,
     ]);
 
     let extraRow = false;

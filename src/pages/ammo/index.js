@@ -307,6 +307,8 @@ function Ammo() {
                 armorDamage={4}
                 fragChance={5}
                 cheapestPrice={6}
+                useBarterIngredients={includeBarterIngredients}
+                useCraftIngredients={includeCraftIngredients}
             />
         </div>,
     ];

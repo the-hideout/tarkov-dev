@@ -17,10 +17,16 @@ import {
 
 import './index.css';
 
-function BarterTooltip({ barter, showTitle = true, title, allowAllSources = false, crafts, barters }) {
+function BarterTooltip({ barter, showTitle = true, title, allowAllSources = false, crafts, barters, useBarterIngredients, useCraftIngredients }) {
     const settings = useSelector((state) => state.settings);
     const { t } = useTranslation();
 
+    if (barters && typeof useBarterIngredients === 'undefined') {
+        useBarterIngredients = true;
+    }
+    if (crafts && typeof useCraftIngredients === 'undefined') {
+        useCraftIngredients = true;
+    }
     const requirements = useMemo(() => {
         if (!barter) {
             return false;
@@ -31,13 +37,13 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
             return false;
         }
         return items.map(req => {
-            const cheapestPrice = getCheapestPrice(req.item, {barters, crafts, settings, allowAllSources});
+            const cheapestPrice = getCheapestPrice(req.item, {barters: useBarterIngredients ? barters : false, crafts: useCraftIngredients ? crafts : false, settings, allowAllSources, useBarterIngredients, useCraftIngredients});
             return {
                 ...req,
                 cheapestPrice,
             };
         });
-    }, [barter, settings, allowAllSources, barters, crafts]);
+    }, [barter, settings, allowAllSources, barters, crafts, useBarterIngredients, useCraftIngredients]);
 
     const totalCost = useMemo(() => {
         if (!requirements) {
