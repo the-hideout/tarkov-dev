@@ -3,7 +3,7 @@ import graphqlRequest from './graphql-request.js';
 class APIQuery {
     constructor(queryName) {
         this.name = queryName;
-        this.pendingQuery = false;
+        this.pendingQuery = {};
     }
 
     graphqlRequest(queryString) {
@@ -14,23 +14,23 @@ class APIQuery {
         return Promise.reject('Not implemented');
     }
 
-    async run(language, prebuild = false) {
-        if (this.pendingQuery) {
-            return this.pendingQuery;
+    async run(language = 'en', prebuild = false) {
+        if (this.pendingQuery[language]) {
+            return this.pendingQuery[language];
         }
         let resolvePending, rejectPending;
-        this.pendingQuery = new Promise((resolve, reject) => {
+        this.pendingQuery[language] = new Promise((resolve, reject) => {
             resolvePending = resolve;
             rejectPending = reject;
         });
         try {
             const result = await this.query(language, prebuild);
             resolvePending(result);
-            this.pendingQuery = false;
+            this.pendingQuery[language] = false;
             return result;
         } catch (error) {
             rejectPending(error);
-            this.pendingQuery = false;
+            this.pendingQuery[language] = false;
             return Promise.reject(error);
         }
     }
