@@ -95,6 +95,7 @@ function RangeFilter({
                 range={true}
                 allowCross={false}
                 defaultValue={defaultValue}
+                step={2}
                 min={min}
                 max={max}
                 marks={marks}

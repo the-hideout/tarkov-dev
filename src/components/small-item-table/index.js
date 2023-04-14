@@ -290,6 +290,8 @@ function SmallItemTable(props) {
         showGunDefaultPresetImages,
         useBarterIngredients,
         useCraftIngredients,
+        minPenetration,
+        maxPenetration,
     } = props;
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
@@ -592,6 +594,21 @@ function SmallItemTable(props) {
                 }
 
                 return true;
+            })
+            .filter(item => {
+                if (typeof minPenetration === 'undefined' && typeof maxPenetration === 'undefined') {
+                    return true;
+                }
+                const min = minPenetration || 0;
+                let max = typeof maxPenetration === 'undefined' ? Number.MAX_SAFE_INTEGER : maxPenetration;
+                if (max === 60) {
+                    max = Number.MAX_SAFE_INTEGER;
+                }
+                const pen = item.properties?.penetrationPower;
+                if (typeof pen === 'undefined') {
+                    return false;
+                }
+                return pen >= min && pen <= max;
             });
 
         if (nameFilter) {
@@ -830,6 +847,8 @@ function SmallItemTable(props) {
         showGunDefaultPresetImages,
         useBarterIngredients,
         useCraftIngredients,
+        minPenetration,
+        maxPenetration
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {

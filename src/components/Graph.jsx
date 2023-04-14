@@ -240,7 +240,7 @@ const Graph = (props) => {
             />
             <VictoryScatter
                 dataComponent={<Symbol link={true} />}
-                animate={chartAnimate}
+                _animate={chartAnimate}
                 events={[
                     {
                         target: 'labels',
