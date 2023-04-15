@@ -1,4 +1,5 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
@@ -12,6 +13,7 @@ import {
     Filter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
+    ToggleFilter,
 } from '../../components/filter';
 
 import { useHideoutData } from '../../features/hideout/hideoutSlice';
@@ -19,18 +21,36 @@ import { useHideoutData } from '../../features/hideout/hideoutSlice';
 import './index.css';
 
 function Hideout() {
+    const [showAll, setShowAll] = useState(false);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
         'selectedHideoutStation',
         'all',
     );
     const { t } = useTranslation();
+    const settings = useSelector((state) => state.settings);
+
     const { data: hideout } = useHideoutData();
 
     const stations = useMemo(() => {
-        return hideout.map(station => station).sort((a, b) => {
+        return hideout.map(station => {
+            return {
+                ...station,
+                levels: showAll || !settings.useTarkovTracker ? station.levels : station.levels.filter(lvl => {
+                    if (lvl.level <= settings[station.normalizedName]) {
+                        return false;
+                    }
+                    for (const req of lvl.stationLevelRequirements) {
+                        if (req.level > settings[req.station.normalizedName]) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }),
+            };
+        }).filter(station => station.levels.length > 0).sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
-    }, [hideout]);
+    }, [hideout, settings, showAll]);
 
     return [
         <SEO 
@@ -83,8 +103,20 @@ function Hideout() {
                         onClick={setSelectedStation.bind(undefined, 'all')}
                     />
                 </ButtonGroupFilter>
+                {settings.useTarkovTracker && (<ToggleFilter
+                    checked={showAll}
+                    label={t('Show all')}
+                    onChange={(e) =>
+                        setShowAll(!showAll)
+                    }
+                    tooltipContent={
+                        <>
+                            {t('Shows built and unavailable hideout stations')}
+                        </>
+                    }
+                />)}
             </Filter>
-            {hideout.map((hideoutModule) => {
+            {stations.map((hideoutModule) => {
                 /*if (hideoutModule.name === 'Christmas Tree') {
                     return null;
                 }*/

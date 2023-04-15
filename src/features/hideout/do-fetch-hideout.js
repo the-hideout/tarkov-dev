@@ -16,6 +16,13 @@ const doFetchHideout = async (language, prebuild = false) => {
                         iconLink
                     }
                 } 
+                stationLevelRequirements {
+                    station {
+                        id
+                        normalizedName
+                    }
+                    level
+                }
             }
         }
     }`;

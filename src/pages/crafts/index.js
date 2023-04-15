@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
