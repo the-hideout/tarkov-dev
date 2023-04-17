@@ -23,6 +23,13 @@ const doFetchHideout = async (language, prebuild = false) => {
                     }
                     level
                 }
+                traderRequirements {
+                    trader {
+                        id
+                        normalizedName
+                    }
+                    level
+                }
             }
         }
     }`;

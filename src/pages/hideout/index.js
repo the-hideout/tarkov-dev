@@ -21,7 +21,8 @@ import { useHideoutData } from '../../features/hideout/hideoutSlice';
 import './index.css';
 
 function Hideout() {
-    const [showAll, setShowAll] = useState(false);
+    const [showBuilt, setShowBuilt] = useState(false);
+    const [showLocked, setShowLocked] = useState(false);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
         'selectedHideoutStation',
         'all',
@@ -35,12 +36,17 @@ function Hideout() {
         return hideout.map(station => {
             return {
                 ...station,
-                levels: showAll || !settings.useTarkovTracker ? station.levels : station.levels.filter(lvl => {
-                    if (lvl.level <= settings[station.normalizedName]) {
+                levels: (showBuilt && showLocked) || !settings.useTarkovTracker ? station.levels : station.levels.filter(lvl => {
+                    if (!showBuilt && lvl.level <= settings[station.normalizedName]) {
                         return false;
                     }
                     for (const req of lvl.stationLevelRequirements) {
-                        if (req.level > settings[req.station.normalizedName]) {
+                        if (!showLocked && req.level > settings[req.station.normalizedName]) {
+                            return false;
+                        }
+                    }
+                    for (const req of lvl.traderRequirements) {
+                        if (!showLocked && req.level > settings[req.trader.normalizedName]) {
                             return false;
                         }
                     }
@@ -50,7 +56,7 @@ function Hideout() {
         }).filter(station => station.levels.length > 0).sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
-    }, [hideout, settings, showAll]);
+    }, [hideout, settings, showBuilt, showLocked]);
 
     return [
         <SEO 
@@ -104,14 +110,26 @@ function Hideout() {
                     />
                 </ButtonGroupFilter>
                 {settings.useTarkovTracker && (<ToggleFilter
-                    checked={showAll}
-                    label={t('Show all')}
+                    checked={showBuilt}
+                    label={t('Show built')}
                     onChange={(e) =>
-                        setShowAll(!showAll)
+                        setShowBuilt(!showBuilt)
                     }
                     tooltipContent={
                         <>
-                            {t('Shows built and unavailable hideout stations')}
+                            {t('Show already built stations')}
+                        </>
+                    }
+                />)}
+                {settings.useTarkovTracker && (<ToggleFilter
+                    checked={showLocked}
+                    label={t('Show locked')}
+                    onChange={(e) =>
+                        setShowLocked(!showLocked)
+                    }
+                    tooltipContent={
+                        <>
+                            {t('Show unavailable stations')}
                         </>
                     }
                 />)}
@@ -152,6 +170,7 @@ function Hideout() {
                                         };
                                     },
                                 )}
+                                includeTraders={level.traderRequirements}
                             />
                         </div>
                     );

@@ -25,6 +25,7 @@ import { getCheapestPrice } from '../../modules/format-cost-items';
 import { useItemsData } from '../../features/items/itemsSlice';
 import { useBartersData } from '../../features/barters/bartersSlice';
 import { useCraftsData } from '../../features/crafts/craftsSlice';
+import { useTradersData } from '../../features/traders/tradersSlice';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
@@ -34,16 +35,17 @@ const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
 };
 
-function ItemsSummaryTable({includeItems}) {
+function ItemsSummaryTable({includeItems, includeTraders}) {
     const { t } = useTranslation();
 
     const settings = useSelector((state) => state.settings);
     const { data: items } = useItemsData();
     const { data: barters } = useBartersData();
     const { data: crafts } = useCraftsData();
+    const { data: traders } = useTradersData();
 
     const data = useMemo(() => {
-        return items
+        const requiredItems = items
             .filter((item) => includeItems.some(it => it.id === item.id))
             .map((item) => {
                 const formattedItem = {
@@ -73,7 +75,23 @@ function ItemsSummaryTable({includeItems}) {
 
                 return formattedItem;
             });
-    }, [items, includeItems, settings, barters, crafts]);
+        for (const req of includeTraders) {
+            const trader = traders.find(t => t.id === req.trader.id);
+            requiredItems.push({
+                ...trader,
+                quantity: req.level,
+                itemLink: `/trader/${trader.normalizedName}`,
+                iconLink: `images/traders/${trader.normalizedName}-icon.jpg`,
+                types: [],
+                barters: [],
+                buyOnFleaPrice: 0,
+                cheapestPrice: 0,
+                requiredTraderLevel: trader.levels.find(l => l.level === req.level),
+                totalPrice: 0,
+            });
+        }
+        return requiredItems;
+    }, [items, includeItems, includeTraders, settings, barters, crafts, traders]);
 
     let displayColumns = useMemo(() => {
         const useColumns = [
@@ -217,6 +235,32 @@ function ItemsSummaryTable({includeItems}) {
                         displayedPrice.push(taskIcon);
                         priceContent.push((<div key="price-info">{formatPrice(props.value)}</div>));
                         priceContent.push((<div key="price-source-info" className="trader-unlock-wrapper">{displayedPrice}</div>))
+                    } else if (props.row.original.resetTime) {
+                        tipContent = [];
+                        const trader = props.row.original;
+                        priceContent.push((
+                            <Icon
+                                path={mdiHelpRhombus}
+                                size={1}
+                                className="icon-with-text"
+                                key="no-prices-icon"
+                            />
+                        ));
+                        tipContent.push((
+                            <div key="player-level">
+                                {t('Player level: {{playerLevel}}', {playerLevel: trader.requiredTraderLevel.requiredPlayerLevel})}
+                            </div>
+                        ));
+                        tipContent.push((
+                            <div key="rep-level">
+                                {t('Reputation: {{reputation}}', {reputation: trader.requiredTraderLevel.requiredReputation})}
+                            </div>
+                        ));
+                        tipContent.push((
+                            <div key="commerce-level">
+                                {t('Commerce: {{commerce}}', {commerce: formatPrice(trader.requiredTraderLevel.requiredCommerce)})}
+                            </div>
+                        ));
                     } else {
                         tipContent = [];
                         if (props.row.original.types.includes('noFlea')) {
