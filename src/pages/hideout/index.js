@@ -21,8 +21,8 @@ import { useHideoutData } from '../../features/hideout/hideoutSlice';
 import './index.css';
 
 function Hideout() {
-    const [showBuilt, setShowBuilt] = useState(false);
-    const [showLocked, setShowLocked] = useState(false);
+    const [showBuilt, setShowBuilt] = useStateWithLocalStorage('showBuiltHideoutStations', true);
+    const [showLocked, setShowLocked] = useStateWithLocalStorage('showLockedHideoutStations', true);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
         'selectedHideoutStation',
         'all',
