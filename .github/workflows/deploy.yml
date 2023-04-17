@@ -23,7 +23,7 @@ jobs:
           environment: production
 
       - name: checkout
-        uses: actions/checkout@v3.5.0
+        uses: actions/checkout@v3.5.2
 
       # check to ensure all JSON files are valid in the repository
       - name: json-yaml-validate
