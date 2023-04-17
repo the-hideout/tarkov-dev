@@ -258,7 +258,7 @@ function ItemsSummaryTable({includeItems, includeTraders}) {
                         ));
                         tipContent.push((
                             <div key="commerce-level">
-                                {t('Commerce: {{commerce}}', {commerce: formatPrice(trader.requiredTraderLevel.requiredCommerce)})}
+                                {t('Commerce: {{commerce}}', {commerce: formatPrice(trader.requiredTraderLevel.requiredCommerce, trader.currency.normalizedName)})}
                             </div>
                         ));
                     } else {
