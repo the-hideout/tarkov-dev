@@ -7,6 +7,7 @@ const doFetchHideout = async (language, prebuild = false) => {
             name
             normalizedName
             levels {
+                id
                 level
                 itemRequirements {
                     quantity
