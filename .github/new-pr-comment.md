@@ -12,3 +12,5 @@ If you are new, please check out the trimmed down summary of our deployment proc
 1. 🎉 Merge!
 
 > Note: If you have a larger change and want to block deployments, you can run `.lock --reason <reason>` to lock all other deployments (remove with `.unlock`)
+
+You can view the branch deploy [usage guide](https://github.com/github/branch-deploy/blob/main/docs/usage.md) for additional information
