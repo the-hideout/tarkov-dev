@@ -23,21 +23,18 @@ jobs:
           environment: production
 
       - name: checkout
+        if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         uses: actions/checkout@v3.5.2
 
       # check to ensure all JSON files are valid in the repository
       - name: json-yaml-validate
+        if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         uses: GrantBirki/json-yaml-validate@v1.3.0
 
-      # check the node version from the .node-version file
-      - name: fetch node version
-        id: node-version
-        run: |
-          version=$(cat .node-version)
-          echo "version=${version}" >> $GITHUB_OUTPUT
       - uses: actions/setup-node@v3.6.0
+        if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         with:
-          node-version: ${{ steps.node-version.outputs.version }}
+          node-version-file: .node-version
           cache: 'npm'
 
       - name: install dependencies
