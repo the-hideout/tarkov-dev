@@ -249,6 +249,14 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
     opacity: 0.4;
 }
 
+.rc-slider-mark-text {
+    color: #757257 !important;
+}
+
+.rc-slider-mark-text-active {
+    color: #c7c5b3 !important;
+}
+
 @media screen and (min-width: 800px) {
     .control-wrapper {
         display: none;
