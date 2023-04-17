@@ -58,7 +58,7 @@ const BitcoinFarmCalculator = () => {
     //const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
     //const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
 
-    const fuelPricePerDay = useFuelPricePerDay();
+    const { price: fuelPricePerDay, item: fuelItem } = useFuelPricePerDay();
 
     if (!bitcoinItem || bitcoinItem.cached || !graphicCardItem || graphicCardItem.cached) {
         return <Loading />;
@@ -116,6 +116,7 @@ const BitcoinFarmCalculator = () => {
                         label={t('Use fuel cost: {{price}}/day', {
                             price: formatPrice(fuelPricePerDay),
                         })}
+                        tooltipContent={fuelItem.name}
                         checked={calculateWithFuelCost}
                         onChange={() =>
                             setCalculateWithFuelCost((prev) => !prev)

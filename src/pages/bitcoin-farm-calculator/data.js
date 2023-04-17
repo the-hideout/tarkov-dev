@@ -99,7 +99,10 @@ export const useFuelPricePerDay = () => {
     }, [items]);
 
     if (!metalFuelTankItem?.buyFor.length || !expeditionaryFuelTankItem?.buyFor.length) {
-        return undefined;
+        return {
+            price: undefined,
+            item: undefined,
+        };
     }
 
     const fuelItem = getBestFuelItem([metalFuelTankItem, expeditionaryFuelTankItem]);
@@ -121,5 +124,8 @@ export const useFuelPricePerDay = () => {
         durationMs = durationMs * 2;
     }
 
-    return (fuelBuyFor?.priceRUB / durationMs) * 1000 * 60 * 60 * 24;
+    return {
+        price: (fuelBuyFor?.priceRUB / durationMs) * 1000 * 60 * 60 * 24,
+        item: fuelItem,
+    };
 };
