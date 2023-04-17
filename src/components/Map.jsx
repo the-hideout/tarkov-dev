@@ -6,7 +6,7 @@ import {
     TransformComponent,
 } from 'react-zoom-pan-pinch';
 
-import { useMapImages } from '../features/maps/mapsSlice';
+import { useMapImages } from '../features/maps';
 
 import Time from './Time';
 import SEO from './SEO';

@@ -7,8 +7,8 @@ import SEO from '../../components/SEO';
 
 import { caliberArrayWithSplit } from '../../modules/format-ammo';
 
-import { useItemsData } from '../../features/items/itemsSlice';
-import { useMapImages } from '../../features/maps/mapsSlice';
+import useItemsData from '../../features/items';
+import { useMapImages } from '../../features/maps';
 
 import Connect from './Connect.jsx';
 

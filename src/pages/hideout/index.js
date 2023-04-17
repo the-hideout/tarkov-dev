@@ -16,7 +16,7 @@ import {
     ToggleFilter,
 } from '../../components/filter';
 
-import { useHideoutData } from '../../features/hideout/hideoutSlice';
+import useHideoutData from '../../features/hideout';
 
 import './index.css';
 

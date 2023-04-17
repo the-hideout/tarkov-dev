@@ -54,13 +54,13 @@ const mapsSlice = createSlice({
     },
 });
 
-export default mapsSlice.reducer;
+export const mapsReducer = mapsSlice.reducer;
 
 export const selectMaps = (state) => state.maps.data;
 
 let isFetchingData = false;
 
-export const useMapsData = () => {
+export default function useMapsData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.maps);
     const intervalRef = useRef(false);

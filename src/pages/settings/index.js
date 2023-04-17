@@ -22,9 +22,9 @@ import {
     toggleHideDogtagBarters,
     // selectCompletedQuests,
 } from '../../features/settings/settingsSlice';
-import { useCraftsData} from '../../features/crafts/craftsSlice';
-import { useHideoutData } from '../../features/hideout/hideoutSlice';
-import { useTradersData } from '../../features/traders/tradersSlice';
+import useCraftsData from '../../features/crafts';
+import useHideoutData from '../../features/hideout';
+import useTradersData from '../../features/traders';
 
 import supportedLanguages from '../../data/supported-languages.json';
 

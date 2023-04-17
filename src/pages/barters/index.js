@@ -18,7 +18,7 @@ import {
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
-import { useTradersData } from '../../features/traders/tradersSlice';
+import useTradersData from '../../features/traders';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 
 import './index.css';

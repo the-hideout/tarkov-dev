@@ -3,36 +3,35 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
+import doFetchQuests from './do-fetch-quests';
 import { langCode } from '../../modules/lang-helpers';
-import doFetchTraders from './do-fetch-traders';
-
-import { placeholderTraders } from '../../modules/placeholder-data';
+import { placeholderTasks } from '../../modules/placeholder-data';
 
 const initialState = {
-    data: placeholderTraders(langCode()),
+    data: placeholderTasks(langCode()),
     status: 'idle',
     error: null,
 };
 
-export const fetchTraders = createAsyncThunk('traders/fetchTraders', () =>
-    doFetchTraders(langCode()),
+export const fetchQuests = createAsyncThunk('quests/fetchQuests', () =>
+    doFetchQuests(langCode()),
 );
-const tradersSlice = createSlice({
-    name: 'traders',
+const questsSlice = createSlice({
+    name: 'quests',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchTraders.pending, (state, action) => {
+        builder.addCase(fetchQuests.pending, (state, action) => {
             state.status = 'loading';
         });
-        builder.addCase(fetchTraders.fulfilled, (state, action) => {
+        builder.addCase(fetchQuests.fulfilled, (state, action) => {
             state.status = 'succeeded';
 
             if (!equal(state.data, action.payload)) {
                 state.data = action.payload;
             }
         });
-        builder.addCase(fetchTraders.rejected, (state, action) => {
+        builder.addCase(fetchQuests.rejected, (state, action) => {
             state.status = 'failed';
             console.log(action.error);
             state.error = action.payload;
@@ -40,23 +39,23 @@ const tradersSlice = createSlice({
     },
 });
 
-export default tradersSlice.reducer;
+export const questsReducer = questsSlice.reducer;
 
-export const selectAllTraders = (state) => state.traders.data;
+export const selectQuests = (state) => state.quests.data;
 
 let isFetchingData = false;
 
-export const useTradersData = () => {
+export default function useQuestsData() {
     const dispatch = useDispatch();
-    const { data, status, error } = useSelector((state) => state.traders);
+    const { data, status, error } = useSelector((state) => state.quests);
     const intervalRef = useRef(false);
 
     useEffect(() => {
         if (!isFetchingData) {
             isFetchingData = true;
-            dispatch(fetchTraders());
+            dispatch(fetchQuests());
             intervalRef.current = setInterval(() => {
-                dispatch(fetchTraders());
+                dispatch(fetchQuests());
             }, 600000);
         }
         return () => clearInterval(intervalRef.current);

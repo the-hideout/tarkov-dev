@@ -10,7 +10,7 @@ import { mdiTimerSand, mdiCloseBox, mdiCheckboxMarked, mdiProgressWrench } from 
 import BarterTooltip from '../barter-tooltip';
 import formatPrice from '../../modules/format-price';
 
-import { setCustomSellValue } from '../../features/items/itemsSlice';
+import { setCustomSellValue } from '../../features/items';
 
 import './index.css';
 

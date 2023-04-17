@@ -9,7 +9,7 @@ import SmallItemTable from '../../../components/small-item-table';
 
 import QueueBrowserTask from '../../../modules/queue-browser-task';
 
-import { useMetaData } from '../../../features/meta/metaSlice';
+import useMetaData from '../../../features/meta';
 
 function BsgCategory() {
     const defaultQuery = new URLSearchParams(window.location.search).get(

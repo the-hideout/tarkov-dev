@@ -17,8 +17,8 @@ import CheekiBreekiEffect from '../../components/cheeki-breeki-effect';
 
 import capitalize from '../../modules/capitalize-first';
 
-import { useBossesData } from '../../features/bosses/bossesSlice';
-import { useItemsData } from '../../features/items/itemsSlice';
+import useBossesData from '../../features/bosses';
+import useItemsData from '../../features/items';
 
 import i18n from '../../i18n';
 

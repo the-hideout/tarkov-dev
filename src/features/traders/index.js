@@ -3,42 +3,36 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import doFetchItems from './do-fetch-items';
-import { placeholderItems } from '../../modules/placeholder-data';
 import { langCode } from '../../modules/lang-helpers';
+import doFetchTraders from './do-fetch-traders';
+
+import { placeholderTraders } from '../../modules/placeholder-data';
 
 const initialState = {
-    data: placeholderItems(langCode()),
+    data: placeholderTraders(langCode()),
     status: 'idle',
     error: null,
 };
 
-export const fetchItems = createAsyncThunk('items/fetchItems', () => 
-    doFetchItems(langCode())
+export const fetchTraders = createAsyncThunk('traders/fetchTraders', () =>
+    doFetchTraders(langCode()),
 );
-const itemsSlice = createSlice({
-    name: 'items',
+const tradersSlice = createSlice({
+    name: 'traders',
     initialState,
-    reducers: {
-        setCustomSellValue: (state, action) => {
-            const item = state.data.find(i => i.id === action.payload.itemId);
-            if (!item) {
-                return;
-            }
-            item.priceCustom = action.payload.price;
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchItems.pending, (state, action) => {
+        builder.addCase(fetchTraders.pending, (state, action) => {
             state.status = 'loading';
         });
-        builder.addCase(fetchItems.fulfilled, (state, action) => {
+        builder.addCase(fetchTraders.fulfilled, (state, action) => {
             state.status = 'succeeded';
+
             if (!equal(state.data, action.payload)) {
                 state.data = action.payload;
             }
         });
-        builder.addCase(fetchItems.rejected, (state, action) => {
+        builder.addCase(fetchTraders.rejected, (state, action) => {
             state.status = 'failed';
             console.log(action.error);
             state.error = action.payload;
@@ -46,25 +40,23 @@ const itemsSlice = createSlice({
     },
 });
 
-export const { setCustomSellValue } = itemsSlice.actions;
+export const tradersReducer = tradersSlice.reducer;
 
-export default itemsSlice.reducer;
-
-export const selectAllItems = (state) => state.items.data;
+export const selectAllTraders = (state) => state.traders.data;
 
 let isFetchingData = false;
 
-export const useItemsData = () => {
+export default function useTradersData() {
     const dispatch = useDispatch();
-    const { data, status, error } = useSelector((state) => state.items);
+    const { data, status, error } = useSelector((state) => state.traders);
     const intervalRef = useRef(false);
 
     useEffect(() => {
         if (!isFetchingData) {
             isFetchingData = true;
-            dispatch(fetchItems());
+            dispatch(fetchTraders());
             intervalRef.current = setInterval(() => {
-                dispatch(fetchItems());
+                dispatch(fetchTraders());
             }, 600000);
         }
         return () => clearInterval(intervalRef.current);

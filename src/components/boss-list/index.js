@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import MenuItem from '../menu/MenuItem';
 import LoadingSmall from '../loading-small';
-import { useBossesData } from '../../features/bosses/bossesSlice';
+import useBossesData from '../../features/bosses';
 
 import './index.css';
 

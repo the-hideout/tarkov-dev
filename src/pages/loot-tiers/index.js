@@ -20,7 +20,7 @@ import {
 import QueueBrowserTask from '../../modules/queue-browser-task';
 import capitalizeFirst from '../../modules/capitalize-first';
 
-import { useItemsData } from '../../features/items/itemsSlice';
+import useItemsData from '../../features/items';
 
 import './index.css';
 

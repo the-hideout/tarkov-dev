@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../../components/data-table';
-import { useBartersData } from '../../features/barters/bartersSlice';
-import { useCraftsData } from '../../features/crafts/craftsSlice';
+import useBartersData from '../../features/barters';
+import useCraftsData from '../../features/crafts';
 import { selectAllTraders } from '../../features/settings/settingsSlice';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';

@@ -7,7 +7,7 @@ import debounce from 'lodash.debounce';
 import useKeyPress from '../../hooks/useKeyPress';
 
 import './index.css';
-import { useQuestsData } from '../../features/quests/questsSlice';
+import useQuestsData from '../../features/quests';
 
 function TaskSearch({
     defaultValue,

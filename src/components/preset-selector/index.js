@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import { useItemsData } from '../../features/items/itemsSlice';
+import useItemsData from '../../features/items';
 import { SelectItemFilter } from '../filter';
 
 export function PresetSelector({ item, alt = '' }) {

@@ -8,7 +8,7 @@ import SEO from '../../components/SEO';
 import TraderResetTime from '../../components/trader-reset-time';
 import LoadingSmall from '../../components/loading-small';
 
-import { useTradersData } from '../../features/traders/tradersSlice';
+import useTradersData from '../../features/traders';
 
 import i18n from '../../i18n';
 

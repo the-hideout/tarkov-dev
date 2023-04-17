@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import { useHideoutData } from '../../features/hideout/hideoutSlice';
+import useHideoutData from '../../features/hideout';
 
 import './index.css';
 

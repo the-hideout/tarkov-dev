@@ -10,7 +10,7 @@ import SmallItemTable from '../../../components/small-item-table';
 
 import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
 
-import { useItemsData } from '../../../features/items/itemsSlice';
+import useItemsData from '../../../features/items';
 
 const marks = {
     0: 25,

@@ -29,10 +29,10 @@ import { getCheapestBarter, getCheapestCraft } from '../../modules/format-cost-i
 import { formatCaliber } from '../../modules/format-ammo';
 import itemCanContain from '../../modules/item-can-contain';
 
-import { useBartersData } from '../../features/barters/bartersSlice';
-import { useCraftsData } from '../../features/crafts/craftsSlice';
-import { useItemsData } from '../../features/items/itemsSlice';
-import { useMetaData } from '../../features/meta/metaSlice';
+import useBartersData from '../../features/barters';
+import useCraftsData from '../../features/crafts';
+import useItemsData from '../../features/items';
+import useMetaData from '../../features/meta';
 import CanvasGrid from '../../components/canvas-grid';
 
 import './index.css';

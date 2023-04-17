@@ -6,8 +6,8 @@ import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../data-table';
 import fleaMarketFee from '../../modules/flea-market-fee';
-import { useCraftsData } from '../../features/crafts/craftsSlice';
-import { useBartersData } from '../../features/barters/bartersSlice';
+import useCraftsData from '../../features/crafts';
+import useBartersData from '../../features/barters';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
@@ -21,7 +21,7 @@ import './index.css';
 import RewardCell from '../reward-cell';
 import { getDurationDisplay } from '../../modules/format-duration';
 import bestPrice from '../../modules/best-price';
-import { useMetaData } from '../../features/meta/metaSlice';
+import useMetaData from '../../features/meta';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 

@@ -2,13 +2,13 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { useItemsData } from '../../features/items/itemsSlice'
+import useItemsData from '../../features/items'
 import { BitcoinItemId, GraphicCardItemId, ProduceBitcoinData } from './data';
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
 import CenterCell from '../../components/center-cell';
 import { getDurationDisplay } from '../../modules/format-duration';
-import { useHideoutData } from '../../features/hideout/hideoutSlice';
+import useHideoutData from '../../features/hideout';
 import { selectAllStations } from '../../features/settings/settingsSlice';
 import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length';
 // import ProfitableGraph from './profitable-graph';

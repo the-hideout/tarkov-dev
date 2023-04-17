@@ -6,8 +6,8 @@ import ItemImage from '../item-image';
 
 import './index.css';
 
-import { toggleItem as toggleCraftItem } from '../../features/crafts/craftsSlice';
-import { toggleItem as toggleBarterItem } from '../../features/barters/bartersSlice';
+import { toggleItem as toggleCraftItem } from '../../features/crafts';
+import { toggleItem as toggleBarterItem } from '../../features/barters';
 
 function CostItemsCell({ costItems, craftId, barterId, allowAllSources = false, crafts, barters, useCraftIngredients, useBarterIngredients }) {
     const dispatch = useDispatch();

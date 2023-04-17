@@ -6,7 +6,7 @@ import { mdiMap } from '@mdi/js';
 
 import SEO from '../../components/SEO';
 
-import { mapIcons, useMapImages } from '../../features/maps/mapsSlice';
+import { mapIcons, useMapImages } from '../../features/maps';
 
 import './index.css';
 

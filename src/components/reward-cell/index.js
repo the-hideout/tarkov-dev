@@ -10,7 +10,7 @@ import ItemImage from '../item-image';
 
 import formatPrice from '../../modules/format-price';
 
-import { setCustomSellValue } from '../../features/items/itemsSlice';
+import { setCustomSellValue } from '../../features/items';
 
 import './index.css';
 

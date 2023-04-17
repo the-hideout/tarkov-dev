@@ -7,7 +7,7 @@ import doFetchBosses from './do-fetch-bosses';
 import { langCode } from '../../modules/lang-helpers';
 import { placeholderBosses } from '../../modules/placeholder-data';
 import rawBossData from '../../data/boss.json';
-import { useMapsData } from '../maps/mapsSlice';
+import useMapsData from '../maps';
 
 const initialState = {
     data: placeholderBosses(langCode()),
@@ -41,7 +41,7 @@ const bossesSlice = createSlice({
     },
 });
 
-export default bossesSlice.reducer;
+export const bossesReducer = bossesSlice.reducer;
 
 export const selectAllBosses = (state) => {
     const bosses = state.bosses.data.map(bossReadOnly => {
@@ -88,7 +88,7 @@ export const selectAllBosses = (state) => {
 
 let isFetchingData = false;
 
-export const useBossesData = () => {
+export default function useBossesData() {
     const dispatch = useDispatch();
     const { status, error } = useSelector((state) => state.bosses);
     const data = useSelector(selectAllBosses);

@@ -6,8 +6,8 @@ import { useQuery } from 'react-query';
 
 import doFetchBarters from './do-fetch-barters';
 import { langCode } from '../../modules/lang-helpers';
-import { useItemsData } from '../items/itemsSlice';
-import { useQuestsData } from '../quests/questsSlice';
+import useItemsData from '../items';
+import useQuestsData from '../quests';
 
 import { placeholderBarters } from '../../modules/placeholder-data';
 
@@ -120,7 +120,7 @@ const bartersSlice = createSlice({
 
 export const { toggleItem, setItemCost, setRewardValue } = bartersSlice.actions;
 
-export default bartersSlice.reducer;
+export const bartersReducer = bartersSlice.reducer;
 
 export const selectAllBarters = (state) => {
     return state.barters.data.map(barter => {
@@ -157,7 +157,7 @@ export const selectAllBarters = (state) => {
 
 let isFetchingData = false;
 
-export const useBartersData = () => {
+export default function useBartersData() {
     const dispatch = useDispatch();
     const { status, error } = useSelector((state) => state.barters);
     const data = useSelector(selectAllBarters);

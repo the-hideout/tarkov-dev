@@ -22,7 +22,7 @@ import formatPrice from '../../modules/format-price';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
 
-import { useTradersData } from '../../features/traders/tradersSlice';
+import useTradersData from '../../features/traders';
 
 import i18n from '../../i18n';
 

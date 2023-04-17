@@ -39,13 +39,13 @@ const metaSlice = createSlice({
     },
 });
 
-export default metaSlice.reducer;
+export const metaReducer = metaSlice.reducer;
 
 export const selectMeta = (state) => state.meta.data;
 
 let isFetchingData = false;
 
-export const useMetaData = () => {
+export default function useMetaData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.meta);
     const intervalRef = useRef(false);

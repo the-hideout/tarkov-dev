@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { useItemsData } from '../../features/items/itemsSlice';
+import useItemsData from '../../features/items';
 import {
     selectAllSkills,
     selectAllStations,

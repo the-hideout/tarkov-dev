@@ -22,10 +22,10 @@ import BarterTooltip from '../barter-tooltip';
 import formatPrice from '../../modules/format-price';
 import { getCheapestPrice } from '../../modules/format-cost-items';
 
-import { useItemsData } from '../../features/items/itemsSlice';
-import { useBartersData } from '../../features/barters/bartersSlice';
-import { useCraftsData } from '../../features/crafts/craftsSlice';
-import { useTradersData } from '../../features/traders/tradersSlice';
+import useItemsData from '../../features/items';
+import useBartersData from '../../features/barters';
+import useCraftsData from '../../features/crafts';
+import useTradersData from '../../features/traders';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 

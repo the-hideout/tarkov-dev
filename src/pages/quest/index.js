@@ -13,10 +13,10 @@ import LoadingSmall from '../../components/loading-small';
 import ItemImage from '../../components/item-image';
 import TraderImage from '../../components/trader-image'
 
-import { useQuestsData } from '../../features/quests/questsSlice';
-import { useTradersData } from '../../features/traders/tradersSlice';
-import { useItemsData } from '../../features/items/itemsSlice';
-import { useMapsData, useMapImages } from '../../features/maps/mapsSlice';
+import useQuestsData from '../../features/quests';
+import useTradersData from '../../features/traders';
+import useItemsData from '../../features/items';
+import useMapsData, { useMapImages } from '../../features/maps';
 
 import './index.css';
 

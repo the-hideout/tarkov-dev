@@ -42,13 +42,13 @@ const hideoutSlice = createSlice({
     },
 });
 
-export default hideoutSlice.reducer;
+export const hideoutReducer = hideoutSlice.reducer;
 
 export const selectAllHideoutModules = (state) => state.hideout.data;
 
 let isFetchingData = false;
 
-export const useHideoutData = () => {
+export default function useHideoutData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.hideout);
     const intervalRef = useRef(false);

@@ -8,7 +8,7 @@ import useKeyPress from '../../hooks/useKeyPress';
 import itemSearch from '../../modules/item-search';
 
 import './index.css';
-import { useItemsData } from '../../features/items/itemsSlice';
+import useItemsData from '../../features/items';
 
 function ItemSearch({
     defaultValue,

@@ -3,35 +3,42 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import doFetchQuests from './do-fetch-quests';
+import doFetchItems from './do-fetch-items';
+import { placeholderItems } from '../../modules/placeholder-data';
 import { langCode } from '../../modules/lang-helpers';
-import { placeholderTasks } from '../../modules/placeholder-data';
 
 const initialState = {
-    data: placeholderTasks(langCode()),
+    data: placeholderItems(langCode()),
     status: 'idle',
     error: null,
 };
 
-export const fetchQuests = createAsyncThunk('quests/fetchQuests', () =>
-    doFetchQuests(langCode()),
+export const fetchItems = createAsyncThunk('items/fetchItems', () => 
+    doFetchItems(langCode())
 );
-const questsSlice = createSlice({
-    name: 'quests',
+const itemsSlice = createSlice({
+    name: 'items',
     initialState,
-    reducers: {},
+    reducers: {
+        setCustomSellValue: (state, action) => {
+            const item = state.data.find(i => i.id === action.payload.itemId);
+            if (!item) {
+                return;
+            }
+            item.priceCustom = action.payload.price;
+        },
+    },
     extraReducers: (builder) => {
-        builder.addCase(fetchQuests.pending, (state, action) => {
+        builder.addCase(fetchItems.pending, (state, action) => {
             state.status = 'loading';
         });
-        builder.addCase(fetchQuests.fulfilled, (state, action) => {
+        builder.addCase(fetchItems.fulfilled, (state, action) => {
             state.status = 'succeeded';
-
             if (!equal(state.data, action.payload)) {
                 state.data = action.payload;
             }
         });
-        builder.addCase(fetchQuests.rejected, (state, action) => {
+        builder.addCase(fetchItems.rejected, (state, action) => {
             state.status = 'failed';
             console.log(action.error);
             state.error = action.payload;
@@ -39,23 +46,25 @@ const questsSlice = createSlice({
     },
 });
 
-export default questsSlice.reducer;
+export const { setCustomSellValue } = itemsSlice.actions;
 
-export const selectQuests = (state) => state.quests.data;
+export const itemsReducer = itemsSlice.reducer;
+
+export const selectAllItems = (state) => state.items.data;
 
 let isFetchingData = false;
 
-export const useQuestsData = () => {
+export default function useItemsData() {
     const dispatch = useDispatch();
-    const { data, status, error } = useSelector((state) => state.quests);
+    const { data, status, error } = useSelector((state) => state.items);
     const intervalRef = useRef(false);
 
     useEffect(() => {
         if (!isFetchingData) {
             isFetchingData = true;
-            dispatch(fetchQuests());
+            dispatch(fetchItems());
             intervalRef.current = setInterval(() => {
-                dispatch(fetchQuests());
+                dispatch(fetchItems());
             }, 600000);
         }
         return () => clearInterval(intervalRef.current);

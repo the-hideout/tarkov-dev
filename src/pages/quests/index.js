@@ -16,7 +16,7 @@ import {
     ToggleFilter,
 } from '../../components/filter';
 
-import { useTradersData } from '../../features/traders/tradersSlice';
+import useTradersData from '../../features/traders';
 
 import './index.css';
 

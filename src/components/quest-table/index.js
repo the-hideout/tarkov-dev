@@ -8,9 +8,9 @@ import { mdiClipboardCheck, mdiClipboardRemove } from '@mdi/js';
 import DataTable from '../data-table';
 import QuestItemsCell from '../quest-items-cell';
 import CenterCell from '../center-cell';
-import { useQuestsData } from '../../features/quests/questsSlice';
-import { useItemsData } from '../../features/items/itemsSlice';
-import { useTradersData } from '../../features/traders/tradersSlice';
+import useQuestsData from '../../features/quests';
+import useItemsData from '../../features/items';
+import useTradersData from '../../features/traders';
 import TraderImage from '../trader-image';
 
 import './index.css';

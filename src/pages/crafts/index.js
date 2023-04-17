@@ -5,7 +5,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
 import { mdiProgressWrench, mdiCancel, mdiCached } from '@mdi/js';
 
-import { useCraftsData } from '../../features/crafts/craftsSlice';
+import useCraftsData from '../../features/crafts';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 

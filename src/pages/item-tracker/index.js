@@ -8,9 +8,9 @@ import ItemGrid from '../../components/item-grid';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 //import quests from '../../data/quests.json';
-import { useItemsData } from '../../features/items/itemsSlice';
-import { useTradersData } from '../../features/traders/tradersSlice';
-import { useQuestsData } from '../../features/quests/questsSlice';
+import useItemsData from '../../features/items';
+import useTradersData from '../../features/traders';
+import useQuestsData from '../../features/quests';
 
 import './index.css';
 

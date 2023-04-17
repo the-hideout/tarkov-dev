@@ -23,9 +23,9 @@ import UkraineButton from '../ukraine-button';
 
 import { caliberArrayWithSplit } from '../../modules/format-ammo';
 import categoryPages from '../../data/category-pages.json';
-import { useBossesData } from '../../features/bosses/bossesSlice';
+import useBossesData from '../../features/bosses';
 
-import { useMapImages } from '../../features/maps/mapsSlice';
+import { useMapImages } from '../../features/maps';
 
 import alertConfig from './alert-config';
 

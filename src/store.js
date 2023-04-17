@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import itemsReducer from './features/items/itemsSlice';
-import craftsReducer from './features/crafts/craftsSlice';
-import bartersReducer from './features/barters/bartersSlice';
-import hideoutReducer from './features/hideout/hideoutSlice';
-import metaReducer from './features/meta/metaSlice';
-import questsReducer from './features/quests/questsSlice';
-import tradersReducer from './features/traders/tradersSlice';
-import bossesReducer from './features/bosses/bossesSlice';
-import mapsReducer from './features/maps/mapsSlice';
+import { itemsReducer } from './features/items';
+import { craftsReducer } from './features/crafts';
+import { bartersReducer } from './features/barters';
+import { hideoutReducer } from './features/hideout';
+import { metaReducer } from './features/meta';
+import { questsReducer } from './features/quests';
+import { tradersReducer } from './features/traders';
+import { bossesReducer } from './features/bosses';
+import { mapsReducer } from './features/maps';
 import socketsReducer from './features/sockets/socketsSlice';
 import settingsReducer from './features/settings/settingsSlice';
 

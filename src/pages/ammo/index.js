@@ -14,7 +14,7 @@ import useKeyPress from '../../hooks/useKeyPress';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import SmallItemTable from '../../components/small-item-table';
 
-import { useItemsData } from '../../features/items/itemsSlice';
+import useItemsData from '../../features/items';
 
 import { formatCaliber } from '../../modules/format-ammo';
 

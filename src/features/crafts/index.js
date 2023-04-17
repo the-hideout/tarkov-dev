@@ -5,8 +5,8 @@ import equal from 'fast-deep-equal';
 
 import doFetchCrafts from './do-fetch-crafts';
 import { langCode } from '../../modules/lang-helpers';
-import { useItemsData } from '../items/itemsSlice';
-import { useQuestsData } from '../quests/questsSlice';
+import useItemsData from '../items';
+import useQuestsData from '../quests';
 
 import { placeholderCrafts } from '../../modules/placeholder-data';
 
@@ -114,7 +114,7 @@ const craftsSlice = createSlice({
 
 export const { toggleItem, setItemCost, setRewardValue } = craftsSlice.actions;
 
-export default craftsSlice.reducer;
+export const craftsReducer = craftsSlice.reducer;
 
 export const selectAllCrafts = (state) => {
     return state.crafts.data.map(craft => {
@@ -156,7 +156,7 @@ export const selectAllCrafts = (state) => {
 
 let isFetchingData = false;
 
-export const useCraftsData = () => {
+export default function useCraftsData() {
     const dispatch = useDispatch();
     const { status, error } = useSelector((state) => state.crafts);
     const data = useSelector(selectAllCrafts);

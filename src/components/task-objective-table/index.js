@@ -14,8 +14,8 @@ import 'tippy.js/dist/tippy.css'; // optional
 
 import ArrowIcon from '../../components/data-table/Arrow.js';
 import DataTable from '../data-table';
-import { useItemsData } from '../../features/items/itemsSlice';
-import { useTradersData } from '../../features/traders/tradersSlice';
+import useItemsData from '../../features/items';
+import useTradersData from '../../features/traders';
 
 function TaskObjectiveTable({ objectives }) {
     const dispatch = useDispatch();

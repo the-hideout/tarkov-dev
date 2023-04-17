@@ -28,12 +28,12 @@ import { PresetSelector } from '../../components/preset-selector';
 
 import warningIcon from '../../images/icon-warning.png';
 
-import { useMetaData } from '../../features/meta/metaSlice';
-import { useBartersData } from '../../features/barters/bartersSlice';
-import { useHideoutData } from '../../features/hideout/hideoutSlice';
-import { useCraftsData } from '../../features/crafts/craftsSlice';
-import { useQuestsData } from '../../features/quests/questsSlice';
-import { useItemsData } from '../../features/items/itemsSlice';
+import useMetaData from '../../features/meta';
+import useBartersData from '../../features/barters';
+import useHideoutData from '../../features/hideout';
+import useCraftsData from '../../features/crafts';
+import useQuestsData from '../../features/quests';
+import useItemsData from '../../features/items';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 
 import formatPrice from '../../modules/format-price';
