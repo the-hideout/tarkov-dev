@@ -11,6 +11,8 @@ import {
     mdiCached,
     mdiClipboardList,
     mdiTimerSand,
+    mdiCloseCircle,
+    mdiCheckCircle,
 } from '@mdi/js';
 
 import DataTable from '../data-table';
@@ -26,6 +28,7 @@ import useItemsData from '../../features/items';
 import useBartersData from '../../features/barters';
 import useCraftsData from '../../features/crafts';
 import useTradersData from '../../features/traders';
+import useHideoutData from '../../features/hideout';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
@@ -35,7 +38,7 @@ const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
 };
 
-function ItemsSummaryTable({includeItems, includeTraders}) {
+function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
     const { t } = useTranslation();
 
     const settings = useSelector((state) => state.settings);
@@ -43,6 +46,7 @@ function ItemsSummaryTable({includeItems, includeTraders}) {
     const { data: barters } = useBartersData();
     const { data: crafts } = useCraftsData();
     const { data: traders } = useTradersData();
+    const { data: stations } = useHideoutData();
 
     const data = useMemo(() => {
         const requiredItems = items
@@ -88,10 +92,27 @@ function ItemsSummaryTable({includeItems, includeTraders}) {
                 cheapestPrice: 0,
                 requiredTraderLevel: trader.levels.find(l => l.level === req.level),
                 totalPrice: 0,
+                levelMet: settings[trader.normalizedName] >= req.level,
             });
         }
+        for (const req of includeStations) {
+            const station = stations.find(s => s.id === req.station.id);
+            requiredItems.push({
+                ...station,
+                quantity: req.level,
+                itemLink: `#`,
+                iconLink: `images/stations/${station.normalizedName}-icon.png`,
+                types: [],
+                barters: [],
+                buyOnFleaPrice: 0,
+                cheapestPrice: 0,
+                requiredStationLevel: station.levels.find(l => l.level === req.level),
+                totalPrice: 0,
+                levelMet: settings[station.normalizedName] >= req.level,
+            })
+        }
         return requiredItems;
-    }, [items, includeItems, includeTraders, settings, barters, crafts, traders]);
+    }, [items, includeItems, includeTraders, includeStations, settings, barters, crafts, traders, stations]);
 
     let displayColumns = useMemo(() => {
         const useColumns = [
@@ -235,12 +256,12 @@ function ItemsSummaryTable({includeItems, includeTraders}) {
                         displayedPrice.push(taskIcon);
                         priceContent.push((<div key="price-info">{formatPrice(props.value)}</div>));
                         priceContent.push((<div key="price-source-info" className="trader-unlock-wrapper">{displayedPrice}</div>))
-                    } else if (props.row.original.resetTime) {
+                    } else if (props.row.original.requiredTraderLevel) {
                         tipContent = [];
                         const trader = props.row.original;
                         priceContent.push((
                             <Icon
-                                path={mdiHelpRhombus}
+                                path={props.row.original.levelMet? mdiCheckCircle : mdiCloseCircle}
                                 size={1}
                                 className="icon-with-text"
                                 key="no-prices-icon"
@@ -260,6 +281,15 @@ function ItemsSummaryTable({includeItems, includeTraders}) {
                             <div key="commerce-level">
                                 {t('Commerce: {{commerce}}', {commerce: formatPrice(trader.requiredTraderLevel.requiredCommerce, trader.currency.normalizedName)})}
                             </div>
+                        ));
+                    } else if (props.row.original.requiredStationLevel) {
+                        priceContent.push((
+                            <Icon
+                                path={props.row.original.levelMet? mdiCheckCircle : mdiCloseCircle}
+                                size={1}
+                                className="icon-with-text"
+                                key="no-prices-icon"
+                            />
                         ));
                     } else {
                         tipContent = [];

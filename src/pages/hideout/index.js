@@ -23,6 +23,7 @@ import './index.css';
 function Hideout() {
     const [showBuilt, setShowBuilt] = useStateWithLocalStorage('showBuiltHideoutStations', true);
     const [showLocked, setShowLocked] = useStateWithLocalStorage('showLockedHideoutStations', true);
+    const [showTraderStationReqs, setShowTraderStationReqs] = useStateWithLocalStorage('showTraderStationReqs', false);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
         'selectedHideoutStation',
         'all',
@@ -133,6 +134,18 @@ function Hideout() {
                         </>
                     }
                 />)}
+                <ToggleFilter
+                    checked={showTraderStationReqs}
+                    label={t('Show all requirements')}
+                    onChange={(e) =>
+                        setShowTraderStationReqs(!showTraderStationReqs)
+                    }
+                    tooltipContent={
+                        <>
+                            {t('Show trader and other station level requirements')}
+                        </>
+                    }
+                />
             </Filter>
             {stations.map((hideoutModule) => {
                 /*if (hideoutModule.name === 'Christmas Tree') {
@@ -170,7 +183,8 @@ function Hideout() {
                                         };
                                     },
                                 )}
-                                includeTraders={level.traderRequirements}
+                                includeTraders={showTraderStationReqs ? level.traderRequirements : []}
+                                includeStations={showTraderStationReqs ? level.stationLevelRequirements.filter(req => req.station.id !== hideoutModule.id) : []}
                             />
                         </div>
                     );
