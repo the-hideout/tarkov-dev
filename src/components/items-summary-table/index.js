@@ -100,7 +100,7 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
             requiredItems.push({
                 ...station,
                 quantity: req.level,
-                itemLink: `#`,
+                //itemLink: `#`,
                 iconLink: `images/stations/${station.normalizedName}-icon.png`,
                 types: [],
                 barters: [],
