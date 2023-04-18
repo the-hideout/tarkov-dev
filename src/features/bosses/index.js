@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
@@ -86,24 +86,26 @@ export const selectAllBosses = (state) => {
     return bosses;
 };
 
-let isFetchingData = false;
+let fetchedData = false;
+let refreshInterval = false;
 
 export default function useBossesData() {
     const dispatch = useDispatch();
     const { status, error } = useSelector((state) => state.bosses);
     const data = useSelector(selectAllBosses);
-    const intervalRef = useRef(false);
     useMapsData();
 
     useEffect(() => {
-        if (!isFetchingData) {
-            isFetchingData = true;
+        if (!fetchedData) {
+            fetchedData = true;
             dispatch(fetchBosses());
-            intervalRef.current = setInterval(() => {
+        }
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
                 dispatch(fetchBosses());
             }, 600000);
         }
-        return () => clearInterval(intervalRef.current);
+        return () => clearInterval(refreshInterval);
     }, [dispatch]);
     
     return { data, status, error };

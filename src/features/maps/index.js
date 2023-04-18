@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
@@ -58,22 +58,27 @@ export const mapsReducer = mapsSlice.reducer;
 
 export const selectMaps = (state) => state.maps.data;
 
-let isFetchingData = false;
+let fetchedData = false;
+let refreshInterval = false;
 
 export default function useMapsData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.maps);
-    const intervalRef = useRef(false);
 
     useEffect(() => {
-        if (!isFetchingData) {
-            isFetchingData = true;
+        if (!fetchedData) {
+            fetchedData = true;
             dispatch(fetchMaps());
-            intervalRef.current = setInterval(() => {
+        }
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
                 dispatch(fetchMaps());
             }, 600000);
         }
-        return () => clearInterval(intervalRef.current);
+        return () => {
+            clearInterval(refreshInterval);
+            refreshInterval = false;
+        };
     }, [dispatch]);
     
     return { data, status, error };

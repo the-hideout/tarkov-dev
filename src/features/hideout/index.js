@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
@@ -46,22 +46,27 @@ export const hideoutReducer = hideoutSlice.reducer;
 
 export const selectAllHideoutModules = (state) => state.hideout.data;
 
-let isFetchingData = false;
+let fetchedData = false;
+let refreshInterval = false;
 
 export default function useHideoutData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.hideout);
-    const intervalRef = useRef(false);
 
     useEffect(() => {
-        if (!isFetchingData) {
-            isFetchingData = true;
+        if (!fetchedData) {
+            fetchedData = true;
             dispatch(fetchHideout());
-            intervalRef.current = setInterval(() => {
+        }
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
                 dispatch(fetchHideout());
             }, 600000);
         }
-        return () => clearInterval(intervalRef.current);
+        return () => {
+            clearInterval(refreshInterval);
+            refreshInterval = false;
+        };
     }, [dispatch]);
     
     return { data, status, error };
