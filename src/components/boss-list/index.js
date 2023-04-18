@@ -20,7 +20,7 @@ export function BossPageList() {
     // Return the home page boss React component
     return (
         <>
-            {bosses.filter(boss => boss.maps.length > 0).map((boss) => {
+            {bosses.filter(boss => boss.maps.length > 0).sort((a, b) => a.name.localeCompare(b.name)).map((boss) => {
 
                 // Format the boss name for links
                 var key = boss.normalizedName;
@@ -54,7 +54,7 @@ export function BossListNav(onClick) {
     return (
         <>
             <ul>
-                {bosses.map((boss) => {
+                {bosses.map(boss => boss).sort((a, b) => a.name.localeCompare(b.name)).map((boss) => {
                     // Format the boss name for links
                     var key = boss.normalizedName;
 
@@ -85,7 +85,7 @@ function BossList() {
     // Return the home page boss React component
     return (
         <>
-            {bosses.filter(boss => boss.maps.length > 0).map((boss) => {
+            {bosses.filter(boss => boss.maps.length > 0).sort((a,b) => a.name.localeCompare(b.name)).map((boss) => {
 
                 // Format the boss name for links
                 var key = boss.normalizedName;
