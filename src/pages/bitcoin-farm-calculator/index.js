@@ -1,9 +1,8 @@
-import { useMemo, useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchItems, selectAllItems } from '../../features/items/itemsSlice'
+import useItemsData from '../../features/items';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
@@ -30,7 +29,6 @@ import ProfitInfo from './profit-info';
 import './index.css';
 
 const BitcoinFarmCalculator = () => {
-    const dispatch = useDispatch();
     const { t } = useTranslation();
 
     const [graphicCardsCount, setGraphicCardsCount] = useStateWithLocalStorage(
@@ -47,40 +45,20 @@ const BitcoinFarmCalculator = () => {
         Math.max(averageWipeLength() - currentWipeLength(), 0),
     );
 
-    const itemsSelector = useSelector(selectAllItems);
-    const itemsStatus = useSelector((state) => {
-        return state.items.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (itemsStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemsStatus, dispatch]);
+    const { data: items } = useItemsData();
 
     const bitcoinItem = useMemo(() => {
-        return itemsSelector.find(i => i?.id === BitcoinItemId);
-    }, [itemsSelector]);
+        return items.find(i => i?.id === BitcoinItemId);
+    }, [items]);
 
     const graphicCardItem = useMemo(() => {
-        return itemsSelector.find(i => i.id === GraphicCardItemId);
-    }, [itemsSelector]);
+        return items.find(i => i.id === GraphicCardItemId);
+    }, [items]);
 
     //const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
     //const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
 
-    const fuelPricePerDay = useFuelPricePerDay();
+    const { price: fuelPricePerDay, item: fuelItem } = useFuelPricePerDay();
 
     if (!bitcoinItem || bitcoinItem.cached || !graphicCardItem || graphicCardItem.cached) {
         return <Loading />;
@@ -138,6 +116,7 @@ const BitcoinFarmCalculator = () => {
                         label={t('Use fuel cost: {{price}}/day', {
                             price: formatPrice(fuelPricePerDay),
                         })}
+                        tooltipContent={fuelItem.name}
                         checked={calculateWithFuelCost}
                         onChange={() =>
                             setCalculateWithFuelCost((prev) => !prev)

@@ -8,7 +8,7 @@ import useKeyPress from '../../hooks/useKeyPress';
 import itemSearch from '../../modules/item-search';
 
 import './index.css';
-import { useItemsQuery } from '../../features/items/queries';
+import useItemsData from '../../features/items';
 
 function ItemSearch({
     defaultValue,
@@ -17,7 +17,7 @@ function ItemSearch({
     autoFocus,
     showDropdown,
 }) {
-    const { data: items } = useItemsQuery();
+    const { data: items } = useItemsData();
     const { t } = useTranslation();
 
     const [nameFilter, setNameFilter] = useState(defaultValue || '');
@@ -125,8 +125,6 @@ function ItemSearch({
     useEffect(() => {
         if (enterPress && data[cursor]) {
             navigate(data[cursor].itemLink);
-            setCursor(0);
-            //setNameFilter('');
         }
     }, [cursor, enterPress, data, navigate]);
 

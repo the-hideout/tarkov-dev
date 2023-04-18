@@ -11,16 +11,22 @@ import { getDurationDisplay } from '../../modules/format-duration';
 
 import Icon from '@mdi/react';
 import {
-    mdiAccountSwitch,
+    mdiCached,
     mdiProgressWrench
 } from '@mdi/js';
 
 import './index.css';
 
-function BarterTooltip({ barter, showTitle = true, title, allowAllSources = false, crafts, barters }) {
+function BarterTooltip({ barter, showTitle = true, title, allowAllSources = false, crafts, barters, useBarterIngredients, useCraftIngredients }) {
     const settings = useSelector((state) => state.settings);
     const { t } = useTranslation();
 
+    if (barters && typeof useBarterIngredients === 'undefined') {
+        useBarterIngredients = true;
+    }
+    if (crafts && typeof useCraftIngredients === 'undefined') {
+        useCraftIngredients = true;
+    }
     const requirements = useMemo(() => {
         if (!barter) {
             return false;
@@ -31,13 +37,13 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
             return false;
         }
         return items.map(req => {
-            const cheapestPrice = getCheapestPrice(req.item, {barters, crafts, settings, allowAllSources});
+            const cheapestPrice = getCheapestPrice(req.item, {barters: useBarterIngredients ? barters : false, crafts: useCraftIngredients ? crafts : false, settings, allowAllSources, useBarterIngredients, useCraftIngredients});
             return {
                 ...req,
                 cheapestPrice,
             };
         });
-    }, [barter, settings, allowAllSources, barters, crafts]);
+    }, [barter, settings, allowAllSources, barters, crafts, useBarterIngredients, useCraftIngredients]);
 
     const totalCost = useMemo(() => {
         if (!requirements) {
@@ -78,7 +84,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
         titleElement = (
             <h3>
                 <Icon
-                    path={barter.trader ? mdiAccountSwitch : mdiProgressWrench}
+                    path={barter.trader ? mdiCached : mdiProgressWrench}
                     size={1}
                     className="icon-with-text"
                 />
@@ -175,6 +181,12 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
                     </div>
                 );
             })}
+            {barter.rewardItems[0].count > 1 && barter.trader && <div
+                className="barter-tooltip-item-wrapper"
+                key={`reward-tooltip-details`}
+            >
+                {t('Provides {{count}} for {{totalCost}}', {count: barter.rewardItems[0].count, totalCost: formatPrice(totalCost)})}
+            </div>}
             {barter.station && <div
                 className="barter-tooltip-item-wrapper"
                 key={`reward-tooltip-details`}

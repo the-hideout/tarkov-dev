@@ -23,9 +23,9 @@ import UkraineButton from '../ukraine-button';
 
 import { caliberArrayWithSplit } from '../../modules/format-ammo';
 import categoryPages from '../../data/category-pages.json';
-import { useBossDetails } from '../../features/bosses/queries';
+import useBossesData from '../../features/bosses';
 
-import { useMapImages } from '../../features/maps/queries';
+import { useMapImages } from '../../features/maps';
 
 import alertConfig from './alert-config';
 
@@ -70,7 +70,7 @@ const Menu = () => {
         return a.displayText.localeCompare(b.displayText);
     });
 
-    const bosses = useBossDetails();
+    const { data: bosses } = useBossesData();
 
     return (
         <>
@@ -255,7 +255,7 @@ const Menu = () => {
                     <li className="submenu-wrapper submenu-items" key="menu-bosses" data-targetid="bosses">
                         <Link to="/bosses/">{t('Bosses')}</Link>
                         <ul>
-                            {bosses.filter(boss => boss.maps.length > 0).map(boss => {
+                            {bosses.filter(boss => boss.maps.length > 0).sort((a,b) => a.name.localeCompare(b.name)).map(boss => {
                                 return (
                                     <li key={`boss-${boss.normalizedName}`}><Link to={`/boss/${boss.normalizedName}`}>{boss.name}</Link></li>
                                 );

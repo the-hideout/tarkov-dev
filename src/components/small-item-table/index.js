@@ -1,12 +1,12 @@
-import { useMemo, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
 import { 
     mdiCloseOctagon, 
     mdiHelpRhombus,
-    mdiAccountSwitch,
+    mdiCached,
     mdiClipboardList,
     mdiTimerSand,
 } from '@mdi/js';
@@ -29,17 +29,10 @@ import { getCheapestBarter, getCheapestCraft } from '../../modules/format-cost-i
 import { formatCaliber } from '../../modules/format-ammo';
 import itemCanContain from '../../modules/item-can-contain';
 
-import {
-    selectAllBarters,
-    fetchBarters,
-} from '../../features/barters/bartersSlice';
-import {
-    selectAllCrafts,
-    fetchCrafts,
-} from '../../features/crafts/craftsSlice';
-import { fetchItems } from '../../features/items/itemsSlice';
-import { fetchQuests } from '../../features/quests/questsSlice';
-import { useMetaQuery } from '../../features/meta/queries';
+import useBartersData from '../../features/barters';
+import useCraftsData from '../../features/crafts';
+import useItemsData from '../../features/items';
+import useMetaData from '../../features/meta';
 import CanvasGrid from '../../components/canvas-grid';
 
 import './index.css';
@@ -240,7 +233,6 @@ function SmallItemTable(props) {
         slotRatio,
         pricePerSlot,
         barterPrice,
-        craftPrice,
         fleaValue,
         hideBorders,
         autoScroll = true,
@@ -296,12 +288,15 @@ function SmallItemTable(props) {
         showRestrictedType,
         attachmentMap,
         showGunDefaultPresetImages,
+        useBarterIngredients,
+        useCraftIngredients,
+        minPenetration,
+        maxPenetration,
     } = props;
-    const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
 
-    const { data: meta } = useMetaQuery();
+    const { data: meta } = useMetaData();
     const { materialDestructibilityMap, materialRepairabilityMap } = useMemo(
         () => {
             const destruct = {};
@@ -316,29 +311,8 @@ function SmallItemTable(props) {
         [meta]
     );
 
-    const itemsStatus = useSelector((state) => {
-        return state.items.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (itemsStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemsStatus, dispatch]);
-
     // Create a constant of all data returned
-    const items = useSelector(state => state.items.items);
+    const {data: items, status: itemsStatus} = useItemsData();
 
     const itemCount = items ? items.length : 0;
     const randomSeeds = useMemo(() => {
@@ -352,76 +326,9 @@ function SmallItemTable(props) {
         return seeds;
     },[itemCount, defaultRandom]);
 
-    const barters = useSelector(selectAllBarters);
-    const bartersStatus = useSelector((state) => {
-        return state.barters.status;
-    });
+    const { data: barters } = useBartersData();
 
-    useEffect(() => {
-        if (!barterPrice && !cheapestPrice)
-            return;
-
-        let timer = false;
-        if (bartersStatus === 'idle') {
-            dispatch(fetchBarters());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchBarters());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [bartersStatus, barterPrice, cheapestPrice, dispatch]);
-
-    const crafts = useSelector(selectAllCrafts);
-    const craftsStatus = useSelector((state) => {
-        return state.crafts.status;
-    });
-
-    useEffect(() => {
-        if (!craftPrice && !cheapestPrice)
-            return;
-
-        let timer = false;
-        if (craftsStatus === 'idle') {
-            dispatch(fetchCrafts());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchCrafts());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [craftsStatus, craftPrice, cheapestPrice, dispatch]);
-
-    const questsStatus = useSelector((state) => {
-        return state.quests.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (questsStatus === 'idle') {
-            dispatch(fetchQuests());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchQuests());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [questsStatus, dispatch]);
+    const { data: crafts } = useCraftsData();
 
     const containedItems = useMemo(() => {
         if (!containedInFilter) 
@@ -516,14 +423,14 @@ function SmallItemTable(props) {
             }
 
             if (formattedItem.barters.length > 0) {
-                formattedItem.cheapestBarter = getCheapestBarter(itemData, {barters: formattedItem.barters, settings, allowAllSources: showAllSources});
+                formattedItem.cheapestBarter = getCheapestBarter(itemData, {barters: formattedItem.barters, settings, allowAllSources: showAllSources, useBarterIngredients, useCraftIngredients});
             }
             formattedItem.cheapestObtainPrice = Number.MAX_SAFE_INTEGER;
             formattedItem.cheapestObtainInfo = null;
             if (formattedItem.cheapestBarter && (settings.hasFlea || showAllSources)) {
                 //console.log(formattedItem.cheapestBarter.barter, settings[formattedItem.cheapestBarter.barter.trader.normalizedName]);
                 //if (!showAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel)
-                formattedItem.cheapestObtainPrice = formattedItem.cheapestBarter.price;
+                formattedItem.cheapestObtainPrice = formattedItem.cheapestBarter.pricePerUnit;
                 formattedItem.cheapestObtainInfo = formattedItem.cheapestBarter;
             }
             for (const buyFor of formattedItem.buyFor) {
@@ -532,8 +439,8 @@ function SmallItemTable(props) {
                     formattedItem.cheapestObtainInfo = buyFor;
                 }
             }
-            if (!formattedItem.cheapestObtainInfo && (settings.hasFlea || showAllSources)) {
-                const cheapestCraft = getCheapestCraft(itemData, {crafts, settings, allowAllSources: showAllSources});
+            if (!formattedItem.cheapestObtainInfo && (settings.hasFlea || showAllSources) && !traderBuybackFilter) {
+                const cheapestCraft = getCheapestCraft(itemData, {crafts, settings, allowAllSources: showAllSources, useBarterIngredients, useCraftIngredients});
                 if (cheapestCraft) {
                     formattedItem.cheapestObtainInfo = cheapestCraft;
                     formattedItem.cheapestObtainPrice = Math.round(cheapestCraft.price / cheapestCraft.count);
@@ -687,6 +594,21 @@ function SmallItemTable(props) {
                 }
 
                 return true;
+            })
+            .filter(item => {
+                if (typeof minPenetration === 'undefined' && typeof maxPenetration === 'undefined') {
+                    return true;
+                }
+                const min = minPenetration || 0;
+                let max = typeof maxPenetration === 'undefined' ? Number.MAX_SAFE_INTEGER : maxPenetration;
+                if (max === 60) {
+                    max = Number.MAX_SAFE_INTEGER;
+                }
+                const pen = item.properties?.penetrationPower;
+                if (typeof pen === 'undefined') {
+                    return false;
+                }
+                return pen >= min && pen <= max;
             });
 
         if (nameFilter) {
@@ -923,6 +845,10 @@ function SmallItemTable(props) {
         showPresets,
         attachmentMap,
         showGunDefaultPresetImages,
+        useBarterIngredients,
+        useCraftIngredients,
+        minPenetration,
+        maxPenetration
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {
@@ -1020,6 +946,7 @@ function SmallItemTable(props) {
                         item={props.row.original}
                         showContainedItems={showContainedItems}
                         showRestrictedType={showRestrictedType}
+                        items={items}
                     />
                 );
             },
@@ -1696,7 +1623,7 @@ function SmallItemTable(props) {
                             barterIcon = (
                                 <Icon
                                     key="barter-tooltip-icon"
-                                    path={mdiAccountSwitch}
+                                    path={mdiCached}
                                     size={1}
                                     className="icon-with-text"
                                 />
@@ -1723,6 +1650,10 @@ function SmallItemTable(props) {
                                     showTitle={taskIcon !== ''}
                                     title={barterTipTitle}
                                     allowAllSources={showAllSources}
+                                    barters={barters}
+                                    crafts={crafts}
+                                    useBarterIngredients={useBarterIngredients}
+                                    useCraftIngredients={useCraftIngredients}
                                 />
                             );
                         } else if (cheapestObtainInfo.craft) {
@@ -1750,6 +1681,10 @@ function SmallItemTable(props) {
                                     showTitle={taskIcon !== ''}
                                     title={barterTipTitle}
                                     allowAllSources={showAllSources}
+                                    barters={barters}
+                                    crafts={crafts}
+                                    useBarterIngredients={useBarterIngredients}
+                                    useCraftIngredients={useCraftIngredients}
                                 />
                             );
                         }
@@ -1916,6 +1851,11 @@ function SmallItemTable(props) {
         showRestrictedType,
         attachmentMap,
         settings,
+        items,
+        barters,
+        crafts,
+        useBarterIngredients,
+        useCraftIngredients,
     ]);
 
     let extraRow = false;

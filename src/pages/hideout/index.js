@@ -1,6 +1,6 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
 
 import Icon from '@mdi/react';
 import { mdiHome } from '@mdi/js';
@@ -13,49 +13,51 @@ import {
     Filter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
+    ToggleFilter,
 } from '../../components/filter';
 
-import {
-    selectAllHideoutModules,
-    fetchHideout,
-} from '../../features/hideout/hideoutSlice';
+import useHideoutData from '../../features/hideout';
 
 import './index.css';
 
 function Hideout() {
+    const [showBuilt, setShowBuilt] = useStateWithLocalStorage('showBuiltHideoutStations', true);
+    const [showLocked, setShowLocked] = useStateWithLocalStorage('showLockedHideoutStations', true);
+    const [showTraderStationReqs, setShowTraderStationReqs] = useStateWithLocalStorage('showTraderStationReqs', false);
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
         'selectedHideoutStation',
         'all',
     );
     const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const hideout = useSelector(selectAllHideoutModules);
-    const hideoutStatus = useSelector((state) => {
-        return state.hideout.status;
-    });
+    const settings = useSelector((state) => state.settings);
 
-    useEffect(() => {
-        let timer = false;
-        if (hideoutStatus === 'idle') {
-            dispatch(fetchHideout());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchHideout());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [hideoutStatus, dispatch]);
+    const { data: hideout } = useHideoutData();
 
     const stations = useMemo(() => {
-        return hideout.map(station => station).sort((a, b) => {
+        return hideout.map(station => {
+            return {
+                ...station,
+                levels: (showBuilt && showLocked) || !settings.useTarkovTracker ? station.levels : station.levels.filter(lvl => {
+                    if (!showBuilt && lvl.level <= settings[station.normalizedName]) {
+                        return false;
+                    }
+                    for (const req of lvl.stationLevelRequirements) {
+                        if (!showLocked && req.level > settings[req.station.normalizedName]) {
+                            return false;
+                        }
+                    }
+                    for (const req of lvl.traderRequirements) {
+                        if (!showLocked && req.level > settings[req.trader.normalizedName]) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }),
+            };
+        }).filter(station => station.levels.length > 0).sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
-    }, [hideout]);
+    }, [hideout, settings, showBuilt, showLocked]);
 
     return [
         <SEO 
@@ -108,8 +110,44 @@ function Hideout() {
                         onClick={setSelectedStation.bind(undefined, 'all')}
                     />
                 </ButtonGroupFilter>
+                {settings.useTarkovTracker && (<ToggleFilter
+                    checked={showBuilt}
+                    label={t('Show built')}
+                    onChange={(e) =>
+                        setShowBuilt(!showBuilt)
+                    }
+                    tooltipContent={
+                        <>
+                            {t('Show already built stations')}
+                        </>
+                    }
+                />)}
+                {settings.useTarkovTracker && (<ToggleFilter
+                    checked={showLocked}
+                    label={t('Show locked')}
+                    onChange={(e) =>
+                        setShowLocked(!showLocked)
+                    }
+                    tooltipContent={
+                        <>
+                            {t('Show unavailable stations')}
+                        </>
+                    }
+                />)}
+                <ToggleFilter
+                    checked={showTraderStationReqs}
+                    label={t('Show all requirements')}
+                    onChange={(e) =>
+                        setShowTraderStationReqs(!showTraderStationReqs)
+                    }
+                    tooltipContent={
+                        <>
+                            {t('Show trader and other station level requirements')}
+                        </>
+                    }
+                />
             </Filter>
-            {hideout.map((hideoutModule) => {
+            {stations.map((hideoutModule) => {
                 /*if (hideoutModule.name === 'Christmas Tree') {
                     return null;
                 }*/
@@ -145,6 +183,8 @@ function Hideout() {
                                         };
                                     },
                                 )}
+                                includeTraders={showTraderStationReqs ? level.traderRequirements : []}
+                                includeStations={showTraderStationReqs ? level.stationLevelRequirements.filter(req => req.station.id !== hideoutModule.id) : []}
                             />
                         </div>
                     );

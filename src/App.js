@@ -152,6 +152,7 @@ function App() {
 
         return () => {
             clearInterval(tarkovTrackerProgressInterval);
+            tarkovTrackerProgressInterval = false;
         };
     }, [progressStatus, dispatch, tarkovTrackerAPIKey, useTarkovTracker]);
 

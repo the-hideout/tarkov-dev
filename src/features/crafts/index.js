@@ -1,13 +1,17 @@
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
 import doFetchCrafts from './do-fetch-crafts';
 import { langCode } from '../../modules/lang-helpers';
+import useItemsData from '../items';
+import useQuestsData from '../quests';
 
 import { placeholderCrafts } from '../../modules/placeholder-data';
 
 const initialState = {
-    crafts: placeholderCrafts(langCode()),
+    data: placeholderCrafts(langCode()),
     status: 'idle',
     error: null,
 };
@@ -21,7 +25,7 @@ const craftsSlice = createSlice({
     initialState,
     reducers: {
         toggleItem: (state, action) => {
-            let newCrafts = [...state.crafts];
+            let newCrafts = [...state.data];
 
             newCrafts = newCrafts.map((craft) => {
                 craft.requiredItems = craft.requiredItems.map(
@@ -48,10 +52,10 @@ const craftsSlice = createSlice({
                 return craft;
             });
 
-            state.crafts = newCrafts;
+            state.data = newCrafts;
         },
         setItemCost: (state, action) => {
-            let newCrafts = [...state.crafts];
+            let newCrafts = [...state.data];
 
             newCrafts = newCrafts.map((craft) => {
                 craft.requiredItems = craft.requiredItems.map(
@@ -67,10 +71,10 @@ const craftsSlice = createSlice({
                 return craft;
             });
 
-            state.crafts = newCrafts;
+            state.data = newCrafts;
         },
         setRewardValue: (state, action) => {
-            let newCrafts = [...state.crafts];
+            let newCrafts = [...state.data];
 
             newCrafts = newCrafts.map((craft) => {
                 craft.rewardItems = craft.rewardItems.map(
@@ -86,19 +90,18 @@ const craftsSlice = createSlice({
                 return craft;
             });
 
-            state.crafts = newCrafts;
+            state.data = newCrafts;
         },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchCrafts.pending, (state, action) => {
             state.status = 'loading';
-            state.crafts = craftsSlice.getInitialState().crafts;
         });
         builder.addCase(fetchCrafts.fulfilled, (state, action) => {
             state.status = 'succeeded';
 
-            if (!equal(state.crafts, action.payload)) {
-                state.crafts = action.payload;
+            if (!equal(state.data, action.payload)) {
+                state.data = action.payload;
             }
         });
         builder.addCase(fetchCrafts.rejected, (state, action) => {
@@ -111,21 +114,21 @@ const craftsSlice = createSlice({
 
 export const { toggleItem, setItemCost, setRewardValue } = craftsSlice.actions;
 
-export default craftsSlice.reducer;
+export const craftsReducer = craftsSlice.reducer;
 
 export const selectAllCrafts = (state) => {
-    return state.crafts.crafts.map(craft => {
+    return state.crafts.data.map(craft => {
         let taskUnlock = craft.taskUnlock;
         if (taskUnlock) {
-            taskUnlock = state.quests.quests.find(t => t.id === taskUnlock.id);
+            taskUnlock = state.quests.data.find(t => t.id === taskUnlock.id);
         }
         return {
             ...craft,
             requiredItems: craft.requiredItems.map(req => {
-                let matchedItem = state.items.items.find(it => it.id === req.item.id);
+                let matchedItem = state.items.data.find(it => it.id === req.item.id);
                 if (matchedItem && matchedItem.types.includes('gun')) {
                     if (req.attributes?.some(element => element.type === 'functional' && Boolean(element.value))) {
-                        matchedItem = state.items.items.find(it => it.id === matchedItem.properties?.defaultPreset?.id);
+                        matchedItem = state.items.data.find(it => it.id === matchedItem.properties?.defaultPreset?.id);
                     }
                 }
                 if (!matchedItem) {
@@ -137,7 +140,7 @@ export const selectAllCrafts = (state) => {
                 };
             }).filter(Boolean),
             rewardItems: craft.rewardItems.map(req => {
-                const matchedItem = state.items.items.find(it => it.id === req.item.id);
+                const matchedItem = state.items.data.find(it => it.id === req.item.id);
                 if (!matchedItem) {
                     return false;
                 }
@@ -149,4 +152,33 @@ export const selectAllCrafts = (state) => {
             taskUnlock: taskUnlock,
         };
     }).filter(craft => craft.rewardItems.length > 0 && craft.requiredItems.length > 0);
+};
+
+let fetchedData = false;
+let refreshInterval = false;
+
+export default function useCraftsData() {
+    const dispatch = useDispatch();
+    const { status, error } = useSelector((state) => state.crafts);
+    const data = useSelector(selectAllCrafts);
+
+    useItemsData();
+    useQuestsData();
+    useEffect(() => {
+        if (!fetchedData) {
+            fetchedData = true;
+            dispatch(fetchCrafts());
+        }
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
+                dispatch(fetchCrafts());
+            }, 600000);
+        }
+        return () => {
+            clearInterval(refreshInterval);
+            refreshInterval = false;
+        };
+    }, [dispatch]);
+    
+    return { data, status, error };
 };

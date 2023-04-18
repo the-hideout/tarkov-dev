@@ -1,16 +1,16 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Icon from '@mdi/react';
 import { mdiClipboardCheck, mdiClipboardRemove } from '@mdi/js';
 
 import DataTable from '../data-table';
 import QuestItemsCell from '../quest-items-cell';
 import CenterCell from '../center-cell';
-import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
-import { useItemsQuery } from '../../features/items/queries';
-import { useTradersQuery } from '../../features/traders/queries';
+import useQuestsData from '../../features/quests';
+import useItemsData from '../../features/items';
+import useTradersData from '../../features/traders';
 import TraderImage from '../trader-image';
 
 import './index.css';
@@ -157,36 +157,11 @@ function QuestTable({
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
 
-    const result = useItemsQuery();
-    const items = result.data;
+    const { data: items } = useItemsData();
 
-    const tradersResult = useTradersQuery();
-    const traders = useMemo(() => {
-        return tradersResult.data;
-    }, [tradersResult]);
+    const { data: traders } = useTradersData();
     
-    const dispatch = useDispatch();
-    const quests = useSelector(selectQuests);
-    const questsStatus = useSelector((state) => {
-        return state.quests.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (questsStatus === 'idle') {
-            dispatch(fetchQuests());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchQuests());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [questsStatus, dispatch]);
+    const { data: quests } = useQuestsData();
 
     const allQuestData = useMemo(() => {
         return quests.map(rawQuest => {
@@ -209,7 +184,7 @@ function QuestTable({
                         ...req,
                         item: items.find(i => i.id === req.item.id)
                     };
-                });
+                }).filter(req => req.item);
                 if (requiredItemFilter && questData.requiredItems.length === 0) {
                     return false;
                 }
@@ -493,6 +468,7 @@ function QuestTable({
                             return <TraderImage
                                 trader={trader}
                                 reputationChange={reward.standing}
+                                key={trader.id}
                             />
                         })}
                     </CenterCell>;

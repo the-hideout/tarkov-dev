@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import MenuItem from '../menu/MenuItem';
 import LoadingSmall from '../loading-small';
-import { useBossDetails } from '../../features/bosses/queries';
+import useBossesData from '../../features/bosses';
 
 import './index.css';
 
@@ -10,7 +10,7 @@ import './index.css';
 // BossPageList component for the main boss page
 export function BossPageList() {
     // Fetch bosses
-    const bosses = useBossDetails();
+    const { data: bosses } = useBossesData();
 
     // If no maps have been returned yet, return 'loading'
     if (!bosses || bosses.length === 0) {
@@ -20,7 +20,7 @@ export function BossPageList() {
     // Return the home page boss React component
     return (
         <>
-            {bosses.filter(boss => boss.maps.length > 0).map((boss) => {
+            {bosses.filter(boss => boss.maps.length > 0).sort((a, b) => a.name.localeCompare(b.name)).map((boss) => {
 
                 // Format the boss name for links
                 var key = boss.normalizedName;
@@ -43,7 +43,7 @@ export function BossPageList() {
 // BossListNav component for homepage nav bar
 export function BossListNav(onClick) {
     // Fetch bosses
-    const bosses = useBossDetails();
+    const { data: bosses } = useBossesData();
 
     // If no maps have been returned yet, return 'loading'
     if (!bosses || bosses.length === 0) {
@@ -54,7 +54,7 @@ export function BossListNav(onClick) {
     return (
         <>
             <ul>
-                {bosses.map((boss) => {
+                {bosses.map(boss => boss).sort((a, b) => a.name.localeCompare(b.name)).map((boss) => {
                     // Format the boss name for links
                     var key = boss.normalizedName;
 
@@ -75,7 +75,7 @@ export function BossListNav(onClick) {
 // BossList component for homepage
 function BossList() {
     // Fetch bosses
-    const bosses = useBossDetails();
+    const { data: bosses } = useBossesData();
 
     // If no maps have been returned yet, return 'loading'
     if (!bosses || bosses.length === 0) {
@@ -85,7 +85,7 @@ function BossList() {
     // Return the home page boss React component
     return (
         <>
-            {bosses.filter(boss => boss.maps.length > 0).map((boss) => {
+            {bosses.filter(boss => boss.maps.length > 0).sort((a,b) => a.name.localeCompare(b.name)).map((boss) => {
 
                 // Format the boss name for links
                 var key = boss.normalizedName;

@@ -1,4 +1,3 @@
-import { useQuery } from 'react-query';
 import {
     VictoryChart,
     VictoryLine,
@@ -10,6 +9,7 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import formatPrice from '../../modules/format-price';
+import { useQuery } from '../../modules/graphql-request';
 // import { getRelativeTimeAndUnit } from '../../modules/format-duration';
 
 import './index.css';
@@ -21,32 +21,16 @@ function PriceGraph({ item, itemId, itemChange24 }) {
             itemId = item.properties.baseItem.id;
         }
     }
-
-    const dataQuery = JSON.stringify({
-        query: `{
+    
+    const { t } = useTranslation();
+    const { status, data } = useQuery(
+        `historical-price-${itemId}`,
+        `{
             historicalItemPrices(id:"${itemId}"){
                 price
                 timestamp
             }
         }`,
-    });
-    
-    const { t } = useTranslation();
-    const { status, data } = useQuery(
-        `historical-price-${itemId}`,
-        () =>
-            fetch('https://api.tarkov.dev/graphql', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                },
-                body: dataQuery,
-            }).then((response) => response.json()),
-        {
-            refetchOnMount: false,
-            refetchOnWindowFocus: false,
-        },
     );
     let height = VictoryTheme.material.height;
 

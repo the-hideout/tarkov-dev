@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchTarkovTrackerProgress = createAsyncThunk(
     'settings/fetchTarkovTrackerProgress',
-    async (apiKey) => {
+    async (apiKey, { getState }) => {
         if (!apiKey || typeof apiKey !== 'string' || !apiKey.match(/^[a-zA-Z0-9]{22}$/)) {
             return false;
         }
@@ -33,29 +33,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
         }, []);
         returnData.flea = progressData.playerLevel >= 15 ? true : false;
 
-        const bodyQuery = JSON.stringify({
-            query: `{
-        hideoutStations {
-            id
-            name
-            normalizedName
-            levels {
-                id
-                level
-            }
-        }
-    }`,
-        });
-
-        const hideoutData = await fetch('https://api.tarkov.dev/graphql', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-            body: bodyQuery,
-        }).then((resp) => resp.json())
-        .then((resp) => resp.data.hideoutStations);
+        const hideoutData = getState().hideout.data;
 
         for (const station of hideoutData) {
             returnData.hideout[station.normalizedName] = 0;

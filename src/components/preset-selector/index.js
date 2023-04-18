@@ -1,14 +1,14 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import { useItemsQuery } from '../../features/items/queries';
+import useItemsData from '../../features/items';
 import { SelectItemFilter } from '../filter';
 
 export function PresetSelector({ item, alt = '' }) {
     const navigate = useNavigate();
 
     // Use the primary items API query to fetch all items
-    const result = useItemsQuery();
+    const { data: allItems } = useItemsData();
 
     const [selected, setSelected] = useState(item);
 
@@ -27,16 +27,18 @@ export function PresetSelector({ item, alt = '' }) {
         };
     }, [selected]);
 
-    const items = result.data.filter(
-        testItem => baseId && (testItem.id === baseId || testItem.properties?.baseItem?.id === baseId)
-    ).sort((a, b) => {
-        if (a.types.includes('gun')) return -1;
-        if (b.types.includes('gun')) return 1;
-        const baseItem = result.data.find(i => i.id === baseId);
-        if (baseItem?.properties?.defaultPreset?.id === a.id) return -1;
-        if (baseItem?.properties?.defaultPreset?.id === b.id) return 1;
-        return a.shortName.localeCompare(b.shortName);
-    });
+    const items = useMemo(() => {
+        return allItems.filter(
+            testItem => baseId && (testItem.id === baseId || testItem.properties?.baseItem?.id === baseId)
+        ).sort((a, b) => {
+            if (a.types.includes('gun')) return -1;
+            if (b.types.includes('gun')) return 1;
+            const baseItem = allItems.find(i => i.id === baseId);
+            if (baseItem?.properties?.defaultPreset?.id === a.id) return -1;
+            if (baseItem?.properties?.defaultPreset?.id === b.id) return 1;
+            return a.shortName.localeCompare(b.shortName);
+        });
+    }, [allItems, baseId]);
 
     if (items.length < 2) {
         return alt;

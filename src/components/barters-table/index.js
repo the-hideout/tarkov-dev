@@ -1,20 +1,12 @@
-import { useMemo, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../../components/data-table';
-// import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
-import {
-    selectAllBarters,
-    fetchBarters,
-} from '../../features/barters/bartersSlice';
-import {
-    selectAllCrafts,
-    fetchCrafts,
-} from '../../features/crafts/craftsSlice';
-import { fetchItems } from '../../features/items/itemsSlice';
+import useBartersData from '../../features/barters';
+import useCraftsData from '../../features/crafts';
 import { selectAllTraders } from '../../features/settings/settingsSlice';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
@@ -22,12 +14,10 @@ import { formatCostItems, getCheapestCashPrice, getCheapestBarter } from '../../
 import RewardCell from '../reward-cell';
 import { isAnyDogtag, isBothDogtags } from '../../modules/dogtags';
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
-import { fetchQuests } from '../../features/quests/questsSlice';
 
 import './index.css';
 
 function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBarterIngredients, useCraftIngredients }) {
-    const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
     const { hasJaeger, removeDogtags, completedQuests } = useMemo(() => {
@@ -36,91 +26,8 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
     const traders = useSelector(selectAllTraders);
     const [skippedBySettings, setSkippedBySettings] = useState(false);
 
-    const itemsStatus = useSelector((state) => {
-        return state.items.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (itemsStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemsStatus, dispatch]);
-
-    const questsStatus = useSelector((state) => {
-        return state.quests.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (questsStatus === 'idle') {
-            dispatch(fetchQuests());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchQuests());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [questsStatus, dispatch]);
-
-    const barters = useSelector(selectAllBarters);
-    const bartersStatus = useSelector((state) => {
-        return state.barters.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (bartersStatus === 'idle') {
-            dispatch(fetchBarters());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchBarters());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [bartersStatus, dispatch]);
-
-    const crafts = useSelector(selectAllCrafts);
-    const craftsStatus = useSelector((state) => {
-        return state.crafts.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (craftsStatus === 'idle') {
-            dispatch(fetchCrafts());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchCrafts());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [craftsStatus, dispatch]);
+    const { data: barters } = useBartersData();
+    const { data: crafts } = useCraftsData();
 
     const columns = useMemo(
         () => [
@@ -152,7 +59,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                             </div>
                         );
                     }
-                    return <ValueCell value={props.value}/>;
+                    return <ValueCell value={props.value} valueCount={props.row.original.reward.count}/>;
                 },
             },
             {
@@ -335,6 +242,8 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                     barters: useBarterIngredients ? barters : false,
                     crafts: useCraftIngredients ? crafts : false,
                     allowAllSources: showAll,
+                    useBarterIngredients,
+                    useCraftIngredients,
                 });
                 costItems.forEach((costItem) => (cost += costItem.pricePerUnit * costItem.count));
 
@@ -365,12 +274,12 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                 const tradeData = {
                     costItems: costItems,
                     cost: cost,
-                    instaProfit: bestSellTo.priceRUB - cost,
+                    instaProfit: (bestSellTo.priceRUB * barterRow.rewardItems[0].count) - cost,
                     instaProfitSource: bestSellTo,
                     instaProfitDetails: [
                         {
                             name: bestSellTo.vendor.name,
-                            value: bestSellTo.priceRUB,
+                            value: bestSellTo.priceRUB * barterRow.rewardItems[0].count,
                         },
                         {
                             name: t('Barter cost'),
@@ -385,6 +294,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                         sellValue: bestSellTo.priceRUB,
                         taskUnlock: barterRow.taskUnlock,
                         isFIR: false,
+                        count: barterRow.rewardItems[0].count,
                     },
                     cached: barterRow.cached || barterRewardItem.cached,
                 };
@@ -405,7 +315,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                         if (cheapestBarter.priceRUB !== cost) {
                             tradeData.savingsParts.push({
                                 name: `${cheapestBarter.vendor.name} ${t('LL{{level}}', { level: cheapestBarter.vendor.minTraderLevel })} ${t('Barter')}`,
-                                value: cheapestBarter.priceRUB
+                                value: cheapestBarter.priceRUB,
                             });
                         }
                         tradeData.savings = cheapestBarter.priceRUB - cost;
@@ -418,14 +328,14 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBart
                     }
                     tradeData.savingsParts.push({
                         name: sellerName,
-                        value: cheapestPrice.priceRUB
+                        value: cheapestPrice.priceRUB,
                     });
-                    tradeData.savings = cheapestPrice.priceRUB - cost;
+                    tradeData.savings = cheapestPrice.priceRUB - Math.round(cost / barterRow.rewardItems[0].count);
                 }
                 if (tradeData.savingsParts.length > 0) {
                     tradeData.savingsParts.push({
                         name: t('Barter cost'),
-                        value: cost * -1
+                        value: Math.round(cost / barterRow.rewardItems[0].count) * -1
                     });
                 }
 

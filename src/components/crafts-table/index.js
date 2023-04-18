@@ -1,21 +1,13 @@
-import { useMemo, useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../data-table';
 import fleaMarketFee from '../../modules/flea-market-fee';
-import {
-    selectAllCrafts,
-    fetchCrafts,
-} from '../../features/crafts/craftsSlice';
-import {
-    selectAllBarters,
-    fetchBarters,
-} from '../../features/barters/bartersSlice';
-import { fetchItems } from '../../features/items/itemsSlice';
-import { fetchQuests } from '../../features/quests/questsSlice';
+import useCraftsData from '../../features/crafts';
+import useBartersData from '../../features/barters';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
@@ -29,12 +21,11 @@ import './index.css';
 import RewardCell from '../reward-cell';
 import { getDurationDisplay } from '../../modules/format-duration';
 import bestPrice from '../../modules/best-price';
-import { useMetaQuery } from '../../features/meta/queries';
+import useMetaData from '../../features/meta';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
 function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices, useBarterIngredients, useCraftIngredients }) {
-    const dispatch = useDispatch();
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
     const { includeFlea, hasJaeger, completedQuests } = useMemo(() => {
@@ -43,97 +34,15 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
     const stations = useSelector(selectAllStations);
     const skills = useSelector(selectAllSkills);
     const [skippedBySettings, setSkippedBySettings] = useState(false);
-    const feeReduction = stations['intelligence-center'] === 3 ? 0.7 - (0.003 * skills['hideout-management']) : 1;
 
     const [sortState, setSortState] = useState([{id: 'profit', desc: true}]);
 
-    const itemsStatus = useSelector((state) => {
-        return state.items.status;
-    });
+    const { data: crafts } = useCraftsData();
 
-    useEffect(() => {
-        let timer = false;
-        if (itemsStatus === 'idle') {
-            dispatch(fetchItems());
-        }
+    const { data: barters } = useBartersData();
 
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
+    const { data: meta } = useMetaData();
 
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemsStatus, dispatch]);
-
-    const questsStatus = useSelector((state) => {
-        return state.quests.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (questsStatus === 'idle') {
-            dispatch(fetchQuests());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchQuests());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [questsStatus, dispatch]);
-
-    const crafts = useSelector(selectAllCrafts);
-    const craftsStatus = useSelector((state) => {
-        return state.crafts.status;
-    });
-
-    const barters = useSelector(selectAllBarters);
-    const bartersStatus = useSelector((state) => {
-        return state.barters.status;
-    });
-
-    const { data: meta } = useMetaQuery();
-
-    useEffect(() => {
-        let timer = false;
-        if (bartersStatus === 'idle') {
-            dispatch(fetchBarters());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchBarters());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [bartersStatus, dispatch]);
-
-    useEffect(() => {
-        let timer = false;
-        if (craftsStatus === 'idle') {
-            dispatch(fetchCrafts());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchCrafts());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [craftsStatus, dispatch]);
 
     const data = useMemo(() => {
         let addedStations = {};
@@ -249,10 +158,12 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 
                 const costItems = formatCostItems(craftRow.requiredItems, {
                     settings,
-                    barters,
+                    barters: useBarterIngredients ? barters : false,
                     crafts: useCraftIngredients ? crafts : false,
                     freeFuel,
                     allowAllSources: showAll,
+                    useBarterIngredients,
+                    useCraftIngredients,
                 });
 
                 const craftDuration = Math.floor(
@@ -260,7 +171,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 );
 
                 var costItemsWithoutTools = costItems.filter(costItem => costItem.isTool === false);
-                costItemsWithoutTools.forEach((costItem) => (totalCost += costItem.priceRUB * costItem.count));
+                costItemsWithoutTools.forEach((costItem) => (totalCost += costItem.pricePerUnit * costItem.count));
 
                 const craftRewardItem = craftRow.rewardItems[0].item;
 
@@ -323,7 +234,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                             1,
                             meta?.flea?.sellOfferFeeRate,
                             meta?.flea?.sellRequirementFeeRate,
-                        ) * feeReduction;
+                        );
                     }
                     fleaFeeTotal = fleaMarketFee(
                         craftRewardItem.basePrice,
@@ -331,7 +242,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         craftRow.rewardItems[0].count,
                         meta?.flea?.sellOfferFeeRate,
                         meta?.flea?.sellRequirementFeeRate,
-                    ) * feeReduction;
+                    );
                     if (fleaPriceToUse - fleaFeeSingle > tradeData.reward.sellValue) {
                         tradeData.reward.sellValue = fleaPriceToUse;
                     
@@ -438,7 +349,6 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         itemFilter,
         stations,
         skills,
-        feeReduction,
         t,
         showAll,
         averagePrices,
@@ -446,6 +356,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         settings,
         sortState,
         useCraftIngredients,
+        useBarterIngredients,
     ]);
 
     const columns = useMemo(
@@ -479,7 +390,14 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     return aCostItems - bCostItems;
                 },
                 Cell: ({ value }) => {
-                    return <CostItemsCell costItems={value} allowAllSources={showAll} barters={barters} crafts={crafts} />;
+                    return <CostItemsCell 
+                        costItems={value} 
+                        allowAllSources={showAll} 
+                        barters={barters} 
+                        crafts={crafts} 
+                        useBarterIngredients={useBarterIngredients}
+                        useCraftIngredients={useCraftIngredients}
+                    />;
                 },
             },
             {
@@ -579,7 +497,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 },
             },
         ],
-        [t, includeFlea, selectedStation, showAll, crafts, barters],
+        [t, includeFlea, selectedStation, showAll, crafts, barters, useCraftIngredients, useBarterIngredients],
     );
 
     let extraRow = false;

@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
@@ -17,7 +16,7 @@ import {
     ToggleFilter,
 } from '../../components/filter';
 
-import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
+import useTradersData from '../../features/traders';
 
 import './index.css';
 
@@ -39,27 +38,7 @@ function Quests() {
         false,
     );
 
-    const dispatch = useDispatch();
-    const allTraders = useSelector(selectAllTraders);
-    const tradersStatus = useSelector((state) => {
-        return state.traders.status;
-    });
-    useEffect(() => {
-        let timer = false;
-        if (tradersStatus === 'idle') {
-            dispatch(fetchTraders());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchTraders());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [tradersStatus, dispatch]);
+    const { data: traders } = useTradersData();
 
     const { t } = useTranslation();
 
@@ -97,7 +76,7 @@ function Quests() {
                         }
                     />
                     <ButtonGroupFilter>
-                        {allTraders.map((trader) => {
+                        {traders.map((trader) => {
                             return (
                                 <ButtonGroupFilterButton
                                     key={`trader-tooltip-${trader.normalizedName}`}

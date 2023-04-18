@@ -10,7 +10,7 @@ import { mdiTimerSand, mdiCloseBox, mdiCheckboxMarked, mdiProgressWrench } from 
 import BarterTooltip from '../barter-tooltip';
 import formatPrice from '../../modules/format-price';
 
-import { setCustomSellValue } from '../../features/items/itemsSlice';
+import { setCustomSellValue } from '../../features/items';
 
 import './index.css';
 
@@ -29,6 +29,8 @@ function ItemCost({
     allowAllSources = false,
     crafts,
     barters,
+    useBarterIngredients,
+    useCraftIngredients,
 }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -40,6 +42,12 @@ function ItemCost({
         setCustomPrice(price);
     }, [price, setCustomPrice]);
 
+    if (barters && typeof useBarterIngredients === 'undefined') {
+        useBarterIngredients = true;
+    }
+    if (crafts && typeof useCraftIngredients === 'undefined') {
+        useCraftIngredients = true;
+    }
     let { displayPrice, tooltip, displayImage} = useMemo(() => {
         let displayPrice = '';
         let tooltip = false;
@@ -140,6 +148,8 @@ function ItemCost({
             <BarterTooltip
                 barter={priceDetails}
                 allowAllSources={allowAllSources}
+                barters={barters}
+                crafts={crafts}
             />
         );
     }

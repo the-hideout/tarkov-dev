@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const got = require('got');
+const fetch = require('cross-fetch');
 
 const COMMIT_URL = 'https://api.github.com/repos/the-hideout/tarkov-dev/commits/main';
 
@@ -18,11 +18,10 @@ if (token) {
 const getVersion = async function getVersion() {
     console.time(`Get version url ${COMMIT_URL}`);
     try {
-        const response = await got(COMMIT_URL, {
-            responseType: 'json',
-            timeout: 5000,
+        const response = await fetch(COMMIT_URL, {
             headers,
-        }).json();
+            signal: AbortSignal.timeout(5000),
+        }).then(response => response.json());
         console.timeEnd(`Get version url ${COMMIT_URL}`);
 
         return response;

@@ -20,7 +20,7 @@ import {
 import QueueBrowserTask from '../../modules/queue-browser-task';
 import capitalizeFirst from '../../modules/capitalize-first';
 
-import { useItemsQuery } from '../../features/items/queries';
+import useItemsData from '../../features/items';
 
 import './index.css';
 
@@ -105,7 +105,7 @@ function LootTier(props) {
             .filter(Boolean),
     });
 
-    const { data: items } = useItemsQuery();
+    const { data: items } = useItemsData();
 
     const handleFilterChange = (selectedFilters) => {
         QueueBrowserTask.task(() => {

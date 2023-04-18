@@ -5,15 +5,16 @@ import { Trans, useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import Icon from '@mdi/react';
-import { mdiAmmunition } from '@mdi/js';
+import { mdiAmmunition, mdiCached, mdiProgressWrench } from '@mdi/js';
 
 import SEO from '../../components/SEO';
-import { Filter, ToggleFilter } from '../../components/filter';
+import { Filter, ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton, RangeFilter } from '../../components/filter';
 import Graph from '../../components/Graph.jsx';
 import useKeyPress from '../../hooks/useKeyPress';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import SmallItemTable from '../../components/small-item-table';
 
-import { useItemsQuery } from '../../features/items/queries';
+import useItemsData from '../../features/items';
 
 import { formatCaliber } from '../../modules/format-ammo';
 
@@ -57,8 +58,18 @@ function Ammo() {
     const [selectedLegendName, setSelectedLegendName] = useState(currentAmmoList);
     const [showAllTraderPrices, setShowAllTraderPrices] = useState(false);
     const [useAllProjectileDamage, setUseAllProjectileDamage] = useState(false);
+    const [includeBarterIngredients, setIncludeBarterIngredients] = useStateWithLocalStorage(
+        'includeBarterIngredients',
+        true,
+    );
+    const [includeCraftIngredients, setIncludeCraftIngredients] = useStateWithLocalStorage(
+        'includeCraftIngredients',
+        false,
+    );
+    const [minPen, setMinPen] = useState(0);
+    const [maxPen, setMaxPen] = useState(60);
     const shiftPress = useKeyPress('Shift');
-    const { data: items } = useItemsQuery();
+    const { data: items } = useItemsData();
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -75,77 +86,86 @@ function Ammo() {
         }
     }, [currentAmmo]);
 
-    let typeCache = [];
-    const legendData = [];
-    const formattedData = items.filter(item => {
-        return item.categories.some(cat => cat.id === '5485a8684bdc2da71d8b4567') && !skipTypes.includes(item.properties.caliber)
-    }).sort((a, b) => {
-        const caliberA = formatCaliber(a.properties.caliber, a.properties.ammoType);
-        const caliberB = formatCaliber(b.properties.caliber, b.properties.ammoType);
-        if (caliberA === caliberB) {
-            const damageA = a.properties.damage;
-            const damageB = b.properties.damage;
-            if (damageA === damageB)
-                return a.name.localeCompare(b.name);
-            return damageA - damageB;
-        }
-        return caliberA.localeCompare(caliberB);
-    }).map(ammoData => {
-        const returnData = {
-            ...ammoData,
-            ...ammoData.properties,
-            type: formatCaliber(ammoData.properties.caliber, ammoData.properties.ammoType),
-            displayDamage: useAllProjectileDamage ? ammoData.properties.projectileCount * ammoData.properties.damage : ammoData.properties.damage,
-            displayPenetration: ammoData.properties.penetrationPower,
-        };
-        if (!returnData.type) 
-            console.log(returnData);
-
-        if (returnData.displayDamage > MAX_DAMAGE) {
-            returnData.name = `${ammoData.name} (${returnData.displayDamage})`;
-            returnData.displayDamage = MAX_DAMAGE;
-        }
-
-        if (returnData.penetrationPower > MAX_PENETRATION) {
-            returnData.name = `${ammoData.name} (${returnData.penetrationPower})`;
-            returnData.displayPenetration = MAX_PENETRATION;
-        }
-        let symbol = symbols[typeCache.length];
-
-        if (typeCache.includes(returnData.type)) {
-            symbol = symbols[typeCache.indexOf(returnData.type)];
-        } 
-        else {
-            typeCache.push(returnData.type);
-            legendData.push({
-                ...returnData,
-                name: returnData.type,
-                caliber: returnData.properties.caliber,
-                symbol: symbol,
-            });
-        }
-        returnData.symbol = symbol;
-
-        if (!symbol) {
-            console.log(`Missing symbol for ${returnData.type}, the graph will crash. Add more symbols to src/symbols.json`);
-            process.exit(1);
-        }
-
-        return returnData;
-    });
-
-    legendData.sort((a, b) => {
-        return a.type.localeCompare(b.type);
-    });
+    const { ammoData, legendData } = useMemo(() => {
+        const typeCache = [];
+        const legend = [];
+        const ammo = items.filter(item => {
+            return item.categories.some(cat => cat.id === '5485a8684bdc2da71d8b4567') && !skipTypes.includes(item.properties.caliber)
+        }).sort((a, b) => {
+            const caliberA = formatCaliber(a.properties.caliber, a.properties.ammoType);
+            const caliberB = formatCaliber(b.properties.caliber, b.properties.ammoType);
+            if (caliberA === caliberB) {
+                const damageA = a.properties.damage;
+                const damageB = b.properties.damage;
+                if (damageA === damageB)
+                    return a.name.localeCompare(b.name);
+                return damageA - damageB;
+            }
+            return caliberA.localeCompare(caliberB);
+        }).map(item => {
+            const returnData = {
+                ...item,
+                ...item.properties,
+                type: formatCaliber(item.properties.caliber, item.properties.ammoType),
+                displayDamage: useAllProjectileDamage ? item.properties.projectileCount * item.properties.damage : item.properties.damage,
+                displayPenetration: item.properties.penetrationPower,
+            };
+            if (!returnData.type) 
+                console.log(returnData);
+    
+            if (returnData.displayDamage > MAX_DAMAGE) {
+                returnData.name = `${item.name} (${returnData.displayDamage})`;
+                returnData.displayDamage = MAX_DAMAGE;
+            }
+    
+            if (returnData.penetrationPower > MAX_PENETRATION) {
+                returnData.name = `${item.name} (${returnData.penetrationPower})`;
+                returnData.displayPenetration = MAX_PENETRATION;
+            }
+            let symbol = symbols[typeCache.length];
+    
+            if (typeCache.includes(returnData.type)) {
+                symbol = symbols[typeCache.indexOf(returnData.type)];
+            } 
+            else {
+                typeCache.push(returnData.type);
+                legend.push({
+                    ...returnData,
+                    name: returnData.type,
+                    caliber: returnData.properties.caliber,
+                    symbol: symbol,
+                });
+            }
+            returnData.symbol = symbol;
+    
+            if (!symbol) {
+                console.log(`Missing symbol for ${returnData.type}, the graph will crash. Add more symbols to src/symbols.json`);
+                process.exit(1);
+            }
+    
+            return returnData;
+        });
+        legend.sort((a, b) => {
+            return a.type.localeCompare(b.type);
+        });
+        return { ammoData: ammo, legendData: legend };
+    }, [items, useAllProjectileDamage]);
 
     const listState = useMemo(() => {
-        const returnData = formattedData
+        const returnData = ammoData
             .filter(
                 (ammo) =>
                     !selectedLegendName ||
                     selectedLegendName.length === 0 ||
                     selectedLegendName.includes(ammo.type),
-            )
+            ).filter(ammo => {
+                if (minPen === 0 && maxPen === 60) {
+                    return true;
+                }
+                const max = maxPen === 60 ? Number.MAX_SAFE_INTEGER : maxPen;
+                const pen = ammo.properties.penetrationPower;
+                return pen >= minPen && pen <= max;
+            })
             .map((ammo) => {
                 ammo.chartName = ammo.name
                     .replace(ammo.type, '')
@@ -176,7 +196,7 @@ function Ammo() {
             });
 
         return returnData;
-    }, [selectedLegendName, shiftPress, formattedData]);
+    }, [selectedLegendName, shiftPress, ammoData, minPen, maxPen]);
 
     const handleLegendClick = useCallback(
         (event, { datum: { name } }) => {
@@ -261,6 +281,47 @@ function Ammo() {
                         </>
                     }
                 />
+                <ButtonGroupFilter>
+                    <ButtonGroupFilterButton
+                        tooltipContent={
+                            <>
+                                {t('Use barters for item sources')}
+                            </>
+                        }
+                        selected={includeBarterIngredients}
+                        content={<Icon path={mdiCached} size={1} className="icon-with-text"/>}
+                        onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
+                    />
+                    <ButtonGroupFilterButton
+                        tooltipContent={
+                            <>
+                                {t('Use crafts for item sources')}
+                            </>
+                        }
+                        selected={includeCraftIngredients}
+                        content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text"/>}
+                        onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
+                    />
+                </ButtonGroupFilter>
+                <RangeFilter
+                    defaultValue={[0, 60]}
+                    label={t('Penetration')}
+                    min={0}
+                    max={60}
+                    marks={{
+                        0: 0,
+                        10: 10,
+                        20: 20,
+                        30: 30,
+                        40: 40,
+                        50: 50,
+                        60: '60+',
+                    }}
+                    onChange={([min, max]) => {
+                        setMinPen(min);
+                        setMaxPen(max);
+                    }}
+                />
             </Filter>
             <h2 className="center-title">
                 {t('Ammo Statistics Table')}
@@ -276,6 +337,10 @@ function Ammo() {
                 armorDamage={4}
                 fragChance={5}
                 cheapestPrice={6}
+                useBarterIngredients={includeBarterIngredients}
+                useCraftIngredients={includeCraftIngredients}
+                minPenetration={minPen}
+                maxPenetration={maxPen}
             />
         </div>,
     ];

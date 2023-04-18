@@ -12,7 +12,7 @@ import SEO from '../../components/SEO';
 import ItemIconList from '../../components/item-icon-list';
 import LoadingSmall from '../../components/loading-small';
 
-import { mapIcons, useMapImages } from '../../features/maps/queries';
+import { mapIcons, useMapImages } from '../../features/maps';
 
 import Icon from '@mdi/react';
 import {
@@ -20,7 +20,7 @@ import {
     mdiAmmunition,
     mdiHammerWrench,
     mdiFinance,
-    mdiAccountSwitch,
+    mdiCached,
     mdiProgressWrench,
     mdiMap,
     mdiViewGrid,
@@ -161,7 +161,7 @@ function Start() {
                     <li key="start-link-barters">
                         <Link to="/barters/">
                             <Icon
-                                path={mdiAccountSwitch}
+                                path={mdiCached}
                                 size={1}
                                 className="icon-with-text"
                             />

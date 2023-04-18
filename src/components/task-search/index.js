@@ -7,7 +7,7 @@ import debounce from 'lodash.debounce';
 import useKeyPress from '../../hooks/useKeyPress';
 
 import './index.css';
-import { useQuestsQuery } from '../../features/quests/queries';
+import useQuestsData from '../../features/quests';
 
 function TaskSearch({
     defaultValue,
@@ -16,7 +16,7 @@ function TaskSearch({
     autoFocus,
     showDropdown,
 }) {
-    const { data: tasks } = useQuestsQuery();
+    const { data: tasks } = useQuestsData();
     const { t } = useTranslation();
 
     const [nameFilter, setNameFilter] = useState(defaultValue || '');
@@ -115,7 +115,7 @@ function TaskSearch({
     }, [location]);
 
     return (
-        <div className="item-search">
+        <div className="task-search">
             <input
                 type="text"
                 // defaultValue = {defaultValue || nameFilter}

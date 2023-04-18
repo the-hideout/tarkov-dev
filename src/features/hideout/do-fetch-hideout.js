@@ -7,6 +7,7 @@ const doFetchHideout = async (language, prebuild = false) => {
             name
             normalizedName
             levels {
+                id
                 level
                 itemRequirements {
                     quantity
@@ -16,6 +17,20 @@ const doFetchHideout = async (language, prebuild = false) => {
                         iconLink
                     }
                 } 
+                stationLevelRequirements {
+                    station {
+                        id
+                        normalizedName
+                    }
+                    level
+                }
+                traderRequirements {
+                    trader {
+                        id
+                        normalizedName
+                    }
+                    level
+                }
             }
         }
     }`;

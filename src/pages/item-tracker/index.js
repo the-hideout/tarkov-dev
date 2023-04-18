@@ -8,14 +8,14 @@ import ItemGrid from '../../components/item-grid';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 //import quests from '../../data/quests.json';
-import { useItemsQuery } from '../../features/items/queries';
-import { useTradersQuery } from '../../features/traders/queries';
-import { useQuestsQuery } from '../../features/quests/queries';
+import useItemsData from '../../features/items';
+import useTradersData from '../../features/traders';
+import useQuestsData from '../../features/quests';
 
 import './index.css';
 
 function ItemTracker() {
-    const { data: quests } = useQuestsQuery();
+    const { data: quests } = useQuestsData();
     const [questData, setQuestData] = useStateWithLocalStorage(
         'quests',
         quests,
@@ -27,8 +27,8 @@ function ItemTracker() {
         'onlyFoundInRaid',
         true,
     );
-    const { data: items } = useItemsQuery();
-    const { data: traders } = useTradersQuery();
+    const { data: items } = useItemsData();
+    const { data: traders } = useTradersData();
     const { t } = useTranslation();
 
     const handleItemClick = useCallback(

@@ -1,15 +1,14 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { fetchItems, selectAllItems } from '../../features/items/itemsSlice'
+import useItemsData from '../../features/items'
 import { BitcoinItemId, GraphicCardItemId, ProduceBitcoinData } from './data';
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
 import CenterCell from '../../components/center-cell';
 import { getDurationDisplay } from '../../modules/format-duration';
-import { useItemsQuery } from '../../features/items/queries';
-import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
+import useHideoutData from '../../features/hideout';
 import { selectAllStations } from '../../features/settings/settingsSlice';
 import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length';
 // import ProfitableGraph from './profitable-graph';
@@ -23,65 +22,19 @@ const cardSlots = {
 const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBuildCosts, wipeDaysRemaining }) => {
     const stations = useSelector(selectAllStations);
 
-    const itemsResult = useItemsQuery();
-    const items = useMemo(() => {
-        return itemsResult.data;
-    }, [itemsResult]);
-
-    const dispatch = useDispatch();
-    const hideout = useSelector(selectAllHideoutModules);
-    const hideoutStatus = useSelector((state) => {
-        return state.hideout.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (hideoutStatus === 'idle') {
-            dispatch(fetchHideout());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchHideout());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [hideoutStatus, dispatch]);
+    const { data: hideout } = useHideoutData();
     
     const { t } = useTranslation();
 
-    const itemsSelector = useSelector(selectAllItems);
-    const itemsStatus = useSelector((state) => {
-        return state.items.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (itemsStatus === 'idle') {
-            dispatch(fetchItems());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchItems());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [itemsStatus, dispatch]);
+    const { data: items } = useItemsData();
 
     const bitcoinItem = useMemo(() => {
-        return itemsSelector.find(i => i.id === BitcoinItemId);
-    }, [itemsSelector]);
+        return items.find(i => i.id === BitcoinItemId);
+    }, [items]);
 
     const graphicCardItem = useMemo(() => {
-        return itemsSelector.find(i => i.id === GraphicCardItemId);
-    }, [itemsSelector]);
+        return items.find(i => i.id === GraphicCardItemId);
+    }, [items]);
 
     const solarCost = useMemo(() => {
         const solar = hideout.find(station => station.normalizedName === 'solar-power');

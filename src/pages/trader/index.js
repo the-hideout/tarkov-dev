@@ -1,5 +1,4 @@
-import { useCallback, useState, useEffect, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useCallback, useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ImageViewer from 'react-simple-image-viewer';
@@ -23,7 +22,7 @@ import formatPrice from '../../modules/format-price';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
 
-import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
+import useTradersData from '../../features/traders';
 
 import i18n from '../../i18n';
 
@@ -82,27 +81,7 @@ function Trader() {
         },
         [setNameFilter],
     );
-    const dispatch = useDispatch();
-    const traders = useSelector(selectAllTraders);
-    const tradersStatus = useSelector((state) => {
-        return state.traders.status;
-    });
-    useEffect(() => {
-        let timer = false;
-        if (tradersStatus === 'idle') {
-            dispatch(fetchTraders());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchTraders());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [tradersStatus, dispatch]);
+    const { data: traders } = useTradersData();
     
     const trader = traders.find(tr => tr.normalizedName === traderName.toLowerCase());
 
