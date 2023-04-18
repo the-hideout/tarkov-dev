@@ -148,6 +148,8 @@ function ItemCost({
             <BarterTooltip
                 barter={priceDetails}
                 allowAllSources={allowAllSources}
+                barters={barters}
+                crafts={crafts}
             />
         );
     }
