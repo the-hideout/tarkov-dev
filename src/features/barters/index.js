@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
-import { useQuery } from 'react-query';
 
 import doFetchBarters from './do-fetch-barters';
 import { langCode } from '../../modules/lang-helpers';
@@ -10,18 +9,6 @@ import useItemsData from '../items';
 import useQuestsData from '../quests';
 
 import { placeholderBarters } from '../../modules/placeholder-data';
-
-export const useBartersQuery = (queryOptions) => {
-    const bartersQuery = useQuery('barters', () => doFetchBarters(langCode()), {
-        refetchInterval: 600000,
-        placeholderData: placeholderBarters(langCode()),
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
-        ...queryOptions,
-    });
-
-    return bartersQuery;
-};
 
 const initialState = {
     data: placeholderBarters(langCode()),

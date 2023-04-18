@@ -1,3 +1,4 @@
+import { useQuery as reactUseQuery } from 'react-query';
 import fetch  from 'cross-fetch';
 
 const apiUrlProd = 'https://api.tarkov.dev/graphql';
@@ -21,3 +22,16 @@ export default async function graphqlRequest(queryString) {
         }),
     }).then(response => response.json());
 }
+
+export function useQuery(queryName, queryString, settings) {
+    settings = {
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        ...settings,
+    };
+    return reactUseQuery(
+        queryName,
+        () => graphqlRequest(queryString),
+        settings,
+    );
+};

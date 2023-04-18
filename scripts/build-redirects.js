@@ -1,17 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 
-const got = require('got');
+const fetch = require('cross-fetch');
 
 (async () => {
     let redirects;
 
     try {
-        const response = await got('https://manager.tarkov.dev/data/redirects.json', {
-            responseType: 'json',
-        });
-
-        redirects = response.body;
+        redirects = await fetch('https://manager.tarkov.dev/data/redirects.json').then(response => response.json());
     } catch (redirectsError){
         console.error(redirectsError);
 

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const got = require('got');
+const fetch = require('cross-fetch');
 
 const maps = require('../src/data/maps.json');
 const categoryPages = require('../src/data/category-pages.json');
@@ -51,6 +51,20 @@ const addPath = (sitemap, url, change = 'hourly') => {
     </url>`;
 }
 
+const graphqlRequest = (queryString) => {
+    return fetch('https://api.tarkov.dev/graphql', {
+        method: 'POST',
+        cache: 'no-store',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify({
+            query: queryString
+        }),
+    }).then(response => response.json());
+};
+
 (async () => {
     try {
         let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -72,35 +86,27 @@ const addPath = (sitemap, url, change = 'hourly') => {
             }
         }
 
-        const itemCategories = await got('https://api.tarkov.dev/graphql?query={itemCategories{normalizedName}}', {
-            responseType: 'json',
-        });
-        for (const itemCategorie of itemCategories.body.data.itemCategories) {
-            sitemap = addPath(sitemap, `/items/${itemCategorie.normalizedName}`);
+        const itemCategories = await graphqlRequest('{itemCategories{normalizedName}}');
+        for (const itemCategory of itemCategories.data.itemCategories) {
+            sitemap = addPath(sitemap, `/items/${itemCategory.normalizedName}`);
         }
 
         for (const categoryPage of categoryPages) {
             sitemap = addPath(sitemap, `/items/${categoryPage.key}`);
         };
 
-        const allItems = await got('https://api.tarkov.dev/graphql?query={items{normalizedName}}', {
-            responseType: 'json',
-        });
-        for (const item of allItems.body.data.items) {
+        const allItems = await graphqlRequest('{items{normalizedName}}');
+        for (const item of allItems.data.items) {
             sitemap = addPath(sitemap, `/item/${item.normalizedName}`);
         }
 
-        const allBosses = await got('https://api.tarkov.dev/graphql?query={bosses{normalizedName}}', {
-            responseType: 'json',
-        });
-        for (const boss of allBosses.body.data.bosses) {
+        const allBosses = await graphqlRequest('{bosses{normalizedName}}');
+        for (const boss of allBosses.data.bosses) {
             sitemap = addPath(sitemap, `/boss/${boss.normalizedName}`);
         }
 
-        const allTasks = await got('https://api.tarkov.dev/graphql?query={tasks{normalizedName}}', {
-            responseType: 'json',
-        });
-        for (const task of allTasks.body.data.tasks) {
+        const allTasks = await graphqlRequest('{tasks{normalizedName}}');
+        for (const task of allTasks.data.tasks) {
             sitemap = addPath(sitemap, `/task/${task.normalizedName}`, 'weekly');
         }
 

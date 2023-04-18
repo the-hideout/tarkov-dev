@@ -590,7 +590,7 @@ The max profitable price is impacted by the intel center and hideout management 
                         </div>
                     )}
                 </div>
-                {currentItemData.id && !currentItemData.types.includes('noFlea') && (
+                {currentItemData.id && currentItemData.id !== 'loading' && !currentItemData.types.includes('noFlea') && (
                     <div>
                         <h2>{t('Flea price last 7 days')}</h2>
                         <PriceGraph

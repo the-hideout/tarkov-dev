@@ -1,24 +1,30 @@
 const fs = require('fs');
 const path = require('path');
 
-const got = require('got');
+const fetch = require('cross-fetch');
 
 const redirects = require('../workers-site/redirects.json');
 
 (async () => {
     let liveNames = [];
     try {
-        const response = await got.post('https://api.tarkov.dev/graphql', {
-            body: JSON.stringify({query: `{
-                itemsByType(type: any){
-                    normalizedName
-                }
-            }`
+        const response = await fetch('https://api.tarkov.dev/graphql', {
+            method: 'POST',
+            cache: 'no-store',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+            body: JSON.stringify({
+                query: `{
+                    itemsByType(type: any){
+                        normalizedName
+                    }
+                }`
             }),
-            responseType: 'json',
-        });
+        }).then(response => response.json());
 
-        liveNames = response.body.data.itemsByType.map(item => item.normalizedName);
+        liveNames = response.data.itemsByType.map(item => item.normalizedName);
     } catch (loadError){
         console.error(loadError);
 

@@ -1,46 +1,32 @@
-import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
 // import ApiMetricsGraph from '../../components/api-metrics-graph';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
+
+import { useQuery } from '../../modules/graphql-request';
+
 import './index.css';
 
 function ServerStatus() {
     const { status, data } = useQuery(
         `server-status`,
-        () =>
-            fetch('https://api.tarkov.dev/graphql', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                },
-                body: dataQuery,
-            }).then((response) => response.json()),
-        {
-            refetchOnMount: false,
-            refetchOnWindowFocus: false,
-        },
+        `{
+            status {
+                generalStatus {
+                    name
+                    message
+                    status
+                }
+                messages {
+                    time
+                    type
+                    content
+                    solveTime
+                }
+            }
+        }`,
     );
     const { t } = useTranslation();
-
-    const dataQuery = JSON.stringify({
-        query: `{
-        status {
-            generalStatus {
-                name
-                message
-                status
-            }
-            messages {
-                time
-                type
-                content
-                solveTime
-            }
-        }
-    }`,
-    });
 
     if (status !== 'success' || !data.data.status) {
         return null;
