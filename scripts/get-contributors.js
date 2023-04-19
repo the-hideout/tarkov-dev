@@ -38,7 +38,7 @@ if (token) {
             }).then(response => response.json());
             console.timeEnd(`contributors-${repository}`);
 
-            for (const contributor of response.body) {
+            for (const contributor of response) {
                 allContributors.push({
                     login: contributor.login,
                     html_url: contributor.html_url,
