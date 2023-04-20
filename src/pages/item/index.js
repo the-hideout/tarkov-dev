@@ -6,7 +6,7 @@ import 'tippy.js/dist/tippy.css'; // optional
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiClipboardList, mdiTimerSand } from '@mdi/js';
+import { mdiClipboardList, mdiTimerSand, mdiCached, mdiProgressWrench } from '@mdi/js';
 
 import SEO from '../../components/SEO';
 import SmallItemTable from '../../components/small-item-table';
@@ -20,7 +20,7 @@ import PropertyList from '../../components/property-list';
 import ItemsForHideout from '../../components/items-for-hideout';
 import PriceGraph from '../../components/price-graph';
 import ItemSearch from '../../components/item-search';
-import { ToggleFilter } from '../../components/filter';
+import { ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton } from '../../components/filter';
 import ContainedItemsList from '../../components/contained-items-list';
 import LoadingSmall from '../../components/loading-small';
 import ItemImage from '../../components/item-image';
@@ -28,23 +28,20 @@ import { PresetSelector } from '../../components/preset-selector';
 
 import warningIcon from '../../images/icon-warning.png';
 
-import { useMetaQuery } from '../../features/meta/queries';
-import { selectAllBarters, fetchBarters, } from '../../features/barters/bartersSlice';
-import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
-import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
-import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
-import {
-    useItemByNameQuery,
-    useItemByIdQuery,
-    useItemsQuery,
-} from '../../features/items/queries';
+import useMetaData from '../../features/meta';
+import useBartersData from '../../features/barters';
+import useHideoutData from '../../features/hideout';
+import useCraftsData from '../../features/crafts';
+import useQuestsData from '../../features/quests';
+import useItemsData from '../../features/items';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 
 import formatPrice from '../../modules/format-price';
-import fleaFee from '../../modules/flea-market-fee';
 import bestPrice from '../../modules/best-price';
 import { isAnyDogtag } from '../../modules/dogtags';
 import { getRelativeTimeAndUnit } from '../../modules/format-duration';
+
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 import i18n from '../../i18n';
 
@@ -81,199 +78,68 @@ function Item() {
     const navigate = useNavigate();
     const { itemName } = useParams();
     const { t } = useTranslation();
+    const dispatch = useDispatch();
     const [showAllCrafts, setShowAllCrafts] = useState(false);
     const [showAllBarters, setShowAllBarters] = useState(false);
     const [showAllContainedItemSources, setShowAllContainedItemSources] = useState(false);
     const [showAllHideoutStations, setShowAllHideoutStations] = useState(false);
     const [hideCompletedQuests, setHideCompletedQuests] = useState(true);
+    const [includeBarterIngredients, setIncludeBarterIngredients] = useStateWithLocalStorage(
+        'includeBarterIngredients',
+        true,
+    );
+    const [includeCraftIngredients, setIncludeCraftIngredients] = useStateWithLocalStorage(
+        'includeCraftIngredients',
+        false,
+    );
 
-    const loadingData = {
-        name: t('Loading...'),
-        shortName: t('Loading...'),
-        types: ['loading'],
-        iconLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
-        gridImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
-        image512pxLink: `${process.env.PUBLIC_URL}/images/unknown-item-512.webp`,
-        backgroundColor: 'default',
-        sellFor: [
-            {
-                source: 'fleaMarket',
-                price: 0,
-            },
-        ],
-        buyFor: [
-            {
-                source: 'flea-market',
-                price: 0,
-                requirements: [],
-            },
-        ],
-    };
+    const loadingData = useMemo(() => {
+        return {
+            id: 'loading',
+            name: t('Loading...'),
+            shortName: t('Loading...'),
+            types: ['loading'],
+            iconLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+            gridImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+            image512pxLink: `${process.env.PUBLIC_URL}/images/unknown-item-512.webp`,
+            backgroundColor: 'default',
+            sellFor: [],
+            buyFor: [],
+            sellForTradersBest: null,
+        };
+    }, [t]);
 
-    // item name may be an id
-    const { data: currentItemByIdData } = useItemByIdQuery(itemName);
+    const { data: items, status: itemsStatus } = useItemsData();
 
-    // TODO: This function needs to be greatly improved.
-    //  it currently only needs to get a single item via its ID but it
-    //  queries all items via graphql and then searches for said item.
-    //  This is slow and does a lot of extra processing that is not needed
-    const { data: currentItemByNameData, status: itemStatus } = useItemByNameQuery(itemName);
+    const { data: meta } = useMetaData();
 
-    const { data: meta } = useMetaQuery();
-    const dispatch = useDispatch();
-    const barterSelector = useSelector(selectAllBarters);
-    const bartersStatus = useSelector((state) => {
-        return state.barters.status;
-    });
-    const craftSelector = useSelector(selectAllCrafts);
-    const craftsStatus = useSelector((state) => {
-        return state.crafts.status;
-    });
-    const hideout = useSelector(selectAllHideoutModules);
-    const hideoutStatus = useSelector((state) => {
-        return state.hideout.status;
-    });
-    const quests = useSelector(selectQuests);
-    const questsStatus = useSelector((state) => {
-        return state.quests.status;
-    });
-    const hideDogtagBarters = useSelector((state) => state.settings.hideDogtagBarters);
+    const { data: barters } = useBartersData();
 
-    const {data: items} = useItemsQuery();
+    const { data: crafts } = useCraftsData();
 
-    const barters = useMemo(() => {
-        return barterSelector.map(b => {
+    const { data: hideout } = useHideoutData();
+
+    const { data: quests } = useQuestsData();
+
+    const currentItemData = useMemo(() => {
+        let item = items.find(i => i.normalizedName === itemName);
+        if (!item) {
+            item = items.find(i => i.id === itemName);
+        }
+        if (!item && (itemsStatus === 'idle' || itemsStatus === 'loading')) {
+            return loadingData;
+        }
+        if (item) {
             return {
-                ...b,
-                requiredItems: b.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                rewardItems: b.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
+                ...item,
+                ...bestPrice(item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
             };
-        });
-    }, [barterSelector, items]);
-
-    const crafts = useMemo(() => {
-        return craftSelector.map(c => {
-            return {
-                ...c,
-                requiredItems: c.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }),
-                rewardItems: c.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-            };
-        });
-    }, [craftSelector, items]);
-
-    useEffect(() => {
-        let timer = false;
-        if (bartersStatus === 'idle') {
-            dispatch(fetchBarters());
         }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchBarters());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [bartersStatus, dispatch]);
-
-    useEffect(() => {
-        let timer = false;
-        if (craftsStatus === 'idle') {
-            dispatch(fetchCrafts());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchCrafts());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [craftsStatus, dispatch]);
-
-    useEffect(() => {
-        let timer = false;
-        if (hideoutStatus === 'idle') {
-            dispatch(fetchHideout());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchHideout());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [hideoutStatus, dispatch]);
-
-    useEffect(() => {
-        let timer = false;
-        if (questsStatus === 'idle') {
-            dispatch(fetchQuests());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchQuests());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [questsStatus, dispatch]);
-
-    let currentItemData = useMemo(() => {
-        if (currentItemByIdData) {
-            return currentItemByIdData;
-        }
-        return currentItemByNameData;
-    }, [currentItemByNameData, currentItemByIdData]);
+        return item;
+    }, [items, itemName, meta, itemsStatus, loadingData]);
 
     const questsRequiringCount = useMemo(() => {
-        if (!currentItemData) {
+        if (!currentItemData || currentItemData.id === 'loading') {
             return [];
         }
         
@@ -283,7 +149,7 @@ function Item() {
     }, [currentItemData, quests]);
 
     const questsProvidingCount = useMemo(() => {
-        if (!currentItemData) {
+        if (!currentItemData || currentItemData.id === 'loading') {
             return [];
         }
 
@@ -312,46 +178,35 @@ function Item() {
         return '';
     }, [settings, hideCompletedQuests, t]);
 
-    currentItemData = useMemo(() => {
-        if (!currentItemData || !currentItemData.bestPrice) 
-            return currentItemData;
-        return {
-            ...currentItemData,
-            ...bestPrice(currentItemData, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
-        };
-    }, [meta, currentItemData]);
-
-    // if the name we got from the params are the id of the item, redirect
-    // to a nice looking path
-    useEffect(() => {
-        if (currentItemByIdData) {
-            navigate(`/item/${currentItemByIdData.normalizedName}`);
+    const dogtagToggle = useMemo(() => {
+        if (!currentItemData || isAnyDogtag(currentItemData.id)) {
+            return '';
         }
-    }, [currentItemByIdData, navigate]);
-
-    // checks for item data loaded
-    if (!currentItemData && (itemStatus === 'idle' || itemStatus === 'loading')) {
-        currentItemData = loadingData;
-    }
-
-    if (!currentItemData && (itemStatus === 'success' || itemStatus === 'failed')) {
-        return <ErrorPage />;
-    }
-
-    let dogtagToggle = '';
-    if (isAnyDogtag(currentItemData.id)) {
-        dogtagToggle = (
+        return (
             <ToggleFilter
-                checked={hideDogtagBarters}
+                checked={settings.hideDogtagBarters}
                 label={t('Hide dogtag barters')}
-                onChange={(e) => dispatch(toggleHideDogtagBarters(!hideDogtagBarters))}
+                onChange={(e) => dispatch(toggleHideDogtagBarters(!settings.hideDogtagBarters))}
                 tooltipContent={
                     <>
                         {t('The true "cost" of barters using Dogtags is difficult to estimate, so you may want to exclude dogtag barters')}
                     </>
                 }
+                style={{marginLeft: '3px'}}
             />
         );
+    }, [currentItemData, dispatch, settings, t]);
+
+    // if the name we got from the params are the id of the item, redirect
+    // to a nice looking path
+    useEffect(() => {
+        if (currentItemData?.id === itemName) {
+            navigate(`/item/${currentItemData.normalizedName}`);
+        }
+    }, [currentItemData, itemName, navigate]);
+
+    if (!currentItemData && (itemsStatus === 'success' || itemsStatus === 'failed')) {
+        return <ErrorPage />;
     }
 
     const hasProperties = !!currentItemData.properties;
@@ -374,17 +229,10 @@ function Item() {
     });
 
     const usedInHideout = hideout?.some(station => station.levels.some(module => module.itemRequirements.some(contained => contained.item.id === currentItemData.id)));
+    
+    const sellForTraders = currentItemData.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
 
-    if (!currentItemData.bestPrice) {
-        currentItemData = {
-            ...currentItemData,
-            ...bestPrice(currentItemData, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
-        };
-    }
-
-    const itemFleaFee = fleaFee(currentItemData.basePrice, currentItemData.lastLowPrice, 1, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate);
-
-    const traderIsBest = currentItemData.traderTotalPriceRUB > currentItemData.lastLowPrice - itemFleaFee;
+    const sellForTradersIsTheBest = currentItemData.sellForTradersBest ? currentItemData.sellForTradersBest.priceRUB > currentItemData.lastLowPrice - currentItemData.fee : false;
     const useFleaPrice = currentItemData.lastLowPrice <= currentItemData.bestPrice;
 
     let fleaSellPriceDisplay = formatPrice(currentItemData.lastLowPrice);
@@ -500,7 +348,7 @@ The max profitable price is impacted by the intel center and hideout management 
                     {t('Fee')}{' '}
                     <div className="tooltip-price-wrapper">
                         {useFleaPrice
-                            ? formatPrice(itemFleaFee)
+                            ? formatPrice(currentItemData.fee)
                             : formatPrice(currentItemData.bestPriceFee)}
                     </div>
                 </div>
@@ -508,7 +356,7 @@ The max profitable price is impacted by the intel center and hideout management 
                     {t('Profit')}{' '}
                     <div className="tooltip-price-wrapper">
                         {useFleaPrice
-                            ? formatPrice(currentItemData.lastLowPrice - itemFleaFee)
+                            ? formatPrice(currentItemData.lastLowPrice - currentItemData.fee)
                             : formatPrice(currentItemData.bestPrice - currentItemData.bestPriceFee)}
                     </div>
                 </div>
@@ -516,7 +364,7 @@ The max profitable price is impacted by the intel center and hideout management 
         );
     }
 
-    const buySources = currentItemData.buyFor.filter(buyFor => buyFor.price > 0);
+    let showRestrictedType = currentItemData.types.includes('backpack') ? 'backpack' : undefined;
 
     let dateParsed = Date.parse(currentItemData.updated);
     let date = new Date(dateParsed);
@@ -565,6 +413,11 @@ The max profitable price is impacted by the intel center and hideout management 
                                 </a>
                             </span>
                         )}
+                        {showRestrictedType && (
+                            <div>
+                                <ContainedItemsList item={currentItemData} showRestrictedType={showRestrictedType} />
+                            </div>
+                        )}
                         {(currentItemData.properties?.grids || currentItemData.properties?.slots) && (
                             <div>
                                 <ContainedItemsList item={currentItemData} />
@@ -581,6 +434,9 @@ The max profitable price is impacted by the intel center and hideout management 
                         )}
                         <ItemImage
                             item={currentItemData}
+                            backgroundScale={2}
+                            imageField={'image512pxLink'}
+                            imageViewer={true}
                         />
                     </div>
                 </div>
@@ -598,7 +454,8 @@ The max profitable price is impacted by the intel center and hideout management 
                                         placement="bottom"
                                         content={fleaTooltip}
                                     >
-                                        <div className={`text-and-image-information-wrapper ${traderIsBest ? '' : 'best-profit'}`}>
+                                        <div className={`text-and-image-information-wrapper ${sellForTradersIsTheBest ? '' : 'best-profit'}`}
+                                                    key={`${currentItemData.id}-flea-market-price-sell`}>
                                             <img
                                                 alt="Flea market"
                                                 height="86"
@@ -614,76 +471,36 @@ The max profitable price is impacted by the intel center and hideout management 
                                         </div>
                                     </Tippy>
                                 )}
-                                {currentItemData.traderName && currentItemData.traderPrice !== 0 && (
-                                    <div className={`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''} first-trader-price`}>
-                                        <Link
-                                            to={`/traders/${currentItemData.traderNormalizedName}`}
-                                        >
-                                            <img
-                                                alt={currentItemData.traderName}
-                                                height="86"
-                                                width="86"
-                                                loading="lazy"
-                                                src={`${process.env.PUBLIC_URL}/images/traders/${currentItemData.traderNormalizedName}-portrait.png`}
-                                                // title = {`Sell ${currentItemData.name} on the Flea market`}
-                                            />
-                                        </Link>
-                                        <div className={`price-wrapper${settings[currentItemData.traderNormalizedName] ? '' : ' locked'}`}>
-                                            <ConditionalWrapper
-                                                condition={currentItemData.traderCurrency !== 'RUB'}
-                                                wrapper={(children) => 
-                                                    <Tippy
-                                                        content={formatPrice(currentItemData.traderTotalPriceRUB)}
-                                                        placement="bottom"
-                                                    >
-                                                        <div>{children}</div>
-                                                    </Tippy>
-                                                }
-                                            >
-                                                {formatPrice(currentItemData.traderTotalPrice, currentItemData.traderCurrency)}
-                                            </ConditionalWrapper>
-                                        </div>
-                                    </div>
-                                )}
-                                {currentItemData.traderPrices && currentItemData.traderPrices.map(
-                                    (traderPrice, traderPriceIndex) => {
-                                        const traderName = traderPrice.trader.normalizedName;
+                                {sellForTraders && sellForTraders.map(
+                                    (sellForTrader) => {
+                                        const traderNormalizedName = sellForTrader.vendor.normalizedName;
+                                        const traderIsBest = sellForTradersIsTheBest && traderNormalizedName === currentItemData.sellForTradersBest.vendor.normalizedName;
 
                                         return (
-                                            <div
-                                                className={`text-and-image-information-wrapper`}
-                                                key={`${currentItemData.id}-trader-price-${traderName}-${traderPriceIndex}`}
-                                            >
-                                                <ConditionalWrapper
-                                                    condition={traderName !== 'fence'}
-                                                    wrapper={(children) => 
-                                                        <Link to={`/traders/${traderName}`}>
-                                                            {children}
-                                                        </Link>
-                                                    }
-                                                >
+                                            <div className={`text-and-image-information-wrapper ${traderIsBest ? 'best-profit' : ''}`}
+                                                    key={`${currentItemData.id}-trader-price-sell-${sellForTrader.vendor.normalizedName}`}>
+                                                <Link to={`/trader/${traderNormalizedName}`} >
                                                     <img
-                                                        alt={traderPrice.trader.name}
+                                                        alt={sellForTrader.vendor.name}
                                                         height="86"
                                                         width="86"
                                                         loading="lazy"
-                                                        src={`${process.env.PUBLIC_URL}/images/traders/${traderName}-portrait.png`}
-                                                        // title = {`Sell ${currentItemData.name} on the Flea market`}
+                                                        src={`${process.env.PUBLIC_URL}/images/traders/${traderNormalizedName}-portrait.png`}
                                                     />
-                                                </ConditionalWrapper>
-                                                <div className={`price-wrapper${traderName === 'fence' || settings[traderName] ? '' : ' locked'}`}>
+                                                </Link>
+                                                <div className={`price-wrapper${traderNormalizedName === 'fence' || settings[traderNormalizedName] ? '' : ' locked'}`}>
                                                     <ConditionalWrapper
-                                                        condition={traderPrice.currency !== 'RUB'}
+                                                        condition={sellForTrader.currency !== 'RUB'}
                                                         wrapper={(children) => 
                                                             <Tippy
-                                                                content={formatPrice(traderPrice.totalPriceRUB)}
+                                                                content={formatPrice(sellForTrader.priceRUB)}
                                                                 placement="bottom"
                                                             >
                                                                 <div>{children}</div>
                                                             </Tippy>
                                                         }
                                                     >
-                                                        {formatPrice(traderPrice.totalPrice, traderPrice.currency)}
+                                                        {formatPrice(sellForTrader.price, sellForTrader.currency)}
                                                     </ConditionalWrapper>
                                                 </div>
                                             </div>
@@ -693,33 +510,33 @@ The max profitable price is impacted by the intel center and hideout management 
                             </div>
                         </div>
                     )}
-                    {buySources && buySources.length > 0 && (
+                    {currentItemData.buyFor && currentItemData.buyFor.length > 0 && (
                         <div>
                             <h2>{t('Buy for')}</h2>
                             <div className="information-grid single-line-grid buy">
-                                {buySources.map(
-                                    (buyPrice, index) => {
-                                        const loyaltyLevel = buyPrice.requirements.find((requirement) => requirement.type === 'loyaltyLevel')?.value;
+                                {currentItemData.buyFor.map(
+                                    (buyForSource, index) => {
+                                        const loyaltyLevel = buyForSource.requirements.find((requirement) => requirement.type === 'loyaltyLevel')?.value;
                                         return (
                                             <div
                                                 className={`text-and-image-information-wrapper`}
-                                                key={`${currentItemData.id}-trader-price-${buyPrice.source}-${index}`}
+                                                key={`${currentItemData.id}-trader-price-buy-${buyForSource.vendor.normalizedName}`}
                                             >
                                                 <div className="source-wrapper">
-                                                    {buyPrice.source !== 'flea-market' && (
+                                                    {buyForSource.vendor.normalizedName !== 'flea-market' && (
                                                         <LoyaltyLevelIcon
                                                             loyaltyLevel={
                                                                 loyaltyLevel
                                                             }
                                                         />
                                                     )}
-                                                    {buyPrice?.vendor?.taskUnlock && (
+                                                    {buyForSource.vendor.taskUnlock && (
                                                         <div>
                                                             <Tippy
                                                                 content={(
-                                                                    <Link to={`/task/${buyPrice.vendor.taskUnlock.normalizedName}`}>
+                                                                    <Link to={`/task/${buyForSource.vendor.taskUnlock.normalizedName}`}>
                                                                         <div style={{whiteSpace: 'nowrap'}}>
-                                                                            {t('Task: {{taskName}}', {taskName: buyPrice.vendor.taskUnlock.name})}
+                                                                            {t('Task: {{taskName}}', {taskName: buyForSource.vendor.taskUnlock.name})}
                                                                         </div>
                                                                     </Link>
                                                                 )}
@@ -736,32 +553,32 @@ The max profitable price is impacted by the intel center and hideout management 
                                                         </div>
                                                     )}
                                                     <ConditionalWrapper
-                                                        condition={buyPrice.vendor.normalizedName !== 'flea-market'}
+                                                        condition={buyForSource.vendor.normalizedName !== 'flea-market'}
                                                         wrapper={(children) => 
-                                                            <Link to={`/traders/${buyPrice.vendor.normalizedName}`}>
+                                                            <Link to={`/trader/${buyForSource.vendor.normalizedName}`}>
                                                                 {children}
                                                             </Link>
                                                         }
                                                     >
                                                         <img
-                                                            alt={buyPrice.vendor.name}
+                                                            alt={buyForSource.vendor.name}
                                                             height="86"
                                                             width="86"
                                                             loading="lazy"
-                                                            src={`${process.env.PUBLIC_URL}/images/traders/${buyPrice.vendor.normalizedName}-portrait.png`}
+                                                            src={`${process.env.PUBLIC_URL}/images/traders/${buyForSource.vendor.normalizedName}-portrait.png`}
                                                         />
                                                     </ConditionalWrapper>
                                                 </div>
-                                                <div className={`price-wrapper ${ index === 0 ? 'best-profit': ''}${priceIsLocked(buyPrice, settings)}`}>
+                                                <div className={`price-wrapper ${ index === 0 ? 'best-profit': ''}${priceIsLocked(buyForSource, settings)}`}>
                                                     <TraderPrice
                                                         currency={
-                                                            buyPrice.currency
+                                                            buyForSource.currency
                                                         }
                                                         price={
-                                                            buyPrice.price
+                                                            buyForSource.price
                                                         }
                                                         priceRUB={
-                                                            buyPrice.priceRUB
+                                                            buyForSource.priceRUB
                                                         }
                                                     />
                                                 </div>
@@ -773,11 +590,11 @@ The max profitable price is impacted by the intel center and hideout management 
                         </div>
                     )}
                 </div>
-                {currentItemData.id && !currentItemData.types.includes('noFlea') && (
+                {currentItemData.id && currentItemData.id !== 'loading' && !currentItemData.types.includes('noFlea') && (
                     <div>
                         <h2>{t('Flea price last 7 days')}</h2>
                         <PriceGraph
-                            itemId={currentItemData.id}
+                            item={currentItemData}
                             itemChange24={currentItemData.changeLast48h}
                         />
                         <br />
@@ -858,10 +675,34 @@ The max profitable price is impacted by the intel center and hideout management 
                                 }
                             />
                             {dogtagToggle}
+                            <ButtonGroupFilter>
+                                <ButtonGroupFilterButton
+                                    tooltipContent={
+                                        <>
+                                            {t('Use barters for item sources')}
+                                        </>
+                                    }
+                                    selected={includeBarterIngredients}
+                                    content={<Icon path={mdiCached} size={1} className="icon-with-text"/>}
+                                    onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
+                                />
+                                <ButtonGroupFilterButton
+                                    tooltipContent={
+                                        <>
+                                            {t('Use crafts for item sources')}
+                                        </>
+                                    }
+                                    selected={includeCraftIngredients}
+                                    content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text"/>}
+                                    onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
+                                />
+                            </ButtonGroupFilter>
                         </div>
                         <BartersTable
                             itemFilter={currentItemData.id}
                             showAll={showAllBarters}
+                            useBarterIngredients={includeBarterIngredients}
+                            useCraftIngredients={includeCraftIngredients}
                         />
                     </div>
                 )}
@@ -883,10 +724,34 @@ The max profitable price is impacted by the intel center and hideout management 
                                     </>
                                 }
                             />
+                            <ButtonGroupFilter>
+                                <ButtonGroupFilterButton
+                                    tooltipContent={
+                                        <>
+                                            {t('Use barters for item sources')}
+                                        </>
+                                    }
+                                    selected={includeBarterIngredients}
+                                    content={<Icon path={mdiCached} size={1} className="icon-with-text"/>}
+                                    onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
+                                />
+                                <ButtonGroupFilterButton
+                                    tooltipContent={
+                                        <>
+                                            {t('Use crafts for item sources')}
+                                        </>
+                                    }
+                                    selected={includeCraftIngredients}
+                                    content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text"/>}
+                                    onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
+                                />
+                            </ButtonGroupFilter>
                         </div>
                         <CraftsTable
                             itemFilter={currentItemData.id}
                             showAll={showAllCrafts}
+                            useBarterIngredients={includeBarterIngredients}
+                            useCraftIngredients={includeCraftIngredients}
                         />
                     </div>
                 )}

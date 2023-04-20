@@ -1,5 +1,4 @@
 import fs from 'fs';
-import fetch  from 'cross-fetch';
 
 import doFetchItems from '../src/features/items/do-fetch-items.js';
 import doFetchBarters from '../src/features/barters/do-fetch-barters.js';
@@ -10,30 +9,22 @@ import doFetchMeta from '../src/features/meta/do-fetch-meta.js';
 import doFetchHideout from '../src/features/hideout/do-fetch-hideout.js';
 import doFetchQuests from '../src/features/quests/do-fetch-quests.js';
 import doFetchBosses from '../src/features/bosses/do-fetch-bosses.js';
+import graphqlRequest from '../src/modules/graphql-request.js';
 
-function getLanguageCodes() {
-    const QueryBody = JSON.stringify({
-        query: `{
-            __type(name: "LanguageCode") {
-                enumValues {
-                    name
-                }
+async function getLanguageCodes() {
+    const query = `{
+        __type(name: "LanguageCode") {
+            enumValues {
+                name
             }
-        }`,
-    });
-    return fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: QueryBody,
-    }).then((response) => response.json()).then(response => response.data.__type.enumValues.map(lang => {
+        }
+    }`;
+    return graphqlRequest(query).then(response => response.data.__type.enumValues.map(lang => {
         return lang.name;
     }));
 }
 
-const getItemNames = (langs) => {
+const getItemNames = async (langs) => {
     const queries = langs.map(language => {
         return `${language}: items(lang: ${language}) {
             id
@@ -41,22 +32,14 @@ const getItemNames = (langs) => {
             shortName
         }`
     });
-    const QueryBody = JSON.stringify({
-        query: `{
-            ${queries.join('\n')}
-        }`,
-    });
-    return fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: QueryBody,
-    }).then((response) => response.json()).then(response => response.data);
+    const query = `{
+        ${queries.join('\n')}
+    }`;
+    const response = await graphqlRequest(query);
+    return response.data;
 };
 
-const getTaskNames = (langs) => {
+const getTaskNames = async (langs) => {
     const queries = langs.map(language => {
         return `${language}: tasks(lang: ${language}) {
             id
@@ -67,44 +50,26 @@ const getTaskNames = (langs) => {
             }
         }`
     });;
-    const QueryBody = JSON.stringify({
-        query: `{
-            ${queries.join('\n')}
-        }`,
-    });
-    return fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: QueryBody,
-    }).then((response) => response.json()).then(response => response.data);
+    const query = `{
+        ${queries.join('\n')}
+    }`;
+    return graphqlRequest(query).then(response => response.data);
 };
 
-const getTraderNames = (langs) => {
+const getTraderNames = async (langs) => {
     const queries = langs.map(language => {
         return `${language}: traders(lang: ${language}) {
             id
             name
         }`;
     });
-    const QueryBody = JSON.stringify({
-        query: `{
-            ${queries.join('\n')}
-        }`,
-    });
-    return fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: QueryBody,
-    }).then((response) => response.json()).then(response => response.data);
+    const query = `{
+        ${queries.join('\n')}
+    }`;
+    return graphqlRequest(query).then(response => response.data);
 };
 
-const getMapNames = (langs) => {
+const getMapNames = async (langs) => {
     const queries = langs.map(language => {
         return `${language}: maps(lang: ${language}) {
             id
@@ -112,41 +77,23 @@ const getMapNames = (langs) => {
             description
         }`;
     });
-    const QueryBody = JSON.stringify({
-        query: `{
-            ${queries.join('\n')}
-        }`,
-    });
-    return fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: QueryBody,
-    }).then((response) => response.json()).then(response => response.data);
+    const query = `{
+        ${queries.join('\n')}
+    }`;
+    return graphqlRequest(query).then(response => response.data);
 };
 
-const getBossNames = (langs) => {
+const getBossNames = async (langs) => {
     const queries = langs.map(language => {
         return `${language}: bosses(lang: ${language}) {
             name
             normalizedName
         }`;
     });
-    const QueryBody = JSON.stringify({
-        query: `{
-            ${queries.join('\n')}
-        }`,
-    });
-    return fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: QueryBody,
-    }).then((response) => response.json()).then(response => response.data);
+    const query = `{
+        ${queries.join('\n')}
+    }`;
+    return graphqlRequest(query).then(response => response.data);
 };
 
 console.time('Caching API data');
@@ -158,10 +105,16 @@ try {
 
     apiPromises.push(Promise.all([
         doFetchBarters('en', true).then(barters => {
+            for (const barter of barters) {
+                barter.cached = true;
+            }
             fs.writeFileSync('./src/data/barters.json', JSON.stringify(barters));
             return barters;
         }),
         doFetchCrafts('en', true).then(crafts => {
+            for (const craft of crafts) {
+                craft.cached = true;
+            }
             fs.writeFileSync('./src/data/crafts.json', JSON.stringify(crafts));
             return crafts;
         })
@@ -182,16 +135,42 @@ try {
                     }
                 });
             }
-
-            /*const groupedItemsDic = items.reduce((acc, item) => {
-                if (!acc[item.bsgCategoryId]) {
-                    acc[item.bsgCategoryId] = []
+            for (const item of filteredItems) {
+                if (!item.types.includes('preset')) {
+                    continue;
                 }
-                acc[item.bsgCategoryId].push(item);
+                const baseItem = items.find(i => i.id === item.properties.baseItem.id);
+                if (!filteredItems.some(i => i.id === baseItem.id)) {
+                    filteredItems.push(baseItem);
+                }
+            }
+            for (const item of filteredItems) {
+                if (!item.types.includes('gun')) {
+                    continue;
+                }
+                const defaultPreset = items.find(i => i.id === item.properties?.defaultPreset?.id);
+                if (defaultPreset && !filteredItems.some(i => i.id === defaultPreset.id)) {
+                    filteredItems.push(defaultPreset);
+                }
+            }
+
+            const groupedAmmoDic = items.reduce((acc, item) => {
+                if (!item.categories.some(cat => cat.id === '5485a8684bdc2da71d8b4567'))
+                    return acc;
+                
+                if (filteredItems.some(i => i.id === item.id))
+                    return acc;
+                
+                const caliberType = item.properties.caliber + item.properties.ammoType;
+                if (!acc[caliberType]) {
+                    acc[caliberType] = []
+                }
+                acc[caliberType].push(item);
                 return acc;
             }, {});
-            const filteredItemsDic = Object.values(groupedItemsDic).map(group => group.slice(0, 7));
-            const filteredItems = [].concat(...filteredItemsDic);*/
+            const filteredAmmoDic = Object.values(groupedAmmoDic).map(group => group.sort((a, b) => b.properties.damage - a.properties.damage).slice(0, 2));
+            const filteredAmmo = [].concat(...filteredAmmoDic);
+            filteredItems.push(...filteredAmmo);
 
             for (const item of filteredItems) {
                 item.lastLowPrice = 0;

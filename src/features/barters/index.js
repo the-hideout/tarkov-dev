@@ -1,32 +1,23 @@
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
-import { useQuery } from 'react-query';
 
 import doFetchBarters from './do-fetch-barters';
 import { langCode } from '../../modules/lang-helpers';
+import useItemsData from '../items';
+import useQuestsData from '../quests';
 
 import { placeholderBarters } from '../../modules/placeholder-data';
 
-export const useBartersQuery = (queryOptions) => {
-    const bartersQuery = useQuery('barters', () => doFetchBarters(langCode()), {
-        refetchInterval: 600000,
-        placeholderData: placeholderBarters(langCode()),
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
-        ...queryOptions,
-    });
-
-    return bartersQuery;
-};
-
 const initialState = {
-    barters: placeholderBarters(langCode()),
+    data: placeholderBarters(langCode()),
     status: 'idle',
     error: null,
 };
 
 export const fetchBarters = createAsyncThunk('barters/fetchBarters', () =>
-    doFetchBarters(langCode()),
+    doFetchBarters(langCode())
 );
 
 const bartersSlice = createSlice({
@@ -34,7 +25,7 @@ const bartersSlice = createSlice({
     initialState,
     reducers: {
         toggleItem: (state, action) => {
-            let newBarters = [...state.barters];
+            let newBarters = [...state.data];
 
             newBarters = newBarters.map((barter) => {
                 barter.requiredItems = barter.requiredItems.map(
@@ -55,10 +46,10 @@ const bartersSlice = createSlice({
                 return barter;
             });
 
-            state.barters = newBarters;
+            state.data = newBarters;
         },
         setItemCost: (state, action) => {
-            let newBarters = [...state.barters];
+            let newBarters = [...state.data];
 
             newBarters = newBarters.map((barter) => {
                 barter.requiredItems = barter.requiredItems.map(
@@ -74,10 +65,10 @@ const bartersSlice = createSlice({
                 return barter;
             });
 
-            state.barters = newBarters;
+            state.data = newBarters;
         },
         setRewardValue: (state, action) => {
-            let newBarters = [...state.barters];
+            let newBarters = [...state.data];
 
             newBarters = newBarters.map((barter) => {
                 barter.rewardItems = barter.rewardItems.map(
@@ -93,7 +84,7 @@ const bartersSlice = createSlice({
                 return barter;
             });
 
-            state.barters = newBarters;
+            state.data = newBarters;
         },
     },
     extraReducers: (builder) => {
@@ -103,8 +94,8 @@ const bartersSlice = createSlice({
         builder.addCase(fetchBarters.fulfilled, (state, action) => {
             state.status = 'succeeded';
 
-            if (!equal(state.barters, action.payload)) {
-                state.barters = action.payload;
+            if (!equal(state.data, action.payload)) {
+                state.data = action.payload;
             }
         });
         builder.addCase(fetchBarters.rejected, (state, action) => {
@@ -116,6 +107,66 @@ const bartersSlice = createSlice({
 
 export const { toggleItem, setItemCost, setRewardValue } = bartersSlice.actions;
 
-export default bartersSlice.reducer;
+export const bartersReducer = bartersSlice.reducer;
 
-export const selectAllBarters = (state) => state.barters.barters;
+export const selectAllBarters = (state) => {
+    return state.barters.data.map(barter => {
+        let taskUnlock = barter.taskUnlock;
+        if (taskUnlock) {
+            taskUnlock = state.quests.data.find(t => t.id === taskUnlock.id);
+        }
+        return {
+            ...barter,
+            requiredItems: barter.requiredItems.map(req => {
+                let matchedItem = state.items.data.find(it => it.id === req.item.id);
+                if (!matchedItem) {
+                    return false;
+                }
+                return {
+                    ...req,
+                    item: matchedItem,
+                };
+            }).filter(Boolean),
+            rewardItems: barter.rewardItems.map(req => {
+                const matchedItem = state.items.data.find(it => it.id === req.item.id);
+                if (!matchedItem) {
+                    return false;
+                }
+                return {
+                    ...req,
+                    item: matchedItem,
+                };
+            }).filter(Boolean),
+            taskUnlock: taskUnlock,
+        };
+    }).filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
+};
+
+let fetchedData = false;
+let refreshInterval = false;
+
+export default function useBartersData() {
+    const dispatch = useDispatch();
+    const { status, error } = useSelector((state) => state.barters);
+    const data = useSelector(selectAllBarters);
+
+    useItemsData();
+    useQuestsData();
+    useEffect(() => {
+        if (!fetchedData) {
+            fetchedData = true;
+            dispatch(fetchBarters());
+        }
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
+                dispatch(fetchBarters());
+            }, 600000);
+        }
+        return () => {
+            clearInterval(refreshInterval);
+            refreshInterval = false;
+        };
+    }, [dispatch]);
+    
+    return { data, status, error };
+};

@@ -4,15 +4,24 @@ module.exports = (price, currency = 'RUB') => {
     
     price = Math.floor(price);
 
-    if (currency === 'USD') {
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            maximumSignificantDigits: 6,
-        }).format(price);
+    if (currency === 'USD' || currency === 'dollars') {
+        let dollarsString = '';
+        
+        if (price > 0) {
+            dollarsString = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumSignificantDigits: 6,
+            }).format(price);
+        }
+        else {
+            dollarsString = '< $1';
+        }
+
+        return dollarsString
     }
 
-    if (currency === 'EUR') {
+    if (currency === 'EUR' || currency === 'euros') {
         return new Intl.NumberFormat('de-DE', {
             style: 'currency',
             currency: 'EUR',

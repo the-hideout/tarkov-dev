@@ -5,16 +5,16 @@ import { useTranslation } from 'react-i18next';
 
 import SEO from '../../components/SEO';
 
-import { caliberMap } from '../../modules/format-ammo';
+import { caliberArrayWithSplit } from '../../modules/format-ammo';
 
-import { useItemsQuery } from '../../features/items/queries.js';
-import { useMapImages } from '../../features/maps/queries.js';
+import useItemsData from '../../features/items';
+import { useMapImages } from '../../features/maps';
 
 import Connect from './Connect.jsx';
 
 import './index.css';
 
-const ammoTypes = Object.values(caliberMap).sort();
+const ammoTypes = caliberArrayWithSplit();
 
 const selectFilterStyle = {
     menu: (provided) => ({
@@ -58,7 +58,7 @@ const selectFilterStyle = {
 };
 
 function Control(props) {
-    const { data: items } = useItemsQuery();
+    const { data: items } = useItemsData();
 
     const mapImages = useMapImages();
     const uniqueMaps = Object.values(mapImages);

@@ -1,20 +1,13 @@
-import { useMemo, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../data-table';
 import fleaMarketFee from '../../modules/flea-market-fee';
-import {
-    selectAllCrafts,
-    fetchCrafts,
-} from '../../features/crafts/craftsSlice';
-import {
-    selectAllBarters,
-    fetchBarters,
-} from '../../features/barters/bartersSlice';
-import { useItemsQuery } from '../../features/items/queries';
+import useCraftsData from '../../features/crafts';
+import useBartersData from '../../features/barters';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
 import formatCostItems from '../../modules/format-cost-items';
@@ -26,142 +19,35 @@ import CenterCell from '../center-cell';
 
 import './index.css';
 import RewardCell from '../reward-cell';
-import {
-    getDurationDisplay,
-    getFinishDisplay,
-} from '../../modules/format-duration';
+import { getDurationDisplay } from '../../modules/format-duration';
 import bestPrice from '../../modules/best-price';
-import { useMetaQuery } from '../../features/meta/queries';
-import { useQuestsQuery } from '../../features/quests/queries';
+import useMetaData from '../../features/meta';
 
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
 
-function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices }) {
-    const dispatch = useDispatch();
+function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices, useBarterIngredients, useCraftIngredients }) {
     const { t } = useTranslation();
-    const includeFlea = useSelector((state) => state.settings.hasFlea);
     const settings = useSelector((state) => state.settings);
+    const { includeFlea, hasJaeger, completedQuests } = useMemo(() => {
+        return {includeFlea: settings.hasFlea, hasJaeger: settings.jaeger !== 0, completedQuests: settings.completedQuests};
+    }, [settings]);
     const stations = useSelector(selectAllStations);
     const skills = useSelector(selectAllSkills);
-    // const [skippedByLevel, setSkippedByLevel] = useState(false);
-    const skippedByLevelRef = useRef();
-    const feeReduction = stations['intelligence-center'] === 3 ? 0.7 - (0.003 * skills['hideout-management']) : 1;
+    const [skippedBySettings, setSkippedBySettings] = useState(false);
 
-    const craftSelector = useSelector(selectAllCrafts);
-    const craftsStatus = useSelector((state) => {
-        return state.crafts.status;
-    });
+    const [sortState, setSortState] = useState([{id: 'profit', desc: true}]);
 
-    const barterSelector = useSelector(selectAllBarters);
-    const bartersStatus = useSelector((state) => {
-        return state.barters.status;
-    });
+    const { data: crafts } = useCraftsData();
 
-    const {data: items} = useItemsQuery();
+    const { data: barters } = useBartersData();
 
-    const {data: tasks} = useQuestsQuery();
+    const { data: meta } = useMetaData();
 
-    const barters = useMemo(() => {
-        return barterSelector.map(b => {
-            return {
-                ...b,
-                requiredItems: b.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                rewardItems: b.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-            };
-        });
-    }, [barterSelector, items]);
-
-    const crafts = useMemo(() => {
-        return craftSelector.map(c => {
-            let taskUnlock = c.taskUnlock;
-            if (taskUnlock) {
-                taskUnlock = tasks.find(t => t.id === taskUnlock.id);
-            }
-            return {
-                ...c,
-                requiredItems: c.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                rewardItems: c.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                taskUnlock: taskUnlock,
-            };
-        });
-    }, [craftSelector, items, tasks]);
-
-    const { data: meta } = useMetaQuery();
-
-    useEffect(() => {
-        let timer = false;
-        if (bartersStatus === 'idle') {
-            dispatch(fetchBarters());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchBarters());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [bartersStatus, dispatch]);
-
-    useEffect(() => {
-        let timer = false;
-        if (craftsStatus === 'idle') {
-            dispatch(fetchCrafts());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchCrafts());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [craftsStatus, dispatch]);
 
     const data = useMemo(() => {
-        let addedStations = [];
+        let addedStations = {};
 
-        skippedByLevelRef.current = false;
+        setSkippedBySettings(false);
         return crafts
             .map((craftRow) => {
                 let totalCost = 0;
@@ -242,40 +128,73 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 const stationNormalized = craftRow.station.normalizedName;
                 const level = craftRow.level;
 
-                if (!nameFilter && selectedStation && selectedStation !== 'top' && selectedStation !== stationNormalized) {
+                if (!nameFilter && selectedStation && selectedStation !== 'top' && selectedStation !== 'banned' && selectedStation !== stationNormalized) {
                     return false;
                 }
 
-                if (selectedStation === 'top' && stationNormalized === 'bitcoin-farm') {
+                if ((selectedStation === 'top' || selectedStation === 'banned') && stationNormalized === 'bitcoin-farm') {
                     return false;
                 }
 
-                if (showAll) {
-                    skippedByLevelRef.current = false;
+                if (selectedStation === 'banned') {
+                    if (!craftRow.rewardItems[0].item.types.includes('noFlea')) {
+                        return false;
+                    }
                 }
 
                 if (!showAll && level > stations[stationNormalized]) {
                     //setSkippedByLevel(true);
-                    skippedByLevelRef.current = true;
+                    setSkippedBySettings(true);
 
                     return false;
                 }
 
-                const costItems = formatCostItems(
-                    craftRow.requiredItems,
+                if (!showAll && craftRow.taskUnlock && settings.useTarkovTracker) {
+                    if (!completedQuests.some(taskId => taskId === craftRow.taskUnlock.id)) {
+                        setSkippedBySettings(true);
+                        return false;
+                    }
+                }
+
+                const costItems = formatCostItems(craftRow.requiredItems, {
                     settings,
-                    barters,
+                    barters: useBarterIngredients ? barters : false,
+                    crafts: useCraftIngredients ? crafts : false,
                     freeFuel,
-                    showAll
-                );
+                    allowAllSources: showAll,
+                    useBarterIngredients,
+                    useCraftIngredients,
+                });
 
                 const craftDuration = Math.floor(
                     craftRow.duration - (craftRow.duration * (skills.crafting * 0.75)) / 100,
                 );
 
-                var costItemsWithoutTools = costItems.filter(costItem => costItem.isTool === false)
-                costItemsWithoutTools.map(
-                    (costItem) => (totalCost = totalCost + costItem.price * costItem.count),
+                var costItemsWithoutTools = costItems.filter(costItem => costItem.isTool === false);
+                costItemsWithoutTools.forEach((costItem) => (totalCost += costItem.pricePerUnit * costItem.count));
+
+                const craftRewardItem = craftRow.rewardItems[0].item;
+
+                const bestSellTo = craftRewardItem.sellFor.reduce(
+                    (previousSellFor, currentSellFor) => {
+                        if (currentSellFor.vendor.normalizedName === 'flea-market') {
+                            return previousSellFor;
+                        }
+                        if (currentSellFor.vendor.normalizedName === 'jaeger' && !hasJaeger) {
+                            return previousSellFor;
+                        }
+                        if (previousSellFor.priceRUB > currentSellFor.priceRUB) {
+                            return previousSellFor;
+                        }
+                        return currentSellFor;
+                    },
+                    {
+                        vendor: {
+                            name: t('N/A'),
+                            normalizedName: 'unknown'
+                        },
+                        priceRUB: 0,
+                    },
                 );
 
                 const tradeData = {
@@ -283,68 +202,47 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     cost: totalCost,
                     craftTime: craftDuration,
                     reward: {
-                        id: craftRow.rewardItems[0].item.id,
-                        name: craftRow.rewardItems[0].item.name,
-                        wikiLink: craftRow.rewardItems[0].item.wikiLink,
-                        itemLink: `/item/${craftRow.rewardItems[0].item.normalizedName}`,
+                        item: craftRewardItem,
                         source: `${station} (${t('Level')} ${level})`,
-                        iconLink: craftRow.rewardItems[0].item.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                         count: craftRow.rewardItems[0].count,
-                        sellValue: 0, 
+                        sellTo: bestSellTo.vendor.name,
+                        sellToNormalized: bestSellTo.vendor.normalizedName,
+                        sellValue: bestSellTo.priceRUB,
                         taskUnlock: craftRow.taskUnlock,
+                        isFIR: true,
                     },
-                    cached: craftRow.cached,
+                    cached: craftRow.cached || craftRewardItem.cached,
+                    stationId: craftRow.station.id,
                 };
-
-                const bestTrade = craftRow.rewardItems[0].item.sellFor.reduce((prev, current) => {
-                    if (current.vendor.normalizedName === 'flea-market') 
-                        return prev;
-                    if (!settings.jaeger && current.vendor.normalizedName === 'jaeger') 
-                        return prev;
-                    if (!prev) 
-                        return current;
-                    if (prev.priceRUB < current.priceRUB) 
-                        return current;
-                    return prev;
-                }, false);
-
-                if ((bestTrade && bestTrade.priceRUB > tradeData.reward.sellValue) || (bestTrade && !includeFlea)) {
-                    tradeData.reward.sellValue = bestTrade.priceRUB;
-                    tradeData.reward.sellTo = bestTrade.vendor.name;
-                }
 
                 let fleaFeeSingle = 0;
                 let fleaFeeTotal = 0;
-                let fleaPriceToUse = craftRow.rewardItems[0].item[averagePrices === true ? 'avg24hPrice' : 'lastLowPrice'];
+                let fleaPriceToUse = craftRewardItem[averagePrices === true ? 'avg24hPrice' : 'lastLowPrice'];
                 if (fleaPriceToUse === 0) {
-                    fleaPriceToUse = craftRow.rewardItems[0].item.lastLowPrice;
-                }
-                if (craftRow.rewardItems[0].priceCustom) {
-                    fleaPriceToUse = craftRow.rewardItems[0].priceCustom;
-                    tradeData.reward.sellType = 'custom';
+                    fleaPriceToUse = craftRewardItem.lastLowPrice;
                 }
 
-                if (!craftRow.rewardItems[0].item.types.includes('noFlea') && (showAll || includeFlea)) {
-                    const bestFleaPrice = bestPrice(craftRow.rewardItems[0].item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate, fleaPriceToUse);
+                if (!tradeData.cached && !craftRewardItem.types.includes('noFlea') && (showAll || includeFlea)) {
+                    const bestFleaPrice = bestPrice(craftRewardItem, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate, fleaPriceToUse);
                     if (!craftRow.rewardItems[0].priceCustom && (fleaPriceToUse === 0 || bestFleaPrice.bestPrice < fleaPriceToUse)) {
                         fleaPriceToUse = bestFleaPrice.bestPrice;
                         fleaFeeSingle = bestFleaPrice.bestPriceFee;
                     } else {
                         fleaFeeSingle = fleaMarketFee(
-                            craftRow.rewardItems[0].item.basePrice,
+                            craftRewardItem.basePrice,
                             fleaPriceToUse,
                             1,
                             meta?.flea?.sellOfferFeeRate,
                             meta?.flea?.sellRequirementFeeRate,
-                        ) * feeReduction;
+                        );
                     }
                     fleaFeeTotal = fleaMarketFee(
-                        craftRow.rewardItems[0].item.basePrice,
+                        craftRewardItem.basePrice,
                         fleaPriceToUse,
                         craftRow.rewardItems[0].count,
                         meta?.flea?.sellOfferFeeRate,
                         meta?.flea?.sellRequirementFeeRate,
-                    ) * feeReduction;
+                    );
                     if (fleaPriceToUse - fleaFeeSingle > tradeData.reward.sellValue) {
                         tradeData.reward.sellValue = fleaPriceToUse;
                     
@@ -353,8 +251,13 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                         fleaFeeSingle = 0;
                         fleaFeeTotal = 0;
                     }
-                } else if (craftRow.rewardItems[0].item.types.includes('noFlea')) {
+                } else if (craftRewardItem.types.includes('noFlea')) {
                     tradeData.reward.sellNote = t('Flea banned');
+                }
+
+                if (craftRewardItem.priceCustom) {
+                    tradeData.reward.sellValue = craftRewardItem.priceCustom;
+                    tradeData.reward.sellType = 'custom';
                 }
 
                 tradeData.profitParts = [
@@ -394,27 +297,43 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
             })
             .filter(Boolean)
             .sort((itemA, itemB) => {
-                if (itemB.profit < itemA.profit) {
-                    return -1;
+                let sortField = 'profit';
+                let desc = true;
+                const columnSwap = {
+                    costItems: 'cost',
+                    reward: 'profit',
+                };
+                if (sortState.length > 0) {
+                    sortField = sortState[0].id;
+                    //desc = sortState[0].desc;
                 }
-
-                if (itemB.profit > itemA.profit) {
-                    return 1;
+                if (columnSwap[sortField]) {
+                    sortField = columnSwap[sortField];
                 }
-
-                return 0;
+                if (sortField === 'craftTime' || sortField === 'cost') {
+                    desc = false;
+                }
+                if (!desc) {
+                    return itemA[sortField] - itemB[sortField];
+                }
+                return itemB[sortField] - itemA[sortField];
             })
             .filter((craft) => {
                 // This is done after profit sorting
                 if (selectedStation !== 'top') {
                     return true;
                 }
-
-                if (addedStations.includes(craft.reward.source)) {
+                if (!craft.cost && !craft.profit && !craft.profitPerHour) {
+                    return false;
+                }
+                if (!addedStations[craft.stationId]) {
+                    addedStations[craft.stationId] = 0;
+                }
+                if (addedStations[craft.stationId] >= 2) {
                     return false;
                 }
 
-                addedStations.push(craft.reward.source);
+                addedStations[craft.stationId]++;
 
                 return true;
             });
@@ -424,16 +343,20 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         freeFuel,
         crafts,
         barters,
+        completedQuests,
         includeFlea,
+        hasJaeger,
         itemFilter,
         stations,
         skills,
-        feeReduction,
         t,
         showAll,
         averagePrices,
         meta,
-        settings
+        settings,
+        sortState,
+        useCraftIngredients,
+        useBarterIngredients,
     ]);
 
     const columns = useMemo(
@@ -442,6 +365,12 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 Header: t('Reward'),
                 id: 'reward',
                 accessor: 'reward',
+                sortType: (a, b, columnId, desc) => {
+                    const aName = a.values.reward.item.name;
+                    const bName = b.values.reward.item.name;
+                    
+                    return aName.localeCompare(bName);
+                },
                 Cell: ({ value }) => {
                     return <RewardCell {...value} />;
                 },
@@ -451,13 +380,24 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 id: 'costItems',
                 accessor: 'costItems',
                 sortType: (a, b, columnId, desc) => {
-                    const aCostItems = a.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
-                    const bCostItems = b.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    let aCostItems = a.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    let bCostItems = b.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    if (selectedStation === 'banned') {
+                        aCostItems = a.original.cost / a.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        bCostItems = b.original.cost / b.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    }
                     
                     return aCostItems - bCostItems;
                 },
                 Cell: ({ value }) => {
-                    return <CostItemsCell costItems={value} />;
+                    return <CostItemsCell 
+                        costItems={value} 
+                        allowAllSources={showAll} 
+                        barters={barters} 
+                        crafts={crafts} 
+                        useBarterIngredients={useBarterIngredients}
+                        useCraftIngredients={useCraftIngredients}
+                    />;
                 },
             },
             {
@@ -472,9 +412,9 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                                 {getDurationDisplay(value * 1000)}
                             </div>
                             <div className="finish-wrapper" title={t('Start now')} onClick={((e) => {
-                                e.target.innerText = getFinishDisplay(value * 1000);
+                                e.target.innerText = getLocalFinishes(value, t);
                             })}>
-                                {getFinishDisplay(value * 1000)}
+                                {getLocalFinishes(value, t)}
                             </div>
                         </CenterCell>
                     );
@@ -484,6 +424,15 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 Header: t('Cost ₽'),
                 id: 'cost',
                 accessor: (d) => Number(d.cost),
+                sortType: (a, b, columnId, desc) => {
+                    let aCostItems = a.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    let bCostItems = b.original.cost || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    if (selectedStation === 'banned') {
+                        aCostItems = a.original.cost / a.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                        bCostItems = b.original.cost / b.original.reward.count || (desc ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER);
+                    }
+                    return aCostItems - bCostItems;
+                },
                 Cell: (props) => {
                     if (props.row.original.cached) {
                         return (
@@ -548,7 +497,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                 },
             },
         ],
-        [t, includeFlea],
+        [t, includeFlea, selectedStation, showAll, crafts, barters, useCraftIngredients, useBarterIngredients],
     );
 
     let extraRow = false;
@@ -557,7 +506,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         extraRow = t('No crafts available for selected filters');
     }
 
-    if (data.length <= 0 && skippedByLevelRef.current) {
+    if (data.length <= 0 && skippedBySettings) {
         extraRow = (
             <>
                 {t('No crafts available for selected filters but some were hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
@@ -565,7 +514,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         );
     }
 
-    if (data.length > 0 && skippedByLevelRef.current) {
+    if (data.length > 0 && skippedBySettings) {
         extraRow = (
             <>
                 {t('Some crafts hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
@@ -582,8 +531,21 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
             sortBy={'profit'}
             sortByDesc={true}
             autoResetSortBy={false}
+            onSort={newSortState => {
+                setSortState(newSortState);
+            }}
         />
     );
+}
+
+function getLocalFinishes(time, t) {
+    const finishes = t('{{val, datetime}}', { val: Date.now() + time*1000,
+        formatParams: {
+            val: { weekday: 'short', hour: 'numeric', minute: 'numeric', second: 'numeric' },
+        },
+    })
+
+    return finishes;
 }
 
 export default CraftTable;

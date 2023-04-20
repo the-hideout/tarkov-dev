@@ -44,6 +44,13 @@ const formatter = (key, value) => {
         }
         value = value.value;
     } 
+    if (typeof value === 'object') {
+        if (Array.isArray(value)) {
+            value = [...value];
+        } else {
+            value = {...value};
+        }
+    }
 
     let displayKey = i18n.t(key, { ns: 'properties' })
 
@@ -59,6 +66,10 @@ const formatter = (key, value) => {
         value = value?.map(defaultFormat).join(', ');
     }
 
+    if (key === 'armorDamage') {
+        value = `${value}%`;
+    }
+
     if (key === 'turnPenalty') {
         value = `${value*100}%`;
     }
@@ -69,7 +80,7 @@ const formatter = (key, value) => {
     }
 
     if (typeof value === 'boolean') {
-        value = value ? 'Yes' : 'No';
+        value = value ? i18n.t('Yes') : i18n.t('No');
     }
 
     if (key === 'zoomLevels') {
@@ -93,6 +104,10 @@ const formatter = (key, value) => {
     }
 
     if (key === 'baseItem') {
+        value = itemLinkFormat(value);
+    }
+
+    if (key === 'defaultPreset' && value) {
         value = itemLinkFormat(value);
     }
 

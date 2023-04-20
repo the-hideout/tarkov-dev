@@ -72,7 +72,7 @@ export function formatFuture(ms) {
     return text;
 }
 
-function MapSource(props) {
+function MapDetails(props) {
     const { t } = useTranslation();
 
     const overlayItem = [
@@ -84,11 +84,11 @@ function MapSource(props) {
         </div>,
     ];
 
-    if (props.source) {
+    if (props.author) {
         overlayItem.push(
             <div key={`${props.currentMap}-attribution`}>
                 {t('By')}
-                <span>:</span> <a href={props.sourceLink} target="_blank" rel="noopener noreferrer">{props.source}</a>
+                <span>:</span> <a href={props.authorLink} target="_blank" rel="noopener noreferrer">{props.author}</a>
             </div>,
         );
     }
@@ -104,7 +104,7 @@ function Time(props) {
             <div className="time-wrapper">
                 <div>15:28:00</div>
                 <div>03:28:00</div>
-                <MapSource {...props} />
+                <MapDetails {...props} />
             </div>
         );
     }
@@ -112,7 +112,7 @@ function Time(props) {
     if (props?.normalizedName === 'labs') {
         return (
             <div className="time-wrapper">
-                <MapSource {...props} />
+                <MapDetails {...props} />
             </div>
         );
     }
@@ -124,7 +124,7 @@ function Time(props) {
         <div className="time-wrapper">
             <div>{dayjs.utc(tarkovTime1).format('HH:mm:ss')}</div>
             <div>{dayjs.utc(tarkovTime2).format('HH:mm:ss')}</div>
-            <MapSource {...props} />
+            <MapDetails {...props} />
         </div>
     );
 }

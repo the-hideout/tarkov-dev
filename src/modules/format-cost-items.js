@@ -5,7 +5,7 @@ const fuelIds = [
     '5d1b36a186f7742523398433', // Metal fuel tank
 ];
 
-function getCheapestItemPrice(item, settings, allowAllSources) {
+function getCheapestCashPrice(item, settings = {}, allowAllSources = false) {
     let buySource = item.buyFor?.filter(buyFor => {
         if (buyFor.priceRUB === 0) {
             return false;
@@ -18,17 +18,17 @@ function getCheapestItemPrice(item, settings, allowAllSources) {
     if (!buySource || buySource.length === 0) {
         let sellToTrader = item.sellFor.filter(sellFor => {
             if (sellFor.vendor.normalizedName === 'flea-market') return false;
-            if (sellFor.vendor.normalizedName === 'jaeger' && !settings.jaeger) return false;
+            if (!allowAllSources && sellFor.vendor.normalizedName === 'jaeger' && !settings.jaeger) return false;
             return true;
         });
         if (sellToTrader.length > 1) {
             sellToTrader = sellToTrader.reduce((prev, current) => {
                 return prev.priceRUB > current.priceRUB ? prev : current;
-            });
+            }, {priceRUB: 0});
         } else {
             sellToTrader = sellToTrader[0];
         }
-        return {...sellToTrader, type: 'cash-sell'};
+        return {...sellToTrader, type: 'cash-sell', pricePerUnit: sellToTrader?.priceRUB};
     } else {
         if (buySource.length > 1) {
             buySource = buySource.reduce((prev, current) => {
@@ -37,11 +37,14 @@ function getCheapestItemPrice(item, settings, allowAllSources) {
         } else {
             buySource = buySource[0];
         }
-        return {...buySource, type: 'cash'};
+        return {...buySource, type: 'cash', pricePerUnit: buySource.priceRUB};
     }
 }
 
 function getItemBarters(item, barters, settings, allowAllSources) {
+    if (!barters) {
+        return [];
+    }
     const matchedBarters = [];
     for (const barter of barters) {
         // if(barter.rewardItems.length > 1){
@@ -60,22 +63,35 @@ function getItemBarters(item, barters, settings, allowAllSources) {
             continue;
         }
 
+        if (!allowAllSources && barter.taskUnlock && settings.useTarkovTracker && !settings.completedQuests.includes[barter.taskUnlock?.id]) {
+            continue;
+        }
+
         matchedBarters.push(barter);
     }
 
     return matchedBarters;
 }
 
-function getCheapestBarter(item, barters, settings, allowAllSources) {
+function getCheapestBarter(item, {barters = [], crafts = [], settings = false, allowAllSources = false, useBarterIngredients = false, useCraftIngredients = false, itemChain = []}) {
+    if (!settings) {
+        settings = {};
+        allowAllSources = true;
+    }
+    if (!itemChain || !Array.isArray(itemChain)) {
+        itemChain = [];
+    }
+    itemChain = [
+        ...itemChain,
+        item.id,
+    ];
     const itemBarters = getItemBarters(item, barters, settings, allowAllSources);
-    let bestBarter = false;
-    let barterTotalCost = Number.MAX_SAFE_INTEGER;
-    let bestPrice = {};
-
-    for (const barter of itemBarters) {
+    const bestPrice = itemBarters.reduce((bestBarter, barter) => {
         const thisBarterCost = barter.requiredItems.reduce(
             (accumulatedPrice, requiredItem) => {
-                let price = getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB;
+                let price = !itemChain.includes(requiredItem.item.id) ? 
+                    getCheapestPrice(requiredItem.item, {barters, crafts, settings, allowAllSources, useBarterIngredients, useCraftIngredients, itemChain}).pricePerUnit :
+                    getCheapestCashPrice(requiredItem.item, settings, allowAllSources).priceRUB;
                 if (isAnyDogtag(requiredItem.item.id)) {
                     if (settings.hideDogtagBarters) {
                         return 0;
@@ -87,36 +103,77 @@ function getCheapestBarter(item, barters, settings, allowAllSources) {
             },
             0,
         );
-        if (thisBarterCost && thisBarterCost < barterTotalCost) {
-            bestBarter = barter;
-            barterTotalCost = thisBarterCost;
+        const thisPricePerUnit = Math.round(thisBarterCost / barter.rewardItems[0].count);
+        if (thisPricePerUnit && thisPricePerUnit < bestBarter.price) {
+            bestBarter.barter = barter;
+            bestBarter.price = thisBarterCost;
+            bestBarter.pricePerUnit = thisPricePerUnit;
+            bestBarter.count = barter.rewardItems[0].count;
+            bestBarter.vendor = {
+                name: barter.trader.name,
+                normalizedName: barter.trader.normalizedName,
+                trader: barter.trader,
+                minTraderLevel: barter.level,
+                taskUnlock: barter.taskUnlock
+            };
         }
-    }
+        return bestBarter;
+    }, {
+        price: Number.MAX_SAFE_INTEGER,
+        type: 'barter',
+    });
 
-    if (bestBarter) {
-        bestPrice.price = barterTotalCost;
-        bestPrice.priceRUB = barterTotalCost;
-        bestPrice.type = 'barter';
-        bestPrice.barter = bestBarter;
-    } else {
-        bestPrice = undefined;
+    if (!bestPrice.barter) {
+        return undefined;
     }
-
+    bestPrice.priceRUB = bestPrice.price;
     return bestPrice;
 }
 
-function getCheapestItemPriceWithBarters(item, barters, settings, allowAllSources) {
-    const useFlea = settings.useFlea;
-    const bestPrice = getCheapestItemPrice(item, settings, allowAllSources);
+function getItemCrafts(item, crafts, settings, allowAllSources) {
+    if (!crafts) {
+        return [];
+    }
+    return crafts.reduce((matchedCrafts, craft) => {
+        if (craft.rewardItems[0].item.id !== item.id) {
+            return matchedCrafts;
+        }
 
-    const itemBarters = getItemBarters(item, barters, settings, allowAllSources);
-    let bestBarter = false;
-    let barterTotalCost = Number.MAX_SAFE_INTEGER;
+        if (!allowAllSources && settings[craft.station.normalizedName] < craft.level) {
+            return matchedCrafts;
+        }
 
-    for (const barter of itemBarters) {
-        const thisBarterCost = barter.requiredItems.reduce(
+        if (!allowAllSources && craft.taskUnlock && settings.useTarkovTracker && !settings.completedQuests.includes[craft.taskUnlock.id]) {
+            return matchedCrafts;
+        }
+
+        matchedCrafts.push(craft);
+        return matchedCrafts;
+    }, []);
+}
+
+function getCheapestCraft(item, {barters = [], crafts = [], settings = false, allowAllSources = false, useBarterIngredients = false, useCraftIngredients = false, itemChain = []}) {
+    if (!settings) {
+        settings = {};
+        allowAllSources = true;
+    }
+    if (!itemChain || !Array.isArray(itemChain)) {
+        itemChain = [];
+    }
+    itemChain = [
+        ...itemChain,
+        item.id,
+    ];
+    const itemCrafts = getItemCrafts(item, crafts, settings, allowAllSources);
+    const bestPrice = itemCrafts.reduce((bestCraft, craft) => {
+        const thisCraftCost = craft.requiredItems.reduce(
             (accumulatedPrice, requiredItem) => {
-                let price = getCheapestItemPrice(requiredItem.item, settings, allowAllSources).priceRUB;
+                if (requiredItem.attributes.some(att => att.type === 'tool')) {
+                    return accumulatedPrice;
+                }
+                let price = !itemChain.includes(requiredItem.item.id) ? 
+                    getCheapestPrice(requiredItem.item, {barters, crafts, settings, allowAllSources, useBarterIngredients, useCraftIngredients, itemChain}).pricePerUnit : 
+                    getCheapestCashPrice(requiredItem.item, settings, allowAllSources).priceRUB;
                 if (isAnyDogtag(requiredItem.item.id)) {
                     if (settings.hideDogtagBarters) {
                         return 0;
@@ -128,69 +185,88 @@ function getCheapestItemPriceWithBarters(item, barters, settings, allowAllSource
             },
             0,
         );
-        if (thisBarterCost && thisBarterCost < barterTotalCost) {
-            bestBarter = barter;
-            barterTotalCost = thisBarterCost;
+        const thisPricePerUnit = Math.round(thisCraftCost / craft.rewardItems[0].count);
+        if (thisPricePerUnit && thisPricePerUnit < bestCraft.price) {
+            bestCraft.craft = craft;
+            bestCraft.price = thisCraftCost;
+            bestCraft.count = craft.rewardItems[0].count;
+            bestCraft.pricePerUnit = thisPricePerUnit;
         }
+        return bestCraft;
+    }, {
+        price: Number.MAX_SAFE_INTEGER,
+        type: 'craft',
+    });
+
+    if (!bestPrice.craft) {
+        return undefined;
     }
- 
-    if (bestBarter && (!bestPrice.price || barterTotalCost < bestPrice.price || bestPrice.type === 'cash-sell')) {
-        bestPrice.price = barterTotalCost;
-        bestPrice.priceRUB = barterTotalCost;
-        bestPrice.type = 'barter';
-        bestPrice.barter = bestBarter;
-        bestPrice.vendor = {
-            name: bestBarter.trader.name,
-            normalizedName: bestBarter.trader.normalizedName,
-            trader: bestBarter.trader,
-            minTraderLevel: bestBarter.level,
-            taskUnlock: bestBarter.taskUnlock
-        }
+    bestPrice.priceRUB = bestPrice.price;
+    return bestPrice;
+}
+
+function getCheapestPrice(item, {barters = [], crafts = [], settings = false, allowAllSources = false, useBarterIngredients = false, useCraftIngredients = false, itemChain = []}) {
+    if (!settings) {
+        allowAllSources = true;
+        settings = {};
+    }
+    let bestPrice = getCheapestCashPrice(item, settings, allowAllSources);
+    let bestBarter = false;
+    if (useBarterIngredients || itemChain.length === 0) {
+        bestBarter = getCheapestBarter(item, {barters, crafts, settings, allowAllSources, useBarterIngredients, useCraftIngredients, itemChain});
+    }
+    let bestCraft = false;
+    if (useCraftIngredients || itemChain.length === 0) {
+        bestCraft = getCheapestCraft(item, {barters, crafts, settings, allowAllSources, useBarterIngredients, useCraftIngredients, itemChain});
+    }
+    if (!bestPrice || (bestPrice.type === 'cash-sell' && bestBarter) || bestPrice.pricePerUnit > bestBarter?.pricePerUnit) {
+        bestPrice = bestBarter;
     }
 
-    // If we don't have any price at all, fall back to highest trader sell price
-    if (!bestPrice.price) {
-        // console.log(`Found no bestPrice for ${item.name}, falling back to trader value`);
-        item.sellFor.forEach((priceObject) => {
-            if (priceObject.priceRUB < bestPrice.price) {
-                return;
-            }
-
-            if (priceObject.vendor.normalizedName === 'flea-market' && !useFlea) {
-                return;
-            }
-
-            bestPrice.type = 'cash';
-            bestPrice.vendor = priceObject.vendor;
-            bestPrice.price = priceObject.priceRUB;
-
-            return;
-        });
+    if (!bestPrice || (bestPrice.type === 'cash-sell' && bestCraft) || bestPrice.pricePerUnit > bestCraft?.pricePerUnit) {
+        bestPrice = bestCraft;
     }
 
     return bestPrice;
 }
 
-const formatCostItems = (
-    itemsList,
-    settings,
-    barters,
+const formatCostItems = (itemsList = [], {
+    settings = false,
+    barters = [],
+    crafts = [],
     freeFuel = false,
-    allowAllSources = false
-) => {
+    allowAllSources = false,
+    useBarterIngredients,
+    useCraftIngredients,
+}) => {
+    if (!settings) {
+        settings = {};
+        allowAllSources = true;
+    }
+    if (barters && typeof useBarterIngredients === 'undefined') {
+        useBarterIngredients = true;
+    }
+    if (crafts && typeof useCraftIngredients === 'undefined') {
+        useCraftIngredients = true;
+    }
     const hideoutManagementSkillLevel = settings['hideout-management'];
     return itemsList.map((requiredItem) => {
-        let bestPrice = getCheapestItemPriceWithBarters(
-            requiredItem.item,
+        let bestPrice = getCheapestPrice(requiredItem.item, {
             barters,
+            crafts,
             settings,
-            allowAllSources
-        );
-        if (requiredItem.priceCustom) {
-            bestPrice.priceRUB = requiredItem.priceCustom;
+            allowAllSources,
+            useBarterIngredients,
+            useCraftIngredients,
+        }); 
+
+        if (requiredItem.item.priceCustom) {
+            bestPrice.price = requiredItem.priceCustom;
+            bestPrice.priceRUB = requiredItem.item.priceCustom;
+            bestPrice.pricePerUnit = requiredItem.item.priceCustom;
             bestPrice.type = 'custom';
         }
-        let calculationPrice = bestPrice.priceRUB;
+        let calculationPrice = bestPrice.pricePerUnit;
 
         let itemName = requiredItem.item.name;
         if (isAnyDogtag(requiredItem.item.id)) {
@@ -200,36 +276,35 @@ const formatCostItems = (
         }
 
         if (freeFuel && fuelIds.includes(requiredItem.item.id)) {
-            calculationPrice = 0;
+            bestPrice = requiredItem.item.sellForTradersBest;
+            calculationPrice = requiredItem.item.sellForTradersBest.priceRUB * 0.1;
         }
-        
-        let isTool = false;
-        if (requiredItem.attributes)
-            isTool = requiredItem.attributes.some(element => element.type === "tool");
+
+        const isTool = requiredItem.attributes?.some(att => att.name === 'tool' && Boolean(att.value));
+        let nonFunctional = false;
+        if (requiredItem.item?.types.includes('gun')) {
+            nonFunctional = !requiredItem.attributes?.some(att => att.name === 'functional' && Boolean(att.value))
+        }
 
         const returnData = {
+            item: requiredItem.item,
+            attributes: requiredItem.attributes,
             id: requiredItem.item.id,
-            count:
-                requiredItem.count === 0.66
-                    ? (
-                          requiredItem.count -
-                          (requiredItem.count *
-                              (hideoutManagementSkillLevel * 0.5)) /
-                              100
-                      ).toFixed(2)
+            count: requiredItem.count === 0.66
+                    ? (requiredItem.count - (requiredItem.count * (hideoutManagementSkillLevel * 0.5)) / 100).toFixed(2)
                     : requiredItem.count,
             name: itemName,
             price: calculationPrice,
             priceRUB: calculationPrice,
+            pricePerUnit: calculationPrice,
             priceType: requiredItem.item.cached ? 'cached' : bestPrice.type,
             vendor: bestPrice.vendor,
-            priceDetails: bestPrice.barter,
-            iconLink:
-                requiredItem.item.iconLink ||
-                `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+            priceDetails: bestPrice.barter || bestPrice.craft,
+            iconLink: requiredItem.item.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
             wikiLink: requiredItem.item.wikiLink,
             itemLink: `/item/${requiredItem.item.normalizedName}`,
             isTool: isTool,
+            nonFunctional,
             cached: requiredItem.item.cached,
         };
 
@@ -237,6 +312,6 @@ const formatCostItems = (
     });
 };
 
-export { formatCostItems, getItemBarters, getCheapestItemPrice, getCheapestItemPriceWithBarters, getCheapestBarter };
+export { formatCostItems, getItemBarters, getCheapestCashPrice, getCheapestBarter, getItemCrafts, getCheapestCraft, getCheapestPrice };
 
 export default formatCostItems;

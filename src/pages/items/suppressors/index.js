@@ -8,12 +8,12 @@ import SEO from '../../../components/SEO';
 import { Filter, ToggleFilter, SelectItemFilter } from '../../../components/filter';
 import SmallItemTable from '../../../components/small-item-table';
 
-import { useItemsQuery } from '../../../features/items/queries';
+import useItemsData from '../../../features/items';
 
 function Suppressors() {
     const [showAllItemSources, setShowAllItemSources] = useState(false);
     const [selectedGun, setSelectedGun] = useState(false);
-    const { data: items } = useItemsQuery();
+    const { data: items } = useItemsData();
 
     const { t } = useTranslation();
 
@@ -84,6 +84,9 @@ function Suppressors() {
             <div className="page-wrapper items-page-wrapper">
                 <p>
                     {"In Escape from Tarkov, a suppressor is a muzzle device (a functional mod) and can be installed on a weapon to muffle gunshot sound."}
+                </p>
+                <p>
+                    {"On this page you can sort them buy ergonomics penalty, recoil improvement or their cost and see on which weapon they can be directly mounted."}
                 </p>
             </div>
         </div>,

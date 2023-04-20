@@ -1,4 +1,3 @@
-import { useQuery } from 'react-query';
 import {
     VictoryChart,
     VictoryLine,
@@ -10,27 +9,28 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import formatPrice from '../../modules/format-price';
+import { useQuery } from '../../modules/graphql-request';
 // import { getRelativeTimeAndUnit } from '../../modules/format-duration';
 
 import './index.css';
 
-function PriceGraph({ itemId, itemChange24 }) {
+function PriceGraph({ item, itemId, itemChange24 }) {
+    if (item && !itemId) {
+        itemId = item.id;
+        if (item.properties?.baseItem?.properties?.defaultPreset?.id === item.id) {
+            itemId = item.properties.baseItem.id;
+        }
+    }
+    
     const { t } = useTranslation();
     const { status, data } = useQuery(
         `historical-price-${itemId}`,
-        () =>
-            fetch('https://api.tarkov.dev/graphql', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                },
-                body: dataQuery,
-            }).then((response) => response.json()),
-        {
-            refetchOnMount: false,
-            refetchOnWindowFocus: false,
-        },
+        `{
+            historicalItemPrices(id:"${itemId}"){
+                price
+                timestamp
+            }
+        }`,
     );
     let height = VictoryTheme.material.height;
 
@@ -38,20 +38,11 @@ function PriceGraph({ itemId, itemChange24 }) {
         height = 1280;
     }
 
-    const dataQuery = JSON.stringify({
-        query: `{
-        historicalItemPrices(id:"${itemId}"){
-            price
-            timestamp
-        }
-    }`,
-    });
-
     if (status !== 'success') {
         return null;
     }
 
-    if (status === 'success' && data.data.historicalItemPrices.length === 0) {
+    if (status === 'success' && data.data.historicalItemPrices.length < 2) {
         return t('No data');
     }
 

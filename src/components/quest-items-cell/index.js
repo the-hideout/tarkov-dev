@@ -1,32 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
+import ItemImage from '../item-image';
+
 import './index.css';
 
 const rewardMap = {
     finishRewards: 'On Task Completion',
     startRewards: 'On Task Start'
-};
-
-const foundInRaidPart = (questItem, t) => {
-    if (!questItem.rewardType) {
-        return <div
-            className={`found-in-raid-wrapper ${
-                questItem.foundInRaid ? 'find-in-raid' : ''
-            }`}
-        >
-            {t('Found In Raid')}
-            <span>:</span>{' '}
-            <span>{questItem.foundInRaid ? t('Yes') : t('No')}</span>
-        </div>
-    }
-    return <div className={`found-in-raid-wrapper`}>
-        {
-        // t('On Task Completion')
-        // t('On Task Start')
-        t(rewardMap[questItem.rewardType])
-        }
-    </div>
 };
 
 function QuestItemsCell({ questItems }) {
@@ -35,10 +16,12 @@ function QuestItemsCell({ questItems }) {
         return (
             <div className="quest-item-wrapper" key={`quest-item-${index}`}>
                 <div className="quest-image-wrapper">
-                    <img
-                        alt={questItem.item.name}
-                        loading="lazy"
-                        src={questItem.item.iconLink}
+                    <ItemImage
+                        item={questItem.item}
+                        nonFunctionalOverlay={false}
+                        isFIR={questItem.foundInRaid || questItem.rewardType}
+                        imageField="iconLink"
+                        linkToItem={true}
                     />
                 </div>
                 <div className="quest-item-text-wrapper">
@@ -47,9 +30,15 @@ function QuestItemsCell({ questItems }) {
                     </Link>
                     <div className="amount-wrapper">
                         {t('Amount')}
-                        <span>:</span> {questItem.count}
+                        <span>:</span> {questItem.count.toLocaleString()}
                     </div>
-                    {foundInRaidPart(questItem, t)}
+                    <div className="reward-type-wrapper">
+                        {
+                            // t('On Task Completion')
+                            // t('On Task Start')
+                            t(rewardMap[questItem.rewardType])
+                        }
+                    </div>
                 </div>
             </div>
         );

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import Icon from '@mdi/react';
@@ -27,49 +28,51 @@ function TraderPriceCell(props) {
         return null;
     }
 
-    const trader = props.row.original.buyFor
+    const bestBuyFor = props.row.original.buyFor
         ?.reduce((previous, current) => {
             if (current.vendor.normalizedName === 'flea-market') {
                 return previous;
             }
-            if (!previous || current.priceRUB < previous.priceRUB) return current;
+            if (!previous || current.priceRUB < previous.priceRUB) 
+                return current;
             return previous;
         }, false);
 
-    if (!trader) {
+    if (!bestBuyFor) {
         return null;
     }
     let count = 1;
-    if (props.row.original.count) count = props.row.original.count;
-    //let printString = `${formatPrice(trader.price, trader.currency)}`;
+    if (props.row.original.count)
+        count = props.row.original.count;
     let printString = 
-        trader.currency !== 'RUB' ? (
+        bestBuyFor.currency !== 'RUB' ? (
             <Tippy
                 content={formatPrice(
-                    trader.priceRUB*count,
+                    bestBuyFor.priceRUB*count,
                 )}
                 placement="bottom"
             >
                 <div>
                     {formatPrice(
-                        trader.price*count,
-                        trader.currency,
+                        bestBuyFor.price*count,
+                        bestBuyFor.currency,
                     )}
                 </div>
             </Tippy>
         ) : 
-            formatPrice(trader.price*count);
-    const questLocked = trader.vendor.taskUnlock;
-    const loyaltyString = t('LL{{level}}', { level: trader.vendor.minTraderLevel });
+            formatPrice(bestBuyFor.price*count);
+    const questLocked = bestBuyFor.vendor.taskUnlock;
+    const loyaltyString = t('LL{{level}}', { level: bestBuyFor.vendor.minTraderLevel });
 
     if (questLocked) {
         printString = (
             <>
                 {printString}
-                {getItemCountPrice(trader.price, trader.currency, count)}
+                {getItemCountPrice(bestBuyFor.price, bestBuyFor.currency, count)}
                 <Tippy 
-                    content={`${t('Task')}: ${questLocked.name}`}
+                    content={<Link to={`/task/${questLocked.normalizedName}`}>{t('Task')}: {questLocked.name}</Link>}
                     placement="bottom"
+                    interactive={true}
                 >
                     <div className="trader-unlock-wrapper">
                         <Icon
@@ -77,7 +80,7 @@ function TraderPriceCell(props) {
                             size={1}
                             className="icon-with-text"
                         />
-                        <span>{`${trader.vendor.name} ${loyaltyString}`}</span>
+                        <span>{`${bestBuyFor.vendor.name} ${loyaltyString}`}</span>
                     </div>
                 </Tippy>
             </>
@@ -86,9 +89,9 @@ function TraderPriceCell(props) {
         printString = (
             <>
                 {printString}
-                {getItemCountPrice(trader.price, trader.currency, count)}
+                {getItemCountPrice(bestBuyFor.price, bestBuyFor.currency, count)}
                 <div className="trader-unlock-wrapper">
-                    {`${trader.vendor.name} ${loyaltyString}`}
+                    {`${bestBuyFor.vendor.name} ${loyaltyString}`}
                 </div>
             </>
         );

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const got = require('got');
+const fetch = require('cross-fetch');
 
 const repositories = [
     'the-hideout/tarkov-dev',
@@ -33,13 +33,12 @@ if (token) {
         for (const repository of repositories) {
             console.time(`contributors-${repository}`);
 
-            const response = await got(`https://api.github.com/repos/${repository}/contributors`, {
-                responseType: 'json',
+            const response = await fetch(`https://api.github.com/repos/${repository}/contributors`, {
                 headers,
-            });
+            }).then(response => response.json());
             console.timeEnd(`contributors-${repository}`);
 
-            for (const contributor of response.body) {
+            for (const contributor of response) {
                 allContributors.push({
                     login: contributor.login,
                     html_url: contributor.html_url,

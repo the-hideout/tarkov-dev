@@ -1,11 +1,17 @@
-import fetch  from 'cross-fetch';
+import APIQuery from '../../modules/api-query.js';
 
-const doFetchBosses = async (language = 'en', prebuild = false) => {
-    const bodyQuery = JSON.stringify({
-        query: `{
+class BossesQuery extends APIQuery {
+    constructor() {
+        super('bosses');
+    }
+
+    async query(language, prebuild = false) {
+        const query = `{
             bosses(lang: ${language}) {
                 name
                 normalizedName
+                imagePortraitLink
+                imagePosterLink
                 health {
                     id
                     max
@@ -28,47 +34,43 @@ const doFetchBosses = async (language = 'en', prebuild = false) => {
                     id
                 }
             }
-        }`,
-    });
-
-    const response = await fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        cache: 'no-store',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: bodyQuery,
-    });
-
-    const bossesData = await response.json();
-
-    if (bossesData.errors) {
-        if (bossesData.data) {
-            for (const error of bossesData.errors) {
-                let badItem = false;
-                if (error.path) {
-                    badItem = bossesData.data;
-                    for (let i = 0; i < 2; i++) {
-                        badItem = badItem[error.path[i]];
+        }`;
+    
+        const bossesData = await this.graphqlRequest(query);
+    
+        if (bossesData.errors) {
+            if (bossesData.data) {
+                for (const error of bossesData.errors) {
+                    let badItem = false;
+                    if (error.path) {
+                        badItem = bossesData.data;
+                        for (let i = 0; i < 2; i++) {
+                            badItem = badItem[error.path[i]];
+                        }
+                    }
+                    console.log(`Error in bosses API query: ${error.message}`);
+                    if (badItem) {
+                        console.log(badItem)
                     }
                 }
-                console.log(`Error in maps API query: ${error.message}`);
-                if (badItem) {
-                    console.log(badItem)
-                }
+            }
+            // only throw error if this is for prebuild or data wasn't returned
+            if (
+                prebuild || !bossesData.data || 
+                !bossesData.data.maps || !bossesData.data.maps.length
+            ) {
+                return Promise.reject(new Error(bossesData.errors[0].message));
             }
         }
-        // only throw error if this is for prebuild or data wasn't returned
-        if (
-            prebuild || !bossesData.data || 
-            !bossesData.data.maps || !bossesData.data.maps.length
-        ) {
-            return Promise.reject(new Error(bossesData.errors[0].message));
-        }
+    
+        return bossesData.data.bosses;
     }
+}
 
-    return bossesData.data.bosses;
+const bossesQuery = new BossesQuery();
+
+const doFetchBosses = async (language = 'en', prebuild = false) => {
+    return bossesQuery.run(language, prebuild);
 };
 
 export default doFetchBosses;

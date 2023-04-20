@@ -1,52 +1,74 @@
 const fs = require('fs');
 const path = require('path');
 
-const got = require('got');
+const fetch = require('cross-fetch');
 
 const maps = require('../src/data/maps.json');
-const { caliberMap } = require('../src/modules/format-ammo');
+const categoryPages = require('../src/data/category-pages.json');
+const { caliberArrayWithSplit } = require('../src/modules/format-ammo');
 
 const standardPaths = [
     '',
-    '/about',
     '/ammo',
+    '/barters',
+    '/hideout-profit',
+    '/loot-tier',
+    '/trader/prapor',
+    '/trader/therapist',
+    '/trader/skier',
+    '/trader/fence',
+    '/trader/peacekeeper',
+    '/trader/mechanic',
+    '/trader/ragman',
+    '/trader/jaeger',
+    '/trader/lightkeeper',
+    '/wipe-length',
+    '/bitcoin-farm-calculator',
+];
+
+const standardPathsWeekly = [
+    '/about',
     '/api',
     '/api-users',
-    '/barters',
     '/control',
-    '/hideout-profit',
-    /// 'history-graphs',
-    /// 'item-tracker',
     '/items',
-    '/loot-tier',
     '/maps',
     '/moobot',
     '/nightbot',
     '/settings',
     '/streamelements',
     '/traders',
-    '/traders/prapor',
-    '/traders/therapist',
-    '/traders/skier',
-    '/traders/peacekeeper',
-    '/traders/mechanic',
-    '/traders/ragman',
-    '/traders/jaeger',
-    '/bosses'
+    '/bosses',
+    '/tasks',
+    '/hideout',
 ];
 
-const addPath = (sitemap, url) => {
+const addPath = (sitemap, url, change = 'hourly') => {
     return `${sitemap}
     <url>
         <loc>https://tarkov.dev${url}</loc>
-        <changefreq>hourly</changefreq>
+        <changefreq>${change}</changefreq>
     </url>`;
 }
+
+const graphqlRequest = (queryString) => {
+    return fetch('https://api.tarkov.dev/graphql', {
+        method: 'POST',
+        cache: 'no-store',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify({
+            query: queryString
+        }),
+    }).then(response => response.json());
+};
 
 (async () => {
     try {
         let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
 
         console.time('build-sitemap');
 
@@ -54,54 +76,47 @@ const addPath = (sitemap, url) => {
             sitemap = addPath(sitemap, path);
         }
 
+        for (const path of standardPathsWeekly) {
+            sitemap = addPath(sitemap, path, 'weekly');
+        }
+
         for (const mapsGroup of maps) {
             for (const map of mapsGroup.maps) {
-                sitemap = addPath(sitemap, `/map/${map.key}`);
+                sitemap = addPath(sitemap, `/map/${map.key}`, 'weekly');
             }
         }
 
-        const itemTypes = await got('https://api.tarkov.dev/graphql?query={%20itemCategories{%20normalizedName%20}%20}', {
-            responseType: 'json',
-        });
-
-        for (const itemType of itemTypes.body.data.itemCategories) {
-            sitemap = addPath(sitemap, `/items/${itemType.normalizedName}`);
+        const itemCategories = await graphqlRequest('{itemCategories{normalizedName}}');
+        for (const itemCategory of itemCategories.data.itemCategories) {
+            sitemap = addPath(sitemap, `/items/${itemCategory.normalizedName}`);
         }
 
-        const allItems = await got('https://api.tarkov.dev/graphql?query={%20items{%20normalizedName%20}%20}', {
-            responseType: 'json',
-        });
+        for (const categoryPage of categoryPages) {
+            sitemap = addPath(sitemap, `/items/${categoryPage.key}`);
+        };
 
-        for (const item of allItems.body.data.items) {
+        const allItems = await graphqlRequest('{items{normalizedName}}');
+        for (const item of allItems.data.items) {
             sitemap = addPath(sitemap, `/item/${item.normalizedName}`);
         }
 
-        const allBosses = await got('https://api.tarkov.dev/graphql?query={maps{bosses{name}}}', {
-            responseType: 'json',
-        });
-
-        var bossNames = [];
-        for (const map of allBosses.body.data.maps) {
-            for (const boss of map.bosses) {
-                var bossName = boss.name.toLowerCase().replace(/ /g, '-')
-                if (!bossNames.includes(bossName)) {
-                    bossNames.push(bossName)
-                }
-            }
+        const allBosses = await graphqlRequest('{bosses{normalizedName}}');
+        for (const boss of allBosses.data.bosses) {
+            sitemap = addPath(sitemap, `/boss/${boss.normalizedName}`);
         }
 
-        for (const bossName of bossNames) {
-            sitemap = addPath(sitemap, `/boss/${bossName}`);
+        const allTasks = await graphqlRequest('{tasks{normalizedName}}');
+        for (const task of allTasks.data.tasks) {
+            sitemap = addPath(sitemap, `/task/${task.normalizedName}`, 'weekly');
         }
 
-        let ammoTypes = Object.values(caliberMap).sort();
-
+        const ammoTypes = caliberArrayWithSplit();
         for (const ammoType of ammoTypes) {
             sitemap = addPath(sitemap, `/ammo/${ammoType.replace(/ /g, '%20')}`);
         }
 
         sitemap = `${sitemap}
-        </urlset>`;
+</urlset>`;
 
         fs.writeFileSync(path.join(__dirname, '..', 'public', 'sitemap.xml'), sitemap);
         console.timeEnd('build-sitemap');

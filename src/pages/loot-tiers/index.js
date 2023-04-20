@@ -20,7 +20,7 @@ import {
 import QueueBrowserTask from '../../modules/queue-browser-task';
 import capitalizeFirst from '../../modules/capitalize-first';
 
-import { useItemsQuery } from '../../features/items/queries';
+import useItemsData from '../../features/items';
 
 import './index.css';
 
@@ -105,7 +105,7 @@ function LootTier(props) {
             .filter(Boolean),
     });
 
-    const { data: items } = useItemsQuery();
+    const { data: items } = useItemsData();
 
     const handleFilterChange = (selectedFilters) => {
         QueueBrowserTask.task(() => {
@@ -131,23 +131,42 @@ function LootTier(props) {
     const itemData = useMemo(() => {
         return items
             .map((item) => {
+                let gridImageLink = item.gridImageLink;
+                let baseImageLink = item.baseImageLink;
+                let width = item.width;
+                let height = item.height;
+                let slots = item.slots;
+                let itemTypes = item.types;
+                let priceRUB = item.sellForTradersBest.priceRUB;
+                let sellTo = item.sellForTradersBest.vendor.name;
+                let sellToNormalized = item.sellForTradersBest.vendor.normalizedName;
+                let normalizedName = item.normalizedName;
+
                 if (item.types.includes('gun')) {
                     // Overrides guns' dimensions using their default height and width.
                     // Fixes a bug where PPS was calculated using just a weapon receiver.
-                    item.height = item.properties.defaultHeight;
-                    item.width = item.properties.defaultWidth;
-                    item.slots = item.height * item.width;
-
-                    item.types = item.types.filter((type) => type !== 'wearable');
+                    if (item.properties.defaultPreset) {
+                        // use default preset images for item
+                        const preset = items.find(i => i.id === item.properties.defaultPreset.id);
+                        if (preset) {
+                            width = preset.width;
+                            height = preset.height;
+                            slots = width * height;
+                            gridImageLink = preset.gridImageLink;
+                            baseImageLink = preset.baseImageLink;
+                            priceRUB = preset.sellForTradersBest.priceRUB;
+                            sellTo = preset.sellForTradersBest.vendor.name;
+                            sellToNormalized = preset.sellForTradersBest.vendor.normalizedName;
+                            normalizedName = preset.normalizedName;
+                        }
+                    }
+                    itemTypes = item.types.filter((type) => type !== 'wearable');
                 }
 
-                let sellTo = item.traderName;
-                let sellToNormalized = item.traderNormalizedName;
-                let priceRUB = item.traderTotalPriceRUB;
 
                 if (hasFlea && !item.types.includes('noFlea')) {
                     const fleaPrice = item.avg24hPrice - item.fee;
-                    if (fleaPrice >= item.traderTotalPriceRUB) {
+                    if (fleaPrice >= priceRUB) {
                         sellTo = 'Flea Market';
                         sellToNormalized = 'flea-market';
                         priceRUB = fleaPrice;
@@ -158,7 +177,14 @@ function LootTier(props) {
                     ...item,
                     sellTo: sellTo,
                     sellToNormalized: sellToNormalized,
-                    pricePerSlot: Math.floor(priceRUB / item.slots)
+                    pricePerSlot: Math.floor(priceRUB / slots),
+                    normalizedName,
+                    width,
+                    height,
+                    slots,
+                    gridImageLink,
+                    baseImageLink,
+                    types: itemTypes,
                 }
             })
             .filter((item) => {
@@ -397,7 +423,7 @@ function LootTier(props) {
                 />
             ))}
 
-            <div className="page-wrapper loot-tiers-wrapper">
+            <div className="loot-tiers-wrapper">
                 <p>
                     {t('loot-tiers-page-description', 'Learn about the different types of loot available in the game, their value, rarity, and what to keep and what to trash.')}
                 </p>

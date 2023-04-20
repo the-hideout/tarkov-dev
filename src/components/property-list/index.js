@@ -5,7 +5,7 @@ import Tippy from '@tippyjs/react';
 
 import './index.css';
 
-const skipProps = ['grid', 'ConflictingItems', '__typename', 'slots'];
+const skipProps = ['grid', 'ConflictingItems', '__typename', 'slots', 'presets'];
 
 const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
@@ -23,12 +23,16 @@ function PropertyList({ properties }) {
                 .map(([property, value]) => {
                     return propertyFormatter(property, value);
                 })
-                .filter(([property, value]) => value.value !== undefined)
+                .filter(([property, value]) => value.value !== undefined && value.value !== null)
                 .filter(([property, value]) => value.value?.length !== 0)
                 .sort((a, b) => a[0].localeCompare(b[0])),
 
         [properties],
     );
+
+    if (data.length === 0) {
+        return '';
+    }
 
     return (
         <div className="property-list">

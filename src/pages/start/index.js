@@ -1,5 +1,7 @@
-import React, { useState, useCallback, lazy, Suspense } from 'react';
+import React, { useState, useCallback, useEffect, lazy, Suspense } from 'react';
+import { useSearchParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 import { useTranslation } from 'react-i18next';
 
 import QueueBrowserTask from '../../modules/queue-browser-task';
@@ -10,7 +12,7 @@ import SEO from '../../components/SEO';
 import ItemIconList from '../../components/item-icon-list';
 import LoadingSmall from '../../components/loading-small';
 
-import { useMapImages } from '../../features/maps/queries';
+import { mapIcons, useMapImages } from '../../features/maps';
 
 import Icon from '@mdi/react';
 import {
@@ -18,7 +20,7 @@ import {
     mdiAmmunition,
     mdiHammerWrench,
     mdiFinance,
-    mdiAccountSwitch,
+    mdiCached,
     mdiProgressWrench,
     mdiMap,
     mdiViewGrid,
@@ -40,21 +42,40 @@ const ItemSearch = lazy(() => import('../../components/item-search'));
 const BossList = lazy(() => import('../../components/boss-list'));
 
 function Start() {
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
-    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [nameFilter, setNameFilter] = useState(searchParams.get('search') || '');
     const { t } = useTranslation();
 
     const mapImages = useMapImages();
-    const uniqueMaps = Object.values(mapImages);
-    uniqueMaps.sort((a, b) => {
+    // const uniqueMaps = Object.values(mapImages);
+    // uniqueMaps.sort((a, b) => {
+    //     if (a.normalizedName === 'openworld')
+    //         return 1;
+    //     if (b.normalizedName === 'openworld')
+    //         return -1;
+    //     return a.displayText.localeCompare(b.displayText);
+    // });
+    const uniqueMaps = Object.values(mapImages).reduce((maps, current) => {
+        if (!maps.some(storedMap => storedMap.normalizedName === current.normalizedName)) {
+            maps.push({
+                name: current.name,
+                normalizedName: current.normalizedName,
+                description: current.description,
+            });
+        }
+        return maps;
+    }, []);
+    uniqueMaps.sort((a, b) => { 
         if (a.normalizedName === 'openworld')
             return 1;
         if (b.normalizedName === 'openworld')
             return -1;
-        return a.displayText.localeCompare(b.displayText);
+        return a.name.localeCompare(b.name);
     });
+
+    useEffect(() => {
+        setNameFilter(searchParams.get('search') || '');
+    }, [searchParams]);
 
     const handleNameFilterChange = useCallback(
         (value) => {
@@ -62,11 +83,11 @@ function Start() {
                 // schedule this for the next loop so that the UI
                 // has time to update but we do the filtering as soon as possible
                 QueueBrowserTask.task(() => {
-                    setNameFilter(value);
+                    setSearchParams({'search': value});
                 });
             }
         },
-        [setNameFilter],
+        [setSearchParams],
     );
 
     const [loadMoreState, setLoadMoreState] = useState(false);
@@ -88,6 +109,7 @@ function Start() {
             <div className="start-section-wrapper item-section" key={'item-section-div'}>
                 <Suspense fallback={<LoadingSmall />} key={'item-search'}>
                     <ItemSearch
+                        defaultValue={nameFilter}
                         onChange={handleNameFilterChange}
                         autoFocus={true}
                         key={'item-search-box'}
@@ -99,7 +121,6 @@ function Start() {
                         nameFilter={nameFilter}
                         defaultRandom={true}
                         autoScroll={loadMoreState}
-                        totalTraderPrice={true}
                         showSlotValue
                         fleaValue
                         traderValue={1}
@@ -140,7 +161,7 @@ function Start() {
                     <li key="start-link-barters">
                         <Link to="/barters/">
                             <Icon
-                                path={mdiAccountSwitch}
+                                path={mdiCached}
                                 size={1}
                                 className="icon-with-text"
                             />
@@ -222,10 +243,15 @@ function Start() {
                 </h3>
                 <ul key="maps-list">
                     {uniqueMaps.map((map) => (
-                        <li key={`map-link-${map.key}`}>
-                            <Link to={`/map/${map.key}`}>
-                                {map.displayText}
-                            </Link>
+                        <li key={`map-link-${map.normalizedName}`}>
+                            <HashLink to={`/maps#${map.normalizedName}`}>
+                                <Icon 
+                                    path={mapIcons[map.normalizedName]} 
+                                    size={1}
+                                    className="icon-with-text"
+                                />
+                                {map.name}
+                            </HashLink>
                         </li>
                     ))}
                 </ul>
@@ -267,7 +293,7 @@ function Start() {
                 </h3>
                 <ul className="traders-list" key="traders-list">
                     <li key="start-link-prapor">
-                        <Link to={`/traders/prapor`}>
+                        <Link to={`/trader/prapor`}>
                             <img
                                 alt="Prapor icon"
                                 className="trader-icon"
@@ -278,7 +304,7 @@ function Start() {
                         </Link>
                     </li>
                     <li key="start-link-therapist">
-                        <Link to={`/traders/therapist`}>
+                        <Link to={`/trader/therapist`}>
                             <img
                                 alt="Therapist icon"
                                 className="trader-icon"
@@ -289,7 +315,7 @@ function Start() {
                         </Link>
                     </li>
                     <li key="start-link-skier">
-                        <Link to={`/traders/skier`}>
+                        <Link to={`/trader/skier`}>
                             <img
                                 alt="Skier icon"
                                 className="trader-icon"
@@ -300,7 +326,7 @@ function Start() {
                         </Link>
                     </li>
                     <li key="start-link-peacekeeper">
-                        <Link to={`/traders/peacekeeper`}>
+                        <Link to={`/trader/peacekeeper`}>
                             <img
                                 alt="Peacekeeper icon"
                                 className="trader-icon"
@@ -311,7 +337,7 @@ function Start() {
                         </Link>
                     </li>
                     <li key="start-link-mechanic">
-                        <Link to={`/traders/mechanic`}>
+                        <Link to={`/trader/mechanic`}>
                             <img
                                 alt="Prapor icon"
                                 className="trader-icon"
@@ -322,7 +348,7 @@ function Start() {
                         </Link>
                     </li>
                     <li key="start-link-ragman">
-                        <Link to={`/traders/ragman`}>
+                        <Link to={`/trader/ragman`}>
                             <img
                                 alt="Ragman icon"
                                 className="trader-icon"
@@ -333,7 +359,7 @@ function Start() {
                         </Link>
                     </li>
                     <li key="start-link-jaeger">
-                        <Link to={`/traders/jaeger`}>
+                        <Link to={`/trader/jaeger`}>
                             <img
                                 alt="Jaeger icon"
                                 className="trader-icon"

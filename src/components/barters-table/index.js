@@ -1,95 +1,33 @@
-import { useMemo, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../../components/data-table';
-// import { selectAllCrafts, fetchCrafts } from '../../features/crafts/craftsSlice';
-import {
-    selectAllBarters,
-    fetchBarters,
-} from '../../features/barters/bartersSlice';
+import useBartersData from '../../features/barters';
+import useCraftsData from '../../features/crafts';
 import { selectAllTraders } from '../../features/settings/settingsSlice';
-import { useItemsQuery } from '../../features/items/queries';
 import ValueCell from '../value-cell';
 import CostItemsCell from '../cost-items-cell';
-import { formatCostItems, getCheapestItemPrice, getCheapestItemPriceWithBarters } from '../../modules/format-cost-items';
+import { formatCostItems, getCheapestCashPrice, getCheapestBarter } from '../../modules/format-cost-items';
 import RewardCell from '../reward-cell';
 import { isAnyDogtag, isBothDogtags } from '../../modules/dogtags';
 import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
-import { useQuestsQuery } from '../../features/quests/queries';
 
 import './index.css';
 
-function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
-    const dispatch = useDispatch();
+function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll, useBarterIngredients, useCraftIngredients }) {
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
-    const { includeFlea, hasJaeger, removeDogtags } = useMemo(() => {
-        return {includeFlea: settings.includeFlea, hasJaeger: settings.jaeger !== 0, removeDogtags: settings.hideDogtagBarters};
+    const { hasJaeger, removeDogtags, completedQuests } = useMemo(() => {
+        return {hasJaeger: settings.jaeger !== 0, removeDogtags: settings.hideDogtagBarters, completedQuests: settings.completedQuests};
     }, [settings]);
     const traders = useSelector(selectAllTraders);
-    const skippedByLevelRef = useRef(false);
+    const [skippedBySettings, setSkippedBySettings] = useState(false);
 
-    const barterSelector = useSelector(selectAllBarters);
-    const bartersStatus = useSelector((state) => {
-        return state.barters.status;
-    });
-
-    const {data: items} = useItemsQuery();
-
-    const {data: tasks} = useQuestsQuery();
-
-    const barters = useMemo(() => {
-        return barterSelector.map(b => {
-            let taskUnlock = b.taskUnlock;
-            if (taskUnlock) {
-                taskUnlock = tasks.find(t => t.id === taskUnlock.id);
-            }
-            return {
-                ...b,
-                requiredItems: b.requiredItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                rewardItems: b.rewardItems.map(req => {
-                    const matchedItem = items.find(it => it.id === req.item.id);
-                    if (!matchedItem) {
-                        return false;
-                    }
-                    return {
-                        ...req,
-                        item: matchedItem,
-                    };
-                }).filter(Boolean),
-                taskUnlock: taskUnlock,
-            };
-        });
-    }, [barterSelector, items, tasks]);
-
-    useEffect(() => {
-        let timer = false;
-        if (bartersStatus === 'idle') {
-            dispatch(fetchBarters());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchBarters());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [bartersStatus, dispatch]);
+    const { data: barters } = useBartersData();
+    const { data: crafts } = useCraftsData();
 
     const columns = useMemo(
         () => [
@@ -106,7 +44,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                 id: 'costItems',
                 accessor: 'costItems',
                 Cell: ({ value }) => {
-                    return <CostItemsCell costItems={value} />;
+                    return <CostItemsCell costItems={value} allowAllSources={showAll} barters={useBarterIngredients ? barters : false} crafts={useCraftIngredients ? crafts : false} />;
                 },
             },
             {
@@ -121,7 +59,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                             </div>
                         );
                     }
-                    return <ValueCell value={props.value}/>;
+                    return <ValueCell value={props.value} valueCount={props.row.original.reward.count}/>;
                 },
             },
             {
@@ -168,12 +106,12 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                 },
             },
         ],
-        [t],
+        [t, showAll, useBarterIngredients, useCraftIngredients, barters, crafts],
     );
 
     const data = useMemo(() => {
         let addedTraders = [];
-        skippedByLevelRef.current = false;
+        setSkippedBySettings(false);
 
         return barters
             .filter((barter) => {
@@ -219,25 +157,46 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                 return false;
             })
             .filter((barter) => {
-                let trader = barter.trader.normalizedName;
+                let traderNormalizedName = barter.trader.normalizedName;
                 let level = barter.level;
 
                 if (
                     !nameFilter &&
                     selectedTrader &&
                     selectedTrader !== 'all' &&
-                    selectedTrader !== trader.toLowerCase().replace(/\s/g, '-')
+                    selectedTrader !== traderNormalizedName
                 ) {
                     return false;
                 }
 
-                if (showAll) {
-                    skippedByLevelRef.current = false;
+                if (!showAll && level > traders[traderNormalizedName]) {
+                    setSkippedBySettings(true);
+                    return false;
                 }
 
-                if (!showAll && level > traders[trader.toLowerCase()]) {
-                    skippedByLevelRef.current = true;
-                    return false;
+                if (!showAll && barter.taskUnlock && settings.useTarkovTracker) {
+                    if (!completedQuests.some(taskId => taskId === barter.taskUnlock.id)) {
+                        setSkippedBySettings(true);
+                        return false;
+                    }
+                }
+
+                if (removeDogtags) {
+                    for (const requiredItem of barter.requiredItems) {
+                        if (requiredItem === null) {
+                            continue;
+                        }
+
+                        if (
+                            requiredItem.item.name
+                                .toLowerCase()
+                                .replace(/\s/g, '')
+                                .includes('dogtag')
+                        ) {
+                            setSkippedBySettings(true);
+                            return false;
+                        }
+                    }
                 }
 
                 return true;
@@ -278,72 +237,49 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
             })
             .map((barterRow) => {
                 let cost = 0;
-
-                if (removeDogtags) {
-                    for (const requiredItem of barterRow.requiredItems) {
-                        if (requiredItem === null) {
-                            continue;
-                        }
-
-                        if (
-                            requiredItem.item.name
-                                .toLowerCase()
-                                .replace(/\s/g, '')
-                                .includes('dogtag')
-                        ) {
-                            return false;
-                        }
-                    }
-                }
-
-                const costItems = formatCostItems(
-                    barterRow.requiredItems,
+                const costItems = formatCostItems(barterRow.requiredItems, {
                     settings,
-                    barters,
-                    false,
-                    showAll,
-                );
-                costItems.map(
-                    (costItem) =>
-                        (cost = cost + costItem.price * costItem.count),
-                );
+                    barters: useBarterIngredients ? barters : false,
+                    crafts: useCraftIngredients ? crafts : false,
+                    allowAllSources: showAll,
+                    useBarterIngredients,
+                    useCraftIngredients,
+                });
+                costItems.forEach((costItem) => (cost += costItem.pricePerUnit * costItem.count));
 
-                const bestSellTo = barterRow.rewardItems[0].item.sellFor.reduce(
-                    (previousSellForObject, sellForObject) => {
-                        if (sellForObject.vendor.normalizedName === 'flea-market') {
-                            return previousSellForObject;
+                const barterRewardItem = barterRow.rewardItems[0].item;
+
+                const bestSellTo = barterRewardItem.sellFor.reduce(
+                    (previousSellFor, currentSellFor) => {
+                        if (currentSellFor.vendor.normalizedName === 'flea-market') {
+                            return previousSellFor;
                         }
-
-                        if (sellForObject.vendor.normalizedName === 'jaeger' && !hasJaeger) {
-                            return previousSellForObject;
+                        if (currentSellFor.vendor.normalizedName === 'jaeger' && !hasJaeger) {
+                            return previousSellFor;
                         }
-
-                        if (previousSellForObject.priceRUB > sellForObject.priceRUB) {
-                            return previousSellForObject;
+                        if (previousSellFor.priceRUB > currentSellFor.priceRUB) {
+                            return previousSellFor;
                         }
-
-                        return sellForObject;
+                        return currentSellFor;
                     },
                     {
                         vendor: {
-                            name: 'unkonwn',
+                            name: t('N/A'),
                             normalizedName: 'unknown'
                         },
                         priceRUB: 0,
                     },
                 );
 
-                let level = barterRow.level;
-
                 const tradeData = {
                     costItems: costItems,
                     cost: cost,
-                    instaProfit: bestSellTo.priceRUB - cost,
+                    instaProfit: (bestSellTo.priceRUB * barterRow.rewardItems[0].count) - cost,
                     instaProfitSource: bestSellTo,
                     instaProfitDetails: [
                         {
                             name: bestSellTo.vendor.name,
-                            value: bestSellTo.priceRUB,
+                            value: bestSellTo.priceRUB * barterRow.rewardItems[0].count,
                         },
                         {
                             name: t('Barter cost'),
@@ -351,61 +287,39 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                         }
                     ],
                     reward: {
-                        id: barterRow.rewardItems[0].item.id,
-                        sellTo: t('N/A'),
-                        sellToNormalized: 'none',
-                        name: barterRow.rewardItems[0].item.name,
-                        sellValue: 0,
-                        source: `${barterRow.trader.name} ${t('LL{{level}}', { level: level })}`,
-                        iconLink:
-                            barterRow.rewardItems[0].item.iconLink ||
-                            `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
-                        itemLink: `/item/${barterRow.rewardItems[0].item.normalizedName}`,
+                        item: barterRewardItem,
+                        source: `${barterRow.trader.name} ${t('LL{{level}}', { level: barterRow.level })}`,
+                        sellTo: bestSellTo.vendor.name,
+                        sellToNormalized: bestSellTo.vendor.normalizedName,
+                        sellValue: bestSellTo.priceRUB,
                         taskUnlock: barterRow.taskUnlock,
+                        isFIR: false,
+                        count: barterRow.rewardItems[0].count,
                     },
-                    cached: barterRow.cached,
+                    cached: barterRow.cached || barterRewardItem.cached,
                 };
 
-                const bestTrade = barterRow.rewardItems[0].item.sellFor.reduce((prev, current) => {
-                    if (current.vendor.normalizedName === 'flea-market') 
-                        return prev;
-                    if (!hasJaeger && current.vendor.normalizedName === 'jaeger') 
-                        return prev;
-                    if (!prev) 
-                        return current;
-                    if (prev.priceRUB < current.priceRUB) 
-                        return current;
-                    return prev;
-                }, false);
-
-                if (
-                    (bestTrade && bestTrade.priceRUB > tradeData.reward.value) ||
-                    (bestTrade && !includeFlea)
-                ) {
-                    // console.log(barterRow.rewardItems[0].item.sellTo);
-                    tradeData.reward.sellValue = bestTrade.priceRUB;
-                    tradeData.reward.sellTo = bestTrade.vendor.name;
-                    tradeData.reward.sellToNormalized = bestTrade.vendor.normalizedName;
-                }
-                if (barterRow.rewardItems[0].priceCustom) {
-                    tradeData.reward.sellValue = barterRow.rewardItems[0].priceCustom;
+                if (barterRewardItem.priceCustom) {
+                    tradeData.reward.sellValue = barterRewardItem.priceCustom;
                     tradeData.reward.sellType = 'custom';
                 }
                 
                 //tradeData.reward.sellTo = t(tradeData.reward.sellTo)
 
                 tradeData.savingsParts = [];
-                const cheapestPrice = getCheapestItemPrice(barterRow.rewardItems[0].item, settings, showAll);
-                const cheapestBarter = getCheapestItemPriceWithBarters(barterRow.rewardItems[0].item, barters, settings, showAll);
+                const cheapestPrice = getCheapestCashPrice(barterRewardItem, settings, showAll);
+                const cheapestBarter = getCheapestBarter(barterRewardItem, {barters, crafts: useCraftIngredients ? crafts : false, settings, allowAllSources: showAll});
                 if (cheapestPrice.type === 'cash-sell'){
                     //this item cannot be purchased for cash
-                    if (cheapestBarter.priceRUB !== cost) {
-                        tradeData.savingsParts.push({
-                            name: `${cheapestBarter.vendor.name} ${t('LL{{level}}', { level: cheapestBarter.vendor.minTraderLevel })} ${t('Barter')}`,
-                            value: cheapestBarter.priceRUB
-                        });
+                    if (cheapestBarter) {
+                        if (cheapestBarter.priceRUB !== cost) {
+                            tradeData.savingsParts.push({
+                                name: `${cheapestBarter.vendor.name} ${t('LL{{level}}', { level: cheapestBarter.vendor.minTraderLevel })} ${t('Barter')}`,
+                                value: cheapestBarter.priceRUB,
+                            });
+                        }
+                        tradeData.savings = cheapestBarter.priceRUB - cost;
                     }
-                    tradeData.savings = cheapestBarter.priceRUB - cost;
                 } else {
                     // savings based on cheapest cash price
                     let sellerName = cheapestPrice.vendor.name;
@@ -414,14 +328,14 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
                     }
                     tradeData.savingsParts.push({
                         name: sellerName,
-                        value: cheapestPrice.priceRUB
+                        value: cheapestPrice.priceRUB,
                     });
-                    tradeData.savings = cheapestPrice.priceRUB - cost;
+                    tradeData.savings = cheapestPrice.priceRUB - Math.round(cost / barterRow.rewardItems[0].count);
                 }
                 if (tradeData.savingsParts.length > 0) {
                     tradeData.savingsParts.push({
                         name: t('Barter cost'),
-                        value: cost * -1
+                        value: Math.round(cost / barterRow.rewardItems[0].count) * -1
                     });
                 }
 
@@ -433,15 +347,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
             })
             .filter(Boolean)
             .sort((itemA, itemB) => {
-                if (itemB.savings > itemA.savings) {
-                    return -1;
-                }
-
-                if (itemB.savings < itemA.savings) {
-                    return 1;
-                }
-
-                return 0;
+                return itemB.savings - itemA.savings;
             })
             .filter((barter) => {
                 if (selectedTrader !== 'all') {
@@ -464,14 +370,17 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
         nameFilter,
         selectedTrader,
         barters,
-        includeFlea,
+        crafts,
         itemFilter,
         traders,
+        completedQuests,
         hasJaeger,
         t,
         removeDogtags,
         showAll,
         settings,
+        useBarterIngredients,
+        useCraftIngredients,
     ]);
 
     let extraRow = false;
@@ -480,7 +389,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
         extraRow = t('No barters available for selected filters');
     }
 
-    if (data.length <= 0 && skippedByLevelRef.current) {
+    if (data.length <= 0 && skippedBySettings) {
         extraRow = (
             <>
                 {t('No barters available for selected filters but some were hidden by ')}<Link to="/settings/">{t('your settings')}</Link>
@@ -488,7 +397,7 @@ function BartersTable({ selectedTrader, nameFilter, itemFilter, showAll }) {
         );
     }
 
-    if (data.length > 0 && skippedByLevelRef.current) {
+    if (data.length > 0 && skippedBySettings) {
         extraRow = (
             <>
                 {t('Some barters hidden by ')}<Link to="/settings/">{t('your settings')}</Link>

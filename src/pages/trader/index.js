@@ -1,28 +1,32 @@
-import { useCallback, useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useCallback, useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import ImageViewer from 'react-simple-image-viewer';
 
-import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
-import SEO from '../../../components/SEO';
+import SEO from '../../components/SEO';
 import {
     Filter,
     InputFilter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
-} from '../../../components/filter';
-import SmallItemTable from '../../../components/small-item-table';
-import QuestTable from '../../../components/quest-table';
-import TraderResetTime from '../../../components/trader-reset-time';
-import ErrorPage from '../../../components/error-page';
-import LoadingSmall from '../../../components/loading-small';
+} from '../../components/filter';
+import SmallItemTable from '../../components/small-item-table';
+import QuestTable from '../../components/quest-table';
+import TraderResetTime from '../../components/trader-reset-time';
+import ErrorPage from '../../components/error-page';
+import LoadingSmall from '../../components/loading-small';
+import PropertyList from '../../components/property-list';
+import formatPrice from '../../modules/format-price';
 
-import QueueBrowserTask from '../../../modules/queue-browser-task';
+import QueueBrowserTask from '../../modules/queue-browser-task';
 
-import { selectAllTraders, fetchTraders } from '../../../features/traders/tradersSlice';
+import useTradersData from '../../features/traders';
 
-import i18n from '../../../i18n';
+import i18n from '../../i18n';
+
+import './index.css';
 
 const romanLevels = {
     0: '0',
@@ -45,11 +49,23 @@ function Trader() {
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [selectedTable, setSelectedTable] = useStateWithLocalStorage(
-        `${traderName}SelectedTable`,
+        `${traderName.toLowerCase()}SelectedTable`,
         'spending',
     );
     //const [showAllTraders, setShowAllTraders] = useState(false);
     const { t } = useTranslation();
+
+    const [isViewerOpen, setIsViewerOpen] = useState(false);
+    const openImageViewer = useCallback(() => {
+        setIsViewerOpen(true);
+      }, []);
+    const closeImageViewer = () => {
+        setIsViewerOpen(false);
+    };
+    const backgroundStyle = {
+        backgroundColor: 'rgba(0,0,0,.9)',
+        zIndex: 20,
+    };
 
     const handleNameFilterChange = useCallback(
         (e) => {
@@ -65,29 +81,25 @@ function Trader() {
         },
         [setNameFilter],
     );
-    const dispatch = useDispatch();
-    const traders = useSelector(selectAllTraders);
-    const tradersStatus = useSelector((state) => {
-        return state.traders.status;
-    });
-    useEffect(() => {
-        let timer = false;
-        if (tradersStatus === 'idle') {
-            dispatch(fetchTraders());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchTraders());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [tradersStatus, dispatch]);
+    const { data: traders } = useTradersData();
     
-    const trader = traders.find(tr => tr.normalizedName === traderName);
+    const trader = traders.find(tr => tr.normalizedName === traderName.toLowerCase());
+
+    const levelProperties = useMemo(() => {
+        const props = {};
+        if (!Number.isInteger(selectedTable)) {
+            return props;
+        }
+        const levelInfo = trader.levels.find(l => l.level === selectedTable);
+        if (levelInfo.requiredPlayerLevel > 1) {
+            props.requiredPlayerLevel = {value: levelInfo.requiredPlayerLevel, label: `${t('Player level')} 💪`};
+        }
+        props.requiredReputation = {value: levelInfo.requiredReputation, label: `${t('Reputation')} 📈`};
+        if (levelInfo.requiredCommerce > 0) {
+            props.requiredCommerce = {value: formatPrice(levelInfo.requiredCommerce, trader.currency.normalizedName), label: `${t('Commerce')} 💵`};
+        }
+        return props;
+    }, [trader, selectedTable, t]);
     if (!trader) 
         return <ErrorPage />;
     
@@ -106,9 +118,49 @@ function Trader() {
             key="seo-wrapper"
         />,
         <div className="page-wrapper" key={'page-wrapper'}>
+            <div className="trader-information-grid">
+                <div className="trader-information-wrapper">
+                    <h1>
+                        {trader.name}
+                        <img
+                            alt={trader.name}
+                            className={'trader-information-icon'}
+                            loading="lazy"
+                            src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}-portrait.png`}
+                            onClick={() => openImageViewer(0)}
+                        />
+                    </h1>
+                    <span className="wiki-link-wrapper">
+                        <a href={`https://escapefromtarkov.fandom.com/wiki/${trader.normalizedName}`} target="_blank" rel="noopener noreferrer">
+                            {t('Wiki')}
+                        </a>
+                    </span>
+                    <p className='trader-details'>
+                        {trader.description}
+                    </p>
+                </div>
+                <PropertyList properties={levelProperties} />
+                <div className="trader-icon-and-link-wrapper">
+                    <img
+                        alt={trader.name}
+                        loading="lazy"
+                        src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg`}
+                        onClick={() => openImageViewer(0)}
+                    />
+                </div>
+            </div>
+            {isViewerOpen && (
+                <ImageViewer
+                    src={[`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}.jpg`]}
+                    currentIndex={0}
+                    backgroundStyle={backgroundStyle}
+                    disableScroll={true}
+                    closeOnClickOutside={true}
+                    onClose={closeImageViewer}
+                />
+            )}
             <div className="page-headline-wrapper">
                 <h1>
-                    {trader.name}
                     <cite>
                         {resetTime}
                     </cite>
@@ -118,7 +170,7 @@ function Trader() {
                         <ButtonGroupFilterButton
                             tooltipContent={
                                 <>
-                                    {t('Items with the best cash back prices for leveling when buying from flea')}
+                                    {t('Items with the best cash back prices for leveling')}
                                 </>
                             }
                             selected={selectedTable === 'spending'}
@@ -127,7 +179,7 @@ function Trader() {
                             onClick={setSelectedTable.bind(undefined, 'spending')}
                         />
                     </ButtonGroupFilter>
-                    {trader.normalizedName !== 'fence' ? (
+                    {trader.normalizedName !== 'lightkeeper' ? (
                         <ButtonGroupFilter>
                             {trader.levels.map(level => (
                                 <ButtonGroupFilterButton
@@ -168,17 +220,18 @@ function Trader() {
             {selectedTable !== 'tasks' && (
                 <SmallItemTable
                     nameFilter={nameFilter}
-                    traderFilter={traderName}
+                    traderFilter={trader.normalizedName}
                     loyaltyLevelFilter={Number.isInteger(selectedTable) ? selectedTable : false}
                     traderBuybackFilter={selectedTable === 'spending' ? true : false}
                     maxItems={selectedTable === 'spending' ? 50 : false}
-                    totalTraderPrice={true}
-                    traderValue={selectedTable === 'spending' ? 1 : false}
-                    fleaPrice={selectedTable === 'spending' ? 2 : 1}
+                    fleaPrice={selectedTable === 'spending' ? false : 1}
                     traderPrice={selectedTable === 'spending' ? false : 2}
+                    cheapestPrice={selectedTable === 'spending' ? 1 : false}
+                    traderValue={selectedTable === 'spending' ? 2 : false}
                     traderBuyback={selectedTable === 'spending' ? 3 : false}
                     sortBy={selectedTable === 'spending' ? 'traderBuyback' : null}
                     sortByDesc={true}
+                    showAllSources={selectedTable === 'spending' ? false : true}
                 />
             )}
             {selectedTable === 'tasks' && (
@@ -189,12 +242,6 @@ function Trader() {
                     minimumLevel={2}
                 />
             )}
-
-            <div className="page-wrapper" style={{ minHeight: 0 }}>
-                <p>
-                    {trader.description}
-                </p>
-            </div>
         </div>,
     ];
 }

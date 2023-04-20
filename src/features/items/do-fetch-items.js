@@ -1,13 +1,17 @@
 import fetch  from 'cross-fetch';
 
+import APIQuery from '../../modules/api-query.js';
 import fleaMarketFee from '../../modules/flea-market-fee.js';
-import camelcaseToDashes from '../../modules/camelcase-to-dashes.js';
 
-const doFetchItems = async (language, prebuild = false) => {
-    const itemLimit = 2000;
-    const QueryBody = offset => {
-        return JSON.stringify({
-            query: `{
+class ItemsQuery extends APIQuery {
+    constructor() {
+        super('items');
+    }
+
+    async query(language, prebuild = false) {
+        const itemLimit = 2000;
+        const QueryBody = offset => {
+            return `{
                 items(lang: ${language}, limit: ${itemLimit}, offset: ${offset}) {
                     id
                     bsgCategoryId
@@ -34,10 +38,11 @@ const doFetchItems = async (language, prebuild = false) => {
                     lastLowPrice
                     gridImageLink
                     iconLink
+                    baseImageLink
                     image512pxLink
+                    image8xLink
                     updated
                     sellFor {
-                        source
                         vendor {
                             name
                             normalizedName
@@ -45,8 +50,6 @@ const doFetchItems = async (language, prebuild = false) => {
                             ...on TraderOffer {
                                 trader {
                                     id
-                                    name
-                                    normalizedName
                                 }
                                 minTraderLevel
                                 taskUnlock {
@@ -65,7 +68,6 @@ const doFetchItems = async (language, prebuild = false) => {
                         }
                     }
                     buyFor {
-                        source
                         vendor {
                             name
                             normalizedName
@@ -73,8 +75,6 @@ const doFetchItems = async (language, prebuild = false) => {
                             ...on TraderOffer {
                                 trader {
                                     id
-                                    name
-                                    normalizedName
                                 }
                                 minTraderLevel
                                 taskUnlock {
@@ -154,6 +154,9 @@ const doFetchItems = async (language, prebuild = false) => {
                                     }
                                 }
                             }
+                            speedPenalty
+                            turnPenalty
+                            ergoPenalty
                         }
                         ...on ItemPropertiesChestRig {
                             capacity
@@ -274,7 +277,7 @@ const doFetchItems = async (language, prebuild = false) => {
                             capacity
                             malfunctionChance
                             ergonomics
-                            recoil
+                            recoilModifier
                             capacity
                             loadModifier
                             ammoCheckModifier
@@ -317,9 +320,12 @@ const doFetchItems = async (language, prebuild = false) => {
                             recoilVertical
                             recoilHorizontal
                         }
+                        ...on ItemPropertiesResource {
+                            units
+                        }
                         ...on ItemPropertiesScope {
                             ergonomics
-                            recoil
+                            recoilModifier
                             zoomLevels
                         }
                         ...on ItemPropertiesStim {
@@ -351,12 +357,10 @@ const doFetchItems = async (language, prebuild = false) => {
                             recoilVertical
                             recoilHorizontal
                             sightingRange
-                            defaultWidth
-                            defaultHeight
-                            defaultErgonomics
-                            defaultRecoilVertical
-                            defaultRecoilHorizontal
-                            defaultWeight
+                            recoilAngle
+                            recoilDispersion
+                            convergence
+                            cameraRecoil
                             slots {
                                 filters {
                                     allowedCategories {
@@ -374,17 +378,15 @@ const doFetchItems = async (language, prebuild = false) => {
                                 }
                             }
                             defaultPreset {
-                                gridImageLink
-                                iconLink
-                                image512pxLink
-                                width
-                                height
+                                id
+                            }
+                            presets {
+                                id
                             }
                         }
                         ...on ItemPropertiesWeaponMod {
                             ergonomics
                             recoilModifier
-                            recoil
                             slots {
                                 filters {
                                     allowedCategories {
@@ -404,60 +406,44 @@ const doFetchItems = async (language, prebuild = false) => {
                         }
                     }
                 }
-            }`,
-        })
-    };
-    //console.time('items query');
-    const [itemData, miscData, itemGrids] = await Promise.all([
-        new Promise(async resolve => {
-            let offset = 0;
-            const retrievedItems = {
-                data: {
-                    items: [],
-                },
-            };
-            while (true) {
-                const itemBatch = await fetch('https://api.tarkov.dev/graphql', {
-                    method: 'POST',
-                    cache: 'no-store',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json',
+            }`;
+        };
+        //console.time('items query');
+        const [itemData, miscData, itemGrids] = await Promise.all([
+            new Promise(async resolve => {
+                let offset = 0;
+                const retrievedItems = {
+                    data: {
+                        items: [],
                     },
-                    body: QueryBody(offset),
-                }).then((response) => response.json());
-                if (itemBatch.errors) {
-                    if (!retrievedItems.errors) {
-                        retrievedItems.errors = [];
+                };
+                while (true) {
+                    const itemBatch = await this.graphqlRequest(QueryBody(offset));
+                    if (itemBatch.errors) {
+                        if (!retrievedItems.errors) {
+                            retrievedItems.errors = [];
+                        }
+                        retrievedItems.errors.concat(itemBatch.errors);
                     }
-                    retrievedItems.errors.concat(itemBatch.errors);
+                    if (itemBatch.data && itemBatch.data.items) {
+                        if (itemBatch.data.items.length === 0) {
+                            break;
+                        }
+                        retrievedItems.data.items = retrievedItems.data.items.concat(itemBatch.data.items);
+                        if (itemBatch.data.items.length < itemLimit) {
+                            break;
+                        }
+                    }
+                    if (!itemBatch.errors) {
+                        if (!itemBatch.data || !itemBatch.data.items || !itemBatch.data.items.length) {
+                            break;
+                        }
+                    }
+                    offset += itemLimit;
                 }
-                if (itemBatch.data && itemBatch.data.items) {
-                    if (itemBatch.data.items.length === 0) {
-                        break;
-                    }
-                    retrievedItems.data.items = retrievedItems.data.items.concat(itemBatch.data.items);
-                    if (itemBatch.data.items.length < itemLimit) {
-                        break;
-                    }
-                }
-                if (!itemBatch.errors) {
-                    if (!itemBatch.data || !itemBatch.data.items || !itemBatch.data.items.length) {
-                        break;
-                    }
-                }
-                offset += itemLimit;
-            }
-            resolve(retrievedItems);
-        }),
-        fetch('https://api.tarkov.dev/graphql', {
-            method: 'POST',
-            cache: 'no-store',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-            body: JSON.stringify({query: `{
+                resolve(retrievedItems);
+            }),
+            this.graphqlRequest(`{
                 fleaMarket {
                     sellOfferFeeRate
                     sellRequirementFeeRate
@@ -472,269 +458,260 @@ const doFetchItems = async (language, prebuild = false) => {
                     shortName
                     basePrice
                 }
-            }`}),
-        }).then((response) => response.json()),
-        new Promise(resolve => {
-            if (prebuild) {
-                return resolve({});
-            }
-            return resolve(fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`).then(
-                (response) => response.json(),
-            )).catch(error => {
-                console.log('Error retrieving item grids', error);
-                return {};
-            });
-        })
-    ]);
-    //console.timeEnd('items query');
-    if (itemData.errors) {
-        if (itemData.data) {
-            for (const error of itemData.errors) {
-                let badItem = false;
-                if (error.path) {
-                    let traverseLimit = 2;
-                    if (error.path[0] === 'fleaMarket') {
-                        traverseLimit = 1;
-                    }
-                    badItem = itemData.data;
-                    for (let i = 0; i < traverseLimit; i++) {
-                        badItem = badItem[error.path[i]];
-                    }
+            }`),
+            new Promise(resolve => {
+                if (prebuild) {
+                    return resolve({});
                 }
-                console.log(`Error in items API query: ${error.message}`, error.path);
-                if (badItem) {
-                    console.log(badItem)
-                }
-            }
-        }
-        // only throw error if this is for prebuild or data wasn't returned
-        if (
-            prebuild || !itemData.data || 
-            !itemData.data.items || !itemData.data.items.length
-        ) {
-            return Promise.reject(new Error(itemData.errors[0].message));
-        }
-    }
-
-    if (miscData.errors) {
-        if (miscData.data) {
-            for (const error of miscData.errors) {
-                let badItem = false;
-                if (error.path) {
-                    let traverseLimit = 2;
-                    if (error.path[0] === 'fleaMarket') {
-                        traverseLimit = 1;
-                    }
-                    badItem = miscData.data;
-                    for (let i = 0; i < traverseLimit; i++) {
-                        badItem = badItem[error.path[i]];
-                    }
-                }
-                console.log(`Error in items API query: ${error.message}`, error.path);
-                if (badItem) {
-                    console.log(badItem)
-                }
-            }
-        }
-        // only throw error if this is for prebuild or data wasn't returned
-        if (
-            prebuild || !miscData.data || 
-            !miscData.data.fleaMarket || 
-            !miscData.data.traders || !miscData.data.traders.length || 
-            !miscData.data.currencies || !miscData.data.currencies.length
-        ) {
-            return Promise.reject(new Error(miscData.errors[0].message));
-        }
-    }
-
-    const flea = miscData.data.fleaMarket;
-
-    const currencies = {};
-    for (const currency of miscData.data.currencies) {
-        currencies[currency.shortName] = currency.basePrice;
-    }
-
-    const allItems = itemData.data.items.map((rawItem) => {
-        let grid = false;
-
-        if (rawItem.properties?.grids) {
-            let gridPockets = [];
-            for (const grid of rawItem.properties.grids) {
-                gridPockets.push({
-                    row: gridPockets.length,
-                    col: 0,
-                    width: grid.width,
-                    height: grid.height,
+                return resolve(fetch(`${process.env.PUBLIC_URL}/data/item-grids.min.json`).then(
+                    (response) => response.json(),
+                )).catch(error => {
+                    console.log('Error retrieving item grids', error);
+                    return {};
                 });
+            })
+        ]);
+        //console.timeEnd('items query');
+        if (itemData.errors) {
+            if (itemData.data) {
+                for (const error of itemData.errors) {
+                    let badItem = false;
+                    if (error.path) {
+                        let traverseLimit = 2;
+                        if (error.path[0] === 'fleaMarket') {
+                            traverseLimit = 1;
+                        }
+                        badItem = itemData.data;
+                        for (let i = 0; i < traverseLimit; i++) {
+                            badItem = badItem[error.path[i]];
+                        }
+                    }
+                    console.log(`Error in items API query: ${error.message}`, error.path);
+                    if (badItem) {
+                        console.log(badItem)
+                    }
+                }
             }
-            /*let gridPockets = [
-                {
-                    row: 0,
-                    col: 0,
-                    width: rawItem.properties.grids[0].width,
+            // only throw error if this is for prebuild or data wasn't returned
+            if (
+                prebuild || !itemData.data || 
+                !itemData.data.items || !itemData.data.items.length
+            ) {
+                return Promise.reject(new Error(itemData.errors[0].message));
+            }
+        }
+
+        if (miscData.errors) {
+            if (miscData.data) {
+                for (const error of miscData.errors) {
+                    let badItem = false;
+                    if (error.path) {
+                        let traverseLimit = 2;
+                        if (error.path[0] === 'fleaMarket') {
+                            traverseLimit = 1;
+                        }
+                        badItem = miscData.data;
+                        for (let i = 0; i < traverseLimit; i++) {
+                            badItem = badItem[error.path[i]];
+                        }
+                    }
+                    console.log(`Error in items API query: ${error.message}`, error.path);
+                    if (badItem) {
+                        console.log(badItem)
+                    }
+                }
+            }
+            // only throw error if this is for prebuild or data wasn't returned
+            if (
+                prebuild || !miscData.data || 
+                !miscData.data.fleaMarket || 
+                !miscData.data.traders || !miscData.data.traders.length || 
+                !miscData.data.currencies || !miscData.data.currencies.length
+            ) {
+                return Promise.reject(new Error(miscData.errors[0].message));
+            }
+        }
+
+        const flea = miscData.data.fleaMarket;
+
+        const currencies = {};
+        for (const currency of miscData.data.currencies) {
+            currencies[currency.shortName] = currency.basePrice;
+        }
+
+        const allItems = itemData.data.items.map((rawItem) => {
+            let grid = false;
+
+            if (rawItem.properties?.grids) {
+                let gridPockets = [];
+                for (const grid of rawItem.properties.grids) {
+                    gridPockets.push({
+                        row: gridPockets.length,
+                        col: 0,
+                        width: grid.width,
+                        height: grid.height,
+                    });
+                }
+                /*let gridPockets = [
+                    {
+                        row: 0,
+                        col: 0,
+                        width: rawItem.properties.grids[0].width,
+                        height: rawItem.properties.grids[0].height,
+                    },
+                ];*/
+
+                if (itemGrids[rawItem.id]) {
+                    gridPockets = itemGrids[rawItem.id];
+                }
+
+                grid = {
                     height: rawItem.properties.grids[0].height,
+                    width: rawItem.properties.grids[0].width,
+                    pockets: gridPockets,
+                };
+
+                if (gridPockets.length > 1) {
+                    grid.height = Math.max(
+                        ...gridPockets.map((pocket) => pocket.row + pocket.height),
+                    );
+                    grid.width = Math.max(
+                        ...gridPockets.map((pocket) => pocket.col + pocket.width),
+                    );
+                }
+
+                // Rigs we haven't configured shouldn't break
+                if (!itemGrids[rawItem.id] && !rawItem.types.includes('backpack')) {
+                    grid = false;
+                }
+            }
+
+            const container = rawItem.properties?.slots || rawItem.properties?.grids;
+            if (container) {
+                for (const slot of container) {
+                    slot.filters.allowedCategories = slot.filters.allowedCategories.map(cat => cat.id);
+                    slot.filters.allowedItems = slot.filters.allowedItems.map(it => it.id);
+                    slot.filters.excludedCategories = slot.filters.excludedCategories.map(cat => cat.id);
+                    slot.filters.excludedItems = slot.filters.excludedItems.map(it => it.id);
+                }
+            }
+            rawItem.categoryIds = rawItem.categories.map(cat => cat.id);
+
+            return {
+                ...rawItem,
+                fee: fleaMarketFee(rawItem.basePrice, rawItem.lastLowPrice, 1, flea.sellOfferFeeRate, flea.sellRequirementFeeRate),
+                slots: rawItem.width * rawItem.height,
+                iconLink: rawItem.iconLink,
+                grid: grid,
+                properties: {
+                    weight: rawItem.weight,
+                    ...rawItem.properties
                 },
-            ];*/
-
-            if (itemGrids[rawItem.id]) {
-                gridPockets = itemGrids[rawItem.id];
-            }
-
-            grid = {
-                height: rawItem.properties.grids[0].height,
-                width: rawItem.properties.grids[0].width,
-                pockets: gridPockets,
-            };
-
-            if (gridPockets.length > 1) {
-                grid.height = Math.max(
-                    ...gridPockets.map((pocket) => pocket.row + pocket.height),
-                );
-                grid.width = Math.max(
-                    ...gridPockets.map((pocket) => pocket.col + pocket.width),
-                );
-            }
-
-            // Rigs we haven't configured shouldn't break
-            if (!itemGrids[rawItem.id] && !rawItem.types.includes('backpack')) {
-                grid = false;
-            }
-        }
-
-        rawItem.buyFor = rawItem.buyFor.sort((a, b) => {
-            return a.priceRUB - b.priceRUB;
-        });
-
-        rawItem.sellFor = rawItem.sellFor.map((sellPrice) => {
-            return {
-                ...sellPrice,
-                source: camelcaseToDashes(sellPrice.source),
+                containsItems: rawItem.types.includes('gun') ? [] : rawItem.containsItems,
             };
         });
 
-        rawItem.buyFor = rawItem.buyFor.map((buyPrice) => {
-            return {
-                ...buyPrice,
-                source: camelcaseToDashes(buyPrice.source),
-            };
-        });
+        for (const item of allItems) {
+            /*if (item.types.includes('gun') && item.containsItems?.length > 0) {
+                item.sellFor = item.sellFor.map((sellFor) => {
+                    if (sellFor.vendor.normalizedName === 'flea-market') {
+                        return {
+                            ...sellFor,
+                            totalPriceRUB: sellFor.priceRUB,
+                            totalPrice: sellFor.price
+                        };
+                    }
+                    const trader = miscData.data.traders.find(t => t.normalizedName === sellFor.vendor.normalizedName);
+                    const totalPrices = item.containsItems.reduce(
+                        (previousValue, currentValue) => {
+                            const part = allItems.find(innerItem => innerItem.id === currentValue.item.id);
+                            const partFromSellFor = part.sellFor.find(innerSellFor => innerSellFor.vendor.normalizedName === sellFor.vendor.normalizedName);
 
-        const container = rawItem.properties?.slots || rawItem.properties?.grids;
-        if (container) {
-            for (const slot of container) {
-                slot.filters.allowedCategories = slot.filters.allowedCategories.map(cat => cat.id);
-                slot.filters.allowedItems = slot.filters.allowedItems.map(it => it.id);
-                slot.filters.excludedCategories = slot.filters.excludedCategories.map(cat => cat.id);
-                slot.filters.excludedItems = slot.filters.excludedItems.map(it => it.id);
-            }
-        }
-        rawItem.categoryIds = rawItem.categories.map(cat => cat.id);
+                            if (!partFromSellFor) {
+                                const thisPartPriceRUB = Math.floor(part.basePrice * trader.levels[0].payRate);
+                                previousValue.priceRUB += thisPartPriceRUB;
+                                previousValue.price += Math.round(thisPartPriceRUB / currencies[sellFor.currency]);
+                                return previousValue;
+                            }
 
-        return {
-            ...rawItem,
-            fee: fleaMarketFee(rawItem.basePrice, rawItem.lastLowPrice, 1, flea.sellOfferFeeRate, flea.sellRequirementFeeRate),
-            fallbackImageLink: `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
-            slots: rawItem.width * rawItem.height,
-            // iconLink: `https://assets.tarkov.dev/${rawItem.id}-icon.jpg`,
-            iconLink: rawItem.iconLink,
-            grid: grid,
-            properties: {
-                weight: rawItem.weight,
-                ...rawItem.properties
-            }
-        };
-    });
+                            previousValue.price += partFromSellFor.price;
+                            previousValue.priceRUB += partFromSellFor.priceRUB;
 
-    for (const item of allItems) {
-        if (item.types.includes('gun') && item.containsItems?.length > 0) {
-            item.sellFor = item.sellFor.map((sellFor) => {
-                if (sellFor.vendor.normalizedName === 'flea-market') {
+                            return previousValue;
+                        },
+                        {price: sellFor.price, priceRUB: sellFor.priceRUB}
+                    );
+                    
+                    //sellFor.price = totalPrices.price;
+
                     return {
                         ...sellFor,
-                        totalPriceRUB: sellFor.priceRUB,
-                        totalPrice: sellFor.price
+                        totalPrice: totalPrices.price,
+                        totalPriceRUB: totalPrices.priceRUB
                     };
-                }
-                const trader = miscData.data.traders.find(t => t.normalizedName === sellFor.vendor.normalizedName);
-                const totalPrices = item.containsItems.reduce(
-                    (previousValue, currentValue) => {
-                        const part = allItems.find(innerItem => innerItem.id === currentValue.item.id);
-                        const partFromSellFor = part.sellFor.find(innerSellFor => innerSellFor.vendor.normalizedName === sellFor.vendor.normalizedName);
-
-                        if (!partFromSellFor) {
-                            const thisPartPriceRUB = Math.floor(part.basePrice * trader.levels[0].payRate);
-                            previousValue.priceRUB += thisPartPriceRUB;
-                            previousValue.price += Math.round(thisPartPriceRUB / currencies[sellFor.currency]);
-                            return previousValue;
-                        }
-
-                        previousValue.price += partFromSellFor.price;
-                        previousValue.priceRUB += partFromSellFor.priceRUB;
-
-                        return previousValue;
-                    },
-                    {price: sellFor.price, priceRUB: sellFor.priceRUB}
-                );
-                
-                //sellFor.price = totalPrices.price;
-
-                return {
-                    ...sellFor,
-                    totalPrice: totalPrices.price,
-                    totalPriceRUB: totalPrices.priceRUB
+                });
+            } else {
+                item.sellFor = item.sellFor.map((sellFor) => {
+                    return {
+                        ...sellFor,
+                        totalPrice: sellFor.price,
+                        totalPriceRUB: sellFor.priceRUB
+                    };
+                });
+            }*/
+            /*if (item.types.includes('gun') && item.properties.defaultPreset) {
+                // use default preset images for item
+                item.receiverImages = {
+                    iconLink: item.iconLInk,
+                    gridImageLink: item.gridImageLink,
+                    image512pxLink: item.image512pxLink
                 };
-            });
-        } else {
-            item.sellFor = item.sellFor.map((sellFor) => {
-                return {
-                    ...sellFor,
-                    totalPrice: sellFor.price,
-                    totalPriceRUB: sellFor.priceRUB
-                };
-            });
-        }
-        if (item.types.includes('gun') && item.properties.defaultPreset) {
-            // use default preset images for item
-            item.receiverImages = {
-                iconLink: item.iconLInk,
-                gridImageLink: item.gridImageLink,
-                image512pxLink: item.image512pxLink
-            };
-            item.iconLink = item.properties.defaultPreset.iconLink;
-            item.gridImageLink = item.properties.defaultPreset.gridImageLink;
-            item.image512pxLink = item.properties.defaultPreset.image512pxLink;
-        }
+                item.iconLink = item.properties.defaultPreset.iconLink;
+                item.gridImageLink = item.properties.defaultPreset.gridImageLink;
+                item.image512pxLink = item.properties.defaultPreset.image512pxLink;
+            }*/
 
-        const traderOnlySellFor = item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
-
-        item.traderPrices = traderOnlySellFor.map(sellFor => {
-            return {
-                price: sellFor.price,
-                totalPrice: sellFor.totalPrice,
-                currency: sellFor.currency,
-                priceRUB: sellFor.priceRUB,
-                totalPriceRUB: sellFor.totalPriceRUB,
-                trader: {
-                    name: sellFor.vendor.name,
-                    normalizedName: sellFor.vendor.normalizedName
-                }
+            const noneTrader = {
+                price: 0,
+                priceRUB: 0,
+                currency: 'RUB',
+                vendor: {
+                    name: 'unknown',
+                    normalizedName: 'unknown',
+                },
             }
-        }).sort((a, b) => {
-            return b.totalPriceRUB - a.totalPriceRUB;
-        });
 
-        const bestTraderPrice = item.traderPrices.shift();
+            // cheapest first
+            item.buyFor = item.buyFor.sort((a, b) => {
+                return a.priceRUB - b.priceRUB;
+            });
 
-        item.traderPrice = bestTraderPrice?.price || 0;
-        item.traderTotalPrice = bestTraderPrice?.totalPrice || 0;
-        item.traderPriceRUB = bestTraderPrice?.priceRUB || 0;
-        item.traderTotalPriceRUB = bestTraderPrice?.totalPriceRUB || 0;
-        item.traderCurrency = bestTraderPrice?.currency || 'RUB';
-        item.traderName = bestTraderPrice?.trader.name || '?';
-        item.traderNormalizedName = bestTraderPrice?.trader.normalizedName || '?';
+            item.buyForBest = item.buyFor[0];
+
+            const buyForTraders = item.buyFor.filter(buyFor => buyFor.vendor.normalizedName !== 'flea-market');
+
+            item.buyForTradersBest = buyForTraders[0] || noneTrader;
+
+            // most profitable first
+            item.sellFor = item.sellFor.sort((a, b) => {
+                return b.priceRUB - a.priceRUB;
+            });
+
+            item.sellForBest = item.sellFor[0];
+
+            const sellForTraders = item.sellFor.filter(sellFor => sellFor.vendor.normalizedName !== 'flea-market');
+
+            item.sellForTradersBest = sellForTraders[0] || noneTrader;
+        }
+
+        return allItems;
     }
+}
 
-    return allItems;
+const itemsQuery = new ItemsQuery();
+
+const doFetchItems = async (language, prebuild = false) => {
+    return itemsQuery.run(language, prebuild);
 };
 
 export default doFetchItems;

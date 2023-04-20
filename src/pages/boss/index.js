@@ -1,35 +1,38 @@
-import React, { Suspense, useMemo, useState } from 'react';
+import React, { Suspense, useCallback, useMemo, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { useParams, Link } from 'react-router-dom';
+import ImageViewer from 'react-simple-image-viewer';
 
 import Icon from '@mdi/react';
 import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper } from '@mdi/js';
 
-import SEO from '../../../components/SEO';
-import CenterCell from '../../../components/center-cell';
-import ErrorPage from '../../../components/error-page';
-import Loading from '../../../components/loading';
-import SmallItemTable from '../../../components/small-item-table';
-import DataTable from '../../../components/data-table';
-import PropertyList from '../../../components/property-list';
-import CheekiBreekiEffect from '../../../components/cheeki-breeki-effect';
+import SEO from '../../components/SEO';
+import CenterCell from '../../components/center-cell';
+import ErrorPage from '../../components/error-page';
+import Loading from '../../components/loading';
+import SmallItemTable from '../../components/small-item-table';
+import DataTable from '../../components/data-table';
+import PropertyList from '../../components/property-list';
+import CheekiBreekiEffect from '../../components/cheeki-breeki-effect';
 
-import capitalize from '../../../modules/capitalize-first';
+import capitalize from '../../modules/capitalize-first';
 
-import { useBossDetails } from '../../../features/bosses/queries';
-import { useItemsQuery } from '../../../features/items/queries';
+import useBossesData from '../../features/bosses';
+import useItemsData from '../../features/items';
+
+import i18n from '../../i18n';
 
 import './index.css';
 
 function BossPage(params) {
     const { t } = useTranslation();
 
+    const { data: bosses } = useBossesData();
+
+    const {data: items} = useItemsData();
+
     // cheeki breeki
     const [isShown, setIsShown] = useState(false);
-
-    const bosses = useBossDetails();
-
-    const {data: items} = useItemsQuery();
 
     let audio = new Audio("/audio/killa.mp3")
     const handleClick = event => {
@@ -37,6 +40,18 @@ function BossPage(params) {
         audio.play()
     };
     // end cheeki breeki
+
+    const [isViewerOpen, setIsViewerOpen] = useState(false);
+    const openImageViewer = useCallback(() => {
+        setIsViewerOpen(true);
+      }, []);
+    const closeImageViewer = () => {
+        setIsViewerOpen(false);
+    };
+    const backgroundStyle = {
+        backgroundColor: 'rgba(0,0,0,.9)',
+        zIndex: 20,
+    };
 
     // Format the boss table columns for locations
     const columnsLocations = useMemo(() => {
@@ -96,7 +111,7 @@ function BossPage(params) {
         ];
     }, [t, bosses]);
 
-    const bossNameLower = params.bossName
+    const bossNameLower = params.bossName.toLowerCase();
 
     // If no bosses have been returned yet, return 'loading'
     if (!bosses || bosses.length === 0) {
@@ -116,6 +131,7 @@ function BossPage(params) {
     }
 
     const loot = [];
+    let lootKeys = [];
     const attachmentMap = {};
 
     const lootValueCutoff = 80000;
@@ -158,7 +174,15 @@ function BossPage(params) {
         if (!item)
             continue;
         const itemValue = getItemSlotValue(item);
-        if (item.types.includes('noFlea') || itemValue > lootValueCutoff) {
+        if (item.types.includes('noFlea')) {
+            loot.push(lootItem);
+            continue;
+        }
+        if (itemValue > lootValueCutoff) {
+            if (item.types.includes('keys') && !item.normalizedName.includes('keycard') && !item.normalizedName.includes('marked')) {
+                lootKeys.push(lootItem);
+                continue;
+            }
             loot.push(lootItem);
         }
     }
@@ -167,6 +191,13 @@ function BossPage(params) {
         const itemB = items.find(it => it.id === b.id);
         return getItemSlotValue(itemB) - getItemSlotValue(itemA);
     });
+    lootKeys.sort((a, b) => {
+        const itemA = items.find(it => it.id === a.id);
+        const itemB = items.find(it => it.id === b.id);
+        return getItemSlotValue(itemB) - getItemSlotValue(itemA);
+    });
+    lootKeys = lootKeys.slice(0, 5);
+    loot.push(...lootKeys);
 
     // Get static boss data from json file
     //var bossJsonData = bossJson.find(boss => boss.normalizedName === bossNameLower);
@@ -287,11 +318,20 @@ function BossPage(params) {
                 <div className="boss-information-grid">
                     <div className="boss-information-wrapper">
                         <h1>
-                            {bossData.name}
-                            <Icon
-                                path={mdiEmoticonDevil}
-                                size={1.5}
-                                className="icon-with-text"
+                            <div>
+                                {bossData.name}
+                                <Icon
+                                    path={mdiEmoticonDevil}
+                                    size={1.4}
+                                    className="icon-with-text"
+                                />
+                            </div>
+                            <img
+                                alt={bossData.name}
+                                className={'boss-information-icon'}
+                                loading="lazy"
+                                src={bossData.imagePortraitLink}
+                                onClick={() => openImageViewer(0)}
                             />
                         </h1>
                         {bossData.wikiLink &&
@@ -301,9 +341,14 @@ function BossPage(params) {
                                 </a>
                             </span>
                         }
-                        {bossData.details &&
+                        {i18n.exists(`${bossData.normalizedName}-description`, { ns: 'bosses' }) &&
                             <p className='boss-details'>
-                                {t(`${bossData.normalizedName}-description`, { ns: 'bosses' })}
+                                <Trans i18nKey={`${bossData.normalizedName}-description`} ns={'bosses'} />
+                            </p>
+                        }
+                        {i18n.exists(`${bossData.normalizedName}-bio`, { ns: 'bosses' }) &&
+                            <p className='boss-details'>
+                                <Trans i18nKey={`${bossData.normalizedName}-bio`} ns={'bosses'} />
                             </p>
                         }
                     </div>
@@ -311,10 +356,21 @@ function BossPage(params) {
                         <img
                             alt={bossData.name}
                             loading="lazy"
-                            src={`${process.env.PUBLIC_URL}/images/bosses/${bossData.normalizedName}.jpg`}
+                            src={bossData.imagePosterLink}
+                            onClick={() => openImageViewer(0)}
                         />
                     </div>
                 </div>
+                {isViewerOpen && (
+                    <ImageViewer
+                        src={[bossData.imagePosterLink]}
+                        currentIndex={0}
+                        backgroundStyle={backgroundStyle}
+                        disableScroll={true}
+                        closeOnClickOutside={true}
+                        onClose={closeImageViewer}
+                    />
+                )}
                 <h2 key={'boss-stats-header'}>
                     {t('Boss Stats')}
                     <Icon
@@ -339,6 +395,7 @@ function BossPage(params) {
                         return prev;
                     }, [])}
                     attachmentMap={attachmentMap}
+                    showGunDefaultPresetImages={true}
                     fleaValue
                     traderValue
                 />
@@ -366,7 +423,6 @@ function BossPage(params) {
                         data={spawnLocations}
                         disableSortBy={false}
                         sortBy={'map'}
-                        sortByDesc={true}
                         autoResetSortBy={false}
                     />
                 </>}
@@ -385,8 +441,7 @@ function BossPage(params) {
                         columns={columnsEscorts}
                         data={escorts}
                         disableSortBy={false}
-                        sortBy={'name'}
-                        sortByDesc={true}
+                        sortBy={'map'}
                         autoResetSortBy={false}
                     />
                     :
@@ -405,7 +460,7 @@ function BossPage(params) {
                             />
                             <p className='killa-party-time-text'>Warning: LOUD</p>
                         </h3>
-                        <button style={{ padding: '.2rem', borderRadius: '4px' }} onClick={handleClick}>cheeki breeki</button>
+                        <button className="cheeki-breeki-button" onClick={handleClick}>cheeki breeki</button>
                         {isShown && (
                             <CheekiBreekiEffect />
                         )}

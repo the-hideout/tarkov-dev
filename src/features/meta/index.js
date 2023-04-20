@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
@@ -6,7 +8,7 @@ import { langCode } from '../../modules/lang-helpers';
 import { placeholderMeta } from '../../modules/placeholder-data';
 
 const initialState = {
-    meta: placeholderMeta(langCode()),
+    data: placeholderMeta(langCode()),
     status: 'idle',
     error: null,
 };
@@ -25,8 +27,8 @@ const metaSlice = createSlice({
         builder.addCase(fetchMeta.fulfilled, (state, action) => {
             state.status = 'succeeded';
 
-            if (!equal(state.meta, action.payload)) {
-                state.meta = action.payload;
+            if (!equal(state.data, action.payload)) {
+                state.data = action.payload;
             }
         });
         builder.addCase(fetchMeta.rejected, (state, action) => {
@@ -37,6 +39,32 @@ const metaSlice = createSlice({
     },
 });
 
-export default metaSlice.reducer;
+export const metaReducer = metaSlice.reducer;
 
-export const selectMeta = (state) => state.meta.meta;
+export const selectMeta = (state) => state.meta.data;
+
+let fetchedData = false;
+let refreshInterval = false;
+
+export default function useMetaData() {
+    const dispatch = useDispatch();
+    const { data, status, error } = useSelector((state) => state.meta);
+
+    useEffect(() => {
+        if (!fetchedData) {
+            fetchedData = true;
+            dispatch(fetchMeta());
+        }
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
+                dispatch(fetchMeta());
+            }, 600000);
+        }
+        return () => {
+            clearInterval(refreshInterval);
+            refreshInterval = false;
+        };
+    }, [dispatch]);
+    
+    return { data, status, error };
+};

@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import ItemCost from '../item-cost';
-import RewardImage from '../reward-image';
+import ItemImage from '../item-image';
 
 import './index.css';
 
-import { toggleItem as toggleCraftItem } from '../../features/crafts/craftsSlice';
-import { toggleItem as toggleBarterItem } from '../../features/barters/bartersSlice';
+import { toggleItem as toggleCraftItem } from '../../features/crafts';
+import { toggleItem as toggleBarterItem } from '../../features/barters';
 
-function CostItemsCell({ costItems, craftId, barterId }) {
+function CostItemsCell({ costItems, craftId, barterId, allowAllSources = false, crafts, barters, useCraftIngredients, useBarterIngredients }) {
     const dispatch = useDispatch();
 
     return (
@@ -47,10 +47,14 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                         }}
                     >
                         <div className="cost-image-wrapper">
-                            <RewardImage
+                            <ItemImage
+                                item={costItem.item}
+                                attributes={costItem.attributes}
                                 count={costItem.count}
-                                iconLink={costItem.iconLink}
-                                isTool={costItem.isTool}
+                                imageField="iconLink"
+                                nonFunctionalOverlay={false}
+                                linkToItem={true}
+                                nonFunctional={costItem.nonFunctional}
                             />
                         </div>
                         <div className="cost-item-text-wrapper">
@@ -62,10 +66,15 @@ function CostItemsCell({ costItems, craftId, barterId }) {
                                     craftId={craftId}
                                     barterId={barterId}
                                     count={costItem.count}
-                                    price={costItem.priceRUB}
+                                    price={costItem.pricePerUnit}
                                     vendor={costItem.vendor}
                                     priceType={costItem.priceType}
                                     isTool={costItem.isTool}
+                                    allowAllSources={allowAllSources}
+                                    barters={barters}
+                                    crafts={crafts}
+                                    useBarterIngredients={useBarterIngredients}
+                                    useCraftIngredients={useCraftIngredients}
                                 />
                             </div>
                         </div>

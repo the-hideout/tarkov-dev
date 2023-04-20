@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
 import { mdiClipboardList } from '@mdi/js';
@@ -17,7 +16,7 @@ import {
     ToggleFilter,
 } from '../../components/filter';
 
-import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
+import useTradersData from '../../features/traders';
 
 import './index.css';
 
@@ -39,27 +38,7 @@ function Quests() {
         false,
     );
 
-    const dispatch = useDispatch();
-    const allTraders = useSelector(selectAllTraders);
-    const tradersStatus = useSelector((state) => {
-        return state.traders.status;
-    });
-    useEffect(() => {
-        let timer = false;
-        if (tradersStatus === 'idle') {
-            dispatch(fetchTraders());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchTraders());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [tradersStatus, dispatch]);
+    const { data: traders } = useTradersData();
 
     const { t } = useTranslation();
 
@@ -97,7 +76,7 @@ function Quests() {
                         }
                     />
                     <ButtonGroupFilter>
-                        {allTraders.map((trader) => {
+                        {traders.map((trader) => {
                             return (
                                 <ButtonGroupFilterButton
                                     key={`trader-tooltip-${trader.normalizedName}`}
@@ -153,12 +132,14 @@ function Quests() {
             />
 
             <div>
-                <p>
-                    {"Traders in Escape from Tarkov have a number of tasks you can complete."}
-                </p>
-                <p>
-                    {"In exchange for retrieving items, eliminating targets, and performing other actions in raid, you can increase your standing with the traders and earn valuable items."}
-                </p>
+                <Trans i18nKey={'quests-page-p'}>
+                    <p>
+                        Traders in Escape from Tarkov have a number of tasks you can complete.
+                    </p>
+                    <p>
+                        In exchange for retrieving items, eliminating targets, and performing other actions in raid, you can increase your standing with the traders and earn valuable items.
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];

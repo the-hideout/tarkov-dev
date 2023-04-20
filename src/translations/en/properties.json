@@ -9,6 +9,7 @@
     "class": "Class",
     "material": "Material",
     "zones": "Zones",
+    "defaultPreset": "Default Preset",
     "durability": "Durability",
     "ergoPenalty": "Ergo penalty",
     "speedPenalty": "Speed penalty",
@@ -61,5 +62,9 @@
     "weight": "Weight",
     "baseItem": "Base Item",
     "categories": "Categories",
-    "type": "Type"
+    "type": "Type",
+    "convergence": "Convergence",
+    "cameraRecoil": "Camera Recoil",
+    "recoilAngle": "Recoil Angle",
+    "recoilDispersion": "Recoil Dispersion"
 }

@@ -19,7 +19,9 @@
 }
 
 .boss-information-grid h1 {
-    display: block;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
 }
 
 .boss-information-grid h1,
@@ -27,8 +29,10 @@
     margin: 0 0 10px 0;
 }
 
-.boss-details {
-    max-width: 80%;
+.boss-information-icon {
+    width: 64px;
+    height: 64px;
+    cursor: zoom-in;
 }
 
 .boss-icon-and-link-wrapper {
@@ -36,16 +40,16 @@
     display: none;
     flex-wrap: wrap;
     justify-content: flex-end;
-    flex-grow: 1;
-}
-
-.boss-icon-and-link-wrapper img {
-    max-height: 50px;
+    cursor: zoom-in;
 }
 
 @media screen and (min-width: 800px) {
     .boss-page-wrapper {
         padding-top: 20px;
+    }
+
+    .boss-information-wrapper {
+        flex-grow: 1;
     }
 
     .boss-information-grid {
@@ -56,9 +60,13 @@
         display: none;
     }
 
+    .boss-details {
+        margin-right: 1em;
+    }
+
     .boss-information-grid h1,
     .boss-icon-and-link-wrapper {
-        margin: 0 0;
+        margin: 0;
     }
 
     .boss-icon-and-link-wrapper {

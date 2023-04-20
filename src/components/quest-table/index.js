@@ -1,16 +1,17 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Icon from '@mdi/react';
 import { mdiClipboardCheck, mdiClipboardRemove } from '@mdi/js';
 
 import DataTable from '../data-table';
 import QuestItemsCell from '../quest-items-cell';
 import CenterCell from '../center-cell';
-import { selectQuests, fetchQuests } from '../../features/quests/questsSlice';
-import { useItemsQuery } from '../../features/items/queries';
-import { useTradersQuery } from '../../features/traders/queries';
+import useQuestsData from '../../features/quests';
+import useItemsData from '../../features/items';
+import useTradersData from '../../features/traders';
+import TraderImage from '../trader-image';
 
 import './index.css';
 
@@ -156,36 +157,11 @@ function QuestTable({
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
 
-    const result = useItemsQuery();
-    const items = result.data;
+    const { data: items } = useItemsData();
 
-    const tradersResult = useTradersQuery();
-    const traders = useMemo(() => {
-        return tradersResult.data;
-    }, [tradersResult]);
+    const { data: traders } = useTradersData();
     
-    const dispatch = useDispatch();
-    const quests = useSelector(selectQuests);
-    const questsStatus = useSelector((state) => {
-        return state.quests.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (questsStatus === 'idle') {
-            dispatch(fetchQuests());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchQuests());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [questsStatus, dispatch]);
+    const { data: quests } = useQuestsData();
 
     const allQuestData = useMemo(() => {
         return quests.map(rawQuest => {
@@ -208,7 +184,7 @@ function QuestTable({
                         ...req,
                         item: items.find(i => i.id === req.item.id)
                     };
-                });
+                }).filter(req => req.item);
                 if (requiredItemFilter && questData.requiredItems.length === 0) {
                     return false;
                 }
@@ -216,14 +192,20 @@ function QuestTable({
 
             if (rewardItemFilter || rewardItems) {
                 questData.rewardItems = getRewardQuestItems(rawQuest, rewardItemFilter).map(rew => {
+                    const foundItem = items.find(i => i.id === rew.item.id);
+                    if (!foundItem) {
+                        return false;
+                    }
                     const contained = rew.item.containsItems;
                     const mapped = {
                         ...rew,
-                        item: items.find(i => i.id === rew.item.id),
+                        item: {
+                            ...foundItem,
+                            containsItems: contained,
+                        },
                     };
-                    mapped.item.containsItems = contained;
                     return mapped;
-                });
+                }).filter(Boolean);
                 if (rewardItemFilter && questData.rewardItems.length === 0) {
                     return false;
                 }
@@ -266,9 +248,9 @@ function QuestTable({
 
             let lockedPassed = true;
             if (hideLocked) {
-                for (const req of quest.traderLevelRequirements) {
+                for (const req of quest.traderRequirements.filter(req => req.requirementType === 'level')) {
                     const trader = traders.find(t => t.id === req.trader.id);
-                    if (settings[trader.normalizedName] < req.level) {
+                    if (settings[trader.normalizedName] < req.value) {
                         lockedPassed = false;
                         break;
                     }
@@ -315,16 +297,10 @@ function QuestTable({
                     }
                     return (
                         <div className="quest-link-wrapper">
-                            <Link
-                                to={`/traders/${questData.trader.normalizedName}`}
-                            >
-                                <img
-                                    alt={questData.trader.name}
-                                    loading="lazy"
-                                    className="quest-giver-image"
-                                    src={`${process.env.PUBLIC_URL}/images/traders/${questData.trader.normalizedName}-icon.jpg`}
-                                />
-                            </Link>
+                            <TraderImage
+                                trader={questData.trader}
+                                style={{marginRight: '10px'}}
+                            />
                             <Link
                                 to={`/task/${questData.normalizedName}`}
                             >
@@ -426,7 +402,7 @@ function QuestTable({
                         if (!reqQuest)
                             return null;
                         let completedIcon = '';
-                        if (req.status.includes('complete') && settings.completedQuests.includes(questData.iu)) {
+                        if (req.status.includes('complete') && settings.completedQuests.includes(questData.id)) {
                             completedIcon = (
                                 <Icon
                                     path={mdiClipboardCheck}
@@ -475,6 +451,17 @@ function QuestTable({
                 Header: t('Minimum level'),
                 id: 'minimumLevel',
                 accessor: 'minPlayerLevel',
+                sortType: (a, b, columnId, desc) => {
+                    let minA = a.original.minPlayerLevel;
+                    let minB = b.original.minPlayerLevel;
+                    if (minA === 0) {
+                        minA = desc ? -1 : 100;
+                    }
+                    if (minB === 0) {
+                        minB = desc ? -1 : 100;
+                    }
+                    return minA - minB;
+                },
                 Cell: (props) => {
                     if (!props.value) {
                         return '';
@@ -492,11 +479,11 @@ function QuestTable({
                 Header: t('Minimum trader level'),
                 id: 'minimumTraderLevel',
                 accessor: (questData) => {
-                    return questData.traderLevelRequirements[0]?.level;
+                    return questData.traderRequirements.filter(req => req.requirementType === 'level')[0]?.value;
                 },
                 Cell: (props) => {
                     return (
-                        <CenterCell value={props.row.original.traderLevelRequirements.map(req => req.level).join(', ')}/>
+                        <CenterCell value={props.row.original.traderRequirements.filter(req => req.requirementType === 'level').map(req => req.value).join(', ')}/>
                     );
                 },
                 position: minimumTraderLevel,
@@ -512,18 +499,16 @@ function QuestTable({
                     return a.original.totalRepReward - b.original.totalRepReward;
                 },
                 Cell: (props) => {
-                    return (
-                        <CenterCell value={props.row.original.finishRewards.traderStanding?.reduce((standings, current) => {
-                            const trader = traders.find(t => t.id === current.trader.id);
-                            standings.push((
-                                <div key={trader.id}>
-                                    <Link to={`/traders/${trader.normalizedName}`}>{trader.name}</Link>
-                                    <span>: {current.standing}</span>
-                                </div>
-                            ));
-                            return standings;
-                        }, [])}/>
-                    );
+                    return <CenterCell>
+                        {props.row.original.finishRewards.traderStanding.map(reward => {
+                            const trader = traders.find(t => t.id === reward.trader.id);
+                            return <TraderImage
+                                trader={trader}
+                                reputationChange={reward.standing}
+                                key={trader.id}
+                            />
+                        })}
+                    </CenterCell>;
                 },
                 position: reputationRewards,
             });
@@ -582,7 +567,7 @@ function QuestTable({
             data={shownQuests}
             extraRow={extraRow}
             autoResetSortBy={false}
-            sortBy='progression'
+            sortBy={'minimumLevel'}
         />
     );
 }

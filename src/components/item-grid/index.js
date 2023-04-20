@@ -1,6 +1,9 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from "react-router-dom";
 
-import Item from './Item';
+import ItemImage from '../item-image';
+import ItemTooltip from './ItemTooltip';
+import ItemIcon from './ItemIcon';
 import formatPrice from '../../modules/format-price';
 
 import './index.css';
@@ -57,20 +60,31 @@ function ItemGrid(props) {
             </div>
             <div className="item-group-items">
                 {props.items.map((item) => (
-                    <Item
-                        key={`${props.normalizedName}-${item.id}`}
-                        count={item.count}
-                        name={item.name}
-                        pricePerSlot={item.pricePerSlot}
-                        sellTo={item.sellTo}
-                        sellToNormalized={item.sellToNormalized}
-                        slots={item.gridImageLink ? item.slots : 1}
-                        src={item.gridImageLink || item.fallbackImageLink}
-                        itemLink={`/item/${item.normalizedName}`}
-                        height={item.gridImageLink ? item.height : 1}
-                        width={item.gridImageLink ? item.width : 1}
-                        item={item}
-                    />
+                    <Link
+                        key={`${item.normalizedName}-${item.id}`}
+                        to={`/item/${item.normalizedName}`}
+                        className={`grid-item`}
+                        style={{gridRowEnd: `span ${item.baseImageLink ? item.height : 1}`, gridColumnEnd: `span ${item.baseImageLink ? item.width : 1}`}}
+                    >
+                        <ItemImage
+                            item={item}
+                            nonFunctionalOverlay={false}
+                        >
+                            <ItemTooltip
+                                key={`${item.id}-tooltip`}
+                                pricePerSlot={item.pricePerSlot}
+                                slots={item.baseImageLink ? item.slots : 1}
+                                sellTo={item.sellTo}
+                                name={item.name}
+                            />
+                            <ItemIcon
+                                key={`${item.id}-sellicon`}
+                                sellTo={item.sellTo}
+                                sellToNormalized={item.sellToNormalized}
+                                count={item.count}
+                            />
+                        </ItemImage>
+                    </Link>
                 ))}
             </div>
         </div>

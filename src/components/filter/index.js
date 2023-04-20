@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Switch from 'react-switch';
 import Select from 'react-select';
 import Slider from 'rc-slider';
@@ -95,6 +95,7 @@ function RangeFilter({
                 range={true}
                 allowCross={false}
                 defaultValue={defaultValue}
+                step={2}
                 min={min}
                 max={max}
                 marks={marks}
@@ -290,7 +291,8 @@ function SelectItemFilter({
     wide,
     items,
     showImage = true,
-    shortNames
+    shortNames,
+    valueField = 'id',
 }) {
     const [selectedItem, setSelectedItem] = useState(false);
     const selectInputRef = useRef(null);
@@ -303,7 +305,7 @@ function SelectItemFilter({
             options={items.map((item) => {
                 return {
                     label: shortNames? item.shortName : item.name,
-                    value: item.id,
+                    value: item[valueField],
                     selected: selection && selection.id === item.id
                 };
             })}
@@ -355,6 +357,7 @@ function SelectItemFilter({
 
 function InputFilter({
     defaultValue,
+    value = undefined,
     type = 'text',
     placeholder,
     onChange,
@@ -383,6 +386,7 @@ function InputFilter({
                 <input
                     className={`filter-input ${type}`}
                     defaultValue={defaultValue}
+                    value={value}
                     type={type}
                     inputMode={inputMode}
                     placeholder={placeholder}
@@ -397,11 +401,28 @@ function InputFilter({
 
 function Filter({ center, children, fullWidth }) {
     const [showFilter, setShowFilter] = useState(false);
+    const toggleButton = useRef();
+    useEffect(() => {
+        if (!toggleButton.current) {
+            return;
+        }
+        const intersectionObserver = new IntersectionObserver(entries => {
+            if (!toggleButton.current) {
+                return;
+            }
+            if (!entries[0].isIntersecting && showFilter) {
+                setShowFilter(false);
+            }
+        });
+        intersectionObserver.observe(toggleButton.current);
+        return () => intersectionObserver.disconnect();
+    }, [showFilter]);
     return [
         <div
             className={`filter-toggle-icon-wrapper`}
             key="filter-toggle-icon"
             onClick={(e) => setShowFilter(!showFilter)}
+            ref={toggleButton}
         >
             <Fab
                 style={{ backgroundColor: '#9a8866' }}
@@ -413,9 +434,9 @@ function Filter({ center, children, fullWidth }) {
             </Fab>
         </div>,
         <div
-            className={`filter-wrapper ${showFilter ? 'open' : ''} ${
-                center ? 'filter-wrapper-center' : ''
-            } ${fullWidth ? 'full-width' : ''}`}
+            className={`filter-wrapper${showFilter ? ' open' : ''}${
+                center ? ' filter-wrapper-center' : ''
+            }${fullWidth ? ' full-width' : ''}`}
             key="page-filter"
         >
             <div className={'filter-content-wrapper'}>

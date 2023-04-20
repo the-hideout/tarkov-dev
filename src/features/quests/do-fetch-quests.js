@@ -1,8 +1,12 @@
-import fetch  from 'cross-fetch';
+import APIQuery from '../../modules/api-query.js';
 
-const doFetchQuests = async (language, prebuild = false) => {
-    const bodyQuery = JSON.stringify({
-        query: `{
+class QuestsQuery extends APIQuery {
+    constructor() {
+        super('quests');
+    }
+
+    async query(language, prebuild = false) {
+        const query = `{
             tasks(lang: ${language}) {
                 id
                 tarkovDataId
@@ -27,145 +31,21 @@ const doFetchQuests = async (language, prebuild = false) => {
                     }
                     status
                 }
-                traderLevelRequirements {
+                traderRequirements {
                     trader {
                         id
                         name
                     }
-                    level
+                    requirementType
+                    compareMethod
+                    value
                 }
+                restartable
                 objectives {
-                    __typename
-                    id
-                    type
-                    description
-                    maps {
-                        id
-                        name
-                    }
-                    optional
-                    ...on TaskObjectiveBuildItem {
-                        item {
-                            id
-                        }
-                        containsAll {
-                            id
-                        }
-                        containsCategory {
-                            id
-                            name
-                            normalizedName
-                        }
-                        attributes {
-                            name
-                            requirement {
-                                compareMethod
-                                value
-                            }
-                        }
-                    }
-                    ...on TaskObjectiveExperience {
-                        healthEffect {
-                            bodyParts
-                            effects
-                            time {
-                                compareMethod
-                                value
-                            }
-                        }
-                    }
-                    ...on TaskObjectiveExtract {
-                        exitStatus
-                        zoneNames
-                    }
-                    ...on TaskObjectiveItem {
-                        item {
-                            id
-                        }
-                        count
-                        foundInRaid
-                        dogTagLevel
-                        maxDurability
-                        minDurability
-                    }
-                    ...on TaskObjectiveMark {
-                        markerItem {
-                            id
-                        }
-                    }
-                    ...on TaskObjectivePlayerLevel {
-                        playerLevel
-                    }
-                    ...on TaskObjectiveQuestItem {
-                        questItem {
-                            id
-                            name
-                            shortName
-                            width
-                            height
-                            iconLink
-                            gridImageLink
-                            image512pxLink
-                        }
-                        count
-                    }
-                    ...on TaskObjectiveShoot {
-                        target
-                        count
-                        shotType
-                        zoneNames
-                        bodyParts
-                        usingWeapon {
-                            id
-                        }
-                        usingWeaponMods {
-                            id
-                        }
-                        wearing {
-                            id
-                        }
-                        notWearing {
-                            id
-                        }
-                        distance {
-                            compareMethod
-                            value
-                        }
-                        playerHealthEffect {
-                            bodyParts
-                            effects
-                            time {
-                                compareMethod
-                                value
-                            }
-                        }
-                        enemyHealthEffect {
-                            bodyParts
-                            effects
-                            time {
-                                compareMethod
-                                value
-                            }
-                        }
-                    }
-                    ...on TaskObjectiveSkill {
-                        skillLevel {
-                            name
-                            level
-                        }
-                    }
-                    ...on TaskObjectiveTaskStatus {
-                        task {
-                            id
-                        }
-                        status
-                    }
-                    ...on TaskObjectiveTraderLevel {
-                        trader {
-                            id
-                        }
-                        level
-                    }
+                    ...TaskObjectiveInfo
+                }
+                failConditions {
+                    ...TaskObjectiveInfo
                 }
                 startRewards {
                     traderStanding {
@@ -257,47 +137,195 @@ const doFetchQuests = async (language, prebuild = false) => {
                     }
                 }
             }
-        }`,
-    });
-
-    const response = await fetch('https://api.tarkov.dev/graphql', {
-        method: 'POST',
-        cache: 'no-store',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: bodyQuery,
-    });
-
-    const questsData = await response.json();
-
-    if (questsData.errors) {
-        if (questsData.data) {
-            for (const error of questsData.errors) {
-                let badItem = false;
-                if (error.path) {
-                    badItem = questsData.data;
-                    for (let i = 0; i < 2; i++) {
-                        badItem = badItem[error.path[i]];
+        }
+        fragment TaskObjectiveInfo on TaskObjective {
+            __typename
+            id
+            type
+            description
+            maps {
+                id
+                name
+            }
+            optional
+            ...on TaskObjectiveBuildItem {
+                item {
+                    id
+                }
+                containsAll {
+                    id
+                }
+                containsCategory {
+                    id
+                    name
+                    normalizedName
+                }
+                attributes {
+                    name
+                    requirement {
+                        compareMethod
+                        value
                     }
                 }
-                console.log(`Error in tasks API query: ${error.message}`);
-                if (badItem) {
-                    console.log(badItem)
+            }
+            ...on TaskObjectiveExperience {
+                healthEffect {
+                    bodyParts
+                    effects
+                    time {
+                        compareMethod
+                        value
+                    }
                 }
             }
+            ...on TaskObjectiveExtract {
+                exitStatus
+                exitName
+            }
+            ...on TaskObjectiveItem {
+                item {
+                    id
+                }
+                count
+                foundInRaid
+                dogTagLevel
+                maxDurability
+                minDurability
+            }
+            ...on TaskObjectiveMark {
+                markerItem {
+                    id
+                }
+            }
+            ...on TaskObjectivePlayerLevel {
+                playerLevel
+            }
+            ...on TaskObjectiveQuestItem {
+                questItem {
+                    id
+                    name
+                    shortName
+                    width
+                    height
+                    iconLink
+                    gridImageLink
+                    image512pxLink
+                    baseImageLink
+                    image8xLink
+                }
+                count
+            }
+            ...on TaskObjectiveShoot {
+                target
+                count
+                shotType
+                zoneNames
+                bodyParts
+                timeFromHour
+                timeUntilHour
+                usingWeapon {
+                    id
+                }
+                usingWeaponMods {
+                    id
+                }
+                wearing {
+                    id
+                }
+                notWearing {
+                    id
+                }
+                distance {
+                    compareMethod
+                    value
+                }
+                playerHealthEffect {
+                    bodyParts
+                    effects
+                    time {
+                        compareMethod
+                        value
+                    }
+                }
+                enemyHealthEffect {
+                    bodyParts
+                    effects
+                    time {
+                        compareMethod
+                        value
+                    }
+                }
+            }
+            ...on TaskObjectiveSkill {
+                skillLevel {
+                    name
+                    level
+                }
+            }
+            ...on TaskObjectiveTaskStatus {
+                task {
+                    id
+                }
+                status
+            }
+            ...on TaskObjectiveTraderLevel {
+                trader {
+                    id
+                }
+                level
+            }
+            ...on TaskObjectiveTraderStanding {
+                trader {
+                    id
+                }
+                compareMethod
+                value
+            }
+            ...on TaskObjectiveUseItem {
+                useAny {
+                    id
+                }
+                compareMethod
+                count
+                zoneNames
+            }
+        }`;
+    
+        const questsData = await this.graphqlRequest(query);
+    
+        if (questsData.errors) {
+            if (questsData.data) {
+                for (const error of questsData.errors) {
+                    let badItem = false;
+                    if (error.path) {
+                        badItem = questsData.data;
+                        for (let i = 0; i < 2; i++) {
+                            badItem = badItem[error.path[i]];
+                        }
+                    }
+                    console.log(`Error in tasks API query: ${error.message}`);
+                    if (badItem) {
+                        console.log(badItem)
+                    }
+                }
+            }
+            // only throw error if this is for prebuild or data wasn't returned
+            if (
+                prebuild || !questsData.data || 
+                !questsData.data.tasks || !questsData.data.tasks.length
+            ) {
+                return Promise.reject(new Error(questsData.errors[0].message));
+            }
         }
-        // only throw error if this is for prebuild or data wasn't returned
-        if (
-            prebuild || !questsData.data || 
-            !questsData.data.tasks || !questsData.data.tasks.length
-        ) {
-            return Promise.reject(new Error(questsData.errors[0].message));
-        }
+    
+        return questsData.data.tasks;
     }
+}
 
-    return questsData.data.tasks;
+const questsQuery = new QuestsQuery();
+
+const doFetchQuests = async (language, prebuild = false) => {
+    return questsQuery.run(language, prebuild);
 };
 
 export default doFetchQuests;

@@ -21,25 +21,24 @@ function DataTable({
     maxItems,
     nameFilter,
     autoScroll,
+    onSort,
 }) {
     // Use the state and functions returned from useTable to build your UI
     // const [data, setData] = React.useState([])
 
-    const storageKey = columns
-        .map(({ Header, id }) => {
-            if (typeof id === 'string') {
-                return id;
-            }
+    const storageKey = columns.map(({ Header, id }) => {
+        if (typeof id === 'string') {
+            return id;
+        }
 
-            if (!Header || typeof Header !== 'string') {
-                return '';
-            }
+        if (!Header || typeof Header !== 'string') {
+            return '';
+        }
 
-            return Header.toLowerCase()
-                         .replace(/\s/, '-')
-                         .replace(/[^a-zа-я-]/g, '');
-        })
-        .join(',');
+        return Header.toLowerCase()
+                        .replace(/\s/, '-')
+                        .replace(/[^a-zа-я-]/g, '');
+    }).join(',');
     const [initialSortBy, storageSetSortBy] = useStateWithLocalStorage(
         storageKey,
         [{
@@ -80,7 +79,10 @@ function DataTable({
 
     useEffect(() => {
         storageSetSortBy(sortByState);
-    }, [storageSetSortBy, sortByState]);
+        if (typeof onSort === 'function') {
+            onSort(sortByState);
+        }
+    }, [storageSetSortBy, sortByState, onSort]);
 
     useEffect(() => {
         if (nameFilter && (sortByState[0]?.id === 'name' || sortByState[0]?.id === undefined)) {

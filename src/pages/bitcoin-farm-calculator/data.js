@@ -1,5 +1,6 @@
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { useItemByIdQuery } from '../../features/items/queries';
+import useItemsData from '../../features/items';
 import {
     selectAllSkills,
     selectAllStations,
@@ -56,7 +57,7 @@ export const getMaxSellFor = (item) => {
         }
     }
 
-    return max;
+    return {...max};
 };
 
 export const getMinBuyFor = (item) => {
@@ -70,20 +71,41 @@ export const getMinBuyFor = (item) => {
     return min;
 };
 
+const getBestFuelItem = (items) => {
+    return items.reduce((best, current) => {
+        if (!best) {
+            return current;
+        }
+        const currBuy = getMinBuyFor(current);
+        const bestBuy = getMinBuyFor(best);
+        if (currBuy.priceRUB / current.properties.units < bestBuy.priceRUB / best.properties.units) {
+            return current;
+        }
+        return best;
+    }, false)
+}
+
 export const useFuelPricePerDay = () => {
     const skills = useSelector(selectAllSkills);
     const stations = useSelector(selectAllStations);
+    const { data: items } = useItemsData();
 
-    const { data: metalFuelTankItem } = useItemByIdQuery(MetalFuelTankItemId);
-    const { data: expeditionaryFuelTankItem } = useItemByIdQuery(
-        ExpeditionaryFuelTankItemId,
-    );
+    const metalFuelTankItem = useMemo(() => {
+        return items.find(item => item.id === MetalFuelTankItemId);
+    }, [items]);
 
-    if (!metalFuelTankItem || !expeditionaryFuelTankItem) {
-        return undefined;
+    const expeditionaryFuelTankItem = useMemo(() => {
+        return items.find(item => item.id === ExpeditionaryFuelTankItemId);
+    }, [items]);
+
+    if (!metalFuelTankItem?.buyFor.length || !expeditionaryFuelTankItem?.buyFor.length) {
+        return {
+            price: undefined,
+            item: undefined,
+        };
     }
 
-    const fuelItem = metalFuelTankItem;
+    const fuelItem = getBestFuelItem([metalFuelTankItem, expeditionaryFuelTankItem]);
 
     const fuelBuyFor = getMinBuyFor(fuelItem);
     const durationObj = FuelDurations[fuelItem.id];
@@ -102,5 +124,8 @@ export const useFuelPricePerDay = () => {
         durationMs = durationMs * 2;
     }
 
-    return (fuelBuyFor.priceRUB / durationMs) * 1000 * 60 * 60 * 24;
+    return {
+        price: (fuelBuyFor?.priceRUB / durationMs) * 1000 * 60 * 60 * 24,
+        item: fuelItem,
+    };
 };

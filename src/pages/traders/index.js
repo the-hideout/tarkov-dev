@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 
@@ -10,7 +8,7 @@ import SEO from '../../components/SEO';
 import TraderResetTime from '../../components/trader-reset-time';
 import LoadingSmall from '../../components/loading-small';
 
-import { selectAllTraders, fetchTraders } from '../../features/traders/tradersSlice';
+import useTradersData from '../../features/traders';
 
 import i18n from '../../i18n';
 
@@ -18,27 +16,7 @@ import './index.css';
 
 function Traders(props) {
     const { t } = useTranslation();
-    const dispatch = useDispatch();
-    const traders = useSelector(selectAllTraders);
-    const tradersStatus = useSelector((state) => {
-        return state.traders.status;
-    });
-    useEffect(() => {
-        let timer = false;
-        if (tradersStatus === 'idle') {
-            dispatch(fetchTraders());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchTraders());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [tradersStatus, dispatch]);
+    const { data: traders } = useTradersData();
 
     const skipTraders = [
         'fence',
@@ -71,7 +49,7 @@ function Traders(props) {
                         );
                     }
                     return (
-                        <Link key={trader.id} to={`/traders/${trader.normalizedName}`} className="screen-link">
+                        <Link key={trader.id} to={`/trader/${trader.normalizedName}`} className="screen-link">
                             <h2 className="center-title">{trader.name}</h2>
                             <img
                                 alt={trader.name}

@@ -8,7 +8,7 @@ import useKeyPress from '../../hooks/useKeyPress';
 import itemSearch from '../../modules/item-search';
 
 import './index.css';
-import { useItemsQuery } from '../../features/items/queries';
+import useItemsData from '../../features/items';
 
 function ItemSearch({
     defaultValue,
@@ -17,7 +17,7 @@ function ItemSearch({
     autoFocus,
     showDropdown,
 }) {
-    const { data: items } = useItemsQuery();
+    const { data: items } = useItemsData();
     const { t } = useTranslation();
 
     const [nameFilter, setNameFilter] = useState(defaultValue || '');
@@ -97,21 +97,16 @@ function ItemSearch({
                     iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
                     instaProfit: 0,
                     itemLink: `/item/${itemData.normalizedName}`,
-                    traderName: itemData.traderName,
-                    traderNormalizedName: itemData.traderNormalizedName,
-                    traderPrice: itemData.traderPrice,
-                    traderPriceRUB: itemData.traderPriceRUB,
-                    traderCurrency: itemData.traderCurrency,
                     types: itemData.types,
                     buyFor: itemData.buyFor,
                 };
 
                 const buyOnFleaPrice = itemData.buyFor.find(
-                    (buyPrice) => buyPrice.source === 'flea-market',
+                    (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market',
                 );
 
                 if (buyOnFleaPrice) {
-                    formattedItem.instaProfit = itemData.traderPriceRUB - buyOnFleaPrice.price;
+                    formattedItem.instaProfit = itemData.sellForTradersBest.priceRUB - buyOnFleaPrice.price;
                 }
 
                 return formattedItem;
@@ -130,14 +125,14 @@ function ItemSearch({
     useEffect(() => {
         if (enterPress && data[cursor]) {
             navigate(data[cursor].itemLink);
-            setCursor(0);
-            setNameFilter('');
         }
     }, [cursor, enterPress, data, navigate]);
 
     useEffect(() => {
         setCursor(0);
-        setNameFilter('');
+        if (!location.search) {
+            setNameFilter('');
+        }
     }, [location]);
 
     return (

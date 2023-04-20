@@ -1,14 +1,14 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import { useItemsQuery } from '../../features/items/queries';
+import useItemsData from '../../features/items';
 import { SelectItemFilter } from '../filter';
 
 export function PresetSelector({ item, alt = '' }) {
     const navigate = useNavigate();
 
     // Use the primary items API query to fetch all items
-    const result = useItemsQuery();
+    const { data: allItems } = useItemsData();
 
     const [selected, setSelected] = useState(item);
 
@@ -23,23 +23,22 @@ export function PresetSelector({ item, alt = '' }) {
     const selectedValue = useMemo(() => {
         return {
             label: selected.shortName,
-            value: selected.id
+            value: selected.normalizedName || 'loading'
         };
     }, [selected]);
 
-    const items = result.data.filter(
-        testItem => testItem.id === baseId || (testItem.types.includes('preset') && testItem.properties.baseItem.id === baseId)
-    ).filter(testItem => {
-        if (!testItem.types.includes('preset')) {
-            return true;
-        }
-        if (!testItem.properties?.baseItem?.properties?.defaultPreset) {
-            return true;
-        }
-        return testItem.properties.baseItem.properties.defaultPreset.id !== testItem.id;
-    }).sort((a, b) => {
-        return a.shortName.localeCompare(b.shortName);
-    });
+    const items = useMemo(() => {
+        return allItems.filter(
+            testItem => baseId && (testItem.id === baseId || testItem.properties?.baseItem?.id === baseId)
+        ).sort((a, b) => {
+            if (a.types.includes('gun')) return -1;
+            if (b.types.includes('gun')) return 1;
+            const baseItem = allItems.find(i => i.id === baseId);
+            if (baseItem?.properties?.defaultPreset?.id === a.id) return -1;
+            if (baseItem?.properties?.defaultPreset?.id === b.id) return 1;
+            return a.shortName.localeCompare(b.shortName);
+        });
+    }, [allItems, baseId]);
 
     if (items.length < 2) {
         return alt;
@@ -57,6 +56,7 @@ export function PresetSelector({ item, alt = '' }) {
                     }
                     navigate(`/item/${event.value}`);
                 }}
+                valueField={'normalizedName'}
             />
         </div>
     );

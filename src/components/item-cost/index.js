@@ -5,13 +5,12 @@ import { followCursor } from 'tippy.js';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
-import { mdiTimerSand, mdiCloseBox, mdiCheckboxMarked } from '@mdi/js';
+import { mdiTimerSand, mdiCloseBox, mdiCheckboxMarked, mdiProgressWrench } from '@mdi/js';
 
 import BarterTooltip from '../barter-tooltip';
 import formatPrice from '../../modules/format-price';
 
-import { setItemCost as setCraftItemCost } from '../../features/crafts/craftsSlice';
-import { setItemCost as setBarterItemCost } from '../../features/barters/bartersSlice';
+import { setCustomSellValue } from '../../features/items';
 
 import './index.css';
 
@@ -22,11 +21,16 @@ const ConditionalWrapper = ({ condition, wrapper, children }) => {
 function ItemCost({
     itemId,
     count,
-    price,
+    price = 0,
     vendor = {name: 'Flea Market', normalizedName: 'flea-market'},
     priceType = 'cash',
     priceDetails,
     isTool,
+    allowAllSources = false,
+    crafts,
+    barters,
+    useBarterIngredients,
+    useCraftIngredients,
 }) {
     const dispatch = useDispatch();
     const { t } = useTranslation();
@@ -38,6 +42,12 @@ function ItemCost({
         setCustomPrice(price);
     }, [price, setCustomPrice]);
 
+    if (barters && typeof useBarterIngredients === 'undefined') {
+        useBarterIngredients = true;
+    }
+    if (crafts && typeof useCraftIngredients === 'undefined') {
+        useCraftIngredients = true;
+    }
     let { displayPrice, tooltip, displayImage} = useMemo(() => {
         let displayPrice = '';
         let tooltip = false;
@@ -95,13 +105,7 @@ function ItemCost({
                             className="icon-with-text no-click item-cost-muted-green"
                             onClick={(event) => {
                                 dispatch(
-                                    setBarterItemCost({
-                                        itemId: itemId,
-                                        price: customPrice
-                                    }),
-                                );
-                                dispatch(
-                                    setCraftItemCost({
+                                    setCustomSellValue({
                                         itemId: itemId,
                                         price: customPrice
                                     }),
@@ -115,13 +119,7 @@ function ItemCost({
                             className="icon-with-text no-click item-cost-muted-red"
                             onClick={(event) => {
                                 dispatch(
-                                    setBarterItemCost({
-                                        itemId: itemId,
-                                        price: false
-                                    }),
-                                );
-                                dispatch(
-                                    setCraftItemCost({
+                                    setCustomSellValue({
                                         itemId: itemId,
                                         price: false
                                     }),
@@ -148,8 +146,28 @@ function ItemCost({
         );
         tooltip = (
             <BarterTooltip
-                source={vendor.name}
-                requiredItems={priceDetails.requiredItems}
+                barter={priceDetails}
+                allowAllSources={allowAllSources}
+                barters={barters}
+                crafts={crafts}
+            />
+        );
+    }
+
+    if (priceType === 'craft') {
+        displayImage = (
+            <Icon
+                path={mdiProgressWrench}
+                size={0.60}
+                className="craft-barter-icon sno-click"
+            />
+        );
+        tooltip = (
+            <BarterTooltip
+                barter={priceDetails}
+                allowAllSources={allowAllSources}
+                barters={barters}
+                crafts={crafts}
             />
         );
     }

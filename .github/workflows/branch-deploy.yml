@@ -9,6 +9,7 @@ permissions:
   pull-requests: write
   deployments: write
   contents: write
+  checks: read
 
 jobs:
   deploy:
@@ -18,42 +19,70 @@ jobs:
 
     steps:
 
-      - uses: github/branch-deploy@31399807a76e56a3f3bd575bc6e91291d233b4cb # pin@v4.0.0
+      - uses: github/branch-deploy@v5.2.0
         id: branch-deploy
         with:
           admins: the-hideout/core-contributors
           admins_pat: ${{ secrets.BRANCH_DEPLOY_ADMINS_PAT }}
+          skip_ci: development
+          skip_reviews: development
+          environment_targets: production,development
+          environment_urls: production|https://tarkov.dev,development|disabled
 
-      - name: Checkout
+      - name: checkout
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
-        uses: actions/checkout@7884fcad6b5d53d10323aee724dc68d8b9096a2e # pin@v2
+        uses: actions/checkout@v3.5.2
         with:
           ref: ${{ steps.branch-deploy.outputs.ref }}
 
-      - name: Install
+      - uses: actions/setup-node@v3.6.0
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
+        with:
+          node-version-file: .node-version
+          cache: 'npm'
+
+      - name: install dependencies
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         run: npm ci
 
-      - name: Build
+      - name: build
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
 
+      # deploy to the dev env and also save the stdout to a file
       - name: deploy - dev
         id: dev-deploy
-        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' && steps.branch-deploy.outputs.environment == 'development' }}
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
+          steps.branch-deploy.outputs.noop != 'true' &&
+          steps.branch-deploy.outputs.environment == 'development' }}
         uses: cloudflare/wrangler-action@4c10c1822abba527d820b29e6333e7f5dac2cabd # pin@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          command: pages publish build/ --project-name=tarkov-dev --branch=preview
+          wranglerVersion: '2.13.0'
+          command: pages publish build/ --project-name=tarkov-dev --branch=preview | tee output.txt
+
+      # fetch the dev url from stdout and save add it to the deploy message
+      - name: add development url to deploy message
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
+          steps.branch-deploy.outputs.noop != 'true' &&
+          steps.branch-deploy.outputs.environment == 'development' }}
+        run: |
+          dev_url=$(cat output.txt | grep 'Deployment complete! Take a peek over at' | awk '{print $NF}')
+          dev_url=$(echo $dev_url | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+          echo "DEPLOY_MESSAGE=${dev_url}" >> $GITHUB_ENV
+          echo "DEPLOY_MESSAGE=${dev_url}"
 
       - name: deploy - prod
         id: prod-deploy
-        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' && steps.branch-deploy.outputs.environment == 'production' }}
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
+          steps.branch-deploy.outputs.noop != 'true' &&
+          steps.branch-deploy.outputs.environment == 'production' }}
         uses: cloudflare/wrangler-action@4c10c1822abba527d820b29e6333e7f5dac2cabd # pin@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          wranglerVersion: '2.13.0'
           command: pages publish build/ --project-name=tarkov-dev --branch=main

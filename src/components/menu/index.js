@@ -1,4 +1,5 @@
 //import { Suspense } from 'react';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
@@ -7,6 +8,12 @@ import {
     mdiRemote,
 } from '@mdi/js';
 
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
+
 import MenuItem from './MenuItem';
 //import SubMenu from './SubMenu';
 // import PatreonButton from '../patreon-button';
@@ -14,27 +21,24 @@ import UkraineButton from '../ukraine-button';
 //import LoadingSmall from '../loading-small';
 //import { BossListNav } from '../boss-list';
 
-import { caliberMap } from '../../modules/format-ammo';
-import itemsData from '../../data/category-pages.json';
-import { useBossDetails } from '../../features/bosses/queries';
+import { caliberArrayWithSplit } from '../../modules/format-ammo';
+import categoryPages from '../../data/category-pages.json';
+import useBossesData from '../../features/bosses';
 
-import { useMapImages } from '../../features/maps/queries';
+import { useMapImages } from '../../features/maps';
+
+import alertConfig from './alert-config';
 
 import IntersectionObserverWrapper from './intersection-observer-wrapper';
 
 import './index.css';
 
-// Comment / uncomment for banner alert
-// import MuiAlert from '@material-ui/lab/Alert';
-// function Alert(props) {
-//     return <MuiAlert elevation={6} variant="filled" {...props} />;
-// }
-// End of banner alert toggle
+// automatically selects the alert color
+const alertColor = alertConfig.alertColors[alertConfig.alertLevel];
 
-const ammoTypes = Object.values(caliberMap).sort();
+const ammoTypes = caliberArrayWithSplit();
 
 const getAmmoMenu = (setIsOpen) => {
-    const shotIndex = ammoTypes.findIndex(ammoType => ammoType === '12 Gauge Shot');
     const ammoMenu = ammoTypes.map((ammoType) => (
         <MenuItem
             checkbox
@@ -42,16 +46,6 @@ const getAmmoMenu = (setIsOpen) => {
             key={`menu-item-${ammoType}`}
             prefix="/ammo"
             to={`/ammo/${ammoType}`}
-            //onClick={setIsOpen.bind(this, false)}
-        />
-    ));
-    ammoMenu.splice(shotIndex+1, 0, (
-        <MenuItem
-            checkbox
-            displayText="12 Gauge Slug"
-            key="menu-item-12 Gauge Slug"
-            prefix="/ammo"
-            to="/ammo/12 Gauge Slug"
             //onClick={setIsOpen.bind(this, false)}
         />
     ));
@@ -64,6 +58,7 @@ const Menu = () => {
         setIsOpen(!isOpen);
     };*/
     const { t } = useTranslation();
+    const [open, setOpen] = useStateWithLocalStorage('alertBanner', true);
 
     const mapImages = useMapImages();
     const uniqueMaps = Object.values(mapImages);
@@ -75,13 +70,48 @@ const Menu = () => {
         return a.displayText.localeCompare(b.displayText);
     });
 
-    const bosses = useBossDetails();
+    const { data: bosses } = useBossesData();
 
     return (
         <>
-            {/* ALERT BANNER SECTION - uncomment the lines below to enable the alert banner */}
-            {/* severity can be 'error', 'info', 'success', or 'warning' */}
-            {/* <div><Alert severity="success">{"Notice: Flea market scanners are now fully online and live prices are being updated! 🎉"}</Alert></div> */}
+            {/* ALERT BANNER SECTION */}
+            {alertConfig?.alertEnabled && alertConfig.alertEnabled === true && (
+                <Box>
+                <Collapse in={open}>
+                    <Alert
+                        severity={alertConfig.alertLevel}
+                        variant='filled'
+                        sx={{ backgroundColor: `${alertColor} !important`, borderRadius: '0px !important' }}
+                        action={
+                            <IconButton
+                                aria-label="close"
+                                color="inherit"
+                                size="small"
+                                onClick={() => {
+                                    setOpen(false);
+                                }}
+                            >
+                                <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                        }
+                    >
+                        {alertConfig.text}
+
+                        {alertConfig.linkEnabled === true && (
+                            <>
+                            <span>{' - '}</span>
+                            <Link
+                                to={alertConfig.link}
+                                style={{ color: 'inherit', textDecoration: 'underline' }}
+                            >
+                                {alertConfig.linkText}
+                            </Link>
+                            </>
+                        )}
+                    </Alert>
+                </Collapse>
+            </Box>
+            )}
             {/* END ALERT BANNER SECTION */}
             <nav key="main-navigation" className="navigation">
                 <ul className={`menu`}>
@@ -165,7 +195,7 @@ const Menu = () => {
                     <li className="submenu-wrapper submenu-items" key="menu-items" data-targetid="items">
                         <Link to="/items/">{t('Items')}</Link>
                         <ul>
-                            {itemsData.map((categoryPage) => (
+                            {categoryPages.map((categoryPage) => (
                                 <MenuItem
                                     displayText={t(categoryPage.displayText)}
                                     key={categoryPage.key}
@@ -181,43 +211,43 @@ const Menu = () => {
                             <MenuItem
                                 displayText={t('Prapor')}
                                 key="menu-item-prapor"
-                                to={`/traders/prapor`}
+                                to={`/trader/prapor`}
                                 //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Therapist')}
                                 key="menu-item-therapist"
-                                to={`/traders/therapist`}
+                                to={`/trader/therapist`}
                                 //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Skier')}
                                 key="menu-item-skier"
-                                to={`/traders/skier`}
+                                to={`/trader/skier`}
                                 //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Peacekeeper')}
                                 key="menu-item-peacekeeper"
-                                to={`/traders/peacekeeper`}
+                                to={`/trader/peacekeeper`}
                                 //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Mechanic')}
                                 key="menu-item-mechanic"
-                                to={`/traders/mechanic`}
+                                to={`/trader/mechanic`}
                                 //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Ragman')}
                                 key="menu-item-ragman"
-                                to={`/traders/ragman`}
+                                to={`/trader/ragman`}
                                 //onClick={setIsOpen.bind(this, false)}
                             />
                             <MenuItem
                                 displayText={t('Jaeger')}
                                 key="menu-item-jaeger"
-                                to={`/traders/jaeger`}
+                                to={`/trader/jaeger`}
                                 //onClick={setIsOpen.bind(this, false)}
                             />
                         </ul>
@@ -225,7 +255,7 @@ const Menu = () => {
                     <li className="submenu-wrapper submenu-items" key="menu-bosses" data-targetid="bosses">
                         <Link to="/bosses/">{t('Bosses')}</Link>
                         <ul>
-                            {bosses.filter(boss => boss.maps.length > 0).map(boss => {
+                            {bosses.filter(boss => boss.maps.length > 0).sort((a,b) => a.name.localeCompare(b.name)).map(boss => {
                                 return (
                                     <li key={`boss-${boss.normalizedName}`}><Link to={`/boss/${boss.normalizedName}`}>{boss.name}</Link></li>
                                 );

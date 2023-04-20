@@ -8,7 +8,7 @@ import SEO from '../../components/SEO';
 import ItemSearch from '../../components/item-search';
 import ItemIconList from '../../components/item-icon-list';
 
-import itemsData from '../../data/category-pages.json';
+import categoryPages from '../../data/category-pages.json';
 
 import './index.css';
 
@@ -28,7 +28,7 @@ function Items(props) {
             </h1>
             <ItemSearch showDropdown />
             <div className="items-list-wrapper">
-                {itemsData.map((categoryPage) => (
+                {categoryPages.map((categoryPage) => (
                     <Link
                         to={`/items/${categoryPage.key}`}
                         key={`item-wrapper-${categoryPage.key}`}
@@ -38,7 +38,7 @@ function Items(props) {
                             <Icon
                                 path={ItemIconList(categoryPage.icon)}
                                 size={1}
-                                className="icon-with-text"
+                                className="screen-link-icon"
                             />
                             {t(categoryPage.displayText)}
                         </h2>

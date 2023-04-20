@@ -1,14 +1,11 @@
 import { useState, useEffect, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiProgressWrench } from '@mdi/js';
+import { mdiProgressWrench, mdiCancel, mdiCached } from '@mdi/js';
 
-import {
-    selectAllCrafts,
-    fetchCrafts,
-} from '../../features/crafts/craftsSlice';
+import useCraftsData from '../../features/crafts';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
@@ -25,44 +22,34 @@ import {
 import './index.css';
 
 function Crafts() {
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
-    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [nameFilter, setNameFilter] = useState(searchParams.get('search') || '');
+
     const [freeFuel, setFreeFuel] = useState(false);
     const [averagePrices, setAveragePrices] = useStateWithLocalStorage(
         'averageCraftingPrices',
-        true,
+        false,
     );
     const [selectedStation, setSelectedStation] = useStateWithLocalStorage(
         'selectedStation',
         'top',
     );
+    const [includeBarterIngredients, setIncludeBarterIngredients] = useStateWithLocalStorage(
+        'includeBarterIngredients',
+        true,
+    );
+    const [includeCraftIngredients, setIncludeCraftIngredients] = useStateWithLocalStorage(
+        'includeCraftIngredients',
+        false,
+    );
     const [showAll, setShowAll] = useState(false);
     const { t } = useTranslation();
 
-    const dispatch = useDispatch();
-    const crafts = useSelector(selectAllCrafts);
-    const craftsStatus = useSelector((state) => {
-        return state.crafts.status;
-    });
-
     useEffect(() => {
-        let timer = false;
-        if (craftsStatus === 'idle') {
-            dispatch(fetchCrafts());
-        }
+        setNameFilter(searchParams.get('search') || '');
+    }, [searchParams]);
 
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchCrafts());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [craftsStatus, dispatch]);
+    const { data: crafts } = useCraftsData();
     
     const stations = useMemo(() => {
         const stn = [];
@@ -146,6 +133,38 @@ function Crafts() {
                             content={t('Best')}
                             onClick={setSelectedStation.bind(undefined, 'top')}
                         />
+                        <ButtonGroupFilterButton
+                            tooltipContent={
+                                <>
+                                    {t('Flea Market banned items')}
+                                </>
+                            }
+                            selected={selectedStation === 'banned'}
+                            content={<Icon path={mdiCancel} size={1} className="icon-with-text"/>}
+                            onClick={setSelectedStation.bind(undefined, 'banned')}
+                        />
+                    </ButtonGroupFilter>
+                    <ButtonGroupFilter>
+                        <ButtonGroupFilterButton
+                            tooltipContent={
+                                <>
+                                    {t('Use barters for item sources')}
+                                </>
+                            }
+                            selected={includeBarterIngredients}
+                            content={<Icon path={mdiCached} size={1} className="icon-with-text"/>}
+                            onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
+                        />
+                        <ButtonGroupFilterButton
+                            tooltipContent={
+                                <>
+                                    {t('Use crafts for item sources')}
+                                </>
+                            }
+                            selected={includeCraftIngredients}
+                            content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text"/>}
+                            onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
+                        />
                     </ButtonGroupFilter>
                     <ToggleFilter
                         checked={freeFuel}
@@ -153,16 +172,18 @@ function Crafts() {
                         onChange={(e) => setFreeFuel(!freeFuel)}
                         tooltipContent={
                             <>
-                                {t('Sets fuel canister cost to 0 for crafts requiring fuel canisters when using non-FIR fuel canisters.')}
+                                {t('Sets fuel canister cost for crafts requiring them to vendors\' minimum sell price when using non-FIR fuel canisters.')}
                             </>
                         }
                     />
                     <InputFilter
-                        defaultValue={nameFilter || ''}
+                        value={nameFilter}
                         label={t('Item filter')}
                         type={'text'}
                         placeholder={t('filter on item')}
-                        onChange={(e) => setNameFilter(e.target.value)}
+                        onChange={(e) => {
+                            setSearchParams({'search': e.target.value});
+                        }}
                     />
                 </Filter>
             </div>
@@ -173,6 +194,8 @@ function Crafts() {
                 showAll={showAll}
                 averagePrices={averagePrices}
                 selectedStation={selectedStation}
+                useBarterIngredients={includeBarterIngredients}
+                useCraftIngredients={includeCraftIngredients}
                 key="crafts-page-crafts-table"
             />
 

@@ -110,7 +110,7 @@ cite {
 .page-wrapper {
     margin: 0 10px;
     max-width: 1200px;
-    min-height: 80vh;
+    /*min-height: 80vh;*/
 }
 
 .updated-label {
@@ -167,8 +167,13 @@ cite {
     margin-left: 8px;
     margin-right: 8px;
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
+}
+
+.screen-link-icon {
+    vertical-align: middle;
+    margin-right: 8px;
 }
 
 .price-wrapper {
@@ -242,6 +247,14 @@ div.tippy-box[data-placement^='right'] > .tippy-arrow::before {
     border-bottom: 1px solid #9a8866;
     width: 100%;
     opacity: 0.4;
+}
+
+.rc-slider-mark-text {
+    color: #757257 !important;
+}
+
+.rc-slider-mark-text-active {
+    color: #c7c5b3 !important;
 }
 
 @media screen and (min-width: 800px) {

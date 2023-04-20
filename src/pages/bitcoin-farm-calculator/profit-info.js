@@ -1,16 +1,16 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { useItemByIdQuery } from '../../features/items/queries';
+import useItemsData from '../../features/items'
 import { BitcoinItemId, GraphicCardItemId, ProduceBitcoinData } from './data';
 import DataTable from '../../components/data-table';
 import formatPrice from '../../modules/format-price';
 import CenterCell from '../../components/center-cell';
 import { getDurationDisplay } from '../../modules/format-duration';
-import { useItemsQuery } from '../../features/items/queries';
-import { selectAllHideoutModules, fetchHideout } from '../../features/hideout/hideoutSlice';
+import useHideoutData from '../../features/hideout';
 import { selectAllStations } from '../../features/settings/settingsSlice';
+import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length';
 // import ProfitableGraph from './profitable-graph';
 
 const cardSlots = {
@@ -19,47 +19,29 @@ const cardSlots = {
     3: 50,
 };
 
-const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBuildCosts }) => {
+const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBuildCosts, wipeDaysRemaining }) => {
     const stations = useSelector(selectAllStations);
 
-    const itemsResult = useItemsQuery();
-    const items = useMemo(() => {
-        return itemsResult.data;
-    }, [itemsResult]);
-
-    const dispatch = useDispatch();
-    const hideout = useSelector(selectAllHideoutModules);
-    const hideoutStatus = useSelector((state) => {
-        return state.hideout.status;
-    });
-
-    useEffect(() => {
-        let timer = false;
-        if (hideoutStatus === 'idle') {
-            dispatch(fetchHideout());
-        }
-
-        if (!timer) {
-            timer = setInterval(() => {
-                dispatch(fetchHideout());
-            }, 600000);
-        }
-
-        return () => {
-            clearInterval(timer);
-        };
-    }, [hideoutStatus, dispatch]);
+    const { data: hideout } = useHideoutData();
     
     const { t } = useTranslation();
 
-    const { data: bitcoinItem } = useItemByIdQuery(BitcoinItemId);
-    const { data: graphicCardItem } = useItemByIdQuery(GraphicCardItemId);
+    const { data: items } = useItemsData();
+
+    const bitcoinItem = useMemo(() => {
+        return items.find(i => i.id === BitcoinItemId);
+    }, [items]);
+
+    const graphicCardItem = useMemo(() => {
+        return items.find(i => i.id === GraphicCardItemId);
+    }, [items]);
 
     const solarCost = useMemo(() => {
         const solar = hideout.find(station => station.normalizedName === 'solar-power');
         let buildCost = 0;
         for (const req of solar.levels[0].itemRequirements) {
             const item = items.find(i => i.id === req.item.id);
+            if (!item) continue;
             const itemCost = item.buyFor.reduce((lowPrice, buyFor) => {
                 if (!lowPrice || (buyFor.priceRUB && buyFor.priceRUB < lowPrice)) {
                     return buyFor.priceRUB;
@@ -90,17 +72,24 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
         return farmCosts;
     }, [hideout, items]);
 
+    const daysLeft = useMemo(() => {
+        if (wipeDaysRemaining) {
+            return wipeDaysRemaining;
+        }
+        return averageWipeLength() - currentWipeLength();
+    }, [wipeDaysRemaining]);
+
     const data = useMemo(() => {
         if (!bitcoinItem || !graphicCardItem) {
             return [];
         }
-        const btcSellPrice = bitcoinItem.sellFor?.reduce((bestPrice, currentPrice) => {
+        const btcSellPrice = bitcoinItem.priceCustom || bitcoinItem.sellFor?.reduce((bestPrice, currentPrice) => {
             if (bestPrice < currentPrice.priceRUB) {
                 return currentPrice.priceRUB;
             }
             return bestPrice;
         }, 0);
-        const graphicsCardBuyPrice = graphicCardItem.buyFor?.reduce((bestPrice, currentPrice) => {
+        const graphicsCardBuyPrice = graphicCardItem.priceCustom || graphicCardItem.buyFor?.reduce((bestPrice, currentPrice) => {
             if (bestPrice === 0 || bestPrice > currentPrice.priceRUB) {
                 return currentPrice.priceRUB;
             }
@@ -141,6 +130,13 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
                 profitableDay = Math.ceil(totalCosts / btcProfitPerDay);
             }
 
+            let remainingProfit;
+            if (profitableDay && daysLeft > profitableDay) {
+                if (daysLeft > 0) {
+                    remainingProfit = (daysLeft - profitableDay) * btcProfitPerDay;
+                }
+            }
+
             const values = [];
             for (let day = 0; day <= showDays; day = day + 1) {
                 const fuelCost = fuelPricePerDay * day;
@@ -163,6 +159,7 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
                 fuelPricePerDay,
                 btcProfitPerDay,
                 buildCosts,
+                remainingProfit,
             };
         }).filter(Boolean);
     }, [
@@ -174,7 +171,8 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
         solarCost,
         farmCosts,
         stations,
-        useBuildCosts
+        useBuildCosts,
+        daysLeft
     ]);
 
     if (data.length <= 0) {
@@ -230,6 +228,12 @@ const ProfitInfo = ({ profitForNumCards, showDays = 100, fuelPricePerDay, useBui
             Cell: CenterCell,
         });
     }
+    columns.push({
+        Header: t('Remaining profit'),
+        accessor: ({ remainingProfit }) =>
+            formatPrice(remainingProfit),
+        Cell: CenterCell,
+    })
 
     return (
         <>

@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
@@ -6,7 +8,7 @@ import { langCode } from '../../modules/lang-helpers';
 import { placeholderTasks } from '../../modules/placeholder-data';
 
 const initialState = {
-    quests: placeholderTasks(langCode()),
+    data: placeholderTasks(langCode()),
     status: 'idle',
     error: null,
 };
@@ -25,8 +27,8 @@ const questsSlice = createSlice({
         builder.addCase(fetchQuests.fulfilled, (state, action) => {
             state.status = 'succeeded';
 
-            if (!equal(state.quests, action.payload)) {
-                state.quests = action.payload;
+            if (!equal(state.data, action.payload)) {
+                state.data = action.payload;
             }
         });
         builder.addCase(fetchQuests.rejected, (state, action) => {
@@ -37,6 +39,32 @@ const questsSlice = createSlice({
     },
 });
 
-export default questsSlice.reducer;
+export const questsReducer = questsSlice.reducer;
 
-export const selectQuests = (state) => state.quests.quests;
+export const selectQuests = (state) => state.quests.data;
+
+let fetchedData = false;
+let refreshInterval = false;
+
+export default function useQuestsData() {
+    const dispatch = useDispatch();
+    const { data, status, error } = useSelector((state) => state.quests);
+
+    useEffect(() => {
+        if (!fetchedData) {
+            fetchedData = true;
+            dispatch(fetchQuests());
+        }
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
+                dispatch(fetchQuests());
+            }, 600000);
+        }
+        return () => {
+            clearInterval(refreshInterval);
+            refreshInterval = false;
+        };
+    }, [dispatch]);
+    
+    return { data, status, error };
+};

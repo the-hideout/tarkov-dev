@@ -5,14 +5,15 @@
         "maps": [
             {
                 "key": "streets-3d",
-                "source": "re3mr",
-                "sourceLink": "https://reemr.se"
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             },
             {
                 "key": "streets-2d",
-                "appendTitle": "2D",
-                "source": "Jindouz",
-                "sourceLink": "https://www.reddit.com/user/Jindouz"
+                "projection": "2D",
+                "author": "Jindouz",
+                "authorLink": "https://www.reddit.com/user/Jindouz"
             }
         ]
     },
@@ -22,26 +23,29 @@
         "maps": [
             {
                 "key": "customs-3d",
-                "source": "re3mr",
-                "sourceLink": "https://reemr.se"
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             },
             {
                 "key": "customs-2d",
-                "appendTitle": "2D cardinal",
-                "source": "Tactical_Otter",
-                "sourceLink": "https://www.reddit.com/user/9877531/"
+                "projection": "2D",
+                "orientation": "Cardinal",
+                "author": "Tactical_Otter",
+                "authorLink": "https://www.reddit.com/user/9877531/"
             },
             {
                 "key": "customs-2d-monkix3",
-                "appendTitle": "2D",
-                "source": "monkimonkimonk",
-                "sourceLink": "https://www.reddit.com/user/monkimonkimonk/"
+                "projection": "2D",
+                "author": "monkimonkimonk",
+                "authorLink": "https://www.reddit.com/user/monkimonkimonk/"
             },
             {
                 "key": "customs-2d-dorms",
-                "appendTitle": "Dorms",
-                "source": "OffaPerry",
-                "sourceLink": "https://www.reddit.com/user/OffaPerry/"
+                "projection": "2D",
+                "specific": "Dorms",
+                "author": "OffaPerry",
+                "authorLink": "https://www.reddit.com/user/OffaPerry/"
             }
         ]
     },
@@ -51,8 +55,9 @@
         "maps": [
             {
                 "key": "factory-3d",
-                "source": "JohnnyTushonka",
-                "sourceLink": "https://www.reddit.com/user/JohnnyTushonka/"
+                "projection": "3D",
+                "author": "JohnnyTushonka",
+                "authorLink": "https://www.reddit.com/user/JohnnyTushonka/"
             }
         ]
     },
@@ -62,14 +67,16 @@
         "maps": [
             {
                 "key": "interchange-2d",
-                "source": "Lorathor",
-                "sourceLink": "https://www.reddit.com/user/Lorathor6/"
+                "projection": "2D",
+                "author": "Lorathor",
+                "authorLink": "https://www.reddit.com/user/Lorathor6/"
             },
             {
                 "key": "interchange-2d-stashes",
-                "appendTitle": "Stashes",
-                "source": "Austindj3",
-                "sourceLink": "https://www.reddit.com/user/Austindj3/"
+                "projection": "2D",
+                "specific": "Stashes",
+                "author": "Austindj3",
+                "authorLink": "https://www.reddit.com/user/Austindj3/"
             }
         ]
     },
@@ -79,8 +86,9 @@
         "maps": [
             {
                 "key": "labs-2d",
-                "source": "monkimonkimonk",
-                "sourceLink": "https://www.reddit.com/user/monkimonkimonk/"
+                "projection": "2D",
+                "author": "monkimonkimonk",
+                "authorLink": "https://www.reddit.com/user/monkimonkimonk/"
             }
         ]
     },
@@ -90,19 +98,21 @@
         "maps": [
             {
                 "key": "lighthouse-3d",
-                "source": "re3mr",
-                "sourceLink": "https://reemr.se"
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             },
             {
                 "key": "lighthouse-2d",
-                "appendTitle": "2D",
-                "source": "Kokarn & Jindouz"
+                "projection": "2D",
+                "author": "Kokarn & Jindouz"
             },
             {
                 "key": "lighthouse-2d-landscape",
-                "appendTitle": "Landscape",
-                "source": "Jindouz",
-                "sourceLink": "https://www.reddit.com/user/Jindouz"
+                "projection": "2D",
+                "orientation": "Landscape",
+                "author": "Jindouz",
+                "authorLink": "https://www.reddit.com/user/Jindouz"
             }
         ]
     },
@@ -112,26 +122,29 @@
         "maps": [
             {
                 "key": "reserve-3d",
-                "source": "re3mr",
-                "sourceLink": "https://reemr.se"
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             },
             {
                 "key": "reserve-2d-jindouz",
-                "appendTitle": "2D",
-                "source": "Jindouz",
-                "sourceLink": "https://www.reddit.com/user/Jindouz"
+                "projection": "2D",
+                "author": "Jindouz",
+                "authorLink": "https://www.reddit.com/user/Jindouz"
             },
             {
                 "key": "reserve-2d",
-                "appendTitle": "2D - Vex",
-                "source": "Vex",
-                "sourceLink": "https://vexnet.xyz"
+                "projection": "2D",
+                "extra": "Vex",
+                "author": "Vex",
+                "authorLink": "https://vexnet.xyz"
             },
             {
                 "key": "reserve-2d-underground",
-                "appendTitle": "Underground",
-                "source": "re3mr",
-                "sourceLink": "https://reemr.se"
+                "projection": "2D",
+                "specific": "Underground",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             }
         ]
     },
@@ -141,20 +154,22 @@
         "maps": [
             {
                 "key": "shoreline-3d",
-                "source": "re3mr",
-                "sourceLink": "https://reemr.se"
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             },
             {
                 "key": "shoreline-2d",
-                "appendTitle": "2D",
-                "source": "monkimonkimonk",
-                "sourceLink": "https://www.reddit.com/user/monkimonkimonk/"
+                "projection": "2D",
+                "author": "monkimonkimonk",
+                "authorLink": "https://www.reddit.com/user/monkimonkimonk/"
             },
             {
                 "key": "shoreline-3d-resort",
-                "appendTitle": "Resort",
-                "source": "TaroMochi",
-                "sourceLink": "https://www.clanunknownsoldiers.com/"
+                "projection": "3D",
+                "specific": "Resort",
+                "author": "TaroMochi",
+                "authorLink": "https://www.clanunknownsoldiers.com/"
             }
         ]
     },
@@ -164,14 +179,15 @@
         "maps": [
             {
                 "key": "woods-3d",
-                "source": "re3mr",
-                "sourceLink": "https://reemr.se"
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             },
             {
                 "key": "woods-2d",
-                "appendTitle": "2D",
-                "source": "Jindouz",
-                "sourceLink": "https://www.reddit.com/user/Jindouz"
+                "projection": "2D",
+                "author": "Jindouz",
+                "authorLink": "https://www.reddit.com/user/Jindouz"
             }
         ]
     },
@@ -183,9 +199,9 @@
         "maps": [
             {
                 "key": "openworld-2d",
-                "appendTitle": "2D",
-                "source": "LastNickLeft",
-                "sourceLink": "https://www.reddit.com/user/LastNickLeft"
+                "projection": "2D",
+                "author": "LastNickLeft",
+                "authorLink": "https://www.reddit.com/user/LastNickLeft"
             }
         ]
     }
