@@ -15,11 +15,7 @@ import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 
 import MenuItem from './MenuItem';
-//import SubMenu from './SubMenu';
-// import PatreonButton from '../patreon-button';
-import UkraineButton from '../ukraine-button';
-//import LoadingSmall from '../loading-small';
-//import { BossListNav } from '../boss-list';
+// import SubMenu from './SubMenu';
 
 import { caliberArrayWithSplit } from '../../modules/format-ammo';
 import categoryPages from '../../data/category-pages.json';
@@ -151,28 +147,6 @@ const Menu = () => {
                             <Icon path={mdiRemote} size={1} className="icon-with-text" />
                         </Link>
                     </li>
-                    <li className="submenu-wrapper" key="menu-ua-donate" data-targetid="ua-donate">
-                        <UkraineButton />
-                    </li>
-                    {/*<li className="only-large">
-                        <PatreonButton
-                            wrapperStyle={{
-                                margin: 0,
-                            }}
-                            linkStyle={{
-                                color: '#fff',
-                                padding: '5px 20px',
-                                alignItems: 'center',
-                            }}
-                        >
-                            {t('Support on Patreon')}
-                            <Icon
-                                path={mdiHeartFlash}
-                                size={1}
-                                className="icon-with-text"
-                            />
-                        </PatreonButton>
-                    </li>*/}
                     <li className="submenu-wrapper" key="menu-ammo" data-targetid="ammo">
                         <Link to="/ammo/">{t('Ammo')}</Link>
                         <ul>
