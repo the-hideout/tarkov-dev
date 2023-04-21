@@ -1,11 +1,9 @@
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-// import Supporter from '../supporter';
 import { ReactComponent as GithubIcon } from '../supporter/Github.svg';
 import { ReactComponent as DiscordIcon } from '../supporter/Discord.svg';
-// import PatreonButton from '../patreon-button';
-// import supporters from '../../supporters';
+import { ReactComponent as TwitterIcon } from '../supporter/Twitter.svg';
 
 import './index.css';
 import UkraineButton from '../ukraine-button';
@@ -31,6 +29,11 @@ function Footer() {
                 <Trans i18nKey={'about-discord-p'}>
                     <p>
                         If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
+                    </p>
+                </Trans>
+                <Trans i18nKey={'about-twitter-p'}>
+                    <p>
+                        Follow us on <a href="https://twitter.com/tarkov_dev" target="_blank" rel="noopener noreferrer"><TwitterIcon /> Twitter</a> for all the latest updates.
                     </p>
                 </Trans>
                 <p>
