@@ -9,6 +9,7 @@
     "class": "Klasa",
     "material": "Materiał",
     "zones": "Strefy",
+    "defaultPreset": "Domyślna konfiguracja",
     "durability": "Wytrzymałość",
     "ergoPenalty": "Kara ergonomii",
     "speedPenalty": "Kara szybkości",
@@ -61,5 +62,9 @@
     "weight": "Waga",
     "baseItem": "Podstawowy przedmiot",
     "categories": "Kategorie",
-    "type": "Typ"
+    "type": "Typ",
+    "convergence": "Konwergencja",
+    "cameraRecoil": "Odrzut kamery",
+    "recoilAngle": "Kąt odrzutu",
+    "recoilDispersion": "Rozproszenie odrzutu"
 }
