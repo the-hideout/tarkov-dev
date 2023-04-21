@@ -8,6 +8,7 @@ import { ReactComponent as TwitterIcon } from '../../components/supporter/Twitte
 
 import SEO from '../../components/SEO';
 import UkraineButton from '../../components/ukraine-button';
+import OpenCollectiveButton from "../../components/open-collective-button";
 import Contributors from '../../components/contributors';
 
 import './index.css';
@@ -45,12 +46,13 @@ function About() {
                 We encourage everyone who can to donate to support the people of Ukraine using the button below.
             </p>
             </Trans>
-            <UkraineButton />
+            <UkraineButton large={false}/>
             <Trans i18nKey={'about-support-collective-p'}>
             <p>
                 If you'd also like to support this project, you can make a donation and/or become a backer on <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noopener noreferrer">Open Collective</a>.
             </p>
             </Trans>
+            <OpenCollectiveButton large={false}/>
             <Trans i18nKey={'about-support-more-p'}>
             <p>
                 You can also help by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site.

@@ -51,17 +51,13 @@ function Footer() {
                     We encourage everyone who can to donate to support the people of Ukraine using the button below.
                 </p>
                 </Trans>
-                <UkraineButton
-                    linkStyle={{
-                        width: '100%',
-                    }}
-                />
+                <UkraineButton large={true}/>
                 <Trans i18nKey={'about-support-collective-p'}>
                 <p>
                     If you'd also like to support this project, you can make a donation and/or become a backer on <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noopener noreferrer">Open Collective</a>.
                 </p>
                 </Trans>
-                <OpenCollectiveButton />
+                <OpenCollectiveButton large={true}/>
                 <h3>{t('Item Data')}</h3>
                 <p>
                     {t(
@@ -77,26 +73,6 @@ function Footer() {
                         <span>SPT-AKI</span>
                     </a>
                 </p>
-
-                {/*{supporters.map((supporter) => {*/}
-                {/*    if (supporter.name === 'kokarn') {*/}
-                {/*        return null;*/}
-                {/*    }*/}
-
-                {/*    if (!supporter.patreon) {*/}
-                {/*        return null;*/}
-                {/*    }*/}
-
-                {/*    return (*/}
-                {/*        <Supporter*/}
-                {/*            key={`supporter-${supporter.name}`}*/}
-                {/*            name={supporter.name}*/}
-                {/*            github={supporter.github}*/}
-                {/*            patreon={supporter.patreon}*/}
-                {/*            link={supporter.link}*/}
-                {/*        />*/}
-                {/*    );*/}
-                {/*})}*/}
             </div>
             <div className="footer-section-wrapper">
                 <h3>{t('Resources')}</h3>
