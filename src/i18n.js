@@ -29,6 +29,7 @@ import mapsEN from './translations/en/maps.json';
 import mapsRU from './translations/ru/maps.json';
 import mapsIT from './translations/it/maps.json';
 import mapsJA from './translations/ja/maps.json';
+import mapsPL from './translations/pl/maps.json';
 
 i18n
     // loads translations from your server
@@ -91,6 +92,7 @@ i18n
                 translation: translationPL,
                 properties: propertiesPL,
                 bosses: bossesPL,
+                maps: mapsPL,
             },
             pt: {
                 translation: translationPT,
