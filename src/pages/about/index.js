@@ -4,8 +4,7 @@ import { Avatar } from '@primer/react';
 
 import { ReactComponent as GithubIcon } from '../../components/supporter/Github.svg';
 import { ReactComponent as DiscordIcon } from '../../components/supporter/Discord.svg';
-
-// import SupportersList from '../../components/supporters-list';
+import { ReactComponent as TwitterIcon } from '../../components/supporter/Twitter.svg';
 
 import SEO from '../../components/SEO';
 import UkraineButton from '../../components/ukraine-button';
@@ -34,6 +33,11 @@ function About() {
             <Trans i18nKey={'about-discord-p'}>
                 <p>
                     If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
+                </p>
+            </Trans>
+            <Trans i18nKey={'about-twitter-p'}>
+                <p>
+                    Follow us on <a href="https://twitter.com/tarkov_dev" target="_blank" rel="noopener noreferrer"><TwitterIcon /> Twitter</a> for all the latest updates.
                 </p>
             </Trans>
             <h2>{t('Support')}</h2>
