@@ -28,7 +28,7 @@
     "i18next-http-backend": "^2.2.0",
     "intersection-observer": "^0.12.2",
     "lodash.debounce": "^4.0.8",
-    "prettier": "^2.8.7",
+    "prettier": "^2.8.8",
     "rc-slider": "^10.1.1",
     "react": "^17.0.2",
     "react-cookie-consent": "^8.0.1",
