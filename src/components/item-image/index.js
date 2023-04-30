@@ -286,9 +286,6 @@ function ItemImage({
 
     const imageText = useMemo(() => {
         let element = <div style={imageTextStyle} onClick={imageTextClick}>{item.shortName}</div>;
-        if (!element) {
-            return element;
-        }
         if (fullNameTooltip && imageTextStyle.dispolay !== 'none') {
             element = <Tippy content={item.name}>
                 {element}
