@@ -65,7 +65,7 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
                     ),
                 };
 
-                formattedItem.cheapestObtainInfo = getCheapestPrice(formattedItem, {barters: false, crafts, settings, useBarterIngredients: false, useCraftIngredients: false});
+                formattedItem.cheapestObtainInfo = getCheapestPrice(formattedItem, {barters, crafts, settings, useBarterIngredients: false, useCraftIngredients: false});
                 formattedItem.cheapestPrice = formattedItem.cheapestObtainInfo.pricePerUnit;
                 if (formattedItem.id === '5449016a4bdc2d6f028b456f') {
                     formattedItem.cheapestPrice = 1;
