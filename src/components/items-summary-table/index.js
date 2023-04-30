@@ -17,7 +17,6 @@ import {
 
 import DataTable from '../data-table';
 import ItemNameCell from '../item-name-cell';
-import CenterCell from '../center-cell';
 import ValueCell from '../value-cell';
 import BarterTooltip from '../barter-tooltip';
 
