@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import classnames from "classnames";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 import OverflowMenu from './overflow-menu';
 
