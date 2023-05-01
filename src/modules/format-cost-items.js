@@ -13,7 +13,13 @@ function getCheapestCashPrice(item, settings = {}, allowAllSources = false) {
         if (buyFor.vendor.normalizedName === 'flea-market') {
             return (allowAllSources || settings.hasFlea);
         }
-        return (allowAllSources || settings[buyFor.vendor.normalizedName] >= buyFor.vendor.minTraderLevel)
+        if (!allowAllSources && settings[buyFor.vendor.normalizedName] < buyFor.vendor.minTraderLevel) {
+            return false;
+        }
+        if (!allowAllSources && settings.useTarkovTracker && buyFor.vendor.taskUnlock && !settings.completedQuests.includes(buyFor.vendor.taskUnlock.id)) {
+            return false;
+        }
+        return true;
     });
     if (!buySource || buySource.length === 0) {
         let sellToTrader = item.sellFor.filter(sellFor => {
