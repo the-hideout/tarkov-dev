@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from "react";
 import { Link } from 'react-router-dom';
-import { Menu } from "@material-ui/core";
+import Menu from '@mui/material/Menu';
 import Icon from '@mdi/react';
 import { mdiDotsVertical } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 import classnames from "classnames";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles(() => ({
   inOverflowMenu: {

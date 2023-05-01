@@ -19,7 +19,7 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
+coverage/
 *.lcov
 
 # nyc test coverage
@@ -110,7 +110,7 @@ dist
 .vscode/
 .vscode/*
 
-build
+build/
 tarkov-tools/*
 !public/manifest.json
 all-en.json
