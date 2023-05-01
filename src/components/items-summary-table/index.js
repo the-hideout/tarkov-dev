@@ -17,7 +17,6 @@ import {
 
 import DataTable from '../data-table';
 import ItemNameCell from '../item-name-cell';
-import CenterCell from '../center-cell';
 import ValueCell from '../value-cell';
 import BarterTooltip from '../barter-tooltip';
 
@@ -66,7 +65,7 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
                     ),
                 };
 
-                formattedItem.cheapestObtainInfo = getCheapestPrice(formattedItem, {barters: false, crafts, settings, useBarterIngredients: false, useCraftIngredients: false});
+                formattedItem.cheapestObtainInfo = getCheapestPrice(formattedItem, {barters, crafts, settings, useBarterIngredients: false, useCraftIngredients: false});
                 formattedItem.cheapestPrice = formattedItem.cheapestObtainInfo.pricePerUnit;
                 if (formattedItem.id === '5449016a4bdc2d6f028b456f') {
                     formattedItem.cheapestPrice = 1;
@@ -134,7 +133,61 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
                 id: 'quantity',
                 accessor: 'quantity',
                 Cell: props => {
-                    return <CenterCell value={props.value.toLocaleString()}/>
+                    let quantity = props.value.toLocaleString();
+                    let tipContent = [];
+                    const priceContent = [];
+                    let addedClasses = '';
+                    if (props.row.original.requiredTraderLevel) {
+                        const trader = props.row.original;
+                        priceContent.push((
+                            <Icon
+                                path={props.row.original.levelMet? mdiCheckCircle : mdiCloseCircle}
+                                size={1}
+                                className="icon-with-text"
+                                key="no-prices-icon"
+                            />
+                        ));
+                        if (!props.row.original.levelMet) {
+                            addedClasses = ' trader-station-level-unmet';
+
+                        }
+                        tipContent.push((
+                            <div key="player-level">
+                                {t('Player level: {{playerLevel}}', {playerLevel: trader.requiredTraderLevel.requiredPlayerLevel})}
+                            </div>
+                        ));
+                        tipContent.push((
+                            <div key="rep-level">
+                                {t('Reputation: {{reputation}}', {reputation: trader.requiredTraderLevel.requiredReputation})}
+                            </div>
+                        ));
+                        tipContent.push((
+                            <div key="commerce-level">
+                                {t('Commerce: {{commerce}}', {commerce: formatPrice(trader.requiredTraderLevel.requiredCommerce, trader.currency.normalizedName)})}
+                            </div>
+                        ));
+                    } else if (props.row.original.requiredStationLevel) {
+                        if (!props.row.original.levelMet) {
+                            addedClasses = ' trader-station-level-unmet';
+
+                        }
+                    }
+                    return (
+                        <ConditionalWrapper
+                            condition={tipContent.length > 0}
+                            wrapper={(children) => {
+                                return (
+                                    <Tippy placement="right" content={tipContent} interactive={true}>
+                                        {children}
+                                    </Tippy>
+                                );
+                            }}
+                        >
+                            <div className={`center-content${addedClasses}`}>
+                                {quantity}
+                            </div>
+                        </ConditionalWrapper>
+                    );
                 },
             },
             {
@@ -257,40 +310,9 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
                         priceContent.push((<div key="price-info">{formatPrice(props.value)}</div>));
                         priceContent.push((<div key="price-source-info" className="trader-unlock-wrapper">{displayedPrice}</div>))
                     } else if (props.row.original.requiredTraderLevel) {
-                        tipContent = [];
-                        const trader = props.row.original;
-                        priceContent.push((
-                            <Icon
-                                path={props.row.original.levelMet? mdiCheckCircle : mdiCloseCircle}
-                                size={1}
-                                className="icon-with-text"
-                                key="no-prices-icon"
-                            />
-                        ));
-                        tipContent.push((
-                            <div key="player-level">
-                                {t('Player level: {{playerLevel}}', {playerLevel: trader.requiredTraderLevel.requiredPlayerLevel})}
-                            </div>
-                        ));
-                        tipContent.push((
-                            <div key="rep-level">
-                                {t('Reputation: {{reputation}}', {reputation: trader.requiredTraderLevel.requiredReputation})}
-                            </div>
-                        ));
-                        tipContent.push((
-                            <div key="commerce-level">
-                                {t('Commerce: {{commerce}}', {commerce: formatPrice(trader.requiredTraderLevel.requiredCommerce, trader.currency.normalizedName)})}
-                            </div>
-                        ));
+                        priceContent.push('-');
                     } else if (props.row.original.requiredStationLevel) {
-                        priceContent.push((
-                            <Icon
-                                path={props.row.original.levelMet? mdiCheckCircle : mdiCloseCircle}
-                                size={1}
-                                className="icon-with-text"
-                                key="no-prices-icon"
-                            />
-                        ));
+                        priceContent.push('-');
                     } else {
                         tipContent = [];
                         if (props.row.original.types.includes('noFlea')) {

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiClipboardCheck } from '@mdi/js';
+import { mdiClipboardCheck, mdiClipboardList } from '@mdi/js';
 
 import SEO from '../../components/SEO';
 import ErrorPage from '../../components/error-page';
@@ -40,6 +40,9 @@ function Quest() {
             normalizedName: 'flea-market'
         },
         objectives: [],
+        startRewards: [],
+        finishRewards: [],
+        failureOutcome: [],
         loading: true,
     };
 
@@ -67,6 +70,71 @@ function Quest() {
             return false;
         });
     }, [quests, taskIdentifier]);
+
+    const hasFailPenalties = useMemo(() => {
+        return currentQuest?.failureOutcome?.items?.length > 0 ||
+            currentQuest?.failureOutcome?.traderStanding?.length > 0 ||
+            currentQuest?.failureOutcome?.skillLevelReward?.length > 0 || 
+            currentQuest?.failureOutcome?.offerUnlock?.length > 0 || 
+            currentQuest?.failureOutcome?.traderUnlock?.length > 0;
+    }, [currentQuest]);
+
+    const questMap = useMemo(() => {
+        if (!currentQuest?.map) {
+            return null;
+        }
+        /* loop through all the values in mapJson array and if there is a match, add a link to the map */
+        const found = Object.values(mapImages).reduce((foundMap, map) => {
+            if (foundMap) {
+                return foundMap;
+            }
+            if (map.normalizedName === currentQuest.map.normalizedName) {
+                return map;
+            }
+            return foundMap;
+        }, null);
+        if (!found) {
+            return (<span>{currentQuest.map.name}</span>);
+        }
+        return (
+            <Link to={found.primaryPath}>
+                {currentQuest.map.name}
+            </Link>
+        );
+    }, [currentQuest, mapImages]);
+
+    const neededKeysPerMap = useMemo(() => {
+        if (!currentQuest?.neededKeys) {
+            return [];
+        }
+        return currentQuest.neededKeys.reduce((neededByMap, current) => {
+            let mapKeys = neededByMap.find(m => m.id === current.map.id);
+            if (!mapKeys) {
+                const map = maps.find(m => m.id === current.map.id);
+                if (!map) {
+                    return neededByMap;
+                }
+                mapKeys = {
+                    id: map.id,
+                    name: map.name,
+                    normalizedName: map.normalizedName,
+                    link: Object.values(mapImages).reduce((mapLink, mapImage) => {
+                        if (mapLink) {
+                            return mapLink;
+                        }
+                        if (mapImage.normalizedName === map.normalizedName) {
+                            return `/map/${mapImage.primaryPath}`;
+                        }
+                        return mapLink;
+                    }, undefined),
+                    keys: [],
+                };
+                neededByMap.push(mapKeys);
+            }
+            mapKeys.keys.push(current.keys);
+            return neededByMap;
+        }, []);
+    }, [currentQuest, maps, mapImages]);
 
     // if the name we got from the params are the id of the item, redirect
     // to a nice looking path
@@ -152,6 +220,11 @@ function Quest() {
                             return null;
                         return (
                             <div key={`req-task-${task.id}`}>
+                                <Icon
+                                    path={mdiClipboardList}
+                                    size={1}
+                                    className="icon-with-text"
+                                />
                                 <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>
                                 <span>
                                     {`: ${taskReq.status
@@ -639,6 +712,11 @@ function Quest() {
                 return null;
             taskDetails = (
                 <>
+                    <Icon
+                        path={mdiClipboardList}
+                        size={1}
+                        className="icon-with-text"
+                    />
                     <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>
                     <span>
                         :{' '}
@@ -790,6 +868,11 @@ function Quest() {
                             }
                             return (
                                 <div key={`req-task-${task.id}`}>
+                                    <Icon
+                                        path={mdiClipboardList}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
                                     <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>{' '}
                                     {failNote}
                                 </div>
@@ -802,25 +885,7 @@ function Quest() {
 
                 <h2 className="center-title task-details-heading">{t('Task Details')}</h2>
 
-                {currentQuest.map && <h2>{`🗺️ ${t('Map')}: ${currentQuest.map.name}`}</h2>}
-
-                {/* loop through all the values in mapJson array and if there is a match, add a link to the map */}
-                {currentQuest.map &&
-                    Object.values(mapImages).reduce((foundMap, map) => {
-                        if (foundMap) {
-                            return foundMap;
-                        }
-                        if (map.normalizedName === currentQuest.map.normalizedName) {
-                            foundMap = (
-                                <div key={`map-link-${map.normalizedName}`}>
-                                    <Link to={map.primaryPath}>
-                                        {t('View Map')} - {map.name}
-                                    </Link>
-                                </div>
-                            );
-                        }
-                        return foundMap;
-                    }, null)}
+                {currentQuest.map && <h2><span>{`🗺️ ${t('Map')}: `}</span>{questMap}</h2>}
 
                 <h2>🏆 {t('Objectives')}</h2>
                 <div key="task-objectives">
@@ -842,32 +907,40 @@ function Quest() {
                     <div key="task-keys">
                         <h2>🗝️ {t('Needed Keys')}</h2>
                         <ul>
-                            {currentQuest.neededKeys.map((mapKeys, mapIndex) => {
-                                const map = maps.find((m) => m.id === mapKeys.map.id);
+                            {neededKeysPerMap.map((map, mapIndex) => {
                                 return (
                                     <li key={`${map.id}-${mapIndex}`} className="quest-list-item">
-                                        {`${map.name}: `}
-                                        {mapKeys.keys
-                                            .map((key) => {
-                                                const item = items.find((i) => i.id === key.id);
-                                                if (!item)
-                                                    return null;
-                                                return (
-                                                    <Link
-                                                        key={item.id}
-                                                        to={`/item/${item.normalizedName}`}
-                                                    >
-                                                        {item.name}
-                                                    </Link>
-                                                );
-                                            })
-                                            .reduce((elements, current) => {
-                                                if (elements.length > 0) {
-                                                    elements.push(<span> or </span>);
-                                                }
-                                                elements.push(current);
-                                                return elements;
-                                            }, [])}
+                                        <Link to={map.link}>{`${map.name}`}</Link>
+                                        {map.keys.map((keyChoices, choiceIndex) => {
+                                            return (
+                                                <ul className="quest-item-list" key={`${map.id}-${choiceIndex}`}>
+                                                {keyChoices
+                                                    .map((key, keyIndex) => {
+                                                        const item = items.find((i) => i.id === key.id);
+                                                        if (!item)
+                                                            return null;
+                                                        return (
+                                                            <li key={`${key.id}-${keyIndex}`}>
+                                                                <ItemImage
+                                                                    item={item}
+                                                                    imageField="baseImageLink"
+                                                                    nonFunctionalOverlay={false}
+                                                                    linkToItem={true}
+                                                                    fullNameTooltip={true}
+                                                                />
+                                                            </li>
+                                                        );
+                                                    })
+                                                    .reduce((elements, current, index) => {
+                                                        if (elements.length > 0) {
+                                                            elements.push(<li key={`or-${index}`}><span style={{verticalAlign: 'middle', minHeight: '64px', display: 'inline-block', padding: '0px 3px'}}> or </span></li>);
+                                                        }
+                                                        elements.push(current);
+                                                        return elements;
+                                                    }, [])}
+                                                </ul>
+                                            );
+                                        })}
                                     </li>
                                 );
                             })}
@@ -986,6 +1059,123 @@ function Quest() {
                             })}
                         </ul>
                     </>
+                )}
+                {hasFailPenalties > 0 && (
+                    <div>
+                        <hr className="hr-muted-full"></hr>
+                        <h2 className="center-title task-details-heading">{t('Task Failure')}</h2>
+                        <p>{currentQuest.restartable ? t('Can be restarted') : t('Cannot be restarted')}</p>
+                        {hasFailPenalties && (
+                                <h2>{t('Penalties')}</h2>
+                        )}
+                        {currentQuest.failureOutcome?.items?.length > 0 && (
+                            <div key="finishRewards">
+                                <h3>{t('Items')}</h3>
+                                <ul className="quest-item-list">
+                                    {currentQuest.failureOutcome?.items.map((rewardItem, index) => {
+                                        const item = items.find((it) => it.id === rewardItem.item.id);
+                                        if (!item)
+                                            return null;
+                                        let itemCount = rewardItem.count;
+                                        if (item.categories.some(cat => cat.normalizedName === 'money')) {
+                                            const multiplier = intelCashMultiplier[settings['intelligence-center']];
+                                            itemCount = Math.round(itemCount * multiplier);
+                                        }
+                                        return (
+                                            <li
+                                                key={`reward-index-${rewardItem.item.id}-${index}`}
+                                            >
+                                                <ItemImage
+                                                    key={`reward-index-${rewardItem.item.id}-${index}`}
+                                                    item={item}
+                                                    imageField="baseImageLink"
+                                                    nonFunctionalOverlay={false}
+                                                    linkToItem={true}
+                                                    count={rewardItem.count > 1 ? itemCount : false}
+                                                    isFIR={true}
+                                                />
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        )}
+                        {currentQuest.failureOutcome?.traderStanding?.length > 0 && (
+                            <>
+                                <h3>{t('Trader Standing')}</h3>
+                                <ul className="quest-item-list">
+                                    {currentQuest.failureOutcome.traderStanding.map((standing) => {
+                                        const trader = traders.find((t) => t.id === standing.trader.id);
+                                        return (
+                                            <li className="quest-list-item" key={standing.trader.id}>
+                                                <TraderImage
+                                                    trader={trader}
+                                                    reputationChange={standing.standing}
+                                                />
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </>
+                        )}
+                        {currentQuest.failureOutcome?.skillLevelReward?.length > 0 && (
+                            <>
+                                <h3>{t('Skill Level')}</h3>
+                                <ul>
+                                    {currentQuest.failureOutcome.skillLevelReward.map((skillReward) => {
+                                        return (
+                                            <li className="quest-list-item" key={skillReward.name}>
+                                                {`${skillReward.name} +${skillReward.level}`}
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            </>
+                        )}
+                        {currentQuest.failureOutcome?.offerUnlock?.length > 0 && (
+                            <>
+                                <h3>{t('Trader Offer Unlock')}</h3>
+                                <ul className="quest-item-list">
+                                    {currentQuest.failureOutcome.offerUnlock.map((unlock, index) => {
+                                        const trader = traders.find((t) => t.id === unlock.trader.id);
+                                        const item = items.find((i) => i.id === unlock.item.id);
+                                        if (!item)
+                                            return null;
+                                        return (
+                                            <li className="quest-list-item" key={`${unlock.item.id}-${index}`}>
+                                                <ItemImage
+                                                    key={`reward-index-${item.id}-${index}`}
+                                                    item={item}
+                                                    imageField="baseImageLink"
+                                                    nonFunctionalOverlay={false}
+                                                    linkToItem={true}
+                                                    trader={trader}
+                                                    count={t('LL{{level}}', { level: unlock.level })}
+                                                />
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </>
+                        )}
+                        {currentQuest.failureOutcome?.traderUnlock?.length > 0 && (
+                            <>
+                                <h3>{t('Trader Unlock')}</h3>
+                                <ul>
+                                    {currentQuest.failureOutcome.traderUnlock.map((unlock) => {
+                                        const trader = traders.find((t) => t.id === unlock.id);
+                                        return (
+                                            <li className="quest-list-item" key={unlock.id}>
+                                                <Link to={`/trader/${trader.normalizedName}`}>
+                                                    {trader.name}
+                                                </Link>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </>
+                        )}
+                    </div>
                 )}
             </div>
         </div>,
