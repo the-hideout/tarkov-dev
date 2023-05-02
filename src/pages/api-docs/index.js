@@ -22,7 +22,7 @@ function APIDocs() {
             <Trans i18nKey={'api-about-p'}>
                 <div className="section-text-wrapper">
                     The API is written in GraphQL and we try our hardest to follow spec and not to make breaking changes.
-                    To learn about what queries you can make and how the schema is structured, visit the playground and check out the documentation by clicking the book icon in the upper left corner.
+                    To learn about what queries you can make and how the schema is structured, visit the playground and read the documentation by clicking the book icon in the upper left corner.
                     Once you're ready to try some queries, you can also test them out in the playground.
                     To learn about GraphQL queries generally, the GraphQL Foundation has helpful resources.
                     <ul>
