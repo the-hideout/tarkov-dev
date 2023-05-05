@@ -4,7 +4,9 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
-import { mdiClipboardCheck, mdiClipboardList } from '@mdi/js';
+import { mdiClipboardCheck, mdiClipboardList, mdiBriefcase, mdiLighthouse } from '@mdi/js';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
 
 import SEO from '../../components/SEO';
 import ErrorPage from '../../components/error-page';
@@ -135,6 +137,45 @@ function Quest() {
             return neededByMap;
         }, []);
     }, [currentQuest, maps, mapImages]);
+
+    const endgameGoals = useMemo(() => {
+        const goals = [];
+        if (currentQuest.kappaRequired) {
+            goals.push(
+                <Tippy
+                    key={`${currentQuest.id}-kappa`}
+                    content={t('Required for Kappa')}
+                    placement={'bottom'}
+                >
+                    <Link to={'/task/collector'}>
+                        <Icon
+                            path={mdiBriefcase}
+                            size={0.75}
+                            className="icon-with-text"
+                        />
+                    </Link>
+                </Tippy>
+            );
+        }
+        if (currentQuest.lightkeeperRequired) {
+            goals.push(
+                <Tippy
+                key={`${currentQuest.id}-lightkeeper`}
+                    content={t('Required for Lightkeeper')}
+                    placement={'bottom'}
+                >
+                    <Link to={'/task/knock-knock'}>
+                        <Icon
+                            path={mdiLighthouse}
+                            size={0.75}
+                            className="icon-with-text"
+                        />
+                    </Link>
+                </Tippy>
+            );
+        }
+        return goals;
+    }, [currentQuest, t]);
 
     // if the name we got from the params are the id of the item, redirect
     // to a nice looking path
@@ -838,6 +879,11 @@ function Quest() {
                         {false && typeof currentQuest.tarkovDataId !== 'undefined' && (
                             <div className="wiki-link-wrapper">
                                 <a href={`https://tarkovtracker.io/quest/${currentQuest.tarkovDataId}`} target="_blank" rel="noopener noreferrer">{t('TarkovTracker')}</a>
+                            </div>
+                        )}
+                        {endgameGoals.length > 0 && (
+                            <div>
+                                {endgameGoals}
                             </div>
                         )}
                     </div>
