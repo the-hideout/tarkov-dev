@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.3.0",
-    "@emotion/styled": "^11.10.8",
+    "@emotion/styled": "^11.11.0",
     "@mdi/js": "^6.9.96",
     "@mdi/react": "^1.6.1",
     "@mui/icons-material": "^5.11.16",
