@@ -140,7 +140,7 @@ function Quest() {
 
     const endgameGoals = useMemo(() => {
         const goals = [];
-        if (currentQuest.kappaRequired) {
+        if (currentQuest?.kappaRequired) {
             goals.push(
                 <Tippy
                     key={`${currentQuest.id}-kappa`}
@@ -157,7 +157,7 @@ function Quest() {
                 </Tippy>
             );
         }
-        if (currentQuest.lightkeeperRequired) {
+        if (currentQuest?.lightkeeperRequired) {
             goals.push(
                 <Tippy
                 key={`${currentQuest.id}-lightkeeper`}
