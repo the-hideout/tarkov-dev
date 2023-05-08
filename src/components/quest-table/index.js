@@ -3,7 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Icon from '@mdi/react';
-import { mdiClipboardCheck, mdiClipboardRemove } from '@mdi/js';
+import { mdiClipboardCheck, mdiClipboardRemove, mdiBriefcase, mdiLighthouse } from '@mdi/js';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
 
 import DataTable from '../data-table';
 import QuestItemsCell from '../quest-items-cell';
@@ -153,6 +155,7 @@ function QuestTable({
     requiredItems,
     rewardItems,
     reputationRewards,
+    requiredForEndGame,
  }) {
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
@@ -477,6 +480,70 @@ function QuestTable({
             });
         }
 
+        if (requiredForEndGame) {
+            useColumns.push({
+                Header: t('Endgame'),
+                id: 'requiredForEndGame',
+                accessor: 'kappaRequired',
+                sortType: (a, b, columnId, desc) => {
+                    let aValue = 0;
+                    let bValue = 0;
+                    if (a.original.kappaRequired) {
+                        aValue += 1;
+                    }
+                    if (b.original.kappaRequired) {
+                        bValue += 1;
+                    }
+                    if (a.original.lightkeeperRequired) {
+                        aValue += 2;
+                    }
+                    if (b.original.lightkeeperRequired) {
+                        bValue += 2;
+                    }
+                    return aValue - bValue;
+                },
+                Cell: (props) => {
+                    const endgameGoals = [];
+                    if (props.row.original.kappaRequired) {
+                        endgameGoals.push(
+                            <Tippy
+                                key={`${props.row.original.id}-kappa`}
+                                content={t('Required for Kappa')}
+                            >
+                                <Link to={'/task/collector'}>
+                                    <Icon
+                                        path={mdiBriefcase}
+                                        size={0.75}
+                                        className="icon-with-text"
+                                    />
+                                </Link>
+                            </Tippy>
+                        );
+                    }
+                    if (props.row.original.lightkeeperRequired) {
+                        endgameGoals.push(
+                            <Tippy
+                            key={`${props.row.original.id}-lightkeeper`}
+                                content={t('Required for Lightkeeper')}
+                            >
+                                <Link to={'/task/knock-knock'}>
+                                    <Icon
+                                        path={mdiLighthouse}
+                                        size={0.75}
+                                        className="icon-with-text"
+                                    />
+                                </Link>
+                            </Tippy>
+                        );
+                    }
+                    return <CenterCell>
+                        {endgameGoals}
+                    </CenterCell>;
+                },
+                position: requiredForEndGame,
+            });
+        }
+
         const claimedPositions = [];
         for (let i = 1; i < useColumns.length; i++) {
             const column = useColumns[i];
@@ -512,6 +579,7 @@ function QuestTable({
         requiredItems,
         rewardItems,
         reputationRewards,
+        requiredForEndGame,
     ]);
 
     let extraRow = false;
