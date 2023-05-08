@@ -55,7 +55,7 @@ export default function OverflowMenu({ children, className, visibilityMap }) {
         id="long-menu"
         className="overflow-menu"
         anchorEl={anchorEl}
-        getContentAnchorEl={null}
+        //getContentAnchorEl={null}
         keepMounted
         open={open}
         onClose={handleClose}
