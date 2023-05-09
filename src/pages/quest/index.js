@@ -194,7 +194,7 @@ function Quest() {
 
     const nextQuests = quests.filter((quest) =>
         quest.taskRequirements.some(
-            (req) => req.task.id === currentQuest.id && !req.status.includes('active'),
+            (req) => req.task.id === currentQuest.id && (!req.status.includes('active') || (req.status.length === 2 && req.status.includes('complete') && req.status.includes('active'))),
         ),
     );
 
