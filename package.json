@@ -54,7 +54,7 @@
     "resize-observer-polyfill": "^1.5.1",
     "sharp": "^0.32.0",
     "source-map-explorer": "^2.5.3",
-    "victory": "^36.6.8"
+    "victory": "^36.6.10"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
