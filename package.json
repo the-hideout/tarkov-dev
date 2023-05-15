@@ -9,7 +9,7 @@
     "@mdi/react": "^1.6.1",
     "@mui/icons-material": "^5.11.16",
     "@mui/lab": "^5.0.0-alpha.129",
-    "@mui/material": "^5.12.3",
+    "@mui/material": "^5.13.0",
     "@mui/styles": "^5.12.3",
     "@primer/react": "~35.10.0",
     "@reduxjs/toolkit": "^1.9.5",
