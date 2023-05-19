@@ -153,8 +153,7 @@ function ItemCost({
             />
         );
     }
-
-    if (priceType === 'craft') {
+    else if (priceType === 'craft') {
         displayImage = (
             <Icon
                 path={mdiProgressWrench}
@@ -170,6 +169,10 @@ function ItemCost({
                 crafts={crafts}
             />
         );
+    }
+    else if (priceType === 'cash-sell' && !isTool && price !== 0) {
+        displayPrice = <span className='item-cost-cash-sell'>{displayPrice}</span>
+        tooltip = t('This item can only be sold to trader');
     }
 
     return (
