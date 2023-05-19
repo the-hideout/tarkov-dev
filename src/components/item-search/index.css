@@ -36,6 +36,8 @@
 .search-tip-wrapper {
     display: none;
     pointer-events: none;
+    right: 8px;
+    top: 8px;
 }
 
 @media screen and (min-width: 800px) {
@@ -44,7 +46,13 @@
         display: block;
         padding: 6px 10px;
         position: absolute;
-        right: 8px;
-        top: 8px;
     }
+}
+
+.search-type-selector {
+    display: block;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 20;
 }

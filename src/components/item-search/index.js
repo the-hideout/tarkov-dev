@@ -6,9 +6,11 @@ import debounce from 'lodash.debounce';
 
 import useKeyPress from '../../hooks/useKeyPress';
 import itemSearch from '../../modules/item-search';
+import { SelectFilter } from '../filter';
 
 import './index.css';
 import useItemsData from '../../features/items';
+import useQuestsData from '../../features/quests';
 
 function ItemSearch({
     defaultValue,
@@ -16,11 +18,16 @@ function ItemSearch({
     placeholder,
     autoFocus,
     showDropdown,
+    defaultSearch = 'items',
+    showSearchTypeSelector = true,
 }) {
     const { data: items } = useItemsData();
+    const { data: tasks } = useQuestsData();
     const { t } = useTranslation();
 
     const [nameFilter, setNameFilter] = useState(defaultValue || '');
+    const [searchFor, setSearchFor] = useState(defaultSearch || 'items');
+    const searchTypeSelectRef = useRef();
     const [cursor, setCursor] = useState(0);
     const [isFocused, setIsFocused] = useState(false);
     const downPress = useKeyPress('ArrowDown');
@@ -31,8 +38,19 @@ function ItemSearch({
     const inputRef = useRef(null);
 
     if (!placeholder) {
-        placeholder = t('Search item...');
+        let searchType = '';
+        if (!showSearchTypeSelector) {
+            searchType = ` ${defaultSearch}`
+        }
+        placeholder = t(`Search${searchType}...`);
     }
+
+    const selectPlaceholder = useMemo(() => {
+        if (searchFor === 'tasks') {
+            return 'Tasks';
+        }
+        return 'Items';
+    }, [searchFor]);
 
     useHotkeys('ctrl+q', () => {
         if (inputRef?.current.scrollIntoView) {
@@ -61,6 +79,14 @@ function ItemSearch({
         [setNameFilter, debouncedOnChange, onChange],
     );
 
+    const handleSearchTypeChange = useCallback(
+        (e) => {
+            setSearchFor(e.value.toLowerCase());
+            inputRef?.current.focus();
+        },
+        [setSearchFor],
+    );
+
     useEffect(() => {
         if (downPress) {
             setCursor((prevState) => Math.min(prevState + 1, 9));
@@ -75,6 +101,16 @@ function ItemSearch({
         }
     }, [upPress]);
 
+    const searchTipStyle = useMemo(() => {
+        const style = {
+            right: '8px'
+        };
+        if (showSearchTypeSelector) {
+            style.right = '120px';
+        }
+        return style;
+    }, [showSearchTypeSelector]);
+
     if (autoFocus && window?.matchMedia && window.matchMedia('(max-width: 600px)').matches) {
         autoFocus = false;
     }
@@ -84,43 +120,58 @@ function ItemSearch({
             return [];
         }
 
-        let returnData = items
-            .map((itemData) => {
-                const formattedItem = {
-                    id: itemData.id,
-                    name: itemData.name,
-                    shortName: itemData.shortName,
-                    normalizedName: itemData.normalizedName,
-                    avg24hPrice: itemData.avg24hPrice,
-                    lastLowPrice: itemData.lastLowPrice,
-                    // iconLink: `https://assets.tarkov.dev/${itemData.id}-icon.jpg`,
-                    iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
-                    instaProfit: 0,
-                    itemLink: `/item/${itemData.normalizedName}`,
-                    types: itemData.types,
-                    buyFor: itemData.buyFor,
-                };
-
-                const buyOnFleaPrice = itemData.buyFor.find(
-                    (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market',
-                );
-
-                if (buyOnFleaPrice) {
-                    formattedItem.instaProfit = itemData.sellForTradersBest.priceRUB - buyOnFleaPrice.price;
+        let returnData;
+        if (searchFor === 'tasks') {
+            returnData = tasks.filter(task => {
+                if (nameFilter.length === 0) {
+                    return true;
                 }
-
-                return formattedItem;
-            })
-            .filter((item) => {
-                return !item.types.includes('disabled');
+                return task.name.toLowerCase().includes(nameFilter.toLowerCase());
+            }).map(task => {
+                return {
+                    ...task, 
+                    itemLink: `/task/${task.normalizedName}`,
+                };
             });
-
-        if (nameFilter.length > 0) {
-            returnData = itemSearch(returnData, nameFilter);
+        } else {
+            returnData = items
+                .map((itemData) => {
+                    const formattedItem = {
+                        id: itemData.id,
+                        name: itemData.name,
+                        shortName: itemData.shortName,
+                        normalizedName: itemData.normalizedName,
+                        avg24hPrice: itemData.avg24hPrice,
+                        lastLowPrice: itemData.lastLowPrice,
+                        // iconLink: `https://assets.tarkov.dev/${itemData.id}-icon.jpg`,
+                        iconLink: itemData.iconLink || `${process.env.PUBLIC_URL}/images/unknown-item-icon.jpg`,
+                        instaProfit: 0,
+                        itemLink: `/item/${itemData.normalizedName}`,
+                        types: itemData.types,
+                        buyFor: itemData.buyFor,
+                    };
+    
+                    const buyOnFleaPrice = itemData.buyFor.find(
+                        (buyPrice) => buyPrice.vendor.normalizedName === 'flea-market',
+                    );
+    
+                    if (buyOnFleaPrice) {
+                        formattedItem.instaProfit = itemData.sellForTradersBest.priceRUB - buyOnFleaPrice.price;
+                    }
+    
+                    return formattedItem;
+                })
+                .filter((item) => {
+                    return !item.types.includes('disabled');
+                });
+    
+            if (nameFilter.length > 0) {
+                returnData = itemSearch(returnData, nameFilter);
+            }
         }
 
         return returnData;
-    }, [nameFilter, showDropdown, items]);
+    }, [searchFor, nameFilter, showDropdown, items, tasks]);
 
     useEffect(() => {
         if (enterPress && data[cursor]) {
@@ -137,6 +188,30 @@ function ItemSearch({
 
     return (
         <div className="item-search">
+            {showSearchTypeSelector && (<div className="search-type-selector">
+                <SelectFilter
+                    value={searchFor}
+                    onChange={handleSearchTypeChange}
+                    onMenuOpen={(e) => {
+                        setIsFocused(true);
+                    }}
+                    className="search-type-selector"
+                    placeholder={selectPlaceholder}
+                    parentRef={searchTypeSelectRef}
+                    options={[
+                        {
+                            label: t('Items'),
+                            value: 'items',
+                            selected: searchFor !== 'tasks',
+                        },
+                        {
+                            label: t('Tasks'),
+                            value: 'tasks',
+                            selected: searchFor === 'tasks',
+                        }
+                    ]}
+                />
+            </div>)}
             <input
                 type="text"
                 // defaultValue = {defaultValue || nameFilter}
@@ -148,7 +223,7 @@ function ItemSearch({
                 onBlur={() => setIsFocused(false)}
                 ref={inputRef}
             />
-            {!isFocused && <div className="search-tip-wrapper">ctrl+q</div>}
+            {!isFocused && <div className="search-tip-wrapper" style={searchTipStyle}>ctrl+q</div>}
             {showDropdown && (
                 <div className="item-list-wrapper">
                     {data.map((item, index) => {
@@ -164,11 +239,11 @@ function ItemSearch({
                                 key={`search-result-wrapper-${item.id}`}
                                 to={`${item.itemLink}`}
                             >
-                                <img
+                                {searchFor !== 'tasks' && (<img
                                     alt={`${item.name}`}
                                     loading="lazy"
                                     src={item.iconLink}
-                                />
+                                />)}
                                 {item.name}
                             </Link>
                         );

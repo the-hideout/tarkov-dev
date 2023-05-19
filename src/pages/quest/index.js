@@ -10,7 +10,7 @@ import 'tippy.js/dist/tippy.css';
 
 import SEO from '../../components/SEO';
 import ErrorPage from '../../components/error-page';
-import TaskSearch from '../../components/task-search';
+import ItemSearch from '../../components/item-search';
 import LoadingSmall from '../../components/loading-small';
 import ItemImage from '../../components/item-image';
 import TraderImage from '../../components/trader-image'
@@ -853,7 +853,7 @@ function Quest() {
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className={'quest-page-wrapper'}>
-                <TaskSearch showDropdown />
+                <ItemSearch showDropdown defaultSearch="tasks" />
                 <div className="quest-information-grid">
                     <div className="quest-information-wrapper">
                         <h1>
