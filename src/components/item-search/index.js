@@ -47,10 +47,10 @@ function ItemSearch({
 
     const selectPlaceholder = useMemo(() => {
         if (searchFor === 'tasks') {
-            return 'Tasks';
+            return t('Tasks');
         }
-        return 'Items';
-    }, [searchFor]);
+        return t('Items');
+    }, [t, searchFor]);
 
     useHotkeys('ctrl+q', () => {
         if (inputRef?.current.scrollIntoView) {
