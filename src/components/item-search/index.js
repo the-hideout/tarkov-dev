@@ -37,13 +37,12 @@ function ItemSearch({
     let location = useLocation();
     const inputRef = useRef(null);
 
-    if (!placeholder) {
-        let searchType = '';
-        if (!showSearchTypeSelector) {
-            searchType = ` ${defaultSearch}`
+    const placeholderText = useMemo(() => {
+        if (placeholder) {
+            return t(`Search ${placeholder}...`);
         }
-        placeholder = t(`Search${searchType}...`);
-    }
+        return t(`Search ${searchFor}...`);
+    }, [placeholder, searchFor, t]);
 
     const selectPlaceholder = useMemo(() => {
         if (searchFor === 'tasks') {
@@ -216,7 +215,7 @@ function ItemSearch({
                 type="text"
                 // defaultValue = {defaultValue || nameFilter}
                 onChange={handleNameFilterChange}
-                placeholder={placeholder}
+                placeholder={placeholderText}
                 value={nameFilter}
                 autoFocus={autoFocus}
                 onFocus={() => setIsFocused(true)}
