@@ -18,7 +18,7 @@ function ItemSearch({
     placeholder,
     autoFocus,
     showDropdown,
-    defaultSearch = 'items',
+    defaultSearch = 'item',
     showSearchTypeSelector = true,
 }) {
     const { data: items } = useItemsData();
@@ -26,7 +26,7 @@ function ItemSearch({
     const { t } = useTranslation();
 
     const [nameFilter, setNameFilter] = useState(defaultValue || '');
-    const [searchFor, setSearchFor] = useState(defaultSearch || 'items');
+    const [searchFor, setSearchFor] = useState(defaultSearch || 'item');
     const searchTypeSelectRef = useRef();
     const [cursor, setCursor] = useState(0);
     const [isFocused, setIsFocused] = useState(false);
@@ -39,13 +39,13 @@ function ItemSearch({
 
     const placeholderText = useMemo(() => {
         if (placeholder) {
-            return t(`Search ${placeholder}...`);
+            return placeholder;
         }
         return t(`Search ${searchFor}...`);
     }, [placeholder, searchFor, t]);
 
     const selectPlaceholder = useMemo(() => {
-        if (searchFor === 'tasks') {
+        if (searchFor === 'task') {
             return t('Tasks');
         }
         return t('Items');
@@ -120,7 +120,7 @@ function ItemSearch({
         }
 
         let returnData;
-        if (searchFor === 'tasks') {
+        if (searchFor === 'task') {
             returnData = tasks.filter(task => {
                 if (nameFilter.length === 0) {
                     return true;
@@ -200,13 +200,13 @@ function ItemSearch({
                     options={[
                         {
                             label: t('Items'),
-                            value: 'items',
-                            selected: searchFor !== 'tasks',
+                            value: 'item',
+                            selected: searchFor !== 'task',
                         },
                         {
                             label: t('Tasks'),
-                            value: 'tasks',
-                            selected: searchFor === 'tasks',
+                            value: 'task',
+                            selected: searchFor === 'task',
                         }
                     ]}
                 />
@@ -238,7 +238,7 @@ function ItemSearch({
                                 key={`search-result-wrapper-${item.id}`}
                                 to={`${item.itemLink}`}
                             >
-                                {searchFor !== 'tasks' && (<img
+                                {searchFor !== 'task' && (<img
                                     alt={`${item.name}`}
                                     loading="lazy"
                                     src={item.iconLink}

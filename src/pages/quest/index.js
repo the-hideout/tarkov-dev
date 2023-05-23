@@ -853,7 +853,7 @@ function Quest() {
         />,
         <div className="display-wrapper" key={'display-wrapper'}>
             <div className={'quest-page-wrapper'}>
-                <ItemSearch showDropdown defaultSearch="tasks" />
+                <ItemSearch showDropdown defaultSearch="task" />
                 <div className="quest-information-grid">
                     <div className="quest-information-wrapper">
                         <h1>
