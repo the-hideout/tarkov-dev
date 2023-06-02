@@ -113,6 +113,7 @@ function Start() {
                         onChange={handleNameFilterChange}
                         autoFocus={true}
                         key={'item-search-box'}
+                        showSearchTypeSelector={false}
                     />
                 </Suspense>
                 <Suspense fallback={<LoadingSmall />}>
