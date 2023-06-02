@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: deployment check
-        uses: github/branch-deploy@v5.2.2
+        uses: github/branch-deploy@v6.0.0
         id: deployment-check
         with:
           merge_deploy_mode: "true" # tells the Action to use the merge commit workflow strategy
