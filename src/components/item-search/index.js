@@ -100,16 +100,6 @@ function ItemSearch({
         }
     }, [upPress]);
 
-    const searchTipStyle = useMemo(() => {
-        const style = {
-            right: '8px'
-        };
-        if (showSearchTypeSelector) {
-            style.right = '120px';
-        }
-        return style;
-    }, [showSearchTypeSelector]);
-
     if (autoFocus && window?.matchMedia && window.matchMedia('(max-width: 600px)').matches) {
         autoFocus = false;
     }
@@ -187,30 +177,6 @@ function ItemSearch({
 
     return (
         <div className="item-search">
-            {showSearchTypeSelector && (<div className="search-type-selector">
-                <SelectFilter
-                    value={searchFor}
-                    onChange={handleSearchTypeChange}
-                    onMenuOpen={(e) => {
-                        setIsFocused(true);
-                    }}
-                    className="search-type-selector"
-                    placeholder={selectPlaceholder}
-                    parentRef={searchTypeSelectRef}
-                    options={[
-                        {
-                            label: t('Items'),
-                            value: 'item',
-                            selected: searchFor !== 'task',
-                        },
-                        {
-                            label: t('Tasks'),
-                            value: 'task',
-                            selected: searchFor === 'task',
-                        }
-                    ]}
-                />
-            </div>)}
             <input
                 type="text"
                 // defaultValue = {defaultValue || nameFilter}
@@ -222,7 +188,33 @@ function ItemSearch({
                 onBlur={() => setIsFocused(false)}
                 ref={inputRef}
             />
-            {!isFocused && <div className="search-tip-wrapper" style={searchTipStyle}>ctrl+q</div>}
+            <div className="search-extras-wrapper">
+                {!isFocused && <div className="search-tip-wrapper">ctrl+q</div>}
+                {showSearchTypeSelector && (<div className="search-type-selector">
+                    <SelectFilter
+                        value={searchFor}
+                        onChange={handleSearchTypeChange}
+                        onMenuOpen={(e) => {
+                            setIsFocused(true);
+                        }}
+                        className="search-type-selector"
+                        placeholder={selectPlaceholder}
+                        parentRef={searchTypeSelectRef}
+                        options={[
+                            {
+                                label: t('Items'),
+                                value: 'item',
+                                selected: searchFor !== 'task',
+                            },
+                            {
+                                label: t('Tasks'),
+                                value: 'task',
+                                selected: searchFor === 'task',
+                            }
+                        ]}
+                    />
+                </div>)}
+            </div>
             {showDropdown && (
                 <div className="item-list-wrapper">
                     {data.map((item, index) => {

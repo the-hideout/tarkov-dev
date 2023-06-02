@@ -36,23 +36,26 @@
 .search-tip-wrapper {
     display: none;
     pointer-events: none;
-    right: 8px;
-    top: 8px;
+    padding: 6px 10px;
+    margin: 8px;
 }
 
 @media screen and (min-width: 800px) {
     .search-tip-wrapper {
         border: 2px solid #9a8866;
-        display: block;
-        padding: 6px 10px;
-        position: absolute;
+        display: inline-flex;
     }
 }
 
 .search-type-selector {
+    display: inline-flex;
+    z-index: 20;
+    margin: 5px;
+}
+
+.search-extras-wrapper {
     display: block;
     position: absolute;
-    right: 5px;
-    top: 5px;
-    z-index: 20;
+    right: 0px;
+    top: 0px;
 }
