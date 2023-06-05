@@ -71,7 +71,7 @@ function Headsets() {
                 nameFilter={nameFilter}
                 typeFilter="headphones"
                 showAllSources={showAllItemSources}
-                weight={1}
+                distance={1}
                 traderValue={2}
                 fleaValue={3}
                 cheapestPrice={4}

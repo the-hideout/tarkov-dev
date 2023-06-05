@@ -239,6 +239,11 @@ class ItemsQuery extends APIQuery {
                             maxExplosionDistance
                             fragments
                         }
+                        ...on ItemPropertiesHeadphone {
+                            ambientVolume
+                            distortion
+                            distanceModifier
+                        }
                         ...on ItemPropertiesHelmet {
                             class
                             material {

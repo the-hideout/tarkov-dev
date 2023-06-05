@@ -1,6 +1,9 @@
 {
+    "ambientVolume": "Ambience",
     "caliber": "Caliber",
     "damage": "Damage",
+    "distanceModifier": "Distance",
+    "distortion": "Distortion",
     "projectileCount": "Projectile count",
     "penetrationPower": "Penetration power",
     "armorDamage": "Armor damage",

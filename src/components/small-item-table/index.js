@@ -292,6 +292,7 @@ function SmallItemTable(props) {
         useCraftIngredients,
         minPenetration,
         maxPenetration,
+        distance,
     } = props;
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
@@ -1575,6 +1576,24 @@ function SmallItemTable(props) {
             });
         }
 
+        if (distance) {
+            useColumns.push({
+                Header: t('Distance'),
+                id: 'distanceModifier',
+                accessor: (item) => item.properties.distanceModifier,
+                sortType: (a, b) => {
+                    return b.values.distanceModifier - a.values.distanceModifier;
+                },
+                Cell: ({value}) => {
+                    if (!value) {
+                        value = '-'
+                    }
+                    return <CenterCell value={value} nowrap />;
+                },
+                position: distance,
+            });
+        }
+
         if (cheapestPrice) {
             useColumns.push({
                 Header: t('Cheapest Price'),
@@ -1856,6 +1875,7 @@ function SmallItemTable(props) {
         crafts,
         useBarterIngredients,
         useCraftIngredients,
+        distance,
     ]);
 
     let extraRow = false;
