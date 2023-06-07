@@ -158,6 +158,26 @@ class ItemsQuery extends APIQuery {
                             turnPenalty
                             ergoPenalty
                         }
+                        ...on ItemPropertiesBarrel {
+                            ergonomics
+                            recoilModifier
+                            slots {
+                                filters {
+                                    allowedCategories {
+                                        id
+                                    }
+                                    allowedItems {
+                                        id
+                                    }
+                                    excludedCategories {
+                                        id
+                                    }
+                                    excludedItems {
+                                        id
+                                    }
+                                }
+                            }
+                        }
                         ...on ItemPropertiesChestRig {
                             capacity
                             class

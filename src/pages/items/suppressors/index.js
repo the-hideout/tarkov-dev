@@ -18,7 +18,19 @@ function Suppressors() {
     const { t } = useTranslation();
 
     const activeGuns = useMemo(() => {
-        return items.filter(item => item.types.includes('gun')).sort((a, b) => a.name.localeCompare(b.name));
+        return items.filter(item => item.types.includes('gun')).sort((a, b) => a.name.localeCompare(b.name)).map(item => {
+            let iconLink = item.iconLink;
+            if (item.properties?.defaultPreset) {
+                const preset = items.find(i => i.id === item.properties.defaultPreset.id);
+                if (preset) {
+                    iconLink = preset.iconLink;
+                }
+            }
+            return {
+                ...item,
+                iconLink,
+            };
+        });
     }, [items]);
 
     return [
