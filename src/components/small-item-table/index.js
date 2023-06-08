@@ -159,25 +159,19 @@ const getArmorZoneString = (armorZones) => {
         .join(', ');
 };
 
-const getGuns = (items, targetItem, depth = 1) => {
-    let parentItems = [];
+const getGuns = (items, targetItem) => {
+    const parentIds = new Set();
     const currentParentItems = items.filter((item) => itemCanContain(item, targetItem, 'slots'));
 
     for (const parentItem of currentParentItems) {
         if (parentItem.types.includes('gun')) {
-            parentItems.push(parentItem);
+            parentIds.add(parentItem.id);
             continue;
         }
 
-        parentItems = parentItems.concat(getGuns(items, parentItem, depth+1));
+        parentIds.add(...getGuns(items, parentItem))
     }
-
-    return parentItems.reduce((parents, current) => {
-        if (!parents.some(item => item.id === current.id)) {
-            parents.push(current);
-        }
-        return parents;
-    }, []);
+    return items.filter(item => parentIds.has(item.id));
 };
 
 const getAttachmentPoints = (items, targetItem) => {
