@@ -164,6 +164,98 @@
         "behavior": "Rush"
     },
     {
+        "name": "Big Pipe",
+        "normalizedName": "big-pipe",
+        "details": "The leader of 'The Goons'. Can spawn on many different maps.",
+        "health": 910,
+        "loot": [
+            {
+                "id": "62a61bbf8ec41a51b34758d2",
+                "name": "Big Pipes Smoking Pipe"
+            },
+            {
+                "id": "628e4dd1f477aa12234918aa",
+                "name": "Big Pipes Bandana"
+            },
+            {
+                "id": "62a61c988ec41a51b34758d5",
+                "name": "Oakley SI Batwolf Glasses"
+            },
+            {
+                "id": "603409c80ca681766b6a0fb2",
+                "name": "NPP KIASS Condor Glasses"
+            },
+            {
+                "id": "628b9784bcf6e2659e09b8a2",
+                "name": "S&S Precision PlateFrame plate carrier (Goons Edition)"
+            },
+            {
+                "id": "6275303a9f372d6ea97f9ec7",
+                "name": "Milkor M32A1 MSGL 40mm grenade launcher"
+            },
+            {
+                "id": "5e81ebcd8e146c7080625e15",
+                "name": "FN40GL Mk2 40mm grenade launcher"
+            },
+            {
+                "id": "5fbcc1d9016cce60e8341ab3",
+                "name": "SIG MCX .300 Blackout assault rifle"
+            },
+            {
+                "id": "5a7828548dc32e5a9c28b516",
+                "name": "Remington Model 870 12ga pump-action shotgun"
+            },
+            {
+                "id": "5f36a0e5fbf956000b716b65",
+                "name": "Colt M45A1 .45 ACP pistol"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Big_Pipe",
+        "behavior": "Rush"
+    },
+    {
+        "name": "Birdeye",
+        "normalizedName": "birdeye",
+        "details": "Goon Squad Sniper",
+        "health": 795,
+        "loot": [
+            {
+                "id": "609e8540d5c319764c2bc2e9",
+                "name": "NFM THOR Concealable Reinforced Vest body armor"
+            },
+            {
+                "id": "628bc7fb408e2b2e9c0801b1",
+                "name": "Mystery Ranch NICE COMM 3 BVS frame system"
+            },
+            {
+                "id": "628baf0b967de16aab5a4f36",
+                "name": "LBT-1961A Load Bearing Chest Rig (Goons Edition)"
+            },
+            {
+                "id": "5bfea6e90db834001b7347f3",
+                "name": "Remington Model 700 7.62x51 bolt-action sniper rifle"
+            },
+            {
+                "id": "5a367e5dc4a282000e49738f",
+                "name": "Remington R11 RSASS 7.62x51 marksman rifle"
+            },
+            {
+                "id": "5df8ce05b11454561e39243b",
+                "name": "Knight's Armament Company SR-25 7.62x51 marksman rifle"
+            },
+            {
+                "id": "5447a9cd4bdc2dbd208b4567",
+                "name": "Colt M4A1 5.56x45 assault rifle"
+            },
+            {
+                "id": "5cadc190ae921500103bb3b6",
+                "name": "Beretta M9A3 9x19 pistol"
+            }
+        ],
+        "wikiLink": "https://escapefromtarkov.fandom.com/wiki/Birdeye",
+        "behavior": "Sniper"
+    },
+    {
         "name": "Glukhar",
         "normalizedName": "glukhar",
         "details": "Glukhar and his many guards are extremely hostile. It's very unlikely to find success while fighting in any open areas. Small hallways and closed rooms are preferable. Glukhar and his guards are very accurate. Glukhar and his guards will stay near each other at all times and his guards will follow him to wherever he goes.",
