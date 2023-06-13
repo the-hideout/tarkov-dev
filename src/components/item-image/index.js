@@ -172,7 +172,7 @@ function ItemImage({
                 {height: `-webkit-calc(100% - ${2*backgroundScale}px)`},
                 {height:    `-moz-calc(100% - ${2*backgroundScale}px)`},
             ],
-            backgroundColor: '#4400008f',
+            backgroundColor: '#4400004f',
         };
         if (imageViewer) {
             nonFunctionalStyle.cursor = 'zoom-in';
