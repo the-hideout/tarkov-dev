@@ -61,7 +61,7 @@ function Footer() {
                 <h3>{t('Item Data')}</h3>
                 <p>
                     {t(
-                        'Fresh data on EFT item attribtues and hideout crafts courtesy of',
+                        'Fresh EFT data courtesy of',
                     )}{' '}
                     <a href="https://tarkov-changes.com" target="_blank" rel="noopener noreferrer">
                         <span>Tarkov-Changes</span>
