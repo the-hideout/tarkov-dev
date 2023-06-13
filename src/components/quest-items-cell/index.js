@@ -18,7 +18,6 @@ function QuestItemsCell({ questItems }) {
                 <div className="quest-image-wrapper">
                     <ItemImage
                         item={questItem.item}
-                        nonFunctionalOverlay={false}
                         isFIR={questItem.foundInRaid || questItem.rewardType}
                         imageField="iconLink"
                         linkToItem={true}

@@ -68,7 +68,6 @@ function ItemGrid(props) {
                     >
                         <ItemImage
                             item={item}
-                            nonFunctionalOverlay={false}
                         >
                             <ItemTooltip
                                 key={`${item.id}-tooltip`}
