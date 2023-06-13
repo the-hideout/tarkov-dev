@@ -41,6 +41,8 @@ function ItemSearch({
         if (placeholder) {
             return placeholder;
         }
+        // t('Search item...')
+        // t('Search task...')
         return t(`Search ${searchFor}...`);
     }, [placeholder, searchFor, t]);
 
