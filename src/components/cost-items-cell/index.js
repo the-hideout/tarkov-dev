@@ -52,7 +52,6 @@ function CostItemsCell({ costItems, craftId, barterId, allowAllSources = false, 
                                 attributes={costItem.attributes}
                                 count={costItem.count}
                                 imageField="iconLink"
-                                nonFunctionalOverlay={false}
                                 linkToItem={true}
                                 nonFunctional={costItem.nonFunctional}
                             />

@@ -24,7 +24,7 @@ function ItemImage({
     item, 
     backgroundScale = 1, 
     imageField = 'baseImageLink', 
-    nonFunctionalOverlay = true, 
+    nonFunctionalOverlay = false, 
     imageViewer = false, 
     children = '',
     attributes = [],

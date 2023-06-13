@@ -312,7 +312,6 @@ function Quest() {
                         types: ['quest'],
                     }}
                     imageField="baseImageLink"
-                    nonFunctionalOverlay={false}
                     imageViewer={true}
                 />
             );
@@ -344,7 +343,6 @@ function Quest() {
                         <ItemImage
                             item={baseItem}
                             imageField="baseImageLink"
-                            nonFunctionalOverlay={false}
                             linkToItem={true}
                         />
                     </>
@@ -378,7 +376,6 @@ function Quest() {
                                             <ItemImage
                                                 item={item}
                                                 imageField="baseImageLink"
-                                                nonFunctionalOverlay={false}
                                                 linkToItem={true}
                                             />
                                         </li>
@@ -480,7 +477,6 @@ function Quest() {
                     <ItemImage
                         item={item}
                         imageField="baseImageLink"
-                        nonFunctionalOverlay={false}
                         linkToItem={true}
                         count={objective.count > 1 ? objective.count : false}
                         isFIR={objective.foundInRaid}
@@ -512,7 +508,6 @@ function Quest() {
                     <ItemImage
                         item={item}
                         imageField="baseImageLink"
-                        nonFunctionalOverlay={false}
                         linkToItem={true}
                     />
                 </>
@@ -536,7 +531,6 @@ function Quest() {
                     <ItemImage
                         item={item}
                         imageField="baseImageLink"
-                        nonFunctionalOverlay={false}
                         linkToItem={true}
                     />
                 </>
@@ -608,7 +602,6 @@ function Quest() {
                                             <ItemImage
                                                 item={item}
                                                 imageField="baseImageLink"
-                                                nonFunctionalOverlay={false}
                                                 linkToItem={true}
                                             />
                                         </li>
@@ -635,7 +628,6 @@ function Quest() {
                                                     <ItemImage
                                                         item={item}
                                                         imageField="baseImageLink"
-                                                        nonFunctionalOverlay={false}
                                                         linkToItem={true}
                                                     />
                                                 </li>
@@ -664,7 +656,6 @@ function Quest() {
                                                     <ItemImage
                                                         item={item}
                                                         imageField="baseImageLink"
-                                                        nonFunctionalOverlay={false}
                                                         linkToItem={true}
                                                     />
                                                 </li>
@@ -691,7 +682,6 @@ function Quest() {
                                             <ItemImage
                                                 item={item}
                                                 imageField="baseImageLink"
-                                                nonFunctionalOverlay={false}
                                                 linkToItem={true}
                                             />
                                         </li>
@@ -814,7 +804,6 @@ function Quest() {
                                     <ItemImage
                                         item={item}
                                         imageField="baseImageLink"
-                                        nonFunctionalOverlay={false}
                                         linkToItem={true}
                                     />
                                 </li>
@@ -970,7 +959,6 @@ function Quest() {
                                                                 <ItemImage
                                                                     item={item}
                                                                     imageField="baseImageLink"
-                                                                    nonFunctionalOverlay={false}
                                                                     linkToItem={true}
                                                                     fullNameTooltip={true}
                                                                 />
@@ -1020,7 +1008,6 @@ function Quest() {
                                             key={`reward-index-${rewardItem.item.id}-${index}`}
                                             item={item}
                                             imageField="baseImageLink"
-                                            nonFunctionalOverlay={false}
                                             linkToItem={true}
                                             count={rewardItem.count > 1 ? itemCount : false}
                                             isFIR={true}
@@ -1078,7 +1065,6 @@ function Quest() {
                                             key={`reward-index-${item.id}-${index}`}
                                             item={item}
                                             imageField="baseImageLink"
-                                            nonFunctionalOverlay={false}
                                             linkToItem={true}
                                             trader={trader}
                                             count={t('LL{{level}}', { level: unlock.level })}
@@ -1135,7 +1121,6 @@ function Quest() {
                                                     key={`reward-index-${rewardItem.item.id}-${index}`}
                                                     item={item}
                                                     imageField="baseImageLink"
-                                                    nonFunctionalOverlay={false}
                                                     linkToItem={true}
                                                     count={rewardItem.count > 1 ? itemCount : false}
                                                     isFIR={true}
@@ -1193,7 +1178,6 @@ function Quest() {
                                                     key={`reward-index-${item.id}-${index}`}
                                                     item={item}
                                                     imageField="baseImageLink"
-                                                    nonFunctionalOverlay={false}
                                                     linkToItem={true}
                                                     trader={trader}
                                                     count={t('LL{{level}}', { level: unlock.level })}
