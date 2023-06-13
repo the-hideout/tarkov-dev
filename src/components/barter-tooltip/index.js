@@ -145,7 +145,6 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
                                 attributes={requiredItem.attributes}
                                 count={requiredItem.count}
                                 imageField="iconLink"
-                                nonFunctionalOverlay={false}
                                 linkToItem={true}
                             />
                         </div>
