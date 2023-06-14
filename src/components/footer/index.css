@@ -8,24 +8,15 @@
     padding: 40px 10px 50px 10px;
 }
 
-.footer-wrapper svg,
-.footer-wrapper .supporter-wrapper svg {
+.footer-wrapper svg {
     height: 20px;
     width: 20px;
-}
-
-.footer-wrapper img {
-    margin-left: 5px;
-    vertical-align: sub;
+    position: relative;
+    top: 5px;
 }
 
 .footer-section-wrapper {
     width: 100%;
-}
-
-.about-section-wrapper svg {
-    position: relative;
-    top: 5px;
 }
 
 .copyright-wrapper {
