@@ -42,7 +42,7 @@ function Footer() {
                 <h3>{t('Contributors')}</h3>
                 <p>{t('Massive thanks to all the people who help build and maintain this project!')}</p>
                 <p>{t('Made with ❤️ by:')}</p>
-                <Contributors quality={20} />
+                <Contributors size={20} />
             </div>
             <div className="footer-section-wrapper">
                 <h3>{t('Supporters')}</h3>

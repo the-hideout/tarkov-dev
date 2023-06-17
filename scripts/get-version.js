@@ -57,7 +57,7 @@ const getVersion = async function getVersion() {
         console.log(response.sha);
 
         const version = {
-            version: response.sha,
+            version: response.sha || 'unknown',
         }
 
         console.time('Write new data');

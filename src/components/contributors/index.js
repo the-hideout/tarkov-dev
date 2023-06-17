@@ -1,4 +1,4 @@
-import { AvatarStack, Avatar } from '@primer/react';
+import { AvatarGroup, Avatar, createTheme, ThemeProvider } from '@mui/material';
 
 import contributorJson from '../../data/contributors.json';
 
@@ -14,33 +14,57 @@ function Contributors(props) {
         quality = props.quality;
     }
 
+    const avatarTheme = createTheme({
+        components: {
+            // Name of the component
+            MuiAvatar: {
+                styleOverrides: {
+                    // Name of the slot
+                    root: {
+                        // Some CSS
+                        width: props.size,
+                        height: props.size,
+                        display: 'inline-block',
+                        verticalAlign: 'middle',
+                        border: 1,
+                        borderStyle: 'solid',
+                        marginRight: 2,
+                    },
+                },
+            },
+        },
+    });
+
     if (props.stack === true) {
         return (
-            <AvatarStack>
-                {contributorJson.map((contributor) => (
-                    <Avatar
-                        key={contributor.login}
-                        src={`${contributor.avatar_url}&size=${quality}`}
-                        alt={contributor.login}
-                        size={props.size}
-                        loading='lazy'
-                    ></Avatar>
-                ))}
-            </AvatarStack>
+            <AvatarGroup max={10}>
+                <ThemeProvider theme={avatarTheme}>
+                    {contributorJson.map((contributor) => (
+                        <Avatar
+                            key={contributor.login}
+                            src={`${contributor.avatar_url}&size=${quality}`}
+                            alt={contributor.login}
+                            loading='lazy'
+                        />
+                    ))}
+                </ThemeProvider>
+            </AvatarGroup>
         );
     } else {
         return (
             <>
-                {contributorJson.map((contributor) => (
-                    <a href={contributor.html_url} target="_blank" rel="noopener noreferrer" key={contributor.login}>
-                        <Avatar
-                            key={contributor.login}
-                            size={props.size}
-                            src={`${contributor.avatar_url}&size=${quality}`}
-                            loading='lazy'
-                        />
-                    </a>
-                ))}
+                <ThemeProvider theme={avatarTheme}>
+                    {contributorJson.map((contributor) => (
+                        <a href={contributor.html_url} target="_blank" rel="noopener noreferrer" key={contributor.login}>
+                            <Avatar
+                                key={contributor.login}
+                                src={`${contributor.avatar_url}&size=${quality}`}
+                                alt={contributor.login}
+                                loading='lazy'
+                            />
+                        </a>
+                    ))}
+                </ThemeProvider>
             </>
         );
     }

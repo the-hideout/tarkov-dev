@@ -30,6 +30,7 @@ if (token) {
     let allContributors = [];
 
     try {
+        let allRepContributors = [];
         for (const repository of repositories) {
             console.time(`contributors-${repository}`);
 
@@ -39,18 +40,47 @@ if (token) {
             console.timeEnd(`contributors-${repository}`);
 
             for (const contributor of response) {
-                allContributors.push({
+                if (contributor.type !== "User") {
+                    continue;
+                }
+                
+                allRepContributors.push({
                     login: contributor.login,
                     html_url: contributor.html_url,
                     avatar_url: `${contributor.avatar_url}`,
+                    contributions: contributor.contributions,
                 });
             }
         }
 
-        allContributors = allContributors.filter((value, index, self) => {
-            return index === self.findIndex((t) => (
-                t.place === value.place && t.login === value.login
-            ));
+        // Calculate total contributions by user
+        const totalRepContributors = allRepContributors.reduce((acc, { login, contributions }) => {
+            if (!acc[login]) {
+                acc[login] = 0;
+            }
+            acc[login] += contributions;
+            return acc;
+        }, {});
+
+
+        // Add total contributions field to each object
+        allContributors = Object.entries(totalRepContributors).map(([login, totalContributions]) => {
+            const { html_url, avatar_url } = allRepContributors.find(contributor => contributor.login === login);
+            return {
+                login,
+                html_url,
+                avatar_url,
+                totalContributions,
+            };
+        })
+        .sort((a, b) => {
+            let compare = b.totalContributions - a.totalContributions;
+
+            if (compare !== 0) {
+                return compare;
+            }
+
+            return a.login.localeCompare(b.login);
         });
     } catch (error) {
         // If we're running in CI and a failure occurs, use fallback data for contributors
@@ -60,7 +90,8 @@ if (token) {
                 {
                     login: "hideout-bot",
                     html_url: "https://github.com/hideout-bot",
-                    avatar_url: "https://avatars.githubusercontent.com/u/121582168?v=4"
+                    avatar_url: "https://avatars.githubusercontent.com/u/121582168?v=4",
+                    totalContributions: 9000,
                 }
             ];
         } else {
@@ -70,7 +101,8 @@ if (token) {
                 {
                     login: "hideout-bot",
                     html_url: "https://github.com/hideout-bot",
-                    avatar_url: "https://avatars.githubusercontent.com/u/121582168?v=4"
+                    avatar_url: "https://avatars.githubusercontent.com/u/121582168?v=4",
+                    totalContributions: 9000,
                 }
             ];
         }
