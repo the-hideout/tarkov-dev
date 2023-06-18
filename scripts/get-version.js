@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const got = require('got');
 
 const fetch = require('cross-fetch');
 
