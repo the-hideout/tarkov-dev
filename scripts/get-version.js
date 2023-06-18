@@ -14,6 +14,7 @@ if (token) {
     console.log("Using provided GitHub token to increase rate limit")
 } else {
     console.log("No GitHub token provided, rate limit may be reached")
+    console.warn("To increase the rate limit, provide a GitHub token via the GITHUB_TOKEN environment variable")
 }
 
 const getVersion = async function getVersion() {
