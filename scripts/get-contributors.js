@@ -20,10 +20,50 @@ const token = process.env.GITHUB_TOKEN;
 const headers = {};
 if (token) {
     headers.authorization = `token ${token}`;
-    console.log("Using provided GitHub token to increase rate limit")
+    console.log("Using provided GitHub token to increase rate limit");
 } else {
-    console.log("No GitHub token provided, rate limit may be reached")
-    console.warn("To increase the rate limit, provide a GitHub token via the GITHUB_TOKEN environment variable")
+    console.log("No GitHub token provided, rate limit may be reached");
+    console.warn("To increase the rate limit, provide a GitHub token via the GITHUB_TOKEN environment variable");
+}
+
+async function getContributors(repository) {
+    console.time(`get contributors to ${repository}`);
+    let responseJson = [];
+    let contributors = [];
+
+    try {
+        const response = await fetch(`https://api.github.com/repos/${repository}/contributors`, {
+            headers,
+            signal: AbortSignal.timeout(5000),
+        });
+
+        if (!response.ok) {
+            console.error(`Error! status: ${response.status} message: ${response.statusText}`);
+        }
+        else {
+            responseJson = await response.json();
+        }
+
+        for (const contributor of responseJson) {
+            if (contributor.type !== "User") {
+                continue;
+            }
+            
+            contributors.push({
+                login: contributor.login,
+                html_url: contributor.html_url,
+                avatar_url: contributor.avatar_url,
+                contributions: contributor.contributions,
+            });
+        }
+
+    } catch (responseError) {
+        console.error(`Error: ${responseError.message}`);
+    }
+
+    console.timeEnd(`get contributors to ${repository}`);
+
+    return contributors;
 }
 
 (async () => {
@@ -33,25 +73,15 @@ if (token) {
     try {
         let allRepContributors = [];
         for (const repository of repositories) {
-            console.time(`contributors-${repository}`);
+            const contributosArr = await getContributors(repository);
 
-            const response = await fetch(`https://api.github.com/repos/${repository}/contributors`, {
-                headers,
-            }).then(response => response.json());
-            console.timeEnd(`contributors-${repository}`);
-
-            for (const contributor of response) {
-                if (contributor.type !== "User") {
-                    continue;
-                }
+            if (!contributosArr) {
+                console.log(`Error fetching contributors of ${repository}`);
                 
-                allRepContributors.push({
-                    login: contributor.login,
-                    html_url: contributor.html_url,
-                    avatar_url: `${contributor.avatar_url}`,
-                    contributions: contributor.contributions,
-                });
+                continue;
             }
+
+            allRepContributors.push(...contributosArr);
         }
 
         // Calculate total contributions by user
@@ -86,28 +116,31 @@ if (token) {
     } catch (error) {
         // If we're running in CI and a failure occurs, use fallback data for contributors
         if (process.env.CI === 'true') {
-            console.log(`error: ${error} - using fallback contributors.json`);
-            allContributors = [
-                {
-                    login: "hideout-bot",
-                    html_url: "https://github.com/hideout-bot",
-                    avatar_url: "https://avatars.githubusercontent.com/u/121582168?v=4",
-                    totalContributions: 9000,
-                }
-            ];
+            console.log(`error in CI: ${error}`);
         } else {
             console.log(`error fetching contributors: ${error}`);
-            console.log('using mock contributors data (offline mode?)')
-            allContributors = [
-                {
-                    login: "hideout-bot",
-                    html_url: "https://github.com/hideout-bot",
-                    avatar_url: "https://avatars.githubusercontent.com/u/121582168?v=4",
-                    totalContributions: 9000,
-                }
-            ];
         }
     }
 
-    fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'contributors.json'), JSON.stringify(allContributors, null, 4));
+    if (allContributors.length === 0) {
+        console.log('using fallback contributors.json (offline mode?)');
+        allContributors = [
+            {
+                login: "hideout-bot",
+                html_url: "https://github.com/hideout-bot",
+                avatar_url: "https://avatars.githubusercontent.com/u/121582168?v=4",
+                totalContributions: 9000,
+            }
+        ];
+    }
+    else {
+        console.log(`Total contributors: ${allContributors.length}`);
+    }
+
+    console.time('Write new data');
+
+    let stringifyed = JSON.stringify(allContributors, null, 4);
+    fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'contributors.json'), stringifyed);
+
+    console.timeEnd('Write new data');
 })();
