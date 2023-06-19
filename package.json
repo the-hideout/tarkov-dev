@@ -41,7 +41,7 @@
     "react-loader-spinner": "^5.3.4",
     "react-query": "^3.39.3",
     "react-redux": "^8.0.7",
-    "react-router-dom": "^6.12.1",
+    "react-router-dom": "^6.13.0",
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "^5.0.1",
     "react-select": "^5.7.3",
