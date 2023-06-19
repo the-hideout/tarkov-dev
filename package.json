@@ -28,7 +28,7 @@
     "intersection-observer": "^0.12.2",
     "lodash.debounce": "^4.0.8",
     "prettier": "^2.8.8",
-    "rc-slider": "^10.1.1",
+    "rc-slider": "^10.2.1",
     "react": "^17.0.2",
     "react-cookie-consent": "^8.0.1",
     "react-countdown": "^2.3.5",
