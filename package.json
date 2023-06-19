@@ -2,6 +2,25 @@
   "name": "tarkov.dev",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "prestart": "npm run prebuild",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "eject": "react-scripts eject",
+    "prebuild": "node scripts/update-props.js && node --experimental-loader ./scripts/custom-loader.mjs scripts/cache-api-data.mjs && node scripts/get-version.js && node scripts/get-contributors.js && node scripts/build-sitemap.js && node scripts/generate-thumbnails.js",
+    "postbuild": "node scripts/build-redirects.js && node scripts/critical.js",
+    "stage": "npx rimraf build && npm run build && npm run preview",
+    "preview": "npx serve build -l 3001 -s",
+    "critical": "node scripts/critical.js",
+    "cache-api-data": "node --experimental-loader ./scripts/custom-loader.mjs scripts/cache-api-data.mjs"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.8",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  },
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.3.0",
     "@emotion/styled": "^11.11.0",
@@ -27,7 +46,6 @@
     "i18next-http-backend": "^2.2.1",
     "intersection-observer": "^0.12.2",
     "lodash.debounce": "^4.0.8",
-    "prettier": "^2.8.8",
     "rc-slider": "^10.1.1",
     "react": "^17.0.2",
     "react-cookie-consent": "^8.0.1",
@@ -54,21 +72,6 @@
     "sharp": "^0.32.0",
     "source-map-explorer": "^2.5.3",
     "victory": "^36.6.10"
-  },
-  "scripts": {
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "prestart": "npm run prebuild",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "eject": "react-scripts eject",
-    "prebuild": "node scripts/update-props.js && node --experimental-loader ./scripts/custom-loader.mjs scripts/cache-api-data.mjs && node scripts/get-version.js && node scripts/get-contributors.js && node scripts/build-sitemap.js && node scripts/generate-thumbnails.js",
-    "postbuild": "node scripts/build-redirects.js && node scripts/critical.js",
-    "stage": "npx rimraf build && npm run build && npm run preview",
-    "preview": "npx serve build -l 3001 -s",
-    "critical": "node scripts/critical.js",
-    "cache-api-data": "node --experimental-loader ./scripts/custom-loader.mjs scripts/cache-api-data.mjs"
   },
   "jest": {
     "transformIgnorePatterns": [
