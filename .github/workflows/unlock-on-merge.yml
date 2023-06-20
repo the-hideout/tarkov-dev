@@ -10,6 +10,7 @@ permissions:
 jobs:
   unlock-on-merge:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
 
     steps:
       - name: unlock on merge
