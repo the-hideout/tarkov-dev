@@ -12,7 +12,7 @@ View Escape from Tarkov information about items, barters, trades, flea market pr
 
 ![homepage](docs/assets/homepage.png)
 
-## Local Development 🔨
+## Local Development 🔨test
 
 To build and test the site locally just follow the steps below:
 
