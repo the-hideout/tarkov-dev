@@ -1,11 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo, useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
     TransformWrapper,
     TransformComponent,
 } from 'react-zoom-pan-pinch';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer } from 'react-leaflet'
 import L from 'leaflet';
 
 import { useMapImages } from '../features/maps';
@@ -15,43 +15,8 @@ import SEO from './SEO';
 
 import ErrorPage from './error-page';
 
-function Map() {
-    let { currentMap } = useParams();
-
-    const { t } = useTranslation();
-
-    useEffect(() => {
-        let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
-        if (viewableHeight < 100) {
-            viewableHeight = window.innerHeight;
-        }
-
-        document.documentElement.style.setProperty(
-            '--display-height',
-            `${viewableHeight}px`,
-        );
-
-        return function cleanup() {
-            document.documentElement.style.setProperty(
-                '--display-height',
-                `auto`,
-            );
-        };
-    });
-
-    const ref = useRef();
-
-    useEffect(() => {
-        ref?.current?.resetTransform();
-    }, [currentMap]);
-
-    let allMaps = useMapImages();
-
-    if (!allMaps[currentMap]) {
-        return <ErrorPage />;
-    }
-    const { displayText, author, authorLink, normalizedName, description, duration, players, image, imageThumb, projection, transform } = allMaps[currentMap];
-    const markers = [
+const testMarkers = {
+    customs: [
         {
             name: '0, 0',
             coordinates: [0, 0]
@@ -96,66 +61,114 @@ function Map() {
             name: 'Package of graphics cards',
             coordinates: [-204.388, -98.63]
         }
-    ];
-    let mapElement = <></>;
-    if (projection !== 'interactive') {
-        mapElement = <TransformWrapper
-            ref={ref}
-            initialScale={1}
-            centerOnInit={true}
-            wheel={{
-                step: 0.1,
-            }}
-        >
-            <TransformComponent>
-                <div className="map-image-wrapper">
-                    <img
-                        alt={`${displayText} ${t('Map')}`}
-                        loading="lazy"
-                        className="map-image"
-                        title={`${displayText} ${t('Map')}`}
-                        src={`${process.env.PUBLIC_URL}${image}`}
-                    />
-                </div>
-            </TransformComponent>
-        </TransformWrapper>
-    } else {
-        L.CRS.MySimple = L.extend({}, L.CRS.Simple, {
-            transformation: new L.Transformation(transform[0], transform[1], transform[2], transform[3])
-        });
-        mapElement = <MapContainer center={[0, 0]} zoom={2} scrollWheelZoom={true} crs={L.CRS.MySimple} minZoom={2} maxZoom={5} style={{height: '500px', backgroundColor: 'transparent'}} boundsOptions={{padding: [50, 50]}}>
-            <TileLayer
-                url="https://assets.tarkov.dev/maps/customs/{z}/{x}/{y}.png"
-                tileSize={allMaps[currentMap].tileSize}
-            />
-            {markers.map((marker, index) => {
-                return <Marker position={[marker.coordinates[1], marker.coordinates[0]]} key={`marker-${index}`} color={'red'}>
-                    <Popup>
-                        {marker.name} {`[${marker.coordinates[0]}, ${marker.coordinates[1]}]`}
-                    </Popup>
-                </Marker>
-            })}
-        </MapContainer>
+    ],
+};
+
+function Map() {
+    let { currentMap } = useParams();
+
+    const { t } = useTranslation();
+
+    useEffect(() => {
+        let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
+        if (viewableHeight < 100) {
+            viewableHeight = window.innerHeight;
+        }
+
+        document.documentElement.style.setProperty(
+            '--display-height',
+            `${viewableHeight}px`,
+        );
+
+        return function cleanup() {
+            document.documentElement.style.setProperty(
+                '--display-height',
+                `auto`,
+            );
+        };
+    });
+
+    const ref = useRef();
+
+    const [mapRef, setMapRef] = useState(null);
+    const onMapRefChange = useCallback(node => {
+        setMapRef(node);
+    }, []);
+
+    useEffect(() => {
+        ref?.current?.resetTransform();
+    }, [currentMap]);
+
+    let allMaps = useMapImages();
+
+    const mapData = useMemo(() => {
+        return allMaps[currentMap];
+    }, [allMaps, currentMap]);
+
+    useEffect(() => {
+        if (!mapRef || !mapData || !mapData.tileSize) {
+            return;
+        }
+        mapRef?.eachLayer(layer => layer?.remove());
+        mapRef.setMinZoom(mapData.minZoom);
+        mapRef.setMaxZoom(mapData.maxZoom);
+        L.tileLayer(`https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {tileSize: mapData.tileSize}).addTo(mapRef);
+        const markers = testMarkers[mapData.normalizedName];
+        const transformation = new L.Transformation(mapData.transform[0], mapData.transform[1], mapData.transform[2], mapData.transform[3]);
+        if (markers) {
+            for (const m of markers) {
+                const point = transformation.transform(L.point(m.coordinates[0], m.coordinates[1]));
+                L.marker([point.y, point.x])
+                    .bindPopup(L.popup().setContent(m.name))
+                    .addTo(mapRef);
+            }
+        }
+        const zeroPoint = transformation.transform(L.point(0, 0));
+        mapRef.panTo([zeroPoint.y, zeroPoint.x])
+    }, [mapData, mapRef]);
+    
+    if (!mapData) {
+        return <ErrorPage />;
     }
 
     return [
         <SEO 
-            title={`${displayText} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
-            description={description}
-            image={`${window.location.origin}${process.env.PUBLIC_URL}${imageThumb}`}
+            title={`${mapData.displayText} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            description={mapData.description}
+            image={`${window.location.origin}${process.env.PUBLIC_URL}${mapData.imageThumb}`}
             card='summary_large_image'
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key="map-wrapper" style={{height: '500px'}}>
             <Time
                 currentMap={currentMap}
-                normalizedName={normalizedName}
-                duration={duration}
-                players={players}
-                author={author}
-                authorLink={authorLink}
+                normalizedName={mapData.normalizedName}
+                duration={mapData.duration}
+                players={mapData.players}
+                author={mapData.author}
+                authorLink={mapData.authorLink}
             />
-            {mapElement}
+            {mapData.projection !== 'interactive' && (<TransformWrapper
+                ref={ref}
+                initialScale={1}
+                centerOnInit={true}
+                wheel={{
+                    step: 0.1,
+                }}
+            >
+                <TransformComponent>
+                    <div className="map-image-wrapper">
+                        <img
+                            alt={`${mapData.displayText} ${t('Map')}`}
+                            loading="lazy"
+                            className="map-image"
+                            title={`${mapData.displayText} ${t('Map')}`}
+                            src={`${process.env.PUBLIC_URL}${mapData.image}`}
+                        />
+                    </div>
+                </TransformComponent>
+            </TransformWrapper>)}
+            {mapData.projection === 'interactive' && (<MapContainer ref={onMapRefChange} center={[0, 0]} zoom={2} scrollWheelZoom={true} crs={L.CRS.Simple} style={{height: '500px', backgroundColor: 'transparent'}}></MapContainer>)}
         </div>,
     ];
 }

@@ -27,7 +27,7 @@
                 "tileSize": 250,
                 "minZoom": 0,
                 "maxZoom": 6,
-                "transform": [0.182815, 90.4, -0.182815, 70.5],
+                "transform": [0.182815, 90.4, 0.182815, -70.5],
                 "author": "Moritz",
                 "authorLink": "https://tarkov.dev"
             },
