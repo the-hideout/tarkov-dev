@@ -19,8 +19,18 @@
     },
     {
         "normalizedName": "customs",
-        "primaryPath": "/map/customs-3d",
+        "primaryPath": "/map/customs",
         "maps": [
+            {
+                "key": "customs",
+                "projection": "interactive",
+                "tileSize": 250,
+                "minZoom": 0,
+                "maxZoom": 6,
+                "transform": [0.182815, 90.4, -0.182815, 70.5],
+                "author": "Moritz",
+                "authorLink": "https://tarkov.dev"
+            },
             {
                 "key": "customs-3d",
                 "projection": "3D",

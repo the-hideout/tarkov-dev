@@ -127,7 +127,7 @@ cite {
     position: absolute;
     right: -10px;
     top: 0;
-    z-index: 5;
+    z-index: 1005;
     text-align: right;
 }
 
