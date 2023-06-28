@@ -22,7 +22,20 @@
         "primaryPath": "/map/customs",
         "maps": [
             {
-                "key": "customs",
+                "key": "customs-interactive-cardinal",
+                "projection": "interactive",
+                "tileSize": 250,
+                "minZoom": 0,
+                "maxZoom": 6,
+                "transform": [0.182815, 159.5, 0.182815, -70.5],
+                "author": "Moritz",
+                "authorLink": "https://tarkov.dev",
+                "orientation": "Cardinal",
+                "coordinateRotation": 180,
+                "mapPath": "https://assets.tarkov.dev/maps/customs_cardinal/{z}/{x}/{y}.png"
+            },
+            {
+                "key": "customs-interactive",
                 "projection": "interactive",
                 "tileSize": 250,
                 "minZoom": 0,
@@ -123,6 +136,16 @@
                 "orientation": "Landscape",
                 "author": "Jindouz",
                 "authorLink": "https://www.reddit.com/user/Jindouz"
+            },
+            {
+                "key": "lighthouse-interactive",
+                "projection": "interactive",
+                "tileSize": 200,
+                "minZoom": 0,
+                "maxZoom": 6,
+                "transform": [0.182815, 90.4, 0.182815, -70.5],
+                "author": "Moritz",
+                "authorLink": "https://tarkov.dev"
             }
         ]
     },
@@ -155,6 +178,27 @@
                 "specific": "Underground",
                 "author": "re3mr",
                 "authorLink": "https://reemr.se"
+            },
+            {
+                "key": "reserve-interactive",
+                "projection": "interactive",
+                "tileSize": 250,
+                "minZoom": 0,
+                "maxZoom": 6,
+                "transform": [0.182815, 90.4, 0.182815, -70.5],
+                "coordinateRotation": 180,
+                "author": "Moritz",
+                "authorLink": "https://tarkov.dev",
+                "layers": [
+                    {
+                        "name": "First Floor",
+                        "path": "https://assets.tarkov.dev/maps/reserve_first_floor/{z}/{x}/{y}.png"
+                    },
+                    {
+                        "name": "Tunnels",
+                        "path": "https://assets.tarkov.dev/maps/reserve_tunnels/{z}/{x}/{y}.png"
+                    }
+                ]
             }
         ]
     },
@@ -198,6 +242,16 @@
                 "projection": "2D",
                 "author": "Jindouz",
                 "authorLink": "https://www.reddit.com/user/Jindouz"
+            },
+            {
+                "key": "woods-interactive",
+                "projection": "interactive",
+                "tileSize": 273,
+                "minZoom": 0,
+                "maxZoom": 5,
+                "transform": [0.182815, 90.4, 0.182815, -70.5],
+                "author": "Moritz",
+                "authorLink": "https://tarkov.dev"
             }
         ]
     },

@@ -5,7 +5,7 @@ import {
     TransformWrapper,
     TransformComponent,
 } from 'react-zoom-pan-pinch';
-import { MapContainer } from 'react-leaflet'
+import { MapContainer, LayersControl } from 'react-leaflet'
 import L from 'leaflet';
 
 import { useMapImages } from '../features/maps';
@@ -14,6 +14,8 @@ import Time from './Time';
 import SEO from './SEO';
 
 import ErrorPage from './error-page';
+
+const showTestMarkers = true;
 
 const testMarkers = {
     customs: [
@@ -95,6 +97,11 @@ function Map() {
         setMapRef(node);
     }, []);
 
+    const [legend, setLegendRef] = useState(null);
+    const onLegendRefChange = useCallback(node => {
+        setLegendRef(node);
+    }, []);
+
     useEffect(() => {
         ref?.current?.resetTransform();
     }, [currentMap]);
@@ -105,27 +112,63 @@ function Map() {
         return allMaps[currentMap];
     }, [allMaps, currentMap]);
 
+    const transformation = useMemo(() => {
+        if (!mapData || !mapData.transform) {
+            return new L.Transformation(1, 0, 1, 0);
+        }
+        let scaleX = mapData.transform[0];
+        let scaleY = mapData.transform[2];
+        let marginX = mapData.transform[1];
+        let marginY = mapData.transform[3];
+        if (mapData.coordinateRotation === 90) {
+            //factory
+        }
+        if (mapData.coordinateRotation === 180) {
+            scaleX = scaleX * -1;
+            scaleY = scaleY * -1;
+        }
+        if (mapData.coordinateRotation === 270) {
+            //labs
+        }
+        return new L.Transformation(scaleX, marginX, scaleY, marginY);
+    }, [mapData]);
+
     useEffect(() => {
-        if (!mapRef || !mapData || !mapData.tileSize) {
+        if (!mapRef || !legend || !mapData || !mapData.tileSize) {
             return;
         }
-        mapRef?.eachLayer(layer => layer?.remove());
+        while (legend._layers.length > 0) {
+            legend.removeLayer(legend._layers[0].layer)
+        }
+        mapRef.eachLayer(layer => layer?.remove());
         mapRef.setMinZoom(mapData.minZoom);
         mapRef.setMaxZoom(mapData.maxZoom);
-        L.tileLayer(`https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {tileSize: mapData.tileSize}).addTo(mapRef);
+        const baseLayer = L.tileLayer(mapData.mapPath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {tileSize: mapData.tileSize});
+        baseLayer.addTo(mapRef);
         const markers = testMarkers[mapData.normalizedName];
-        const transformation = new L.Transformation(mapData.transform[0], mapData.transform[1], mapData.transform[2], mapData.transform[3]);
-        if (markers) {
+        if (showTestMarkers && markers) {
+            const markerLayer = L.layerGroup();
             for (const m of markers) {
                 const point = transformation.transform(L.point(m.coordinates[0], m.coordinates[1]));
                 L.marker([point.y, point.x])
                     .bindPopup(L.popup().setContent(m.name))
-                    .addTo(mapRef);
+                    .addTo(markerLayer);
+            }
+            if (markers.length > 0) {
+                markerLayer.addTo(mapRef);
+                legend.addOverlay(markerLayer, t('Markers'));
             }
         }
+        if (mapData.layers) {
+            for (const layer of mapData.layers) {
+                const tileLayer = L.tileLayer(layer.path, {tileSize: mapData.tileSize});
+                tileLayer.addTo(mapRef);
+                legend.addOverlay(tileLayer, t(layer.name));
+            }
+        } 
         const zeroPoint = transformation.transform(L.point(0, 0));
         mapRef.panTo([zeroPoint.y, zeroPoint.x])
-    }, [mapData, mapRef]);
+    }, [mapData, mapRef, transformation, legend, t]);
     
     if (!mapData) {
         return <ErrorPage />;
@@ -168,7 +211,12 @@ function Map() {
                     </div>
                 </TransformComponent>
             </TransformWrapper>)}
-            {mapData.projection === 'interactive' && (<MapContainer ref={onMapRefChange} center={[0, 0]} zoom={2} scrollWheelZoom={true} crs={L.CRS.Simple} style={{height: '500px', backgroundColor: 'transparent'}}></MapContainer>)}
+            {mapData.projection === 'interactive' && (<MapContainer ref={onMapRefChange} center={[0, 0]} zoom={2} scrollWheelZoom={true} crs={L.CRS.Simple} style={{height: '500px', backgroundColor: 'transparent'}}>
+                <LayersControl
+                    ref={onLegendRefChange}
+                    position="bottomleft"
+                ></LayersControl>
+            </MapContainer>)}
         </div>,
     ];
 }
