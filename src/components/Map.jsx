@@ -181,6 +181,14 @@ function Map() {
     const [mapRef, setMapRef] = useState(null);
     const onMapRefChange = useCallback(node => {
         setMapRef(node);
+        if (node) {
+            const container = node.getContainer();
+            let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
+            if (viewableHeight < 100) {
+                viewableHeight = window.innerHeight;
+            }
+            container.style.height = `${viewableHeight}px`;
+        }
     }, []);
 
     const [legend, setLegendRef] = useState(null);
@@ -270,7 +278,7 @@ function Map() {
             card='summary_large_image'
             key="seo-wrapper"
         />,
-        <div className="display-wrapper" key="map-wrapper" style={{height: '500px'}}>
+        <div className="display-wrapper" key="map-wrapper">
             <Time
                 currentMap={currentMap}
                 normalizedName={mapData.normalizedName}
@@ -302,7 +310,7 @@ function Map() {
             {mapData.projection === 'interactive' && (<MapContainer ref={onMapRefChange} center={[0, 0]} zoom={2} scrollWheelZoom={true} crs={L.CRS.Simple} style={{height: '500px', backgroundColor: 'transparent'}}>
                 <LayersControl
                     ref={onLegendRefChange}
-                    position="bottomleft"
+                    position="topleft"
                 ></LayersControl>
             </MapContainer>)}
         </div>,
