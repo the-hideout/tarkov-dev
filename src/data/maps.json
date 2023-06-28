@@ -143,7 +143,8 @@
                 "tileSize": 200,
                 "minZoom": 0,
                 "maxZoom": 6,
-                "transform": [0.182815, 90.4, 0.182815, -70.5],
+                "transform": [0.108, 55.8, 0.108, -126.0],
+                "coordinateRotation": 180,
                 "author": "Moritz",
                 "authorLink": "https://tarkov.dev"
             }
@@ -185,14 +186,15 @@
                 "tileSize": 250,
                 "minZoom": 0,
                 "maxZoom": 6,
-                "transform": [0.182815, 90.4, 0.182815, -70.5],
+                "transform": [0.21, 124.25, 0.21, -80.3],
                 "coordinateRotation": 180,
                 "author": "Moritz",
                 "authorLink": "https://tarkov.dev",
                 "layers": [
                     {
                         "name": "First Floor",
-                        "path": "https://assets.tarkov.dev/maps/reserve_first_floor/{z}/{x}/{y}.png"
+                        "path": "https://assets.tarkov.dev/maps/reserve_first_floor/{z}/{x}/{y}.png",
+                        "show": true
                     },
                     {
                         "name": "Tunnels",
@@ -249,7 +251,8 @@
                 "tileSize": 273,
                 "minZoom": 0,
                 "maxZoom": 5,
-                "transform": [0.182815, 90.4, 0.182815, -70.5],
+                "transform": [0.197, 125, 0.197, -186],
+                "coordinateRotation": 180,
                 "author": "Moritz",
                 "authorLink": "https://tarkov.dev"
             }

@@ -64,6 +64,92 @@ const testMarkers = {
             coordinates: [-204.388, -98.63]
         }
     ],
+    lighthouse: [
+        {
+            name: 'Water pump operation data',
+            coordinates: [-111.0176, -750.147034]
+        },
+        {
+            name: 'Pumping station operation report',
+            coordinates: [53.2094955, -638.8754]
+        },
+        {
+            name: 'Laptop with information',
+            coordinates: [139.196289, -129.943909]
+        },
+        {
+            name: 'Stolen military documents',
+            coordinates: [-115.694664, 88.8879852]
+        },
+        {
+            name: 'Sealed letter',
+            coordinates: [-248.391052, -328.2831]
+        },
+        {
+            name: 'Forged Lightkeeper intelligence',
+            coordinates: [21.2779083, -445.487946]
+        },
+        {
+            name: 'Working hard drive',
+            coordinates: [352.6155, 545.5325]
+        },
+    ],
+    reserve: [/*
+        {
+            name: 'Military documents #1',
+            coordinates: [-114.36499, 27.3590088]
+        },
+        {
+            name: 'Military documents #2',
+            coordinates: [-114.18103, 39.7880249]
+        },
+        {
+            name: 'Military documents #3',
+            coordinates: [-121.867004, 38.6560059]
+        },
+        {
+            name: 'MBT Integrated Navigation System',
+            coordinates: [99.78601, 59.1600342]
+        },
+        {
+            name: 'T-90M Commander Control Panel',
+            coordinates: [-88.065, 151.055]
+        },
+        {
+            name: 'Medical record #1',
+            coordinates: [-59.0209961, -36.1919861]
+        },
+        {
+            name: 'Medical record #2',
+            coordinates: [-80.47601, -30.7659912]
+        },
+        {
+            name: 'Lightkeeper intelligence',
+            coordinates: [102.24981, 65.5604]
+        },
+    */],
+    woods: [
+        {
+            name: 'Encrypted message',
+            coordinates: [-257.1476, 7.9998]
+        },
+        {
+            name: 'Blood sample',
+            coordinates: [-94.25195, 218.992981]
+        },
+        {
+            name: 'Secure folder 0052',
+            coordinates: [-3.322, -81.1259]
+        },
+        {
+            name: 'Motor Controller #1',
+            coordinates: [233.843018, -71.10199]
+        },
+        {
+            name: 'Single-axis Fiber Optic Gyroscope #1',
+            coordinates: [56.7209473, -50.2489929]
+        },
+    ],
 };
 
 function Map() {
@@ -163,6 +249,9 @@ function Map() {
             for (const layer of mapData.layers) {
                 const tileLayer = L.tileLayer(layer.path, {tileSize: mapData.tileSize});
                 legend.addOverlay(tileLayer, t(layer.name));
+                if (layer.show) {
+                    tileLayer.addTo(mapRef);
+                }
             }
         } 
         const zeroPoint = transformation.transform(L.point(0, 0));
