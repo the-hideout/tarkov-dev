@@ -194,7 +194,7 @@
                     {
                         "name": "First Floor",
                         "path": "https://assets.tarkov.dev/maps/reserve_first_floor/{z}/{x}/{y}.png",
-                        "show": true
+                        "show": false
                     },
                     {
                         "name": "Tunnels",
