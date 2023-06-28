@@ -28,7 +28,7 @@
     "@mdi/react": "^1.6.1",
     "@mui/icons-material": "^5.11.16",
     "@mui/lab": "^5.0.0-alpha.133",
-    "@mui/material": "^5.13.4",
+    "@mui/material": "^5.13.6",
     "@mui/styles": "^5.13.2",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
