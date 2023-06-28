@@ -162,7 +162,6 @@ function Map() {
         if (mapData.layers) {
             for (const layer of mapData.layers) {
                 const tileLayer = L.tileLayer(layer.path, {tileSize: mapData.tileSize});
-                tileLayer.addTo(mapRef);
                 legend.addOverlay(tileLayer, t(layer.name));
             }
         } 
