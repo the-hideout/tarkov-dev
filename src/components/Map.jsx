@@ -243,6 +243,7 @@ function Map() {
             zoom: 2,
             scrollWheelZoom: true,
             crs: getCRS(mapData),
+            attributionControl: false,
         });
         const legend = L.control.layers(null, null, {position: 'topleft'}).addTo(map);
         map.setMinZoom(mapData.minZoom);
