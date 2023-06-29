@@ -93,7 +93,7 @@ const testMarkers = {
             coordinates: [352.6155, 545.5325]
         },
     ],
-    reserve: [/*
+    reserve: [
         {
             name: 'Military documents #1',
             coordinates: [-114.36499, 27.3590088]
@@ -126,7 +126,7 @@ const testMarkers = {
             name: 'Lightkeeper intelligence',
             coordinates: [102.24981, 65.5604]
         },
-    */],
+    ],
     woods: [
         {
             name: 'Encrypted message',
@@ -163,23 +163,25 @@ function getCRS(mapData) {
             marginX = mapData.transform[1];
             marginY = mapData.transform[3];
         }
-        if (mapData.coordinateRotation) {
-            if (mapData.coordinateRotation === 90) {
-                //factory
-            }
-            if (mapData.coordinateRotation === 180) {
-                scaleX = scaleX * -1;
-                scaleY = scaleY * -1;
-            }
-            if (mapData.coordinateRotation === 270) {
-                //labs
-            }
-        }
     }
     let transformation = new L.Transformation(scaleX, marginX, scaleY, marginY);
     return L.extend({}, L.CRS.Simple, {
         transformation: transformation,
     });
+}
+
+function getCoordinates(x, y, mapData) {
+    if (!mapData.coordinateRotation) {
+        return [y, x];
+    }
+    const angleInRadians = (mapData.coordinateRotation * Math.PI) / 180;
+    const cosAngle = Math.cos(angleInRadians);
+    const sinAngle = Math.sin(angleInRadians);
+
+    const rotatedX = x * cosAngle - y * sinAngle;
+    const rotatedY = x * sinAngle + y * cosAngle;
+
+    return [rotatedY, rotatedX];
 }
 
 function Map() {
@@ -252,7 +254,7 @@ function Map() {
             const markerLayer = L.layerGroup();
             for (const m of markers) {
                 const point = L.point(m.coordinates[0], m.coordinates[1]);
-                L.marker([point.y, point.x])
+                L.marker(getCoordinates(m.coordinates[0], m.coordinates[1], mapData))
                     .bindPopup(L.popup().setContent(m.name))
                     .addTo(markerLayer);
             }

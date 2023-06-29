@@ -186,8 +186,8 @@
                 "tileSize": 250,
                 "minZoom": 0,
                 "maxZoom": 6,
-                "transform": [0.21, 124.25, 0.21, 80.3],
-                "coordinateRotation": 180,
+                "transform": [0.268, 124.95, 0.268, 70.4],
+                "coordinateRotation": 195.2090,
                 "author": "Moritz",
                 "authorLink": "https://tarkov.dev",
                 "layers": [
