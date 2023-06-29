@@ -253,7 +253,6 @@ function Map() {
         if (showTestMarkers && markers) {
             const markerLayer = L.layerGroup();
             for (const m of markers) {
-                const point = L.point(m.coordinates[0], m.coordinates[1]);
                 L.marker(getCoordinates(m.coordinates[0], m.coordinates[1], mapData))
                     .bindPopup(L.popup().setContent(m.name))
                     .addTo(markerLayer);
