@@ -6,8 +6,9 @@ import {
     TransformComponent,
 } from 'react-zoom-pan-pinch';
 import L from 'leaflet';
-// eslint-disable-next-line no-unused-vars
-import AwesomeMarkers from 'leaflet.awesome-markers';
+import 'leaflet.coordinates/dist/Leaflet.Coordinates-0.1.5.min';
+import 'leaflet.awesome-markers';
+import 'leaflet-fullscreen/dist/Leaflet.fullscreen';
 
 import { useMapImages } from '../features/maps';
 
@@ -18,7 +19,9 @@ import SEO from './SEO';
 
 import ErrorPage from './error-page';
 
-import '../../node_modules/leaflet.awesome-markers/dist/leaflet.awesome-markers.css';
+import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css';
+import 'leaflet.coordinates/dist/Leaflet.Coordinates-0.1.5.css';
+import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'ion';
 
@@ -32,29 +35,42 @@ function getCRS(mapData) {
     if (mapData) {    
         if (mapData.transform) {
             scaleX = mapData.transform[0];
-            scaleY = mapData.transform[2] * -1;
+            scaleY = mapData.transform[0] * -1;
             marginX = mapData.transform[1];
             marginY = mapData.transform[3];
         }
     }
-    let transformation = new L.Transformation(scaleX, marginX, scaleY, marginY);
     return L.extend({}, L.CRS.Simple, {
-        transformation: transformation,
+        transformation: new L.Transformation(scaleX, marginX, scaleY, marginY),
+        projection: L.extend({}, L.Projection.LonLat, {
+            project: latLng => {
+                console.log('project')
+                return L.Projection.LonLat.project(applyRotation(latLng, mapData.coordinateRotation));
+            },
+            unproject: point => {
+                console.log('unproject', point)
+                return applyRotation(L.Projection.LonLat.unproject(point), mapData.coordinateRotation * -1);
+            },
+        }),
     });
 }
 
-function getCoordinates(position, mapData) {
-    const {x, z: y} = position;
-    if (!mapData.coordinateRotation) {
-        return [y, x];
+function applyRotation(latLng, rotation) {
+    const {lng: x, lat: y} = latLng;
+    if (!rotation) {
+        return L.latLng(y, x);
     }
-    const angleInRadians = (mapData.coordinateRotation * Math.PI) / 180;
+    const angleInRadians = (rotation * Math.PI) / 180;
     const cosAngle = Math.cos(angleInRadians);
     const sinAngle = Math.sin(angleInRadians);
 
     const rotatedX = x * cosAngle - y * sinAngle;
     const rotatedY = x * sinAngle + y * cosAngle;
-    return [rotatedY, rotatedX];
+    return L.latLng(rotatedY, rotatedX);
+}
+
+function pos(position) {
+    return [position.z, position.x];
 }
 
 function Map() {
@@ -119,6 +135,26 @@ function Map() {
             attributionControl: false,
         });
         const legend = L.control.layers(null, null, {position: 'topleft'}).addTo(map);
+        map.addControl(new L.Control.Fullscreen({
+            title: {
+                'false': t('View Fullscreen'),
+                'true': t('Exit Fullscreen'),
+            }
+        }));
+
+        L.control.coordinates({
+            decimals: 2,
+            labelTemplateLat: 'z: {y}',
+            labelTemplateLng: 'x: {x}',
+            enableUserInput: false,
+            position: 'topleft',
+            customLabelFcn: (latLng, opts) => {
+                return `x: ${latLng.lng.toFixed(2)} z: ${latLng.lat.toFixed(2)}`;
+            }
+        }).addTo(map);
+
+        L.control.scale({position: 'bottomright'}).addTo(map);
+
         map.setMinZoom(mapData.minZoom);
         map.setMaxZoom(mapData.maxZoom);
         const baseLayer = L.tileLayer(mapData.mapPath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {tileSize: mapData.tileSize});
@@ -131,7 +167,7 @@ function Map() {
                     icon: 'checkmark',
                     markerColor: 'blue',
                 });
-                L.marker(getCoordinates(m.position, mapData), {icon: questMarker})
+                L.marker(pos(m.position), {icon: questMarker})
                     .bindPopup(L.popup().setContent(`${m.name}<br>${JSON.stringify(m.position)}`))
                     .addTo(markerLayer);
             }
@@ -157,7 +193,7 @@ function Map() {
                 if (spawn.sides.includes('all')) {
                     //color = '#ffa033';
                 }
-                const spawnMarker = L.circle(getCoordinates(spawn.position, mapData), {
+                const spawnMarker = L.circle(pos(spawn.position), {
                     radius: 5,
                     color,
                 });
@@ -182,8 +218,9 @@ function Map() {
                 }
             }
         } 
-        const zeroPoint = L.point(0, 0);
-        map.panTo([zeroPoint.y, zeroPoint.x]);
+        //const zeroPoint = L.point(0, 0);
+        //map.panTo([zeroPoint.y, zeroPoint.x]);
+        map.fitWorld({maxZoom: 2});
         mapRef.current = map;
     }, [mapData, mapRef, t]);
     
