@@ -6,6 +6,7 @@ import {
     TransformComponent,
 } from 'react-zoom-pan-pinch';
 import L from 'leaflet';
+// eslint-disable-next-line no-unused-vars
 import AwesomeMarkers from 'leaflet.awesome-markers';
 
 import { useMapImages } from '../features/maps';
