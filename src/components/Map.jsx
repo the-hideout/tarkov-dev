@@ -44,11 +44,9 @@ function getCRS(mapData) {
         transformation: new L.Transformation(scaleX, marginX, scaleY, marginY),
         projection: L.extend({}, L.Projection.LonLat, {
             project: latLng => {
-                console.log('project')
                 return L.Projection.LonLat.project(applyRotation(latLng, mapData.coordinateRotation));
             },
             unproject: point => {
-                console.log('unproject', point)
                 return applyRotation(L.Projection.LonLat.unproject(point), mapData.coordinateRotation * -1);
             },
         }),
