@@ -190,6 +190,7 @@
                 "coordinateRotation": 195.2090,
                 "author": "Moritz",
                 "authorLink": "https://tarkov.dev",
+                "heightRange": [-5, 1000],
                 "layers": [
                     {
                         "name": "First Floor",
@@ -199,7 +200,8 @@
                     {
                         "name": "Tunnels",
                         "path": "https://assets.tarkov.dev/maps/reserve_tunnels/{z}/{x}/{y}.png",
-                        "show": false
+                        "show": false,
+                        "heightRange": [-1000, -5]
                     }
                 ]
             }

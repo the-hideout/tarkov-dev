@@ -102,6 +102,13 @@ export const useMapImages = () => {
                     players: apiMap?.players || mapsGroup.players,
                     image: `/maps/${map.key}.jpg`,
                     imageThumb: `/maps/${map.key}_thumb.jpg`,
+                    bosses: apiMap?.bosses.map(bossSpawn => {
+                        return {
+                            name: bossSpawn.name,
+                            normalizedName: bossSpawn.normalizedName,
+                            spawnLocations: bossSpawn.spawnLocations,
+                        }
+                    }),
                 };
                 if (map.projection && map.projection !== '3D') {
                     mapImages[map.key].displayText += ` - ${i18n.t(map.projection, { ns: 'maps' })}`;

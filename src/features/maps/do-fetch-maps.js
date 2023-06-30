@@ -22,6 +22,7 @@ class MapsQuery extends APIQuery {
                     normalizedName
                     spawnChance
                     spawnLocations {
+                        spawnKey
                         name
                         chance
                     }
