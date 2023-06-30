@@ -22,11 +22,9 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   },
   "dependencies": {
-    "@cloudflare/kv-asset-handler": "^0.3.0",
     "@emotion/styled": "^11.11.0",
     "@mdi/js": "^6.9.96",
     "@mdi/react": "^1.6.1",
-    "@mui/icons-material": "^5.11.16",
     "@mui/lab": "^5.0.0-alpha.133",
     "@mui/material": "^5.13.6",
     "@mui/styles": "^5.13.2",
