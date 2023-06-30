@@ -111,7 +111,7 @@ export const useMapImages = () => {
                     }),
                     spawns: apiMap?.spawns || [],
                 };
-                if (map.projection && map.projection !== '3D') {
+                if (map.projection && map.projection !== 'interactive') {
                     mapImages[map.key].displayText += ` - ${i18n.t(map.projection, { ns: 'maps' })}`;
                 }
                 if (map.orientation) {

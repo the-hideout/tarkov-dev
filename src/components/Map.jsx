@@ -6,6 +6,7 @@ import {
     TransformComponent,
 } from 'react-zoom-pan-pinch';
 import L from 'leaflet';
+import AwesomeMarkers from 'leaflet.awesome-markers';
 
 import { useMapImages } from '../features/maps';
 
@@ -15,6 +16,10 @@ import Time from './Time';
 import SEO from './SEO';
 
 import ErrorPage from './error-page';
+
+import '../../node_modules/leaflet.awesome-markers/dist/leaflet.awesome-markers.css';
+
+L.AwesomeMarkers.Icon.prototype.options.prefix = 'ion';
 
 const showTestMarkers = true;
 
@@ -37,7 +42,8 @@ function getCRS(mapData) {
     });
 }
 
-function getCoordinates(x, y, mapData) {
+function getCoordinates(position, mapData) {
+    const {x, z: y} = position;
     if (!mapData.coordinateRotation) {
         return [y, x];
     }
@@ -120,7 +126,12 @@ function Map() {
             const markers = testMapData[mapData.normalizedName].markers;
             const markerLayer = L.layerGroup();
             for (const m of markers) {
-                L.marker(getCoordinates(m.position.x, m.position.z, mapData))
+                const questMarker = L.AwesomeMarkers.icon({
+                    icon: 'checkmark',
+                    markerColor: 'blue',
+                });
+                console.log(questMarker);
+                L.marker(getCoordinates(m.position, mapData), {icon: questMarker})
                     .bindPopup(L.popup().setContent(`${m.name}<br>${JSON.stringify(m.position)}`))
                     .addTo(markerLayer);
             }
@@ -133,7 +144,7 @@ function Map() {
             const spawnLayer = L.layerGroup();
             for (const spawn of mapData.spawns) {
                 let bosses = [];
-                let color = '#3388ff';
+                let color = '#3aff33';
                 if (!spawn.sides.includes('pmc') && spawn.sides.includes('scav')) {
                     color = '#ff3333';
                 }
@@ -146,14 +157,14 @@ function Map() {
                 if (spawn.sides.includes('all')) {
                     //color = '#ffa033';
                 }
-                const spawnMarker = L.circle(getCoordinates(spawn.position.x, spawn.position.z, mapData), {
+                const spawnMarker = L.circle(getCoordinates(spawn.position, mapData), {
                     radius: 5,
                     color,
                 });
                 const popupLines = [];
                 if (spawn.categories.includes('boss')) {
                     popupLines.push(spawn.zoneName);
-                    popupLines.push(bosses.map(boss => boss.name).join(', '))
+                    popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}">${boss.name}</a>`).join(', '))
                 }
                 popupLines.push(JSON.stringify(spawn.position));
                 spawnMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));

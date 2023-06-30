@@ -22,7 +22,7 @@
         "primaryPath": "/map/customs",
         "maps": [
             {
-                "key": "customs-interactive-cardinal",
+                "key": "customs",
                 "projection": "interactive",
                 "tileSize": 250,
                 "minZoom": 0,
@@ -30,19 +30,8 @@
                 "transform": [0.182815, 159.5, 0.182815, 70.5],
                 "author": "Moritz",
                 "authorLink": "https://tarkov.dev",
-                "orientation": "Cardinal",
                 "coordinateRotation": 180,
                 "mapPath": "https://assets.tarkov.dev/maps/customs_cardinal/{z}/{x}/{y}.png"
-            },
-            {
-                "key": "customs-interactive",
-                "projection": "interactive",
-                "tileSize": 250,
-                "minZoom": 0,
-                "maxZoom": 6,
-                "transform": [0.182815, 90.4, 0.182815, 70.5],
-                "author": "Moritz",
-                "authorLink": "https://tarkov.dev"
             },
             {
                 "key": "customs-3d",
@@ -138,7 +127,7 @@
                 "authorLink": "https://www.reddit.com/user/Jindouz"
             },
             {
-                "key": "lighthouse-interactive",
+                "key": "lighthouse",
                 "projection": "interactive",
                 "tileSize": 200,
                 "minZoom": 0,
@@ -181,7 +170,7 @@
                 "authorLink": "https://reemr.se"
             },
             {
-                "key": "reserve-interactive",
+                "key": "reserve",
                 "projection": "interactive",
                 "tileSize": 250,
                 "minZoom": 0,
@@ -249,7 +238,7 @@
                 "authorLink": "https://www.reddit.com/user/Jindouz"
             },
             {
-                "key": "woods-interactive",
+                "key": "woods",
                 "projection": "interactive",
                 "tileSize": 273,
                 "minZoom": 0,
