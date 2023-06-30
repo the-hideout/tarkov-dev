@@ -30,13 +30,6 @@
             {
                 "key": "customs-2d",
                 "projection": "2D",
-                "orientation": "Cardinal",
-                "author": "Tactical_Otter",
-                "authorLink": "https://www.reddit.com/user/9877531/"
-            },
-            {
-                "key": "customs-2d-monkix3",
-                "projection": "2D",
                 "author": "monkimonkimonk",
                 "authorLink": "https://www.reddit.com/user/monkimonkimonk/"
             },
@@ -70,13 +63,6 @@
                 "projection": "2D",
                 "author": "Lorathor",
                 "authorLink": "https://www.reddit.com/user/Lorathor6/"
-            },
-            {
-                "key": "interchange-2d-stashes",
-                "projection": "2D",
-                "specific": "Stashes",
-                "author": "Austindj3",
-                "authorLink": "https://www.reddit.com/user/Austindj3/"
             }
         ]
     },
