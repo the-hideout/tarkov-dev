@@ -6,7 +6,6 @@ import {
     TransformComponent,
 } from 'react-zoom-pan-pinch';
 import L from 'leaflet';
-//import 'leaflet.coordinates/dist/Leaflet.Coordinates-0.1.5.min';
 import '../modules/leaflet-coordinates';
 import 'leaflet.awesome-markers';
 import 'leaflet-fullscreen/dist/Leaflet.fullscreen';
