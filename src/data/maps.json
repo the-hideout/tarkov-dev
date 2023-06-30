@@ -28,9 +28,10 @@
                 "minZoom": 0,
                 "maxZoom": 6,
                 "transform": [0.182815, 159.5, 0.182815, 70.5],
+                "coordinateRotation": 180,
+                "bounds": [[737, -350], [-360, 340]],
                 "author": "Moritz",
                 "authorLink": "https://tarkov.dev",
-                "coordinateRotation": 180,
                 "mapPath": "https://assets.tarkov.dev/maps/customs_cardinal/{z}/{x}/{y}.png"
             },
             {
@@ -117,6 +118,7 @@
                 "maxZoom": 6,
                 "transform": [0.108, 55.8, 0.108, 126.0],
                 "coordinateRotation": 180,
+                "bounds": [[514, 684], [-636, -1157]],
                 "author": "Moritz",
                 "authorLink": "https://tarkov.dev"
             },
@@ -152,6 +154,7 @@
                 "maxZoom": 6,
                 "transform": [0.268, 124.95, 0.268, 70.4],
                 "coordinateRotation": 195.2090,
+                "bounds": [[510, 130], [-514, -124]],
                 "author": "Moritz",
                 "authorLink": "https://tarkov.dev",
                 "heightRange": [-5, 1000],
@@ -234,6 +237,7 @@
                 "maxZoom": 5,
                 "transform": [0.197, 125, 0.197, 186],
                 "coordinateRotation": 180,
+                "bounds": [[633, 439], [-748, -942]],
                 "author": "Moritz",
                 "authorLink": "https://tarkov.dev"
             },

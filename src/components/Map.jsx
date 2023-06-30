@@ -6,7 +6,8 @@ import {
     TransformComponent,
 } from 'react-zoom-pan-pinch';
 import L from 'leaflet';
-import 'leaflet.coordinates/dist/Leaflet.Coordinates-0.1.5.min';
+//import 'leaflet.coordinates/dist/Leaflet.Coordinates-0.1.5.min';
+import '../modules/leaflet-coordinates';
 import 'leaflet.awesome-markers';
 import 'leaflet-fullscreen/dist/Leaflet.fullscreen';
 
@@ -71,6 +72,13 @@ function pos(position) {
     return [position.z, position.x];
 }
 
+function getMaxBounds(mapData) {
+    if (!mapData.bounds) {
+        return undefined;
+    }
+    return [[mapData.bounds[0][1], mapData.bounds[0][0]], [mapData.bounds[1][1], mapData.bounds[1][0]]];
+}
+
 function Map() {
     let { currentMap } = useParams();
 
@@ -125,7 +133,9 @@ function Map() {
         if (mapRef.current?._leaflet_id) {
             mapRef.current.remove();
         }
+        const maxBounds = getMaxBounds(mapData);
         const map = L.map('leaflet-map', {
+            maxBounds: maxBounds,
             center: [0, 0],
             zoom: 2,
             scrollWheelZoom: true,
@@ -145,6 +155,7 @@ function Map() {
             labelTemplateLat: 'z: {y}',
             labelTemplateLng: 'x: {x}',
             enableUserInput: false,
+            wrapCoordinate: false,
             position: 'topleft',
             customLabelFcn: (latLng, opts) => {
                 return `x: ${latLng.lng.toFixed(2)} z: ${latLng.lat.toFixed(2)}`;

@@ -46,7 +46,6 @@
     "intersection-observer": "^0.12.2",
     "leaflet": "^1.9.4",
     "leaflet.awesome-markers": "2.0.5",
-    "leaflet.coordinates": "^0.1.5",
     "leaflet-fullscreen": "^1.0.2",
     "lodash.debounce": "^4.0.8",
     "rc-slider": "^10.1.1",
