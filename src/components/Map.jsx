@@ -129,10 +129,9 @@ function Map() {
                 legend.addOverlay(markerLayer, t('Markers'));
             }
         }
-        if (showTestMarkers && testMapData[mapData.normalizedName]?.spawns) {
-            const spawns = testMapData[mapData.normalizedName]?.spawns;
+        if (mapData.spawns.length > 0) {
             const spawnLayer = L.layerGroup();
-            for (const spawn of spawns) {
+            for (const spawn of mapData.spawns) {
                 let bosses = [];
                 let color = '#3388ff';
                 if (!spawn.sides.includes('pmc') && spawn.sides.includes('scav')) {
@@ -147,15 +146,21 @@ function Map() {
                 if (spawn.sides.includes('all')) {
                     //color = '#ffa033';
                 }
-                L.circle(getCoordinates(spawn.position.x, spawn.position.z, mapData), {
+                const spawnMarker = L.circle(getCoordinates(spawn.position.x, spawn.position.z, mapData), {
                     radius: 5,
                     color,
-                }).bindPopup(L.popup().setContent(`${spawn.zoneName}<br>${bosses.map(boss => boss.name).join(', ')}<br>${spawn.sides.join(', ')}<br>${spawn.categories.join(', ')}`)).addTo(spawnLayer);
+                });
+                const popupLines = [];
+                if (spawn.categories.includes('boss')) {
+                    popupLines.push(spawn.zoneName);
+                    popupLines.push(bosses.map(boss => boss.name).join(', '))
+                }
+                popupLines.push(JSON.stringify(spawn.position));
+                spawnMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
+                spawnMarker.addTo(spawnLayer);
             }
-            if (spawns.length > 0) {
-                spawnLayer.addTo(map);
-                legend.addOverlay(spawnLayer, t('Spawns'));
-            }
+            spawnLayer.addTo(map);
+            legend.addOverlay(spawnLayer, t('Spawns'));
         }
         if (mapData.layers) {
             for (const layer of mapData.layers) {

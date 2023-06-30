@@ -109,6 +109,7 @@ export const useMapImages = () => {
                             spawnLocations: bossSpawn.spawnLocations,
                         }
                     }),
+                    spawns: apiMap?.spawns || [],
                 };
                 if (map.projection && map.projection !== '3D') {
                     mapImages[map.key].displayText += ` - ${i18n.t(map.projection, { ns: 'maps' })}`;

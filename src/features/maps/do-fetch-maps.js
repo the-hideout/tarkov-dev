@@ -38,6 +38,16 @@ class MapsQuery extends APIQuery {
                     spawnTimeRandom
                     spawnTrigger
                 }
+                spawns {
+                    zoneName
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    sides
+                    categories
+                }
             }
         }`;
     
