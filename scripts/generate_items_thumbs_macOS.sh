@@ -12,15 +12,15 @@ rm *_thumb.png
 
 for X in ./*.png
 do
-	ORIG_HEIGHT=$(sips -g pixelHeight "${X}" | grep -o '[0-9]*$')
-	ORIG_WIDTH=$(sips -g pixelWidth "${X}" | grep -o '[0-9]*$')
-	
+    ORIG_HEIGHT=$(sips -g pixelHeight "${X}" | grep -o '[0-9]*$')
+    ORIG_WIDTH=$(sips -g pixelWidth "${X}" | grep -o '[0-9]*$')
+    
     # New name for the thumb
     ORIGINAL=$(basename "$X")
     EXTENSION="${ORIGINAL##*.}"
     FILENAME="${ORIGINAL%.*}"
     NEW_FILENAME="./${FILENAME}_thumb.jpg"
-	
+    
     # Resizing to max height
     sips -s format jpeg -s formatOptions 70  --resampleWidth $WIDTH "${X}" --out "${NEW_FILENAME}"
     
