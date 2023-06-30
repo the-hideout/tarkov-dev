@@ -108,6 +108,18 @@
         "normalizedName": "lighthouse",
         "primaryPath": "/map/lighthouse-2d-landscape",
         "maps": [
+            
+            {
+                "key": "lighthouse",
+                "projection": "interactive",
+                "tileSize": 200,
+                "minZoom": 0,
+                "maxZoom": 6,
+                "transform": [0.108, 55.8, 0.108, 126.0],
+                "coordinateRotation": 180,
+                "author": "Moritz",
+                "authorLink": "https://tarkov.dev"
+            },
             {
                 "key": "lighthouse-3d",
                 "projection": "3D",
@@ -125,17 +137,6 @@
                 "orientation": "Landscape",
                 "author": "Jindouz",
                 "authorLink": "https://www.reddit.com/user/Jindouz"
-            },
-            {
-                "key": "lighthouse",
-                "projection": "interactive",
-                "tileSize": 200,
-                "minZoom": 0,
-                "maxZoom": 6,
-                "transform": [0.108, 55.8, 0.108, 126.0],
-                "coordinateRotation": 180,
-                "author": "Moritz",
-                "authorLink": "https://tarkov.dev"
             }
         ]
     },
@@ -143,6 +144,31 @@
         "normalizedName": "reserve",
         "primaryPath": "/map/reserve-3d",
         "maps": [
+            {
+                "key": "reserve",
+                "projection": "interactive",
+                "tileSize": 250,
+                "minZoom": 0,
+                "maxZoom": 6,
+                "transform": [0.268, 124.95, 0.268, 70.4],
+                "coordinateRotation": 195.2090,
+                "author": "Moritz",
+                "authorLink": "https://tarkov.dev",
+                "heightRange": [-5, 1000],
+                "layers": [
+                    {
+                        "name": "First Floor",
+                        "path": "https://assets.tarkov.dev/maps/reserve_first_floor/{z}/{x}/{y}.png",
+                        "show": false
+                    },
+                    {
+                        "name": "Tunnels",
+                        "path": "https://assets.tarkov.dev/maps/reserve_tunnels/{z}/{x}/{y}.png",
+                        "show": false,
+                        "heightRange": [-1000, -5]
+                    }
+                ]
+            },
             {
                 "key": "reserve-3d",
                 "projection": "3D",
@@ -168,31 +194,6 @@
                 "specific": "Underground",
                 "author": "re3mr",
                 "authorLink": "https://reemr.se"
-            },
-            {
-                "key": "reserve",
-                "projection": "interactive",
-                "tileSize": 250,
-                "minZoom": 0,
-                "maxZoom": 6,
-                "transform": [0.268, 124.95, 0.268, 70.4],
-                "coordinateRotation": 195.2090,
-                "author": "Moritz",
-                "authorLink": "https://tarkov.dev",
-                "heightRange": [-5, 1000],
-                "layers": [
-                    {
-                        "name": "First Floor",
-                        "path": "https://assets.tarkov.dev/maps/reserve_first_floor/{z}/{x}/{y}.png",
-                        "show": false
-                    },
-                    {
-                        "name": "Tunnels",
-                        "path": "https://assets.tarkov.dev/maps/reserve_tunnels/{z}/{x}/{y}.png",
-                        "show": false,
-                        "heightRange": [-1000, -5]
-                    }
-                ]
             }
         ]
     },
@@ -226,6 +227,17 @@
         "primaryPath": "/map/woods-2d",
         "maps": [
             {
+                "key": "woods",
+                "projection": "interactive",
+                "tileSize": 273,
+                "minZoom": 0,
+                "maxZoom": 5,
+                "transform": [0.197, 125, 0.197, 186],
+                "coordinateRotation": 180,
+                "author": "Moritz",
+                "authorLink": "https://tarkov.dev"
+            },
+            {
                 "key": "woods-3d",
                 "projection": "3D",
                 "author": "re3mr",
@@ -236,17 +248,6 @@
                 "projection": "2D",
                 "author": "Jindouz",
                 "authorLink": "https://www.reddit.com/user/Jindouz"
-            },
-            {
-                "key": "woods",
-                "projection": "interactive",
-                "tileSize": 273,
-                "minZoom": 0,
-                "maxZoom": 5,
-                "transform": [0.197, 125, 0.197, 186],
-                "coordinateRotation": 180,
-                "author": "Moritz",
-                "authorLink": "https://tarkov.dev"
             }
         ]
     },
