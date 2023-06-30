@@ -6,13 +6,13 @@ import Icon from '@mdi/react';
 import {
     mdiCogOutline,
     mdiRemote,
+    mdiClose,
 } from '@mdi/js';
 
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
-import CloseIcon from '@mui/icons-material/Close';
 
 import MenuItem from './MenuItem';
 // import SubMenu from './SubMenu';
@@ -87,7 +87,7 @@ const Menu = () => {
                                     setOpen(false);
                                 }}
                             >
-                                <CloseIcon fontSize="inherit" />
+                                <Icon path={mdiClose} size={0.8} className="icon-with-text" />
                             </IconButton>
                         }
                     >
