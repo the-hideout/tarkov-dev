@@ -131,7 +131,6 @@ function Map() {
                     icon: 'checkmark',
                     markerColor: 'blue',
                 });
-                console.log(questMarker);
                 L.marker(getCoordinates(m.position, mapData), {icon: questMarker})
                     .bindPopup(L.popup().setContent(`${m.name}<br>${JSON.stringify(m.position)}`))
                     .addTo(markerLayer);
