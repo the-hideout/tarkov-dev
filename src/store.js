@@ -26,7 +26,7 @@ export default configureStore({
         settings: settingsReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-        immutableCheck: { warnAfter: 256 },
-        serializableCheck: { warnAfter: 256 },
+        immutableCheck: false,
+        serializableCheck: false,
     }),
 });
