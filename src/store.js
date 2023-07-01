@@ -25,4 +25,8 @@ export default configureStore({
         sockets: socketsReducer,
         settings: settingsReducer,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        immutableCheck: { warnAfter: 256 },
+        serializableCheck: { warnAfter: 256 },
+    }),
 });
