@@ -9,6 +9,7 @@ import L from 'leaflet';
 import '../modules/leaflet-coordinates';
 import 'leaflet.awesome-markers';
 import 'leaflet-fullscreen/dist/Leaflet.fullscreen';
+import '../modules/leaflet-groupedlayercontrol';
 
 import { useMapImages } from '../features/maps';
 
@@ -22,6 +23,7 @@ import ErrorPage from './error-page';
 import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css';
 import 'leaflet.coordinates/dist/Leaflet.Coordinates-0.1.5.css';
 import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
+import './Maps.css';
 
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'ion';
 
@@ -141,7 +143,10 @@ function Map() {
             crs: getCRS(mapData),
             attributionControl: false,
         });
-        const legend = L.control.layers(null, null, {position: 'topleft'}).addTo(map);
+        const layerControl = L.control.groupedLayers(null, null, {
+            position: 'topleft', 
+            groupCheckboxes: true
+        }).addTo(map);
         map.addControl(new L.Control.Fullscreen({
             title: {
                 'false': t('View Fullscreen'),
@@ -170,6 +175,7 @@ function Map() {
             bounds: maxBounds,
         });
         baseLayer.addTo(map);
+        //layerControl.addBaseLayer(baseLayer, t('Base'));
         if (showTestMarkers && testMapData[mapData.normalizedName]?.markers) {
             const markers = testMapData[mapData.normalizedName].markers;
             const markerLayer = L.layerGroup();
@@ -184,20 +190,27 @@ function Map() {
             }
             if (markers.length > 0) {
                 markerLayer.addTo(map);
-                legend.addOverlay(markerLayer, t('Markers'));
+                layerControl.addOverlay(markerLayer, t('Quest'), t('Items'));
             }
         }
         if (mapData.spawns.length > 0) {
-            const spawnLayer = L.layerGroup();
+            const spawnLayers = {
+                PMC: L.layerGroup(),
+                Scav: L.layerGroup(),
+                Boss: L.layerGroup(),
+            }
             for (const spawn of mapData.spawns) {
+                let spawnLayer = 'PMC';
                 let bosses = [];
                 let color = '#3aff33';
                 if (!spawn.sides.includes('pmc') && spawn.sides.includes('scav')) {
+                    spawnLayer = 'Scav';
                     color = '#ff3333';
                 }
                 if (spawn.categories.includes('boss')) {
                     bosses = mapData.bosses.filter(boss => boss.spawnLocations.some(sl => sl.spawnKey === spawn.zoneName));
                     if (bosses.length > 0) {
+                        spawnLayer = 'Boss';
                         color = '#eb33ff';
                     }
                 }
@@ -215,10 +228,12 @@ function Map() {
                 }
                 popupLines.push(JSON.stringify(spawn.position));
                 spawnMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
-                spawnMarker.addTo(spawnLayer);
+                spawnMarker.addTo(spawnLayers[spawnLayer]);
             }
-            spawnLayer.addTo(map);
-            legend.addOverlay(spawnLayer, t('Spawns'));
+            for (const key in spawnLayers) {
+                spawnLayers[key].addTo(map);
+                layerControl.addOverlay(spawnLayers[key], t(key), t('Spawns'));
+            }
         }
         if (mapData.layers) {
             for (const layer of mapData.layers) {
@@ -226,14 +241,12 @@ function Map() {
                     tileSize: mapData.tileSize,
                     bounds: maxBounds,
                 });
-                legend.addOverlay(tileLayer, t(layer.name));
+                layerControl.addOverlay(tileLayer, t(layer.name), t('Levels'));
                 if (layer.show) {
                     tileLayer.addTo(map);
                 }
             }
         } 
-        //const zeroPoint = L.point(0, 0);
-        //map.panTo([zeroPoint.y, zeroPoint.x]);
         map.fitWorld({maxZoom: 2});
         mapRef.current = map;
     }, [mapData, mapRef, t]);
