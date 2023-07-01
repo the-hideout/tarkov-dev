@@ -5,7 +5,7 @@
 }
 /* leaflet-control-coordinates */
 
-/* leaflet-groupedlayercontrol */
+/* leaflet-control-groupedlayer */
 .leaflet-control-layers-group-name {
     font-weight: 700;
     margin-bottom: 0.2em;
@@ -44,4 +44,4 @@
     display: inline-block; 
     text-align: center;
 }
-/* leaflet-groupedlayercontrol */
+/* leaflet-control-groupedlayer */

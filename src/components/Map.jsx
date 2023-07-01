@@ -6,10 +6,11 @@ import {
     TransformComponent,
 } from 'react-zoom-pan-pinch';
 import L from 'leaflet';
-import '../modules/leaflet-coordinates';
 import 'leaflet.awesome-markers';
 import 'leaflet-fullscreen/dist/Leaflet.fullscreen';
-import '../modules/leaflet-groupedlayercontrol';
+
+import '../modules/leaflet-control-coordinates';
+import '../modules/leaflet-control-groupedlayer';
 
 import { useMapImages } from '../features/maps';
 
