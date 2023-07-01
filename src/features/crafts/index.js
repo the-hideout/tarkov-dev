@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
 import doFetchCrafts from './do-fetch-crafts';
@@ -116,19 +116,23 @@ export const { toggleItem, setItemCost, setRewardValue } = craftsSlice.actions;
 
 export const craftsReducer = craftsSlice.reducer;
 
-export const selectAllCrafts = (state) => {
-    return state.crafts.data.map(craft => {
+const selectCrafts = state => state.crafts.data;
+const selectQuests = state => state.quests.data;
+const selectItems = state => state.items.data;
+
+export const selectAllCrafts = createSelector([selectCrafts, selectQuests, selectItems], (crafts, quests, items) => {
+    return crafts.map(craft => {
         let taskUnlock = craft.taskUnlock;
         if (taskUnlock) {
-            taskUnlock = state.quests.data.find(t => t.id === taskUnlock.id);
+            taskUnlock = quests.find(t => t.id === taskUnlock.id);
         }
         return {
             ...craft,
             requiredItems: craft.requiredItems.map(req => {
-                let matchedItem = state.items.data.find(it => it.id === req.item.id);
+                let matchedItem = items.find(it => it.id === req.item.id);
                 if (matchedItem && matchedItem.types.includes('gun')) {
                     if (req.attributes?.some(element => element.type === 'functional' && Boolean(element.value))) {
-                        matchedItem = state.items.data.find(it => it.id === matchedItem.properties?.defaultPreset?.id);
+                        matchedItem = items.find(it => it.id === matchedItem.properties?.defaultPreset?.id);
                     }
                 }
                 if (!matchedItem) {
@@ -140,7 +144,7 @@ export const selectAllCrafts = (state) => {
                 };
             }).filter(Boolean),
             rewardItems: craft.rewardItems.map(req => {
-                const matchedItem = state.items.data.find(it => it.id === req.item.id);
+                const matchedItem = items.find(it => it.id === req.item.id);
                 if (!matchedItem) {
                     return false;
                 }
@@ -152,7 +156,7 @@ export const selectAllCrafts = (state) => {
             taskUnlock: taskUnlock,
         };
     }).filter(craft => craft.rewardItems.length > 0 && craft.requiredItems.length > 0);
-};
+});
 
 let fetchedData = false;
 let refreshInterval = false;
