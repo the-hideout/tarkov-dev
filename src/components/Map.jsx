@@ -165,7 +165,10 @@ function Map() {
 
         map.setMinZoom(mapData.minZoom);
         map.setMaxZoom(mapData.maxZoom);
-        const baseLayer = L.tileLayer(mapData.mapPath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {tileSize: mapData.tileSize});
+        const baseLayer = L.tileLayer(mapData.mapPath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {
+            tileSize: mapData.tileSize,
+            bounds: maxBounds,
+        });
         baseLayer.addTo(map);
         if (showTestMarkers && testMapData[mapData.normalizedName]?.markers) {
             const markers = testMapData[mapData.normalizedName].markers;
@@ -219,7 +222,10 @@ function Map() {
         }
         if (mapData.layers) {
             for (const layer of mapData.layers) {
-                const tileLayer = L.tileLayer(layer.path, {tileSize: mapData.tileSize});
+                const tileLayer = L.tileLayer(layer.path, {
+                    tileSize: mapData.tileSize,
+                    bounds: maxBounds,
+                });
                 legend.addOverlay(tileLayer, t(layer.name));
                 if (layer.show) {
                     tileLayer.addTo(map);
