@@ -22,7 +22,6 @@ import SEO from './SEO';
 import ErrorPage from './error-page';
 
 import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css';
-import 'leaflet.coordinates/dist/Leaflet.Coordinates-0.1.5.css';
 import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 import './Maps.css';
 
