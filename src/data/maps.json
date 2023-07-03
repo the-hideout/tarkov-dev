@@ -1,15 +1,15 @@
 [
     {
         "normalizedName": "streets-of-tarkov",
-        "primaryPath": "/map/streets-2d",
+        "primaryPath": "/map/streets-of-tarkov",
         "maps": [
             {
                 "key": "streets-of-tarkov",
                 "projection": "interactive",
                 "tileSize": 281,
-                "minZoom": 0,
+                "minZoom": 1,
                 "maxZoom": 5,
-                "transform": [0.38, 138, 0.108, 47],
+                "transform": [0.38, 138, 0.38, 47],
                 "coordinateRotation": 180,
                 "bounds": [[360, 612], [-367, -117]],
                 "author": "Moritz",
@@ -233,7 +233,6 @@
                 "tileSize": 273,
                 "minZoom": 1,
                 "maxZoom": 5,
-                "defaultZoom": 2,
                 "transform": [0.197, 125, 0.197, 186],
                 "coordinateRotation": 180,
                 "bounds": [[633, 439], [-748, -942]],

@@ -311,7 +311,7 @@ function Map() {
         }
 
         // Set default zoom level
-        map.fitWorld({maxZoom: mapData.defaultZoom || 3});
+        map.fitWorld({maxZoom: Math.max(mapData.maxZoom-3, mapData.minZoom)});
 
         mapRef.current = map;
     }, [mapData, mapRef, t]);
