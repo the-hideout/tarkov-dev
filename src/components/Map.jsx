@@ -6,8 +6,9 @@ import {
     TransformComponent,
 } from 'react-zoom-pan-pinch';
 import L from 'leaflet';
-import 'leaflet.awesome-markers';
+
 import 'leaflet-fullscreen/dist/Leaflet.fullscreen';
+import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 
 import '../modules/leaflet-control-coordinates';
 import '../modules/leaflet-control-groupedlayer';
@@ -21,11 +22,7 @@ import SEO from './SEO';
 
 import ErrorPage from './error-page';
 
-import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css';
-import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 import './Maps.css';
-
-L.AwesomeMarkers.Icon.prototype.options.prefix = 'ion';
 
 const showTestMarkers = true;
 
@@ -144,7 +141,8 @@ function Map() {
             attributionControl: false,
         });
         const layerControl = L.control.groupedLayers(null, null, {
-            position: 'topleft', 
+            position: 'topleft',
+            collapsed: true,
             groupCheckboxes: true
         }).addTo(map);
         map.addControl(new L.Control.Fullscreen({
@@ -176,65 +174,122 @@ function Map() {
         });
         baseLayer.addTo(map);
         //layerControl.addBaseLayer(baseLayer, t('Base'));
-        if (showTestMarkers && testMapData[mapData.normalizedName]?.markers) {
-            const markers = testMapData[mapData.normalizedName].markers;
-            const markerLayer = L.layerGroup();
-            for (const m of markers) {
-                const questMarker = L.AwesomeMarkers.icon({
-                    icon: 'checkmark',
-                    markerColor: 'blue',
-                });
-                L.marker(pos(m.position), {icon: questMarker})
-                    .bindPopup(L.popup().setContent(`${m.name}<br>${JSON.stringify(m.position)}`))
-                    .addTo(markerLayer);
-            }
-            if (markers.length > 0) {
-                markerLayer.addTo(map);
-                layerControl.addOverlay(markerLayer, t('Quest'), t('Items'));
+
+        const categories = {
+            quest_item: t('Tasks'),
+            supply_crate: t('Technical Supply Crate'),
+            spawn_pmc: t('PMC'),
+            spawn_scav: t('Scav'),
+            spawn_boss: t('Boss'),
+            'spawn_cultist-priest': t('Cultist Priest'),
+            spawn_rogue: t('Rogue'),
+            spawn_bloodhounds: t('Bloodhounds'),
+        }
+
+        // Add items (from test data for now)
+        if (showTestMarkers) {
+            for (const category in testMapData[mapData.normalizedName]) {
+                const markerLayer = L.layerGroup();
+
+                const items = testMapData[mapData.normalizedName][category];
+                for (const item of items) {
+                    const itemIcon = L.icon({
+                        iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${category}.png`,
+                        iconSize: [24, 24],
+                        popupAnchor: [0, -12],
+                    });
+                    L.marker(pos(item.position), {icon: itemIcon})
+                        .bindPopup(L.popup().setContent(`${item.name}<br>${JSON.stringify(item.position)}`))
+                        .addTo(markerLayer);
+                }
+
+                if (items.length > 0) {
+                    markerLayer.addTo(map);
+                    layerControl.addOverlay(markerLayer, `<img src='${process.env.PUBLIC_URL}/maps/interactive/${category}.png' class='control-item-image' /> ${categories[category]}`, t('Items'));
+                }
             }
         }
+
+        // Add spawns
         if (mapData.spawns.length > 0) {
             const spawnLayers = {
-                PMC: L.layerGroup(),
-                Scav: L.layerGroup(),
-                Boss: L.layerGroup(),
+                pmc: L.layerGroup(),
+                scav: L.layerGroup(),
+                boss: L.layerGroup(),
+                'cultist-priest': L.layerGroup(),
+                rogue: L.layerGroup(),
+                bloodhounds: L.layerGroup(),
             }
             for (const spawn of mapData.spawns) {
-                let spawnLayer = 'PMC';
+                let spawnType = '';
                 let bosses = [];
-                let color = '#3aff33';
-                if (!spawn.sides.includes('pmc') && spawn.sides.includes('scav')) {
-                    spawnLayer = 'Scav';
-                    color = '#ff3333';
-                }
+
                 if (spawn.categories.includes('boss')) {
                     bosses = mapData.bosses.filter(boss => boss.spawnLocations.some(sl => sl.spawnKey === spawn.zoneName));
-                    if (bosses.length > 0) {
-                        spawnLayer = 'Boss';
-                        color = '#eb33ff';
+                    if (bosses.length === 0) {
+                        console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
+                        continue;
+                    }
+                    else if (bosses.length === 1 && (bosses[0].normalizedName === 'bloodhounds' || bosses[0].normalizedName === 'cultist-priest' || bosses[0].normalizedName === 'rogue')) {
+                        spawnType = bosses[0].normalizedName;
+                    }
+                    else {
+                        spawnType = 'boss';
                     }
                 }
-                if (spawn.sides.includes('all')) {
-                    //color = '#ffa033';
+                else if (spawn.sides.includes('scav')) {
+                    if (spawn.categories.includes('bot')) {
+                        spawnType = 'scav';
+                    }
+                    else {
+                        console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
+                        continue;
+                    }
+                } 
+                else if (spawn.categories.includes('player')) {
+                    if (spawn.sides.includes('pmc') || spawn.sides.includes('all')) {
+                        spawnType = 'pmc'
+                    }
+                    else {
+                        console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
+                        continue;
+                    }
                 }
-                const spawnMarker = L.circle(pos(spawn.position), {
-                    radius: 5,
-                    color,
+                else {
+                    console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
+                    continue;
+                }
+
+                const spawnIcon = L.icon({
+                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/spawn_${spawnType}.png`,
+                    iconSize: [24, 24],
+                    popupAnchor: [0, -12],
                 });
+
+                if (spawnType === 'pmc') {
+                    spawnIcon.iconAnchor = [12, 24];
+                    spawnIcon.popupAnchor = [0, -24];
+                }
+
                 const popupLines = [];
                 if (spawn.categories.includes('boss')) {
                     popupLines.push(spawn.zoneName);
                     popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}">${boss.name}</a>`).join(', '))
                 }
                 popupLines.push(JSON.stringify(spawn.position));
-                spawnMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
-                spawnMarker.addTo(spawnLayers[spawnLayer]);
+
+
+                L.marker(pos(spawn.position), {icon: spawnIcon})
+                    .bindPopup(L.popup().setContent(popupLines.join('<br>')))
+                    .addTo(spawnLayers[spawnType]);
             }
             for (const key in spawnLayers) {
                 spawnLayers[key].addTo(map);
-                layerControl.addOverlay(spawnLayers[key], t(key), t('Spawns'));
+                layerControl.addOverlay(spawnLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/spawn_${key}.png' class='control-item-image' /> ${categories[`spawn_${key}`]}`, t('Spawns'));
             }
         }
+
+        // Add map layers
         if (mapData.layers) {
             for (const layer of mapData.layers) {
                 const tileLayer = L.tileLayer(layer.path, {
@@ -246,8 +301,11 @@ function Map() {
                     tileLayer.addTo(map);
                 }
             }
-        } 
-        map.fitWorld({maxZoom: 2});
+        }
+
+        // Set default zoom level
+        map.fitWorld({maxZoom: mapData.defaultZoom || 3});
+
         mapRef.current = map;
     }, [mapData, mapRef, t]);
     
