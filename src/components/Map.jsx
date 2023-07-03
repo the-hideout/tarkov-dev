@@ -284,8 +284,10 @@ function Map() {
                     .addTo(spawnLayers[spawnType]);
             }
             for (const key in spawnLayers) {
-                spawnLayers[key].addTo(map);
-                layerControl.addOverlay(spawnLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/spawn_${key}.png' class='control-item-image' /> ${categories[`spawn_${key}`]}`, t('Spawns'));
+                if (Object.keys(spawnLayers[key]._layers).length > 0) {
+                    spawnLayers[key].addTo(map);
+                    layerControl.addOverlay(spawnLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/spawn_${key}.png' class='control-item-image' /> ${categories[`spawn_${key}`]}`, t('Spawns'));    
+                }
             }
         }
 
