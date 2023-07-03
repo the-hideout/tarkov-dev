@@ -199,7 +199,7 @@ function Map() {
                         popupAnchor: [0, -12],
                     });
                     L.marker(pos(item.position), {icon: itemIcon})
-                        .bindPopup(L.popup().setContent(item.name))
+                        .bindPopup(L.popup().setContent(`${item.name}<br>Elevation: ${item.position.y.toFixed(2)}`))
                         .addTo(markerLayer);
                 }
 
@@ -281,7 +281,7 @@ function Map() {
                     popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}">${boss.name}</a>`).join(', '));
                     popupLines.push(spawn.zoneName);
                 }
-                //popupLines.push(JSON.stringify(spawn.position));
+                popupLines.push(`Elevation: ${spawn.position.y.toFixed(2)}`);
 
 
                 const marker = L.marker(pos(spawn.position), {icon: spawnIcon});
