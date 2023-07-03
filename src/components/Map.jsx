@@ -199,7 +199,7 @@ function Map() {
                         popupAnchor: [0, -12],
                     });
                     L.marker(pos(item.position), {icon: itemIcon})
-                        .bindPopup(L.popup().setContent(`${item.name}<br>${JSON.stringify(item.position)}`))
+                        .bindPopup(L.popup().setContent(item.name))
                         .addTo(markerLayer);
                 }
 
@@ -278,15 +278,17 @@ function Map() {
 
                 const popupLines = [];
                 if (spawn.categories.includes('boss')) {
+                    popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}">${boss.name}</a>`).join(', '));
                     popupLines.push(spawn.zoneName);
-                    popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}">${boss.name}</a>`).join(', '))
                 }
-                popupLines.push(JSON.stringify(spawn.position));
+                //popupLines.push(JSON.stringify(spawn.position));
 
 
-                L.marker(pos(spawn.position), {icon: spawnIcon})
-                    .bindPopup(L.popup().setContent(popupLines.join('<br>')))
-                    .addTo(spawnLayers[spawnType]);
+                const marker = L.marker(pos(spawn.position), {icon: spawnIcon});
+                if (popupLines.length > 0) {
+                    marker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
+                }
+                marker.addTo(spawnLayers[spawnType]);
             }
             for (const key in spawnLayers) {
                 if (Object.keys(spawnLayers[key]._layers).length > 0) {
