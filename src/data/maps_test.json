@@ -97,6 +97,24 @@
                     "z": 4.346
                 }
             }
+        ],
+        "supply_crate": [
+            {
+                "name": "Technical Supply Crate",
+                "position": {
+                    "x": 230.6,
+                    "y": 0,
+                    "z": -62.5
+                }
+            },
+            {
+                "name": "Technical Supply Crate",
+                "position": {
+                    "x": 94.6,
+                    "y": 0,
+                    "z": -125.5
+                }
+            }
         ]
     },
     "factory": {
