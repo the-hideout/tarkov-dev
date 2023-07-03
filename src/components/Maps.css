@@ -78,3 +78,8 @@
     text-align: center;
 }
 /* leaflet-control-groupedlayer */
+.control-item-image {
+    height: 14px;
+    position: relative;
+    top: 2px;
+}

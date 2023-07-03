@@ -1,6 +1,6 @@
 {
     "customs": {
-        "markers": [
+        "quest_item": [
             {
                 "name": "Bronze pocket watch on a chain",
                 "position": {
@@ -100,7 +100,7 @@
         ]
     },
     "factory": {
-        "markers": [
+        "quest_item": [
             {
                 "name": "Sealed letter",
                 "position": {
@@ -120,7 +120,7 @@
         ]
     },
     "interchange": {
-        "markers": [
+        "quest_item": [
             {
                 "name": "OLI cargo route documents",
                 "position": {
@@ -208,7 +208,7 @@
         ]
     },
     "lighthouse": {
-        "markers": [
+        "quest_item": [
             {
                 "name": "Water pump operation data",
                 "position": {
@@ -268,7 +268,7 @@
         ]
     },
     "reserve": {
-        "markers": [
+        "quest_item": [
             {
                 "name": "Military documents #1",
                 "position": {
@@ -336,7 +336,7 @@
         ]
     },
     "shoreline": {
-        "markers": [
+        "quest_item": [
             {
                 "name": "Secure Folder 0060",
                 "position": {
@@ -536,7 +536,7 @@
         ]
     },
     "woods": {
-        "markers": [
+        "quest_item": [
             {
                 "name": "Encrypted message",
                 "position": {
