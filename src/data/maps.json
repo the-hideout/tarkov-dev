@@ -4,6 +4,18 @@
         "primaryPath": "/map/streets-2d",
         "maps": [
             {
+                "key": "streets-of-tarkov",
+                "projection": "interactive",
+                "tileSize": 281,
+                "minZoom": 0,
+                "maxZoom": 5,
+                "transform": [0.38, 138, 0.108, 47],
+                "coordinateRotation": 180,
+                "bounds": [[360, 612], [-667, -117]],
+                "author": "Moritz",
+                "authorLink": "https://tarkov.dev"
+            },
+            {
                 "key": "streets-3d",
                 "projection": "3D",
                 "author": "re3mr",
