@@ -227,8 +227,13 @@ function Map() {
                 if (spawn.categories.includes('boss')) {
                     bosses = mapData.bosses.filter(boss => boss.spawnLocations.some(sl => sl.spawnKey === spawn.zoneName));
                     if (bosses.length === 0) {
-                        console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
-                        continue;
+                        if (spawn.categories.includes('bot') && spawn.sides.includes('scav')) {
+                            spawnType = 'scav';
+                        }
+                        else {
+                            console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
+                            continue;
+                        }
                     }
                     else if (bosses.length === 1 && (bosses[0].normalizedName === 'bloodhounds' || bosses[0].normalizedName === 'cultist-priest' || bosses[0].normalizedName === 'rogue')) {
                         spawnType = bosses[0].normalizedName;
@@ -238,7 +243,7 @@ function Map() {
                     }
                 }
                 else if (spawn.sides.includes('scav')) {
-                    if (spawn.categories.includes('bot')) {
+                    if (spawn.categories.includes('bot') || spawn.categories.includes('all')) {
                         spawnType = 'scav';
                     }
                     else {
