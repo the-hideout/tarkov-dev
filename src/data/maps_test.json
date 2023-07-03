@@ -206,7 +206,7 @@
         ]
     },
     "the-lab": {
-        "makers": [
+        "quest_item": [
             {
                 "name": "Flash drive marked with blue tape",
                 "position": {
@@ -478,7 +478,7 @@
         ]
     },
     "streets-of-tarkov": {
-        "markers": [
+        "quest_item": [
             {
                 "name": "Registered letter",
                 "position": {
