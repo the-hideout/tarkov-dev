@@ -279,7 +279,9 @@ function Map() {
                 const popupLines = [];
                 if (spawn.categories.includes('boss')) {
                     popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}">${boss.name}</a>`).join(', '));
-                    popupLines.push(spawn.zoneName);
+                    if (showTestMarkers) {
+                        popupLines.push(spawn.zoneName);
+                    }
                 }
                 popupLines.push(`Elevation: ${spawn.position.y.toFixed(2)}`);
 
@@ -313,7 +315,7 @@ function Map() {
         }
 
         // Set default zoom level
-        map.fitWorld({maxZoom: Math.max(mapData.maxZoom-3, mapData.minZoom)});
+        //map.fitWorld({maxZoom: Math.max(mapData.maxZoom-3, mapData.minZoom)});
 
         mapRef.current = map;
     }, [mapData, mapRef, t]);
