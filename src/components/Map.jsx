@@ -176,10 +176,14 @@ function Map() {
         //layerControl.addBaseLayer(baseLayer, t('Base'));
 
         const categories = {
-            quest_item: 'Quest',
-            spawn_boss: 'Boss',
-            spawn_pmc: 'PMC',
-            spawn_scav: 'Scav',
+            quest_item: t('Tasks'),
+            supply_crate: t('Technical Supply Crate'),
+            spawn_pmc: t('PMC'),
+            spawn_scav: t('Scav'),
+            spawn_boss: t('Boss'),
+            'spawn_cultist-priest': t('Cultist Priest'),
+            spawn_rogue: t('Rogue'),
+            spawn_bloodhounds: t('Bloodhounds'),
         }
 
         // Add items (from test data for now)
@@ -201,7 +205,7 @@ function Map() {
 
                 if (items.length > 0) {
                     markerLayer.addTo(map);
-                    layerControl.addOverlay(markerLayer, `<img src='${process.env.PUBLIC_URL}/maps/interactive/${category}.png' class='control-item-image' /> ${t(categories[category])}`, t('Items'));
+                    layerControl.addOverlay(markerLayer, `<img src='${process.env.PUBLIC_URL}/maps/interactive/${category}.png' class='control-item-image' /> ${categories[category]}`, t('Items'));
                 }
             }
         }
@@ -212,6 +216,9 @@ function Map() {
                 pmc: L.layerGroup(),
                 scav: L.layerGroup(),
                 boss: L.layerGroup(),
+                'cultist-priest': L.layerGroup(),
+                rogue: L.layerGroup(),
+                bloodhounds: L.layerGroup(),
             }
             for (const spawn of mapData.spawns) {
                 let spawnType = '';
@@ -223,7 +230,12 @@ function Map() {
                         console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
                         continue;
                     }
-                    spawnType = 'boss';
+                    else if (bosses.length === 1 && (bosses[0].normalizedName === 'bloodhounds' || bosses[0].normalizedName === 'cultist-priest' || bosses[0].normalizedName === 'rogue')) {
+                        spawnType = bosses[0].normalizedName;
+                    }
+                    else {
+                        spawnType = 'boss';
+                    }
                 }
                 else if (spawn.sides.includes('scav')) {
                     if (spawn.categories.includes('bot')) {
@@ -260,7 +272,7 @@ function Map() {
                 }
 
                 const popupLines = [];
-                if (spawnType === 'boss') {
+                if (spawn.categories.includes('boss')) {
                     popupLines.push(spawn.zoneName);
                     popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}">${boss.name}</a>`).join(', '))
                 }
@@ -273,7 +285,7 @@ function Map() {
             }
             for (const key in spawnLayers) {
                 spawnLayers[key].addTo(map);
-                layerControl.addOverlay(spawnLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/spawn_${key}.png' class='control-item-image' /> ${t(categories[`spawn_${key}`])}`, t('Spawns'));
+                layerControl.addOverlay(spawnLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/spawn_${key}.png' class='control-item-image' /> ${categories[`spawn_${key}`]}`, t('Spawns'));
             }
         }
 
