@@ -11,7 +11,7 @@
                 "maxZoom": 5,
                 "transform": [0.38, 138, 0.108, 47],
                 "coordinateRotation": 180,
-                "bounds": [[360, 612], [-667, -117]],
+                "bounds": [[360, 612], [-367, -117]],
                 "author": "Moritz",
                 "authorLink": "https://tarkov.dev"
             },
