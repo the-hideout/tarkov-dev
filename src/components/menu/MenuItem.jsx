@@ -1,3 +1,5 @@
+import { mdiEarthBox } from '@mdi/js';
+import Icon from '@mdi/react';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useMatch } from 'react-router-dom';
 
@@ -58,9 +60,23 @@ function MenuItem(props) {
         );
     };
 
+    const getIcon = () => {
+        if (props.icon) {
+            return (
+                <Icon path={props.icon} size={1} className="icon-with-text" />
+            )
+        }
+        else if (props.padding) {
+            return (
+                <Icon path={mdiEarthBox} size={1} className="icon-with-text icon-with-text-hidden" />
+            )
+        }
+    }
+
     return (
         <li>
             {getCheckbox()}
+            {getIcon()}
             <Link to={props.to} onClick={handleClick}>
                 {props.displayText}
             </Link>

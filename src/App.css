@@ -159,6 +159,10 @@ cite {
     margin-left: 8px;
 }
 
+.icon-with-text-hidden {
+    visibility: hidden;
+}
+
 .center-title {
     text-align: center;
 }
