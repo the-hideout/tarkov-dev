@@ -45,7 +45,7 @@
                 "bounds": [[737, -350], [-360, 340]],
                 "author": "Moritz",
                 "authorLink": "https://tarkov.dev",
-                "mapPath": "https://assets.tarkov.dev/maps/customs_cardinal/{z}/{x}/{y}.png"
+                "mapPath": "https://assets.tarkov.dev/maps/customs_v2/{z}/{x}/{y}.png"
             },
             {
                 "key": "customs-3d",
