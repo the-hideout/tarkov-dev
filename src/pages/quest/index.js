@@ -541,7 +541,7 @@ function Quest() {
             if (objective.shotType !== 'kill') {
                 verb = t('Shoot');
             }
-            let shootString = `${verb} ${objective.target}`;
+            let shootString = `${verb} ${objective.targetNames.join(', ')}`;
             if (objective.count > 1) {
                 shootString += ` x ${objective.count}`;
             }
