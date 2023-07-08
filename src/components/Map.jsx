@@ -183,7 +183,7 @@ function Map() {
             spawn_boss: t('Boss'),
             'spawn_cultist-priest': t('Cultist Priest'),
             spawn_rogue: t('Rogue'),
-            spawn_bloodhounds: t('Bloodhounds'),
+            spawn_bloodhound: t('Bloodhound'),
         }
 
         // Add items (from test data for now)
@@ -218,7 +218,7 @@ function Map() {
                 boss: L.layerGroup(),
                 'cultist-priest': L.layerGroup(),
                 rogue: L.layerGroup(),
-                bloodhounds: L.layerGroup(),
+                bloodhound: L.layerGroup(),
             }
             for (const spawn of mapData.spawns) {
                 let spawnType = '';
@@ -235,7 +235,7 @@ function Map() {
                             continue;
                         }
                     }
-                    else if (bosses.length === 1 && (bosses[0].normalizedName === 'bloodhounds' || bosses[0].normalizedName === 'cultist-priest' || bosses[0].normalizedName === 'rogue')) {
+                    else if (bosses.length === 1 && (bosses[0].normalizedName === 'bloodhound' || bosses[0].normalizedName === 'cultist-priest' || bosses[0].normalizedName === 'rogue')) {
                         spawnType = bosses[0].normalizedName;
                     }
                     else {
