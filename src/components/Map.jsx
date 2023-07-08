@@ -346,6 +346,12 @@ function Map() {
 
                 const popupLines = [];
                 if (spawn.categories.includes('boss')) {
+                    bosses = bosses.reduce((unique, current) => {
+                        if (!unique.some(b => b.normalizedName === current.normalizedName)) {
+                            unique.push(current);
+                        }
+                        return unique;
+                    }, []);
                     popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}">${boss.name}</a>`).join(', '));
                     if (showTestMarkers) {
                         popupLines.push(spawn.zoneName);
