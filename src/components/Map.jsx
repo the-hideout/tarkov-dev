@@ -187,7 +187,7 @@ function Map() {
         const baseLayer = L.tileLayer(mapData.mapPath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {
             tileSize: mapData.tileSize,
             bounds: maxBounds,
-            heightRange: mapData.heightRange || [-10000, 10000],
+            heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
         });
         shownLayers.push(baseLayer);
         baseLayer.addTo(map);
