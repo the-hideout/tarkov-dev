@@ -83,3 +83,9 @@
     position: relative;
     top: 2px;
 }
+
+/* elevation visability */
+
+img.off-level {
+    opacity: 50%;
+}

@@ -77,6 +77,20 @@ function getMaxBounds(mapData) {
     return [[mapData.bounds[0][1], mapData.bounds[0][0]], [mapData.bounds[1][1], mapData.bounds[1][0]]];
 }
 
+function markerIsShown(layers, position) {
+    const elevation = position.y;
+    for (const layer of layers) {
+        const height = layer.options.heightRange;
+        if (!height) {
+            continue;
+        }
+        if (elevation > height[0] && elevation <= height[1]) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function Map() {
     let { currentMap } = useParams();
 
@@ -168,12 +182,62 @@ function Map() {
 
         map.setMinZoom(mapData.minZoom);
         map.setMaxZoom(mapData.maxZoom);
+        
+        const shownLayers = [];
         const baseLayer = L.tileLayer(mapData.mapPath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {
             tileSize: mapData.tileSize,
             bounds: maxBounds,
+            heightRange: mapData.heightRange || [-10000, 10000],
         });
+        shownLayers.push(baseLayer);
         baseLayer.addTo(map);
         //layerControl.addBaseLayer(baseLayer, t('Base'));
+
+        // Add map layers
+        if (mapData.layers) {
+            for (const layer of mapData.layers) {
+                const tileLayer = L.tileLayer(layer.path, {
+                    tileSize: mapData.tileSize,
+                    bounds: maxBounds,
+                    heightRange: layer.heightRange,
+                });
+                layerControl.addOverlay(tileLayer, t(layer.name), t('Levels'));
+                if (layer.show) {
+                    shownLayers.push(tileLayer);
+                    tileLayer.addTo(map);
+                }
+                if (layer.heightRange) {
+                    tileLayer.on('add', () => {
+                        for (const marker of Object.values(map._layers)) {
+                            if (!marker.options.icon?.options.position) {
+                                continue;
+                            }
+                            const elevation = marker.options.icon.options.position.y;
+                            const height = layer.heightRange;
+                            if (elevation > height[0] && elevation <= height[1]) {
+                                marker._icon.classList.remove('off-level');
+                            } else {
+                                marker._icon.classList.add('off-level');
+                            }
+                        }
+                    });
+                    tileLayer.on('remove', () => {
+                        for (const marker of Object.values(map._layers)) {
+                            if (!marker.options.icon?.options.position) {
+                                continue;
+                            }
+                            const elevation = marker.options.icon.options.position.y;
+                            const height = layer.heightRange;
+                            if (elevation > height[0] && elevation <= height[1]) {
+                                marker._icon.classList.add('off-level');
+                            } else {
+                                marker._icon.classList.remove('off-level');
+                            }
+                        }
+                    });
+                }
+            }
+        }
 
         const categories = {
             quest_item: t('Tasks'),
@@ -197,6 +261,8 @@ function Map() {
                         iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${category}.png`,
                         iconSize: [24, 24],
                         popupAnchor: [0, -12],
+                        position: item.position,
+                        className: !markerIsShown(shownLayers, item.position) ? 'off-level' : '',
                     });
                     L.marker(pos(item.position), {icon: itemIcon})
                         .bindPopup(L.popup().setContent(`${item.name}<br>Elevation: ${item.position.y.toFixed(2)}`))
@@ -269,6 +335,8 @@ function Map() {
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/spawn_${spawnType}.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
+                    className: !markerIsShown(shownLayers, spawn.position) ? 'off-level' : '',
+                    position: spawn.position,
                 });
 
                 if (spawnType === 'pmc') {
@@ -290,26 +358,13 @@ function Map() {
                 if (popupLines.length > 0) {
                     marker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
                 }
+                marker.position = spawn.position;
                 marker.addTo(spawnLayers[spawnType]);
             }
             for (const key in spawnLayers) {
                 if (Object.keys(spawnLayers[key]._layers).length > 0) {
                     spawnLayers[key].addTo(map);
                     layerControl.addOverlay(spawnLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/spawn_${key}.png' class='control-item-image' /> ${categories[`spawn_${key}`]}`, t('Spawns'));    
-                }
-            }
-        }
-
-        // Add map layers
-        if (mapData.layers) {
-            for (const layer of mapData.layers) {
-                const tileLayer = L.tileLayer(layer.path, {
-                    tileSize: mapData.tileSize,
-                    bounds: maxBounds,
-                });
-                layerControl.addOverlay(tileLayer, t(layer.name), t('Levels'));
-                if (layer.show) {
-                    tileLayer.addTo(map);
                 }
             }
         }
