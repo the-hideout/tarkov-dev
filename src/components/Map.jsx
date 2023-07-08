@@ -345,7 +345,7 @@ function Map() {
                 }
 
                 const popupLines = [];
-                if (spawn.categories.includes('boss')) {
+                if (spawn.categories.includes('boss') && bosses.length > 0) {
                     bosses = bosses.reduce((unique, current) => {
                         if (!unique.some(b => b.normalizedName === current.normalizedName)) {
                             unique.push(current);
