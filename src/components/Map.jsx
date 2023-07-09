@@ -149,7 +149,7 @@ function Map() {
         const map = L.map('leaflet-map', {
             maxBounds: maxBounds,
             center: [0, 0],
-            zoom: 2,
+            zoom: mapData.minZoom+1,
             scrollWheelZoom: true,
             crs: getCRS(mapData),
             attributionControl: false,
