@@ -157,7 +157,8 @@ function Map() {
         const layerControl = L.control.groupedLayers(null, null, {
             position: 'topleft',
             collapsed: true,
-            groupCheckboxes: true
+            groupCheckboxes: true,
+            exclusiveGroups: [t('Levels')],
         }).addTo(map);
         map.addControl(new L.Control.Fullscreen({
             title: {
@@ -376,7 +377,7 @@ function Map() {
         }
 
         // Set default zoom level
-        map.fitWorld({maxZoom: Math.max(mapData.maxZoom-3, mapData.minZoom)});
+        //map.fitWorld({maxZoom: Math.max(mapData.maxZoom-3, mapData.minZoom)});
 
         mapRef.current = map;
     }, [mapData, mapRef, t]);

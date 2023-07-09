@@ -274,10 +274,23 @@ L.Control.GroupedLayers = L.Control.extend({
   
     _createRadioElement: function (name, checked) {
         var radio = document.createElement('input');
-        radio.type = 'radio';
+        radio.type = 'checkbox';
         radio.name = name;
-        radio.className = 'leaflet-control-layers-selector';
+        radio.className = `leaflet-control-layers-selector ${name}`;
         radio.checked = checked;
+        radio.onchange = e => {
+            if (!e.target.checked) {
+                return;
+            }
+            var radios = document.getElementsByClassName(name);
+            for (var r of radios) {
+                if (r === e.target || !r.checked) {
+                    continue;
+                }
+                r.checked = false;
+                this._onInputClick();
+            }
+        };
     
         return radio;
     },
