@@ -14,18 +14,21 @@ import translationPL from './translations/pl/translation.json';
 import translationPT from './translations/pt/translation.json';
 
 import propertiesEN from './translations/en/properties.json';
+import propertiesDE from './translations/de/properties.json';
 import propertiesRU from './translations/ru/properties.json';
 import propertiesIT from './translations/it/properties.json';
 import propertiesJA from './translations/ja/properties.json';
 import propertiesPL from './translations/pl/properties.json';
 
 import bossesEN from './translations/en/bosses.json';
+import bossesDE from './translations/de/bosses.json';
 import bossesRU from './translations/ru/bosses.json';
 import bossesIT from './translations/it/bosses.json';
 import bossesJA from './translations/ja/bosses.json';
 import bossesPL from './translations/pl/bosses.json';
 
 import mapsEN from './translations/en/maps.json';
+import mapsDE from './translations/de/maps.json';
 import mapsRU from './translations/ru/maps.json';
 import mapsIT from './translations/it/maps.json';
 import mapsJA from './translations/ja/maps.json';
@@ -63,6 +66,9 @@ i18n
             },
             de: {
                 translation: translationDE,
+                properties: propertiesDE,
+                bosses: bossesDE,
+                maps: mapsDE,
             },
             ru: {
                 translation: translationRU,
