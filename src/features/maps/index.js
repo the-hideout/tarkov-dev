@@ -106,6 +106,7 @@ export const useMapImages = () => {
                         return {
                             name: bossSpawn.name,
                             normalizedName: bossSpawn.normalizedName,
+                            spawnChance: bossSpawn.spawnChance,
                             spawnLocations: bossSpawn.spawnLocations,
                         }
                     }),

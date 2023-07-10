@@ -353,7 +353,7 @@ function Map() {
                         }
                         return unique;
                     }, []);
-                    popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}">${boss.name}</a>`).join(', '));
+                    popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}">${boss.name} (${boss.spawnChance*100}%)</a>`).join(', '));
                     if (showTestMarkers) {
                         popupLines.push(spawn.zoneName);
                     }
