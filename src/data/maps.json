@@ -80,7 +80,7 @@
                 "maxZoom": 4,
                 "transform": [1.75, 121.5, 0.182815, 137.5],
                 "coordinateRotation": 90,
-                "bounds": [[-66, 70], [78, -65]],
+                "bounds": [[-66, 69.3], [78, -65]],
                 "heightRange": [-1, 3],
                 "author": "vinnydiehl",
                 "authorLink": "https://github.com/vinnydiehl/tarkovraphy",
