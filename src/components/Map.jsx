@@ -77,16 +77,14 @@ function getMaxBounds(mapData) {
     return [[mapData.bounds[0][1], mapData.bounds[0][0]], [mapData.bounds[1][1], mapData.bounds[1][0]]];
 }
 
-function markerIsShown(layers, position) {
+function markerIsShown(heightLayer, position) {
     const elevation = position.y;
-    for (const layer of layers) {
-        const height = layer.options.heightRange;
-        if (!height) {
-            continue;
-        }
-        if (elevation > height[0] && elevation <= height[1]) {
-            return true;
-        }
+    const height = heightLayer.options?.heightRange;
+    if (!height) {
+        return true;
+    }
+    if (elevation > height[0] && elevation <= height[1]) {
+        return true;
     }
     return false;
 }
@@ -184,13 +182,12 @@ function Map() {
         map.setMinZoom(mapData.minZoom);
         map.setMaxZoom(mapData.maxZoom);
         
-        const shownLayers = [];
         const baseLayer = L.tileLayer(mapData.mapPath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {
             tileSize: mapData.tileSize,
             bounds: maxBounds,
             heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
         });
-        shownLayers.push(baseLayer);
+        let heightLayer = baseLayer;
         baseLayer.addTo(map);
         //layerControl.addBaseLayer(baseLayer, t('Base'));
 
@@ -204,7 +201,7 @@ function Map() {
                 });
                 layerControl.addOverlay(tileLayer, t(layer.name), t('Levels'));
                 if (layer.show) {
-                    shownLayers.push(tileLayer);
+                    heightLayer = tileLayer;
                     tileLayer.addTo(map);
                 }
                 if (layer.heightRange) {
@@ -223,16 +220,20 @@ function Map() {
                         }
                     });
                     tileLayer.on('remove', () => {
+                        const heightLayer = Object.values(map._layers).findLast(l => l.options?.heightRange);
+                        if (!heightLayer) {
+                            return;
+                        }
+                        const height = heightLayer.options.heightRange;
                         for (const marker of Object.values(map._layers)) {
                             if (!marker.options.icon?.options.position) {
                                 continue;
                             }
                             const elevation = marker.options.icon.options.position.y;
-                            const height = layer.heightRange;
                             if (elevation > height[0] && elevation <= height[1]) {
-                                marker._icon.classList.add('off-level');
-                            } else {
                                 marker._icon.classList.remove('off-level');
+                            } else {
+                                marker._icon.classList.add('off-level');
                             }
                         }
                     });
@@ -263,7 +264,7 @@ function Map() {
                         iconSize: [24, 24],
                         popupAnchor: [0, -12],
                         position: item.position,
-                        className: !markerIsShown(shownLayers, item.position) ? 'off-level' : '',
+                        className: !markerIsShown(heightLayer, item.position) ? 'off-level' : '',
                     });
                     L.marker(pos(item.position), {icon: itemIcon})
                         .bindPopup(L.popup().setContent(`${item.name}<br>Elevation: ${item.position.y.toFixed(2)}`))
@@ -336,7 +337,7 @@ function Map() {
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/spawn_${spawnType}.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
-                    className: !markerIsShown(shownLayers, spawn.position) ? 'off-level' : '',
+                    className: !markerIsShown(heightLayer, spawn.position) ? 'off-level' : '',
                     position: spawn.position,
                 });
 

@@ -73,6 +73,40 @@
         "primaryPath": "/map/factory-3d",
         "maps": [
             {
+                "key": "factory",
+                "projection": "interactive",
+                "tileSize": 253,
+                "minZoom": 1,
+                "maxZoom": 4,
+                "transform": [1.75, 121.5, 0.182815, 137.5],
+                "coordinateRotation": 90,
+                "_bounds": [[737, -350], [-360, 340]],
+                "heightRange": [-1, 3],
+                "author": "vinnydiehl",
+                "authorLink": "https://github.com/vinnydiehl/tarkovraphy",
+                "mapPath": "https://assets.tarkov.dev/maps/factory_tarkovraphy/main/{z}/{x}/{y}.png",
+                "layers": [
+                    {
+                        "name": "Second Floor",
+                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/2nd/{z}/{x}/{y}.png",
+                        "show": false,
+                        "heightRange": [3, 6]
+                    },
+                    {
+                        "name": "Third Floor",
+                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/3rd/{z}/{x}/{y}.png",
+                        "show": true,
+                        "heightRange": [6, 10000]
+                    },
+                    {
+                        "name": "Tunnels",
+                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/tunnels/{z}/{x}/{y}.png",
+                        "show": false,
+                        "heightRange": [-10000, -1]
+                    }
+                ]
+            },
+            {
                 "key": "factory-3d",
                 "projection": "3D",
                 "author": "JohnnyTushonka",
