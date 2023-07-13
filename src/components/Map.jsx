@@ -293,7 +293,7 @@ function Map() {
                 let bosses = [];
 
                 if (spawn.categories.includes('boss')) {
-                    bosses = mapData.bosses.filter(boss => boss.spawnLocations.some(sl => sl.spawnKey === spawn.zoneName));
+                    bosses = mapData.bosses.filter(boss => boss.spawnLocations.some(sl => sl.spawnKey === spawn.zoneName || sl.spawnKey === 'BotZone'));
                     if (bosses.length === 0) {
                         if (spawn.categories.includes('bot') && spawn.sides.includes('scav')) {
                             spawnType = 'scav';

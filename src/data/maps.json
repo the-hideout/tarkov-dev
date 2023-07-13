@@ -74,6 +74,7 @@
         "maps": [
             {
                 "key": "factory",
+                "altMaps": ["night-factory"],
                 "projection": "interactive",
                 "tileSize": 253,
                 "minZoom": 1,
