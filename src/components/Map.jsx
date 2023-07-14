@@ -177,7 +177,7 @@ function Map() {
             }
         }).addTo(map);
 
-        L.control.scale({position: 'bottomright'}).addTo(map);
+        //L.control.scale({position: 'bottomright'}).addTo(map);
 
         map.setMinZoom(mapData.minZoom);
         map.setMaxZoom(mapData.maxZoom);
