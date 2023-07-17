@@ -18,7 +18,7 @@
     "cache-api-data": "node --experimental-loader ./scripts/custom-loader.mjs scripts/cache-api-data.mjs"
   },
   "devDependencies": {
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.0",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   },
   "dependencies": {
