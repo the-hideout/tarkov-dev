@@ -60,7 +60,7 @@
     "react-router-dom": "^6.14.1",
     "react-router-hash-link": "^2.4.3",
     "react-scripts": "^5.0.1",
-    "react-select": "^5.7.3",
+    "react-select": "^5.7.4",
     "react-simple-image-viewer": "1.2.1",
     "react-switch": "^7.0.0",
     "react-syntax-highlighter": "^15.5.0",
