@@ -354,7 +354,8 @@ function Map() {
                         }
                         return unique;
                     }, []);
-                    popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}">${boss.name} (${boss.spawnChance*100}%)</a>`).join(', '));
+                    console.log(bosses);
+                    popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}">${boss.name} (${Math.round(boss.spawnChance*100)}%)</a>`).join(', '));
                     if (showTestMarkers) {
                         popupLines.push(spawn.zoneName);
                     }
