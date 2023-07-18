@@ -86,6 +86,6 @@
 
 /* elevation visability */
 
-img.off-level {
+img.off-level, div.awesome-marker.off-level {
     opacity: 50%;
 }

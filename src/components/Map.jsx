@@ -1,4 +1,5 @@
 import { useEffect, useRef, useMemo, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -7,6 +8,10 @@ import {
 } from 'react-zoom-pan-pinch';
 import L from 'leaflet';
 
+import { setPlayerPosition } from '../features/settings/settingsSlice';
+
+import 'leaflet.awesome-markers/dist/leaflet.awesome-markers';
+import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css'
 import 'leaflet-fullscreen/dist/Leaflet.fullscreen';
 import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 
@@ -93,6 +98,7 @@ function Map() {
     let { currentMap } = useParams();
 
     const { t } = useTranslation();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
@@ -112,6 +118,8 @@ function Map() {
             );
         };
     });
+
+    const playerPosition = useSelector((state) => state.settings.playerPosition);
 
     const ref = useRef();
     const mapRef = useRef(null);
@@ -208,6 +216,7 @@ function Map() {
                     tileLayer.on('add', () => {
                         for (const marker of Object.values(map._layers)) {
                             if (!marker.options.icon?.options.position) {
+                                console.log(marker);
                                 continue;
                             }
                             const elevation = marker.options.icon.options.position.y;
@@ -354,7 +363,6 @@ function Map() {
                         }
                         return unique;
                     }, []);
-                    console.log(bosses);
                     popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}">${boss.name} (${Math.round(boss.spawnChance*100)}%)</a>`).join(', '));
                     if (showTestMarkers) {
                         popupLines.push(spawn.zoneName);
@@ -378,11 +386,32 @@ function Map() {
             }
         }
 
+        // Add player position
+        if (playerPosition && (playerPosition.map === mapData.key || playerPosition.map === null)) {
+            const positionLayer = L.layerGroup();
+            var playerMarker = L.AwesomeMarkers.icon({
+                icon: 'person',
+                prefix: 'ion',
+                markerColor: 'green',
+                position: playerPosition.position,
+            });
+                  
+            const positionMarker = L.marker(pos(playerPosition.position), {icon: playerMarker}).addTo(positionLayer);
+            const closeButton = L.DomUtil.create('a');
+            closeButton.innerHTML = t('Clear');
+            closeButton.addEventListener('click', () => {
+                dispatch(setPlayerPosition(null));
+            });
+            positionMarker.bindPopup(L.popup().setContent(closeButton));
+            positionLayer.addTo(map);
+            layerControl.addOverlay(positionLayer, t('Player'), t('Misc'));
+        }
+
         // Set default zoom level
         //map.fitWorld({maxZoom: Math.max(mapData.maxZoom-3, mapData.minZoom)});
 
         mapRef.current = map;
-    }, [mapData, mapRef, t]);
+    }, [mapData, mapRef, playerPosition, t, dispatch]);
     
     if (!mapData) {
         return <ErrorPage />;

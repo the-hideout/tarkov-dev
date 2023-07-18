@@ -114,6 +114,7 @@ const settingsSlice = createSlice({
         hideRemoteControl: localStorageReadJson('hide-remote-control', false),
         minDogtagLevel: localStorageReadJson('minDogtagLevel', 1),
         hideDogtagBarters: localStorageReadJson('hideTogtagBarters', false),
+        playerPosition: localStorageReadJson('playerPosition', null),
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
@@ -154,6 +155,14 @@ const settingsSlice = createSlice({
             localStorageWriteJson(
                 'hide-remote-control',
                 state.hideRemoteControl,
+            );
+        },
+        setPlayerPosition: (state, action) => {
+            const newPosition = action.payload ? {map: action.payload.map, position: action.payload.position} : null;
+            state.playerPosition = newPosition;
+            localStorageWriteJson(
+                'playerPosition',
+                newPosition,
             );
         },
     },
@@ -234,6 +243,7 @@ export const {
     toggleTarkovTracker,
     toggleHideRemoteControl,
     toggleHideDogtagBarters,
+    setPlayerPosition,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;
