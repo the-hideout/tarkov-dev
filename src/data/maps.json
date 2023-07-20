@@ -184,15 +184,14 @@
             {
                 "key": "lighthouse",
                 "projection": "interactive",
-                "mapPath": "https://assets.tarkov.dev/maps/lighthouse_v2/{z}/{x}/{y}.png",
-                "tileSize": 200,
-                "minZoom": 2,
+                "minZoom": 1,
                 "maxZoom": 6,
-                "transform": [0.101, 52.18, 0.101, 117.7],
+                "transform": [0.2, 0, 0.2, 0],
                 "coordinateRotation": 180,
-                "bounds": [[515, 685], [-644, -1163]],
-                "author": "Moritz",
-                "authorLink": "https://tarkov.dev"
+                "bounds": [[520, -1000], [-545, 725]],
+                "author": "TarkovTracker",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/maps/Lighthouse.svg"
             },
             {
                 "key": "lighthouse-3d",
@@ -203,7 +202,7 @@
             {
                 "key": "lighthouse-2d",
                 "projection": "2D",
-                "author": "Kokarn & Jindouz"
+                "author": "Shebuka & Jindouz"
             },
             {
                 "key": "lighthouse-2d-landscape",
@@ -277,6 +276,18 @@
         "normalizedName": "shoreline",
         "primaryPath": "/map/shoreline-2d",
         "maps": [
+            {
+                "key": "shoreline",
+                "projection": "interactive",
+                "minZoom": 2,
+                "maxZoom": 6,
+                "transform": [0.2, 0, 0.2, 0],
+                "coordinateRotation": 180,
+                "bounds": [[485, -390], [-1038, 600]],
+                "author": "TarkovTracker",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/maps/Shoreline.svg"
+            },
             {
                 "key": "shoreline-3d",
                 "projection": "3D",
