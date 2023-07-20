@@ -37,15 +37,14 @@
             {
                 "key": "customs",
                 "projection": "interactive",
-                "tileSize": 250,
                 "minZoom": 2,
                 "maxZoom": 6,
-                "transform": [0.182815, 159.5, 0.182815, 70.5],
+                "transform": [0.2, 0, 0.2, 0],
                 "coordinateRotation": 180,
-                "bounds": [[737, -350], [-360, 340]],
-                "author": "Moritz",
-                "authorLink": "https://tarkov.dev",
-                "mapPath": "https://assets.tarkov.dev/maps/customs_v2/{z}/{x}/{y}.png"
+                "bounds": [[680, -390], [-340, 340]],
+                "author": "TarkovTracker",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/maps/Customs.svg"
             },
             {
                 "key": "customs-3d",
