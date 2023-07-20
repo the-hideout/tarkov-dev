@@ -39,7 +39,7 @@ function getCRS(mapData) {
     if (mapData) {    
         if (mapData.transform) {
             scaleX = mapData.transform[0];
-            scaleY = mapData.transform[0] * -1;
+            scaleY = mapData.transform[2] * -1;
             marginX = mapData.transform[1];
             marginY = mapData.transform[3];
         }
@@ -145,7 +145,7 @@ function Map() {
     }, [allMaps, currentMap]);
 
     useEffect(() => {
-        if (!mapData || !mapData.tileSize) {
+        if (!mapData || mapData.projection !== 'interactive') {
             return;
         }
         if (mapRef.current?._leaflet_id) {
@@ -156,6 +156,8 @@ function Map() {
             maxBounds: maxBounds,
             center: [0, 0],
             zoom: mapData.minZoom+1,
+            minZoom: mapData.minZoom,
+            maxZoom: mapData.maxZoom,
             scrollWheelZoom: true,
             crs: getCRS(mapData),
             attributionControl: false,
@@ -186,15 +188,18 @@ function Map() {
         }).addTo(map);
 
         //L.control.scale({position: 'bottomright'}).addTo(map);
-
-        map.setMinZoom(mapData.minZoom);
-        map.setMaxZoom(mapData.maxZoom);
         
-        const baseLayer = L.tileLayer(mapData.mapPath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {
-            tileSize: mapData.tileSize,
-            bounds: maxBounds,
-            heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
-        });
+        let baseLayer;
+        if (mapData.svgPath) {
+            baseLayer = L.imageOverlay(mapData.svgPath, maxBounds);
+        }
+        else {
+            baseLayer = L.tileLayer(mapData.mapPath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {
+                tileSize: mapData.tileSize,
+                bounds: maxBounds,
+                heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
+            });
+        }
         let heightLayer = baseLayer;
         baseLayer.addTo(map);
         //layerControl.addBaseLayer(baseLayer, t('Base'));
@@ -408,6 +413,7 @@ function Map() {
         }
 
         // Set default zoom level
+        // map.fitBounds(maxBounds);
         //map.fitWorld({maxZoom: Math.max(mapData.maxZoom-3, mapData.minZoom)});
 
         mapRef.current = map;
