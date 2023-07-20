@@ -6,15 +6,14 @@
             {
                 "key": "streets-of-tarkov",
                 "projection": "interactive",
-                "mapPath": "https://assets.tarkov.dev/maps/streets-of-tarkov_v2/{z}/{x}/{y}.png",
-                "tileSize": 282,
                 "minZoom": 1,
                 "maxZoom": 5,
-                "transform": [0.38, 138, 0.38, 47],
+                "transform": [0.38, 0, 0.38, 0],
                 "coordinateRotation": 180,
-                "bounds": [[360, 612], [-367, -117]],
-                "author": "Moritz",
-                "authorLink": "https://tarkov.dev"
+                "bounds": [[290, 600], [-270, -90]],
+                "author": "TarkovTracker",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/maps/StreetsOfTarkov.svg"
             },
             {
                 "key": "streets-3d",
