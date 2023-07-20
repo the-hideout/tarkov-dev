@@ -10,7 +10,7 @@
                 "maxZoom": 5,
                 "transform": [0.38, 0, 0.38, 0],
                 "coordinateRotation": 180,
-                "bounds": [[290, 600], [-270, -90]],
+                "bounds": [[340, 0], [-320, 520]],
                 "author": "TarkovTracker",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/maps/StreetsOfTarkov.svg"
@@ -40,7 +40,7 @@
                 "maxZoom": 6,
                 "transform": [0.2, 0, 0.2, 0],
                 "coordinateRotation": 180,
-                "bounds": [[680, -390], [-340, 340]],
+                "bounds": [[680, -295], [-345, 250]],
                 "author": "TarkovTracker",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/maps/Customs.svg"
@@ -117,6 +117,18 @@
         "normalizedName": "interchange",
         "primaryPath": "/map/interchange-2d",
         "maps": [
+            {
+                "key": "interchange",
+                "projection": "interactive",
+                "minZoom": 2,
+                "maxZoom": 6,
+                "transform": [0.2, 0, 0.2, 0],
+                "coordinateRotation": 180,
+                "bounds": [[520, -450], [-420, 420]],
+                "author": "TarkovTracker",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/maps/Interchange.svg"
+            },
             {
                 "key": "interchange-2d",
                 "projection": "2D",
