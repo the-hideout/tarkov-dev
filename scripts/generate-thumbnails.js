@@ -27,11 +27,16 @@ const sharp = require('sharp');
                 continue;
             let path = map.mapPath || `https://assets.tarkov.dev/maps/${group.normalizedName}/{z}/{x}/{y}.png`;
             path = path.replace(/{[xyz]}/g, '0');
-            const imageRequest = await fetch(path);
-            const image = sharp(await imageRequest.arrayBuffer()).trim('#00000000').resize(null, maxHeight).jpeg({mozjpeg: true, quality: 90});
             const thumbName = `${group.normalizedName}_thumb.jpg`;
-            console.log(`Generating ${thumbName}`);
-            await image.toFile(mapsPath+thumbName);
+            try {
+                const imageRequest = await fetch(path);
+                console.log(`Generating ${thumbName}`);
+                const image = sharp(await imageRequest.arrayBuffer()).trim('#00000000').resize(null, maxHeight).jpeg({mozjpeg: true, quality: 90});
+                await image.toFile(mapsPath+thumbName);
+            } catch (error) {
+                console.error(error)
+                console.log(`Asset for ${thumbName} unavailable`)
+            }
         }
     }
     console.timeEnd('Generating thumbnails');
