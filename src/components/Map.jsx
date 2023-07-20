@@ -266,6 +266,9 @@ function Map() {
             spawn_bloodhound: t('Bloodhound'),
         }
 
+        let TL = {x:Number.MAX_SAFE_INTEGER, z:Number.MIN_SAFE_INTEGER};
+        let BR = {x:Number.MIN_SAFE_INTEGER, z:Number.MAX_SAFE_INTEGER};
+
         // Add items (from test data for now)
         if (showTestMarkers) {
             for (const category in testMapData[mapData.normalizedName]) {
@@ -283,6 +286,11 @@ function Map() {
                     L.marker(pos(item.position), {icon: itemIcon})
                         .bindPopup(L.popup().setContent(`${item.name}<br>Elevation: ${item.position.y.toFixed(2)}`))
                         .addTo(markerLayer);
+
+                    if (item.position.x < TL.x) TL.x = item.position.x;
+                    if (item.position.z > TL.z) TL.z = item.position.z;
+                    if (item.position.x > BR.x) BR.x = item.position.x;
+                    if (item.position.z < BR.z) BR.z = item.position.z;
                 }
 
                 if (items.length > 0) {
@@ -376,6 +384,11 @@ function Map() {
                 popupLines.push(`Elevation: ${spawn.position.y.toFixed(2)}`);
 
 
+                if (spawn.position.x < TL.x) TL.x = spawn.position.x;
+                if (spawn.position.z > TL.z) TL.z = spawn.position.z;
+                if (spawn.position.x > BR.x) BR.x = spawn.position.x;
+                if (spawn.position.z < BR.z) BR.z = spawn.position.z;
+
                 const marker = L.marker(pos(spawn.position), {icon: spawnIcon});
                 if (popupLines.length > 0) {
                     marker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
@@ -390,6 +403,8 @@ function Map() {
                 }
             }
         }
+
+        console.log(`Positions "bounds": [[${BR.x}, ${BR.z}], [${TL.x}, ${TL.z}]] (already rotated, copy/paste to maps.json)`)
 
         // Add player position
         if (playerPosition && (playerPosition.map === mapData.key || playerPosition.map === null)) {
