@@ -316,15 +316,14 @@
             {
                 "key": "woods",
                 "projection": "interactive",
-                "mapPath": "https://assets.tarkov.dev/maps/woods_v2/{z}/{x}/{y}.png",
-                "tileSize": 273,
                 "minZoom": 1,
-                "maxZoom": 5,
-                "transform": [0.197, 125, 0.197, 186],
+                "maxZoom": 6,
+                "transform": [0.2, 0, 0.2, 0],
                 "coordinateRotation": 180,
-                "bounds": [[633, 439], [-748, -942]],
-                "author": "Moritz",
-                "authorLink": "https://tarkov.dev"
+                "bounds": [[560, -935], [-710, 465]],
+                "author": "TarkovTracker",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/maps/Woods.svg"
             },
             {
                 "key": "woods-3d",
