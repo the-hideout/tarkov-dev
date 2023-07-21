@@ -144,26 +144,25 @@
             {
                 "key": "the-lab",
                 "projection": "interactive",
-                "tileSize": 200,
-                "minZoom": 1,
+                "minZoom": 2,
                 "maxZoom": 5,
-                "transform": [0.6, 286.5, 0.6, 180],
+                "transform": [0.6, 0, 0.6, 0],
                 "coordinateRotation": 270,
-                "bounds": [[-86.4, -477.2], [-299.6, -161.2]],
+                "bounds": [[-88, -495], [-299, -193]],
+                "author": "Shebuka",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Labs-First_Level.svg",
                 "heightRange": [-1, 3],
-                "author": "monkimonkimonk",
-                "authorLink": "https://github.com/monK87/EFT-Maps",
-                "mapPath": "https://assets.tarkov.dev/maps/labs_monK87/main/{z}/{x}/{y}.png",
                 "layers": [
                     {
-                        "name": "Second Floor",
-                        "mapPath": "https://assets.tarkov.dev/maps/labs_monK87/2nd/{z}/{x}/{y}.png",
+                        "name": "Second Level",
+                        "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Labs-Second_Level.svg",
                         "show": false,
                         "heightRange": [3, 10000]
                     },
                     {
                         "name": "Technical",
-                        "mapPath": "https://assets.tarkov.dev/maps/labs_monK87/technical/{z}/{x}/{y}.png",
+                        "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Labs-Technical_Level.svg",
                         "show": false,
                         "heightRange": [-10000, -1]
                     }
