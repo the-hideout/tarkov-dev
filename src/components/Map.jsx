@@ -191,7 +191,9 @@ function Map() {
         
         let baseLayer;
         if (mapData.svgPath) {
-            baseLayer = L.imageOverlay(mapData.svgPath, maxBounds);
+            baseLayer = L.imageOverlay(mapData.svgPath, maxBounds, {
+                heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
+            });
         }
         else {
             baseLayer = L.tileLayer(mapData.mapPath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {
@@ -207,11 +209,20 @@ function Map() {
         // Add map layers
         if (mapData.layers) {
             for (const layer of mapData.layers) {
-                const tileLayer = L.tileLayer(layer.path, {
-                    tileSize: mapData.tileSize,
-                    bounds: maxBounds,
-                    heightRange: layer.heightRange,
-                });
+                let tileLayer;
+                
+                if (layer.svgPath) {
+                    tileLayer = L.imageOverlay(layer.svgPath, maxBounds, {
+                        heightRange: layer.heightRange,
+                    });
+                }
+                else {
+                    tileLayer = L.tileLayer(layer.mapPath, {
+                        tileSize: mapData.tileSize,
+                        bounds: maxBounds,
+                        heightRange: layer.heightRange,
+                    });
+                }
                 layerControl.addOverlay(tileLayer, t(layer.name), t('Levels'));
                 if (layer.show) {
                     heightLayer = tileLayer;
