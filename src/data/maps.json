@@ -157,13 +157,13 @@
                 "layers": [
                     {
                         "name": "Second Floor",
-                        "path": "https://assets.tarkov.dev/maps/labs_monK87/2nd/{z}/{x}/{y}.png",
+                        "mapPath": "https://assets.tarkov.dev/maps/labs_monK87/2nd/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [3, 10000]
                     },
                     {
                         "name": "Technical",
-                        "path": "https://assets.tarkov.dev/maps/labs_monK87/technical/{z}/{x}/{y}.png",
+                        "mapPath": "https://assets.tarkov.dev/maps/labs_monK87/technical/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [-10000, -1]
                     }
@@ -220,25 +220,19 @@
             {
                 "key": "reserve",
                 "projection": "interactive",
-                "mapPath": "https://assets.tarkov.dev/maps/reserve_v2/{z}/{x}/{y}.png",
-                "tileSize": 250,
                 "minZoom": 2,
                 "maxZoom": 6,
-                "transform": [0.268, 124.95, 0.268, 70.4],
+                "transform": [0.268, 0, 0.268, 0],
                 "coordinateRotation": 195.2090,
-                "bounds": [[510, 374], [-514, -367]],
-                "author": "Moritz",
-                "authorLink": "https://tarkov.dev",
+                "bounds": [[300, -300], [-300, 310]],
+                "author": "Shebuka",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Reserve-Ground_Level.svg",
                 "heightRange": [-10, 10000],
                 "layers": [
                     {
-                        "name": "First Floor",
-                        "path": "https://assets.tarkov.dev/maps/reserve_first_floor/{z}/{x}/{y}.png",
-                        "show": false
-                    },
-                    {
-                        "name": "Tunnels",
-                        "path": "https://assets.tarkov.dev/maps/reserve_tunnels/{z}/{x}/{y}.png",
+                        "name": "Bunkers",
+                        "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Reserve-Bunkers.svg",
                         "show": false,
                         "heightRange": [-10000, -10]
                     }
