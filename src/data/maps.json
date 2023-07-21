@@ -124,10 +124,25 @@
                 "maxZoom": 6,
                 "transform": [0.2, 0, 0.2, 0],
                 "coordinateRotation": 180,
-                "bounds": [[520, -450], [-420, 420]],
+                "bounds": [[550, -450], [-390, 420]],
                 "author": "TarkovTracker",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/maps/Interchange.svg"
+                "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Interchange-Ground_Level.svg",
+                "heightRange": [-10000, 25],
+                "layers": [
+                    {
+                        "name": "First Floor",
+                        "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Interchange-First_Floor.svg",
+                        "show": false,
+                        "heightRange": [25, 34]
+                    },
+                    {
+                        "name": "Second Floor",
+                        "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Interchange-Second_Floor.svg",
+                        "show": false,
+                        "heightRange": [34, 10000]
+                    }
+                ]
             },
             {
                 "key": "interchange-2d",
