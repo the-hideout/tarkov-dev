@@ -269,7 +269,6 @@ function Map() {
                             }
                         }
                         const layers = Object.values(map._layers).filter(l => l.options.type === 'layer-svg');
-                        console.log(baseLayer)
                         if (layers.length === 1 && baseLayer.options.type === 'layer-svg') {
                             baseLayer._image.classList.remove('off-level');
                         }
