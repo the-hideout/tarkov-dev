@@ -236,7 +236,6 @@ function Map() {
                     tileLayer.on('add', () => {
                         for (const marker of Object.values(map._layers)) {
                             if (!marker.options.icon?.options.position) {
-                                console.log(marker);
                                 continue;
                             }
                             const elevation = marker.options.icon.options.position.y;
