@@ -25,7 +25,7 @@ const sharp = require('sharp');
         for (const map of group.maps) {
             if (map.projection !== 'interactive')
                 continue;
-            let path = map.mapPath || `https://assets.tarkov.dev/maps/${group.normalizedName}/{z}/{x}/{y}.png`;
+            let path = map.mapPath || map.svgPath || `https://assets.tarkov.dev/maps/${group.normalizedName}/{z}/{x}/{y}.png`;
             path = path.replace(/{[xyz]}/g, '0');
             const thumbName = `${group.normalizedName}_thumb.jpg`;
             try {
@@ -33,6 +33,11 @@ const sharp = require('sharp');
                 console.log(`Generating ${thumbName}`);
                 const image = sharp(await imageRequest.arrayBuffer()).trim('#00000000').resize(null, maxHeight).jpeg({mozjpeg: true, quality: 90});
                 await image.toFile(mapsPath+thumbName);
+                if (map.altMaps) {
+                    for (const altKey of map.altMaps) {
+                        await image.toFile(mapsPath+`${altKey}_thumb.jpg`);
+                    }
+                }
             } catch (error) {
                 console.error(error)
                 console.log(`Asset for ${thumbName} unavailable`)
