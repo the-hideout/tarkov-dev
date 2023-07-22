@@ -193,6 +193,7 @@ function Map() {
         if (mapData.svgPath) {
             baseLayer = L.imageOverlay(mapData.svgPath, maxBounds, {
                 heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
+                type: 'layer-svg'
             });
         }
         else {
@@ -200,6 +201,7 @@ function Map() {
                 tileSize: mapData.tileSize,
                 bounds: maxBounds,
                 heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
+                type: 'layer-tile',
             });
         }
         let heightLayer = baseLayer;
@@ -214,6 +216,7 @@ function Map() {
                 if (layer.svgPath) {
                     tileLayer = L.imageOverlay(layer.svgPath, maxBounds, {
                         heightRange: layer.heightRange,
+                        type: 'layer-svg',
                     });
                 }
                 else {
@@ -221,6 +224,7 @@ function Map() {
                         tileSize: mapData.tileSize,
                         bounds: maxBounds,
                         heightRange: layer.heightRange,
+                        type: 'layer-tile',
                     });
                 }
                 layerControl.addOverlay(tileLayer, t(layer.name), t('Levels'));
@@ -243,6 +247,9 @@ function Map() {
                                 marker._icon.classList.add('off-level');
                             }
                         }
+                        if (baseLayer.options.type === 'layer-svg') {
+                            baseLayer._image.classList.add('off-level');
+                        }
                     });
                     tileLayer.on('remove', () => {
                         const heightLayer = Object.values(map._layers).findLast(l => l.options?.heightRange);
@@ -260,6 +267,11 @@ function Map() {
                             } else {
                                 marker._icon.classList.add('off-level');
                             }
+                        }
+                        const layers = Object.values(map._layers).filter(l => l.options.type === 'layer-svg');
+                        console.log(baseLayer)
+                        if (layers.length === 1 && baseLayer.options.type === 'layer-svg') {
+                            baseLayer._image.classList.remove('off-level');
                         }
                     });
                 }
