@@ -40,10 +40,10 @@
                 "maxZoom": 6,
                 "transform": [0.182815, 0, 0.182815, 0],
                 "coordinateRotation": 180,
-                "bounds": [[680, -295], [-345, 250]],
+                "bounds": [[710, -310], [-370, 250]],
                 "author": "TarkovTracker",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/maps/Customs.svg"
+                "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Customs.svg"
             },
             {
                 "key": "customs-3d",
