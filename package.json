@@ -25,7 +25,7 @@
     "@emotion/styled": "^11.11.0",
     "@mdi/js": "^6.9.96",
     "@mdi/react": "^1.6.1",
-    "@mui/lab": "^5.0.0-alpha.133",
+    "@mui/lab": "^5.0.0-alpha.137",
     "@mui/material": "^5.13.7",
     "@mui/styles": "^5.14.1",
     "@reduxjs/toolkit": "^1.9.5",
