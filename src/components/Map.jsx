@@ -7,6 +7,8 @@ import {
     TransformComponent,
 } from 'react-zoom-pan-pinch';
 import L from 'leaflet';
+import 'leaflet/dist/leaflet.css'
+import "@fortawesome/fontawesome-free/css/all.min.css"
 
 import { setPlayerPosition } from '../features/settings/settingsSlice';
 
@@ -29,7 +31,7 @@ import ErrorPage from './error-page';
 
 import './Maps.css';
 
-const showTestMarkers = false;
+const showTestMarkers = true;
 
 function getCRS(mapData) {
     let scaleX = 1;
@@ -425,19 +427,39 @@ function Map() {
             }
         }
 
-        console.log(`Positions "bounds": [[${BR.x}, ${BR.z}], [${TL.x}, ${TL.z}]] (already rotated, copy/paste to maps.json)`)
+        if (showTestMarkers) {
+            console.log(`Positions "bounds": [[${BR.x}, ${BR.z}], [${TL.x}, ${TL.z}]] (already rotated, copy/paste to maps.json)`);
+
+            const positionLayer = L.layerGroup();
+            const playerIcon = L.AwesomeMarkers.icon({
+                icon: 'person-running',
+                prefix: 'fa',
+                markerColor: 'green',
+                position: {x: 0, y: 0, z: 0},
+            });
+
+            const positionMarker = L.marker([0,0], {icon: playerIcon}).addTo(positionLayer);
+            const closeButton = L.DomUtil.create('a');
+            closeButton.innerHTML = t('Clear');
+            closeButton.addEventListener('click', () => {
+                positionLayer.remove(positionMarker);
+            });
+            positionMarker.bindPopup(L.popup().setContent(closeButton));
+            positionLayer.addTo(map);
+            layerControl.addOverlay(positionLayer, t('Player'), t('Misc'));
+        }
 
         // Add player position
         if (playerPosition && (playerPosition.map === mapData.key || playerPosition.map === null)) {
             const positionLayer = L.layerGroup();
-            var playerMarker = L.AwesomeMarkers.icon({
-                icon: 'person',
-                prefix: 'ion',
+            const playerIcon = L.AwesomeMarkers.icon({
+                icon: 'person-running',
+                prefix: 'fa',
                 markerColor: 'green',
                 position: playerPosition.position,
             });
                   
-            const positionMarker = L.marker(pos(playerPosition.position), {icon: playerMarker}).addTo(positionLayer);
+            const positionMarker = L.marker(pos(playerPosition.position), {icon: playerIcon}).addTo(positionLayer);
             const closeButton = L.DomUtil.create('a');
             closeButton.innerHTML = t('Clear');
             closeButton.addEventListener('click', () => {
