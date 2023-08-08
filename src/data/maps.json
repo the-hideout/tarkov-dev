@@ -13,7 +13,7 @@
                 "bounds": [[340, 0], [-320, 520]],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/maps/StreetsOfTarkov.svg"
+                "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov.svg"
             },
             {
                 "key": "streets-3d",
@@ -43,7 +43,7 @@
                 "bounds": [[710, -310], [-370, 250]],
                 "author": "TarkovTracker",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Customs.svg"
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Customs.svg"
             },
             {
                 "key": "customs-3d",
@@ -127,18 +127,18 @@
                 "bounds": [[550, -450], [-390, 420]],
                 "author": "TarkovTracker",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Interchange-Ground_Level.svg",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-Ground_Level.svg",
                 "heightRange": [-10000, 25],
                 "layers": [
                     {
                         "name": "First Floor",
-                        "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Interchange-First_Floor.svg",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-First_Floor.svg",
                         "show": false,
                         "heightRange": [25, 34]
                     },
                     {
                         "name": "Second Floor",
-                        "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Interchange-Second_Floor.svg",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-Second_Floor.svg",
                         "show": false,
                         "heightRange": [34, 10000]
                     }
@@ -166,18 +166,18 @@
                 "bounds": [[-88, -495], [-299, -193]],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Labs-First_Level.svg",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Labs-First_Level.svg",
                 "heightRange": [-1, 3],
                 "layers": [
                     {
                         "name": "Second Level",
-                        "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Labs-Second_Level.svg",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Labs-Second_Level.svg",
                         "show": false,
                         "heightRange": [3, 10000]
                     },
                     {
                         "name": "Technical",
-                        "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Labs-Technical_Level.svg",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Labs-Technical_Level.svg",
                         "show": false,
                         "heightRange": [-10000, -1]
                     }
@@ -205,7 +205,7 @@
                 "bounds": [[520, -1000], [-545, 725]],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/maps/Lighthouse.svg"
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Lighthouse.svg"
             },
             {
                 "key": "lighthouse-3d",
@@ -241,12 +241,12 @@
                 "bounds": [[300, -300], [-300, 310]],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Reserve-Ground_Level.svg",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Ground_Level.svg",
                 "heightRange": [-10, 10000],
                 "layers": [
                     {
                         "name": "Bunkers",
-                        "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/Reserve-Bunkers.svg",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Bunkers.svg",
                         "show": false,
                         "heightRange": [-10000, -10]
                     }
@@ -294,7 +294,7 @@
                 "bounds": [[485, -390], [-1038, 600]],
                 "author": "TarkovTracker",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/maps/Shoreline.svg"
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline.svg"
             },
             {
                 "key": "shoreline-3d",
@@ -331,7 +331,7 @@
                 "bounds": [[560, -935], [-710, 465]],
                 "author": "TarkovTracker",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://raw.githubusercontent.com/TarkovTracker/tarkovdata/master/maps/Woods.svg"
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Woods.svg"
             },
             {
                 "key": "woods-3d",
