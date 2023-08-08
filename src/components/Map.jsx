@@ -29,7 +29,7 @@ import ErrorPage from './error-page';
 
 import './Maps.css';
 
-const showTestMarkers = true;
+const showTestMarkers = false;
 
 function getCRS(mapData) {
     let scaleX = 1;
