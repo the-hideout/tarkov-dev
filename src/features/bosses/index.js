@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
 import doFetchBosses from './do-fetch-bosses';
@@ -43,8 +43,11 @@ const bossesSlice = createSlice({
 
 export const bossesReducer = bossesSlice.reducer;
 
-export const selectAllBosses = (state) => {
-    const bosses = state.bosses.data.map(bossReadOnly => {
+const selectBosses = state => state.bosses.data;
+const selectMaps = state => state.maps.data;
+
+export const selectAllBosses = createSelector([selectBosses, selectMaps], (bossesData, maps) => {
+    const bosses = bossesData.map(bossReadOnly => {
         const boss = {...bossReadOnly};
         boss.maps = [];
         boss.spawnChanceOverride = [];
@@ -59,7 +62,7 @@ export const selectAllBosses = (state) => {
         }
         return boss;
     });
-    for (const map of state.maps.data) {
+    for (const map of maps) {
         // Loop through each boss for each map
         for (const bossSpawn of map.bosses) {
             const boss = bosses.find(boss => boss.normalizedName === bossSpawn.normalizedName);
@@ -84,7 +87,7 @@ export const selectAllBosses = (state) => {
         }
     }
     return bosses;
-};
+});
 
 let fetchedData = false;
 let refreshInterval = false;

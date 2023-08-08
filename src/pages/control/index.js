@@ -61,7 +61,7 @@ function Control(props) {
     const { data: items } = useItemsData();
 
     const mapImages = useMapImages();
-    const uniqueMaps = Object.values(mapImages);
+    const uniqueMaps = Object.values(mapImages).filter(map => map.projection !== 'interactive');
     uniqueMaps.sort((a,b) => {
         if (a.normalizedName === 'openworld')
             return 1;

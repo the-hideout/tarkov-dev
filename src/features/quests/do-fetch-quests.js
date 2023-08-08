@@ -147,7 +147,7 @@ class QuestsQuery extends APIQuery {
                 count
             }
             ...on TaskObjectiveShoot {
-                target
+                targetNames
                 count
                 shotType
                 zoneNames

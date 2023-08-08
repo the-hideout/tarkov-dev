@@ -21,7 +21,7 @@ import { caliberArrayWithSplit } from '../../modules/format-ammo';
 import categoryPages from '../../data/category-pages.json';
 import useBossesData from '../../features/bosses';
 
-import { useMapImages } from '../../features/maps';
+import { mapIcons, useMapImages } from '../../features/maps';
 
 import alertConfig from './alert-config';
 
@@ -65,6 +65,16 @@ const Menu = () => {
             return -1;
         return a.displayText.localeCompare(b.displayText);
     });
+    let mapCurrent = '';
+    for (const map of uniqueMaps) {
+        if (map.normalizedName !== mapCurrent) {
+            map.icon = mapIcons[map.normalizedName];
+            mapCurrent = map.normalizedName;
+        }
+        else {
+            map.menuPadding = true;
+        }
+    }
 
     const { data: bosses } = useBossesData();
 
@@ -149,18 +159,20 @@ const Menu = () => {
                     </li>
                     <li className="submenu-wrapper" key="menu-ammo" data-targetid="ammo">
                         <Link to="/ammo/">{t('Ammo')}</Link>
-                        <ul>
+                        <ul style={{left: -20}}>
                             {getAmmoMenu()}
                         </ul>
                     </li>
                     <li className="submenu-wrapper submenu-items" key="menu-maps" data-targetid="maps">
                         <Link to="/maps/">{t('Maps')}</Link>
-                        <ul>
+                        <ul style={{left: -40}}>
                             {uniqueMaps.map((map) => (
                                 <MenuItem
                                     displayText={map.displayText}
                                     key={`menu-item-${map.key}`}
                                     to={`/map/${map.key}`}
+                                    icon={map.icon}
+                                    padding={map.menuPadding}
                                     //onClick={setIsOpen.bind(this, false)}
                                 />
                             ))}

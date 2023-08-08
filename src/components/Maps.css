@@ -1,0 +1,91 @@
+/* leaflet-control-coordinates */
+.leaflet-control-coordinates {
+    color: #000000;
+    font-weight: bold;
+}
+
+.leaflet-control-coordinates {
+	background-color:#D8D8D8;
+	background-color:rgba(255, 255, 255, 0.8);
+	cursor:pointer;
+}
+
+.leaflet-control-coordinates,
+.leaflet-control-coordinates .uiElement input {
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+}
+
+.leaflet-control-coordinates .uiElement {
+	margin:4px;
+}
+
+.leaflet-control-coordinates .uiElement .labelFirst {
+	margin-right:4px;
+}
+
+.leaflet-control-coordinates .uiHidden{
+	display:none;
+}
+
+.leaflet-control-coordinates .uiElement.label {
+	color:inherit;
+	font-weight: inherit;
+	font-size: inherit;
+	padding: 0;
+	display: inherit;
+}
+/* leaflet-control-coordinates */
+
+/* leaflet-control-groupedlayer */
+.leaflet-control-layers-group-name {
+    font-weight: 700;
+    margin-bottom: 0.2em;
+    margin-left: 3px;
+}
+.leaflet-control-layers-group {
+    margin-bottom: 0.5em;
+}
+.leaflet-control-layers-scrollbar {
+    overflow-y: scroll;
+    padding-right: 10px;
+}
+.leaflet-control-layers-group-label {
+    margin-bottom: 2px;
+}
+.leaflet-control-layers-group-selector, .leaflet-control-layers-selector {
+    vertical-align: top;
+}
+.leaflet-control-layers-group label:not(.leaflet-control-layers-group-label) {
+    text-indent: 15px;
+}
+.leaflet-control-layers-group.group-collapsable.collapsed .leaflet-control-layers-group-collapse,
+.leaflet-control-layers-group.group-collapsable:not(.collapsed) .leaflet-control-layers-group-expand,
+.leaflet-control-layers-group.group-collapsable.collapsed label:not(.leaflet-control-layers-group-label){
+    display: none;
+}
+.leaflet-control-layers-group-expand-default:before{
+    content: "+"; 
+    width: 12px; 
+    display: inline-block; 
+    text-align: center;
+}
+.leaflet-control-layers-group-collapse-default:before{
+    content: "-"; 
+    width: 12px; 
+    display: inline-block; 
+    text-align: center;
+}
+/* leaflet-control-groupedlayer */
+.control-item-image {
+    height: 14px;
+    position: relative;
+    top: 2px;
+}
+
+/* elevation visability */
+
+img.off-level, div.awesome-marker.off-level {
+    opacity: 50%;
+}

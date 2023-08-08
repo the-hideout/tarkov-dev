@@ -22,6 +22,7 @@ class MapsQuery extends APIQuery {
                     normalizedName
                     spawnChance
                     spawnLocations {
+                        spawnKey
                         name
                         chance
                     }
@@ -36,6 +37,16 @@ class MapsQuery extends APIQuery {
                     spawnTime
                     spawnTimeRandom
                     spawnTrigger
+                }
+                spawns {
+                    zoneName
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    sides
+                    categories
                 }
             }
         }`;

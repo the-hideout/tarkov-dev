@@ -1,8 +1,20 @@
 [
     {
         "normalizedName": "streets-of-tarkov",
-        "primaryPath": "/map/streets-2d",
+        "primaryPath": "/map/streets-of-tarkov",
         "maps": [
+            {
+                "key": "streets-of-tarkov",
+                "projection": "interactive",
+                "minZoom": 1,
+                "maxZoom": 5,
+                "transform": [0.38, 0, 0.38, 0],
+                "coordinateRotation": 180,
+                "bounds": [[340, 0], [-320, 520]],
+                "author": "Shebuka",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov.svg"
+            },
             {
                 "key": "streets-3d",
                 "projection": "3D",
@@ -19,8 +31,20 @@
     },
     {
         "normalizedName": "customs",
-        "primaryPath": "/map/customs-3d",
+        "primaryPath": "/map/customs",
         "maps": [
+            {
+                "key": "customs",
+                "projection": "interactive",
+                "minZoom": 2,
+                "maxZoom": 6,
+                "transform": [0.182815, 0, 0.182815, 0],
+                "coordinateRotation": 180,
+                "bounds": [[710, -310], [-370, 250]],
+                "author": "TarkovTracker",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Customs.svg"
+            },
             {
                 "key": "customs-3d",
                 "projection": "3D",
@@ -47,6 +71,41 @@
         "primaryPath": "/map/factory-3d",
         "maps": [
             {
+                "key": "factory",
+                "altMaps": ["night-factory"],
+                "projection": "interactive",
+                "tileSize": 253,
+                "minZoom": 1,
+                "maxZoom": 4,
+                "transform": [1.76, 121.5, 1.76, 135.0],
+                "coordinateRotation": 90,
+                "bounds": [[-67, 69], [76.6, -65.5]],
+                "heightRange": [-1, 3],
+                "author": "vinnydiehl",
+                "authorLink": "https://github.com/vinnydiehl/tarkovraphy",
+                "mapPath": "https://assets.tarkov.dev/maps/factory_tarkovraphy/main/{z}/{x}/{y}.png",
+                "layers": [
+                    {
+                        "name": "Second Floor",
+                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/2nd_tint/{z}/{x}/{y}.png",
+                        "show": false,
+                        "heightRange": [3, 6]
+                    },
+                    {
+                        "name": "Third Floor",
+                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/3rd_tint/{z}/{x}/{y}.png",
+                        "show": false,
+                        "heightRange": [6, 10000]
+                    },
+                    {
+                        "name": "Tunnels",
+                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/tunnels_tint/{z}/{x}/{y}.png",
+                        "show": false,
+                        "heightRange": [-10000, -1]
+                    }
+                ]
+            },
+            {
                 "key": "factory-3d",
                 "projection": "3D",
                 "author": "JohnnyTushonka",
@@ -58,6 +117,33 @@
         "normalizedName": "interchange",
         "primaryPath": "/map/interchange-2d",
         "maps": [
+            {
+                "key": "interchange",
+                "projection": "interactive",
+                "minZoom": 2,
+                "maxZoom": 6,
+                "transform": [0.2, 0, 0.2, 0],
+                "coordinateRotation": 180,
+                "bounds": [[550, -450], [-390, 420]],
+                "author": "TarkovTracker",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-Ground_Level.svg",
+                "heightRange": [-10000, 25],
+                "layers": [
+                    {
+                        "name": "First Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-First_Floor.svg",
+                        "show": false,
+                        "heightRange": [25, 34]
+                    },
+                    {
+                        "name": "Second Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-Second_Floor.svg",
+                        "show": false,
+                        "heightRange": [34, 10000]
+                    }
+                ]
+            },
             {
                 "key": "interchange-2d",
                 "projection": "2D",
@@ -71,6 +157,33 @@
         "primaryPath": "/map/labs-2d",
         "maps": [
             {
+                "key": "the-lab",
+                "projection": "interactive",
+                "minZoom": 2,
+                "maxZoom": 5,
+                "transform": [0.6, 0, 0.6, 0],
+                "coordinateRotation": 270,
+                "bounds": [[-88, -495], [-299, -193]],
+                "author": "Shebuka",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Labs-First_Level.svg",
+                "heightRange": [-1, 3],
+                "layers": [
+                    {
+                        "name": "Second Level",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Labs-Second_Level.svg",
+                        "show": false,
+                        "heightRange": [3, 10000]
+                    },
+                    {
+                        "name": "Technical",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Labs-Technical_Level.svg",
+                        "show": false,
+                        "heightRange": [-10000, -1]
+                    }
+                ]
+            },
+            {
                 "key": "labs-2d",
                 "projection": "2D",
                 "author": "monkimonkimonk",
@@ -83,6 +196,18 @@
         "primaryPath": "/map/lighthouse-2d-landscape",
         "maps": [
             {
+                "key": "lighthouse",
+                "projection": "interactive",
+                "minZoom": 1,
+                "maxZoom": 6,
+                "transform": [0.2, 0, 0.2, 0],
+                "coordinateRotation": 180,
+                "bounds": [[520, -1000], [-545, 725]],
+                "author": "Shebuka",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Lighthouse.svg"
+            },
+            {
                 "key": "lighthouse-3d",
                 "projection": "3D",
                 "author": "re3mr",
@@ -91,7 +216,7 @@
             {
                 "key": "lighthouse-2d",
                 "projection": "2D",
-                "author": "Kokarn & Jindouz"
+                "author": "Shebuka & Jindouz"
             },
             {
                 "key": "lighthouse-2d-landscape",
@@ -106,6 +231,27 @@
         "normalizedName": "reserve",
         "primaryPath": "/map/reserve-3d",
         "maps": [
+            {
+                "key": "reserve",
+                "projection": "interactive",
+                "minZoom": 2,
+                "maxZoom": 6,
+                "transform": [0.268, 0, 0.268, 0],
+                "coordinateRotation": 195.2090,
+                "bounds": [[300, -300], [-300, 310]],
+                "author": "Shebuka",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Ground_Level.svg",
+                "heightRange": [-10, 10000],
+                "layers": [
+                    {
+                        "name": "Bunkers",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Bunkers.svg",
+                        "show": false,
+                        "heightRange": [-10000, -10]
+                    }
+                ]
+            },
             {
                 "key": "reserve-3d",
                 "projection": "3D",
@@ -139,6 +285,18 @@
         "primaryPath": "/map/shoreline-2d",
         "maps": [
             {
+                "key": "shoreline",
+                "projection": "interactive",
+                "minZoom": 2,
+                "maxZoom": 6,
+                "transform": [0.101, 0, 0.101, 0],
+                "coordinateRotation": 180,
+                "bounds": [[485, -390], [-1038, 600]],
+                "author": "TarkovTracker",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline.svg"
+            },
+            {
                 "key": "shoreline-3d",
                 "projection": "3D",
                 "author": "re3mr",
@@ -163,6 +321,18 @@
         "normalizedName": "woods",
         "primaryPath": "/map/woods-2d",
         "maps": [
+            {
+                "key": "woods",
+                "projection": "interactive",
+                "minZoom": 1,
+                "maxZoom": 6,
+                "transform": [0.197, 0, 0.197, 0],
+                "coordinateRotation": 180,
+                "bounds": [[560, -935], [-710, 465]],
+                "author": "TarkovTracker",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Woods.svg"
+            },
             {
                 "key": "woods-3d",
                 "projection": "3D",
