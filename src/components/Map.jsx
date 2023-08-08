@@ -222,7 +222,7 @@ function Map() {
                     });
                 }
                 else {
-                    tileLayer = L.tileLayer(layer.mapPath, {
+                    tileLayer = L.tileLayer(layer.path, {
                         tileSize: mapData.tileSize,
                         bounds: maxBounds,
                         heightRange: layer.heightRange,
