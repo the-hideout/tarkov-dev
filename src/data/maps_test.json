@@ -1,0 +1,600 @@
+{
+    "customs": {
+        "quest_item": [
+            {
+                "name": "Bronze pocket watch on a chain",
+                "position": {
+                    "x": 102.2964,
+                    "y": 2.9634,
+                    "z": -5.9064
+                }
+            },
+            {
+                "name": "Secure Folder 0022",
+                "position": {
+                    "x": -202.8806,
+                    "y": 7.6911,
+                    "z": -102.4012
+                }
+            },
+            {
+                "name": "Secure Folder 0031",
+                "position": {
+                    "x": 204.073,
+                    "y": 4.6952,
+                    "z": 12.3975
+                }
+            },
+            {
+                "name": "Secure Folder 0048",
+                "position": {
+                    "x": 367.6828,
+                    "y": 1.3008,
+                    "z": -50.5712
+                }
+            },
+            {
+                "name": "Golden Zibbo lighter",
+                "position": {
+                    "x": 180.8072,
+                    "y": 6.7378,
+                    "z": 150.0781
+                }
+            },
+            {
+                "name": "Secure Folder 0013",
+                "position": {
+                    "x": 498.5496,
+                    "y": 5.63900328,
+                    "z": -141.5012
+                }
+            },
+            {
+                "name": "Carbon case",
+                "position": {
+                    "x": 239.183,
+                    "y": 0.713,
+                    "z": 160.595
+                }
+            },
+            {
+                "name": "Sliderkey Secure Flash drive",
+                "position": {
+                    "x": 194.2243,
+                    "y": 3.7256,
+                    "z": 171.0656
+                }
+            },
+            {
+                "name": "Sealed letter with a TG logo",
+                "position": {
+                    "x": 194.7797,
+                    "y": 4.4267,
+                    "z": 173.1325
+                }
+            },
+            {
+                "name": "Package of graphics cards",
+                "position": {
+                    "x": -204.387573,
+                    "y": 7.32987,
+                    "z": -98.63279
+                }
+            },
+            {
+                "name": "Bank case",
+                "position": {
+                    "x": 178.07,
+                    "y": 2.877,
+                    "z": 148.702
+                }
+            },
+            {
+                "name": "Flash drive with fake info",
+                "position": {
+                    "x": -91.521,
+                    "y": 1.027,
+                    "z": 4.346
+                }
+            }
+        ],
+        "supply_crate": [
+            {
+                "name": "Technical Supply Crate",
+                "position": {
+                    "x": 230.6,
+                    "y": 0,
+                    "z": -62.5
+                }
+            },
+            {
+                "name": "Technical Supply Crate",
+                "position": {
+                    "x": 94.6,
+                    "y": 0,
+                    "z": -125.5
+                }
+            }
+        ]
+    },
+    "factory": {
+        "quest_item": [
+            {
+                "name": "Sealed letter",
+                "position": {
+                    "x": -18.8457,
+                    "y": 0.6842,
+                    "z": 21.6351
+                }
+            },
+            {
+                "name": "Syringe with a chemical",
+                "position": {
+                    "x": 26.3819,
+                    "y": 9.1867,
+                    "z": 38.9887
+                }
+            }
+        ]
+    },
+    "interchange": {
+        "quest_item": [
+            {
+                "name": "OLI cargo route documents",
+                "position": {
+                    "x": 86.60339,
+                    "y": 28.06081,
+                    "z": 120.860718
+                }
+            },
+            {
+                "name": "Goshan cargo manifests",
+                "position": {
+                    "x": -76.48059,
+                    "y": 27.9598122,
+                    "z": -157.719238
+                }
+            },
+            {
+                "name": "OLI cargo manifests",
+                "position": {
+                    "x": 38.0084229,
+                    "y": 27.9528084,
+                    "z": 147.143677
+                }
+            },
+            {
+                "name": "IDEA cargo manifests",
+                "position": {
+                    "x": -1.99902344,
+                    "y": 27.9606133,
+                    "z": -292.8999
+                }
+            },
+            {
+                "name": "Chemical container #2",
+                "position": {
+                    "x": 19.3435,
+                    "y": 28.1595,
+                    "z": -106.6355
+                }
+            },
+            {
+                "name": "Chemical container #3",
+                "position": {
+                    "x": 23.5142841,
+                    "y": 28.033,
+                    "z": -80.812
+                }
+            },
+            {
+                "name": "Clothes design handbook - Part 1",
+                "position": {
+                    "x": 20.2713623,
+                    "y": 36.60581,
+                    "z": -4.425293
+                }
+            },
+            {
+                "name": "Clothes design handbook - Part 2",
+                "position": {
+                    "x": -31.44458,
+                    "y": 27.5668068,
+                    "z": -136.191284
+                }
+            }
+        ]
+    },
+    "the-lab": {
+        "quest_item": [
+            {
+                "name": "Flash drive marked with blue tape",
+                "position": {
+                    "x": -133.0114,
+                    "y": 5.0157,
+                    "z": -335.2083
+                }
+            },
+            {
+                "name": "Secured tape",
+                "position": {
+                    "x": -167.891556,
+                    "y": 4.13383,
+                    "z": -343.641876
+                }
+            }
+        ]
+    },
+    "lighthouse": {
+        "quest_item": [
+            {
+                "name": "Water pump operation data",
+                "position": {
+                    "x": -111.0176,
+                    "y": 9.24679,
+                    "z": -750.147034
+                }
+            },
+            {
+                "name": "Pumping station operation report",
+                "position": {
+                    "x": 53.2094955,
+                    "y": 8.74386,
+                    "z": -638.8754
+                }
+            },
+            {
+                "name": "Laptop with information",
+                "position": {
+                    "x": 139.196289,
+                    "y": 3.39897728,
+                    "z": -129.943909
+                }
+            },
+            {
+                "name": "Stolen military documents",
+                "position": {
+                    "x": -115.694664,
+                    "y": 40.7532349,
+                    "z": 88.8879852
+                }
+            },
+            {
+                "name": "Sealed letter",
+                "position": {
+                    "x": -248.391052,
+                    "y": 0.134607315,
+                    "z": -328.2831
+                }
+            },
+            {
+                "name": "Forged Lightkeeper intelligence",
+                "position": {
+                    "x": 21.2779083,
+                    "y": 5.31199932,
+                    "z": -445.487946
+                }
+            },
+            {
+                "name": "Working hard drive",
+                "position": {
+                    "x": 352.6155,
+                    "y": 16.2855,
+                    "z": 545.5325
+                }
+            }
+        ]
+    },
+    "reserve": {
+        "quest_item": [
+            {
+                "name": "Military documents #1",
+                "position": {
+                    "x": -114.36499,
+                    "y": -13.7081,
+                    "z": 27.3590088
+                }
+            },
+            {
+                "name": "Military documents #2",
+                "position": {
+                    "x": -114.18103,
+                    "y": -13.6893,
+                    "z": 39.7880249
+                }
+            },
+            {
+                "name": "Military documents #3",
+                "position": {
+                    "x": -121.867004,
+                    "y": -14.314,
+                    "z": 38.6560059
+                }
+            },
+            {
+                "name": "MBT Integrated Navigation System",
+                "position": {
+                    "x": 99.78601,
+                    "y": -6.725,
+                    "z": 59.1600342
+                }
+            },
+            {
+                "name": "T-90M Commander Control Panel",
+                "position": {
+                    "x": -88.065,
+                    "y": -19.129,
+                    "z": 151.055
+                }
+            },
+            {
+                "name": "Medical record #1",
+                "position": {
+                    "x": -59.0209961,
+                    "y": -3.637,
+                    "z": -36.1919861
+                }
+            },
+            {
+                "name": "Medical record #2",
+                "position": {
+                    "x": -80.47601,
+                    "y": -3.647,
+                    "z": -30.7659912
+                }
+            },
+            {
+                "name": "Lightkeeper intelligence",
+                "position": {
+                    "x": 102.242981,
+                    "y": -6.813,
+                    "z": 65.56604
+                }
+            }
+        ]
+    },
+    "shoreline": {
+        "quest_item": [
+            {
+                "name": "Secure Folder 0060",
+                "position": {
+                    "x": -218.02002,
+                    "y": 2.815,
+                    "z": -86.09
+                }
+            },
+            {
+                "name": "UAV SAS disk #1",
+                "position": {
+                    "x": -715.9717,
+                    "y": -42.1482,
+                    "z": 224.9588
+                }
+            },
+            {
+                "name": "UAV SAS disk #2",
+                "position": {
+                    "x": -58.2937,
+                    "y": -19.4951,
+                    "z": -311.1382
+                }
+            },
+            {
+                "name": "Key to the closed premises of the Health Resort",
+                "position": {
+                    "x": -152.349976,
+                    "y": -14.546,
+                    "z": -301.219
+                }
+            },
+            {
+                "name": "Toughbook reinforced laptop",
+                "position": {
+                    "x": -285.103027,
+                    "y": 2.512,
+                    "z": -89.3500061
+                }
+            },
+            {
+                "name": "Secure Folder 0013",
+                "position": {
+                    "x": -340.984,
+                    "y": -2.725,
+                    "z": -88.627
+                }
+            },
+            {
+                "name": "Sliderkey Flash drive",
+                "position": {
+                    "x": -267.220947,
+                    "y": -0.017,
+                    "z": -145.576
+                }
+            },
+            {
+                "name": "Working hard drive",
+                "position": {
+                    "x": -358.932983,
+                    "y": 2.54,
+                    "z": -76.9750061
+                }
+            },
+            {
+                "name": "Surgery kit marked with a blue symbol",
+                "position": {
+                    "x": -314.594971,
+                    "y": -55.7136,
+                    "z": 480.1718
+                }
+            },
+            {
+                "name": "Marked Ophthalmoscope",
+                "position": {
+                    "x": 99.45056,
+                    "y": -44.3777,
+                    "z": 107.002594
+                }
+            },
+            {
+                "name": "Chemical container #1",
+                "position": {
+                    "x": -186.06189,
+                    "y": -2.7302,
+                    "z": -86.1152039
+                }
+            },
+            {
+                "name": "Motor Controller #2",
+                "position": {
+                    "x": -753.850952,
+                    "y": -44.348,
+                    "z": 180.932
+                }
+            },
+            {
+                "name": "Motor Controller #3",
+                "position": {
+                    "x": -289.378052,
+                    "y": 2.225,
+                    "z": -84.373
+                }
+            },
+            {
+                "name": "Single-axis Fiber Optic Gyroscope #2",
+                "position": {
+                    "x": -181.3706,
+                    "y": 0.2235,
+                    "z": -80.57291
+                }
+            },
+            {
+                "name": "Photo album",
+                "position": {
+                    "x": -226.552,
+                    "y": 2.089,
+                    "z": -87.571
+                }
+            }
+        ]
+    },
+    "streets-of-tarkov": {
+        "quest_item": [
+            {
+                "name": "Registered letter",
+                "position": {
+                    "x": 39.2349968,
+                    "y": 1.51599979,
+                    "z": 117.6931
+                }
+            },
+            {
+                "name": "Housing office journal",
+                "position": {
+                    "x": 81.737,
+                    "y": 1.888,
+                    "z": 144.2245
+                }
+            },
+            {
+                "name": "Chemical container with samples",
+                "position": {
+                    "x": 95.28351,
+                    "y": 2.671,
+                    "z": 318.9527
+                }
+            },
+            {
+                "name": "Accountant's notes",
+                "position": {
+                    "x": -177.12001,
+                    "y": 6.1466,
+                    "z": 227.096
+                }
+            },
+            {
+                "name": "Flash drive with recordings",
+                "position": {
+                    "x": -70.079,
+                    "y": 5.75205374,
+                    "z": 69.437
+                }
+            },
+            {
+                "name": "Working hard drive",
+                "position": {
+                    "x": 213.235886,
+                    "y": -0.88670063,
+                    "z": 410.321228
+                }
+            },
+            {
+                "name": "AG guitar pick",
+                "position": {
+                    "x": 34.95802,
+                    "y": 12.5019989,
+                    "z": 152.327286
+                }
+            },
+            {
+                "name": "Secure Flash drive",
+                "position": {
+                    "x": 66.8009949,
+                    "y": 7.72719955,
+                    "z": 303.143
+                }
+            },
+            {
+                "name": "Informant's journal",
+                "position": {
+                    "x": -127.914,
+                    "y": 2.38099957,
+                    "z": 397.042969
+                }
+            }
+        ]
+    },
+    "woods": {
+        "quest_item": [
+            {
+                "name": "Encrypted message",
+                "position": {
+                    "x": -257.1476,
+                    "y": 8.518,
+                    "z": 7.9998
+                }
+            },
+            {
+                "name": "Blood sample",
+                "position": {
+                    "x": -94.25195,
+                    "y": -15.702,
+                    "z": 218.992981
+                }
+            },
+            {
+                "name": "Secure Folder 0052",
+                "position": {
+                    "x": -3.322,
+                    "y": -1.4843,
+                    "z": -81.1259
+                }
+            },
+            {
+                "name": "Motor Controller #1",
+                "position": {
+                    "x": 233.843018,
+                    "y": -1.235,
+                    "z": -71.10199
+                }
+            },
+            {
+                "name": "Single-axis Fiber Optic Gyroscope #1",
+                "position": {
+                    "x": 56.7209473,
+                    "y": -1.791,
+                    "z": -50.2489929
+                }
+            }
+        ]
+    }
+}

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 
 export const fetchTarkovTrackerProgress = createAsyncThunk(
     'settings/fetchTarkovTrackerProgress',
@@ -114,6 +114,7 @@ const settingsSlice = createSlice({
         hideRemoteControl: localStorageReadJson('hide-remote-control', false),
         minDogtagLevel: localStorageReadJson('minDogtagLevel', 1),
         hideDogtagBarters: localStorageReadJson('hideTogtagBarters', false),
+        playerPosition: localStorageReadJson('playerPosition', null),
     },
     reducers: {
         setTarkovTrackerAPIKey: (state, action) => {
@@ -156,6 +157,14 @@ const settingsSlice = createSlice({
                 state.hideRemoteControl,
             );
         },
+        setPlayerPosition: (state, action) => {
+            const newPosition = action.payload ? {map: action.payload.map, position: action.payload.position} : null;
+            state.playerPosition = newPosition;
+            localStorageWriteJson(
+                'playerPosition',
+                newPosition,
+            );
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchTarkovTrackerProgress.pending, (state, action) => {
@@ -185,44 +194,46 @@ const settingsSlice = createSlice({
     },
 });
 
-export const selectAllTraders = (state) => {
-    return {
-        prapor: state.settings.prapor,
-        therapist: state.settings.therapist,
-        fence: state.settings.fence,
-        skier: state.settings.skier,
-        peacekeeper: state.settings.peacekeeper,
-        mechanic: state.settings.mechanic,
-        ragman: state.settings.ragman,
-        jaeger: state.settings.jaeger,
-    };
-};
+const selectSettings = state => state.settings;
 
-export const selectAllStations = (state) => {
+export const selectAllTraders = createSelector([selectSettings], (settings) => {
     return {
-        'bitcoin-farm': state.settings['bitcoin-farm'],
-        'booze-generator': state.settings['booze-generator'],
-        'christmas-tree': state.settings['christmas-tree'],
-        'intelligence-center': state.settings['intelligence-center'],
-        lavatory: state.settings.lavatory,
-        medstation: state.settings.medstation,
-        'nutrition-unit': state.settings['nutrition-unit'],
-        'water-collector': state.settings['water-collector'],
-        workbench: state.settings.workbench,
-        'solar-power': state.settings['solar-power'],
+        prapor: settings.prapor,
+        therapist: settings.therapist,
+        fence: settings.fence,
+        skier: settings.skier,
+        peacekeeper: settings.peacekeeper,
+        mechanic: settings.mechanic,
+        ragman: settings.ragman,
+        jaeger: settings.jaeger,
     };
-};
+});
 
-export const selectAllSkills = (state) => {
+export const selectAllStations = createSelector([selectSettings], (settings) => {
     return {
-        crafting: state.settings.crafting,
-        'hideout-management': state.settings['hideout-management'],
+        'bitcoin-farm': settings['bitcoin-farm'],
+        'booze-generator': settings['booze-generator'],
+        'christmas-tree': settings['christmas-tree'],
+        'intelligence-center': settings['intelligence-center'],
+        lavatory: settings.lavatory,
+        medstation: settings.medstation,
+        'nutrition-unit': settings['nutrition-unit'],
+        'water-collector': settings['water-collector'],
+        workbench: settings.workbench,
+        'solar-power': settings['solar-power'],
     };
-};
+});
 
-export const selectCompletedQuests = (state) => {
-    return state.settings.completedQuests;
-};
+export const selectAllSkills = createSelector([selectSettings], (settings) => {
+    return {
+        crafting: settings.crafting,
+        'hideout-management': settings['hideout-management'],
+    };
+});
+
+export const selectCompletedQuests = createSelector([selectSettings], (settings) => {
+    return settings.completedQuests;
+});
 
 export const {
     setTarkovTrackerAPIKey,
@@ -232,6 +243,7 @@ export const {
     toggleTarkovTracker,
     toggleHideRemoteControl,
     toggleHideDogtagBarters,
+    setPlayerPosition,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

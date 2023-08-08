@@ -1,39 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import classnames from "classnames";
-import { makeStyles } from "@mui/styles";
 
 import OverflowMenu from './overflow-menu';
 
-const useIntersectionStyles = makeStyles(() => ({
-  visible: {
-    order: 0,
-    visibility: "visible",
-    opacity: 1
-  },
-  inVisible: {
-    order: 100,
-    visibility: "hidden",
-    pointerEvents: "none"
-  },
-  toolbarWrapper: {
-    display: "flex",
-    overflowX: "clip",
-    overflowY: "visible",
-    padding: "0 10px",
-    maxWidth: "100%"
-  },
-  overflowStyle: {
-    order: 99,
-    position: "sticky",
-    right: "0",
-  },
-  showOverflow: {
-    overflow: 'visible'
-  }
-}));
-
 export default function IntersectionObserverWrapper({ children }) {
-    const classes = useIntersectionStyles();
     const navRef = useRef(null);
     const [visibilityMap, setVisibilityMap] = useState({});
     const handleIntersection = (entries) => {
@@ -73,12 +43,12 @@ export default function IntersectionObserverWrapper({ children }) {
       }
     }, []);
     return (
-        <div className={classes.toolbarWrapper} ref={navRef}>
+        <div className="toolbar-wrapper" ref={navRef}>
           {React.Children.map(children, (child) => {
             return React.cloneElement(child, {
               className: classnames(child.props.className, {
-                [classes.visible]: !!visibilityMap[child.props["data-targetid"]],
-                [classes.inVisible]: !visibilityMap[child.props["data-targetid"]],
+                'visible-menu-item': !!visibilityMap[child.props["data-targetid"]],
+                'invisible-menu-item': !visibilityMap[child.props["data-targetid"]],
                 //[classes.showOverflow]: visible && showOverflow
               })
             });

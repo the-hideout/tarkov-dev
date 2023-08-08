@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
 import doFetchBarters from './do-fetch-barters';
@@ -109,16 +109,20 @@ export const { toggleItem, setItemCost, setRewardValue } = bartersSlice.actions;
 
 export const bartersReducer = bartersSlice.reducer;
 
-export const selectAllBarters = (state) => {
-    return state.barters.data.map(barter => {
+const selectBarters = state => state.barters.data;
+const selectQuests = state => state.quests.data;
+const selectItems = state => state.items.data;
+
+export const selectAllBarters = createSelector([selectBarters, selectQuests, selectItems], (barters, quests, items) => {
+    return barters.map(barter => {
         let taskUnlock = barter.taskUnlock;
         if (taskUnlock) {
-            taskUnlock = state.quests.data.find(t => t.id === taskUnlock.id);
+            taskUnlock = quests.find(t => t.id === taskUnlock.id);
         }
         return {
             ...barter,
             requiredItems: barter.requiredItems.map(req => {
-                let matchedItem = state.items.data.find(it => it.id === req.item.id);
+                let matchedItem = items.find(it => it.id === req.item.id);
                 if (!matchedItem) {
                     return false;
                 }
@@ -128,7 +132,7 @@ export const selectAllBarters = (state) => {
                 };
             }).filter(Boolean),
             rewardItems: barter.rewardItems.map(req => {
-                const matchedItem = state.items.data.find(it => it.id === req.item.id);
+                const matchedItem = items.find(it => it.id === req.item.id);
                 if (!matchedItem) {
                     return false;
                 }
@@ -139,8 +143,8 @@ export const selectAllBarters = (state) => {
             }).filter(Boolean),
             taskUnlock: taskUnlock,
         };
-    }).filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0);
-};
+    }).filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0); 
+});
 
 let fetchedData = false;
 let refreshInterval = false;

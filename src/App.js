@@ -11,7 +11,7 @@ import i18n from './i18n';
 import loadPolyfills from './modules/polyfills';
 
 import RemoteControlId from './components/remote-control-id';
-import { fetchTarkovTrackerProgress } from './features/settings/settingsSlice';
+import { fetchTarkovTrackerProgress, setPlayerPosition } from './features/settings/settingsSlice';
 
 import {
     setConnectionStatus,
@@ -161,6 +161,11 @@ function App() {
             const message = JSON.parse(rawMessage.data);
 
             if (message.type !== 'command') {
+                return false;
+            }
+
+            if (message.data.type === 'playerPosition') {
+                dispatch(setPlayerPosition(message.data));
                 return false;
             }
 
