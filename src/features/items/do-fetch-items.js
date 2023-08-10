@@ -441,13 +441,11 @@ class ItemsQuery extends APIQuery {
                     data: {
                         items: [],
                     },
+                    errors: [],
                 };
                 while (true) {
                     const itemBatch = await this.graphqlRequest(QueryBody(offset));
                     if (itemBatch.errors) {
-                        if (!retrievedItems.errors) {
-                            retrievedItems.errors = [];
-                        }
                         retrievedItems.errors.concat(itemBatch.errors);
                     }
                     if (itemBatch.data && itemBatch.data.items) {
@@ -465,6 +463,9 @@ class ItemsQuery extends APIQuery {
                         }
                     }
                     offset += itemLimit;
+                }
+                if (retrievedItems.errors.length < 1) {
+                    retrievedItems.errors = undefined;
                 }
                 resolve(retrievedItems);
             }),
