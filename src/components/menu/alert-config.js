@@ -1,6 +1,6 @@
 const alertConfig = {
     // set this bool if the site alert should be enabled or not
-    alertEnabled: false,
+    alertEnabled: true,
 
     // valid alert colors
     alertColors: {
@@ -14,11 +14,16 @@ const alertConfig = {
     alertLevel: 'info',
 
     // The text to display in the alert banner
-    text: 'If you enjoy using tarkov.dev, please consider donating to help keep it running. All donations go directly towards server costs and operational expenses. This banner will only be up for a week. Thank you! ❤️',
+    text: 'We are currently leveling our scanners for patch 0.13.5 - If you enjoy using tarkov.dev, please consider donating to help keep it running. All donations go directly towards server costs and operational expenses. This banner will only be up for a week. Thank you! ❤️',
 
     linkEnabled: true,
     linkText: 'Donate',
     link: 'https://opencollective.com/tarkov-dev',
+
+    // when a banner with a specific key is hidden, it never shows for that user again
+    // (unless they clear their browser cache)
+    // use a different key to force new banners to display again
+    bannerKey: 'alertBanner-0.13.5'
 }
 
 export default alertConfig
