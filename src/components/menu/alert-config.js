@@ -19,6 +19,11 @@ const alertConfig = {
     linkEnabled: true,
     linkText: 'Donate',
     link: 'https://opencollective.com/tarkov-dev',
+
+    // when a banner with a specific key is hidden, it never shows for that user again
+    // (unless they clear their browser cache)
+    // use a different key to force new banners to display again
+    bannerKey: 'alertBanner-0.13.5'
 }
 
 export default alertConfig

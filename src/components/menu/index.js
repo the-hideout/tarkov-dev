@@ -54,7 +54,7 @@ const Menu = () => {
         setIsOpen(!isOpen);
     };*/
     const { t } = useTranslation();
-    const [open, setOpen] = useStateWithLocalStorage('alertBanner', true);
+    const [open, setOpen] = useStateWithLocalStorage(alertConfig.bannerKey, true);
 
     const mapImages = useMapImages();
     const uniqueMaps = Object.values(mapImages);
