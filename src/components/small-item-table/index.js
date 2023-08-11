@@ -323,6 +323,9 @@ function SmallItemTable(props) {
             return {};
         const filterItems = {};
         containedInFilter.forEach(ci => {
+            if (!ci) {
+                return;
+            }
             filterItems[ci.item.id] = ci.count;
         });
         return filterItems;
