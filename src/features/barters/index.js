@@ -121,26 +121,26 @@ export const selectAllBarters = createSelector([selectBarters, selectQuests, sel
         }
         return {
             ...barter,
-            requiredItems: barter.requiredItems.map(req => {
+            requiredItems: barter.requiredItems.reduce((requirements, req) => {
                 let matchedItem = items.find(it => it.id === req.item.id);
-                if (!matchedItem) {
-                    return false;
+                if (matchedItem) {
+                    requirements.push({
+                        ...req,
+                        item: matchedItem,
+                    });
                 }
-                return {
-                    ...req,
-                    item: matchedItem,
-                };
-            }).filter(Boolean),
-            rewardItems: barter.rewardItems.map(req => {
+                return requirements;
+            }, []),
+            rewardItems: barter.rewardItems.reduce((requirements, req) => {
                 const matchedItem = items.find(it => it.id === req.item.id);
-                if (!matchedItem) {
-                    return false;
+                if (matchedItem) {
+                    requirements.push({
+                        ...req,
+                        item: matchedItem,
+                    });
                 }
-                return {
-                    ...req,
-                    item: matchedItem,
-                };
-            }).filter(Boolean),
+                return requirements;
+            }, []),
             taskUnlock: taskUnlock,
         };
     }).filter(barter => barter.rewardItems.length > 0 && barter.requiredItems.length > 0); 
