@@ -623,6 +623,8 @@ class ItemsQuery extends APIQuery {
             }
             rawItem.categoryIds = rawItem.categories.map(cat => cat.id);
 
+            rawItem.containsItems = rawItem.containsItems.filter(contained => contained != null);
+
             return {
                 ...rawItem,
                 fee: fleaMarketFee(rawItem.basePrice, rawItem.lastLowPrice, 1, flea.sellOfferFeeRate, flea.sellRequirementFeeRate),
