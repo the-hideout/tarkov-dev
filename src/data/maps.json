@@ -10,10 +10,10 @@
                 "maxZoom": 5,
                 "transform": [0.38, 0, 0.38, 0],
                 "coordinateRotation": 180,
-                "bounds": [[340, 0], [-320, 520]],
+                "bounds": [[322, -210], [-276, 548]],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov.svg"
+                "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/StreetsOfTarkov.svg"
             },
             {
                 "key": "streets-3d",
