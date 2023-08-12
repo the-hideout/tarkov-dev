@@ -13,7 +13,7 @@
                 "bounds": [[322, -210], [-276, 548]],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://assets.tarkov.dev/StreetsOfTarkov-0.13.5.svg"
+                "svgPath": "https://raw.githubusercontent.com/Shebuka/tarkovdata/separate_floors/maps/StreetsOfTarkov.svg"
             },
             {
                 "key": "streets-3d",
