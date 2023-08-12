@@ -87,19 +87,19 @@
                 "layers": [
                     {
                         "name": "Second Floor",
-                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/2nd_tint/{z}/{x}/{y}.png",
+                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/2nd/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [3, 6]
                     },
                     {
                         "name": "Third Floor",
-                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/3rd_tint/{z}/{x}/{y}.png",
+                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/3rd/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [6, 10000]
                     },
                     {
                         "name": "Tunnels",
-                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/tunnels_tint/{z}/{x}/{y}.png",
+                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/tunnels/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [-10000, -1]
                     }
