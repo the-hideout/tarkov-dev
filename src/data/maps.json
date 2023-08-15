@@ -10,7 +10,7 @@
                 "maxZoom": 5,
                 "transform": [0.38, 0, 0.38, 0],
                 "coordinateRotation": 180,
-                "bounds": [[322, -210], [-276, 548]],
+                "bounds": [[324, -215], [-279, 548]],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-0.13.5.svg"
