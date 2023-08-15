@@ -24,7 +24,7 @@ function CanvasGrid(props) {
         const canvasEle = canvas.current;
 
         if (!canvasEle) {
-            return true;
+            return;
         }
 
         canvasEle.width = canvasEle.clientWidth;
