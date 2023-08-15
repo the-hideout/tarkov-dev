@@ -24,7 +24,7 @@ function CanvasGrid(props) {
         const canvasEle = canvas.current;
 
         if (!canvasEle) {
-            return true;
+            return;
         }
 
         canvasEle.width = canvasEle.clientWidth;
@@ -34,11 +34,7 @@ function CanvasGrid(props) {
         boxes.map((info) => drawPocket(info, ctx));
     });
 
-    if (!props.height || !props.width) {
-        return null;
-    }
-
-    if (!boxes) {
+    if (!props.height || !props.width || boxes.length === 0) {
         return null;
     }
 
