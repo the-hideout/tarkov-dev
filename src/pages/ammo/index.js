@@ -73,10 +73,10 @@ function Ammo() {
     const { t } = useTranslation();
 
     useEffect(() => {
-        if (currentAmmo === []) {
+        if (!currentAmmo || !currentAmmo.length) {
             setSelectedLegendName([]);
 
-            return true;
+            return;
         }
 
         if (currentAmmo) {
