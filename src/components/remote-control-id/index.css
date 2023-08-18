@@ -8,6 +8,7 @@
     line-height: 20px;
     padding: 10px 40px;
     position: fixed;
+    z-index: 405;
 }
 
 .id-wrapper-left {

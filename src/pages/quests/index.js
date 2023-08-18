@@ -129,6 +129,7 @@ function Quests() {
                 questRequirements={1}
                 minimumLevel={2}
                 reputationRewards={3}
+                requiredForEndGame={4}
             />
 
             <div>

@@ -19,6 +19,7 @@ import capitalize from '../../modules/capitalize-first';
 
 import useBossesData from '../../features/bosses';
 import useItemsData from '../../features/items';
+import { useMapImages } from '../../features/maps';
 
 import i18n from '../../i18n';
 
@@ -29,7 +30,9 @@ function BossPage(params) {
 
     const { data: bosses } = useBossesData();
 
-    const {data: items} = useItemsData();
+    const { data: items } = useItemsData();
+
+    const allMaps = useMapImages();
 
     // cheeki breeki
     const [isShown, setIsShown] = useState(false);
@@ -253,14 +256,16 @@ function BossPage(params) {
     }
 
     // Display health stats
-    bossProperties['health'] = {
-        value: bossData.health.reduce((totalHealth, current) => {
-            totalHealth += current.max;
-            return totalHealth;
-        }, 0),
-        label: `${t('Health')} 🖤`,
-        tooltip: t('Total boss health'),
-    };
+    if (bossData.health) {
+        bossProperties['health'] = {
+            value: bossData.health.reduce((totalHealth, current) => {
+                totalHealth += current.max;
+                return totalHealth;
+            }, 0),
+            label: `${t('Health')} 🖤`,
+            tooltip: t('Total boss health'),
+        };
+    }
 
     // Display behavior info
     if (bossData.behavior) {
@@ -283,13 +288,26 @@ function BossPage(params) {
     // Format the boss table spawnLocation data
     const spawnLocations = []
     for (const map of bossData.maps) {
+        const mapStub = Object.values(allMaps).reduce((found, current) => {
+            if (!found && current.key === `${map.normalizedName}-3d`) {
+                found = current.key;
+            }
+            if (current.key === map.normalizedName) {
+                found = current.key;
+            }
+            return found;
+        }, false);
+        let mapLink = false;
+        if (mapStub) {
+            mapLink = <Link to={`/map/${mapStub}`}>{map.name}</Link>
+        }
         for (const spawn of map.spawns) {
             for (const location of spawn.locations) {
                 const chance = map.spawns.length > 1 && location.chance === 1 ? spawn.spawnChance : location.chance;
                 spawnLocations.push({
                     spawnLocations: location.name,
                     chance: `${parseInt(chance * 100)}%`,
-                    map: map.name
+                    map: mapLink || map.name
                 });
             }
         }
@@ -298,10 +316,23 @@ function BossPage(params) {
     // Format the boss table escorts data
     const escorts = []
     for (const map of bossData.maps) {
+        const mapStub = Object.values(allMaps).reduce((found, current) => {
+            if (!found && current.key === `${map.normalizedName}-3d`) {
+                found = current.key;
+            }
+            if (current.key === map.normalizedName) {
+                found = current.key;
+            }
+            return found;
+        }, false);
+        let mapLink = false;
+        if (mapStub) {
+            mapLink = <Link to={`/map/${mapStub}`}>{map.name}</Link>
+        }
         for (const escort of map.escorts) {
             for (const amount of escort.amount) {
                 escorts.push({
-                    map: map.name,
+                    map: mapLink || map.name,
                     name: escort.name,
                     normalizedName: escort.normalizedName,
                     chance: `${parseInt(amount.chance * 100)}%`,

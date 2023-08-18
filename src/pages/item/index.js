@@ -214,9 +214,9 @@ function Item() {
     const containsItems = currentItemData?.containsItems?.length > 0;
 
     const hasBarters = barters.some(barter => {
-        let requiredItems = barter.requiredItems.some(contained => contained.item.id === currentItemData.id);
-        let rewardItems = barter.rewardItems.some(contained => contained.item.id === currentItemData.id || 
-                                                               contained.item.containsItems.some(ci => ci.item.id === currentItemData.id));
+        let requiredItems = barter.requiredItems.some(contained => contained?.item.id === currentItemData.id);
+        let rewardItems = barter.rewardItems.some(contained => contained?.item.id === currentItemData.id || 
+                                                               contained?.item.containsItems.some(ci => ci?.item.id === currentItemData.id));
 
         return requiredItems || rewardItems;
     });
@@ -437,6 +437,7 @@ The max profitable price is impacted by the intel center and hideout management 
                             backgroundScale={2}
                             imageField={'image512pxLink'}
                             imageViewer={true}
+                            nonFunctionalOverlay={true}
                         />
                     </div>
                 </div>

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ImageViewer from 'react-simple-image-viewer';
 import { useTranslation } from 'react-i18next';
 import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
 
 import './index.css';
 
@@ -23,7 +24,7 @@ function ItemImage({
     item, 
     backgroundScale = 1, 
     imageField = 'baseImageLink', 
-    nonFunctionalOverlay = true, 
+    nonFunctionalOverlay = false, 
     imageViewer = false, 
     children = '',
     attributes = [],
@@ -32,6 +33,7 @@ function ItemImage({
     isTool = false,
     nonFunctional = false,
     linkToItem = false,
+    fullNameTooltip = false,
     trader,
     className,
     style,
@@ -170,7 +172,7 @@ function ItemImage({
                 {height: `-webkit-calc(100% - ${2*backgroundScale}px)`},
                 {height:    `-moz-calc(100% - ${2*backgroundScale}px)`},
             ],
-            backgroundColor: '#4400008f',
+            backgroundColor: '#4400004f',
         };
         if (imageViewer) {
             nonFunctionalStyle.cursor = 'zoom-in';
@@ -282,6 +284,16 @@ function ItemImage({
         };
     }, [item, linkToItem, navigate]);
 
+    const imageText = useMemo(() => {
+        let element = <div style={imageTextStyle} onClick={imageTextClick}>{item.shortName}</div>;
+        if (fullNameTooltip && imageTextStyle.dispolay !== 'none') {
+            element = <Tippy content={item.name}>
+                {element}
+            </Tippy>;
+        }
+        return element;
+    }, [fullNameTooltip, imageTextClick, imageTextStyle, item]);
+
     const itemExtraStyle = {
         position: 'absolute',
         bottom: `${backgroundScale}px`,
@@ -324,7 +336,7 @@ function ItemImage({
             {loadingImage}
             {imageElement}
             {nonFunctionalElement}
-            <div style={imageTextStyle} onClick={imageTextClick}>{item.shortName}</div>
+            {imageText}
             <div style={itemExtraStyle}>
                 {isFIR && <Tippy
                     placement="bottom"

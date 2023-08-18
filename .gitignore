@@ -19,7 +19,7 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
+coverage/
 *.lcov
 
 # nyc test coverage
@@ -82,6 +82,9 @@ typings/
 .nuxt
 dist
 
+# MacOS files
+.DS_Store
+
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and *not* Next.js
@@ -110,7 +113,7 @@ dist
 .vscode/
 .vscode/*
 
-build
+build/
 tarkov-tools/*
 !public/manifest.json
 all-en.json

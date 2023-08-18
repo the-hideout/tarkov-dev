@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Switch from 'react-switch';
 import Select from 'react-select';
 import Slider from 'rc-slider';
@@ -296,6 +297,7 @@ function SelectItemFilter({
 }) {
     const [selectedItem, setSelectedItem] = useState(false);
     const selectInputRef = useRef(null);
+    const { t } = useTranslation();
 
     const elements = [(
         <SelectFilter
@@ -337,19 +339,24 @@ function SelectItemFilter({
 
     if (selectedItem && showImage) {
         elements.push((
-            <img
-                key={'select-item-filter-selected-icon'}
-                alt={`${selectedItem.name}-icon`}
-                onClick={() => {
-                    selectInputRef.current?.clearValue();
-                    setSelectedItem(false);
-                    if (onChange) {
-                        onChange({label: '', value: false});
-                    }
-                }}
-                loading="lazy"
-                src={selectedItem.iconLink}
-            />
+            <Tippy
+                content={t('Clear selection')}
+            >
+                <img
+                    key={'select-item-filter-selected-icon'}
+                    alt={`${selectedItem.name}-icon`}
+                    onClick={() => {
+                        selectInputRef.current?.clearValue();
+                        setSelectedItem(false);
+                        if (onChange) {
+                            onChange({label: '', value: false});
+                        }
+                    }}
+                    loading="lazy"
+                    src={selectedItem.iconLink}
+                    style={{cursor: 'pointer'}}
+                />
+            </Tippy>
         ))
     }
     return elements;

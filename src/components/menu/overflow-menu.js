@@ -1,26 +1,16 @@
 import React, { useState, useMemo } from "react";
 import { Link } from 'react-router-dom';
-import { Menu } from "@material-ui/core";
+import Menu from '@mui/material/Menu';
 import Icon from '@mdi/react';
 import { mdiDotsVertical } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 import classnames from "classnames";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles(() => ({
-  inOverflowMenu: {
-    "&:hover": {
-      backgroundColor: "transparent"
-    }
-  }
-}));
 
 export default function OverflowMenu({ children, className, visibilityMap }) {
     const { t } = useTranslation();
     const [anchorEl, setAnchorEl] = useState(null);
     const [mouseEntered, setMouseEntered] = useState(false);
     const open = Boolean(anchorEl);
-    const classes = useStyles();
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -55,7 +45,7 @@ export default function OverflowMenu({ children, className, visibilityMap }) {
         id="long-menu"
         className="overflow-menu"
         anchorEl={anchorEl}
-        getContentAnchorEl={null}
+        //getContentAnchorEl={null}
         keepMounted
         open={open}
         onClose={handleClose}
@@ -74,7 +64,7 @@ export default function OverflowMenu({ children, className, visibilityMap }) {
           if (!visibilityMap[child.props["data-targetid"]]) {
             return (
               React.cloneElement(child, {
-                className: classnames(child.className, classes.inOverflowMenu),
+                className: classnames(child.className, 'in-overflow-menu'),
                 onClick: handleItemClick,
               })
             );

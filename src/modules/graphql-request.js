@@ -20,7 +20,12 @@ export default async function graphqlRequest(queryString) {
         body: JSON.stringify({
             query: queryString
         }),
-    }).then(response => response.json());
+    }).then(response => {
+        if (!response.ok) {
+            return Promise.reject(new Error(`${response.status}: ${response.statusText}`));
+        }
+        return response.json();
+    });
 }
 
 export function useQuery(queryName, queryString, settings) {

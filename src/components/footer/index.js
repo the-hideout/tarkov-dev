@@ -1,11 +1,9 @@
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-// import Supporter from '../supporter';
 import { ReactComponent as GithubIcon } from '../supporter/Github.svg';
 import { ReactComponent as DiscordIcon } from '../supporter/Discord.svg';
-// import PatreonButton from '../patreon-button';
-// import supporters from '../../supporters';
+import { ReactComponent as TwitterIcon } from '../supporter/Twitter.svg';
 
 import './index.css';
 import UkraineButton from '../ukraine-button';
@@ -33,13 +31,18 @@ function Footer() {
                         If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
                     </p>
                 </Trans>
+                <Trans i18nKey={'about-twitter-p'}>
+                    <p>
+                        Follow us on <a href="https://twitter.com/tarkov_dev" target="_blank" rel="noopener noreferrer"><TwitterIcon /> Twitter</a> for all the latest updates.
+                    </p>
+                </Trans>
                 <p>
                     <Link to="/about">{t('About')} tarkov.dev</Link>
                 </p>
                 <h3>{t('Contributors')}</h3>
                 <p>{t('Massive thanks to all the people who help build and maintain this project!')}</p>
                 <p>{t('Made with ❤️ by:')}</p>
-                <Contributors quality={20} />
+                <Contributors size={20} />
             </div>
             <div className="footer-section-wrapper">
                 <h3>{t('Supporters')}</h3>
@@ -48,21 +51,17 @@ function Footer() {
                     We encourage everyone who can to donate to support the people of Ukraine using the button below.
                 </p>
                 </Trans>
-                <UkraineButton
-                    linkStyle={{
-                        width: '100%',
-                    }}
-                />
+                <UkraineButton large={true}/>
                 <Trans i18nKey={'about-support-collective-p'}>
                 <p>
                     If you'd also like to support this project, you can make a donation and/or become a backer on <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noopener noreferrer">Open Collective</a>.
                 </p>
                 </Trans>
-                <OpenCollectiveButton />
+                <OpenCollectiveButton large={true}/>
                 <h3>{t('Item Data')}</h3>
                 <p>
                     {t(
-                        'Fresh data on EFT item attribtues and hideout crafts courtesy of',
+                        'Fresh EFT data courtesy of',
                     )}{' '}
                     <a href="https://tarkov-changes.com" target="_blank" rel="noopener noreferrer">
                         <span>Tarkov-Changes</span>
@@ -74,26 +73,6 @@ function Footer() {
                         <span>SPT-AKI</span>
                     </a>
                 </p>
-
-                {/*{supporters.map((supporter) => {*/}
-                {/*    if (supporter.name === 'kokarn') {*/}
-                {/*        return null;*/}
-                {/*    }*/}
-
-                {/*    if (!supporter.patreon) {*/}
-                {/*        return null;*/}
-                {/*    }*/}
-
-                {/*    return (*/}
-                {/*        <Supporter*/}
-                {/*            key={`supporter-${supporter.name}`}*/}
-                {/*            name={supporter.name}*/}
-                {/*            github={supporter.github}*/}
-                {/*            patreon={supporter.patreon}*/}
-                {/*            link={supporter.link}*/}
-                {/*        />*/}
-                {/*    );*/}
-                {/*})}*/}
             </div>
             <div className="footer-section-wrapper">
                 <h3>{t('Resources')}</h3>

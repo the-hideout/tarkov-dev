@@ -88,33 +88,56 @@ export const useMapImages = () => {
     const { data: maps } = useMapsData();
     let allMaps = useMemo(() => {
         const mapImages = {};
+        const apiImageDataMerge = (mapGroup, imageData, apiData) => {
+            mapImages[imageData.key] = {
+                ...imageData,
+                name: apiData?.name || i18n.t(`${mapGroup.normalizedName}-name`, { ns: 'maps' }),
+                normalizedName: mapGroup.normalizedName,
+                primaryPath: mapGroup.primaryPath,
+                displayText: apiData?.name || i18n.t(`${mapGroup.normalizedName}-name`, { ns: 'maps' }),
+                description: apiData?.description || i18n.t(`${mapGroup.normalizedName}-description`, { ns: 'maps' }),
+                duration: apiData?.raidDuration ? apiData?.raidDuration + ' min' : undefined,
+                players: apiData?.players || mapGroup.players,
+                image: `/maps/${imageData.key}.jpg`,
+                imageThumb: `/maps/${imageData.key}_thumb.jpg`,
+                bosses: apiData?.bosses.map(bossSpawn => {
+                    return {
+                        name: bossSpawn.name,
+                        normalizedName: bossSpawn.normalizedName,
+                        spawnChance: bossSpawn.spawnChance,
+                        spawnLocations: bossSpawn.spawnLocations,
+                    }
+                }),
+                spawns: apiData?.spawns || [],
+            };
+            if (imageData.projection && imageData.projection !== 'interactive') {
+                mapImages[imageData.key].displayText += ` - ${i18n.t(imageData.projection, { ns: 'maps' })}`;
+            }
+            if (imageData.orientation) {
+                mapImages[imageData.key].displayText += ` - ${i18n.t(imageData.orientation, { ns: 'maps' })}`;
+            }
+            if (imageData.specific) {
+                mapImages[imageData.key].displayText += ` - ${i18n.t(imageData.specific, { ns: 'maps' })}`;
+            }
+            if (imageData.extra) {
+                mapImages[imageData.key].displayText += ` - ${imageData.extra}`;
+            }
+            if (imageData.altMaps) {
+                for (const altKey of imageData.altMaps) {
+                    const altApiMap = maps.find(map => map.normalizedName === altKey);
+                    apiImageDataMerge(mapGroup, {
+                        ...imageData,
+                        key: altKey,
+                        altMaps: undefined,
+                        suppress: true,
+                    }, altApiMap);
+                }
+            }
+        };
         for (const mapsGroup of rawMapData) {
             const apiMap = maps.find(map => map.normalizedName === mapsGroup.normalizedName);
             for (const map of mapsGroup.maps) {
-                mapImages[map.key] = {
-                    ...map,
-                    name: apiMap?.name || i18n.t(`${mapsGroup.normalizedName}-name`, { ns: 'maps' }),
-                    normalizedName: mapsGroup.normalizedName,
-                    primaryPath: mapsGroup.primaryPath,
-                    displayText: apiMap?.name || i18n.t(`${mapsGroup.normalizedName}-name`, { ns: 'maps' }),
-                    description: apiMap?.description || i18n.t(`${mapsGroup.normalizedName}-description`, { ns: 'maps' }),
-                    duration: apiMap?.raidDuration ? apiMap?.raidDuration + ' min' : undefined,
-                    players: apiMap?.players || mapsGroup.players,
-                    image: `/maps/${map.key}.jpg`,
-                    imageThumb: `/maps/${map.key}_thumb.jpg`,
-                };
-                if (map.projection && map.projection !== '3D') {
-                    mapImages[map.key].displayText += ` - ${i18n.t(map.projection, { ns: 'maps' })}`;
-                }
-                if (map.orientation) {
-                    mapImages[map.key].displayText += ` - ${i18n.t(map.orientation, { ns: 'maps' })}`;
-                }
-                if (map.specific) {
-                    mapImages[map.key].displayText += ` - ${i18n.t(map.specific, { ns: 'maps' })}`;
-                }
-                if (map.extra) {
-                    mapImages[map.key].displayText += ` - ${map.extra}`;
-                }
+                apiImageDataMerge(mapsGroup, map, apiMap);
             }
         }
         return mapImages;

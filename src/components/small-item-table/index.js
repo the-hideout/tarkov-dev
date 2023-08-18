@@ -161,35 +161,22 @@ const getArmorZoneString = (armorZones) => {
 
 const getGuns = (items, targetItem) => {
     let parentItems = [];
-    const currentParentItems = items.filter((innerItem) => 
-        itemCanContain(innerItem, targetItem, 'slots'),
-    );
+    const currentParentItems = items.filter((item) => itemCanContain(item, targetItem, 'slots'));
 
     for (const parentItem of currentParentItems) {
         if (parentItem.types.includes('gun')) {
             parentItems.push(parentItem);
-
             continue;
         }
 
         parentItems = parentItems.concat(getGuns(items, parentItem));
     }
-
-    let idCache = [];
-
-    parentItems = parentItems
-        .map((parentItem) => {
-            if (idCache.includes(parentItem.id)) {
-                return false;
-            }
-
-            idCache.push(parentItem.id);
-
-            return parentItem;
-        })
-        .filter(Boolean);
-
-    return parentItems;
+    return parentItems.reduce((parents, current) => {
+        if (!parents.some(item => item.id === current.id)) {
+            parents.push(current);
+        }
+        return parents;
+    }, []);
 };
 
 const getAttachmentPoints = (items, targetItem) => {
@@ -292,6 +279,7 @@ function SmallItemTable(props) {
         useCraftIngredients,
         minPenetration,
         maxPenetration,
+        distance,
     } = props;
     const { t } = useTranslation();
     const settings = useSelector((state) => state.settings);
@@ -335,6 +323,9 @@ function SmallItemTable(props) {
             return {};
         const filterItems = {};
         containedInFilter.forEach(ci => {
+            if (!ci) {
+                return;
+            }
             filterItems[ci.item.id] = ci.count;
         });
         return filterItems;
@@ -1575,6 +1566,24 @@ function SmallItemTable(props) {
             });
         }
 
+        if (distance) {
+            useColumns.push({
+                Header: t('Distance'),
+                id: 'distanceModifier',
+                accessor: (item) => item.properties.distanceModifier,
+                sortType: (a, b) => {
+                    return b.values.distanceModifier - a.values.distanceModifier;
+                },
+                Cell: ({value}) => {
+                    if (!value) {
+                        value = '-'
+                    }
+                    return <CenterCell value={value} nowrap />;
+                },
+                position: distance,
+            });
+        }
+
         if (cheapestPrice) {
             useColumns.push({
                 Header: t('Cheapest Price'),
@@ -1856,6 +1865,7 @@ function SmallItemTable(props) {
         crafts,
         useBarterIngredients,
         useCraftIngredients,
+        distance,
     ]);
 
     let extraRow = false;

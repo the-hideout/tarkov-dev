@@ -1,20 +1,41 @@
 import { Link } from "react-router-dom";
 import { Trans, useTranslation } from 'react-i18next';
-import { Avatar } from '@primer/react';
+import { Avatar, ThemeProvider, createTheme } from "@mui/material";
 
 import { ReactComponent as GithubIcon } from '../../components/supporter/Github.svg';
 import { ReactComponent as DiscordIcon } from '../../components/supporter/Discord.svg';
-
-// import SupportersList from '../../components/supporters-list';
+import { ReactComponent as TwitterIcon } from '../../components/supporter/Twitter.svg';
 
 import SEO from '../../components/SEO';
 import UkraineButton from '../../components/ukraine-button';
+import OpenCollectiveButton from "../../components/open-collective-button";
 import Contributors from '../../components/contributors';
 
 import './index.css';
 
 function About() {
     const { t } = useTranslation();
+
+    const coreAvatarTheme = createTheme({
+        components: {
+            // Name of the component
+            MuiAvatar: {
+                styleOverrides: {
+                    // Name of the slot
+                    root: {
+                        // Some CSS
+                        width: 24,
+                        height: 24,
+                        display: 'inline-block',
+                        verticalAlign: 'middle',
+                        border: 1,
+                        borderStyle: 'solid',
+                    },
+                },
+            },
+        },
+    });
+
     return [
         <SEO 
             title={`${t('About the tarkov.dev project')} - ${t('Tarkov.dev')}`}
@@ -35,18 +56,24 @@ function About() {
                     If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
                 </p>
             </Trans>
+            <Trans i18nKey={'about-twitter-p'}>
+                <p>
+                    Follow us on <a href="https://twitter.com/tarkov_dev" target="_blank" rel="noopener noreferrer"><TwitterIcon /> Twitter</a> for all the latest updates.
+                </p>
+            </Trans>
             <h2>{t('Support')}</h2>
             <Trans i18nKey={'about-support-ukraine-p'}>
             <p>
                 We encourage everyone who can to donate to support the people of Ukraine using the button below.
             </p>
             </Trans>
-            <UkraineButton />
+            <UkraineButton large={false}/>
             <Trans i18nKey={'about-support-collective-p'}>
             <p>
                 If you'd also like to support this project, you can make a donation and/or become a backer on <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noopener noreferrer">Open Collective</a>.
             </p>
             </Trans>
+            <OpenCollectiveButton large={false}/>
             <Trans i18nKey={'about-support-more-p'}>
             <p>
                 You can also help by posting bugs, suggesting or implementing new features, improving maps or anything else you can think of that would improve the site.
@@ -74,50 +101,52 @@ function About() {
                 The core contributors to this project (in no particular order) are:
             </p>
             </Trans>
-            <ul>
-                <li>
-                    <a href="https://github.com/Razzmatazzz" target="_blank" rel="noopener noreferrer">
-                        <Avatar src="https://avatars.githubusercontent.com/Razzmatazzz?size=24" />
-                        {' @Razzmatazzz'}
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/austinhodak" target="_blank" rel="noopener noreferrer">
-                        <Avatar src="https://avatars.githubusercontent.com/austinhodak?size=24" />
-                        {' @austinhodak'}
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/GrantBirki" target="_blank" rel="noopener noreferrer">
-                        <Avatar src="https://avatars.githubusercontent.com/GrantBirki?size=24" />
-                        {' @GrantBirki'}
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/Blightbuster" target="_blank" rel="noopener noreferrer">
-                        <Avatar src="https://avatars.githubusercontent.com/Blightbuster?size=24" />
-                        {' @Blightbuster'}
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/thaddeus" target="_blank" rel="noopener noreferrer">
-                        <Avatar src="https://avatars.githubusercontent.com/thaddeus?size=24" />
-                        {' @thaddeus'}
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/johndongus" target="_blank" rel="noopener noreferrer">
-                        <Avatar src="https://avatars.githubusercontent.com/johndongus?size=24" />
-                        {' @johndongus'}
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/Shebuka" target="_blank" rel="noopener noreferrer">
-                        <Avatar src="https://avatars.githubusercontent.com/Shebuka?size=24" />
-                        {' @Shebuka'}
-                    </a>
-                </li>
-            </ul>
+            <ThemeProvider theme={coreAvatarTheme}>
+                <ul>
+                    <li>
+                        <a href="https://github.com/Razzmatazzz" target="_blank" rel="noopener noreferrer">
+                            <Avatar src="https://avatars.githubusercontent.com/Razzmatazzz?size=24" />
+                            {' @Razzmatazzz'}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/austinhodak" target="_blank" rel="noopener noreferrer">
+                            <Avatar src="https://avatars.githubusercontent.com/austinhodak?size=24" />
+                            {' @austinhodak'}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/GrantBirki" target="_blank" rel="noopener noreferrer">
+                            <Avatar src="https://avatars.githubusercontent.com/GrantBirki?size=24" />
+                            {' @GrantBirki'}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/Blightbuster" target="_blank" rel="noopener noreferrer">
+                            <Avatar src="https://avatars.githubusercontent.com/Blightbuster?size=24" />
+                            {' @Blightbuster'}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/thaddeus" target="_blank" rel="noopener noreferrer">
+                            <Avatar src="https://avatars.githubusercontent.com/thaddeus?size=24" />
+                            {' @thaddeus'}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/johndongus" target="_blank" rel="noopener noreferrer">
+                            <Avatar src="https://avatars.githubusercontent.com/johndongus?size=24" />
+                            {' @johndongus'}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/Shebuka" target="_blank" rel="noopener noreferrer">
+                            <Avatar src="https://avatars.githubusercontent.com/Shebuka?size=24" />
+                            {' @Shebuka'}
+                        </a>
+                    </li>
+                </ul>
+            </ThemeProvider>
             <h2>{t('All Contributors')}</h2>
             <Trans i18nKey={'about-all-contributors-p'}>
             <p>

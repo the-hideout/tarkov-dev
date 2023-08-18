@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: deployment check
-        uses: github/branch-deploy@v5.2.0
+        uses: github/branch-deploy@v7.3.0
         id: deployment-check
         with:
           merge_deploy_mode: "true" # tells the Action to use the merge commit workflow strategy
@@ -24,14 +24,14 @@ jobs:
 
       - name: checkout
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v3.5.3
 
       # check to ensure all JSON files are valid in the repository
       - name: json-yaml-validate
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        uses: GrantBirki/json-yaml-validate@v1.3.0
+        uses: GrantBirki/json-yaml-validate@v2.3.0
 
-      - uses: actions/setup-node@v3.6.0
+      - uses: actions/setup-node@v3.8.0
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         with:
           node-version-file: .node-version
@@ -53,7 +53,7 @@ jobs:
 
       - name: deploy
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        uses: cloudflare/wrangler-action@4c10c1822abba527d820b29e6333e7f5dac2cabd # pin@2.0.0
+        uses: cloudflare/wrangler-action@80501a7b4d229a89df2bf50ac1bc99bc0f305ae9 # pin@3.0.2
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}

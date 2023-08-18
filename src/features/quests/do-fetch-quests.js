@@ -48,84 +48,13 @@ class QuestsQuery extends APIQuery {
                     ...TaskObjectiveInfo
                 }
                 startRewards {
-                    traderStanding {
-                        trader {
-                            id
-                        }
-                        standing
-                    }
-                    items {
-                        item {
-                            id
-                            containsItems {
-                                item {
-                                    id
-                                }
-                                count
-                            }
-                        }
-                        count
-                        attributes {
-                            name
-                            value
-                        }
-                    }
-                    offerUnlock {
-                        trader {
-                            id
-                        }
-                        level
-                        item {
-                            id
-                        }
-                    }
-                    skillLevelReward {
-                        name
-                        level
-                    }
-                    traderUnlock {
-                        id
-                    }
+                    ...taskRewardFragment
                 }
                 finishRewards {
-                    traderStanding {
-                        trader {
-                            id
-                        }
-                        standing
-                    }
-                    items {
-                        item {
-                            id
-                            containsItems {
-                                item {
-                                    id
-                                }
-                                count
-                            }
-                        }
-                        count
-                        attributes {
-                            name
-                            value
-                        }
-                    }
-                    offerUnlock {
-                        trader {
-                            id
-                        }
-                        level
-                        item {
-                            id
-                        }
-                    }
-                    skillLevelReward {
-                        name
-                        level
-                    }
-                    traderUnlock {
-                        id
-                    }
+                    ...taskRewardFragment
+                }
+                failureOutcome {
+                    ...taskRewardFragment
                 }
                 factionName
                 neededKeys {
@@ -136,6 +65,8 @@ class QuestsQuery extends APIQuery {
                         id
                     }
                 }
+                kappaRequired
+                lightkeeperRequired
             }
         }
         fragment TaskObjectiveInfo on TaskObjective {
@@ -216,7 +147,7 @@ class QuestsQuery extends APIQuery {
                 count
             }
             ...on TaskObjectiveShoot {
-                target
+                targetNames
                 count
                 shotType
                 zoneNames
@@ -288,6 +219,46 @@ class QuestsQuery extends APIQuery {
                 compareMethod
                 count
                 zoneNames
+            }
+        }
+        fragment taskRewardFragment on TaskRewards {
+            traderStanding {
+                trader {
+                    id
+                }
+                standing
+            }
+            items {
+                item {
+                    id
+                    containsItems {
+                        item {
+                            id
+                        }
+                        count
+                    }
+                }
+                count
+                attributes {
+                    name
+                    value
+                }
+            }
+            offerUnlock {
+                trader {
+                    id
+                }
+                level
+                item {
+                    id
+                }
+            }
+            skillLevelReward {
+                name
+                level
+            }
+            traderUnlock {
+                id
             }
         }`;
     

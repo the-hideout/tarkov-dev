@@ -1,6 +1,6 @@
-p svg {
+.page-wrapper svg {
     height: 20px;
     width: 20px;
     position: relative;
-    top: 4px;
+    top: 5px;
 }

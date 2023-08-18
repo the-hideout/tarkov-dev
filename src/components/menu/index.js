@@ -6,26 +6,22 @@ import Icon from '@mdi/react';
 import {
     mdiCogOutline,
     mdiRemote,
+    mdiClose,
 } from '@mdi/js';
 
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
-import CloseIcon from '@mui/icons-material/Close';
 
 import MenuItem from './MenuItem';
-//import SubMenu from './SubMenu';
-// import PatreonButton from '../patreon-button';
-import UkraineButton from '../ukraine-button';
-//import LoadingSmall from '../loading-small';
-//import { BossListNav } from '../boss-list';
+// import SubMenu from './SubMenu';
 
 import { caliberArrayWithSplit } from '../../modules/format-ammo';
 import categoryPages from '../../data/category-pages.json';
 import useBossesData from '../../features/bosses';
 
-import { useMapImages } from '../../features/maps';
+import { mapIcons, useMapImages } from '../../features/maps';
 
 import alertConfig from './alert-config';
 
@@ -58,7 +54,7 @@ const Menu = () => {
         setIsOpen(!isOpen);
     };*/
     const { t } = useTranslation();
-    const [open, setOpen] = useStateWithLocalStorage('alertBanner', true);
+    const [open, setOpen] = useStateWithLocalStorage(alertConfig.bannerKey, true);
 
     const mapImages = useMapImages();
     const uniqueMaps = Object.values(mapImages);
@@ -69,6 +65,16 @@ const Menu = () => {
             return -1;
         return a.displayText.localeCompare(b.displayText);
     });
+    let mapCurrent = '';
+    for (const map of uniqueMaps) {
+        if (map.normalizedName !== mapCurrent) {
+            map.icon = mapIcons[map.normalizedName];
+            mapCurrent = map.normalizedName;
+        }
+        else {
+            map.menuPadding = true;
+        }
+    }
 
     const { data: bosses } = useBossesData();
 
@@ -91,7 +97,7 @@ const Menu = () => {
                                     setOpen(false);
                                 }}
                             >
-                                <CloseIcon fontSize="inherit" />
+                                <Icon path={mdiClose} size={0.8} className="icon-with-text" />
                             </IconButton>
                         }
                     >
@@ -151,42 +157,22 @@ const Menu = () => {
                             <Icon path={mdiRemote} size={1} className="icon-with-text" />
                         </Link>
                     </li>
-                    <li className="submenu-wrapper" key="menu-ua-donate" data-targetid="ua-donate">
-                        <UkraineButton />
-                    </li>
-                    {/*<li className="only-large">
-                        <PatreonButton
-                            wrapperStyle={{
-                                margin: 0,
-                            }}
-                            linkStyle={{
-                                color: '#fff',
-                                padding: '5px 20px',
-                                alignItems: 'center',
-                            }}
-                        >
-                            {t('Support on Patreon')}
-                            <Icon
-                                path={mdiHeartFlash}
-                                size={1}
-                                className="icon-with-text"
-                            />
-                        </PatreonButton>
-                    </li>*/}
                     <li className="submenu-wrapper" key="menu-ammo" data-targetid="ammo">
                         <Link to="/ammo/">{t('Ammo')}</Link>
-                        <ul>
+                        <ul style={{left: -20}}>
                             {getAmmoMenu()}
                         </ul>
                     </li>
                     <li className="submenu-wrapper submenu-items" key="menu-maps" data-targetid="maps">
                         <Link to="/maps/">{t('Maps')}</Link>
-                        <ul>
+                        <ul style={{left: -40}}>
                             {uniqueMaps.map((map) => (
                                 <MenuItem
                                     displayText={map.displayText}
                                     key={`menu-item-${map.key}`}
                                     to={`/map/${map.key}`}
+                                    icon={map.icon}
+                                    padding={map.menuPadding}
                                     //onClick={setIsOpen.bind(this, false)}
                                 />
                             ))}

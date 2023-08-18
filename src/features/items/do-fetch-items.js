@@ -158,6 +158,26 @@ class ItemsQuery extends APIQuery {
                             turnPenalty
                             ergoPenalty
                         }
+                        ...on ItemPropertiesBarrel {
+                            ergonomics
+                            recoilModifier
+                            slots {
+                                filters {
+                                    allowedCategories {
+                                        id
+                                    }
+                                    allowedItems {
+                                        id
+                                    }
+                                    excludedCategories {
+                                        id
+                                    }
+                                    excludedItems {
+                                        id
+                                    }
+                                }
+                            }
+                        }
                         ...on ItemPropertiesChestRig {
                             capacity
                             class
@@ -238,6 +258,11 @@ class ItemsQuery extends APIQuery {
                             fuse
                             maxExplosionDistance
                             fragments
+                        }
+                        ...on ItemPropertiesHeadphone {
+                            ambientVolume
+                            distortion
+                            distanceModifier
                         }
                         ...on ItemPropertiesHelmet {
                             class
@@ -416,13 +441,11 @@ class ItemsQuery extends APIQuery {
                     data: {
                         items: [],
                     },
+                    errors: [],
                 };
                 while (true) {
                     const itemBatch = await this.graphqlRequest(QueryBody(offset));
                     if (itemBatch.errors) {
-                        if (!retrievedItems.errors) {
-                            retrievedItems.errors = [];
-                        }
                         retrievedItems.errors.concat(itemBatch.errors);
                     }
                     if (itemBatch.data && itemBatch.data.items) {
@@ -440,6 +463,9 @@ class ItemsQuery extends APIQuery {
                         }
                     }
                     offset += itemLimit;
+                }
+                if (retrievedItems.errors.length < 1) {
+                    retrievedItems.errors = undefined;
                 }
                 resolve(retrievedItems);
             }),
@@ -596,6 +622,8 @@ class ItemsQuery extends APIQuery {
                 }
             }
             rawItem.categoryIds = rawItem.categories.map(cat => cat.id);
+
+            rawItem.containsItems = rawItem.containsItems.filter(contained => contained != null);
 
             return {
                 ...rawItem,
