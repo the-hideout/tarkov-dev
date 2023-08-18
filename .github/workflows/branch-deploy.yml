@@ -19,7 +19,7 @@ jobs:
 
     steps:
 
-      - uses: github/branch-deploy@v7.2.0
+      - uses: github/branch-deploy@v7.3.0
         id: branch-deploy
         with:
           admins: the-hideout/core-contributors
@@ -35,7 +35,7 @@ jobs:
         with:
           ref: ${{ steps.branch-deploy.outputs.ref }}
 
-      - uses: actions/setup-node@v3.7.0
+      - uses: actions/setup-node@v3.8.0
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         with:
           node-version-file: .node-version
