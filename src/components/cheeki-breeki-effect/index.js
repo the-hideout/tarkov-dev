@@ -8,7 +8,7 @@ function CheekiBreekiEffect() {
             <motion.div
                 className="block"
                 animate={{ rotate: 360 }}
-                transition={{ yoyo: Infinity, duration: 0.25 }}
+                transition={{ repeat: Infinity, repeatType: "mirror", duration: 0.25 }}
             >
                 <img
                     alt={'killa'}
@@ -19,7 +19,7 @@ function CheekiBreekiEffect() {
             <motion.div
                 className="block"
                 animate={{ scale: 4 }}
-                transition={{ yoyo: Infinity, duration: 1 }}
+                transition={{ repeat: Infinity, repeatType: "mirror", duration: 1 }}
             >
                 <img
                     alt={'killa'}
@@ -30,7 +30,7 @@ function CheekiBreekiEffect() {
             <motion.div
                 className="block"
                 animate={{ rotate: 360, scale: 4, x: -100 }}
-                transition={{ yoyo: Infinity, duration: 0.30 }}
+                transition={{ repeat: Infinity, repeatType: "mirror", duration: 0.30 }}
             >
                 <img
                     alt={'killa'}
@@ -41,7 +41,18 @@ function CheekiBreekiEffect() {
             <motion.div
                 className="block"
                 animate={{ scale: 4 }}
-                transition={{ yoyo: Infinity, duration: 1 }}
+                transition={{ repeat: Infinity, repeatType: "mirror", duration: 1 }}
+            >
+                <img
+                    alt={'killa'}
+                    loading="lazy"
+                    src={`${process.env.PUBLIC_URL}/images/killa.png`}
+                />
+            </motion.div>
+            <motion.div
+                className="block"
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, repeatType: "mirror", duration: 0.25 }}
             >
                 <img
                     alt={'killa'}
