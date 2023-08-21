@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.2"
   },
   "dependencies": {
     "@emotion/styled": "^11.11.0",
