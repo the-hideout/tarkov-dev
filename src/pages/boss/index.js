@@ -39,9 +39,14 @@ function BossPage(params) {
 
     let audio = new Audio("/audio/killa.mp3")
     const handleClick = event => {
-        setIsShown(current => !current);
-        audio.play()
+        if (!isShown) {
+            audio.play();
+            setIsShown(current => !current);
+        }
     };
+    audio.addEventListener("ended", (event) => {
+        setIsShown(current => !current);
+    });
     // end cheeki breeki
 
     const [isViewerOpen, setIsViewerOpen] = useState(false);
