@@ -291,7 +291,7 @@
                 "maxZoom": 6,
                 "transform": [0.101, 0, 0.101, 0],
                 "coordinateRotation": 180,
-                "bounds": [[485, -390], [-1038, 600]],
+                "bounds": [[505, -410], [-1050, 620]],
                 "author": "TarkovTracker",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline.svg"
