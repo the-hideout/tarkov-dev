@@ -41,7 +41,7 @@
                 "transform": [0.182815, 0, 0.182815, 0],
                 "coordinateRotation": 180,
                 "bounds": [[710, -310], [-370, 250]],
-                "author": "TarkovTracker",
+                "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Customs.svg"
             },
@@ -125,7 +125,7 @@
                 "transform": [0.2, 0, 0.2, 0],
                 "coordinateRotation": 180,
                 "bounds": [[540, -450], [-370, 410]],
-                "author": "TarkovTracker",
+                "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-Ground_Level.svg",
                 "heightRange": [-10000, 25],
@@ -292,7 +292,7 @@
                 "transform": [0.101, 0, 0.101, 0],
                 "coordinateRotation": 180,
                 "bounds": [[505, -410], [-1050, 620]],
-                "author": "TarkovTracker",
+                "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline.svg"
             },
@@ -329,7 +329,7 @@
                 "transform": [0.197, 0, 0.197, 0],
                 "coordinateRotation": 180,
                 "bounds": [[650, -945], [-695, 470]],
-                "author": "TarkovTracker",
+                "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Woods.svg"
             },
