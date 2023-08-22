@@ -328,7 +328,7 @@
                 "maxZoom": 6,
                 "transform": [0.197, 0, 0.197, 0],
                 "coordinateRotation": 180,
-                "bounds": [[560, -935], [-710, 465]],
+                "bounds": [[650, -945], [-695, 470]],
                 "author": "TarkovTracker",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Woods.svg"
