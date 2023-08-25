@@ -11,9 +11,47 @@
                 "transform": [0.38, 0, 0.38, 0],
                 "coordinateRotation": 180,
                 "bounds": [[324, -215], [-279, 548]],
+                "heightRange": [-3, 10],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-0.13.5.svg"
+                "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Ground_Level.svg",
+                "layers": [
+                    {
+                        "name": "Underground",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Underground_Level.svg",
+                        "show": false,
+                        "heightRange": [-10000, -3]
+                    },
+                    {
+                        "name": "1st Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-First_Floor.svg",
+                        "show": false
+                    },
+                    {
+                        "name": "2nd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Second_Floor.svg",
+                        "show": false,
+                        "heightRange": [10, 15]
+                    },
+                    {
+                        "name": "3rd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Third_Floor.svg",
+                        "show": false,
+                        "heightRange": [15, 20]
+                    },
+                    {
+                        "name": "4th Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Forth_Floor.svg",
+                        "show": false,
+                        "heightRange": [20, 25]
+                    },
+                    {
+                        "name": "5th Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Fifth_Floor.svg",
+                        "show": false,
+                        "heightRange": [25, 10000]
+                    }
+                ]
             },
             {
                 "key": "streets-3d",
