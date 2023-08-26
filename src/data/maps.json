@@ -11,7 +11,7 @@
                 "transform": [0.38, 0, 0.38, 0],
                 "coordinateRotation": 180,
                 "bounds": [[324, -215], [-279, 548]],
-                "heightRange": [-3, 10],
+                "heightRange": [-6, 10],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Ground_Level.svg",
@@ -20,12 +20,12 @@
                         "name": "Underground",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Underground_Level.svg",
                         "show": false,
-                        "heightRange": [-10000, -3]
+                        "heightRange": [-10000, -6]
                     },
                     {
                         "name": "1st Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-First_Floor.svg",
-                        "show": false
+                        "show": true
                     },
                     {
                         "name": "2nd Floor",
