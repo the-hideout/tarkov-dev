@@ -274,7 +274,7 @@
                 "projection": "interactive",
                 "minZoom": 2,
                 "maxZoom": 6,
-                "transform": [0.268, 0, 0.268, 0],
+                "transform": [0.268, 0, 0.3717, 0],
                 "coordinateRotation": 195.2090,
                 "bounds": [[300, -300], [-300, 310]],
                 "author": "Shebuka",
