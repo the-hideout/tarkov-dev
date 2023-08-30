@@ -60,14 +60,18 @@ function getCRS(mapData) {
 }
 
 function applyRotation(latLng, rotation) {
-    const {lng: x, lat: y} = latLng;
-    if (!rotation) {
-        return L.latLng(y, x);
+    if (!latLng.lng && !latLng.lat) {
+        return L.latLng(0, 0);
     }
+    if (!rotation) {
+        return latLng;
+    }
+
     const angleInRadians = (rotation * Math.PI) / 180;
     const cosAngle = Math.cos(angleInRadians);
     const sinAngle = Math.sin(angleInRadians);
 
+    const {lng: x, lat: y} = latLng;
     const rotatedX = x * cosAngle - y * sinAngle;
     const rotatedY = x * sinAngle + y * cosAngle;
     return L.latLng(rotatedY, rotatedX);
@@ -77,7 +81,31 @@ function pos(position) {
     return [position.z, position.x];
 }
 
-function getMaxBounds(mapData) {
+function getScaledBounds(bounds, scaleFactor) {
+    // Calculate the center point of the bounds
+    const centerX = (bounds[0][0] + bounds[1][0]) / 2;
+    const centerY = (bounds[0][1] + bounds[1][1]) / 2;
+    
+    // Calculate the new width and height
+    const width = bounds[1][0] - bounds[0][0];
+    const height = bounds[1][1] - bounds[0][1];
+    const newWidth = width * scaleFactor;
+    const newHeight = height * scaleFactor;
+    
+    // Update the coordinates of the two points defining the bounds
+    const newBounds = [
+        [centerY - newHeight / 2, centerX - newWidth / 2],
+        [centerY + newHeight / 2, centerX + newWidth / 2]
+    ];
+
+    // console.log("Initial Rectangle:", bounds);
+    // console.log("Scaled Rectangle:", newBounds);
+    // console.log("Center:", L.bounds(bounds).getCenter(true));
+    
+    return newBounds;
+}
+
+function getBounds(mapData) {
     if (!mapData.bounds) {
         return undefined;
     }
@@ -153,9 +181,8 @@ function Map() {
         if (mapRef.current?._leaflet_id) {
             mapRef.current.remove();
         }
-        const maxBounds = getMaxBounds(mapData);
         const map = L.map('leaflet-map', {
-            maxBounds: maxBounds,
+            maxBounds: getScaledBounds(mapData.bounds, 1.5),
             center: [0, 0],
             zoom: mapData.minZoom+1,
             minZoom: mapData.minZoom,
@@ -192,8 +219,12 @@ function Map() {
         //L.control.scale({position: 'bottomright'}).addTo(map);
         
         let baseLayer;
+        const bounds = getBounds(mapData);
         if (mapData.svgPath) {
-            baseLayer = L.imageOverlay(mapData.svgPath, maxBounds, {
+            // if (process.env.NODE_ENV === "development") {
+            //     mapData.svgPath = mapData.svgPath.replace("assets.tarkov.dev/maps/svg", "raw.githubusercontent.com/the-hideout/tarkov-dev-src-maps/main/interactive");
+            // }
+            baseLayer = L.imageOverlay(mapData.svgPath, bounds, {
                 heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
                 type: 'layer-svg'
             });
@@ -201,7 +232,7 @@ function Map() {
         else {
             baseLayer = L.tileLayer(mapData.mapPath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {
                 tileSize: mapData.tileSize,
-                bounds: maxBounds,
+                bounds: bounds,
                 heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
                 type: 'layer-tile',
             });
@@ -216,7 +247,10 @@ function Map() {
                 let tileLayer;
                 
                 if (layer.svgPath) {
-                    tileLayer = L.imageOverlay(layer.svgPath, maxBounds, {
+                    // if (process.env.NODE_ENV === "development") {
+                    //     layer.svgPath = layer.svgPath.replace("assets.tarkov.dev/maps/svg", "raw.githubusercontent.com/the-hideout/tarkov-dev-src-maps/main/interactive");
+                    // }
+                    tileLayer = L.imageOverlay(layer.svgPath, bounds, {
                         heightRange: layer.heightRange,
                         type: 'layer-svg',
                     });
@@ -224,7 +258,7 @@ function Map() {
                 else {
                     tileLayer = L.tileLayer(layer.path, {
                         tileSize: mapData.tileSize,
-                        bounds: maxBounds,
+                        bounds: bounds,
                         heightRange: layer.heightRange,
                         type: 'layer-tile',
                     });
@@ -471,8 +505,12 @@ function Map() {
         }
 
         // Set default zoom level
-        // map.fitBounds(maxBounds);
-        //map.fitWorld({maxZoom: Math.max(mapData.maxZoom-3, mapData.minZoom)});
+        // map.fitBounds(bounds);
+        // map.fitWorld({maxZoom: Math.max(mapData.maxZoom-3, mapData.minZoom)});
+
+        // maxBounds are bigger than the map and the map center is not in 0,0 so we need to move the view to real center
+        // console.log("Center:", L.latLngBounds(bounds).getCenter(true));
+        map.setView(L.latLngBounds(bounds).getCenter(true), undefined, {animate: false});
 
         mapRef.current = map;
     }, [mapData, mapRef, playerPosition, t, dispatch]);

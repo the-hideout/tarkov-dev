@@ -11,9 +11,47 @@
                 "transform": [0.38, 0, 0.38, 0],
                 "coordinateRotation": 180,
                 "bounds": [[324, -215], [-279, 548]],
+                "heightRange": [-6, 10],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-0.13.5.svg"
+                "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Ground_Level.svg",
+                "layers": [
+                    {
+                        "name": "Underground",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Underground_Level.svg",
+                        "show": false,
+                        "heightRange": [-10000, -6]
+                    },
+                    {
+                        "name": "1st Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-First_Floor.svg",
+                        "show": true
+                    },
+                    {
+                        "name": "2nd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Second_Floor.svg",
+                        "show": false,
+                        "heightRange": [10, 15]
+                    },
+                    {
+                        "name": "3rd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Third_Floor.svg",
+                        "show": false,
+                        "heightRange": [15, 20]
+                    },
+                    {
+                        "name": "4th Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Forth_Floor.svg",
+                        "show": false,
+                        "heightRange": [20, 25]
+                    },
+                    {
+                        "name": "5th Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Fifth_Floor.svg",
+                        "show": false,
+                        "heightRange": [25, 10000]
+                    }
+                ]
             },
             {
                 "key": "streets-3d",
@@ -37,13 +75,39 @@
                 "key": "customs",
                 "projection": "interactive",
                 "minZoom": 2,
-                "maxZoom": 6,
+                "maxZoom": 7,
                 "transform": [0.182815, 0, 0.182815, 0],
                 "coordinateRotation": 180,
-                "bounds": [[710, -310], [-370, 250]],
-                "author": "TarkovTracker",
+                "bounds": [[698, -310], [-371, 245]],
+                "heightRange": [-13, 12],
+                "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/Customs.svg"
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Ground_Level.svg",
+                "layers": [
+                    {
+                        "name": "Underground",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Underground_Level.svg",
+                        "show": false,
+                        "heightRange": [-10000, -13]
+                    },
+                    {
+                        "name": "1st Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-First_Floor.svg",
+                        "show": true
+                    },
+                    {
+                        "name": "2nd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Second_Floor.svg",
+                        "show": false,
+                        "heightRange": [12, 17]
+                    },
+                    {
+                        "name": "3rd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Third_Floor.svg",
+                        "show": false,
+                        "heightRange": [17, 10000]
+                    }
+                ]
             },
             {
                 "key": "customs-3d",
@@ -124,8 +188,8 @@
                 "maxZoom": 6,
                 "transform": [0.2, 0, 0.2, 0],
                 "coordinateRotation": 180,
-                "bounds": [[550, -450], [-390, 420]],
-                "author": "TarkovTracker",
+                "bounds": [[540, -450], [-370, 410]],
+                "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-Ground_Level.svg",
                 "heightRange": [-10000, 25],
@@ -202,7 +266,7 @@
                 "maxZoom": 6,
                 "transform": [0.2, 0, 0.2, 0],
                 "coordinateRotation": 180,
-                "bounds": [[520, -1000], [-545, 725]],
+                "bounds": [[515, -1000], [-545, 725]],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Lighthouse.svg"
@@ -291,8 +355,8 @@
                 "maxZoom": 6,
                 "transform": [0.101, 0, 0.101, 0],
                 "coordinateRotation": 180,
-                "bounds": [[485, -390], [-1038, 600]],
-                "author": "TarkovTracker",
+                "bounds": [[505, -410], [-1050, 620]],
+                "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline.svg"
             },
@@ -328,8 +392,8 @@
                 "maxZoom": 6,
                 "transform": [0.197, 0, 0.197, 0],
                 "coordinateRotation": 180,
-                "bounds": [[560, -935], [-710, 465]],
-                "author": "TarkovTracker",
+                "bounds": [[650, -945], [-695, 470]],
+                "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Woods.svg"
             },
