@@ -1089,7 +1089,7 @@ function SmallItemTable(props) {
             useColumns.push({
                 Header: t('Trader buy'),
                 id: 'traderPrice',
-                accessor: (d) => Number(d.instaProfit),
+                accessor: (d) => Number(d.buyFor[0]?.priceRUB || 0),
                 Cell: TraderPriceCell,
                 position: traderPrice,
             });
