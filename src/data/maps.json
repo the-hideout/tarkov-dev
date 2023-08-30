@@ -75,13 +75,39 @@
                 "key": "customs",
                 "projection": "interactive",
                 "minZoom": 2,
-                "maxZoom": 6,
+                "maxZoom": 7,
                 "transform": [0.182815, 0, 0.182815, 0],
                 "coordinateRotation": 180,
                 "bounds": [[698, -310], [-371, 245]],
+                "heightRange": [-13, 12],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/Customs.svg"
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Ground_Level.svg",
+                "layers": [
+                    {
+                        "name": "Underground",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Underground_Level.svg",
+                        "show": false,
+                        "heightRange": [-10000, -13]
+                    },
+                    {
+                        "name": "1st Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-First_Floor.svg",
+                        "show": true
+                    },
+                    {
+                        "name": "2nd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Second_Floor.svg",
+                        "show": false,
+                        "heightRange": [12, 17]
+                    },
+                    {
+                        "name": "3rd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Third_Floor.svg",
+                        "show": false,
+                        "heightRange": [17, 10000]
+                    }
+                ]
             },
             {
                 "key": "customs-3d",
