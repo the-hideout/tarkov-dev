@@ -15,7 +15,7 @@ jobs:
 
     steps:
       # Comment on new PR requests with deployment instructions
-      - uses: actions/checkout@v3.6.0
+      - uses: actions/checkout@v4.0.0
       - name: comment
         uses: GrantBirki/comment@v2.0.6
         continue-on-error: true
