@@ -23,7 +23,6 @@
 .icon-and-link-wrapper {
     align-items: flex-start;
     display: none;
-    flex-wrap: wrap;
     justify-content: flex-end;
     flex-grow: 1;
     right: 0;
