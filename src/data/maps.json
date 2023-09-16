@@ -352,13 +352,39 @@
                 "key": "shoreline",
                 "projection": "interactive",
                 "minZoom": 2,
-                "maxZoom": 6,
+                "maxZoom": 7,
                 "transform": [0.101, 0, 0.101, 0],
                 "coordinateRotation": 180,
                 "bounds": [[505, -410], [-1050, 620]],
+                "heightRange": [-66, 0],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline.svg"
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Ground_Level.svg",
+                "layers": [
+                    {
+                        "name": "Underground",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Underground_Level.svg",
+                        "show": false,
+                        "heightRange": [-10000, -66]
+                    },
+                    {
+                        "name": "1st Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-First_Floor.svg",
+                        "show": true
+                    },
+                    {
+                        "name": "2nd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Second_Floor.svg",
+                        "show": false,
+                        "heightRange": [0, 5]
+                    },
+                    {
+                        "name": "3rd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Third_Floor.svg",
+                        "show": false,
+                        "heightRange": [5, 10000]
+                    }
+                ]
             },
             {
                 "key": "shoreline-3d",
