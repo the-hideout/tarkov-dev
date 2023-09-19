@@ -86,8 +86,18 @@
 
 /* elevation visability */
 
-img.off-level, div.awesome-marker.off-level {
+div.leaflet-pane.leaflet-overlay-pane > img.off-level {
     opacity: 50%;
+}
+
+div.awesome-marker.off-level {
+    opacity: 50%;
+    z-index: -9999 !important;
+}
+
+div.leaflet-pane.leaflet-marker-pane > img.off-level {
+    opacity: 20%;
+    z-index: -9999 !important;
 }
 
 .not-shown {
