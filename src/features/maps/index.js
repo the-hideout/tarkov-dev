@@ -112,6 +112,7 @@ export const useMapImages = () => {
                 spawns: apiData?.spawns || [],
                 extracts: apiData?.extracts || [],
                 locks: apiData?.locks || [],
+                hazards: apiData?.hazards || [],
             };
             if (imageData.projection && imageData.projection !== 'interactive') {
                 mapImages[imageData.key].displayText += ` - ${i18n.t(imageData.projection, { ns: 'maps' })}`;

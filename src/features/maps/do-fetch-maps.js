@@ -73,6 +73,20 @@ class MapsQuery extends APIQuery {
                         z
                     }
                 }
+                hazards {
+                    hazardType
+                    name
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    size {
+                        x
+                        y
+                        z
+                    }
+                }
             }
         }`;
     

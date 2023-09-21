@@ -326,8 +326,8 @@ function Map() {
         }
 
         const categories = {
-            quest_item: t('Quest Item'),
-            quest_zone: t('Quest Zone'),
+            quest_item: t('Task Item'),
+            quest_zone: t('Task Objective'),
             supply_crate: t('Technical Supply Crate'),
             spawn_pmc: t('PMC'),
             spawn_scav: t('Scav'),
@@ -539,7 +539,7 @@ function Map() {
         //add quest items
 
         const questItems = L.layerGroup();
-        const questZones = L.layerGroup();
+        const questGroups = {};
         for (const quest of quests) {
             for (const obj of quest.objectives) {
                 if (obj.possibleLocations) {
@@ -566,9 +566,12 @@ function Map() {
                         if (zone.map.id !== mapData.id) {
                             continue;
                         }
+                        if (!questGroups[quest.name]) {
+                            questGroups[quest.name] = L.layerGroup(); 
+                        }
                         const rect = L.rectangle(positionToBounds(zone), {color: '#e5e200', weight: 1});
                         rect.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}">${quest.name}<br>${obj.description}</a>`));
-                        rect.addTo(questZones);
+                        rect.addTo(questGroups[quest.name]);
                     }
                 }
             }
@@ -577,9 +580,32 @@ function Map() {
             questItems.addTo(map);
             layerControl.addOverlay(questItems, `<img src='${process.env.PUBLIC_URL}/maps/interactive/quest_item.png' class='control-item-image' /> ${categories['quest_item']}`, t('Tasks'));    
         }
-        if (Object.keys(questZones._layers).length > 0) {
+        for (const questName in questGroups) {
+            questGroups[questName].addTo(map);
+            layerControl.addOverlay(questGroups[questName], questName, categories['quest_zone']); 
+        }
+        /*if (Object.keys(questZones._layers).length > 0) {
             questZones.addTo(map);
             layerControl.addOverlay(questZones, categories['quest_zone'], t('Tasks'));    
+        }*/
+
+        //add hazards
+        if (mapData.hazards.length > 0) {
+            const hazardLayers = {};
+            for (const hazard of mapData.hazards) {
+                const rect = L.rectangle(positionToBounds(hazard), {color: '#ff0000', weight: 1});
+                rect.bindPopup(L.popup().setContent(hazard.name));
+                if (!hazardLayers[hazard.name]) {
+                    hazardLayers[hazard.name] = L.layerGroup()
+                }
+                rect.addTo(hazardLayers[hazard.name]);
+            }
+            for (const key in hazardLayers) {
+                if (Object.keys(hazardLayers[key]._layers).length > 0) {
+                    hazardLayers[key].addTo(map);
+                    layerControl.addOverlay(hazardLayers[key], key, t('Hazards'));    
+                }
+            }
         }
 
         if (showTestMarkers) {
