@@ -79,6 +79,23 @@ class QuestsQuery extends APIQuery {
                 name
             }
             optional
+            ...on TaskObjectiveBasic {
+                zones {
+                    map {
+                        id
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    size {
+                        x
+                        y
+                        z
+                    }
+                }
+            }
             ...on TaskObjectiveBuildItem {
                 item {
                     id
@@ -122,10 +139,40 @@ class QuestsQuery extends APIQuery {
                 dogTagLevel
                 maxDurability
                 minDurability
+                zones {
+                    map {
+                        id
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    size {
+                        x
+                        y
+                        z
+                    }
+                }
             }
             ...on TaskObjectiveMark {
                 markerItem {
                     id
+                }
+                zones {
+                    map {
+                        id
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    size {
+                        x
+                        y
+                        z
+                    }
                 }
             }
             ...on TaskObjectivePlayerLevel {
@@ -143,6 +190,16 @@ class QuestsQuery extends APIQuery {
                     image512pxLink
                     baseImageLink
                     image8xLink
+                }
+                possibleLocations {
+                    map {
+                        id
+                    }
+                    positions {
+                        x
+                        y
+                        z
+                    }
                 }
                 count
             }
@@ -186,6 +243,21 @@ class QuestsQuery extends APIQuery {
                         value
                     }
                 }
+                zones {
+                    map {
+                        id
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    size {
+                        x
+                        y
+                        z
+                    }
+                }
             }
             ...on TaskObjectiveSkill {
                 skillLevel {
@@ -219,6 +291,21 @@ class QuestsQuery extends APIQuery {
                 compareMethod
                 count
                 zoneNames
+                zones {
+                    map {
+                        id
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    size {
+                        x
+                        y
+                        z
+                    }
+                }
             }
         }
         fragment taskRewardFragment on TaskRewards {

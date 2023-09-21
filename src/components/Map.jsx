@@ -21,6 +21,8 @@ import '../modules/leaflet-control-coordinates';
 import '../modules/leaflet-control-groupedlayer';
 
 import { useMapImages } from '../features/maps';
+import useItemsData from '../features/items';
+import useQuestsData from '../features/quests';
 
 import testMapData from '../data/maps_test.json';
 
@@ -124,6 +126,14 @@ function markerIsShown(heightLayer, position) {
     return false;
 }
 
+function positionToBounds(obj) {
+    const position = obj.position;
+    const size = obj.size;
+    const halfX = size.x / 2;
+    const halfZ = size.z / 2;
+    return [[position.z - halfZ, position.x - halfX], [position.z + halfZ, position.x + halfX]];
+}
+
 function Map() {
     let { currentMap } = useParams();
 
@@ -167,6 +177,9 @@ function Map() {
     useEffect(() => {
         ref?.current?.resetTransform();
     }, [currentMap]);
+
+    const { data: items } = useItemsData();
+    const { data: quests} = useQuestsData();
 
     let allMaps = useMapImages();
 
@@ -313,7 +326,8 @@ function Map() {
         }
 
         const categories = {
-            quest_item: t('Tasks'),
+            quest_item: t('Quest Item'),
+            quest_zone: t('Quest Zone'),
             supply_crate: t('Technical Supply Crate'),
             spawn_pmc: t('PMC'),
             spawn_scav: t('Scav'),
@@ -321,6 +335,10 @@ function Map() {
             'spawn_cultist-priest': t('Cultist Priest'),
             spawn_rogue: t('Rogue'),
             spawn_bloodhound: t('Bloodhound'),
+            extract_pmc: t('PMC'),
+            extract_scav: t('Scav'),
+            extract_shared: t('Shared'),
+            lock: t('Locks'),
         }
 
         let TL = {x:Number.MAX_SAFE_INTEGER, z:Number.MIN_SAFE_INTEGER};
@@ -461,6 +479,109 @@ function Map() {
             }
         }
 
+        //add extracts
+        if (mapData.extracts.length > 0) {
+            const extractLayers = {
+                pmc: L.layerGroup(),
+                scav: L.layerGroup(),
+                shared: L.layerGroup(),
+            }
+            for (const extract of mapData.extracts) {
+                const colorMap = {
+                    scav: '#ff7800',
+                    pmc: '#00e599',
+                    shared: '#00e4e5',
+                }
+                const rect = L.rectangle(positionToBounds(extract), {color: colorMap[extract.faction], weight: 1});
+                const extractIcon = L.icon({
+                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/extract_${extract.faction}.png`,
+                    iconSize: [24, 24],
+                    popupAnchor: [0, -12],
+                    className: !markerIsShown(heightLayer, extract.position) ? 'off-level' : '',
+                    position: extract.position,
+                });
+                const extractMarker = L.marker(pos(extract.position), {icon: extractIcon});
+                extractMarker.bindPopup(L.popup().setContent(extract.name));
+                L.layerGroup([rect, extractMarker]).addTo(extractLayers[extract.faction]);
+            }
+            for (const key in extractLayers) {
+                if (Object.keys(extractLayers[key]._layers).length > 0) {
+                    extractLayers[key].addTo(map);
+                    layerControl.addOverlay(extractLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/extract_${key}.png' class='control-item-image' /> ${categories[`extract_${key}`]}`, t('Extracts'));    
+                }
+            }
+        }
+
+        //add locks
+        if (mapData.locks.length > 0) {
+            const locks = L.layerGroup();
+            for (const lock of mapData.locks) {
+                const lockIcon = L.icon({
+                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/locked_door.png`,
+                    iconSize: [24, 24],
+                    popupAnchor: [0, -12],
+                    className: !markerIsShown(heightLayer, lock.position) ? 'off-level' : '',
+                    position: lock.position,
+                });
+                const lockMarker = L.marker(pos(lock.position), {icon: lockIcon});
+                const key = items.find(i => i.id === lock.key.id);
+                if (key) {
+                    lockMarker.bindPopup(L.popup().setContent(`<a href="/item/${key.normalizedName}">${key.name}</a>`));
+                    lockMarker.addTo(locks);
+                }
+            }
+            if (Object.keys(locks._layers).length > 0) {
+                locks.addTo(map);
+                layerControl.addOverlay(locks, `<img src='${process.env.PUBLIC_URL}/maps/interactive/locked_door.png' class='control-item-image' /> ${categories['lock']}`, t('Locks'));    
+            }
+        }
+
+        //add quest items
+
+        const questItems = L.layerGroup();
+        const questZones = L.layerGroup();
+        for (const quest of quests) {
+            for (const obj of quest.objectives) {
+                if (obj.possibleLocations) {
+                    for (const loc of obj.possibleLocations) {
+                        if (loc.map.id !== mapData.id) {
+                            continue;
+                        }
+                        for (const position of loc.positions) {
+                            const questItemIcon = L.icon({
+                                iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_item.png`,
+                                iconSize: [24, 24],
+                                popupAnchor: [0, -12],
+                                className: !markerIsShown(heightLayer, pos) ? 'off-level' : '',
+                                position: position,
+                            });
+                            const questItemMarker = L.marker(pos(position), {icon: questItemIcon});
+                            questItemMarker.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}">${obj.questItem.name}</a>`));
+                            questItemMarker.addTo(questItems);
+                        }
+                    }
+                }
+                if (obj.zones) {
+                    for (const zone of obj.zones) {
+                        if (zone.map.id !== mapData.id) {
+                            continue;
+                        }
+                        const rect = L.rectangle(positionToBounds(zone), {color: '#e5e200', weight: 1});
+                        rect.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}">${quest.name}<br>${obj.description}</a>`));
+                        rect.addTo(questZones);
+                    }
+                }
+            }
+        }
+        if (Object.keys(questItems._layers).length > 0) {
+            questItems.addTo(map);
+            layerControl.addOverlay(questItems, `<img src='${process.env.PUBLIC_URL}/maps/interactive/quest_item.png' class='control-item-image' /> ${categories['quest_item']}`, t('Tasks'));    
+        }
+        if (Object.keys(questZones._layers).length > 0) {
+            questZones.addTo(map);
+            layerControl.addOverlay(questZones, categories['quest_zone'], t('Tasks'));    
+        }
+
         if (showTestMarkers) {
             console.log(`Positions "bounds": [[${BR.x}, ${BR.z}], [${TL.x}, ${TL.z}]] (already rotated, copy/paste to maps.json)`);
 
@@ -513,7 +634,7 @@ function Map() {
         map.setView(L.latLngBounds(bounds).getCenter(true), undefined, {animate: false});
 
         mapRef.current = map;
-    }, [mapData, mapRef, playerPosition, t, dispatch]);
+    }, [mapData, items, quests, mapRef, playerPosition, t, dispatch]);
     
     if (!mapData) {
         return <ErrorPage />;

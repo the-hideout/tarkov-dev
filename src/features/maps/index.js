@@ -90,6 +90,7 @@ export const useMapImages = () => {
         const mapImages = {};
         const apiImageDataMerge = (mapGroup, imageData, apiData) => {
             mapImages[imageData.key] = {
+                id: apiData?.id,
                 ...imageData,
                 name: apiData?.name || i18n.t(`${mapGroup.normalizedName}-name`, { ns: 'maps' }),
                 normalizedName: mapGroup.normalizedName,
@@ -109,6 +110,8 @@ export const useMapImages = () => {
                     }
                 }),
                 spawns: apiData?.spawns || [],
+                extracts: apiData?.extracts || [],
+                locks: apiData?.locks || [],
             };
             if (imageData.projection && imageData.projection !== 'interactive') {
                 mapImages[imageData.key].displayText += ` - ${i18n.t(imageData.projection, { ns: 'maps' })}`;

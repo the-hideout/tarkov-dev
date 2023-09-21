@@ -48,6 +48,31 @@ class MapsQuery extends APIQuery {
                     sides
                     categories
                 }
+                extracts {
+                    name
+                    faction
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    size {
+                        x
+                        y
+                        z
+                    }
+                }
+                locks {
+                    lockType
+                    key {
+                        id
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                }
             }
         }`;
     
