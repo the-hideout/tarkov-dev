@@ -89,11 +89,22 @@ class QuestsQuery extends APIQuery {
                         y
                         z
                     }
+                    rotation {
+                        x
+                        y
+                        z
+                    }
+                    center {
+                        x
+                        y
+                        z
+                    }
                     size {
                         x
                         y
                         z
                     }
+                    terrainElevation
                 }
             }
             ...on TaskObjectiveBuildItem {
@@ -148,11 +159,22 @@ class QuestsQuery extends APIQuery {
                         y
                         z
                     }
+                    rotation {
+                        x
+                        y
+                        z
+                    }
+                    center {
+                        x
+                        y
+                        z
+                    }
                     size {
                         x
                         y
                         z
                     }
+                    terrainElevation
                 }
             }
             ...on TaskObjectiveMark {
@@ -168,11 +190,22 @@ class QuestsQuery extends APIQuery {
                         y
                         z
                     }
+                    rotation {
+                        x
+                        y
+                        z
+                    }
+                    center {
+                        x
+                        y
+                        z
+                    }
                     size {
                         x
                         y
                         z
                     }
+                    terrainElevation
                 }
             }
             ...on TaskObjectivePlayerLevel {
@@ -252,11 +285,22 @@ class QuestsQuery extends APIQuery {
                         y
                         z
                     }
+                    rotation {
+                        x
+                        y
+                        z
+                    }
+                    center {
+                        x
+                        y
+                        z
+                    }
                     size {
                         x
                         y
                         z
                     }
+                    terrainElevation
                 }
             }
             ...on TaskObjectiveSkill {
@@ -300,11 +344,22 @@ class QuestsQuery extends APIQuery {
                         y
                         z
                     }
+                    rotation {
+                        x
+                        y
+                        z
+                    }
+                    center {
+                        x
+                        y
+                        z
+                    }
                     size {
                         x
                         y
                         z
                     }
+                    terrainElevation
                 }
             }
         }

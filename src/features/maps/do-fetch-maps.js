@@ -56,11 +56,22 @@ class MapsQuery extends APIQuery {
                         y
                         z
                     }
+                    rotation {
+                        x
+                        y
+                        z
+                    }
+                    center {
+                        x
+                        y
+                        z
+                    }
                     size {
                         x
                         y
                         z
                     }
+                    terrainElevation
                 }
                 locks {
                     lockType
@@ -72,11 +83,12 @@ class MapsQuery extends APIQuery {
                         y
                         z
                     }
-                }
-                hazards {
-                    hazardType
-                    name
-                    position {
+                    rotation {
+                        x
+                        y
+                        z
+                    }
+                    center {
                         x
                         y
                         z
@@ -86,6 +98,32 @@ class MapsQuery extends APIQuery {
                         y
                         z
                     }
+                    terrainElevation
+                }
+                hazards {
+                    hazardType
+                    name
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    rotation {
+                        x
+                        y
+                        z
+                    }
+                    center {
+                        x
+                        y
+                        z
+                    }
+                    size {
+                        x
+                        y
+                        z
+                    }
+                    terrainElevation
                 }
             }
         }`;

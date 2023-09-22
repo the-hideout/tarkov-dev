@@ -126,12 +126,59 @@ function markerIsShown(heightLayer, position) {
     return false;
 }
 
-function positionToBounds(obj) {
+/*function positionToBounds(obj) {
     const position = obj.position;
     const size = obj.size;
     const halfX = size.x / 2;
     const halfZ = size.z / 2;
     return [[position.z - halfZ, position.x - halfX], [position.z + halfZ, position.x + halfX]];
+}*/
+
+function positionToCorners(obj) {
+    const position = obj.position;
+    const rotation = obj.rotation;
+    const center = obj.center;
+    const size = obj.size;
+    // Convert rotation angles to radians
+    const radX = (rotation.x * Math.PI) / 180;
+    const radY = (rotation.y * Math.PI) / 180;
+    const radZ = (rotation.z * Math.PI) / 180;
+
+    // Calculate half extents of the box
+    const halfWidth = size.x / 2;
+    //const halfHeight = size.y / 2;
+    const halfDepth = size.z / 2;
+
+    // Calculate the transformation matrix
+    const cosX = Math.cos(radX);
+    const sinX = Math.sin(radX);
+    const cosY = Math.cos(radY);
+    const sinY = Math.sin(radY);
+    const cosZ = Math.cos(radZ);
+    const sinZ = Math.sin(radZ);
+
+    const matrix = [
+        [cosY * cosZ, -cosY * sinZ, sinY],
+        [cosX * sinZ + sinX * sinY * cosZ, cosX * cosZ - sinX * sinY * sinZ, -sinX * cosY],
+        [sinX * sinZ - cosX * sinY * cosZ, sinX * cosZ + cosX * sinY * sinZ, cosX * cosY],
+    ];
+
+    // Calculate the four corners of the rectangle
+    const corners = [
+        [-halfWidth, -halfDepth],
+        [halfWidth, -halfDepth],
+        [halfWidth, halfDepth],
+        [-halfWidth, halfDepth],
+    ];
+
+    // Apply rotation and translation to the corners
+    const transformedCorners = corners.map(([x, z]) => {
+        const newX = matrix[0][0] * x + matrix[0][1] * 0 + matrix[0][2] * z + position.x + center.x;
+        const newZ = matrix[2][0] * x + matrix[2][1] * 0 + matrix[2][2] * z + position.z + center.z;
+        return [newZ, newX]; // Swap x and z to match your requirement
+    });
+
+    return transformedCorners;
 }
 
 function Map() {
@@ -326,8 +373,8 @@ function Map() {
         }
 
         const categories = {
-            quest_item: t('Task Item'),
-            quest_zone: t('Task Objective'),
+            quest_item: t('Item'),
+            quest_objective: t('Objective'),
             supply_crate: t('Technical Supply Crate'),
             spawn_pmc: t('PMC'),
             spawn_scav: t('Scav'),
@@ -492,16 +539,23 @@ function Map() {
                     pmc: '#00e599',
                     shared: '#00e4e5',
                 }
-                const rect = L.rectangle(positionToBounds(extract), {color: colorMap[extract.faction], weight: 1});
-                const extractIcon = L.icon({
+                const rect = L.polygon(positionToCorners(extract), {color: colorMap[extract.faction], weight: 1, className: 'not-shown'});
+                /*const extractIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/extract_${extract.faction}.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
                     className: !markerIsShown(heightLayer, extract.position) ? 'off-level' : '',
                     position: extract.position,
+                });*/
+                const extractIcon = L.divIcon({
+                    className: 'extract-icon',
+                    html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_${extract.faction}.png"/><span class="extract-name ${extract.faction}">${extract.name}</span>`,
                 });
-                const extractMarker = L.marker(pos(extract.position), {icon: extractIcon});
-                extractMarker.bindPopup(L.popup().setContent(extract.name));
+                const extractMarker = L.marker(pos(extract.position), {icon: extractIcon, title: extract.name,});
+                //extractMarker.bindPopup(L.popup().setContent(extract.name));
+                extractMarker.on('click', (e) => {
+                    rect._path.classList.toggle('not-shown');
+                });
                 L.layerGroup([rect, extractMarker]).addTo(extractLayers[extract.faction]);
             }
             for (const key in extractLayers) {
@@ -536,10 +590,9 @@ function Map() {
             }
         }
 
-        //add quest items
-
+        //add quest markers
         const questItems = L.layerGroup();
-        const questGroups = {};
+        const questObjectives = L.layerGroup();
         for (const quest of quests) {
             for (const obj of quest.objectives) {
                 if (obj.possibleLocations) {
@@ -552,7 +605,7 @@ function Map() {
                                 iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_item.png`,
                                 iconSize: [24, 24],
                                 popupAnchor: [0, -12],
-                                className: !markerIsShown(heightLayer, pos) ? 'off-level' : '',
+                                className: !markerIsShown(position, pos) ? 'off-level' : '',
                                 position: position,
                             });
                             const questItemMarker = L.marker(pos(position), {icon: questItemIcon});
@@ -566,12 +619,21 @@ function Map() {
                         if (zone.map.id !== mapData.id) {
                             continue;
                         }
-                        if (!questGroups[quest.name]) {
-                            questGroups[quest.name] = L.layerGroup(); 
-                        }
-                        const rect = L.rectangle(positionToBounds(zone), {color: '#e5e200', weight: 1});
-                        rect.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}">${quest.name}<br>${obj.description}</a>`));
-                        rect.addTo(questGroups[quest.name]);
+                        const rect = L.polygon(positionToCorners(zone), {color: '#e5e200', weight: 1, className: 'not-shown'});
+                        const zoneIcon = L.icon({
+                            iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/compass.png`,
+                            iconSize: [24, 24],
+                            popupAnchor: [0, -12],
+                            className: !markerIsShown(heightLayer, zone.position) ? 'off-level' : '',
+                            position: zone.position,
+                        });
+                        
+                        const zoneMarker = L.marker(pos(zone.position), {icon: zoneIcon, title: obj.description});
+                        zoneMarker.on('click', (e) => {
+                            rect._path.classList.toggle('not-shown');
+                        });
+                        zoneMarker.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}">${quest.name}<br>${obj.description}</a>`));
+                        L.layerGroup([rect, zoneMarker]).addTo(questObjectives);
                     }
                 }
             }
@@ -580,9 +642,9 @@ function Map() {
             questItems.addTo(map);
             layerControl.addOverlay(questItems, `<img src='${process.env.PUBLIC_URL}/maps/interactive/quest_item.png' class='control-item-image' /> ${categories['quest_item']}`, t('Tasks'));    
         }
-        for (const questName in questGroups) {
-            questGroups[questName].addTo(map);
-            layerControl.addOverlay(questGroups[questName], questName, categories['quest_zone']); 
+        if (Object.keys(questObjectives._layers).length > 0) {
+            questObjectives.addTo(map);
+            layerControl.addOverlay(questObjectives, `<img src='${process.env.PUBLIC_URL}/maps/interactive/compass.png' class='control-item-image' /> ${categories['quest_objective']}`, t('Tasks')); 
         }
         /*if (Object.keys(questZones._layers).length > 0) {
             questZones.addTo(map);
@@ -593,12 +655,24 @@ function Map() {
         if (mapData.hazards.length > 0) {
             const hazardLayers = {};
             for (const hazard of mapData.hazards) {
-                const rect = L.rectangle(positionToBounds(hazard), {color: '#ff0000', weight: 1});
-                rect.bindPopup(L.popup().setContent(hazard.name));
+                const rect = L.polygon(positionToCorners(hazard), {color: '#ff0000', weight: 1, className: 'not-shown'});
+                const hazardIcon = L.icon({
+                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/hazard.png`,
+                    iconSize: [24, 24],
+                    popupAnchor: [0, -12],
+                    className: !markerIsShown(heightLayer, hazard.position) ? 'off-level' : '',
+                    position: hazard.position,
+                });
+                
+                const hazardMarker = L.marker(pos(hazard.position), {icon: hazardIcon, title: hazard.name,});
+                hazardMarker.bindPopup(L.popup().setContent(hazard.name));
+                hazardMarker.on('click', (e) => {
+                    rect._path.classList.toggle('not-shown');
+                });
                 if (!hazardLayers[hazard.name]) {
                     hazardLayers[hazard.name] = L.layerGroup()
                 }
-                rect.addTo(hazardLayers[hazard.name]);
+                L.layerGroup([rect, hazardMarker]).addTo(hazardLayers[hazard.name]);
             }
             for (const key in hazardLayers) {
                 if (Object.keys(hazardLayers[key]._layers).length > 0) {
