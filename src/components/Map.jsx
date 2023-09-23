@@ -612,10 +612,24 @@ function Map() {
                     className: !markerIsShown(heightLayer, lock.position) ? 'off-level' : '',
                     position: lock.position,
                 });
+                var lockType;
+                if (lock.lockType === 'door') {
+                    lockType = t('Door');
+                }
+                else if (lock.lockType === 'container') {
+                    lockType = t('Container');
+                }
+                else if (lock.lockType === 'trunk') {
+                    lockType = t('Trunk');
+                }
+                else {
+                    lockType = t('Lock');
+                }
+                
                 const lockMarker = L.marker(pos(lock.position), {icon: lockIcon});
                 const key = items.find(i => i.id === lock.key.id);
                 if (key) {
-                    lockMarker.bindPopup(L.popup().setContent(`<a href="/item/${key.normalizedName}">${key.name}</a>`));
+                    lockMarker.bindPopup(L.popup().setContent(`${lockType}<br/><a href="/item/${key.normalizedName}"><img src='${key.iconLink}' /><br/>${key.name}</a>`));
                     lockMarker.addTo(locks);
                 }
             }
