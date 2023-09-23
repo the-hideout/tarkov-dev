@@ -620,7 +620,7 @@ function Map() {
                     lockType = t('Container');
                 }
                 else if (lock.lockType === 'trunk') {
-                    lockType = t('Trunk');
+                    lockType = t('Car Door or Trunk');
                 }
                 else {
                     lockType = t('Lock');
@@ -658,7 +658,7 @@ function Map() {
                                 position: position,
                             });
                             const questItemMarker = L.marker(pos(position), {icon: questItemIcon});
-                            questItemMarker.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}">${obj.questItem.name}</a>`));
+                            questItemMarker.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}">${quest.name}</a><br/>- ${obj.questItem.name}`));
                             questItemMarker.addTo(questItems);
                         }
                     }
@@ -681,7 +681,7 @@ function Map() {
                         zoneMarker.on('click', (e) => {
                             rect._path.classList.toggle('not-shown');
                         });
-                        zoneMarker.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}">${quest.name}<br>${obj.description}</a>`));
+                        zoneMarker.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}">${quest.name}</a><br/>- ${obj.description}`));
                         L.layerGroup([rect, zoneMarker]).addTo(questObjectives);
                     }
                 }
