@@ -25,6 +25,7 @@ import useItemsData from '../features/items';
 import useQuestsData from '../features/quests';
 
 import testMapData from '../data/maps_test.json';
+import staticMapData from '../data/maps_static.json'
 
 import Time from './Time';
 import SEO from './SEO';
@@ -33,6 +34,7 @@ import ErrorPage from './error-page';
 
 import './Maps.css';
 
+const showOtherMarkers = true;
 const showTestMarkers = false;
 
 function getCRS(mapData) {
@@ -311,7 +313,7 @@ function Map() {
                     //     layer.svgPath = layer.svgPath.replace("assets.tarkov.dev/maps/svg", "raw.githubusercontent.com/the-hideout/tarkov-dev-src-maps/main/interactive");
                     // }
                     tileLayer = L.imageOverlay(layer.svgPath, bounds, {
-                        heightRange: layer.heightRange,
+                        heightRange: layer.heightRange || baseLayer.options?.heightRange,
                         type: 'layer-svg',
                     });
                 }
@@ -319,7 +321,7 @@ function Map() {
                     tileLayer = L.tileLayer(layer.path, {
                         tileSize: mapData.tileSize,
                         bounds: bounds,
-                        heightRange: layer.heightRange,
+                        heightRange: layer.heightRange || baseLayer.options?.heightRange,
                         type: 'layer-tile',
                     });
                 }
@@ -328,13 +330,14 @@ function Map() {
                     heightLayer = tileLayer;
                     tileLayer.addTo(map);
                 }
-                if (layer.heightRange) {
-                    tileLayer.on('add', () => {
+
+                tileLayer.on('add', () => {
+                    if (layer.heightRange) {
                         for (const marker of Object.values(map._layers)) {
-                            if (!marker.options.icon?.options.position) {
+                            if (!marker.options?.icon?.options?.position) {
                                 continue;
                             }
-                            const elevation = marker.options.icon.options.position.y;
+                            const elevation = marker.options?.icon?.options?.position.y;
                             const height = layer.heightRange;
                             if (elevation > height[0] && elevation <= height[1]) {
                                 marker._icon.classList.remove('off-level');
@@ -342,21 +345,20 @@ function Map() {
                                 marker._icon.classList.add('off-level');
                             }
                         }
-                        if (baseLayer.options.type === 'layer-svg') {
-                            baseLayer._image.classList.add('off-level');
-                        }
-                    });
-                    tileLayer.on('remove', () => {
-                        const heightLayer = Object.values(map._layers).findLast(l => l.options?.heightRange);
-                        if (!heightLayer) {
-                            return;
-                        }
-                        const height = heightLayer.options.heightRange;
+                    }
+                    if (baseLayer.options?.type === 'layer-svg' && !layer.show) {
+                        baseLayer._image.classList.add('off-level');
+                    }
+                });
+                tileLayer.on('remove', () => {
+                    const heightLayer = Object.values(map._layers).findLast(l => l.options?.heightRange);
+                    if (heightLayer) {
+                        const height = heightLayer.options?.heightRange;
                         for (const marker of Object.values(map._layers)) {
-                            if (!marker.options.icon?.options.position) {
+                            if (!marker.options?.icon?.options?.position) {
                                 continue;
                             }
-                            const elevation = marker.options.icon.options.position.y;
+                            const elevation = marker.options?.icon?.options?.position.y;
                             if (elevation > height[0] && elevation <= height[1]) {
                                 marker._icon.classList.remove('off-level');
                             } else {
@@ -367,36 +369,62 @@ function Map() {
                         if (layers.length === 1 && baseLayer.options.type === 'layer-svg') {
                             baseLayer._image.classList.remove('off-level');
                         }
-                    });
-                }
+                    }
+                });
             }
         }
 
         const categories = {
-            quest_item: t('Item'),
-            quest_objective: t('Objective'),
-            supply_crate: t('Technical Supply Crate'),
-            spawn_pmc: t('PMC'),
-            spawn_scav: t('Scav'),
-            spawn_boss: t('Boss'),
+            'extract_pmc': t('Extract PMC'),
+            'extract': t('Shared Extract'),
+            'extract_scav': t('Extract Scav'),
+            'spawn_pmc': t('PMC'),
+            'spawn_scav': t('Scav'),
+            'spawn_boss': t('Boss'),
             'spawn_cultist-priest': t('Cultist Priest'),
-            spawn_rogue: t('Rogue'),
-            spawn_bloodhound: t('Bloodhound'),
-            extract_pmc: t('PMC'),
-            extract_scav: t('Scav'),
-            extract_shared: t('Shared'),
-            lock: t('Locks'),
+            'spawn_rogue': t('Rogue'),
+            'spawn_bloodhound': t('Bloodhound'),
+            'quest_item': t('Item'),
+            'quest_objective': t('Objective'),
+            'lock': t('Locks'),
+            'wooden_crate': t('Wooden Crate'),
+            'weapon_box': t('Weapon Box'),
+            'jacket': t('Jacket'),
+            'sportbag': t('Sports Bag'),
+            'dead_scav': t('Dead Scav'),
+            'medical_supplies': t('Medbag'),
+            'file_cabinet': t('Drawer'),
+            'safe': t('Safe'),
+            'computer': t('PC'),
+            'medcase': t('Medcase'),
+            'stash': t('Ground Cache'),
+            'key': t('Key Spawn'),
+            'cash_register': t('Cash Register'),
+            'ammo_box': t('Ammo Box'),
+            'supply_crate': t('Technical Supply Crate'),
+            'toolbox': t('Toolbox'),
+            'grenade_box': t('Grenade Box'),
+            'lever': t('Lever'),
+            'stationarygun': t('Stationary Gun'),
         }
 
         let TL = {x:Number.MAX_SAFE_INTEGER, z:Number.MIN_SAFE_INTEGER};
         let BR = {x:Number.MIN_SAFE_INTEGER, z:Number.MAX_SAFE_INTEGER};
 
-        // Add items (from test data for now)
+        // Add static items (from test data or static json)
+        let otherMarkers;
         if (showTestMarkers) {
-            for (const category in testMapData[mapData.normalizedName]) {
+            otherMarkers = testMapData;
+        }
+        else {
+            otherMarkers = staticMapData;
+        }
+
+        if (showOtherMarkers) {
+            for (const category in otherMarkers[mapData.normalizedName]) {
                 const markerLayer = L.layerGroup();
 
-                const items = testMapData[mapData.normalizedName][category];
+                const items = otherMarkers[mapData.normalizedName][category];
                 for (const item of items) {
                     const itemIcon = L.icon({
                         iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${category}.png`,
@@ -406,7 +434,7 @@ function Map() {
                         className: !markerIsShown(heightLayer, item.position) ? 'off-level' : '',
                     });
                     L.marker(pos(item.position), {icon: itemIcon})
-                        .bindPopup(L.popup().setContent(`${item.name}<br>Elevation: ${item.position.y.toFixed(2)}`))
+                        .bindPopup(L.popup().setContent(`${item.name}<br>Elevation: ${item.position.y}`))
                         .addTo(markerLayer);
 
                     if (item.position.x < TL.x) TL.x = item.position.x;
@@ -416,8 +444,15 @@ function Map() {
                 }
 
                 if (items.length > 0) {
+                    var section;
+                    if (category.startsWith('extract')) {
+                        section = t('Extract');
+                    }
+                    else {
+                        section = t('Items');
+                    }
                     markerLayer.addTo(map);
-                    layerControl.addOverlay(markerLayer, `<img src='${process.env.PUBLIC_URL}/maps/interactive/${category}.png' class='control-item-image' /> ${categories[category]}`, t('Items'));
+                    layerControl.addOverlay(markerLayer, `<img src='${process.env.PUBLIC_URL}/maps/interactive/${category}.png' class='control-item-image' /> ${categories[category] || category}`, section);
                 }
             }
         }
