@@ -525,19 +525,11 @@ function Map() {
                     shared: '#00e4e5',
                 }
                 const rect = L.polygon(outlineToPoly(extract.outline), {color: colorMap[extract.faction], weight: 1, className: 'not-shown'});
-                /*const extractIcon = L.icon({
-                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/extract_${extract.faction}.png`,
-                    iconSize: [24, 24],
-                    popupAnchor: [0, -12],
-                    className: !markerIsShown(heightLayer, extract.position) ? 'off-level' : '',
-                    position: extract.position,
-                });*/
                 const extractIcon = L.divIcon({
                     className: 'extract-icon',
                     html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_${extract.faction}.png"/><span class="extract-name ${extract.faction}">${extract.name}</span>`,
                 });
-                const extractMarker = L.marker(pos(extract.position), {icon: extractIcon, title: extract.name,});
-                //extractMarker.bindPopup(L.popup().setContent(extract.name));
+                const extractMarker = L.marker(pos(extract.position), {icon: extractIcon, title: extract.name, zIndexOffset: 100});
                 extractMarker.on('click', (e) => {
                     rect._path.classList.toggle('not-shown');
                 });
@@ -663,7 +655,7 @@ function Map() {
                     position: hazard.position,
                 });
                 
-                const hazardMarker = L.marker(pos(hazard.position), {icon: hazardIcon, title: hazard.name,});
+                const hazardMarker = L.marker(pos(hazard.position), {icon: hazardIcon, title: hazard.name, zIndexOffset: -100});
                 hazardMarker.bindPopup(L.popup().setContent(hazard.name));
                 hazardMarker.on('click', (e) => {
                     rect._path.classList.toggle('not-shown');
