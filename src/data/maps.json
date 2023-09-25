@@ -355,8 +355,8 @@
                 "maxZoom": 7,
                 "transform": [0.101, 0, 0.101, 0],
                 "coordinateRotation": 180,
-                "bounds": [[505, -410], [-1050, 620]],
-                "heightRange": [-66, 0],
+                "bounds": [[506, -405], [-1060, 618]],
+                "heightRange": [-66, -2],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Ground_Level.svg",
@@ -376,13 +376,13 @@
                         "name": "2nd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Second_Floor.svg",
                         "show": false,
-                        "heightRange": [0, 5]
+                        "heightRange": [-2, 2]
                     },
                     {
                         "name": "3rd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Third_Floor.svg",
                         "show": false,
-                        "heightRange": [5, 10000]
+                        "heightRange": [2, 10000]
                     }
                 ]
             },
