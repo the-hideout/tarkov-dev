@@ -109,6 +109,13 @@ function getScaledBounds(bounds, scaleFactor) {
     return newBounds;
 }
 
+function checkMarkerBounds(position, markerBounds) {
+    if (position.x < markerBounds.TL.x) markerBounds.TL.x = position.x;
+    if (position.z > markerBounds.TL.z) markerBounds.TL.z = position.z;
+    if (position.x > markerBounds.BR.x) markerBounds.BR.x = position.x;
+    if (position.z < markerBounds.BR.z) markerBounds.BR.z = position.z;
+}
+
 function getBounds(mapData) {
     if (!mapData.bounds) {
         return undefined;
@@ -383,8 +390,10 @@ function Map() {
             'stationarygun': t('Stationary Gun'),
         }
 
-        let TL = {x:Number.MAX_SAFE_INTEGER, z:Number.MIN_SAFE_INTEGER};
-        let BR = {x:Number.MIN_SAFE_INTEGER, z:Number.MAX_SAFE_INTEGER};
+        let markerBounds = {
+            'TL': {x:Number.MAX_SAFE_INTEGER, z:Number.MIN_SAFE_INTEGER},
+            'BR': {x:Number.MIN_SAFE_INTEGER, z:Number.MAX_SAFE_INTEGER}
+        }
 
         // Add static items (from test data or static json)
         let otherMarkers;
@@ -412,10 +421,7 @@ function Map() {
                         .bindPopup(L.popup().setContent(`${item.name}<br>Elevation: ${item.position.y}`))
                         .addTo(markerLayer);
 
-                    if (item.position.x < TL.x) TL.x = item.position.x;
-                    if (item.position.z > TL.z) TL.z = item.position.z;
-                    if (item.position.x > BR.x) BR.x = item.position.x;
-                    if (item.position.z < BR.z) BR.z = item.position.z;
+                    checkMarkerBounds(item.position, markerBounds);
                 }
 
                 if (items.length > 0) {
@@ -508,18 +514,17 @@ function Map() {
                         }
                         return unique;
                     }, []);
-                    popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}">${boss.name} (${Math.round(boss.spawnChance*100)}%)</a>`).join(', '));
+                    popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}" target="_blank">${boss.name} (${Math.round(boss.spawnChance*100)}%)</a>`).join(', '));
                     if (showTestMarkers) {
                         popupLines.push(spawn.zoneName);
                     }
                 }
-                popupLines.push(`Elevation: ${spawn.position.y.toFixed(2)}`);
-
-
-                if (spawn.position.x < TL.x) TL.x = spawn.position.x;
-                if (spawn.position.z > TL.z) TL.z = spawn.position.z;
-                if (spawn.position.x > BR.x) BR.x = spawn.position.x;
-                if (spawn.position.z < BR.z) BR.z = spawn.position.z;
+                else {
+                    popupLines.push(categories[`spawn_${spawnType}`]);
+                }
+                if (showTestMarkers) {
+                    popupLines.push(`Elevation: ${spawn.position.y.toFixed(2)}`);
+                }
 
                 const marker = L.marker(pos(spawn.position), {icon: spawnIcon});
                 if (popupLines.length > 0) {
@@ -527,6 +532,8 @@ function Map() {
                 }
                 marker.position = spawn.position;
                 marker.addTo(spawnLayers[spawnType]);
+
+                checkMarkerBounds(spawn.position, markerBounds);
             }
             for (const key in spawnLayers) {
                 if (Object.keys(spawnLayers[key]._layers).length > 0) {
@@ -562,6 +569,8 @@ function Map() {
                     rect._path.classList.toggle('not-shown');
                 });
                 L.layerGroup([rect, extractMarker]).addTo(extractLayers[extract.faction]);
+
+                checkMarkerBounds(extract.position, markerBounds);
             }
             for (const key in extractLayers) {
                 if (Object.keys(extractLayers[key]._layers).length > 0) {
@@ -599,9 +608,18 @@ function Map() {
                 const lockMarker = L.marker(pos(lock.position), {icon: lockIcon});
                 const key = items.find(i => i.id === lock.key.id);
                 if (key) {
-                    lockMarker.bindPopup(L.popup().setContent(`${lockType}<br/><a href="/item/${key.normalizedName}"><img src='${key.iconLink}' /><br/>${key.name}</a>`));
+                    const popupLines = [];
+                    popupLines.push(`${lockType}`);
+                    popupLines.push(`<a href="/item/${key.normalizedName}" target="_blank"><img src='${key.iconLink}' /><br/>${key.name}</a>`);
+                    if (showTestMarkers) {
+                        popupLines.push(`Elevation: ${lock.position.y.toFixed(2)}`);
+                    }
+
+                    lockMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
                     lockMarker.addTo(locks);
                 }
+
+                checkMarkerBounds(lock.position, markerBounds);
             }
             if (Object.keys(locks._layers).length > 0) {
                 locks.addTo(map);
@@ -628,8 +646,16 @@ function Map() {
                                 position: position,
                             });
                             const questItemMarker = L.marker(pos(position), {icon: questItemIcon});
-                            questItemMarker.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}">${quest.name}</a><br/>- ${obj.questItem.name}`));
+                            const popupLines = [];
+                            popupLines.push(`<a href="/task/${quest.normalizedName}" target="_blank">${quest.name}</a>`);
+                            popupLines.push(`- ${obj.questItem.name}`);
+                            if (showTestMarkers) {
+                                popupLines.push(`Elevation: ${position.y.toFixed(2)}`);
+                            }
+                            questItemMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
                             questItemMarker.addTo(questItems);
+
+                            checkMarkerBounds(position, markerBounds);
                         }
                     }
                 }
@@ -653,7 +679,7 @@ function Map() {
                         zoneMarker.on('click', (e) => {
                             rect._path.classList.toggle('not-shown');
                         });
-                        zoneMarker.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}">${quest.name}</a><br/>- ${obj.description}`));
+                        zoneMarker.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}" target="_blank">${quest.name}</a><br/>- ${obj.description}`));
                         L.layerGroup([rect, zoneMarker]).addTo(questObjectives);
                     }
                 }
@@ -696,6 +722,8 @@ function Map() {
                     hazardLayers[hazard.name] = L.layerGroup()
                 }
                 L.layerGroup([rect, hazardMarker]).addTo(hazardLayers[hazard.name]);
+
+                checkMarkerBounds(hazard.position, markerBounds);
             }
             for (const key in hazardLayers) {
                 if (Object.keys(hazardLayers[key]._layers).length > 0) {
@@ -706,7 +734,10 @@ function Map() {
         }
 
         if (showTestMarkers) {
-            console.log(`Positions "bounds": [[${BR.x}, ${BR.z}], [${TL.x}, ${TL.z}]] (already rotated, copy/paste to maps.json)`);
+            console.log(`Markers "bounds": [[${markerBounds.BR.x}, ${markerBounds.BR.z}], [${markerBounds.TL.x}, ${markerBounds.TL.z}]] (already rotated, copy/paste to maps.json)`);
+
+            L.rectangle([pos(markerBounds.TL), pos(markerBounds.BR)], {color: '#ff000055', weight: 1}).addTo(map);
+            L.rectangle(getBounds(mapData), {color: '#00ff0055', weight: 1}).addTo(map);
 
             const positionLayer = L.layerGroup();
             const playerIcon = L.AwesomeMarkers.icon({
