@@ -395,7 +395,7 @@ function Map() {
             otherMarkers = staticMapData;
         }
 
-        if (showOtherMarkers) {
+        if (false && showOtherMarkers) {
             for (const category in otherMarkers[mapData.normalizedName]) {
                 const markerLayer = L.layerGroup();
 
@@ -671,6 +671,34 @@ function Map() {
             questZones.addTo(map);
             layerControl.addOverlay(questZones, categories['quest_zone'], t('Tasks'));    
         }*/
+
+        //add loot containers
+        if (mapData.lootContainers.length > 0) {
+            const containerLayers = {};
+            const containerNames = {};
+            for (const containerPosition of mapData.lootContainers) {
+                const containerIcon = L.icon({
+                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/container_${containerPosition.lootContainer.normalizedName}.png`,
+                    iconSize: [24, 24],
+                    popupAnchor: [0, -12],
+                    className: !markerIsShown(heightLayer, containerPosition) ? 'off-level' : '',
+                    position: containerPosition.position,
+                });
+                
+                const containerMarker = L.marker(pos(containerPosition.position), {icon: containerIcon, title: containerPosition.lootContainer.name});
+                if (!containerLayers[containerPosition.lootContainer.normalizedName]) {
+                    containerLayers[containerPosition.lootContainer.normalizedName] = L.layerGroup();
+                }
+                containerMarker.addTo(containerLayers[containerPosition.lootContainer.normalizedName]);
+                containerNames[containerPosition.lootContainer.normalizedName] = containerPosition.lootContainer.name;
+            }
+            for (const key in containerLayers) {
+                if (Object.keys(containerLayers[key]._layers).length > 0) {
+                    containerLayers[key].addTo(map);
+                    layerControl.addOverlay(containerLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/container_${key}.png' class='control-item-image' /> ${containerNames[key]}`, t('Items'));    
+                }
+            }
+        }
 
         //add hazards
         if (mapData.hazards.length > 0) {

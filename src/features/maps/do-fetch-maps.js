@@ -98,6 +98,18 @@ class MapsQuery extends APIQuery {
                     top
                     bottom
                 }
+                lootContainers {
+                    lootContainer {
+                        id
+                        name
+                        normalizedName
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                }
             }
         }`;
     

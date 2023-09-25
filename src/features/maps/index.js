@@ -113,6 +113,7 @@ export const useMapImages = () => {
                 extracts: apiData?.extracts || [],
                 locks: apiData?.locks || [],
                 hazards: apiData?.hazards || [],
+                lootContainers: apiData?.lootContainers || [],
             };
             if (imageData.projection && imageData.projection !== 'interactive') {
                 mapImages[imageData.key].displayText += ` - ${i18n.t(imageData.projection, { ns: 'maps' })}`;
