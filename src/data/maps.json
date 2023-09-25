@@ -79,7 +79,7 @@
                 "transform": [0.182815, 0, 0.182815, 0],
                 "coordinateRotation": 180,
                 "bounds": [[698, -307], [-371, 237]],
-                "heightRange": [-13, 12],
+                "heightRange": [-13, 2.7],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Ground_Level.svg",
@@ -99,13 +99,13 @@
                         "name": "2nd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Second_Floor.svg",
                         "show": false,
-                        "heightRange": [12, 17]
+                        "heightRange": [2.7, 6.5]
                     },
                     {
                         "name": "3rd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Third_Floor.svg",
                         "show": false,
-                        "heightRange": [17, 10000]
+                        "heightRange": [6.5, 10000]
                     }
                 ]
             },
