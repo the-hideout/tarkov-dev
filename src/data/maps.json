@@ -78,7 +78,7 @@
                 "maxZoom": 7,
                 "transform": [0.182815, 0, 0.182815, 0],
                 "coordinateRotation": 180,
-                "bounds": [[698, -310], [-371, 245]],
+                "bounds": [[698, -307], [-371, 237]],
                 "heightRange": [-13, 12],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
