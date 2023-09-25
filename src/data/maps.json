@@ -188,7 +188,7 @@
                 "maxZoom": 6,
                 "transform": [0.2, 0, 0.2, 0],
                 "coordinateRotation": 180,
-                "bounds": [[575, -440], [-405, 455]],
+                "bounds": [[530, -439], [-364, 452]],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-Ground_Level.svg",
