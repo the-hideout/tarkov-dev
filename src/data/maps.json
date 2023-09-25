@@ -302,17 +302,17 @@
                 "maxZoom": 6,
                 "transform": [0.268, 0, 0.268, 0],
                 "coordinateRotation": 195.2090,
-                "bounds": [[300, -300], [-300, 310]],
+                "bounds": [[343, -318], [-346, 326]],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Ground_Level.svg",
-                "heightRange": [-10, 10000],
+                "heightRange": [-9, 10000],
                 "layers": [
                     {
                         "name": "Bunkers",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Bunkers.svg",
                         "show": false,
-                        "heightRange": [-10000, -10]
+                        "heightRange": [-10000, -9]
                     }
                 ]
             },
