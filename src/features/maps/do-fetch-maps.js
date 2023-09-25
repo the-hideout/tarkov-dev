@@ -71,6 +71,11 @@ class MapsQuery extends APIQuery {
                         y
                         z
                     }
+                    outline {
+                        x
+                        y
+                        z
+                    }
                     terrainElevation
                 }
                 locks {
@@ -98,6 +103,11 @@ class MapsQuery extends APIQuery {
                         y
                         z
                     }
+                    outline {
+                        x
+                        y
+                        z
+                    }
                     terrainElevation
                 }
                 hazards {
@@ -119,6 +129,11 @@ class MapsQuery extends APIQuery {
                         z
                     }
                     size {
+                        x
+                        y
+                        z
+                    }
+                    outline {
                         x
                         y
                         z

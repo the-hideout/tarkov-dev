@@ -104,6 +104,11 @@ class QuestsQuery extends APIQuery {
                         y
                         z
                     }
+                    outline {
+                        x
+                        y
+                        z
+                    }
                     terrainElevation
                 }
             }
@@ -174,6 +179,11 @@ class QuestsQuery extends APIQuery {
                         y
                         z
                     }
+                    outline {
+                        x
+                        y
+                        z
+                    }
                     terrainElevation
                 }
             }
@@ -201,6 +211,11 @@ class QuestsQuery extends APIQuery {
                         z
                     }
                     size {
+                        x
+                        y
+                        z
+                    }
+                    outline {
                         x
                         y
                         z
@@ -300,6 +315,11 @@ class QuestsQuery extends APIQuery {
                         y
                         z
                     }
+                    outline {
+                        x
+                        y
+                        z
+                    }
                     terrainElevation
                 }
             }
@@ -355,6 +375,11 @@ class QuestsQuery extends APIQuery {
                         z
                     }
                     size {
+                        x
+                        y
+                        z
+                    }
+                    outline {
                         x
                         y
                         z

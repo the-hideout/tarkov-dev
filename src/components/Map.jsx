@@ -183,6 +183,11 @@ function positionToCorners(obj) {
     return transformedCorners;
 }
 
+function outlineToPoly(outline) {
+    if (!outline) return [];
+    return outline.map(vector => [vector.z, vector.x]);
+}
+
 function Map() {
     let { currentMap } = useParams();
 
@@ -375,9 +380,9 @@ function Map() {
         }
 
         const categories = {
-            'extract_pmc': t('Extract PMC'),
-            'extract': t('Shared Extract'),
-            'extract_scav': t('Extract Scav'),
+            'extract_pmc': t('PMC'),
+            'extract_shared': t('Shared'),
+            'extract_scav': t('Scav'),
             'spawn_pmc': t('PMC'),
             'spawn_scav': t('Scav'),
             'spawn_boss': t('Boss'),
@@ -574,7 +579,7 @@ function Map() {
                     pmc: '#00e599',
                     shared: '#00e4e5',
                 }
-                const rect = L.polygon(positionToCorners(extract), {color: colorMap[extract.faction], weight: 1, className: 'not-shown'});
+                const rect = L.polygon(outlineToPoly(extract.outline), {color: colorMap[extract.faction], weight: 1, className: 'not-shown'});
                 /*const extractIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/extract_${extract.faction}.png`,
                     iconSize: [24, 24],
@@ -668,7 +673,7 @@ function Map() {
                         if (zone.map.id !== mapData.id) {
                             continue;
                         }
-                        const rect = L.polygon(positionToCorners(zone), {color: '#e5e200', weight: 1, className: 'not-shown'});
+                        const rect = L.polygon(outlineToPoly(zone.outline), {color: '#e5e200', weight: 1, className: 'not-shown'});
                         const zoneIcon = L.icon({
                             iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/compass.png`,
                             iconSize: [24, 24],
@@ -704,7 +709,7 @@ function Map() {
         if (mapData.hazards.length > 0) {
             const hazardLayers = {};
             for (const hazard of mapData.hazards) {
-                const rect = L.polygon(positionToCorners(hazard), {color: '#ff0000', weight: 1, className: 'not-shown'});
+                const rect = L.polygon(outlineToPoly(hazard.outline), {color: '#ff0000', weight: 1, className: 'not-shown'});
                 const hazardIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/hazard.png`,
                     iconSize: [24, 24],
