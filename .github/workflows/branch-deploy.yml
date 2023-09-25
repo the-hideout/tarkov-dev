@@ -32,7 +32,7 @@ jobs:
 
       - name: checkout
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
-        uses: actions/checkout@v4.0.0
+        uses: actions/checkout@v4.1.0
         with:
           ref: ${{ steps.branch-deploy.outputs.ref }}
 
