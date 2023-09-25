@@ -89,27 +89,13 @@ class QuestsQuery extends APIQuery {
                         y
                         z
                     }
-                    rotation {
-                        x
-                        y
-                        z
-                    }
-                    center {
-                        x
-                        y
-                        z
-                    }
-                    size {
-                        x
-                        y
-                        z
-                    }
                     outline {
                         x
                         y
                         z
                     }
-                    terrainElevation
+                    top
+                    bottom
                 }
             }
             ...on TaskObjectiveBuildItem {
@@ -164,27 +150,13 @@ class QuestsQuery extends APIQuery {
                         y
                         z
                     }
-                    rotation {
-                        x
-                        y
-                        z
-                    }
-                    center {
-                        x
-                        y
-                        z
-                    }
-                    size {
-                        x
-                        y
-                        z
-                    }
                     outline {
                         x
                         y
                         z
                     }
-                    terrainElevation
+                    top
+                    bottom
                 }
             }
             ...on TaskObjectiveMark {
@@ -200,27 +172,13 @@ class QuestsQuery extends APIQuery {
                         y
                         z
                     }
-                    rotation {
-                        x
-                        y
-                        z
-                    }
-                    center {
-                        x
-                        y
-                        z
-                    }
-                    size {
-                        x
-                        y
-                        z
-                    }
                     outline {
                         x
                         y
                         z
                     }
-                    terrainElevation
+                    top
+                    bottom
                 }
             }
             ...on TaskObjectivePlayerLevel {
@@ -300,27 +258,13 @@ class QuestsQuery extends APIQuery {
                         y
                         z
                     }
-                    rotation {
-                        x
-                        y
-                        z
-                    }
-                    center {
-                        x
-                        y
-                        z
-                    }
-                    size {
-                        x
-                        y
-                        z
-                    }
                     outline {
                         x
                         y
                         z
                     }
-                    terrainElevation
+                    top
+                    bottom
                 }
             }
             ...on TaskObjectiveSkill {
@@ -364,27 +308,13 @@ class QuestsQuery extends APIQuery {
                         y
                         z
                     }
-                    rotation {
-                        x
-                        y
-                        z
-                    }
-                    center {
-                        x
-                        y
-                        z
-                    }
-                    size {
-                        x
-                        y
-                        z
-                    }
                     outline {
                         x
                         y
                         z
                     }
-                    terrainElevation
+                    top
+                    bottom
                 }
             }
         }

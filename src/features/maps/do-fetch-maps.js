@@ -56,27 +56,13 @@ class MapsQuery extends APIQuery {
                         y
                         z
                     }
-                    rotation {
-                        x
-                        y
-                        z
-                    }
-                    center {
-                        x
-                        y
-                        z
-                    }
-                    size {
-                        x
-                        y
-                        z
-                    }
                     outline {
                         x
                         y
                         z
                     }
-                    terrainElevation
+                    top
+                    bottom
                 }
                 locks {
                     lockType
@@ -88,27 +74,13 @@ class MapsQuery extends APIQuery {
                         y
                         z
                     }
-                    rotation {
-                        x
-                        y
-                        z
-                    }
-                    center {
-                        x
-                        y
-                        z
-                    }
-                    size {
-                        x
-                        y
-                        z
-                    }
                     outline {
                         x
                         y
                         z
                     }
-                    terrainElevation
+                    top
+                    bottom
                 }
                 hazards {
                     hazardType
@@ -118,27 +90,13 @@ class MapsQuery extends APIQuery {
                         y
                         z
                     }
-                    rotation {
-                        x
-                        y
-                        z
-                    }
-                    center {
-                        x
-                        y
-                        z
-                    }
-                    size {
-                        x
-                        y
-                        z
-                    }
                     outline {
                         x
                         y
                         z
                     }
-                    terrainElevation
+                    top
+                    bottom
                 }
             }
         }`;
