@@ -95,7 +95,7 @@ div.awesome-marker.off-level {
     z-index: -9999 !important;
 }
 
-div.leaflet-pane.leaflet-marker-pane > img.off-level {
+div.leaflet-pane.leaflet-marker-pane > .off-level {
     opacity: 20%;
     z-index: -9999 !important;
 }

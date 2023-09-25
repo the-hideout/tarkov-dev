@@ -116,14 +116,19 @@ function getBounds(mapData) {
     return [[mapData.bounds[0][1], mapData.bounds[0][0]], [mapData.bounds[1][1], mapData.bounds[1][0]]];
 }
 
-function markerIsShown(heightLayer, position) {
-    const elevation = position.y;
+function markerIsShown(heightLayer, obj) {
+    const elevation = obj.position.y;
     const height = heightLayer.options?.heightRange;
     if (!height) {
         return true;
     }
     if (elevation > height[0] && elevation <= height[1]) {
         return true;
+    }
+    if (typeof obj.top !== 'undefined' && typeof obj.bottom !== 'undefined') {
+        if (height[0] < obj.top && height[1] > obj.bottom) {
+            return true;
+        }
     }
     return false;
 }
@@ -284,12 +289,22 @@ function Map() {
                 tileLayer.on('add', () => {
                     if (layer.heightRange) {
                         for (const marker of Object.values(map._layers)) {
-                            if (!marker.options?.icon?.options?.position) {
+                            const options = marker.options?.icon?.options;
+                            if (!options) {
                                 continue;
                             }
-                            const elevation = marker.options?.icon?.options?.position.y;
+                            let shown = false;
+                            const elevation = options?.position.y;
                             const height = layer.heightRange;
                             if (elevation > height[0] && elevation <= height[1]) {
+                                shown = true;
+                            }
+                            if (!shown && typeof options.top !== 'undefined' && typeof options.bottom !== 'undefined') {
+                                if (height[0] < options.top && height[1] > options.bottom) {
+                                    shown = true;
+                                }
+                            }
+                            if (shown) {
                                 marker._icon.classList.remove('off-level');
                             } else {
                                 marker._icon.classList.add('off-level');
@@ -305,11 +320,21 @@ function Map() {
                     if (heightLayer) {
                         const height = heightLayer.options?.heightRange;
                         for (const marker of Object.values(map._layers)) {
-                            if (!marker.options?.icon?.options?.position) {
+                            const options = marker.options?.icon?.options;
+                            if (!options) {
                                 continue;
                             }
-                            const elevation = marker.options?.icon?.options?.position.y;
+                            let shown = false;
+                            const elevation = options.position.y;
                             if (elevation > height[0] && elevation <= height[1]) {
+                                shown = true;
+                            }
+                            if (!shown && typeof options.top !== 'undefined' && typeof options.bottom !== 'undefined') {
+                                if (height[0] < options.top && height[1] > options.bottom) {
+                                    shown = true;
+                                }
+                            }
+                            if (shown) {
                                 marker._icon.classList.remove('off-level');
                             } else {
                                 marker._icon.classList.add('off-level');
@@ -381,7 +406,7 @@ function Map() {
                         iconSize: [24, 24],
                         popupAnchor: [0, -12],
                         position: item.position,
-                        className: !markerIsShown(heightLayer, item.position) ? 'off-level' : '',
+                        className: !markerIsShown(heightLayer, item) ? 'off-level' : '',
                     });
                     L.marker(pos(item.position), {icon: itemIcon})
                         .bindPopup(L.popup().setContent(`${item.name}<br>Elevation: ${item.position.y}`))
@@ -466,7 +491,7 @@ function Map() {
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/spawn_${spawnType}.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
-                    className: !markerIsShown(heightLayer, spawn.position) ? 'off-level' : '',
+                    className: !markerIsShown(heightLayer, spawn) ? 'off-level' : '',
                     position: spawn.position,
                 });
 
@@ -526,8 +551,11 @@ function Map() {
                 }
                 const rect = L.polygon(outlineToPoly(extract.outline), {color: colorMap[extract.faction], weight: 1, className: 'not-shown'});
                 const extractIcon = L.divIcon({
-                    className: 'extract-icon',
+                    className: !markerIsShown(heightLayer, extract) ? 'extract-icon off-level' : 'extract-icon',
                     html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_${extract.faction}.png"/><span class="extract-name ${extract.faction}">${extract.name}</span>`,
+                    position: extract.position,
+                    top: extract.top,
+                    bottom: extract.bottom,
                 });
                 const extractMarker = L.marker(pos(extract.position), {icon: extractIcon, title: extract.name, zIndexOffset: 100});
                 extractMarker.on('click', (e) => {
@@ -551,7 +579,7 @@ function Map() {
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/locked_door.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
-                    className: !markerIsShown(heightLayer, lock.position) ? 'off-level' : '',
+                    className: !markerIsShown(heightLayer, lock) ? 'off-level' : '',
                     position: lock.position,
                 });
                 var lockType;
@@ -596,7 +624,7 @@ function Map() {
                                 iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_item.png`,
                                 iconSize: [24, 24],
                                 popupAnchor: [0, -12],
-                                className: !markerIsShown(position, pos) ? 'off-level' : '',
+                                className: !markerIsShown(heightLayer, {position}) ? 'off-level' : '',
                                 position: position,
                             });
                             const questItemMarker = L.marker(pos(position), {icon: questItemIcon});
@@ -615,8 +643,10 @@ function Map() {
                             iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/compass.png`,
                             iconSize: [24, 24],
                             popupAnchor: [0, -12],
-                            className: !markerIsShown(heightLayer, zone.position) ? 'off-level' : '',
+                            className: !markerIsShown(heightLayer, zone) ? 'off-level' : '',
                             position: zone.position,
+                            top: zone.top,
+                            bottom: zone.bottom,
                         });
                         
                         const zoneMarker = L.marker(pos(zone.position), {icon: zoneIcon, title: obj.description});
@@ -651,8 +681,10 @@ function Map() {
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/hazard.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
-                    className: !markerIsShown(heightLayer, hazard.position) ? 'off-level' : '',
+                    className: !markerIsShown(heightLayer, hazard) ? 'off-level' : '',
                     position: hazard.position,
+                    top: hazard.top,
+                    bottom: hazard.bottom,
                 });
                 
                 const hazardMarker = L.marker(pos(hazard.position), {icon: hazardIcon, title: hazard.name, zIndexOffset: -100});
