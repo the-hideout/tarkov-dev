@@ -128,61 +128,6 @@ function markerIsShown(heightLayer, position) {
     return false;
 }
 
-/*function positionToBounds(obj) {
-    const position = obj.position;
-    const size = obj.size;
-    const halfX = size.x / 2;
-    const halfZ = size.z / 2;
-    return [[position.z - halfZ, position.x - halfX], [position.z + halfZ, position.x + halfX]];
-}*/
-
-function positionToCorners(obj) {
-    const position = obj.position;
-    const rotation = obj.rotation;
-    const center = obj.center;
-    const size = obj.size;
-    // Convert rotation angles to radians
-    const radX = (rotation.x * Math.PI) / 180;
-    const radY = (rotation.y * Math.PI) / 180;
-    const radZ = (rotation.z * Math.PI) / 180;
-
-    // Calculate half extents of the box
-    const halfWidth = size.x / 2;
-    //const halfHeight = size.y / 2;
-    const halfDepth = size.z / 2;
-
-    // Calculate the transformation matrix
-    const cosX = Math.cos(radX);
-    const sinX = Math.sin(radX);
-    const cosY = Math.cos(radY);
-    const sinY = Math.sin(radY);
-    const cosZ = Math.cos(radZ);
-    const sinZ = Math.sin(radZ);
-
-    const matrix = [
-        [cosY * cosZ, -cosY * sinZ, sinY],
-        [cosX * sinZ + sinX * sinY * cosZ, cosX * cosZ - sinX * sinY * sinZ, -sinX * cosY],
-        [sinX * sinZ - cosX * sinY * cosZ, sinX * cosZ + cosX * sinY * sinZ, cosX * cosY],
-    ];
-
-    // Calculate the four corners of the rectangle
-    const corners = [
-        [-halfWidth, -halfDepth],
-        [halfWidth, -halfDepth],
-        [halfWidth, halfDepth],
-        [-halfWidth, halfDepth],
-    ];
-
-    // Apply rotation and translation to the corners
-    const transformedCorners = corners.map(([x, z]) => {
-        const newX = matrix[0][0] * x + matrix[0][1] * 0 + matrix[0][2] * z + position.x + center.x;
-        const newZ = matrix[2][0] * x + matrix[2][1] * 0 + matrix[2][2] * z + position.z + center.z;
-        return [newZ, newX]; // Swap x and z to match your requirement
-    });
-
-    return transformedCorners;
-}
-
 function outlineToPoly(outline) {
     if (!outline) return [];
     return outline.map(vector => [vector.z, vector.x]);
