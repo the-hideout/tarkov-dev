@@ -311,10 +311,17 @@ function Map() {
                                     shown = true;
                                 }
                             }
+                            console.log(options);
                             if (shown) {
                                 marker._icon.classList.remove('off-level');
+                                if (options.outline) {
+                                    options.outline._path.classList.remove('off-level');
+                                }
                             } else {
                                 marker._icon.classList.add('off-level');
+                                if (options.outline) {
+                                    options.outline._path.classList.add('off-level');
+                                }
                             }
                         }
                     }
@@ -343,8 +350,14 @@ function Map() {
                             }
                             if (shown) {
                                 marker._icon.classList.remove('off-level');
+                                if (options.outline) {
+                                    options.outline._path.classList.remove('off-level');
+                                }
                             } else {
                                 marker._icon.classList.add('off-level');
+                                if (options.outline) {
+                                    options.outline._path.classList.add('off-level');
+                                }
                             }
                         }
                         const layers = Object.values(map._layers).filter(l => l.options.type === 'layer-svg');
@@ -561,13 +574,14 @@ function Map() {
                     pmc: '#00e599',
                     shared: '#00e4e5',
                 }
-                const rect = L.polygon(outlineToPoly(extract.outline), {color: colorMap[extract.faction], weight: 1, className: 'not-shown'});
+                const rect = L.polygon(outlineToPoly(extract.outline), {color: colorMap[extract.faction], weight: 1, className: markerIsShown(heightLayer, extract) ? 'not-shown' : 'not-shown off-level'});
                 const extractIcon = L.divIcon({
-                    className: !markerIsShown(heightLayer, extract) ? 'extract-icon off-level' : 'extract-icon',
+                    className: markerIsShown(heightLayer, extract) ? 'extract-icon' : 'extract-icon off-level',
                     html: `<img src="${process.env.PUBLIC_URL}/maps/interactive/extract_${extract.faction}.png"/><span class="extract-name ${extract.faction}">${extract.name}</span>`,
                     position: extract.position,
                     top: extract.top,
                     bottom: extract.bottom,
+                    outline: rect,
                 });
                 const extractMarker = L.marker(pos(extract.position), {icon: extractIcon, title: extract.name, zIndexOffset: zIndexOffsets[extract.faction]});
                 extractMarker.on('click', (e) => {
@@ -669,15 +683,16 @@ function Map() {
                         if (zone.map.id !== mapData.id) {
                             continue;
                         }
-                        const rect = L.polygon(outlineToPoly(zone.outline), {color: '#e5e200', weight: 1, className: 'not-shown'});
+                        const rect = L.polygon(outlineToPoly(zone.outline), {color: '#e5e200', weight: 1, className: markerIsShown(heightLayer, zone) ? 'not-shown' : 'not-shown off-level'});
                         const zoneIcon = L.icon({
                             iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/compass.png`,
                             iconSize: [24, 24],
                             popupAnchor: [0, -12],
-                            className: !markerIsShown(heightLayer, zone) ? 'off-level' : '',
+                            className: markerIsShown(heightLayer, zone) ? '' : 'off-level',
                             position: zone.position,
                             top: zone.top,
                             bottom: zone.bottom,
+                            outline: rect,
                         });
                         
                         const zoneMarker = L.marker(pos(zone.position), {icon: zoneIcon, title: obj.description});
@@ -735,15 +750,16 @@ function Map() {
         if (mapData.hazards.length > 0) {
             const hazardLayers = {};
             for (const hazard of mapData.hazards) {
-                const rect = L.polygon(outlineToPoly(hazard.outline), {color: '#ff0000', weight: 1, className: 'not-shown'});
+                const rect = L.polygon(outlineToPoly(hazard.outline), {color: '#ff0000', weight: 1, className: markerIsShown(heightLayer, hazard) ? 'not-shown' : 'not-shown off-level'});
                 const hazardIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/hazard.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
-                    className: !markerIsShown(heightLayer, hazard) ? 'off-level' : '',
+                    className: markerIsShown(heightLayer, hazard) ? '' : 'off-level',
                     position: hazard.position,
                     top: hazard.top,
                     bottom: hazard.bottom,
+                    outline: rect,
                 });
                 
                 const hazardMarker = L.marker(pos(hazard.position), {icon: hazardIcon, title: hazard.name, zIndexOffset: -100});

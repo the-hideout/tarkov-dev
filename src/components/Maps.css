@@ -100,6 +100,11 @@ div.leaflet-pane.leaflet-marker-pane > .off-level {
     z-index: -9999 !important;
 }
 
+div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
+    stroke-opacity: 20%;
+    fill-opacity: 2%;
+}
+
 .not-shown {
     display: none;
 }
