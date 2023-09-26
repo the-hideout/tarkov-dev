@@ -295,12 +295,13 @@ function Map() {
 
                 tileLayer.on('add', () => {
                     if (layer.heightRange) {
+                        console.log(layer);
                         for (const marker of Object.values(map._layers)) {
                             const options = marker.options?.icon?.options;
                             if (!options) {
                                 continue;
                             }
-                            const shown = layerIncludesMarker(layer, options);
+                            const shown = layerIncludesMarker({options: layer}, options);
                             if (shown) {
                                 marker._icon.classList.remove('off-level');
                                 if (options.outline) {
