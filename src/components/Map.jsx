@@ -311,7 +311,6 @@ function Map() {
                                     shown = true;
                                 }
                             }
-                            console.log(options);
                             if (shown) {
                                 marker._icon.classList.remove('off-level');
                                 if (options.outline) {
