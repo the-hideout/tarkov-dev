@@ -295,7 +295,6 @@ function Map() {
 
                 tileLayer.on('add', () => {
                     if (layer.heightRange) {
-                        console.log(layer);
                         for (const marker of Object.values(map._layers)) {
                             const options = marker.options?.icon?.options;
                             if (!options) {
