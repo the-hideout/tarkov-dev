@@ -550,6 +550,11 @@ function Map() {
                 scav: L.layerGroup(),
                 shared: L.layerGroup(),
             }
+            const zIndexOffsets = {
+                pmc: 150,
+                shared: 125,
+                scav: 100,
+            };
             for (const extract of mapData.extracts) {
                 const colorMap = {
                     scav: '#ff7800',
@@ -564,7 +569,7 @@ function Map() {
                     top: extract.top,
                     bottom: extract.bottom,
                 });
-                const extractMarker = L.marker(pos(extract.position), {icon: extractIcon, title: extract.name, zIndexOffset: 100});
+                const extractMarker = L.marker(pos(extract.position), {icon: extractIcon, title: extract.name, zIndexOffset: zIndexOffsets[extract.faction]});
                 extractMarker.on('click', (e) => {
                     rect._path.classList.toggle('not-shown');
                 });
