@@ -380,7 +380,36 @@ function Map() {
             'grenade_box': t('Grenade Box'),
             'lever': t('Lever'),
             'stationarygun': t('Stationary Gun'),
-        }
+            'switch': t('Switch'),
+        };
+
+        const focusOnPoi = (id) => {
+            for (const marker of Object.values(map._layers)) {
+                const options = marker.options?.icon?.options;
+                if (!options) {
+                    continue;
+                }
+                if (options.id !== id) {
+                    continue;
+                }
+                map.flyTo(pos(options.position));
+                marker.fire('click');
+                break;
+            }
+        };
+        const getPoiLinkElement = (id, imageName) => {
+            const spanEl = document.createElement('span');
+            spanEl.classList.add('poi-link');
+            spanEl.addEventListener('click', () => {
+                focusOnPoi(id);
+            });
+            const imgEl = document.createElement('img');
+            imgEl.setAttribute('src', `${process.env.PUBLIC_URL}/maps/interactive/${imageName}.png`);
+            imgEl.setAttribute('title', id);
+            imgEl.classList.add('poi-image');
+            spanEl.append(imgEl);
+            return spanEl;
+        };
 
         let markerBounds = {
             'TL': {x:Number.MAX_SAFE_INTEGER, z:Number.MIN_SAFE_INTEGER},
@@ -561,11 +590,28 @@ function Map() {
                     top: extract.top,
                     bottom: extract.bottom,
                     outline: rect,
+                    id: extract.id,
                 });
                 const extractMarker = L.marker(pos(extract.position), {icon: extractIcon, title: extract.name, zIndexOffset: zIndexOffsets[extract.faction]});
-                extractMarker.on('click', (e) => {
+                /*extractMarker.on('click', (e) => {
                     rect._path.classList.toggle('not-shown');
+                });*/
+                extractMarker.on('mouseover', (e) => {
+                    rect._path.classList.remove('not-shown');
                 });
+                extractMarker.on('mouseout', (e) => {
+                    rect._path.classList.add('not-shown');
+                });
+                if (extract.switches?.length > 0) {
+                    const popup = document.createElement('div');
+                    const textElement = document.createElement('div');
+                    textElement.textContent = t('Activated by:');
+                    popup.appendChild(textElement);
+                    for (const sw of extract.switches) {
+                        popup.appendChild(getPoiLinkElement(sw.id, 'lever'));
+                    }
+                    extractMarker.bindPopup(L.popup().setContent(popup));
+                }
                 L.layerGroup([rect, extractMarker]).addTo(extractLayers[extract.faction]);
 
                 checkMarkerBounds(extract.position, markerBounds);
@@ -675,8 +721,14 @@ function Map() {
                         });
                         
                         const zoneMarker = L.marker(pos(zone.position), {icon: zoneIcon, title: obj.description});
-                        zoneMarker.on('click', (e) => {
+                        /*zoneMarker.on('click', (e) => {
                             rect._path.classList.toggle('not-shown');
+                        });*/
+                        zoneMarker.on('mouseover', (e) => {
+                            rect._path.classList.remove('not-shown');
+                        });
+                        zoneMarker.on('mouseout', (e) => {
+                            rect._path.classList.add('not-shown');
                         });
                         zoneMarker.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}" target="_blank">${quest.name}</a><br/>- ${obj.description}`));
                         L.layerGroup([rect, zoneMarker]).addTo(questObjectives);
@@ -696,6 +748,67 @@ function Map() {
             questZones.addTo(map);
             layerControl.addOverlay(questZones, categories['quest_zone'], t('Tasks'));    
         }*/
+
+        //add switches 
+        if (mapData.switches.length > 0) {
+            const switches = L.layerGroup();
+            for (const sw of mapData.switches) {
+                const switchIcon = L.icon({
+                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/lever.png`,
+                    iconSize: [24, 24],
+                    popupAnchor: [0, -12],
+                    className: layerIncludesMarker(heightLayer, sw) ? '' : 'off-level',
+                    position: sw.position,
+                    id: sw.id,
+                });
+                const switchMarker = L.marker(pos(sw.position), {icon: switchIcon});
+
+                /*const popupLines = [t(sw.id)];
+                if (sw.previousSwitch) {
+                    popupLines.push(`Activated by ${sw.previousSwitch.id}`);
+                }
+                for (const nextSwitch of sw.nextSwitches) {
+                    popupLines.push(`${nextSwitch.operation} ${nextSwitch.switch.id}`);
+                }
+                switchMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));*/
+                const popup = document.createElement('div');
+                if (sw.activatedBy) {
+                    const textElement = document.createElement('div');
+                    textElement.textContent = `${t('Activated by')}:`;
+                    popup.appendChild(textElement);
+                    popup.appendChild(getPoiLinkElement(sw.activatedBy.id, 'lever'));
+                }
+                if (sw.activates.length > 0) {
+                    const textElement = document.createElement('div');
+                    textElement.textContent = `${t('Activates')}:`;
+                    popup.append(textElement);
+                }
+                for (const switchOperation of sw.activates) {
+                    if (switchOperation.target.__typename === 'MapSwitch') {
+                        popup.appendChild(getPoiLinkElement(switchOperation.target.id, 'lever'));
+                    } else {
+                        const extractElement = document.createElement('div');
+                        const linkElement = getPoiLinkElement(switchOperation.target.id, `extract_${switchOperation.target.faction}`);
+                        const spanElement = document.createElement('span');
+                        spanElement.classList.add('extract-name', switchOperation.target.faction);
+                        spanElement.textContent = switchOperation.target.name;
+                        linkElement.append(spanElement);
+                        extractElement.append(linkElement);
+                        popup.appendChild(extractElement);
+                    }
+                }
+                if (popup.childNodes.length > 0) {
+                    switchMarker.bindPopup(L.popup().setContent(popup));
+                }
+                switchMarker.addTo(switches);
+
+                checkMarkerBounds(sw.position, markerBounds);
+            }
+            if (Object.keys(switches._layers).length > 0) {
+                switches.addTo(map);
+                layerControl.addOverlay(switches, `<img src='${process.env.PUBLIC_URL}/maps/interactive/lever.png' class='control-item-image' /> ${categories['switch']}`, t('Switches'));    
+            }
+        }
 
         //add loot containers
         if (mapData.lootContainers.length > 0) {
@@ -743,8 +856,14 @@ function Map() {
                 
                 const hazardMarker = L.marker(pos(hazard.position), {icon: hazardIcon, title: hazard.name, zIndexOffset: -100});
                 hazardMarker.bindPopup(L.popup().setContent(hazard.name));
-                hazardMarker.on('click', (e) => {
+                /*hazardMarker.on('click', (e) => {
                     rect._path.classList.toggle('not-shown');
+                });*/
+                hazardMarker.on('mouseover', (e) => {
+                    rect._path.classList.remove('not-shown');
+                });
+                hazardMarker.on('mouseout', (e) => {
+                    rect._path.classList.add('not-shown');
                 });
                 if (!hazardLayers[hazard.name]) {
                     hazardLayers[hazard.name] = L.layerGroup()

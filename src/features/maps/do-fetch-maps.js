@@ -37,6 +37,9 @@ class MapsQuery extends APIQuery {
                     spawnTime
                     spawnTimeRandom
                     spawnTrigger
+                    switch {
+                        id
+                    }
                 }
                 spawns {
                     zoneName
@@ -49,6 +52,7 @@ class MapsQuery extends APIQuery {
                     categories
                 }
                 extracts {
+                    id
                     name
                     faction
                     position {
@@ -63,6 +67,9 @@ class MapsQuery extends APIQuery {
                     }
                     top
                     bottom
+                    switches {
+                        id
+                    }
                 }
                 locks {
                     lockType
@@ -103,6 +110,32 @@ class MapsQuery extends APIQuery {
                         id
                         name
                         normalizedName
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                }
+                switches {
+                    id
+                    switchType
+                    activatedBy {
+                        id
+                    }
+                    activates {
+                        operation
+                        target {
+                            __typename
+                            ...on MapSwitch {
+                                id
+                            }
+                            ...on MapExtract {
+                                id
+                                name
+                                faction
+                            }
+                        }
                     }
                     position {
                         x
