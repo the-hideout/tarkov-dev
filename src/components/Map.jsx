@@ -398,14 +398,14 @@ function Map() {
             }
         };
         const getPoiLinkElement = (id, imageName) => {
-            const spanEl = document.createElement('span');
+            const spanEl = document.createElement('div');
             spanEl.classList.add('poi-link');
             spanEl.addEventListener('click', () => {
                 focusOnPoi(id);
             });
             const imgEl = document.createElement('img');
             imgEl.setAttribute('src', `${process.env.PUBLIC_URL}/maps/interactive/${imageName}.png`);
-            imgEl.setAttribute('title', id);
+            //imgEl.setAttribute('title', id);
             imgEl.classList.add('poi-image');
             spanEl.append(imgEl);
             return spanEl;
@@ -608,7 +608,11 @@ function Map() {
                     textElement.textContent = t('Activated by:');
                     popup.appendChild(textElement);
                     for (const sw of extract.switches) {
-                        popup.appendChild(getPoiLinkElement(sw.id, 'lever'));
+                        const linkElement = getPoiLinkElement(sw.id, 'lever');
+                        const nameElement = document.createElement('span');
+                        nameElement.innerHTML = `<strong>${sw.name}</strong>`;
+                        linkElement.append(nameElement);
+                        popup.appendChild(linkElement);
                     }
                     extractMarker.bindPopup(L.popup().setContent(popup));
                 }
@@ -772,11 +776,18 @@ function Map() {
                 }
                 switchMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));*/
                 const popup = document.createElement('div');
+                const switchNameElement = document.createElement('div');
+                switchNameElement.innerHTML = `<strong>${sw.name}</strong>`;
+                popup.append(switchNameElement);
                 if (sw.activatedBy) {
                     const textElement = document.createElement('div');
                     textElement.textContent = `${t('Activated by')}:`;
                     popup.appendChild(textElement);
-                    popup.appendChild(getPoiLinkElement(sw.activatedBy.id, 'lever'));
+                    const linkElement = getPoiLinkElement(sw.activatedBy.id, 'lever');
+                    const nameElement = document.createElement('span');
+                    nameElement.innerHTML = `<strong>${sw.activatedBy.name}</strong>`;
+                    linkElement.append(nameElement);
+                    popup.appendChild(linkElement);
                 }
                 if (sw.activates.length > 0) {
                     const textElement = document.createElement('div');
@@ -785,7 +796,11 @@ function Map() {
                 }
                 for (const switchOperation of sw.activates) {
                     if (switchOperation.target.__typename === 'MapSwitch') {
-                        popup.appendChild(getPoiLinkElement(switchOperation.target.id, 'lever'));
+                        const linkElement = getPoiLinkElement(switchOperation.target.id, 'lever');
+                        const nameElement = document.createElement('span');
+                        nameElement.innerHTML = `<strong>${switchOperation.target.name}</strong>`;
+                        linkElement.append(nameElement);
+                        popup.appendChild(linkElement);
                     } else {
                         const extractElement = document.createElement('div');
                         const linkElement = getPoiLinkElement(switchOperation.target.id, `extract_${switchOperation.target.faction}`);

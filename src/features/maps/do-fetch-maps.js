@@ -69,6 +69,7 @@ class MapsQuery extends APIQuery {
                     bottom
                     switches {
                         id
+                        name
                     }
                 }
                 locks {
@@ -119,9 +120,11 @@ class MapsQuery extends APIQuery {
                 }
                 switches {
                     id
+                    name
                     switchType
                     activatedBy {
                         id
+                        name
                     }
                     activates {
                         operation
@@ -129,6 +132,7 @@ class MapsQuery extends APIQuery {
                             __typename
                             ...on MapSwitch {
                                 id
+                                name
                             }
                             ...on MapExtract {
                                 id
