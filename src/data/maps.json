@@ -138,32 +138,32 @@
                 "key": "factory",
                 "altMaps": ["night-factory"],
                 "projection": "interactive",
-                "tileSize": 253,
+                "tileSize": 262,
                 "minZoom": 1,
                 "maxZoom": 4,
-                "transform": [1.76, 121.5, 1.76, 135.0],
+                "transform": [1.85, 134.5, 1.85, 138.5],
                 "coordinateRotation": 90,
                 "bounds": [[-67, 69], [76.6, -65.5]],
                 "heightRange": [-1, 3],
                 "author": "vinnydiehl",
                 "authorLink": "https://github.com/vinnydiehl/tarkovraphy",
-                "mapPath": "https://assets.tarkov.dev/maps/factory_tarkovraphy/main/{z}/{x}/{y}.png",
+                "mapPath": "https://assets.tarkov.dev/maps/factory_tarkovraphy_v2/main/{z}/{x}/{y}.png",
                 "layers": [
                     {
                         "name": "Second Floor",
-                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/2nd/{z}/{x}/{y}.png",
+                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy_v2/2nd/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [3, 6]
                     },
                     {
                         "name": "Third Floor",
-                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/3rd/{z}/{x}/{y}.png",
+                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy_v2/3rd/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [6, 10000]
                     },
                     {
                         "name": "Tunnels",
-                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy/tunnels/{z}/{x}/{y}.png",
+                        "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy_v2/tunnels/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [-10000, -1]
                     }

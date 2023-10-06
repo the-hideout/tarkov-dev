@@ -77,6 +77,7 @@ class MapsQuery extends APIQuery {
                     key {
                         id
                     }
+                    needsPower
                     position {
                         x
                         y
