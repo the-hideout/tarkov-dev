@@ -34,6 +34,7 @@ import useHideoutData from '../../features/hideout';
 import useCraftsData from '../../features/crafts';
 import useQuestsData from '../../features/quests';
 import useItemsData from '../../features/items';
+import useMapsData from '../../features/maps';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 
 import formatPrice from '../../modules/format-price';
@@ -121,6 +122,8 @@ function Item() {
 
     const { data: quests } = useQuestsData();
 
+    const {data: maps } = useMapsData();
+
     const currentItemData = useMemo(() => {
         let item = items.find(i => i.normalizedName === itemName);
         if (!item) {
@@ -130,13 +133,21 @@ function Item() {
             return loadingData;
         }
         if (item) {
+            let extraProps = {};
+            if (item.types.includes('keys')) {
+                extraProps.usedOnMaps = maps.filter(map => map.locks.some(l => l.key.id === item.id));
+            }
             return {
                 ...item,
+                properties: {
+                    ...item.properties,
+                    ...extraProps,
+                },
                 ...bestPrice(item, meta?.flea?.sellOfferFeeRate, meta?.flea?.sellRequirementFeeRate),
             };
         }
         return item;
-    }, [items, itemName, meta, itemsStatus, loadingData]);
+    }, [items, itemName, meta, itemsStatus, loadingData, maps]);
 
     const questsRequiringCount = useMemo(() => {
         if (!currentItemData || currentItemData.id === 'loading') {

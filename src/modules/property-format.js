@@ -141,6 +141,12 @@ const formatter = (key, value) => {
         }
     }
 
+    if (key === 'usedOnMaps') {
+        value = value?.map(m => {
+            return <Link to={`/map/${m.normalizedName}`} key={`map=${m.id}`}>{m.name}</Link>;
+        }).reduce((prev, curr, currentIndex) => [prev, (<span key={`spacer-${currentIndex}`}>, </span>), curr]);
+    }
+
     if (Array.isArray(value)) {
         let allString = true;
         for (const val of value) {

@@ -69,5 +69,6 @@
     "convergence": "Convergence",
     "cameraRecoil": "Camera Recoil",
     "recoilAngle": "Recoil Angle",
-    "recoilDispersion": "Recoil Dispersion"
+    "recoilDispersion": "Recoil Dispersion",
+    "usedOnMaps": "Used on Maps"
 }
