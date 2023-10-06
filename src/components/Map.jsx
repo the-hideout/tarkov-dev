@@ -658,7 +658,7 @@ function Map() {
                 if (key) {
                     const popupLines = [];
                     popupLines.push(`${lockType}`);
-                    popupLines.push(`<a href="/item/${key.normalizedName}" target="_blank"><img src='${key.iconLink}' /><br/>${key.name}</a>`);
+                    popupLines.push(`<a href="/item/${key.normalizedName}" target="_blank"><img class="key-image" src='${key.baseImageLink}' />${key.name}</a>`);
                     if (showTestMarkers) {
                         popupLines.push(`Elevation: ${lock.position.y.toFixed(2)}`);
                     }
