@@ -23,11 +23,6 @@
                         "heightRange": [-10000, -6]
                     },
                     {
-                        "name": "1st Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-First_Floor.svg",
-                        "show": true
-                    },
-                    {
                         "name": "2nd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Second_Floor.svg",
                         "show": false,
@@ -91,11 +86,6 @@
                         "heightRange": [-10000, -13]
                     },
                     {
-                        "name": "1st Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-First_Floor.svg",
-                        "show": true
-                    },
-                    {
                         "name": "2nd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Second_Floor.svg",
                         "show": false,
@@ -150,13 +140,13 @@
                 "mapPath": "https://assets.tarkov.dev/maps/factory_tarkovraphy_v2/main/{z}/{x}/{y}.png",
                 "layers": [
                     {
-                        "name": "Second Floor",
+                        "name": "2nd Floor",
                         "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy_v2/2nd/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [3, 6]
                     },
                     {
-                        "name": "Third Floor",
+                        "name": "3rd Floor",
                         "path": "https://assets.tarkov.dev/maps/factory_tarkovraphy_v2/3rd/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [6, 10000]
@@ -195,13 +185,13 @@
                 "heightRange": [-10000, 25],
                 "layers": [
                     {
-                        "name": "First Floor",
+                        "name": "2nd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-First_Floor.svg",
                         "show": false,
                         "heightRange": [25, 34]
                     },
                     {
-                        "name": "Second Floor",
+                        "name": "3rd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-Second_Floor.svg",
                         "show": false,
                         "heightRange": [34, 10000]
@@ -366,11 +356,6 @@
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Underground_Level.svg",
                         "show": false,
                         "heightRange": [-10000, -66]
-                    },
-                    {
-                        "name": "1st Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-First_Floor.svg",
-                        "show": true
                     },
                     {
                         "name": "2nd Floor",
