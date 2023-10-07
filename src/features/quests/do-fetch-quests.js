@@ -207,6 +207,23 @@ class QuestsQuery extends APIQuery {
                         z
                     }
                 }
+                zones {
+                    map {
+                        id
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    outline {
+                        x
+                        y
+                        z
+                    }
+                    top
+                    bottom
+                }
                 count
             }
             ...on TaskObjectiveShoot {
