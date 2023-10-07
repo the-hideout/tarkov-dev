@@ -143,7 +143,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     color: #00e4e5;
 }
 
-.poi-image, .key-image {
+.poi-image, img.popup-item {
     max-width: 24px;
     max-height: 24px;
     vertical-align: middle;

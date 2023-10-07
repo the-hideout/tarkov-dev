@@ -397,12 +397,12 @@ function Map() {
             }
         };
         const getPoiLinkElement = (id, imageName) => {
-            const spanEl = document.createElement('div');
+            const spanEl = L.DomUtil.create('div');
             spanEl.classList.add('poi-link');
             spanEl.addEventListener('click', () => {
                 focusOnPoi(id);
             });
-            const imgEl = document.createElement('img');
+            const imgEl = L.DomUtil.create('img');
             imgEl.setAttribute('src', `${process.env.PUBLIC_URL}/maps/interactive/${imageName}.png`);
             //imgEl.setAttribute('title', id);
             imgEl.classList.add('poi-image');
@@ -602,13 +602,13 @@ function Map() {
                 extractMarker.on('mouseout', mouseHoverOutline);
                 extractMarker.on('click', toggleForceOutline);
                 if (extract.switches?.length > 0) {
-                    const popup = document.createElement('div');
-                    const textElement = document.createElement('div');
+                    const popup = L.DomUtil.create('div');
+                    const textElement = L.DomUtil.create('div');
                     textElement.textContent = t('Activated by:');
                     popup.appendChild(textElement);
                     for (const sw of extract.switches) {
                         const linkElement = getPoiLinkElement(sw.id, 'lever');
-                        const nameElement = document.createElement('span');
+                        const nameElement = L.DomUtil.create('span');
                         nameElement.innerHTML = `<strong>${sw.name}</strong>`;
                         linkElement.append(nameElement);
                         popup.appendChild(linkElement);
@@ -662,7 +662,7 @@ function Map() {
                     if (lock.needsPower) {
                         popupLines.push('Needs power');
                     }
-                    popupLines.push(`<a href="/item/${key.normalizedName}" target="_blank"><img class="key-image" src='${key.baseImageLink}' />${key.name}</a>`);
+                    popupLines.push(`<a href="/item/${key.normalizedName}" target="_blank"><img class="popup-item" src='${key.baseImageLink}' />${key.name}</a>`);
                     if (showTestMarkers) {
                         popupLines.push(`Elevation: ${lock.position.y.toFixed(2)}`);
                     }
@@ -782,36 +782,36 @@ function Map() {
                     popupLines.push(`${nextSwitch.operation} ${nextSwitch.switch.id}`);
                 }
                 switchMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));*/
-                const popup = document.createElement('div');
-                const switchNameElement = document.createElement('div');
+                const popup = L.DomUtil.create('div');
+                const switchNameElement = L.DomUtil.create('div');
                 switchNameElement.innerHTML = `<strong>${sw.name}</strong>`;
                 popup.append(switchNameElement);
                 if (sw.activatedBy) {
-                    const textElement = document.createElement('div');
+                    const textElement = L.DomUtil.create('div');
                     textElement.textContent = `${t('Activated by')}:`;
                     popup.appendChild(textElement);
                     const linkElement = getPoiLinkElement(sw.activatedBy.id, 'lever');
-                    const nameElement = document.createElement('span');
+                    const nameElement = L.DomUtil.create('span');
                     nameElement.innerHTML = `<strong>${sw.activatedBy.name}</strong>`;
                     linkElement.append(nameElement);
                     popup.appendChild(linkElement);
                 }
                 if (sw.activates.length > 0) {
-                    const textElement = document.createElement('div');
+                    const textElement = L.DomUtil.create('div');
                     textElement.textContent = `${t('Activates')}:`;
                     popup.append(textElement);
                 }
                 for (const switchOperation of sw.activates) {
                     if (switchOperation.target.__typename === 'MapSwitch') {
                         const linkElement = getPoiLinkElement(switchOperation.target.id, 'lever');
-                        const nameElement = document.createElement('span');
+                        const nameElement = L.DomUtil.create('span');
                         nameElement.innerHTML = `<strong>${switchOperation.target.name}</strong>`;
                         linkElement.append(nameElement);
                         popup.appendChild(linkElement);
                     } else {
-                        const extractElement = document.createElement('div');
+                        const extractElement = L.DomUtil.create('div');
                         const linkElement = getPoiLinkElement(switchOperation.target.id, `extract_${switchOperation.target.faction}`);
-                        const spanElement = document.createElement('span');
+                        const spanElement = L.DomUtil.create('span');
                         spanElement.classList.add('extract-name', switchOperation.target.faction);
                         spanElement.textContent = switchOperation.target.name;
                         linkElement.append(spanElement);
