@@ -598,10 +598,6 @@ function Map() {
                     outline: rect,
                     id: extract.id,
                 });
-                console.log(extract.name, extract.bottom, extract.top)
-                /*extractMarker.on('click', (e) => {
-                    rect._path.classList.toggle('not-shown');
-                });*/
                 extractMarker.on('mouseover', mouseHoverOutline);
                 extractMarker.on('mouseout', mouseHoverOutline);
                 extractMarker.on('click', toggleForceOutline);
