@@ -131,6 +131,7 @@ class QuestsQuery extends APIQuery {
             ...on TaskObjectiveExtract {
                 exitStatus
                 exitName
+                count
             }
             ...on TaskObjectiveItem {
                 item {

@@ -428,11 +428,16 @@ function Quest() {
                     <div>{t('using extract: {{extractName}}', {extractName: objective.exitName})}</div>
                 );
             }
+            let objDesc = 'Extract with the status(es): {{extractStatuses, list(type: disjunction)}}';
+            if (objective.count > 1) {
+                objDesc = 'Extract {{extractCount}} times with the status(es): {{extractStatuses, list(type: disjunction)}}';
+            }
             taskDetails = (
                 <>
                     <>
-                        {t('Extract with the status(es): {{extractStatuses, list(type: disjunction)}}', {
+                        {t(objDesc, {
                             extractStatuses: objective.exitStatus,
+                            extractCount: objective.count,
                         })}
                     </>
                     {extract}
