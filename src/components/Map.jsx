@@ -156,6 +156,23 @@ function checkMarkerForActiveLayers(event) {
     }
 }
 
+function mouseHoverOutline(event) {
+    const outline = event.target.options.outline;
+    if (event.originalEvent.type === 'mouseover') {
+        outline._path.classList.remove('not-shown');
+    } else if (!outline._path.classList.contains('force-show')) {
+        outline._path.classList.add('not-shown');
+    }
+}
+
+function toggleForceOutline(event) {
+    const outline = event.target.options.outline;
+    outline._path.classList.toggle('force-show');
+    if (outline._path.classList.contains('force-show')) {
+        outline._path.classList.remove('not-shown');
+    }
+}
+
 function outlineToPoly(outline) {
     if (!outline) return [];
     return outline.map(vector => [vector.z, vector.x]);
@@ -581,15 +598,13 @@ function Map() {
                     outline: rect,
                     id: extract.id,
                 });
+                console.log(extract.name, extract.bottom, extract.top)
                 /*extractMarker.on('click', (e) => {
                     rect._path.classList.toggle('not-shown');
                 });*/
-                extractMarker.on('mouseover', (e) => {
-                    rect._path.classList.remove('not-shown');
-                });
-                extractMarker.on('mouseout', (e) => {
-                    rect._path.classList.add('not-shown');
-                });
+                extractMarker.on('mouseover', mouseHoverOutline);
+                extractMarker.on('mouseout', mouseHoverOutline);
+                extractMarker.on('click', toggleForceOutline);
                 if (extract.switches?.length > 0) {
                     const popup = document.createElement('div');
                     const textElement = document.createElement('div');
@@ -726,12 +741,9 @@ function Map() {
                         /*zoneMarker.on('click', (e) => {
                             rect._path.classList.toggle('not-shown');
                         });*/
-                        zoneMarker.on('mouseover', (e) => {
-                            rect._path.classList.remove('not-shown');
-                        });
-                        zoneMarker.on('mouseout', (e) => {
-                            rect._path.classList.add('not-shown');
-                        });
+                        zoneMarker.on('mouseover', mouseHoverOutline);
+                        zoneMarker.on('mouseout', mouseHoverOutline);
+                        zoneMarker.on('click', toggleForceOutline);
                         zoneMarker.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}" target="_blank">${quest.name}</a><br/>- ${obj.description}`));
                         zoneMarker.on('add', checkMarkerForActiveLayers);
                         L.layerGroup([rect, zoneMarker]).addTo(questObjectives);
@@ -880,12 +892,9 @@ function Map() {
                 /*hazardMarker.on('click', (e) => {
                     rect._path.classList.toggle('not-shown');
                 });*/
-                hazardMarker.on('mouseover', (e) => {
-                    rect._path.classList.remove('not-shown');
-                });
-                hazardMarker.on('mouseout', (e) => {
-                    rect._path.classList.add('not-shown');
-                });
+                hazardMarker.on('mouseover', mouseHoverOutline);
+                hazardMarker.on('mouseout', mouseHoverOutline);
+                hazardMarker.on('click', toggleForceOutline);
                 hazardMarker.on('add', checkMarkerForActiveLayers);
                 if (!hazardLayers[hazard.name]) {
                     hazardLayers[hazard.name] = L.layerGroup()

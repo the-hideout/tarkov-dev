@@ -296,13 +296,13 @@
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Ground_Level.svg",
-                "heightRange": [-9, 10000],
+                "heightRange": [-8, 10000],
                 "layers": [
                     {
                         "name": "Bunkers",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Bunkers.svg",
                         "show": false,
-                        "heightRange": [-10000, -9]
+                        "heightRange": [-10000, -8]
                     }
                 ]
             },
