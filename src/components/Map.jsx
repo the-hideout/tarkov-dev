@@ -749,6 +749,7 @@ function Map() {
                             const questItemMarker = L.marker(pos(position), {
                                 icon: questItemIcon,
                                 position: position,
+                                title: obj.questItem.name,
                             });
                             const popupLines = [];
                             popupLines.push(`<a href="/task/${quest.normalizedName}" target="_blank">${quest.name}</a>`);
