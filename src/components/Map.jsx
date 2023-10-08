@@ -677,7 +677,12 @@ function Map() {
         //add locks
         if (mapData.locks.length > 0) {
             const locks = L.layerGroup();
-            for (const lock of mapData.locks) {
+            for (const lock of mapData.locks) {const key = items.find(i => i.id === lock.key.id);
+                if (!key) {
+                    continue;
+                }
+
+                checkMarkerBounds(lock.position, markerBounds);
                 const lockIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/locked_door.png`,
                     iconSize: [24, 24],
@@ -700,26 +705,24 @@ function Map() {
                 const lockMarker = L.marker(pos(lock.position), {
                     icon: lockIcon,
                     position: lock.position,
+                    title: `${t('Lock')}: ${key.name}`,
                 });
-                const key = items.find(i => i.id === lock.key.id);
-                if (key) {
-                    const popupLines = [];
-                    popupLines.push(`${lockType}`);
-                    if (lock.needsPower) {
-                        popupLines.push('Needs power');
-                    }
-                    popupLines.push(`<a href="/item/${key.normalizedName}" target="_blank"><img class="popup-item" src='${key.baseImageLink}' />${key.name}</a>`);
-                    if (showTestMarkers) {
-                        popupLines.push(`Elevation: ${lock.position.y.toFixed(2)}`);
-                    }
 
-                    lockMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
-                    lockMarker.on('add', checkMarkerForActiveLayers);
-                    lockMarker.on('click', activateMarkerLayer);
-                    lockMarker.addTo(locks);
+                const popupLines = [];
+                popupLines.push(`${lockType}`);
+                if (lock.needsPower) {
+                    popupLines.push('Needs power');
+                }
+                popupLines.push(`<a href="/item/${key.normalizedName}" target="_blank"><img class="popup-item" src='${key.baseImageLink}' />${key.name}</a>`);
+                if (showTestMarkers) {
+                    popupLines.push(`Elevation: ${lock.position.y.toFixed(2)}`);
                 }
 
-                checkMarkerBounds(lock.position, markerBounds);
+                lockMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
+                lockMarker.on('add', checkMarkerForActiveLayers);
+                lockMarker.on('click', activateMarkerLayer);
+                lockMarker.addTo(locks);
+                
             }
             if (Object.keys(locks._layers).length > 0) {
                 locks.addTo(map);
@@ -733,7 +736,6 @@ function Map() {
         for (const quest of quests) {
             for (const obj of quest.objectives) {
                 if (obj.possibleLocations) {
-                    console.log(obj);
                     for (const loc of obj.possibleLocations) {
                         if (loc.map.id !== mapData.id) {
                             continue;
