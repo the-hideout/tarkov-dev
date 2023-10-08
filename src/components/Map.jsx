@@ -733,6 +733,7 @@ function Map() {
         for (const quest of quests) {
             for (const obj of quest.objectives) {
                 if (obj.possibleLocations) {
+                    console.log(obj);
                     for (const loc of obj.possibleLocations) {
                         if (loc.map.id !== mapData.id) {
                             continue;
@@ -749,7 +750,7 @@ function Map() {
                             });
                             const popupLines = [];
                             popupLines.push(`<a href="/task/${quest.normalizedName}" target="_blank">${quest.name}</a>`);
-                            popupLines.push(`- ${obj.questItem.name}`);
+                            popupLines.push(`<img class="popup-item" src='${obj.questItem.baseImageLink}' />${obj.questItem.name}`);
                             if (showTestMarkers) {
                                 popupLines.push(`Elevation: ${position.y.toFixed(2)}`);
                             }
