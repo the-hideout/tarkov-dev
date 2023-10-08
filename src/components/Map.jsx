@@ -123,11 +123,9 @@ function getBounds(mapData) {
     return [[mapData.bounds[0][1], mapData.bounds[0][0]], [mapData.bounds[1][1], mapData.bounds[1][0]]];
 }
 
-function checkMarkerForActiveLayers(event) {
-    const marker = event.target || event;
-    const outline = marker.options.outline;
+function markerIsOnActiveLayer(marker) {
     if (!marker.options.position) {
-        return;
+        return true;
     }
     var top = marker.options.top || marker.options.position.y;
     var bottom = marker.options.bottom || marker.options.position.y;
@@ -143,6 +141,30 @@ function checkMarkerForActiveLayers(event) {
             break;
         }
     }
+    return onLevel;
+}
+
+function checkMarkerForActiveLayers(event) {
+    const marker = event.target || event;
+    const outline = marker.options.outline;
+    /*if (!marker.options.position) {
+        return;
+    }
+    var top = marker.options.top || marker.options.position.y;
+    var bottom = marker.options.bottom || marker.options.position.y;
+    let activeLayers = Object.values(marker._map._layers).filter(l => l.options?.heightRange);
+    if (activeLayers.some(l => l.options.overlay)) {
+        activeLayers = activeLayers.filter(l => l.options.overlay);
+    }
+    let onLevel = false;
+    for (const layer of activeLayers) {
+        const heightRange = layer.options.heightRange;
+        if (top >= heightRange[0] && bottom < heightRange[1]) {
+            onLevel = true;
+            break;
+        }
+    }*/
+    const onLevel = markerIsOnActiveLayer(marker);
     if (onLevel) {
         marker._icon?.classList.remove('off-level');
         if (outline) {
@@ -170,6 +192,28 @@ function toggleForceOutline(event) {
     outline._path.classList.toggle('force-show');
     if (outline._path.classList.contains('force-show')) {
         outline._path.classList.remove('not-shown');
+    }
+    activateMarkerLayer(event);
+}
+
+function activateMarkerLayer(event) {
+    const marker = event.target || event;
+    var top = marker.options.top || marker.options.position.y;
+    var bottom = marker.options.bottom || marker.options.position.y;
+    if (markerIsOnActiveLayer(marker)) {
+        return;
+    }
+    const activeLayers = Object.values(marker._map._layers).filter(l => l.options?.heightRange && l.options?.overlay);
+    for (const layer of activeLayers) {
+        layer.removeFrom(marker._map);
+    }
+    const heightLayers = marker._map.layerControl._layers.filter(l => l.group.exclusive && l.layer.options.heightRange).map(l => l.layer);
+    for (const layer of heightLayers) {
+        const heightRange = layer.options.heightRange;
+        if (top >= heightRange[0] && bottom < heightRange[1]) {
+            layer.addTo(marker._map);
+            break;
+        }
     }
 }
 
@@ -254,6 +298,7 @@ function Map() {
             groupCheckboxes: true,
             exclusiveGroups: [t('Levels')],
         }).addTo(map);
+        map.layerControl = layerControl;
         map.addControl(new L.Control.Fullscreen({
             title: {
                 'false': t('View Fullscreen'),
@@ -552,6 +597,7 @@ function Map() {
                 }
                 marker.position = spawn.position;
                 marker.on('add', checkMarkerForActiveLayers);
+                marker.on('click', activateMarkerLayer);
                 marker.addTo(spawnLayers[spawnType]);
 
                 checkMarkerBounds(spawn.position, markerBounds);
@@ -669,6 +715,7 @@ function Map() {
 
                     lockMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
                     lockMarker.on('add', checkMarkerForActiveLayers);
+                    lockMarker.on('click', activateMarkerLayer);
                     lockMarker.addTo(locks);
                 }
 
@@ -708,6 +755,7 @@ function Map() {
                             }
                             questItemMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
                             questItemMarker.on('add', checkMarkerForActiveLayers);
+                            questItemMarker.on('click', activateMarkerLayer);
                             questItemMarker.addTo(questItems);
 
                             checkMarkerBounds(position, markerBounds);
@@ -823,6 +871,7 @@ function Map() {
                     switchMarker.bindPopup(L.popup().setContent(popup));
                 }
                 switchMarker.on('add', checkMarkerForActiveLayers);
+                switchMarker.on('click', activateMarkerLayer);
                 switchMarker.addTo(switches);
 
                 checkMarkerBounds(sw.position, markerBounds);
@@ -853,6 +902,7 @@ function Map() {
                     containerLayers[containerPosition.lootContainer.normalizedName] = L.layerGroup();
                 }
                 containerMarker.on('add', checkMarkerForActiveLayers);
+                containerMarker.on('click', activateMarkerLayer);
                 containerMarker.addTo(containerLayers[containerPosition.lootContainer.normalizedName]);
                 containerNames[containerPosition.lootContainer.normalizedName] = containerPosition.lootContainer.name;
             }
