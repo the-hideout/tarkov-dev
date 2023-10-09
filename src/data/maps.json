@@ -135,7 +135,7 @@
                 "coordinateRotation": 90,
                 "bounds": [[-67, 69], [76.6, -65.5]],
                 "heightRange": [-1, 3],
-                "author": "Razzmatazz",
+                "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
                 "mapPath": "https://assets.tarkov.dev/maps/factory/main/{z}/{x}/{y}.png",
                 "layers": [
@@ -213,25 +213,26 @@
             {
                 "key": "the-lab",
                 "projection": "interactive",
+                "tileSize": 175,
                 "minZoom": 2,
                 "maxZoom": 5,
-                "transform": [0.6, 0, 0.6, 0],
+                "transform": [0.467, 244.2, 0.467, 137.6],
                 "coordinateRotation": 270,
-                "bounds": [[-88, -495], [-299, -193]],
-                "author": "Shebuka",
-                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/Labs-First_Level.svg",
+                "bounds": [[-91, -477], [-287, -193]],
+                "author": "Tarkov.dev",
+                "authorLink": "https://tarkov.dev",
+                "mapPath": "https://assets.tarkov.dev/maps/labs/1st/{z}/{x}/{y}.png",
                 "heightRange": [-1, 3],
                 "layers": [
                     {
                         "name": "Second Level",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Labs-Second_Level.svg",
+                        "path": "https://assets.tarkov.dev/maps/labs/2nd/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [3, 10000]
                     },
                     {
                         "name": "Technical",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Labs-Technical_Level.svg",
+                        "path": "https://assets.tarkov.dev/maps/labs/technical/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [-10000, -1]
                     }
