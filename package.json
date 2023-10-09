@@ -28,7 +28,7 @@
     "@mdi/react": "^1.6.1",
     "@mui/lab": "^5.0.0-alpha.146",
     "@mui/material": "^5.14.10",
-    "@reduxjs/toolkit": "^1.9.6",
+    "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@tippyjs/react": "^4.2.6",
