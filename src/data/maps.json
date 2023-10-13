@@ -221,18 +221,18 @@
                 "bounds": [[-91, -477], [-287, -193]],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
-                "mapPath": "https://assets.tarkov.dev/maps/labs/1st/{z}/{x}/{y}.png",
+                "mapPath": "https://assets.tarkov.dev/maps/labs_v2/1st/{z}/{x}/{y}.png",
                 "heightRange": [-0.9, 3],
                 "layers": [
                     {
                         "name": "Second Level",
-                        "path": "https://assets.tarkov.dev/maps/labs/2nd/{z}/{x}/{y}.png",
+                        "path": "https://assets.tarkov.dev/maps/labs_v2/2nd/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [3, 10000]
                     },
                     {
                         "name": "Technical",
-                        "path": "https://assets.tarkov.dev/maps/labs/technical/{z}/{x}/{y}.png",
+                        "path": "https://assets.tarkov.dev/maps/labs_v2/technical/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [-10000, -0.9]
                     }
