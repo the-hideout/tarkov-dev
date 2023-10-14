@@ -148,6 +148,17 @@ class MapsQuery extends APIQuery {
                         z
                     }
                 }
+                stationaryWeapons {
+                    stationaryWeapon {
+                        name
+                        shortName
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                }
             }
         }`;
     

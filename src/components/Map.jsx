@@ -961,6 +961,29 @@ function Map() {
             }
         }
 
+        // add stationary weapons
+        if (mapData.stationaryWeapons.length > 0) {
+            const stationaryWeapons = L.layerGroup();
+            for (const weaponPosition of mapData.stationaryWeapons) {
+                const weaponIcon = L.icon({
+                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/stationarygun.png`,
+                    iconSize: [24, 24],
+                    popupAnchor: [0, -12],
+                });
+                
+                const weaponMarker = L.marker(pos(weaponPosition.position), {
+                    icon: weaponIcon, 
+                    title: weaponPosition.stationaryWeapon.name,
+                    position: weaponPosition.position,
+                });
+                weaponMarker.on('add', checkMarkerForActiveLayers);
+                weaponMarker.on('click', activateMarkerLayer);
+                weaponMarker.addTo(stationaryWeapons);
+            }
+            stationaryWeapons.addTo(map);
+            layerControl.addOverlay(stationaryWeapons, `<img src='${process.env.PUBLIC_URL}/maps/interactive/stationarygun.png' class='control-item-image' /> ${categories.stationarygun}`, t('Stationary Guns'));    
+        }
+
         if (showTestMarkers) {
             console.log(`Markers "bounds": [[${markerBounds.BR.x}, ${markerBounds.BR.z}], [${markerBounds.TL.x}, ${markerBounds.TL.z}]] (already rotated, copy/paste to maps.json)`);
 
