@@ -1,12 +1,14 @@
 {
     "2D": "2D",
     "3D": "3D",
-    "Cardinal": "カーディナル",
+    "interactive": "Interactive",
     "Landscape": "風景",
-    "Dorms": "ドミトリー",
-    "Stashes": "スタッシュ",
     "Underground": "アンダーグラウンド",
-    "Resort": "保養所",
+    "1st Floor": "1st Floor",
+    "2nd Floor": "2nd Floor",
+    "3rd Floor": "3rd Floor",
+    "4th Floor": "4th Floor",
+    "5th Floor": "5th Floor",
     "openworld-name": "オープンワールド",
     "openworld-description": "これはTarkovのフルマップのイメージを表したものです。このオープンワールドマップは、既存の地図にある鍵の場所をすべて組み合わせて、巨大な1つのマップにすることになるでしょう。"
 }
