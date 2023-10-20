@@ -128,9 +128,6 @@ function Map() {
     let { currentMap } = useParams();
 
     const { t } = useTranslation();
-    const tMaps = (string) => {
-        return t(string, { ns: 'maps' })
-    }
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -180,6 +177,9 @@ function Map() {
     useEffect(() => {
         if (!mapData || mapData.projection !== 'interactive') {
             return;
+        }
+        const tMaps = (string) => {
+            return t(string, { ns: 'maps' })
         }
         if (mapRef.current?._leaflet_id) {
             mapRef.current.remove();
