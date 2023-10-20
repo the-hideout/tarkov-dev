@@ -145,6 +145,20 @@ export const useMapImages = () => {
     return allMaps;
 };
 
+export const useMapImagesSortedArray = () => {
+    let mapArray = Object.values(useMapImages())
+    
+    mapArray.sort((a, b) => {
+        if (a.normalizedName === 'openworld')
+            return 1;
+        if (b.normalizedName === 'openworld')
+            return -1;
+        return a.name.localeCompare(b.name);
+    });
+
+    return mapArray
+}
+
 export const mapIcons = {
     'streets-of-tarkov': mdiCity,
     'customs': mdiWarehouse,
