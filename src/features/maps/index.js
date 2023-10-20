@@ -110,7 +110,7 @@ export const useMapImages = () => {
                 }),
                 spawns: apiData?.spawns || [],
             };
-            if (imageData.projection && imageData.projection !== 'interactive') {
+            if (imageData.projection) {
                 mapImages[imageData.key].displayText += ` - ${i18n.t(imageData.projection, { ns: 'maps' })}`;
             }
             if (imageData.orientation) {
