@@ -1,12 +1,14 @@
 {
     "2D": "2D",
     "3D": "3D",
-    "Cardinal": "Strony świata",
+    "interactive": "Interactive",
     "Landscape": "Krajobraz",
-    "Dorms": "Budynki noclegowe",
-    "Stashes": "Schowki",
     "Underground": "Podziemia",
-    "Resort": "Sanatorium",
+    "1st Floor": "1st Floor",
+    "2nd Floor": "2nd Floor",
+    "3rd Floor": "3rd Floor",
+    "4th Floor": "4th Floor",
+    "5th Floor": "5th Floor",
     "openworld-name": "Otwarty świat",
     "openworld-description": "To jest wyobrażenie tego, jak wyglądałaby pełna mapa Tarkowa. Ta mapa z otwartym światem prawdopodobnie zawierałaby wszystkie kluczowe lokacje z istniejących map połączone w jedną wielką mapę."
 }

@@ -178,6 +178,9 @@ function Map() {
         if (!mapData || mapData.projection !== 'interactive') {
             return;
         }
+        const tMaps = (string) => {
+            return t(string, { ns: 'maps' })
+        }
         if (mapRef.current?._leaflet_id) {
             mapRef.current.remove();
         }
@@ -195,12 +198,12 @@ function Map() {
             position: 'topleft',
             collapsed: true,
             groupCheckboxes: true,
-            exclusiveGroups: [t('Levels')],
+            exclusiveGroups: [tMaps('Levels')],
         }).addTo(map);
         map.addControl(new L.Control.Fullscreen({
             title: {
-                'false': t('View Fullscreen'),
-                'true': t('Exit Fullscreen'),
+                'false': tMaps('View Fullscreen'),
+                'true': tMaps('Exit Fullscreen'),
             }
         }));
 
@@ -239,7 +242,7 @@ function Map() {
         }
         let heightLayer = baseLayer;
         baseLayer.addTo(map);
-        //layerControl.addBaseLayer(baseLayer, t('Base'));
+        //layerControl.addBaseLayer(baseLayer, tMaps('Base'));
 
         // Add map layers
         if (mapData.layers) {
@@ -263,7 +266,7 @@ function Map() {
                         type: 'layer-tile',
                     });
                 }
-                layerControl.addOverlay(tileLayer, t(layer.name), t('Levels'));
+                layerControl.addOverlay(tileLayer, tMaps(layer.name), tMaps('Levels'));
                 if (layer.show) {
                     heightLayer = tileLayer;
                     tileLayer.addTo(map);
@@ -313,14 +316,14 @@ function Map() {
         }
 
         const categories = {
-            quest_item: t('Tasks'),
-            supply_crate: t('Technical Supply Crate'),
-            spawn_pmc: t('PMC'),
-            spawn_scav: t('Scav'),
-            spawn_boss: t('Boss'),
-            'spawn_cultist-priest': t('Cultist Priest'),
-            spawn_rogue: t('Rogue'),
-            spawn_bloodhound: t('Bloodhound'),
+            quest_item: tMaps('Tasks'),
+            supply_crate: tMaps('Technical Supply Crate'),
+            spawn_pmc: tMaps('PMC'),
+            spawn_scav: tMaps('Scav'),
+            spawn_boss: tMaps('Boss'),
+            'spawn_cultist-priest': tMaps('Cultist Priest'),
+            spawn_rogue: tMaps('Rogue'),
+            spawn_bloodhound: tMaps('Bloodhound'),
         }
 
         let TL = {x:Number.MAX_SAFE_INTEGER, z:Number.MIN_SAFE_INTEGER};
@@ -352,7 +355,7 @@ function Map() {
 
                 if (items.length > 0) {
                     markerLayer.addTo(map);
-                    layerControl.addOverlay(markerLayer, `<img src='${process.env.PUBLIC_URL}/maps/interactive/${category}.png' class='control-item-image' /> ${categories[category]}`, t('Items'));
+                    layerControl.addOverlay(markerLayer, `<img src='${process.env.PUBLIC_URL}/maps/interactive/${category}.png' class='control-item-image' /> ${categories[category]}`, tMaps('Items'));
                 }
             }
         }
@@ -456,7 +459,7 @@ function Map() {
             for (const key in spawnLayers) {
                 if (Object.keys(spawnLayers[key]._layers).length > 0) {
                     spawnLayers[key].addTo(map);
-                    layerControl.addOverlay(spawnLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/spawn_${key}.png' class='control-item-image' /> ${categories[`spawn_${key}`]}`, t('Spawns'));    
+                    layerControl.addOverlay(spawnLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/spawn_${key}.png' class='control-item-image' /> ${categories[`spawn_${key}`]}`, tMaps('Spawns'));    
                 }
             }
         }
@@ -474,13 +477,13 @@ function Map() {
 
             const positionMarker = L.marker([0,0], {icon: playerIcon}).addTo(positionLayer);
             const closeButton = L.DomUtil.create('a');
-            closeButton.innerHTML = t('Clear');
+            closeButton.innerHTML = tMaps('Clear');
             closeButton.addEventListener('click', () => {
                 positionLayer.remove(positionMarker);
             });
             positionMarker.bindPopup(L.popup().setContent(closeButton));
             positionLayer.addTo(map);
-            layerControl.addOverlay(positionLayer, t('Player'), t('Misc'));
+            layerControl.addOverlay(positionLayer, tMaps('Player'), tMaps('Misc'));
         }
 
         // Add player position
@@ -495,13 +498,13 @@ function Map() {
                   
             const positionMarker = L.marker(pos(playerPosition.position), {icon: playerIcon}).addTo(positionLayer);
             const closeButton = L.DomUtil.create('a');
-            closeButton.innerHTML = t('Clear');
+            closeButton.innerHTML = tMaps('Clear');
             closeButton.addEventListener('click', () => {
                 dispatch(setPlayerPosition(null));
             });
             positionMarker.bindPopup(L.popup().setContent(closeButton));
             positionLayer.addTo(map);
-            layerControl.addOverlay(positionLayer, t('Player'), t('Misc'));
+            layerControl.addOverlay(positionLayer, tMaps('Player'), tMaps('Misc'));
         }
 
         // Set default zoom level
@@ -521,7 +524,7 @@ function Map() {
 
     return [
         <SEO 
-            title={`${mapData.displayText} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            title={`${t('Map')} - ${mapData.displayText} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={mapData.description}
             image={`${window.location.origin}${process.env.PUBLIC_URL}${mapData.imageThumb}`}
             card='summary_large_image'

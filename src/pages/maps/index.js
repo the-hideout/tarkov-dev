@@ -6,14 +6,14 @@ import { mdiMap } from '@mdi/js';
 
 import SEO from '../../components/SEO';
 
-import { mapIcons, useMapImages } from '../../features/maps';
+import { mapIcons, useMapImagesSortedArray } from '../../features/maps';
 
 import './index.css';
 
 function Maps() {
     const { t } = useTranslation();
-    const mapImages = useMapImages();
-    const uniqueMaps = Object.values(mapImages).reduce((maps, current) => {
+    const mapImagesSortedArray = useMapImagesSortedArray();
+    const uniqueMaps = mapImagesSortedArray.reduce((maps, current) => {
         if (!maps.some(storedMap => storedMap.normalizedName === current.normalizedName)) {
             maps.push({
                 name: current.name,
@@ -23,13 +23,6 @@ function Maps() {
         }
         return maps;
     }, []);
-    uniqueMaps.sort((a, b) => { 
-        if (a.normalizedName === 'openworld')
-            return 1;
-        if (b.normalizedName === 'openworld')
-            return -1;
-        return a.name.localeCompare(b.name);
-    });
     return [
         <SEO 
             title={`${t('Maps')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
@@ -76,7 +69,7 @@ function Maps() {
                             {mapsGroup.description}
                         </div>
                         <div className="maps-wrapper">
-                        {Object.values(mapImages)
+                        {mapImagesSortedArray
                         .filter(map => map.normalizedName === mapsGroup.normalizedName)
                         .map((map) => {
                             const { displayText, key, imageThumb } = map;

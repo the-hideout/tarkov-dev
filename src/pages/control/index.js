@@ -8,7 +8,7 @@ import SEO from '../../components/SEO';
 import { caliberArrayWithSplit } from '../../modules/format-ammo';
 
 import useItemsData from '../../features/items';
-import { useMapImages } from '../../features/maps';
+import { useMapImagesSortedArray } from '../../features/maps';
 
 import Connect from './Connect.jsx';
 
@@ -60,15 +60,7 @@ const selectFilterStyle = {
 function Control(props) {
     const { data: items } = useItemsData();
 
-    const mapImages = useMapImages();
-    const uniqueMaps = Object.values(mapImages).filter(map => map.projection !== 'interactive');
-    uniqueMaps.sort((a,b) => {
-        if (a.normalizedName === 'openworld')
-            return 1;
-        if (b.normalizedName === 'openworld')
-            return -1;
-        return a.displayText.localeCompare(b.displayText);
-    });
+    const uniqueMaps = useMapImagesSortedArray();
 
     const socketConnected = useSelector((state) => state.sockets.connected);
     const { t } = useTranslation();

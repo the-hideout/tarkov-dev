@@ -54,16 +54,16 @@
                 ]
             },
             {
-                "key": "streets-3d",
-                "projection": "3D",
-                "author": "re3mr",
-                "authorLink": "https://reemr.se"
-            },
-            {
                 "key": "streets-2d",
                 "projection": "2D",
                 "author": "Jindouz",
                 "authorLink": "https://www.reddit.com/user/Jindouz"
+            },
+            {
+                "key": "streets-3d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             }
         ]
     },
@@ -110,23 +110,16 @@
                 ]
             },
             {
-                "key": "customs-3d",
-                "projection": "3D",
-                "author": "re3mr",
-                "authorLink": "https://reemr.se"
-            },
-            {
                 "key": "customs-2d",
                 "projection": "2D",
                 "author": "monkimonkimonk",
                 "authorLink": "https://www.reddit.com/user/monkimonkimonk/"
             },
             {
-                "key": "customs-2d-dorms",
-                "projection": "2D",
-                "specific": "Dorms",
-                "author": "OffaPerry",
-                "authorLink": "https://www.reddit.com/user/OffaPerry/"
+                "key": "customs-3d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             }
         ]
     },
@@ -272,12 +265,6 @@
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Lighthouse.svg"
             },
             {
-                "key": "lighthouse-3d",
-                "projection": "3D",
-                "author": "re3mr",
-                "authorLink": "https://reemr.se"
-            },
-            {
                 "key": "lighthouse-2d",
                 "projection": "2D",
                 "author": "Shebuka & Jindouz"
@@ -288,6 +275,12 @@
                 "orientation": "Landscape",
                 "author": "Jindouz",
                 "authorLink": "https://www.reddit.com/user/Jindouz"
+            },
+            {
+                "key": "lighthouse-3d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             }
         ]
     },
@@ -317,28 +310,14 @@
                 ]
             },
             {
-                "key": "reserve-3d",
-                "projection": "3D",
-                "author": "re3mr",
-                "authorLink": "https://reemr.se"
-            },
-            {
-                "key": "reserve-2d-jindouz",
+                "key": "reserve-2d",
                 "projection": "2D",
                 "author": "Jindouz",
                 "authorLink": "https://www.reddit.com/user/Jindouz"
             },
             {
-                "key": "reserve-2d",
-                "projection": "2D",
-                "extra": "Vex",
-                "author": "Vex",
-                "authorLink": "https://vexnet.xyz"
-            },
-            {
-                "key": "reserve-2d-underground",
-                "projection": "2D",
-                "specific": "Underground",
+                "key": "reserve-3d",
+                "projection": "3D",
                 "author": "re3mr",
                 "authorLink": "https://reemr.se"
             }
@@ -387,23 +366,16 @@
                 ]
             },
             {
-                "key": "shoreline-3d",
-                "projection": "3D",
-                "author": "re3mr",
-                "authorLink": "https://reemr.se"
-            },
-            {
                 "key": "shoreline-2d",
                 "projection": "2D",
                 "author": "monkimonkimonk",
                 "authorLink": "https://www.reddit.com/user/monkimonkimonk/"
             },
             {
-                "key": "shoreline-3d-resort",
+                "key": "shoreline-3d",
                 "projection": "3D",
-                "specific": "Resort",
-                "author": "TaroMochi",
-                "authorLink": "https://www.clanunknownsoldiers.com/"
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             }
         ]
     },
@@ -424,16 +396,16 @@
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Woods.svg"
             },
             {
-                "key": "woods-3d",
-                "projection": "3D",
-                "author": "re3mr",
-                "authorLink": "https://reemr.se"
-            },
-            {
                 "key": "woods-2d",
                 "projection": "2D",
                 "author": "Jindouz",
                 "authorLink": "https://www.reddit.com/user/Jindouz"
+            },
+            {
+                "key": "woods-3d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             }
         ]
     },
