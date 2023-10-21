@@ -400,15 +400,12 @@ function Map() {
         }
 
         const categories = {
-            'extract_pmc': tMaps('PMC'),
-            'extract_shared': tMaps('Shared'),
+            'extract_pmc': t('PMC'),
+            'extract_shared': t('Shared'),
             'extract_scav': t('Scav'),
-            'spawn_pmc': tMaps('PMC'),
-            'spawn_scav': tMaps('Scav'),
-            'spawn_boss': tMaps('Boss'),
-            'spawn_cultist-priest': tMaps('Cultist Priest'),
-            'spawn_rogue': tMaps('Rogue'),
-            'spawn_bloodhound': tMaps('Bloodhound'),
+            'spawn_pmc': t('PMC'),
+            'spawn_scav': t('Scav'),
+            'spawn_boss': t('Boss'),
             'quest_item': t('Item'),
             'quest_objective': t('Objective'),
             'lock': t('Locks'),
@@ -576,6 +573,9 @@ function Map() {
                     bosses = bosses.reduce((unique, current) => {
                         if (!unique.some(b => b.normalizedName === current.normalizedName)) {
                             unique.push(current);
+                            if (!categories[`spawn_${current.normalizedName}`]) {
+                                categories[`spawn_${current.normalizedName}`] = current.name;
+                            }
                         }
                         return unique;
                     }, []);
