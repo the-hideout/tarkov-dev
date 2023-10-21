@@ -81,6 +81,7 @@ class QuestsQuery extends APIQuery {
             optional
             ...on TaskObjectiveBasic {
                 zones {
+                    id
                     map {
                         id
                     }
@@ -143,6 +144,7 @@ class QuestsQuery extends APIQuery {
                 maxDurability
                 minDurability
                 zones {
+                    id
                     map {
                         id
                     }
@@ -165,6 +167,7 @@ class QuestsQuery extends APIQuery {
                     id
                 }
                 zones {
+                    id
                     map {
                         id
                     }
@@ -209,6 +212,7 @@ class QuestsQuery extends APIQuery {
                     }
                 }
                 zones {
+                    id
                     map {
                         id
                     }
@@ -268,6 +272,7 @@ class QuestsQuery extends APIQuery {
                     }
                 }
                 zones {
+                    id
                     map {
                         id
                     }
@@ -318,6 +323,7 @@ class QuestsQuery extends APIQuery {
                 count
                 zoneNames
                 zones {
+                    id
                     map {
                         id
                     }

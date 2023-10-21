@@ -1,14 +1,14 @@
 import { useEffect, useRef, useMemo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
     TransformWrapper,
     TransformComponent,
 } from 'react-zoom-pan-pinch';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css'
-import "@fortawesome/fontawesome-free/css/all.min.css"
+import L, { popup } from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import { setPlayerPosition } from '../features/settings/settingsSlice';
 
@@ -224,6 +224,10 @@ function outlineToPoly(outline) {
 
 function Map() {
     let { currentMap } = useParams();
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+
+    const focusItem = useRef(searchParams.get('q') ? searchParams.get('q').split(',') : []);
 
     const { t } = useTranslation();
     const dispatch = useDispatch();
@@ -438,8 +442,9 @@ function Map() {
                 }
                 map.flyTo(pos(marker.options.position));
                 marker.fire('click');
-                break;
+                return true;
             }
+            return false;
         };
         const getPoiLinkElement = (id, imageName) => {
             const spanEl = L.DomUtil.create('div');
@@ -453,6 +458,17 @@ function Map() {
             imgEl.classList.add('poi-image');
             spanEl.append(imgEl);
             return spanEl;
+        };
+
+        const getReactLink = (path, contents) => {
+            const a = L.DomUtil.create('a');
+            a.setAttribute('href', path);
+            a.append(contents);
+            a.addEventListener('click', (event) => {
+                navigate(path);
+                event.preventDefault();
+            });
+            return a;
         };
 
         let markerBounds = {
@@ -568,7 +584,7 @@ function Map() {
                     spawnIcon.popupAnchor = [0, -24];
                 }
 
-                const popupLines = [];
+                const popupContent = L.DomUtil.create('div');
                 if (spawn.categories.includes('boss') && bosses.length > 0) {
                     bosses = bosses.reduce((unique, current) => {
                         if (!unique.some(b => b.normalizedName === current.normalizedName)) {
@@ -579,24 +595,30 @@ function Map() {
                         }
                         return unique;
                     }, []);
-                    popupLines.push(bosses.map(boss => `<a href="/boss/${boss.normalizedName}" target="_blank">${boss.name} (${Math.round(boss.spawnChance*100)}%)</a>`).join(', '));
-                    if (showTestMarkers) {
-                        popupLines.push(spawn.zoneName);
+                    const bossList = L.DomUtil.create('div', undefined, popupContent);
+                    for (const boss of bosses) {
+                        if (bossList.childNodes.length > 0) {
+                            const comma = L.DomUtil.create('span', undefined, bossList);
+                            comma.textContent = ', ';
+                        }
+                        bossList.append(getReactLink(`/boss/${boss.normalizedName}`, `${boss.name} (${Math.round(boss.spawnChance*100)}%)`));
                     }
                 }
                 else {
-                    popupLines.push(categories[`spawn_${spawnType}`]);
+                    const spawnDiv = L.DomUtil.create('div', undefined, popupContent);
+                    spawnDiv.textContent = categories[`spawn_${spawnType}`];
                 }
                 if (showTestMarkers) {
-                    popupLines.push(`Elevation: ${spawn.position.y.toFixed(2)}`);
+                    const elevationDiv = L.DomUtil.create('div', undefined, popupContent);
+                    elevationDiv.textContent = `Elevation: ${spawn.position.y.toFixed(2)}`;
                 }
 
                 const marker = L.marker(pos(spawn.position), {
                     icon: spawnIcon,
                     position: spawn.position,
                 });
-                if (popupLines.length > 0) {
-                    marker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
+                if (popupContent.childNodes.length > 0) {
+                    marker.bindPopup(L.popup().setContent(popupContent));
                 }
                 marker.position = spawn.position;
                 marker.on('add', checkMarkerForActiveLayers);
@@ -711,17 +733,24 @@ function Map() {
                     title: `${t('Lock')}: ${key.name}`,
                 });
 
-                const popupLines = [];
-                popupLines.push(`${lockType}`);
+                const popupContent = L.DomUtil.create('div');
+                const lockTypeNode = L.DomUtil.create('div', undefined, popupContent);
+                lockTypeNode.innerText = `${lockType}`;
                 if (lock.needsPower) {
-                    popupLines.push('Needs power');
+                    const powerNode = L.DomUtil.create('div', undefined, popupContent);
+                    powerNode.innerText = 'Needs power';
                 }
-                popupLines.push(`<a href="/item/${key.normalizedName}" target="_blank"><img class="popup-item" src='${key.baseImageLink}' />${key.name}</a>`);
+                const lockImage = L.DomUtil.create('img', 'popup-item');
+                lockImage.setAttribute('src', `${key.baseImageLink}`);
+                const lockLink = getReactLink(`/item/${key.normalizedName}`, lockImage);
+                lockLink.append(`${key.name}`);
+                popupContent.append(lockLink);
                 if (showTestMarkers) {
-                    popupLines.push(`Elevation: ${lock.position.y.toFixed(2)}`);
+                    const elevationDiv = L.DomUtil.create('div', undefined, popupContent);
+                    elevationDiv.textContent = `Elevation: ${lock.position.y.toFixed(2)}`;
                 }
 
-                lockMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
+                lockMarker.bindPopup(L.popup().setContent(popupContent));
                 lockMarker.on('add', checkMarkerForActiveLayers);
                 lockMarker.on('click', activateMarkerLayer);
                 lockMarker.addTo(locks);
@@ -753,14 +782,20 @@ function Map() {
                                 icon: questItemIcon,
                                 position: position,
                                 title: obj.questItem.name,
+                                id: obj.questItem.id,
                             });
-                            const popupLines = [];
-                            popupLines.push(`<a href="/task/${quest.normalizedName}" target="_blank">${quest.name}</a>`);
-                            popupLines.push(`<img class="popup-item" src='${obj.questItem.baseImageLink}' />${obj.questItem.name}`);
+                            const popupContent = L.DomUtil.create('div');
+                            const questLink = getReactLink(`/task/${quest.normalizedName}`, quest.name);
+                            popupContent.append(questLink);
+                            const questItem = L.DomUtil.create('div', 'popup-item', popupContent);
+                            const questItemImage = L.DomUtil.create('img', 'popup-item', questItem);
+                            questItemImage.setAttribute('src', `${obj.questItem.baseImageLink}`);
+                            questItem.append(`${obj.questItem.name}`);
                             if (showTestMarkers) {
-                                popupLines.push(`Elevation: ${position.y.toFixed(2)}`);
+                                const elevationDiv = L.DomUtil.create('div', undefined, popupContent);
+                                elevationDiv.textContent = `Elevation: ${position.y.toFixed(2)}`;
                             }
-                            questItemMarker.bindPopup(L.popup().setContent(popupLines.join('<br>')));
+                            questItemMarker.bindPopup(L.popup().setContent(popupContent));
                             questItemMarker.on('add', checkMarkerForActiveLayers);
                             questItemMarker.on('click', activateMarkerLayer);
                             questItemMarker.addTo(questItems);
@@ -788,6 +823,7 @@ function Map() {
                             top: zone.top,
                             bottom: zone.bottom,
                             outline: rect,
+                            id: zone.id,
                         });
                         /*zoneMarker.on('click', (e) => {
                             rect._path.classList.toggle('not-shown');
@@ -795,7 +831,12 @@ function Map() {
                         zoneMarker.on('mouseover', mouseHoverOutline);
                         zoneMarker.on('mouseout', mouseHoverOutline);
                         zoneMarker.on('click', toggleForceOutline);
-                        zoneMarker.bindPopup(L.popup().setContent(`<a href="/task/${quest.normalizedName}" target="_blank">${quest.name}</a><br/>- ${obj.description}`));
+                        const popupContent = L.DomUtil.create('div');
+                        const questLink = L.DomUtil.create('div', undefined, popupContent);
+                        questLink.append(getReactLink(`/task/${quest.normalizedName}`, quest.name));
+                        const objectiveText = L.DomUtil.create('div', undefined, popupContent);
+                        objectiveText.textContent = `- ${obj.description}`;
+                        zoneMarker.bindPopup(L.popup().setContent(popupContent));
                         zoneMarker.on('add', checkMarkerForActiveLayers);
                         L.layerGroup([rect, zoneMarker]).addTo(questObjectives);
                     }
@@ -1042,7 +1083,15 @@ function Map() {
         map.setView(L.latLngBounds(bounds).getCenter(true), undefined, {animate: false});
 
         mapRef.current = map;
-    }, [mapData, items, quests, mapRef, playerPosition, t, dispatch]);
+        if (focusItem.current) {
+            for (const id of focusItem.current) {
+                if (focusOnPoi(id)) {
+                    //focusItem.current = false;
+                    break;
+                }
+            }
+        }
+    }, [mapData, items, quests, mapRef, playerPosition, t, dispatch, navigate]);
     
     if (!mapData) {
         return <ErrorPage />;

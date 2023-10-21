@@ -18,7 +18,7 @@ import TraderImage from '../../components/trader-image'
 import useQuestsData from '../../features/quests';
 import useTradersData from '../../features/traders';
 import useItemsData from '../../features/items';
-import useMapsData, { useMapImages } from '../../features/maps';
+import useMapsData from '../../features/maps';
 
 import './index.css';
 
@@ -54,8 +54,6 @@ function Quest() {
 
     const { data: maps } = useMapsData();
 
-    const mapImages = useMapImages();
-
     const { data: quests, status: questsStatus } = useQuestsData();
 
     let currentQuest = useMemo(() => {
@@ -85,25 +83,12 @@ function Quest() {
         if (!currentQuest?.map) {
             return null;
         }
-        /* loop through all the values in mapJson array and if there is a match, add a link to the map */
-        const found = Object.values(mapImages).reduce((foundMap, map) => {
-            if (foundMap) {
-                return foundMap;
-            }
-            if (map.normalizedName === currentQuest.map.normalizedName) {
-                return map;
-            }
-            return foundMap;
-        }, null);
-        if (!found) {
-            return (<span>{currentQuest.map.name}</span>);
-        }
         return (
-            <Link to={found.primaryPath}>
+            <Link to={`/map/${currentQuest.map.normalizedName}`}>
                 {currentQuest.map.name}
             </Link>
         );
-    }, [currentQuest, mapImages]);
+    }, [currentQuest]);
 
     const neededKeysPerMap = useMemo(() => {
         if (!currentQuest?.neededKeys) {
@@ -120,15 +105,7 @@ function Quest() {
                     id: map.id,
                     name: map.name,
                     normalizedName: map.normalizedName,
-                    link: Object.values(mapImages).reduce((mapLink, mapImage) => {
-                        if (mapLink) {
-                            return mapLink;
-                        }
-                        if (mapImage.normalizedName === map.normalizedName) {
-                            return `/map/${mapImage.primaryPath}`;
-                        }
-                        return mapLink;
-                    }, undefined),
+                    link: `/map/${map.normalizedName}`,
                     keys: [],
                 };
                 neededByMap.push(mapKeys);
@@ -136,7 +113,7 @@ function Quest() {
             mapKeys.keys.push(current.keys);
             return neededByMap;
         }, []);
-    }, [currentQuest, maps, mapImages]);
+    }, [currentQuest, maps]);
 
     const endgameGoals = useMemo(() => {
         const goals = [];
@@ -303,6 +280,7 @@ function Quest() {
 
     const getObjective = (objective) => {
         let taskDetails = '';
+        let mapQuery = '';
         if (objective.type.includes('QuestItem')) {
             taskDetails = (
                 <ItemImage
@@ -315,6 +293,7 @@ function Quest() {
                     imageViewer={true}
                 />
             );
+            mapQuery = objective.questItem.id;
         }
         if (objective.type === 'buildWeapon') {
             let baseItem = items.find((i) => i.id === objective.item.id);
@@ -823,14 +802,26 @@ function Quest() {
         if (objective.description) {
             objectiveDescription = <h3>{`✔️ ${objective.description} ${objective.optional ? `(${t('optional')})` : ''}`}</h3>;
         }
+        if (objective.zones?.length > 0) {
+            console.log(objective.zones)
+            mapQuery = objective.zones.map(z => z.id).join(',');
+        }
+        if (mapQuery) {
+            mapQuery = `?q=${mapQuery}`;
+        }
         return (
             <div key={objective.id}>
                 {objectiveDescription}
                 {objective.maps.length > 0 && (
                     <div key="objective-maps">
-                        {`${t('Maps')}: ${objective.maps
-                            .map((m) => m.name)
-                            .join(', ')}`}
+                        <span>{`${t('Maps')}: `}</span>
+                        {objective.maps
+                            .map((m, i) => [
+                                i > 0 && ', ',
+                                <Link key={i} to={`/map/${maps.find(map => map.id === m.id)?.normalizedName}${mapQuery}`}>
+                                    {m.name}
+                                </Link>
+                            ])}
                     </div>
                 )}
                 {taskDetails}
