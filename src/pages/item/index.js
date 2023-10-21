@@ -633,7 +633,7 @@ The max profitable price is impacted by the intel center and hideout management 
                         {t('Stats')}
                     </h2>
                     {hasProperties
-                        ? (<PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} />)
+                        ? (<PropertyList properties={{...currentItemData.properties, categories: currentItemData.categories}} id={currentItemData.id} />)
                         : (<LoadingSmall />)
                     }
                 </div>

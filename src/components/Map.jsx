@@ -731,6 +731,7 @@ function Map() {
                     icon: lockIcon,
                     position: lock.position,
                     title: `${t('Lock')}: ${key.name}`,
+                    id: key.id,
                 });
 
                 const popupContent = L.DomUtil.create('div');
