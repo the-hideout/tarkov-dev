@@ -117,7 +117,7 @@ export const useMapImages = () => {
                 switches: apiData?.switches || [],
                 stationaryWeapons: apiData?.stationaryWeapons || [],
             };
-            if (imageData.projection && imageData.projection !== 'interactive') {
+            if (imageData.projection) {
                 mapImages[imageData.key].displayText += ` - ${i18n.t(imageData.projection, { ns: 'maps' })}`;
             }
             if (imageData.orientation) {
@@ -151,6 +151,20 @@ export const useMapImages = () => {
     }, [maps]);
     return allMaps;
 };
+
+export const useMapImagesSortedArray = () => {
+    let mapArray = Object.values(useMapImages())
+    
+    mapArray.sort((a, b) => {
+        if (a.normalizedName === 'openworld')
+            return 1;
+        if (b.normalizedName === 'openworld')
+            return -1;
+        return a.name.localeCompare(b.name);
+    });
+
+    return mapArray
+}
 
 export const mapIcons = {
     'streets-of-tarkov': mdiCity,

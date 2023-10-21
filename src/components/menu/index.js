@@ -21,7 +21,7 @@ import { caliberArrayWithSplit } from '../../modules/format-ammo';
 import categoryPages from '../../data/category-pages.json';
 import useBossesData from '../../features/bosses';
 
-import { mapIcons, useMapImages } from '../../features/maps';
+import { mapIcons, useMapImagesSortedArray } from '../../features/maps';
 
 import alertConfig from './alert-config';
 
@@ -56,15 +56,7 @@ const Menu = () => {
     const { t } = useTranslation();
     const [open, setOpen] = useStateWithLocalStorage(alertConfig.bannerKey, true);
 
-    const mapImages = useMapImages();
-    const uniqueMaps = Object.values(mapImages);
-    uniqueMaps.sort((a, b) => {
-        if (a.normalizedName === 'openworld')
-            return 1;
-        if (b.normalizedName === 'openworld')
-            return -1;
-        return a.displayText.localeCompare(b.displayText);
-    });
+    const uniqueMaps = useMapImagesSortedArray();
     let mapCurrent = '';
     for (const map of uniqueMaps) {
         if (map.normalizedName !== mapCurrent) {

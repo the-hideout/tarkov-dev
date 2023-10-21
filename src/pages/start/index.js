@@ -12,7 +12,7 @@ import SEO from '../../components/SEO';
 import ItemIconList from '../../components/item-icon-list';
 import LoadingSmall from '../../components/loading-small';
 
-import { mapIcons, useMapImages } from '../../features/maps';
+import { mapIcons, useMapImagesSortedArray } from '../../features/maps';
 
 import Icon from '@mdi/react';
 import {
@@ -46,16 +46,8 @@ function Start() {
     const [nameFilter, setNameFilter] = useState(searchParams.get('search') || '');
     const { t } = useTranslation();
 
-    const mapImages = useMapImages();
-    // const uniqueMaps = Object.values(mapImages);
-    // uniqueMaps.sort((a, b) => {
-    //     if (a.normalizedName === 'openworld')
-    //         return 1;
-    //     if (b.normalizedName === 'openworld')
-    //         return -1;
-    //     return a.displayText.localeCompare(b.displayText);
-    // });
-    const uniqueMaps = Object.values(mapImages).reduce((maps, current) => {
+    const mapImagesSortedArray = useMapImagesSortedArray();
+    const uniqueMaps = mapImagesSortedArray.reduce((maps, current) => {
         if (!maps.some(storedMap => storedMap.normalizedName === current.normalizedName)) {
             maps.push({
                 name: current.name,
@@ -65,13 +57,6 @@ function Start() {
         }
         return maps;
     }, []);
-    uniqueMaps.sort((a, b) => { 
-        if (a.normalizedName === 'openworld')
-            return 1;
-        if (b.normalizedName === 'openworld')
-            return -1;
-        return a.name.localeCompare(b.name);
-    });
 
     useEffect(() => {
         setNameFilter(searchParams.get('search') || '');
