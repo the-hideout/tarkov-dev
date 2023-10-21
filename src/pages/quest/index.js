@@ -804,7 +804,12 @@ function Quest() {
         }
         if (objective.zones?.length > 0) {
             console.log(objective.zones)
-            mapQuery = objective.zones.map(z => z.id).join(',');
+            mapQuery = objective.zones.reduce((ids, z) => {
+                if (!ids.includes(z.id)) {
+                    ids.push(z.id);
+                }
+                return ids;
+            }, []).join(',');
         }
         if (mapQuery) {
             mapQuery = `?q=${mapQuery}`;
