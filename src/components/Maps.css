@@ -86,6 +86,69 @@
 
 /* elevation visability */
 
-img.off-level, div.awesome-marker.off-level {
+div.leaflet-pane.leaflet-overlay-pane > img.off-level {
     opacity: 50%;
+}
+
+div.awesome-marker.off-level {
+    opacity: 50%;
+    z-index: -9999 !important;
+}
+
+div.leaflet-pane.leaflet-marker-pane > .off-level {
+    opacity: 20%;
+    z-index: -9999 !important;
+}
+
+div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
+    stroke-opacity: 20%;
+    fill-opacity: 2%;
+}
+
+.not-shown {
+    display: none;
+}
+
+.leaflet-container .leaflet-marker-pane .extract-icon img {
+    max-width: 24px !important;
+    max-height: 24px !important;
+}
+
+.extract-icon {
+    display: inline;
+    white-space: nowrap;
+}
+
+.extract-name {
+    font-weight: 900;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    white-space: nowrap;
+    text-transform: uppercase;
+    vertical-align: top;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+
+.extract-name.pmc {
+    color: #00e599;
+}
+
+.extract-name.scav {
+    color: #ff7800;
+}
+
+.extract-name.shared {
+    color: #00e4e5;
+}
+
+.poi-image, img.popup-item {
+    max-width: 24px;
+    max-height: 24px;
+    vertical-align: middle;
+}
+
+.poi-link {
+    cursor: pointer;
 }

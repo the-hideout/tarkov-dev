@@ -32,7 +32,7 @@ const itemCategoryLinkFormat = inputCategory => {
     return <Link to={`/items/${inputCategory.normalizedName}`} key={inputCategory.normalizedName}>{inputCategory.name}</Link>;
 };
 
-const formatter = (key, value) => {
+const formatter = (key, value, id) => {
     let label = null;
     let tooltip = false;
     if (typeof value === 'object' && value !== null && value.value) {
@@ -139,6 +139,12 @@ const formatter = (key, value) => {
         if (typeof value === 'object') {
             value = value?.name;
         }
+    }
+
+    if (key === 'usedOnMaps') {
+        value = value?.map(m => {
+            return <Link to={`/map/${m.normalizedName}?q=${id}`} key={`map=${m.id}`}>{m.name}</Link>;
+        }).reduce((prev, curr, currentIndex) => [prev, (<span key={`spacer-${currentIndex}`}>, </span>), curr]);
     }
 
     if (Array.isArray(value)) {

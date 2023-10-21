@@ -11,7 +11,7 @@ const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
 };
 
-function PropertyList({ properties }) {
+function PropertyList({ properties, id }) {
     const { t } = useTranslation();
 
     const data = useMemo(
@@ -21,13 +21,13 @@ function PropertyList({ properties }) {
                     return !skipProps.includes(property);
                 })
                 .map(([property, value]) => {
-                    return propertyFormatter(property, value);
+                    return propertyFormatter(property, value, id);
                 })
                 .filter(([property, value]) => value.value !== undefined && value.value !== null)
                 .filter(([property, value]) => value.value?.length !== 0)
                 .sort((a, b) => a[0].localeCompare(b[0])),
 
-        [properties],
+        [properties, id],
     );
 
     if (data.length === 0) {

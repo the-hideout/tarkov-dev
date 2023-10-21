@@ -37,6 +37,9 @@ class MapsQuery extends APIQuery {
                     spawnTime
                     spawnTimeRandom
                     spawnTrigger
+                    switch {
+                        id
+                    }
                 }
                 spawns {
                     zoneName
@@ -47,6 +50,114 @@ class MapsQuery extends APIQuery {
                     }
                     sides
                     categories
+                }
+                extracts {
+                    id
+                    name
+                    faction
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    outline {
+                        x
+                        y
+                        z
+                    }
+                    top
+                    bottom
+                    switches {
+                        id
+                        name
+                    }
+                }
+                locks {
+                    lockType
+                    key {
+                        id
+                    }
+                    needsPower
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    outline {
+                        x
+                        y
+                        z
+                    }
+                    top
+                    bottom
+                }
+                hazards {
+                    hazardType
+                    name
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    outline {
+                        x
+                        y
+                        z
+                    }
+                    top
+                    bottom
+                }
+                lootContainers {
+                    lootContainer {
+                        id
+                        name
+                        normalizedName
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                }
+                switches {
+                    id
+                    name
+                    switchType
+                    activatedBy {
+                        id
+                        name
+                    }
+                    activates {
+                        operation
+                        target {
+                            __typename
+                            ...on MapSwitch {
+                                id
+                                name
+                            }
+                            ...on MapExtract {
+                                id
+                                name
+                                faction
+                            }
+                        }
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                }
+                stationaryWeapons {
+                    stationaryWeapon {
+                        name
+                        shortName
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
                 }
             }
         }`;

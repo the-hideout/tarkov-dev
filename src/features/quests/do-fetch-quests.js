@@ -79,6 +79,26 @@ class QuestsQuery extends APIQuery {
                 name
             }
             optional
+            ...on TaskObjectiveBasic {
+                zones {
+                    id
+                    map {
+                        id
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    outline {
+                        x
+                        y
+                        z
+                    }
+                    top
+                    bottom
+                }
+            }
             ...on TaskObjectiveBuildItem {
                 item {
                     id
@@ -112,6 +132,7 @@ class QuestsQuery extends APIQuery {
             ...on TaskObjectiveExtract {
                 exitStatus
                 exitName
+                count
             }
             ...on TaskObjectiveItem {
                 item {
@@ -122,10 +143,46 @@ class QuestsQuery extends APIQuery {
                 dogTagLevel
                 maxDurability
                 minDurability
+                zones {
+                    id
+                    map {
+                        id
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    outline {
+                        x
+                        y
+                        z
+                    }
+                    top
+                    bottom
+                }
             }
             ...on TaskObjectiveMark {
                 markerItem {
                     id
+                }
+                zones {
+                    id
+                    map {
+                        id
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    outline {
+                        x
+                        y
+                        z
+                    }
+                    top
+                    bottom
                 }
             }
             ...on TaskObjectivePlayerLevel {
@@ -143,6 +200,34 @@ class QuestsQuery extends APIQuery {
                     image512pxLink
                     baseImageLink
                     image8xLink
+                }
+                possibleLocations {
+                    map {
+                        id
+                    }
+                    positions {
+                        x
+                        y
+                        z
+                    }
+                }
+                zones {
+                    id
+                    map {
+                        id
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    outline {
+                        x
+                        y
+                        z
+                    }
+                    top
+                    bottom
                 }
                 count
             }
@@ -186,6 +271,24 @@ class QuestsQuery extends APIQuery {
                         value
                     }
                 }
+                zones {
+                    id
+                    map {
+                        id
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    outline {
+                        x
+                        y
+                        z
+                    }
+                    top
+                    bottom
+                }
             }
             ...on TaskObjectiveSkill {
                 skillLevel {
@@ -219,6 +322,24 @@ class QuestsQuery extends APIQuery {
                 compareMethod
                 count
                 zoneNames
+                zones {
+                    id
+                    map {
+                        id
+                    }
+                    position {
+                        x
+                        y
+                        z
+                    }
+                    outline {
+                        x
+                        y
+                        z
+                    }
+                    top
+                    bottom
+                }
             }
         }
         fragment taskRewardFragment on TaskRewards {
