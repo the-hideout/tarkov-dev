@@ -141,7 +141,7 @@
                     {
                         "name": "3rd Floor",
                         "path": "https://assets.tarkov.dev/maps/factory_v2/3rd/{z}/{x}/{y}.png",
-                        "show": true,
+                        "show": false,
                         "heightRange": [6, 10000]
                     },
                     {
