@@ -6,7 +6,7 @@ import {
     TransformWrapper,
     TransformComponent,
 } from 'react-zoom-pan-pinch';
-import L, { popup } from 'leaflet';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
