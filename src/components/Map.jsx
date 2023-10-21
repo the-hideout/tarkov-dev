@@ -1040,10 +1040,9 @@ function Map() {
                 icon: 'person-running',
                 prefix: 'fa',
                 markerColor: 'green',
-                position: {x: 0, y: 0, z: 0},
             });
 
-            const positionMarker = L.marker([0,0], {icon: playerIcon}).addTo(positionLayer);
+            const positionMarker = L.marker([0,0], {icon: playerIcon, position: {x: 0, y: 0, z: 0}}).addTo(positionLayer);
             const closeButton = L.DomUtil.create('a');
             closeButton.innerHTML = tMaps('Clear');
             closeButton.addEventListener('click', () => {
@@ -1061,10 +1060,9 @@ function Map() {
                 icon: 'person-running',
                 prefix: 'fa',
                 markerColor: 'green',
-                position: playerPosition.position,
             });
                   
-            const positionMarker = L.marker(pos(playerPosition.position), {icon: playerIcon}).addTo(positionLayer);
+            const positionMarker = L.marker(pos(playerPosition.position), {icon: playerIcon, position: playerPosition.position}).addTo(positionLayer);
             const closeButton = L.DomUtil.create('a');
             closeButton.innerHTML = tMaps('Clear');
             closeButton.addEventListener('click', () => {
