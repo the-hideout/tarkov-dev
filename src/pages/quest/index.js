@@ -293,7 +293,9 @@ function Quest() {
                     imageViewer={true}
                 />
             );
-            mapQuery = objective.questItem.id;
+            if (objective.type.includes('find')) {
+                mapQuery = objective.questItem.id;
+            }
         }
         if (objective.type === 'buildWeapon') {
             let baseItem = items.find((i) => i.id === objective.item.id);
@@ -803,7 +805,6 @@ function Quest() {
             objectiveDescription = <h3>{`✔️ ${objective.description} ${objective.optional ? `(${t('optional')})` : ''}`}</h3>;
         }
         if (objective.zones?.length > 0) {
-            console.log(objective.zones)
             mapQuery = objective.zones.reduce((ids, z) => {
                 if (!ids.includes(z.id)) {
                     ids.push(z.id);
