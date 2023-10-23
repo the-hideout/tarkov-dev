@@ -135,7 +135,7 @@ function Item() {
         if (item) {
             let extraProps = {};
             if (item.types.includes('keys')) {
-                extraProps.usedOnMaps = maps.filter(map => map.locks.some(l => l.key.id === item.id));
+                extraProps.usedOnMaps = maps.filter(map => map.locks.some(l => l.key.id === item.id)).sort((a, b) => a.name.localeCompare(b.name));
             }
             return {
                 ...item,
