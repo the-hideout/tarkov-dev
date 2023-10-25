@@ -42,13 +42,7 @@ L.Control.GroupedLayers = L.Control.extend({
         groupsExpandedClass: "leaflet-control-layers-group-collapse-default",
         groupsCollapsedClass: "leaflet-control-layers-group-expand-default",
         sortFunction: function (nameA, nameB) {
-            if (nameA < nameB) {
-                return -1;
-            } else if (nameB < nameA) {
-                return 1;
-            } else {
-                return 0;
-            }
+            return nameA.localeCompare(nameB);
         }
     },
   
@@ -220,6 +214,12 @@ L.Control.GroupedLayers = L.Control.extend({
     
         if (this.options.sortGroups) {
             this._layers.sort(L.bind(function (a, b) {
+                if (a.group.exclusiveOptional && !b.group.exclusiveOptional) {
+                    return -1;
+                }
+                if (!a.group.exclusiveOptional && b.group.exclusiveOptional) {
+                    return 1;
+                }
                 return this.options.sortFunction(a.group.name, b.group.name);
             }, this));
         }
@@ -371,7 +371,7 @@ L.Control.GroupedLayers = L.Control.extend({
         
                 if (this.options.groupsCollapsable){
                     groupContainer.classList.add("group-collapsable");
-                    groupContainer.classList.add("collapsed");
+                    //groupContainer.classList.add("collapsed");
         
                     var groupMin = document.createElement('span');
                     groupMin.className = 'leaflet-control-layers-group-collapse '+this.options.groupsExpandedClass;

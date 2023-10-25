@@ -303,6 +303,7 @@ function Map() {
             position: 'topleft',
             collapsed: true,
             groupCheckboxes: true,
+            groupsCollapsable: true,
             exclusiveOptionalGroups: [tMaps('Levels')],
         }).addTo(map);
         map.layerControl = layerControl;
