@@ -116,32 +116,66 @@ function checkMarkerBounds(position, markerBounds) {
     if (position.z < markerBounds.BR.z) markerBounds.BR.z = position.z;
 }
 
-function getBounds(mapData) {
-    if (!mapData.bounds) {
+function getBounds(bounds) {
+    if (!bounds) {
         return undefined;
     }
-    return [[mapData.bounds[0][1], mapData.bounds[0][0]], [mapData.bounds[1][1], mapData.bounds[1][0]]];
+    return L.latLngBounds([bounds[0][1], bounds[0][0]], [bounds[1][1], bounds[1][0]]);
+    //return [[bounds[0][1], bounds[0][0]], [bounds[1][1], bounds[1][0]]];
+}
+
+function markerIsOnLayer(marker, layer) {
+    var top = marker.options.top || marker.options.position.y;
+    var bottom = marker.options.bottom || marker.options.position.y;
+    const heightRange = layer.options.heightRange;
+    if (top >= heightRange[0] && bottom < heightRange[1]) {
+        if (layer.options.layerBounds) {
+            let inBounds = false;
+            for (const boundsArray of layer.options.layerBounds) {
+                const bounds = getBounds(boundsArray);
+                if (bounds.contains(pos(marker.options.position))) {
+                    inBounds = true;
+                    break;
+                }
+            }
+            return inBounds;
+        }
+        return true;
+    }
+    return false;
 }
 
 function markerIsOnActiveLayer(marker) {
     if (!marker.options.position) {
         return true;
     }
-    var top = marker.options.top || marker.options.position.y;
-    var bottom = marker.options.bottom || marker.options.position.y;
-    let activeLayers = Object.values(marker._map._layers).filter(l => l.options?.heightRange);
-    if (activeLayers.some(l => l.options.overlay)) {
-        activeLayers = activeLayers.filter(l => l.options.overlay);
-    }
-    let onLevel = false;
-    for (const layer of activeLayers) {
-        const heightRange = layer.options.heightRange;
-        if (top >= heightRange[0] && bottom < heightRange[1]) {
-            onLevel = true;
+
+    const map = marker._map;
+
+    const overlays = map.layerControl._layers.map(l => l.layer).filter(l => Boolean(l.options.heightRange));
+    let onAbsentLayer = false;
+    for (const layer of overlays) {
+        const onOverlay = markerIsOnLayer(marker, layer);
+        if (onOverlay && !map.hasLayer(layer) && layer.options.layerBounds) {
+            onAbsentLayer = true;
             break;
         }
     }
-    return onLevel;
+    if (onAbsentLayer) {
+        return false;
+    }
+
+    let activeLayers = Object.values(map._layers).filter(l => l.options?.heightRange);
+    if (activeLayers.some(l => l.options.overlay)) {
+        activeLayers = activeLayers.filter(l => l.options.overlay);
+    }
+
+    for (const layer of activeLayers) {
+        if (markerIsOnLayer(marker, layer)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function checkMarkerForActiveLayers(event) {
@@ -198,8 +232,6 @@ function toggleForceOutline(event) {
 
 function activateMarkerLayer(event) {
     const marker = event.target || event;
-    var top = marker.options.top || marker.options.position.y;
-    var bottom = marker.options.bottom || marker.options.position.y;
     if (markerIsOnActiveLayer(marker)) {
         return;
     }
@@ -209,8 +241,7 @@ function activateMarkerLayer(event) {
     }
     const heightLayers = marker._map.layerControl._layers.filter(l => l.layer.options.heightRange && l.layer.options.overlay).map(l => l.layer);
     for (const layer of heightLayers) {
-        const heightRange = layer.options.heightRange;
-        if (top >= heightRange[0] && bottom < heightRange[1]) {
+        if (markerIsOnLayer(marker, layer)) {
             layer.addTo(marker._map);
             break;
         }
@@ -328,7 +359,7 @@ function Map() {
 
         //L.control.scale({position: 'bottomright'}).addTo(map);
         
-        const bounds = getBounds(mapData);
+        const bounds = getBounds(mapData.bounds);
         const layerOptions = {
             heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
             type: 'map-layer',
@@ -382,6 +413,7 @@ function Map() {
                     const layerOptions = {
                         name: layer.name,
                         heightRange: layer.heightRange || baseLayer.options?.heightRange,
+                        layerBounds: layer.layerBounds,
                         type: 'map-layer',
                         overlay: Boolean(layer.heightRange),
                     };
@@ -1076,7 +1108,7 @@ function Map() {
             console.log(`Markers "bounds": [[${markerBounds.BR.x}, ${markerBounds.BR.z}], [${markerBounds.TL.x}, ${markerBounds.TL.z}]] (already rotated, copy/paste to maps.json)`);
 
             L.rectangle([pos(markerBounds.TL), pos(markerBounds.BR)], {color: '#ff000055', weight: 1}).addTo(map);
-            L.rectangle(getBounds(mapData), {color: '#00ff0055', weight: 1}).addTo(map);
+            L.rectangle(getBounds(mapData.bounds), {color: '#00ff0055', weight: 1}).addTo(map);
 
             const positionLayer = L.layerGroup();
             const playerIcon = L.AwesomeMarkers.icon({

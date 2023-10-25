@@ -75,7 +75,7 @@
                 "transform": [0.239, 168.6, 0.239, 73.1],
                 "coordinateRotation": 180,
                 "bounds": [[698, -307], [-371, 237]],
-                "heightRange": [-0.1, 2.7],
+                "heightRange": [-1000, 2.7],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Ground_Level.svg",
@@ -86,7 +86,13 @@
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Underground_Level.svg",
                         "tilePath": "https://assets.tarkov.dev/maps/customs/underground/{z}/{x}/{y}.png",
                         "show": false,
-                        "heightRange": [-10000, -0.1]
+                        "heightRange": [-10000, 0],
+                        "layerBounds": [
+                            [[635, -137], [620, -125]],
+                            [[473, -122], [458, -110]],
+                            [[349, -88], [323, -32]],
+                            [[219, -158], [193, -137]]
+                        ]
                     },
                     {
                         "name": "2nd Floor",
