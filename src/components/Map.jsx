@@ -399,8 +399,6 @@ function Map() {
                             ...layerOptions,
                         });
                     }
-
-                    layerControl.addOverlay(heightLayer, tMaps(layer.name), tMaps('Levels'));
     
                     heightLayer.on('add', () => {
                         if (layer.heightRange) {
@@ -438,6 +436,8 @@ function Map() {
                     } else if (!selectedLayer && layer.show) {
                         heightLayer.addTo(map);
                     }
+
+                    layerControl.addOverlay(heightLayer, tMaps(layer.name), tMaps('Levels'));
                 }
             });
         }
