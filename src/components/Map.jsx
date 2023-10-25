@@ -359,9 +359,10 @@ function Map() {
             if (mapData.layers?.length === 0) {
                 break;
             }
-            const svgParent = baseLayer._url.endsWith('.svg');
+
             let selectedLayer = '';
             baseLayer.on('add', () => {
+                const svgParent = baseLayer._url.endsWith('.svg');
                 const existingLayers = Object.values(layerControl._layers).filter(l => l.layer.options.type === 'map-layer' && !baseLayers.includes(l.layer)).map(l => l.layer);
                 for (const existingLayer of existingLayers) {
                     const svgOverlay = Boolean(existingLayer._url.endsWith('.svg'));
@@ -376,7 +377,6 @@ function Map() {
                 }
                 for (const layer of mapData.layers) {
                     let heightLayer;
-                    let svgOverlay = false;
     
                     const layerOptions = {
                         name: layer.name,
@@ -390,7 +390,6 @@ function Map() {
                         //     layer.svgPath = layer.svgPath.replace("assets.tarkov.dev/maps/svg", "raw.githubusercontent.com/the-hideout/tarkov-dev-src-maps/main/interactive");
                         // }
                         heightLayer = L.imageOverlay(layer.svgPath, bounds, layerOptions);
-                        svgOverlay = true;
                     }
                     else if (!baseLayer._url.endsWith('.svg') && layer.tilePath) {
                         heightLayer = L.tileLayer(layer.tilePath, {
