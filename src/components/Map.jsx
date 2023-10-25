@@ -351,7 +351,7 @@ function Map() {
             // }
             //baseLayer = L.imageOverlay(mapData.svgPath, bounds, layerOptions);
             svgLayer = L.imageOverlay(mapData.svgPath, bounds, layerOptions);
-            layerControl.addBaseLayer(svgLayer, tMaps('Vector'));
+            layerControl.addBaseLayer(svgLayer, tMaps('Abstract'));
             baseLayers.push(svgLayer);
         }
 
