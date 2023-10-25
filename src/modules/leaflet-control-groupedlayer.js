@@ -356,7 +356,7 @@ L.Control.GroupedLayers = L.Control.extend({
                 var groupLabel = document.createElement('label');
                 groupLabel.className = 'leaflet-control-layers-group-label';
         
-                if (obj.group.name !== '' && !obj.group.exclusive) {
+                if (obj.group.name !== '' && !obj.group.exclusive && !obj.group.exclusiveOptional) {
                     // ------ add a group checkbox with an _onInputClickGroup function
                     if (this.options.groupCheckboxes) {
                         var groupInput = document.createElement('input');
