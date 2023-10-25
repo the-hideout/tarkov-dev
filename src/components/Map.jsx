@@ -207,7 +207,7 @@ function activateMarkerLayer(event) {
     for (const layer of activeLayers) {
         layer.removeFrom(marker._map);
     }
-    const heightLayers = marker._map.layerControl._layers.filter(l => l.group.exclusive && l.layer.options.heightRange).map(l => l.layer);
+    const heightLayers = marker._map.layerControl._layers.filter(l => l.layer.options.heightRange && l.layer.options.overlay).map(l => l.layer);
     for (const layer of heightLayers) {
         const heightRange = layer.options.heightRange;
         if (top >= heightRange[0] && bottom < heightRange[1]) {
