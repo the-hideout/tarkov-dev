@@ -303,7 +303,7 @@ function Map() {
             position: 'topleft',
             collapsed: true,
             groupCheckboxes: true,
-            exclusiveGroups: [tMaps('Levels')],
+            exclusiveOptionalGroups: [tMaps('Levels')],
         }).addTo(map);
         map.layerControl = layerControl;
         map.addControl(new L.Control.Fullscreen({
@@ -327,81 +327,124 @@ function Map() {
 
         //L.control.scale({position: 'bottomright'}).addTo(map);
         
-        let baseLayer;
         const bounds = getBounds(mapData);
+        const layerOptions = {
+            heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
+            type: 'map-layer',
+        };
+        let tileLayer = false;
+        const baseLayers = [];
+        if (mapData.tilePath) {
+            tileLayer = L.tileLayer(mapData.tilePath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {
+                tileSize: mapData.tileSize,
+                bounds,
+                ...layerOptions,
+            });
+            layerControl.addBaseLayer(tileLayer, tMaps('Satellite'));
+            baseLayers.push(tileLayer);
+        }
+
+        let svgLayer = false;
         if (mapData.svgPath) {
             // if (process.env.NODE_ENV === "development") {
             //     mapData.svgPath = mapData.svgPath.replace("assets.tarkov.dev/maps/svg", "raw.githubusercontent.com/the-hideout/tarkov-dev-src-maps/main/interactive");
             // }
-            baseLayer = L.imageOverlay(mapData.svgPath, bounds, {
-                heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
-                type: 'layer-svg'
-            });
+            //baseLayer = L.imageOverlay(mapData.svgPath, bounds, layerOptions);
+            svgLayer = L.imageOverlay(mapData.svgPath, bounds, layerOptions);
+            layerControl.addBaseLayer(svgLayer, tMaps('Vector'));
+            baseLayers.push(svgLayer);
         }
-        else {
-            baseLayer = L.tileLayer(mapData.mapPath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {
-                tileSize: mapData.tileSize,
-                bounds: bounds,
-                heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
-                type: 'layer-tile',
-            });
-        }
-        baseLayer.addTo(map);
-        //layerControl.addBaseLayer(baseLayer, tMaps('Base'));
 
-        // Add map layers
-        if (mapData.layers) {
-            for (const layer of mapData.layers) {
-                let tileLayer;
-                
-                if (layer.svgPath) {
-                    // if (process.env.NODE_ENV === "development") {
-                    //     layer.svgPath = layer.svgPath.replace("assets.tarkov.dev/maps/svg", "raw.githubusercontent.com/the-hideout/tarkov-dev-src-maps/main/interactive");
-                    // }
-                    tileLayer = L.imageOverlay(layer.svgPath, bounds, {
-                        heightRange: layer.heightRange || baseLayer.options?.heightRange,
-                        type: 'layer-svg',
-                        overlay: Boolean(layer.heightRange),
-                    });
-                }
-                else {
-                    tileLayer = L.tileLayer(layer.path, {
-                        tileSize: mapData.tileSize,
-                        bounds: bounds,
-                        heightRange: layer.heightRange || baseLayer.options?.heightRange,
-                        type: 'layer-tile',
-                        overlay: Boolean(layer.heightRange),
-                    });
-                }
-                layerControl.addOverlay(tileLayer, tMaps(layer.name), tMaps('Levels'));
-                if (layer.show) {
-                    tileLayer.addTo(map);
-                }
-
-                tileLayer.on('add', () => {
-                    if (layer.heightRange) {
-                        for (const marker of Object.values(map._layers)) {
-                            checkMarkerForActiveLayers(marker);
-                        }
-                    }
-                    if (baseLayer.options?.type === 'layer-svg' && !layer.show) {
-                        baseLayer._image.classList.add('off-level');
-                    }
-                });
-                tileLayer.on('remove', () => {
-                    const heightLayer = Object.values(map._layers).findLast(l => l.options?.heightRange);
-                    if (heightLayer) {
-                        for (const marker of Object.values(map._layers)) {
-                            checkMarkerForActiveLayers(marker);
-                        }
-                        const layers = Object.values(map._layers).filter(l => l.options.type === 'layer-svg');
-                        if (layers.length === 1 && baseLayer.options.type === 'layer-svg') {
-                            baseLayer._image.classList.remove('off-level');
-                        }
-                    }
-                });
+        for (const baseLayer of baseLayers) {
+            if (mapData.layers?.length === 0) {
+                break;
             }
+            const svgParent = baseLayer._url.endsWith('.svg');
+            let selectedLayer = '';
+            baseLayer.on('add', () => {
+                const existingLayers = Object.values(layerControl._layers).filter(l => l.layer.options.type === 'map-layer' && !baseLayers.includes(l.layer)).map(l => l.layer);
+                for (const existingLayer of existingLayers) {
+                    const svgOverlay = Boolean(existingLayer._url.endsWith('.svg'));
+                    if (svgParent === svgOverlay) {
+                        continue;
+                    }
+                    layerControl.removeLayer(existingLayer);
+                    if (map.hasLayer(existingLayer)) {
+                        map.removeLayer(existingLayer);
+                        selectedLayer = existingLayer.options.name;
+                    }
+                }
+                for (const layer of mapData.layers) {
+                    let heightLayer;
+                    let svgOverlay = false;
+    
+                    const layerOptions = {
+                        name: layer.name,
+                        heightRange: layer.heightRange || baseLayer.options?.heightRange,
+                        type: 'map-layer',
+                        overlay: Boolean(layer.heightRange),
+                    };
+                    
+                    if (baseLayer._url.endsWith('.svg') && layer.svgPath) {
+                        // if (process.env.NODE_ENV === "development") {
+                        //     layer.svgPath = layer.svgPath.replace("assets.tarkov.dev/maps/svg", "raw.githubusercontent.com/the-hideout/tarkov-dev-src-maps/main/interactive");
+                        // }
+                        heightLayer = L.imageOverlay(layer.svgPath, bounds, layerOptions);
+                        svgOverlay = true;
+                    }
+                    else if (!baseLayer._url.endsWith('.svg') && layer.tilePath) {
+                        heightLayer = L.tileLayer(layer.tilePath, {
+                            tileSize: mapData.tileSize,
+                            bounds,
+                            ...layerOptions,
+                        });
+                    }
+
+                    layerControl.addOverlay(heightLayer, tMaps(layer.name), tMaps('Levels'));
+    
+                    heightLayer.on('add', () => {
+                        if (layer.heightRange) {
+                            for (const marker of Object.values(map._layers)) {
+                                checkMarkerForActiveLayers(marker);
+                            }
+                        }
+                        // mapLayer._image means svg
+                        if (baseLayer._image && !layer.show) {
+                            baseLayer._image.classList.add('off-level');
+                        } else if (baseLayer._container && !layer.show) {
+                            baseLayer._container.classList.add('off-level');
+                        }
+                    });
+                    heightLayer.on('remove', () => {
+                        const heightLayer = Object.values(map._layers).findLast(l => l.options?.heightRange);
+                        if (heightLayer) {
+                            for (const marker of Object.values(map._layers)) {
+                                checkMarkerForActiveLayers(marker);
+                            }
+                            const layers = Object.values(map._layers).filter(l => l.options.type === 'map-layer');
+                            if (layers.length !== 1) {
+                                return;
+                            }
+                            if (baseLayer._image) {
+                                baseLayer._image.classList.remove('off-level');
+                            } else if (baseLayer._container) {
+                                baseLayer._container.classList.remove('off-level');
+                            }
+                        }
+                    });
+
+                    if (selectedLayer === layer.name) {
+                        heightLayer.addTo(map);
+                    } else if (!selectedLayer && layer.show) {
+                        heightLayer.addTo(map);
+                    }
+                }
+            });
         }
+
+        const baseLayer = tileLayer ? tileLayer : svgLayer;
+
+        baseLayer.addTo(map);
 
         const categories = {
             'extract_pmc': t('PMC'),

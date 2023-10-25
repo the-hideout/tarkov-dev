@@ -36,6 +36,7 @@ L.Control.GroupedLayers = L.Control.extend({
         position: 'topright',
         autoZIndex: true,
         exclusiveGroups: [],
+        exclusiveOptionalGroups: [],
         groupCheckboxes: false,
         groupsCollapsable: false,
         groupsExpandedClass: "leaflet-control-layers-group-collapse-default",
@@ -187,11 +188,13 @@ L.Control.GroupedLayers = L.Control.extend({
         }
     
         var exclusive = (this._indexOf(this.options.exclusiveGroups, group) !== -1);
+        var exclusiveOptional = (this._indexOf(this.options.exclusiveOptionalGroups, group) !== -1);
     
         _layer.group = {
             name: group,
             id: groupId,
-            exclusive: exclusive
+            exclusive: exclusive,
+            exclusiveOptional: exclusiveOptional,
         };
     
         if (this.options.autoZIndex && layer.setZIndex) {
@@ -274,6 +277,16 @@ L.Control.GroupedLayers = L.Control.extend({
   
     _createRadioElement: function (name, checked) {
         var radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = name;
+        radio.className = 'leaflet-control-layers-selector';
+        radio.checked = checked;
+    
+        return radio;
+    },
+
+    _createExclusiveCheckElement: function (name, checked) {
+        var radio = document.createElement('input');
         radio.type = 'checkbox';
         radio.name = name;
         radio.className = `leaflet-control-layers-selector ${name}`;
@@ -306,6 +319,9 @@ L.Control.GroupedLayers = L.Control.extend({
             if (obj.group.exclusive) {
                 groupRadioName = 'leaflet-exclusive-group-layer-' + obj.group.id;
                 input = this._createRadioElement(groupRadioName, checked);
+            } else if (obj.group.exclusiveOptional) {
+                groupRadioName = 'leaflet-exclusive-group-layer-' + obj.group.id;
+                input = this._createExclusiveCheckElement(groupRadioName, checked);
             } else {
                 input = document.createElement('input');
                 input.type = 'checkbox';

@@ -69,31 +69,36 @@
             {
                 "key": "customs",
                 "projection": "interactive",
+                "tileSize": 256,
                 "minZoom": 2,
-                "maxZoom": 7,
-                "transform": [0.182815, 0, 0.182815, 0],
+                "maxZoom": 6,
+                "transform": [0.239, 168.6, 0.239, 73.1],
                 "coordinateRotation": 180,
                 "bounds": [[698, -307], [-371, 237]],
-                "heightRange": [-13, 2.7],
+                "heightRange": [0, 2.7],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Ground_Level.svg",
+                "tilePath": "https://assets.tarkov.dev/maps/customs/main/{z}/{x}/{y}.png",
                 "layers": [
                     {
                         "name": "Underground",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Underground_Level.svg",
+                        "tilePath": "https://assets.tarkov.dev/maps/customs/underground/{z}/{x}/{y}.png",
                         "show": false,
-                        "heightRange": [-10000, -13]
+                        "heightRange": [-10000, 0]
                     },
                     {
                         "name": "2nd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Second_Floor.svg",
+                        "tilePath": "https://assets.tarkov.dev/maps/customs/2nd/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [2.7, 6.5]
                     },
                     {
                         "name": "3rd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Third_Floor.svg",
+                        "tilePath": "https://assets.tarkov.dev/maps/customs/3rd/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [6.5, 10000]
                     }
@@ -130,23 +135,23 @@
                 "heightRange": [-1, 3],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
-                "mapPath": "https://assets.tarkov.dev/maps/factory_v2/main/{z}/{x}/{y}.png",
+                "tilePath": "https://assets.tarkov.dev/maps/factory_v2/main/{z}/{x}/{y}.png",
                 "layers": [
                     {
                         "name": "2nd Floor",
-                        "path": "https://assets.tarkov.dev/maps/factory_v2/2nd/{z}/{x}/{y}.png",
+                        "tilePath": "https://assets.tarkov.dev/maps/factory_v2/2nd_notint/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [3, 6]
                     },
                     {
                         "name": "3rd Floor",
-                        "path": "https://assets.tarkov.dev/maps/factory_v2/3rd/{z}/{x}/{y}.png",
+                        "tilePath": "https://assets.tarkov.dev/maps/factory_v2/3rd_notint/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [6, 10000]
                     },
                     {
                         "name": "Tunnels",
-                        "path": "https://assets.tarkov.dev/maps/factory_v2/tunnels/{z}/{x}/{y}.png",
+                        "tilePath": "https://assets.tarkov.dev/maps/factory_v2/tunnels_notint/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [-10000, -1]
                     }
@@ -214,18 +219,18 @@
                 "bounds": [[-91, -477], [-287, -193]],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
-                "mapPath": "https://assets.tarkov.dev/maps/labs_v2/1st/{z}/{x}/{y}.png",
+                "tilePath": "https://assets.tarkov.dev/maps/labs_v2/1st/{z}/{x}/{y}.png",
                 "heightRange": [-0.9, 3],
                 "layers": [
                     {
                         "name": "Second Level",
-                        "path": "https://assets.tarkov.dev/maps/labs_v2/2nd/{z}/{x}/{y}.png",
+                        "tilePath": "https://assets.tarkov.dev/maps/labs_v2/2nd/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [3, 10000]
                     },
                     {
                         "name": "Technical",
-                        "path": "https://assets.tarkov.dev/maps/labs_v2/technical/{z}/{x}/{y}.png",
+                        "tilePath": "https://assets.tarkov.dev/maps/labs_v2/technical/{z}/{x}/{y}.png",
                         "show": false,
                         "heightRange": [-10000, -0.9]
                     }
