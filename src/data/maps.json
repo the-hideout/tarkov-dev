@@ -142,22 +142,26 @@
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
                 "tilePath": "https://assets.tarkov.dev/maps/factory_v2/main/{z}/{x}/{y}.png",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Factory-Ground_Floor.svg",
                 "layers": [
                     {
                         "name": "2nd Floor",
                         "tilePath": "https://assets.tarkov.dev/maps/factory_v2/2nd_notint/{z}/{x}/{y}.png",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Factory-First_Floor.svg",
                         "show": false,
                         "heightRange": [3, 6]
                     },
                     {
                         "name": "3rd Floor",
                         "tilePath": "https://assets.tarkov.dev/maps/factory_v2/3rd_notint/{z}/{x}/{y}.png",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Factory-Second_Floor.svg",
                         "show": false,
                         "heightRange": [6, 10000]
                     },
                     {
                         "name": "Tunnels",
                         "tilePath": "https://assets.tarkov.dev/maps/factory_v2/tunnels_notint/{z}/{x}/{y}.png",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Factory-Basement.svg",
                         "show": false,
                         "heightRange": [-10000, -1]
                     }
