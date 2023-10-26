@@ -411,6 +411,9 @@ function Map() {
                         selectedLayer = existingLayer.options.name;
                     }
                 }
+                if (!mapData.layers) {
+                    return;
+                }
                 for (const layer of mapData.layers) {
                     let heightLayer;
     
