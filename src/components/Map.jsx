@@ -372,7 +372,6 @@ function Map() {
                 bounds,
                 ...layerOptions,
             });
-            layerControl.addBaseLayer(tileLayer, tMaps('Satellite'));
             baseLayers.push(tileLayer);
         }
 
@@ -383,8 +382,13 @@ function Map() {
             // }
             //baseLayer = L.imageOverlay(mapData.svgPath, bounds, layerOptions);
             svgLayer = L.imageOverlay(mapData.svgPath, bounds, layerOptions);
-            layerControl.addBaseLayer(svgLayer, tMaps('Abstract'));
             baseLayers.push(svgLayer);
+        }
+
+        // only add selector if there are multiple
+        if (tileLayer && svgLayer) {
+            layerControl.addBaseLayer(tileLayer, tMaps('Satellite'));
+            layerControl.addBaseLayer(svgLayer, tMaps('Abstract'));
         }
 
         for (const baseLayer of baseLayers) {
