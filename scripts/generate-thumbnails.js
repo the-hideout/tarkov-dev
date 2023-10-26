@@ -20,12 +20,12 @@ const sharp = require('sharp');
         const image = sharp(mapsPath+fileName).resize(null, maxHeight).jpeg({mozjpeg: true, quality: 90});
         await image.toFile(mapsPath+thumbName);
     }
-    const mapGroups = JSON.parse(await fs.readFile('./src/data/maps.json'));
+    /*const mapGroups = JSON.parse(await fs.readFile('./src/data/maps.json'));
     for (const group of mapGroups) {
         for (const map of group.maps) {
             if (map.projection !== 'interactive')
                 continue;
-            let path = map.mapPath || map.svgPath || `https://assets.tarkov.dev/maps/${group.normalizedName}/{z}/{x}/{y}.png`;
+            let path = map.tilePath || map.svgPath || `https://assets.tarkov.dev/maps/${group.normalizedName}/{z}/{x}/{y}.png`;
             path = path.replace(/{[xyz]}/g, '0');
             const thumbName = `${group.normalizedName}_thumb.jpg`;
             try {
@@ -43,6 +43,6 @@ const sharp = require('sharp');
                 console.log(`Asset for ${thumbName} unavailable`)
             }
         }
-    }
+    }*/
     console.timeEnd('Generating thumbnails');
 })();
