@@ -32,6 +32,8 @@ import SEO from './SEO';
 
 import ErrorPage from './error-page';
 
+import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
+
 import './Maps.css';
 
 const showOtherMarkers = true;
@@ -263,6 +265,18 @@ function Map() {
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
+    const [savedMapSettings, setSavedMapSettings] = useStateWithLocalStorage(
+        'savedMapSettings',
+        {
+            style: 'svg',
+            hiddenGroups: [],
+            hiddenLayers: [],
+            collapsedGroups: [],
+        },
+    );
+
+    const mapSettingsRef = useRef(savedMapSettings);
+
     useEffect(() => {
         let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
         if (viewableHeight < 100) {
@@ -337,6 +351,27 @@ function Map() {
             groupsCollapsable: true,
             exclusiveOptionalGroups: [tMaps('Levels')],
         }).addTo(map);
+        layerControl.on('groupToggle', (e) => {
+            const groupState = e.detail;
+            if (!groupState.checked) {
+                mapSettingsRef.current.hiddenGroups.push(groupState.key);
+                
+            } else {
+                mapSettingsRef.current.hiddenGroups = mapSettingsRef.current.hiddenGroups.filter(key => key !== groupState.key);
+            }
+            setSavedMapSettings(mapSettingsRef.current);
+        });
+        layerControl.on('groupCollapseToggle', (e) => {
+            const groupState = e.detail;
+            if (groupState.collapsed) {
+                mapSettingsRef.current.collapsedGroups.push(groupState.key);
+                
+            } else {
+                mapSettingsRef.current.collapsedGroups = mapSettingsRef.current.collapsedGroups.filter(key => key !== groupState.key);
+            }
+            setSavedMapSettings(mapSettingsRef.current);
+        });
+
         map.layerControl = layerControl;
         map.addControl(new L.Control.Fullscreen({
             title: {
@@ -399,6 +434,11 @@ function Map() {
             let selectedLayer = '';
             baseLayer.on('add', () => {
                 const svgParent = baseLayer._url.endsWith('.svg');
+                if (tileLayer && svgLayer) {
+                    const selectedStyle = svgParent ? 'svg' : 'tile';
+                    mapSettingsRef.current.style = selectedStyle;
+                    setSavedMapSettings(mapSettingsRef.current);
+                }
                 const existingLayers = Object.values(layerControl._layers).filter(l => l.layer.options.type === 'map-layer' && !baseLayers.includes(l.layer)).map(l => l.layer);
                 for (const existingLayer of existingLayers) {
                     const svgOverlay = Boolean(existingLayer._url.endsWith('.svg'));
@@ -476,12 +516,15 @@ function Map() {
                         heightLayer.addTo(map);
                     }
 
-                    layerControl.addOverlay(heightLayer, tMaps(layer.name), tMaps('Levels'));
+                    layerControl.addOverlay(heightLayer, tMaps(layer.name), {groupName: tMaps('Levels')});
                 }
             });
         }
 
-        const baseLayer = tileLayer ? tileLayer : svgLayer;
+        let baseLayer = tileLayer ? tileLayer : svgLayer;
+        if (baseLayer === tileLayer && svgLayer && mapSettingsRef.current.style === 'svg') {
+            baseLayer = svgLayer;
+        }
 
         baseLayer.addTo(map);
 
@@ -515,6 +558,49 @@ function Map() {
             'lever': t('Lever'),
             'stationarygun': t('Stationary Gun'),
             'switch': t('Switch'),
+        };
+        const images = {
+            'container_bank-cash-register': 'container_cash-register',
+            'container_bank-safe': 'container_safe',
+            'container_buried-barrel-cache': 'container_buried-barrel-cache',
+            'container_cash-register': 'container_cash-register',
+            'container_cash-register-tar2-2': 'container_cash-register',
+            'container_dead-scav': 'container_dead-scav',
+            'container_drawer': 'container_drawer',
+            'container_duffle-bag': 'container_duffle-bag',
+            'container_grenade-box': 'container_grenade-box',
+            'container_ground-cache': 'container_buried-barrel-cache',
+            'container_jacket': 'container_jacket',
+            'container_medbag-smu06': 'container_medbag-smu06',
+            'container_medcase': 'container_medcase',
+            'container_medical-supply-crate': 'container_technical-supply-crate',
+            'container_pc-block': 'container_pc-block',
+            'container_plastic-suitcase': 'container_plastic-suitcase',
+            'container_ration-supply-crate': 'container_technical-supply-crate',
+            'container_safe': 'container_safe',
+            'container_shturmans-stash': 'container_weapon-box',
+            'container_technical-supply-crate': 'container_technical-supply-crate',
+            'container_toolbox': 'container_toolbox',
+            'container_weapon-box': 'container_weapon-box',
+            'container_wooden-ammo-box': 'container_wooden-ammo-box',
+            'container_wooden-crate': 'container_wooden-crate',
+            'extract_pmc': 'extract_pmc',
+            'extract_scav': 'extract_scav',
+            'extract_shared': 'extract_shared',
+            'hazard': 'hazard',
+            'key': 'key',
+            'lock': 'lock',
+            'quest_item': 'quest_item',
+            'quest_objective': 'quest_objective',
+            'sniper_scav': 'sniper_scav',
+            'spawn_bloodhound': 'spawn_bloodhound',
+            'spawn_boss': 'spawn_boss',
+            'spawn_cultist-priest': 'spawn_cultist-priest',
+            'spawn_pmc': 'spawn_pmc',
+            'spawn_rogue': 'spawn_rogue',
+            'spawn_scav': 'spawn_scav',
+            'stationarygun': 'stationarygun',
+            'switch': 'switch',
         };
 
         const focusOnPoi = (id) => {
@@ -551,6 +637,27 @@ function Map() {
                 event.preventDefault();
             });
             return a;
+        };
+
+        const getLayerOptions = (layerKey, groupKey, layerName) => {
+            return {
+                groupKey,
+                layerKey,
+                groupName: tMaps(groupKey),
+                layerName: layerName || categories[layerKey] || layerKey,
+                groupHidden: Boolean(mapSettingsRef.current.hiddenGroups?.includes(groupKey)),
+                layerHidden: Boolean(mapSettingsRef.current.hiddenLayers?.includes(layerKey)),
+                image: images[layerKey] ? `${process.env.PUBLIC_URL}/maps/interactive/${images[layerKey]}.png` : undefined,
+                groupCollapsed: Boolean(mapSettingsRef.current.collapsedGroups?.includes(groupKey)),
+            };
+        };
+
+        const addLayer = (layer, layerKey, groupKey, layerName) => {
+            const layerOptions = getLayerOptions(layerKey, groupKey, layerName);
+            if (!layerOptions.groupHidden && !layerOptions.layerHidden) {
+                layer.addTo(map);
+            }
+            layerControl.addOverlay(layer, layerOptions.layerName, layerOptions);
         };
 
         let markerBounds = {
@@ -711,8 +818,7 @@ function Map() {
             }
             for (const key in spawnLayers) {
                 if (Object.keys(spawnLayers[key]._layers).length > 0) {
-                    spawnLayers[key].addTo(map);
-                    layerControl.addOverlay(spawnLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/spawn_${key}.png' class='control-item-image' /> ${categories[`spawn_${key}`]}`, tMaps('Spawns'));    
+                    addLayer(spawnLayers[key], `spawn_${key}`, 'Spawns');
                 }
             }
         }
@@ -775,8 +881,7 @@ function Map() {
             }
             for (const key in extractLayers) {
                 if (Object.keys(extractLayers[key]._layers).length > 0) {
-                    extractLayers[key].addTo(map);
-                    layerControl.addOverlay(extractLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/extract_${key}.png' class='control-item-image' /> ${categories[`extract_${key}`]}`, t('Extracts'));    
+                    addLayer(extractLayers[key], `extract_${key}`, 'Extracts');
                 }
             }
         }
@@ -791,7 +896,7 @@ function Map() {
 
                 checkMarkerBounds(lock.position, markerBounds);
                 const lockIcon = L.icon({
-                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/locked_door.png`,
+                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/lock.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
                 });
@@ -840,8 +945,7 @@ function Map() {
                 
             }
             if (Object.keys(locks._layers).length > 0) {
-                locks.addTo(map);
-                layerControl.addOverlay(locks, `<img src='${process.env.PUBLIC_URL}/maps/interactive/locked_door.png' class='control-item-image' /> ${categories['lock']}`, t('Locks'));    
+                addLayer(locks, 'lock', 'Interactive');
             }
         }
 
@@ -894,7 +998,7 @@ function Map() {
                         }
                         const rect = L.polygon(outlineToPoly(zone.outline), {color: '#e5e200', weight: 1, className: 'not-shown'});
                         const zoneIcon = L.icon({
-                            iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/compass.png`,
+                            iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_objective.png`,
                             iconSize: [24, 24],
                             popupAnchor: [0, -12],
                         });
@@ -927,24 +1031,18 @@ function Map() {
             }
         }
         if (Object.keys(questItems._layers).length > 0) {
-            questItems.addTo(map);
-            layerControl.addOverlay(questItems, `<img src='${process.env.PUBLIC_URL}/maps/interactive/quest_item.png' class='control-item-image' /> ${categories['quest_item']}`, t('Tasks'));    
+            addLayer(questItems, 'quest_item', 'Tasks');
         }
         if (Object.keys(questObjectives._layers).length > 0) {
-            questObjectives.addTo(map);
-            layerControl.addOverlay(questObjectives, `<img src='${process.env.PUBLIC_URL}/maps/interactive/compass.png' class='control-item-image' /> ${categories['quest_objective']}`, t('Tasks')); 
+            addLayer(questObjectives, 'quest_objective', 'Tasks');
         }
-        /*if (Object.keys(questZones._layers).length > 0) {
-            questZones.addTo(map);
-            layerControl.addOverlay(questZones, categories['quest_zone'], t('Tasks'));    
-        }*/
 
         //add switches 
         if (mapData.switches.length > 0) {
             const switches = L.layerGroup();
             for (const sw of mapData.switches) {
                 const switchIcon = L.icon({
-                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/lever.png`,
+                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/switch.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
                 });
@@ -1008,8 +1106,7 @@ function Map() {
                 checkMarkerBounds(sw.position, markerBounds);
             }
             if (Object.keys(switches._layers).length > 0) {
-                switches.addTo(map);
-                layerControl.addOverlay(switches, `<img src='${process.env.PUBLIC_URL}/maps/interactive/lever.png' class='control-item-image' /> ${categories['switch']}`, t('Switches'));    
+                addLayer(switches, 'switch', 'Interactive');
             }
         }
 
@@ -1019,7 +1116,7 @@ function Map() {
             const containerNames = {};
             for (const containerPosition of mapData.lootContainers) {
                 const containerIcon = L.icon({
-                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/container_${containerPosition.lootContainer.normalizedName}.png`,
+                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${images[`container_${containerPosition.lootContainer.normalizedName}`]}.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
                 });
@@ -1039,8 +1136,7 @@ function Map() {
             }
             for (const key in containerLayers) {
                 if (Object.keys(containerLayers[key]._layers).length > 0) {
-                    containerLayers[key].addTo(map);
-                    layerControl.addOverlay(containerLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/container_${key}.png' class='control-item-image' /> ${containerNames[key]}`, t('Items'));    
+                    addLayer(containerLayers[key], `container_${key}`, 'Lootable Items', containerNames[key]);
                 }
             }
         }
@@ -1082,8 +1178,7 @@ function Map() {
             }
             for (const key in hazardLayers) {
                 if (Object.keys(hazardLayers[key]._layers).length > 0) {
-                    hazardLayers[key].addTo(map);
-                    layerControl.addOverlay(hazardLayers[key], key, t('Hazards'));    
+                    addLayer(hazardLayers[key], key, 'Hazards');
                 }
             }
         }
@@ -1107,8 +1202,7 @@ function Map() {
                 weaponMarker.on('click', activateMarkerLayer);
                 weaponMarker.addTo(stationaryWeapons);
             }
-            stationaryWeapons.addTo(map);
-            layerControl.addOverlay(stationaryWeapons, `<img src='${process.env.PUBLIC_URL}/maps/interactive/stationarygun.png' class='control-item-image' /> ${categories.stationarygun}`, t('Stationary Guns'));    
+            addLayer(stationaryWeapons, 'stationarygun', 'Interactive');
         }
 
         if (showTestMarkers) {
@@ -1172,7 +1266,7 @@ function Map() {
                 }
             }
         }
-    }, [mapData, items, quests, mapRef, playerPosition, t, dispatch, navigate]);
+    }, [mapData, items, quests, mapRef, playerPosition, t, dispatch, navigate, mapSettingsRef, setSavedMapSettings]);
     
     if (!mapData) {
         return <ErrorPage />;

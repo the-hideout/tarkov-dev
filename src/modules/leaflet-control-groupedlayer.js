@@ -25,6 +25,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import L from 'leaflet';
 
+let controlContainer;
+
 // A layer control which provides for layer groupings.
 // Author: Ishmael Smyrnow
 L.Control.GroupedLayers = L.Control.extend({
@@ -96,8 +98,8 @@ L.Control.GroupedLayers = L.Control.extend({
         return this;
     },
   
-    addOverlay: function (layer, name, group) {
-        this._addLayer(layer, name, group, true);
+    addOverlay: function (layer, name, options) {
+        this._addLayer(layer, name, {...options, overlay: true});
         this._update();
         return this;
     },
@@ -164,17 +166,25 @@ L.Control.GroupedLayers = L.Control.extend({
         this._overlaysList = L.DomUtil.create('div', className + '-overlays', form);
     
         container.appendChild(form);
+
+        controlContainer = container;
     },
   
-    _addLayer: function (layer, name, group, overlay) {
+    _addLayer: function (layer, name, options) {
+        options = {...options};
+        if (options.image) {
+            name = `<img src="${options.image}" class='control-item-image' /> ${name}`;
+        }
+
         var _layer = {
             layer: layer,
             name: name,
-            overlay: overlay
+            overlay: options.overlay,
+            key: options.layerKey,
         };
         this._layers.push(_layer);
     
-        group = group || '';
+        const group = options.groupName || '';
         var groupId = this._indexOf(this._groupList, group);
     
         if (groupId === -1) {
@@ -189,6 +199,8 @@ L.Control.GroupedLayers = L.Control.extend({
             id: groupId,
             exclusive: exclusive,
             exclusiveOptional: exclusiveOptional,
+            key: options.groupKey,
+            collapsed: options.groupCollapsed,
         };
     
         if (this.options.autoZIndex && layer.setZIndex) {
@@ -352,6 +364,7 @@ L.Control.GroupedLayers = L.Control.extend({
                 groupContainer = document.createElement('div');
                 groupContainer.className = 'leaflet-control-layers-group';
                 groupContainer.id = 'leaflet-control-layers-group-' + obj.group.id;
+                groupContainer.dataset.key = obj.group.key;
         
                 var groupLabel = document.createElement('label');
                 groupLabel.className = 'leaflet-control-layers-group-label';
@@ -364,6 +377,7 @@ L.Control.GroupedLayers = L.Control.extend({
                         groupInput.className = 'leaflet-control-layers-group-selector';
                         groupInput.groupID = obj.group.id;
                         groupInput.legend = this;
+                        groupInput.dataset.key = obj.group.key;
                         L.DomEvent.on(groupInput, 'click', this._onGroupInputClick, groupInput);
                         groupLabel.appendChild(groupInput);
                     }
@@ -371,7 +385,9 @@ L.Control.GroupedLayers = L.Control.extend({
         
                 if (this.options.groupsCollapsable){
                     groupContainer.classList.add("group-collapsable");
-                    //groupContainer.classList.add("collapsed");
+                    if (obj.group.collapsed) {
+                        groupContainer.classList.add("collapsed");
+                    }
         
                     var groupMin = document.createElement('span');
                     groupMin.className = 'leaflet-control-layers-group-collapse '+this.options.groupsExpandedClass;
@@ -413,6 +429,15 @@ L.Control.GroupedLayers = L.Control.extend({
         } else if (this.classList.contains("group-collapsable") && !this.classList.contains("collapsed")) {
             this.classList.add("collapsed");
         }
+        if (this.dataset.key) {
+            controlContainer.dispatchEvent(new CustomEvent('groupCollapseToggle', {
+                bubbles: false,
+                detail: {    
+                    key: this.dataset.key,
+                    collapsed: this.classList.contains("collapsed"),
+                },
+            }));
+        }
     },
   
     _onGroupInputClick: function (event) {
@@ -434,6 +459,16 @@ L.Control.GroupedLayers = L.Control.extend({
                     this_legend._map.removeLayer(obj.layer);
                 }
             }
+        }
+
+        if (this.dataset.key) {
+            controlContainer.dispatchEvent(new CustomEvent('groupToggle', {
+                bubbles: false,
+                detail: {    
+                    key: this.dataset.key,
+                    checked: this.checked,
+                },
+            }));
         }
     
         this_legend._handlingClick = false;
@@ -524,7 +559,16 @@ L.Control.GroupedLayers = L.Control.extend({
             }
         }
         return -1;
-    }
+    },
+    on: (eventName, handler, options) => {
+        controlContainer.addEventListener(eventName, handler, options);
+    },
+    once: (eventName, handler, options) => {
+        controlContainer.addEventListener(eventName, handler, {...options, once: true});
+    },
+    off: (eventName, handler, options) => {
+        controlContainer.removeEventListener(eventName, handler, options);
+    },
 });
   
 L.control.groupedLayers = function (baseLayers, groupedOverlays, options) {
