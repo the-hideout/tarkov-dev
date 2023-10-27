@@ -347,6 +347,17 @@ L.Control.GroupedLayers = L.Control.extend({
         input.layerId = L.Util.stamp(obj.layer);
         input.groupID = obj.group.id;
         L.DomEvent.on(input, 'click', this._onInputClick, this);
+        L.DomEvent.on(input, 'click', () => {
+            if (obj.layer.key) {
+                controlContainer.dispatchEvent(new CustomEvent('layerToggle', {
+                    bubbles: false,
+                    detail: {    
+                        key: obj.layer.key,
+                        checked: input.checked,
+                    },
+                }));
+            }
+        }, this);
     
         var name = document.createElement('span');
         name.innerHTML = ' ' + obj.name;

@@ -351,6 +351,16 @@ function Map() {
             groupsCollapsable: true,
             exclusiveOptionalGroups: [tMaps('Levels')],
         }).addTo(map);
+        layerControl.on('layerToggle', (e) => {
+            const layerState = e.detail;
+            if (!layerState.checked) {
+                mapSettingsRef.current.hiddenLayers.push(layerState.key);
+                
+            } else {
+                mapSettingsRef.current.hiddenLayers = mapSettingsRef.current.hiddenLayers.filter(key => key !== layerState.key);
+            }
+            setSavedMapSettings(mapSettingsRef.current);
+        });
         layerControl.on('groupToggle', (e) => {
             const groupState = e.detail;
             if (!groupState.checked) {
@@ -653,6 +663,7 @@ function Map() {
         };
 
         const addLayer = (layer, layerKey, groupKey, layerName) => {
+            layer.key = layerKey;
             const layerOptions = getLayerOptions(layerKey, groupKey, layerName);
             if (!layerOptions.groupHidden && !layerOptions.layerHidden) {
                 layer.addTo(map);
