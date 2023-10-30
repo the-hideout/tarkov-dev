@@ -58,7 +58,7 @@ jobs:
         if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
           steps.branch-deploy.outputs.noop != 'true' &&
           steps.branch-deploy.outputs.environment == 'development' }}
-        uses: cloudflare/wrangler-action@4b3eae832ab5113c67958be31ca062ad46c593b6 # pin@3.3.1
+        uses: cloudflare/wrangler-action@5e8484995321734668f14981c316aa9188d76ed1 # pin@3.3.2
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
@@ -81,7 +81,7 @@ jobs:
         if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
           steps.branch-deploy.outputs.noop != 'true' &&
           steps.branch-deploy.outputs.environment == 'production' }}
-        uses: cloudflare/wrangler-action@4b3eae832ab5113c67958be31ca062ad46c593b6 # pin@3.3.1
+        uses: cloudflare/wrangler-action@5e8484995321734668f14981c316aa9188d76ed1 # pin@3.3.2
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
