@@ -68,7 +68,7 @@
     "react-switch": "^7.0.0",
     "react-syntax-highlighter": "^15.5.0",
     "react-table": "^7.8.0",
-    "react-zoom-pan-pinch": "^3.2.0",
+    "react-zoom-pan-pinch": "^3.3.0",
     "resize-observer-polyfill": "^1.5.1",
     "sharp": "^0.32.6",
     "source-map-explorer": "^2.5.3",
