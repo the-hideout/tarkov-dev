@@ -877,7 +877,7 @@ function Map() {
                     textElement.textContent = t('Activated by:');
                     popup.appendChild(textElement);
                     for (const sw of extract.switches) {
-                        const linkElement = getPoiLinkElement(sw.id, 'lever');
+                        const linkElement = getPoiLinkElement(sw.id, 'switch');
                         const nameElement = L.DomUtil.create('span');
                         nameElement.innerHTML = `<strong>${sw.name}</strong>`;
                         linkElement.append(nameElement);
@@ -1078,7 +1078,7 @@ function Map() {
                     const textElement = L.DomUtil.create('div');
                     textElement.textContent = `${t('Activated by')}:`;
                     popup.appendChild(textElement);
-                    const linkElement = getPoiLinkElement(sw.activatedBy.id, 'lever');
+                    const linkElement = getPoiLinkElement(sw.activatedBy.id, 'switch');
                     const nameElement = L.DomUtil.create('span');
                     nameElement.innerHTML = `<strong>${sw.activatedBy.name}</strong>`;
                     linkElement.append(nameElement);
@@ -1091,7 +1091,7 @@ function Map() {
                 }
                 for (const switchOperation of sw.activates) {
                     if (switchOperation.target.__typename === 'MapSwitch') {
-                        const linkElement = getPoiLinkElement(switchOperation.target.id, 'lever');
+                        const linkElement = getPoiLinkElement(switchOperation.target.id, 'switch');
                         const nameElement = L.DomUtil.create('span');
                         nameElement.innerHTML = `<strong>${switchOperation.target.name}</strong>`;
                         linkElement.append(nameElement);
