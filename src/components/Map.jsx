@@ -127,22 +127,25 @@ function getBounds(bounds) {
 }
 
 function markerIsOnLayer(marker, layer) {
+    if (!layer.options.extents) {
+        return true;
+    }
     var top = marker.options.top || marker.options.position.y;
     var bottom = marker.options.bottom || marker.options.position.y;
-    const heightRange = layer.options.heightRange;
-    if (top >= heightRange[0] && bottom < heightRange[1]) {
-        if (layer.options.layerBounds) {
-            let inBounds = false;
-            for (const boundsArray of layer.options.layerBounds) {
-                const bounds = getBounds(boundsArray);
-                if (bounds.contains(pos(marker.options.position))) {
-                    inBounds = true;
-                    break;
+    for (const extent of layer.options.extents) {
+        if (top >= extent.height[0] && bottom < extent.height[1]) {
+            if (extent.bounds) {
+                for (const boundsArray of extent.bounds) {
+                    const bounds = getBounds(boundsArray);
+                    if (bounds.contains(pos(marker.options.position))) {
+                        if (layer.overlay) console.log('marker on layer', marker.options, layer.options)
+                        return true;
+                    }
                 }
+            } else {
+                return true;
             }
-            return inBounds;
         }
-        return true;
     }
     return false;
 }
@@ -154,20 +157,22 @@ function markerIsOnActiveLayer(marker) {
 
     const map = marker._map;
 
-    const overlays = map.layerControl._layers.map(l => l.layer).filter(l => Boolean(l.options.heightRange));
+    const overlays = map.layerControl._layers.map(l => l.layer).filter(l => Boolean(l.options.extents) && l.options.overlay);
     let onAbsentLayer = false;
-    for (const layer of overlays) {
-        const onOverlay = markerIsOnLayer(marker, layer);
-        if (onOverlay && !map.hasLayer(layer) && layer.options.layerBounds) {
-            onAbsentLayer = true;
-            break;
+    layerLoop: for (const layer of overlays) {
+        for (const extent of layer.options.extents) {
+            const onOverlay = markerIsOnLayer(marker, layer);
+            if (onOverlay && !map.hasLayer(layer) && extent.bounds) {
+                onAbsentLayer = true;
+                break layerLoop;
+            }
         }
     }
     if (onAbsentLayer) {
         return false;
     }
 
-    let activeLayers = Object.values(map._layers).filter(l => l.options?.heightRange);
+    let activeLayers = Object.values(map._layers).filter(l => l.options?.extents);
     if (activeLayers.some(l => l.options.overlay)) {
         activeLayers = activeLayers.filter(l => l.options.overlay);
     }
@@ -183,23 +188,6 @@ function markerIsOnActiveLayer(marker) {
 function checkMarkerForActiveLayers(event) {
     const marker = event.target || event;
     const outline = marker.options.outline;
-    /*if (!marker.options.position) {
-        return;
-    }
-    var top = marker.options.top || marker.options.position.y;
-    var bottom = marker.options.bottom || marker.options.position.y;
-    let activeLayers = Object.values(marker._map._layers).filter(l => l.options?.heightRange);
-    if (activeLayers.some(l => l.options.overlay)) {
-        activeLayers = activeLayers.filter(l => l.options.overlay);
-    }
-    let onLevel = false;
-    for (const layer of activeLayers) {
-        const heightRange = layer.options.heightRange;
-        if (top >= heightRange[0] && bottom < heightRange[1]) {
-            onLevel = true;
-            break;
-        }
-    }*/
     const onLevel = markerIsOnActiveLayer(marker);
     if (onLevel) {
         marker._icon?.classList.remove('off-level');
@@ -237,11 +225,11 @@ function activateMarkerLayer(event) {
     if (markerIsOnActiveLayer(marker)) {
         return;
     }
-    const activeLayers = Object.values(marker._map._layers).filter(l => l.options?.heightRange && l.options?.overlay);
+    const activeLayers = Object.values(marker._map._layers).filter(l => l.options?.extents && l.options?.overlay);
     for (const layer of activeLayers) {
         layer.removeFrom(marker._map);
     }
-    const heightLayers = marker._map.layerControl._layers.filter(l => l.layer.options.heightRange && l.layer.options.overlay).map(l => l.layer);
+    const heightLayers = marker._map.layerControl._layers.filter(l => l.layer.options.extents && l.layer.options.overlay).map(l => l.layer);
     for (const layer of heightLayers) {
         if (markerIsOnLayer(marker, layer)) {
             layer.addTo(marker._map);
@@ -406,7 +394,12 @@ function Map() {
         
         const bounds = getBounds(mapData.bounds);
         const layerOptions = {
-            heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
+            extents: [
+                {
+                    height: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
+                    bounds: [mapData.bounds],
+                }
+            ],
             type: 'map-layer',
         };
         let tileLayer = false;
@@ -469,10 +462,9 @@ function Map() {
     
                     const layerOptions = {
                         name: layer.name,
-                        heightRange: layer.heightRange || baseLayer.options?.heightRange,
-                        layerBounds: layer.layerBounds,
+                        extents: layer.extents || baseLayer.options?.extents,
                         type: 'map-layer',
-                        overlay: Boolean(layer.heightRange),
+                        overlay: Boolean(layer.extents),
                     };
                     
                     if (baseLayer._url.endsWith('.svg') && layer.svgPath) {
@@ -490,7 +482,7 @@ function Map() {
                     }
     
                     heightLayer.on('add', () => {
-                        if (layer.heightRange) {
+                        if (layer.extents) {
                             for (const marker of Object.values(map._layers)) {
                                 checkMarkerForActiveLayers(marker);
                             }
@@ -503,7 +495,7 @@ function Map() {
                         }
                     });
                     heightLayer.on('remove', () => {
-                        const heightLayer = Object.values(map._layers).findLast(l => l.options?.heightRange);
+                        const heightLayer = Object.values(map._layers).findLast(l => l.options?.extents);
                         if (heightLayer) {
                             for (const marker of Object.values(map._layers)) {
                                 checkMarkerForActiveLayers(marker);
@@ -531,9 +523,9 @@ function Map() {
             });
         }
 
-        let baseLayer = tileLayer ? tileLayer : svgLayer;
-        if (baseLayer === tileLayer && svgLayer && mapSettingsRef.current.style === 'svg') {
-            baseLayer = svgLayer;
+        let baseLayer = svgLayer ? svgLayer : tileLayer;
+        if (baseLayer === svgLayer && tileLayer && mapSettingsRef.current.style === 'tile') {
+            baseLayer = tileLayer;
         }
 
         baseLayer.addTo(map);
