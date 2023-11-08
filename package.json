@@ -72,7 +72,7 @@
     "resize-observer-polyfill": "^1.5.1",
     "sharp": "^0.32.6",
     "source-map-explorer": "^2.5.3",
-    "victory": "^36.6.10"
+    "victory": "^36.6.12"
   },
   "jest": {
     "transformIgnorePatterns": [
