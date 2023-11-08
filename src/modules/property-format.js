@@ -141,7 +141,7 @@ const formatter = (key, value, id) => {
         }
     }
 
-    if (key === 'usedOnMaps') {
+    if (key === 'usedOnMaps' && value?.length > 0) {
         value = value?.map(m => {
             return <Link to={`/map/${m.normalizedName}?q=${id}`} key={`map=${m.id}`}>{m.name}</Link>;
         }).reduce((prev, curr, currentIndex) => [prev, (<span key={`spacer-${currentIndex}`}>, </span>), curr]);
