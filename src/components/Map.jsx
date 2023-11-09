@@ -38,6 +38,7 @@ import './Maps.css';
 
 const showOtherMarkers = true;
 const showTestMarkers = false;
+const markerDebug = false;
 
 function getCRS(mapData) {
     let scaleX = 1;
@@ -134,16 +135,20 @@ function markerIsOnLayer(marker, layer) {
     var bottom = marker.options.bottom || marker.options.position.y;
     for (const extent of layer.options.extents) {
         if (top >= extent.height[0] && bottom < extent.height[1]) {
+            let containedType = 'partial';
+            if (bottom >= extent.height[0] && top <= extent.height[1]) {
+                containedType = 'full';
+            }
             if (extent.bounds) {
                 for (const boundsArray of extent.bounds) {
                     const bounds = getBounds(boundsArray);
                     if (bounds.contains(pos(marker.options.position))) {
                         if (layer.overlay) console.log('marker on layer', marker.options, layer.options)
-                        return true;
+                        return containedType;
                     }
                 }
             } else {
-                return true;
+                return containedType;
             }
         }
     }
@@ -157,31 +162,29 @@ function markerIsOnActiveLayer(marker) {
 
     const map = marker._map;
 
+    // check if marker is completely contained by inactive layer
     const overlays = map.layerControl._layers.map(l => l.layer).filter(l => Boolean(l.options.extents) && l.options.overlay);
-    let onAbsentLayer = false;
-    layerLoop: for (const layer of overlays) {
+    for (const layer of overlays) {
         for (const extent of layer.options.extents) {
-            const onOverlay = markerIsOnLayer(marker, layer);
-            if (onOverlay && !map.hasLayer(layer) && extent.bounds) {
-                onAbsentLayer = true;
-                break layerLoop;
+            if (markerIsOnLayer(marker, layer) === 'full' && !map.hasLayer(layer) && extent.bounds) {
+                console.log(marker.options);
+                return false;
             }
         }
     }
-    if (onAbsentLayer) {
-        return false;
+
+    // check if marker is on active overlay
+    const activeOverlay = Object.values(map._layers).find(l => l.options?.extents && l.options?.overlay);
+    if (activeOverlay && markerIsOnLayer(marker, activeOverlay)) {
+        return true;
     }
 
-    let activeLayers = Object.values(map._layers).filter(l => l.options?.extents);
-    if (activeLayers.some(l => l.options.overlay)) {
-        activeLayers = activeLayers.filter(l => l.options.overlay);
+    // check if marker is on base layer
+    const baseLayer = Object.values(map._layers).find(l => l.options?.extents && !L.options?.overlay);
+    if (!activeOverlay && markerIsOnLayer(marker, baseLayer)) {
+        return true;
     }
 
-    for (const layer of activeLayers) {
-        if (markerIsOnLayer(marker, layer)) {
-            return true;
-        }
-    }
     return false;
 }
 
@@ -241,6 +244,18 @@ function activateMarkerLayer(event) {
 function outlineToPoly(outline) {
     if (!outline) return [];
     return outline.map(vector => [vector.z, vector.x]);
+}
+
+function addElevation(item, popup) {
+    if (!markerDebug) {
+        return;
+    }
+    const elevationContent = L.DomUtil.create('div', undefined, popup);
+    elevationContent.textContent = `Elevation: ${item.position.y.toFixed(2)}`;
+    if (item.top && item.bottom && item.top !== item.position.y && item.bottom !== item.position.y) {
+        const heightContent = L.DomUtil.create('div', undefined, popup);
+        heightContent.textContent = `Top ${item.top.toFixed(2)}, bottom: ${item.bottom.toFixed(2)}`;
+    }
 }
 
 function Map() {
@@ -800,10 +815,7 @@ function Map() {
                     const spawnDiv = L.DomUtil.create('div', undefined, popupContent);
                     spawnDiv.textContent = categories[`spawn_${spawnType}`];
                 }
-                if (showTestMarkers) {
-                    const elevationDiv = L.DomUtil.create('div', undefined, popupContent);
-                    elevationDiv.textContent = `Elevation: ${spawn.position.y.toFixed(2)}`;
-                }
+                addElevation(spawn, popupContent);
 
                 const marker = L.marker(pos(spawn.position), {
                     icon: spawnIcon,
@@ -875,6 +887,11 @@ function Map() {
                         linkElement.append(nameElement);
                         popup.appendChild(linkElement);
                     }
+                    addElevation(extract, popup);
+                    extractMarker.bindPopup(L.popup().setContent(popup));
+                } else if (markerDebug) {
+                    const popup = L.DomUtil.create('div');
+                    addElevation(extract, popup);
                     extractMarker.bindPopup(L.popup().setContent(popup));
                 }
                 extractMarker.on('add', checkMarkerForActiveLayers);
@@ -936,10 +953,7 @@ function Map() {
                 const lockLink = getReactLink(`/item/${key.normalizedName}`, lockImage);
                 lockLink.append(`${key.name}`);
                 popupContent.append(lockLink);
-                if (showTestMarkers) {
-                    const elevationDiv = L.DomUtil.create('div', undefined, popupContent);
-                    elevationDiv.textContent = `Elevation: ${lock.position.y.toFixed(2)}`;
-                }
+                addElevation(lock, popupContent);
 
                 lockMarker.bindPopup(L.popup().setContent(popupContent));
                 lockMarker.on('add', checkMarkerForActiveLayers);
@@ -981,10 +995,7 @@ function Map() {
                             const questItemImage = L.DomUtil.create('img', 'popup-item', questItem);
                             questItemImage.setAttribute('src', `${obj.questItem.baseImageLink}`);
                             questItem.append(`${obj.questItem.name}`);
-                            if (showTestMarkers) {
-                                const elevationDiv = L.DomUtil.create('div', undefined, popupContent);
-                                elevationDiv.textContent = `Elevation: ${position.y.toFixed(2)}`;
-                            }
+                            addElevation({position}, popupContent);
                             questItemMarker.bindPopup(L.popup().setContent(popupContent));
                             questItemMarker.on('add', checkMarkerForActiveLayers);
                             questItemMarker.on('click', activateMarkerLayer);
@@ -1026,6 +1037,7 @@ function Map() {
                         questLink.append(getReactLink(`/task/${quest.normalizedName}`, quest.name));
                         const objectiveText = L.DomUtil.create('div', undefined, popupContent);
                         objectiveText.textContent = `- ${obj.description}`;
+                        addElevation(zone, popupContent);
                         zoneMarker.bindPopup(L.popup().setContent(popupContent));
                         zoneMarker.on('add', checkMarkerForActiveLayers);
                         L.layerGroup([rect, zoneMarker]).addTo(questObjectives);
@@ -1099,6 +1111,7 @@ function Map() {
                         popup.appendChild(extractElement);
                     }
                 }
+                addElevation(sw, popup);
                 if (popup.childNodes.length > 0) {
                     switchMarker.bindPopup(L.popup().setContent(popup));
                 }
@@ -1132,6 +1145,11 @@ function Map() {
                 if (!containerLayers[containerPosition.lootContainer.normalizedName]) {
                     containerLayers[containerPosition.lootContainer.normalizedName] = L.layerGroup();
                 }
+                if (markerDebug) {
+                    const popup = L.DomUtil.create('div');
+                    addElevation(containerPosition, popup);
+                    containerMarker.bindPopup(L.popup().setContent(popup));
+                }
                 containerMarker.on('add', checkMarkerForActiveLayers);
                 containerMarker.on('click', activateMarkerLayer);
                 containerMarker.addTo(containerLayers[containerPosition.lootContainer.normalizedName]);
@@ -1164,10 +1182,12 @@ function Map() {
                     bottom: hazard.bottom,
                     outline: rect,
                 });
-                hazardMarker.bindPopup(L.popup().setContent(hazard.name));
-                /*hazardMarker.on('click', (e) => {
-                    rect._path.classList.toggle('not-shown');
-                });*/
+                const popup = L.DomUtil.create('div');
+                const hazardText = L.DomUtil.create('div', undefined, popup);
+                hazardText.textContent = hazard.name;
+                addElevation(hazard, popup);
+                hazardMarker.bindPopup(L.popup().setContent(popup));
+
                 hazardMarker.on('mouseover', mouseHoverOutline);
                 hazardMarker.on('mouseout', mouseHoverOutline);
                 hazardMarker.on('click', toggleForceOutline);
@@ -1201,6 +1221,11 @@ function Map() {
                     title: weaponPosition.stationaryWeapon.name,
                     position: weaponPosition.position,
                 });
+                if (markerDebug) {
+                    const popup = L.DomUtil.create('div');
+                    addElevation(weaponPosition, popup);
+                    weaponMarker.bindPopup(L.popup().setContent(popup));
+                }
                 weaponMarker.on('add', checkMarkerForActiveLayers);
                 weaponMarker.on('click', activateMarkerLayer);
                 weaponMarker.addTo(stationaryWeapons);

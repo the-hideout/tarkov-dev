@@ -108,13 +108,13 @@
                         "show": false,
                         "extents": [
                             {
-                                "height": [-10000, 0],
+                                "height": [-1000, 0.5],
                                 "bounds": [
                                     [[635, -137], [620, -125]],
                                     [[473, -122], [458, -110]],
                                     [[349, -88], [323, -32]],
-                                    [[219, -158], [193, -137]],
-                                    [[314, -173], [308, -184]]
+                                    [[314, -173], [308, -184]],
+                                    [[219, -158], [193, -137]]
                                 ]
                             }
                         ]
@@ -146,7 +146,7 @@
                         "show": false,
                         "extents": [
                             {
-                                "height": [6.5, 10000],
+                                "height": [5.7, 1000],
                                 "bounds": [
                                     [[243, 190], [165, 125]],
                                     [[-199, -90], [-210, -114]],
@@ -386,7 +386,7 @@
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve_cardinal-Ground_Level.svg",
-                "heightRange": [-8, 10000],
+                "heightRange": [-7, 10000],
                 "layers": [
                     {
                         "name": "Bunkers",
@@ -394,7 +394,7 @@
                         "show": false,
                         "extents": [
                             {
-                                "height": [-10000, -8]
+                                "height": [-10000, -7]
                             }
                         ]
                     }
