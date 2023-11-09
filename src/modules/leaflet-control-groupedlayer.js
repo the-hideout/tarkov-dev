@@ -348,11 +348,19 @@ L.Control.GroupedLayers = L.Control.extend({
         input.groupID = obj.group.id;
         L.DomEvent.on(input, 'click', this._onInputClick, this);
         L.DomEvent.on(input, 'click', () => {
-            if (obj.layer.key) {
+            if (obj.layer.key && !obj.layer.options.overlay) {
                 controlContainer.dispatchEvent(new CustomEvent('layerToggle', {
                     bubbles: false,
                     detail: {    
                         key: obj.layer.key,
+                        checked: input.checked,
+                    },
+                }));
+            } else if (obj.layer.options.overlay) {
+                controlContainer.dispatchEvent(new CustomEvent('overlayToggle', {
+                    bubbles: false,
+                    detail: {    
+                        key: obj.layer.options.name,
                         checked: input.checked,
                     },
                 }));

@@ -24,7 +24,6 @@ import { useMapImages } from '../features/maps';
 import useItemsData from '../features/items';
 import useQuestsData from '../features/quests';
 
-import testMapData from '../data/maps_test.json';
 import staticMapData from '../data/maps_static.json'
 
 import Time from './Time';
@@ -36,7 +35,7 @@ import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
 
 import './Maps.css';
 
-const showOtherMarkers = true;
+const showStaticMarkers = false;
 const showTestMarkers = false;
 const markerDebug = false;
 
@@ -278,6 +277,8 @@ function Map() {
 
     const mapSettingsRef = useRef(savedMapSettings);
 
+    const mapViewRef = useRef({});
+
     useEffect(() => {
         let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
         if (viewableHeight < 100) {
@@ -332,18 +333,42 @@ function Map() {
         const tMaps = (string) => {
             return t(string, { ns: 'maps' })
         }
+        let mapCenter = [0, 0];
+        let mapZoom = mapData.minZoom+1;
+        let mapViewRestored = false;
         if (mapRef.current?._leaflet_id) {
+            if (mapRef.current.options.id === mapData.id) {
+                if (mapViewRef.current.center) {
+                    mapCenter = [mapViewRef.current.center.lat, mapViewRef.current.center.lng];
+                    mapViewRestored = true;
+                }
+                if (typeof mapViewRef.current.zoom !== 'undefined') {
+                    mapZoom = mapViewRef.current.zoom;
+                    mapViewRestored = true;
+                }
+            } else {
+                mapViewRef.current.center = undefined;
+                mapViewRef.current.zoom = undefined;
+                mapViewRef.current.layer = undefined;
+            }
             mapRef.current.remove();
         }
         const map = L.map('leaflet-map', {
             maxBounds: getScaledBounds(mapData.bounds, 1.5),
-            center: [0, 0],
-            zoom: mapData.minZoom+1,
+            center: mapCenter,
+            zoom: mapZoom,
             minZoom: mapData.minZoom,
             maxZoom: mapData.maxZoom,
             scrollWheelZoom: true,
             crs: getCRS(mapData),
             attributionControl: false,
+            id: mapData.id,
+        });
+        map.on('zoom', (e) => {
+            mapViewRef.current.zoom = map.getZoom();
+        });
+        map.on('move', (e) => {
+            mapViewRef.current.center = map.getCenter();
         });
         const layerControl = L.control.groupedLayers(null, null, {
             position: 'topleft',
@@ -352,12 +377,20 @@ function Map() {
             groupsCollapsable: true,
             exclusiveOptionalGroups: [tMaps('Levels')],
         }).addTo(map);
+        layerControl.on('overlayToggle', (e) => {
+            const layerState = e.detail; 
+            if (layerState.checked) {
+                mapViewRef.current.layer = layerState.key;
+            } else {
+                mapViewRef.current.layer = undefined;
+            }
+        });
         layerControl.on('layerToggle', (e) => {
             const layerState = e.detail;
             if (!layerState.checked) {
                 mapSettingsRef.current.hiddenLayers.push(layerState.key);
-                
             } else {
+                mapViewRef.current.layer = layerState.key;
                 mapSettingsRef.current.hiddenLayers = mapSettingsRef.current.hiddenLayers.filter(key => key !== layerState.key);
             }
             setSavedMapSettings(mapSettingsRef.current);
@@ -525,7 +558,7 @@ function Map() {
                         }
                     });
 
-                    if (selectedLayer === layer.name) {
+                    if (selectedLayer === layer.name || mapViewRef.current.layer === layer.name) {
                         heightLayer.addTo(map);
                     } else if (!selectedLayer && layer.show) {
                         heightLayer.addTo(map);
@@ -679,48 +712,6 @@ function Map() {
         let markerBounds = {
             'TL': {x:Number.MAX_SAFE_INTEGER, z:Number.MIN_SAFE_INTEGER},
             'BR': {x:Number.MIN_SAFE_INTEGER, z:Number.MAX_SAFE_INTEGER}
-        }
-
-        // Add static items (from test data or static json)
-        let otherMarkers;
-        if (showTestMarkers) {
-            otherMarkers = testMapData;
-        }
-        else {
-            otherMarkers = staticMapData;
-        }
-
-        if (false && showOtherMarkers) {
-            for (const category in otherMarkers[mapData.normalizedName]) {
-                const markerLayer = L.layerGroup();
-
-                const items = otherMarkers[mapData.normalizedName][category];
-                for (const item of items) {
-                    const itemIcon = L.icon({
-                        iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${category}.png`,
-                        iconSize: [24, 24],
-                        popupAnchor: [0, -12],
-                        //className: layerIncludesMarker(heightLayer, item) ? '' : 'off-level',
-                    });
-                    L.marker(pos(item.position), {icon: itemIcon, position: item.position})
-                        .bindPopup(L.popup().setContent(`${item.name}<br>Elevation: ${item.position.y}`))
-                        .addTo(markerLayer);
-
-                    checkMarkerBounds(item.position, markerBounds);
-                }
-
-                if (items.length > 0) {
-                    var section;
-                    if (category.startsWith('extract')) {
-                        section = t('Extract');
-                    }
-                    else {
-                        section = t('Items');
-                    }
-                    markerLayer.addTo(map);
-                    layerControl.addOverlay(markerLayer, `<img src='${process.env.PUBLIC_URL}/maps/interactive/${category}.png' class='control-item-image' /> ${categories[category] || category}`, section);
-                }
-            }
         }
 
         // Add spawns
@@ -1231,6 +1222,42 @@ function Map() {
             addLayer(stationaryWeapons, 'stationarygun', 'Interactive');
         }
 
+        
+
+        // Add static items 
+        if (showStaticMarkers) {
+            for (const category in staticMapData[mapData.normalizedName]) {
+                const markerLayer = L.layerGroup();
+
+                const items = staticMapData[mapData.normalizedName][category];
+                for (const item of items) {
+                    const itemIcon = L.icon({
+                        iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${category}.png`,
+                        iconSize: [24, 24],
+                        popupAnchor: [0, -12],
+                        //className: layerIncludesMarker(heightLayer, item) ? '' : 'off-level',
+                    });
+                    L.marker(pos(item.position), {icon: itemIcon, position: item.position})
+                        .bindPopup(L.popup().setContent(`${item.name}<br>Elevation: ${item.position.y}`))
+                        .addTo(markerLayer);
+
+                    checkMarkerBounds(item.position, markerBounds);
+                }
+
+                if (items.length > 0) {
+                    var section;
+                    if (category.startsWith('extract')) {
+                        section = t('Extract');
+                    }
+                    else {
+                        section = t('Items');
+                    }
+                    markerLayer.addTo(map);
+                    layerControl.addOverlay(markerLayer, `<img src='${process.env.PUBLIC_URL}/maps/interactive/${category}.png' class='control-item-image' /> ${categories[category] || category}`, section);
+                }
+            }
+        }
+
         if (showTestMarkers) {
             console.log(`Markers "bounds": [[${markerBounds.BR.x}, ${markerBounds.BR.z}], [${markerBounds.TL.x}, ${markerBounds.TL.z}]] (already rotated, copy/paste to maps.json)`);
 
@@ -1281,7 +1308,9 @@ function Map() {
 
         // maxBounds are bigger than the map and the map center is not in 0,0 so we need to move the view to real center
         // console.log("Center:", L.latLngBounds(bounds).getCenter(true));
-        map.setView(L.latLngBounds(bounds).getCenter(true), undefined, {animate: false});
+        if (!mapViewRestored) {
+            map.setView(L.latLngBounds(bounds).getCenter(true), undefined, {animate: false});
+        }
 
         mapRef.current = map;
         if (focusItem.current) {
@@ -1292,7 +1321,7 @@ function Map() {
                 }
             }
         }
-    }, [mapData, items, quests, mapRef, playerPosition, t, dispatch, navigate, mapSettingsRef, setSavedMapSettings]);
+    }, [mapData, items, quests, mapRef, playerPosition, t, dispatch, navigate, mapSettingsRef, setSavedMapSettings, mapViewRef]);
     
     if (!mapData) {
         return <ErrorPage />;
