@@ -450,9 +450,10 @@ function Map() {
         };
         let tileLayer = false;
         const baseLayers = [];
+        const tileSize = mapData.tileSize || 256;
         if (mapData.tilePath) {
             tileLayer = L.tileLayer(mapData.tilePath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {
-                tileSize: mapData.tileSize,
+                tileSize,
                 bounds,
                 ...layerOptions,
             });
@@ -527,7 +528,7 @@ function Map() {
                     }
                     else if (usedStyle === 'tile') {
                         heightLayer = L.tileLayer(layer.tilePath, {
-                            tileSize: mapData.tileSize,
+                            tileSize,
                             bounds,
                             ...layerOptions,
                         });
