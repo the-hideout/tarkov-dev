@@ -158,9 +158,19 @@ const Menu = () => {
                     <li className="submenu-wrapper submenu-items" key="menu-maps" data-targetid="maps">
                         <Link to="/maps/">{t('Maps')}</Link>
                         <ul style={{left: -40}}>
-                            {uniqueMaps.map((map) => (
+                            {Object.values(uniqueMaps.reduce((unique, map) => {
+                                const sameMap = Object.values(unique).find(m => m.id === map.id);
+                                if (!sameMap) {
+                                    unique[map.id] = map;
+                                    return unique;
+                                }
+                                if (map.projection === 'interactive') {
+                                    unique[map.id] = map;
+                                }
+                                return unique;
+                            }, {})).map((map) => (
                                 <MenuItem
-                                    displayText={map.displayText}
+                                    displayText={map.name}
                                     key={`menu-item-${map.key}`}
                                     to={`/map/${map.key}`}
                                     icon={map.icon}
@@ -168,6 +178,11 @@ const Menu = () => {
                                     //onClick={setIsOpen.bind(this, false)}
                                 />
                             ))}
+                            <MenuItem
+                                displayText={t('More...')}
+                                key={'menu-item-maps-more'}
+                                to={'/maps'}
+                            />
                         </ul>
                     </li>
                     <li className="submenu-wrapper submenu-items" key="menu-items" data-targetid="items">

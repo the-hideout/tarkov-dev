@@ -73,6 +73,11 @@ function Maps() {
                         .filter(map => map.normalizedName === mapsGroup.normalizedName)
                         .map((map) => {
                             const { displayText, key, imageThumb } = map;
+                            let mapImageLink = `${process.env.PUBLIC_URL}${imageThumb}`;
+                            if (map.projection === 'interactive') {
+                                let path = map.svgPath || map.tilePath || `https://assets.tarkov.dev/maps/${map.normalizedName}/{z}/{x}/{y}.png`;
+                                mapImageLink = path.replace(/{[xyz]}/g, '0');
+                            }
                             return (
                                 <div className="map-wrapper" key={`map-wrapper-${key}`}>
                                     <h3>{displayText}</h3>
@@ -82,7 +87,7 @@ function Maps() {
                                             className="map-image"
                                             loading="lazy"
                                             title={`Map of ${displayText}`}
-                                            src={`${process.env.PUBLIC_URL}${imageThumb}`}
+                                            src={mapImageLink}
                                         />
                                     </Link>
                                 </div>

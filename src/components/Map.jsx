@@ -24,7 +24,6 @@ import { useMapImages } from '../features/maps';
 import useItemsData from '../features/items';
 import useQuestsData from '../features/quests';
 
-import testMapData from '../data/maps_test.json';
 import staticMapData from '../data/maps_static.json'
 
 import Time from './Time';
@@ -32,10 +31,13 @@ import SEO from './SEO';
 
 import ErrorPage from './error-page';
 
+import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
+
 import './Maps.css';
 
-const showOtherMarkers = true;
+const showStaticMarkers = false;
 const showTestMarkers = false;
+const markerDebug = false;
 
 function getCRS(mapData) {
     let scaleX = 1;
@@ -116,54 +118,76 @@ function checkMarkerBounds(position, markerBounds) {
     if (position.z < markerBounds.BR.z) markerBounds.BR.z = position.z;
 }
 
-function getBounds(mapData) {
-    if (!mapData.bounds) {
+function getBounds(bounds) {
+    if (!bounds) {
         return undefined;
     }
-    return [[mapData.bounds[0][1], mapData.bounds[0][0]], [mapData.bounds[1][1], mapData.bounds[1][0]]];
+    return L.latLngBounds([bounds[0][1], bounds[0][0]], [bounds[1][1], bounds[1][0]]);
+    //return [[bounds[0][1], bounds[0][0]], [bounds[1][1], bounds[1][0]]];
+}
+
+function markerIsOnLayer(marker, layer) {
+    if (!layer.options.extents) {
+        return true;
+    }
+    var top = marker.options.top || marker.options.position.y;
+    var bottom = marker.options.bottom || marker.options.position.y;
+    for (const extent of layer.options.extents) {
+        if (top >= extent.height[0] && bottom < extent.height[1]) {
+            let containedType = 'partial';
+            if (bottom >= extent.height[0] && top <= extent.height[1]) {
+                containedType = 'full';
+            }
+            if (extent.bounds) {
+                for (const boundsArray of extent.bounds) {
+                    const bounds = getBounds(boundsArray);
+                    if (bounds.contains(pos(marker.options.position))) {
+                        return containedType;
+                    }
+                }
+            } else {
+                return containedType;
+            }
+        }
+    }
+    return false;
 }
 
 function markerIsOnActiveLayer(marker) {
     if (!marker.options.position) {
         return true;
     }
-    var top = marker.options.top || marker.options.position.y;
-    var bottom = marker.options.bottom || marker.options.position.y;
-    let activeLayers = Object.values(marker._map._layers).filter(l => l.options?.heightRange);
-    if (activeLayers.some(l => l.options.overlay)) {
-        activeLayers = activeLayers.filter(l => l.options.overlay);
-    }
-    let onLevel = false;
-    for (const layer of activeLayers) {
-        const heightRange = layer.options.heightRange;
-        if (top >= heightRange[0] && bottom < heightRange[1]) {
-            onLevel = true;
-            break;
+
+    const map = marker._map;
+
+    // check if marker is completely contained by inactive layer
+    const overlays = map.layerControl._layers.map(l => l.layer).filter(l => Boolean(l.options.extents) && l.options.overlay);
+    for (const layer of overlays) {
+        for (const extent of layer.options.extents) {
+            if (markerIsOnLayer(marker, layer) === 'full' && !map.hasLayer(layer) && extent.bounds) {
+                return false;
+            }
         }
     }
-    return onLevel;
+
+    // check if marker is on active overlay
+    const activeOverlay = Object.values(map._layers).find(l => l.options?.extents && l.options?.overlay);
+    if (activeOverlay && markerIsOnLayer(marker, activeOverlay)) {
+        return true;
+    }
+
+    // check if marker is on base layer
+    const baseLayer = Object.values(map._layers).find(l => l.options?.extents && !L.options?.overlay);
+    if (!activeOverlay && markerIsOnLayer(marker, baseLayer)) {
+        return true;
+    }
+
+    return false;
 }
 
 function checkMarkerForActiveLayers(event) {
     const marker = event.target || event;
     const outline = marker.options.outline;
-    /*if (!marker.options.position) {
-        return;
-    }
-    var top = marker.options.top || marker.options.position.y;
-    var bottom = marker.options.bottom || marker.options.position.y;
-    let activeLayers = Object.values(marker._map._layers).filter(l => l.options?.heightRange);
-    if (activeLayers.some(l => l.options.overlay)) {
-        activeLayers = activeLayers.filter(l => l.options.overlay);
-    }
-    let onLevel = false;
-    for (const layer of activeLayers) {
-        const heightRange = layer.options.heightRange;
-        if (top >= heightRange[0] && bottom < heightRange[1]) {
-            onLevel = true;
-            break;
-        }
-    }*/
     const onLevel = markerIsOnActiveLayer(marker);
     if (onLevel) {
         marker._icon?.classList.remove('off-level');
@@ -198,19 +222,16 @@ function toggleForceOutline(event) {
 
 function activateMarkerLayer(event) {
     const marker = event.target || event;
-    var top = marker.options.top || marker.options.position.y;
-    var bottom = marker.options.bottom || marker.options.position.y;
     if (markerIsOnActiveLayer(marker)) {
         return;
     }
-    const activeLayers = Object.values(marker._map._layers).filter(l => l.options?.heightRange && l.options?.overlay);
+    const activeLayers = Object.values(marker._map._layers).filter(l => l.options?.extents && l.options?.overlay);
     for (const layer of activeLayers) {
         layer.removeFrom(marker._map);
     }
-    const heightLayers = marker._map.layerControl._layers.filter(l => l.group.exclusive && l.layer.options.heightRange).map(l => l.layer);
+    const heightLayers = marker._map.layerControl._layers.filter(l => l.layer.options.extents && l.layer.options.overlay).map(l => l.layer);
     for (const layer of heightLayers) {
-        const heightRange = layer.options.heightRange;
-        if (top >= heightRange[0] && bottom < heightRange[1]) {
+        if (markerIsOnLayer(marker, layer)) {
             layer.addTo(marker._map);
             break;
         }
@@ -222,6 +243,18 @@ function outlineToPoly(outline) {
     return outline.map(vector => [vector.z, vector.x]);
 }
 
+function addElevation(item, popup) {
+    if (!markerDebug) {
+        return;
+    }
+    const elevationContent = L.DomUtil.create('div', undefined, popup);
+    elevationContent.textContent = `Elevation: ${item.position.y.toFixed(2)}`;
+    if (item.top && item.bottom && item.top !== item.position.y && item.bottom !== item.position.y) {
+        const heightContent = L.DomUtil.create('div', undefined, popup);
+        heightContent.textContent = `Top ${item.top.toFixed(2)}, bottom: ${item.bottom.toFixed(2)}`;
+    }
+}
+
 function Map() {
     let { currentMap } = useParams();
     const [searchParams] = useSearchParams();
@@ -231,6 +264,20 @@ function Map() {
 
     const { t } = useTranslation();
     const dispatch = useDispatch();
+
+    const [savedMapSettings, setSavedMapSettings] = useStateWithLocalStorage(
+        'savedMapSettings',
+        {
+            style: 'svg',
+            hiddenGroups: [],
+            hiddenLayers: [],
+            collapsedGroups: [],
+        },
+    );
+
+    const mapSettingsRef = useRef(savedMapSettings);
+
+    const mapViewRef = useRef({});
 
     useEffect(() => {
         let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
@@ -286,25 +333,89 @@ function Map() {
         const tMaps = (string) => {
             return t(string, { ns: 'maps' })
         }
+        let mapCenter = [0, 0];
+        let mapZoom = mapData.minZoom+1;
+        let mapViewRestored = false;
         if (mapRef.current?._leaflet_id) {
+            if (mapRef.current.options.id === mapData.id) {
+                if (mapViewRef.current.center) {
+                    mapCenter = [mapViewRef.current.center.lat, mapViewRef.current.center.lng];
+                    mapViewRestored = true;
+                }
+                if (typeof mapViewRef.current.zoom !== 'undefined') {
+                    mapZoom = mapViewRef.current.zoom;
+                    mapViewRestored = true;
+                }
+            } else {
+                mapViewRef.current.center = undefined;
+                mapViewRef.current.zoom = undefined;
+                mapViewRef.current.layer = undefined;
+            }
             mapRef.current.remove();
         }
         const map = L.map('leaflet-map', {
             maxBounds: getScaledBounds(mapData.bounds, 1.5),
-            center: [0, 0],
-            zoom: mapData.minZoom+1,
+            center: mapCenter,
+            zoom: mapZoom,
             minZoom: mapData.minZoom,
             maxZoom: mapData.maxZoom,
             scrollWheelZoom: true,
             crs: getCRS(mapData),
             attributionControl: false,
+            id: mapData.id,
+        });
+        map.on('zoom', (e) => {
+            mapViewRef.current.zoom = map.getZoom();
+        });
+        map.on('move', (e) => {
+            mapViewRef.current.center = map.getCenter();
         });
         const layerControl = L.control.groupedLayers(null, null, {
             position: 'topleft',
             collapsed: true,
             groupCheckboxes: true,
-            exclusiveGroups: [tMaps('Levels')],
+            groupsCollapsable: true,
+            exclusiveOptionalGroups: [tMaps('Levels')],
         }).addTo(map);
+        layerControl.on('overlayToggle', (e) => {
+            const layerState = e.detail; 
+            if (layerState.checked) {
+                mapViewRef.current.layer = layerState.key;
+            } else {
+                mapViewRef.current.layer = undefined;
+            }
+        });
+        layerControl.on('layerToggle', (e) => {
+            const layerState = e.detail;
+            if (!layerState.checked) {
+                mapSettingsRef.current.hiddenLayers.push(layerState.key);
+            } else {
+                mapViewRef.current.layer = layerState.key;
+                mapSettingsRef.current.hiddenLayers = mapSettingsRef.current.hiddenLayers.filter(key => key !== layerState.key);
+            }
+            setSavedMapSettings(mapSettingsRef.current);
+        });
+        layerControl.on('groupToggle', (e) => {
+            const groupState = e.detail;
+            if (!groupState.checked) {
+                mapSettingsRef.current.hiddenGroups.push(groupState.key);
+                
+            } else {
+                mapSettingsRef.current.hiddenGroups = mapSettingsRef.current.hiddenGroups.filter(key => key !== groupState.key);
+            }
+            setSavedMapSettings(mapSettingsRef.current);
+        });
+        layerControl.on('groupCollapseToggle', (e) => {
+            const groupState = e.detail;
+            if (groupState.collapsed) {
+                mapSettingsRef.current.collapsedGroups.push(groupState.key);
+                
+            } else {
+                mapSettingsRef.current.collapsedGroups = mapSettingsRef.current.collapsedGroups.filter(key => key !== groupState.key);
+            }
+            setSavedMapSettings(mapSettingsRef.current);
+        });
+
         map.layerControl = layerControl;
         map.addControl(new L.Control.Fullscreen({
             title: {
@@ -327,81 +438,143 @@ function Map() {
 
         //L.control.scale({position: 'bottomright'}).addTo(map);
         
-        let baseLayer;
-        const bounds = getBounds(mapData);
+        const bounds = getBounds(mapData.bounds);
+        const layerOptions = {
+            extents: [
+                {
+                    height: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
+                    bounds: [mapData.bounds],
+                }
+            ],
+            type: 'map-layer',
+        };
+        let tileLayer = false;
+        const baseLayers = [];
+        if (mapData.tilePath) {
+            tileLayer = L.tileLayer(mapData.tilePath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {
+                tileSize: mapData.tileSize,
+                bounds,
+                ...layerOptions,
+            });
+            baseLayers.push(tileLayer);
+        }
+
+        let svgLayer = false;
         if (mapData.svgPath) {
             // if (process.env.NODE_ENV === "development") {
             //     mapData.svgPath = mapData.svgPath.replace("assets.tarkov.dev/maps/svg", "raw.githubusercontent.com/the-hideout/tarkov-dev-src-maps/main/interactive");
             // }
-            baseLayer = L.imageOverlay(mapData.svgPath, bounds, {
-                heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
-                type: 'layer-svg'
-            });
+            //baseLayer = L.imageOverlay(mapData.svgPath, bounds, layerOptions);
+            svgLayer = L.imageOverlay(mapData.svgPath, bounds, layerOptions);
+            baseLayers.push(svgLayer);
         }
-        else {
-            baseLayer = L.tileLayer(mapData.mapPath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {
-                tileSize: mapData.tileSize,
-                bounds: bounds,
-                heightRange: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
-                type: 'layer-tile',
-            });
+
+        // only add selector if there are multiple
+        if (tileLayer && svgLayer) {
+            layerControl.addBaseLayer(tileLayer, tMaps('Satellite'));
+            layerControl.addBaseLayer(svgLayer, tMaps('Abstract'));
         }
-        baseLayer.addTo(map);
-        //layerControl.addBaseLayer(baseLayer, tMaps('Base'));
 
-        // Add map layers
-        if (mapData.layers) {
-            for (const layer of mapData.layers) {
-                let tileLayer;
-                
-                if (layer.svgPath) {
-                    // if (process.env.NODE_ENV === "development") {
-                    //     layer.svgPath = layer.svgPath.replace("assets.tarkov.dev/maps/svg", "raw.githubusercontent.com/the-hideout/tarkov-dev-src-maps/main/interactive");
-                    // }
-                    tileLayer = L.imageOverlay(layer.svgPath, bounds, {
-                        heightRange: layer.heightRange || baseLayer.options?.heightRange,
-                        type: 'layer-svg',
-                        overlay: Boolean(layer.heightRange),
-                    });
-                }
-                else {
-                    tileLayer = L.tileLayer(layer.path, {
-                        tileSize: mapData.tileSize,
-                        bounds: bounds,
-                        heightRange: layer.heightRange || baseLayer.options?.heightRange,
-                        type: 'layer-tile',
-                        overlay: Boolean(layer.heightRange),
-                    });
-                }
-                layerControl.addOverlay(tileLayer, tMaps(layer.name), tMaps('Levels'));
-                if (layer.show) {
-                    tileLayer.addTo(map);
-                }
-
-                tileLayer.on('add', () => {
-                    if (layer.heightRange) {
-                        for (const marker of Object.values(map._layers)) {
-                            checkMarkerForActiveLayers(marker);
-                        }
-                    }
-                    if (baseLayer.options?.type === 'layer-svg' && !layer.show) {
-                        baseLayer._image.classList.add('off-level');
-                    }
-                });
-                tileLayer.on('remove', () => {
-                    const heightLayer = Object.values(map._layers).findLast(l => l.options?.heightRange);
-                    if (heightLayer) {
-                        for (const marker of Object.values(map._layers)) {
-                            checkMarkerForActiveLayers(marker);
-                        }
-                        const layers = Object.values(map._layers).filter(l => l.options.type === 'layer-svg');
-                        if (layers.length === 1 && baseLayer.options.type === 'layer-svg') {
-                            baseLayer._image.classList.remove('off-level');
-                        }
-                    }
-                });
+        for (const baseLayer of baseLayers) {
+            if (mapData.layers?.length === 0) {
+                break;
             }
+
+            let selectedLayer = '';
+            baseLayer.on('add', () => {
+                const svgParent = baseLayer._url.endsWith('.svg');
+                if (tileLayer && svgLayer) {
+                    const selectedStyle = svgParent ? 'svg' : 'tile';
+                    mapSettingsRef.current.style = selectedStyle;
+                    setSavedMapSettings(mapSettingsRef.current);
+                }
+                const existingLayers = Object.values(layerControl._layers).filter(l => l.layer.options.type === 'map-layer' && !baseLayers.includes(l.layer)).map(l => l.layer);
+                for (const existingLayer of existingLayers) {
+                    const svgOverlay = Boolean(existingLayer._url.endsWith('.svg'));
+                    if (svgParent === svgOverlay) {
+                        continue;
+                    }
+                    layerControl.removeLayer(existingLayer);
+                    if (map.hasLayer(existingLayer)) {
+                        map.removeLayer(existingLayer);
+                        selectedLayer = existingLayer.options.name;
+                    }
+                }
+                if (!mapData.layers) {
+                    return;
+                }
+                for (const layer of mapData.layers) {
+                    let heightLayer;
+    
+                    const layerOptions = {
+                        name: layer.name,
+                        extents: layer.extents || baseLayer.options?.extents,
+                        type: 'map-layer',
+                        overlay: Boolean(layer.extents),
+                    };
+                    
+                    if (baseLayer._url.endsWith('.svg') && layer.svgPath) {
+                        // if (process.env.NODE_ENV === "development") {
+                        //     layer.svgPath = layer.svgPath.replace("assets.tarkov.dev/maps/svg", "raw.githubusercontent.com/the-hideout/tarkov-dev-src-maps/main/interactive");
+                        // }
+                        heightLayer = L.imageOverlay(layer.svgPath, bounds, layerOptions);
+                    }
+                    else if (!baseLayer._url.endsWith('.svg') && layer.tilePath) {
+                        heightLayer = L.tileLayer(layer.tilePath, {
+                            tileSize: mapData.tileSize,
+                            bounds,
+                            ...layerOptions,
+                        });
+                    }
+    
+                    heightLayer.on('add', () => {
+                        if (layer.extents) {
+                            for (const marker of Object.values(map._layers)) {
+                                checkMarkerForActiveLayers(marker);
+                            }
+                        }
+                        // mapLayer._image means svg
+                        if (baseLayer._image && !layer.show) {
+                            baseLayer._image.classList.add('off-level');
+                        } else if (baseLayer._container && !layer.show) {
+                            baseLayer._container.classList.add('off-level');
+                        }
+                    });
+                    heightLayer.on('remove', () => {
+                        const heightLayer = Object.values(map._layers).findLast(l => l.options?.extents);
+                        if (heightLayer) {
+                            for (const marker of Object.values(map._layers)) {
+                                checkMarkerForActiveLayers(marker);
+                            }
+                            const layers = Object.values(map._layers).filter(l => l.options.type === 'map-layer');
+                            if (layers.length !== 1) {
+                                return;
+                            }
+                            if (baseLayer._image) {
+                                baseLayer._image.classList.remove('off-level');
+                            } else if (baseLayer._container) {
+                                baseLayer._container.classList.remove('off-level');
+                            }
+                        }
+                    });
+
+                    if (selectedLayer === layer.name || mapViewRef.current.layer === layer.name) {
+                        heightLayer.addTo(map);
+                    } else if (!selectedLayer && layer.show) {
+                        heightLayer.addTo(map);
+                    }
+
+                    layerControl.addOverlay(heightLayer, tMaps(layer.name), {groupName: tMaps('Levels')});
+                }
+            });
         }
+
+        let baseLayer = svgLayer ? svgLayer : tileLayer;
+        if (baseLayer === svgLayer && tileLayer && mapSettingsRef.current.style === 'tile') {
+            baseLayer = tileLayer;
+        }
+
+        baseLayer.addTo(map);
 
         const categories = {
             'extract_pmc': t('PMC'),
@@ -433,6 +606,49 @@ function Map() {
             'lever': t('Lever'),
             'stationarygun': t('Stationary Gun'),
             'switch': t('Switch'),
+        };
+        const images = {
+            'container_bank-cash-register': 'container_cash-register',
+            'container_bank-safe': 'container_safe',
+            'container_buried-barrel-cache': 'container_buried-barrel-cache',
+            'container_cash-register': 'container_cash-register',
+            'container_cash-register-tar2-2': 'container_cash-register',
+            'container_dead-scav': 'container_dead-scav',
+            'container_drawer': 'container_drawer',
+            'container_duffle-bag': 'container_duffle-bag',
+            'container_grenade-box': 'container_grenade-box',
+            'container_ground-cache': 'container_buried-barrel-cache',
+            'container_jacket': 'container_jacket',
+            'container_medbag-smu06': 'container_medbag-smu06',
+            'container_medcase': 'container_medcase',
+            'container_medical-supply-crate': 'container_technical-supply-crate',
+            'container_pc-block': 'container_pc-block',
+            'container_plastic-suitcase': 'container_plastic-suitcase',
+            'container_ration-supply-crate': 'container_technical-supply-crate',
+            'container_safe': 'container_safe',
+            'container_shturmans-stash': 'container_weapon-box',
+            'container_technical-supply-crate': 'container_technical-supply-crate',
+            'container_toolbox': 'container_toolbox',
+            'container_weapon-box': 'container_weapon-box',
+            'container_wooden-ammo-box': 'container_wooden-ammo-box',
+            'container_wooden-crate': 'container_wooden-crate',
+            'extract_pmc': 'extract_pmc',
+            'extract_scav': 'extract_scav',
+            'extract_shared': 'extract_shared',
+            'hazard': 'hazard',
+            'key': 'key',
+            'lock': 'lock',
+            'quest_item': 'quest_item',
+            'quest_objective': 'quest_objective',
+            'sniper_scav': 'sniper_scav',
+            'spawn_bloodhound': 'spawn_bloodhound',
+            'spawn_boss': 'spawn_boss',
+            'spawn_cultist-priest': 'spawn_cultist-priest',
+            'spawn_pmc': 'spawn_pmc',
+            'spawn_rogue': 'spawn_rogue',
+            'spawn_scav': 'spawn_scav',
+            'stationarygun': 'stationarygun',
+            'switch': 'switch',
         };
 
         const focusOnPoi = (id) => {
@@ -471,51 +687,35 @@ function Map() {
             return a;
         };
 
+        const getLayerOptions = (layerKey, groupKey, layerName) => {
+            return {
+                groupKey,
+                layerKey,
+                groupName: tMaps(groupKey),
+                layerName: layerName || categories[layerKey] || layerKey,
+                groupHidden: Boolean(mapSettingsRef.current.hiddenGroups?.includes(groupKey)),
+                layerHidden: Boolean(mapSettingsRef.current.hiddenLayers?.includes(layerKey)),
+                image: images[layerKey] ? `${process.env.PUBLIC_URL}/maps/interactive/${images[layerKey]}.png` : undefined,
+                groupCollapsed: Boolean(mapSettingsRef.current.collapsedGroups?.includes(groupKey)),
+            };
+        };
+
+        const addLayer = (layer, layerKey, groupKey, layerName) => {
+            layer.key = layerKey;
+            const layerOptions = getLayerOptions(layerKey, groupKey, layerName);
+            if (!layerOptions.groupHidden && !layerOptions.layerHidden) {
+                layer.addTo(map);
+            }
+            layerControl.addOverlay(layer, layerOptions.layerName, layerOptions);
+        };
+
+        const positionIsInBounds = (position) => {
+            return bounds.contains(pos(position));
+        };
+
         let markerBounds = {
             'TL': {x:Number.MAX_SAFE_INTEGER, z:Number.MIN_SAFE_INTEGER},
             'BR': {x:Number.MIN_SAFE_INTEGER, z:Number.MAX_SAFE_INTEGER}
-        }
-
-        // Add static items (from test data or static json)
-        let otherMarkers;
-        if (showTestMarkers) {
-            otherMarkers = testMapData;
-        }
-        else {
-            otherMarkers = staticMapData;
-        }
-
-        if (false && showOtherMarkers) {
-            for (const category in otherMarkers[mapData.normalizedName]) {
-                const markerLayer = L.layerGroup();
-
-                const items = otherMarkers[mapData.normalizedName][category];
-                for (const item of items) {
-                    const itemIcon = L.icon({
-                        iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${category}.png`,
-                        iconSize: [24, 24],
-                        popupAnchor: [0, -12],
-                        //className: layerIncludesMarker(heightLayer, item) ? '' : 'off-level',
-                    });
-                    L.marker(pos(item.position), {icon: itemIcon, position: item.position})
-                        .bindPopup(L.popup().setContent(`${item.name}<br>Elevation: ${item.position.y}`))
-                        .addTo(markerLayer);
-
-                    checkMarkerBounds(item.position, markerBounds);
-                }
-
-                if (items.length > 0) {
-                    var section;
-                    if (category.startsWith('extract')) {
-                        section = t('Extract');
-                    }
-                    else {
-                        section = t('Items');
-                    }
-                    markerLayer.addTo(map);
-                    layerControl.addOverlay(markerLayer, `<img src='${process.env.PUBLIC_URL}/maps/interactive/${category}.png' class='control-item-image' /> ${categories[category] || category}`, section);
-                }
-            }
         }
 
         // Add spawns
@@ -529,6 +729,9 @@ function Map() {
                 bloodhound: L.layerGroup(),
             }
             for (const spawn of mapData.spawns) {
+                if (!positionIsInBounds(spawn.position)) {
+                    continue;
+                }
                 let spawnType = '';
                 let bosses = [];
 
@@ -608,10 +811,7 @@ function Map() {
                     const spawnDiv = L.DomUtil.create('div', undefined, popupContent);
                     spawnDiv.textContent = categories[`spawn_${spawnType}`];
                 }
-                if (showTestMarkers) {
-                    const elevationDiv = L.DomUtil.create('div', undefined, popupContent);
-                    elevationDiv.textContent = `Elevation: ${spawn.position.y.toFixed(2)}`;
-                }
+                addElevation(spawn, popupContent);
 
                 const marker = L.marker(pos(spawn.position), {
                     icon: spawnIcon,
@@ -629,8 +829,7 @@ function Map() {
             }
             for (const key in spawnLayers) {
                 if (Object.keys(spawnLayers[key]._layers).length > 0) {
-                    spawnLayers[key].addTo(map);
-                    layerControl.addOverlay(spawnLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/spawn_${key}.png' class='control-item-image' /> ${categories[`spawn_${key}`]}`, tMaps('Spawns'));    
+                    addLayer(spawnLayers[key], `spawn_${key}`, 'Spawns');
                 }
             }
         }
@@ -648,6 +847,9 @@ function Map() {
                 scav: 100,
             };
             for (const extract of mapData.extracts) {
+                if (!positionIsInBounds(extract.position)) {
+                    continue;
+                }
                 const colorMap = {
                     scav: '#ff7800',
                     pmc: '#00e599',
@@ -678,12 +880,17 @@ function Map() {
                     textElement.textContent = t('Activated by:');
                     popup.appendChild(textElement);
                     for (const sw of extract.switches) {
-                        const linkElement = getPoiLinkElement(sw.id, 'lever');
+                        const linkElement = getPoiLinkElement(sw.id, 'switch');
                         const nameElement = L.DomUtil.create('span');
                         nameElement.innerHTML = `<strong>${sw.name}</strong>`;
                         linkElement.append(nameElement);
                         popup.appendChild(linkElement);
                     }
+                    addElevation(extract, popup);
+                    extractMarker.bindPopup(L.popup().setContent(popup));
+                } else if (markerDebug) {
+                    const popup = L.DomUtil.create('div');
+                    addElevation(extract, popup);
                     extractMarker.bindPopup(L.popup().setContent(popup));
                 }
                 extractMarker.on('add', checkMarkerForActiveLayers);
@@ -693,8 +900,7 @@ function Map() {
             }
             for (const key in extractLayers) {
                 if (Object.keys(extractLayers[key]._layers).length > 0) {
-                    extractLayers[key].addTo(map);
-                    layerControl.addOverlay(extractLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/extract_${key}.png' class='control-item-image' /> ${categories[`extract_${key}`]}`, t('Extracts'));    
+                    addLayer(extractLayers[key], `extract_${key}`, 'Extracts');
                 }
             }
         }
@@ -706,10 +912,14 @@ function Map() {
                 if (!key) {
                     continue;
                 }
+                
+                if (!positionIsInBounds(lock.position)) {
+                    continue;
+                }
 
                 checkMarkerBounds(lock.position, markerBounds);
                 const lockIcon = L.icon({
-                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/locked_door.png`,
+                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/lock.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
                 });
@@ -746,10 +956,7 @@ function Map() {
                 const lockLink = getReactLink(`/item/${key.normalizedName}`, lockImage);
                 lockLink.append(`${key.name}`);
                 popupContent.append(lockLink);
-                if (showTestMarkers) {
-                    const elevationDiv = L.DomUtil.create('div', undefined, popupContent);
-                    elevationDiv.textContent = `Elevation: ${lock.position.y.toFixed(2)}`;
-                }
+                addElevation(lock, popupContent);
 
                 lockMarker.bindPopup(L.popup().setContent(popupContent));
                 lockMarker.on('add', checkMarkerForActiveLayers);
@@ -758,8 +965,7 @@ function Map() {
                 
             }
             if (Object.keys(locks._layers).length > 0) {
-                locks.addTo(map);
-                layerControl.addOverlay(locks, `<img src='${process.env.PUBLIC_URL}/maps/interactive/locked_door.png' class='control-item-image' /> ${categories['lock']}`, t('Locks'));    
+                addLayer(locks, 'lock', 'Interactive');
             }
         }
 
@@ -774,6 +980,9 @@ function Map() {
                             continue;
                         }
                         for (const position of loc.positions) {
+                            if (!positionIsInBounds(position)) {
+                                continue;
+                            }
                             const questItemIcon = L.icon({
                                 iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_item.png`,
                                 iconSize: [24, 24],
@@ -792,10 +1001,7 @@ function Map() {
                             const questItemImage = L.DomUtil.create('img', 'popup-item', questItem);
                             questItemImage.setAttribute('src', `${obj.questItem.baseImageLink}`);
                             questItem.append(`${obj.questItem.name}`);
-                            if (showTestMarkers) {
-                                const elevationDiv = L.DomUtil.create('div', undefined, popupContent);
-                                elevationDiv.textContent = `Elevation: ${position.y.toFixed(2)}`;
-                            }
+                            addElevation({position}, popupContent);
                             questItemMarker.bindPopup(L.popup().setContent(popupContent));
                             questItemMarker.on('add', checkMarkerForActiveLayers);
                             questItemMarker.on('click', activateMarkerLayer);
@@ -810,9 +1016,12 @@ function Map() {
                         if (zone.map.id !== mapData.id) {
                             continue;
                         }
+                        if (!positionIsInBounds(zone.position)) {
+                            continue;
+                        }
                         const rect = L.polygon(outlineToPoly(zone.outline), {color: '#e5e200', weight: 1, className: 'not-shown'});
                         const zoneIcon = L.icon({
-                            iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/compass.png`,
+                            iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_objective.png`,
                             iconSize: [24, 24],
                             popupAnchor: [0, -12],
                         });
@@ -837,6 +1046,7 @@ function Map() {
                         questLink.append(getReactLink(`/task/${quest.normalizedName}`, quest.name));
                         const objectiveText = L.DomUtil.create('div', undefined, popupContent);
                         objectiveText.textContent = `- ${obj.description}`;
+                        addElevation(zone, popupContent);
                         zoneMarker.bindPopup(L.popup().setContent(popupContent));
                         zoneMarker.on('add', checkMarkerForActiveLayers);
                         L.layerGroup([rect, zoneMarker]).addTo(questObjectives);
@@ -845,24 +1055,21 @@ function Map() {
             }
         }
         if (Object.keys(questItems._layers).length > 0) {
-            questItems.addTo(map);
-            layerControl.addOverlay(questItems, `<img src='${process.env.PUBLIC_URL}/maps/interactive/quest_item.png' class='control-item-image' /> ${categories['quest_item']}`, t('Tasks'));    
+            addLayer(questItems, 'quest_item', 'Tasks');
         }
         if (Object.keys(questObjectives._layers).length > 0) {
-            questObjectives.addTo(map);
-            layerControl.addOverlay(questObjectives, `<img src='${process.env.PUBLIC_URL}/maps/interactive/compass.png' class='control-item-image' /> ${categories['quest_objective']}`, t('Tasks')); 
+            addLayer(questObjectives, 'quest_objective', 'Tasks');
         }
-        /*if (Object.keys(questZones._layers).length > 0) {
-            questZones.addTo(map);
-            layerControl.addOverlay(questZones, categories['quest_zone'], t('Tasks'));    
-        }*/
 
         //add switches 
         if (mapData.switches.length > 0) {
             const switches = L.layerGroup();
             for (const sw of mapData.switches) {
+                if (!positionIsInBounds(sw.position)) {
+                    continue;
+                }
                 const switchIcon = L.icon({
-                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/lever.png`,
+                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/switch.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
                 });
@@ -887,7 +1094,7 @@ function Map() {
                     const textElement = L.DomUtil.create('div');
                     textElement.textContent = `${t('Activated by')}:`;
                     popup.appendChild(textElement);
-                    const linkElement = getPoiLinkElement(sw.activatedBy.id, 'lever');
+                    const linkElement = getPoiLinkElement(sw.activatedBy.id, 'switch');
                     const nameElement = L.DomUtil.create('span');
                     nameElement.innerHTML = `<strong>${sw.activatedBy.name}</strong>`;
                     linkElement.append(nameElement);
@@ -900,7 +1107,7 @@ function Map() {
                 }
                 for (const switchOperation of sw.activates) {
                     if (switchOperation.target.__typename === 'MapSwitch') {
-                        const linkElement = getPoiLinkElement(switchOperation.target.id, 'lever');
+                        const linkElement = getPoiLinkElement(switchOperation.target.id, 'switch');
                         const nameElement = L.DomUtil.create('span');
                         nameElement.innerHTML = `<strong>${switchOperation.target.name}</strong>`;
                         linkElement.append(nameElement);
@@ -916,6 +1123,7 @@ function Map() {
                         popup.appendChild(extractElement);
                     }
                 }
+                addElevation(sw, popup);
                 if (popup.childNodes.length > 0) {
                     switchMarker.bindPopup(L.popup().setContent(popup));
                 }
@@ -926,8 +1134,7 @@ function Map() {
                 checkMarkerBounds(sw.position, markerBounds);
             }
             if (Object.keys(switches._layers).length > 0) {
-                switches.addTo(map);
-                layerControl.addOverlay(switches, `<img src='${process.env.PUBLIC_URL}/maps/interactive/lever.png' class='control-item-image' /> ${categories['switch']}`, t('Switches'));    
+                addLayer(switches, 'switch', 'Interactive');
             }
         }
 
@@ -936,8 +1143,11 @@ function Map() {
             const containerLayers = {};
             const containerNames = {};
             for (const containerPosition of mapData.lootContainers) {
+                if (!positionIsInBounds(containerPosition.position)) {
+                    continue;
+                }
                 const containerIcon = L.icon({
-                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/container_${containerPosition.lootContainer.normalizedName}.png`,
+                    iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${images[`container_${containerPosition.lootContainer.normalizedName}`]}.png`,
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
                 });
@@ -950,6 +1160,11 @@ function Map() {
                 if (!containerLayers[containerPosition.lootContainer.normalizedName]) {
                     containerLayers[containerPosition.lootContainer.normalizedName] = L.layerGroup();
                 }
+                if (markerDebug) {
+                    const popup = L.DomUtil.create('div');
+                    addElevation(containerPosition, popup);
+                    containerMarker.bindPopup(L.popup().setContent(popup));
+                }
                 containerMarker.on('add', checkMarkerForActiveLayers);
                 containerMarker.on('click', activateMarkerLayer);
                 containerMarker.addTo(containerLayers[containerPosition.lootContainer.normalizedName]);
@@ -957,8 +1172,7 @@ function Map() {
             }
             for (const key in containerLayers) {
                 if (Object.keys(containerLayers[key]._layers).length > 0) {
-                    containerLayers[key].addTo(map);
-                    layerControl.addOverlay(containerLayers[key], `<img src='${process.env.PUBLIC_URL}/maps/interactive/container_${key}.png' class='control-item-image' /> ${containerNames[key]}`, t('Items'));    
+                    addLayer(containerLayers[key], `container_${key}`, 'Lootable Items', containerNames[key]);
                 }
             }
         }
@@ -967,6 +1181,9 @@ function Map() {
         if (mapData.hazards.length > 0) {
             const hazardLayers = {};
             for (const hazard of mapData.hazards) {
+                if (!positionIsInBounds(hazard.position)) {
+                    continue;
+                }
                 const rect = L.polygon(outlineToPoly(hazard.outline), {color: '#ff0000', weight: 1, className: 'not-shown'});
                 const hazardIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/hazard.png`,
@@ -983,10 +1200,12 @@ function Map() {
                     bottom: hazard.bottom,
                     outline: rect,
                 });
-                hazardMarker.bindPopup(L.popup().setContent(hazard.name));
-                /*hazardMarker.on('click', (e) => {
-                    rect._path.classList.toggle('not-shown');
-                });*/
+                const popup = L.DomUtil.create('div');
+                const hazardText = L.DomUtil.create('div', undefined, popup);
+                hazardText.textContent = hazard.name;
+                addElevation(hazard, popup);
+                hazardMarker.bindPopup(L.popup().setContent(popup));
+
                 hazardMarker.on('mouseover', mouseHoverOutline);
                 hazardMarker.on('mouseout', mouseHoverOutline);
                 hazardMarker.on('click', toggleForceOutline);
@@ -1000,8 +1219,7 @@ function Map() {
             }
             for (const key in hazardLayers) {
                 if (Object.keys(hazardLayers[key]._layers).length > 0) {
-                    hazardLayers[key].addTo(map);
-                    layerControl.addOverlay(hazardLayers[key], key, t('Hazards'));    
+                    addLayer(hazardLayers[key], key, 'Hazards');
                 }
             }
         }
@@ -1010,6 +1228,9 @@ function Map() {
         if (mapData.stationaryWeapons.length > 0) {
             const stationaryWeapons = L.layerGroup();
             for (const weaponPosition of mapData.stationaryWeapons) {
+                if (!positionIsInBounds(weaponPosition.position)) {
+                    continue;
+                }
                 const weaponIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/stationarygun.png`,
                     iconSize: [24, 24],
@@ -1021,19 +1242,59 @@ function Map() {
                     title: weaponPosition.stationaryWeapon.name,
                     position: weaponPosition.position,
                 });
+                if (markerDebug) {
+                    const popup = L.DomUtil.create('div');
+                    addElevation(weaponPosition, popup);
+                    weaponMarker.bindPopup(L.popup().setContent(popup));
+                }
                 weaponMarker.on('add', checkMarkerForActiveLayers);
                 weaponMarker.on('click', activateMarkerLayer);
                 weaponMarker.addTo(stationaryWeapons);
             }
-            stationaryWeapons.addTo(map);
-            layerControl.addOverlay(stationaryWeapons, `<img src='${process.env.PUBLIC_URL}/maps/interactive/stationarygun.png' class='control-item-image' /> ${categories.stationarygun}`, t('Stationary Guns'));    
+            addLayer(stationaryWeapons, 'stationarygun', 'Interactive');
+        }
+
+        
+
+        // Add static items 
+        if (showStaticMarkers) {
+            for (const category in staticMapData[mapData.normalizedName]) {
+                const markerLayer = L.layerGroup();
+
+                const items = staticMapData[mapData.normalizedName][category];
+                for (const item of items) {
+                    const itemIcon = L.icon({
+                        iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${category}.png`,
+                        iconSize: [24, 24],
+                        popupAnchor: [0, -12],
+                        //className: layerIncludesMarker(heightLayer, item) ? '' : 'off-level',
+                    });
+                    L.marker(pos(item.position), {icon: itemIcon, position: item.position})
+                        .bindPopup(L.popup().setContent(`${item.name}<br>Elevation: ${item.position.y}`))
+                        .addTo(markerLayer);
+
+                    checkMarkerBounds(item.position, markerBounds);
+                }
+
+                if (items.length > 0) {
+                    var section;
+                    if (category.startsWith('extract')) {
+                        section = t('Extract');
+                    }
+                    else {
+                        section = t('Items');
+                    }
+                    markerLayer.addTo(map);
+                    layerControl.addOverlay(markerLayer, `<img src='${process.env.PUBLIC_URL}/maps/interactive/${category}.png' class='control-item-image' /> ${categories[category] || category}`, section);
+                }
+            }
         }
 
         if (showTestMarkers) {
             console.log(`Markers "bounds": [[${markerBounds.BR.x}, ${markerBounds.BR.z}], [${markerBounds.TL.x}, ${markerBounds.TL.z}]] (already rotated, copy/paste to maps.json)`);
 
             L.rectangle([pos(markerBounds.TL), pos(markerBounds.BR)], {color: '#ff000055', weight: 1}).addTo(map);
-            L.rectangle(getBounds(mapData), {color: '#00ff0055', weight: 1}).addTo(map);
+            L.rectangle(getBounds(mapData.bounds), {color: '#00ff0055', weight: 1}).addTo(map);
 
             const positionLayer = L.layerGroup();
             const playerIcon = L.AwesomeMarkers.icon({
@@ -1079,7 +1340,9 @@ function Map() {
 
         // maxBounds are bigger than the map and the map center is not in 0,0 so we need to move the view to real center
         // console.log("Center:", L.latLngBounds(bounds).getCenter(true));
-        map.setView(L.latLngBounds(bounds).getCenter(true), undefined, {animate: false});
+        if (!mapViewRestored) {
+            map.setView(L.latLngBounds(bounds).getCenter(true), undefined, {animate: false});
+        }
 
         mapRef.current = map;
         if (focusItem.current) {
@@ -1090,7 +1353,7 @@ function Map() {
                 }
             }
         }
-    }, [mapData, items, quests, mapRef, playerPosition, t, dispatch, navigate]);
+    }, [mapData, items, quests, mapRef, playerPosition, t, dispatch, navigate, mapSettingsRef, setSavedMapSettings, mapViewRef]);
     
     if (!mapData) {
         return <ErrorPage />;

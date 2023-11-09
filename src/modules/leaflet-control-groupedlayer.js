@@ -25,6 +25,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import L from 'leaflet';
 
+let controlContainer;
+
 // A layer control which provides for layer groupings.
 // Author: Ishmael Smyrnow
 L.Control.GroupedLayers = L.Control.extend({
@@ -36,18 +38,13 @@ L.Control.GroupedLayers = L.Control.extend({
         position: 'topright',
         autoZIndex: true,
         exclusiveGroups: [],
+        exclusiveOptionalGroups: [],
         groupCheckboxes: false,
         groupsCollapsable: false,
         groupsExpandedClass: "leaflet-control-layers-group-collapse-default",
         groupsCollapsedClass: "leaflet-control-layers-group-expand-default",
         sortFunction: function (nameA, nameB) {
-            if (nameA < nameB) {
-                return -1;
-            } else if (nameB < nameA) {
-                return 1;
-            } else {
-                return 0;
-            }
+            return nameA.localeCompare(nameB);
         }
     },
   
@@ -101,8 +98,8 @@ L.Control.GroupedLayers = L.Control.extend({
         return this;
     },
   
-    addOverlay: function (layer, name, group) {
-        this._addLayer(layer, name, group, true);
+    addOverlay: function (layer, name, options) {
+        this._addLayer(layer, name, {...options, overlay: true});
         this._update();
         return this;
     },
@@ -169,17 +166,25 @@ L.Control.GroupedLayers = L.Control.extend({
         this._overlaysList = L.DomUtil.create('div', className + '-overlays', form);
     
         container.appendChild(form);
+
+        controlContainer = container;
     },
   
-    _addLayer: function (layer, name, group, overlay) {
+    _addLayer: function (layer, name, options) {
+        options = {...options};
+        if (options.image) {
+            name = `<img src="${options.image}" class='control-item-image' /> ${name}`;
+        }
+
         var _layer = {
             layer: layer,
             name: name,
-            overlay: overlay
+            overlay: options.overlay,
+            key: options.layerKey,
         };
         this._layers.push(_layer);
     
-        group = group || '';
+        const group = options.groupName || '';
         var groupId = this._indexOf(this._groupList, group);
     
         if (groupId === -1) {
@@ -187,11 +192,15 @@ L.Control.GroupedLayers = L.Control.extend({
         }
     
         var exclusive = (this._indexOf(this.options.exclusiveGroups, group) !== -1);
+        var exclusiveOptional = (this._indexOf(this.options.exclusiveOptionalGroups, group) !== -1);
     
         _layer.group = {
             name: group,
             id: groupId,
-            exclusive: exclusive
+            exclusive: exclusive,
+            exclusiveOptional: exclusiveOptional,
+            key: options.groupKey,
+            collapsed: options.groupCollapsed,
         };
     
         if (this.options.autoZIndex && layer.setZIndex) {
@@ -217,6 +226,12 @@ L.Control.GroupedLayers = L.Control.extend({
     
         if (this.options.sortGroups) {
             this._layers.sort(L.bind(function (a, b) {
+                if (a.group.exclusiveOptional && !b.group.exclusiveOptional) {
+                    return -1;
+                }
+                if (!a.group.exclusiveOptional && b.group.exclusiveOptional) {
+                    return 1;
+                }
                 return this.options.sortFunction(a.group.name, b.group.name);
             }, this));
         }
@@ -274,6 +289,16 @@ L.Control.GroupedLayers = L.Control.extend({
   
     _createRadioElement: function (name, checked) {
         var radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = name;
+        radio.className = 'leaflet-control-layers-selector';
+        radio.checked = checked;
+    
+        return radio;
+    },
+
+    _createExclusiveCheckElement: function (name, checked) {
+        var radio = document.createElement('input');
         radio.type = 'checkbox';
         radio.name = name;
         radio.className = `leaflet-control-layers-selector ${name}`;
@@ -306,6 +331,9 @@ L.Control.GroupedLayers = L.Control.extend({
             if (obj.group.exclusive) {
                 groupRadioName = 'leaflet-exclusive-group-layer-' + obj.group.id;
                 input = this._createRadioElement(groupRadioName, checked);
+            } else if (obj.group.exclusiveOptional) {
+                groupRadioName = 'leaflet-exclusive-group-layer-' + obj.group.id;
+                input = this._createExclusiveCheckElement(groupRadioName, checked);
             } else {
                 input = document.createElement('input');
                 input.type = 'checkbox';
@@ -319,6 +347,25 @@ L.Control.GroupedLayers = L.Control.extend({
         input.layerId = L.Util.stamp(obj.layer);
         input.groupID = obj.group.id;
         L.DomEvent.on(input, 'click', this._onInputClick, this);
+        L.DomEvent.on(input, 'click', () => {
+            if (obj.layer.key && !obj.layer.options.overlay) {
+                controlContainer.dispatchEvent(new CustomEvent('layerToggle', {
+                    bubbles: false,
+                    detail: {    
+                        key: obj.layer.key,
+                        checked: input.checked,
+                    },
+                }));
+            } else if (obj.layer.options.overlay) {
+                controlContainer.dispatchEvent(new CustomEvent('overlayToggle', {
+                    bubbles: false,
+                    detail: {    
+                        key: obj.layer.options.name,
+                        checked: input.checked,
+                    },
+                }));
+            }
+        }, this);
     
         var name = document.createElement('span');
         name.innerHTML = ' ' + obj.name;
@@ -336,11 +383,12 @@ L.Control.GroupedLayers = L.Control.extend({
                 groupContainer = document.createElement('div');
                 groupContainer.className = 'leaflet-control-layers-group';
                 groupContainer.id = 'leaflet-control-layers-group-' + obj.group.id;
+                groupContainer.dataset.key = obj.group.key;
         
                 var groupLabel = document.createElement('label');
                 groupLabel.className = 'leaflet-control-layers-group-label';
         
-                if (obj.group.name !== '' && !obj.group.exclusive) {
+                if (obj.group.name !== '' && !obj.group.exclusive && !obj.group.exclusiveOptional) {
                     // ------ add a group checkbox with an _onInputClickGroup function
                     if (this.options.groupCheckboxes) {
                         var groupInput = document.createElement('input');
@@ -348,6 +396,7 @@ L.Control.GroupedLayers = L.Control.extend({
                         groupInput.className = 'leaflet-control-layers-group-selector';
                         groupInput.groupID = obj.group.id;
                         groupInput.legend = this;
+                        groupInput.dataset.key = obj.group.key;
                         L.DomEvent.on(groupInput, 'click', this._onGroupInputClick, groupInput);
                         groupLabel.appendChild(groupInput);
                     }
@@ -355,7 +404,9 @@ L.Control.GroupedLayers = L.Control.extend({
         
                 if (this.options.groupsCollapsable){
                     groupContainer.classList.add("group-collapsable");
-                    groupContainer.classList.add("collapsed");
+                    if (obj.group.collapsed) {
+                        groupContainer.classList.add("collapsed");
+                    }
         
                     var groupMin = document.createElement('span');
                     groupMin.className = 'leaflet-control-layers-group-collapse '+this.options.groupsExpandedClass;
@@ -397,6 +448,15 @@ L.Control.GroupedLayers = L.Control.extend({
         } else if (this.classList.contains("group-collapsable") && !this.classList.contains("collapsed")) {
             this.classList.add("collapsed");
         }
+        if (this.dataset.key) {
+            controlContainer.dispatchEvent(new CustomEvent('groupCollapseToggle', {
+                bubbles: false,
+                detail: {    
+                    key: this.dataset.key,
+                    collapsed: this.classList.contains("collapsed"),
+                },
+            }));
+        }
     },
   
     _onGroupInputClick: function (event) {
@@ -418,6 +478,16 @@ L.Control.GroupedLayers = L.Control.extend({
                     this_legend._map.removeLayer(obj.layer);
                 }
             }
+        }
+
+        if (this.dataset.key) {
+            controlContainer.dispatchEvent(new CustomEvent('groupToggle', {
+                bubbles: false,
+                detail: {    
+                    key: this.dataset.key,
+                    checked: this.checked,
+                },
+            }));
         }
     
         this_legend._handlingClick = false;
@@ -508,7 +578,16 @@ L.Control.GroupedLayers = L.Control.extend({
             }
         }
         return -1;
-    }
+    },
+    on: (eventName, handler, options) => {
+        controlContainer.addEventListener(eventName, handler, options);
+    },
+    once: (eventName, handler, options) => {
+        controlContainer.addEventListener(eventName, handler, {...options, once: true});
+    },
+    off: (eventName, handler, options) => {
+        controlContainer.removeEventListener(eventName, handler, options);
+    },
 });
   
 L.control.groupedLayers = function (baseLayers, groupedOverlays, options) {
