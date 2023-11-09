@@ -450,9 +450,10 @@ function Map() {
         };
         let tileLayer = false;
         const baseLayers = [];
+        const tileSize = mapData.tileSize || 256;
         if (mapData.tilePath) {
             tileLayer = L.tileLayer(mapData.tilePath || `https://assets.tarkov.dev/maps/${mapData.normalizedName}/{z}/{x}/{y}.png`, {
-                tileSize: mapData.tileSize,
+                tileSize,
                 bounds,
                 ...layerOptions,
             });
@@ -490,10 +491,6 @@ function Map() {
                 }
                 const existingLayers = Object.values(layerControl._layers).filter(l => l.layer.options.type === 'map-layer' && !baseLayers.includes(l.layer)).map(l => l.layer);
                 for (const existingLayer of existingLayers) {
-                    const svgOverlay = Boolean(existingLayer._url.endsWith('.svg'));
-                    if (svgParent === svgOverlay) {
-                        continue;
-                    }
                     layerControl.removeLayer(existingLayer);
                     if (map.hasLayer(existingLayer)) {
                         map.removeLayer(existingLayer);
@@ -513,15 +510,25 @@ function Map() {
                         overlay: Boolean(layer.extents),
                     };
                     
-                    if (baseLayer._url.endsWith('.svg') && layer.svgPath) {
+                    let usedStyle = svgParent ? 'svg' : 'tile';
+                    if (!layer.svgPath) {
+                        usedStyle = 'tile';
+                    }
+                    if (!layer.tilePath) {
+                        usedStyle = 'svg';
+                    }
+                    if (!layer.svgPath && !layer.tilePath) {
+                        continue;
+                    }
+                    if (usedStyle === 'svg') {
                         // if (process.env.NODE_ENV === "development") {
                         //     layer.svgPath = layer.svgPath.replace("assets.tarkov.dev/maps/svg", "raw.githubusercontent.com/the-hideout/tarkov-dev-src-maps/main/interactive");
                         // }
                         heightLayer = L.imageOverlay(layer.svgPath, bounds, layerOptions);
                     }
-                    else if (!baseLayer._url.endsWith('.svg') && layer.tilePath) {
+                    else if (usedStyle === 'tile') {
                         heightLayer = L.tileLayer(layer.tilePath, {
-                            tileSize: mapData.tileSize,
+                            tileSize,
                             bounds,
                             ...layerOptions,
                         });

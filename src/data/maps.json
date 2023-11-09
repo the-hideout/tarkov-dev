@@ -99,22 +99,22 @@
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Ground_Level.svg",
-                "tilePath": "https://assets.tarkov.dev/maps/customs_v3/main/{z}/{x}/{y}.png",
+                "tilePath": "https://assets.tarkov.dev/maps/customs_v4/main/{z}/{x}/{y}.png",
                 "layers": [
                     {
                         "name": "Underground",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Underground_Level.svg",
-                        "tilePath": "https://assets.tarkov.dev/maps/customs_v3/underground/{z}/{x}/{y}.png",
+                        "tilePath": "https://assets.tarkov.dev/maps/customs_v4/underground/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
                             {
                                 "height": [-1000, 0.5],
                                 "bounds": [
-                                    [[635, -137], [620, -125]],
-                                    [[473, -122], [458, -110]],
-                                    [[349, -88], [323, -32]],
-                                    [[314, -173], [308, -184]],
-                                    [[219, -158], [193, -137]]
+                                    [[635, -137], [620, -125], "zb-1011"],
+                                    [[473, -122], [458, -110], "zb-1012"],
+                                    [[314, -173], [308, -184], "old gas"],
+                                    [[349, -88], [323, -32], "switch basement"],
+                                    [[219, -158], [193, -137], "zb-013"]
                                 ]
                             }
                         ]
@@ -122,19 +122,30 @@
                     {
                         "name": "2nd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Second_Floor.svg",
-                        "tilePath": "https://assets.tarkov.dev/maps/customs_v3/2nd/{z}/{x}/{y}.png",
+                        "tilePath": "https://assets.tarkov.dev/maps/customs_v4/2nd/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
                             {
                                 "height": [2.7, 6.5],
                                 "bounds": [
-                                    [[243, 190], [165, 125]],
-                                    [[116, -83], [72, -170]],
-                                    [[356, -30], [341, -84]],
-                                    [[334, -52], [321, -59]],
-                                    [[589, 10], [577, -1]],
-                                    [[580, -104], [532, -134]],
-                                    [[625, -120], [599, -139]]
+                                    [[243, 190], [165, 125], "dorms"],
+                                    [[116, -83], [72, -170], "mechanic"],
+                                    [[356, -30], [341, -84], "switch 2nd"],
+                                    [[334, -52], [321, -59], "switch 2nd"],
+                                    [[589, 10], [577, -1], "scav checkpoint"],
+                                    [[580, -104], [532, -134], "dead scav warehouse"],
+                                    [[625, -120], [599, -139], "pump 2nd"]
+                                ]
+                            },
+                            {
+                                "height": [5.7, 1000],
+                                "bounds": [
+                                    [[580, -104], [532, -134], "dead scav warehouse"],
+                                    [[-199, -90], [-210, -114], "big red 2nd"],
+                                    [[239, 3], [169, -160], "skeleton"],
+                                    [[336, -56], [316, -95], "switch snipe"],
+                                    [[584, -46], [556, -92], "USEC 2nd"],
+                                    [[93, 0], [65, -22], "construction 2nd"]
                                 ]
                             }
                         ]
@@ -142,18 +153,13 @@
                     {
                         "name": "3rd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Third_Floor.svg",
-                        "tilePath": "https://assets.tarkov.dev/maps/customs_v3/3rd/{z}/{x}/{y}.png",
+                        "tilePath": "https://assets.tarkov.dev/maps/customs_v4/3rd/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
                             {
                                 "height": [5.7, 1000],
                                 "bounds": [
-                                    [[243, 190], [165, 125]],
-                                    [[-199, -90], [-210, -114]],
-                                    [[239, 3], [169, -160]],
-                                    [[336, -56], [316, -95]],
-                                    [[584, -46], [556, -92]],
-                                    [[93, 0], [65, -22]]
+                                    [[243, 190], [165, 125], "dorms"]
                                 ]
                             }
                         ]
@@ -244,15 +250,17 @@
             {
                 "key": "interchange",
                 "projection": "interactive",
-                "minZoom": 2,
+                "tileSize": 256,
+                "minZoom": 1,
                 "maxZoom": 6,
-                "transform": [0.2, 0, 0.2, 0],
+                "transform": [0.265, 150.6, 0.265, 134.6],
                 "coordinateRotation": 180,
                 "bounds": [[530, -439], [-364, 452]],
-                "author": "Shebuka",
-                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "author": "Tarkov.dev",
+                "authorLink": "https://tarkov.dev",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-Ground_Level.svg",
-                "heightRange": [-10000, 25],
+                "tilePath": "https://assets.tarkov.dev/maps/interchange/main/{z}/{x}/{y}.png",
+                "_heightRange": [-1000, 25],
                 "layers": [
                     {
                         "name": "2nd Floor",
@@ -260,7 +268,10 @@
                         "show": false,
                         "extents": [
                             {
-                                "height": [25, 34]
+                                "height": [25, 34],
+                                "bounds": [
+                                    [[120, 218], [-222, -327], "mall"]
+                                ]
                             }
                         ]
                     },
@@ -270,7 +281,10 @@
                         "show": false,
                         "extents": [
                             {
-                                "height": [34, 10000]
+                                "height": [34, 1000],
+                                "bounds": [
+                                    [[120, 218], [-222, -327], "mall"]
+                                ]
                             }
                         ]
                     }
