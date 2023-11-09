@@ -86,12 +86,13 @@
 
 /* elevation visability */
 
+.leaflet-layer.off-level > .leaflet-tile-container,
 div.leaflet-pane.leaflet-overlay-pane > img.off-level {
-    opacity: 50%;
+    opacity: 20%;
 }
 
 div.awesome-marker.off-level {
-    opacity: 50%;
+    opacity: 20%;
     z-index: -9999 !important;
 }
 
