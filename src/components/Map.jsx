@@ -143,7 +143,6 @@ function markerIsOnLayer(marker, layer) {
                 for (const boundsArray of extent.bounds) {
                     const bounds = getBounds(boundsArray);
                     if (bounds.contains(pos(marker.options.position))) {
-                        if (layer.overlay) console.log('marker on layer', marker.options, layer.options)
                         return containedType;
                     }
                 }
@@ -167,7 +166,6 @@ function markerIsOnActiveLayer(marker) {
     for (const layer of overlays) {
         for (const extent of layer.options.extents) {
             if (markerIsOnLayer(marker, layer) === 'full' && !map.hasLayer(layer) && extent.bounds) {
-                console.log(marker.options);
                 return false;
             }
         }
