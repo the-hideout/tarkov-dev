@@ -709,6 +709,10 @@ function Map() {
             layerControl.addOverlay(layer, layerOptions.layerName, layerOptions);
         };
 
+        const positionIsInBounds = (position) => {
+            return bounds.contains(pos(position));
+        };
+
         let markerBounds = {
             'TL': {x:Number.MAX_SAFE_INTEGER, z:Number.MIN_SAFE_INTEGER},
             'BR': {x:Number.MIN_SAFE_INTEGER, z:Number.MAX_SAFE_INTEGER}
@@ -725,6 +729,9 @@ function Map() {
                 bloodhound: L.layerGroup(),
             }
             for (const spawn of mapData.spawns) {
+                if (!positionIsInBounds(spawn.position)) {
+                    continue;
+                }
                 let spawnType = '';
                 let bosses = [];
 
@@ -840,6 +847,9 @@ function Map() {
                 scav: 100,
             };
             for (const extract of mapData.extracts) {
+                if (!positionIsInBounds(extract.position)) {
+                    continue;
+                }
                 const colorMap = {
                     scav: '#ff7800',
                     pmc: '#00e599',
@@ -900,6 +910,10 @@ function Map() {
             const locks = L.layerGroup();
             for (const lock of mapData.locks) {const key = items.find(i => i.id === lock.key.id);
                 if (!key) {
+                    continue;
+                }
+                
+                if (!positionIsInBounds(lock.position)) {
                     continue;
                 }
 
@@ -966,6 +980,9 @@ function Map() {
                             continue;
                         }
                         for (const position of loc.positions) {
+                            if (!positionIsInBounds(position)) {
+                                continue;
+                            }
                             const questItemIcon = L.icon({
                                 iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_item.png`,
                                 iconSize: [24, 24],
@@ -997,6 +1014,9 @@ function Map() {
                 if (obj.zones) {
                     for (const zone of obj.zones) {
                         if (zone.map.id !== mapData.id) {
+                            continue;
+                        }
+                        if (!positionIsInBounds(zone.position)) {
                             continue;
                         }
                         const rect = L.polygon(outlineToPoly(zone.outline), {color: '#e5e200', weight: 1, className: 'not-shown'});
@@ -1045,6 +1065,9 @@ function Map() {
         if (mapData.switches.length > 0) {
             const switches = L.layerGroup();
             for (const sw of mapData.switches) {
+                if (!positionIsInBounds(sw.position)) {
+                    continue;
+                }
                 const switchIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/switch.png`,
                     iconSize: [24, 24],
@@ -1120,6 +1143,9 @@ function Map() {
             const containerLayers = {};
             const containerNames = {};
             for (const containerPosition of mapData.lootContainers) {
+                if (!positionIsInBounds(containerPosition.position)) {
+                    continue;
+                }
                 const containerIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/${images[`container_${containerPosition.lootContainer.normalizedName}`]}.png`,
                     iconSize: [24, 24],
@@ -1155,6 +1181,9 @@ function Map() {
         if (mapData.hazards.length > 0) {
             const hazardLayers = {};
             for (const hazard of mapData.hazards) {
+                if (!positionIsInBounds(hazard.position)) {
+                    continue;
+                }
                 const rect = L.polygon(outlineToPoly(hazard.outline), {color: '#ff0000', weight: 1, className: 'not-shown'});
                 const hazardIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/hazard.png`,
@@ -1199,6 +1228,9 @@ function Map() {
         if (mapData.stationaryWeapons.length > 0) {
             const stationaryWeapons = L.layerGroup();
             for (const weaponPosition of mapData.stationaryWeapons) {
+                if (!positionIsInBounds(weaponPosition.position)) {
+                    continue;
+                }
                 const weaponIcon = L.icon({
                     iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/stationarygun.png`,
                     iconSize: [24, 24],
