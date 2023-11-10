@@ -500,12 +500,13 @@
                 "projection": "interactive",
                 "minZoom": 1,
                 "maxZoom": 6,
-                "transform": [0.197, 0, 0.197, 0],
+                "transform": [0.1855, 113.1, 0.1855, 167.8],
                 "coordinateRotation": 180,
                 "bounds": [[650, -945], [-695, 470]],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/Woods.svg"
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Woods.svg",
+                "tilePath": "https://assets.tarkov.dev/maps/woods/main/{z}/{x}/{y}.png"
             },
             {
                 "key": "woods-2d",
