@@ -440,7 +440,7 @@
                 "transform": [0.101, 0, 0.101, 0],
                 "coordinateRotation": 180,
                 "bounds": [[506, -405], [-1060, 618]],
-                "heightRange": [-66, -2],
+                "heightRange": [-1000, -1],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Ground_Level.svg",
@@ -451,7 +451,11 @@
                         "show": false,
                         "extents": [
                             {
-                                "height": [-10000, -66]
+                                "height": [-1000, -5],
+                                "bounds": [
+                                    [[-137, -68], [-237, -104], "west wing"],
+                                    [[-234, -134], [-268, -163], "admin"]
+                                ]
                             }
                         ]
                     },
@@ -461,7 +465,7 @@
                         "show": false,
                         "extents": [
                             {
-                                "height": [-2, 2]
+                                "height": [-1, 2]
                             }
                         ]
                     },
@@ -471,7 +475,7 @@
                         "show": false,
                         "extents": [
                             {
-                                "height": [2, 10000]
+                                "height": [2, 1000]
                             }
                         ]
                     }
