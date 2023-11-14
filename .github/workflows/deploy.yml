@@ -31,7 +31,7 @@ jobs:
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         uses: GrantBirki/json-yaml-validate@v2.4.0
 
-      - uses: actions/setup-node@v3.8.1
+      - uses: actions/setup-node@v4.0.0
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         with:
           node-version-file: .node-version
