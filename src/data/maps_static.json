@@ -1,6 +1,6 @@
 {
     "customs": {
-        "sniper_scav": [
+        "spawn_sniper_scav": [
             {
                 "name": "Warehouse sniper Scav",
                 "position": {

@@ -35,7 +35,7 @@ import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
 
 import './Maps.css';
 
-const showStaticMarkers = true;
+const showStaticMarkers = false;
 const showMarkersBounds = false;
 const showTestMarkers = false;
 const showElevation = false;
@@ -588,7 +588,7 @@ function Map() {
             'extract_pmc': t('PMC'),
             'extract_shared': t('Shared'),
             'extract_scav': t('Scav'),
-            'sniper_scav': t('Sniper Scav'),
+            'spawn_sniper_scav': t('Sniper Scav'),
             'spawn_pmc': t('PMC'),
             'spawn_scav': t('Scav'),
             'spawn_boss': t('Boss'),
@@ -649,7 +649,7 @@ function Map() {
             'lock': 'lock',
             'quest_item': 'quest_item',
             'quest_objective': 'quest_objective',
-            'sniper_scav': 'sniper_scav',
+            'spawn_sniper_scav': 'spawn_sniper_scav',
             'spawn_bloodhound': 'spawn_bloodhound',
             'spawn_boss': 'spawn_boss',
             'spawn_cultist-priest': 'spawn_cultist-priest',
@@ -730,12 +730,13 @@ function Map() {
         // Add spawns
         if (mapData.spawns.length > 0) {
             const spawnLayers = {
-                pmc: L.layerGroup(),
-                scav: L.layerGroup(),
-                boss: L.layerGroup(),
+                'pmc': L.layerGroup(),
+                'scav': L.layerGroup(),
+                'sniper_scav': L.layerGroup(),
+                'boss': L.layerGroup(),
                 'cultist-priest': L.layerGroup(),
-                rogue: L.layerGroup(),
-                bloodhound: L.layerGroup(),
+                'rogue': L.layerGroup(),
+                'bloodhound': L.layerGroup(),
             }
             for (const spawn of mapData.spawns) {
                 if (!positionIsInBounds(spawn.position)) {
@@ -764,7 +765,12 @@ function Map() {
                 }
                 else if (spawn.sides.includes('scav')) {
                     if (spawn.categories.includes('bot') || spawn.categories.includes('all')) {
-                        spawnType = 'scav';
+                        if (spawn.zoneName.includes('Snipe')) {
+                            spawnType = 'sniper_scav';
+                        }
+                        else {
+                            spawnType = 'scav';
+                        }
                     }
                     else {
                         console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
@@ -1290,7 +1296,7 @@ function Map() {
                     if (category.startsWith('extract')) {
                         section = t('Extract');
                     }
-                    else if (category.startsWith('sniper')) {
+                    else if (category.startsWith('spawn')) {
                         section = t('Spawns');
                     }
                     else {
