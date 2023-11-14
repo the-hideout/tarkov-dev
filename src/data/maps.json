@@ -83,6 +83,18 @@
         ]
     },
     {
+        "normalizedName": "ground-zero",
+        "primaryPath": "/map/ground-zero",
+        "maps": [
+            {
+                "key": "ground-zero-2d",
+                "projection": "2D",
+                "author": "BSG",
+                "authorLink": "https://battlestategames.com"
+            }
+        ]
+    },
+    {
         "normalizedName": "customs",
         "primaryPath": "/map/customs",
         "maps": [
