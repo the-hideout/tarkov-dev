@@ -36,8 +36,9 @@ import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
 import './Maps.css';
 
 const showStaticMarkers = false;
+const showMarkersBounds = false;
 const showTestMarkers = false;
-const markerDebug = false;
+const showElevation = false;
 
 function getCRS(mapData) {
     let scaleX = 1;
@@ -244,7 +245,7 @@ function outlineToPoly(outline) {
 }
 
 function addElevation(item, popup) {
-    if (!markerDebug) {
+    if (!showElevation) {
         return;
     }
     const elevationContent = L.DomUtil.create('div', undefined, popup);
@@ -587,6 +588,7 @@ function Map() {
             'extract_pmc': t('PMC'),
             'extract_shared': t('Shared'),
             'extract_scav': t('Scav'),
+            'spawn_sniper_scav': t('Sniper Scav'),
             'spawn_pmc': t('PMC'),
             'spawn_scav': t('Scav'),
             'spawn_boss': t('Boss'),
@@ -647,7 +649,7 @@ function Map() {
             'lock': 'lock',
             'quest_item': 'quest_item',
             'quest_objective': 'quest_objective',
-            'sniper_scav': 'sniper_scav',
+            'spawn_sniper_scav': 'spawn_sniper_scav',
             'spawn_bloodhound': 'spawn_bloodhound',
             'spawn_boss': 'spawn_boss',
             'spawn_cultist-priest': 'spawn_cultist-priest',
@@ -728,12 +730,13 @@ function Map() {
         // Add spawns
         if (mapData.spawns.length > 0) {
             const spawnLayers = {
-                pmc: L.layerGroup(),
-                scav: L.layerGroup(),
-                boss: L.layerGroup(),
+                'pmc': L.layerGroup(),
+                'scav': L.layerGroup(),
+                'sniper_scav': L.layerGroup(),
+                'boss': L.layerGroup(),
                 'cultist-priest': L.layerGroup(),
-                rogue: L.layerGroup(),
-                bloodhound: L.layerGroup(),
+                'rogue': L.layerGroup(),
+                'bloodhound': L.layerGroup(),
             }
             for (const spawn of mapData.spawns) {
                 if (!positionIsInBounds(spawn.position)) {
@@ -762,7 +765,12 @@ function Map() {
                 }
                 else if (spawn.sides.includes('scav')) {
                     if (spawn.categories.includes('bot') || spawn.categories.includes('all')) {
-                        spawnType = 'scav';
+                        if (spawn.zoneName.includes('Snipe')) {
+                            spawnType = 'sniper_scav';
+                        }
+                        else {
+                            spawnType = 'scav';
+                        }
                     }
                     else {
                         console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
@@ -895,7 +903,7 @@ function Map() {
                     }
                     addElevation(extract, popup);
                     extractMarker.bindPopup(L.popup().setContent(popup));
-                } else if (markerDebug) {
+                } else if (showElevation) {
                     const popup = L.DomUtil.create('div');
                     addElevation(extract, popup);
                     extractMarker.bindPopup(L.popup().setContent(popup));
@@ -1167,7 +1175,7 @@ function Map() {
                 if (!containerLayers[containerPosition.lootContainer.normalizedName]) {
                     containerLayers[containerPosition.lootContainer.normalizedName] = L.layerGroup();
                 }
-                if (markerDebug) {
+                if (showElevation) {
                     const popup = L.DomUtil.create('div');
                     addElevation(containerPosition, popup);
                     containerMarker.bindPopup(L.popup().setContent(popup));
@@ -1249,7 +1257,7 @@ function Map() {
                     title: weaponPosition.stationaryWeapon.name,
                     position: weaponPosition.position,
                 });
-                if (markerDebug) {
+                if (showElevation) {
                     const popup = L.DomUtil.create('div');
                     addElevation(weaponPosition, popup);
                     weaponMarker.bindPopup(L.popup().setContent(popup));
@@ -1288,21 +1296,26 @@ function Map() {
                     if (category.startsWith('extract')) {
                         section = t('Extract');
                     }
+                    else if (category.startsWith('spawn')) {
+                        section = t('Spawns');
+                    }
                     else {
                         section = t('Items');
                     }
                     markerLayer.addTo(map);
-                    layerControl.addOverlay(markerLayer, `<img src='${process.env.PUBLIC_URL}/maps/interactive/${category}.png' class='control-item-image' /> ${categories[category] || category}`, section);
+                    addLayer(markerLayer, category, section);
+                    // layerControl.addOverlay(markerLayer, `<img src='${process.env.PUBLIC_URL}/maps/interactive/${category}.png' class='control-item-image' /> ${categories[category] || category}`, section);
                 }
             }
         }
 
-        if (showTestMarkers) {
+        if (showMarkersBounds) {
             console.log(`Markers "bounds": [[${markerBounds.BR.x}, ${markerBounds.BR.z}], [${markerBounds.TL.x}, ${markerBounds.TL.z}]] (already rotated, copy/paste to maps.json)`);
 
             L.rectangle([pos(markerBounds.TL), pos(markerBounds.BR)], {color: '#ff000055', weight: 1}).addTo(map);
             L.rectangle(getBounds(mapData.bounds), {color: '#00ff0055', weight: 1}).addTo(map);
-
+        }
+        if (showTestMarkers) {
             const positionLayer = L.layerGroup();
             const playerIcon = L.AwesomeMarkers.icon({
                 icon: 'person-running',
