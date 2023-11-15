@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 import {
+    mdiImageFilterCenterFocusStrong,
     mdiCity,
     mdiWarehouse,
     mdiFactory,
@@ -167,6 +168,7 @@ export const useMapImagesSortedArray = () => {
 }
 
 export const mapIcons = {
+    'ground-zero': mdiImageFilterCenterFocusStrong,
     'streets-of-tarkov': mdiCity,
     'customs': mdiWarehouse,
     'factory': mdiFactory,
