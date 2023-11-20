@@ -863,7 +863,7 @@ function Map() {
             };
             for (const extract of mapData.extracts) {
                 if (!positionIsInBounds(extract.position)) {
-                    continue;
+                    //continue;
                 }
                 const colorMap = {
                     scav: '#ff7800',
