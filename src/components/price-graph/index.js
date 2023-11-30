@@ -5,7 +5,6 @@ import {
     VictoryAxis,
     // VictoryTooltip,
     VictoryVoronoiContainer,
-    VictoryLegend,
 } from 'victory';
 import { useTranslation } from 'react-i18next';
 
@@ -56,6 +55,13 @@ function PriceGraph({ item, itemId }) {
         }
     });
 
+    const min = data.data.historicalItemPrices.reduce((curMin, p) => {
+        if (p.priceMin < curMin) {
+            return p.priceMin;
+        }
+        return curMin;
+    }, Number.MAX_SAFE_INTEGER);
+
     const avgDown = data.data.historicalItemPrices[0].price > data.data.historicalItemPrices[data.data.historicalItemPrices.length-1].price;
     const minDown = data.data.historicalItemPrices[0].priceMin > data.data.historicalItemPrices[data.data.historicalItemPrices.length-1].priceMin;
 
@@ -65,7 +71,7 @@ function PriceGraph({ item, itemId }) {
                 height={height}
                 width={1280}
                 padding={{ top: 20, left: 15, right: 15, bottom: 30 }}
-                minDomain={{ y: 0 }}
+                minDomain={{ y: min - min * 0.1 }}
                 maxDomain={{ y: max + max * 0.1 }}
                 theme={VictoryTheme.material}
                 containerComponent={
