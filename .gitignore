@@ -150,3 +150,5 @@ workers-site/index.js
 src/pages/guides/*
 !src/pages/guides/index.js
 members.csv
+
+tmp/
