@@ -179,6 +179,7 @@ const Menu = () => {
                                 />
                             ))}
                             <MenuItem
+                                className="overflow-hidden"
                                 displayText={t('More...')}
                                 key={'menu-item-maps-more'}
                                 to={'/maps'}
