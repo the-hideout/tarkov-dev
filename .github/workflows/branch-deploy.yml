@@ -76,10 +76,8 @@ jobs:
         run: |
           echo $WRANGLER_COMMAND_PATH
           cat $WRANGLER_COMMAND_PATH
-          cat $WRANGLER_COMMAND_PATH | jq -r '.stdout'
 
-
-          dev_url=$(cat $WRANGLER_COMMAND_PATH | jq -r '.stdout')
+          dev_url=$(cat $WRANGLER_COMMAND_PATH | jq -r '.stdOut')
           dev_url=$(echo $dev_url | grep 'Deployment complete! Take a peek over at' | awk '{print $NF}')
           dev_url=$(echo $dev_url | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
           echo "DEPLOY_MESSAGE=${dev_url}" >> $GITHUB_ENV
