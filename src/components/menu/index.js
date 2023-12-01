@@ -151,7 +151,7 @@ const Menu = () => {
                     </li>
                     <li className="submenu-wrapper overflow-member" key="menu-ammo" data-targetid="ammo">
                         <Link to="/ammo/">{t('Ammo')}</Link>
-                        <ul style={{left: -20}}>
+                        <ul style={{left: -20}} className="overflow-hidden">
                             {getAmmoMenu()}
                         </ul>
                     </li>
@@ -187,7 +187,7 @@ const Menu = () => {
                     </li>
                     <li className="submenu-wrapper submenu-items overflow-member" key="menu-items" data-targetid="items">
                         <Link to="/items/">{t('Items')}</Link>
-                        <ul>
+                        <ul className="overflow-hidden">
                             {categoryPages.map((categoryPage) => (
                                 <MenuItem
                                     displayText={t(categoryPage.displayText)}
