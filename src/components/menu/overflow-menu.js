@@ -28,9 +28,7 @@ export default function OverflowMenu({ children, className, visibilityMap }) {
         Object.values(visibilityMap).some((v) => v === false),
     [visibilityMap]);
     
-    if (!shouldShowMenu) {
-        return null;
-    }
+    className += ` ${shouldShowMenu ? 'visible-overflow visible-menu-all' : 'invisible-overflow'}`;
   return (
     <li className={className}>
       <Link

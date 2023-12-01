@@ -114,7 +114,7 @@ const Menu = () => {
             <nav key="main-navigation" className="navigation">
                 <ul className={`menu`}>
                 <IntersectionObserverWrapper>
-                    <li key="menu-home" data-targetid="home">
+                    <li key="menu-home" data-targetid="home" className="overflow-member">
                         <Link className="branding" to="/">
                         {/* Tarkov.dev */}
                         <img
@@ -127,7 +127,7 @@ const Menu = () => {
                         />
                     </Link>
                     </li>
-                    <li className="submenu-wrapper"  key="menu-settings" data-targetid="settings">
+                    <li className="submenu-wrapper overflow-member"  key="menu-settings" data-targetid="settings">
                         <Link
                             aria-label="Settings"
                             to="/settings/"
@@ -140,7 +140,7 @@ const Menu = () => {
                             />
                         </Link>
                     </li>
-                    <li className="submenu-wrapper"  key="menu-remote" data-targetid="remote">
+                    <li className="submenu-wrapper overflow-member"  key="menu-remote" data-targetid="remote">
                         <Link
                             aria-label="Remote control"
                             to="/control/"
@@ -149,13 +149,13 @@ const Menu = () => {
                             <Icon path={mdiRemote} size={1} className="icon-with-text" />
                         </Link>
                     </li>
-                    <li className="submenu-wrapper" key="menu-ammo" data-targetid="ammo">
+                    <li className="submenu-wrapper overflow-member" key="menu-ammo" data-targetid="ammo">
                         <Link to="/ammo/">{t('Ammo')}</Link>
                         <ul style={{left: -20}}>
                             {getAmmoMenu()}
                         </ul>
                     </li>
-                    <li className="submenu-wrapper submenu-items" key="menu-maps" data-targetid="maps">
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-maps" data-targetid="maps">
                         <Link to="/maps/">{t('Maps')}</Link>
                         <ul style={{left: -40}}>
                             {Object.values(uniqueMaps.reduce((unique, map) => {
@@ -185,7 +185,7 @@ const Menu = () => {
                             />
                         </ul>
                     </li>
-                    <li className="submenu-wrapper submenu-items" key="menu-items" data-targetid="items">
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-items" data-targetid="items">
                         <Link to="/items/">{t('Items')}</Link>
                         <ul>
                             {categoryPages.map((categoryPage) => (
@@ -198,7 +198,7 @@ const Menu = () => {
                             ))}
                         </ul>
                     </li>
-                    <li className="submenu-wrapper submenu-items" key="menu-traders" data-targetid="traders">
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-traders" data-targetid="traders">
                         <Link to="/traders">{t('Traders')}</Link>
                         <ul>
                             <MenuItem
@@ -245,7 +245,7 @@ const Menu = () => {
                             />
                         </ul>
                     </li>
-                    <li className="submenu-wrapper submenu-items" key="menu-bosses" data-targetid="bosses">
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-bosses" data-targetid="bosses">
                         <Link to="/bosses/">{t('Bosses')}</Link>
                         <ul>
                             {bosses.filter(boss => boss.maps.length > 0).sort((a,b) => a.name.localeCompare(b.name)).map(boss => {
@@ -255,7 +255,7 @@ const Menu = () => {
                             })}
                         </ul>
                     </li>
-                    <li className="submenu-wrapper submenu-items" key="menu-barters" data-targetid="barters">
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-barters" data-targetid="barters">
                         <Link 
                             to="/barters/" 
                             //onClick={setIsOpen.bind(this, false)}
@@ -263,7 +263,7 @@ const Menu = () => {
                             {t('Barter profit')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper submenu-items" key="menu-hideout-profit" data-targetid="crafts">
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-hideout-profit" data-targetid="crafts">
                         <Link
                             to="/hideout-profit/"
                             //onClick={setIsOpen.bind(this, false)}
@@ -271,7 +271,7 @@ const Menu = () => {
                             {t('Hideout profit')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper submenu-items" key="menu-tasks" data-targetid="tasks">
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-tasks" data-targetid="tasks">
                         <Link
                             to="/tasks"
                             //onClick={setIsOpen.bind(this, false)}
@@ -279,7 +279,7 @@ const Menu = () => {
                             {t('Tasks')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper submenu-items" key="menu-loot-tier" data-targetid="loot-tier">
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-loot-tier" data-targetid="loot-tier">
                         <Link
                             to="/loot-tier/"
                             //onClick={setIsOpen.bind(this, false)}
@@ -287,7 +287,7 @@ const Menu = () => {
                             {t('Loot tiers')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper submenu-items" key="menu-hideout-costs" data-targetid="hideout">
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-hideout-costs" data-targetid="hideout">
                         <Link
                             to="/hideout"
                             //onClick={setIsOpen.bind(this, false)}
@@ -295,7 +295,7 @@ const Menu = () => {
                             {t('Hideout build costs')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper submenu-items" key="menu-wipe-length" data-targetid="wipe-length">
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-wipe-length" data-targetid="wipe-length">
                         <Link
                             to="/wipe-length"
                             //onClick={setIsOpen.bind(this, false)}
@@ -303,7 +303,7 @@ const Menu = () => {
                             {t('Wipe length')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper submenu-items" key="menu-bitcoin-farm" data-targetid="bitcoin">
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-bitcoin-farm" data-targetid="bitcoin">
                         <Link
                             to="/bitcoin-farm-calculator"
                             //onClick={setIsOpen.bind(this, false)}
@@ -311,7 +311,7 @@ const Menu = () => {
                             {t('Bitcoin Farm Profit')}
                         </Link>
                     </li>
-                    <li className="submenu-wrapper submenu-items" key="menu-api" data-targetid="api">
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-api" data-targetid="api">
                         <Link
                             to="/api/"
                             //onClick={setIsOpen.bind(this, false)}
