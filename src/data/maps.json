@@ -448,14 +448,15 @@
                 "key": "shoreline",
                 "projection": "interactive",
                 "minZoom": 2,
-                "maxZoom": 7,
-                "transform": [0.101, 0, 0.101, 0],
+                "maxZoom": 6,
+                "transform": [0.16, 83.2, 0.16, 111.1],
                 "coordinateRotation": 180,
                 "bounds": [[506, -405], [-1060, 618]],
                 "heightRange": [-1000, -1],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Ground_Level.svg",
+                "tilePath": "https://assets.tarkov.dev/maps/shoreline/main/{z}/{x}/{y}.png",
                 "layers": [
                     {
                         "name": "Underground",
