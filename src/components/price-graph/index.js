@@ -14,7 +14,7 @@ import { useQuery } from '../../modules/graphql-request';
 
 import './index.css';
 
-function PriceGraph({ item, itemId, itemChange24 }) {
+function PriceGraph({ item, itemId }) {
     if (item && !itemId) {
         itemId = item.id;
         if (item.properties?.baseItem?.properties?.defaultPreset?.id === item.id) {
@@ -28,6 +28,7 @@ function PriceGraph({ item, itemId, itemChange24 }) {
         `{
             historicalItemPrices(id:"${itemId}"){
                 price
+                priceMin
                 timestamp
             }
         }`,
@@ -38,7 +39,7 @@ function PriceGraph({ item, itemId, itemChange24 }) {
         height = 1280;
     }
 
-    if (status !== 'success') {
+    if (status !== 'success' || !data?.data?.historicalItemPrices) {
         return null;
     }
 
@@ -48,21 +49,29 @@ function PriceGraph({ item, itemId, itemChange24 }) {
 
     let max = 0;
 
-    data.data.historicalItemPrices.map((price) => {
+    data.data.historicalItemPrices.forEach((price) => {
         if (price.price > max) {
             max = price.price;
         }
-
-        return true;
     });
+
+    const min = data.data.historicalItemPrices.reduce((curMin, p) => {
+        if (p.priceMin < curMin) {
+            return p.priceMin;
+        }
+        return curMin;
+    }, Number.MAX_SAFE_INTEGER);
+
+    const avgDown = data.data.historicalItemPrices[0].price > data.data.historicalItemPrices[data.data.historicalItemPrices.length-1].price;
+    const minDown = data.data.historicalItemPrices[0].priceMin > data.data.historicalItemPrices[data.data.historicalItemPrices.length-1].priceMin;
 
     return (
         <div className="price-history-wrapper">
             <VictoryChart
                 height={height}
                 width={1280}
-                padding={{ top: 20, left: 15, right: -100, bottom: 30 }}
-                minDomain={{ y: 0 }}
+                padding={{ top: 20, left: 15, right: 15, bottom: 30 }}
+                minDomain={{ y: min - min * 0.1 }}
                 maxDomain={{ y: max + max * 0.1 }}
                 theme={VictoryTheme.material}
                 containerComponent={
@@ -93,7 +102,7 @@ function PriceGraph({ item, itemId, itemChange24 }) {
                     }}
                     style={{
                         data: {
-                            stroke: itemChange24 < 0.0 ? '#c43a31' : '#3b9c3a',
+                            stroke: avgDown ? '#c43a31' : '#3b9c3a',
                         },
                         parent: { border: '1px solid #ccc' },
                     }}
@@ -101,6 +110,26 @@ function PriceGraph({ item, itemId, itemChange24 }) {
                         return {
                             x: new Date(Number(pricePoint.timestamp)),
                             y: pricePoint.price,
+                        };
+                    })}
+                />
+                <VictoryLine
+                    padding={{ right: -120 }}
+                    scale={{
+                        x: 'time',
+                        y: 'linear',
+                    }}
+                    style={{
+                        data: {
+                            stroke: minDown ? '#c43a31' : '#3b9c3a',
+                            strokeDasharray: 5
+                        },
+                        parent: { border: '1px solid #ccc' },
+                    }}
+                    data={data.data.historicalItemPrices.map((pricePoint) => {
+                        return {
+                            x: new Date(Number(pricePoint.timestamp)),
+                            y: pricePoint.priceMin,
                         };
                     })}
                 />

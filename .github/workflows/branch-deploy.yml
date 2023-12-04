@@ -58,20 +58,27 @@ jobs:
         if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
           steps.branch-deploy.outputs.noop != 'true' &&
           steps.branch-deploy.outputs.environment == 'development' }}
-        uses: cloudflare/wrangler-action@5e8484995321734668f14981c316aa9188d76ed1 # pin@3.3.2
+        uses: GrantBirki/wrangler-action@latest
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           wranglerVersion: '2.13.0'
-          command: pages publish build/ --project-name=tarkov-dev --branch=preview | tee output.txt
+          command: pages publish build/ --project-name=tarkov-dev --branch=preview
+          outputToFile: "true"
 
       # fetch the dev url from stdout and save add it to the deploy message
       - name: add development url to deploy message
         if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
           steps.branch-deploy.outputs.noop != 'true' &&
           steps.branch-deploy.outputs.environment == 'development' }}
+        env:
+          WRANGLER_COMMAND_PATH: ${{ steps.dev-deploy.outputs.wranglerCommandOutputFile }}
         run: |
-          dev_url=$(cat output.txt | grep 'Deployment complete! Take a peek over at' | awk '{print $NF}')
+          echo $WRANGLER_COMMAND_PATH
+          cat $WRANGLER_COMMAND_PATH
+
+          dev_url=$(cat $WRANGLER_COMMAND_PATH | jq -r '.stdOut')
+          dev_url=$(echo $dev_url | grep 'Deployment complete! Take a peek over at' | awk '{print $NF}')
           dev_url=$(echo $dev_url | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
           echo "DEPLOY_MESSAGE=${dev_url}" >> $GITHUB_ENV
           echo "DEPLOY_MESSAGE=${dev_url}"

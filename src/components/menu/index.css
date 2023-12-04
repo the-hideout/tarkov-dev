@@ -269,13 +269,13 @@ ul.menu {
     max-width: 100%;
 }
 
-.visible-menu-item {
+.visible-menu-item, .visible-overflow {
     order: 0;
     visibility: visible;
     opacity: 1;
 }
 
-.invisible-menu-item {
+.invisible-menu-item, .invisible-overflow {
     order: 100;
     visibility: hidden;
     pointer-events: none;
@@ -301,4 +301,21 @@ ul.menu {
 
 .in-overflow-menu:hover {
     background-color: transparent;
+}
+
+/* margin unless it is the only item showing */
+nav.navigation ul.menu li.more-dropdown-wrapper:not(:nth-child(1 of li.visible-menu-all)) {
+    margin-left: -50px;
+}
+
+nav.navigation ul.menu li:nth-last-child(1 of li.visible-menu-item):not(:nth-last-child(1 of li.overflow-member)) {
+    padding-right: 50px;
+}
+
+.MuiPopover-root svg.icon-with-text {
+    color: #9a8866;
+}
+
+.MuiPopover-root .overflow-hidden {
+    display: none;
 }

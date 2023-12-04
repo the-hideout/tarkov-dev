@@ -47,7 +47,7 @@ export default function IntersectionObserverWrapper({ children }) {
           {React.Children.map(children, (child) => {
             return React.cloneElement(child, {
               className: classnames(child.props.className, {
-                'visible-menu-item': !!visibilityMap[child.props["data-targetid"]],
+                'visible-menu-item visible-menu-all': !!visibilityMap[child.props["data-targetid"]],
                 'invisible-menu-item': !visibilityMap[child.props["data-targetid"]],
                 //[classes.showOverflow]: visible && showOverflow
               })

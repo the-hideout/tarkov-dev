@@ -337,6 +337,7 @@ function Map() {
         let mapCenter = [0, 0];
         let mapZoom = mapData.minZoom+1;
         let mapViewRestored = false;
+        const maxZoom = Math.max(7, mapData.maxZoom);
         if (mapRef.current?._leaflet_id) {
             if (mapRef.current.options.id === mapData.id) {
                 if (mapViewRef.current.center) {
@@ -359,8 +360,10 @@ function Map() {
             center: mapCenter,
             zoom: mapZoom,
             minZoom: mapData.minZoom,
-            maxZoom: mapData.maxZoom,
+            maxZoom: maxZoom,
+            zoomSnap: 0.1,
             scrollWheelZoom: true,
+            wheelPxPerZoomLevel: 120,
             crs: getCRS(mapData),
             attributionControl: false,
             id: mapData.id,
@@ -441,6 +444,8 @@ function Map() {
         
         const bounds = getBounds(mapData.bounds);
         const layerOptions = {
+            maxZoom: maxZoom,
+            maxNativeZoom: mapData.maxZoom,
             extents: [
                 {
                     height: mapData.heightRange || [Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER],
@@ -863,7 +868,7 @@ function Map() {
             };
             for (const extract of mapData.extracts) {
                 if (!positionIsInBounds(extract.position)) {
-                    continue;
+                    //continue;
                 }
                 const colorMap = {
                     scav: '#ff7800',
