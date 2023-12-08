@@ -19,7 +19,7 @@ jobs:
 
     steps:
 
-      - uses: github/branch-deploy@v8.1.1
+      - uses: github/branch-deploy@v8.1.2
         id: branch-deploy
         with:
           admins: the-hideout/core-contributors
@@ -64,7 +64,6 @@ jobs:
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           wranglerVersion: '2.13.0'
           command: pages publish build/ --project-name=tarkov-dev --branch=preview
-          outputToFile: "true"
 
       # fetch the dev url from stdout and save add it to the deploy message
       - name: add development url to deploy message
@@ -72,16 +71,13 @@ jobs:
           steps.branch-deploy.outputs.noop != 'true' &&
           steps.branch-deploy.outputs.environment == 'development' }}
         env:
-          WRANGLER_COMMAND_PATH: ${{ steps.dev-deploy.outputs.wranglerCommandOutputFile }}
+          DEPLOYMENT_URL: ${{ steps.dev-deploy.outputs.deployment-url }}
+          CMD_OUTPUT: ${{ steps.dev-deploy.outputs.command-output }}
         run: |
-          echo $WRANGLER_COMMAND_PATH
-          cat $WRANGLER_COMMAND_PATH
-
-          dev_url=$(cat $WRANGLER_COMMAND_PATH | jq -r '.stdOut')
-          dev_url=$(echo $dev_url | grep 'Deployment complete! Take a peek over at' | awk '{print $NF}')
-          dev_url=$(echo $dev_url | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
-          echo "DEPLOY_MESSAGE=${dev_url}" >> $GITHUB_ENV
-          echo "DEPLOY_MESSAGE=${dev_url}"
+          echo "for debugging (cmd output): ${CMD_OUTPUT}"
+          echo ""
+          echo "DEPLOY_MESSAGE=${DEPLOYMENT_URL}" >> $GITHUB_ENV
+          echo "DEPLOY_MESSAGE=${DEPLOYMENT_URL}"
 
       - name: deploy - prod
         id: prod-deploy
