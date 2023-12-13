@@ -48,19 +48,24 @@ function shuffle(array) {
         const mapsPath = './public/images/items/';
 
         for (const categoryPage of categoryPages) {
-            const originalImg = await sharp(mapsPath + categoryPage.key + '-table.png')
-            const metadata = await originalImg.metadata()
-            const scale = metadata.width / maxWidth
-            const cropHeight = Math.ceil(scale * maxHeight)
-            const itemWidth = metadata.width / 2
-            const itemHeight = cropHeight / 2
+            const originalImg = await sharp(mapsPath + categoryPage.key + '-table.png');
+            const metadata = await originalImg.metadata();
+            const scale = metadata.width / maxWidth;
+            const cropHeight = Math.ceil(scale * maxHeight);
+            const itemWidth = metadata.width / 2;
+            const itemHeight = cropHeight / 2;
 
-            const croppedImage = originalImg.extract({ left: 0, top: 0, width: metadata.width, height: cropHeight })
+            const croppedImage = originalImg.extract({ left: 0, top: 0, width: metadata.width, height: cropHeight });
+            // const croppedImage = await sharp({
+            //     create: {
+            //         width: metadata.width,
+            //         height: cropHeight,
+            //         channels: 4,
+            //         background: { r: 45, g: 45, b: 47, alpha: 1.0 }
+            //     }
+            // }).png();
 
         	let type = categoryPage.type;
-        	if (type === 'gun') {
-        		type = 'preset'
-        	}
             const query = `{
                 items(type: ${type}, limit:69) {
                     image512pxLink
@@ -68,30 +73,31 @@ function shuffle(array) {
             }`;
         	const itemsOfType = await graphqlRequest(query);
             
-            const items = itemsOfType.data.items
+            const items = itemsOfType.data.items;
         	shuffle(items);
 
-            const itemResize = {width: itemWidth, height: itemHeight, fit: sharp.fit.contain, background: { r: 255, g: 255, b: 255, alpha: 0.0 }}
+            const itemResize = {width: itemWidth, height: itemHeight, fit: sharp.fit.contain, background: { r: 255, g: 255, b: 255, alpha: 0.0 }};
+            const itemRotate = 0; //7 + Math.random()*4-2;
 
             const tlImageFetch = await fetch(items[0].image512pxLink);
-            const tlImageBuffer = await tlImageFetch.arrayBuffer();
-            const tlImage = await sharp(tlImageBuffer).resize(itemResize).toBuffer()
+            const tlImageBuffer = await tlImageFetch.buffer();
+            const tlImage = await sharp(tlImageBuffer).resize(itemResize).rotate(-itemRotate).toBuffer();
 
             const trImageFetch = await fetch(items[1].image512pxLink);
             const trImageBuffer = await trImageFetch.buffer();
-            const trImage = await sharp(trImageBuffer).resize(itemResize).toBuffer()
+            const trImage = await sharp(trImageBuffer).resize(itemResize).rotate(itemRotate).toBuffer();
 
             const blImageFetch = await fetch(items[2].image512pxLink);
             const blImageBuffer = await blImageFetch.buffer();
-            const blImage = await sharp(blImageBuffer).resize(itemResize).toBuffer()
+            const blImage = await sharp(blImageBuffer).resize(itemResize).rotate(itemRotate).toBuffer();
 
             const brImageFetch = await fetch(items[3].image512pxLink);
-            const brImageBuffer = await brImageFetch.arrayBuffer();
-            const brImage = await sharp(brImageBuffer).resize(itemResize).toBuffer()
+            const brImageBuffer = await brImageFetch.buffer();
+            const brImage = await sharp(brImageBuffer).resize(itemResize).rotate(-itemRotate).toBuffer();
 
             const cImageFetch = await fetch(items[4].image512pxLink);
-            const cImageBuffer = await cImageFetch.arrayBuffer();
-            const cImage = await sharp(cImageBuffer).resize(itemResize).toBuffer()
+            const cImageBuffer = await cImageFetch.buffer();
+            const cImage = await sharp(cImageBuffer).resize(itemResize).toBuffer();
 
             const composedImage = await croppedImage
                 .blur(6)
@@ -101,15 +107,15 @@ function shuffle(array) {
                     { input: blImage, gravity: 'southwest', blend: 'over' },
                     { input: brImage, gravity: 'southeast', blend: 'over' },
                     { input: cImage, gravity: 'centre', blend: 'over' },
-                ]).toBuffer()
+                ]).toBuffer();
             
             const finalImage = await sharp(composedImage).resize(maxWidth, maxHeight).jpeg({mozjpeg: true, quality: 100});
             // const finalImage = await sharp(composedImage).jpeg({mozjpeg: true, quality: 90});
             
             await finalImage.toFile(mapsPath + categoryPage.key + '-table_thumb.jpg');
 
-            console.log(`Generated thumbnail for ${categoryPage.key}`)
-            // return
+            console.log(`Generated thumbnail for ${categoryPage.key}`);
+            // return;
         };
         console.timeEnd('Generating thumbnails');
     } catch (error) {
