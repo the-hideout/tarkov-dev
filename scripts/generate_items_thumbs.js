@@ -8,6 +8,24 @@ const categoryPages = require('../src/data/category-pages.json');
 const { exit } = require('process');
 
 
+const ignoredCategories = [
+    'headsets',
+    'helmets',
+    'glasses',
+    'armors',
+    'rigs',
+    'backpacks',
+    'guns',
+    // 'mods',
+    'pistol-grips',
+    'suppressors',
+    'grenades',
+    'containers',
+    'barter-items',
+    'keys',
+    'provisions'
+];
+
 const graphqlRequest = (queryString) => {
     return fetch('https://api.tarkov.dev/graphql', {
         method: 'POST',
@@ -48,6 +66,10 @@ function shuffle(array) {
         const mapsPath = './public/images/items/';
 
         for (const categoryPage of categoryPages) {
+            if (ignoredCategories.includes(categoryPage.key)) {
+                continue
+            }
+
             const originalImg = await sharp(mapsPath + categoryPage.key + '-table.png');
             const metadata = await originalImg.metadata();
             const scale = metadata.width / maxWidth;
@@ -67,7 +89,7 @@ function shuffle(array) {
 
         	let type = categoryPage.type;
             const query = `{
-                items(type: ${type}, limit:69) {
+                items(type: ${type}, limit:420) {
                     image512pxLink
                 }
             }`;
