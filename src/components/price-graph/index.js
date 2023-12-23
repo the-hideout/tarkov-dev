@@ -105,12 +105,7 @@ function PriceGraph({ item, itemId }) {
                         // 
                         // return t('{{val, relativetime}}', { val: relativeTime[0], range: relativeTime[1] })
                         const dateTime = new Date(timestamp);
-                        //console.log(dateTime);
-                        return t('{{val, datetime}}', { val: dateTime,
-                            formatParams: {
-                                val: { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' },
-                            },
-                        })
+                        return `${dateTime.toLocaleString(navigator.language, {weekday: 'long'})}\n${dateTime.toLocaleString(navigator.language, {year: 'numeric', month: 'numeric', day: 'numeric'})}`;
                     }}
                     tickValues={dayTicks}
                 />
