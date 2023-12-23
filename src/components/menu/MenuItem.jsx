@@ -74,7 +74,7 @@ function MenuItem(props) {
     }
 
     return (
-        <li class={props.className}>
+        <li className={props.className}>
             {getCheckbox()}
             {getIcon()}
             <Link to={props.to} onClick={handleClick}>
