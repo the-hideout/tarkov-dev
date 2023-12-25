@@ -18,6 +18,7 @@ import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length'
 import {
     BitcoinItemId,
     getMaxSellFor,
+    getMinBuyFor,
     GraphicCardItemId,
     MaxNumGraphicsCards,
     MinNumGraphicsCards,
@@ -69,7 +70,7 @@ const BitcoinFarmCalculator = () => {
         btcSell.priceRUB = bitcoinItem.priceCustom;
         btcSell.sellType = 'custom';
     }
-    const graphicsCardBuy = getMaxSellFor(graphicCardItem);
+    const graphicsCardBuy = getMinBuyFor(graphicCardItem);
     if (graphicCardItem.priceCustom) {
         graphicsCardBuy.priceRUB = graphicCardItem.priceCustom;
         graphicsCardBuy.sellType = 'custom';
