@@ -38,17 +38,35 @@ function PriceGraph({ item, itemId }) {
         }`,
     );
 
-    const dayTicks = useMemo(() => {
+    const { dayTicks, tickLabels } = useMemo(() => {
+        const returnValues = {
+            dayTicks: [],
+            tickLabels: {},
+        };
         if (status !== 'success' || !data?.data?.historicalItemPrices) {
-            return [];
+            return returnValues;
         }
-        return data.data.historicalItemPrices.reduce((all, current) => {
+        returnValues.dayTicks = data.data.historicalItemPrices.reduce((all, current) => {
             const newTimestamp = new Date(Number(current.timestamp)).setHours(0, 0, 0, 0);
             if (!all.some(currentTs => currentTs === newTimestamp)) {
                 all.push(newTimestamp);
+                const dateTime = new Date(newTimestamp);
+                returnValues.tickLabels[newTimestamp] = `${dateTime.toLocaleString(navigator.language, {weekday: 'long'})}\n${dateTime.toLocaleString(navigator.language, {year: 'numeric', month: 'numeric', day: 'numeric'})}`
             }
             return all;
         }, []);
+        if (data.data.historicalItemPrices.length > 0) {
+            const firstTick = returnValues.dayTicks[0];
+            returnValues.tickLabels[firstTick] = undefined;
+            returnValues.dayTicks[0] = Number(data.data.historicalItemPrices[0].timestamp);
+            returnValues.tickLabels[returnValues.dayTicks[0]] = '';
+        }
+        if (data.data.historicalItemPrices.length > 1) {
+            const lastTick = Number(data.data.historicalItemPrices[data.data.historicalItemPrices.length-1].timestamp);
+            returnValues.dayTicks.push(lastTick);
+            returnValues.tickLabels[lastTick] = '';
+        }
+        return returnValues;
     }, [status, data]);
 
     const { filteredData, filteredMax, filteredMin, filteredAvgDown, filteredMinDown } = useMemo(() => {
@@ -129,6 +147,7 @@ function PriceGraph({ item, itemId }) {
                         // let relativeTime = getRelativeTimeAndUnit(timestamp);
                         // 
                         // return t('{{val, relativetime}}', { val: relativeTime[0], range: relativeTime[1] })
+                        return tickLabels[timestamp];
                         const dateTime = new Date(timestamp);
                         return `${dateTime.toLocaleString(navigator.language, {weekday: 'long'})}\n${dateTime.toLocaleString(navigator.language, {year: 'numeric', month: 'numeric', day: 'numeric'})}`;
                     }}
