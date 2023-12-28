@@ -93,7 +93,7 @@ const Menu = () => {
                             </IconButton>
                         }
                     >
-                        {alertConfig.text}
+                        {t(alertConfig.text, alertConfig.textVariables)}
 
                         {alertConfig.linkEnabled === true && (
                             <>
@@ -102,7 +102,7 @@ const Menu = () => {
                                 to={alertConfig.link}
                                 style={{ color: 'inherit', textDecoration: 'underline' }}
                             >
-                                {alertConfig.linkText}
+                                {t(alertConfig.linkText)}
                             </Link>
                             </>
                         )}
