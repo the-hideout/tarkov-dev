@@ -11,7 +11,7 @@ const alertConfig = {
     },
 
     // set this variable to the severity of the alert banner
-    alertLevel: 'warning',
+    alertLevel: 'info',
 
     // The text to display in the alert banner
     text: '🌟 Flea market scanners have been leveled, and flea market prices are being updated for patch 0.14.0! 🌟 If you enjoy using tarkov.dev, please consider donating to help keep it running. All donations go directly towards server costs and operational expenses. This banner will only be up for a week. Thank you! ❤️',
