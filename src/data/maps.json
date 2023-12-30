@@ -94,7 +94,7 @@
                 "maxZoom": 6,
                 "transform": [0.524, 167.3, 0.524, 65.1],
                 "coordinateRotation": 180,
-                "bounds": [[244, -139], [-64, 400]],
+                "bounds": [[249, -124], [-98, 364]],
                 "heightRange": [-1000, 1000],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
