@@ -1,14 +1,21 @@
 # Please see the documentation for all configuration options:
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
-
+---
 version: 2
 updates:
-  - package-ecosystem: "npm"
+  - package-ecosystem: github-actions
     directory: "/"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
     schedule:
-      interval: "monthly"
-      
-  - package-ecosystem: "github-actions"
+      interval: monthly
+  - package-ecosystem: npm
     directory: "/"
+    groups:
+      npm-dependencies:
+        patterns:
+          - "*"
     schedule:
-      interval: "monthly"
+      interval: monthly
