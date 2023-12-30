@@ -87,10 +87,19 @@
         "primaryPath": "/map/ground-zero",
         "maps": [
             {
-                "key": "ground-zero-2d",
-                "projection": "2D",
-                "author": "BSG",
-                "authorLink": "https://battlestategames.com"
+                "key": "ground-zero",
+                "projection": "interactive",
+                "tileSize": 256,
+                "minZoom": 1,
+                "maxZoom": 6,
+                "transform": [0.524, 167.3, 0.524, 65.1],
+                "coordinateRotation": 180,
+                "bounds": [[244, -139], [-64, 400]],
+                "heightRange": [-1000, 1000],
+                "author": "Tarkov.dev",
+                "authorLink": "https://tarkov.dev",
+                "tilePath": "https://assets.tarkov.dev/maps/groundzero/rooftops/{z}/{x}/{y}.png",
+                "layers": []
             }
         ]
     },
