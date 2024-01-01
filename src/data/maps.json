@@ -95,11 +95,52 @@
                 "transform": [0.524, 167.3, 0.524, 65.1],
                 "coordinateRotation": 180,
                 "bounds": [[249, -124], [-98, 364]],
-                "heightRange": [-1000, 1000],
+                "heightRange": [-1000, 28],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
-                "tilePath": "https://assets.tarkov.dev/maps/groundzero/rooftops/{z}/{x}/{y}.png",
-                "layers": []
+                "tilePath": "https://assets.tarkov.dev/maps/groundzero/main/{z}/{x}/{y}.png",
+                "layers": [
+                    {
+                        "name": "Garage",
+                        "tilePath": "https://assets.tarkov.dev/maps/groundzero/garage/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-1000, 21],
+                                "bounds": [
+                                    [[117, -100], [43, 190], "garage"],
+                                    [[143, 49], [117, 80], "underpass"]
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "2nd Floor",
+                        "tilePath": "https://assets.tarkov.dev/maps/groundzero/2nd/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [28, 32.3]
+                            },
+                            {
+                                "height": [26, 31],
+                                "bounds": [
+                                    [[98, 216], [91, 228], "m showroom"]
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "3rd Floor",
+                        "tilePath": "https://assets.tarkov.dev/maps/groundzero/3rd/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [32.3, 1000]
+                            }
+                        ]
+                    }
+                ]
             }
         ]
     },
