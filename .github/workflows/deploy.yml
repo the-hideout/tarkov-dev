@@ -29,9 +29,9 @@ jobs:
       # check to ensure all JSON files are valid in the repository
       - name: json-yaml-validate
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
-        uses: GrantBirki/json-yaml-validate@v2.4.0
+        uses: GrantBirki/json-yaml-validate@v2.5.0
 
-      - uses: actions/setup-node@v4.0.0
+      - uses: actions/setup-node@v4.0.1
         if: ${{ steps.deployment-check.outputs.continue == 'true' }}
         with:
           node-version-file: .node-version

@@ -36,7 +36,7 @@ jobs:
         with:
           ref: ${{ steps.branch-deploy.outputs.ref }}
 
-      - uses: actions/setup-node@v4.0.0
+      - uses: actions/setup-node@v4.0.1
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         with:
           node-version-file: .node-version
