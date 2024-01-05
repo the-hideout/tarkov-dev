@@ -94,14 +94,16 @@
                 "maxZoom": 6,
                 "transform": [0.524, 167.3, 0.524, 65.1],
                 "coordinateRotation": 180,
-                "bounds": [[249, -124], [-98, 364]],
+                "bounds": [[249, -124], [-99, 364]],
                 "heightRange": [-1000, 28],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero-Ground_Level.svg",
                 "tilePath": "https://assets.tarkov.dev/maps/groundzero/main/{z}/{x}/{y}.png",
                 "layers": [
                     {
                         "name": "Garage",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero-Underground_Level.svg",
                         "tilePath": "https://assets.tarkov.dev/maps/groundzero/garage/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
@@ -116,6 +118,7 @@
                     },
                     {
                         "name": "2nd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero-Second_Floor.svg",
                         "tilePath": "https://assets.tarkov.dev/maps/groundzero/2nd/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
@@ -132,6 +135,7 @@
                     },
                     {
                         "name": "3rd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero-Third_Floor.svg",
                         "tilePath": "https://assets.tarkov.dev/maps/groundzero/3rd/{z}/{x}/{y}.png",
                         "show": false,
                         "extents": [
