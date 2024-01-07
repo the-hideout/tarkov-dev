@@ -19,6 +19,7 @@ import {
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
 
 import useTradersData from '../../features/traders';
+import useBartersData from '../../features/barters';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
 
 import './index.css';
@@ -46,6 +47,7 @@ function Barters() {
 
     const dispatch = useDispatch();
     const { data: allTraders } = useTradersData();
+    const { data: barters } = useBartersData();
 
     const { t } = useTranslation();
 
@@ -54,8 +56,8 @@ function Barters() {
     }, [searchParams]);
 
     const traders = useMemo(() => {
-        return allTraders.filter(trader => trader.normalizedName !== 'fence' && trader.normalizedName !== 'lightkeeper');
-    }, [allTraders]);
+        return allTraders.filter(trader => barters.some(b => b.trader.id === trader.id));
+    }, [allTraders, barters]);
 
     return [
         <SEO 
