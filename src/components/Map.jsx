@@ -902,7 +902,7 @@ function Map() {
                 if (extract.switches?.length > 0) {
                     const popup = L.DomUtil.create('div');
                     const textElement = L.DomUtil.create('div');
-                    textElement.textContent = tMaps('Activated by:');
+                    textElement.textContent = `${tMaps('Activated by')}:`;
                     popup.appendChild(textElement);
                     for (const sw of extract.switches) {
                         const linkElement = getPoiLinkElement(sw.id, 'switch');
@@ -965,7 +965,7 @@ function Map() {
                 const lockMarker = L.marker(pos(lock.position), {
                     icon: lockIcon,
                     position: lock.position,
-                    title: `${t('Lock')}: ${key.name}`,
+                    title: `${tMaps('Lock')}: ${key.name}`,
                     id: key.id,
                 });
 
@@ -1117,7 +1117,7 @@ function Map() {
                 popup.append(switchNameElement);
                 if (sw.activatedBy) {
                     const textElement = L.DomUtil.create('div');
-                    textElement.textContent = `${t('Activated by')}:`;
+                    textElement.textContent = `${tMaps('Activated by')}:`;
                     popup.appendChild(textElement);
                     const linkElement = getPoiLinkElement(sw.activatedBy.id, 'switch');
                     const nameElement = L.DomUtil.create('span');
@@ -1127,7 +1127,7 @@ function Map() {
                 }
                 if (sw.activates.length > 0) {
                     const textElement = L.DomUtil.create('div');
-                    textElement.textContent = `${t('Activates')}:`;
+                    textElement.textContent = `${tMaps('Activates')}:`;
                     popup.append(textElement);
                 }
                 for (const switchOperation of sw.activates) {
