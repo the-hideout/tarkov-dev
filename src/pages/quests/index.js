@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
 import Icon from '@mdi/react';
@@ -17,6 +17,7 @@ import {
 } from '../../components/filter';
 
 import useTradersData from '../../features/traders';
+import useQuestsData from '../../features/quests';
 
 import './index.css';
 
@@ -38,7 +39,12 @@ function Quests() {
         false,
     );
 
-    const { data: traders } = useTradersData();
+    const { data: allTraders } = useTradersData();
+    const { data: quests } = useQuestsData();
+
+    const traders = useMemo(() => {
+        return allTraders.filter(trader => quests.some(q => q.trader.id === trader.id));
+    }, [allTraders, quests]);
 
     const { t } = useTranslation();
 
