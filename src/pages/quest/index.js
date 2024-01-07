@@ -413,6 +413,8 @@ function Quest() {
             if (objective.count > 1) {
                 objDesc = 'Extract {{extractCount}} times with the status(es): {{extractStatuses, list(type: disjunction)}}';
             }
+            // t('Extract with the status(es): {{extractStatuses, list(type: disjunction)}}')
+            // t('Extract {{extractCount}} times with the status(es): {{extractStatuses, list(type: disjunction)}}')
             taskDetails = (
                 <>
                     <>
