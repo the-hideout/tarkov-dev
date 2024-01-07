@@ -697,11 +697,12 @@ function Map() {
         const getReactLink = (path, contents) => {
             const a = L.DomUtil.create('a');
             a.setAttribute('href', path);
+            a.setAttribute('target', '_blank');
             a.append(contents);
-            a.addEventListener('click', (event) => {
-                navigate(path);
-                event.preventDefault();
-            });
+            // a.addEventListener('click', (event) => {
+            //     navigate(path);
+            //     event.preventDefault();
+            // });
             return a;
         };
 
@@ -973,7 +974,7 @@ function Map() {
                 lockTypeNode.innerText = `${lockType}`;
                 if (lock.needsPower) {
                     const powerNode = L.DomUtil.create('div', undefined, popupContent);
-                    powerNode.innerText = 'Needs power';
+                    powerNode.innerText = tMaps('Needs power');
                 }
                 const lockImage = L.DomUtil.create('img', 'popup-item');
                 lockImage.setAttribute('src', `${key.baseImageLink}`);
