@@ -590,36 +590,36 @@ function Map() {
         baseLayer.addTo(map);
 
         const categories = {
-            'extract_pmc': t('PMC'),
-            'extract_shared': t('Shared'),
-            'extract_scav': t('Scav'),
-            'spawn_sniper_scav': t('Sniper Scav'),
-            'spawn_pmc': t('PMC'),
-            'spawn_scav': t('Scav'),
-            'spawn_boss': t('Boss'),
-            'quest_item': t('Item'),
-            'quest_objective': t('Objective'),
-            'lock': t('Locks'),
-            'wooden_crate': t('Wooden Crate'),
-            'weapon_box': t('Weapon Box'),
-            'jacket': t('Jacket'),
-            'sportbag': t('Sports Bag'),
-            'dead_scav': t('Dead Scav'),
-            'medical_supplies': t('Medbag'),
-            'file_cabinet': t('Drawer'),
-            'safe': t('Safe'),
-            'computer': t('PC'),
-            'medcase': t('Medcase'),
-            'stash': t('Ground Cache'),
-            'key': t('Key Spawn'),
-            'cash_register': t('Cash Register'),
-            'ammo_box': t('Ammo Box'),
-            'supply_crate': t('Technical Supply Crate'),
-            'toolbox': t('Toolbox'),
-            'grenade_box': t('Grenade Box'),
-            'lever': t('Lever'),
-            'stationarygun': t('Stationary Gun'),
-            'switch': t('Switch'),
+            'extract_pmc': tMaps('PMC'),
+            'extract_shared': tMaps('Shared'),
+            'extract_scav': tMaps('Scav'),
+            'spawn_sniper_scav': tMaps('Sniper Scav'),
+            'spawn_pmc': tMaps('PMC'),
+            'spawn_scav': tMaps('Scav'),
+            'spawn_boss': tMaps('Boss'),
+            'quest_item': tMaps('Item'),
+            'quest_objective': tMaps('Objective'),
+            'lock': tMaps('Locks'),
+            'wooden_crate': tMaps('Wooden Crate'),
+            'weapon_box': tMaps('Weapon Box'),
+            'jacket': tMaps('Jacket'),
+            'sportbag': tMaps('Sports Bag'),
+            'dead_scav': tMaps('Dead Scav'),
+            'medical_supplies': tMaps('Medbag'),
+            'file_cabinet': tMaps('Drawer'),
+            'safe': tMaps('Safe'),
+            'computer': tMaps('PC'),
+            'medcase': tMaps('Medcase'),
+            'stash': tMaps('Ground Cache'),
+            'key': tMaps('Key Spawn'),
+            'cash_register': tMaps('Cash Register'),
+            'ammo_box': tMaps('Ammo Box'),
+            'supply_crate': tMaps('Technical Supply Crate'),
+            'toolbox': tMaps('Toolbox'),
+            'grenade_box': tMaps('Grenade Box'),
+            'lever': tMaps('Lever'),
+            'stationarygun': tMaps('Stationary Gun'),
+            'switch': tMaps('Switch'),
         };
         const images = {
             'container_bank-cash-register': 'container_cash-register',
@@ -902,7 +902,7 @@ function Map() {
                 if (extract.switches?.length > 0) {
                     const popup = L.DomUtil.create('div');
                     const textElement = L.DomUtil.create('div');
-                    textElement.textContent = t('Activated by:');
+                    textElement.textContent = tMaps('Activated by:');
                     popup.appendChild(textElement);
                     for (const sw of extract.switches) {
                         const linkElement = getPoiLinkElement(sw.id, 'switch');
@@ -950,16 +950,16 @@ function Map() {
                 });
                 var lockTypeText;
                 if (lock.lockType === 'door') {
-                    lockTypeText = t('Door');
+                    lockTypeText = tMaps('Door');
                 }
                 else if (lock.lockType === 'container') {
-                    lockTypeText = t('Container');
+                    lockTypeText = tMaps('Container');
                 }
                 else if (lock.lockType === 'trunk') {
-                    lockTypeText = t('Car Door or Trunk');
+                    lockTypeText = tMaps('Car Door or Trunk');
                 }
                 else {
-                    lockTypeText = t('Lock');
+                    lockTypeText = tMaps('Lock');
                 }
                 
                 const lockMarker = L.marker(pos(lock.position), {
@@ -1306,13 +1306,13 @@ function Map() {
                 if (items.length > 0) {
                     var section;
                     if (category.startsWith('extract')) {
-                        section = t('Extracts');
+                        section = tMaps('Extracts');
                     }
                     else if (category.startsWith('spawn')) {
-                        section = t('Spawns');
+                        section = tMaps('Spawns');
                     }
                     else {
-                        section = t('Lootable Items');
+                        section = tMaps('Lootable Items');
                     }
                     markerLayer.addTo(map);
                     addLayer(markerLayer, category, section);
