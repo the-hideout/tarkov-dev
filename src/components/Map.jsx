@@ -948,18 +948,18 @@ function Map() {
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
                 });
-                var lockType;
+                var lockTypeText;
                 if (lock.lockType === 'door') {
-                    lockType = t('Door');
+                    lockTypeText = t('Door');
                 }
                 else if (lock.lockType === 'container') {
-                    lockType = t('Container');
+                    lockTypeText = t('Container');
                 }
                 else if (lock.lockType === 'trunk') {
-                    lockType = t('Car Door or Trunk');
+                    lockTypeText = t('Car Door or Trunk');
                 }
                 else {
-                    lockType = t('Lock');
+                    lockTypeText = t('Lock');
                 }
                 
                 const lockMarker = L.marker(pos(lock.position), {
@@ -971,7 +971,7 @@ function Map() {
 
                 const popupContent = L.DomUtil.create('div');
                 const lockTypeNode = L.DomUtil.create('div', undefined, popupContent);
-                lockTypeNode.innerText = `${lockType}`;
+                lockTypeNode.innerText = `${lockTypeText}`;
                 if (lock.needsPower) {
                     const powerNode = L.DomUtil.create('div', undefined, popupContent);
                     powerNode.innerText = tMaps('Needs power');
