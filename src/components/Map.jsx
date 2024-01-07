@@ -1184,11 +1184,13 @@ function Map() {
                 if (!containerLayers[containerPosition.lootContainer.normalizedName]) {
                     containerLayers[containerPosition.lootContainer.normalizedName] = L.layerGroup();
                 }
-                if (showElevation) {
-                    const popup = L.DomUtil.create('div');
-                    addElevation(containerPosition, popup);
-                    containerMarker.bindPopup(L.popup().setContent(popup));
-                }
+
+                const popup = L.DomUtil.create('div');
+                const popupDiv = L.DomUtil.create('div', undefined, popup);
+                popupDiv.textContent = containerPosition.lootContainer.name;
+                addElevation(containerPosition, popup);
+                containerMarker.bindPopup(L.popup().setContent(popup));
+                
                 containerMarker.on('add', checkMarkerForActiveLayers);
                 containerMarker.on('click', activateMarkerLayer);
                 containerMarker.addTo(containerLayers[containerPosition.lootContainer.normalizedName]);
@@ -1303,13 +1305,13 @@ function Map() {
                 if (items.length > 0) {
                     var section;
                     if (category.startsWith('extract')) {
-                        section = t('Extract');
+                        section = t('Extracts');
                     }
                     else if (category.startsWith('spawn')) {
                         section = t('Spawns');
                     }
                     else {
-                        section = t('Items');
+                        section = t('Lootable Items');
                     }
                     markerLayer.addTo(map);
                     addLayer(markerLayer, category, section);
