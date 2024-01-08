@@ -600,23 +600,6 @@ function Map() {
             'quest_item': tMaps('Item'),
             'quest_objective': tMaps('Objective'),
             'lock': tMaps('Locks'),
-            'wooden_crate': tMaps('Wooden Crate'),
-            'weapon_box': tMaps('Weapon Box'),
-            'jacket': tMaps('Jacket'),
-            'sportbag': tMaps('Sports Bag'),
-            'dead_scav': tMaps('Dead Scav'),
-            'medical_supplies': tMaps('Medbag'),
-            'file_cabinet': tMaps('Drawer'),
-            'safe': tMaps('Safe'),
-            'computer': tMaps('PC'),
-            'medcase': tMaps('Medcase'),
-            'stash': tMaps('Ground Cache'),
-            'key': tMaps('Key Spawn'),
-            'cash_register': tMaps('Cash Register'),
-            'ammo_box': tMaps('Ammo Box'),
-            'supply_crate': tMaps('Technical Supply Crate'),
-            'toolbox': tMaps('Toolbox'),
-            'grenade_box': tMaps('Grenade Box'),
             'lever': tMaps('Lever'),
             'stationarygun': tMaps('Stationary Gun'),
             'switch': tMaps('Switch'),
@@ -990,7 +973,7 @@ function Map() {
                 
             }
             if (Object.keys(locks._layers).length > 0) {
-                addLayer(locks, 'lock', 'Interactive');
+                addLayer(locks, 'lock', 'Usable');
             }
         }
 
@@ -1159,7 +1142,7 @@ function Map() {
                 checkMarkerBounds(sw.position, markerBounds);
             }
             if (Object.keys(switches._layers).length > 0) {
-                addLayer(switches, 'switch', 'Interactive');
+                addLayer(switches, 'switch', 'Usable');
             }
         }
 
@@ -1278,7 +1261,7 @@ function Map() {
                 weaponMarker.on('click', activateMarkerLayer);
                 weaponMarker.addTo(stationaryWeapons);
             }
-            addLayer(stationaryWeapons, 'stationarygun', 'Interactive');
+            addLayer(stationaryWeapons, 'stationarygun', 'Usable');
         }
 
         
