@@ -1,4 +1,5 @@
 {
+    "ambientVolume": "Ambience",
     "ammoCheckModifier": "Modificador de verificação de munição",
     "ammoType": "Tipo de munição",
     "armorDamage": "Dano em armadura",
@@ -21,6 +22,8 @@
     "defaultRecoilVertical": "Recuo vertical padrão",
     "defaultWeight": "Peso padrão",
     "defaultWidth": "Largura padrão",
+    "distanceModifier": "Distance",
+    "distortion": "Distortion",
     "durability": "Durabilidade",
     "effectiveDistance": "Distância efetiva",
     "energy": "Energia",
@@ -63,6 +66,7 @@
     "type": "Tipo",
     "units": "Unidades",
     "useTime": "Tempo de uso",
+    "usedOnMaps": "Used on Maps",
     "uses": "Usos",
     "weight": "Peso",
     "zones": "Zonas",
