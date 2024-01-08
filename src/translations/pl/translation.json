@@ -302,7 +302,7 @@
     "Boss Stats": "Statystyki bossa",
     "Special Boss Loot": "Specjalne łupy bossa",
     "Spawn Locations": "Lokalizacje pojawienia",
-    "boss-spawn-table-description": "<0>Mapa: Nazwa mapy, na której boss może się pojawić</0><1>Lokalizacja pojawienia: Dokładne miejsce na danej mapie, w którym boss może złożyć tarło</1><2>Szansa: Jeśli dla danej mapy aktywna jest opcja \"Szansa pojawienia się\", to jest to szacunkowa szansa, że boss będzie się pojawiał w danym miejscu na tej mapie.</2>",
+    "boss-spawn-table-description": "<0>Mapa: Nazwa mapy, na której boss może się pojawić</0><1>Lokalizacja pojawienia: Dokładne miejsce na danej mapie, w którym boss może się pojawić</1><2>Szansa: Jeśli dla danej mapy aktywna jest opcja \"Szansa pojawienia się\", to jest to szacunkowa szansa, że boss będzie się pojawiał w danym miejscu na tej mapie.</2>",
     "Boss Escorts": "Eskorty bossa",
     "This boss does not have any escorts": "Ten boss nie ma żadnej eskorty",
     "boss-page-description": "Ta strona zawiera informacje o lokalizacji bossa {{bossName}}, łupach i strategiach na jego pokonanie.",
