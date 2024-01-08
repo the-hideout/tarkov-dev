@@ -300,7 +300,7 @@
     "The boss's general AI behavior": "Общее поведение ИИ босса",
     "Wiki": "Wiki",
     "Boss Stats": "Статистика босса",
-    "Special Boss Loot": "Особая добыча с босса",
+    "Special Boss Loot": "Особый лут с босса",
     "Spawn Locations": "Места спавна",
     "boss-spawn-table-description": "<0>Map: The name of the map which the boss can spawn on</0><1>Spawn Location: The exact location on the given map which the boss can spawn</1><2>Chance: If the \"Spawn Chance\" is activated for the map, this is the estimated chance that the boss will spawn at a given location on that map</2>",
     "Boss Escorts": "Сопровождение босса",
