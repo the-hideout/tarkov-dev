@@ -34,6 +34,10 @@ import mapsIT from './translations/it/maps.json';
 import mapsJA from './translations/ja/maps.json';
 import mapsPL from './translations/pl/maps.json';
 
+// const myParseMissingKeyHandler = (key, defaultValue) => {
+//     console.log(`Missing translation "${key}": "${key}"`)
+// }
+
 i18n
     // loads translations from your server
     // https://github.com/i18next/i18next-http-backend
@@ -52,7 +56,9 @@ i18n
         //     addPath: '/translations/add/{{lng}}/{{ns}}.json'
         // },
 
-        //debug: true,
+        // debug: true,
+        // saveMissing: true,
+        // parseMissingKeyHandler: myParseMissingKeyHandler,
         
         // the translations
         // (tip move them in a JSON file and import them,
