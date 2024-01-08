@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 
@@ -9,6 +10,7 @@ import TraderResetTime from '../../components/trader-reset-time';
 import LoadingSmall from '../../components/loading-small';
 
 import useTradersData from '../../features/traders';
+import useItemsData from '../../features/items';
 
 import i18n from '../../i18n';
 
@@ -16,12 +18,14 @@ import './index.css';
 
 function Traders(props) {
     const { t } = useTranslation();
-    const { data: traders } = useTradersData();
+    const { data: allTraders } = useTradersData();
+    const { data: items } = useItemsData();
 
-    const skipTraders = [
-        'fence',
-        'lightkeeper',
-    ];
+    // filter traders to only those who sell items
+    const traders = useMemo(() => {
+        return allTraders.filter(trader => items.some(item => item.buyFor.some(offer => offer.vendor.trader?.id === trader.id)));
+    }, [allTraders, items]);
+
     return [
         <SEO 
             title={`${t('Traders')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
@@ -39,7 +43,7 @@ function Traders(props) {
                 {t('Traders')}
             </h1>
             <div className="traders-list-wrapper">
-                {traders.filter(trader => !skipTraders.includes(trader.normalizedName)).map(trader => {
+                {traders.map(trader => {
                     let resetTime = (
                         <LoadingSmall/>
                     );
