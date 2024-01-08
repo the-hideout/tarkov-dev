@@ -590,36 +590,19 @@ function Map() {
         baseLayer.addTo(map);
 
         const categories = {
-            'extract_pmc': t('PMC'),
-            'extract_shared': t('Shared'),
-            'extract_scav': t('Scav'),
-            'spawn_sniper_scav': t('Sniper Scav'),
-            'spawn_pmc': t('PMC'),
-            'spawn_scav': t('Scav'),
-            'spawn_boss': t('Boss'),
-            'quest_item': t('Item'),
-            'quest_objective': t('Objective'),
-            'lock': t('Locks'),
-            'wooden_crate': t('Wooden Crate'),
-            'weapon_box': t('Weapon Box'),
-            'jacket': t('Jacket'),
-            'sportbag': t('Sports Bag'),
-            'dead_scav': t('Dead Scav'),
-            'medical_supplies': t('Medbag'),
-            'file_cabinet': t('Drawer'),
-            'safe': t('Safe'),
-            'computer': t('PC'),
-            'medcase': t('Medcase'),
-            'stash': t('Ground Cache'),
-            'key': t('Key Spawn'),
-            'cash_register': t('Cash Register'),
-            'ammo_box': t('Ammo Box'),
-            'supply_crate': t('Technical Supply Crate'),
-            'toolbox': t('Toolbox'),
-            'grenade_box': t('Grenade Box'),
-            'lever': t('Lever'),
-            'stationarygun': t('Stationary Gun'),
-            'switch': t('Switch'),
+            'extract_pmc': tMaps('PMC'),
+            'extract_shared': tMaps('Shared'),
+            'extract_scav': tMaps('Scav'),
+            'spawn_sniper_scav': tMaps('Sniper Scav'),
+            'spawn_pmc': tMaps('PMC'),
+            'spawn_scav': tMaps('Scav'),
+            'spawn_boss': tMaps('Boss'),
+            'quest_item': tMaps('Item'),
+            'quest_objective': tMaps('Objective'),
+            'lock': tMaps('Locks'),
+            'lever': tMaps('Lever'),
+            'stationarygun': tMaps('Stationary Gun'),
+            'switch': tMaps('Switch'),
         };
         const images = {
             'container_bank-cash-register': 'container_cash-register',
@@ -697,11 +680,12 @@ function Map() {
         const getReactLink = (path, contents) => {
             const a = L.DomUtil.create('a');
             a.setAttribute('href', path);
+            a.setAttribute('target', '_blank');
             a.append(contents);
-            a.addEventListener('click', (event) => {
-                navigate(path);
-                event.preventDefault();
-            });
+            // a.addEventListener('click', (event) => {
+            //     navigate(path);
+            //     event.preventDefault();
+            // });
             return a;
         };
 
@@ -901,7 +885,7 @@ function Map() {
                 if (extract.switches?.length > 0) {
                     const popup = L.DomUtil.create('div');
                     const textElement = L.DomUtil.create('div');
-                    textElement.textContent = t('Activated by:');
+                    textElement.textContent = `${tMaps('Activated by')}:`;
                     popup.appendChild(textElement);
                     for (const sw of extract.switches) {
                         const linkElement = getPoiLinkElement(sw.id, 'switch');
@@ -947,33 +931,33 @@ function Map() {
                     iconSize: [24, 24],
                     popupAnchor: [0, -12],
                 });
-                var lockType;
+                var lockTypeText;
                 if (lock.lockType === 'door') {
-                    lockType = t('Door');
+                    lockTypeText = tMaps('Door');
                 }
                 else if (lock.lockType === 'container') {
-                    lockType = t('Container');
+                    lockTypeText = tMaps('Container');
                 }
                 else if (lock.lockType === 'trunk') {
-                    lockType = t('Car Door or Trunk');
+                    lockTypeText = tMaps('Car Door or Trunk');
                 }
                 else {
-                    lockType = t('Lock');
+                    lockTypeText = tMaps('Lock');
                 }
                 
                 const lockMarker = L.marker(pos(lock.position), {
                     icon: lockIcon,
                     position: lock.position,
-                    title: `${t('Lock')}: ${key.name}`,
+                    title: `${tMaps('Lock')}: ${key.name}`,
                     id: key.id,
                 });
 
                 const popupContent = L.DomUtil.create('div');
                 const lockTypeNode = L.DomUtil.create('div', undefined, popupContent);
-                lockTypeNode.innerText = `${lockType}`;
+                lockTypeNode.innerText = `${lockTypeText}`;
                 if (lock.needsPower) {
                     const powerNode = L.DomUtil.create('div', undefined, popupContent);
-                    powerNode.innerText = 'Needs power';
+                    powerNode.innerText = tMaps('Needs power');
                 }
                 const lockImage = L.DomUtil.create('img', 'popup-item');
                 lockImage.setAttribute('src', `${key.baseImageLink}`);
@@ -989,7 +973,7 @@ function Map() {
                 
             }
             if (Object.keys(locks._layers).length > 0) {
-                addLayer(locks, 'lock', 'Interactive');
+                addLayer(locks, 'lock', 'Usable');
             }
         }
 
@@ -1116,7 +1100,7 @@ function Map() {
                 popup.append(switchNameElement);
                 if (sw.activatedBy) {
                     const textElement = L.DomUtil.create('div');
-                    textElement.textContent = `${t('Activated by')}:`;
+                    textElement.textContent = `${tMaps('Activated by')}:`;
                     popup.appendChild(textElement);
                     const linkElement = getPoiLinkElement(sw.activatedBy.id, 'switch');
                     const nameElement = L.DomUtil.create('span');
@@ -1126,7 +1110,7 @@ function Map() {
                 }
                 if (sw.activates.length > 0) {
                     const textElement = L.DomUtil.create('div');
-                    textElement.textContent = `${t('Activates')}:`;
+                    textElement.textContent = `${tMaps('Activates')}:`;
                     popup.append(textElement);
                 }
                 for (const switchOperation of sw.activates) {
@@ -1158,7 +1142,7 @@ function Map() {
                 checkMarkerBounds(sw.position, markerBounds);
             }
             if (Object.keys(switches._layers).length > 0) {
-                addLayer(switches, 'switch', 'Interactive');
+                addLayer(switches, 'switch', 'Usable');
             }
         }
 
@@ -1184,11 +1168,13 @@ function Map() {
                 if (!containerLayers[containerPosition.lootContainer.normalizedName]) {
                     containerLayers[containerPosition.lootContainer.normalizedName] = L.layerGroup();
                 }
-                if (showElevation) {
-                    const popup = L.DomUtil.create('div');
-                    addElevation(containerPosition, popup);
-                    containerMarker.bindPopup(L.popup().setContent(popup));
-                }
+
+                const popup = L.DomUtil.create('div');
+                const popupDiv = L.DomUtil.create('div', undefined, popup);
+                popupDiv.textContent = containerPosition.lootContainer.name;
+                addElevation(containerPosition, popup);
+                containerMarker.bindPopup(L.popup().setContent(popup));
+                
                 containerMarker.on('add', checkMarkerForActiveLayers);
                 containerMarker.on('click', activateMarkerLayer);
                 containerMarker.addTo(containerLayers[containerPosition.lootContainer.normalizedName]);
@@ -1275,7 +1261,7 @@ function Map() {
                 weaponMarker.on('click', activateMarkerLayer);
                 weaponMarker.addTo(stationaryWeapons);
             }
-            addLayer(stationaryWeapons, 'stationarygun', 'Interactive');
+            addLayer(stationaryWeapons, 'stationarygun', 'Usable');
         }
 
         
@@ -1303,13 +1289,13 @@ function Map() {
                 if (items.length > 0) {
                     var section;
                     if (category.startsWith('extract')) {
-                        section = t('Extract');
+                        section = tMaps('Extracts');
                     }
                     else if (category.startsWith('spawn')) {
-                        section = t('Spawns');
+                        section = tMaps('Spawns');
                     }
                     else {
-                        section = t('Items');
+                        section = tMaps('Lootable Items');
                     }
                     markerLayer.addTo(map);
                     addLayer(markerLayer, category, section);
