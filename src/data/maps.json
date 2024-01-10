@@ -48,7 +48,7 @@
                     },
                     {
                         "name": "4th Floor",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Forth_Floor.svg",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Fourth_Floor.svg",
                         "show": false,
                         "extents": [
                             {
@@ -160,7 +160,7 @@
                 "maxZoom": 6,
                 "transform": [0.239, 168.65, 0.239, 136.35],
                 "coordinateRotation": 180,
-                "bounds": [[698, -307], [-371, 237]],
+                "bounds": [[698, -307], [-372, 237]],
                 "heightRange": [-1000, 1000],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev/",
@@ -465,12 +465,12 @@
                 "bounds": [[289, -338], [-303, 336]],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve_cardinal-Ground_Level.svg",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Ground_Level.svg",
                 "heightRange": [-7, 10000],
                 "layers": [
                     {
                         "name": "Bunkers",
-                        "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve_cardinal-Bunkers.svg",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Bunkers.svg",
                         "show": false,
                         "extents": [
                             {
