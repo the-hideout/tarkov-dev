@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '../test-utils';
+import { renderWithProviders } from '../test-utils';
 import App from '../App';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
@@ -11,7 +11,7 @@ const queryClient = new QueryClient();
 it('renders without crashing', () => {
     useInView.mockImplementation(() => [null, true]);
 
-    render(
+    renderWithProviders(
         <QueryClientProvider client={queryClient}>
             <App />
         </QueryClientProvider>,
