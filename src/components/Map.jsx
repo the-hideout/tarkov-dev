@@ -277,6 +277,9 @@ function Map() {
     );
 
     const mapSettingsRef = useRef(savedMapSettings);
+    const updateSavedMapSettings = useCallback(() => {
+        setSavedMapSettings({...mapSettingsRef.current});
+    }, [setSavedMapSettings]);
 
     const mapViewRef = useRef({});
 
@@ -397,17 +400,16 @@ function Map() {
                 mapViewRef.current.layer = layerState.key;
                 mapSettingsRef.current.hiddenLayers = mapSettingsRef.current.hiddenLayers.filter(key => key !== layerState.key);
             }
-            setSavedMapSettings(mapSettingsRef.current);
+            updateSavedMapSettings(mapSettingsRef.current);
         });
         layerControl.on('groupToggle', (e) => {
             const groupState = e.detail;
             if (!groupState.checked) {
                 mapSettingsRef.current.hiddenGroups.push(groupState.key);
-                
             } else {
                 mapSettingsRef.current.hiddenGroups = mapSettingsRef.current.hiddenGroups.filter(key => key !== groupState.key);
             }
-            setSavedMapSettings(mapSettingsRef.current);
+            updateSavedMapSettings(mapSettingsRef.current);
         });
         layerControl.on('groupCollapseToggle', (e) => {
             const groupState = e.detail;
@@ -417,7 +419,7 @@ function Map() {
             } else {
                 mapSettingsRef.current.collapsedGroups = mapSettingsRef.current.collapsedGroups.filter(key => key !== groupState.key);
             }
-            setSavedMapSettings(mapSettingsRef.current);
+            updateSavedMapSettings(mapSettingsRef.current);
         });
 
         map.layerControl = layerControl;
@@ -493,7 +495,7 @@ function Map() {
                 if (tileLayer && svgLayer) {
                     const selectedStyle = svgParent ? 'svg' : 'tile';
                     mapSettingsRef.current.style = selectedStyle;
-                    setSavedMapSettings(mapSettingsRef.current);
+                    updateSavedMapSettings(mapSettingsRef.current);
                 }
                 const existingLayers = Object.values(layerControl._layers).filter(l => l.layer.options.type === 'map-layer' && !baseLayers.includes(l.layer)).map(l => l.layer);
                 for (const existingLayer of existingLayers) {
@@ -1368,7 +1370,7 @@ function Map() {
                 }
             }
         }
-    }, [mapData, items, quests, mapRef, playerPosition, t, dispatch, navigate, mapSettingsRef, setSavedMapSettings, mapViewRef]);
+    }, [mapData, items, quests, mapRef, playerPosition, t, dispatch, navigate, mapSettingsRef, updateSavedMapSettings, mapViewRef]);
     
     if (!mapData) {
         return <ErrorPage />;
