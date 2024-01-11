@@ -1,12 +1,10 @@
-const fs = require('fs');
-const path = require('path');
-const sharp = require('sharp');
+import fs from "fs";
+import path from "path";
+import sharp from "sharp";
+import fetch from "cross-fetch";
+import { exit } from "process";
 
-const fetch = require('cross-fetch');
-
-const categoryPages = require('../src/data/category-pages.json');
-const { exit } = require('process');
-
+import categoryPages from "../src/data/category-pages.json" assert { type: "json" };
 
 const ignoredCategories = [
     'headsets',
@@ -67,7 +65,7 @@ function shuffle(array) {
 
         for (const categoryPage of categoryPages) {
             if (ignoredCategories.includes(categoryPage.key)) {
-                continue
+                continue;
             }
 
             const originalImg = await sharp(mapsPath + categoryPage.key + '-table.png');
@@ -87,18 +85,18 @@ function shuffle(array) {
             //     }
             // }).png();
 
-        	let type = categoryPage.type;
+            let type = categoryPage.type;
             const query = `{
                 items(type: ${type}, limit:420) {
                     image512pxLink
                 }
             }`;
-        	const itemsOfType = await graphqlRequest(query);
-            
-            const items = itemsOfType.data.items;
-        	shuffle(items);
+            const itemsOfType = await graphqlRequest(query);
 
-            const itemResize = {width: itemWidth, height: itemHeight, fit: sharp.fit.contain, background: { r: 255, g: 255, b: 255, alpha: 0.0 }};
+            const items = itemsOfType.data.items;
+            shuffle(items);
+
+            const itemResize = { width: itemWidth, height: itemHeight, fit: sharp.fit.contain, background: { r: 255, g: 255, b: 255, alpha: 0.0 } };
             const itemRotate = 0; //7 + Math.random()*4-2;
 
             const tlImageFetch = await fetch(items[0].image512pxLink);
@@ -130,18 +128,19 @@ function shuffle(array) {
                     { input: brImage, gravity: 'southeast', blend: 'over' },
                     { input: cImage, gravity: 'centre', blend: 'over' },
                 ]).toBuffer();
-            
-            const finalImage = await sharp(composedImage).resize(maxWidth, maxHeight).jpeg({mozjpeg: true, quality: 100});
+
+            const finalImage = await sharp(composedImage).resize(maxWidth, maxHeight).jpeg({ mozjpeg: true, quality: 100 });
             // const finalImage = await sharp(composedImage).jpeg({mozjpeg: true, quality: 90});
             
             await finalImage.toFile(mapsPath + categoryPage.key + '-table_thumb.jpg');
 
             console.log(`Generated thumbnail for ${categoryPage.key}`);
             // return;
-        };
+        }
         console.timeEnd('Generating thumbnails');
-    } catch (error) {
-        console.error(error)
-        console.log('error generating thumbnail (offline mode?)')
+    }
+    catch (error) {
+        console.error(error);
+        console.log('error generating thumbnail (offline mode?)');
     }
 })();

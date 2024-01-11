@@ -4,7 +4,7 @@ import { readFile } from "fs/promises";
 /**
  * This function forces .js files to be loades as ES modules
  * so the default export is a string containing the CSS stylesheet.
- */     
+ */
 export async function load(url, context, defaultLoad) {
     if (context.format !== 'commonjs') {
         return defaultLoad(url, context, defaultLoad);
@@ -33,7 +33,7 @@ export async function load(url, context, defaultLoad) {
                 format: "module",
                 source: content,
                 shortCircuit: true
-            }
+            };
         }
     }
     return defaultLoad(url, context, defaultLoad);

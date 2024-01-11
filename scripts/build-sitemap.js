@@ -1,11 +1,11 @@
-const fs = require('fs');
-const path = require('path');
+import fs from "fs";
+import path from "path";
+import fetch from "cross-fetch";
 
-const fetch = require('cross-fetch');
+import maps from "../src/data/maps.json" assert { type: "json" };
+import categoryPages from "../src/data/category-pages.json" assert { type: "json" };
 
-const maps = require('../src/data/maps.json');
-const categoryPages = require('../src/data/category-pages.json');
-const { caliberArrayWithSplit } = require('../src/modules/format-ammo');
+import { caliberArrayWithSplit } from "../src/modules/format-ammo.js";
 
 const standardPaths = [
     '',
@@ -49,7 +49,7 @@ const addPath = (sitemap, url, change = 'hourly') => {
         <loc>https://tarkov.dev${url}</loc>
         <changefreq>${change}</changefreq>
     </url>`;
-}
+};
 
 const graphqlRequest = (queryString) => {
     return fetch('https://api.tarkov.dev/graphql', {
@@ -93,7 +93,7 @@ const graphqlRequest = (queryString) => {
 
         for (const categoryPage of categoryPages) {
             sitemap = addPath(sitemap, `/items/${categoryPage.key}`);
-        };
+        }
 
         const allItems = await graphqlRequest('{items{normalizedName}}');
         for (const item of allItems.data.items) {
@@ -117,11 +117,12 @@ const graphqlRequest = (queryString) => {
 
         sitemap = `${sitemap}
 </urlset>`;
-
+        const __dirname = new URL(".", import.meta.url).pathname;
         fs.writeFileSync(path.join(__dirname, '..', 'public', 'sitemap.xml'), sitemap);
         console.timeEnd('build-sitemap');
-    } catch (error) {
-        console.error(error)
-        console.log('trying to use pre-built sitemap (offline mode?)')
+    }
+    catch (error) {
+        console.error(error);
+        console.log('trying to use pre-built sitemap (offline mode?)');
     }
 })();

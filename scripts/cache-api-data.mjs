@@ -30,7 +30,7 @@ const getItemNames = async (langs) => {
             id
             name
             shortName
-        }`
+        }`;
     });
     const query = `{
         ${queries.join('\n')}
@@ -48,8 +48,9 @@ const getTaskNames = async (langs) => {
                 id
                 description
             }
-        }`
-    });;
+        }`;
+    });
+
     const query = `{
         ${queries.join('\n')}
     }`;
@@ -100,7 +101,7 @@ console.time('Caching API data');
 try {
     const allLangs = await getLanguageCodes();
     fs.writeFileSync('./src/data/supported-languages.json', JSON.stringify(allLangs, null, 4));
-    const langs = allLangs.filter(lang => lang !== 'en')
+    const langs = allLangs.filter(lang => lang !== 'en');
     const apiPromises = [];
 
     apiPromises.push(Promise.all([
@@ -157,13 +158,13 @@ try {
             const groupedAmmoDic = items.reduce((acc, item) => {
                 if (!item.categories.some(cat => cat.id === '5485a8684bdc2da71d8b4567'))
                     return acc;
-                
+
                 if (filteredItems.some(i => i.id === item.id))
                     return acc;
-                
+
                 const caliberType = item.properties.caliber + item.properties.ammoType;
                 if (!acc[caliberType]) {
-                    acc[caliberType] = []
+                    acc[caliberType] = [];
                 }
                 acc[caliberType].push(item);
                 return acc;
@@ -180,15 +181,14 @@ try {
                 item.cached = true;
             }
             fs.writeFileSync('./src/data/items.json', JSON.stringify(filteredItems));
-    
-            return new Promise(async resolve => {
+            return new Promise(async (resolve) => {
                 const itemLangs = {};
                 await getItemNames(langs).then(itemResults => {
                     for (const lang in itemResults) {
                         const localization = {};
                         itemResults[lang].forEach(item => {
                             if (filteredItems.find(filteredItem => filteredItem.id == item.id)) {
-                                localization[item.id] =  {
+                                localization[item.id] = {
                                     name: item.name,
                                     shortName: item.shortName
                                 };
@@ -213,13 +213,13 @@ try {
         }
         fs.writeFileSync('./src/data/traders.json', JSON.stringify(traders));
 
-        return new Promise(async resolve => {
+        return new Promise(async (resolve) => {
             const traderLangs = {};
             await getTraderNames(langs).then(traderResults => {
                 for (const lang in traderResults) {
                     const localization = {};
                     traderResults[lang].forEach(trader => {
-                        localization[trader.id] =  {
+                        localization[trader.id] = {
                             name: trader.name
                         };
                     });
@@ -228,7 +228,7 @@ try {
             });
             fs.writeFileSync(`./src/data/traders_locale.json`, JSON.stringify(traderLangs));
             resolve();
-        })
+        });
     }));
 
     apiPromises.push(doFetchMaps('en', true).then(maps => {
@@ -275,7 +275,7 @@ try {
     apiPromises.push(doFetchQuests('en', true).then(quests => {
         const groupedQuestsDic = quests.reduce((acc, item) => {
             if (!acc[item.trader.normalizedName]) {
-                acc[item.trader.normalizedName] = []
+                acc[item.trader.normalizedName] = [];
             }
             if (item.minPlayerLevel < 20)
                 acc[item.trader.normalizedName].push(item);
@@ -287,14 +287,14 @@ try {
 
         fs.writeFileSync('./src/data/quests.json', JSON.stringify(filteredQuests));
 
-        return new Promise(async resolve => {
+        return new Promise(async (resolve) => {
             const taskLangs = {};
             await getTaskNames(langs).then(taskResults => {
                 for (const lang in taskResults) {
                     const localization = {};
                     taskResults[lang].forEach(task => {
                         if (filteredQuests.find(filteredQuest => filteredQuest.id === task.id)) {
-                            localization[task.id] =  {
+                            localization[task.id] = {
                                 name: task.name,
                                 objectives: {}
                             };
@@ -312,12 +312,14 @@ try {
     }));
 
     await Promise.all(apiPromises);
-} catch (error) {
+}
+catch (error) {
     if (process.env.CI) {
         throw error;
-    } else {
-        console.log(error)
-        console.log("attempting to use pre-cached values (offline mode?)")
     }
-} 
+    else {
+        console.log(error);
+        console.log("attempting to use pre-cached values (offline mode?)");
+    }
+}
 console.timeEnd('Caching API data');

@@ -1,7 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-
-const fetch = require('cross-fetch');
+import fs from "fs";
+import path from "path";
+import fetch from "cross-fetch";
 
 const repositories = [
     'the-hideout/tarkov-dev',
@@ -21,7 +20,8 @@ const headers = {};
 if (token) {
     headers.authorization = `token ${token}`;
     console.log("Using provided GitHub token to increase rate limit");
-} else {
+}
+else {
     console.log("No GitHub token provided, rate limit may be reached");
     console.warn("To increase the rate limit, provide a GitHub token via the GITHUB_TOKEN environment variable");
 }
@@ -56,8 +56,8 @@ async function getContributors(repository) {
                 contributions: contributor.contributions,
             });
         }
-
-    } catch (responseError) {
+    }
+    catch (responseError) {
         console.error(`Error: ${responseError.message}`);
     }
 
@@ -93,7 +93,6 @@ async function getContributors(repository) {
             return acc;
         }, {});
 
-
         // Add total contributions field to each object
         allContributors = Object.entries(totalRepContributors).map(([login, totalContributions]) => {
             const { html_url, avatar_url } = allRepContributors.find(contributor => contributor.login === login);
@@ -113,11 +112,13 @@ async function getContributors(repository) {
 
             return a.login.localeCompare(b.login);
         });
-    } catch (error) {
+    }
+    catch (error) {
         // If we're running in CI and a failure occurs, use fallback data for contributors
         if (process.env.CI === 'true') {
             console.log(`error in CI: ${error}`);
-        } else {
+        }
+        else {
             console.log(`error fetching contributors: ${error}`);
         }
     }
@@ -140,6 +141,7 @@ async function getContributors(repository) {
     console.time('Write new data');
 
     let stringifyed = JSON.stringify(allContributors, null, 4);
+    const __dirname = new URL(".", import.meta.url).pathname;
     fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'contributors.json'), stringifyed);
 
     console.timeEnd('Write new data');

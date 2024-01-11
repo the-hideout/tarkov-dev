@@ -1,7 +1,6 @@
-const { default: fetch } = require('cross-fetch');
-const fs = require('fs/promises');
-
-const sharp = require('sharp');
+import fetch from "cross-fetch";
+import fs from "fs/promises";
+import sharp from "sharp";
 
 (async () => {
     console.time('Generating thumbnails');
@@ -17,8 +16,8 @@ const sharp = require('sharp');
             continue;
         const thumbName = fileName.replace('.jpg', '_thumb.jpg');
         console.log(`Generating ${thumbName}`);
-        const image = sharp(mapsPath+fileName).resize(null, maxHeight).jpeg({mozjpeg: true, quality: 90});
-        await image.toFile(mapsPath+thumbName);
+        const image = sharp(mapsPath + fileName).resize(null, maxHeight).jpeg({ mozjpeg: true, quality: 90 });
+        await image.toFile(mapsPath + thumbName);
     }
     /*const mapGroups = JSON.parse(await fs.readFile('./src/data/maps.json'));
     for (const group of mapGroups) {
