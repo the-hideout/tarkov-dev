@@ -5,8 +5,8 @@ import {
     VictoryTheme,
     VictoryVoronoiContainer,
 } from 'victory';
-import { getDurationDisplay } from '../../modules/format-duration';
-import { ProduceBitcoinData } from './data';
+import { getDurationDisplay } from '../../modules/format-duration.js';
+import { ProduceBitcoinData } from './data.js';
 
 const { useTranslation } = require('react-i18next');
 

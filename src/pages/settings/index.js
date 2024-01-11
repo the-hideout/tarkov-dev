@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation, withTranslation } from 'react-i18next';
 import Select from 'react-select';
 
-import i18n from '../../i18n';
+import i18n from '../../i18n.js';
 
-import SEO from '../../components/SEO';
-import { InputFilter, ToggleFilter } from '../../components/filter';
-import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
-import CheekiBreekiEffect from '../../components/cheeki-breeki-effect';
+import SEO from '../../components/SEO.jsx';
+import { InputFilter, ToggleFilter } from '../../components/filter/index.js';
+import StationSkillTraderSetting from '../../components/station-skill-trader-setting/index.js';
+import CheekiBreekiEffect from '../../components/cheeki-breeki-effect/index.js';
 
 import {
     //selectAllTraders as traderSettings,
@@ -21,14 +21,14 @@ import {
     toggleHideRemoteControl,
     toggleHideDogtagBarters,
     // selectCompletedQuests,
-} from '../../features/settings/settingsSlice';
-import useCraftsData from '../../features/crafts';
-import useHideoutData from '../../features/hideout';
-import useTradersData from '../../features/traders';
+} from '../../features/settings/settingsSlice.js';
+import useCraftsData from '../../features/crafts/index.js';
+import useHideoutData from '../../features/hideout/index.js';
+import useTradersData from '../../features/traders/index.js';
 
 import supportedLanguages from '../../data/supported-languages.json';
 
-import { getWipeData } from '../wipe-length';
+import { getWipeData } from '../wipe-length/index.js';
 
 import './index.css';
 

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import classnames from "classnames";
 
-import OverflowMenu from './overflow-menu';
+import OverflowMenu from './overflow-menu.js';
 
 export default function IntersectionObserverWrapper({ children }) {
     const navRef = useRef(null);

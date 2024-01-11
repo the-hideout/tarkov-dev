@@ -1,4 +1,4 @@
-module.exports = (length) => {
+export default function makeID(length) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     const charactersLength = characters.length;

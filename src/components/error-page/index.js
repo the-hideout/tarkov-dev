@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import ItemSearch from '../item-search/index.js';
 
-import SEO from '../SEO';
+import SEO from '../SEO.jsx';
 
 import './index.css';
 

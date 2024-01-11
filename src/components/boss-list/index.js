@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 
-import MenuItem from '../menu/MenuItem';
-import LoadingSmall from '../loading-small';
-import useBossesData from '../../features/bosses';
+import MenuItem from '../menu/MenuItem.jsx';
+import LoadingSmall from '../loading-small/index.js';
+import useBossesData from '../../features/bosses/index.js';
 
 import './index.css';
 

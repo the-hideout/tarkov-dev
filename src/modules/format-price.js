@@ -1,4 +1,4 @@
-module.exports = (price, currency = 'RUB') => {
+export default function formatPrice(price, currency = 'RUB') {
     if (typeof price === 'undefined' || isNaN(price)) 
         price = 0;
     

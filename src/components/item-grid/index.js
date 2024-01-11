@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";
 
-import ItemImage from '../item-image';
-import ItemTooltip from './ItemTooltip';
-import ItemIcon from './ItemIcon';
-import formatPrice from '../../modules/format-price';
+import ItemImage from '../item-image/index.js';
+import ItemTooltip from './ItemTooltip.jsx';
+import ItemIcon from './ItemIcon.jsx';
+import formatPrice from '../../modules/format-price.js';
 
 import './index.css';
 

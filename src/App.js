@@ -7,77 +7,77 @@ import CookieConsent from "react-cookie-consent";
 import { ErrorBoundary } from "react-error-boundary";
 
 import './App.css';
-import i18n from './i18n';
-import loadPolyfills from './modules/polyfills';
+import i18n from './i18n.js';
+import loadPolyfills from './modules/polyfills.js';
 
-import RemoteControlId from './components/remote-control-id';
-import { fetchTarkovTrackerProgress, setPlayerPosition } from './features/settings/settingsSlice';
+import RemoteControlId from './components/remote-control-id/index.jsx';
+import { fetchTarkovTrackerProgress, setPlayerPosition } from './features/settings/settingsSlice.js';
 
 import {
     setConnectionStatus,
     enableConnection,
-} from './features/sockets/socketsSlice';
-import useStateWithLocalStorage from './hooks/useStateWithLocalStorage';
-import makeID from './modules/make-id';
+} from './features/sockets/socketsSlice.js';
+import useStateWithLocalStorage from './hooks/useStateWithLocalStorage.jsx';
+import makeID from './modules/make-id.js';
 
-import Loading from './components/loading';
+import Loading from './components/loading/index.js';
 
 import supportedLanguages from './data/supported-languages.json';
 
-import Menu from './components/menu';
-import Footer from './components/footer';
+import Menu from './components/menu/index.js';
+import Footer from './components/footer/index.js';
 
 const Map = React.lazy(() => import('./components/Map.jsx'));
-const ErrorPage = React.lazy(() => import('./components/error-page'));
-const Debug = React.lazy(() => import('./components/Debug'));
+const ErrorPage = React.lazy(() => import('./components/error-page/index.js'));
+const Debug = React.lazy(() => import('./components/Debug.jsx'));
 
-const Ammo = React.lazy(() => import('./pages/ammo'));
-const Control = React.lazy(() => import('./pages/control'));
-const LootTiers = React.lazy(() => import('./pages/loot-tiers'));
-const Barters = React.lazy(() => import('./pages/barters'));
-const Maps = React.lazy(() => import('./pages/maps/'));
-const Crafts = React.lazy(() => import('./pages/crafts'));
-const Item = React.lazy(() => import('./pages/item'));
-const Start = React.lazy(() => import('./pages/start'));
-const Settings = React.lazy(() => import('./pages/settings'));
-const Nightbot = React.lazy(() => import('./pages/nightbot'));
-const StreamElements = React.lazy(() => import('./pages/stream-elements'));
-const ApiUsers = React.lazy(() => import('./pages/api-users'));
-const Moobot = React.lazy(() => import('./pages/moobot'));
+const Ammo = React.lazy(() => import('./pages/ammo/index.js'));
+const Control = React.lazy(() => import('./pages/control/index.js'));
+const LootTiers = React.lazy(() => import('./pages/loot-tiers/index.js'));
+const Barters = React.lazy(() => import('./pages/barters/index.js'));
+const Maps = React.lazy(() => import('./pages/maps//index.js'));
+const Crafts = React.lazy(() => import('./pages/crafts/index.js'));
+const Item = React.lazy(() => import('./pages/item/index.js'));
+const Start = React.lazy(() => import('./pages/start/index.js'));
+const Settings = React.lazy(() => import('./pages/settings/index.js'));
+const Nightbot = React.lazy(() => import('./pages/nightbot/index.js'));
+const StreamElements = React.lazy(() => import('./pages/stream-elements/index.js'));
+const ApiUsers = React.lazy(() => import('./pages/api-users/index.js'));
+const Moobot = React.lazy(() => import('./pages/moobot/index.js'));
 
-const Items = React.lazy(() => import('./pages/items/'));
-const Armors = React.lazy(() => import('./pages/items/armors'));
-const Backpacks = React.lazy(() => import('./pages/items/backpacks'));
-const BarterItems = React.lazy(() => import('./pages/items/barter-items'));
-const Containers = React.lazy(() => import('./pages/items/containers'));
-const Glasses = React.lazy(() => import('./pages/items/glasses'));
-const Grenades = React.lazy(() => import('./pages/items/grenades'));
-const Guns = React.lazy(() => import('./pages/items/guns'));
-const Headsets = React.lazy(() => import('./pages/items/headsets'));
-const Helmets = React.lazy(() => import('./pages/items/helmets'));
-const Keys = React.lazy(() => import('./pages/items/keys'));
-const Mods = React.lazy(() => import('./pages/items/mods'));
-const PistolGrips = React.lazy(() => import('./pages/items/pistol-grips'));
-const Provisions = React.lazy(() => import('./pages/items/provisions'));
-const Rigs = React.lazy(() => import('./pages/items/rigs'));
-const Suppressors = React.lazy(() => import('./pages/items/suppressors'));
-const BsgCategory = React.lazy(() => import('./pages/items/bsg-category'));
-const BitcoinFarmCalculator = React.lazy(() => import('./pages/bitcoin-farm-calculator'));
-const Quests = React.lazy(() => import('./pages/quests'));
-const Quest = React.lazy(() => import('./pages/quest'));
+const Items = React.lazy(() => import('./pages/items/index.js'));
+const Armors = React.lazy(() => import('./pages/items/armors/index.js'));
+const Backpacks = React.lazy(() => import('./pages/items/backpacks/index.js'));
+const BarterItems = React.lazy(() => import('./pages/items/barter-items/index.js'));
+const Containers = React.lazy(() => import('./pages/items/containers/index.js'));
+const Glasses = React.lazy(() => import('./pages/items/glasses/index.js'));
+const Grenades = React.lazy(() => import('./pages/items/grenades/index.js'));
+const Guns = React.lazy(() => import('./pages/items/guns/index.js'));
+const Headsets = React.lazy(() => import('./pages/items/headsets/index.js'));
+const Helmets = React.lazy(() => import('./pages/items/helmets/index.js'));
+const Keys = React.lazy(() => import('./pages/items/keys/index.js'));
+const Mods = React.lazy(() => import('./pages/items/mods/index.js'));
+const PistolGrips = React.lazy(() => import('./pages/items/pistol-grips/index.js'));
+const Provisions = React.lazy(() => import('./pages/items/provisions/index.js'));
+const Rigs = React.lazy(() => import('./pages/items/rigs/index.js'));
+const Suppressors = React.lazy(() => import('./pages/items/suppressors/index.js'));
+const BsgCategory = React.lazy(() => import('./pages/items/bsg-category/index.js'));
+const BitcoinFarmCalculator = React.lazy(() => import('./pages/bitcoin-farm-calculator/index.js'));
+const Quests = React.lazy(() => import('./pages/quests/index.js'));
+const Quest = React.lazy(() => import('./pages/quest/index.js'));
 
-const Bosses = React.lazy(() => import('./pages/bosses'));
-const Boss = React.lazy(() => import('./pages/boss'));
+const Bosses = React.lazy(() => import('./pages/bosses/index.js'));
+const Boss = React.lazy(() => import('./pages/boss/index.js'));
 
-const Traders = React.lazy(() => import('./pages/traders'));
-const Trader = React.lazy(() => import('./pages/trader'));
+const Traders = React.lazy(() => import('./pages/traders/index.js'));
+const Trader = React.lazy(() => import('./pages/trader/index.js'));
 
-const ItemTracker = React.lazy(() => import('./pages/item-tracker/'));
-const Hideout = React.lazy(() => import('./pages/hideout'));
-const WipeLength = React.lazy(() => import('./pages/wipe-length'));
-const About = React.lazy(() => import('./pages/about/'));
+const ItemTracker = React.lazy(() => import('./pages/item-tracker/index.js'));
+const Hideout = React.lazy(() => import('./pages/hideout/index.js'));
+const WipeLength = React.lazy(() => import('./pages/wipe-length/index.js'));
+const About = React.lazy(() => import('./pages/about/index.js'));
 
-const APIDocs = React.lazy(() => import('./pages/api-docs'));
+const APIDocs = React.lazy(() => import('./pages/api-docs/index.js'));
 
 const socketServer = `wss://socket.tarkov.dev`;
 

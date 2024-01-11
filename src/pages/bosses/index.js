@@ -4,9 +4,9 @@ import { Trans, useTranslation } from 'react-i18next';
 
 import { mdiEmoticonDevil } from '@mdi/js';
 
-import SEO from '../../components/SEO';
-import Loading from '../../components/loading';
-import { BossPageList } from '../../components/boss-list';
+import SEO from '../../components/SEO.jsx';
+import Loading from '../../components/loading/index.js';
+import { BossPageList } from '../../components/boss-list/index.js';
 
 import './index.css';
 

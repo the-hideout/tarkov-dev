@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import doFetchMeta from './do-fetch-meta';
-import { langCode } from '../../modules/lang-helpers';
-import { placeholderMeta } from '../../modules/placeholder-data';
+import doFetchMeta from './do-fetch-meta.js';
+import { langCode } from '../../modules/lang-helpers.js';
+import { placeholderMeta } from '../../modules/placeholder-data.js';
 
 const initialState = {
     data: placeholderMeta(langCode()),

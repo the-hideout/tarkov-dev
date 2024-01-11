@@ -2,11 +2,11 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 
-import SEO from '../../components/SEO';
-import DataTable from '../../components/data-table';
-import CenterCell from '../../components/center-cell';
+import SEO from '../../components/SEO.jsx';
+import DataTable from '../../components/data-table/index.js';
+import CenterCell from '../../components/center-cell/index.js';
 
-import { averageWipeLength, wipeDetails } from '../../modules/wipe-length';
+import { averageWipeLength, wipeDetails } from '../../modules/wipe-length.js';
 
 import './index.css';
 

@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import doFetchHideout from './do-fetch-hideout';
+import doFetchHideout from './do-fetch-hideout.js';
 
-import { langCode } from '../../modules/lang-helpers';
-import { placeholderHideout } from '../../modules/placeholder-data';
+import { langCode } from '../../modules/lang-helpers.js';
+import { placeholderHideout } from '../../modules/placeholder-data.js';
 
 const initialState = {
     data: placeholderHideout(langCode()),

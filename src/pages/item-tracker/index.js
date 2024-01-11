@@ -2,15 +2,15 @@ import { useMemo, useCallback } from 'react';
 import Switch from 'react-switch';
 import { useTranslation } from 'react-i18next';
 
-import SEO from '../../components/SEO';
-import ItemGrid from '../../components/item-grid';
+import SEO from '../../components/SEO.jsx';
+import ItemGrid from '../../components/item-grid/index.js';
 
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
 //import quests from '../../data/quests.json';
-import useItemsData from '../../features/items';
-import useTradersData from '../../features/traders';
-import useQuestsData from '../../features/quests';
+import useItemsData from '../../features/items/index.js';
+import useTradersData from '../../features/traders/index.js';
+import useQuestsData from '../../features/quests/index.js';
 
 import './index.css';
 

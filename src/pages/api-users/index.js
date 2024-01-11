@@ -1,6 +1,6 @@
 import { Trans, useTranslation } from 'react-i18next';
 
-import SEO from '../../components/SEO';
+import SEO from '../../components/SEO.jsx';
 
 import apiUsers from '../../data/api-users.json';
 

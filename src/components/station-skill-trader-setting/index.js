@@ -12,9 +12,9 @@ import {
     selectAllSkills,
     selectAllTraders,
     setStationOrTraderLevel,
-} from '../../features/settings/settingsSlice';
-import capitalizeFirst from '../../modules/capitalize-first';
-import camelcaseToDashes from '../../modules/camelcase-to-dashes';
+} from '../../features/settings/settingsSlice.js';
+import capitalizeFirst from '../../modules/capitalize-first.js';
+import camelcaseToDashes from '../../modules/camelcase-to-dashes.js';
 
 const getNumericSelect = (min, max) => {
     let returnOptions = [];

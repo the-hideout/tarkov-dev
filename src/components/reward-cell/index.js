@@ -6,11 +6,11 @@ import Tippy from '@tippyjs/react';
 import Icon from '@mdi/react';
 import { mdiCloseBox, mdiCheckboxMarked, mdiClipboardList } from '@mdi/js';
 
-import ItemImage from '../item-image';
+import ItemImage from '../item-image/index.js';
 
-import formatPrice from '../../modules/format-price';
+import formatPrice from '../../modules/format-price.js';
 
-import { setCustomSellValue } from '../../features/items';
+import { setCustomSellValue } from '../../features/items/index.js';
 
 import './index.css';
 

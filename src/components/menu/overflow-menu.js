@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { Link } from 'react-router-dom';
-import Menu from '@mui/material/Menu';
+import Menu from '@mui/material/Menu/index.js';
 import Icon from '@mdi/react';
 import { mdiDotsVertical } from '@mdi/js';
 import { useTranslation } from 'react-i18next';

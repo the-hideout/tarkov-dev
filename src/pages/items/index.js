@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
 import { mdiViewGrid } from '@mdi/js';
 
-import SEO from '../../components/SEO';
-import ItemSearch from '../../components/item-search';
-import ItemIconList from '../../components/item-icon-list';
+import SEO from '../../components/SEO.jsx';
+import ItemSearch from '../../components/item-search/index.js';
+import ItemIconList from '../../components/item-icon-list/index.js';
 
 import categoryPages from '../../data/category-pages.json';
 

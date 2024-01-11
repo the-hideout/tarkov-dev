@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import doFetchBarters from './do-fetch-barters';
-import { langCode } from '../../modules/lang-helpers';
-import useItemsData from '../items';
-import useQuestsData from '../quests';
+import doFetchBarters from './do-fetch-barters.js';
+import { langCode } from '../../modules/lang-helpers.js';
+import useItemsData from '../items/index.js';
+import useQuestsData from '../quests/index.js';
 
-import { placeholderBarters } from '../../modules/placeholder-data';
+import { placeholderBarters } from '../../modules/placeholder-data.js';
 
 const initialState = {
     data: placeholderBarters(langCode()),

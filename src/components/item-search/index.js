@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { useHotkeys } from 'react-hotkeys-hook';
 import debounce from 'lodash.debounce';
 
-import useKeyPress from '../../hooks/useKeyPress';
-import itemSearch from '../../modules/item-search';
-import { SelectFilter } from '../filter';
+import useKeyPress from '../../hooks/useKeyPress.jsx';
+import itemSearch from '../../modules/item-search.js';
+import { SelectFilter } from '../filter/index.js';
 
 import './index.css';
-import useItemsData from '../../features/items';
-import useQuestsData from '../../features/quests';
+import useItemsData from '../../features/items/index.js';
+import useQuestsData from '../../features/quests/index.js';
 
 function ItemSearch({
     defaultValue,

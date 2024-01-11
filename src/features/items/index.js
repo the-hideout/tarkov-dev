@@ -3,9 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import doFetchItems from './do-fetch-items';
-import { placeholderItems } from '../../modules/placeholder-data';
-import { langCode } from '../../modules/lang-helpers';
+import doFetchItems from './do-fetch-items.js';
+import { placeholderItems } from '../../modules/placeholder-data.js';
+import { langCode } from '../../modules/lang-helpers.js';
 
 const initialState = {
     data: placeholderItems(langCode()),

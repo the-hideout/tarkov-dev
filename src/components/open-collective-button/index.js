@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import Button from '@mui/material/Button';
+import Button from '@mui/material/Button/index.js';
 import './index.css';
 
 function OpenCollectiveButton({ large=false, linkStyle }) {

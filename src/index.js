@@ -2,13 +2,13 @@ import { createRoot } from 'react-dom/client';
 // import * as serviceWorker from './serviceWorker';
 // import * as Sentry from '@sentry/react';
 // import { BrowserTracing } from '@sentry/tracing';
-import App from './App';
-import store from './store';
+import App from './App.js';
+import store from './store.js';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import ScrollToTop from './components/scroll-to-top';
+import ScrollToTop from './components/scroll-to-top/index.js';
 
 const queryClient = new QueryClient();
 

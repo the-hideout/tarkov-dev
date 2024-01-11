@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import doFetchBosses from './do-fetch-bosses';
-import { langCode } from '../../modules/lang-helpers';
-import { placeholderBosses } from '../../modules/placeholder-data';
+import doFetchBosses from './do-fetch-bosses.js';
+import { langCode } from '../../modules/lang-helpers.js';
+import { placeholderBosses } from '../../modules/placeholder-data.js';
 import rawBossData from '../../data/boss.json';
-import useMapsData from '../maps';
+import useMapsData from '../maps/index.js';
 
 const initialState = {
     data: placeholderBosses(langCode()),

@@ -16,10 +16,10 @@ import {
     mdiEarthBox,
 } from '@mdi/js';
 
-import doFetchMaps from './do-fetch-maps';
-import { langCode } from '../../modules/lang-helpers';
-import { placeholderMaps } from '../../modules/placeholder-data';
-import i18n from '../../i18n';
+import doFetchMaps from './do-fetch-maps.js';
+import { langCode } from '../../modules/lang-helpers.js';
+import { placeholderMaps } from '../../modules/placeholder-data.js';
+import i18n from '../../i18n.js';
 
 import rawMapData from '../../data/maps.json';
 

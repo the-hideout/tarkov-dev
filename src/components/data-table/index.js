@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { useTable, useSortBy, useExpanded, usePagination } from 'react-table';
+import { useTable, useSortBy, useExpanded, usePagination } from 'react-table/index.js';
 import { useInView } from 'react-intersection-observer';
 // import {ReactComponent as ArrowIcon} from './Arrow.js';
 import ArrowIcon from './Arrow.js';
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
-import formatPrice from '../../modules/format-price';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
+import formatPrice from '../../modules/format-price.js';
 
 import './index.css';
 

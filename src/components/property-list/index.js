@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import propertyFormatter from '../../modules/property-format';
+import propertyFormatter from '../../modules/property-format.js';
 import { useTranslation } from 'react-i18next';
 import Tippy from '@tippyjs/react';
 

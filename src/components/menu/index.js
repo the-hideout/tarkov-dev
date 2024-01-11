@@ -1,5 +1,5 @@
 //import { Suspense } from 'react';
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
@@ -9,23 +9,23 @@ import {
     mdiClose,
 } from '@mdi/js';
 
-import Box from '@mui/material/Box';
-import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import Collapse from '@mui/material/Collapse';
+import Box from '@mui/material/Box/index.js';
+import Alert from '@mui/material/Alert/index.js';
+import IconButton from '@mui/material/IconButton/index.js';
+import Collapse from '@mui/material/Collapse/index.js';
 
-import MenuItem from './MenuItem';
+import MenuItem from './MenuItem.jsx';
 // import SubMenu from './SubMenu';
 
-import { caliberArrayWithSplit } from '../../modules/format-ammo';
+import { caliberArrayWithSplit } from '../../modules/format-ammo.js';
 import categoryPages from '../../data/category-pages.json';
-import useBossesData from '../../features/bosses';
+import useBossesData from '../../features/bosses/index.js';
 
-import { mapIcons, useMapImagesSortedArray } from '../../features/maps';
+import { mapIcons, useMapImagesSortedArray } from '../../features/maps/index.js';
 
-import alertConfig from './alert-config';
+import alertConfig from './alert-config.js';
 
-import IntersectionObserverWrapper from './intersection-observer-wrapper';
+import IntersectionObserverWrapper from './intersection-observer-wrapper.js';
 
 import './index.css';
 

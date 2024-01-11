@@ -5,19 +5,19 @@ import { Trans, useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
 import { mdiProgressWrench, mdiCancel, mdiCached } from '@mdi/js';
 
-import useCraftsData from '../../features/crafts';
+import useCraftsData from '../../features/crafts/index.js';
 
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
-import SEO from '../../components/SEO';
-import CraftsTable from '../../components/crafts-table';
+import SEO from '../../components/SEO.jsx';
+import CraftsTable from '../../components/crafts-table/index.js';
 import {
     Filter,
     InputFilter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
     ToggleFilter,
-} from '../../components/filter';
+} from '../../components/filter/index.js';
 
 import './index.css';
 

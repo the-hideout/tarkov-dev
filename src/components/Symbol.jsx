@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import shapes from './points';
+import * as shapes from './points/index.js';
 
 const SIZE = 2;
 

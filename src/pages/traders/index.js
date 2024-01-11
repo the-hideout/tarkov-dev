@@ -5,14 +5,14 @@ import { Trans, useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
 import { mdiAccountGroup } from '@mdi/js';
 
-import SEO from '../../components/SEO';
-import TraderResetTime from '../../components/trader-reset-time';
-import LoadingSmall from '../../components/loading-small';
+import SEO from '../../components/SEO.jsx';
+import TraderResetTime from '../../components/trader-reset-time/index.js';
+import LoadingSmall from '../../components/loading-small/index.js';
 
-import useTradersData from '../../features/traders';
-import useItemsData from '../../features/items';
+import useTradersData from '../../features/traders/index.js';
+import useItemsData from '../../features/items/index.js';
 
-import i18n from '../../i18n';
+import i18n from '../../i18n.js';
 
 import './index.css';
 

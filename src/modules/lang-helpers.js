@@ -1,5 +1,5 @@
 // Helper function to convert an i18n language to a two digit language code
-import i18n from '../i18n';
+import i18n from '../i18n.js';
 import languages from '../data/supported-languages.json';
 
 export function langCode() {

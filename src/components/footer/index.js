@@ -6,11 +6,11 @@ import { ReactComponent as DiscordIcon } from '../supporter/Discord.svg';
 import { ReactComponent as TwitterIcon } from '../supporter/Twitter.svg';
 
 import './index.css';
-import UkraineButton from '../ukraine-button';
-import OpenCollectiveButton from '../open-collective-button';
+import UkraineButton from '../ukraine-button/index.js';
+import OpenCollectiveButton from '../open-collective-button/index.js';
 
 import rawVersion from '../../data/version.json';
-import Contributors from '../contributors';
+import Contributors from '../contributors/index.js';
 
 const version = rawVersion.version.slice(0, 7);
 

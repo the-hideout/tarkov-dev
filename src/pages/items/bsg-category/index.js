@@ -2,14 +2,14 @@ import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import SEO from '../../../components/SEO';
-import ErrorPage from '../../../components/error-page';
-import { Filter, InputFilter, ToggleFilter } from '../../../components/filter';
-import SmallItemTable from '../../../components/small-item-table';
+import SEO from '../../../components/SEO.jsx';
+import ErrorPage from '../../../components/error-page/index.js';
+import { Filter, InputFilter, ToggleFilter } from '../../../components/filter/index.js';
+import SmallItemTable from '../../../components/small-item-table/index.js';
 
-import QueueBrowserTask from '../../../modules/queue-browser-task';
+import QueueBrowserTask from '../../../modules/queue-browser-task.js';
 
-import useMetaData from '../../../features/meta';
+import useMetaData from '../../../features/meta/index.js';
 
 function BsgCategory() {
     const defaultQuery = new URLSearchParams(window.location.search).get(

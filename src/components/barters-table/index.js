@@ -4,16 +4,16 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css'; // optional
 
-import DataTable from '../../components/data-table';
-import useBartersData from '../../features/barters';
-import useCraftsData from '../../features/crafts';
-import { selectAllTraders } from '../../features/settings/settingsSlice';
-import ValueCell from '../value-cell';
-import CostItemsCell from '../cost-items-cell';
-import { formatCostItems, getCheapestCashPrice, getCheapestBarter } from '../../modules/format-cost-items';
-import RewardCell from '../reward-cell';
-import { isAnyDogtag, isBothDogtags } from '../../modules/dogtags';
-import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
+import DataTable from '../../components/data-table/index.js';
+import useBartersData from '../../features/barters/index.js';
+import useCraftsData from '../../features/crafts/index.js';
+import { selectAllTraders } from '../../features/settings/settingsSlice.js';
+import ValueCell from '../value-cell/index.js';
+import CostItemsCell from '../cost-items-cell/index.js';
+import { formatCostItems, getCheapestCashPrice, getCheapestBarter } from '../../modules/format-cost-items.js';
+import RewardCell from '../reward-cell/index.js';
+import { isAnyDogtag, isBothDogtags } from '../../modules/dogtags.js';
+import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon.jsx';
 
 import './index.css';
 

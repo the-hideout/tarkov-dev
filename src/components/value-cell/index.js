@@ -1,7 +1,7 @@
 import Tippy from '@tippyjs/react';
 import { useTranslation } from 'react-i18next';
 
-import formatPrice from '../../modules/format-price';
+import formatPrice from '../../modules/format-price.js';
 
 import './index.css';
 

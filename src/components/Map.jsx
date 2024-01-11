@@ -10,28 +10,28 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-import { setPlayerPosition } from '../features/settings/settingsSlice';
+import { setPlayerPosition } from '../features/settings/settingsSlice.js';
 
 import 'leaflet.awesome-markers/dist/leaflet.awesome-markers';
 import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css'
 import 'leaflet-fullscreen/dist/Leaflet.fullscreen';
 import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 
-import '../modules/leaflet-control-coordinates';
-import '../modules/leaflet-control-groupedlayer';
+import '../modules/leaflet-control-coordinates.js';
+import '../modules/leaflet-control-groupedlayer.js';
 
-import { useMapImages } from '../features/maps';
-import useItemsData from '../features/items';
-import useQuestsData from '../features/quests';
+import { useMapImages } from '../features/maps/index.js';
+import useItemsData from '../features/items/index.js';
+import useQuestsData from '../features/quests/index.js';
 
 import staticMapData from '../data/maps_static.json'
 
-import Time from './Time';
-import SEO from './SEO';
+import Time from './Time.jsx';
+import SEO from './SEO.jsx';
 
-import ErrorPage from './error-page';
+import ErrorPage from './error-page/index.js';
 
-import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage.jsx';
 
 import './Maps.css';
 

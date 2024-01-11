@@ -8,17 +8,17 @@ import { mdiClipboardCheck, mdiClipboardList, mdiBriefcase, mdiLighthouse } from
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
-import SEO from '../../components/SEO';
-import ErrorPage from '../../components/error-page';
-import ItemSearch from '../../components/item-search';
-import LoadingSmall from '../../components/loading-small';
-import ItemImage from '../../components/item-image';
-import TraderImage from '../../components/trader-image'
+import SEO from '../../components/SEO.jsx';
+import ErrorPage from '../../components/error-page/index.js';
+import ItemSearch from '../../components/item-search/index.js';
+import LoadingSmall from '../../components/loading-small/index.js';
+import ItemImage from '../../components/item-image/index.js';
+import TraderImage from '../../components/trader-image/index.js';
 
-import useQuestsData from '../../features/quests';
-import useTradersData from '../../features/traders';
-import useItemsData from '../../features/items';
-import useMapsData from '../../features/maps';
+import useQuestsData from '../../features/quests/index.js';
+import useTradersData from '../../features/traders/index.js';
+import useItemsData from '../../features/items/index.js';
+import useMapsData from '../../features/maps/index.js';
 
 import './index.css';
 

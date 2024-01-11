@@ -7,10 +7,10 @@ import { useTranslation } from 'react-i18next';
 import Icon from '@mdi/react';
 import { mdiTimerSand, mdiCloseBox, mdiCheckboxMarked, mdiProgressWrench } from '@mdi/js';
 
-import BarterTooltip from '../barter-tooltip';
-import formatPrice from '../../modules/format-price';
+import BarterTooltip from '../barter-tooltip/index.js';
+import formatPrice from '../../modules/format-price.js';
 
-import { setCustomSellValue } from '../../features/items';
+import { setCustomSellValue } from '../../features/items/index.js';
 
 import './index.css';
 

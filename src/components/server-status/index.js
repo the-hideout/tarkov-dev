@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
-// import ApiMetricsGraph from '../../components/api-metrics-graph';
+// import ApiMetricsGraph from '../../components/api-metrics-graph/index.js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
-import { useQuery } from '../../modules/graphql-request';
+import { useQuery } from '../../modules/graphql-request.js';
 
 import './index.css';
 
