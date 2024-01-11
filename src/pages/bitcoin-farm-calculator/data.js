@@ -68,7 +68,7 @@ export const getMinBuyFor = (item) => {
         }
     }
 
-    return min;
+    return {...min};
 };
 
 const getBestFuelItem = (items) => {
