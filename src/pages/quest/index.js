@@ -3,7 +3,7 @@ import { useParams, Navigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiClipboardCheck, mdiClipboardList, mdiBriefcase, mdiLighthouse } from '@mdi/js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';

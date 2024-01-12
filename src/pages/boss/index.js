@@ -3,7 +3,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { useParams, Link } from 'react-router-dom';
 import ImageViewer from 'react-simple-image-viewer';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiEmoticonDevil, mdiPoll, mdiDiamondStone, mdiMapLegend, mdiAccountGroup, mdiPartyPopper } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';

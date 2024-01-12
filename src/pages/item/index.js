@@ -5,7 +5,7 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiClipboardList, mdiTimerSand, mdiCached, mdiProgressWrench } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';

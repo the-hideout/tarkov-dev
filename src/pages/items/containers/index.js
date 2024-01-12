@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import {mdiArchive} from '@mdi/js';
 
 import SEO from '../../../components/SEO.jsx';

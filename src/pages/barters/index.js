@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { Trans, useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiCached, mdiProgressWrench } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';

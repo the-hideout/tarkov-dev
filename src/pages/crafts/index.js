@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiProgressWrench, mdiCancel, mdiCached } from '@mdi/js';
 
 import useCraftsData from '../../features/crafts/index.js';

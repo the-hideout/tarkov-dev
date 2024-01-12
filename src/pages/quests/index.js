@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiClipboardList } from '@mdi/js';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';

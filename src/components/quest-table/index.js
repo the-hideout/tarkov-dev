@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiClipboardCheck, mdiClipboardRemove, mdiBriefcase, mdiLighthouse } from '@mdi/js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';

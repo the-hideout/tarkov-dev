@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiTimerSand } from '@mdi/js';
 
 function FleaMarketLoadingIcon({

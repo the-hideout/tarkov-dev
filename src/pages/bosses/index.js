@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { Trans, useTranslation } from 'react-i18next';
 
 import { mdiEmoticonDevil } from '@mdi/js';

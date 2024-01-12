@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { 
     mdiCloseOctagon, 
     mdiHelpRhombus,

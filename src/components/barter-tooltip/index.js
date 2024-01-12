@@ -9,7 +9,7 @@ import { isAnyDogtag, getDogTagCost } from '../../modules/dogtags.js';
 import { getCheapestPrice } from '../../modules/format-cost-items.js';
 import { getDurationDisplay } from '../../modules/format-duration.js';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import {
     mdiCached,
     mdiProgressWrench
