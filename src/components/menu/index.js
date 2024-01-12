@@ -17,7 +17,7 @@ import Collapse from '@mui/material/Collapse/index.js';
 import MenuItem from './MenuItem.jsx';
 // import SubMenu from './SubMenu';
 
-import { caliberArrayWithSplit } from '../../modules/format-ammo.js';
+import { caliberArrayWithSplit } from '../../modules/format-ammo.mjs';
 import categoryPages from '../../data/category-pages.json';
 import useBossesData from '../../features/bosses/index.js';
 

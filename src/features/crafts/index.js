@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import doFetchCrafts from './do-fetch-crafts.js';
+import doFetchCrafts from './do-fetch-crafts.mjs';
 import { langCode } from '../../modules/lang-helpers.js';
 import useItemsData from '../items/index.js';
 import useQuestsData from '../quests/index.js';

@@ -16,7 +16,7 @@ import {
     mdiEarthBox,
 } from '@mdi/js';
 
-import doFetchMaps from './do-fetch-maps.js';
+import doFetchMaps from './do-fetch-maps.mjs';
 import { langCode } from '../../modules/lang-helpers.js';
 import { placeholderMaps } from '../../modules/placeholder-data.js';
 import i18n from '../../i18n.js';

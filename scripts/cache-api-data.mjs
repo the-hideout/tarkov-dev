@@ -1,15 +1,15 @@
 import fs from 'fs';
 
-import doFetchItems from '../src/features/items/do-fetch-items.js';
-import doFetchBarters from '../src/features/barters/do-fetch-barters.js';
-import doFetchCrafts from '../src/features/crafts/do-fetch-crafts.js';
-import doFetchTraders from '../src/features/traders/do-fetch-traders.js';
-import doFetchMaps from '../src/features/maps/do-fetch-maps.js';
-import doFetchMeta from '../src/features/meta/do-fetch-meta.js';
-import doFetchHideout from '../src/features/hideout/do-fetch-hideout.js';
-import doFetchQuests from '../src/features/quests/do-fetch-quests.js';
-import doFetchBosses from '../src/features/bosses/do-fetch-bosses.js';
-import graphqlRequest from '../src/modules/graphql-request.js';
+import doFetchItems from '../src/features/items/do-fetch-items.mjs';
+import doFetchBarters from '../src/features/barters/do-fetch-barters.mjs';
+import doFetchCrafts from '../src/features/crafts/do-fetch-crafts.mjs';
+import doFetchTraders from '../src/features/traders/do-fetch-traders.mjs';
+import doFetchMaps from '../src/features/maps/do-fetch-maps.mjs';
+import doFetchMeta from '../src/features/meta/do-fetch-meta.mjs';
+import doFetchHideout from '../src/features/hideout/do-fetch-hideout.mjs';
+import doFetchQuests from '../src/features/quests/do-fetch-quests.mjs';
+import doFetchBosses from '../src/features/bosses/do-fetch-bosses.mjs';
+import graphqlRequest from '../src/modules/graphql-request.mjs';
 
 async function getLanguageCodes() {
     const query = `{

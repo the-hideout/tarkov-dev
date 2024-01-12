@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import doFetchBosses from './do-fetch-bosses.js';
+import doFetchBosses from './do-fetch-bosses.mjs';
 import { langCode } from '../../modules/lang-helpers.js';
 import { placeholderBosses } from '../../modules/placeholder-data.js';
 import rawBossData from '../../data/boss.json';

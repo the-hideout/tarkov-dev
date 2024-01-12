@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import DataTable from '../data-table/index.js';
-import fleaMarketFee from '../../modules/flea-market-fee.js';
+import fleaMarketFee from '../../modules/flea-market-fee.mjs';
 import useCraftsData from '../../features/crafts/index.js';
 import useBartersData from '../../features/barters/index.js';
 import ValueCell from '../value-cell/index.js';

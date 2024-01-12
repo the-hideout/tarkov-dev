@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import doFetchItems from './do-fetch-items.js';
+import doFetchItems from './do-fetch-items.mjs';
 import { placeholderItems } from '../../modules/placeholder-data.js';
 import { langCode } from '../../modules/lang-helpers.js';
 

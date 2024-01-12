@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import SEO from '../../components/SEO.jsx';
 
-import { caliberArrayWithSplit } from '../../modules/format-ammo.js';
+import { caliberArrayWithSplit } from '../../modules/format-ammo.mjs';
 
 import useItemsData from '../../features/items/index.js';
 import { useMapImagesSortedArray } from '../../features/maps/index.js';

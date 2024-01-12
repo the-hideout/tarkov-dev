@@ -1,7 +1,7 @@
 import fetch  from 'cross-fetch';
 
-import APIQuery from '../../modules/api-query.js';
-import fleaMarketFee from '../../modules/flea-market-fee.js';
+import APIQuery from '../../modules/api-query.mjs';
+import fleaMarketFee from '../../modules/flea-market-fee.mjs';
 
 class ItemsQuery extends APIQuery {
     constructor() {

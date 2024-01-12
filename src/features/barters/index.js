@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import doFetchBarters from './do-fetch-barters.js';
+import doFetchBarters from './do-fetch-barters.mjs';
 import { langCode } from '../../modules/lang-helpers.js';
 import useItemsData from '../items/index.js';
 import useQuestsData from '../quests/index.js';

@@ -1,4 +1,4 @@
-import calculateFee from './flea-market-fee.js';
+import calculateFee from './flea-market-fee.mjs';
 
 export default function bestPrice(itemData, Ti = false, Tr = false, startPrice) {
     if (!itemData.basePrice) {

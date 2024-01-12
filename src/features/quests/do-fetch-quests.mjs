@@ -1,4 +1,4 @@
-import APIQuery from '../../modules/api-query.js';
+import APIQuery from '../../modules/api-query.mjs';
 
 class QuestsQuery extends APIQuery {
     constructor() {

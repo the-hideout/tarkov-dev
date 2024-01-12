@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
-import { useQuery } from '../../modules/graphql-request.js';
+import { useQuery } from '../../modules/graphql-request.mjs';
 
 import './index.css';
 

@@ -26,7 +26,7 @@ import ArrowIcon from '../../components/data-table/Arrow.js';
 import formatPrice from '../../modules/format-price.js';
 import itemSearch from '../../modules/item-search.js';
 import { getCheapestBarter, getCheapestCraft } from '../../modules/format-cost-items.js';
-import { formatCaliber } from '../../modules/format-ammo.js';
+import { formatCaliber } from '../../modules/format-ammo.mjs';
 import itemCanContain from '../../modules/item-can-contain.js';
 
 import useBartersData from '../../features/barters/index.js';

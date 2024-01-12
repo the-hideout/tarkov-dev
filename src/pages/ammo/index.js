@@ -16,7 +16,7 @@ import SmallItemTable from '../../components/small-item-table/index.js';
 
 import useItemsData from '../../features/items/index.js';
 
-import { formatCaliber } from '../../modules/format-ammo.js';
+import { formatCaliber } from '../../modules/format-ammo.mjs';
 
 import symbols from '../../symbols.json';
 

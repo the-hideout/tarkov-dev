@@ -5,7 +5,7 @@ import fetch from "cross-fetch";
 import maps from "../src/data/maps.json" assert { type: "json" };
 import categoryPages from "../src/data/category-pages.json" assert { type: "json" };
 
-import { caliberArrayWithSplit } from "../src/modules/format-ammo.js";
+import { caliberArrayWithSplit } from "../src/modules/format-ammo.mjs";
 
 const standardPaths = [
     '',

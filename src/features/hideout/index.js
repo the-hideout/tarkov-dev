@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import doFetchHideout from './do-fetch-hideout.js';
+import doFetchHideout from './do-fetch-hideout.mjs';
 
 import { langCode } from '../../modules/lang-helpers.js';
 import { placeholderHideout } from '../../modules/placeholder-data.js';
