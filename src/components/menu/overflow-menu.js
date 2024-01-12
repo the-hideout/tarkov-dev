@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Menu from '@mui/material/Menu/index.js';
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiDotsVertical } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 import classnames from 'classnames';
@@ -32,14 +32,14 @@ export default function OverflowMenu({ children, className, visibilityMap }) {
     className += ` ${shouldShowMenu ? 'visible-overflow visible-menu-all' : 'invisible-overflow'}`;
     return (
         <li className={className}>
-            {/* <Link
+            <Link
                 alt={t('More')}
                 to="#"
-                //onClick={handleClick}
-                //onMouseEnter={handleClick}
+                onClick={handleClick}
+                onMouseEnter={handleClick}
             >
                 <Icon path={mdiDotsVertical} size={1} className="icon-with-text" />
-            </Link> */}
+            </Link>
             <Menu
                 id="long-menu"
                 className="overflow-menu"
