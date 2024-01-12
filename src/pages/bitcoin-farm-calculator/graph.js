@@ -8,7 +8,7 @@ import {
 import { getDurationDisplay } from '../../modules/format-duration.js';
 import { ProduceBitcoinData } from './data.js';
 
-const { useTranslation } = require('react-i18next');
+import { useTranslation } from 'react-i18next';
 
 const BtcGraph = () => {
     const { t } = useTranslation();
