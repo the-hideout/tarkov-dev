@@ -81,7 +81,6 @@
   },
   "jest": {
     "transformIgnorePatterns": [
-      "node_modules/(?!@github/|@primer/|tippy\\.js|rc-slider).*"
     ]
   },
   "eslintConfig": {
