@@ -1,4 +1,4 @@
-import critical from "critical";
+import * as critical from "critical";
 
 critical.generate({
     base: 'build/',
