@@ -9,10 +9,7 @@ import {
     mdiClose,
 } from '@mdi/js';
 
-import Box from '@mui/material/Box/index.js';
-import Alert from '@mui/material/Alert/index.js';
-import IconButton from '@mui/material/IconButton/index.js';
-import Collapse from '@mui/material/Collapse/index.js';
+import { Box, Alert, IconButton, Collapse } from '@mui/material';
 
 import MenuItem from './MenuItem.jsx';
 // import SubMenu from './SubMenu';

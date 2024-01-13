@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import Button from '@mui/material/Button/index.js';
+import { Button } from '@mui/material';
 import './index.css';
 
 function UkraineButton({ large=false, linkStyle }) {
