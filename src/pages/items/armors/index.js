@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import {mdiTshirtCrew} from '@mdi/js';
 
-import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage.jsx';
 
-import SEO from '../../../components/SEO';
+import SEO from '../../../components/SEO.jsx';
 import {
     Filter,
     ToggleFilter,
     InputFilter,
     RangeFilter,
-} from '../../../components/filter';
-import SmallItemTable from '../../../components/small-item-table';
+} from '../../../components/filter/index.js';
+import SmallItemTable from '../../../components/small-item-table/index.js';
 
 const marks = {
     1: 1,

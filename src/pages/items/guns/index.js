@@ -1,14 +1,14 @@
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import {mdiPistol} from '@mdi/js';
 
-import SEO from '../../../components/SEO';
-import { Filter, InputFilter, ToggleFilter } from '../../../components/filter';
-import SmallItemTable from '../../../components/small-item-table';
+import SEO from '../../../components/SEO.jsx';
+import { Filter, InputFilter, ToggleFilter } from '../../../components/filter/index.js';
+import SmallItemTable from '../../../components/small-item-table/index.js';
 
-import QueueBrowserTask from '../../../modules/queue-browser-task';
+import QueueBrowserTask from '../../../modules/queue-browser-task.js';
 
 function Guns() {
     const defaultQuery = new URLSearchParams(window.location.search).get(

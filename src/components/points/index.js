@@ -1,8 +1,6 @@
-module.exports = {
-    Square: require('./Square').default,
-    Circle: require('./Circle').default,
-    TriangleUp: require('./TriangleUp').default,
-    TriangleDown: require('./TriangleDown').default,
-    Diamond: require('./Diamond').default,
-    Plus: require('./Plus').default,
-};
+export { default as Square } from './Square.jsx';
+export { default as Circle } from './Circle.jsx';
+export { default as TriangleUp } from './TriangleUp.jsx';
+export { default as TriangleDown } from './TriangleDown.jsx';
+export { default as Diamond } from './Diamond.jsx';
+export { default as Plus } from './Plus.jsx';

@@ -1,4 +1,4 @@
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { 
     mdiCloseOctagon,
     mdiHelpRhombus,
@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
-import ValueCell from '../value-cell';
+import ValueCell from '../value-cell/index.js';
 
 const FleaPriceCell = function (props) {
     const { t } = useTranslation();

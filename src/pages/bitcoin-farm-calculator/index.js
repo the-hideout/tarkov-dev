@@ -2,18 +2,18 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import useItemsData from '../../features/items';
+import useItemsData from '../../features/items/index.js';
 
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
-import SEO from '../../components/SEO';
-import { Filter, InputFilter, ToggleFilter } from '../../components/filter';
-import Loading from '../../components/loading';
-import RewardCell from '../../components/reward-cell';
-import StationSkillTraderSetting from '../../components/station-skill-trader-setting';
+import SEO from '../../components/SEO.jsx';
+import { Filter, InputFilter, ToggleFilter } from '../../components/filter/index.js';
+import Loading from '../../components/loading/index.js';
+import RewardCell from '../../components/reward-cell/index.js';
+import StationSkillTraderSetting from '../../components/station-skill-trader-setting/index.js';
 
-import formatPrice from '../../modules/format-price';
-import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length';
+import formatPrice from '../../modules/format-price.js';
+import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length.js';
 
 import {
     BitcoinItemId,
@@ -23,9 +23,9 @@ import {
     MaxNumGraphicsCards,
     MinNumGraphicsCards,
     useFuelPricePerDay,
-} from './data';
+} from './data.js';
 // import BtcGraph from './graph';
-import ProfitInfo from './profit-info';
+import ProfitInfo from './profit-info.js';
 
 import './index.css';
 

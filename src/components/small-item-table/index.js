@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { 
     mdiCloseOctagon, 
     mdiHelpRhombus,
@@ -13,27 +13,27 @@ import {
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
-import ValueCell from '../value-cell';
-import TraderPriceCell from '../trader-price-cell';
-import CenterCell from '../center-cell';
-import ItemNameCell from '../item-name-cell';
-import FleaPriceCell from '../flea-price-cell';
-import BarterTooltip from '../barter-tooltip';
-import DataTable from '../data-table';
-import LoadingSmall from '../loading-small';
+import ValueCell from '../value-cell/index.js';
+import TraderPriceCell from '../trader-price-cell/index.js';
+import CenterCell from '../center-cell/index.js';
+import ItemNameCell from '../item-name-cell/index.js';
+import FleaPriceCell from '../flea-price-cell/index.js';
+import BarterTooltip from '../barter-tooltip/index.js';
+import DataTable from '../data-table/index.js';
+import LoadingSmall from '../loading-small/index.js';
 import ArrowIcon from '../../components/data-table/Arrow.js';
 
-import formatPrice from '../../modules/format-price';
-import itemSearch from '../../modules/item-search';
-import { getCheapestBarter, getCheapestCraft } from '../../modules/format-cost-items';
-import { formatCaliber } from '../../modules/format-ammo';
-import itemCanContain from '../../modules/item-can-contain';
+import formatPrice from '../../modules/format-price.js';
+import itemSearch from '../../modules/item-search.js';
+import { getCheapestBarter, getCheapestCraft } from '../../modules/format-cost-items.js';
+import { formatCaliber } from '../../modules/format-ammo.mjs';
+import itemCanContain from '../../modules/item-can-contain.js';
 
-import useBartersData from '../../features/barters';
-import useCraftsData from '../../features/crafts';
-import useItemsData from '../../features/items';
-import useMetaData from '../../features/meta';
-import CanvasGrid from '../../components/canvas-grid';
+import useBartersData from '../../features/barters/index.js';
+import useCraftsData from '../../features/crafts/index.js';
+import useItemsData from '../../features/items/index.js';
+import useMetaData from '../../features/meta/index.js';
+import CanvasGrid from '../../components/canvas-grid/index.js';
 
 import './index.css';
 

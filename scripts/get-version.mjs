@@ -1,7 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-
-const fetch = require('cross-fetch');
+import fs from "fs";
+import path from "path";
+import fetch from "cross-fetch";
 
 const COMMIT_URL = 'https://api.github.com/repos/the-hideout/tarkov-dev/commits/main';
 
@@ -11,7 +10,8 @@ const headers = {};
 if (token) {
     headers.authorization = `token ${token}`;
     console.log("Using provided GitHub token to increase rate limit");
-} else {
+}
+else {
     console.log("No GitHub token provided, rate limit may be reached");
     console.warn("To increase the rate limit, provide a GitHub token via the GITHUB_TOKEN environment variable");
 }
@@ -32,7 +32,8 @@ async function getVersion() {
         else {
             responseJson = await response.json();
         }
-    } catch (responseError) {
+    }
+    catch (responseError) {
         console.error(`Error: ${responseError.message}`);
     }
 
@@ -42,24 +43,25 @@ async function getVersion() {
 }
 
 (async () => {
-        const responseJson = await getVersion();
-        let versionDic = {};
+    const responseJson = await getVersion();
+    let versionDic = {};
 
-        if (!responseJson || !responseJson.sha) {
-            console.log('Error fetching version, using fallback version.json (offline mode?)');
-            
-            versionDic = { version: 'unknown' };
-        }
-        else {
-            versionDic = { version: responseJson.sha };
-        }
+    if (!responseJson || !responseJson.sha) {
+        console.log('Error fetching version, using fallback version.json (offline mode?)');
 
-        console.log(versionDic);
+        versionDic = { version: 'unknown' };
+    }
+    else {
+        versionDic = { version: responseJson.sha };
+    }
 
-        console.time('Write new data');
+    console.log(versionDic);
 
-        let stringifyed = JSON.stringify(versionDic, null, 4);
-        fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'version.json'), stringifyed);
+    console.time('Write new data');
 
-        console.timeEnd('Write new data');
-})()
+    let stringifyed = JSON.stringify(versionDic, null, 4);
+    const __dirname = new URL(".", import.meta.url).pathname;
+    fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'version.json'), stringifyed);
+
+    console.timeEnd('Write new data');
+})();

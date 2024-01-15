@@ -2,15 +2,15 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import useItemsData from '../../features/items'
-import { BitcoinItemId, GraphicCardItemId, ProduceBitcoinData } from './data';
-import DataTable from '../../components/data-table';
-import formatPrice from '../../modules/format-price';
-import CenterCell from '../../components/center-cell';
-import { getDurationDisplay } from '../../modules/format-duration';
-import useHideoutData from '../../features/hideout';
-import { selectAllStations } from '../../features/settings/settingsSlice';
-import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length';
+import useItemsData from '../../features/items/index.js'
+import { BitcoinItemId, GraphicCardItemId, ProduceBitcoinData } from './data.js';
+import DataTable from '../../components/data-table/index.js';
+import formatPrice from '../../modules/format-price.js';
+import CenterCell from '../../components/center-cell/index.js';
+import { getDurationDisplay } from '../../modules/format-duration.js';
+import useHideoutData from '../../features/hideout/index.js';
+import { selectAllStations } from '../../features/settings/settingsSlice.js';
+import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length.js';
 // import ProfitableGraph from './profitable-graph';
 
 const cardSlots = {

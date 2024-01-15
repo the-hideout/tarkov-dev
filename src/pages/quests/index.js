@@ -1,23 +1,23 @@
 import { useState, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiClipboardList } from '@mdi/js';
 
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
-import SEO from '../../components/SEO';
-import QuestTable from '../../components/quest-table';
+import SEO from '../../components/SEO.jsx';
+import QuestTable from '../../components/quest-table/index.js';
 import {
     Filter,
     InputFilter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
     ToggleFilter,
-} from '../../components/filter';
+} from '../../components/filter/index.js';
 
-import useTradersData from '../../features/traders';
-import useQuestsData from '../../features/quests';
+import useTradersData from '../../features/traders/index.js';
+import useQuestsData from '../../features/quests/index.js';
 
 import './index.css';
 

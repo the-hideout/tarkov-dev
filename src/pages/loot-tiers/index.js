@@ -3,24 +3,24 @@ import debounce from 'lodash.debounce';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import {mdiFinance} from '@mdi/js';
 
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
-import SEO from '../../components/SEO';
-import ItemGrid from '../../components/item-grid';
+import SEO from '../../components/SEO.jsx';
+import ItemGrid from '../../components/item-grid/index.js';
 import {
     Filter,
     ToggleFilter,
     SelectFilter,
     InputFilter,
-} from '../../components/filter';
+} from '../../components/filter/index.js';
 
-import QueueBrowserTask from '../../modules/queue-browser-task';
-import capitalizeFirst from '../../modules/capitalize-first';
+import QueueBrowserTask from '../../modules/queue-browser-task.js';
+import capitalizeFirst from '../../modules/capitalize-first.js';
 
-import useItemsData from '../../features/items';
+import useItemsData from '../../features/items/index.js';
 
 import './index.css';
 

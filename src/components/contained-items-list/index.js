@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import useMetaData from '../../features/meta';
-import useItemsData from '../../features/items';
+import useMetaData from '../../features/meta/index.js';
+import useItemsData from '../../features/items/index.js';
 
 import './index.css';
 

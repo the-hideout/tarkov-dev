@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import ItemCost from '../item-cost';
-import ItemImage from '../item-image';
+import ItemCost from '../item-cost/index.js';
+import ItemImage from '../item-image/index.js';
 
 import './index.css';
 
-import { toggleItem as toggleCraftItem } from '../../features/crafts';
-import { toggleItem as toggleBarterItem } from '../../features/barters';
+import { toggleItem as toggleCraftItem } from '../../features/crafts/index.js';
+import { toggleItem as toggleBarterItem } from '../../features/barters/index.js';
 
 function CostItemsCell({ costItems, craftId, barterId, allowAllSources = false, crafts, barters, useCraftIngredients, useBarterIngredients }) {
     const dispatch = useDispatch();

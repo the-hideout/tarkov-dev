@@ -5,46 +5,46 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 import { useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiClipboardList, mdiTimerSand, mdiCached, mdiProgressWrench } from '@mdi/js';
 
-import SEO from '../../components/SEO';
-import SmallItemTable from '../../components/small-item-table';
-import CraftsTable from '../../components/crafts-table';
-import BartersTable from '../../components/barters-table';
-import QuestTable, { getRequiredQuestItems, getRewardQuestItems } from '../../components/quest-table';
-import CanvasGrid from '../../components/canvas-grid';
-import ErrorPage from '../../components/error-page';
-import LoyaltyLevelIcon from '../../components/loyalty-level-icon';
-import PropertyList from '../../components/property-list';
-import ItemsForHideout from '../../components/items-for-hideout';
-import PriceGraph from '../../components/price-graph';
-import ItemSearch from '../../components/item-search';
-import { ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton } from '../../components/filter';
-import ContainedItemsList from '../../components/contained-items-list';
-import LoadingSmall from '../../components/loading-small';
-import ItemImage from '../../components/item-image';
-import { PresetSelector } from '../../components/preset-selector';
+import SEO from '../../components/SEO.jsx';
+import SmallItemTable from '../../components/small-item-table/index.js';
+import CraftsTable from '../../components/crafts-table/index.js';
+import BartersTable from '../../components/barters-table/index.js';
+import QuestTable, { getRequiredQuestItems, getRewardQuestItems } from '../../components/quest-table/index.js';
+import CanvasGrid from '../../components/canvas-grid/index.js';
+import ErrorPage from '../../components/error-page/index.js';
+import LoyaltyLevelIcon from '../../components/loyalty-level-icon/index.js';
+import PropertyList from '../../components/property-list/index.js';
+import ItemsForHideout from '../../components/items-for-hideout/index.js';
+import PriceGraph from '../../components/price-graph/index.js';
+import ItemSearch from '../../components/item-search/index.js';
+import { ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton } from '../../components/filter/index.js';
+import ContainedItemsList from '../../components/contained-items-list/index.js';
+import LoadingSmall from '../../components/loading-small/index.js';
+import ItemImage from '../../components/item-image/index.js';
+import { PresetSelector } from '../../components/preset-selector/index.js';
 
 import warningIcon from '../../images/icon-warning.png';
 
-import useMetaData from '../../features/meta';
-import useBartersData from '../../features/barters';
-import useHideoutData from '../../features/hideout';
-import useCraftsData from '../../features/crafts';
-import useQuestsData from '../../features/quests';
-import useItemsData from '../../features/items';
-import useMapsData from '../../features/maps';
-import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
+import useMetaData from '../../features/meta/index.js';
+import useBartersData from '../../features/barters/index.js';
+import useHideoutData from '../../features/hideout/index.js';
+import useCraftsData from '../../features/crafts/index.js';
+import useQuestsData from '../../features/quests/index.js';
+import useItemsData from '../../features/items/index.js';
+import useMapsData from '../../features/maps/index.js';
+import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice.js';
 
-import formatPrice from '../../modules/format-price';
-import bestPrice from '../../modules/best-price';
-import { isAnyDogtag } from '../../modules/dogtags';
-import { getRelativeTimeAndUnit } from '../../modules/format-duration';
+import formatPrice from '../../modules/format-price.js';
+import bestPrice from '../../modules/best-price.js';
+import { isAnyDogtag } from '../../modules/dogtags.js';
+import { getRelativeTimeAndUnit } from '../../modules/format-duration.js';
 
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
-import i18n from '../../i18n';
+import i18n from '../../i18n.js';
 
 import './index.css';
 

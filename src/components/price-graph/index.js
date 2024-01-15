@@ -10,9 +10,9 @@ import {
 import { useTranslation } from 'react-i18next';
 import Slider from 'rc-slider';
 
-import formatPrice from '../../modules/format-price';
-import { useQuery } from '../../modules/graphql-request';
-// import { getRelativeTimeAndUnit } from '../../modules/format-duration';
+import formatPrice from '../../modules/format-price.js';
+import { useQuery } from '../../modules/graphql-request.mjs';
+// import { getRelativeTimeAndUnit } from '../../modules/format-duration.js';
 
 import './index.css';
 

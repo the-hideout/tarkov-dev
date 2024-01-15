@@ -1,15 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { itemsReducer } from './features/items';
-import { craftsReducer } from './features/crafts';
-import { bartersReducer } from './features/barters';
-import { hideoutReducer } from './features/hideout';
-import { metaReducer } from './features/meta';
-import { questsReducer } from './features/quests';
-import { tradersReducer } from './features/traders';
-import { bossesReducer } from './features/bosses';
-import { mapsReducer } from './features/maps';
-import socketsReducer from './features/sockets/socketsSlice';
-import settingsReducer from './features/settings/settingsSlice';
+
+import { itemsReducer } from './features/items/index.js';
+import { craftsReducer } from './features/crafts/index.js';
+import { bartersReducer } from './features/barters/index.js';
+import { hideoutReducer } from './features/hideout/index.js';
+import { metaReducer } from './features/meta/index.js';
+import { questsReducer } from './features/quests/index.js';
+import { tradersReducer } from './features/traders/index.js';
+import { bossesReducer } from './features/bosses/index.js';
+import { mapsReducer } from './features/maps/index.js';
+import socketsReducer from './features/sockets/socketsSlice.js';
+import settingsReducer from './features/settings/settingsSlice.js';
 
 export default configureStore({
     reducer: {

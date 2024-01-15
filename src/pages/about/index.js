@@ -6,10 +6,10 @@ import { ReactComponent as GithubIcon } from '../../components/supporter/Github.
 import { ReactComponent as DiscordIcon } from '../../components/supporter/Discord.svg';
 import { ReactComponent as TwitterIcon } from '../../components/supporter/Twitter.svg';
 
-import SEO from '../../components/SEO';
-import UkraineButton from '../../components/ukraine-button';
-import OpenCollectiveButton from "../../components/open-collective-button";
-import Contributors from '../../components/contributors';
+import SEO from '../../components/SEO.jsx';
+import UkraineButton from '../../components/ukraine-button/index.js';
+import OpenCollectiveButton from "../../components/open-collective-button/index.js";
+import Contributors from '../../components/contributors/index.js';
 
 import './index.css';
 

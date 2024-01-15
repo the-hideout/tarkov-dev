@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import dayjsUtc from 'dayjs/plugin/utc';
 import { useTranslation } from 'react-i18next';
 
-import useDate from '../hooks/useDate';
+import useDate from '../hooks/useDate.jsx';
 
 /*
 Huge thanks to Adam Burgess

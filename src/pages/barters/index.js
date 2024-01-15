@@ -3,24 +3,24 @@ import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { Trans, useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiCached, mdiProgressWrench } from '@mdi/js';
 
-import SEO from '../../components/SEO';
-import BartersTable from '../../components/barters-table';
+import SEO from '../../components/SEO.jsx';
+import BartersTable from '../../components/barters-table/index.js';
 import {
     Filter,
     InputFilter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
     ToggleFilter,
-} from '../../components/filter';
+} from '../../components/filter/index.js';
 
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
-import useTradersData from '../../features/traders';
-import useBartersData from '../../features/barters';
-import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice';
+import useTradersData from '../../features/traders/index.js';
+import useBartersData from '../../features/barters/index.js';
+import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice.js';
 
 import './index.css';
 

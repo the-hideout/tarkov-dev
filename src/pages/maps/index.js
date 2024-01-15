@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiMap } from '@mdi/js';
 
-import SEO from '../../components/SEO';
+import SEO from '../../components/SEO.jsx';
 
-import { mapIcons, useMapImagesSortedArray } from '../../features/maps';
+import { mapIcons, useMapImagesSortedArray } from '../../features/maps/index.js';
 
 import './index.css';
 

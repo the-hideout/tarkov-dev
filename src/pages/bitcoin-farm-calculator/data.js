@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import useItemsData from '../../features/items';
+import useItemsData from '../../features/items/index.js';
 import {
     selectAllSkills,
     selectAllStations,
-} from '../../features/settings/settingsSlice';
+} from '../../features/settings/settingsSlice.js';
 
 // https://escapefromtarkov.fandom.com/wiki/Hideout
 const calculateMSToProduceBTC = (numCards) => {

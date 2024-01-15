@@ -1,9 +1,8 @@
-const fs = require('fs');
-const path = require('path');
+import fs from "fs";
+import path from "path";
+import fetch from "cross-fetch";
 
-const fetch = require('cross-fetch');
-
-const redirects = require('../workers-site/redirects.json');
+import redirects from "../workers-site/redirects.json";
 
 (async () => {
     let liveNames = [];
@@ -25,7 +24,8 @@ const redirects = require('../workers-site/redirects.json');
         }).then(response => response.json());
 
         liveNames = response.data.itemsByType.map(item => item.normalizedName);
-    } catch (loadError){
+    }
+    catch (loadError) {
         console.error(loadError);
 
         return false;
@@ -33,9 +33,9 @@ const redirects = require('../workers-site/redirects.json');
 
     const keys = Object.keys(redirects);
 
-    for(const key of keys){
+    for (const key of keys) {
         const itemName = key.replace('/item/', '');
-        if(!liveNames.includes(itemName)){
+        if (!liveNames.includes(itemName)) {
             continue;
         }
 
@@ -44,5 +44,6 @@ const redirects = require('../workers-site/redirects.json');
         Reflect.deleteProperty(redirects, key);
     }
 
+    const __dirname = new URL(".", import.meta.url).pathname;
     fs.writeFileSync(path.join(__dirname, '..', 'workers-site', 'redirects.json'), JSON.stringify(redirects, null, 4));
 })();

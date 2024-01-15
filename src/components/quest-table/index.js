@@ -2,18 +2,18 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiClipboardCheck, mdiClipboardRemove, mdiBriefcase, mdiLighthouse } from '@mdi/js';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
-import DataTable from '../data-table';
-import QuestItemsCell from '../quest-items-cell';
-import CenterCell from '../center-cell';
-import useQuestsData from '../../features/quests';
-import useItemsData from '../../features/items';
-import useTradersData from '../../features/traders';
-import TraderImage from '../trader-image';
+import DataTable from '../data-table/index.js';
+import QuestItemsCell from '../quest-items-cell/index.js';
+import CenterCell from '../center-cell/index.js';
+import useQuestsData from '../../features/quests/index.js';
+import useItemsData from '../../features/items/index.js';
+import useTradersData from '../../features/traders/index.js';
+import TraderImage from '../trader-image/index.js';
 
 import './index.css';
 

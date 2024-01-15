@@ -3,13 +3,13 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import ItemImage from '../item-image';
-import formatPrice from '../../modules/format-price';
-import { isAnyDogtag, getDogTagCost } from '../../modules/dogtags';
-import { getCheapestPrice } from '../../modules/format-cost-items';
-import { getDurationDisplay } from '../../modules/format-duration';
+import ItemImage from '../item-image/index.js';
+import formatPrice from '../../modules/format-price.js';
+import { isAnyDogtag, getDogTagCost } from '../../modules/dogtags.js';
+import { getCheapestPrice } from '../../modules/format-cost-items.js';
+import { getDurationDisplay } from '../../modules/format-duration.js';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import {
     mdiCached,
     mdiProgressWrench

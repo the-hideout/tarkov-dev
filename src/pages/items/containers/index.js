@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import {mdiArchive} from '@mdi/js';
 
-import SEO from '../../../components/SEO';
-import SmallItemTable from '../../../components/small-item-table';
-import { Filter, ToggleFilter } from '../../../components/filter';
+import SEO from '../../../components/SEO.jsx';
+import SmallItemTable from '../../../components/small-item-table/index.js';
+import { Filter, ToggleFilter } from '../../../components/filter/index.js';
 
 function Containers(props) {
     const [showAllItemSources, setShowAllItemSources] = useState(false);

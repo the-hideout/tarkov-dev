@@ -1,4 +1,4 @@
-// i18next-parser.config.js
+// i18next-parser.config.mjs
 
 export default {
   contextSeparator: '_',
@@ -33,7 +33,7 @@ export default {
     html: ['HTMLLexer'],
 
     mjs: ['JavascriptLexer'],
-    js: ['JsxLexer'], // if you're writing jsx inside .js files, change this to JsxLexer
+    js: ['JsxLexer'], // if you're writing jsx inside .mjs files, change this to JsxLexer
     ts: ['JavascriptLexer'],
     jsx: ['JsxLexer'],
     tsx: ['JsxLexer'],
@@ -61,7 +61,7 @@ export default {
   // Plural separator used in your translation keys
   // If you want to use plain english keys, separators such as `_` might conflict. You might want to set `pluralSeparator` to a different string that does not occur in your keys.
 
-  input: ['src/App.js', 'src/pages/**/*.{js,jsx}', 'src/components/**/*.{js,jsx}'],
+  input: ['src/App.mjs', 'src/pages/**/*.{js,jsx}', 'src/components/**/*.{js,jsx}'],
   // An array of globs that describe where to look for source files
   // relative to the location of the configuration file
 

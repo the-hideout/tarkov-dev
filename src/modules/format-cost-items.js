@@ -1,4 +1,4 @@
-import { isAnyDogtag, getDogTagCost } from "./dogtags";
+import { isAnyDogtag, getDogTagCost } from "./dogtags.js";
 
 const fuelIds = [
     '5d1b371186f774253763a656', // Expeditionary fuel tank

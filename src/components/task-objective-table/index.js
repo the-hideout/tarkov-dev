@@ -2,7 +2,7 @@ import { useMemo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { 
     mdiCloseOctagon, 
     mdiHelpRhombus,
@@ -13,9 +13,9 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
 
 import ArrowIcon from '../../components/data-table/Arrow.js';
-import DataTable from '../data-table';
-import useItemsData from '../../features/items';
-import useTradersData from '../../features/traders';
+import DataTable from '../data-table/index.js';
+import useItemsData from '../../features/items/index.js';
+import useTradersData from '../../features/traders/index.js';
 
 function TaskObjectiveTable({ objectives }) {
     const dispatch = useDispatch();

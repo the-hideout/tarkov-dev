@@ -4,21 +4,21 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import 'tippy.js/dist/tippy.css'; // optional
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiAmmunition, mdiCached, mdiProgressWrench } from '@mdi/js';
 
-import SEO from '../../components/SEO';
-import { Filter, ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton, RangeFilter } from '../../components/filter';
+import SEO from '../../components/SEO.jsx';
+import { Filter, ToggleFilter, ButtonGroupFilter, ButtonGroupFilterButton, RangeFilter } from '../../components/filter/index.js';
 import Graph from '../../components/Graph.jsx';
-import useKeyPress from '../../hooks/useKeyPress';
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
-import SmallItemTable from '../../components/small-item-table';
+import useKeyPress from '../../hooks/useKeyPress.jsx';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
+import SmallItemTable from '../../components/small-item-table/index.js';
 
-import useItemsData from '../../features/items';
+import useItemsData from '../../features/items/index.js';
 
-import { formatCaliber } from '../../modules/format-ammo';
+import { formatCaliber } from '../../modules/format-ammo.mjs';
 
-import symbols from '../../symbols';
+import symbols from '../../symbols.json';
 
 import './index.css';
 

@@ -10,7 +10,7 @@ import 'tippy.js/dist/tippy.css'; // optional
 import './index.css';
 import { Fab } from '@mui/material';
 import { mdiTune } from '@mdi/js';
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 
 const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;

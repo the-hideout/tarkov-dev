@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
-import ItemTooltip from './ItemTooltip';
-import ItemIcon from './ItemIcon';
+import ItemTooltip from './ItemTooltip.jsx';
+import ItemIcon from './ItemIcon.jsx';
 
 // const sizesNotToRotate = [
 //     '3x2',

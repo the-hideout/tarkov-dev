@@ -4,26 +4,26 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import 'tippy.js/dist/tippy.css'; // optional
 
-import DataTable from '../data-table';
-import fleaMarketFee from '../../modules/flea-market-fee';
-import useCraftsData from '../../features/crafts';
-import useBartersData from '../../features/barters';
-import ValueCell from '../value-cell';
-import CostItemsCell from '../cost-items-cell';
-import formatCostItems from '../../modules/format-cost-items';
+import DataTable from '../data-table/index.js';
+import fleaMarketFee from '../../modules/flea-market-fee.mjs';
+import useCraftsData from '../../features/crafts/index.js';
+import useBartersData from '../../features/barters/index.js';
+import ValueCell from '../value-cell/index.js';
+import CostItemsCell from '../cost-items-cell/index.js';
+import formatCostItems from '../../modules/format-cost-items.js';
 import {
     selectAllStations,
     selectAllSkills,
-} from '../../features/settings/settingsSlice';
-import CenterCell from '../center-cell';
+} from '../../features/settings/settingsSlice.js';
+import CenterCell from '../center-cell/index.js';
 
 import './index.css';
-import RewardCell from '../reward-cell';
-import { getDurationDisplay } from '../../modules/format-duration';
-import bestPrice from '../../modules/best-price';
-import useMetaData from '../../features/meta';
+import RewardCell from '../reward-cell/index.js';
+import { getDurationDisplay } from '../../modules/format-duration.js';
+import bestPrice from '../../modules/best-price.js';
+import useMetaData from '../../features/meta/index.js';
 
-import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
+import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon.jsx';
 
 function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll, averagePrices, useBarterIngredients, useCraftIngredients }) {
     const { t } = useTranslation();

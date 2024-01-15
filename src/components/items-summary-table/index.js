@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { 
     mdiCloseOctagon, 
     mdiHelpRhombus,
@@ -15,21 +15,21 @@ import {
     mdiCheckCircle,
 } from '@mdi/js';
 
-import DataTable from '../data-table';
-import ItemNameCell from '../item-name-cell';
-import ValueCell from '../value-cell';
-import BarterTooltip from '../barter-tooltip';
+import DataTable from '../data-table/index.js';
+import ItemNameCell from '../item-name-cell/index.js';
+import ValueCell from '../value-cell/index.js';
+import BarterTooltip from '../barter-tooltip/index.js';
 
-import formatPrice from '../../modules/format-price';
-import { getCheapestPrice } from '../../modules/format-cost-items';
+import formatPrice from '../../modules/format-price.js';
+import { getCheapestPrice } from '../../modules/format-cost-items.js';
 
-import useItemsData from '../../features/items';
-import useBartersData from '../../features/barters';
-import useCraftsData from '../../features/crafts';
-import useTradersData from '../../features/traders';
-import useHideoutData from '../../features/hideout';
+import useItemsData from '../../features/items/index.js';
+import useBartersData from '../../features/barters/index.js';
+import useCraftsData from '../../features/crafts/index.js';
+import useTradersData from '../../features/traders/index.js';
+import useHideoutData from '../../features/hideout/index.js';
 
-import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon';
+import FleaMarketLoadingIcon from '../FleaMarketLoadingIcon.jsx';
 
 import './index.css';
 

@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { useTranslation } from 'react-i18next';
 
-import QueueBrowserTask from '../../modules/queue-browser-task';
+import QueueBrowserTask from '../../modules/queue-browser-task.js';
 
 import categoryPages from '../../data/category-pages.json';
 
-import SEO from '../../components/SEO';
-import ItemIconList from '../../components/item-icon-list';
-import LoadingSmall from '../../components/loading-small';
+import SEO from '../../components/SEO.jsx';
+import ItemIconList from '../../components/item-icon-list/index.js';
+import LoadingSmall from '../../components/loading-small/index.js';
 
-import { mapIcons, useMapImagesSortedArray } from '../../features/maps';
+import { mapIcons, useMapImagesSortedArray } from '../../features/maps/index.js';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import {
     mdiAccountGroup,
     mdiAmmunition,
@@ -36,10 +36,10 @@ import './index.css';
 const DISCORD_STASH_INVITE_LINK = 'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'
 
 // Use Lazy and Suspense to load these components
-const ServerStatus = lazy(() => import('../../components/server-status'));
-const SmallItemTable = lazy(() => import('../../components/small-item-table'));
-const ItemSearch = lazy(() => import('../../components/item-search'));
-const BossList = lazy(() => import('../../components/boss-list'));
+const ServerStatus = lazy(() => import('../../components/server-status/index.js'));
+const SmallItemTable = lazy(() => import('../../components/small-item-table/index.js'));
+const ItemSearch = lazy(() => import('../../components/item-search/index.js'));
+const BossList = lazy(() => import('../../components/boss-list/index.js'));
 
 function Start() {
     const [searchParams, setSearchParams] = useSearchParams();

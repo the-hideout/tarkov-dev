@@ -1,4 +1,4 @@
-import graphqlRequest from '../../modules/graphql-request.js';
+import graphqlRequest from '../../modules/graphql-request.mjs';
 
 const doFetchHideout = async (language, prebuild = false) => {
     const query = `{

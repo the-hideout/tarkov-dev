@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import Supporter from '../../components/supporter';
+import Supporter from '../../components/supporter/index.js';
 
 import supporters from '../../supporters';
 

@@ -2,21 +2,21 @@ import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiHome } from '@mdi/js';
 
-import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
-import SEO from '../../components/SEO';
-import ItemsSummaryTable from '../../components/items-summary-table';
+import SEO from '../../components/SEO.jsx';
+import ItemsSummaryTable from '../../components/items-summary-table/index.js';
 import {
     Filter,
     ButtonGroupFilter,
     ButtonGroupFilterButton,
     ToggleFilter,
-} from '../../components/filter';
+} from '../../components/filter/index.js';
 
-import useHideoutData from '../../features/hideout';
+import useHideoutData from '../../features/hideout/index.js';
 
 import './index.css';
 

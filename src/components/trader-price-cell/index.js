@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import { mdiClipboardList } from '@mdi/js';
 import { useTranslation } from 'react-i18next';
 
-import formatPrice from '../../modules/format-price';
-import CenterCell from '../center-cell';
+import formatPrice from '../../modules/format-price.js';
+import CenterCell from '../center-cell/index.js';
 
 import './index.css';
 

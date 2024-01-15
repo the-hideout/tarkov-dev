@@ -1,4 +1,4 @@
-import graphqlRequest from './graphql-request.js';
+import graphqlRequest from './graphql-request.mjs';
 
 class APIQuery {
     constructor(queryName) {

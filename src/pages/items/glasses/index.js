@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import {mdiSunglasses} from '@mdi/js';
 
-import SEO from '../../../components/SEO';
-import { Filter, ToggleFilter } from '../../../components/filter';
-import SmallItemTable from '../../../components/small-item-table';
+import SEO from '../../../components/SEO.jsx';
+import { Filter, ToggleFilter } from '../../../components/filter/index.js';
+import SmallItemTable from '../../../components/small-item-table/index.js';
 
 function Glasses() {
     const { t } = useTranslation();

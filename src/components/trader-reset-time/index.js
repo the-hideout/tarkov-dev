@@ -1,7 +1,7 @@
 import Countdown from 'react-countdown';
 import { Translation } from 'react-i18next';
 
-import { getRelativeTimeAndUnit } from '../../modules/format-duration';
+import { getRelativeTimeAndUnit } from '../../modules/format-duration.js';
 
 import './index.css';
 

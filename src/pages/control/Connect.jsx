@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     enableConnection,
     setControlId,
-} from '../../features/sockets/socketsSlice';
+} from '../../features/sockets/socketsSlice.js';
 import { useTranslation } from 'react-i18next';
 
 function Connect() {

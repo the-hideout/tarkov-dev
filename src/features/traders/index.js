@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
-import { langCode } from '../../modules/lang-helpers';
-import doFetchTraders from './do-fetch-traders';
+import { langCode } from '../../modules/lang-helpers.js';
+import doFetchTraders from './do-fetch-traders.mjs';
 
-import { placeholderTraders } from '../../modules/placeholder-data';
+import { placeholderTraders } from '../../modules/placeholder-data.js';
 
 const initialState = {
     data: placeholderTraders(langCode()),

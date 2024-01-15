@@ -22,7 +22,7 @@ const caliberMap = {
     Caliber9x33R: '.357 Magnum'
 };
 
-function caliberArrayWithSplit() {
+export function caliberArrayWithSplit() {
     const ammoTypes = Object.values(caliberMap).sort();
 
     let gaugeIndex = ammoTypes.findIndex(ammoType => ammoType === '12 Gauge');
@@ -38,7 +38,7 @@ function caliberArrayWithSplit() {
     return ammoTypes;
 }
 
-const formatCaliber = (caliber, type) => {
+export const formatCaliber = (caliber, type) => {
     let formattedCaliber = caliberMap[caliber] || caliber.replace('Caliber', '');
 
     if (formattedCaliber === '12 Gauge' || formattedCaliber === '20 Gauge') {
@@ -47,9 +47,4 @@ const formatCaliber = (caliber, type) => {
     }
 
     return formattedCaliber;
-};
-
-module.exports = {
-    caliberArrayWithSplit: caliberArrayWithSplit,
-    formatCaliber: formatCaliber
 };

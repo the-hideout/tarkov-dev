@@ -1,16 +1,16 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Icon from '@mdi/react';
+import { Icon } from '@mdi/react';
 import {mdiTshirtCrewOutline} from '@mdi/js';
 
-import SEO from '../../../components/SEO';
-import { Filter, ToggleFilter, SliderFilter } from '../../../components/filter';
-import SmallItemTable from '../../../components/small-item-table';
+import SEO from '../../../components/SEO.jsx';
+import { Filter, ToggleFilter, SliderFilter } from '../../../components/filter/index.js';
+import SmallItemTable from '../../../components/small-item-table/index.js';
 
-import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage';
+import useStateWithLocalStorage from '../../../hooks/useStateWithLocalStorage.jsx';
 
-import useItemsData from '../../../features/items';
+import useItemsData from '../../../features/items/index.js';
 
 const marks = {
     0: 25,

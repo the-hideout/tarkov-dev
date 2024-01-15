@@ -1,10 +1,10 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark as atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { atomDark as atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/prism/index.js';
 import { Trans, useTranslation } from 'react-i18next';
 import { HashLink } from 'react-router-hash-link';
 
-import SEO from '../../components/SEO';
-import ApiMetricsGraph from '../../components/api-metrics-graph';
+import SEO from '../../components/SEO.jsx';
+import ApiMetricsGraph from '../../components/api-metrics-graph/index.js';
 
 import './index.css';
 

@@ -3,12 +3,12 @@ import Select from 'react-select';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import SEO from '../../components/SEO';
+import SEO from '../../components/SEO.jsx';
 
-import { caliberArrayWithSplit } from '../../modules/format-ammo';
+import { caliberArrayWithSplit } from '../../modules/format-ammo.mjs';
 
-import useItemsData from '../../features/items';
-import { useMapImagesSortedArray } from '../../features/maps';
+import useItemsData from '../../features/items/index.js';
+import { useMapImagesSortedArray } from '../../features/maps/index.js';
 
 import Connect from './Connect.jsx';
 
