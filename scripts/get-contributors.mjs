@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import fetch from "cross-fetch";
+import url from "url";
 
 const repositories = [
     'the-hideout/tarkov-dev',
@@ -141,7 +142,7 @@ async function getContributors(repository) {
     console.time('Write new data');
 
     let stringifyed = JSON.stringify(allContributors, null, 4);
-    const __dirname = new URL(".", import.meta.url).pathname;
+    const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
     fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'contributors.json'), stringifyed);
 
     console.timeEnd('Write new data');

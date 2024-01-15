@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import url from "url";
 
 import fetch from "cross-fetch";
 
@@ -14,7 +15,7 @@ import fetch from "cross-fetch";
 
         process.exit(1);
     }
-    const __dirname = new URL(".", import.meta.url).pathname;
+    const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
     let indexTemplate = fs.readFileSync(path.join(__dirname, '..', 'workers-site', 'index-template.js'), 'utf8');
     indexTemplate = indexTemplate.replace('REDIRECTS_DATA', JSON.stringify(redirects, null, 4));
 

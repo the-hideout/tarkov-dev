@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import url from "url";
 
 const files = [
     //'item-props',
@@ -9,7 +10,7 @@ const files = [
 ];
 
 for (const file of files) {
-    const __dirname = new URL(".", import.meta.url).pathname;
+    const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
     const props = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'data', `${file}.json`)));
 
     fs.writeFileSync(path.join(__dirname, '..', 'public', 'data', `${file}.min.json`), JSON.stringify(props));

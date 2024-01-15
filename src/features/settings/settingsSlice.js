@@ -113,7 +113,7 @@ const settingsSlice = createSlice({
         tarkovTrackerModules: [],
         hideRemoteControl: localStorageReadJson('hide-remote-control', false),
         minDogtagLevel: localStorageReadJson('minDogtagLevel', 1),
-        hideDogtagBarters: localStorageReadJson('hideTogtagBarters', false),
+        hideDogtagBarters: localStorageReadJson('hideDogtagBarters', false),
         playerPosition: localStorageReadJson('playerPosition', null),
     },
     reducers: {
