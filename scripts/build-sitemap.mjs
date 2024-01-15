@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import fetch from "cross-fetch";
+import url from "url";
 
 import maps from "../src/data/maps.json" assert { type: "json" };
 import categoryPages from "../src/data/category-pages.json" assert { type: "json" };
@@ -117,7 +118,7 @@ const graphqlRequest = (queryString) => {
 
         sitemap = `${sitemap}
 </urlset>`;
-        const __dirname = new URL(".", import.meta.url).pathname;
+        const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
         fs.writeFileSync(path.join(__dirname, '..', 'public', 'sitemap.xml'), sitemap);
         console.timeEnd('build-sitemap');
     }

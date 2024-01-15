@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import fetch from "cross-fetch";
+import url from "url";
 
 const COMMIT_URL = 'https://api.github.com/repos/the-hideout/tarkov-dev/commits/main';
 
@@ -60,7 +61,7 @@ async function getVersion() {
     console.time('Write new data');
 
     let stringifyed = JSON.stringify(versionDic, null, 4);
-    const __dirname = new URL(".", import.meta.url).pathname;
+    const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
     fs.writeFileSync(path.join(__dirname, '..', 'src', 'data', 'version.json'), stringifyed);
 
     console.timeEnd('Write new data');
