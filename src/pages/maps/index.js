@@ -9,6 +9,7 @@ import SEO from '../../components/SEO.jsx';
 import { mapIcons, useMapImagesSortedArray } from '../../features/maps/index.js';
 
 import './index.css';
+import { HashLink } from 'react-router-hash-link';
 
 function Maps() {
     const { t } = useTranslation();
@@ -41,6 +42,20 @@ function Maps() {
                         There are 11 different locations on the Escape from Tarkov map, of which 10 have been released publicly so far. Although eventually all maps will be connected, they are currently all apart from one another.
                     </p>
                 </Trans>
+                <ul key="maps-list">
+                    {uniqueMaps.map((map) => (
+                        <li key={`map-link-${map.normalizedName}`}>
+                            <HashLink to={`/maps#${map.normalizedName}`}>
+                                <Icon 
+                                    path={mapIcons[map.normalizedName]} 
+                                    size={1}
+                                    className="icon-with-text"
+                                />
+                                {map.name}
+                            </HashLink>
+                        </li>
+                    ))}
+                </ul>
             </div>
             {uniqueMaps.map((mapsGroup) => {
                 return (
