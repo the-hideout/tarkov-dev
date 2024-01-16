@@ -3,39 +3,39 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 // import Backend from 'i18next-http-backend';
 
-import translationEN from './translations/en/translation.json' assert { type: "json" };
-import translationDE from './translations/de/translation.json' assert { type: "json" };
-import translationRU from './translations/ru/translation.json' assert { type: "json" };
-import translationIT from './translations/it/translation.json' assert { type: "json" };
-// import translationES from './translations/es/translation.json' assert { type: "json" };
-import translationFR from './translations/fr/translation.json' assert { type: "json" };
-import translationJA from './translations/ja/translation.json' assert { type: "json" };
-import translationPL from './translations/pl/translation.json' assert { type: "json" };
-import translationPT from './translations/pt/translation.json' assert { type: "json" };
+import translationEN from './translations/en/translation.json';
+import translationDE from './translations/de/translation.json';
+import translationRU from './translations/ru/translation.json';
+import translationIT from './translations/it/translation.json';
+// import translationES from './translations/es/translation.json';
+import translationFR from './translations/fr/translation.json';
+import translationJA from './translations/ja/translation.json';
+import translationPL from './translations/pl/translation.json';
+import translationPT from './translations/pt/translation.json';
 
-import propertiesEN from './translations/en/properties.json' assert { type: "json" };
-import propertiesDE from './translations/de/properties.json' assert { type: "json" };
-import propertiesRU from './translations/ru/properties.json' assert { type: "json" };
-import propertiesIT from './translations/it/properties.json' assert { type: "json" };
-import propertiesJA from './translations/ja/properties.json' assert { type: "json" };
-import propertiesPL from './translations/pl/properties.json' assert { type: "json" };
-import propertiesPT from './translations/pt/properties.json' assert { type: "json" };
+import propertiesEN from './translations/en/properties.json';
+import propertiesDE from './translations/de/properties.json';
+import propertiesRU from './translations/ru/properties.json';
+import propertiesIT from './translations/it/properties.json';
+import propertiesJA from './translations/ja/properties.json';
+import propertiesPL from './translations/pl/properties.json';
+import propertiesPT from './translations/pt/properties.json';
 
-import bossesEN from './translations/en/bosses.json' assert { type: "json" };
-import bossesDE from './translations/de/bosses.json' assert { type: "json" };
-import bossesRU from './translations/ru/bosses.json' assert { type: "json" };
-import bossesIT from './translations/it/bosses.json' assert { type: "json" };
-import bossesJA from './translations/ja/bosses.json' assert { type: "json" };
-import bossesPL from './translations/pl/bosses.json' assert { type: "json" };
-import bossesPT from './translations/pt/bosses.json' assert { type: "json" };
+import bossesEN from './translations/en/bosses.json';
+import bossesDE from './translations/de/bosses.json';
+import bossesRU from './translations/ru/bosses.json';
+import bossesIT from './translations/it/bosses.json';
+import bossesJA from './translations/ja/bosses.json';
+import bossesPL from './translations/pl/bosses.json';
+import bossesPT from './translations/pt/bosses.json';
 
-import mapsEN from './translations/en/maps.json' assert { type: "json" };
-import mapsDE from './translations/de/maps.json' assert { type: "json" };
-import mapsRU from './translations/ru/maps.json' assert { type: "json" };
-import mapsIT from './translations/it/maps.json' assert { type: "json" };
-import mapsJA from './translations/ja/maps.json' assert { type: "json" };
-import mapsPL from './translations/pl/maps.json' assert { type: "json" };
-import mapsPT from './translations/pt/maps.json' assert { type: "json" };
+import mapsEN from './translations/en/maps.json';
+import mapsDE from './translations/de/maps.json';
+import mapsRU from './translations/ru/maps.json';
+import mapsIT from './translations/it/maps.json';
+import mapsJA from './translations/ja/maps.json';
+import mapsPL from './translations/pl/maps.json';
+import mapsPT from './translations/pt/maps.json';
 
 // const myParseMissingKeyHandler = (key, defaultValue) => {
 //     console.log(`Missing translation "${key}": "${key}"`)
