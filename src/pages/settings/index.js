@@ -88,7 +88,7 @@ function Settings() {
     const { data: allTraders } = useTradersData();
 
     const traders = useMemo(() => {
-        return allTraders.filter(t => t.normalizedName !== 'lightkeeper');
+        return allTraders.filter(t => t.normalizedName !== 'lightkeeper' && t.normalizedName !== 'btr-driver');
     }, [allTraders]);
 
     const { data: hideout } = useHideoutData();
