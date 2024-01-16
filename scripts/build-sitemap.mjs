@@ -1,7 +1,15 @@
-import fs from "fs";
+import { writeFileSync } from "fs";
 import path from "path";
 import fetch from "cross-fetch";
-import url from "url";
+import { fileURLToPath } from "url";
+
+import { createGzip } from 'zlib';
+import { pipeline } from 'stream';
+import {
+    createReadStream,
+    createWriteStream,
+    unlink,
+} from 'fs';
 
 import maps from "../src/data/maps.json" with { type: "json" };
 import categoryPages from "../src/data/category-pages.json" with { type: "json" };
@@ -155,8 +163,8 @@ async function build_sitemap() {
     sitemap = `${sitemap}
 </urlset>`;
 
-    const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
-    fs.writeFileSync(path.join(__dirname, '..', 'public', 'sitemap.xml'), sitemap);
+    const __dirname = fileURLToPath(new URL(".", import.meta.url));
+    writeFileSync(path.join(__dirname, '..', 'public', 'sitemap.xml'), sitemap);
 }
 
 async function build_sitemap_items() {
@@ -171,8 +179,25 @@ async function build_sitemap_items() {
     sitemap = `${sitemap}
 </urlset>`;
 
-    const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
-    fs.writeFileSync(path.join(__dirname, '..', 'public', 'sitemap_items.xml'), sitemap);
+    const __dirname = fileURLToPath(new URL(".", import.meta.url));
+    writeFileSync(path.join(__dirname, '..', 'public', 'sitemap_items.xml'), sitemap);
+
+    const gzip = createGzip();
+    const source = createReadStream(path.join(__dirname, '..', 'public', 'sitemap_items.xml'));
+    const destination = createWriteStream(path.join(__dirname, '..', 'public', 'sitemap_items.xml.gz'));
+
+    pipeline(source, gzip, destination, (err) => {
+        if (err) {
+            console.error('An error occurred:', err);
+            process.exitCode = 1;
+        }
+
+        unlink(path.join(__dirname, '..', 'public', 'sitemap_items.xml'), (err) => {
+            if (err) 
+                throw err;
+            console.log('successfully deleted sitemap_items.xml');
+        });
+    });
 }
 
 async function build_sitemap_index() {
@@ -182,12 +207,12 @@ async function build_sitemap_index() {
         <loc>https://tarkov.dev/sitemap.xml</loc>
     </sitemap>
     <sitemap>
-        <loc>https://tarkov.dev/sitemap_items.xml</loc>
+        <loc>https://tarkov.dev/sitemap_items.xml.gz</loc>
     </sitemap>
 </sitemapindex>`;
 
-    const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
-    fs.writeFileSync(path.join(__dirname, '..', 'public', 'sitemap_index.xml'), sitemap);
+    const __dirname = fileURLToPath(new URL(".", import.meta.url));
+    writeFileSync(path.join(__dirname, '..', 'public', 'sitemap_index.xml'), sitemap);
 }
 
 (async () => {

@@ -367,6 +367,6 @@ src/data/supported-languages.json
 src/data/traders.json
 src/data/traders_locale.json
 src/data/version.json
-
 public/sitemap*.xml
+public/sitemap*.xml.gz
 workers-site/index.js
