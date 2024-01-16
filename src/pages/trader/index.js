@@ -15,7 +15,7 @@ import {
 import SmallItemTable from '../../components/small-item-table/index.js';
 import QuestTable from '../../components/quest-table/index.js';
 import TraderResetTime from '../../components/trader-reset-time/index.js';
-import ErrorPage from '../../components/error-page/index.js';
+import ErrorPage from '../error-page/index.js';
 import LoadingSmall from '../../components/loading-small/index.js';
 import PropertyList from '../../components/property-list/index.js';
 import formatPrice from '../../modules/format-price.js';
@@ -100,7 +100,10 @@ function Trader() {
         }
         return props;
     }, [trader, selectedTable, t]);
-    if (!trader) 
+    if (!trader)
+        return <ErrorPage />;
+    
+    if (trader.normalizedName === 'btr-driver')
         return <ErrorPage />;
     
     let resetTime = (<LoadingSmall/>);
@@ -166,19 +169,21 @@ function Trader() {
                     </cite>
                 </h1>
                 <Filter center>
-                    <ButtonGroupFilter>
-                        <ButtonGroupFilterButton
-                            tooltipContent={
-                                <>
-                                    {t('Items with the best cash back prices for leveling')}
-                                </>
-                            }
-                            selected={selectedTable === 'spending'}
-                            content={t('Spending')}
-                            type="text"
-                            onClick={setSelectedTable.bind(undefined, 'spending')}
-                        />
-                    </ButtonGroupFilter>
+                    {trader.normalizedName !== 'lightkeeper' ? (
+                        <ButtonGroupFilter>
+                            <ButtonGroupFilterButton
+                                tooltipContent={
+                                    <>
+                                        {t('Items with the best cash back prices for leveling')}
+                                    </>
+                                }
+                                selected={selectedTable === 'spending'}
+                                content={t('Spending')}
+                                type="text"
+                                onClick={setSelectedTable.bind(undefined, 'spending')}
+                            />
+                        </ButtonGroupFilter>
+                    ) : ''}
                     {trader.normalizedName !== 'lightkeeper' ? (
                         <ButtonGroupFilter>
                             {trader.levels.map(level => (

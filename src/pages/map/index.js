@@ -6,34 +6,32 @@ import {
     TransformWrapper,
     TransformComponent,
 } from 'react-zoom-pan-pinch';
+
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import "@fortawesome/fontawesome-free/css/all.min.css";
-
-import { setPlayerPosition } from '../features/settings/settingsSlice.js';
-
-import 'leaflet.awesome-markers/dist/leaflet.awesome-markers';
-import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css'
-import 'leaflet-fullscreen/dist/Leaflet.fullscreen';
+import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.js';
+import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css';
+import 'leaflet-fullscreen/dist/Leaflet.fullscreen.js';
 import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
+import '../../modules/leaflet-control-coordinates.js';
+import '../../modules/leaflet-control-groupedlayer.js';
 
-import '../modules/leaflet-control-coordinates.js';
-import '../modules/leaflet-control-groupedlayer.js';
+import { setPlayerPosition } from '../../features/settings/settingsSlice.js';
 
-import { useMapImages } from '../features/maps/index.js';
-import useItemsData from '../features/items/index.js';
-import useQuestsData from '../features/quests/index.js';
+import { useMapImages } from '../../features/maps/index.js';
+import useItemsData from '../../features/items/index.js';
+import useQuestsData from '../../features/quests/index.js';
 
-import staticMapData from '../data/maps_static.json'
+import staticMapData from '../../data/maps_static.json'
 
-import Time from './Time.jsx';
-import SEO from './SEO.jsx';
+import Time from '../../components/Time.jsx';
+import SEO from '../../components/SEO.jsx';
 
-import ErrorPage from './error-page/index.js';
+import ErrorPage from '../error-page/index.js';
 
-import useStateWithLocalStorage from '../hooks/useStateWithLocalStorage.jsx';
+import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
-import './Maps.css';
+import './index.css';
 
 const showStaticMarkers = false;
 const showMarkersBounds = false;
