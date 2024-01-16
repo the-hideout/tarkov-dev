@@ -4,7 +4,7 @@ import sharp from "sharp";
 import fetch from "cross-fetch";
 import { exit } from "process";
 
-import categoryPages from "../src/data/category-pages.json" assert { type: "json" };
+import categoryPages from "../src/data/category-pages.json" with { type: "json" };
 
 const ignoredCategories = [
     'headsets',

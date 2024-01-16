@@ -3,8 +3,8 @@ import path from "path";
 import fetch from "cross-fetch";
 import url from "url";
 
-import maps from "../src/data/maps.json" assert { type: "json" };
-import categoryPages from "../src/data/category-pages.json" assert { type: "json" };
+import maps from "../src/data/maps.json" with { type: "json" };
+import categoryPages from "../src/data/category-pages.json" with { type: "json" };
 
 import { caliberArrayWithSplit } from "../src/modules/format-ammo.mjs";
 
