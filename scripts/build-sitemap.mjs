@@ -44,12 +44,61 @@ const standardPathsWeekly = [
     '/hideout',
 ];
 
+const languages = [
+    "de",
+    "en",
+    "fr",
+    "it",
+    "ja",
+    "pl",
+    "pt",
+    "ru"
+]
+
 const addPath = (sitemap, url, change = 'hourly') => {
-    return `${sitemap}
-    <url>
+    for (const lang in languages) {
+        sitemap = `${sitemap}
+    <url>`;
+    
+        if (Object.hasOwnProperty.call(languages, lang)) {
+            const loclang = languages[lang];
+
+            if (loclang === 'en') {
+                sitemap = `${sitemap}
         <loc>https://tarkov.dev${url}</loc>
+            <xhtml:link rel="alternate" hreflang="en" href="https://tarkov.dev${url}"/>`;
+            }
+            else {
+                sitemap = `${sitemap}
+        <loc>https://tarkov.dev${url}?lng=${loclang}</loc>
+            <xhtml:link rel="alternate" hreflang="${loclang}" href="https://tarkov.dev${url}?lng=${loclang}"/>`;
+            }
+
+            for (const lang in languages) {
+                if (Object.hasOwnProperty.call(languages, lang)) {
+                    const hreflang = languages[lang];
+
+                    if (hreflang === loclang) 
+                        continue;
+
+                    if (hreflang === 'en') {
+                        sitemap = `${sitemap}
+            <xhtml:link rel="alternate" hreflang="${hreflang}" href="https://tarkov.dev${url}"/>`;
+                    }
+                    else {
+                        sitemap = `${sitemap}
+            <xhtml:link rel="alternate" hreflang="${hreflang}" href="https://tarkov.dev${url}?lng=${hreflang}"/>`;
+                    }
+                }
+            }
+        }
+
+        sitemap = `${sitemap}
         <changefreq>${change}</changefreq>
     </url>`;
+    }
+
+    return sitemap;
 };
 
 const graphqlRequest = (queryString) => {
@@ -69,7 +118,7 @@ const graphqlRequest = (queryString) => {
 (async () => {
     try {
         let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">`;
 
         console.time('build-sitemap');
 
@@ -96,10 +145,10 @@ const graphqlRequest = (queryString) => {
             sitemap = addPath(sitemap, `/items/${categoryPage.key}`);
         }
 
-        const allItems = await graphqlRequest('{items{normalizedName}}');
-        for (const item of allItems.data.items) {
-            sitemap = addPath(sitemap, `/item/${item.normalizedName}`);
-        }
+        // const allItems = await graphqlRequest('{items{normalizedName}}');
+        // for (const item of allItems.data.items) {
+        //     sitemap = addPath(sitemap, `/item/${item.normalizedName}`);
+        // }
 
         const allBosses = await graphqlRequest('{bosses{normalizedName}}');
         for (const boss of allBosses.data.bosses) {
@@ -111,10 +160,10 @@ const graphqlRequest = (queryString) => {
             sitemap = addPath(sitemap, `/task/${task.normalizedName}`, 'weekly');
         }
 
-        const ammoTypes = caliberArrayWithSplit();
-        for (const ammoType of ammoTypes) {
-            sitemap = addPath(sitemap, `/ammo/${ammoType.replace(/ /g, '%20')}`);
-        }
+        // const ammoTypes = caliberArrayWithSplit();
+        // for (const ammoType of ammoTypes) {
+        //     sitemap = addPath(sitemap, `/ammo/${ammoType.replace(/ /g, '%20')}`);
+        // }
 
         sitemap = `${sitemap}
 </urlset>`;
