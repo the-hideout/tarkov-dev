@@ -146,6 +146,8 @@ src/data/bosses_locale.json
 src/data/meta.json
 src/data/supported-languages.json
 public/sitemap.xml
+public/sitemap_index.xml
+public/sitemap_items.xml
 workers-site/index.js
 src/pages/guides/*
 !src/pages/guides/index.js
