@@ -100,7 +100,10 @@ function Trader() {
         }
         return props;
     }, [trader, selectedTable, t]);
-    if (!trader) 
+    if (!trader)
+        return <ErrorPage />;
+    
+    if (trader.normalizedName === 'btr-driver')
         return <ErrorPage />;
     
     let resetTime = (<LoadingSmall/>);
@@ -166,19 +169,21 @@ function Trader() {
                     </cite>
                 </h1>
                 <Filter center>
-                    <ButtonGroupFilter>
-                        <ButtonGroupFilterButton
-                            tooltipContent={
-                                <>
-                                    {t('Items with the best cash back prices for leveling')}
-                                </>
-                            }
-                            selected={selectedTable === 'spending'}
-                            content={t('Spending')}
-                            type="text"
-                            onClick={setSelectedTable.bind(undefined, 'spending')}
-                        />
-                    </ButtonGroupFilter>
+                    {trader.normalizedName !== 'lightkeeper' ? (
+                        <ButtonGroupFilter>
+                            <ButtonGroupFilterButton
+                                tooltipContent={
+                                    <>
+                                        {t('Items with the best cash back prices for leveling')}
+                                    </>
+                                }
+                                selected={selectedTable === 'spending'}
+                                content={t('Spending')}
+                                type="text"
+                                onClick={setSelectedTable.bind(undefined, 'spending')}
+                            />
+                        </ButtonGroupFilter>
+                    ) : ''}
                     {trader.normalizedName !== 'lightkeeper' ? (
                         <ButtonGroupFilter>
                             {trader.levels.map(level => (
