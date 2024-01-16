@@ -20,6 +20,6 @@ import fetch from "cross-fetch";
     indexTemplate = indexTemplate.replace('REDIRECTS_DATA', JSON.stringify(redirects, null, 4));
 
     console.time('Write new data');
-    fs.writeFileSync(path.join(__dirname, '..', 'workers-site', 'index.mjs'), indexTemplate);
+    fs.writeFileSync(path.join(__dirname, '..', 'workers-site', 'index.js'), indexTemplate);
     console.timeEnd('Write new data');
 })();
