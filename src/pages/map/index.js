@@ -6,18 +6,17 @@ import {
     TransformWrapper,
     TransformComponent,
 } from 'react-zoom-pan-pinch';
+
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.js';
-import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css'
+import 'leaflet.awesome-markers/dist/leaflet.awesome-markers.css';
 import 'leaflet-fullscreen/dist/Leaflet.fullscreen.js';
 import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
-import "@fortawesome/fontawesome-free/css/all.min.css";
-
-import { setPlayerPosition } from '../../features/settings/settingsSlice.js';
-
 import '../../modules/leaflet-control-coordinates.js';
 import '../../modules/leaflet-control-groupedlayer.js';
+
+import { setPlayerPosition } from '../../features/settings/settingsSlice.js';
 
 import { useMapImages } from '../../features/maps/index.js';
 import useItemsData from '../../features/items/index.js';
