@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
-import ItemSearch from '../item-search/index.js';
+import ItemSearch from '../../components/item-search/index.js';
 
-import SEO from '../SEO.jsx';
+import SEO from '../../components/SEO.jsx';
 
 import './index.css';
 
