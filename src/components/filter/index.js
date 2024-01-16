@@ -11,6 +11,7 @@ import './index.css';
 import { Fab } from '@mui/material';
 import { mdiTune } from '@mdi/js';
 import { Icon } from '@mdi/react';
+import { t } from 'i18next';
 
 const ConditionalWrapper = ({ condition, wrapper, children }) => {
     return condition ? wrapper(children) : children;
@@ -271,6 +272,7 @@ function SelectFilter({
                     options={options}
                     ref={parentRef}
                     styles={selectFilterStyle}
+                    noOptionsMessage={() => { return t('All options already selected');}}
                 />
             </ConditionalWrapper>
         </ConditionalWrapper>

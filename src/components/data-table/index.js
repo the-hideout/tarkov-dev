@@ -183,8 +183,9 @@ function DataTable({
                         <tr>
                             {columns.map((col, colIndex) => (<th key={`col-sum-${colIndex}`}>{col.summable ? formatPrice(rows.map(row => {
                                 const val = row.cells[colIndex].value;
+                                const count = row.original?.count ? row.original.count : 1;
                                 if (isNaN(val)) return false;
-                                return val;
+                                return val * count;
                             }).filter(Boolean).reduce((previousValue, currentValue) => previousValue + currentValue, 0)) : ''}</th>))}
                         </tr>
                     </tfoot>

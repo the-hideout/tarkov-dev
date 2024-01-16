@@ -673,41 +673,43 @@ The max profitable price is impacted by the intel center and hideout management 
                             <h2>
                                 {t('Barters with {{itemName}}', {itemName: currentItemData.name})}
                             </h2>
-                            <ToggleFilter
-                                checked={showAllBarters}
-                                label={t('Ignore settings')}
-                                onChange={(e) =>
-                                    setShowAllBarters(!showAllBarters)
-                                }
-                                tooltipContent={
-                                    <>
-                                        {t('Shows all barters regardless of your settings')}
-                                    </>
-                                }
-                            />
-                            {dogtagToggle}
-                            <ButtonGroupFilter>
-                                <ButtonGroupFilterButton
+                            <div className="filter-content-wrapper compact">
+                                <ToggleFilter
+                                    checked={showAllBarters}
+                                    label={t('Ignore settings')}
+                                    onChange={(e) =>
+                                        setShowAllBarters(!showAllBarters)
+                                    }
                                     tooltipContent={
                                         <>
-                                            {t('Use barters for item sources')}
+                                            {t('Shows all barters regardless of your settings')}
                                         </>
                                     }
-                                    selected={includeBarterIngredients}
-                                    content={<Icon path={mdiCached} size={1} className="icon-with-text"/>}
-                                    onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
                                 />
-                                <ButtonGroupFilterButton
-                                    tooltipContent={
-                                        <>
-                                            {t('Use crafts for item sources')}
-                                        </>
-                                    }
-                                    selected={includeCraftIngredients}
-                                    content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text"/>}
-                                    onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
-                                />
-                            </ButtonGroupFilter>
+                                {dogtagToggle}
+                                <ButtonGroupFilter>
+                                    <ButtonGroupFilterButton
+                                        tooltipContent={
+                                            <>
+                                                {t('Use barters for item sources')}
+                                            </>
+                                        }
+                                        selected={includeBarterIngredients}
+                                        content={<Icon path={mdiCached} size={1} className="icon-with-text"/>}
+                                        onClick={setIncludeBarterIngredients.bind(undefined, !includeBarterIngredients)}
+                                    />
+                                    <ButtonGroupFilterButton
+                                        tooltipContent={
+                                            <>
+                                                {t('Use crafts for item sources')}
+                                            </>
+                                        }
+                                        selected={includeCraftIngredients}
+                                        content={<Icon path={mdiProgressWrench} size={1} className="icon-with-text"/>}
+                                        onClick={setIncludeCraftIngredients.bind(undefined, !includeCraftIngredients)}
+                                    />
+                                </ButtonGroupFilter>
+                            </div>
                         </div>
                         <BartersTable
                             itemFilter={currentItemData.id}
