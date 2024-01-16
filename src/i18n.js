@@ -19,6 +19,7 @@ import propertiesRU from './translations/ru/properties.json';
 import propertiesIT from './translations/it/properties.json';
 import propertiesJA from './translations/ja/properties.json';
 import propertiesPL from './translations/pl/properties.json';
+import propertiesPT from './translations/pt/properties.json';
 
 import bossesEN from './translations/en/bosses.json';
 import bossesDE from './translations/de/bosses.json';
@@ -26,6 +27,7 @@ import bossesRU from './translations/ru/bosses.json';
 import bossesIT from './translations/it/bosses.json';
 import bossesJA from './translations/ja/bosses.json';
 import bossesPL from './translations/pl/bosses.json';
+import bossesPT from './translations/pt/bosses.json';
 
 import mapsEN from './translations/en/maps.json';
 import mapsDE from './translations/de/maps.json';
@@ -33,6 +35,7 @@ import mapsRU from './translations/ru/maps.json';
 import mapsIT from './translations/it/maps.json';
 import mapsJA from './translations/ja/maps.json';
 import mapsPL from './translations/pl/maps.json';
+import mapsPT from './translations/pt/maps.json';
 
 // const myParseMissingKeyHandler = (key, defaultValue) => {
 //     console.log(`Missing translation "${key}": "${key}"`)
@@ -108,6 +111,9 @@ i18n
             },
             pt: {
                 translation: translationPT,
+                properties: propertiesPT,
+                bosses: bossesPT,
+                maps: mapsPT,
             }
 
         },

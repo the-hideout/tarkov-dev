@@ -27,8 +27,8 @@ import supportedLanguages from './data/supported-languages.json';
 import Menu from './components/menu/index.js';
 import Footer from './components/footer/index.js';
 
-const Map = React.lazy(() => import('./components/Map.jsx'));
-const ErrorPage = React.lazy(() => import('./components/error-page/index.js'));
+const Map = React.lazy(() => import('./pages/map/index.js'));
+const ErrorPage = React.lazy(() => import('./pages/error-page/index.js'));
 const Debug = React.lazy(() => import('./components/Debug.jsx'));
 
 const Ammo = React.lazy(() => import('./pages/ammo/index.js'));

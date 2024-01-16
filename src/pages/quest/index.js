@@ -9,7 +9,7 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 import SEO from '../../components/SEO.jsx';
-import ErrorPage from '../../components/error-page/index.js';
+import ErrorPage from '../error-page/index.js';
 import ItemSearch from '../../components/item-search/index.js';
 import LoadingSmall from '../../components/loading-small/index.js';
 import ItemImage from '../../components/item-image/index.js';
