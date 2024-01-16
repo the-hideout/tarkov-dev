@@ -52,6 +52,11 @@
     font-size: x-large;
 }
 
+.filter-content-wrapper.compact {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 .main-information-grid h1 {
     align-items: center;
     display: flex;
