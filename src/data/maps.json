@@ -79,6 +79,20 @@
                 "projection": "3D",
                 "author": "re3mr",
                 "authorLink": "https://reemr.se"
+            },
+            {
+                "key": "streets-3d-caches",
+                "projection": "3D",
+                "specific": "Caches",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            },
+            {
+                "key": "streets-3d-lexos",
+                "projection": "3D",
+                "specific": "Lexos",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
             }
         ]
     },
