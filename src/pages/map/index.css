@@ -199,3 +199,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 .leaflet-container.only-active-quest-markers .inactive-quest-marker {
     display: none;
 }
+
+.leaflet-control-layers-list {
+    font-size: 14px;
+}
