@@ -861,15 +861,11 @@ function Map() {
                     else {
                         spawnType = 'boss';
                     }
-                }
-                else if (spawn.sides.includes('scav')) {
+                } else if (spawn.categories.includes('sniper')) {
+                    spawnType = 'sniper_scav';
+                } else if (spawn.sides.includes('scav')) {
                     if (spawn.categories.includes('bot') || spawn.categories.includes('all')) {
-                        if (spawn.zoneName.includes('Snipe')) {
-                            spawnType = 'sniper_scav';
-                        }
-                        else {
-                            spawnType = 'scav';
-                        }
+                        spawnType = 'scav';
                     }
                     else {
                         console.error(`Unusual spawn: ${spawn.sides}, ${spawn.categories}`);
