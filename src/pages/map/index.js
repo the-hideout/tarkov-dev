@@ -15,6 +15,7 @@ import 'leaflet-fullscreen/dist/Leaflet.fullscreen.js';
 import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 import '../../modules/leaflet-control-coordinates.js';
 import '../../modules/leaflet-control-groupedlayer.js';
+import '../../modules/leaflet-control-raid-info.js';
 
 import { setPlayerPosition } from '../../features/settings/settingsSlice.js';
 
@@ -336,6 +337,12 @@ function Map() {
         }
     }, [mapHeight]);
 
+    const onMapContainerRefChange = useCallback(node => {
+        if (node) {
+            node.style.height = `${mapHeight}px`;
+        }
+    }, [mapHeight]);
+
     useEffect(() => {
         ref?.current?.resetTransform();
     }, [currentMap]);
@@ -528,6 +535,14 @@ function Map() {
                 checked: mapSettingsRef.current.showOnlyActiveTasks,
             }).addTo(map);
         }
+
+        L.control.raidInfo({
+            position: 'topright',
+            map: mapData,
+            durationLabel: t('Duration'),
+            playersLabel: t('Players'),
+            bylabel: t('By'),
+        }).addTo(map);
 
         //L.control.scale({position: 'bottomright'}).addTo(map);
         
@@ -1481,21 +1496,24 @@ function Map() {
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key="map-wrapper">
+            {mapData.projection !== 'interactive' && ([    
             <Time
+                key="raid-info"
                 currentMap={currentMap}
                 normalizedName={mapData.normalizedName}
                 duration={mapData.duration}
                 players={mapData.players}
                 author={mapData.author}
                 authorLink={mapData.authorLink}
-            />
-            {mapData.projection !== 'interactive' && (<TransformWrapper
+            />,
+            <TransformWrapper
                 ref={ref}
                 initialScale={1}
                 centerOnInit={true}
                 wheel={{
                     step: 0.1,
                 }}
+                key="map-holder"
             >
                 <TransformComponent>
                     <div className="map-image-wrapper">
@@ -1508,8 +1526,8 @@ function Map() {
                         />
                     </div>
                 </TransformComponent>
-            </TransformWrapper>)}
-            {mapData.projection === 'interactive' && (<div id="leaflet-map" className={'leaflet-map-container'+savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : ''}/>)}
+            </TransformWrapper>])}
+            {mapData.projection === 'interactive' && (<div id="leaflet-map" ref={onMapContainerRefChange} className={'leaflet-map-container'+savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : ''}/>)}
         </div>,
     ];
 }
