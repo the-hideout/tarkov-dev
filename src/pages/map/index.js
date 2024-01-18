@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo, useCallback } from 'react';
+import { useEffect, useRef, useMemo, useCallback, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -315,15 +315,26 @@ function Map() {
     const ref = useRef();
     const mapRef = useRef(null);
 
-    const onMapContainerRefChange = useCallback(node => {
-        if (node) {
+    const [mapHeight, setMapHeight] = useState(500);
+    useLayoutEffect(() => {
+        function updateSize() {
             let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
             if (viewableHeight < 100) {
                 viewableHeight = window.innerHeight;
             }
-            node.style.height = `${viewableHeight}px`;
+            setMapHeight(viewableHeight);
         }
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
     }, []);
+
+    useEffect(() => {
+        const mapContainer = document.getElementById('leaflet-map');
+        if (mapContainer) {
+            mapContainer.style.height = `${mapHeight}px`;
+        }
+    }, [mapHeight]);
 
     useEffect(() => {
         ref?.current?.resetTransform();
@@ -1448,6 +1459,13 @@ function Map() {
                 }
             }
         }
+        const mapDiv = document.getElementById('leaflet-map');
+        const resizeObserver = new ResizeObserver(() => {
+            //map.invalidateSize();
+            //window.dispatchEvent(new Event('resize'));
+        });
+        resizeObserver.observe(mapDiv);
+
     }, [mapData, items, questsWithActive, mapRef, playerPosition, t, dispatch, navigate, mapSettingsRef, updateSavedMapSettings, mapViewRef, settings]);
     
     if (!mapData) {
@@ -1491,7 +1509,7 @@ function Map() {
                     </div>
                 </TransformComponent>
             </TransformWrapper>)}
-            {mapData.projection === 'interactive' && (<div id="leaflet-map" ref={onMapContainerRefChange} className={'leaflet-map-container'+savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : ''}/>)}
+            {mapData.projection === 'interactive' && (<div id="leaflet-map" className={'leaflet-map-container'+savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : ''}/>)}
         </div>,
     ];
 }
