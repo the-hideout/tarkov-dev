@@ -1,3 +1,8 @@
+#leaflet-map {
+    height: 500px;
+    background-color: transparent;
+}
+
 /* leaflet-control-coordinates */
 .leaflet-control-coordinates {
     color: #000000;
@@ -152,4 +157,45 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 
 .poi-link {
     cursor: pointer;
+}
+
+.leaflet-control {
+    background-color: rgba(0, 0, 0, 0.75);
+    color: rgb(199, 197, 179);
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.leaflet-control-map-settings.leaflet-control {
+    padding: 4px 4px;
+}
+
+.leaflet-control-map-settings {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.leaflet-control-fullscreen a {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.leaflet-control-fullscreen a:hover {
+    background-color: rgba(50, 50, 50, 0.75);
+}
+
+.leaflet-bar a {
+    background-color: transparent;
+    color: rgb(199, 197, 179);
+    border-bottom-color: rgb(50, 50, 50);
+
+}
+
+.leaflet-bar a:hover, .leaflet-bar a:active {
+    background-color: rgba(25, 25, 25, 0.75);
+    color: rgb(199, 197, 179);
+}
+
+.leaflet-container.only-active-quest-markers .inactive-quest-marker {
+    display: none;
 }

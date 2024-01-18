@@ -9,6 +9,7 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
 
         const returnData = {
             flea: true,
+            level: 72,
             hideout: {},
             quests: [],
         };
@@ -32,6 +33,8 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             return completedTasks;
         }, []);
         returnData.flea = progressData.playerLevel >= 15 ? true : false;
+
+        returnData.level = progressData.playerLevel;
 
         const hideoutData = getState().hideout.data;
 
@@ -87,6 +90,7 @@ const settingsSlice = createSlice({
     initialState: {
         progressStatus: 'idle',
         hasFlea: localStorageReadJson('useFlea', true),
+        playerLevel: 72,
         tarkovTrackerAPIKey: localStorageReadJson('tarkovTrackerAPIKey', ''),
         prapor: localStorageReadJson('prapor', 4),
         therapist: localStorageReadJson('therapist', 4),
@@ -176,6 +180,7 @@ const settingsSlice = createSlice({
             if (action.payload) {
                 state.completedQuests = action.payload.quests;
                 state.hasFlea = action.payload.flea;
+                state.playerLevel = action.payload.level;
 
                 for (const stationKey in action.payload.hideout) {
                     settingsSlice.caseReducers.setStationOrTraderLevel(state, {
