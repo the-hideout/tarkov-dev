@@ -188,12 +188,20 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     background-color: transparent;
     color: rgb(199, 197, 179);
     border-bottom-color: rgb(50, 50, 50);
-
 }
 
 .leaflet-bar a:hover, .leaflet-bar a:active {
     background-color: rgba(25, 25, 25, 0.75);
     color: rgb(199, 197, 179);
+}
+
+.leaflet-bar a.leaflet-disabled {
+    color: rgb(109, 107, 89);
+    background-color: rgba(50, 50, 50, 0.75);
+}
+
+.leaflet-bar a.leaflet-disabled:hover, .leaflet-bar a.leaflet-disabled:active {
+    background-color: rgba(40, 40, 40, 0.75);
 }
 
 .leaflet-container.only-active-quest-markers .inactive-quest-marker {

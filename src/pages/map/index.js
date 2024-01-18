@@ -380,7 +380,7 @@ function Map() {
 
             var label = L.DomUtil.create('label');
             label.setAttribute('for', 'only-active-quest-markers');
-            label.textContent = t('Only Active Task Markers');
+            label.textContent = t('Only Active Tasks');
             container.append(label);
 
             return container;
@@ -1345,8 +1345,6 @@ function Map() {
             }
             addLayer(stationaryWeapons, 'stationarygun', 'Usable');
         }
-
-        
 
         // Add static items 
         if (showStaticMarkers) {
