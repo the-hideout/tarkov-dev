@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo, useCallback } from 'react';
+import { useEffect, useRef, useMemo, useCallback, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +15,7 @@ import 'leaflet-fullscreen/dist/Leaflet.fullscreen.js';
 import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
 import '../../modules/leaflet-control-coordinates.js';
 import '../../modules/leaflet-control-groupedlayer.js';
+import '../../modules/leaflet-control-raid-info.js';
 
 import { setPlayerPosition } from '../../features/settings/settingsSlice.js';
 
@@ -199,6 +200,13 @@ function checkMarkerForActiveLayers(event) {
             outline._path?.classList.add('off-level');
         }
     }
+    if (marker.options.activeQuest === true) {
+        marker._icon.classList.add('active-quest-marker');
+        marker._icon.classList.remove('inactive-quest-marker');
+    } else if (marker.options.activeQuest === false) {
+        marker._icon.classList.remove('active-quest-marker');
+        marker._icon.classList.add('inactive-quest-marker');
+    }
 }
 
 function mouseHoverOutline(event) {
@@ -259,6 +267,8 @@ function Map() {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
+    const settings = useSelector((state) => state.settings);
+
     const focusItem = useRef(searchParams.get('q') ? searchParams.get('q').split(',') : []);
 
     const { t } = useTranslation();
@@ -271,6 +281,7 @@ function Map() {
             hiddenGroups: [],
             hiddenLayers: [],
             collapsedGroups: [],
+            showOnlyActiveTasks: false,
         },
     );
 
@@ -305,15 +316,32 @@ function Map() {
     const ref = useRef();
     const mapRef = useRef(null);
 
-    const onMapContainerRefChange = useCallback(node => {
-        if (node) {
+    const [mapHeight, setMapHeight] = useState(500);
+    useLayoutEffect(() => {
+        function updateSize() {
             let viewableHeight = window.innerHeight - document.querySelector('.navigation')?.offsetHeight || 0;
             if (viewableHeight < 100) {
                 viewableHeight = window.innerHeight;
             }
-            node.style.height = `${viewableHeight}px`;
+            setMapHeight(viewableHeight);
         }
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
     }, []);
+
+    useEffect(() => {
+        const mapContainer = document.getElementById('leaflet-map');
+        if (mapContainer) {
+            mapContainer.style.height = `${mapHeight}px`;
+        }
+    }, [mapHeight]);
+
+    const onMapContainerRefChange = useCallback(node => {
+        if (node) {
+            node.style.height = `${mapHeight}px`;
+        }
+    }, [mapHeight]);
 
     useEffect(() => {
         ref?.current?.resetTransform();
@@ -322,7 +350,68 @@ function Map() {
     const { data: items } = useItemsData();
     const { data: quests} = useQuestsData();
 
+    const questsWithActive = useMemo(() => {
+        return quests.map(q => {
+            return {
+                ...q,
+                active: (() => {
+                    if (!settings.useTarkovTracker) {
+                        return true;
+                    }
+                    if (settings.completedQuests.includes(q.id)) {
+                        return false;
+                    }
+                    if (settings.playerLevel < q.minPlayerLevel) {
+                        return false;
+                    }
+                    // this is imperfect and should be improved
+                    if (q.taskRequirements.some(req => !settings.completedQuests.includes(req.task.id))) {
+                        return false;
+                    }
+                    return true;
+                })(),
+            };
+        });
+    }, [quests, settings]);
+
     let allMaps = useMapImages();
+
+    L.Control.MapSettings = L.Control.extend({
+        onAdd: function(map) {
+            var container = L.DomUtil.create('div');
+            container.classList.add('leaflet-control-map-settings');
+
+            var checkbox = L.DomUtil.create('input');
+            checkbox.id = 'only-active-quest-markers';
+            checkbox.setAttribute('type', 'checkbox');
+            checkbox.checked = !!this.options.checked;
+            checkbox.addEventListener('click', (e) => {
+                if (checkbox.checked) {
+                    map._container.classList.add('only-active-quest-markers');
+                } else {
+                    map._container.classList.remove('only-active-quest-markers');
+                }
+                mapSettingsRef.current.showOnlyActiveTasks = checkbox.checked;
+                updateSavedMapSettings();
+            });
+            container.append(checkbox);
+
+            var label = L.DomUtil.create('label');
+            label.setAttribute('for', 'only-active-quest-markers');
+            label.textContent = t('Only Active Tasks');
+            container.append(label);
+
+            return container;
+        },
+
+        onRemove: function(map) {
+            // Nothing to do here
+        }
+    });
+
+    L.control.mapSettings = function(opts) {
+        return new L.Control.MapSettings(opts);
+    }
 
     const mapData = useMemo(() => {
         return allMaps[currentMap];
@@ -398,7 +487,7 @@ function Map() {
                 mapViewRef.current.layer = layerState.key;
                 mapSettingsRef.current.hiddenLayers = mapSettingsRef.current.hiddenLayers.filter(key => key !== layerState.key);
             }
-            updateSavedMapSettings(mapSettingsRef.current);
+            updateSavedMapSettings();
         });
         layerControl.on('groupToggle', (e) => {
             const groupState = e.detail;
@@ -407,7 +496,7 @@ function Map() {
             } else {
                 mapSettingsRef.current.hiddenGroups = mapSettingsRef.current.hiddenGroups.filter(key => key !== groupState.key);
             }
-            updateSavedMapSettings(mapSettingsRef.current);
+            updateSavedMapSettings();
         });
         layerControl.on('groupCollapseToggle', (e) => {
             const groupState = e.detail;
@@ -417,7 +506,7 @@ function Map() {
             } else {
                 mapSettingsRef.current.collapsedGroups = mapSettingsRef.current.collapsedGroups.filter(key => key !== groupState.key);
             }
-            updateSavedMapSettings(mapSettingsRef.current);
+            updateSavedMapSettings();
         });
 
         map.layerControl = layerControl;
@@ -434,10 +523,25 @@ function Map() {
             labelTemplateLng: 'x: {x}',
             enableUserInput: false,
             wrapCoordinate: false,
-            position: 'topleft',
+            position: 'bottomright',
             customLabelFcn: (latLng, opts) => {
                 return `x: ${latLng.lng.toFixed(2)} z: ${latLng.lat.toFixed(2)}`;
             }
+        }).addTo(map);
+
+        if (settings.useTarkovTracker) {
+            L.control.mapSettings({
+                position: 'bottomright',
+                checked: mapSettingsRef.current.showOnlyActiveTasks,
+            }).addTo(map);
+        }
+
+        L.control.raidInfo({
+            position: 'topright',
+            map: mapData,
+            durationLabel: t('Duration'),
+            playersLabel: t('Players'),
+            bylabel: t('By'),
         }).addTo(map);
 
         //L.control.scale({position: 'bottomright'}).addTo(map);
@@ -492,8 +596,10 @@ function Map() {
                 const svgParent = baseLayer._url.endsWith('.svg');
                 if (tileLayer && svgLayer) {
                     const selectedStyle = svgParent ? 'svg' : 'tile';
-                    mapSettingsRef.current.style = selectedStyle;
-                    updateSavedMapSettings(mapSettingsRef.current);
+                    if (mapSettingsRef.current.style !== selectedStyle) {
+                        mapSettingsRef.current.style = selectedStyle;
+                        updateSavedMapSettings();
+                    }
                 }
                 const existingLayers = Object.values(layerControl._layers).filter(l => l.layer.options.type === 'map-layer' && !baseLayers.includes(l.layer)).map(l => l.layer);
                 for (const existingLayer of existingLayers) {
@@ -980,7 +1086,7 @@ function Map() {
         //add quest markers
         const questItems = L.layerGroup();
         const questObjectives = L.layerGroup();
-        for (const quest of quests) {
+        for (const quest of questsWithActive) {
             for (const obj of quest.objectives) {
                 if (obj.possibleLocations) {
                     for (const loc of obj.possibleLocations) {
@@ -1001,6 +1107,7 @@ function Map() {
                                 position: position,
                                 title: obj.questItem.name,
                                 id: obj.questItem.id,
+                                activeQuest: quest.active,
                             });
                             const popupContent = L.DomUtil.create('div');
                             const questLink = getReactLink(`/task/${quest.normalizedName}`, quest.name);
@@ -1042,6 +1149,7 @@ function Map() {
                             bottom: zone.bottom,
                             outline: rect,
                             id: zone.id,
+                            activeQuest: quest.active,
                         });
                         /*zoneMarker.on('click', (e) => {
                             rect._path.classList.toggle('not-shown');
@@ -1264,8 +1372,6 @@ function Map() {
             addLayer(stationaryWeapons, 'stationarygun', 'Usable');
         }
 
-        
-
         // Add static items 
         if (showStaticMarkers) {
             for (const category in staticMapData[mapData.normalizedName]) {
@@ -1368,7 +1474,14 @@ function Map() {
                 }
             }
         }
-    }, [mapData, items, quests, mapRef, playerPosition, t, dispatch, navigate, mapSettingsRef, updateSavedMapSettings, mapViewRef]);
+        const mapDiv = document.getElementById('leaflet-map');
+        const resizeObserver = new ResizeObserver(() => {
+            //map.invalidateSize();
+            //window.dispatchEvent(new Event('resize'));
+        });
+        resizeObserver.observe(mapDiv);
+
+    }, [mapData, items, questsWithActive, mapRef, playerPosition, t, dispatch, navigate, mapSettingsRef, updateSavedMapSettings, mapViewRef, settings]);
     
     if (!mapData) {
         return <ErrorPage />;
@@ -1383,21 +1496,24 @@ function Map() {
             key="seo-wrapper"
         />,
         <div className="display-wrapper" key="map-wrapper">
+            {mapData.projection !== 'interactive' && ([    
             <Time
+                key="raid-info"
                 currentMap={currentMap}
                 normalizedName={mapData.normalizedName}
                 duration={mapData.duration}
                 players={mapData.players}
                 author={mapData.author}
                 authorLink={mapData.authorLink}
-            />
-            {mapData.projection !== 'interactive' && (<TransformWrapper
+            />,
+            <TransformWrapper
                 ref={ref}
                 initialScale={1}
                 centerOnInit={true}
                 wheel={{
                     step: 0.1,
                 }}
+                key="map-holder"
             >
                 <TransformComponent>
                     <div className="map-image-wrapper">
@@ -1410,8 +1526,8 @@ function Map() {
                         />
                     </div>
                 </TransformComponent>
-            </TransformWrapper>)}
-            {mapData.projection === 'interactive' && (<div id="leaflet-map" ref={onMapContainerRefChange}  style={{height: '500px', backgroundColor: 'transparent'}}/>)}
+            </TransformWrapper>])}
+            {mapData.projection === 'interactive' && (<div id="leaflet-map" ref={onMapContainerRefChange} className={'leaflet-map-container'+savedMapSettings.showOnlyActiveTasks ? ' only-active-quest-markers' : ''}/>)}
         </div>,
     ];
 }

@@ -52,6 +52,12 @@ export function timeUntilRelative(until, left, date) {
     return diffRT;
 }
 
+export function formattedTarkovTime(left = true) {
+    const time = new Date();
+    const tarkovTime = realTimeToTarkovTime(time, left);
+    return dayjs.utc(tarkovTime).format('HH:mm:ss')
+}
+
 export function formatFuture(ms) {
     const time = dayjs.utc(ms);
     const hour = time.hour();
@@ -109,7 +115,7 @@ function Time(props) {
         );
     }
 
-    if (props?.normalizedName === 'labs') {
+    if (props?.normalizedName === 'the-lab') {
         return (
             <div className="time-wrapper">
                 <MapDetails {...props} />
