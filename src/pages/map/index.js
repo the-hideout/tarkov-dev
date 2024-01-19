@@ -1056,10 +1056,10 @@ function Map() {
 
                 const popupContent = L.DomUtil.create('div');
                 const lockTypeNode = L.DomUtil.create('div', undefined, popupContent);
-                lockTypeNode.innerText = `${lockTypeText}`;
+                lockTypeNode.innerHTML = `<strong>${lockTypeText}</strong>`;
                 if (lock.needsPower) {
                     const powerNode = L.DomUtil.create('div', undefined, popupContent);
-                    powerNode.innerText = tMaps('Needs power');
+                    powerNode.innerHTML = `<em>${tMaps('Needs power')}</em>`;
                 }
                 const lockImage = L.DomUtil.create('img', 'popup-item');
                 lockImage.setAttribute('src', `${key.baseImageLink}`);

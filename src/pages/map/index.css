@@ -13,10 +13,9 @@
 
 .leaflet-popup-content-wrapper, .leaflet-popup-content-wrapper a {
     color: rgb(199, 197, 179);
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
+    /*font-weight: 400;*/
 }
 
 /* leaflet-control-coordinates */
@@ -180,7 +179,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 .leaflet-control {
     background-color: rgba(0, 0, 0, 0.75);
     color: rgb(199, 197, 179);
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -193,7 +192,7 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 }
 
 .leaflet-control-map-settings {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.75);
 }
 
 .leaflet-container.only-active-quest-markers .inactive-quest-marker {
