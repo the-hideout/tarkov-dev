@@ -837,6 +837,114 @@ function Quest() {
         );
     };
 
+    const getRewards = (rewards) => {
+        return [rewards.items?.length > 0 && (
+            <div key="finishRewards">
+                <h3>{t('Items')}</h3>
+                <ul className="quest-item-list">
+                    {rewards.items.map((rewardItem, index) => {
+                        const item = items.find((it) => it.id === rewardItem.item.id);
+                        if (!item)
+                            return null;
+                        let itemCount = rewardItem.count;
+                        if (item.categories.some(cat => cat.normalizedName === 'money')) {
+                            const multiplier = intelCashMultiplier[settings['intelligence-center']];
+                            itemCount = Math.round(itemCount * multiplier);
+                        }
+                        return (
+                            <li
+                                key={`reward-index-${rewardItem.item.id}-${index}`}
+                            >
+                                <ItemImage
+                                    key={`reward-index-${rewardItem.item.id}-${index}`}
+                                    item={item}
+                                    imageField="baseImageLink"
+                                    linkToItem={true}
+                                    count={rewardItem.count > 1 ? itemCount : false}
+                                    isFIR={true}
+                                />
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
+        ),
+        rewards.traderStanding?.length > 0 && (
+            <div key="reward-standing">
+                <h3>{t('Trader Standing')}</h3>
+                <ul className="quest-item-list">
+                    {rewards.traderStanding.map((standing) => {
+                        const trader = traders.find((t) => t.id === standing.trader.id);
+                        return (
+                            <li className="quest-list-item" key={standing.trader.id}>
+                                <TraderImage
+                                    trader={trader}
+                                    reputationChange={standing.standing}
+                                />
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
+        ),
+        rewards?.skillLevelReward?.length > 0 && (
+            <div key="reward-skill">
+                <h3>{t('Skill Level')}</h3>
+                <ul>
+                    {rewards.skillLevelReward.map((skillReward) => {
+                        return (
+                            <li className="quest-list-item" key={skillReward.name}>
+                                {`${skillReward.name} +${skillReward.level}`}
+                            </li>
+                        )
+                    })}
+                </ul>
+            </div>
+        ),
+        rewards.offerUnlock?.length > 0 && (
+            <div key="reward-offer">
+                <h3>{t('Trader Offer Unlock')}</h3>
+                <ul className="quest-item-list">
+                    {rewards.offerUnlock.map((unlock, index) => {
+                        const trader = traders.find((t) => t.id === unlock.trader.id);
+                        const item = items.find((i) => i.id === unlock.item.id);
+                        if (!item)
+                            return null;
+                        return (
+                            <li className="quest-list-item" key={`${unlock.item.id}-${index}`}>
+                                <ItemImage
+                                    key={`reward-index-${item.id}-${index}`}
+                                    item={item}
+                                    imageField="baseImageLink"
+                                    linkToItem={true}
+                                    trader={trader}
+                                    count={t('LL{{level}}', { level: unlock.level })}
+                                />
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
+        ),
+        rewards.traderUnlock?.length > 0 && (
+            <div key="reward-trader">
+                <h3>{t('Trader Unlock')}</h3>
+                <ul>
+                    {rewards.traderUnlock.map((unlock) => {
+                        const trader = traders.find((t) => t.id === unlock.id);
+                        return (
+                            <li className="quest-list-item" key={unlock.id}>
+                                <Link to={`/trader/${trader.normalizedName}`}>
+                                    {trader.name}
+                                </Link>
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
+        )];
+    };
+
     return [
         <SEO 
             title={`${currentQuest.name} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
@@ -988,114 +1096,15 @@ function Quest() {
 
                 <hr className="hr-muted-full"></hr>
 
+                {Object.keys(currentQuest.startRewards).some(r => currentQuest.startRewards[r]?.length) && [
+                    <h2 className="center-title task-details-heading" key="task-start-reward-heading">{t('Task Start')}</h2>,
+                    getRewards(currentQuest.startRewards)
+                ]}
+
                 <h2 className="center-title task-details-heading">{t('Task Completion')}</h2>
 
                 <h2>🎁 {t('Rewards')}</h2>
-                {currentQuest.finishRewards?.items?.length > 0 && (
-                    <div key="finishRewards">
-                        <h3>{t('Items')}</h3>
-                        <ul className="quest-item-list">
-                            {currentQuest.finishRewards?.items.map((rewardItem, index) => {
-                                const item = items.find((it) => it.id === rewardItem.item.id);
-                                if (!item)
-                                    return null;
-                                let itemCount = rewardItem.count;
-                                if (item.categories.some(cat => cat.normalizedName === 'money')) {
-                                    const multiplier = intelCashMultiplier[settings['intelligence-center']];
-                                    itemCount = Math.round(itemCount * multiplier);
-                                }
-                                return (
-                                    <li
-                                        key={`reward-index-${rewardItem.item.id}-${index}`}
-                                    >
-                                        <ItemImage
-                                            key={`reward-index-${rewardItem.item.id}-${index}`}
-                                            item={item}
-                                            imageField="baseImageLink"
-                                            linkToItem={true}
-                                            count={rewardItem.count > 1 ? itemCount : false}
-                                            isFIR={true}
-                                        />
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </div>
-                )}
-                {currentQuest.finishRewards?.traderStanding?.length > 0 && (
-                    <>
-                        <h3>{t('Trader Standing')}</h3>
-                        <ul className="quest-item-list">
-                            {currentQuest.finishRewards.traderStanding.map((standing) => {
-                                const trader = traders.find((t) => t.id === standing.trader.id);
-                                return (
-                                    <li className="quest-list-item" key={standing.trader.id}>
-                                        <TraderImage
-                                            trader={trader}
-                                            reputationChange={standing.standing}
-                                        />
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </>
-                )}
-                {currentQuest.finishRewards?.skillLevelReward?.length > 0 && (
-                    <>
-                        <h3>{t('Skill Level')}</h3>
-                        <ul>
-                            {currentQuest.finishRewards.skillLevelReward.map((skillReward) => {
-                                return (
-                                    <li className="quest-list-item" key={skillReward.name}>
-                                        {`${skillReward.name} +${skillReward.level}`}
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    </>
-                )}
-                {currentQuest.finishRewards?.offerUnlock?.length > 0 && (
-                    <>
-                        <h3>{t('Trader Offer Unlock')}</h3>
-                        <ul className="quest-item-list">
-                            {currentQuest.finishRewards.offerUnlock.map((unlock, index) => {
-                                const trader = traders.find((t) => t.id === unlock.trader.id);
-                                const item = items.find((i) => i.id === unlock.item.id);
-                                if (!item)
-                                    return null;
-                                return (
-                                    <li className="quest-list-item" key={`${unlock.item.id}-${index}`}>
-                                        <ItemImage
-                                            key={`reward-index-${item.id}-${index}`}
-                                            item={item}
-                                            imageField="baseImageLink"
-                                            linkToItem={true}
-                                            trader={trader}
-                                            count={t('LL{{level}}', { level: unlock.level })}
-                                        />
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </>
-                )}
-                {currentQuest.finishRewards?.traderUnlock?.length > 0 && (
-                    <>
-                        <h3>{t('Trader Unlock')}</h3>
-                        <ul>
-                            {currentQuest.finishRewards.traderUnlock.map((unlock) => {
-                                const trader = traders.find((t) => t.id === unlock.id);
-                                return (
-                                    <li className="quest-list-item" key={unlock.id}>
-                                        <Link to={`/trader/${trader.normalizedName}`}>
-                                            {trader.name}
-                                        </Link>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </>
-                )}
+                {getRewards(currentQuest.finishRewards)}
                 {hasFailPenalties > 0 && (
                     <div>
                         <hr className="hr-muted-full"></hr>
