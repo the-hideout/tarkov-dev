@@ -33,6 +33,7 @@ import ErrorPage from '../error-page/index.js';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
 import './index.css';
+import images from './map-images.mjs';
 
 const showStaticMarkers = false;
 const showMarkersBounds = false;
@@ -427,6 +428,24 @@ function Map() {
         const tMaps = (string) => {
             return t(string, { ns: 'maps' })
         }
+
+        const categories = {
+            'extract_pmc': tMaps('PMC'),
+            'extract_shared': tMaps('Shared'),
+            'extract_scav': tMaps('Scav'),
+            'spawn_sniper_scav': tMaps('Sniper Scav'),
+            'spawn_pmc': tMaps('PMC'),
+            'spawn_scav': tMaps('Scav'),
+            'spawn_boss': tMaps('Boss'),
+            'quest_item': tMaps('Item'),
+            'quest_objective': tMaps('Objective'),
+            'lock': tMaps('Locks'),
+            'lever': tMaps('Lever'),
+            'stationarygun': tMaps('Stationary Gun'),
+            'switch': tMaps('Switch'),
+            'place-names': tMaps('Place Names'),
+        };
+
         let mapCenter = [0, 0];
         let mapZoom = mapData.minZoom+1;
         let mapViewRestored = false;
@@ -512,7 +531,29 @@ function Map() {
             updateSavedMapSettings();
         });
 
+        const getLayerOptions = (layerKey, groupKey, layerName) => {
+            return {
+                groupKey,
+                layerKey,
+                groupName: tMaps(groupKey),
+                layerName: layerName || categories[layerKey] || layerKey,
+                groupHidden: Boolean(mapSettingsRef.current.hiddenGroups?.includes(groupKey)),
+                layerHidden: Boolean(mapSettingsRef.current.hiddenLayers?.includes(layerKey)),
+                image: images[layerKey] ? `${process.env.PUBLIC_URL}/maps/interactive/${images[layerKey]}.png` : undefined,
+                groupCollapsed: Boolean(mapSettingsRef.current.collapsedGroups?.includes(groupKey)),
+            };
+        };
+
+        const addLayer = (layer, layerKey, groupKey, layerName) => {
+            layer.key = layerKey;
+            const layerOptions = getLayerOptions(layerKey, groupKey, layerName);
+            if (!layerOptions.groupHidden && !layerOptions.layerHidden) {
+                layer.addTo(map);
+            }
+            layerControl.addOverlay(layer, layerOptions.layerName, layerOptions);
+        };
         map.layerControl = layerControl;
+
         map.addControl(new L.Control.Fullscreen({
             title: {
                 'false': tMaps('View Fullscreen'),
@@ -581,6 +622,35 @@ function Map() {
             //baseLayer = L.imageOverlay(mapData.svgPath, bounds, layerOptions);
             svgLayer = L.imageOverlay(mapData.svgPath, bounds, layerOptions);
             baseLayers.push(svgLayer);
+        }
+
+        // Add labels
+
+        if (mapData.labels?.length > 0) {
+            const labelsGroup = L.layerGroup();
+            const defaultHeight = ((layerOptions.extents[0].height[1] - layerOptions.extents[0].height[0]) / 2) + layerOptions.extents[0].height[0];
+            for (const label of mapData.labels) {
+                const fontSize = label.size ? label.size : 100;
+                const height = label.position.length < 3 ? defaultHeight : label.position[2];
+                const labelMarker = L.marker(pos({x: label.position[0], z: label.position[1]}), {
+                    icon: L.divIcon({
+                        html: `<div class="label" style="font-size: ${fontSize}%;">${tMaps(label.text)}</div>`,
+                        className: 'map-area-label',
+                        layers: baseLayers,
+                    }),
+                    interactive: false,
+                    zIndexOffset: -100000,
+                    position: {
+                        x: label.position[0],
+                        y: height,
+                        z: label.position[1],
+                    },
+                    top: typeof label.top !== 'undefined' ? label.top : 1000,
+                    bottom: typeof label.bottom !== 'undefined' ? label.bottom : -1000,
+                }).addTo(labelsGroup);
+                console.log(labelMarker);
+            }
+            addLayer(labelsGroup, 'place-names', 'Landmarks');
         }
 
         // only add selector if there are multiple
@@ -698,69 +768,6 @@ function Map() {
 
         baseLayer.addTo(map);
 
-        const categories = {
-            'extract_pmc': tMaps('PMC'),
-            'extract_shared': tMaps('Shared'),
-            'extract_scav': tMaps('Scav'),
-            'spawn_sniper_scav': tMaps('Sniper Scav'),
-            'spawn_pmc': tMaps('PMC'),
-            'spawn_scav': tMaps('Scav'),
-            'spawn_boss': tMaps('Boss'),
-            'quest_item': tMaps('Item'),
-            'quest_objective': tMaps('Objective'),
-            'lock': tMaps('Locks'),
-            'lever': tMaps('Lever'),
-            'stationarygun': tMaps('Stationary Gun'),
-            'switch': tMaps('Switch'),
-        };
-        const images = {
-            'container_bank-cash-register': 'container_cash-register',
-            'container_bank-safe': 'container_safe',
-            'container_buried-barrel-cache': 'container_buried-barrel-cache',
-            'container_cash-register': 'container_cash-register',
-            'container_cash-register-tar2-2': 'container_cash-register',
-            'container_dead-civilian': 'container_dead-scav',
-            'container_dead-scav': 'container_dead-scav',
-            'container_pmc-body': 'container_dead-scav',
-            'container_drawer': 'container_drawer',
-            'container_duffle-bag': 'container_duffle-bag',
-            'container_grenade-box': 'container_grenade-box',
-            'container_ground-cache': 'container_buried-barrel-cache',
-            'container_jacket': 'container_jacket',
-            'container_lab-technician-body': 'container_dead-scav',
-            'container_medbag-smu06': 'container_medbag-smu06',
-            'container_medcase': 'container_medcase',
-            'container_medical-supply-crate': 'container_technical-supply-crate',
-            'container_pc-block': 'container_pc-block',
-            'container_plastic-suitcase': 'container_plastic-suitcase',
-            'container_ration-supply-crate': 'container_technical-supply-crate',
-            'container_safe': 'container_safe',
-            'container_scav-body': 'container_dead-scav',
-            'container_shturmans-stash': 'container_weapon-box',
-            'container_technical-supply-crate': 'container_technical-supply-crate',
-            'container_toolbox': 'container_toolbox',
-            'container_weapon-box': 'container_weapon-box',
-            'container_wooden-ammo-box': 'container_wooden-ammo-box',
-            'container_wooden-crate': 'container_wooden-crate',
-            'extract_pmc': 'extract_pmc',
-            'extract_scav': 'extract_scav',
-            'extract_shared': 'extract_shared',
-            'hazard': 'hazard',
-            'key': 'key',
-            'lock': 'lock',
-            'quest_item': 'quest_item',
-            'quest_objective': 'quest_objective',
-            'spawn_sniper_scav': 'spawn_sniper_scav',
-            'spawn_bloodhound': 'spawn_bloodhound',
-            'spawn_boss': 'spawn_boss',
-            'spawn_cultist-priest': 'spawn_cultist-priest',
-            'spawn_pmc': 'spawn_pmc',
-            'spawn_rogue': 'spawn_rogue',
-            'spawn_scav': 'spawn_scav',
-            'stationarygun': 'stationarygun',
-            'switch': 'switch',
-        };
-
         const focusOnPoi = (id) => {
             for (const marker of Object.values(map._layers)) {
                 if (marker.options.id !== id) {
@@ -796,28 +803,6 @@ function Map() {
             //     event.preventDefault();
             // });
             return a;
-        };
-
-        const getLayerOptions = (layerKey, groupKey, layerName) => {
-            return {
-                groupKey,
-                layerKey,
-                groupName: tMaps(groupKey),
-                layerName: layerName || categories[layerKey] || layerKey,
-                groupHidden: Boolean(mapSettingsRef.current.hiddenGroups?.includes(groupKey)),
-                layerHidden: Boolean(mapSettingsRef.current.hiddenLayers?.includes(layerKey)),
-                image: images[layerKey] ? `${process.env.PUBLIC_URL}/maps/interactive/${images[layerKey]}.png` : undefined,
-                groupCollapsed: Boolean(mapSettingsRef.current.collapsedGroups?.includes(groupKey)),
-            };
-        };
-
-        const addLayer = (layer, layerKey, groupKey, layerName) => {
-            layer.key = layerKey;
-            const layerOptions = getLayerOptions(layerKey, groupKey, layerName);
-            if (!layerOptions.groupHidden && !layerOptions.layerHidden) {
-                layer.addTo(map);
-            }
-            layerControl.addOverlay(layer, layerOptions.layerName, layerOptions);
         };
 
         const positionIsInBounds = (position) => {

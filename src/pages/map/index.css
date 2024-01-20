@@ -250,4 +250,41 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
     color: rgb(199, 197, 179);
 }
 
+/* Area labels */
 
+/*.leaflet-tooltip.map-area-label {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 900;
+    font-size: 24px;
+    color: rgb(199, 197, 179);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+
+.leaflet-tooltip.map-area-label::before {
+    display: none;
+}*/
+
+.leaflet-marker-icon.map-area-label {
+    font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 900;
+    font-size: 24px;
+    color: rgb(199, 197, 179);
+    -webkit-text-stroke: 1px black;
+    text-align: center;
+}
+
+.leaflet-marker-icon.map-area-label .label {
+    position: absolute;
+    -webkit-transform: translate3d(-50%, -50%, 0); 
+    -moz-transform: translate3d(-50%, -50%, 0);  
+    transform: translate3d(-50%, -50%, 0);
+    width: 200px;
+}
+
+.leaflet-marker-icon.map-area-label.off-level {
+    display: none;
+}
