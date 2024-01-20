@@ -239,6 +239,12 @@
                                     [[584, -46], [556, -92], "USEC 2nd"],
                                     [[93, 0], [65, -22], "construction 2nd"]
                                 ]
+                            },
+                            {
+                                "height": [14, 15],
+                                "bounds": [
+                                    [[497, -44], [450, -90], "chemical warehouse sniper scav"]
+                                ]
                             }
                         ]
                     },
