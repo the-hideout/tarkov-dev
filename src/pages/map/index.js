@@ -200,13 +200,13 @@ function checkMarkerForActiveLayers(event) {
             outline._path?.classList.add('off-level');
         }
     }
-    if (marker.options.activeQuest === true) {
+    /*if (marker.options.activeQuest === true) {
         marker._icon.classList.add('active-quest-marker');
         marker._icon.classList.remove('inactive-quest-marker');
     } else if (marker.options.activeQuest === false) {
         marker._icon.classList.remove('active-quest-marker');
         marker._icon.classList.add('inactive-quest-marker');
-    }
+    }*/
 }
 
 function mouseHoverOutline(event) {
@@ -384,7 +384,10 @@ function Map() {
             var checkbox = L.DomUtil.create('input');
             checkbox.id = 'only-active-quest-markers';
             checkbox.setAttribute('type', 'checkbox');
-            checkbox.checked = !!this.options.checked;
+            if (!!this.options.checked) {
+                checkbox.setAttribute('checked', !!this.options.checked);
+                checkbox.checked = true;
+            }
             checkbox.addEventListener('click', (e) => {
                 if (checkbox.checked) {
                     map._container.classList.add('only-active-quest-markers');
@@ -1097,13 +1100,13 @@ function Map() {
                                 iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_item.png`,
                                 iconSize: [24, 24],
                                 popupAnchor: [0, -12],
+                                className: quest.active ? 'active-quest-marker' : 'inactive-quest-marker',
                             });
                             const questItemMarker = L.marker(pos(position), {
                                 icon: questItemIcon,
                                 position: position,
                                 title: obj.questItem.name,
                                 id: obj.questItem.id,
-                                activeQuest: quest.active,
                             });
                             const popupContent = L.DomUtil.create('div');
                             const questLink = getReactLink(`/task/${quest.normalizedName}`, quest.name);
@@ -1135,6 +1138,7 @@ function Map() {
                             iconUrl: `${process.env.PUBLIC_URL}/maps/interactive/quest_objective.png`,
                             iconSize: [24, 24],
                             popupAnchor: [0, -12],
+                            className: quest.active ? 'active-quest-marker' : 'inactive-quest-marker',
                         });
                         
                         const zoneMarker = L.marker(pos(zone.position), {
@@ -1145,7 +1149,6 @@ function Map() {
                             bottom: zone.bottom,
                             outline: rect,
                             id: zone.id,
-                            activeQuest: quest.active,
                         });
                         /*zoneMarker.on('click', (e) => {
                             rect._path.classList.toggle('not-shown');
