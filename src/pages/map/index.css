@@ -260,9 +260,9 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 
 .leaflet-marker-icon.map-area-label .label {
     position: absolute;
-    -webkit-transform: translate3d(-50%, -50%, 0); 
+    /*-webkit-transform: translate3d(-50%, -50%, 0); 
     -moz-transform: translate3d(-50%, -50%, 0);  
-    transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);*/
     width: 200px;
 }
 

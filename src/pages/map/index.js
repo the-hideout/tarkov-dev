@@ -632,9 +632,10 @@ function Map() {
             for (const label of mapData.labels) {
                 const fontSize = label.size ? label.size : 100;
                 const height = label.position.length < 3 ? defaultHeight : label.position[2];
+                const rotation = label.rotation ? label.rotation : 0;
                 L.marker(pos({x: label.position[0], z: label.position[1]}), {
                     icon: L.divIcon({
-                        html: `<div class="label" style="font-size: ${fontSize}%;">${tMaps(label.text)}</div>`,
+                        html: `<div class="label" style="font-size: ${fontSize}%; transform: translate3d(-50%, -50%, 0) rotate(${rotation}deg)">${tMaps(label.text)}</div>`,
                         className: 'map-area-label',
                         layers: baseLayers,
                     }),
