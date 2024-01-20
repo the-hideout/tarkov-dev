@@ -18,6 +18,10 @@
     /*font-weight: 400;*/
 }
 
+.leaflet-popup-content-wrapper a {
+    color: #9a8866;
+}
+
 /* leaflet-control-coordinates */
 .leaflet-control-coordinates {
     color: #000000;
@@ -56,7 +60,6 @@
 	padding: 0;
 	display: inherit;
 }
-/* leaflet-control-coordinates */
 
 /* leaflet-control-groupedlayer */
 .leaflet-control-layers-group-name {
@@ -175,7 +178,6 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 }
 
 /* general control styles */
-
 .leaflet-control {
     background-color: rgba(0, 0, 0, 0.75);
     color: rgb(199, 197, 179);
@@ -186,7 +188,6 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 }
 
 /* only active tasks control */
-
 .leaflet-control-map-settings.leaflet-control {
     padding: 4px 4px;
 }
@@ -200,7 +201,6 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 }
 
 /* fullscreen control */
-
 .leaflet-control-fullscreen a {
     background-color: rgba(0, 0, 0, 0.75);
 }
@@ -210,7 +210,6 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 }
 
 /* zoom control */
-
 .leaflet-bar a {
     background-color: transparent;
     color: rgb(199, 197, 179);
@@ -240,7 +239,6 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 }
 
 /* Raid Info control */
-
 .leaflet-control-raid-info {
     background-color: rgba(0, 0, 0, 0.5);
     line-height: normal;
@@ -251,23 +249,6 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 }
 
 /* Area labels */
-
-/*.leaflet-tooltip.map-area-label {
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-    font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 900;
-    font-size: 24px;
-    color: rgb(199, 197, 179);
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
-}
-
-.leaflet-tooltip.map-area-label::before {
-    display: none;
-}*/
-
 .leaflet-marker-icon.map-area-label {
     font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-weight: 900;

@@ -632,7 +632,7 @@ function Map() {
             for (const label of mapData.labels) {
                 const fontSize = label.size ? label.size : 100;
                 const height = label.position.length < 3 ? defaultHeight : label.position[2];
-                const labelMarker = L.marker(pos({x: label.position[0], z: label.position[1]}), {
+                L.marker(pos({x: label.position[0], z: label.position[1]}), {
                     icon: L.divIcon({
                         html: `<div class="label" style="font-size: ${fontSize}%;">${tMaps(label.text)}</div>`,
                         className: 'map-area-label',
@@ -648,7 +648,6 @@ function Map() {
                     top: typeof label.top !== 'undefined' ? label.top : 1000,
                     bottom: typeof label.bottom !== 'undefined' ? label.bottom : -1000,
                 }).addTo(labelsGroup);
-                console.log(labelMarker);
             }
             addLayer(labelsGroup, 'place-names', 'Landmarks');
         }
