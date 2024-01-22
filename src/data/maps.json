@@ -263,7 +263,7 @@
                         ]
                     }
                 ],
-                "labels": [
+                "_labels": [
                     {
                         "position": [-212, -123],
                         "text": "Big Red"
@@ -342,7 +342,7 @@
                         ]
                     }
                 ],
-                "labels": [
+                "_labels": [
                     {
                         "position": [19, 41],
                         "text": "Office",
