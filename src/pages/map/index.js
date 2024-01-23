@@ -351,30 +351,6 @@ function Map() {
     const { data: items } = useItemsData();
     const { data: quests} = useQuestsData();
 
-    const questsWithActive = useMemo(() => {
-        return quests.map(q => {
-            return {
-                ...q,
-                active: (() => {
-                    if (!settings.useTarkovTracker) {
-                        return true;
-                    }
-                    if (settings.completedQuests.includes(q.id)) {
-                        return false;
-                    }
-                    if (settings.playerLevel < q.minPlayerLevel) {
-                        return false;
-                    }
-                    // this is imperfect and should be improved
-                    if (q.taskRequirements.some(req => !settings.completedQuests.includes(req.task.id))) {
-                        return false;
-                    }
-                    return true;
-                })(),
-            };
-        });
-    }, [quests, settings]);
-
     let allMaps = useMapImages();
 
     L.Control.MapSettings = L.Control.extend({
@@ -1070,7 +1046,7 @@ function Map() {
         //add quest markers
         const questItems = L.layerGroup();
         const questObjectives = L.layerGroup();
-        for (const quest of questsWithActive) {
+        for (const quest of quests) {
             for (const obj of quest.objectives) {
                 if (obj.possibleLocations) {
                     for (const loc of obj.possibleLocations) {
@@ -1465,7 +1441,7 @@ function Map() {
         });
         resizeObserver.observe(mapDiv);
 
-    }, [mapData, items, questsWithActive, mapRef, playerPosition, t, dispatch, navigate, mapSettingsRef, updateSavedMapSettings, mapViewRef, settings]);
+    }, [mapData, items, quests, mapRef, playerPosition, t, dispatch, navigate, mapSettingsRef, updateSavedMapSettings, mapViewRef, settings]);
     
     if (!mapData) {
         return <ErrorPage />;
