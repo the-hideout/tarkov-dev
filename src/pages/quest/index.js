@@ -538,12 +538,12 @@ function Quest() {
                     <>
                         {shootString}
                     </>
-                    {objective.timeFromHour && (
+                    {objective.timeFromHour !== objective.timeUntilHour && (
                         <div>
                             {t('During hours: {{hourStart}}:00 to {{hourEnd}}:00', {hourStart: objective.timeFromHour, hourEnd: objective.timeUntilHour})}
                         </div>
                     )}
-                    {objective.distance && (
+                    {objective.distance > 0 && (
                         <div>
                             {t('From distance: {{operator}} {{count}} meters', {
                                 operator: objective.distance.compareMethod,
