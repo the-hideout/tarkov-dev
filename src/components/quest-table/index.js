@@ -354,7 +354,7 @@ function QuestTable({
                         if (!reqQuest)
                             return null;
                         let completedIcon = '';
-                        if (req.status.includes('complete') && settings.completedQuests.includes(questData.id)) {
+                        if (req.status.includes('complete') && settings.completedQuests.includes(req.task.id)) {
                             completedIcon = (
                                 <Icon
                                     path={mdiClipboardCheck}
@@ -363,7 +363,16 @@ function QuestTable({
                                 />
                             );
                         }
-                        if (req.status.length === 1 && req.status[0] === 'active' && settings.completedQuests.includes(questData.id)) {
+                        if (completedIcon === '' && req.status.includes('failed') && settings.failedQuests.includes(req.task.id)) {
+                            completedIcon = (
+                                <Icon
+                                    path={mdiClipboardCheck}
+                                    size={0.75}
+                                    className="icon-with-text"
+                                />
+                            );
+                        }
+                        if (completedIcon === '' && req.status.length === 1 && req.status[0] === 'active' && (settings.completedQuests.includes(req.task.id) || settings.failedQuests.includes(req.task.id))) {
                             completedIcon = (
                                 <Icon
                                     path={mdiClipboardRemove}
