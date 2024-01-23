@@ -246,12 +246,15 @@ function QuestTable({
 
             let completedPassed = true;
             if (hideCompleted) {
-                completedPassed = !settings.completedQuests.some(taskId => taskId === quest.id);
+                completedPassed = !settings.completedQuests.includes(quest.id) && !settings.failedQuests.includes(quest.id);
             }
 
             let lockedPassed = true;
             if (hideLocked) {
                 lockedPassed = quest.active;
+                if (!hideCompleted && !quest.active) {
+                    lockedPassed = settings.completedQuests.includes(quest.id) || settings.failedQuests.includes(quest.id);
+                }
             }
 
             return completedPassed && lockedPassed;
