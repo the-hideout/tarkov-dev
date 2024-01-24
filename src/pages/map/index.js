@@ -606,7 +606,8 @@ function Map() {
             //     mapData.svgPath = mapData.svgPath.replace("assets.tarkov.dev/maps/svg", "raw.githubusercontent.com/the-hideout/tarkov-dev-src-maps/main/interactive");
             // }
             //baseLayer = L.imageOverlay(mapData.svgPath, bounds, layerOptions);
-            svgLayer = L.imageOverlay(mapData.svgPath, bounds, layerOptions);
+            const svgBounds = mapData.svgBounds ? getBounds(mapData.svgBounds) : bounds;
+            svgLayer = L.imageOverlay(mapData.svgPath, svgBounds, layerOptions);
             baseLayers.push(svgLayer);
         }
 
