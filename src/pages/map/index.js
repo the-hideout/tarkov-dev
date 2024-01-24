@@ -489,6 +489,16 @@ function Map() {
         });
         layerControl.on('groupToggle', (e) => {
             const groupState = e.detail;
+            for (const groupLayer of layerControl._layers) {
+                if (groupLayer.group?.key !== groupState.key) {
+                    continue;
+                }
+                if (!groupState.checked) {
+                    mapSettingsRef.current.hiddenLayers.push(groupLayer.key);
+                } else {
+                    mapSettingsRef.current.hiddenLayers = mapSettingsRef.current.hiddenLayers.filter(key => key !== groupLayer.key);
+                }
+            }
             if (!groupState.checked) {
                 mapSettingsRef.current.hiddenGroups.push(groupState.key);
             } else {
@@ -523,7 +533,7 @@ function Map() {
         const addLayer = (layer, layerKey, groupKey, layerName) => {
             layer.key = layerKey;
             const layerOptions = getLayerOptions(layerKey, groupKey, layerName);
-            if (!layerOptions.groupHidden && !layerOptions.layerHidden) {
+            if (!layerOptions.layerHidden) {
                 layer.addTo(map);
             }
             layerControl.addOverlay(layer, layerOptions.layerName, layerOptions);
