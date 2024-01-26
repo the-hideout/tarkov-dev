@@ -6,7 +6,7 @@ class CraftsQuery extends APIQuery {
     }
 
     async query(language, prebuild = false) {
-        const query = `{
+        const query = `query TarkovDevCrafts {
             crafts(lang: ${language}) {
                 station {
                     id

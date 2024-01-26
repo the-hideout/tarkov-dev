@@ -11,7 +11,7 @@ class ItemsQuery extends APIQuery {
     async query(language, prebuild = false) {
         const itemLimit = 2000;
         const QueryBody = offset => {
-            return `{
+            return `query TarkovDevItems {
                 items(lang: ${language}, limit: ${itemLimit}, offset: ${offset}) {
                     id
                     bsgCategoryId
@@ -43,55 +43,10 @@ class ItemsQuery extends APIQuery {
                     image8xLink
                     updated
                     sellFor {
-                        vendor {
-                            name
-                            normalizedName
-                            __typename
-                            ...on TraderOffer {
-                                trader {
-                                    id
-                                }
-                                minTraderLevel
-                                taskUnlock {
-                                    id
-                                    tarkovDataId
-                                    name
-                                }
-                            }
-                        }
-                        price
-                        currency
-                        priceRUB
-                        requirements {
-                            type
-                            value
-                        }
+                        ...ItemPriceFragment
                     }
                     buyFor {
-                        vendor {
-                            name
-                            normalizedName
-                            __typename
-                            ...on TraderOffer {
-                                trader {
-                                    id
-                                }
-                                minTraderLevel
-                                taskUnlock {
-                                    id
-                                    tarkovDataId
-                                    name
-                                    normalizedName
-                                }
-                            }
-                        }
-                        price
-                        currency
-                        priceRUB
-                        requirements {
-                            type
-                            value
-                        }
+                        ...ItemPriceFragment
                     }
                     containsItems {
                         count
@@ -137,22 +92,7 @@ class ItemsQuery extends APIQuery {
                         ...on ItemPropertiesBackpack {
                             capacity
                             grids {
-                                width
-                                height
-                                filters {
-                                    allowedCategories {
-                                        id
-                                    }
-                                    allowedItems {
-                                        id
-                                    }
-                                    excludedCategories {
-                                        id
-                                    }
-                                    excludedItems {
-                                        id
-                                    }
-                                }
+                                ...GridFragment
                             }
                             speedPenalty
                             turnPenalty
@@ -162,20 +102,7 @@ class ItemsQuery extends APIQuery {
                             ergonomics
                             recoilModifier
                             slots {
-                                filters {
-                                    allowedCategories {
-                                        id
-                                    }
-                                    allowedItems {
-                                        id
-                                    }
-                                    excludedCategories {
-                                        id
-                                    }
-                                    excludedItems {
-                                        id
-                                    }
-                                }
+                                ...SlotFragment
                             }
                         }
                         ...on ItemPropertiesChestRig {
@@ -191,43 +118,13 @@ class ItemsQuery extends APIQuery {
                             speedPenalty
                             turnPenalty
                             grids {
-                                width
-                                height
-                                filters {
-                                    allowedCategories {
-                                        id
-                                    }
-                                    allowedItems {
-                                        id
-                                    }
-                                    excludedCategories {
-                                        id
-                                    }
-                                    excludedItems {
-                                        id
-                                    }
-                                }
+                                ...GridFragment
                             }
                         }
                         ...on ItemPropertiesContainer {
                             capacity
                             grids {
-                                width
-                                height
-                                filters {
-                                    allowedCategories {
-                                        id
-                                    }
-                                    allowedItems {
-                                        id
-                                    }
-                                    excludedCategories {
-                                        id
-                                    }
-                                    excludedItems {
-                                        id
-                                    }
-                                }
+                                ...GridFragment
                             }
                         }
                         ...on ItemPropertiesFoodDrink {
@@ -235,13 +132,7 @@ class ItemsQuery extends APIQuery {
                             hydration
                             units
                             stimEffects {
-                                type
-                                chance
-                                delay
-                                duration
-                                value
-                                percent
-                                skillName
+                                ...StimEffectFragment
                             }
                         }
                         ...on ItemPropertiesGlasses {
@@ -279,20 +170,7 @@ class ItemsQuery extends APIQuery {
                             blocksHeadset
                             ricochetY
                             slots {
-                                filters {
-                                    allowedCategories {
-                                        id
-                                    }
-                                    allowedItems {
-                                        id
-                                    }
-                                    excludedCategories {
-                                        id
-                                    }
-                                    excludedItems {
-                                        id
-                                    }
-                                }
+                                ...SlotFragment
                             }
                         }
                         ...on ItemPropertiesKey {
@@ -357,13 +235,7 @@ class ItemsQuery extends APIQuery {
                             cures
                             useTime
                             stimEffects {
-                                type
-                                chance
-                                delay
-                                duration
-                                value
-                                percent
-                                skillName
+                                ...StimEffectFragment
                             }
                         }
                         ...on ItemPropertiesSurgicalKit {
@@ -387,20 +259,7 @@ class ItemsQuery extends APIQuery {
                             convergence
                             cameraRecoil
                             slots {
-                                filters {
-                                    allowedCategories {
-                                        id
-                                    }
-                                    allowedItems {
-                                        id
-                                    }
-                                    excludedCategories {
-                                        id
-                                    }
-                                    excludedItems {
-                                        id
-                                    }
-                                }
+                                ...SlotFragment
                             }
                             defaultPreset {
                                 id
@@ -413,24 +272,79 @@ class ItemsQuery extends APIQuery {
                             ergonomics
                             recoilModifier
                             slots {
-                                filters {
-                                    allowedCategories {
-                                        id
-                                    }
-                                    allowedItems {
-                                        id
-                                    }
-                                    excludedCategories {
-                                        id
-                                    }
-                                    excludedItems {
-                                        id
-                                    }
-                                }
+                                ...SlotFragment
                             }
                         }
                     }
                 }
+            }
+            fragment GridFragment on ItemStorageGrid {
+                width
+                height
+                filters {
+                    allowedCategories {
+                        id
+                    }
+                    allowedItems {
+                        id
+                    }
+                    excludedCategories {
+                        id
+                    }
+                    excludedItems {
+                        id
+                    }
+                }
+            }
+            fragment SlotFragment on ItemSlot {
+                filters {
+                    allowedCategories {
+                        id
+                    }
+                    allowedItems {
+                        id
+                    }
+                    excludedCategories {
+                        id
+                    }
+                    excludedItems {
+                        id
+                    }
+                }
+            }
+            fragment ItemPriceFragment on ItemPrice {
+                vendor {
+                    name
+                    normalizedName
+                    __typename
+                    ...on TraderOffer {
+                        trader {
+                            id
+                        }
+                        minTraderLevel
+                        taskUnlock {
+                            id
+                            tarkovDataId
+                            name
+                        }
+                    }
+                }
+                price
+                currency
+                priceRUB
+                requirements {
+                    type
+                    value
+                }
+            }
+            fragment StimEffectFragment on StimEffect {
+                type
+                chance
+                delay
+                duration
+                value
+                percent
+                skillName
             }`;
         };
         //console.time('items query');

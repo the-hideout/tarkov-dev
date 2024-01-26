@@ -6,7 +6,7 @@ class QuestsQuery extends APIQuery {
     }
 
     async query(language, prebuild = false) {
-        const query = `{
+        const query = `query TarkovDevTasks {
             tasks(lang: ${language}) {
                 id
                 tarkovDataId

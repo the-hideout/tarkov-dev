@@ -10,11 +10,12 @@
                 "maxZoom": 5,
                 "transform": [0.38, 0, 0.38, 0],
                 "coordinateRotation": 180,
-                "bounds": [[324, -215], [-279, 548]],
+                "bounds": [[324, -285], [-279, 548]],
                 "heightRange": [-6, 10],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Ground_Level.svg",
+                "svgBounds": [[324, -215], [-279, 548]],
                 "layers": [
                     {
                         "name": "Underground",
@@ -233,7 +234,7 @@
                                 "height": [5.7, 1000],
                                 "bounds": [
                                     [[580, -104], [532, -134], "dead scav warehouse"],
-                                    [[-199, -90], [-210, -114], "big red 2nd"],
+                                    [[-199, -90], [-223, -131], "big red 2nd"],
                                     [[239, 3], [169, -160], "skeleton"],
                                     [[336, -56], [316, -95], "switch snipe"],
                                     [[584, -46], [556, -92], "USEC 2nd"],
@@ -261,6 +262,16 @@
                                 ]
                             }
                         ]
+                    }
+                ],
+                "_labels": [
+                    {
+                        "position": [-212, -123],
+                        "text": "Big Red"
+                    },
+                    {
+                        "position": [202, 149],
+                        "text": "Dorms"
                     }
                 ]
             },
@@ -330,6 +341,13 @@
                                 "height": [-10000, -1]
                             }
                         ]
+                    }
+                ],
+                "_labels": [
+                    {
+                        "position": [19, 41],
+                        "text": "Office",
+                        "bottom": 0
                     }
                 ]
             },

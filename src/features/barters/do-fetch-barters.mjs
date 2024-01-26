@@ -6,7 +6,7 @@ class BartersQuery extends APIQuery {
     }
 
     async query(language, prebuild = false) {
-        const query = `{
+        const query = `query TarkovDevBarters {
             barters(lang: ${language}) {
                 rewardItems {
                     item {
