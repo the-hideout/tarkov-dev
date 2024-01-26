@@ -6,7 +6,7 @@ class MapsQuery extends APIQuery {
     }
 
     async query(language, prebuild = false) {
-        const query = `{
+        const query = `query TarkovDevMaps {
             maps(lang: ${language}) {
                 id
                 tarkovDataId

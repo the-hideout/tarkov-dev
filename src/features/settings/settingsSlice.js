@@ -32,6 +32,12 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             }
             return completedTasks;
         }, []);
+        returnData.questsFailed = progressData.tasksProgress.reduce((failedTasks, current) => {
+            if (current.invalid) {
+                failedTasks.push(current.id);
+            }
+            return failedTasks;
+        }, []);
         returnData.flea = progressData.playerLevel >= 15 ? true : false;
 
         returnData.level = progressData.playerLevel;
@@ -113,6 +119,7 @@ const settingsSlice = createSlice({
         crafting: localStorageReadJson('crafting', 0),
         'hideout-management': localStorageReadJson('hideout-management', 0),
         completedQuests: [],
+        failedQuests: [],
         useTarkovTracker: localStorageReadJson('useTarkovTracker', false),
         tarkovTrackerModules: [],
         hideRemoteControl: localStorageReadJson('hide-remote-control', false),
@@ -179,6 +186,7 @@ const settingsSlice = createSlice({
 
             if (action.payload) {
                 state.completedQuests = action.payload.quests;
+                state.failedQuests = action.payload.questsFailed;
                 state.hasFlea = action.payload.flea;
                 state.playerLevel = action.payload.level;
 

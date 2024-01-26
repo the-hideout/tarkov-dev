@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
 import doFetchQuests from './do-fetch-quests.mjs';
@@ -41,14 +41,74 @@ const questsSlice = createSlice({
 
 export const questsReducer = questsSlice.reducer;
 
-export const selectQuests = (state) => state.quests.data;
+const selectQuests = state => state.quests.data;
+const selectTraders = state => state.traders.data;
+const selectSettings = state => state.settings;
+
+export const selectQuestsWithActive = createSelector([selectQuests, selectTraders, selectSettings], (quests, traders, settings) => {
+    const questStatus = {
+        complete: (id) => {
+            return settings.completedQuests.includes(id);
+        },
+        failed: (id) => {
+            return settings.failedQuests.includes(id);
+        },
+        active: (id) => {
+            if (questStatus.complete(id)) {
+                return false;
+            }
+            if (questStatus.failed(id)) {
+                return false;
+            }
+            const quest = quests.find(q => q.id === id);
+            if (settings.playerLevel < quest.minPlayerLevel) {
+                //return false;
+            }
+            for (const req of quest.taskRequirements) {
+                let reqSatisfied = false;
+                for (const status of req.status) {
+                    if (!questStatus[status]) {
+                        console.log(`Unrecognized task status: ${status}`);
+                        continue;
+                    }
+                    if (questStatus[status](req.task.id)) {
+                        reqSatisfied = true;
+                        break;
+                    }
+                }
+                if (!reqSatisfied) {
+                    return false;
+                }
+            }
+            for (const req of quest.traderRequirements.filter(req => req.requirementType === 'level')) {
+                const trader = traders.find(t => t.id === req.trader.id);
+                if (settings[trader.normalizedName] < req.value) {
+                    //return false;
+                }
+            }
+            return true;
+        }
+    };
+    return quests.map(quest => {
+        return {
+            ...quest,
+            active: (() => {
+                if (!settings.useTarkovTracker) {
+                    return true;
+                }
+                return questStatus.active(quest.id);
+            })(),
+        };
+    });
+});
 
 let fetchedData = false;
 let refreshInterval = false;
 
 export default function useQuestsData() {
     const dispatch = useDispatch();
-    const { data, status, error } = useSelector((state) => state.quests);
+    const { status, error } = useSelector((state) => state.quests);
+    const data = useSelector(selectQuestsWithActive);
 
     useEffect(() => {
         if (!fetchedData) {

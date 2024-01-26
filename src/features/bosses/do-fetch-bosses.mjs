@@ -6,7 +6,7 @@ class BossesQuery extends APIQuery {
     }
 
     async query(language, prebuild = false) {
-        const query = `{
+        const query = `query TarkovDevBosses {
             bosses(lang: ${language}) {
                 name
                 normalizedName
