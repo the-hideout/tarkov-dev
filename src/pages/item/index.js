@@ -532,7 +532,7 @@ The max profitable price is impacted by the intel center and hideout management 
                                         return (
                                             <div
                                                 className={`text-and-image-information-wrapper`}
-                                                key={`${currentItemData.id}-trader-price-buy-${buyForSource.vendor.normalizedName}`}
+                                                key={`${currentItemData.id}-trader-price-buy-${buyForSource.vendor.normalizedName}-${index}`}
                                             >
                                                 <div className="source-wrapper">
                                                     {buyForSource.vendor.normalizedName !== 'flea-market' && (

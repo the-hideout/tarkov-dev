@@ -137,7 +137,7 @@ function DataTable({
                     {headerGroups.map((headerGroup) => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map((column) => (
-                                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                <th {...column.getHeaderProps(column.getSortByToggleProps({ title: undefined }))}>
                                     <span>
                                         {column.render('Header')}
                                     </span>
