@@ -9,7 +9,6 @@
     "class": "クラス",
     "material": "素材",
     "zones": "ゾーン",
-    "defaultPreset": "デフォルトプリセット",
     "durability": "耐久性",
     "ergoPenalty": "エルゴペナルティ",
     "speedPenalty": "スピードペナルティ",
@@ -63,8 +62,13 @@
     "baseItem": "ベースアイテム",
     "categories": "カテゴリ",
     "type": "の種類",
+    "defaultPreset": "デフォルトプリセット",
     "convergence": "コンバージェンス",
     "cameraRecoil": "カメラリコイル",
     "recoilAngle": "リコイルアングル",
-    "recoilDispersion": "リコイルディスパージョン"
+    "recoilDispersion": "リコイルディスパージョン",
+    "ambientVolume": "環境音",
+    "distanceModifier": "距離",
+    "distortion": "歪み",
+    "usedOnMaps": "地図で使用"
 }
