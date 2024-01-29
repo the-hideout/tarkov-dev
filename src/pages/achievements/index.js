@@ -50,6 +50,9 @@ function Achievements() {
                         <Icon path={props.value ? mdiCheckboxMarked : mdiCheckboxBlank } size={1.5} className="icon-with-text"/>
                     );
                 },
+                sortType: (rowA, rowB) => {
+                    return (+ rowA.values.hidden) - (+ rowB.values.hidden);
+                },
             },
             {
                 Header: t('Player %'),
