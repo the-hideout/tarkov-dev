@@ -75,6 +75,7 @@ const Trader = React.lazy(() => import('./pages/trader/index.js'));
 const ItemTracker = React.lazy(() => import('./pages/item-tracker/index.js'));
 const Hideout = React.lazy(() => import('./pages/hideout/index.js'));
 const WipeLength = React.lazy(() => import('./pages/wipe-length/index.js'));
+const Achievements = React.lazy(() => import('./pages/achievements/index.js'));
 const About = React.lazy(() => import('./pages/about/index.js'));
 
 const APIDocs = React.lazy(() => import('./pages/api-docs/index.js'));
@@ -856,6 +857,16 @@ function App() {
                         element={[
                             <Suspense fallback={<Loading />} key="suspense-task-wrapper">
                                 <Quest key="task-wrapper" />
+                            </Suspense>,
+                            remoteControlSessionElement,
+                        ]}
+                    />
+                    <Route
+                        path={'/achievements/'}
+                        key="achievements-route"
+                        element={[
+                            <Suspense fallback={<Loading />} key="suspense-achievements-wrapper">
+                                <Achievements key="achievements-wrapper" />
                             </Suspense>,
                             remoteControlSessionElement,
                         ]}
