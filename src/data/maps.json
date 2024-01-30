@@ -10,12 +10,11 @@
                 "maxZoom": 5,
                 "transform": [0.38, 0, 0.38, 0],
                 "coordinateRotation": 180,
-                "bounds": [[324, -285], [-279, 548]],
+                "bounds": [[323, -317], [-280, 549]],
                 "heightRange": [-6, 10],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Ground_Level.svg",
-                "svgBounds": [[324, -215], [-279, 548]],
                 "layers": [
                     {
                         "name": "Underground",
