@@ -862,7 +862,7 @@ function App() {
                         ]}
                     />
                     <Route
-                        path={'/achievements/'}
+                        path={'/achievements'}
                         key="achievements-route"
                         element={[
                             <Suspense fallback={<Loading />} key="suspense-achievements-wrapper">
