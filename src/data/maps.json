@@ -10,12 +10,11 @@
                 "maxZoom": 5,
                 "transform": [0.38, 0, 0.38, 0],
                 "coordinateRotation": 180,
-                "bounds": [[324, -285], [-279, 548]],
+                "bounds": [[323, -317], [-280, 549]],
                 "heightRange": [-6, 10],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Ground_Level.svg",
-                "svgBounds": [[324, -215], [-279, 548]],
                 "layers": [
                     {
                         "name": "Underground",
@@ -476,7 +475,7 @@
                 "maxZoom": 6,
                 "transform": [0.2, 0, 0.2, 0],
                 "coordinateRotation": 180,
-                "bounds": [[515, -1000], [-545, 725]],
+                "bounds": [[515, -998], [-545, 725]],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Lighthouse.svg"
@@ -555,7 +554,7 @@
                 "maxZoom": 6,
                 "transform": [0.16, 83.2, 0.16, 111.1],
                 "coordinateRotation": 180,
-                "bounds": [[506, -405], [-1060, 618]],
+                "bounds": [[508, -415], [-1060, 618]],
                 "heightRange": [-1000, -1],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
