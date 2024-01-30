@@ -66,5 +66,9 @@
     "convergence": "コンバージェンス",
     "cameraRecoil": "カメラリコイル",
     "recoilAngle": "リコイルアングル",
-    "recoilDispersion": "リコイルディスパージョン"
+    "recoilDispersion": "リコイルディスパージョン",
+    "ambientVolume": "環境音",
+    "distanceModifier": "距離",
+    "distortion": "歪み",
+    "usedOnMaps": "地図で使用"
 }
