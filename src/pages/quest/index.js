@@ -526,7 +526,7 @@ function Quest() {
             );
         }
         if (objective.type === 'plantItem') {
-            let item = items.find((i) => i.id === objective.item.id);
+            let item = items.find((i) => i.id === objective.items[0].id);
             if (!item)
                 return null;
             if (item.properties?.defaultPreset) {
