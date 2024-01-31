@@ -2,7 +2,7 @@
     "No data": "Нет данных",
     "Current Average Latency": "Текущая средняя задержка",
     "API Latency in milliseconds": "Задержка API в миллисекундах",
-    "No barters found for this item": "No barters found for this item",
+    "No barters found for this item": "Для этого предмета не найдено бартеров",
     "LL{{level}}": "{{level}}УЛ",
     "Barter at {{trader}}": "Бартер у {{trader}}",
     "Craft at {{station}}": "Крафтиться на {{station}}",
