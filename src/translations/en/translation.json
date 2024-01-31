@@ -572,5 +572,10 @@
     "Wipe Length": "Wipe Length",
     "wipe-length-description": "Get the latest information on the average wipe length in Escape from Tarkov. Find out how long wipes typically last, and prepare for the next wipe.",
     "Average Wipe Length among last 6 wipes:": "Average Wipe Length among last 6 wipes:",
-    "All options already selected": "All options already selected"
+    "All options already selected": "All options already selected",
+    "Achievements": "Achievements",
+    "achievements-page-description": "This page includes information on the achievements that can be earned.",
+    "Description": "Description",
+    "Hidden": "Hidden",
+    "Player %": "Player %"
 }
