@@ -30,6 +30,7 @@ function QuestItemsCell({ questItems }) {
                     <div className="amount-wrapper">
                         {t('Amount')}
                         <span>:</span> {questItem.count.toLocaleString()}
+                        {questItem.alternates ? ` (${t('has alternates')})` : ''}
                     </div>
                     <div className="reward-type-wrapper">
                         {

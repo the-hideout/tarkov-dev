@@ -428,17 +428,37 @@ function Quest() {
             );
         }
         if (objective.type === 'giveItem' || objective.type === 'findItem') {
-            let item = items.find((i) => i.id === objective.item.id);
-            if (!item)
+            let itemElements = [];
+            let countElement = '';
+            for (const objItem of objective.items) {
+                let item = items.find((i) => i.id === objItem.id);
+                if (!item)
+                    continue;
+                if (item.properties?.defaultPreset) {
+                    const preset = items.find(i => i.id === item.properties.defaultPreset.id);
+                    item = {
+                        ...item,
+                        baseImageLink: preset.baseImageLink,
+                        width: preset.width,
+                        height: preset.height,
+                    };
+                }
+                itemElements.push(
+                    <ItemImage
+                        key={item.id}
+                        item={item}
+                        imageField="baseImageLink"
+                        linkToItem={true}
+                        count={objective.count > 1 && objective.items.length === 1 ? objective.count : false}
+                        isFIR={objective.foundInRaid}
+                    />
+                );
+            }
+            if (itemElements.length < 1) {
                 return null;
-            if (item.properties?.defaultPreset) {
-                const preset = items.find(i => i.id === item.properties.defaultPreset.id);
-                item = {
-                    ...item,
-                    baseImageLink: preset.baseImageLink,
-                    width: preset.width,
-                    height: preset.height,
-                };
+            }
+            if (itemElements.length > 1 && objective.count > 1) {
+                countElement = <div>{t('{{itemCount}}x any of', {itemCount: objective.count})}:</div>;
             }
             const attributes = [];
             if (objective.dogTagLevel) {
@@ -462,13 +482,17 @@ function Quest() {
             taskDetails = (
                 <>
                     <>
-                    <ItemImage
-                        item={item}
-                        imageField="baseImageLink"
-                        linkToItem={true}
-                        count={objective.count > 1 ? objective.count : false}
-                        isFIR={objective.foundInRaid}
-                    />
+                        {countElement}
+                        <ul className="quest-item-list">
+                        {itemElements.map((el, i) => 
+                            <li
+                                key={`objective-item-${i}`}
+                                className={'quest-list-item'}
+                            >
+                                {el}
+                            </li>
+                        )}
+                        </ul>
                     </>
                     {attributes.length > 0 && (
                         <ul>
@@ -801,6 +825,11 @@ function Quest() {
                     {zones}
                 </div>
             );
+        }
+        if (objective.type === 'playerLevel') {
+            taskDetails = <div>
+                {t('Reach level {{playerLevel}}', {playerLevel: objective.playerLevel})}
+            </div>
         }
         let objectiveDescription = null;
         if (objective.description) {
