@@ -135,7 +135,7 @@ class QuestsQuery extends APIQuery {
                 count
             }
             ...on TaskObjectiveItem {
-                item {
+                items {
                     id
                 }
                 count
