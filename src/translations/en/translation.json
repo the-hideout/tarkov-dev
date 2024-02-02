@@ -577,5 +577,7 @@
     "achievements-page-description": "This page includes information on the achievements that can be earned.",
     "Description": "Description",
     "Hidden": "Hidden",
-    "Player %": "Player %"
+    "Player %": "Player %",
+    "has alternates": "has alternates",
+    "{{itemCount}}x any of": "{{itemCount}}x any of"
 }
