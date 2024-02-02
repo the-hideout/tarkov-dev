@@ -35,6 +35,7 @@ function ItemImage({
     linkToItem = false,
     fullNameTooltip = false,
     trader,
+    station,
     className,
     style,
 }) {
@@ -353,6 +354,16 @@ function ItemImage({
                 >
                     <Link to={`/trader/${trader.normalizedName}`}>
                         <img alt={trader.name} src={`/images/traders/${trader.normalizedName}-icon.jpg`} style={traderImageStyle}/>
+                    </Link>
+                </Tippy>
+            </div>}
+            {station && <div style={traderElementStyle}>
+                <Tippy
+                    placement="top"
+                    content={station.name}
+                >
+                    <Link to={`/hideout-profit/?search=${item.name}`}>
+                        <img alt={station.name} src={`/images/stations/${station.normalizedName}-icon.png`} style={traderImageStyle}/>
                     </Link>
                 </Tippy>
             </div>}

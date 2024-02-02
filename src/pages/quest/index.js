@@ -19,6 +19,7 @@ import useQuestsData from '../../features/quests/index.js';
 import useTradersData from '../../features/traders/index.js';
 import useItemsData from '../../features/items/index.js';
 import useMapsData from '../../features/maps/index.js';
+import useHideoutData from '../../features/hideout/index.js';
 
 import './index.css';
 
@@ -55,6 +56,8 @@ function Quest() {
     const { data: maps } = useMapsData();
 
     const { data: quests, status: questsStatus } = useQuestsData();
+
+    const { data: stations } = useHideoutData();
 
     let currentQuest = useMemo(() => {
         return quests.find((quest) => {
@@ -971,7 +974,32 @@ function Quest() {
                     })}
                 </ul>
             </div>
-        )];
+        ),
+        rewards.craftUnlock?.length > 0 && (
+            <div key="reward-craft">
+                <h3>{t('Craft Unlock')}</h3>
+                <ul className="quest-item-list">
+                    {rewards.craftUnlock.map((unlock, index) => {
+                        const station = stations.find((s) => s.id === unlock.station.id);
+                        const item = items.find((i) => i.id === unlock.rewardItems[0].item.id);
+                        if (!item)
+                            return null;
+                        return (
+                            <li className="quest-list-item" key={`${unlock.rewardItems[0].item.id}-${index}`}>
+                                <ItemImage
+                                    key={`reward-index-${item.id}-${index}`}
+                                    item={item}
+                                    imageField="baseImageLink"
+                                    linkToItem={true}
+                                    station={station}
+                                    count={unlock.level}
+                                />
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
+        ),];
     };
 
     return [
