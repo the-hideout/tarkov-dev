@@ -374,6 +374,19 @@ class QuestsQuery extends APIQuery {
                     id
                 }
             }
+            craftUnlock {
+                id
+                station {
+                    id
+                }
+                level
+                rewardItems {
+                    item {
+                        id
+                    }
+                    count
+                }
+            }
             skillLevelReward {
                 name
                 level
