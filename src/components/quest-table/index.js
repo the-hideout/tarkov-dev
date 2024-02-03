@@ -19,7 +19,7 @@ import './index.css';
 
 export function getRequiredQuestItems(quest, itemFilter = false) {
     const requiredItems = [];
-    const addItem = (item, count = 1, foundInRaid = false) => {
+    const addItem = (item, count = 1, foundInRaid = false, alternates = false) => {
         if (itemFilter && item.id !== itemFilter) {
             return;
         }
@@ -28,15 +28,19 @@ export function getRequiredQuestItems(quest, itemFilter = false) {
             req = {
                 item: item,
                 count: 0,
-                foundInRaid: foundInRaid
+                foundInRaid: foundInRaid,
+                alternates: alternates
             };
             requiredItems.push(req);
         }
         req.count += count;
     };
     quest.objectives.forEach((objectiveData) => {
-        if (objectiveData.item?.id && objectiveData.type !== 'findItem') {
-            addItem(objectiveData.item, objectiveData.count || 1, objectiveData.foundInRaid);
+        if (objectiveData.items && objectiveData.type !== 'findItem') {
+            const alternates = objectiveData.items.length > 1;
+            for (const objItem of objectiveData.items) {
+                addItem(objItem, objectiveData.count || 1, objectiveData.foundInRaid, alternates);
+            }
         }
         if (objectiveData.markerItem?.id) {
             addItem(objectiveData.markerItem);

@@ -19,6 +19,7 @@ import useQuestsData from '../../features/quests/index.js';
 import useTradersData from '../../features/traders/index.js';
 import useItemsData from '../../features/items/index.js';
 import useMapsData from '../../features/maps/index.js';
+import useHideoutData from '../../features/hideout/index.js';
 
 import './index.css';
 
@@ -55,6 +56,8 @@ function Quest() {
     const { data: maps } = useMapsData();
 
     const { data: quests, status: questsStatus } = useQuestsData();
+
+    const { data: stations } = useHideoutData();
 
     let currentQuest = useMemo(() => {
         return quests.find((quest) => {
@@ -428,17 +431,37 @@ function Quest() {
             );
         }
         if (objective.type === 'giveItem' || objective.type === 'findItem') {
-            let item = items.find((i) => i.id === objective.item.id);
-            if (!item)
+            let itemElements = [];
+            let countElement = '';
+            for (const objItem of objective.items) {
+                let item = items.find((i) => i.id === objItem.id);
+                if (!item)
+                    continue;
+                if (item.properties?.defaultPreset) {
+                    const preset = items.find(i => i.id === item.properties.defaultPreset.id);
+                    item = {
+                        ...item,
+                        baseImageLink: preset.baseImageLink,
+                        width: preset.width,
+                        height: preset.height,
+                    };
+                }
+                itemElements.push(
+                    <ItemImage
+                        key={item.id}
+                        item={item}
+                        imageField="baseImageLink"
+                        linkToItem={true}
+                        count={objective.count > 1 && objective.items.length === 1 ? objective.count : false}
+                        isFIR={objective.foundInRaid}
+                    />
+                );
+            }
+            if (itemElements.length < 1) {
                 return null;
-            if (item.properties?.defaultPreset) {
-                const preset = items.find(i => i.id === item.properties.defaultPreset.id);
-                item = {
-                    ...item,
-                    baseImageLink: preset.baseImageLink,
-                    width: preset.width,
-                    height: preset.height,
-                };
+            }
+            if (itemElements.length > 1 && objective.count > 1) {
+                countElement = <div>{t('{{itemCount}}x any of', {itemCount: objective.count})}:</div>;
             }
             const attributes = [];
             if (objective.dogTagLevel) {
@@ -462,13 +485,17 @@ function Quest() {
             taskDetails = (
                 <>
                     <>
-                    <ItemImage
-                        item={item}
-                        imageField="baseImageLink"
-                        linkToItem={true}
-                        count={objective.count > 1 ? objective.count : false}
-                        isFIR={objective.foundInRaid}
-                    />
+                        {countElement}
+                        <ul className="quest-item-list">
+                        {itemElements.map((el, i) => 
+                            <li
+                                key={`objective-item-${i}`}
+                                className={'quest-list-item'}
+                            >
+                                {el}
+                            </li>
+                        )}
+                        </ul>
                     </>
                     {attributes.length > 0 && (
                         <ul>
@@ -502,7 +529,7 @@ function Quest() {
             );
         }
         if (objective.type === 'plantItem') {
-            let item = items.find((i) => i.id === objective.item.id);
+            let item = items.find((i) => i.id === objective.items[0].id);
             if (!item)
                 return null;
             if (item.properties?.defaultPreset) {
@@ -802,6 +829,11 @@ function Quest() {
                 </div>
             );
         }
+        if (objective.type === 'playerLevel') {
+            taskDetails = <div>
+                {t('Reach level {{playerLevel}}', {playerLevel: objective.playerLevel})}
+            </div>
+        }
         let objectiveDescription = null;
         if (objective.description) {
             objectiveDescription = <h3>{`✔️ ${objective.description} ${objective.optional ? `(${t('optional')})` : ''}`}</h3>;
@@ -942,7 +974,32 @@ function Quest() {
                     })}
                 </ul>
             </div>
-        )];
+        ),
+        rewards.craftUnlock?.length > 0 && (
+            <div key="reward-craft">
+                <h3>{t('Craft Unlock')}</h3>
+                <ul className="quest-item-list">
+                    {rewards.craftUnlock.map((unlock, index) => {
+                        const station = stations.find((s) => s.id === unlock.station.id);
+                        const item = items.find((i) => i.id === unlock.rewardItems[0].item.id);
+                        if (!item)
+                            return null;
+                        return (
+                            <li className="quest-list-item" key={`${unlock.rewardItems[0].item.id}-${index}`}>
+                                <ItemImage
+                                    key={`reward-index-${item.id}-${index}`}
+                                    item={item}
+                                    imageField="baseImageLink"
+                                    linkToItem={true}
+                                    station={station}
+                                    count={unlock.level}
+                                />
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
+        ),];
     };
 
     return [

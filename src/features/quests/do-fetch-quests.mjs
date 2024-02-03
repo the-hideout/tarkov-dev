@@ -135,7 +135,7 @@ class QuestsQuery extends APIQuery {
                 count
             }
             ...on TaskObjectiveItem {
-                item {
+                items {
                     id
                 }
                 count
@@ -372,6 +372,19 @@ class QuestsQuery extends APIQuery {
                 level
                 item {
                     id
+                }
+            }
+            craftUnlock {
+                id
+                station {
+                    id
+                }
+                level
+                rewardItems {
+                    item {
+                        id
+                    }
+                    count
                 }
             }
             skillLevelReward {
