@@ -1,6 +1,9 @@
 {
+    "ambientVolume": "Otoczenie",
     "caliber": "Kaliber",
     "damage": "Obrażenia",
+    "distanceModifier": "Odległość",
+    "distortion": "Zniekształcenie",
     "projectileCount": "Ilość pocisków",
     "penetrationPower": "Siła penetracji",
     "armorDamage": "Obrażenia pancerza",
@@ -66,5 +69,6 @@
     "convergence": "Konwergencja",
     "cameraRecoil": "Odrzut kamery",
     "recoilAngle": "Kąt odrzutu",
-    "recoilDispersion": "Rozproszenie odrzutu"
+    "recoilDispersion": "Rozproszenie odrzutu",
+     "usedOnMaps": "Używane na mapach"
 }
