@@ -352,6 +352,8 @@ function SmallItemTable(props) {
                         return false;
                     if (!showAllSources && settings.useTarkovTracker && buyFor.vendor.taskUnlock && !settings.completedQuests.includes(buyFor.vendor.taskUnlock.id)) 
                         return false;
+                    if (buyFor.vendor.normalizedName === 'flea-market' && traderValue && traderBuyback && itemData.types.includes('preset'))
+                        return false;
                     return true;
                 }),
                 sellFor: itemData.sellFor,
@@ -839,7 +841,9 @@ function SmallItemTable(props) {
         useBarterIngredients,
         useCraftIngredients,
         minPenetration,
-        maxPenetration
+        maxPenetration,
+        traderValue,
+        traderBuyback,
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {
