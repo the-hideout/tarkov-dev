@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import {mdiRacingHelmet} from '@mdi/js';
@@ -123,16 +123,18 @@ function Helmets() {
                 sortBy='armorClass'
             />
 
-            <div className="page-wrapper items-page-wrapper">
-                <p>
-                    {"In Escape from Tarkov, headgear serves a variety of functions."}
-                    <br/>
-                    {"There are useful objects, vanity items, and safety headgear. Before entering combat, choosing a helmet that will protect different parts of the head becomes crucial."}
-                    <br/>
-                    {"The impact that different helmets will have on how much sound they suppress is another crucial factor to take into account. Escape from Tarkov's gameplay heavily relies on sound."}
-                    <br/>
-                    {"Modular helmets, which have an assortment of different components, are another aspect of Escape from Tarkov. These helmets may modify the number of segments they protect. Top, Nape, Ears, Eyes, and Jaws are the segments."}
-                </p>
+            <div className="page-wrapper helmets-page-wrapper">
+                <Trans i18nKey={'helmets-page-p'}>
+                    <p>
+                        {"In Escape from Tarkov, headgear serves a variety of functions."}
+                        <br/>
+                        {"There are useful objects, vanity items, and safety headgear. Before entering combat, choosing a helmet that will protect different parts of the head becomes crucial."}
+                        <br/>
+                        {"The impact that different helmets will have on how much sound they suppress is another crucial factor to take into account. Escape from Tarkov's gameplay heavily relies on sound."}
+                        <br/>
+                        {"Modular helmets, which have an assortment of different components, are another aspect of Escape from Tarkov. These helmets may modify the number of segments they protect. Top, Nape, Ears, Eyes, and Jaws are the segments."}
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];

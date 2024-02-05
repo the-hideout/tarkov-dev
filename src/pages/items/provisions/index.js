@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import {mdiFoodForkDrink} from '@mdi/js';
@@ -96,12 +96,14 @@ function Provisions() {
                 sortBy='provisionValue'
             />
 
-            <div className="page-wrapper items-page-wrapper">
-                <p>
-                    {"In Escape from Tarkov, provisions are utilized to replenish energy and hydration."}
-                    <br/>
-                    {"Your Metabolism skill level will determine how effective they are."}
-                </p>
+            <div className="page-wrapper provisions-page-wrapper">
+                <Trans i18nKey={'provisions-page-p'}>
+                    <p>
+                        {"In Escape from Tarkov, provisions are utilized to replenish energy and hydration."}
+                        <br/>
+                        {"Your Metabolism skill level will determine how effective they are."}
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];

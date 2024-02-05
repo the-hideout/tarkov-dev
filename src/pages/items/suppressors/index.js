@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import {mdiBottleWine} from '@mdi/js';
@@ -93,13 +93,15 @@ function Suppressors() {
                 cheapestPrice={3}
             />
 
-            <div className="page-wrapper items-page-wrapper">
-                <p>
-                    {"In Escape from Tarkov, a suppressor is a muzzle device (a functional mod) and can be installed on a weapon to muffle gunshot sound."}
-                </p>
-                <p>
-                    {"On this page you can sort them buy ergonomics penalty, recoil improvement or their cost and see on which weapon they can be directly mounted."}
-                </p>
+            <div className="page-wrapper suppressors-page-wrapper">
+                <Trans i18nKey={'suppressors-page-p'}>
+                    <p>
+                        {"In Escape from Tarkov, a suppressor is a muzzle device (a functional mod) and can be installed on a weapon to muffle gunshot sound."}
+                    </p>
+                    <p>
+                        {"On this page you can sort them buy ergonomics penalty, recoil improvement or their cost and see on which weapon they can be directly mounted."}
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];
