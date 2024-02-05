@@ -1,6 +1,9 @@
 {
+    "ambientVolume": "Ambience",
     "caliber": "Калибр",
     "damage": "Урон",
+    "distanceModifier": "Distance",
+    "distortion": "Distortion",
     "projectileCount": "Количество снарядов",
     "penetrationPower": "Пробивная способность",
     "armorDamage": "Урон по броне",
@@ -9,6 +12,7 @@
     "class": "Класс",
     "material": "Материал",
     "zones": "Зоны",
+    "defaultPreset": "Default Preset",
     "durability": "Прочность",
     "ergoPenalty": "Штраф на эргономику",
     "speedPenalty": "Штраф на скорость",
@@ -61,5 +65,10 @@
     "weight": "Вес",
     "baseItem": "Базовый предмет",
     "categories": "Категории",
-    "type": "Тип"
+    "type": "Тип",
+    "convergence": "Convergence",
+    "cameraRecoil": "Camera Recoil",
+    "recoilAngle": "Recoil Angle",
+    "recoilDispersion": "Recoil Dispersion",
+    "usedOnMaps": "Used on Maps"
 }

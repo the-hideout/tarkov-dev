@@ -1,6 +1,9 @@
 {
+    "ambientVolume": "Ambience",
     "caliber": "Calibro",
     "damage": "Danno",
+    "distanceModifier": "Distance",
+    "distortion": "Distortion",
     "projectileCount": "Numero di proiettili",
     "penetrationPower": "Potere di penetrazione",
     "armorDamage": "Danno all'armatura",
@@ -66,5 +69,6 @@
     "convergence": "Convergenza",
     "cameraRecoil": "Rinculo della camera",
     "recoilAngle": "Angolo del rinculo",
-    "recoilDispersion": "Dispersione del rinculo"
+    "recoilDispersion": "Dispersione del rinculo",
+    "usedOnMaps": "Used on Maps"
 }
