@@ -183,7 +183,7 @@ function Quest() {
         completedIcon = (
             <Icon
                 path={mdiClipboardCheck}
-                size={1}
+                size={1.2}
                 className="icon-with-text"
             />
         );
