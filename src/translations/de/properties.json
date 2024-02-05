@@ -69,5 +69,6 @@
     "convergence": "Konvergenz",
     "cameraRecoil": "Kamera Rückstoß",
     "recoilAngle": "Rückstoßwinkel",
-    "recoilDispersion": "Rückstoß Streuung"
+    "recoilDispersion": "Rückstoß Streuung",
+    "usedOnMaps": "Used on Maps"
 }

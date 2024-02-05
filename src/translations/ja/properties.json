@@ -1,6 +1,9 @@
 {
+    "ambientVolume": "環境音",
     "caliber": "口径",
     "damage": "ダメージ",
+    "distanceModifier": "距離",
+    "distortion": "歪み",
     "projectileCount": "投射回数",
     "penetrationPower": "貫通力",
     "armorDamage": "アーマーダメージ",
@@ -67,8 +70,5 @@
     "cameraRecoil": "カメラリコイル",
     "recoilAngle": "リコイルアングル",
     "recoilDispersion": "リコイルディスパージョン",
-    "ambientVolume": "環境音",
-    "distanceModifier": "距離",
-    "distortion": "歪み",
     "usedOnMaps": "地図で使用"
 }
