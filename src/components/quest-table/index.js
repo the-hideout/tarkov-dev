@@ -259,6 +259,9 @@ function QuestTable({
                 if (!hideCompleted && !quest.active) {
                     lockedPassed = settings.completedQuests.includes(quest.id) || settings.failedQuests.includes(quest.id);
                 }
+                if (settings.playerLevel < quest.minPlayerLevel) {
+                    lockedPassed = false;
+                }
             }
 
             return completedPassed && lockedPassed;
