@@ -12,6 +12,8 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
             level: 72,
             hideout: {},
             quests: [],
+            questsFailed: [],
+            objectives: [],
         };
 
         const response = await fetch(
@@ -37,6 +39,12 @@ export const fetchTarkovTrackerProgress = createAsyncThunk(
                 failedTasks.push(current.id);
             }
             return failedTasks;
+        }, []);
+        returnData.objectivesCompleted = progressData.taskObjectivesProgress.reduce((completedObjectives, current) => {
+            if (current.complete) {
+                completedObjectives.push(current.id);
+            }
+            return completedObjectives;
         }, []);
         returnData.flea = progressData.playerLevel >= 15 ? true : false;
 
@@ -187,6 +195,7 @@ const settingsSlice = createSlice({
             if (action.payload) {
                 state.completedQuests = action.payload.quests;
                 state.failedQuests = action.payload.questsFailed;
+                state.objectivesCompleted = action.payload.objectivesCompleted;
                 state.hasFlea = action.payload.flea;
                 state.playerLevel = action.payload.level;
 
