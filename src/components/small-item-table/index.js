@@ -841,7 +841,9 @@ function SmallItemTable(props) {
         useBarterIngredients,
         useCraftIngredients,
         minPenetration,
-        maxPenetration
+        maxPenetration,
+        traderValue,
+        traderBuyback,
     ]);
     const lowHydrationCost = useMemo(() => {
         if (!totalEnergyCost && !provisionValue) {
