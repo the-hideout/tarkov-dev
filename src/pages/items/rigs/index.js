@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import {mdiTshirtCrewOutline} from '@mdi/js';
@@ -128,10 +128,12 @@ function Rigs() {
                 pricePerSlot={7}
             />
 
-            <div className="page-wrapper items-page-wrapper">
-                <p>
-                    {"When it comes to carrying and storing ammunition and magazines during your excursions in Escape from Tarkov, chest rigs are crucial. Some even provide you with additional security."}
-                </p>
+            <div className="page-wrapper rigs-page-wrapper">
+                <Trans i18nKey={'rigs-page-p'}>
+                    <p>
+                        {"When it comes to carrying and storing ammunition and magazines during your excursions in Escape from Tarkov, chest rigs are crucial. Some even provide you with additional security."}
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];

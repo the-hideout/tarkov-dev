@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import {mdiPistol} from '@mdi/js';
@@ -79,10 +79,12 @@ function Guns() {
                 cheapestPrice={3}
             />
 
-            <div className="page-wrapper items-page-wrapper">
-                <p>
-                    {"Your main tool for survival is a weapon. Almost all weapons are completely modular, allowing them to be customized for various scenarios. All of the weaponry used in Escape from Tarkov are listed on this page."}
-                </p>
+            <div className="page-wrapper guns-page-wrapper">
+                <Trans i18nKey={'guns-page-p'}>
+                    <p>
+                        {"Your main tool for survival is a weapon. Almost all weapons are completely modular, allowing them to be customized for various scenarios. All of the weaponry used in Escape from Tarkov are listed on this page."}
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];

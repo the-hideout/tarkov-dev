@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { useState } from 'react';
 
 import { Icon } from '@mdi/react';
@@ -60,10 +60,12 @@ function Containers(props) {
                 sortBy='pricePerSlot'
             />
 
-            <div className="page-wrapper items-page-wrapper">
-                <p>
-                    {"As their name implies, containers in Escape from Tarkov are items used to hold other things. Some of these items are used to clear up inventory space by acting as storage and taking up less inventory slots however some of them cannot be equipped on the character."}
-                </p>
+            <div className="page-wrapper containers-page-wrapper">
+                <Trans i18nKey={'containers-page-p'}>
+                    <p>
+                        {"As their name implies, containers in Escape from Tarkov are items used to hold other things. Some of these items are used to clear up inventory space by acting as storage and taking up less inventory slots however some of them cannot be equipped on the character."}
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import {mdiTshirtCrew} from '@mdi/js';
@@ -137,10 +137,12 @@ function Armors(props) {
                 sortBy='armorClass'
             />
             
-            <div className="page-wrapper items-page-wrapper">
-                <p>
-                    {"In the video game Escape from Tarkov, armor vests are worn to lessen bullet damage. Helmets are typically used in addition to them."}
-                </p>
+            <div className="page-wrapper armors-page-wrapper">
+                <Trans i18nKey={'armors-page-p'}>
+                    <p>
+                        {"In the video game Escape from Tarkov, armor vests are worn to lessen bullet damage. Helmets are typically used in addition to them."}
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];
