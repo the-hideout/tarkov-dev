@@ -1059,6 +1059,9 @@ function Map() {
         const questObjectives = L.layerGroup();
         for (const quest of quests) {
             for (const obj of quest.objectives) {
+                if (settings.useTarkovTracker && mapSettingsRef.current.showOnlyActiveTasks && obj.complete) {
+                    continue;
+                }
                 if (obj.possibleLocations) {
                     for (const loc of obj.possibleLocations) {
                         if (loc.map.id !== mapData.id) {

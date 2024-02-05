@@ -92,6 +92,12 @@ export const selectQuestsWithActive = createSelector([selectQuests, selectTrader
     return quests.map(quest => {
         return {
             ...quest,
+            objectives: quest.objectives.map(obj => {
+                return {
+                    ...obj,
+                    complete: settings.objectivesCompleted?.includes(obj.id) || false,
+                };
+            }),
             active: (() => {
                 if (!settings.useTarkovTracker) {
                     return true;
