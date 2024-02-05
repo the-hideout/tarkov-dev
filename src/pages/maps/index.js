@@ -99,10 +99,10 @@ function Maps() {
                                     <h3>{displayText}</h3>
                                     <Link to={`/map/${key}`}>
                                         <img
-                                            alt={`Map of ${displayText}`}
+                                            alt={t('Map of {{mapName}}', {mapName: displayText})}
                                             className="map-image"
                                             loading="lazy"
-                                            title={`Map of ${displayText}`}
+                                            title={t('Map of {{mapName}}', {mapName: displayText})}
                                             src={mapImageLink}
                                         />
                                     </Link>
