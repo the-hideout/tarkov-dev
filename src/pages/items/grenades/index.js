@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import {mdiGasCylinder} from '@mdi/js';
@@ -76,14 +76,16 @@ function Grenades() {
                 cheapestPrice={3}
             />
 
-            <div className="page-wrapper items-page-wrapper">
-                <p>
-                    {"There are only a handful distinct types of grenades that may be thrown or launched in Escape from Tarkov, and each one has a unique effect: flash, smokes, high explosive, and fragmentation."}
-                    <br/>
-                    {"Grenades are situational, but when utilized properly, they can have deadly results. Any advantage from high-tier equipment can be fully negated by a single well-thrown grenade, whether it completely blinds the adversary, kills them instantly, or forces them out of cover and into your gunfire."}
-                    <br/>
-                    {"Five factors to think about while using throwable grenades include the fuse time, explosion radius, fragment damage, fragment count, and even the weight of the grenade. With specific uses arising from each component."}
-                </p>
+            <div className="page-wrapper grenades-page-wrapper">
+                <Trans i18nKey={'grenades-page-p'}>
+                    <p>
+                        {"There are only a handful distinct types of grenades that may be thrown or launched in Escape from Tarkov, and each one has a unique effect: flash, smokes, high explosive, and fragmentation."}
+                        <br/>
+                        {"Grenades are situational, but when utilized properly, they can have deadly results. Any advantage from high-tier equipment can be fully negated by a single well-thrown grenade, whether it completely blinds the adversary, kills them instantly, or forces them out of cover and into your gunfire."}
+                        <br/>
+                        {"Five factors to think about while using throwable grenades include the fuse time, explosion radius, fragment damage, fragment count, and even the weight of the grenade. With specific uses arising from each component."}
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];

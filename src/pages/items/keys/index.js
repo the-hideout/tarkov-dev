@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import {mdiKeyVariant} from '@mdi/js';
@@ -76,12 +76,14 @@ function Keys() {
                 cheapestPrice={3}
             />
 
-            <div className="page-wrapper items-page-wrapper">
-                <p>
-                    {"Maps, keys, key cards, and other useful objects are included in intelligence items. These will help you stay one step ahead of the competition—or at the very least, know where you are in Escape from Tarkov."}
-                    <br/>
-                    {"The remaining durability of keys and keycards with a limited number of uses is displayed in the bottom right corner of their icons and on their inspection screens."}
-                </p>
+            <div className="page-wrapper keys-page-wrapper">
+                <Trans i18nKey={'keys-page-p'}>
+                    <p>
+                        {"Maps, keys, key cards, and other useful objects are included in intelligence items. These will help you stay one step ahead of the competition—or at the very least, know where you are in Escape from Tarkov."}
+                        <br/>
+                        {"The remaining durability of keys and keycards with a limited number of uses is displayed in the bottom right corner of their icons and on their inspection screens."}
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];

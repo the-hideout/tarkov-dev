@@ -178,6 +178,17 @@ function Quest() {
         ),
     );
 
+    let completedIcon = '';
+    if (settings.completedQuests.includes(currentQuest.id)) {
+        completedIcon = (
+            <Icon
+                path={mdiClipboardCheck}
+                size={1.2}
+                className="icon-with-text"
+            />
+        );
+    }
+
     let requirementsChunk = '';
     if (
         currentQuest.minPlayerLevel ||
@@ -1015,13 +1026,14 @@ function Quest() {
                 <div className="quest-information-grid">
                     <div className="quest-information-wrapper">
                         <h1>
-                            <div className={'quest-font'}>
+                            <span className={'quest-font'}>
                                 {!currentQuest.loading
                                     ? (currentQuest.name)
                                     : (<LoadingSmall />)
                                 }
                                 {currentQuest.factionName === 'Any' ? '' : ` (${currentQuest.factionName})`}
-                            </div>
+                            </span>
+                            {completedIcon}
                             <img
                                 alt={currentQuest.trader.name}
                                 className={'quest-icon'}
@@ -1070,6 +1082,16 @@ function Quest() {
                             if (status.length === 1 && status[0] === 'failed') {
                                 failNote = t('(on failure)');
                             }
+                            let completedIcon = '';
+                            if (settings.completedQuests.includes(currentQuest.id)) {
+                                completedIcon = (
+                                    <Icon
+                                        path={mdiClipboardCheck}
+                                        size={1}
+                                        className="icon-with-text"
+                                    />
+                                );
+                            }
                             return (
                                 <div key={`req-task-${task.id}`}>
                                     <Icon
@@ -1079,6 +1101,7 @@ function Quest() {
                                     />
                                     <Link to={`/task/${task.normalizedName}`}>{task.name}</Link>{' '}
                                     {failNote}
+                                    {completedIcon}
                                 </div>
                             );
                         })}

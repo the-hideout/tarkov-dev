@@ -1463,7 +1463,7 @@ function Map() {
 
     return [
         <SEO 
-            title={`${t('Map')} - ${mapData.displayText} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
+            title={`${t('Map of {{mapName}}', {mapName: mapData.displayText})} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={mapData.description}
             image={`${window.location.origin}${process.env.PUBLIC_URL}${mapData.imageThumb}`}
             card='summary_large_image'
@@ -1492,10 +1492,10 @@ function Map() {
                 <TransformComponent>
                     <div className="map-image-wrapper">
                         <img
-                            alt={`${mapData.displayText} ${t('Map')}`}
+                            alt={t('Map of {{mapName}}', {mapName: mapData.displayText})}
                             loading="lazy"
                             className="map-image"
-                            title={`${mapData.displayText} ${t('Map')}`}
+                            title={t('Map of {{mapName}}', {mapName: mapData.displayText})}
                             src={`${process.env.PUBLIC_URL}${mapData.image}`}
                         />
                     </div>

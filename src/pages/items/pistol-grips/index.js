@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import {mdiHandPointingLeft} from '@mdi/js';
@@ -95,13 +95,15 @@ function PistolGrips() {
                 sortByDesc={true}
             />
 
-            <div className="page-wrapper items-page-wrapper">
-                <p>
-                    {"In Escape from Tarkov a pistol grips and stocks are vital parts of a weapon."}
-                </p>
-                <p>
-                    {"On this page you can sort them buy ergonomics improvement or their cost and see on which weapon they can be mounted."}
-                </p>
+            <div className="page-wrapper pistol-grips-page-wrapper">
+                <Trans i18nKey={'pistol-grips-page-p'}>
+                    <p>
+                        {"In Escape from Tarkov a pistol grips and stocks are vital parts of a weapon."}
+                    </p>
+                    <p>
+                        {"On this page you can sort them buy ergonomics improvement or their cost and see on which weapon they can be mounted."}
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];

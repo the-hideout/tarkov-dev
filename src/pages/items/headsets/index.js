@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import {mdiHeadset} from '@mdi/js';
@@ -78,10 +78,12 @@ function Headsets() {
                 sortBy={'traderPrice'}
             />
 
-            <div className="page-wrapper items-page-wrapper">
-                <p>
-                    {"In Escape from Tarkov, headsets magnify low-frequency noises like footsteps while muzzling impulsive stimuli like gunshots. Different audio profiles are offered by the various models."}
-                </p>
+            <div className="page-wrapper headsets-page-wrapper">
+                <Trans i18nKey={'headsets-page-p'}>
+                    <p>
+                        {"In Escape from Tarkov, headsets magnify low-frequency noises like footsteps while muzzling impulsive stimuli like gunshots. Different audio profiles are offered by the various models."}
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];

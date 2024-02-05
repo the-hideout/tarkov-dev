@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import {mdiSunglasses} from '@mdi/js';
@@ -51,10 +51,12 @@ function Glasses() {
                 sortBy='armorClass'
             />
 
-            <div className="page-wrapper items-page-wrapper">
-                <p>
-                    {"Eyewear in Escape from Tarkov can be used to decrease the number and quantity of raindrops on the players' screens as well as the length of flashbang effects."}
-                </p>
+            <div className="page-wrapper glasses-page-wrapper">
+                <Trans i18nKey={'glasses-page-p'}>
+                    <p>
+                        {"Eyewear in Escape from Tarkov can be used to decrease the number and quantity of raindrops on the players' screens as well as the length of flashbang effects."}
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];

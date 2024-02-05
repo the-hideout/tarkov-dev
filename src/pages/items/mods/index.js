@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import {mdiMagazineRifle} from '@mdi/js';
@@ -78,17 +78,19 @@ function Mods() {
                 cheapestPrice={3}
             />
 
-            <div className="page-wrapper items-page-wrapper">
-                <p>
-                    {"In Escape from Tarkov, the performance and functioning of a weapon are controlled by elaborate mechanisms organized into five categories:"}
-                </p>
-                <ul>
-                    <li>{"Functional Mods"}</li>
-                    <li>{"Muzzle devices (Functional Mods)"}</li>
-                    <li>{"Sights (Functional Mods)"}</li>
-                    <li>{"Gear Mods"}</li>
-                    <li>{"Vital parts"}</li>
-                </ul>
+            <div className="page-wrapper mods-page-wrapper">
+                <Trans i18nKey={'mods-page-p'}>
+                    <p>
+                        {"In Escape from Tarkov, the performance and functioning of a weapon are controlled by elaborate mechanisms organized into five categories:"}
+                    </p>
+                    <ul>
+                        <li>{"Functional Mods"}</li>
+                        <li>{"Muzzle devices (Functional Mods)"}</li>
+                        <li>{"Sights (Functional Mods)"}</li>
+                        <li>{"Gear Mods"}</li>
+                        <li>{"Vital parts"}</li>
+                    </ul>
+                </Trans>
             </div>
         </div>,
     ];

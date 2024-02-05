@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import {mdiBagPersonal} from '@mdi/js';
@@ -61,10 +61,12 @@ function Backpacks() {
                 sortBy='pricePerSlot'
             />
             
-            <div className="page-wrapper items-page-wrapper">
-                <p>
-                    {"Backpacks in the Escape from Tarkov game are various-sized containers for carrying your hard-earned riches."}
-                </p>
+            <div className="page-wrapper backpacks-page-wrapper">
+                <Trans i18nKey={'backpacks-page-p'}>
+                    <p>
+                        {"Backpacks in the Escape from Tarkov game are various-sized containers for carrying your hard-earned riches."}
+                    </p>
+                </Trans>
             </div>
         </div>,
     ];
