@@ -301,34 +301,34 @@
                     },
                     {
                         "position": [567, -69],
-                        "text": "Streamers",
-                        "size": 80
+                        "text": "Streamer House",
+                        "size": 70
                     },
                     {
                         "position": [-69, 8],
                         "text": "Main Bridge",
                         "rotation": "5",
-                        "size": 80
+                        "size": 70
                     },
                     {
                         "position": [110, 85],
                         "text": "Sniper Hill",
-                        "size": 80
+                        "size": 70
                     },
                     {
                         "position": [-284, -134],
                         "text": "Storage",
-                        "size": 80
+                        "size": 70
                     },
                     {
                         "position": [-208, -219],
                         "text": "Trailer Park",
-                        "size": 80
+                        "size": 70
                     },
                     {
                         "position": [-66, 46],
                         "text": "Junk Bridge",
-                        "size": 80
+                        "size": 70
                     },
                     {
                         "position": [106, -91],
@@ -349,7 +349,8 @@
                     {
                         "position": [201, -15],
                         "text": "Skeleton",
-                        "size": 80
+                        "size": 80,
+                        "rotation": "-7"
                     },
                     {
                         "position": [392, -96],
@@ -374,7 +375,7 @@
                     {
                         "position": [240, 51],
                         "text": "Bus Station",
-                        "size": 80
+                        "size": 70
                     },
                     {
                         "position": [333, -67],
@@ -384,12 +385,12 @@
                     {
                         "position": [497, 110],
                         "text": "Powerline Tower",
-                        "size": 80
+                        "size": 0
                     },
                     {
                         "position": [46, -59],
                         "text": "Warehouse 17",
-                        "size": 80
+                        "size": 70
                     }
                 ]
             },
