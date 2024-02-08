@@ -271,31 +271,37 @@
                 "labels": [
                     {
                         "position": [-212, -123],
-                        "text": "Big Red"
+                        "text": "Big Red",
+                        "size": 80
                     },
                     {
                         "position": [202, 149],
-                        "text": "Dorms"
+                        "text": "Dorms",
+                        "size": 80
                     },
                     {
                         "position": [404, 31],
-                        "text": "New Gas"
+                        "text": "New Gas",
+                        "size": 80
                     },
                     {
                         "position": [331, -173],
-                        "text": "Old Gas"
+                        "text": "Old Gas",
+                        "size": 80
                     },
                     {
                         "position": [201, -129],
-                        "text": "Fortress"
+                        "text": "Fortress",
+                        "size": 80
                     },
                     {
                         "position": [83, -153],
-                        "text": "Crackhouse"
+                        "text": "Crackhouse",
+                        "size": 80
                     },
                     {
                         "position": [567, -69],
-                        "text": "USEC",
+                        "text": "Streamers",
                         "size": 80
                     },
                     {
@@ -342,7 +348,8 @@
                     },
                     {
                         "position": [201, -15],
-                        "text": "Skeleton"
+                        "text": "Skeleton",
+                        "size": 80
                     },
                     {
                         "position": [392, -96],
@@ -362,6 +369,26 @@
                     {
                         "position": [572, 0],
                         "text": "Military Checkpoint",
+                        "size": 80
+                    },
+                    {
+                        "position": [240, 51],
+                        "text": "Bus Station",
+                        "size": 80
+                    },
+                    {
+                        "position": [333, -67],
+                        "text": "Warehouse 4",
+                        "size": 80
+                    },
+                    {
+                        "position": [497, 110],
+                        "text": "Powerline Tower",
+                        "size": 80
+                    },
+                    {
+                        "position": [46, -59],
+                        "text": "Warehouse 17",
                         "size": 80
                     }
                 ]
