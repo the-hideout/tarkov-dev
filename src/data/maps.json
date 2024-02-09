@@ -270,127 +270,113 @@
                 ],
                 "labels": [
                     {
-                        "position": [-212, -123],
-                        "text": "Big Red",
-                        "size": 80
+                        "position": [-215, -119],
+                        "text": "Big Red"
                     },
                     {
-                        "position": [202, 149],
-                        "text": "Dorms",
-                        "size": 80
+                        "position": [200, 150],
+                        "text": "Dorms"
                     },
                     {
                         "position": [404, 31],
-                        "text": "New Gas",
-                        "size": 80
+                        "text": "New Gas"
                     },
                     {
                         "position": [331, -173],
-                        "text": "Old Gas",
-                        "size": 80
+                        "text": "Old Gas"
                     },
                     {
-                        "position": [201, -129],
-                        "text": "Fortress",
-                        "size": 80
+                        "position": [201, -127],
+                        "text": "Fortress"
                     },
                     {
                         "position": [83, -153],
-                        "text": "Crackhouse",
-                        "size": 80
+                        "text": "Crackhouse"
                     },
                     {
-                        "position": [567, -69],
+                        "position": [567, -67],
                         "text": "Streamer House",
-                        "size": 70
+                        "size": 90
                     },
                     {
-                        "position": [-69, 8],
+                        "position": [-69, 9],
                         "text": "Main Bridge",
-                        "rotation": "5",
-                        "size": 70
+                        "rotation": "6",
+                        "size": 90
                     },
                     {
                         "position": [110, 85],
                         "text": "Sniper Hill",
-                        "size": 70
+                        "size": 90
                     },
                     {
-                        "position": [-284, -134],
+                        "position": [-288, -134],
                         "text": "Storage",
-                        "size": 70
+                        "size": 90
                     },
                     {
-                        "position": [-208, -219],
+                        "position": [-211, -219],
                         "text": "Trailer Park",
-                        "size": 70
+                        "size": 90
                     },
                     {
                         "position": [-66, 46],
                         "text": "Junk Bridge",
-                        "size": 70
+                        "size": 90
                     },
                     {
-                        "position": [106, -91],
+                        "position": [106, -90],
                         "text": "Repair Shop",
-                        "size": 80
+                        "size": 90
                     },
                     {
                         "position": [491, 63],
                         "text": "Sniper Ridge",
-                        "size": 80,
                         "rotation": "5"
                     },
                     {
                         "position": [75, -9],
                         "text": "Old Construction",
-                        "size": 80
+                        "size": 90
                     },
                     {
-                        "position": [201, -15],
+                        "position": [200, -13],
                         "text": "Skeleton",
-                        "size": 80,
-                        "rotation": "-7"
+                        "rotation": "-9"
                     },
                     {
-                        "position": [392, -96],
-                        "text": "Warehouse 3",
-                        "size": 80
+                        "position": [390, -94],
+                        "text": "Warehouse 3"
                     },
                     {
                         "position": [472, -67],
-                        "text": "Depot",
-                        "size": 80
+                        "text": "Depot"
                     },
                     {
-                        "position": [557, -119],
-                        "text": "Warehouse 7",
-                        "size": 80
+                        "position": [555, -118],
+                        "text": "Warehouse 7"
                     },
                     {
                         "position": [572, 0],
-                        "text": "Military Checkpoint",
-                        "size": 80
+                        "text": "Military Checkpoint"
                     },
                     {
-                        "position": [240, 51],
+                        "position": [238, 53],
                         "text": "Bus Station",
-                        "size": 70
+                        "size": 90
                     },
                     {
                         "position": [333, -67],
-                        "text": "Warehouse 4",
-                        "size": 80
+                        "text": "Warehouse 4"
                     },
                     {
                         "position": [497, 110],
-                        "text": "Powerline Tower",
-                        "size": 0
+                        "text": "Powerline Tower"
                     },
                     {
                         "position": [46, -59],
                         "text": "Warehouse 17",
-                        "size": 70
+                        "size": 90
                     }
                 ]
             },
