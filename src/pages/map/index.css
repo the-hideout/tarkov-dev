@@ -144,15 +144,15 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 }
 
 .extract-name {
-    font-weight: 900;
+    font-weight: 800;
     font-size: 18px;
     font-family: Arial, Helvetica, sans-serif;
     color: white;
     white-space: nowrap;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     vertical-align: top;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
+    text-shadow: 0 0 3px black;
+    -webkit-text-stroke: 0.5px black;
 }
 
 .extract-name.pmc {
@@ -251,10 +251,11 @@ div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
 /* Area labels */
 .leaflet-marker-icon.map-area-label {
     font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 900;
-    font-size: 24px;
+    font-weight: 800;
+    font-size: 20px;
     color: rgb(199, 197, 179);
-    -webkit-text-stroke: 1px black;
+    text-shadow: 0 0 3px black;
+    -webkit-text-stroke: 0.5px black;
     text-align: center;
 }
 
