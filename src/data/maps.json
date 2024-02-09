@@ -10,7 +10,10 @@
                 "maxZoom": 5,
                 "transform": [0.38, 0, 0.38, 0],
                 "coordinateRotation": 180,
-                "bounds": [[323, -317], [-280, 549]],
+                "bounds": [
+                    [323, -317],
+                    [-280, 549]
+                ],
                 "heightRange": [-6, 10],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
@@ -108,7 +111,10 @@
                 "maxZoom": 6,
                 "transform": [0.524, 167.3, 0.524, 65.1],
                 "coordinateRotation": 180,
-                "bounds": [[249, -124], [-99, 364]],
+                "bounds": [
+                    [249, -124],
+                    [-99, 364]
+                ],
                 "heightRange": [-1000, 28],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
@@ -141,9 +147,7 @@
                             },
                             {
                                 "height": [26, 31],
-                                "bounds": [
-                                    [[98, 216], [91, 228], "m showroom"]
-                                ]
+                                "bounds": [[[98, 216], [91, 228], "m showroom"]]
                             }
                         ]
                     },
@@ -165,7 +169,7 @@
                 "projection": "2D",
                 "author": "TheBigLebr0ski",
                 "authorLink": "https://www.reddit.com/user/TheBigLebr0ski/"
-            },            
+            },
             {
                 "key": "ground-zero-3d",
                 "projection": "3D",
@@ -186,7 +190,10 @@
                 "maxZoom": 6,
                 "transform": [0.239, 168.65, 0.239, 136.35],
                 "coordinateRotation": 180,
-                "bounds": [[698, -307], [-372, 237]],
+                "bounds": [
+                    [698, -307],
+                    [-372, 237]
+                ],
                 "heightRange": [-1000, 1000],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev/",
@@ -256,21 +263,120 @@
                         "extents": [
                             {
                                 "height": [5.7, 1000],
-                                "bounds": [
-                                    [[243, 190], [165, 125], "dorms"]
-                                ]
+                                "bounds": [[[243, 190], [165, 125], "dorms"]]
                             }
                         ]
                     }
                 ],
-                "_labels": [
+                "labels": [
                     {
-                        "position": [-212, -123],
+                        "position": [-215, -119],
                         "text": "Big Red"
                     },
                     {
-                        "position": [202, 149],
+                        "position": [200, 150],
                         "text": "Dorms"
+                    },
+                    {
+                        "position": [404, 31],
+                        "text": "New Gas"
+                    },
+                    {
+                        "position": [331, -173],
+                        "text": "Old Gas"
+                    },
+                    {
+                        "position": [201, -127],
+                        "text": "Fortress"
+                    },
+                    {
+                        "position": [83, -153],
+                        "text": "Crackhouse"
+                    },
+                    {
+                        "position": [567, -67],
+                        "text": "Streamer House",
+                        "size": 90
+                    },
+                    {
+                        "position": [-69, 9],
+                        "text": "Main Bridge",
+                        "rotation": "6",
+                        "size": 90
+                    },
+                    {
+                        "position": [110, 85],
+                        "text": "Sniper Hill",
+                        "size": 90
+                    },
+                    {
+                        "position": [-288, -134],
+                        "text": "Storage",
+                        "size": 90
+                    },
+                    {
+                        "position": [-211, -219],
+                        "text": "Trailer Park",
+                        "size": 90
+                    },
+                    {
+                        "position": [-66, 46],
+                        "text": "Junk Bridge",
+                        "size": 90
+                    },
+                    {
+                        "position": [106, -90],
+                        "text": "Repair Shop",
+                        "size": 90
+                    },
+                    {
+                        "position": [491, 63],
+                        "text": "Sniper Ridge",
+                        "rotation": "5"
+                    },
+                    {
+                        "position": [75, -9],
+                        "text": "Old Construction",
+                        "size": 90
+                    },
+                    {
+                        "position": [200, -13],
+                        "text": "Skeleton",
+                        "rotation": "-9"
+                    },
+                    {
+                        "position": [390, -94],
+                        "text": "Warehouse 3"
+                    },
+                    {
+                        "position": [472, -67],
+                        "text": "Depot"
+                    },
+                    {
+                        "position": [555, -118],
+                        "text": "Warehouse 7"
+                    },
+                    {
+                        "position": [572, 0],
+                        "text": "Military Checkpoint"
+                    },
+                    {
+                        "position": [238, 53],
+                        "text": "Bus Station",
+                        "size": 90
+                    },
+                    {
+                        "position": [333, -67],
+                        "text": "Warehouse 4"
+                    },
+                    {
+                        "position": [497, 110],
+                        "text": "Powerline Tower"
+                    },
+                    {
+                        "position": [46, -59],
+                        "text": "Warehouse 17",
+                        "size": 90
                     }
                 ]
             },
@@ -301,7 +407,10 @@
                 "maxZoom": 6,
                 "transform": [1.629, 119.9, 1.629, 139.3],
                 "coordinateRotation": 90,
-                "bounds": [[79, -64.5], [-66.5, 67.4]],
+                "bounds": [
+                    [79, -64.5],
+                    [-66.5, 67.4]
+                ],
                 "heightRange": [-1, 3],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
@@ -370,7 +479,10 @@
                 "maxZoom": 6,
                 "transform": [0.265, 150.6, 0.265, 134.6],
                 "coordinateRotation": 180,
-                "bounds": [[530, -439], [-364, 452]],
+                "bounds": [
+                    [530, -439],
+                    [-364, 452]
+                ],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-Ground_Level.svg",
@@ -384,9 +496,7 @@
                         "extents": [
                             {
                                 "height": [25, 34],
-                                "bounds": [
-                                    [[120, 218], [-222, -327], "mall"]
-                                ]
+                                "bounds": [[[120, 218], [-222, -327], "mall"]]
                             }
                         ]
                     },
@@ -397,9 +507,7 @@
                         "extents": [
                             {
                                 "height": [34, 1000],
-                                "bounds": [
-                                    [[120, 218], [-222, -327], "mall"]
-                                ]
+                                "bounds": [[[120, 218], [-222, -327], "mall"]]
                             }
                         ]
                     }
@@ -425,7 +533,10 @@
                 "maxZoom": 6,
                 "transform": [0.575, 281.2, 0.575, 196.7],
                 "coordinateRotation": 270,
-                "bounds": [[-91, -477], [-287, -193]],
+                "bounds": [
+                    [-91, -477],
+                    [-287, -193]
+                ],
                 "author": "Tarkov.dev",
                 "authorLink": "https://tarkov.dev",
                 "tilePath": "https://assets.tarkov.dev/maps/labs_v3/1st/{z}/{x}/{y}.png",
@@ -439,7 +550,10 @@
                             {
                                 "height": [3, 10000],
                                 "bounds": [
-                                    [[-101, -422], [-271, -270]]
+                                    [
+                                        [-101, -422],
+                                        [-271, -270]
+                                    ]
                                 ]
                             }
                         ]
@@ -475,7 +589,10 @@
                 "maxZoom": 6,
                 "transform": [0.2, 0, 0.2, 0],
                 "coordinateRotation": 180,
-                "bounds": [[515, -998], [-545, 725]],
+                "bounds": [
+                    [515, -998],
+                    [-545, 725]
+                ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Lighthouse.svg"
@@ -511,7 +628,10 @@
                 "maxZoom": 6,
                 "transform": [0.268, 0, 0.268, 0],
                 "coordinateRotation": 180,
-                "bounds": [[289, -338], [-303, 336]],
+                "bounds": [
+                    [289, -338],
+                    [-303, 336]
+                ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Ground_Level.svg",
@@ -554,7 +674,10 @@
                 "maxZoom": 6,
                 "transform": [0.16, 83.2, 0.16, 111.1],
                 "coordinateRotation": 180,
-                "bounds": [[508, -415], [-1060, 618]],
+                "bounds": [
+                    [508, -415],
+                    [-1060, 618]
+                ],
                 "heightRange": [-1000, -1],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
@@ -622,7 +745,10 @@
                 "maxZoom": 6,
                 "transform": [0.1855, 113.1, 0.1855, 167.8],
                 "coordinateRotation": 180,
-                "bounds": [[650, -945], [-695, 470]],
+                "bounds": [
+                    [650, -945],
+                    [-695, 470]
+                ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
                 "svgPath": "https://assets.tarkov.dev/maps/svg/Woods.svg",
