@@ -455,186 +455,188 @@
                     {
                         "position": [21, 39],
                         "text": "Office Building",
-                        "bottom": 0,
-                        "top": 1000,
+                        "bottom": -1,
+                        "top": 10000,
                         "size": 80
                     },
                     {
                         "position": [15.5, 39],
                         "text": "Main Office",
-                        "bottom": 100,
-                        "top": 1000,
+                        "bottom": 6,
+                        "top": 10000,
                         "size": 80
                     },
                     {
                         "position": [24.5, 39],
                         "text": "Breach Room",
-                        "bottom": 100,
-                        "top": 1000,
+                        "bottom": 6,
+                        "top": 10000,
                         "size": 80
                     },
                     {
                         "position": [30.5, 39],
                         "text": "Locked Office",
-                        "bottom": 100,
-                        "top": 1000,
+                        "bottom": 6,
+                        "top": 10000,
                         "size": 80
                     },
                     {
                         "position": [35, 39],
                         "text": "North Stairs",
-                        "bottom": 0,
+                        "bottom": -1,
+                        "top": 10000,
                         "size": 80
                     },
                     {
                         "position": [9, 39],
                         "text": "South Stairs",
-                        "bottom": 0,
+                        "bottom": -1,
+                        "top": 10000,
                         "size": 80
                     },
                     {
                         "position": [34, 26],
                         "text": "Sky Bridge",
-                        "bottom": 100,
-                        "top": 1000,
+                        "bottom": 6,
+                        "top": 10000,
                         "size": 80
                     },
                     {
                         "position": [29.5, 17],
                         "text": "Connector",
-                        "bottom": 0,
-                        "top": 1000,
+                        "bottom": -1,
+                        "top": 10000,
                         "size": 80
                     },
                     {
                         "position": [29, 41],
                         "text": "Locker Rooms",
                         "bottom": 3,
-                        "top": 3,
+                        "top": 5,
                         "size": 80
                     },
                     {
                         "position": [15, 41],
                         "text": "Sinks",
                         "bottom": 3,
-                        "top": 3,
+                        "top": 5,
                         "size": 80
                     },
                     {
                         "position": [20, 42],
                         "text": "Hole",
                         "bottom": 3,
-                        "top": 3,
+                        "top": 5,
                         "size": 80
                     },
                     {
                         "position": [-3, 37],
                         "text": "Platform",
-                        "bottom": 0,
-                        "top": 3,
+                        "bottom": -1,
+                        "top": 5,
                         "size": 80
                     },
                     {
                         "position": [-21, 27],
                         "text": "Servers",
                         "bottom": 3,
-                        "top": 3,
+                        "top": 5,
                         "size": 80
                     },
                     {
                         "position": [-18, -29],
                         "text": "Med Tent",
-                        "bottom": 0,
-                        "top": 1,
+                        "bottom": -1,
+                        "top": 2,
                         "size": 80
                     },
                     {
                         "position": [4.5, 10.5],
                         "text": "Silos",
-                        "bottom": 0,
-                        "top": 1
+                        "bottom": -1,
+                        "top": 2
                     },
                     {
                         "position": [30, -8.5],
                         "text": "Heli Crash",
-                        "bottom": 0,
-                        "top": 1,
+                        "bottom": -1,
+                        "top": 10000,
                         "size": 80
                     },
                     {
                         "position": [-1, 16],
                         "text": "Pit",
-                        "bottom": -1000,
-                        "top": -100,
+                        "bottom": -10000,
+                        "top": -2,
                         "size": 80
                     },
                     {
                         "position": [-2, -24.5],
                         "text": "Underground Stash",
-                        "bottom": -1000,
-                        "top": -100,
+                        "bottom": -10000,
+                        "top": -2,
                         "size": 80
                     },
                     {
                         "position": [-20.5, 23],
                         "text": "Scav Bunker",
-                        "bottom": 0,
-                        "top": 1,
+                        "bottom": -1,
+                        "top": 2,
                         "size": 80
                     },
                     {
                         "position": [-18, 50],
                         "text": "Blue Containers",
-                        "bottom": 0,
-                        "top": 1
+                        "bottom": -1,
+                        "top": 2
                     },
                     {
                         "position": [-45.5, 61],
                         "text": "Wood Room",
-                        "bottom": 0,
-                        "top": 1,
+                        "bottom": -1,
+                        "top": 2,
                         "size": 80
                     },
                     {
                         "position": [68.25, -20],
                         "text": "Glass Hall",
-                        "bottom": 0,
-                        "top": 1,
+                        "bottom": -1,
+                        "top": 2,
                         "size": 80
                     },
                     {
                         "position": [56, 5],
                         "text": "Boilers",
-                        "bottom": 0,
-                        "top": 3,
+                        "bottom": -1,
+                        "top": 5,
                         "size": 80
                     },
                     {
                         "position": [41, -11],
                         "text": "Pumping Station",
-                        "bottom": 0,
-                        "top": 3,
+                        "bottom": -1,
+                        "top": 5,
                         "size": 80
                     },
                     {
                         "position": [44, -36],
                         "text": "East Halls",
-                        "bottom": 0,
-                        "top": 1,
+                        "bottom": -1,
+                        "top": 2,
                         "size": 80
                     },
                     {
                         "position": [66, -42],
                         "text": "Forklifts",
-                        "bottom": 0,
-                        "top": 1,
+                        "bottom": -1,
+                        "top": 2,
                         "size": 80
                     },
                     {
                         "position": [18, 4],
                         "text": "Rafters",
-                        "bottom": 10,
-                        "top": 1000
+                        "bottom": 6,
+                        "top": 10000
                     }
                 ]
             },
