@@ -6,6 +6,7 @@ const doFetchHideout = async (language, prebuild = false) => {
             id
             name
             normalizedName
+            imageLink
             levels {
                 id
                 level
