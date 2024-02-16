@@ -239,6 +239,7 @@ function Settings() {
                             stateKey={station.normalizedName}
                             ref={refs[station.normalizedName]}
                             isDisabled={useTarkovTracker}
+                            image={station.imageLink}
                         />
                     );
                 })}
