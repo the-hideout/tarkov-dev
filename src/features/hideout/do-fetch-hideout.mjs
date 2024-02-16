@@ -33,6 +33,9 @@ const doFetchHideout = async (language, prebuild = false) => {
                     level
                 }
             }
+            crafts {
+                id
+            }
         }
     }`;
 

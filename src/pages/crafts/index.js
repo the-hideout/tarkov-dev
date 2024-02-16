@@ -5,7 +5,6 @@ import { Trans, useTranslation } from 'react-i18next';
 import { Icon } from '@mdi/react';
 import { mdiProgressWrench, mdiCancel, mdiCached } from '@mdi/js';
 
-import useCraftsData from '../../features/crafts/index.js';
 import useHideoutData from '../../features/hideout/index.js';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
@@ -58,24 +57,13 @@ function Crafts() {
         }
     }, [searchParams, setSelectedStation, setShowAll]);
 
-    const { data: crafts } = useCraftsData();
-    const { data: allStations } = useHideoutData();
+    const { data: hideout } = useHideoutData();
     
     const stations = useMemo(() => {
-        const withCrafts = [];
-        for (const craft of crafts) {
-            const station = allStations.find(s => s.id === craft.station.id);
-            if (!station || station.normalizedName === 'bitcoin-farm') {
-                continue;
-            }
-            if (!withCrafts.some(s => s.id === station.id)) {
-                withCrafts.push(station);
-            }
-        }
-        return withCrafts.sort((a, b) => {
+        return hideout.filter(s => s.crafts?.length && s.normalizedName !== 'bitcoin-farm').sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
-    }, [crafts, allStations]);
+    }, [hideout]);
 
     return [
         <SEO 
