@@ -96,14 +96,14 @@ function Settings() {
     const { data: crafts } = useCraftsData();
     
     const stations = useMemo(() => {
-        const stn = [];
+        const stationsWithCrafts = [];
         for (const craft of crafts) {
-            if (!stn.some(station => station.id === craft.station.id)) {
-                stn.push(craft.station);
+            if (!stationsWithCrafts.some(station => station.id === craft.station.id)) {
+                stationsWithCrafts.push(hideout.find(s => s.id === craft.station.id));
             }
         }
-        stn.push(hideout.find(h => h.normalizedName === 'solar-power'));
-        return stn.sort((a, b) => {
+        stationsWithCrafts.push(hideout.find(h => h.normalizedName === 'solar-power'));
+        return stationsWithCrafts.sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
     }, [crafts, hideout]);
