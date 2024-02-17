@@ -673,7 +673,7 @@
                     {
                         "name": "2nd Floor",
                         "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-First_Floor.svg",
-                        "show": false,
+                        "show": true,
                         "extents": [
                             {
                                 "height": [25, 34],
@@ -691,6 +691,477 @@
                                 "bounds": [[[120, 218], [-222, -327], "mall"]]
                             }
                         ]
+                    }
+                ],
+                "labels": [
+                    {
+                        "position": [33, -222],
+                        "text": "Garage A",
+                        "bottom": -1000,
+                        "top": 24,
+                        "size": 80
+                    },
+                    {
+                        "position": [47, -112],
+                        "text": "Garage B",
+                        "bottom": -1000,
+                        "top": 24,
+                        "size": 80
+                    },
+                    {
+                        "position": [0, 47],
+                        "text": "Garage C",
+                        "bottom": -1000,
+                        "top": 24,
+                        "size": 80
+                    },
+                    {
+                        "position": [20, 138],
+                        "text": "Garage D",
+                        "bottom": -1000,
+                        "top": 24,
+                        "size": 80
+                    },
+                    {
+                        "position": [-34, -235],
+                        "text": "IDEA",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 80
+                    },
+                    {
+                        "position": [-115, -45],
+                        "text": "Goshan",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 80
+                    },
+                    {
+                        "position": [-28, 140],
+                        "text": "OLI",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 80
+                    },
+                    {
+                        "position": [87, -165],
+                        "text": "Nortex",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [60, -152],
+                        "text": "TRend",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [69.5, -134],
+                        "text": "Mode7",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [19, -129],
+                        "text": "TTS",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-38, -129],
+                        "text": "Book Store",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [91, -119],
+                        "text": "Dino Clothes",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [18, -103],
+                        "text": "EMERCOM",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-28, -103],
+                        "text": "Kostin",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-65, -103],
+                        "text": "Bizarro",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [92, -87],
+                        "text": "Spiel",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-18, -87],
+                        "text": "Voyage",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [57, -66],
+                        "text": "Viking",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [13, -66],
+                        "text": "Mantis",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-18, -72],
+                        "text": "German",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [57, -32],
+                        "text": "The National",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [13, -32],
+                        "text": "Brutal",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-18, -25],
+                        "text": "Kiba",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-34, -20],
+                        "text": "Pretty Lights",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [92, -18],
+                        "text": "Telespot",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [62, -12],
+                        "text": "Revis",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [19, -6],
+                        "text": "ADIK",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-28, 0.5],
+                        "text": "Generic",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [92, 15],
+                        "text": "Top Brand",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [61, 15],
+                        "text": "Sports",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [70, 32],
+                        "text": "Yushka",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [19.5, 26],
+                        "text": "Rasmussen",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-37, 26],
+                        "text": "Avokado",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [91, 55],
+                        "text": "Boots 4 Life",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [61, 50],
+                        "text": "Texho",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [6, 49],
+                        "text": "Dom",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [38, -170],
+                        "text": "Father & Sons",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [69, -150],
+                        "text": "Tarkovstar",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [26, -149],
+                        "text": "Eastland",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [71, -130],
+                        "text": "Arena",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [54, -128],
+                        "text": "ТАРЗДРАВ",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [20, -128],
+                        "text": "МЕБЕЛЬ МК",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [69, -116],
+                        "text": "Intourist",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [-27, -103],
+                        "text": "Burger Spot",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [70, -94],
+                        "text": "FCK",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [70, -87],
+                        "text": "McDaniels",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [64, -69],
+                        "text": "Tarducks",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [43, -69],
+                        "text": "Coffee Joy",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [15, -74],
+                        "text": "Jacob & Jacob",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [-34, -79],
+                        "text": "ПУШКИН",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [64, -34],
+                        "text": "Sushi Huyushi",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [-17, -32],
+                        "text": "Underway",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [67, -23.5],
+                        "text": "Burger House",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [-34, -24],
+                        "text": "Philly Cute",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [67, -16],
+                        "text": "Shiccos",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [17, 0],
+                        "text": "МУЗЕЙ ИСТОРИИ",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [92, 17],
+                        "text": "Papillon",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [58, 13],
+                        "text": "ЗАКРЫТО НА РЕМОНТ",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 60
+                    },
+                    {
+                        "position": [70, 27],
+                        "text": "НА-СВЯЗИ",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [54, 24],
+                        "text": "СКОРО ОТКРЫТИЕ",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [19, 26],
+                        "text": "Figaro",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [71, 47],
+                        "text": "АПТЕКА",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [53, 47],
+                        "text": "SARA",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [26, 46],
+                        "text": "Urban Clothes",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [91, 54],
+                        "text": "TECHLIGHT",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [39, 67],
+                        "text": "Fashion Store",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
                     }
                 ]
             },
