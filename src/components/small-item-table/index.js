@@ -32,6 +32,7 @@ import itemCanContain from '../../modules/item-can-contain.js';
 import useBartersData from '../../features/barters/index.js';
 import useCraftsData from '../../features/crafts/index.js';
 import useItemsData from '../../features/items/index.js';
+import useHideoutData from '../../features/hideout/index.js';
 import useMetaData from '../../features/meta/index.js';
 import CanvasGrid from '../../components/canvas-grid/index.js';
 
@@ -317,6 +318,8 @@ function SmallItemTable(props) {
     const { data: barters } = useBartersData();
 
     const { data: crafts } = useCraftsData();
+
+    const { data: hideout } = useHideoutData();
 
     const containedItems = useMemo(() => {
         if (!containedInFilter) 
@@ -1671,7 +1674,8 @@ function SmallItemTable(props) {
                             );
                         } else if (cheapestObtainInfo.craft) {
                             const craft = cheapestObtainInfo.craft;
-                            priceSource = `${craft.station.name} ${craft.level}`;
+                            const station = hideout.find(s => s.id === craft.station.id);
+                            priceSource = `${station.name} ${craft.level}`;
                             let barterTipTitle = '';
                             if (craft.taskUnlock) {
                                 taskIcon = (
@@ -1867,6 +1871,7 @@ function SmallItemTable(props) {
         items,
         barters,
         crafts,
+        hideout,
         useBarterIngredients,
         useCraftIngredients,
         distance,
