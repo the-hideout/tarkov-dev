@@ -549,13 +549,13 @@ function Map() {
 
         L.control.coordinates({
             decimals: 2,
-            labelTemplateLat: 'z: {y}',
+            labelTemplateLat: 'y: {y}',
             labelTemplateLng: 'x: {x}',
             enableUserInput: false,
             wrapCoordinate: false,
             position: 'bottomright',
             customLabelFcn: (latLng, opts) => {
-                return `x: ${latLng.lng.toFixed(2)} z: ${latLng.lat.toFixed(2)}`;
+                return `x: ${latLng.lng.toFixed(2)} y: ${latLng.lat.toFixed(2)}`;
             }
         }).addTo(map);
 
