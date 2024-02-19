@@ -22,7 +22,6 @@ import {
     toggleHideDogtagBarters,
     // selectCompletedQuests,
 } from '../../features/settings/settingsSlice.js';
-import useCraftsData from '../../features/crafts/index.js';
 import useHideoutData from '../../features/hideout/index.js';
 import useTradersData from '../../features/traders/index.js';
 
@@ -92,21 +91,12 @@ function Settings() {
     }, [allTraders]);
 
     const { data: hideout } = useHideoutData();
-
-    const { data: crafts } = useCraftsData();
     
     const stations = useMemo(() => {
-        const stn = [];
-        for (const craft of crafts) {
-            if (!stn.some(station => station.id === craft.station.id)) {
-                stn.push(craft.station);
-            }
-        }
-        stn.push(hideout.find(h => h.normalizedName === 'solar-power'));
-        return stn.sort((a, b) => {
+        return hideout.filter(s => s.crafts?.length || s.normalizedName === 'solar-power').sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
-    }, [crafts, hideout]);
+    }, [hideout]);
 
     useEffect(() => {
         if (useTarkovTracker) {
@@ -239,6 +229,7 @@ function Settings() {
                             stateKey={station.normalizedName}
                             ref={refs[station.normalizedName]}
                             isDisabled={useTarkovTracker}
+                            image={station.imageLink}
                         />
                     );
                 })}

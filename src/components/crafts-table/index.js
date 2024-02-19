@@ -8,6 +8,7 @@ import DataTable from '../data-table/index.js';
 import fleaMarketFee from '../../modules/flea-market-fee.mjs';
 import useCraftsData from '../../features/crafts/index.js';
 import useBartersData from '../../features/barters/index.js';
+import useHideoutData from '../../features/hideout/index.js';
 import ValueCell from '../value-cell/index.js';
 import CostItemsCell from '../cost-items-cell/index.js';
 import formatCostItems from '../../modules/format-cost-items.js';
@@ -43,6 +44,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
 
     const { data: meta } = useMetaData();
 
+    const { data: hideout} = useHideoutData();
 
     const data = useMemo(() => {
         let addedStations = {};
@@ -124,8 +126,8 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     }
                 }
 
-                const station = craftRow.station.name;
-                const stationNormalized = craftRow.station.normalizedName;
+                const station = hideout.find(s => s.id === craftRow.station.id);
+                const stationNormalized = station.normalizedName;
                 const level = craftRow.level;
 
                 if (!nameFilter && selectedStation && selectedStation !== 'top' && selectedStation !== 'banned' && selectedStation !== stationNormalized) {
@@ -203,7 +205,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
                     craftTime: craftDuration,
                     reward: {
                         item: craftRewardItem,
-                        source: `${station} (${t('Level')} ${level})`,
+                        source: `${station.name} (${t('Level')} ${level})`,
                         count: craftRow.rewardItems[0].count,
                         sellTo: bestSellTo.vendor.name,
                         sellToNormalized: bestSellTo.vendor.normalizedName,
@@ -343,6 +345,7 @@ function CraftTable({ selectedStation, freeFuel, nameFilter, itemFilter, showAll
         freeFuel,
         crafts,
         barters,
+        hideout,
         completedQuests,
         includeFlea,
         hasJaeger,
