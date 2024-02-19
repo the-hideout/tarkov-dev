@@ -25,6 +25,9 @@ export default async function doFetchTraders(language, prebuild = false) {
                 insuranceRate
                 repairCostMultiplier
             }
+            barters {
+                id
+            }
         }
     }`;
 

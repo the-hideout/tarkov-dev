@@ -2,24 +2,27 @@ import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import ItemImage from '../item-image/index.js';
-import formatPrice from '../../modules/format-price.js';
-import { isAnyDogtag, getDogTagCost } from '../../modules/dogtags.js';
-import { getCheapestPrice } from '../../modules/format-cost-items.js';
-import { getDurationDisplay } from '../../modules/format-duration.js';
-
 import { Icon } from '@mdi/react';
 import {
     mdiCached,
     mdiProgressWrench
 } from '@mdi/js';
 
+import ItemImage from '../item-image/index.js';
+import formatPrice from '../../modules/format-price.js';
+import { isAnyDogtag, getDogTagCost } from '../../modules/dogtags.js';
+import { getCheapestPrice } from '../../modules/format-cost-items.js';
+import { getDurationDisplay } from '../../modules/format-duration.js';
+import useHideoutData from '../../features/hideout/index.js';
+import useTraderData from '../../features/traders/index.js';
+
 import './index.css';
 
 function BarterTooltip({ barter, showTitle = true, title, allowAllSources = false, crafts, barters, useBarterIngredients, useCraftIngredients }) {
     const settings = useSelector((state) => state.settings);
     const { t } = useTranslation();
+    const { data: hideout } = useHideoutData();
+    const { data: traders } = useTraderData();
 
     if (barters && typeof useBarterIngredients === 'undefined') {
         useBarterIngredients = true;
@@ -73,13 +76,16 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
     let titleElement = '';
 
     if (showTitle) {
-        const trader = barter.trader ? 
-            `${barter.trader.name} ${t('LL{{level}}', { level: barter.level })}` :
-            `${barter.station.name} ${barter.level}`;
+        const source = barter.trader 
+            ? traders.find(t => t.id === barter.trader.id)
+            : hideout.find(s => s.id === barter.station.id);
+        const sourceLevelText = barter.trader ? 
+            `${source.name} ${t('LL{{level}}', { level: barter.level })}` :
+            `${source.name} ${barter.level}`;
 
         const tipTitle = barter.trader ?
-            t('Barter at {{trader}}', { trader: trader }) : 
-            t('Craft at {{station}}', {station: trader});
+            t('Barter at {{trader}}', { trader: sourceLevelText }) : 
+            t('Craft at {{station}}', {station: sourceLevelText});
             
         titleElement = (
             <h3>
@@ -121,7 +127,8 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
                     />
                 );
                 if (requiredItem.cheapestPrice.type === 'craft') {
-                    const craftInfo = t('Craft at {{stationName}} {{stationLevel}}', {stationName: requiredItem.cheapestPrice.craft.station.name, stationLevel: requiredItem.cheapestPrice.craft.level});
+                    const station = hideout.find(s => s.id === requiredItem.cheapestPrice.craft.station.id);
+                    const craftInfo = t('Craft at {{stationName}} {{stationLevel}}', {stationName: station.name, stationLevel: requiredItem.cheapestPrice.craft.level});
                     sourceImage = (
                         <Link to={`/hideout-profit/?search=${requiredItem.item.name}`}>
                             <img
@@ -129,7 +136,7 @@ function BarterTooltip({ barter, showTitle = true, title, allowAllSources = fals
                                 title={craftInfo}
                                 className="barter-tooltip-icon"
                                 loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/stations/${sourceName}-icon.png`}
+                                src={station.imageLink}
                             />
                         </Link>
                     );
