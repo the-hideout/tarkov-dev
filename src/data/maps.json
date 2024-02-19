@@ -695,6 +695,75 @@
                 ],
                 "labels": [
                     {
+                        "position": [-186.4, -318.7],
+                        "text": "Power Station",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 100 
+                    },
+                    {
+                        "position": [155, -253],
+                        "text": "Go Kart",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80
+                    },
+                    {
+                        "position": [158, -78.5],
+                        "text": "Four Camp",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80
+                    },
+                    {
+                        "position": [68.2, 312.9],
+                        "text": "Cargo Containers",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80
+                    },
+                    {
+                        "position": [-260.2, 123.8],
+                        "text": "Wall Break",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80
+                    },
+                    {
+                        "position": [-175.5, 145.1],
+                        "text": "Ramps",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80
+                    },
+                    {
+                        "position": [202.3, 219.4],
+                        "text": "Oli Tower",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80
+                    },
+                    {
+                        "position": [46.5, -358.5],
+                        "text": "Idea Tower",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80
+                    },
+                    {
+                        "position":[263.2, -11.1],
+                        "text": "Scav Camp",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80 
+                    },
+                    {
+                        "position":[373.5, -391.2],
+                        "text": "Highway Construction",
+                        "bottom": -1,
+                        "top": 10
+                    },
+                    {
                         "position": [33, -222],
                         "text": "Garage A",
                         "bottom": -1000,
