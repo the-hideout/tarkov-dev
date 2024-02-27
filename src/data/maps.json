@@ -1439,6 +1439,130 @@
                             }
                         ]
                     }
+                ],
+                "labels": [
+                    {
+                        "position": [-258.2, -71.2],
+                        "text": "Resort",
+                        "bottom": -4,
+                        "top": -2,
+                        "size": 100
+                    },
+                    {
+                        "position": [-215.8, 178.4],
+                        "text":"Power Station",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-189.3, 420],
+                        "text":"Gas Station",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-496, 257],
+                        "text":"Weather Station",
+                        "bottom": -4,
+                        "top": -2
+
+                    },
+                    {
+                        "position": [-708.9, 93.91],
+                        "text": "Radio Tower",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [326, -118.5],
+                        "text": "Swamp",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [418.4, 118],
+                        "text": "Village",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [288, 144],
+                        "text":"Cabins",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [128, 93],
+                        "text": "Cottages",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-355, 188],
+                        "text": "Tank Bridge",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-338.6, 525],
+                        "text": "Pier",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [216, 424],
+                        "text": "Scav Island",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-96, -6],
+                        "text": "Bus Stop",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [52 , 134],
+                        "text": "Construction",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-153, -290],
+                        "text": "Bunker",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-625, 484],
+                        "text": "Crane",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-622, -202],
+                        "text": "Scav Farm",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-171, -83],
+                        "text": "West Wing",
+                        "bottom": 0,
+                        "top": 3
+                    },
+                    {
+                        "position": [-329, -85],
+                        "text": "East Wing",
+                        "bottom": 0,
+                        "top": 3
+                    },
+                    {
+                        "position": [-252, -146],
+                        "text": "Admin",
+                        "bottom": 0,
+                        "top": 3
+                    }
                 ]
             },
             {
