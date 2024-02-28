@@ -30,6 +30,10 @@ const itemSearch = (items, searchString) => {
             {
               name: 'normalizedName',
               weight: 0.9
+            },
+            {
+              name: 'id',
+              weight: 1
             }
         ],
         threshold: 0.3,
