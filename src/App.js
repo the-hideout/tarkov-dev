@@ -207,7 +207,7 @@ function App() {
 
             socket.addEventListener('open', () => {
                 console.log('Connected to socket server');
-                console.log(socket);
+                //console.log(socket);
 
                 heartbeat();
 

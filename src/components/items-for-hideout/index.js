@@ -32,6 +32,7 @@ function ItemsForHideout(props) {
                             ...c,
                             moduleName: curr.name,
                             normalizedName: curr.normalizedName,
+                            imageLink: curr.imageLink,
                             level: level.level,
                         };
                     }),
