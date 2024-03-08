@@ -23,6 +23,7 @@ function Player() {
             experience: 0,
             side: t('Loading'),
         },
+        achievements: {},
     });
     console.log(playerData);
     const { data: metaData } = useMetaData();
@@ -73,30 +74,6 @@ function Player() {
         });
     }, [playerData, playerLevel, t]);
 
-    const profileContent = useMemo(() => {
-        if (!playerData.aid) {
-            return '';
-        }
-        return (
-            <div>
-                <h2>{t('Achievements')}</h2>
-                <ul>
-                    {Object.keys(playerData.achievements).map(id => {
-                        const ach = achievements.find(a => a.id === id);
-                        if (!ach) {
-                            return false;
-                        }
-                        return (
-                            <li key={`achievement-${id}`}>
-                                {`${ach.name} ${new Date(playerData.achievements[id] * 1000)}`}
-                            </li>
-                        );
-                    }).filter(Boolean)}
-                </ul>
-            </div>
-        );
-    }, [playerData, achievements, t]);
-
     return [
         <SEO 
             title={`${t('Player Profile')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
@@ -110,7 +87,24 @@ function Player() {
                     {pageTitle}
                 </h1>
             </div>
-            {profileContent}
+            <div>
+                <h2>{t('Achievements')}</h2>
+                {Object.keys(playerData.achievements).length ?
+                    <ul>
+                        {Object.keys(playerData.achievements).map(id => {
+                            const ach = achievements.find(a => a.id === id);
+                            if (!ach) {
+                                return false;
+                            }
+                            return (
+                                <li key={`achievement-${id}`}>
+                                    {`${ach.name} ${new Date(playerData.achievements[id] * 1000)}`}
+                                </li>
+                            );
+                        }).filter(Boolean)}
+                    </ul>
+                 : <p>{t('None')}</p>}
+            </div>
         </div>,
     ];
 }
