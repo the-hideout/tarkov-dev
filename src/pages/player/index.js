@@ -25,6 +25,7 @@ function Player() {
         },
         achievements: {},
     });
+    const [profileError, setProfileError] = useState(false);
     console.log(playerData);
     const { data: metaData } = useMetaData();
     const { data: achievements } = useAchievementsData();
@@ -39,13 +40,18 @@ function Player() {
                 if (response.status !== 200) {
                     return;
                 }
-                setPlayerData(await response.json());
+                const profileResponse = await response.json();
+                if (profileResponse.err) {
+                    setProfileError(profileResponse.errmsg);
+                    return;
+                }
+                setPlayerData(profileResponse);
             } catch (error) {
                 console.log('Error retrieving player profile', error);
             }
         }
         fetchProfile();
-    }, [accountId, setPlayerData]);
+    }, [accountId, setPlayerData, setProfileError]);
 
     const playerLevel = useMemo(() => {
         if (playerData.info.experience === 0) {
@@ -88,6 +94,9 @@ function Player() {
                 </h1>
             </div>
             <div>
+                {profileError && (
+                    <p>{profileError}</p>
+                )}
                 {playerData.info.registrationDate && (
                     <p>{`${t('Initialization date')}: ${new Date(playerData.info.registrationDate * 1000).toLocaleString()}`}</p>
                 )}
