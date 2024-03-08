@@ -88,6 +88,12 @@ function Player() {
                 </h1>
             </div>
             <div>
+                {playerData.info.registrationDate && (
+                    <p>{`${t('Initialization date')}: ${new Date(playerData.info.registrationDate * 1000).toLocaleString()}`}</p>
+                )}
+                {playerData.info.bannedState && (
+                    <p>{t('Banned')}</p>
+                )}
                 <h2>{t('Achievements')}</h2>
                 {Object.keys(playerData.achievements).length ?
                     <ul>
@@ -98,7 +104,7 @@ function Player() {
                             }
                             return (
                                 <li key={`achievement-${id}`}>
-                                    {`${ach.name} ${new Date(playerData.achievements[id] * 1000)}`}
+                                    {`${ach.name} ${new Date(playerData.achievements[id] * 1000).toLocaleString()}`}
                                 </li>
                             );
                         }).filter(Boolean)}
