@@ -79,7 +79,6 @@ function Players() {
                     defaultValue={nameFilter}
                     type="text"
                     onChange={(event) => {
-                        console.log(event.target.value);
                         setNameFilter(event.target.value);
                     }}
                 />
