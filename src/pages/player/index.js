@@ -81,14 +81,17 @@ function Player() {
         if (playerData.info.experience === 0) {
             return 0;
         }
+        let expTotal = 0;
         for (let i = 0; i < metaData.playerLevels.length; i++) {
             const levelData = metaData.playerLevels[i];
-            if (levelData.exp ===  playerData.info.experience) {
+            expTotal += levelData.exp;
+            if (expTotal === playerData.info.experience) {
                 return levelData.level;
             }
-            if (levelData.exp > playerData.info.experience) {
+            if (expTotal > playerData.info.experience) {
                 return metaData.playerLevels[i - 1].level;
             }
+            
         }
         return metaData.playerLevels[metaData.playerLevels.length-1].level;
     }, [playerData, metaData]);
