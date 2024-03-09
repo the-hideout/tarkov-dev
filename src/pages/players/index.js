@@ -51,7 +51,11 @@ function Players() {
                 </ul>
             </div>
         );
-    }, [nameResults])
+    }, [nameResults]);
+
+    if (defaultQuery) {
+        searchForName();
+    }
 
     return [
         <SEO 

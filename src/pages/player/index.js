@@ -14,7 +14,9 @@ import useAchievementsData from '../../features/achievements/index.js';
 
 function Player() {
     const { t } = useTranslation();
-    const { accountId } = useParams();
+    const params = useParams();
+
+    const [accountId, setAccountId] = useState(params.accountId);
 
     const [playerData, setPlayerData] = useState({
         aid: 0,
@@ -34,6 +36,28 @@ function Player() {
         async function fetchProfile() {
             if (!accountId) {
                 return;
+            }
+            if (isNaN(accountId)) {
+                try {
+                    const response = await fetch('https://player.tarkov.dev/name/'+accountId);
+                    if (response.status !== 200) {
+                        return;
+                    }
+                    const searchResponse = await response.json();
+                    if (searchResponse.err) {
+                        setProfileError(`Error searching for profile ${accountId}: ${searchResponse.errmsg}`);
+                        return;
+                    }
+                    for (const result of searchResponse) {
+                        if (result.name.toLowerCase() === accountId.toLowerCase()) {
+                            setAccountId(result.aid);
+                            break;
+                        }
+                    }
+                    return;
+                } catch (error) {
+                    console.log('Error retrieving player profile', error);
+                }
             }
             try {
                 const response = await fetch('https://player.tarkov.dev/account/'+accountId);
