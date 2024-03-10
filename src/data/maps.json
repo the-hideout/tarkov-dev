@@ -162,6 +162,68 @@
                             }
                         ]
                     }
+                ],
+                "labels": [
+                    {
+                        "position": [-50,0],
+                        "text": "TerraGroup"
+                    },
+                    {
+                        "position": [150,1],
+                        "text": "Skyside"
+                    },
+                    {
+                        "position": [141,142],
+                        "text": "Fusion"
+                    },
+                    {
+                        "position": [14,201],
+                        "text": "Empire"
+                    },
+                    {
+                        "position": [115,285],
+                        "text": "Capital Insight"
+                    },
+                    {
+                        "position": [2,324],
+                        "text": "Nakatani"
+                    },
+                    {
+                        "position": [80, -118],
+                        "text": "Elemental Global"
+                    },
+                    {
+                        "position": [115,104],
+                        "text": "Oasis",
+                        "size": 70
+                    },
+                    {
+                        "position": [115,30],
+                        "text": "ASAP Winery",
+                        "size": 70
+                    },
+                    {
+                        "position": [43,150],
+                        "text": "Tarbank",
+                        "size": 70
+                    },
+                    {
+                        "position": [58,234],
+                        "text": "GAGRIN Hotel",
+                        "size": 70
+                    },
+                    {
+                        "position": [97,223],
+                        "text": "M Showroom",
+                        "size": 70
+                    },
+                    {
+                        "position": [-13,48],
+                        "text": "Science Office",
+                        "top": 28,
+                        "bottom": 28,
+                        "size": 60                       
+                    }
                 ]
             },
             {
