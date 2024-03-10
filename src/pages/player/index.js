@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
-import { mdiAccountDetails, mdiChevronUp, mdiChevronDown } from '@mdi/js';
+import { mdiAccountDetails, mdiChevronUp, mdiChevronDown, mdiTrophy, mdiChartLine, mdiBagPersonal } from '@mdi/js';
 import { TreeView, TreeItem } from '@mui/x-tree-view';
 
 import SEO from '../../components/SEO.jsx';
@@ -430,7 +430,7 @@ function Player() {
                         });
                     })()}`}</p>
                 )}
-                <h2>{t('Raid Stats')}</h2>
+                <h2><Icon path={mdiChartLine} size={1.5} className="icon-with-text"/>{t('Raid Stats')}</h2>
                 {Object.keys(playerData.pmcStats).length > 0 ?
                     <DataTable
                         key="raids-table"
@@ -438,7 +438,7 @@ function Player() {
                         data={raidsData}
                     />
                 : <p>{t('None')}</p>}
-                <h2>{t('Achievements')}</h2>
+                <h2><Icon path={mdiTrophy} size={1.5} className="icon-with-text"/>{t('Achievements')}</h2>
                 {Object.keys(playerData.achievements).length > 0 ?
                     <DataTable
                         key="achievements-table"
@@ -446,7 +446,7 @@ function Player() {
                         data={achievementsData}
                     />
                  : <p>{t('None')}</p>}
-                <h2>{t('Loadout')}</h2>
+                <h2><Icon path={mdiBagPersonal} size={1.5} className="icon-with-text"/>{t('Loadout')}</h2>
                 {playerData?.equipment?.Id !== undefined && (
                     <TreeView
                         defaultExpandIcon={<Icon path={mdiChevronDown} size={1.5} className="icon-with-text"/>}
