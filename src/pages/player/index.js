@@ -1,13 +1,16 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
-import { mdiAccountDetails } from '@mdi/js';
+import { mdiAccountDetails, mdiChevronUp, mdiChevronDown } from '@mdi/js';
+import { TreeView, TreeItem } from '@mui/x-tree-view';
 
 import SEO from '../../components/SEO.jsx';
 import DataTable from '../../components/data-table/index.js';
+import ItemImage from '../../components/item-image/index.js';
 
+import useItemsData from '../../features/items/index.js';
 import useMetaData from '../../features/meta/index.js';
 import useAchievementsData from '../../features/achievements/index.js';
 
@@ -63,6 +66,7 @@ function Player() {
     });
     const [profileError, setProfileError] = useState(false);
     console.log(playerData);
+    const { data: items } = useItemsData();
     const { data: metaData } = useMetaData();
     const { data: achievements } = useAchievementsData();
 
@@ -361,6 +365,32 @@ function Player() {
         return playerData.pmcStats?.eft?.totalInGameTime || 0;
     }, [playerData]);
 
+    const getLoadoutContents = useCallback((parentItem) => {
+        return playerData?.equipment?.Items.reduce((contents, loadoutItem) => {
+            if (loadoutItem.parentId !== parentItem._id) {
+                return contents;
+            }
+            const item = items.find(i => i.id === loadoutItem._tpl);
+            if (!item) {
+                return contents;
+            }
+            //const itemImage = (<img src={item.iconLink} alt={item.name}></img>);
+            const itemImage = (
+                <ItemImage
+                    item={item}
+                    imageField="baseImageLink"
+                    linkToItem={false}
+                />
+            );
+            contents.push((
+                <TreeItem nodeId={loadoutItem._id} icon={itemImage}>
+                    {getLoadoutContents(loadoutItem)}
+                </TreeItem>
+            ));
+            return contents;
+        }, []);
+    }, [items, playerData]);
+
     return [
         <SEO 
             title={`${t('Player Profile')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
@@ -412,6 +442,16 @@ function Player() {
                         data={achievementsData}
                     />
                  : <p>{t('None')}</p>}
+                <h2>{t('Loadout')}</h2>
+                {playerData?.equipment?.Id !== undefined && (
+                    <TreeView
+                        defaultExpandIcon={<Icon path={mdiChevronDown} size={1.5} className="icon-with-text"/>}
+                        defaultCollapseIcon={<Icon path={mdiChevronUp} size={1.5} className="icon-with-text"/>}
+                        defaultParentIcon={<span>***</span>}
+                    >
+                        {getLoadoutContents(playerData.equipment.Items.find(i => i._id === playerData.equipment.Id))}
+                    </TreeView>
+                )}
             </div>
         </div>,
     ];
