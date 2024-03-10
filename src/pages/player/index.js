@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
-import { mdiAccountDetails, mdiChevronUp, mdiChevronDown, mdiTrophy, mdiChartLine, mdiBagPersonal } from '@mdi/js';
+import { mdiAccountDetails, mdiChevronUp, mdiChevronDown, mdiTrophy, mdiChartLine, mdiBagPersonal, mdiArmFlex, mdiStarBox } from '@mdi/js';
 import { TreeView, TreeItem } from '@mui/x-tree-view';
 
 import SEO from '../../components/SEO.jsx';
@@ -455,6 +455,32 @@ function Player() {
                     >
                         {getLoadoutContents(playerData.equipment.Items.find(i => i._id === playerData.equipment.Id))}
                     </TreeView>
+                )}
+                <h2><Icon path={mdiArmFlex} size={1.5} className="icon-with-text"/>{t('Skills')}</h2>
+                {playerData.skills?.Common?.length > 0 &&  (
+                    <ul>
+                        {playerData.skills.Common.map(skillData => {
+                            if (skillData.LastAccess <= 0) {
+                                return false;
+                            }
+                            return (
+                                <li key={`skill-${skillData.Id}`}>{`${t(skillData.Id)}: ${skillData.Progress} (${new Date(skillData.LastAccess * 1000).toLocaleString()})`}</li>
+                            );
+                        }).filter(Boolean)}
+                    </ul>
+                )}
+                <h2><Icon path={mdiStarBox} size={1.5} className="icon-with-text"/>{t('Mastering')}</h2>
+                {playerData.skills?.Mastering?.length > 0 &&  (
+                    <ul>
+                        {playerData.skills.Mastering.map(skillData => {
+                            if (skillData.Progress <= 1) {
+                                return false;
+                            }
+                            return (
+                                <li key={`skill-${skillData.Id}`}>{`${t(skillData.Id)}: ${skillData.Progress}`}</li>
+                            );
+                        }).filter(Boolean)}
+                    </ul>
                 )}
             </div>
         </div>,
