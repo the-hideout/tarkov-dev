@@ -383,7 +383,7 @@ function Player() {
                 />
             );
             let label = '';
-            if (loadoutItem.upd?.StackObjectsCount) {
+            if (loadoutItem.upd?.StackObjectsCount > 1) {
                 label = `x ${loadoutItem.upd?.StackObjectsCount}`;
             }
             contents.push((
