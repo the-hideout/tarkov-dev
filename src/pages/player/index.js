@@ -6,11 +6,35 @@ import { Icon } from '@mdi/react';
 import { mdiAccountDetails } from '@mdi/js';
 
 import SEO from '../../components/SEO.jsx';
+import DataTable from '../../components/data-table/index.js';
 
 import useMetaData from '../../features/meta/index.js';
 import useAchievementsData from '../../features/achievements/index.js';
 
 //import './index.css';
+
+function getDHMS(seconds) {
+    // calculate (and subtract) whole days
+    const secondsPerDay = 24 * 60 * 60;
+    const days = Math.floor(seconds / secondsPerDay);
+    seconds -= (days * secondsPerDay);
+
+    // calculate (and subtract) whole hours
+    const secondsPerHour = secondsPerDay / 24;
+    const hours = Math.floor(seconds / secondsPerHour) % 24;
+    seconds -= (hours * secondsPerHour);
+
+    // calculate (and subtract) whole minutes
+    const minutes = Math.floor(seconds / 60) % 60;
+    seconds -= (minutes * 60);
+
+    return {
+        days,
+        hours,
+        minutes,
+        seconds,
+    }
+}
 
 function Player() {
     const { t } = useTranslation();
@@ -22,10 +46,20 @@ function Player() {
         aid: 0,
         info: {
             nickname: t('Loading'),
-            experience: 0,
             side: t('Loading'),
+            experience: 0,
+            memberCategory: 0,
+            bannedState: false,
+            bannedUntil: 0,
+            registrationDate: 0,
         },
+        customization: {},
+        skills: {},
+        equipment: {},
         achievements: {},
+        favoriteItems: [],
+        pmcStats: {},
+        scavStats: {},
     });
     const [profileError, setProfileError] = useState(false);
     console.log(playerData);
@@ -107,6 +141,226 @@ function Player() {
         });
     }, [playerData, playerLevel, t]);
 
+    const achievementColumns = useMemo(
+        () => [
+            {
+                Header: () => (
+                    <div
+                      style={{
+                        textAlign:'left'
+                      }}
+                    >{t('Name')}</div>),
+                id: 'name',
+                accessor: 'name',
+            },
+            {
+                Header: () => (
+                    <div
+                      style={{
+                        textAlign:'left'
+                      }}
+                    >{t('Description')}</div>),
+                id: 'description',
+                accessor: 'description',
+            },
+            {
+                Header: t('Player %'),
+                id: 'playersCompletedPercent',
+                accessor: 'playersCompletedPercent',
+                Cell: (props) => {
+                    return (
+                        <div className="center-content">
+                            {props.value}%
+                        </div>
+                    );
+                },
+            },
+            {
+                Header: t('Completed'),
+                id: 'completionDate',
+                accessor: 'completionDate',
+                Cell: (props) => {
+                    return (
+                        <div className="center-content">
+                            {new Date(props.value * 1000).toLocaleString()}
+                        </div>
+                    );
+                },
+            },
+        ],
+        [t],
+    );
+
+    const achievementsData = useMemo(() => {
+        return achievements?.map(a => {
+            if (!playerData.achievements[a.id]) {
+                return false;
+            }
+            return {
+                ...a,
+                completionDate: playerData.achievements[a.id],
+            }
+        }).filter(Boolean) || [];
+    }, [achievements, playerData]);
+
+    const raidsColumns = useMemo(
+        () => [
+            {
+                Header: (
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Side')}
+                    </div>
+                ),
+                id: 'side',
+                accessor: 'side',
+                Cell: (props) => {
+                    return t(props.value);
+                },
+            },
+            {
+                Header: (
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Raids')}
+                    </div>
+                ),
+                id: 'raids',
+                accessor: 'raids',
+            },
+            {
+                Header: (
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Survived')}
+                    </div>
+                ),
+                id: 'survived',
+                accessor: 'survived',
+            },
+            {
+                Header: (
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Runthrough')}
+                    </div>
+                ),
+                id: 'runthrough',
+                accessor: 'runthrough',
+                Cell: (props) => {
+                    return props.value;
+                },
+            },
+            {
+                Header: (
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('MIA')}
+                    </div>
+                ),
+                id: 'mia',
+                accessor: 'mia',
+                Cell: (props) => {
+                    return props.value;
+                },
+            },
+            {
+                Header: (
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('KIA')}
+                    </div>
+                ),
+                id: 'kia',
+                accessor: 'kia',
+                Cell: (props) => {
+                    return props.value;
+                },
+            },
+            {
+                Header: (
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Kills')}
+                    </div>
+                ),
+                id: 'kills',
+                accessor: 'kills',
+                Cell: (props) => {
+                    return props.value;
+                },
+            },
+            {
+                Header: (
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('K:D', {nsSeparator: '|'})}
+                    </div>
+                ),
+                id: 'kdr',
+                accessor: 'kills',
+                Cell: (props) => {
+                    return (props.value / props.row.original.kia).toFixed(2);
+                },
+            },
+        ],
+        [t],
+    );
+
+    const raidsData = useMemo(() => {
+        if (!playerData.pmcStats?.eft) {
+            return [];
+        }
+        const statSides = {'pmcStats': 'PMC', 'scavStats': 'Scav'};
+        const statTypes = [
+            {
+                name: 'raids',
+                key: ['Sessions'],
+            },
+            {
+                name: 'survived',
+                key: ['ExitStatus', 'Survived'],
+            },
+            {
+                name: 'runthrough',
+                key: ['ExitStatus', 'Runner'],
+            },
+            {
+                name: 'mia',
+                key: ['ExitStatus', 'Left'],
+            },
+            {
+                name: 'kia',
+                key: ['ExitStatus', 'Killed'],
+            },
+            {
+                name: 'kills',
+                key: ['Kills'],
+            },
+        ];
+        const getStats = (side) => {
+            return {
+                side,
+                ...statTypes.reduce((all, s) => {
+                    all[s.name] = 0;
+                    return all;
+                }, {})
+            };
+        };
+        const totalStats = getStats('Total');
+        const statsData = [totalStats];
+        for (const sideKey in statSides) {
+            const sideLabel = statSides[sideKey];
+            const stats = playerData[sideKey].eft.overAllCounters.Items;
+            const currentData = getStats(sideLabel);
+            for (const st of statTypes) {
+                const foundStat = stats.find(s => !st.key.some(keyPart => !s.Key.includes(keyPart)));
+                //console.log(sideKey, st, foundStat);
+                currentData[st.name] = foundStat?.Value || 0;
+                totalStats[st.name] += currentData[st.name];
+            }
+            statsData.push(currentData);
+        }
+        //console.log(statsData);
+        return statsData;
+    }, [playerData]);
+
+    const totalSecondsInGame = useMemo(() => {
+        return playerData.pmcStats?.eft?.totalInGameTime || 0;
+    }, [playerData]);
+
     return [
         <SEO 
             title={`${t('Player Profile')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
@@ -125,26 +379,38 @@ function Player() {
                     <p>{profileError}</p>
                 )}
                 {playerData.info.registrationDate && (
-                    <p>{`${t('Initialization date')}: ${new Date(playerData.info.registrationDate * 1000).toLocaleString()}`}</p>
+                    <p>{`${t('Started current wipe')}: ${new Date(playerData.info.registrationDate * 1000).toLocaleString()}`}</p>
                 )}
                 {playerData.info.bannedState && (
                     <p>{t('Banned')}</p>
                 )}
+                {totalSecondsInGame > 0 && (
+                    <p>{`${t('Total account time in game')}: ${(() => {
+                        const { days, hours, minutes, seconds } = getDHMS(totalSecondsInGame);
+
+                        return t('{{days}} days, {{hours}} h, {{minutes}} m, {{seconds}} s', {
+                            days,
+                            hours,
+                            minutes,
+                            seconds
+                        });
+                    })()}`}</p>
+                )}
+                <h2>{t('Raid Stats')}</h2>
+                {Object.keys(playerData.pmcStats).length > 0 ?
+                    <DataTable
+                        key="raids-table"
+                        columns={raidsColumns}
+                        data={raidsData}
+                    />
+                : <p>{t('None')}</p>}
                 <h2>{t('Achievements')}</h2>
-                {Object.keys(playerData.achievements).length ?
-                    <ul>
-                        {Object.keys(playerData.achievements).map(id => {
-                            const ach = achievements.find(a => a.id === id);
-                            if (!ach) {
-                                return false;
-                            }
-                            return (
-                                <li key={`achievement-${id}`}>
-                                    {`${ach.name} ${new Date(playerData.achievements[id] * 1000).toLocaleString()}`}
-                                </li>
-                            );
-                        }).filter(Boolean)}
-                    </ul>
+                {Object.keys(playerData.achievements).length > 0 ?
+                    <DataTable
+                        key="achievements-table"
+                        columns={achievementColumns}
+                        data={achievementsData}
+                    />
                  : <p>{t('None')}</p>}
             </div>
         </div>,
