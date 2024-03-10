@@ -382,8 +382,12 @@ function Player() {
                     linkToItem={false}
                 />
             );
+            let label = '';
+            if (loadoutItem.upd?.StackObjectsCount) {
+                label = `x ${loadoutItem.upd?.StackObjectsCount}`;
+            }
             contents.push((
-                <TreeItem nodeId={loadoutItem._id} icon={itemImage}>
+                <TreeItem nodeId={loadoutItem._id} icon={itemImage} label={label}>
                     {getLoadoutContents(loadoutItem)}
                 </TreeItem>
             ));
