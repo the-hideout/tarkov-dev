@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
@@ -14,7 +14,7 @@ import useItemsData from '../../features/items/index.js';
 import useMetaData from '../../features/meta/index.js';
 import useAchievementsData from '../../features/achievements/index.js';
 
-//import './index.css';
+import './index.css';
 
 function getDHMS(seconds) {
     // calculate (and subtract) whole days
@@ -361,6 +361,58 @@ function Player() {
         return statsData;
     }, [playerData]);
 
+    const skillsColumns = useMemo(
+        () => [
+            {
+                Header: (
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Skill')}
+                    </div>
+                ),
+                id: 'skill',
+                accessor: 'skill',
+                Cell: (props) => {
+                    return t(props.value);
+                },
+            },
+            {
+                Header: (
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Progress')}
+                    </div>
+                ),
+                id: 'progress',
+                accessor: 'progress',
+            },
+            {
+                Header: (
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Last Access')}
+                    </div>
+                ),
+                id: 'lastAccess',
+                accessor: 'lastAccess',
+                Cell: (props) => {
+                    return new Date(props.value * 1000).toLocaleString();
+                },
+            },
+        ],
+        [t],
+    );
+
+    const skillsData = useMemo(() => {
+        return playerData.skills?.Common?.map(s => {
+            if (!s.Progress || s.LastAccess <= 0) {
+                return false;
+            }
+            return {
+                skill: s.Id,
+                progress: s.Progress,
+                lastAccess: s.LastAccess,
+            }
+        }).filter(Boolean) || [];
+    }, [playerData]);
+
     const totalSecondsInGame = useMemo(() => {
         return playerData.pmcStats?.eft?.totalInGameTime || 0;
     }, [playerData]);
@@ -370,9 +422,18 @@ function Player() {
             if (loadoutItem.parentId !== parentItem._id) {
                 return contents;
             }
-            const item = items.find(i => i.id === loadoutItem._tpl);
+            let item = items.find(i => i.id === loadoutItem._tpl);
             if (!item) {
                 return contents;
+            }
+            if (item.properties?.defaultPreset) {
+                const preset = items.find(i => i.id === item.properties.defaultPreset.id);
+                item = {
+                    ...item,
+                    width: preset.width,
+                    height: preset.height,
+                    baseImageLink: preset.baseImageLink,
+                };
             }
             //const itemImage = (<img src={item.iconLink} alt={item.name}></img>);
             const itemImage = (
@@ -386,14 +447,46 @@ function Player() {
             if (loadoutItem.upd?.StackObjectsCount > 1) {
                 label = `x ${loadoutItem.upd?.StackObjectsCount}`;
             }
+            if (loadoutItem.upd?.Dogtag) {
+                const tag = loadoutItem.upd.Dogtag;
+                const weapon = items.find(i => i.id === tag.WeaponName?.split(' ')[0]);
+
+                label = (
+                    <span>
+                        <Link to={`/player/${tag.AccountId}`}>{`${tag.Nickname} (${tag.Level} ${t(tag.Side)})`}</Link>
+                        <span>{` ${t(tag.Status)} `}</span>
+                        <Link to={`/player/${tag.KillerAccountId || tag.KillerName}`}>{`${tag.KillerName} (${tag.Level} ${t(tag.Side)})`}</Link>
+                        {weapon !== undefined && [
+                            <span key={'weapon-using-label'}>{` ${t('using')} `}</span>,
+                            <Link key={`weapon-using ${weapon.id}`} to={`/item/${weapon.normalizedName}`}>{weapon.name}</Link>
+                        ]}
+                        <span>{` ${new Date(tag.Time).toLocaleString()}`}</span>
+                    </span>
+                );
+            }
+            if (loadoutItem.upd?.Key) {
+                const key = items.find(i => i.id === loadoutItem._tpl);
+                if (key) {
+                    label = `${key.properties.uses-loadoutItem.upd.Key.NumberOfUsages}/${key.properties.uses}`;
+                }
+            }
+            if (loadoutItem.upd?.Repairable) {
+                label = `${loadoutItem.upd.Repairable.Durability}/${loadoutItem.upd.Repairable.MaxDurability}`
+            }
+            if (loadoutItem.upd?.MedKit) {
+                const item = items.find(i => i.id === loadoutItem._tpl);
+                if (item?.properties?.uses || item?.properties?.hitpoints) {
+                    label = `${loadoutItem.upd.MedKit.HpResource}/${item.properties?.uses || item.properties?.hitpoints}`;
+                }
+            }
             contents.push((
-                <TreeItem nodeId={loadoutItem._id} icon={itemImage} label={label}>
+                <TreeItem key={`loadout-item-${loadoutItem._id}`} nodeId={loadoutItem._id} icon={itemImage} label={label}>
                     {getLoadoutContents(loadoutItem)}
                 </TreeItem>
             ));
             return contents;
         }, []);
-    }, [items, playerData]);
+    }, [items, playerData, t]);
 
     return [
         <SEO 
@@ -458,16 +551,11 @@ function Player() {
                 )}
                 <h2><Icon path={mdiArmFlex} size={1.5} className="icon-with-text"/>{t('Skills')}</h2>
                 {playerData.skills?.Common?.length > 0 &&  (
-                    <ul>
-                        {playerData.skills.Common.map(skillData => {
-                            if (skillData.LastAccess <= 0) {
-                                return false;
-                            }
-                            return (
-                                <li key={`skill-${skillData.Id}`}>{`${t(skillData.Id)}: ${skillData.Progress} (${new Date(skillData.LastAccess * 1000).toLocaleString()})`}</li>
-                            );
-                        }).filter(Boolean)}
-                    </ul>
+                    <DataTable
+                        key="skills-table"
+                        columns={skillsColumns}
+                        data={skillsData}
+                    />
                 )}
                 <h2><Icon path={mdiStarBox} size={1.5} className="icon-with-text"/>{t('Mastering')}</h2>
                 {playerData.skills?.Mastering?.length > 0 &&  (
