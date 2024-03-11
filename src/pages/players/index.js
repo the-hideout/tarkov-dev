@@ -77,7 +77,7 @@ function Players() {
                     </p>
                 </Trans>
             </div>
-            <div>
+            <div className='search-controls'>
                 <InputFilter
                     label={t('Player Name')}
                     defaultValue={nameFilter}

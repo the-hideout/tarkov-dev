@@ -2,3 +2,11 @@
     padding: .2rem;
     border-radius: 4px;
 }
+
+.search-controls {
+    display: flex;
+}
+
+.search-controls input {
+    margin-right: 10px;
+}
