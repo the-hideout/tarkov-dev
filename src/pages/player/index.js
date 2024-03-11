@@ -45,6 +45,10 @@ function Player() {
 
     const [accountId, setAccountId] = useState(params.accountId);
 
+    useEffect(() => {
+        setAccountId(params.accountId);
+    }, [params, setAccountId]);
+
     const [playerData, setPlayerData] = useState({
         aid: 0,
         info: {
