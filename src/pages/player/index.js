@@ -439,27 +439,21 @@ function Player() {
                     baseImageLink: preset.baseImageLink,
                 };
             }
-            //const itemImage = (<img src={item.iconLink} alt={item.name}></img>);
-            const itemImage = (
-                <ItemImage
-                    item={item}
-                    imageField="baseImageLink"
-                    linkToItem={false}
-                />
-            );
+            let countLabel;
+
             let label = '';
             if (loadoutItem.upd?.StackObjectsCount > 1) {
-                label = `x ${loadoutItem.upd?.StackObjectsCount}`;
+                countLabel = loadoutItem.upd?.StackObjectsCount;
             }
             if (loadoutItem.upd?.Dogtag) {
                 const tag = loadoutItem.upd.Dogtag;
                 const weapon = items.find(i => i.id === tag.WeaponName?.split(' ')[0]);
-
+                countLabel = tag.Level;
                 label = (
                     <span>
-                        <Link to={`/player/${tag.AccountId}`}>{`${tag.Nickname} (${tag.Level} ${t(tag.Side)})`}</Link>
+                        <Link to={`/player/${tag.AccountId}`}>{tag.Nickname}</Link>
                         <span>{` ${t(tag.Status)} `}</span>
-                        <Link to={`/player/${tag.KillerAccountId || tag.KillerName}`}>{`${tag.KillerName} (${tag.Level} ${t(tag.Side)})`}</Link>
+                        <Link to={`/player/${tag.KillerAccountId || tag.KillerName}`}>{tag.KillerName}</Link>
                         {weapon !== undefined && [
                             <span key={'weapon-using-label'}>{` ${t('using')} `}</span>,
                             <Link key={`weapon-using ${weapon.id}`} to={`/item/${weapon.normalizedName}`}>{weapon.name}</Link>
@@ -471,18 +465,27 @@ function Player() {
             if (loadoutItem.upd?.Key) {
                 const key = items.find(i => i.id === loadoutItem._tpl);
                 if (key) {
-                    label = `${key.properties.uses-loadoutItem.upd.Key.NumberOfUsages}/${key.properties.uses}`;
+                    countLabel = `${key.properties.uses-loadoutItem.upd.Key.NumberOfUsages}/${key.properties.uses}`;
                 }
             }
             if (loadoutItem.upd?.Repairable) {
-                label = `${loadoutItem.upd.Repairable.Durability}/${loadoutItem.upd.Repairable.MaxDurability}`
+                countLabel = `${loadoutItem.upd.Repairable.Durability}/${loadoutItem.upd.Repairable.MaxDurability}`
             }
             if (loadoutItem.upd?.MedKit) {
                 const item = items.find(i => i.id === loadoutItem._tpl);
                 if (item?.properties?.uses || item?.properties?.hitpoints) {
-                    label = `${loadoutItem.upd.MedKit.HpResource}/${item.properties?.uses || item.properties?.hitpoints}`;
+                    countLabel = `${loadoutItem.upd.MedKit.HpResource}/${item.properties?.uses || item.properties?.hitpoints}`;
                 }
             }
+
+            const itemImage = (
+                <ItemImage
+                    item={item}
+                    imageField="baseImageLink"
+                    linkToItem={false}
+                    count={countLabel}
+                />
+            );
             contents.push((
                 <TreeItem key={`loadout-item-${loadoutItem._id}`} nodeId={loadoutItem._id} icon={itemImage} label={label}>
                     {getLoadoutContents(loadoutItem)}
