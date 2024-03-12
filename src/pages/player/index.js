@@ -69,7 +69,7 @@ function Player() {
         scavStats: {},
     });
     const [profileError, setProfileError] = useState(false);
-    console.log(playerData);
+    //console.log(playerData);
     const { data: items } = useItemsData();
     const { data: metaData } = useMetaData();
     const { data: achievements } = useAchievementsData();
@@ -355,13 +355,11 @@ function Player() {
             const currentData = getStats(sideLabel);
             for (const st of statTypes) {
                 const foundStat = stats.find(s => !st.key.some(keyPart => !s.Key.includes(keyPart)));
-                //console.log(sideKey, st, foundStat);
                 currentData[st.name] = foundStat?.Value || 0;
                 totalStats[st.name] += currentData[st.name];
             }
             statsData.push(currentData);
         }
-        //console.log(statsData);
         return statsData;
     }, [playerData]);
 
