@@ -73,6 +73,13 @@ function Footer() {
                         <span>SPT-AKI</span>
                     </a>
                 </p>
+                <h3>{t('Map Icons')}</h3>
+                <p>
+                    {t('Map marker icons by')}{' '}
+                    <a href="https://escapefromtarkov.fandom.com/wiki/Escape_from_Tarkov_Wiki" target="_blank" rel="noopener noreferrer">
+                        <span>The Official Escape From Tarkov Wiki</span>
+                    </a>
+                </p>
             </div>
             <div className="footer-section-wrapper">
                 <h3>{t('Resources')}</h3>
