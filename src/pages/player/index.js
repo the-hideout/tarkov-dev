@@ -382,11 +382,14 @@ function Player() {
             {
                 Header: (
                     <div style={{textAlign:'left', paddingLeft:'10px'}}>
-                        {t('Progress')}
+                        {t('Level')}
                     </div>
                 ),
                 id: 'progress',
                 accessor: 'progress',
+                Cell: (props) => {
+                    return (props.value / 100).toFixed(2);
+                },
             },
             {
                 Header: (
