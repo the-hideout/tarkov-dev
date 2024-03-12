@@ -471,8 +471,13 @@ function Player() {
         }
         if (loadoutItem.upd?.Key) {
             const key = items.find(i => i.id === loadoutItem._tpl);
-            if (key && key.properties.uses) {
-                countLabel = `${key.properties.uses-loadoutItem.upd.Key.NumberOfUsages}/${key.properties.uses}`;
+            if (key) {
+                if (key.properties.uses) {
+                    countLabel = `${key.properties.uses-loadoutItem.upd.Key.NumberOfUsages}/${key.properties.uses}`;
+                } else {
+                    countLabel = loadoutItem.upd.Key.NumberOfUsages;
+                }
+                
             }
         }
         if (loadoutItem.upd?.Repairable) {
