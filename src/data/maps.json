@@ -69,6 +69,227 @@
                             }
                         ]
                     }
+                ],
+                "labels": [
+                    {
+                        "position": [9,308],
+                        "text": "Primorsky Ave.",
+                        "rotation": -90,
+                        "size":80
+                    },
+                    {
+                        "position": [9,104],
+                        "text": "Primorsky Ave.",
+                        "rotation": -90,
+                        "size":80
+                    },
+                    {
+                        "position": [9,-80],
+                        "text": "Primorsky Ave.",
+                        "rotation": -90,
+                        "size":80
+                    },
+                    {
+                        "position": [125,10],
+                        "text": "Kilmov St.",
+                        "size":80
+                    },
+                    {
+                        "position": [-104,28],
+                        "text": "Kilmov St.",
+                        "rotation": 10,
+                        "size":80
+                    },
+                    {
+                        "position": [-125,210],
+                        "text": "Nikitskaya St.",
+                        "size": 80
+                    },
+                    {
+                        "position": [-112,361],
+                        "text": "Verhnyaya St.",
+                        "size": 80
+                    },
+                    {
+                        "position": [-200,290],
+                        "text": "Malevecha St.",
+                        "rotation": -64,
+                        "size": 80
+                    },
+                    {
+                        "position": [111,251],
+                        "text": "Chekannaya St.",
+                        "size": 80
+                    },
+                    {
+                        "position": [-101,441],
+                        "text": "Nizhnyaya St.",
+                        "size": 80
+                    },
+                    {
+                        "position": [174,430],
+                        "text": "Razvedchikov St.",
+                        "rotation": -30,
+                        "size": 80
+                    },
+                    {
+                        "position": [140,150],
+                        "text": "Zmejskij Alley",
+                        "rotation": -68,
+                        "size": 80
+                    },
+                    {
+                        "position": [232,100],
+                        "text": "Kamchatskaya St.",
+                        "rotation": -90,
+                        "size": 80
+                    },
+                    {
+                        "position": [-128,-35],
+                        "text": "Kilmov Shopping Mall",
+                        "size": 90
+                    },
+                    {
+                        "position": [-45,-52],
+                        "text": "Beluga",
+                        "size": 90
+                    },
+                    {
+                        "position": [99,-71],
+                        "text": "Cardinal Apartments",
+                        "size": 90
+                    },
+                    {
+                        "position": [230,295],
+                        "text": "Construction",
+                        "size": 90
+                    },
+                    {
+                        "position": [66,305],
+                        "text": "Lexos",
+                        "size": 90
+                    },
+                    {
+                        "position": [140,300],
+                        "text": "Sparja Grocery",
+                        "size": 90
+                    },
+                    {
+                        "position": [-175,400],
+                        "text": "Cinema",
+                        "size": 90
+                    },
+                    {
+                        "position": [-218,135],
+                        "text": "Shestyorochka",
+                        "size": 90
+                    },
+                    {
+                        "position": [-35,64],
+                        "text": "Pinewood Hotel",
+                        "size": 90
+                    },
+                    {
+                        "position": [65,398],
+                        "text": "Teppakot / Koener",
+                        "size": 70
+                    },
+                    {
+                        "position": [140,362],
+                        "text": "Concordia",
+                        "size": 70
+                    },
+                    {
+                        "position": [89,-20],
+                        "text": "Cardinal Bank",
+                        "size": 70
+                    },
+                    {
+                        "position": [239,-60],
+                        "text": "LERM Expo",
+                        "size": 70
+                    },
+                    {
+                        "position": [-64,166],
+                        "text": "Sparja Express",
+                        "size": 70
+                    },
+                    {
+                        "position": [-30,138],
+                        "text": "Burger Spot",
+                        "size": 70
+                    },
+                    {
+                        "position": [42,97],
+                        "text": "Post Office",
+                        "size": 70
+                    },
+                    {
+                        "position": [42,160],
+                        "text": "Pharmacy",
+                        "size": 70
+                    },
+                    {
+                        "position": [67,230],
+                        "text": "Tarbank",
+                        "size": 70
+                    },
+                    {
+                        "position": [211,129],
+                        "text": "School",
+                        "size": 70
+                    },
+                    {
+                        "position": [222,173],
+                        "text": "Vet Clinic",
+                        "size": 70
+                    },
+                    {
+                        "position": [-50,326],
+                        "text": "Pharmacy",
+                        "size": 70
+                    },
+                    {
+                        "position": [-212,300],
+                        "text": "Hive",
+                        "size": 70
+                    },
+                    {
+                        "position": [-223,279],
+                        "text": "Family Market",
+                        "size": 70
+                    },
+                    {
+                        "position": [-200,248],
+                        "text": "Marked Hotel",
+                        "size": 70
+                    },
+                    {
+                        "position": [-119,287],
+                        "text": "Abandon Factory",
+                        "size": 70
+                    },
+                    {
+                        "position": [-80,235],
+                        "text": "Diner",
+                        "size": 70
+                    },
+                    {
+                        "position": [-13,244],
+                        "text": "Primorskij 49",
+                        "size": 70
+                    },
+                    {
+                        "position": [39,230],
+                        "text": "Prestigio Cafe",
+                        "rotation":-45,
+                        "size": 60
+                    },
+                    {
+                        "position": [-70,343],
+                        "text": "Bilbo Coffee",
+                        "size": 60
+                    }
                 ]
             },
             {
