@@ -32,3 +32,13 @@
 .weapon {
     grid-column: 1 / span 2;
 }
+
+ul.favorite-item-list {
+    list-style: none;
+    padding: 0px;
+}
+
+ul.favorite-item-list li {
+    display: inline-block;
+    padding-left: 2px;
+}

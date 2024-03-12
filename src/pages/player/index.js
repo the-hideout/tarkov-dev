@@ -3,7 +3,17 @@ import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
-import { mdiAccountDetails, mdiChevronUp, mdiChevronDown, mdiTrophy, mdiChartLine, mdiBagPersonal, mdiArmFlex, mdiStarBox } from '@mdi/js';
+import { 
+    mdiAccountDetails,
+    mdiChevronUp,
+    mdiChevronDown,
+    mdiTrophy,
+    mdiChartLine,
+    mdiBagPersonal,
+    mdiArmFlex,
+    mdiStarBox,
+    mdiTrophyAward
+} from '@mdi/js';
 import { TreeView, TreeItem } from '@mui/x-tree-view';
 
 import SEO from '../../components/SEO.jsx';
@@ -422,81 +432,89 @@ function Player() {
         return playerData.pmcStats?.eft?.totalInGameTime || 0;
     }, [playerData]);
 
+    const getItemDisplay = useCallback((loadoutItem, imageOptions = {}) => {
+        let item = items.find(i => i.id === loadoutItem._tpl);
+        if (!item) {
+            return undefined;
+        }
+        if (item.properties?.defaultPreset) {
+            const preset = items.find(i => i.id === item.properties.defaultPreset.id);
+            item = {
+                ...item,
+                width: preset.width,
+                height: preset.height,
+                baseImageLink: preset.baseImageLink,
+            };
+        }
+        let countLabel;
+
+        let label = '';
+        if (loadoutItem.upd?.StackObjectsCount > 1) {
+            countLabel = loadoutItem.upd?.StackObjectsCount;
+        }
+        if (loadoutItem.upd?.Dogtag) {
+            const tag = loadoutItem.upd.Dogtag;
+            const weapon = items.find(i => i.id === tag.WeaponName?.split(' ')[0]);
+            countLabel = tag.Level;
+            label = (
+                <span>
+                    <Link to={`/player/${tag.AccountId}`}>{tag.Nickname}</Link>
+                    <span>{` ${t(tag.Status)} `}</span>
+                    <Link to={`/player/${tag.KillerAccountId || tag.KillerName}`}>{tag.KillerName}</Link>
+                    {weapon !== undefined && [
+                        <span key={'weapon-using-label'}>{` ${t('using')} `}</span>,
+                        <Link key={`weapon-using ${weapon.id}`} to={`/item/${weapon.normalizedName}`}>{weapon.name}</Link>
+                    ]}
+                    <span>{` ${new Date(tag.Time).toLocaleString()}`}</span>
+                </span>
+            );
+        }
+        if (loadoutItem.upd?.Key) {
+            const key = items.find(i => i.id === loadoutItem._tpl);
+            if (key && key.properties.uses) {
+                countLabel = `${key.properties.uses-loadoutItem.upd.Key.NumberOfUsages}/${key.properties.uses}`;
+            }
+        }
+        if (loadoutItem.upd?.Repairable) {
+            countLabel = `${loadoutItem.upd.Repairable.Durability}/${loadoutItem.upd.Repairable.MaxDurability}`
+        }
+        if (loadoutItem.upd?.MedKit) {
+            const item = items.find(i => i.id === loadoutItem._tpl);
+            if (item?.properties?.uses || item?.properties?.hitpoints) {
+                countLabel = `${loadoutItem.upd.MedKit.HpResource}/${item.properties?.uses || item.properties?.hitpoints}`;
+            }
+        }
+
+        const itemImage = (
+            <ItemImage
+                item={item}
+                imageField={imageOptions?.imageField || 'baseImageLink'}
+                linkToItem={imageOptions?.linkToItem}
+                count={countLabel}
+            />
+        );
+        return { image: itemImage, label };
+    }, [items, t]);
+
     const getLoadoutContents = useCallback((parentItem) => {
         return playerData?.equipment?.Items.reduce((contents, loadoutItem) => {
             if (loadoutItem.parentId !== parentItem._id) {
                 return contents;
             }
-            let item = items.find(i => i.id === loadoutItem._tpl);
-            if (!item) {
+            const itemDisplay = getItemDisplay(loadoutItem);
+            if (!itemDisplay) {
                 return contents;
             }
-            if (item.properties?.defaultPreset) {
-                const preset = items.find(i => i.id === item.properties.defaultPreset.id);
-                item = {
-                    ...item,
-                    width: preset.width,
-                    height: preset.height,
-                    baseImageLink: preset.baseImageLink,
-                };
-            }
-            let countLabel;
-
-            let label = '';
-            if (loadoutItem.upd?.StackObjectsCount > 1) {
-                countLabel = loadoutItem.upd?.StackObjectsCount;
-            }
-            if (loadoutItem.upd?.Dogtag) {
-                const tag = loadoutItem.upd.Dogtag;
-                const weapon = items.find(i => i.id === tag.WeaponName?.split(' ')[0]);
-                countLabel = tag.Level;
-                label = (
-                    <span>
-                        <Link to={`/player/${tag.AccountId}`}>{tag.Nickname}</Link>
-                        <span>{` ${t(tag.Status)} `}</span>
-                        <Link to={`/player/${tag.KillerAccountId || tag.KillerName}`}>{tag.KillerName}</Link>
-                        {weapon !== undefined && [
-                            <span key={'weapon-using-label'}>{` ${t('using')} `}</span>,
-                            <Link key={`weapon-using ${weapon.id}`} to={`/item/${weapon.normalizedName}`}>{weapon.name}</Link>
-                        ]}
-                        <span>{` ${new Date(tag.Time).toLocaleString()}`}</span>
-                    </span>
-                );
-            }
-            if (loadoutItem.upd?.Key) {
-                const key = items.find(i => i.id === loadoutItem._tpl);
-                if (key) {
-                    countLabel = `${key.properties.uses-loadoutItem.upd.Key.NumberOfUsages}/${key.properties.uses}`;
-                }
-            }
-            if (loadoutItem.upd?.Repairable) {
-                countLabel = `${loadoutItem.upd.Repairable.Durability}/${loadoutItem.upd.Repairable.MaxDurability}`
-            }
-            if (loadoutItem.upd?.MedKit) {
-                const item = items.find(i => i.id === loadoutItem._tpl);
-                if (item?.properties?.uses || item?.properties?.hitpoints) {
-                    countLabel = `${loadoutItem.upd.MedKit.HpResource}/${item.properties?.uses || item.properties?.hitpoints}`;
-                }
-            }
-
-            const itemImage = (
-                <ItemImage
-                    item={item}
-                    imageField="baseImageLink"
-                    linkToItem={false}
-                    count={countLabel}
-                />
-            );
             contents.push((
-                <TreeItem key={`loadout-item-${loadoutItem._id}`} nodeId={loadoutItem._id} icon={itemImage} label={label}>
+                <TreeItem key={`loadout-item-${loadoutItem._id}`} nodeId={loadoutItem._id} icon={itemDisplay.image} label={itemDisplay.label}>
                     {getLoadoutContents(loadoutItem)}
                 </TreeItem>
             ));
             return contents;
         }, []);
-    }, [items, playerData, t]);
+    }, [playerData, getItemDisplay]);
 
-    const getLoadoutInSlot = (slot) => {
+    const getLoadoutInSlot = useCallback((slot) => {
         if (playerData?.equipment?.Id === undefined) {
             return "None"
         }
@@ -511,31 +529,9 @@ function Player() {
         let itemImage = undefined
         let itemLabel = ''
         let contents = []
-        let item = items.find(i => i.id === loadoutItem._tpl);
-        if (item) {
-            if (item.properties?.defaultPreset) {
-                const preset = items.find(i => i.id === item.properties.defaultPreset.id);
-                item = {
-                    ...item,
-                    width: preset.width,
-                    height: preset.height,
-                    baseImageLink: preset.baseImageLink,
-                };
-            }
-            let countLabel;
-    
-            if (loadoutItem.upd?.Repairable) {
-                countLabel = `${loadoutItem.upd.Repairable.Durability}/${loadoutItem.upd.Repairable.MaxDurability}`
-            }
-    
-            itemImage = (
-                <ItemImage
-                    item={item}
-                    imageField="baseImageLink"
-                    linkToItem={false}
-                    count={countLabel}
-                />
-            );
+        let itemDisplay = getItemDisplay(loadoutItem);
+        if (itemDisplay) {
+            itemImage = itemDisplay.image;
         }
         else {
             itemLabel = slot;
@@ -553,7 +549,7 @@ function Player() {
                 >
                     {contents}
                 </TreeView>
-    }
+    }, [playerData, getItemDisplay, getLoadoutContents]);
 
     return [
         <SEO 
@@ -572,7 +568,7 @@ function Player() {
                 {profileError && (
                     <p>{profileError}</p>
                 )}
-                {playerData.info.registrationDate && (
+                {playerData.info.registrationDate !== 0 && (
                     <p>{`${t('Started current wipe')}: ${new Date(playerData.info.registrationDate * 1000).toLocaleString()}`}</p>
                 )}
                 {playerData.info.bannedState && (
@@ -627,17 +623,33 @@ function Player() {
                         <div className="pouch">{getLoadoutInSlot('SecuredContainer')}</div>
                     </div>
                 </div>
-                <h2><Icon path={mdiArmFlex} size={1.5} className="icon-with-text"/>{t('Skills')}</h2>
-                {playerData.skills?.Common?.length > 0 &&  (
+                {playerData?.favoriteItems?.length > 0 && ([
+                    <h2 key="favorite-items-title"><Icon path={mdiTrophyAward} size={1.5} className="icon-with-text"/>{t('Favorite Items')}</h2>,
+                    <ul key="favorite-items-content" className="favorite-item-list">
+                        {playerData.favoriteItems.map(itemData => {
+                            const imageDisplay = getItemDisplay(itemData, {linkToItem: true});
+                            if (!imageDisplay) {
+                                return false;
+                            }
+                            return (
+                                <li key={itemData._id}>
+                                    {imageDisplay.image}
+                                </li>
+                            );
+                        }).filter(Boolean)}
+                    </ul>
+                ])}
+                {playerData.skills?.Common?.length > 0 &&  ([
+                    <h2 key="skills-title"><Icon path={mdiArmFlex} size={1.5} className="icon-with-text"/>{t('Skills')}</h2>,
                     <DataTable
                         key="skills-table"
                         columns={skillsColumns}
                         data={skillsData}
-                    />
-                )}
-                <h2><Icon path={mdiStarBox} size={1.5} className="icon-with-text"/>{t('Mastering')}</h2>
-                {playerData.skills?.Mastering?.length > 0 &&  (
-                    <ul>
+                    />,
+                ])}
+                {playerData.skills?.Mastering?.length > 0 &&  ([
+                    <h2 key="mastering-title"><Icon path={mdiStarBox} size={1.5} className="icon-with-text"/>{t('Mastering')}</h2>,
+                    <ul key="mastering-list">
                         {playerData.skills.Mastering.map(skillData => {
                             if (skillData.Progress <= 1) {
                                 return false;
@@ -647,7 +659,7 @@ function Player() {
                             );
                         }).filter(Boolean)}
                     </ul>
-                )}
+                ])}
             </div>
         </div>,
     ];
