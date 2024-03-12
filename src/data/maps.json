@@ -91,45 +91,45 @@
                     },
                     {
                         "position": [125,10],
-                        "text": "Kilmov ST.",
+                        "text": "Kilmov St.",
                         "size":80
                     },
                     {
                         "position": [-104,28],
-                        "text": "Kilmov ST.",
+                        "text": "Kilmov St.",
                         "rotation": 10,
                         "size":80
                     },
                     {
                         "position": [-125,210],
-                        "text": "Nikitskaya ST.",
+                        "text": "Nikitskaya St.",
                         "rotation": -1,
                         "size": 80
                     },
                     {
                         "position": [-112,361],
-                        "text": "Verhnyaya ST.",
+                        "text": "Verhnyaya St.",
                         "size": 80
                     },
                     {
                         "position": [-200,290],
-                        "text": "Malevecha ST.",
+                        "text": "Malevecha St.",
                         "rotation": -64,
                         "size": 80
                     },
                     {
                         "position": [111,251],
-                        "text": "Chekannaya ST.",
+                        "text": "Chekannaya St.",
                         "size": 80
                     },
                     {
                         "position": [-101,441],
-                        "text": "Nizhnyaya ST.",
+                        "text": "Nizhnyaya St.",
                         "size": 80
                     },
                     {
                         "position": [174,430],
-                        "text": "Razvedchikov ST.",
+                        "text": "Razvedchikov St.",
                         "rotation": -30,
                         "size": 80
                     },
@@ -141,7 +141,7 @@
                     },
                     {
                         "position": [232,100],
-                        "text": "Kamchatskaya ST.",
+                        "text": "Kamchatskaya St.",
                         "rotation": -90,
                         "size": 80
                     },
