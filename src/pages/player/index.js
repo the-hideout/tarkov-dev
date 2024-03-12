@@ -495,6 +495,65 @@ function Player() {
         }, []);
     }, [items, playerData, t]);
 
+    const getLoadoutInSlot = (slot) => {
+        if (playerData?.equipment?.Id === undefined) {
+            return "None"
+        }
+
+        let loadoutRoot = playerData.equipment.Items.find(i => i._id === playerData.equipment.Id)
+        let loadoutItem = playerData.equipment.Items.find(i => i.slotId === slot && i.parentId === loadoutRoot._id)
+
+        if (loadoutItem === undefined) {
+            return "None"
+        }
+
+        let itemImage = undefined
+        let itemLabel = ''
+        let contents = []
+        let item = items.find(i => i.id === loadoutItem._tpl);
+        if (item) {
+            if (item.properties?.defaultPreset) {
+                const preset = items.find(i => i.id === item.properties.defaultPreset.id);
+                item = {
+                    ...item,
+                    width: preset.width,
+                    height: preset.height,
+                    baseImageLink: preset.baseImageLink,
+                };
+            }
+            let countLabel;
+    
+            if (loadoutItem.upd?.Repairable) {
+                countLabel = `${loadoutItem.upd.Repairable.Durability}/${loadoutItem.upd.Repairable.MaxDurability}`
+            }
+    
+            itemImage = (
+                <ItemImage
+                    item={item}
+                    imageField="baseImageLink"
+                    linkToItem={false}
+                    count={countLabel}
+                />
+            );
+        }
+        else {
+            itemLabel = slot;
+        }
+        contents.push((
+            <TreeItem key={`loadout-item-${loadoutItem._id}`} nodeId={loadoutItem._id} icon={itemImage} label={itemLabel}>
+                {getLoadoutContents(loadoutItem)}
+            </TreeItem>
+        ));
+
+        return  <TreeView
+                    defaultExpandIcon={<Icon path={mdiChevronDown} size={1.5} className="icon-with-text"/>}
+                    defaultCollapseIcon={<Icon path={mdiChevronUp} size={1.5} className="icon-with-text"/>}
+                    defaultParentIcon={<span>***</span>}
+                >
+                    {contents}
+                </TreeView>
+    }
+
     return [
         <SEO 
             title={`${t('Player Profile')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
@@ -547,15 +606,26 @@ function Player() {
                     />
                  : <p>{t('None')}</p>}
                 <h2><Icon path={mdiBagPersonal} size={1.5} className="icon-with-text"/>{t('Loadout')}</h2>
-                {playerData?.equipment?.Id !== undefined && (
-                    <TreeView
-                        defaultExpandIcon={<Icon path={mdiChevronDown} size={1.5} className="icon-with-text"/>}
-                        defaultCollapseIcon={<Icon path={mdiChevronUp} size={1.5} className="icon-with-text"/>}
-                        defaultParentIcon={<span>***</span>}
-                    >
-                        {getLoadoutContents(playerData.equipment.Items.find(i => i._id === playerData.equipment.Id))}
-                    </TreeView>
-                )}
+                <div className="inventory">
+                    <div className="grid-container main">
+                        <div className="earpiece">{getLoadoutInSlot('Earpiece')}</div>
+                        <div className="headwear">{getLoadoutInSlot('Headwear')}</div>
+                        <div className="face_cover">{getLoadoutInSlot('FaceCover')}</div>
+                        <div className="armband">{getLoadoutInSlot('ArmBand')}</div>
+                        <div className="body_armor">{getLoadoutInSlot('ArmorVest')}</div>
+                        <div className="eyewear">{getLoadoutInSlot('Eyewear')}</div>
+                        <div className="weapon on_sling">{getLoadoutInSlot('FirstPrimaryWeapon')}</div>
+                        <div className="holster">{getLoadoutInSlot('SecondaryWeapon')}</div>
+                        <div className="weapon on_back">{getLoadoutInSlot('SecondPrimaryWeapon')}</div>
+                        <div className="sheath">{getLoadoutInSlot('Scabbard')}</div>
+                    </div>
+                    <div className="grid-container side">
+                        <div className="tactical_rig">{getLoadoutInSlot('TacticalVest')}</div>
+                        <div className="pockets_and_special_slots">{getLoadoutInSlot('Pockets')}</div>
+                        <div className="backpack">{getLoadoutInSlot('Backpack')}</div>
+                        <div className="pouch">{getLoadoutInSlot('SecuredContainer')}</div>
+                    </div>
+                </div>
                 <h2><Icon path={mdiArmFlex} size={1.5} className="icon-with-text"/>{t('Skills')}</h2>
                 {playerData.skills?.Common?.length > 0 &&  (
                     <DataTable
