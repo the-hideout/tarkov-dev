@@ -95,7 +95,7 @@ function Players() {
                 <InputFilter
                     label={t('Player Name')}
                     defaultValue={nameFilter}
-                    placeholder={t('Between 3 and 14 characters')}
+                    placeholder={t('Between 3 and 15 characters')}
                     type="text"
                     onChange={(event) => {
                         let newNameFilter = event.target.value;
