@@ -18,11 +18,14 @@ function Players() {
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [nameResults, setNameResults] = useState([]);
+    const [searchMessage, setSearchMessage] = useState(false);
 
     const searchForName = useCallback(async () => {
-        if (nameFilter.length < 3 && nameFilter > 14) {
+        if (nameFilter.length < 3 || nameFilter.length > 15) {
+            setSearchMessage(t('Name must be 3-15 characters'));
             return;
         }
+        setSearchMessage(false);
         try {
             const response = await fetch('https://player.tarkov.dev/name/'+nameFilter);
             if (response.status !== 200) {
@@ -30,9 +33,9 @@ function Players() {
             }
             setNameResults(await response.json());
         } catch (error) {
-            console.log('Error searching player profile', error);
+            setSearchMessage('Error searching player profile: ' + error);
         }
-    }, [nameFilter, setNameResults]);
+    }, [nameFilter, setNameResults, setSearchMessage, t]);
 
     const searchResults = useMemo(() => {
         if (nameResults.length < 1) {
@@ -52,6 +55,17 @@ function Players() {
             </div>
         );
     }, [nameResults]);
+
+    const searchMessageElement = useMemo(() => {
+        if (!searchMessage) {
+            return '';
+        }
+        return (
+            <div>
+                {searchMessage}
+            </div>
+        );
+    }, [searchMessage])
 
     if (defaultQuery) {
         searchForName();
@@ -88,6 +102,7 @@ function Players() {
                 />
                 <button className="search-button" onClick={searchForName}>{t('Search')}</button>
             </div>
+            {searchMessageElement}
             {searchResults}
         </div>,
     ];

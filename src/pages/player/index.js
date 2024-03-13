@@ -501,8 +501,9 @@ function Player() {
         return { image: itemImage, label };
     }, [items, t]);
 
-    const getLoadoutContents = useCallback((parentItem) => {
-        return playerData?.equipment?.Items.reduce((contents, loadoutItem) => {
+    const getLoadoutContents = useCallback((parentItem, itemType = 'loadout') => {
+        const itemSource = itemType === 'loadout' ? playerData?.equipment?.Items : playerData?.favoriteItems;
+        return itemSource?.reduce((contents, loadoutItem) => {
             if (loadoutItem.parentId !== parentItem._id) {
                 return contents;
             }
@@ -511,8 +512,8 @@ function Player() {
                 return contents;
             }
             contents.push((
-                <TreeItem key={`loadout-item-${loadoutItem._id}`} nodeId={loadoutItem._id} icon={itemDisplay.image} label={itemDisplay.label}>
-                    {getLoadoutContents(loadoutItem)}
+                <TreeItem key={`${itemType}-item-${loadoutItem._id}`} nodeId={loadoutItem._id} icon={itemDisplay.image} label={itemDisplay.label}>
+                    {getLoadoutContents(loadoutItem, itemType)}
                 </TreeItem>
             ));
             return contents;
@@ -528,12 +529,12 @@ function Player() {
         let loadoutItem = playerData.equipment.Items.find(i => i.slotId === slot && i.parentId === loadoutRoot._id)
 
         if (loadoutItem === undefined) {
-            return "None"
+            return "None";
         }
 
-        let itemImage = undefined
-        let itemLabel = ''
-        let contents = []
+        let itemImage = undefined;
+        let itemLabel = '';
+        let contents = [];
         let itemDisplay = getItemDisplay(loadoutItem);
         if (itemDisplay) {
             itemImage = itemDisplay.image;
@@ -555,6 +556,42 @@ function Player() {
                     {contents}
                 </TreeView>
     }, [playerData, getItemDisplay, getLoadoutContents]);
+
+    const getFavoriteItems = useCallback(() => {
+        if (!playerData?.favoriteItems?.length) {
+            return '';
+        }
+        return ([
+            <h2 key="favorite-items-title"><Icon path={mdiTrophyAward} size={1.5} className="icon-with-text"/>{t('Favorite Items')}</h2>,
+            <ul key="favorite-items-content" className="favorite-item-list">
+                {playerData.favoriteItems.map(itemData => {
+                    if (itemData.parentId) {
+                        return false;
+                    }
+
+                    let itemImage = undefined
+                    let itemLabel = ''
+                    let itemDisplay = getItemDisplay(itemData);
+                    if (itemDisplay) {
+                        itemImage = itemDisplay.image;
+                    }
+                    return (
+                        <li key={itemData._id}>
+                            <TreeView
+                                defaultExpandIcon={<Icon path={mdiChevronDown} size={1.5} className="icon-with-text"/>}
+                                defaultCollapseIcon={<Icon path={mdiChevronUp} size={1.5} className="icon-with-text"/>}
+                                defaultParentIcon={<span>***</span>}
+                            >
+                                <TreeItem key={`loadout-item-${itemData._id}`} nodeId={itemData._id} icon={itemImage} label={itemLabel}>
+                                    {getLoadoutContents(itemData, 'favorite')}
+                                </TreeItem>
+                            </TreeView>
+                        </li>
+                    );
+                }).filter(Boolean)}
+            </ul>
+        ])
+    }, [playerData, getItemDisplay, getLoadoutContents, t]);
 
     return [
         <SEO 
@@ -628,22 +665,7 @@ function Player() {
                         <div className="pouch">{getLoadoutInSlot('SecuredContainer')}</div>
                     </div>
                 </div>
-                {playerData?.favoriteItems?.length > 0 && ([
-                    <h2 key="favorite-items-title"><Icon path={mdiTrophyAward} size={1.5} className="icon-with-text"/>{t('Favorite Items')}</h2>,
-                    <ul key="favorite-items-content" className="favorite-item-list">
-                        {playerData.favoriteItems.map(itemData => {
-                            const imageDisplay = getItemDisplay(itemData, {linkToItem: true});
-                            if (!imageDisplay) {
-                                return false;
-                            }
-                            return (
-                                <li key={itemData._id}>
-                                    {imageDisplay.image}
-                                </li>
-                            );
-                        }).filter(Boolean)}
-                    </ul>
-                ])}
+                {getFavoriteItems()}
                 {playerData.skills?.Common?.length > 0 &&  ([
                     <h2 key="skills-title"><Icon path={mdiArmFlex} size={1.5} className="icon-with-text"/>{t('Skills')}</h2>,
                     <DataTable
