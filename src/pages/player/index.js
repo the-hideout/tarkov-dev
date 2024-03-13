@@ -522,11 +522,11 @@ function Player() {
 
     const getLoadoutInSlot = useCallback((slot) => {
         if (playerData?.equipment?.Id === undefined) {
-            return "None"
+            return "None";
         }
 
-        let loadoutRoot = playerData.equipment.Items.find(i => i._id === playerData.equipment.Id)
-        let loadoutItem = playerData.equipment.Items.find(i => i.slotId === slot && i.parentId === loadoutRoot._id)
+        let loadoutRoot = playerData.equipment.Items.find(i => i._id === playerData.equipment.Id);
+        let loadoutItem = playerData.equipment.Items.find(i => i.slotId === slot && i.parentId === loadoutRoot._id);
 
         if (loadoutItem === undefined) {
             return "None";
@@ -569,8 +569,8 @@ function Player() {
                         return false;
                     }
 
-                    let itemImage = undefined
-                    let itemLabel = ''
+                    let itemImage = undefined;
+                    let itemLabel = '';
                     let itemDisplay = getItemDisplay(itemData);
                     if (itemDisplay) {
                         itemImage = itemDisplay.image;
