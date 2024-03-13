@@ -18,28 +18,38 @@ function Players() {
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [nameResults, setNameResults] = useState([]);
-    const [searchMessage, setSearchMessage] = useState(false);
+
+    const [isButtonDisabled, setButtonDisabled] = useState(true);
+    const [searched, setSearched] = useState(false);
 
     const searchForName = useCallback(async () => {
         if (nameFilter.length < 3 || nameFilter.length > 15) {
-            setSearchMessage(t('Name must be 3-15 characters'));
             return;
         }
-        setSearchMessage(false);
         try {
+            setButtonDisabled(true);
             const response = await fetch('https://player.tarkov.dev/name/'+nameFilter);
             if (response.status !== 200) {
                 return;
             }
+            setButtonDisabled(false);
+            setSearched(true);
             setNameResults(await response.json());
         } catch (error) {
-            setSearchMessage('Error searching player profile: ' + error);
+            setNameResults(['Error searching player profile: ' + error]);
         }
-    }, [nameFilter, setNameResults, setSearchMessage, t]);
+    }, [nameFilter, setNameResults]);
 
     const searchResults = useMemo(() => {
-        if (nameResults.length < 1) {
+        if (!searched) {
             return '';
+        }
+        if (nameResults.length < 1) {
+            return 'No players with this name';
+        }
+        let morePlayers = '';
+        if (nameResults.length >= 5) {
+            morePlayers = 'Refine you search to get better results';
         }
         return (
             <div>
@@ -52,20 +62,10 @@ function Players() {
                         </li>
                     })}
                 </ul>
+                {morePlayers}
             </div>
         );
-    }, [nameResults]);
-
-    const searchMessageElement = useMemo(() => {
-        if (!searchMessage) {
-            return '';
-        }
-        return (
-            <div>
-                {searchMessage}
-            </div>
-        );
-    }, [searchMessage])
+    }, [searched, nameResults]);
 
     if (defaultQuery) {
         searchForName();
@@ -95,14 +95,16 @@ function Players() {
                 <InputFilter
                     label={t('Player Name')}
                     defaultValue={nameFilter}
+                    placeholder={t('Between 3 and 14 characters')}
                     type="text"
                     onChange={(event) => {
-                        setNameFilter(event.target.value);
+                        let newNameFilter = event.target.value;
+                        setNameFilter(newNameFilter);
+                        setButtonDisabled(newNameFilter.length < 3 || newNameFilter.length > 15);
                     }}
                 />
-                <button className="search-button" onClick={searchForName}>{t('Search')}</button>
+                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled}>{t('Search')}</button>
             </div>
-            {searchMessageElement}
             {searchResults}
         </div>,
     ];
