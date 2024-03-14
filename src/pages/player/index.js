@@ -49,6 +49,12 @@ function getDHMS(seconds) {
     }
 }
 
+const raritySort = {
+    "common": 0,
+    "rare": 1,
+    "legendary": 2
+}
+
 function Player() {
     const { t } = useTranslation();
     const params = useParams();
@@ -163,21 +169,17 @@ function Player() {
         () => [
             {
                 Header: () => (
-                    <div
-                      style={{
-                        textAlign:'left'
-                      }}
-                    >{t('Name')}</div>),
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Name')}
+                    </div>),
                 id: 'name',
                 accessor: 'name',
             },
             {
                 Header: () => (
-                    <div
-                      style={{
-                        textAlign:'left'
-                      }}
-                    >{t('Description')}</div>),
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Description')}
+                    </div>),
                 id: 'description',
                 accessor: 'description',
             },
@@ -203,6 +205,26 @@ function Player() {
                             {new Date(props.value * 1000).toLocaleString()}
                         </div>
                     );
+                },
+            },
+            {
+                Header: t('Rarity'),
+                id: 'rarity',
+                accessor: 'rarity',
+                Cell: (props) => {
+                    return (
+                        <div className={`center-content ${props.row.original.normalizedRarity}`}>
+                            {props.value}
+                        </div>
+                    );
+                },
+                sortType: (rowA, rowB) => {
+                    let rowAr = raritySort[rowA.original.normalizedRarity];
+                    let rowBr = raritySort[rowB.original.normalizedRarity];
+                    if (rowAr === rowBr) {
+                        return rowB.original.playersCompletedPercent - rowA.original.playersCompletedPercent
+                    }
+                    return rowAr - rowBr;
                 },
             },
         ],
