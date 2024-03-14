@@ -42,3 +42,11 @@ ul.favorite-item-list li {
     display: inline-block;
     padding-left: 2px;
 }
+
+.rare {
+    color: #8c6edf;
+}
+
+.legendary {
+    color: #ffe084;
+}
