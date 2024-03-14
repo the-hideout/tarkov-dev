@@ -21,10 +21,12 @@ const WipeLength = (props) => {
         return [
             {
                 Header: t('Patch'),
+                id: 'name',
                 accessor: 'name',
             },
             {
                 Header: t('Wipe start'),
+                id: 'start',
                 accessor: ({ start }) => {
                     if (start) {
                         return dayjs(start).format('YYYY-MM-DD');
@@ -33,10 +35,10 @@ const WipeLength = (props) => {
                     return '';
                 },
                 Cell: CenterCell,
-                id: 'start',
             },
             {
                 Header: t('Wipe end'),
+                id: 'end',
                 accessor: ({ end, ongoing }) => {
                     if (ongoing) {
                         return t('Ongoing wipe');
@@ -47,10 +49,10 @@ const WipeLength = (props) => {
                     return '';
                 },
                 Cell: CenterCell,
-                id: 'end',
             },
             {
                 Header: t('Wipe length'),
+                id: 'wipeLength',
                 accessor: 'lengthDays',
                 Cell: (props) => {
                     const { value } = props;
@@ -104,6 +106,8 @@ const WipeLength = (props) => {
                 columns={columns}
                 data={data}
                 disableSortBy={false}
+                sortBy={'start'}
+                sortByDesc={true}
             />
             {}
         </div>
