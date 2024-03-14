@@ -3,10 +3,16 @@
     border-radius: 4px;
 }
 
+.search-button:disabled {
+    background-color: #9a886655;
+    color: #333;
+}
+
 .search-controls {
     display: flex;
 }
 
 .search-controls input {
     margin-right: 10px;
+    width: 264px;
 }
