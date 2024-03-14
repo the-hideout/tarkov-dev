@@ -31,21 +31,17 @@ function Achievements() {
         () => [
             {
                 Header: () => (
-                    <div
-                      style={{
-                        textAlign:'left'
-                      }}
-                    >{t('Name')}</div>),
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Name')}
+                    </div>),
                 id: 'name',
                 accessor: 'name',
             },
             {
                 Header: () => (
-                    <div
-                      style={{
-                        textAlign:'left'
-                      }}
-                    >{t('Description')}</div>),
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Description')}
+                    </div>),
                 id: 'description',
                 accessor: 'description',
             },
@@ -85,7 +81,7 @@ function Achievements() {
                 accessor: 'rarity',
                 Cell: (props) => {
                     return (
-                        <div className={props.row.original.normalizedRarity}>
+                        <div className={`center-content ${props.row.original.normalizedRarity}`}>
                             {props.value}
                         </div>
                     );
