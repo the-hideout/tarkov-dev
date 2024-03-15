@@ -14,6 +14,7 @@ import StationSkillTraderSetting from '../../components/station-skill-trader-set
 
 import formatPrice from '../../modules/format-price.js';
 import { averageWipeLength, currentWipeLength } from '../../modules/wipe-length.js';
+import useHideoutData from '../../features/hideout/index.js';
 
 import {
     BitcoinItemId,
@@ -31,6 +32,9 @@ import './index.css';
 
 const BitcoinFarmCalculator = () => {
     const { t } = useTranslation();
+
+    const { data: hideout } = useHideoutData();
+    const solar = hideout.find(station => station.normalizedName === 'solar-power');
 
     const [graphicCardsCount, setGraphicCardsCount] = useStateWithLocalStorage(
         'num-graphic-cards',
@@ -110,8 +114,9 @@ const BitcoinFarmCalculator = () => {
                         type="skill"
                     />
                     <StationSkillTraderSetting
-                        stateKey={'solar-power'}
+                        stateKey={solar.normalizedName}
                         type="station"
+                        image={solar.imageLink}
                     />
                     <ToggleFilter
                         label={t('Use fuel cost: {{price}}/day', {
