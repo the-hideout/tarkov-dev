@@ -450,6 +450,36 @@ function Player() {
         }).filter(Boolean) || [];
     }, [playerData]);
 
+    const masteringColumns = useMemo(
+        () => [
+            {
+                Header: (
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Weapon')}
+                    </div>
+                ),
+                id: 'Id',
+                accessor: 'Id',
+                Cell: (props) => {
+                    return props.value;
+                },
+            },
+            {
+                Header: (
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Progress')}
+                    </div>
+                ),
+                id: 'Progress',
+                accessor: 'Progress',
+                Cell: (props) => {
+                    return props.value;
+                },
+            },
+        ],
+        [t],
+    );
+
     const totalSecondsInGame = useMemo(() => {
         return playerData.pmcStats?.eft?.totalInGameTime || 0;
     }, [playerData]);
@@ -698,16 +728,11 @@ function Player() {
                 ])}
                 {playerData.skills?.Mastering?.length > 0 &&  ([
                     <h2 key="mastering-title"><Icon path={mdiStarBox} size={1.5} className="icon-with-text"/>{t('Mastering')}</h2>,
-                    <ul key="mastering-list">
-                        {playerData.skills.Mastering.map(skillData => {
-                            if (skillData.Progress <= 1) {
-                                return false;
-                            }
-                            return (
-                                <li key={`skill-${skillData.Id}`}>{`${t(skillData.Id)}: ${skillData.Progress}`}</li>
-                            );
-                        }).filter(Boolean)}
-                    </ul>
+                    <DataTable
+                        key="skills-table"
+                        columns={masteringColumns}
+                        data={playerData.skills.Mastering}
+                    />,
                 ])}
             </div>
         </div>,
