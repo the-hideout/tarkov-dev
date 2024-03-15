@@ -1,0 +1,28 @@
+.property-list {
+    display: flex;
+    flex-flow: wrap;
+    gap: 5px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.property-wrapper {
+    align-items: center;
+    background-color: #2d2d2f;
+    border: 1px solid #1b1919;
+    display: flex;
+    flex-basis: calc(50% - 2.5px);
+    padding: 10px 20px;
+}
+
+.property-key-wrapper {
+    color: #636363;
+    font-size: 14px;
+}
+
+@media screen and (min-width: 800px) {
+    .property-wrapper {
+        flex-basis: 10%;
+        white-space: nowrap;
+    }
+}

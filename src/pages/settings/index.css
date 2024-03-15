@@ -1,0 +1,42 @@
+.settings-group-wrapper {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 45px;
+    flex-flow: wrap;
+    justify-content: space-around;
+}
+
+.settings-group-wrapper h2 {
+    width: 100%;
+}
+
+.toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.language-toggle-wrapper img {
+    margin-right: 10px;
+    width: 39px;
+}
+
+.language-toggle-wrapper .basic-multi-select {
+    width: 122px;
+}
+
+.language-toggle-wrapper .select__control {
+    color: #1b1919;
+    background-color: #2d2c2e;
+    border-color: #9a8866;
+}
+
+.language-toggle-wrapper .select__single-value {
+    color: #fff;
+}
+
+@media screen and (min-width: 1280px) {
+    .settings-group-wrapper {
+        justify-content: flex-start;
+    }
+}

@@ -1,0 +1,92 @@
+ul.quest-item-list {
+    list-style: none;
+    padding: 0px;
+}
+
+ul.quest-item-list li {
+    display: inline-block;
+    padding-left: 2px;
+}
+
+.quest-list-item {
+    padding-bottom: 5px;
+}
+
+.task-details-heading {
+    font-size: xx-large !important;
+}
+
+.hover-item-name {
+    color: #9a8866
+}
+
+
+.quest-page-wrapper {
+    margin: 0 auto 100px auto;
+    max-width: 1200px;
+    padding-top: 10px;
+    position: relative;
+}
+
+.quest-page-wrapper h2 {
+    margin-top: 40px;
+    font-size: 24px;
+}
+
+.quest-information-grid h1 {
+    display: block;
+}
+
+.quest-font {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.quest-icon {
+    width: 64px;
+    height: 64px;
+}
+
+.quest-information-grid h1,
+.quest-icon-and-link-wrapper {
+    margin: 0 0 10px 0;
+}
+
+.quest-icon-and-link-wrapper {
+    align-items: flex-start;
+    display: none;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.quest-icon-and-link-wrapper img {
+    max-height: 50px;
+}
+
+@media screen and (min-width: 800px) {
+    .quest-page-wrapper {
+        padding-top: 20px;
+    }
+
+    .quest-information-grid {
+        display: flex;
+    }
+
+    .quest-information-grid h1 img {
+        display: none;
+    }
+
+    .quest-information-grid h1,
+    .quest-icon-and-link-wrapper {
+        margin: 0 0;
+    }
+
+    .quest-icon-and-link-wrapper {
+        display: flex;
+    }
+
+    .quest-icon-and-link-wrapper img {
+        max-height: 200px;
+    }
+}

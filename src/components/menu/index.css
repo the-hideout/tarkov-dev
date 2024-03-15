@@ -1,0 +1,321 @@
+.menu,
+.navigation,
+.overflow-menu .MuiPaper-root ul {
+    background-color: #2d2d2f;
+}
+
+.navigation {
+    align-items: center;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+    color: #9a8866;
+    display: flex;
+    font-size: 40px;
+    gap: 10px;
+}
+
+.navigation a,
+.navigation button,
+.overflow-menu a {
+    border-radius: 0;
+    border: 0;
+    color: #9a8866;
+    text-align: left;
+    /* text-decoration: none; */
+    white-space: nowrap;
+    padding: 2px 5px;
+}
+
+.logo-padding {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.menu {
+    align-items: center;
+    display: flex;
+    font-size: 34px;
+    gap: 10px;
+    justify-content: center;
+    line-height: 1;
+    margin: 10px 0;
+    padding: 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.menu.open {
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+    display: block;
+    padding: 20px 20px 20px 20px;
+    position: absolute;
+    top: 72px;
+    z-index: 10;
+}
+
+.menu ul {
+    list-style-type: none;
+}
+
+.menu a,
+.menu li,
+.menu span {
+    display: block;
+    text-align: left;
+    margin: auto 0;
+}
+
+.mobile-icon {
+    font-size: 0;
+    margin-right: 0;
+    margin-left: 20;
+}
+
+.mobile-icon svg {
+    fill: #9a8866;
+    height: 54px;
+}
+
+.App.connected .menu {
+    display: none;
+}
+
+.branding {
+    border-radius: 0;
+    font-size: 0;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: auto;
+    margin-top: 10px;
+
+    /* font-size: 40px; */
+}
+
+.menu button {
+    font-size: 20px;
+}
+
+.menu .submenu-wrapper {
+    /* background-color: #000; */
+    border-radius: 0;
+    font-size: 20px;
+    position: relative;
+}
+
+.menu .submenu-wrapper ul {
+    background-color: #2d2d2f;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    display: none;
+    left: 0;
+    list-style: none;
+    padding: 10px;
+    position: absolute;
+    z-index: 2000;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+    top: 24px;
+}
+
+.submenu-wrapper li {
+    align-items: center;
+    display: flex;
+}
+
+.submenu-wrapper input {
+    cursor: pointer;
+}
+
+.menu .submenu-wrapper ul a {
+    border-radius: 0;
+}
+
+.menu a:hover,
+.menu button:hover,
+.menu .submenu-wrapper:hover {
+    cursor: pointer;
+}
+
+.menu .submenu-wrapper:hover > a {
+    color: #000;
+    color: #bdbbaa;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 1px;
+}
+
+.menu .submenu-wrapper:hover ul {
+    display: block;
+}
+
+.menu li:hover button {
+    cursor: pointer;
+}
+
+.external-link {
+    border-radius: 0;
+}
+
+.menu .last-link {
+    position: relative;
+}
+
+.menu svg {
+    width: 20px;
+    height: 20px;
+}
+
+.menu .last-link:hover .supporters-wrapper {
+    display: block;
+}
+
+.supporters-wrapper {
+    background-color: #000;
+    border-radius: 0;
+    color: #fff;
+    cursor: default;
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 28px;
+    z-index: 1;
+}
+
+li.desktop-only-link {
+    display: none;
+    position: relative;
+    bottom: 2px;
+}
+
+.menu li.only-large {
+    display: none;
+}
+
+li.mobile-only-link {
+    display: block;
+}
+
+@media screen and (min-width: 1280px) {
+    .branding {
+        /*margin-right: 0;*/
+    }
+
+    .mobile-icon,
+    .mobile-only-link {
+        display: none;
+    }
+
+    li.desktop-only-link {
+        display: block;
+    }
+
+    li.mobile-only-link {
+        display: none;
+    }
+
+    .menu {
+        display: flex;
+        font-size: 20px;
+        /*margin: 0;*/
+        /* width: auto; */
+    }
+
+    .more-dropdown-wrapper > ul {
+        left: -5.25rem !important;
+    }
+
+    .menu > li {
+        border-width: 0 1px 0 0;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .menu li.only-large {
+        display: flex;
+    }
+}
+
+/* new styles */
+.submenu-wrapper a {
+    margin: auto 0;
+}
+
+.submenu-items {
+    border-left: 1px solid #9a8866;
+    border-right: 1px solid rgba(0, 0, 0, 0);
+}
+
+.overflow-menu .MuiPaper-root {
+    background-color: #2d2d2f;
+}
+
+.overflow-menu ul.MuiList-root {
+    padding-left: 10px;
+}
+
+.overflow-menu li {
+    font-size: 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.overflow-menu li ul {
+    display: block;
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+.navigation,
+ul.menu {
+    max-width: 100%;
+}
+
+.visible-menu-item, .visible-overflow {
+    order: 0;
+    visibility: visible;
+    opacity: 1;
+}
+
+.invisible-menu-item, .invisible-overflow {
+    order: 100;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.toolbar-wrapper {
+    display: flex;
+    overflow-x: clip;
+    overflow-y: visible;
+    padding: 0 10px;
+    max-width: 100%;
+}
+
+.overflow-item {
+    order: 99;
+    position: sticky;
+    right: 0;
+}
+
+.overflow-show {
+    overflow: visible;
+}
+
+.in-overflow-menu:hover {
+    background-color: transparent;
+}
+
+/* margin unless it is the only item showing */
+nav.navigation ul.menu li.more-dropdown-wrapper:not(:nth-child(1 of li.visible-menu-all)) {
+    margin-left: -50px;
+}
+
+nav.navigation ul.menu li:nth-last-child(1 of li.visible-menu-item):not(:nth-last-child(1 of li.overflow-member)) {
+    padding-right: 50px;
+}
+
+.MuiPopover-root svg.icon-with-text {
+    color: #9a8866;
+}
+
+.MuiPopover-root .overflow-hidden {
+    display: none;
+}

@@ -1,0 +1,23 @@
+name: New Pull Request
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  pull-requests: write
+
+jobs:
+  comment:
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    runs-on: ubuntu-latest
+
+    steps:
+      # Comment on new PR requests with deployment instructions
+      - uses: actions/checkout@v4
+      - name: comment
+        uses: GrantBirki/comment@v2.0.9
+        continue-on-error: true
+        with:
+          file: .github/new-pr-comment.md

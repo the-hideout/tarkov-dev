@@ -1,0 +1,102 @@
+[
+    {
+        "fill": "tomato",
+        "type": "Plus"
+    },
+    {
+        "fill": "tomato",
+        "type": "Circle"
+    },
+    {
+        "fill": "tomato",
+        "type": "TriangleUp"
+    },
+    {
+        "fill": "tomato",
+        "type": "TriangleDown"
+    },
+    {
+        "fill": "tomato",
+        "type": "Diamond"
+    },
+    {
+        "fill": "yellow",
+        "type": "Plus"
+    },
+    {
+        "fill": "yellow",
+        "type": "Circle"
+    },
+    {
+        "fill": "yellow",
+        "type": "TriangleUp"
+    },
+    {
+        "fill": "yellow",
+        "type": "TriangleDown"
+    },
+    {
+        "fill": "yellow",
+        "type": "Diamond"
+    },
+    {
+        "fill": "green",
+        "type": "Plus"
+    },
+    {
+        "fill": "green",
+        "type": "Circle"
+    },
+    {
+        "fill": "green",
+        "type": "TriangleUp"
+    },
+    {
+        "fill": "green",
+        "type": "TriangleDown"
+    },
+    {
+        "fill": "green",
+        "type": "Diamond"
+    },
+    {
+        "fill": "rgb(71, 121, 152)",
+        "type": "Plus"
+    },
+    {
+        "fill": "rgb(71, 121, 152)",
+        "type": "Circle"
+    },
+    {
+        "fill": "rgb(71, 121, 152)",
+        "type": "TriangleUp"
+    },
+    {
+        "fill": "rgb(71, 121, 152)",
+        "type": "TriangleDown"
+    },
+    {
+        "fill": "rgb(71, 121, 152)",
+        "type": "Diamond"
+    },
+    {
+        "fill": "rgb(181, 59, 209)",
+        "type": "Plus"
+    },
+    {
+        "fill": "rgb(181, 59, 209)",
+        "type": "Circle"
+    },
+    {
+        "fill": "rgb(181, 59, 209)",
+        "type": "TriangleUp"
+    },
+    {
+        "fill": "rgb(181, 59, 209)",
+        "type": "TriangleDown"
+    },
+    {
+        "fill": "rgb(181, 59, 209)",
+        "type": "Diamond"
+    }
+]

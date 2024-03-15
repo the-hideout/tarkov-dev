@@ -1,0 +1,92 @@
+name: branch-deploy
+
+on:
+  issue_comment:
+    types: [ created ]
+
+# Permissions needed for reacting and adding comments for IssueOps commands
+permissions:
+  pull-requests: write
+  deployments: write
+  contents: write
+  checks: read
+
+jobs:
+  deploy:
+    environment: secrets
+    if: ${{ github.event.issue.pull_request }} # only run on pull request comments
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: github/branch-deploy@v9.1.0
+        id: branch-deploy
+        with:
+          admins: the-hideout/core-contributors
+          admins_pat: ${{ secrets.BRANCH_DEPLOY_ADMINS_PAT }}
+          skip_ci: development
+          skip_reviews: development
+          environment_targets: production,development
+          environment_urls: production|https://tarkov.dev,development|disabled
+          sticky_locks: "true"
+
+      - name: checkout
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
+        uses: actions/checkout@v4.1.1
+        with:
+          ref: ${{ steps.branch-deploy.outputs.ref }}
+
+      - uses: actions/setup-node@v4.0.2
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
+        with:
+          node-version-file: .node-version
+          cache: 'npm'
+
+      - name: install dependencies
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
+        run: npm ci
+
+      - name: build
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
+        run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.HIDEOUT_BOT_TOKEN }}
+
+      # deploy to the dev env and also save the stdout to a file
+      - name: deploy - dev
+        id: dev-deploy
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
+          steps.branch-deploy.outputs.noop != 'true' &&
+          steps.branch-deploy.outputs.environment == 'development' }}
+        uses: cloudflare/wrangler-action@7c01cc48d88a1f83b4716e0557c168854a9dcdb8 # pin@v3.4.1
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          wranglerVersion: '2.13.0'
+          command: pages publish build/ --project-name=tarkov-dev --branch=preview
+
+      # fetch the dev url from stdout and save add it to the deploy message
+      - name: add development url to deploy message
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
+          steps.branch-deploy.outputs.noop != 'true' &&
+          steps.branch-deploy.outputs.environment == 'development' }}
+        env:
+          DEPLOYMENT_URL: ${{ steps.dev-deploy.outputs.deployment-url }}
+          CMD_OUTPUT: ${{ steps.dev-deploy.outputs.command-output }}
+        run: |
+          echo "for debugging (cmd output): ${CMD_OUTPUT}"
+          echo ""
+          echo "DEPLOY_MESSAGE=${DEPLOYMENT_URL}" >> $GITHUB_ENV
+          echo "DEPLOY_MESSAGE=${DEPLOYMENT_URL}"
+
+      - name: deploy - prod
+        id: prod-deploy
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' &&
+          steps.branch-deploy.outputs.noop != 'true' &&
+          steps.branch-deploy.outputs.environment == 'production' }}
+        uses: cloudflare/wrangler-action@7c01cc48d88a1f83b4716e0557c168854a9dcdb8 # pin@v3.4.1
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          wranglerVersion: '2.13.0'
+          command: pages publish build/ --project-name=tarkov-dev --branch=main

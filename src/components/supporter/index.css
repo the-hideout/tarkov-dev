@@ -1,0 +1,22 @@
+.supporter-wrapper {
+    margin-bottom: 5px;
+}
+
+.supporter-wrapper a,
+.supporter-wrapper span {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.supporter-name-wrapper {
+    flex-grow: 1;
+}
+
+.supporter-wrapper.inline {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.supporter-wrapper svg {
+    margin-left: 5px;
+}

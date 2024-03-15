@@ -1,0 +1,25 @@
+.quest-item-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quest-image-wrapper {
+    margin-right: 10px;
+}
+
+.quest-image-wrapper img {
+    width: 32px;
+    height: 32px;
+}
+
+.amount-wrapper,
+.found-in-raid-wrapper,
+.reward-type-wrapper {
+    color: #636363;
+    font-size: 14px;
+}
+
+.found-in-raid-wrapper.find-in-raid {
+    color: #cd1e2f;
+}

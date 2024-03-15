@@ -1,0 +1,18 @@
+.trader-image-reputation {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-top-left-radius: 3px;
+    color: #c7c5b3;
+    font-size: 14px;
+    height: 18px;
+    line-height: 20px;
+    padding: 0 5px;
+    text-align: center;
+}
+
+.positive-rep {
+    color: #00a700;
+}
+
+.negative-rep {
+    color: #a70000;
+}

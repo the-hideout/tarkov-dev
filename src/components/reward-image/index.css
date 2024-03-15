@@ -1,0 +1,51 @@
+.reward-image-wrapper {
+    position: relative;
+    margin-right: 10px;
+    font-size: 0;
+}
+
+.reward-image-extra-wrapper {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.reward-image-fir {
+    max-width: 16px;
+    max-height: 16px;
+}
+
+.reward-image-count {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-top-left-radius: 3px;
+    color: #c7c5b3;
+    font-size: 14px;
+    height: 18px;
+    line-height: 20px;
+    padding: 0 5px;
+    text-align: center;
+}
+
+.reward-image-img {
+    max-width: 64px;
+    max-height: 64px;
+}
+
+.reward-image-img-tool {
+    outline: 1px solid #0292c0;
+    outline-offset: -1px;
+}
+
+.reward-image-img-nonfunctional {
+    outline: 1px solid #c00802;
+    outline-offset: -1px;
+}
+
+@media screen and (min-width: 800px) {
+    .reward-image-wrapper {
+        margin-right: 10px;
+    }
+}

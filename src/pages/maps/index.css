@@ -1,0 +1,23 @@
+.maps-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.map-page-wrapper {
+    min-height: 0;
+}
+
+.map-wrapper {
+    text-align: center;
+    width: 30%;
+}
+
+.map-wrapper a {
+    display: block;
+    text-align: center;
+}
+
+.map-wrapper img {
+    max-height: 200px;
+}

@@ -1,0 +1,272 @@
+#leaflet-map {
+    background-color: transparent;
+}
+
+/* Popup styles */
+.leaflet-popup-content-wrapper {
+    background-color: rgb(45, 45, 47);
+}
+
+.leaflet-popup-tip {
+    background-color: rgb(45, 45, 47);
+}
+
+.leaflet-popup-content-wrapper, .leaflet-popup-content-wrapper a {
+    color: rgb(199, 197, 179);
+    font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-style: normal;
+    /*font-weight: 400;*/
+}
+
+.leaflet-popup-content-wrapper a {
+    color: #9a8866;
+}
+
+/* leaflet-control-coordinates */
+.leaflet-control-coordinates {
+    color: #000000;
+    font-weight: bold;
+}
+
+.leaflet-control-coordinates {
+	background-color:#D8D8D8;
+	background-color:rgba(255, 255, 255, 0.8);
+	cursor:pointer;
+}
+
+.leaflet-control-coordinates,
+.leaflet-control-coordinates .uiElement input {
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+}
+
+.leaflet-control-coordinates .uiElement {
+	margin:4px;
+}
+
+.leaflet-control-coordinates .uiElement .labelFirst {
+	margin-right:4px;
+}
+
+.leaflet-control-coordinates .uiHidden{
+	display:none;
+}
+
+.leaflet-control-coordinates .uiElement.label {
+	color:inherit;
+	font-weight: inherit;
+	font-size: inherit;
+	padding: 0;
+	display: inherit;
+}
+
+/* leaflet-control-groupedlayer */
+.leaflet-control-layers-group-name {
+    font-weight: 700;
+    margin-bottom: 0.2em;
+    margin-left: 3px;
+}
+.leaflet-control-layers-group {
+    margin-bottom: 0.5em;
+}
+.leaflet-control-layers-scrollbar {
+    overflow-y: scroll;
+    padding-right: 10px;
+}
+.leaflet-control-layers-group-label {
+    margin-bottom: 2px;
+}
+.leaflet-control-layers-group-selector, .leaflet-control-layers-selector {
+    vertical-align: top;
+}
+.leaflet-control-layers-group label:not(.leaflet-control-layers-group-label) {
+    text-indent: 15px;
+}
+.leaflet-control-layers-group.group-collapsable.collapsed .leaflet-control-layers-group-collapse,
+.leaflet-control-layers-group.group-collapsable:not(.collapsed) .leaflet-control-layers-group-expand,
+.leaflet-control-layers-group.group-collapsable.collapsed label:not(.leaflet-control-layers-group-label){
+    display: none;
+}
+.leaflet-control-layers-group-expand-default:before{
+    content: "+"; 
+    width: 12px; 
+    display: inline-block; 
+    text-align: center;
+}
+.leaflet-control-layers-group-collapse-default:before{
+    content: "-"; 
+    width: 12px; 
+    display: inline-block; 
+    text-align: center;
+}
+/* leaflet-control-groupedlayer */
+.control-item-image {
+    height: 14px;
+    position: relative;
+    top: 2px;
+}
+
+/* elevation visability */
+
+.leaflet-layer.off-level > .leaflet-tile-container,
+div.leaflet-pane.leaflet-overlay-pane > img.off-level {
+    opacity: 20%;
+}
+
+div.awesome-marker.off-level {
+    opacity: 20%;
+    z-index: -9999 !important;
+}
+
+div.leaflet-pane.leaflet-marker-pane > .off-level {
+    opacity: 20%;
+    z-index: -9999 !important;
+}
+
+div.leaflet-overlay-pane > svg.leaflet-zoom-animated > g > path.off-level {
+    stroke-opacity: 20%;
+    fill-opacity: 2%;
+}
+
+.not-shown {
+    display: none;
+}
+
+.leaflet-container .leaflet-marker-pane .extract-icon img {
+    max-width: 24px !important;
+    max-height: 24px !important;
+}
+
+.extract-icon {
+    display: inline;
+    white-space: nowrap;
+}
+
+.extract-name {
+    font-weight: 800;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    white-space: nowrap;
+    /* text-transform: uppercase; */
+    vertical-align: top;
+    text-shadow: 0 0 3px black;
+    -webkit-text-stroke: 0.5px black;
+}
+
+.extract-name.pmc {
+    color: #00e599;
+}
+
+.extract-name.scav {
+    color: #ff7800;
+}
+
+.extract-name.shared {
+    color: #00e4e5;
+}
+
+.poi-image, img.popup-item {
+    max-width: 24px;
+    max-height: 24px;
+    vertical-align: middle;
+}
+
+.poi-link {
+    cursor: pointer;
+}
+
+/* general control styles */
+.leaflet-control {
+    background-color: rgba(0, 0, 0, 0.75);
+    color: rgb(199, 197, 179);
+    font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+/* only active tasks control */
+.leaflet-control-map-settings.leaflet-control {
+    padding: 4px 4px;
+}
+
+.leaflet-control-map-settings {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.leaflet-container.only-active-quest-markers .inactive-quest-marker {
+    display: none;
+}
+
+/* fullscreen control */
+.leaflet-control-fullscreen a {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.leaflet-control-fullscreen a:hover {
+    background-color: rgba(50, 50, 50, 0.75);
+}
+
+/* zoom control */
+.leaflet-bar a {
+    background-color: transparent;
+    color: rgb(199, 197, 179);
+    border-bottom-color: rgb(50, 50, 50);
+}
+
+.leaflet-bar a:hover, .leaflet-bar a:active {
+    background-color: rgba(25, 25, 25, 0.75);
+    color: rgb(199, 197, 179);
+}
+
+.leaflet-bar a.leaflet-disabled {
+    color: rgb(109, 107, 89);
+    background-color: rgba(50, 50, 50, 0.75);
+}
+
+.leaflet-bar a.leaflet-disabled:hover, .leaflet-bar a.leaflet-disabled:active {
+    background-color: rgba(40, 40, 40, 0.75);
+}
+
+.leaflet-control-layers-list {
+    font-size: 14px;
+}
+
+.leaflet-control-fullscreen a {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAA0CAYAAACU7CiIAAAAxnpUWHRSYXcgcHJvZmlsZSB0eXBlIGV4aWYAAHjabVBRDsMgCP3nFDuC8KjicezaJrvBjj+suLTLXuITeOSh0P5+HfToEFbSpViuOSeHVq3SPLA00E7mpCePpIXG9zpBQxAvwW+M1HL0zzp/DaYhp+ViZM8Q1rtQY4DYj1EMQn+ReLCFUQ0jyBA4DFp8IVcr1y+se7rDxqFOx9xJGddvrsW3ty0+ByI7GMkZYykQ9KOE5gE7M8wbE+pZUWdFjpf0Df/Z0wR9AGIiWbdAFcPEAAABhGlDQ1BJQ0MgcHJvZmlsZQAAeJx9kT1Iw1AUhU/TSkUqBe0g4pChOtlFRRxLFYtgobQVWnUweekfNGlIUlwcBdeCgz+LVQcXZ10dXAVB8AfE2cFJ0UVKvC8ptIjxwuN9nHfP4b37AKFVY6oZiAOqZhmZZELMF1bF4Ct8GEIYAUQlZuqp7GIOnvV1T91UdzGe5d33Zw0qRZMBPpE4znTDIt4gnt20dM77xBFWkRTic+JJgy5I/Mh12eU3zmWHBZ4ZMXKZeeIIsVjuYbmHWcVQiWeIo4qqUb6Qd1nhvMVZrTVY5578haGitpLlOq0xJLGEFNIQIaOBKmqwEKNdI8VEhs4THv5Rx58ml0yuKhg5FlCHCsnxg//B79mapekpNymUAPpebPtjHAjuAu2mbX8f23b7BPA/A1da119vAXOfpDe7WvQICG8DF9ddTd4DLneAkSddMiRH8tMSSiXg/Yy+qQAM3wIDa+7cOuc4fQByNKvlG+DgEJgoU/a6x7v7e+f2b09nfj92lnKoz48yYwAADXZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+Cjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDQuNC4wLUV4aXYyIj4KIDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+CiAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIgogICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIKICAgIHhtbG5zOkdJTVA9Imh0dHA6Ly93d3cuZ2ltcC5vcmcveG1wLyIKICAgIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIgogICAgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIgogICB4bXBNTTpEb2N1bWVudElEPSJnaW1wOmRvY2lkOmdpbXA6NDAyNDAzZGQtMzYxMS00OGRjLWJjMGUtNzQ0NmViYTcxNTc3IgogICB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjE2NTkzNGExLWNhYzAtNGJjNS05Mjc3LTljMDgyZTc3NzA0MSIKICAgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOmUyMmRkYjhlLWIzZTQtNGRkYy1iN2YxLTRiZDdiNzEyZGVmZCIKICAgZGM6Rm9ybWF0PSJpbWFnZS9wbmciCiAgIEdJTVA6QVBJPSIyLjAiCiAgIEdJTVA6UGxhdGZvcm09IldpbmRvd3MiCiAgIEdJTVA6VGltZVN0YW1wPSIxNzA1NTkwMjg2MzczMjE5IgogICBHSU1QOlZlcnNpb249IjIuMTAuMzQiCiAgIHRpZmY6T3JpZW50YXRpb249IjEiCiAgIHhtcDpDcmVhdG9yVG9vbD0iR0lNUCAyLjEwIgogICB4bXA6TWV0YWRhdGFEYXRlPSIyMDI0OjAxOjE4VDA5OjA0OjQ2LTA2OjAwIgogICB4bXA6TW9kaWZ5RGF0ZT0iMjAyNDowMToxOFQwOTowNDo0Ni0wNjowMCI+CiAgIDx4bXBNTTpIaXN0b3J5PgogICAgPHJkZjpTZXE+CiAgICAgPHJkZjpsaQogICAgICBzdEV2dDphY3Rpb249InNhdmVkIgogICAgICBzdEV2dDpjaGFuZ2VkPSIvIgogICAgICBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmQ0MzNjMDAwLTc2MjQtNDcxOS1hNjBhLTBmMDJiZDZiYTZhMyIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iR2ltcCAyLjEwIChXaW5kb3dzKSIKICAgICAgc3RFdnQ6d2hlbj0iMjAyNC0wMS0xOFQwOTowNDo0NiIvPgogICAgPC9yZGY6U2VxPgogICA8L3htcE1NOkhpc3Rvcnk+CiAgPC9yZGY6RGVzY3JpcHRpb24+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgCjw/eHBhY2tldCBlbmQ9InciPz6tAhAHAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH6AESDwQuQlUKHQAAAIdJREFUWMPtl0EOwCAIBNemH+NllZfxNHvxZKixNDWx3TmiBlHAFSCkkjyjmRXPLiIpMg8AtlkR7b1Bb2eRCKdG9D1HZFHMrPRqIrKOdfROr2vP+05vY2cghFCpUqku9/A1x5IBHI1ZRSSHs+5JJvI3McfRheJUZ6qOKtXhrKvZlXlHVKrkB5zEQE3lVsjhWQAAAABJRU5ErkJggg==");
+}
+
+/* Raid Info control */
+.leaflet-control-raid-info {
+    background-color: rgba(0, 0, 0, 0.5);
+    line-height: normal;
+}
+
+.leaflet-control-raid-info a {
+    color: rgb(199, 197, 179);
+}
+
+/* Area labels */
+.leaflet-marker-icon.map-area-label {
+    font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: rgb(199, 197, 179);
+    text-shadow: 0 0 3px black;
+    -webkit-text-stroke: 0.5px black;
+    text-align: center;
+}
+
+.leaflet-marker-icon.map-area-label .label {
+    position: absolute;
+    /*-webkit-transform: translate3d(-50%, -50%, 0); 
+    -moz-transform: translate3d(-50%, -50%, 0);  
+    transform: translate3d(-50%, -50%, 0);*/
+    width: 200px;
+}
+
+.leaflet-marker-icon.map-area-label.off-level {
+    display: none;
+}

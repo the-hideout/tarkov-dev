@@ -1,0 +1,23 @@
+.station-skill-trader-setting-wrapper {
+    text-align: center;
+    display: flex;
+}
+
+.station-skill-trader-setting-wrapper img {
+    margin-right: 10px;
+    width: 39px;
+}
+
+.station-skill-trader-setting-wrapper .basic-multi-select {
+    width: 122px;
+}
+
+.station-skill-trader-setting-wrapper .select__control {
+    color: #1b1919;
+    background-color: #2d2c2e;
+    border-color: #9a8866;
+}
+
+.station-skill-trader-setting-wrapper .select__single-value {
+    color: #fff;
+}

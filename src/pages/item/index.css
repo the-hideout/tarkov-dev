@@ -1,0 +1,244 @@
+.item-page-wrapper {
+    margin: 0 auto 100px auto;
+    max-width: 1200px;
+    padding-top: 10px;
+    position: relative;
+}
+
+.item-page-wrapper h2 {
+    margin-top: 40px;
+    font-size: 24px;
+}
+
+.item-font {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.item-icon {
+    width: 64px;
+    height: 64px;
+}
+
+.icon-and-link-wrapper {
+    align-items: flex-start;
+    display: none;
+    justify-content: flex-end;
+    flex-grow: 1;
+    right: 0;
+    top: 0;
+}
+
+.icon-and-link-wrapper canvas {
+    margin-right: 10px;
+}
+
+.icon-and-link-wrapper a {
+    display: block;
+    text-align: right;
+}
+
+.information-grid {
+    display: flex;
+    flex-flow: wrap;
+    gap: 10px;
+}
+
+.information-grid h2 {
+    width: 100%;
+}
+
+.item-short-name-wrapper {
+    font-size: x-large;
+}
+
+.filter-content-wrapper.compact {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.main-information-grid h1 {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-information-grid h1 cite {
+    width: 100%;
+}
+
+.main-information-grid h1,
+.icon-and-link-wrapper {
+    margin: 0 0 10px 0;
+}
+
+.tooltip-calculation {
+    display: flex;
+}
+
+.tooltip-price-wrapper {
+    flex-grow: 1;
+    text-align: right;
+    padding-left: 5px;
+}
+
+.text-information-wrapper {
+    margin-left: auto;
+}
+
+.text-and-image-information-wrapper {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+}
+
+.text-and-image-information-wrapper:first-child {
+    margin-left: 0;
+    flex-basis: 0%;
+}
+
+.text-and-image-information-wrapper img {
+    width: 32px;
+    height: 32px;
+}
+
+.text-and-image-information-wrapper .warning-icon {
+    width: 14px;
+    height: 14px;
+    vertical-align: text-bottom;
+    position: relative;
+    bottom: 2px;
+    margin-right: 5px;
+}
+
+.text-and-image-information-wrapper .price-wrapper {
+    width: 100%;
+}
+
+.text-and-image-information-wrapper.best-profit .price-wrapper,
+.best-profit {
+    color: #c7c5b3;
+}
+
+.best-profit img {
+    outline: #9a8866 solid 1px;
+    outline-offset: -1px;
+}
+
+.price-wrapper-bright {
+    color: #c7c5b3;
+}
+
+.price-wrapper.locked,
+.best-profit .price-wrapper.locked {
+    color: #626151;
+}
+
+.text-and-image-information-wrapper.price-info-wrapper {
+    align-items: center;
+    display: flex;
+    text-align: left;
+    flex: 1 0 65%;
+}
+
+.source-wrapper {
+    position: relative;
+}
+
+.quest-icon-wrapper {
+    position: absolute;
+    top: -13px;
+    right: -13px;
+}
+
+.quest-icon-wrapper .icon-with-text {
+    margin: 0;
+}
+
+.trader-wrapper {
+    justify-content: space-between;
+}
+
+.item-crafts-headline-wrapper,
+.item-barters-headline-wrapper,
+.item-contents-headline-wrapper,
+.item-hideout-headline-wrapper,
+.item-quest-headline-wrapper {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.item-crafts-headline-wrapper h2,
+.item-barters-headline-wrapper h2,
+.item-contents-headline-wrapper h2,
+.item-hideout-headline-wrapper h2,
+.item-quest-headline-wrapper h2 {
+    flex-grow: 1;
+    margin: 0;
+}
+
+@media screen and (min-width: 800px) {
+    .item-page-wrapper {
+        padding-top: 20px;
+    }
+
+    .item-crafts-headline-wrapper,
+    .item-barters-headline-wrapper,
+    .item-contents-headline-wrapper,
+    .item-hideout-headline-wrapper,
+    .item-quest-headline-wrapper {
+        display: flex;
+    }
+
+    .icon-and-link-wrapper {
+        display: flex;
+    }
+
+    .text-and-image-information-wrapper {
+        display: block;
+    }
+
+    .text-and-image-information-wrapper.price-info-wrapper {
+        flex-basis: auto;
+        flex-grow: 1;
+    }
+
+    .text-and-image-information-wrapper img {
+        height: 86px;
+        width: 86px;
+    }
+
+    .text-and-image-information-wrapper .price-wrapper {
+        text-align: center;
+    }
+
+    .single-line-grid.sell {
+        justify-content: flex-start;
+    }
+    
+    .single-line-grid.buy {
+        justify-content: flex-end;
+    }
+
+    .icon-and-link-wrapper img {
+        max-height: 200px;
+    }
+
+    .main-information-grid {
+        display: flex;
+    }
+
+    .main-information-grid h1 img {
+        display: none;
+    }
+
+    .main-information-grid h1,
+    .icon-and-link-wrapper {
+        margin: 0 0;
+    }
+
+    .trader-wrapper {
+        display: flex;
+    }
+}

@@ -1,0 +1,10 @@
+.ua-button {
+    border-radius: 5px !important;
+    color: white !important;
+    font-size: 16px !important;
+    font-family: bender, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+    font-weight: bold !important;
+    padding: 5px 15px !important;
+    background: linear-gradient(0deg, #ffd700 50%, #0057b7 50%) !important;
+    text-shadow: 0 1px 4px black;
+}

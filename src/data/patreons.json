@@ -1,0 +1,126 @@
+[
+    {
+        "name": "Macy Creech",
+        "tier": "api-users"
+    },
+    {
+        "name": "The Hideout",
+        "uid": "2786284",
+        "tier": "Expert",
+        "link": "https://play.google.com/store/apps/details?id=com.austinhodak.thehideout&hl=en_US&gl=US"
+    },
+    {
+        "name": "Jeffery Walsh",
+        "uid": "12950975",
+        "tier": "Advanced"
+    },
+    {
+        "name": "morten kristensen",
+        "uid": "8470988",
+        "tier": "Advanced"
+    },
+    {
+        "name": "Ed",
+        "uid": "26371010",
+        "tier": "Advanced"
+    },
+    {
+        "name": "Andreas Martin",
+        "uid": "14916426",
+        "tier": "Advanced"
+    },
+    {
+        "name": "Hayden",
+        "uid": "57975864",
+        "tier": "Advanced"
+    },
+    {
+        "name": "Kefff",
+        "uid": "50971873",
+        "tier": "Advanced",
+        "link": "https://www.totovbuilder.com/"
+    },
+    {
+        "name": "MIST3RKK",
+        "uid": "13286809",
+        "tier": "Advanced"
+    },
+    {
+        "name": "Veldmuus",
+        "uid": "13943551",
+        "tier": "Advanced"
+    },
+    {
+        "name": "Razzmatazz",
+        "uid": "42126798",
+        "tier": "Advanced",
+        "link": "https://tarkov.guru/"
+    },
+    {
+        "name": "RatScanner",
+        "uid": "31804233",
+        "tier": "Advanced",
+        "link": "https://ratscanner.com/"
+    },
+    {
+        "name": "Thaddeus",
+        "uid": "13444262",
+        "tier": "Advanced",
+        "link": "https://tarkovtracker.io/"
+    },
+    {
+        "name": "Trontus Games",
+        "uid": "7637556",
+        "tier": "Advanced"
+    },
+    {
+        "name": "teebles",
+        "uid": "29679591",
+        "tier": "Advanced"
+    },
+    {
+        "name": "Austin T Murphy",
+        "uid": "12757987",
+        "tier": "Basic"
+    },
+    {
+        "name": "T Smith",
+        "uid": "39063944",
+        "tier": "Basic"
+    },
+    {
+        "name": "Roman Buser",
+        "uid": "3287171",
+        "tier": "Basic"
+    },
+    {
+        "name": "Spooky Black",
+        "uid": "37352990",
+        "tier": "Basic"
+    },
+    {
+        "name": "Brian Green",
+        "uid": "6373400",
+        "tier": "Basic"
+    },
+    {
+        "name": "Tarkov Roulette",
+        "uid": "66852316",
+        "tier": "Basic"
+    },
+    {
+        "name": "Kazuki Yamamoto",
+        "uid": "63942381",
+        "tier": "Basic"
+    },
+    {
+        "name": "Miguel Loadge",
+        "uid": "28236724",
+        "tier": "Basic"
+    },
+    {
+        "name": "Gyran",
+        "uid": "40724846",
+        "tier": "Basic"
+    }
+]

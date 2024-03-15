@@ -1,0 +1,2157 @@
+[
+    {
+        "normalizedName": "streets-of-tarkov",
+        "primaryPath": "/map/streets-of-tarkov",
+        "maps": [
+            {
+                "key": "streets-of-tarkov",
+                "projection": "interactive",
+                "minZoom": 1,
+                "maxZoom": 5,
+                "transform": [0.38, 0, 0.38, 0],
+                "coordinateRotation": 180,
+                "bounds": [
+                    [323, -317],
+                    [-280, 549]
+                ],
+                "heightRange": [-6, 10],
+                "author": "Shebuka",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Ground_Level.svg",
+                "layers": [
+                    {
+                        "name": "Underground",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Underground_Level.svg",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-10000, -6]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "2nd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Second_Floor.svg",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [10, 15]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "3rd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Third_Floor.svg",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [15, 20]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "4th Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Fourth_Floor.svg",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [20, 25]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "5th Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/StreetsOfTarkov-Fifth_Floor.svg",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [25, 10000]
+                            }
+                        ]
+                    }
+                ],
+                "labels": [
+                    {
+                        "position": [9,308],
+                        "text": "Primorsky Ave.",
+                        "rotation": -90,
+                        "size":80
+                    },
+                    {
+                        "position": [9,104],
+                        "text": "Primorsky Ave.",
+                        "rotation": -90,
+                        "size":80
+                    },
+                    {
+                        "position": [9,-80],
+                        "text": "Primorsky Ave.",
+                        "rotation": -90,
+                        "size":80
+                    },
+                    {
+                        "position": [125,10],
+                        "text": "Kilmov St.",
+                        "size":80
+                    },
+                    {
+                        "position": [-104,28],
+                        "text": "Kilmov St.",
+                        "rotation": 10,
+                        "size":80
+                    },
+                    {
+                        "position": [-125,210],
+                        "text": "Nikitskaya St.",
+                        "size": 80
+                    },
+                    {
+                        "position": [-112,361],
+                        "text": "Verhnyaya St.",
+                        "size": 80
+                    },
+                    {
+                        "position": [-200,290],
+                        "text": "Malevecha St.",
+                        "rotation": -64,
+                        "size": 80
+                    },
+                    {
+                        "position": [111,251],
+                        "text": "Chekannaya St.",
+                        "size": 80
+                    },
+                    {
+                        "position": [-101,441],
+                        "text": "Nizhnyaya St.",
+                        "size": 80
+                    },
+                    {
+                        "position": [174,430],
+                        "text": "Razvedchikov St.",
+                        "rotation": -30,
+                        "size": 80
+                    },
+                    {
+                        "position": [140,150],
+                        "text": "Zmejskij Alley",
+                        "rotation": -68,
+                        "size": 80
+                    },
+                    {
+                        "position": [232,100],
+                        "text": "Kamchatskaya St.",
+                        "rotation": -90,
+                        "size": 80
+                    },
+                    {
+                        "position": [-128,-35],
+                        "text": "Kilmov Shopping Mall",
+                        "size": 90
+                    },
+                    {
+                        "position": [-45,-52],
+                        "text": "Beluga",
+                        "size": 90
+                    },
+                    {
+                        "position": [99,-71],
+                        "text": "Cardinal Apartments",
+                        "size": 90
+                    },
+                    {
+                        "position": [230,295],
+                        "text": "Construction",
+                        "size": 90
+                    },
+                    {
+                        "position": [66,305],
+                        "text": "Lexos",
+                        "size": 90
+                    },
+                    {
+                        "position": [140,300],
+                        "text": "Sparja Grocery",
+                        "size": 90
+                    },
+                    {
+                        "position": [-175,400],
+                        "text": "Cinema",
+                        "size": 90
+                    },
+                    {
+                        "position": [-218,135],
+                        "text": "Shestyorochka",
+                        "size": 90
+                    },
+                    {
+                        "position": [-35,64],
+                        "text": "Pinewood Hotel",
+                        "size": 90
+                    },
+                    {
+                        "position": [65,398],
+                        "text": "Teppakot / Koener",
+                        "size": 70
+                    },
+                    {
+                        "position": [140,362],
+                        "text": "Concordia",
+                        "size": 70
+                    },
+                    {
+                        "position": [89,-20],
+                        "text": "Cardinal Bank",
+                        "size": 70
+                    },
+                    {
+                        "position": [239,-60],
+                        "text": "LERM Expo",
+                        "size": 70
+                    },
+                    {
+                        "position": [-64,166],
+                        "text": "Sparja Express",
+                        "size": 70
+                    },
+                    {
+                        "position": [-30,138],
+                        "text": "Burger Spot",
+                        "size": 70
+                    },
+                    {
+                        "position": [42,97],
+                        "text": "Post Office",
+                        "size": 70
+                    },
+                    {
+                        "position": [42,160],
+                        "text": "Pharmacy",
+                        "size": 70
+                    },
+                    {
+                        "position": [67,230],
+                        "text": "Tarbank",
+                        "size": 70
+                    },
+                    {
+                        "position": [211,129],
+                        "text": "School",
+                        "size": 70
+                    },
+                    {
+                        "position": [222,173],
+                        "text": "Vet Clinic",
+                        "size": 70
+                    },
+                    {
+                        "position": [-50,326],
+                        "text": "Pharmacy",
+                        "size": 70
+                    },
+                    {
+                        "position": [-212,300],
+                        "text": "Hive",
+                        "size": 70
+                    },
+                    {
+                        "position": [-223,279],
+                        "text": "Family Market",
+                        "size": 70
+                    },
+                    {
+                        "position": [-200,248],
+                        "text": "Marked Hotel",
+                        "size": 70
+                    },
+                    {
+                        "position": [-119,287],
+                        "text": "Abandon Factory",
+                        "size": 70
+                    },
+                    {
+                        "position": [-80,235],
+                        "text": "Diner",
+                        "size": 70
+                    },
+                    {
+                        "position": [-13,244],
+                        "text": "Primorskij 49",
+                        "size": 70
+                    },
+                    {
+                        "position": [39,230],
+                        "text": "Prestigio Cafe",
+                        "rotation":-45,
+                        "size": 60
+                    },
+                    {
+                        "position": [-70,343],
+                        "text": "Bilbo Coffee",
+                        "size": 60
+                    }
+                ]
+            },
+            {
+                "key": "streets-2d",
+                "projection": "2D",
+                "author": "Jindouz",
+                "authorLink": "https://www.reddit.com/user/Jindouz"
+            },
+            {
+                "key": "streets-3d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            },
+            {
+                "key": "streets-3d-caches",
+                "projection": "3D",
+                "specific": "Caches",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            },
+            {
+                "key": "streets-3d-lexos",
+                "projection": "3D",
+                "specific": "Lexos",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            }
+        ]
+    },
+    {
+        "normalizedName": "ground-zero",
+        "primaryPath": "/map/ground-zero",
+        "maps": [
+            {
+                "key": "ground-zero",
+                "projection": "interactive",
+                "tileSize": 256,
+                "minZoom": 1,
+                "maxZoom": 6,
+                "transform": [0.524, 167.3, 0.524, 65.1],
+                "coordinateRotation": 180,
+                "bounds": [
+                    [249, -124],
+                    [-99, 364]
+                ],
+                "heightRange": [-1000, 28],
+                "author": "Tarkov.dev",
+                "authorLink": "https://tarkov.dev",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero-Ground_Level.svg",
+                "tilePath": "https://assets.tarkov.dev/maps/groundzero/main/{z}/{x}/{y}.png",
+                "layers": [
+                    {
+                        "name": "Garage",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero-Underground_Level.svg",
+                        "tilePath": "https://assets.tarkov.dev/maps/groundzero/garage/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-1000, 21],
+                                "bounds": [
+                                    [[117, -100], [43, 190], "garage"],
+                                    [[143, 49], [117, 80], "underpass"]
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "2nd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero-Second_Floor.svg",
+                        "tilePath": "https://assets.tarkov.dev/maps/groundzero/2nd/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [28, 32.3]
+                            },
+                            {
+                                "height": [26, 31],
+                                "bounds": [[[98, 216], [91, 228], "m showroom"]]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "3rd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/GroundZero-Third_Floor.svg",
+                        "tilePath": "https://assets.tarkov.dev/maps/groundzero/3rd/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [32.3, 1000]
+                            }
+                        ]
+                    }
+                ],
+                "labels": [
+                    {
+                        "position": [-50,0],
+                        "text": "TerraGroup"
+                    },
+                    {
+                        "position": [150,1],
+                        "text": "Skyside"
+                    },
+                    {
+                        "position": [141,142],
+                        "text": "Fusion"
+                    },
+                    {
+                        "position": [14,201],
+                        "text": "Empire"
+                    },
+                    {
+                        "position": [115,285],
+                        "text": "Capital Insight"
+                    },
+                    {
+                        "position": [2,324],
+                        "text": "Nakatani"
+                    },
+                    {
+                        "position": [80, -118],
+                        "text": "Elemental Global"
+                    },
+                    {
+                        "position": [115,104],
+                        "text": "Oasis",
+                        "size": 70
+                    },
+                    {
+                        "position": [115,30],
+                        "text": "ASAP Winery",
+                        "size": 70
+                    },
+                    {
+                        "position": [43,150],
+                        "text": "Tarbank",
+                        "size": 70
+                    },
+                    {
+                        "position": [58,234],
+                        "text": "GAGRIN Hotel",
+                        "size": 70
+                    },
+                    {
+                        "position": [97,223],
+                        "text": "M Showroom",
+                        "size": 70
+                    },
+                    {
+                        "position": [-13,48],
+                        "text": "Science Office",
+                        "top": 28,
+                        "bottom": 28,
+                        "size": 60                       
+                    }
+                ]
+            },
+            {
+                "key": "ground-zero-2d",
+                "projection": "2D",
+                "author": "TheBigLebr0ski",
+                "authorLink": "https://www.reddit.com/user/TheBigLebr0ski/"
+            },
+            {
+                "key": "ground-zero-3d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            }
+        ]
+    },
+    {
+        "normalizedName": "customs",
+        "primaryPath": "/map/customs",
+        "maps": [
+            {
+                "key": "customs",
+                "projection": "interactive",
+                "tileSize": 256,
+                "minZoom": 2,
+                "maxZoom": 6,
+                "transform": [0.239, 168.65, 0.239, 136.35],
+                "coordinateRotation": 180,
+                "bounds": [
+                    [698, -307],
+                    [-372, 237]
+                ],
+                "heightRange": [-1000, 1000],
+                "author": "Tarkov.dev",
+                "authorLink": "https://tarkov.dev/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Ground_Level.svg",
+                "tilePath": "https://assets.tarkov.dev/maps/customs_v4/main/{z}/{x}/{y}.png",
+                "layers": [
+                    {
+                        "name": "Underground",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Underground_Level.svg",
+                        "tilePath": "https://assets.tarkov.dev/maps/customs_v4/underground/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-1000, 0.5],
+                                "bounds": [
+                                    [[635, -137], [620, -125], "zb-1011"],
+                                    [[473, -122], [458, -110], "zb-1012"],
+                                    [[314, -173], [308, -184], "old gas"],
+                                    [[349, -88], [323, -32], "switch basement"],
+                                    [[219, -158], [193, -137], "zb-013"]
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "2nd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Second_Floor.svg",
+                        "tilePath": "https://assets.tarkov.dev/maps/customs_v4/2nd/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [2.7, 6.5],
+                                "bounds": [
+                                    [[243, 190], [165, 125], "dorms"],
+                                    [[116, -83], [72, -170], "mechanic"],
+                                    [[356, -30], [341, -84], "switch 2nd"],
+                                    [[334, -52], [321, -59], "switch 2nd"],
+                                    [[589, 10], [577, -1], "scav checkpoint"],
+                                    [[580, -104], [532, -134], "dead scav warehouse"],
+                                    [[625, -120], [599, -139], "pump 2nd"]
+                                ]
+                            },
+                            {
+                                "height": [5.7, 1000],
+                                "bounds": [
+                                    [[580, -104], [532, -134], "dead scav warehouse"],
+                                    [[-199, -90], [-223, -131], "big red 2nd"],
+                                    [[239, 3], [169, -160], "skeleton"],
+                                    [[336, -56], [316, -95], "switch snipe"],
+                                    [[584, -46], [556, -92], "USEC 2nd"],
+                                    [[93, 0], [65, -22], "construction 2nd"]
+                                ]
+                            },
+                            {
+                                "height": [14, 15],
+                                "bounds": [
+                                    [[497, -44], [450, -90], "chemical warehouse sniper scav"]
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "3rd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Customs-Third_Floor.svg",
+                        "tilePath": "https://assets.tarkov.dev/maps/customs_v4/3rd/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [5.7, 1000],
+                                "bounds": [[[243, 190], [165, 125], "dorms"]]
+                            }
+                        ]
+                    }
+                ],
+                "labels": [
+                    {
+                        "position": [-215, -119],
+                        "text": "Big Red"
+                    },
+                    {
+                        "position": [200, 150],
+                        "text": "Dorms"
+                    },
+                    {
+                        "position": [404, 31],
+                        "text": "New Gas"
+                    },
+                    {
+                        "position": [331, -173],
+                        "text": "Old Gas"
+                    },
+                    {
+                        "position": [201, -127],
+                        "text": "Fortress"
+                    },
+                    {
+                        "position": [83, -153],
+                        "text": "Crackhouse"
+                    },
+                    {
+                        "position": [567, -67],
+                        "text": "Streamer House",
+                        "size": 90
+                    },
+                    {
+                        "position": [-69, 9],
+                        "text": "Main Bridge",
+                        "rotation": "6",
+                        "size": 90
+                    },
+                    {
+                        "position": [110, 85],
+                        "text": "Sniper Hill",
+                        "size": 90
+                    },
+                    {
+                        "position": [-288, -134],
+                        "text": "Storage",
+                        "size": 90
+                    },
+                    {
+                        "position": [-211, -219],
+                        "text": "Trailer Park",
+                        "size": 90
+                    },
+                    {
+                        "position": [-66, 46],
+                        "text": "Junk Bridge",
+                        "size": 90
+                    },
+                    {
+                        "position": [106, -90],
+                        "text": "Repair Shop",
+                        "size": 90
+                    },
+                    {
+                        "position": [491, 63],
+                        "text": "Sniper Ridge",
+                        "rotation": "5"
+                    },
+                    {
+                        "position": [75, -9],
+                        "text": "Old Construction",
+                        "size": 90
+                    },
+                    {
+                        "position": [200, -13],
+                        "text": "Skeleton",
+                        "rotation": "-9"
+                    },
+                    {
+                        "position": [390, -94],
+                        "text": "Warehouse 3"
+                    },
+                    {
+                        "position": [472, -67],
+                        "text": "Depot"
+                    },
+                    {
+                        "position": [555, -118],
+                        "text": "Warehouse 7"
+                    },
+                    {
+                        "position": [572, 0],
+                        "text": "Military Checkpoint"
+                    },
+                    {
+                        "position": [238, 53],
+                        "text": "Bus Station",
+                        "size": 90
+                    },
+                    {
+                        "position": [333, -67],
+                        "text": "Warehouse 4"
+                    },
+                    {
+                        "position": [497, 110],
+                        "text": "Powerline Tower"
+                    },
+                    {
+                        "position": [46, -59],
+                        "text": "Warehouse 17",
+                        "size": 90
+                    }
+                ]
+            },
+            {
+                "key": "customs-2d",
+                "projection": "2D",
+                "author": "monkimonkimonk",
+                "authorLink": "https://www.reddit.com/user/monkimonkimonk/"
+            },
+            {
+                "key": "customs-3d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            }
+        ]
+    },
+    {
+        "normalizedName": "factory",
+        "primaryPath": "/map/factory-3d",
+        "maps": [
+            {
+                "key": "factory",
+                "altMaps": ["night-factory"],
+                "projection": "interactive",
+                "tileSize": 256,
+                "minZoom": 1,
+                "maxZoom": 6,
+                "transform": [1.629, 119.9, 1.629, 139.3],
+                "coordinateRotation": 90,
+                "bounds": [
+                    [79, -64.5],
+                    [-66.5, 67.4]
+                ],
+                "heightRange": [-1, 3],
+                "author": "Tarkov.dev",
+                "authorLink": "https://tarkov.dev",
+                "tilePath": "https://assets.tarkov.dev/maps/factory_v2/main/{z}/{x}/{y}.png",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Factory-Ground_Floor.svg",
+                "layers": [
+                    {
+                        "name": "2nd Floor",
+                        "tilePath": "https://assets.tarkov.dev/maps/factory_v2/2nd_notint/{z}/{x}/{y}.png",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Factory-Second_Floor.svg",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [3, 6]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "3rd Floor",
+                        "tilePath": "https://assets.tarkov.dev/maps/factory_v2/3rd_notint/{z}/{x}/{y}.png",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Factory-Third_Floor.svg",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [6, 10000]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Tunnels",
+                        "tilePath": "https://assets.tarkov.dev/maps/factory_v2/tunnels_notint/{z}/{x}/{y}.png",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Factory-Basement.svg",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-10000, -1]
+                            }
+                        ]
+                    }
+                ],
+                "labels": [
+                    {
+                        "position": [21, 39],
+                        "text": "Office Building",
+                        "bottom": -1,
+                        "top": 10000,
+                        "size": 80
+                    },
+                    {
+                        "position": [15.5, 39],
+                        "text": "Main Office",
+                        "bottom": 6,
+                        "top": 10000,
+                        "size": 80
+                    },
+                    {
+                        "position": [24.5, 39],
+                        "text": "Breach Room",
+                        "bottom": 6,
+                        "top": 10000,
+                        "size": 80
+                    },
+                    {
+                        "position": [30.5, 39],
+                        "text": "Locked Office",
+                        "bottom": 6,
+                        "top": 10000,
+                        "size": 80
+                    },
+                    {
+                        "position": [35, 39],
+                        "text": "North Stairs",
+                        "bottom": -1,
+                        "top": 10000,
+                        "size": 80
+                    },
+                    {
+                        "position": [9, 39],
+                        "text": "South Stairs",
+                        "bottom": -1,
+                        "top": 10000,
+                        "size": 80
+                    },
+                    {
+                        "position": [34, 26],
+                        "text": "Sky Bridge",
+                        "bottom": 6,
+                        "top": 10000,
+                        "size": 80
+                    },
+                    {
+                        "position": [29.5, 17],
+                        "text": "Connector",
+                        "bottom": -1,
+                        "top": 10000,
+                        "size": 80
+                    },
+                    {
+                        "position": [29, 41],
+                        "text": "Locker Rooms",
+                        "bottom": 3,
+                        "top": 5,
+                        "size": 80
+                    },
+                    {
+                        "position": [15, 41],
+                        "text": "Sinks",
+                        "bottom": 3,
+                        "top": 5,
+                        "size": 80
+                    },
+                    {
+                        "position": [20, 42],
+                        "text": "Hole",
+                        "bottom": 3,
+                        "top": 5,
+                        "size": 80
+                    },
+                    {
+                        "position": [-3, 37],
+                        "text": "Platform",
+                        "bottom": -1,
+                        "top": 5,
+                        "size": 80
+                    },
+                    {
+                        "position": [-21, 27],
+                        "text": "Servers",
+                        "bottom": 3,
+                        "top": 5,
+                        "size": 80
+                    },
+                    {
+                        "position": [-18, -29],
+                        "text": "Med Tent",
+                        "bottom": -1,
+                        "top": 2,
+                        "size": 80
+                    },
+                    {
+                        "position": [4.5, 10.5],
+                        "text": "Silos",
+                        "bottom": -1,
+                        "top": 2
+                    },
+                    {
+                        "position": [30, -8.5],
+                        "text": "Heli Crash",
+                        "bottom": -1,
+                        "top": 10000,
+                        "size": 80
+                    },
+                    {
+                        "position": [-1, 16],
+                        "text": "Pit",
+                        "bottom": -10000,
+                        "top": -2,
+                        "size": 80
+                    },
+                    {
+                        "position": [-2, -24.5],
+                        "text": "Underground Stash",
+                        "bottom": -10000,
+                        "top": -2,
+                        "size": 80
+                    },
+                    {
+                        "position": [-20.5, 23],
+                        "text": "Scav Bunker",
+                        "bottom": -1,
+                        "top": 2,
+                        "size": 80
+                    },
+                    {
+                        "position": [-18, 50],
+                        "text": "Blue Containers",
+                        "bottom": -1,
+                        "top": 2
+                    },
+                    {
+                        "position": [-45.5, 61],
+                        "text": "Wood Room",
+                        "bottom": -1,
+                        "top": 2,
+                        "size": 80
+                    },
+                    {
+                        "position": [68.25, -20],
+                        "text": "Glass Hall",
+                        "bottom": -1,
+                        "top": 2,
+                        "size": 80
+                    },
+                    {
+                        "position": [56, 5],
+                        "text": "Boilers",
+                        "bottom": -1,
+                        "top": 5,
+                        "size": 80
+                    },
+                    {
+                        "position": [41, -11],
+                        "text": "Pumping Station",
+                        "bottom": -1,
+                        "top": 5,
+                        "size": 80
+                    },
+                    {
+                        "position": [44, -36],
+                        "text": "East Halls",
+                        "bottom": -1,
+                        "top": 2,
+                        "size": 80
+                    },
+                    {
+                        "position": [66, -42],
+                        "text": "Forklifts",
+                        "bottom": -1,
+                        "top": 2,
+                        "size": 80
+                    },
+                    {
+                        "position": [18, 4],
+                        "text": "Rafters",
+                        "bottom": 6,
+                        "top": 10000
+                    }
+                ]
+            },
+            {
+                "key": "factory-3d",
+                "projection": "3D",
+                "author": "JohnnyTushonka",
+                "authorLink": "https://www.reddit.com/user/JohnnyTushonka/"
+            }
+        ]
+    },
+    {
+        "normalizedName": "interchange",
+        "primaryPath": "/map/interchange-2d",
+        "maps": [
+            {
+                "key": "interchange",
+                "projection": "interactive",
+                "tileSize": 256,
+                "minZoom": 1,
+                "maxZoom": 6,
+                "transform": [0.265, 150.6, 0.265, 134.6],
+                "coordinateRotation": 180,
+                "bounds": [
+                    [530, -439],
+                    [-364, 452]
+                ],
+                "author": "Tarkov.dev",
+                "authorLink": "https://tarkov.dev",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-Ground_Level.svg",
+                "tilePath": "https://assets.tarkov.dev/maps/interchange/main/{z}/{x}/{y}.png",
+                "_heightRange": [-1000, 25],
+                "layers": [
+                    {
+                        "name": "2nd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-First_Floor.svg",
+                        "show": true,
+                        "extents": [
+                            {
+                                "height": [25, 34],
+                                "bounds": [[[120, 218], [-222, -327], "mall"]]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "3rd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Interchange-Second_Floor.svg",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [34, 1000],
+                                "bounds": [[[120, 218], [-222, -327], "mall"]]
+                            }
+                        ]
+                    }
+                ],
+                "labels": [
+                    {
+                        "position": [-186.4, -318.7],
+                        "text": "Power Station",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 100 
+                    },
+                    {
+                        "position": [155, -253],
+                        "text": "Go Kart",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80
+                    },
+                    {
+                        "position": [158, -78.5],
+                        "text": "Four Camp",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80
+                    },
+                    {
+                        "position": [68.2, 312.9],
+                        "text": "Cargo Containers",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80
+                    },
+                    {
+                        "position": [-260.2, 123.8],
+                        "text": "Wall Break",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80
+                    },
+                    {
+                        "position": [-175.5, 145.1],
+                        "text": "Ramps",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80
+                    },
+                    {
+                        "position": [202.3, 219.4],
+                        "text": "Oli Tower",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80
+                    },
+                    {
+                        "position": [46.5, -358.5],
+                        "text": "Idea Tower",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80
+                    },
+                    {
+                        "position":[263.2, -11.1],
+                        "text": "Scav Camp",
+                        "bottom": -1,
+                        "top": 10,
+                        "size": 80 
+                    },
+                    {
+                        "position":[373.5, -391.2],
+                        "text": "Highway Construction",
+                        "bottom": -1,
+                        "top": 10
+                    },
+                    {
+                        "position": [33, -222],
+                        "text": "Garage A",
+                        "bottom": -1000,
+                        "top": 24,
+                        "size": 80
+                    },
+                    {
+                        "position": [47, -112],
+                        "text": "Garage B",
+                        "bottom": -1000,
+                        "top": 24,
+                        "size": 80
+                    },
+                    {
+                        "position": [0, 47],
+                        "text": "Garage C",
+                        "bottom": -1000,
+                        "top": 24,
+                        "size": 80
+                    },
+                    {
+                        "position": [20, 138],
+                        "text": "Garage D",
+                        "bottom": -1000,
+                        "top": 24,
+                        "size": 80
+                    },
+                    {
+                        "position": [-34, -235],
+                        "text": "IDEA",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 80
+                    },
+                    {
+                        "position": [-115, -45],
+                        "text": "Goshan",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 80
+                    },
+                    {
+                        "position": [-28, 140],
+                        "text": "OLI",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 80
+                    },
+                    {
+                        "position": [87, -165],
+                        "text": "Nortex",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [60, -152],
+                        "text": "TRend",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [69.5, -134],
+                        "text": "Mode7",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [19, -129],
+                        "text": "TTS",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-38, -129],
+                        "text": "Book Store",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [91, -119],
+                        "text": "Dino Clothes",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [18, -103],
+                        "text": "EMERCOM",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-28, -103],
+                        "text": "Kostin",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-65, -103],
+                        "text": "Bizarro",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [92, -87],
+                        "text": "Spiel",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-18, -87],
+                        "text": "Voyage",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [57, -66],
+                        "text": "Viking",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [13, -66],
+                        "text": "Mantis",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-18, -72],
+                        "text": "German",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [57, -32],
+                        "text": "The National",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [13, -32],
+                        "text": "Brutal",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-18, -25],
+                        "text": "Kiba",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-34, -20],
+                        "text": "Pretty Lights",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [92, -18],
+                        "text": "Telespot",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [62, -12],
+                        "text": "Revis",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [19, -6],
+                        "text": "ADIK",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-28, 0.5],
+                        "text": "Generic",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [92, 15],
+                        "text": "Top Brand",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [61, 15],
+                        "text": "Sports",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [70, 32],
+                        "text": "Yushka",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [19.5, 26],
+                        "text": "Rasmussen",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [-37, 26],
+                        "text": "Avokado",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [91, 55],
+                        "text": "Boots 4 Life",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [61, 50],
+                        "text": "Texho",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [6, 49],
+                        "text": "Dom",
+                        "bottom": 25,
+                        "top": 33,
+                        "size": 65
+                    },
+                    {
+                        "position": [38, -170],
+                        "text": "Father & Sons",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [69, -150],
+                        "text": "Tarkovstar",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [26, -149],
+                        "text": "Eastland",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [71, -130],
+                        "text": "Arena",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [54, -128],
+                        "text": "ТАРЗДРАВ",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [20, -128],
+                        "text": "МЕБЕЛЬ МК",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [69, -116],
+                        "text": "Intourist",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [-27, -103],
+                        "text": "Burger Spot",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [70, -94],
+                        "text": "FCK",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [70, -87],
+                        "text": "McDaniels",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [64, -69],
+                        "text": "Tarducks",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [43, -69],
+                        "text": "Coffee Joy",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [15, -74],
+                        "text": "Jacob & Jacob",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [-34, -79],
+                        "text": "ПУШКИН",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [64, -34],
+                        "text": "Sushi Huyushi",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [-17, -32],
+                        "text": "Underway",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [67, -23.5],
+                        "text": "Burger House",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [-34, -24],
+                        "text": "Philly Cute",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [67, -16],
+                        "text": "Shiccos",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [17, 0],
+                        "text": "МУЗЕЙ ИСТОРИИ",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [92, 17],
+                        "text": "Papillon",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [58, 13],
+                        "text": "ЗАКРЫТО НА РЕМОНТ",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 60
+                    },
+                    {
+                        "position": [70, 27],
+                        "text": "НА-СВЯЗИ",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [54, 24],
+                        "text": "СКОРО ОТКРЫТИЕ",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [19, 26],
+                        "text": "Figaro",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [71, 47],
+                        "text": "АПТЕКА",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [53, 47],
+                        "text": "SARA",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [26, 46],
+                        "text": "Urban Clothes",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [91, 54],
+                        "text": "TECHLIGHT",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    },
+                    {
+                        "position": [39, 67],
+                        "text": "Fashion Store",
+                        "bottom": 34,
+                        "top": 999,
+                        "size": 65
+                    }
+                ]
+            },
+            {
+                "key": "interchange-2d",
+                "projection": "2D",
+                "author": "Lorathor",
+                "authorLink": "https://www.reddit.com/user/Lorathor6/"
+            }
+        ]
+    },
+    {
+        "normalizedName": "the-lab",
+        "primaryPath": "/map/labs-2d",
+        "maps": [
+            {
+                "key": "the-lab",
+                "projection": "interactive",
+                "tileSize": 175,
+                "minZoom": 2,
+                "maxZoom": 6,
+                "transform": [0.575, 281.2, 0.575, 196.7],
+                "coordinateRotation": 270,
+                "bounds": [
+                    [-91, -477],
+                    [-287, -193]
+                ],
+                "author": "Tarkov.dev",
+                "authorLink": "https://tarkov.dev",
+                "tilePath": "https://assets.tarkov.dev/maps/labs_v3/1st/{z}/{x}/{y}.png",
+                "heightRange": [-0.9, 3],
+                "layers": [
+                    {
+                        "name": "Second Level",
+                        "tilePath": "https://assets.tarkov.dev/maps/labs_v3/2nd/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [3, 10000],
+                                "bounds": [
+                                    [
+                                        [-101, -422],
+                                        [-271, -270]
+                                    ]
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Technical",
+                        "tilePath": "https://assets.tarkov.dev/maps/labs_v3/technical/{z}/{x}/{y}.png",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-10000, -0.9]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "key": "labs-2d",
+                "projection": "2D",
+                "author": "monkimonkimonk",
+                "authorLink": "https://www.reddit.com/user/monkimonkimonk/"
+            }
+        ]
+    },
+    {
+        "normalizedName": "lighthouse",
+        "primaryPath": "/map/lighthouse-2d-landscape",
+        "maps": [
+            {
+                "key": "lighthouse",
+                "projection": "interactive",
+                "minZoom": 1,
+                "maxZoom": 6,
+                "transform": [0.2, 0, 0.2, 0],
+                "coordinateRotation": 180,
+                "bounds": [
+                    [515, -998],
+                    [-545, 725]
+                ],
+                "author": "Shebuka",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Lighthouse.svg"
+            },
+            {
+                "key": "lighthouse-2d",
+                "projection": "2D",
+                "author": "Shebuka & Jindouz"
+            },
+            {
+                "key": "lighthouse-2d-landscape",
+                "projection": "2D",
+                "orientation": "Landscape",
+                "author": "Jindouz",
+                "authorLink": "https://www.reddit.com/user/Jindouz"
+            },
+            {
+                "key": "lighthouse-3d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            }
+        ]
+    },
+    {
+        "normalizedName": "reserve",
+        "primaryPath": "/map/reserve-3d",
+        "maps": [
+            {
+                "key": "reserve",
+                "projection": "interactive",
+                "minZoom": 2,
+                "maxZoom": 6,
+                "transform": [0.268, 0, 0.268, 0],
+                "coordinateRotation": 180,
+                "bounds": [
+                    [289, -338],
+                    [-303, 336]
+                ],
+                "author": "Shebuka",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Ground_Level.svg",
+                "heightRange": [-7, 10000],
+                "layers": [
+                    {
+                        "name": "Bunkers",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Reserve-Bunkers.svg",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-10000, -7]
+                            }
+                        ]
+                    }
+                ],
+                "labels":[
+                    {
+                        "position": [28, -102],
+                        "text": "K Buildings",
+                        "bottom": -6
+                    },
+                    {
+                        "position": [-25, 180],
+                        "text": "White Queen",
+                        "rotation": -15,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [-104,93],
+                        "text": "White Pawn",
+                        "rotation": 14,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [-140,-14.5],
+                        "text": "Black Bishop",
+                        "rotation": 14,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [-67, -30],
+                        "text": "White Bishop",
+                        "rotation": 14,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [-49.5, 15.5],
+                        "text": "White King",
+                        "rotation": 14,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [14.5,-10.8],
+                        "text": "Black Knight",
+                        "bottom": -6
+                    },
+                    {
+                        "position": [82.2,-30.2],
+                        "text": "White Knight",
+                        "bottom": -6
+                    },
+                    {
+                        "position": [149,-124],
+                        "text": "White Rook",
+                        "bottom": -6
+                    },
+                    {
+                        "position": [161,-149],
+                        "text": "Train Station",
+                        "rotation": 14,
+                        "size": 80,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [-165,57],
+                        "text": "Black Pawn",
+                        "rotation": -75,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [167, -222],
+                        "text": "Barracks",
+                        "bottom": -6
+                    },
+                    {
+                        "position": [-220, -13],
+                        "text": "E1 Bunkers",
+                        "bottom": -6
+                    },
+                    {
+                        "position": [173,-3],
+                        "text": "E2 Bunkers",
+                        "bottom": -6
+                    },
+                    {
+                        "position": [80,-167],
+                        "text": "д - Warehouse Bunkers",
+                        "rotation": 14,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [96, 30],
+                        "text": "Garage",
+                        "rotation": -75,
+                        "size": 80,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [55.5, 60.6],
+                        "text": "Mechanic",
+                        "size": 80,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [29.7, 29.5],
+                        "text": "Gas Station",
+                        "rotation": 14,
+                        "size": 80,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [-31,-150],
+                        "text": "Shipping Yard",
+                        "rotation": 14,
+                        "size": 80,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [-1, -71],
+                        "text": "K1",
+                        "rotation": 14,
+                        "size": 80,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [66,-90],
+                        "text": "K2",
+                        "rotation": 14,
+                        "size": 80,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [-5.5,-94],
+                        "text": "K3",
+                        "rotation": 14,
+                        "size": 80,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [60,-112],
+                        "text": "K4",
+                        "rotation": 14,
+                        "size": 80,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [-10.5,-115],
+                        "text": "K5",
+                        "rotation": 14,
+                        "size": 80,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [54,-132],
+                        "text": "K6",
+                        "rotation": 14,
+                        "size": 80,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [-8.5,175],
+                        "text": "Dome",
+                        "size": 80,
+                        "bottom": -6
+                    },
+                    {
+                        "position": [-120,37],
+                        "text": "Tarmac",
+                        "rotation": 14,
+                        "size":80,
+                        "bottom": -6
+                    }
+                ]
+            },
+            {
+                "key": "reserve-2d",
+                "projection": "2D",
+                "author": "Jindouz",
+                "authorLink": "https://www.reddit.com/user/Jindouz"
+            },
+            {
+                "key": "reserve-3d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            }
+        ]
+    },
+    {
+        "normalizedName": "shoreline",
+        "primaryPath": "/map/shoreline-2d",
+        "maps": [
+            {
+                "key": "shoreline",
+                "projection": "interactive",
+                "minZoom": 2,
+                "maxZoom": 6,
+                "transform": [0.16, 83.2, 0.16, 111.1],
+                "coordinateRotation": 180,
+                "bounds": [
+                    [508, -415],
+                    [-1060, 618]
+                ],
+                "heightRange": [-1000, -1],
+                "author": "Shebuka",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Ground_Level.svg",
+                "tilePath": "https://assets.tarkov.dev/maps/shoreline/main/{z}/{x}/{y}.png",
+                "layers": [
+                    {
+                        "name": "Underground",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Underground_Level.svg",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-1000, -5],
+                                "bounds": [
+                                    [[-137, -68], [-237, -104], "west wing"],
+                                    [[-234, -134], [-268, -163], "admin"]
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "2nd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Second_Floor.svg",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [-1, 2]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "3rd Floor",
+                        "svgPath": "https://assets.tarkov.dev/maps/svg/Shoreline-Third_Floor.svg",
+                        "show": false,
+                        "extents": [
+                            {
+                                "height": [2, 1000]
+                            }
+                        ]
+                    }
+                ],
+                "labels": [
+                    {
+                        "position": [-258.2, -71.2],
+                        "text": "Resort",
+                        "bottom": -4,
+                        "top": -2,
+                        "size": 100
+                    },
+                    {
+                        "position": [-215.8, 178.4],
+                        "text":"Power Station",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-189.3, 420],
+                        "text":"Gas Station",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-496, 257],
+                        "text":"Weather Station",
+                        "bottom": -4,
+                        "top": -2
+
+                    },
+                    {
+                        "position": [-708.9, 93.91],
+                        "text": "Radio Tower",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [326, -118.5],
+                        "text": "Swamp",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [418.4, 118],
+                        "text": "Village",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [288, 144],
+                        "text":"Cabins",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [128, 93],
+                        "text": "Cottages",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-355, 188],
+                        "text": "Tank Bridge",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-338.6, 525],
+                        "text": "Pier",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [216, 424],
+                        "text": "Scav Island",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-96, -6],
+                        "text": "Bus Stop",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [52 , 134],
+                        "text": "Construction",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-153, -290],
+                        "text": "Bunker",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-625, 484],
+                        "text": "Crane",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-622, -202],
+                        "text": "Scav Farm",
+                        "bottom": -4,
+                        "top": -2
+                    },
+                    {
+                        "position": [-171, -83],
+                        "text": "West Wing",
+                        "bottom": 0,
+                        "top": 3
+                    },
+                    {
+                        "position": [-329, -83],
+                        "text": "East Wing",
+                        "bottom": 0,
+                        "top": 3
+                    },
+                    {
+                        "position": [-252, -146],
+                        "text": "Admin",
+                        "bottom": 0,
+                        "top": 3
+                    }
+                ]
+            },
+            {
+                "key": "shoreline-2d",
+                "projection": "2D",
+                "author": "monkimonkimonk",
+                "authorLink": "https://www.reddit.com/user/monkimonkimonk/"
+            },
+            {
+                "key": "shoreline-3d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            }
+        ]
+    },
+    {
+        "normalizedName": "woods",
+        "primaryPath": "/map/woods-2d",
+        "maps": [
+            {
+                "key": "woods",
+                "projection": "interactive",
+                "minZoom": 1,
+                "maxZoom": 6,
+                "transform": [0.1855, 113.1, 0.1855, 167.8],
+                "coordinateRotation": 180,
+                "bounds": [
+                    [650, -945],
+                    [-695, 470]
+                ],
+                "author": "Shebuka",
+                "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Woods.svg",
+                "tilePath": "https://assets.tarkov.dev/maps/woods/main/{z}/{x}/{y}.png",
+                "labels": [
+                    {
+                        "position": [10,-3],
+                        "text": "Sawmill"
+                    },
+                    {
+                        "position": [-485,-390],
+                        "text": "Scav Town"
+                    },
+                    {
+                        "position": [-517,-210],
+                        "text": "Old Sawmill"
+                    },
+                    {
+                        "position": [-80,-680],
+                        "text": "Cultist Village"
+                    },
+                    {
+                        "position": [290, -475],
+                        "text": "USEC Camp"
+                    },
+                    {
+                        "position": [-188,235],
+                        "text": "Military Camp"
+                    },
+                    {
+                        "position": [-5,-515],
+                        "text": "Ponds",
+                        "size": 80
+                    },
+                    {
+                        "position": [-252,-37],
+                        "text": "Crash Site",
+                        "size": 80
+                    },
+                    {
+                        "position": [239,-65],
+                        "text": "Checkpoint",
+                        "size": 70
+                    },
+                    {
+                        "position": [244,125],
+                        "text": "Shack",
+                        "size": 70
+                    },
+                    {
+                        "position": [-16,-122],
+                        "text": "Lumber",
+                        "size": 70
+                    },
+                    {
+                        "position": [-3,-74],
+                        "text": "Cabins",
+                        "size": 70
+                    },
+                    {
+                        "position": [-234,357],
+                        "text": "Bus Stop",
+                        "size": 70
+                    },
+                    {
+                        "position": [-327, 19],
+                        "text": "Jaeger's Camp",
+                        "size": 70
+                    },
+                    {
+                        "position": [85, -147],
+                        "text": "Sniper Rock",
+                        "size": 70
+                    },
+                    {
+                        "position": [200,-606],
+                        "text": "Convoy",
+                        "size": 70
+                    }
+                ]
+            },
+            {
+                "key": "woods-2d",
+                "projection": "2D",
+                "author": "Jindouz",
+                "authorLink": "https://www.reddit.com/user/Jindouz"
+            },
+            {
+                "key": "woods-3d",
+                "projection": "3D",
+                "author": "re3mr",
+                "authorLink": "https://reemr.se"
+            }
+        ]
+    },
+    {
+        "name": "Openworld",
+        "normalizedName": "openworld",
+        "description": "This is an immagination of what the full map of Tarkov would like. This openworld map would likely include all of the key locations from the existing maps combined in a huge single map.",
+        "primaryPath": "/map/openworld-2d",
+        "maps": [
+            {
+                "key": "openworld-2d",
+                "projection": "2D",
+                "author": "LastNickLeft",
+                "authorLink": "https://www.reddit.com/user/LastNickLeft"
+            }
+        ]
+    }
+]

@@ -1,0 +1,206 @@
+.item-group-wrapper {
+    border: 1px solid #1b1919;
+    background-color: #2d2d2f;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    width: 100%;
+    --grid-base: 48px;
+}
+
+.item-group-wrapper .text-label {
+    flex-grow: 1;
+    font-size: 10px;
+    position: absolute;
+    top: 0;
+}
+
+.item-group-wrapper.filter-wrapper button {
+    border: 0;
+    background-color: rgb(239, 239, 239);
+    padding: 10px;
+}
+
+.item-group-title {
+    align-items: center;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.item-group-wrapper.big {
+    font-size: 40px;
+}
+
+.item-group-subtitle-wrapper {
+    align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+.item-group-subtitle-wrapper .note {
+    color: #636363;
+}
+
+.item-group-items {
+    display: grid;
+    grid-auto-rows: var(--grid-base);
+    grid-template-columns: repeat(auto-fill, minmax(var(--grid-base), 1fr));
+    grid-gap: 1px;
+    margin: auto;
+    width: 90vw;
+}
+
+.grid-item {
+    position: relative;
+}
+
+.grid-item:hover .grid-item-tooltip {
+    right: 100%;
+    opacity: 1;
+}
+
+.grid-item img {
+    height: 100%;
+    width: 100%;
+}
+
+.sell-to-icon {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-top-left-radius: 3px;
+    bottom: 1px;
+    color: #c7c5b3;
+    font-size: 14px;
+    height: 24px;
+    line-height: 24px;
+    position: absolute;
+    right: 1px;
+    text-align: center;
+    width: 24px;
+}
+
+.sell-to-icon img {
+    height: 24px;
+    width: 24px;
+}
+
+.grid-item-tooltip {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 12px;
+    opacity: 0;
+    padding: 5px 10px;
+    pointer-events: none;
+    position: absolute;
+    right: 90%;
+    text-align: right;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.grid-item-tooltip-title {
+    font-weight: bold;
+}
+
+.grid-item.grid-item-1x1 {
+    height: var(--grid-base);
+    width: var(--grid-base);
+}
+
+.grid-item.grid-item-2x1 {
+    height: calc(2 * var(--grid-base));
+    width: var(--grid-base);
+    grid-row-end: span 2;
+}
+
+.grid-item.grid-item-1x2,
+.grid-item.grid-item-1x3,
+.grid-item.grid-item-3x1,
+.grid-item.grid-item-6x2 {
+    height: calc(2 * var(--grid-base));
+    width: var(--grid-base);
+    grid-row-end: span 2;
+}
+
+.grid-item.grid-item-4x1,
+.grid-item.grid-item-5x1,
+.grid-item.grid-item-6x1,
+.grid-item.grid-item-7x1 {
+    height: var(--grid-base);
+    width: calc(3 * var(--grid-base));
+    grid-column-end: span 3;
+}
+
+.grid-item.grid-item-2x2,
+.grid-item.grid-item-3x3,
+.grid-item.grid-item-3x4,
+.grid-item.grid-item-4x3,
+.grid-item.grid-item-4x4,
+.grid-item.grid-item-4x5,
+.grid-item.grid-item-5x5,
+.grid-item.grid-item-4x8 {
+    height: calc(2 * var(--grid-base));
+    width: calc(2 * var(--grid-base));
+    grid-row-end: span 2;
+    grid-column-end: span 2;
+}
+
+.grid-item.grid-item-2x3,
+.grid-item.grid-item-3x2,
+.grid-item.grid-item-5x2,
+.grid-item.grid-item-5x3 {
+    height: calc(2 * var(--grid-base));
+    width: calc(3 * var(--grid-base));
+    grid-row-end: span 2;
+    grid-column-end: span 3;
+}
+
+.grid-item.grid-item-4x2 {
+    height: calc(2 * var(--grid-base));
+    width: calc(4 * var(--grid-base));
+    grid-row-end: span 2;
+    grid-column-end: span 4;
+}
+
+@media screen and (min-width: 1920px) {
+    .item-group-wrapper {
+        --grid-base: 64px;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .item-group-title {
+        width: 10vw;
+    }
+
+    .item-group-wrapper {
+        flex-wrap: nowrap;
+    }
+
+    .item-group-wrapper .text-label {
+        bottom: -4px;
+        right: 30px;
+        top: auto;
+    }
+
+    .barter-class-wrapper {
+        width: 100%;
+    }
+
+    .item-group-subtitle-wrapper {
+        width: 100%;
+    }
+
+    .item-group-subtitle-wrapper > div {
+        flex-grow: 1;
+    }
+}

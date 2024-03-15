@@ -1,0 +1,39 @@
+.cost-item-wrapper {
+    align-items: center;
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
+.cost-item-wrapper.disabled img {
+    filter: grayscale(100%);
+}
+
+.cost-item-wrapper.disabled::after {
+    background-color: rgba(0, 0, 0, 0.3);
+    bottom: 0;
+    content: ' ';
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.cost-item-count-wrapper {
+    color: #c7c5b3;
+}
+
+.cost-image-wrapper {
+    font-size: 0;
+    margin-right: 10px;
+}
+
+.cost-item-text-wrapper {
+    flex-grow: 1;
+    white-space: nowrap;
+}
+
+.cost-image-wrapper img {
+    width: 32px;
+    height: 32px;
+}

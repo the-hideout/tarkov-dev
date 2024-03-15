@@ -1,0 +1,23 @@
+.boss-list-wrapper {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+}
+
+.boss-page-wrapper {
+    min-height: 0;
+}
+
+.boss-list-wrapper img {
+    width: 128px;
+    height: 128px;
+}
+
+.boss-sub-text {
+    margin: .75rem;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+@media screen and (min-width: 800px) {}

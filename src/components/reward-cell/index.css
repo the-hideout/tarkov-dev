@@ -1,0 +1,48 @@
+.hidden {
+    display: none;
+}
+
+.reward-wrapper {
+    align-items: center;
+    display: flex;
+}
+
+.reward-info-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.reward-info-wrapper > div {
+    width: 100%;
+}
+
+.reward-info-wrapper div:first-child {
+    white-space: nowrap;
+}
+
+.reward-info-source {
+    font-size: 14px;
+}
+
+.reward-custom-price {
+    background-color: #292727;
+    border: #9a8866 2px solid;
+    color: #c7c5b3;
+    padding: 4px;
+    width: 5em;
+}
+
+.reward-muted-green {
+    color: #6a9a66;
+}
+
+.reward-muted-red {
+    color: #9a6666;
+}
+
+@media screen and (min-width: 800px) {
+    .reward-info-wrapper div:first-child {
+        white-space: initial;
+    }
+}

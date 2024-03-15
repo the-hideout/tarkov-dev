@@ -1,0 +1,30 @@
+{
+    "customs": {
+        "spawn_sniper_scav": [
+            {
+                "name": "Warehouse sniper Scav",
+                "position": {
+                    "x": 475.0,
+                    "z": -71.0,
+                    "y": 10
+                }
+            },
+            {
+                "name": "Cimney sniper Scav",
+                "position": {
+                    "x": 254.0,
+                    "z": -26.0,
+                    "y": 15
+                }
+            },
+            {
+                "name": "Warehouse sniper SCAV",
+                "position": {
+                    "x": 106.0,
+                    "z": -47.0,
+                    "y": 10
+                }
+            }
+        ]
+    }
+}

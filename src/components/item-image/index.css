@@ -1,0 +1,41 @@
+.item-image-mask {
+    background: linear-gradient(to left, #9a8866 20%, #c7c5b3 40%, #c7c5b3 60%, #9a8866 80%);
+    background-size: 200% auto;
+    width: 200px;
+    height: 200px;
+    opacity: 0.9;
+
+    -webkit-animation: shine 1s linear infinite;
+            animation: shine 1s linear infinite;
+}
+@-webkit-keyframes shine {
+    to {
+        background-position: -200% center;
+    }
+}
+@keyframes shine {
+    to {
+        background-position: -200% center;
+    }
+}
+
+.react-simple-image-viewer__modal-content img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
+
+.item-image-fir {
+    max-width: 16px;
+    max-height: 16px;
+}
+
+.item-image-count {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-top-left-radius: 3px;
+    color: #c7c5b3;
+    font-size: 14px;
+    height: 18px;
+    line-height: 20px;
+    padding: 0 5px;
+    text-align: center;
+}

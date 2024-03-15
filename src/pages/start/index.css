@@ -1,0 +1,121 @@
+.start-wrapper {
+    align-items: stretch;
+    display: flex;
+    height: auto;
+    justify-content: space-between;
+    flex-flow: wrap;
+    max-width: 1200px;
+}
+
+.start-wrapper ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.info-text-wrapper {
+    text-align: center;
+    width: 100%;
+}
+
+.main-logo {
+    margin-top: 2.5rem;
+}
+
+.main-h1 {
+    font-size: 1.3rem;
+}
+
+.main-h2 {
+    font-size: 1.1rem;
+}
+
+.main-headers {
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+.start-wrapper .icon-with-text {
+    margin-left: 0;
+}
+
+.ammo-link-wrapper {
+    display: block;
+    text-align: center;
+}
+
+.start-section-wrapper {
+    background-color: #2d2d2f;
+    border: 4px solid #1b1919;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.start-section-wrapper h2,
+.start-section-wrapper h3 {
+    /* margin-top: 0; */
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.start-section-wrapper img {
+    max-width: 100%;
+}
+
+.start-section-wrapper li a {
+    display: flex;
+    padding: 5px 0;
+}
+
+.traders-list a {
+    align-items: center;
+}
+
+.start-section-wrapper .trader-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.traders-list .trader-icon {
+    margin-right: 10px;
+}
+
+.tools-list li a {
+    align-items: center;
+    display: flex;
+}
+
+.load-more-wrapper {
+    margin-top: 1.25rem;
+    margin-bottom: .5rem;
+    display: block;
+    text-align: center;
+}
+
+.load-more-button {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 5px;
+}
+
+.load-more-button:hover {
+    background-color: #6e5f43;
+    color: white;
+    cursor: pointer;
+  }
+
+@media screen and (min-width: 1280px) {
+    .start-section-wrapper img {
+        max-width: 256px;
+    }
+
+    .start-section-wrapper {
+        width: 24%;
+    }
+
+    .item-section {
+        width: 74%;
+    }
+}

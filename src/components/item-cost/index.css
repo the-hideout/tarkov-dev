@@ -1,0 +1,36 @@
+.hidden {
+    display: none;
+}
+
+.item-cost-cash-sell {
+    color: #c89898;
+}
+
+.item-cost-custom-price {
+    background-color: #292727;
+    border: #9a8866 2px solid;
+    color: #c7c5b3;
+    padding: 4px;
+    width: 5em;
+}
+
+.item-cost-muted-green {
+    color: #6a9a66;
+}
+
+.item-cost-muted-red {
+    color: #9a6666;
+}
+
+.item-cost-barter-icon {
+    border: 0;
+    position: relative;
+    top: 2px;
+    width: 14px;
+    margin-right: 3px;
+}
+
+.craft-barter-icon {
+    vertical-align: middle;
+    margin-right: 3px;
+}

@@ -1,0 +1,79 @@
+.killa-party-time {
+    margin-top: 5rem;
+}
+
+.killa-party-time-text {
+    font-size: 1rem;
+}
+
+.boss-page-wrapper {
+    margin: 0 auto 100px auto;
+    max-width: 1200px;
+    padding-top: 10px;
+    position: relative;
+}
+
+.boss-page-wrapper h2 {
+    margin-top: 40px;
+    font-size: 24px;
+}
+
+.boss-information-grid h1 {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.boss-information-grid h1,
+.boss-icon-and-link-wrapper {
+    margin: 0 0 10px 0;
+}
+
+.boss-information-icon {
+    width: 64px;
+    height: 64px;
+    cursor: zoom-in;
+}
+
+.boss-icon-and-link-wrapper {
+    align-items: flex-start;
+    display: none;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    cursor: zoom-in;
+}
+
+@media screen and (min-width: 800px) {
+    .boss-page-wrapper {
+        padding-top: 20px;
+    }
+
+    .boss-information-wrapper {
+        flex-grow: 1;
+    }
+
+    .boss-information-grid {
+        display: flex;
+    }
+
+    .boss-information-grid h1 img {
+        display: none;
+    }
+
+    .boss-details {
+        margin-right: 1em;
+    }
+
+    .boss-information-grid h1,
+    .boss-icon-and-link-wrapper {
+        margin: 0;
+    }
+
+    .boss-icon-and-link-wrapper {
+        display: flex;
+    }
+
+    .boss-icon-and-link-wrapper img {
+        max-height: 200px;
+    }
+}

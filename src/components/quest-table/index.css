@@ -1,0 +1,44 @@
+.quest-name-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.quest-giver-image {
+    margin-right: 10px;
+    max-width: 64px;
+    max-height: 64px;
+}
+
+.quest-item-wrapper {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+}
+
+.quest-image-wrapper {
+    margin-right: 10px;
+}
+
+.quest-image-wrapper img {
+    width: 48px;
+    height: 48px;
+}
+
+.amount-wrapper,
+.found-in-raid-wrapper {
+    color: #636363;
+    font-size: 14px;
+}
+
+.found-in-raid-wrapper.find-in-raid {
+    color: #cd1e2f;
+}
+
+.quest-link-wrapper {
+    align-items: center;
+    display: flex;
+}
+
+.quest-link-wrapper a {
+    display: flex;
+}

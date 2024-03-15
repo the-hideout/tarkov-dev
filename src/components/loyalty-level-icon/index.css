@@ -1,0 +1,15 @@
+.loyalty-level-parent {
+    filter: drop-shadow(2px 3px 1px rgba(0, 0, 0, 0.5));
+    left: 2px;
+    position: absolute;
+    top: 2px;
+    width: 20px;
+}
+
+.loyalty-level-wrapper {
+    background-color: #bac1c4;
+    clip-path: polygon(100% 0, 100% 70%, 70% 100%, 0 100%, 0 0);
+    color: #000;
+    font-weight: 700;
+    text-align: center;
+}
