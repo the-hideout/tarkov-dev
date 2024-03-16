@@ -18,6 +18,7 @@ function Players() {
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [nameResults, setNameResults] = useState([]);
+    const [nameResultsError, setNameResultsError] = useState(false);
 
     const [isButtonDisabled, setButtonDisabled] = useState(true);
     const [searched, setSearched] = useState(false);
@@ -27,18 +28,30 @@ function Players() {
             return;
         }
         try {
+            setNameResultsError(false);
             setButtonDisabled(true);
             const response = await fetch('https://player.tarkov.dev/name/'+nameFilter);
             if (response.status !== 200) {
-                return;
+                let errorMessage = await response.text();
+                try {
+                    const json = JSON.parse(errorMessage);
+                    errorMessage = json.errmsg;
+                } catch {}
+                throw new Error(errorMessage);
             }
-            setButtonDisabled(false);
             setSearched(true);
             setNameResults(await response.json());
         } catch (error) {
-            setNameResults(['Error searching player profile: ' + error]);
+            let message = error.message;
+            if (message.includes('Malformed')) {
+                message = 'Error searching player profile; try removing one character from the end until the search works.'
+            }
+            setSearched(false);
+            setNameResults([]);
+            setNameResultsError(message);
         }
-    }, [nameFilter, setNameResults]);
+        setButtonDisabled(false);
+    }, [nameFilter, setNameResults, setNameResultsError]);
 
     const searchResults = useMemo(() => {
         if (!searched) {
@@ -105,7 +118,12 @@ function Players() {
                 />
                 <button className="search-button" onClick={searchForName} disabled={isButtonDisabled}>{t('Search')}</button>
             </div>
-            {searchResults}
+            {!!nameResultsError && (
+                <div>
+                    <p>{`${t('Search error')}: ${nameResultsError}`}</p>
+                </div>
+            )}
+            {!nameResultsError && searchResults}
         </div>,
     ];
 }
