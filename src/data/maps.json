@@ -72,221 +72,221 @@
                 ],
                 "labels": [
                     {
-                        "position": [9,308],
+                        "position": [9, 308],
                         "text": "Primorsky Ave.",
                         "rotation": -90,
-                        "size":80
+                        "size": 80
                     },
                     {
-                        "position": [9,104],
+                        "position": [9, 104],
                         "text": "Primorsky Ave.",
                         "rotation": -90,
-                        "size":80
+                        "size": 80
                     },
                     {
-                        "position": [9,-80],
+                        "position": [9, -80],
                         "text": "Primorsky Ave.",
                         "rotation": -90,
-                        "size":80
+                        "size": 80
                     },
                     {
-                        "position": [125,10],
+                        "position": [125, 10],
                         "text": "Kilmov St.",
-                        "size":80
+                        "size": 80
                     },
                     {
-                        "position": [-104,28],
+                        "position": [-104, 28],
                         "text": "Kilmov St.",
                         "rotation": 10,
-                        "size":80
+                        "size": 80
                     },
                     {
-                        "position": [-125,210],
+                        "position": [-125, 210],
                         "text": "Nikitskaya St.",
                         "size": 80
                     },
                     {
-                        "position": [-112,361],
+                        "position": [-112, 361],
                         "text": "Verhnyaya St.",
                         "size": 80
                     },
                     {
-                        "position": [-200,290],
+                        "position": [-200, 290],
                         "text": "Malevecha St.",
                         "rotation": -64,
                         "size": 80
                     },
                     {
-                        "position": [111,251],
+                        "position": [111, 251],
                         "text": "Chekannaya St.",
                         "size": 80
                     },
                     {
-                        "position": [-101,441],
+                        "position": [-101, 441],
                         "text": "Nizhnyaya St.",
                         "size": 80
                     },
                     {
-                        "position": [174,430],
+                        "position": [174, 430],
                         "text": "Razvedchikov St.",
                         "rotation": -30,
                         "size": 80
                     },
                     {
-                        "position": [140,150],
+                        "position": [140, 150],
                         "text": "Zmejskij Alley",
                         "rotation": -68,
                         "size": 80
                     },
                     {
-                        "position": [232,100],
+                        "position": [232, 100],
                         "text": "Kamchatskaya St.",
                         "rotation": -90,
                         "size": 80
                     },
                     {
-                        "position": [-128,-35],
+                        "position": [-128, -35],
                         "text": "Kilmov Shopping Mall",
                         "size": 90
                     },
                     {
-                        "position": [-45,-52],
+                        "position": [-45, -52],
                         "text": "Beluga",
                         "size": 90
                     },
                     {
-                        "position": [99,-71],
+                        "position": [99, -71],
                         "text": "Cardinal Apartments",
                         "size": 90
                     },
                     {
-                        "position": [230,295],
+                        "position": [230, 295],
                         "text": "Construction",
                         "size": 90
                     },
                     {
-                        "position": [66,305],
+                        "position": [66, 305],
                         "text": "Lexos",
                         "size": 90
                     },
                     {
-                        "position": [140,300],
+                        "position": [140, 300],
                         "text": "Sparja Grocery",
                         "size": 90
                     },
                     {
-                        "position": [-175,400],
+                        "position": [-175, 400],
                         "text": "Cinema",
                         "size": 90
                     },
                     {
-                        "position": [-218,135],
+                        "position": [-218, 135],
                         "text": "Shestyorochka",
                         "size": 90
                     },
                     {
-                        "position": [-35,64],
+                        "position": [-35, 64],
                         "text": "Pinewood Hotel",
                         "size": 90
                     },
                     {
-                        "position": [65,398],
+                        "position": [65, 398],
                         "text": "Teppakot / Koener",
                         "size": 70
                     },
                     {
-                        "position": [140,362],
+                        "position": [140, 362],
                         "text": "Concordia",
                         "size": 70
                     },
                     {
-                        "position": [89,-20],
+                        "position": [89, -20],
                         "text": "Cardinal Bank",
                         "size": 70
                     },
                     {
-                        "position": [239,-60],
+                        "position": [239, -60],
                         "text": "LERM Expo",
                         "size": 70
                     },
                     {
-                        "position": [-64,166],
+                        "position": [-64, 166],
                         "text": "Sparja Express",
                         "size": 70
                     },
                     {
-                        "position": [-30,138],
+                        "position": [-30, 138],
                         "text": "Burger Spot",
                         "size": 70
                     },
                     {
-                        "position": [42,97],
+                        "position": [42, 97],
                         "text": "Post Office",
                         "size": 70
                     },
                     {
-                        "position": [42,160],
+                        "position": [42, 160],
                         "text": "Pharmacy",
                         "size": 70
                     },
                     {
-                        "position": [67,230],
+                        "position": [67, 230],
                         "text": "Tarbank",
                         "size": 70
                     },
                     {
-                        "position": [211,129],
+                        "position": [211, 129],
                         "text": "School",
                         "size": 70
                     },
                     {
-                        "position": [222,173],
+                        "position": [222, 173],
                         "text": "Vet Clinic",
                         "size": 70
                     },
                     {
-                        "position": [-50,326],
+                        "position": [-50, 326],
                         "text": "Pharmacy",
                         "size": 70
                     },
                     {
-                        "position": [-212,300],
+                        "position": [-212, 300],
                         "text": "Hive",
                         "size": 70
                     },
                     {
-                        "position": [-223,279],
+                        "position": [-223, 279],
                         "text": "Family Market",
                         "size": 70
                     },
                     {
-                        "position": [-200,248],
+                        "position": [-200, 248],
                         "text": "Marked Hotel",
                         "size": 70
                     },
                     {
-                        "position": [-119,287],
+                        "position": [-119, 287],
                         "text": "Abandon Factory",
                         "size": 70
                     },
                     {
-                        "position": [-80,235],
+                        "position": [-80, 235],
                         "text": "Diner",
                         "size": 70
                     },
                     {
-                        "position": [-13,244],
+                        "position": [-13, 244],
                         "text": "Primorskij 49",
                         "size": 70
                     },
                     {
-                        "position": [39,230],
+                        "position": [39, 230],
                         "text": "Prestigio Cafe",
-                        "rotation":-45,
+                        "rotation": -45,
                         "size": 60
                     },
                     {
-                        "position": [-70,343],
+                        "position": [-70, 343],
                         "text": "Bilbo Coffee",
                         "size": 60
                     }
@@ -386,27 +386,27 @@
                 ],
                 "labels": [
                     {
-                        "position": [-50,0],
+                        "position": [-50, 0],
                         "text": "TerraGroup"
                     },
                     {
-                        "position": [150,1],
+                        "position": [150, 1],
                         "text": "Skyside"
                     },
                     {
-                        "position": [141,142],
+                        "position": [141, 142],
                         "text": "Fusion"
                     },
                     {
-                        "position": [14,201],
+                        "position": [14, 201],
                         "text": "Empire"
                     },
                     {
-                        "position": [115,285],
+                        "position": [115, 285],
                         "text": "Capital Insight"
                     },
                     {
-                        "position": [2,324],
+                        "position": [2, 324],
                         "text": "Nakatani"
                     },
                     {
@@ -414,36 +414,36 @@
                         "text": "Elemental Global"
                     },
                     {
-                        "position": [115,104],
+                        "position": [115, 104],
                         "text": "Oasis",
                         "size": 70
                     },
                     {
-                        "position": [115,30],
+                        "position": [115, 30],
                         "text": "ASAP Winery",
                         "size": 70
                     },
                     {
-                        "position": [43,150],
+                        "position": [43, 150],
                         "text": "Tarbank",
                         "size": 70
                     },
                     {
-                        "position": [58,234],
+                        "position": [58, 234],
                         "text": "GAGRIN Hotel",
                         "size": 70
                     },
                     {
-                        "position": [97,223],
+                        "position": [97, 223],
                         "text": "M Showroom",
                         "size": 70
                     },
                     {
-                        "position": [-13,48],
+                        "position": [-13, 48],
                         "text": "Science Office",
                         "top": 28,
                         "bottom": 28,
-                        "size": 60                       
+                        "size": 60
                     }
                 ]
             },
@@ -982,7 +982,7 @@
                         "text": "Power Station",
                         "bottom": -1,
                         "top": 10,
-                        "size": 100 
+                        "size": 100
                     },
                     {
                         "position": [155, -253],
@@ -1034,14 +1034,14 @@
                         "size": 80
                     },
                     {
-                        "position":[263.2, -11.1],
+                        "position": [263.2, -11.1],
                         "text": "Scav Camp",
                         "bottom": -1,
                         "top": 10,
-                        "size": 80 
+                        "size": 80
                     },
                     {
-                        "position":[373.5, -391.2],
+                        "position": [373.5, -391.2],
                         "text": "Highway Construction",
                         "bottom": -1,
                         "top": 10
@@ -1572,6 +1572,141 @@
                             }
                         ]
                     }
+                ],
+                "labels": [
+                    {
+                        "position": [-230, -400],
+                        "text": "Parking",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-246, -379],
+                        "text": "Vestibules #1",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-216, -379],
+                        "text": "Vestibules #2",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-172, -342],
+                        "text": "Main Working Area",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-148, -398],
+                        "text": "Negotiation Room",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-130, -398],
+                        "text": "Infirmary Lvl 1",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-130, -356],
+                        "text": "Test Room",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-125, -308],
+                        "text": "Server Room",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-116, -266],
+                        "text": "Warehouse Tunnels",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-163, -269],
+                        "text": "Warehouse",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-170, -248],
+                        "text": "Warehouse Gate",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-207, -305],
+                        "text": "Lectuer Hall",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-221, -343],
+                        "text": "Recreation Area",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-236, -302],
+                        "text": "Gym",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-241, -280],
+                        "text": "Men's Locker Room",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-232, -280],
+                        "text": "Women's Locker Room",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-259, -366],
+                        "text": "Boiler Room",
+                        "top": 2,
+                        "bottom": -1000,
+                        "size": 90
+                    },
+                    {
+                        "position": [-260, -319],
+                        "text": "Security Barracks",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    },
+                    {
+                        "position": [-260, -342],
+                        "text": "Reception",
+                        "top": 2,
+                        "bottom": -0.8,
+                        "size": 90
+                    }
                 ]
             },
             {
@@ -1652,7 +1787,7 @@
                         ]
                     }
                 ],
-                "labels":[
+                "labels": [
                     {
                         "position": [28, -102],
                         "text": "K Buildings",
@@ -1665,13 +1800,13 @@
                         "bottom": -6
                     },
                     {
-                        "position": [-104,93],
+                        "position": [-104, 93],
                         "text": "White Pawn",
                         "rotation": 14,
                         "bottom": -6
                     },
                     {
-                        "position": [-140,-14.5],
+                        "position": [-140, -14.5],
                         "text": "Black Bishop",
                         "rotation": 14,
                         "bottom": -6
@@ -1689,29 +1824,29 @@
                         "bottom": -6
                     },
                     {
-                        "position": [14.5,-10.8],
+                        "position": [14.5, -10.8],
                         "text": "Black Knight",
                         "bottom": -6
                     },
                     {
-                        "position": [82.2,-30.2],
+                        "position": [82.2, -30.2],
                         "text": "White Knight",
                         "bottom": -6
                     },
                     {
-                        "position": [149,-124],
+                        "position": [149, -124],
                         "text": "White Rook",
                         "bottom": -6
                     },
                     {
-                        "position": [161,-149],
+                        "position": [161, -149],
                         "text": "Train Station",
                         "rotation": 14,
                         "size": 80,
                         "bottom": -6
                     },
                     {
-                        "position": [-165,57],
+                        "position": [-165, 57],
                         "text": "Black Pawn",
                         "rotation": -75,
                         "bottom": -6
@@ -1727,12 +1862,12 @@
                         "bottom": -6
                     },
                     {
-                        "position": [173,-3],
+                        "position": [173, -3],
                         "text": "E2 Bunkers",
                         "bottom": -6
                     },
                     {
-                        "position": [80,-167],
+                        "position": [80, -167],
                         "text": "д - Warehouse Bunkers",
                         "rotation": 14,
                         "bottom": -6
@@ -1758,7 +1893,7 @@
                         "bottom": -6
                     },
                     {
-                        "position": [-31,-150],
+                        "position": [-31, -150],
                         "text": "Shipping Yard",
                         "rotation": 14,
                         "size": 80,
@@ -1772,51 +1907,51 @@
                         "bottom": -6
                     },
                     {
-                        "position": [66,-90],
+                        "position": [66, -90],
                         "text": "K2",
                         "rotation": 14,
                         "size": 80,
                         "bottom": -6
                     },
                     {
-                        "position": [-5.5,-94],
+                        "position": [-5.5, -94],
                         "text": "K3",
                         "rotation": 14,
                         "size": 80,
                         "bottom": -6
                     },
                     {
-                        "position": [60,-112],
+                        "position": [60, -112],
                         "text": "K4",
                         "rotation": 14,
                         "size": 80,
                         "bottom": -6
                     },
                     {
-                        "position": [-10.5,-115],
+                        "position": [-10.5, -115],
                         "text": "K5",
                         "rotation": 14,
                         "size": 80,
                         "bottom": -6
                     },
                     {
-                        "position": [54,-132],
+                        "position": [54, -132],
                         "text": "K6",
                         "rotation": 14,
                         "size": 80,
                         "bottom": -6
                     },
                     {
-                        "position": [-8.5,175],
+                        "position": [-8.5, 175],
                         "text": "Dome",
                         "size": 80,
                         "bottom": -6
                     },
                     {
-                        "position": [-120,37],
+                        "position": [-120, 37],
                         "text": "Tarmac",
                         "rotation": 14,
-                        "size":80,
+                        "size": 80,
                         "bottom": -6
                     }
                 ]
@@ -1901,22 +2036,21 @@
                     },
                     {
                         "position": [-215.8, 178.4],
-                        "text":"Power Station",
+                        "text": "Power Station",
                         "bottom": -4,
                         "top": -2
                     },
                     {
                         "position": [-189.3, 420],
-                        "text":"Gas Station",
+                        "text": "Gas Station",
                         "bottom": -4,
                         "top": -2
                     },
                     {
                         "position": [-496, 257],
-                        "text":"Weather Station",
+                        "text": "Weather Station",
                         "bottom": -4,
                         "top": -2
-
                     },
                     {
                         "position": [-708.9, 93.91],
@@ -1938,7 +2072,7 @@
                     },
                     {
                         "position": [288, 144],
-                        "text":"Cabins",
+                        "text": "Cabins",
                         "bottom": -4,
                         "top": -2
                     },
@@ -1973,7 +2107,7 @@
                         "top": -2
                     },
                     {
-                        "position": [52 , 134],
+                        "position": [52, 134],
                         "text": "Construction",
                         "bottom": -4,
                         "top": -2
@@ -2051,19 +2185,19 @@
                 "tilePath": "https://assets.tarkov.dev/maps/woods/main/{z}/{x}/{y}.png",
                 "labels": [
                     {
-                        "position": [10,-3],
+                        "position": [10, -3],
                         "text": "Sawmill"
                     },
                     {
-                        "position": [-485,-390],
+                        "position": [-485, -390],
                         "text": "Scav Town"
                     },
                     {
-                        "position": [-517,-210],
+                        "position": [-517, -210],
                         "text": "Old Sawmill"
                     },
                     {
-                        "position": [-80,-680],
+                        "position": [-80, -680],
                         "text": "Cultist Village"
                     },
                     {
@@ -2071,41 +2205,41 @@
                         "text": "USEC Camp"
                     },
                     {
-                        "position": [-188,235],
+                        "position": [-188, 235],
                         "text": "Military Camp"
                     },
                     {
-                        "position": [-5,-515],
+                        "position": [-5, -515],
                         "text": "Ponds",
                         "size": 80
                     },
                     {
-                        "position": [-252,-37],
+                        "position": [-252, -37],
                         "text": "Crash Site",
                         "size": 80
                     },
                     {
-                        "position": [239,-65],
+                        "position": [239, -65],
                         "text": "Checkpoint",
                         "size": 70
                     },
                     {
-                        "position": [244,125],
+                        "position": [244, 125],
                         "text": "Shack",
                         "size": 70
                     },
                     {
-                        "position": [-16,-122],
+                        "position": [-16, -122],
                         "text": "Lumber",
                         "size": 70
                     },
                     {
-                        "position": [-3,-74],
+                        "position": [-3, -74],
                         "text": "Cabins",
                         "size": 70
                     },
                     {
-                        "position": [-234,357],
+                        "position": [-234, 357],
                         "text": "Bus Stop",
                         "size": 70
                     },
@@ -2120,7 +2254,7 @@
                         "size": 70
                     },
                     {
-                        "position": [200,-606],
+                        "position": [200, -606],
                         "text": "Convoy",
                         "size": 70
                     }
