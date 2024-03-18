@@ -1,9 +1,11 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import { mdiAccountSearch } from '@mdi/js';
+
+import useKeyPress from '../../hooks/useKeyPress.jsx';
 
 import SEO from '../../components/SEO.jsx';
 import { InputFilter } from '../../components/filter/index.js';
@@ -12,6 +14,8 @@ import './index.css';
 
 function Players() {
     const { t } = useTranslation();
+
+    const enterPress = useKeyPress('Enter');
 
     const defaultQuery = new URLSearchParams(window.location.search).get(
         'search',
@@ -83,6 +87,12 @@ function Players() {
     if (defaultQuery) {
         searchForName();
     }
+
+    useEffect(() => {
+        if (enterPress) {
+            searchForName();
+        }
+    }, [enterPress, searchForName]);
 
     return [
         <SEO 
