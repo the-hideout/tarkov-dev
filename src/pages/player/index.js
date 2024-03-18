@@ -120,12 +120,12 @@ function Player() {
             }
             try {
                 const response = await fetch('https://player.tarkov.dev/account/'+accountId);
-                if (response.status !== 200) {
-                    return;
-                }
                 const profileResponse = await response.json();
                 if (profileResponse.err) {
                     setProfileError(profileResponse.errmsg);
+                    return;
+                }
+                if (response.status !== 200) {
                     return;
                 }
                 setPlayerData(profileResponse);
@@ -175,7 +175,6 @@ function Player() {
         }
         return t('Banned until {{banLiftDate}}', {banLiftDate: new Date(playerData.info.bannedUntil * 1000).toLocaleString()});
     }, [playerData, t]);
-    console.log(bannedMessage);
 
     const achievementColumns = useMemo(
         () => [
