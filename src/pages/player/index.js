@@ -656,6 +656,23 @@ function Player() {
         ])
     }, [playerData, getItemDisplay, getLoadoutContents, t]);
 
+    const playerSearchDiv = (
+        <div>
+            <p>
+                <Link to="/players"><Icon path={mdiAccountSearch} size={1} className="icon-with-text"/>{t('Search different player')}</Link>
+            </p>
+        </div>
+    );
+
+    if (profileError) {
+        return (
+            <div className={'page-wrapper'} key="player-page-wrapper">
+                <h2>{profileError}</h2>
+                {playerSearchDiv}
+            </div>
+        );
+    }
+
     return [
         <SEO 
             title={`${t('Player Profile')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
@@ -668,16 +685,8 @@ function Player() {
                     <Link to="/players"><Icon path={mdiAccountSearch} size={1} className="icon-with-text"/>{t('Search different player')}</Link>
                 </p>
             </div>
-            <div className="player-headline-wrapper" key="player-headline">
-                <h1 className="player-page-title">
-                    <Icon path={mdiAccountDetails} size={1.5} className="icon-with-text"/>
-                    {pageTitle}
-                </h1>
-            </div>
+            {playerSearchDiv}
             <div>
-                {profileError && (
-                    <p>{profileError}</p>
-                )}
                 {playerData.info.registrationDate !== 0 && (
                     <p>{`${t('Started current wipe')}: ${new Date(playerData.info.registrationDate * 1000).toLocaleString()}`}</p>
                 )}
