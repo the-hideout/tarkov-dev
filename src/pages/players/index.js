@@ -58,7 +58,7 @@ function Players() {
             return '';
         }
         if (nameResults.length < 1) {
-            return 'No players with this name';
+            return 'No players with this name. Note: banned players do not show up in name searches.';
         }
         let morePlayers = '';
         if (nameResults.length >= 5) {

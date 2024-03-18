@@ -166,6 +166,17 @@ function Player() {
         });
     }, [playerData, playerLevel, t]);
 
+    const bannedMessage = useMemo(() => {
+        if (!playerData?.info?.bannedState) {
+            return false;
+        }
+        if (playerData.info.bannedUntil < 0) {
+            return t('Banned Permanently');
+        }
+        return t('Banned until {{banLiftDate}}', {banLiftDate: new Date(playerData.info.bannedUntil * 1000).toLocaleString()});
+    }, [playerData, t]);
+    console.log(bannedMessage);
+
     const achievementColumns = useMemo(
         () => [
             {
@@ -671,8 +682,8 @@ function Player() {
                 {playerData.info.registrationDate !== 0 && (
                     <p>{`${t('Started current wipe')}: ${new Date(playerData.info.registrationDate * 1000).toLocaleString()}`}</p>
                 )}
-                {playerData.info.bannedState && (
-                    <p>{t('Banned')}</p>
+                {!!bannedMessage && (
+                    <p className="banned">{bannedMessage}</p>
                 )}
                 {totalSecondsInGame > 0 && (
                     <p>{`${t('Total account time in game')}: ${(() => {
