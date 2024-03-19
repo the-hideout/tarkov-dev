@@ -1,9 +1,11 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
 import { mdiAccountSearch } from '@mdi/js';
+
+import useKeyPress from '../../hooks/useKeyPress.jsx';
 
 import SEO from '../../components/SEO.jsx';
 import { InputFilter } from '../../components/filter/index.js';
@@ -13,11 +15,14 @@ import './index.css';
 function Players() {
     const { t } = useTranslation();
 
+    const enterPress = useKeyPress('Enter');
+
     const defaultQuery = new URLSearchParams(window.location.search).get(
         'search',
     );
     const [nameFilter, setNameFilter] = useState(defaultQuery || '');
     const [nameResults, setNameResults] = useState([]);
+    const [nameResultsError, setNameResultsError] = useState(false);
 
     const [isButtonDisabled, setButtonDisabled] = useState(true);
     const [searched, setSearched] = useState(false);
@@ -27,25 +32,40 @@ function Players() {
             return;
         }
         try {
+            setNameResultsError(false);
             setButtonDisabled(true);
             const response = await fetch('https://player.tarkov.dev/name/'+nameFilter);
             if (response.status !== 200) {
-                return;
+                let errorMessage = await response.text();
+                try {
+                    const json = JSON.parse(errorMessage);
+                    errorMessage = json.errmsg;
+                } catch {}
+                throw new Error(errorMessage);
             }
-            setButtonDisabled(false);
             setSearched(true);
             setNameResults(await response.json());
         } catch (error) {
-            setNameResults(['Error searching player profile: ' + error]);
+            let message = error.message;
+            if (message.includes('NetworkError')) {
+                message = 'Rate limited exceeded. Wait one minute to send another request.';
+            }
+            if (message.includes('Malformed')) {
+                message = 'Error searching player profile; try removing one character from the end until the search works.'
+            }
+            setSearched(false);
+            setNameResults([]);
+            setNameResultsError(message);
         }
-    }, [nameFilter, setNameResults]);
+        setButtonDisabled(false);
+    }, [nameFilter, setNameResults, setNameResultsError]);
 
     const searchResults = useMemo(() => {
         if (!searched) {
             return '';
         }
         if (nameResults.length < 1) {
-            return 'No players with this name';
+            return 'No players with this name. Note: banned players do not show up in name searches.';
         }
         let morePlayers = '';
         if (nameResults.length >= 5) {
@@ -70,6 +90,12 @@ function Players() {
     if (defaultQuery) {
         searchForName();
     }
+
+    useEffect(() => {
+        if (enterPress) {
+            searchForName();
+        }
+    }, [enterPress, searchForName]);
 
     return [
         <SEO 
@@ -105,7 +131,12 @@ function Players() {
                 />
                 <button className="search-button" onClick={searchForName} disabled={isButtonDisabled}>{t('Search')}</button>
             </div>
-            {searchResults}
+            {!!nameResultsError && (
+                <div>
+                    <p>{`${t('Search error')}: ${nameResultsError}`}</p>
+                </div>
+            )}
+            {!nameResultsError && searchResults}
         </div>,
     ];
 }
