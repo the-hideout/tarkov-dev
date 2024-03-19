@@ -12,7 +12,8 @@ import {
     mdiBagPersonal,
     mdiArmFlex,
     mdiStarBox,
-    mdiTrophyAward
+    mdiTrophyAward,
+    mdiAccountSearch,
 } from '@mdi/js';
 import { TreeView, TreeItem } from '@mui/x-tree-view';
 
@@ -114,12 +115,18 @@ function Player() {
                     }
                     return;
                 } catch (error) {
+                    if (error.message.includes('NetworkError')) {
+                        setProfileError('Rate limited exceeded. Wait one minute to send another request.');
+                    }
                     console.log('Error retrieving player profile', error);
                 }
             }
             try {
                 const response = await fetch('https://player.tarkov.dev/account/'+accountId);
                 if (response.status !== 200) {
+                    if (response.status === 429) {
+                        setProfileError(`Rate limited exceeded. Wait ${response.headers.get('Retry-After')} seconds to send another request`);
+                    }
                     return;
                 }
                 const profileResponse = await response.json();
@@ -127,8 +134,14 @@ function Player() {
                     setProfileError(profileResponse.errmsg);
                     return;
                 }
+                if (response.status !== 200) {
+                    return;
+                }
                 setPlayerData(profileResponse);
             } catch (error) {
+                if (error.message.includes('NetworkError')) {
+                    setProfileError('Rate limited exceeded. Wait one minute to send another request.');
+                }
                 console.log('Error retrieving player profile', error);
             }
         }
@@ -164,6 +177,16 @@ function Player() {
             playerSide: playerData.info.side,
         });
     }, [playerData, playerLevel, t]);
+
+    const bannedMessage = useMemo(() => {
+        if (!playerData?.info?.bannedState) {
+            return false;
+        }
+        if (playerData.info.bannedUntil < 0) {
+            return t('Banned Permanently');
+        }
+        return t('Banned until {{banLiftDate}}', {banLiftDate: new Date(playerData.info.bannedUntil * 1000).toLocaleString()});
+    }, [playerData, t]);
 
     const achievementColumns = useMemo(
         () => [
@@ -645,6 +668,23 @@ function Player() {
         ])
     }, [playerData, getItemDisplay, getLoadoutContents, t]);
 
+    const playerSearchDiv = (
+        <div>
+            <p>
+                <Link to="/players"><Icon path={mdiAccountSearch} size={1} className="icon-with-text"/>{t('Search different player')}</Link>
+            </p>
+        </div>
+    );
+
+    if (profileError) {
+        return (
+            <div className={'page-wrapper'} key="player-page-wrapper">
+                <h2>{profileError}</h2>
+                {playerSearchDiv}
+            </div>
+        );
+    }
+
     return [
         <SEO 
             title={`${t('Player Profile')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
@@ -652,6 +692,7 @@ function Player() {
             key="seo-wrapper"
         />,
         <div className={'page-wrapper'} key="player-page-wrapper">
+            {playerSearchDiv}
             <div className="player-headline-wrapper" key="player-headline">
                 <h1 className="player-page-title">
                     <Icon path={mdiAccountDetails} size={1.5} className="icon-with-text"/>
@@ -659,14 +700,11 @@ function Player() {
                 </h1>
             </div>
             <div>
-                {profileError && (
-                    <p>{profileError}</p>
-                )}
                 {playerData.info.registrationDate !== 0 && (
                     <p>{`${t('Started current wipe')}: ${new Date(playerData.info.registrationDate * 1000).toLocaleString()}`}</p>
                 )}
-                {playerData.info.bannedState && (
-                    <p>{t('Banned')}</p>
+                {!!bannedMessage && (
+                    <p className="banned">{bannedMessage}</p>
                 )}
                 {totalSecondsInGame > 0 && (
                     <p>{`${t('Total account time in game')}: ${(() => {

@@ -1706,6 +1706,90 @@
                         "top": 2,
                         "bottom": -0.8,
                         "size": 90
+                    },
+                    {
+                        "position": [-260, -364],
+                        "text": "Administrative Office",
+                        "top": 1000,
+                        "bottom": 3,
+                        "size": 90
+                    },
+                    {
+                        "position": [-254, -320],
+                        "text": "Security Office",
+                        "top": 1000,
+                        "bottom": 3,
+                        "size": 90
+                    },
+                    {
+                        "position": [-244, -378],
+                        "text": "Security #1",
+                        "top": 1000,
+                        "bottom": 3,
+                        "size": 90
+                    },
+                    {
+                        "position": [-215, -379],
+                        "text": "Security #2",
+                        "top": 1000,
+                        "bottom": 3,
+                        "size": 90
+                    },
+                    {
+                        "position": [-229, -343],
+                        "text": "Conference Room",
+                        "top": 1000,
+                        "bottom": 3,
+                        "size": 90
+                    },
+                    {
+                        "position": [-219, -302],
+                        "text": "Cafeteria",
+                        "top": 1000,
+                        "bottom": 3,
+                        "size": 90
+                    },
+                    {
+                        "position": [-189, -401],
+                        "text": "Offices #1",
+                        "top": 1000,
+                        "bottom": 3,
+                        "size": 90
+                    },
+                    {
+                        "position": [-149, -401],
+                        "text": "Offices #2",
+                        "top": 1000,
+                        "bottom": 3,
+                        "size": 90
+                    },
+                    {
+                        "position": [-130, -401],
+                        "text": "Infirmary Lvl 2",
+                        "top": 1000,
+                        "bottom": 3,
+                        "size": 90
+                    },
+                    {
+                        "position": [-130, -361],
+                        "text": "Sterile Laboratory",
+                        "top": 1000,
+                        "bottom": 3,
+                        "size": 90
+                    },
+                    {
+                        "position": [-169, -288],
+                        "text": "Control Room",
+                        "top": 1000,
+                        "bottom": 3,
+                        "size": 90
+                    },
+                    {
+                        "position": [-250, -281],
+                        "text": "Corridor To Building #2",
+                        "top": 1000,
+                        "bottom": 3,
+                        "size": 90
                     }
                 ]
             },
