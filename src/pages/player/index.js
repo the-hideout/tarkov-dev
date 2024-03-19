@@ -692,13 +692,13 @@ function Player() {
             key="seo-wrapper"
         />,
         <div className={'page-wrapper'} key="player-page-wrapper">
+            {playerSearchDiv}
             <div className="player-headline-wrapper" key="player-headline">
                 <h1 className="player-page-title">
                     <Icon path={mdiAccountDetails} size={1.5} className="icon-with-text"/>
                     {pageTitle}
                 </h1>
             </div>
-            {playerSearchDiv}
             <div>
                 {playerData.info.registrationDate !== 0 && (
                     <p>{`${t('Started current wipe')}: ${new Date(playerData.info.registrationDate * 1000).toLocaleString()}`}</p>
