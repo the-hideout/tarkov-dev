@@ -47,6 +47,9 @@ function Players() {
             setNameResults(await response.json());
         } catch (error) {
             let message = error.message;
+            if (message.includes('NetworkError')) {
+                message = 'Rate limited exceeded. Wait one minute to send another request.';
+            }
             if (message.includes('Malformed')) {
                 message = 'Error searching player profile; try removing one character from the end until the search works.'
             }

@@ -115,11 +115,20 @@ function Player() {
                     }
                     return;
                 } catch (error) {
+                    if (error.message.includes('NetworkError')) {
+                        setProfileError('Rate limited exceeded. Wait one minute to send another request.');
+                    }
                     console.log('Error retrieving player profile', error);
                 }
             }
             try {
                 const response = await fetch('https://player.tarkov.dev/account/'+accountId);
+                if (response.status !== 200) {
+                    if (response.status === 429) {
+                        setProfileError(`Rate limited exceeded. Wait ${response.headers.get('Retry-After')} seconds to send another request`);
+                    }
+                    return;
+                }
                 const profileResponse = await response.json();
                 if (profileResponse.err) {
                     setProfileError(profileResponse.errmsg);
@@ -130,6 +139,9 @@ function Player() {
                 }
                 setPlayerData(profileResponse);
             } catch (error) {
+                if (error.message.includes('NetworkError')) {
+                    setProfileError('Rate limited exceeded. Wait one minute to send another request.');
+                }
                 console.log('Error retrieving player profile', error);
             }
         }
