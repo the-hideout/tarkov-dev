@@ -19,7 +19,6 @@ import {
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
 import useTradersData from '../../features/traders/index.js';
-import useBartersData from '../../features/barters/index.js';
 import { toggleHideDogtagBarters } from '../../features/settings/settingsSlice.js';
 
 import './index.css';
@@ -47,7 +46,6 @@ function Barters() {
 
     const dispatch = useDispatch();
     const { data: allTraders } = useTradersData();
-    const { data: barters } = useBartersData();
 
     const { t } = useTranslation();
 
@@ -56,8 +54,8 @@ function Barters() {
     }, [searchParams]);
 
     const traders = useMemo(() => {
-        return allTraders.filter(trader => barters.some(b => b.trader.id === trader.id));
-    }, [allTraders, barters]);
+        return allTraders.filter(trader => trader.barters?.length);
+    }, [allTraders]);
 
     return [
         <SEO 

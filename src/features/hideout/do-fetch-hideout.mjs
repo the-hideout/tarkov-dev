@@ -6,6 +6,7 @@ const doFetchHideout = async (language, prebuild = false) => {
             id
             name
             normalizedName
+            imageLink
             levels {
                 id
                 level
@@ -31,6 +32,9 @@ const doFetchHideout = async (language, prebuild = false) => {
                     }
                     level
                 }
+            }
+            crafts {
+                id
             }
         }
     }`;

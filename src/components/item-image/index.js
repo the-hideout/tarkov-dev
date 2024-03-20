@@ -363,7 +363,7 @@ function ItemImage({
                     content={station.name}
                 >
                     <Link to={`/hideout-profit/?station=${station.normalizedName}&all=true&search=${item.name}`}>
-                        <img alt={station.name} src={`/images/stations/${station.normalizedName}-icon.png`} style={traderImageStyle}/>
+                        <img alt={station.name} src={station.imageLink} style={traderImageStyle}/>
                     </Link>
                 </Tippy>
             </div>}

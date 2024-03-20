@@ -10,7 +10,6 @@ class CraftsQuery extends APIQuery {
             crafts(lang: ${language}) {
                 station {
                     id
-                    name
                     normalizedName
                 }
                 level

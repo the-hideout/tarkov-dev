@@ -5,7 +5,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { Icon } from '@mdi/react';
 import { mdiProgressWrench, mdiCancel, mdiCached } from '@mdi/js';
 
-import useCraftsData from '../../features/crafts/index.js';
+import useHideoutData from '../../features/hideout/index.js';
 
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 
@@ -57,22 +57,13 @@ function Crafts() {
         }
     }, [searchParams, setSelectedStation, setShowAll]);
 
-    const { data: crafts } = useCraftsData();
+    const { data: hideout } = useHideoutData();
     
     const stations = useMemo(() => {
-        const stn = [];
-        for (const craft of crafts) {
-            if (craft.station.normalizedName === 'bitcoin-farm') {
-                continue;
-            }
-            if (!stn.some(station => station.id === craft.station.id)) {
-                stn.push(craft.station);
-            }
-        }
-        return stn.sort((a, b) => {
+        return hideout.filter(s => s.crafts?.length && s.normalizedName !== 'bitcoin-farm').sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
-    }, [crafts]);
+    }, [hideout]);
 
     return [
         <SEO 
@@ -122,7 +113,7 @@ function Crafts() {
                                         <img
                                             alt={station.name}
                                             loading="lazy"
-                                            src={`${process.env.PUBLIC_URL}/images/stations/${station.normalizedName}-icon.png`}
+                                            src={station.imageLink}
                                         />
                                     }
                                     onClick={() => {setSearchParams({'station': station.normalizedName})}}

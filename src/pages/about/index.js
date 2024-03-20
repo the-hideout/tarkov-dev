@@ -4,7 +4,7 @@ import { Avatar, ThemeProvider, createTheme } from "@mui/material";
 
 import { ReactComponent as GithubIcon } from '../../components/supporter/Github.svg';
 import { ReactComponent as DiscordIcon } from '../../components/supporter/Discord.svg';
-import { ReactComponent as TwitterIcon } from '../../components/supporter/Twitter.svg';
+import { ReactComponent as XIcon } from '../../components/supporter/X.svg';
 
 import SEO from '../../components/SEO.jsx';
 import UkraineButton from '../../components/ukraine-button/index.js';
@@ -56,9 +56,9 @@ function About() {
                     If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
                 </p>
             </Trans>
-            <Trans i18nKey={'about-twitter-p'}>
+            <Trans i18nKey={'about-x-p'}>
                 <p>
-                    Follow us on <a href="https://twitter.com/tarkov_dev" target="_blank" rel="noopener noreferrer"><TwitterIcon /> Twitter</a> for all the latest updates.
+                    Follow us on <a href="https://x.com/tarkov_dev" target="_blank" rel="noopener noreferrer"><XIcon /> X</a> for all the latest updates.
                 </p>
             </Trans>
             <h2>{t('Support')}</h2>

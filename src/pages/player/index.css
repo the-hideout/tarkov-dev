@@ -1,0 +1,56 @@
+.MuiTreeItem-iconContainer {
+    width: auto !important;
+    justify-content: normal !important;
+    margin-right: 0px !important;
+}
+
+.inventory {
+    display: flow-root;
+}
+
+.grid-container {
+    display: grid;
+    float: left;
+    gap: 10px;
+}
+
+.grid-container.main {
+    grid-template-columns: auto auto auto;
+}
+
+.grid-container.side {
+    margin-left: 10px;
+    grid-template-columns: auto;
+}
+
+.grid-container > div {
+    background-color: rgba(0, 0, 0, 0.4);
+    text-align: center;
+    font-size: 20px;
+}
+
+.weapon {
+    grid-column: 1 / span 2;
+}
+
+ul.favorite-item-list {
+    list-style: none;
+    padding: 0px;
+}
+
+ul.favorite-item-list li {
+    display: inline-block;
+    padding-left: 2px;
+}
+
+.rare {
+    color: #8c6edf;
+}
+
+.legendary {
+    color: #ffe084;
+}
+
+.banned {
+    color: #cd1e2f;
+}

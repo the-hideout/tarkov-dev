@@ -117,7 +117,7 @@ function ItemSearch({
                 if (nameFilter.length === 0) {
                     return true;
                 }
-                return task.name.toLowerCase().includes(nameFilter.toLowerCase());
+                return task.name.toLowerCase().includes(nameFilter.toLowerCase()) || task.id === nameFilter;
             }).map(task => {
                 return {
                     ...task, 

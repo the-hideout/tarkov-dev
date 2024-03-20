@@ -13,6 +13,8 @@ class AchievementsQuery extends APIQuery {
                 description
                 hidden
                 playersCompletedPercent
+                normalizedRarity
+                rarity
             }
         }`;
     

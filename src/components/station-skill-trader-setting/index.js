@@ -86,12 +86,12 @@ const getOptionsForTrader = (t, traderKey) => {
 };
 
 const StationSkillTraderSetting = React.forwardRef((props, ref) => {
-    const { stateKey, type, isDisabled, label } = props;
+    const { stateKey, type, isDisabled, label, image } = props;
     const { t } = useTranslation();
 
     let selector;
     let options;
-    let iconExt = 'png';
+    let imageLink = image;
     const toolTip = label || t(capitalizeFirst(camelcaseToDashes(stateKey).replace(/-/g, ' ')));
     if (type === 'station') {
         selector = selectAllStations;
@@ -101,10 +101,11 @@ const StationSkillTraderSetting = React.forwardRef((props, ref) => {
         // t('Hideout Management')
         selector = selectAllSkills;
         options = getOptionsForSkill(t, stateKey);
+        imageLink = `${process.env.PUBLIC_URL}/images/${type}s/${stateKey}-icon.png`;
     } else if (type === 'trader') {
         selector = selectAllTraders;
         options = getOptionsForTrader(t, stateKey);
-        iconExt = 'jpg';
+        imageLink = `${process.env.PUBLIC_URL}/images/${type}s/${stateKey}-icon.jpg`;
     }
     const dispatch = useDispatch();
     const state = useSelector(selector);
@@ -123,7 +124,7 @@ const StationSkillTraderSetting = React.forwardRef((props, ref) => {
                     alt={`${stateKey}-icon`}
                     loading="lazy"
                     height={39}
-                    src={`${process.env.PUBLIC_URL}/images/${type}s/${stateKey}-icon.${iconExt}`}
+                    src={imageLink}
                     width={39}
                 />
                 <Select

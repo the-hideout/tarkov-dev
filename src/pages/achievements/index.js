@@ -10,6 +10,14 @@ import DataTable from '../../components/data-table/index.js';
 
 import useAchievementsData from '../../features/achievements/index.js';
 
+import './index.css';
+
+const raritySort = {
+    "common": 0,
+    "rare": 1,
+    "legendary": 2
+}
+
 function Achievements() {
     const { t } = useTranslation();
 
@@ -23,21 +31,17 @@ function Achievements() {
         () => [
             {
                 Header: () => (
-                    <div
-                      style={{
-                        textAlign:'left'
-                      }}
-                    >{t('Name')}</div>),
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Name')}
+                    </div>),
                 id: 'name',
                 accessor: 'name',
             },
             {
                 Header: () => (
-                    <div
-                      style={{
-                        textAlign:'left'
-                      }}
-                    >{t('Description')}</div>),
+                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                        {t('Description')}
+                    </div>),
                 id: 'description',
                 accessor: 'description',
             },
@@ -51,7 +55,12 @@ function Achievements() {
                     );
                 },
                 sortType: (rowA, rowB) => {
-                    return (+ rowA.values.hidden) - (+ rowB.values.hidden);
+                    let rowAhidden = rowA.original.hidden ? 1 : 0
+                    let rowBhidden = rowB.original.hidden ? 1 : 0
+                    if (rowAhidden === rowBhidden) {
+                        return rowB.original.playersCompletedPercent - rowA.original.playersCompletedPercent
+                    }
+                    return rowAhidden - rowBhidden;
                 },
             },
             {
@@ -66,6 +75,26 @@ function Achievements() {
                     );
                 },
             },
+            {
+                Header: t('Rarity'),
+                id: 'rarity',
+                accessor: 'rarity',
+                Cell: (props) => {
+                    return (
+                        <div className={`center-content ${props.row.original.normalizedRarity}`}>
+                            {props.value}
+                        </div>
+                    );
+                },
+                sortType: (rowA, rowB) => {
+                    let rowAr = raritySort[rowA.original.normalizedRarity];
+                    let rowBr = raritySort[rowB.original.normalizedRarity];
+                    if (rowAr === rowBr) {
+                        return rowB.original.playersCompletedPercent - rowA.original.playersCompletedPercent
+                    }
+                    return rowAr - rowBr;
+                },
+            }
         ],
         [t],
     );

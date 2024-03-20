@@ -484,14 +484,22 @@ class ItemsQuery extends APIQuery {
 
             if (rawItem.properties?.grids) {
                 let gridPockets = [];
-                for (const grid of rawItem.properties.grids) {
+                if (rawItem.properties.grids.length === 1) {
+                    gridPockets.push({
+                        row: 0,
+                        col: 0,
+                        width: rawItem.properties.grids[0].width,
+                        height: rawItem.properties.grids[0].height,
+                    });
+                }
+                /*for (const grid of rawItem.properties.grids) {
                     gridPockets.push({
                         row: gridPockets.length,
                         col: 0,
                         width: grid.width,
                         height: grid.height,
                     });
-                }
+                }*/
                 /*let gridPockets = [
                     {
                         row: 0,
@@ -521,9 +529,9 @@ class ItemsQuery extends APIQuery {
                 }
 
                 // Rigs we haven't configured shouldn't break
-                if (!itemGrids[rawItem.id] && !rawItem.types.includes('backpack')) {
+                /*if (!itemGrids[rawItem.id] && !rawItem.types.includes('backpack')) {
                     grid = false;
-                }
+                }*/
             }
 
             const container = rawItem.properties?.slots || rawItem.properties?.grids;

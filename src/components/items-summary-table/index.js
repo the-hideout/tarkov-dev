@@ -100,7 +100,7 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
                 ...station,
                 quantity: req.level,
                 //itemLink: `#`,
-                iconLink: `images/stations/${station.normalizedName}-icon.png`,
+                iconLink: station.imageLink,
                 types: [],
                 barters: [],
                 buyOnFleaPrice: 0,
@@ -274,7 +274,8 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
                             );
                         } else if (cheapestObtainInfo.craft) {
                             const craft = cheapestObtainInfo.craft;
-                            priceSource = `${craft.station.name} ${craft.level}`;
+                            const station = stations.find(s => s.id === craft.station.id);
+                            priceSource = `${station.name} ${craft.level}`;
                             let barterTipTitle = '';
                             if (craft.taskUnlock) {
                                 taskIcon = (
@@ -406,7 +407,7 @@ function ItemsSummaryTable({includeItems, includeTraders, includeStations}) {
         ];
 
         return useColumns;
-    }, [t, items, barters, crafts, settings]);
+    }, [t, items, barters, crafts, stations, settings]);
 
     const extraRow = (
         <>
