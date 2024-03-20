@@ -595,7 +595,97 @@
                 ],
                 "author": "Shebuka",
                 "authorLink": "https://github.com/TarkovTracker/tarkovdata/",
-                "svgPath": "https://assets.tarkov.dev/maps/svg/Lighthouse.svg"
+                "svgPath": "https://assets.tarkov.dev/maps/svg/Lighthouse.svg",
+                "labels": [
+                    {
+                        "position": [-30, -882],
+                        "text": "Train Yard"
+                    },
+                    {
+                        "position": [-120, -841],
+                        "text": "Drug Lab"
+                    },
+                    {
+                        "position": [-65, -600],
+                        "text": "Water Treatment"
+                    },
+                    {
+                        "position": [40, -618],
+                        "text": "Plant 1"
+                    },
+                    {
+                        "position": [-97, -737],
+                        "text": "Plant 2"
+                    },
+                    {
+                        "position": [-189, -665],
+                        "text": "Plant 3"
+                    },
+                    {
+                        "position": [-182, -552],
+                        "text": "Pipes"
+                    },
+                    {
+                        "position": [18, -453],
+                        "text": "Gunner Nest"
+                    },
+                    {
+                        "position": [-177, -356],
+                        "text": "Island"
+                    },
+                    {
+                        "position": [-278, -323],
+                        "text": "Cabins"
+                    },
+                    {
+                        "position": [-162, -225],
+                        "text": "Cottages"
+                    },
+                    {
+                        "position": [-55, -288],
+                        "text": "Convenience"
+                    },
+                    {
+                        "position": [-75, -284],
+                        "text": "Red Brick"
+                    },
+                    {
+                        "position": [-151, -243],
+                        "text": "Hillside"
+                    },
+                    {
+                        "position": [125, -153],
+                        "text": "Boathouses"
+                    },
+                    {
+                        "position": [62, -60],
+                        "text": "Dead Tree"
+                    },
+                    {
+                        "position": [0, -188],
+                        "text": "Construction"
+                    },
+                    {
+                        "position": [-107, -53],
+                        "text": "Pikes Peak Resort"
+                    },
+                    {
+                        "position": [-133, 100],
+                        "text": "Grand Chalet"
+                    },
+                    {
+                        "position": [-70, 129],
+                        "text": "Tennis Court"
+                    },
+                    {
+                        "position": [382, 496],
+                        "text": "Lightkeeper Island"
+                    },
+                    {
+                        "position": [-125, 296],
+                        "text": "Crash Site"
+                    }
+                ]
             },
             {
                 "key": "lighthouse-2d",
