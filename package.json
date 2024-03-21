@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.11.0",
+    "@marsidev/react-turnstile": "^0.5.3",
     "@mdi/js": "^6.9.96",
     "@mdi/react": "^1.6.1",
     "@mui/lab": "^5.0.0-alpha.166",
