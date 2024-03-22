@@ -143,7 +143,7 @@ function Players() {
                         setButtonDisabled(newNameFilter.length < 3 || newNameFilter.length > 15);
                     }}
                 />
-                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled || turnstileToken == undefined}>{t('Search')}</button>
+                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled || turnstileToken === undefined}>{t('Search')}</button>
             </div>
             {!!nameResultsError && (
                 <div>
