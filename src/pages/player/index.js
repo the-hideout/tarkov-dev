@@ -101,6 +101,7 @@ function Player() {
                 try {
                     const response = await fetch('https://player.tarkov.dev/name/' + accountId,
                         {
+                            method: 'GET',
                             headers: {
                                 'Turnstile-Token': turnstileRef.current.getResponse(),
                             },

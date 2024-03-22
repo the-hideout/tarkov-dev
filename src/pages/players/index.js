@@ -39,6 +39,7 @@ function Players() {
             setButtonDisabled(true);
             const response = await fetch('https://player.tarkov.dev/name/' + nameFilter,
                 {
+                    method: 'GET',
                     headers: {
                         'Turnstile-Token': turnstileRef.current.getResponse(),
                     },
