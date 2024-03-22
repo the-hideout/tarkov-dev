@@ -91,6 +91,7 @@ function Player() {
     const { data: items } = useItemsData();
     const { data: metaData } = useMetaData();
     const { data: achievements } = useAchievementsData();
+    const [turnstileToken, setTurnstileToken] = useState()
 
     useEffect(() => {
         async function fetchProfile() {
@@ -99,12 +100,14 @@ function Player() {
             }
             if (isNaN(accountId)) {
                 try {
+                    // Create a form request to send the Turnstile token
+                    // This avoids sending an extra pre-flight request
+                    let formData = new FormData();
+                    formData.append('Turnstile-Token', turnstileToken);
                     const response = await fetch('https://player.tarkov.dev/name/' + accountId,
                         {
-                            method: 'GET',
-                            headers: {
-                                'Turnstile-Token': turnstileRef.current.getResponse(),
-                            },
+                            method: 'POST',
+                            body: formData,
                         });
                     if (response.status !== 200) {
                         return;
@@ -129,7 +132,16 @@ function Player() {
                 }
             }
             try {
-                const response = await fetch('https://player.tarkov.dev/account/' + accountId);
+                // Create a form request to send the Turnstile token
+                // This avoids sending an extra pre-flight request
+                let formData = new FormData();
+                formData.append('Turnstile-Token', turnstileToken);
+                const response = await fetch('https://player.tarkov.dev/account/' + accountId,
+                    {
+                        method: 'POST',
+                        body: formData,
+                    }
+                );
                 if (response.status !== 200) {
                     if (response.status === 429) {
                         setProfileError(`Rate limited exceeded. Wait ${response.headers.get('Retry-After')} seconds to send another request`);
@@ -152,8 +164,10 @@ function Player() {
                 console.log('Error retrieving player profile', error);
             }
         }
-        fetchProfile();
-    }, [accountId, setPlayerData, setProfileError]);
+        if (turnstileToken) {
+            fetchProfile();
+        }
+    }, [accountId, setPlayerData, setProfileError, turnstileToken]);
 
     const playerLevel = useMemo(() => {
         if (playerData.info.experience === 0) {
@@ -780,7 +794,7 @@ function Player() {
                     />,
                 ])}
             </div>
-            <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' />
+            <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' onSuccess={setTurnstileToken} />
         </div>,
     ];
 }

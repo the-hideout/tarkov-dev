@@ -29,6 +29,7 @@ function Players() {
 
     const [isButtonDisabled, setButtonDisabled] = useState(true);
     const [searched, setSearched] = useState(false);
+    const [turnstileToken, setTurnstileToken] = useState()
 
     const searchForName = useCallback(async () => {
         if (nameFilter.length < 3 || nameFilter.length > 15) {
@@ -37,13 +38,17 @@ function Players() {
         try {
             setNameResultsError(false);
             setButtonDisabled(true);
+
+            // Create a form request to send the Turnstile token
+            // This avoids sending an extra pre-flight request
+            let formData = new FormData();
+            formData.append('Turnstile-Token', turnstileToken);
             const response = await fetch('https://player.tarkov.dev/name/' + nameFilter,
                 {
-                    method: 'GET',
-                    headers: {
-                        'Turnstile-Token': turnstileRef.current.getResponse(),
-                    },
+                    method: 'POST',
+                    body: formData,
                 });
+
             if (response.status !== 200) {
                 let errorMessage = await response.text();
                 try {
@@ -138,7 +143,7 @@ function Players() {
                         setButtonDisabled(newNameFilter.length < 3 || newNameFilter.length > 15);
                     }}
                 />
-                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled}>{t('Search')}</button>
+                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled || turnstileToken == undefined}>{t('Search')}</button>
             </div>
             {!!nameResultsError && (
                 <div>
@@ -146,7 +151,7 @@ function Players() {
                 </div>
             )}
             {!nameResultsError && searchResults}
-            <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' />
+            <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' onSuccess={setTurnstileToken} />
         </div>,
     ];
 }
