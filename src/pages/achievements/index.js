@@ -66,7 +66,7 @@ function Achievements() {
             {
                 Header: t('Player %'),
                 id: 'playersCompletedPercent',
-                accessor: 'playersCompletedPercent',
+                accessor: 'adjustedPlayersCompletedPercent',
                 Cell: (props) => {
                     return (
                         <div className="center-content">

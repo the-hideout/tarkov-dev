@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { Icon } from '@mdi/react';
@@ -59,6 +59,7 @@ const raritySort = {
 function Player() {
     const { t } = useTranslation();
     const params = useParams();
+    const navigate = useNavigate();
 
     const [accountId, setAccountId] = useState(params.accountId);
 
@@ -100,6 +101,7 @@ function Player() {
                 try {
                     const response = await fetch('https://player.tarkov.dev/name/'+accountId);
                     if (response.status !== 200) {
+                        setProfileError('Error retrieving profile data');
                         return;
                     }
                     const searchResponse = await response.json();
@@ -109,10 +111,11 @@ function Player() {
                     }
                     for (const result of searchResponse) {
                         if (result.name.toLowerCase() === accountId.toLowerCase()) {
-                            setAccountId(result.aid);
-                            break;
+                            navigate('/player/'+result.aid);
+                            return;
                         }
                     }
+                    setProfileError(`No profile found with name ${accountId}`);;
                     return;
                 } catch (error) {
                     if (error.message.includes('NetworkError')) {
@@ -127,6 +130,7 @@ function Player() {
                     if (response.status === 429) {
                         setProfileError(`Rate limited exceeded. Wait ${response.headers.get('Retry-After')} seconds to send another request`);
                     }
+                    setProfileError('Error retrieving profile data');
                     return;
                 }
                 const profileResponse = await response.json();
@@ -146,7 +150,7 @@ function Player() {
             }
         }
         fetchProfile();
-    }, [accountId, setPlayerData, setProfileError]);
+    }, [accountId, setPlayerData, setProfileError, navigate]);
 
     const playerLevel = useMemo(() => {
         if (playerData.info.experience === 0) {
@@ -209,7 +213,7 @@ function Player() {
             {
                 Header: t('Player %'),
                 id: 'playersCompletedPercent',
-                accessor: 'playersCompletedPercent',
+                accessor: 'adjustedPlayersCompletedPercent',
                 Cell: (props) => {
                     return (
                         <div className="center-content">
@@ -531,16 +535,20 @@ function Player() {
             const tag = loadoutItem.upd.Dogtag;
             const weapon = items.find(i => i.id === tag.WeaponName?.split(' ')[0]);
             countLabel = tag.Level;
+            let killerInfo = <span>{tag.KillerName}</span>;
+            if (tag.KillerAccountId) {
+                killerInfo = <Link to={`/player/${tag.KillerAccountId}`}>{tag.KillerName}</Link>;
+            }
             label = (
                 <span>
                     <Link to={`/player/${tag.AccountId}`}>{tag.Nickname}</Link>
                     <span>{` ${t(tag.Status)} `}</span>
-                    <Link to={`/player/${tag.KillerAccountId || tag.KillerName}`}>{tag.KillerName}</Link>
+                    {killerInfo}
                     {weapon !== undefined && [
                         <span key={'weapon-using-label'}>{` ${t('using')} `}</span>,
-                        <Link key={`weapon-using ${weapon.id}`} to={`/item/${weapon.normalizedName}`}>{weapon.name}</Link>
+                        <Link key={`weapon-using ${weapon.id}`} to={`/item/${weapon.normalizedName}`}>{weapon.shortName}</Link>
                     ]}
-                    <span>{` ${new Date(tag.Time).toLocaleString()}`}</span>
+                    <div>{` ${new Date(tag.Time).toLocaleString()}`}</div>
                 </span>
             );
         }
