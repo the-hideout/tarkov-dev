@@ -11,6 +11,8 @@ import useKeyPress from '../../hooks/useKeyPress.jsx';
 import SEO from '../../components/SEO.jsx';
 import { InputFilter } from '../../components/filter/index.js';
 
+import playerStats from '../../modules/player-stats.mjs';
+
 import './index.css';
 
 function Players() {
@@ -38,38 +40,12 @@ function Players() {
         try {
             setNameResultsError(false);
             setButtonDisabled(true);
-
-            // Create a form request to send the Turnstile token
-            // This avoids sending an extra pre-flight request
-            let formData = new FormData();
-            formData.append('Turnstile-Token', turnstileToken);
-            const response = await fetch('https://player.tarkov.dev/name/' + nameFilter,
-                {
-                    method: 'POST',
-                    body: formData,
-                });
-
-            if (response.status !== 200) {
-                let errorMessage = await response.text();
-                try {
-                    const json = JSON.parse(errorMessage);
-                    errorMessage = json.errmsg;
-                } catch { }
-                throw new Error(errorMessage);
-            }
+            setNameResults(await playerStats.searchPlayers(nameFilter, turnstileToken));
             setSearched(true);
-            setNameResults(await response.json());
         } catch (error) {
-            let message = error.message;
-            if (message.includes('NetworkError')) {
-                message = 'Rate limited exceeded. Wait one minute to send another request.';
-            }
-            if (message.includes('Malformed')) {
-                message = 'Error searching player profile; try removing one character from the end until the search works.'
-            }
             setSearched(false);
             setNameResults([]);
-            setNameResultsError(message);
+            setNameResultsError(error.message);
         }
         setButtonDisabled(false);
     }, [nameFilter, setNameResults, setNameResultsError, turnstileToken]);
@@ -147,7 +123,7 @@ function Players() {
             </div>
             {!!nameResultsError && (
                 <div>
-                    <p>{`${t('Search error')}: ${nameResultsError}`}</p>
+                    <p className="error">{nameResultsError}</p>
                 </div>
             )}
             {!nameResultsError && searchResults}

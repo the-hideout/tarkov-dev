@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Turnstile } from '@marsidev/react-turnstile'
 import { Icon } from '@mdi/react';
@@ -24,6 +24,8 @@ import ItemImage from '../../components/item-image/index.js';
 import useItemsData from '../../features/items/index.js';
 import useMetaData from '../../features/meta/index.js';
 import useAchievementsData from '../../features/achievements/index.js';
+
+import playerStats from '../../modules/player-stats.mjs';
 
 import './index.css';
 
@@ -60,6 +62,7 @@ function Player() {
     const turnstileRef = useRef();
     const { t } = useTranslation();
     const params = useParams();
+    const navigate = useNavigate();
 
     const [accountId, setAccountId] = useState(params.accountId);
 
@@ -100,74 +103,29 @@ function Player() {
             }
             if (isNaN(accountId)) {
                 try {
-                    // Create a form request to send the Turnstile token
-                    // This avoids sending an extra pre-flight request
-                    let formData = new FormData();
-                    formData.append('Turnstile-Token', turnstileToken);
-                    const response = await fetch('https://player.tarkov.dev/name/' + accountId,
-                        {
-                            method: 'POST',
-                            body: formData,
-                        });
-                    if (response.status !== 200) {
-                        return;
-                    }
-                    const searchResponse = await response.json();
-                    if (searchResponse.err) {
-                        setProfileError(`Error searching for profile ${accountId}: ${searchResponse.errmsg}`);
-                        return;
-                    }
+                    const searchResponse = await playerStats.searchPlayers(accountId, turnstileToken);
                     for (const result of searchResponse) {
                         if (result.name.toLowerCase() === accountId.toLowerCase()) {
-                            setAccountId(result.aid);
-                            break;
+                            navigate('/player/'+result.aid);
+                            return;
                         }
                     }
-                    return;
+                    setProfileError(`Account ${accountId} not found`);
                 } catch (error) {
-                    if (error.message.includes('NetworkError')) {
-                        setProfileError('Rate limited exceeded. Wait one minute to send another request.');
-                    }
-                    console.log('Error retrieving player profile', error);
+                    setProfileError(`Error searching for profile ${accountId}: ${error.message}`);
                 }
+                return;
             }
             try {
-                // Create a form request to send the Turnstile token
-                // This avoids sending an extra pre-flight request
-                let formData = new FormData();
-                formData.append('Turnstile-Token', turnstileToken);
-                const response = await fetch('https://player.tarkov.dev/account/' + accountId,
-                    {
-                        method: 'POST',
-                        body: formData,
-                    }
-                );
-                if (response.status !== 200) {
-                    if (response.status === 429) {
-                        setProfileError(`Rate limited exceeded. Wait ${response.headers.get('Retry-After')} seconds to send another request`);
-                    }
-                    return;
-                }
-                const profileResponse = await response.json();
-                if (profileResponse.err) {
-                    setProfileError(profileResponse.errmsg);
-                    return;
-                }
-                if (response.status !== 200) {
-                    return;
-                }
-                setPlayerData(profileResponse);
+                setPlayerData(await playerStats.getProfile(accountId, turnstileToken));
             } catch (error) {
-                if (error.message.includes('NetworkError')) {
-                    setProfileError('Rate limited exceeded. Wait one minute to send another request.');
-                }
-                console.log('Error retrieving player profile', error);
+                setProfileError(error.message);
             }
         }
         if (turnstileToken) {
             fetchProfile();
         }
-    }, [accountId, setPlayerData, setProfileError, turnstileToken]);
+    }, [accountId, setPlayerData, setProfileError, navigate, turnstileToken]);
 
     const playerLevel = useMemo(() => {
         if (playerData.info.experience === 0) {

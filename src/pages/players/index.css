@@ -20,3 +20,7 @@
 .turnstile-widget {
     margin-top: 20px;
 }
+
+.error {
+    color: #cd1e2f;
+}
