@@ -72,7 +72,7 @@ function Players() {
             setNameResultsError(message);
         }
         setButtonDisabled(false);
-    }, [nameFilter, setNameResults, setNameResultsError]);
+    }, [nameFilter, setNameResults, setNameResultsError, turnstileToken]);
 
     const searchResults = useMemo(() => {
         if (!searched) {
