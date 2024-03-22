@@ -1,6 +1,7 @@
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
+import { Turnstile } from '@marsidev/react-turnstile'
 
 import { Icon } from '@mdi/react';
 import { mdiAccountSearch } from '@mdi/js';
@@ -13,6 +14,8 @@ import { InputFilter } from '../../components/filter/index.js';
 import './index.css';
 
 function Players() {
+    const turnstileRef = useRef();
+
     const { t } = useTranslation();
 
     const enterPress = useKeyPress('Enter');
@@ -34,13 +37,19 @@ function Players() {
         try {
             setNameResultsError(false);
             setButtonDisabled(true);
-            const response = await fetch('https://player.tarkov.dev/name/'+nameFilter);
+            const response = await fetch('https://player.tarkov.dev/name/' + nameFilter,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Turnstile-Token': turnstileRef.current.getResponse(),
+                    },
+                });
             if (response.status !== 200) {
                 let errorMessage = await response.text();
                 try {
                     const json = JSON.parse(errorMessage);
                     errorMessage = json.errmsg;
-                } catch {}
+                } catch { }
                 throw new Error(errorMessage);
             }
             setSearched(true);
@@ -98,7 +107,7 @@ function Players() {
     }, [enterPress, searchForName]);
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Players')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('players-page-description', 'Search Escape from Tarkov players. View player profiles and see their stats.')}
             key="seo-wrapper"
@@ -106,7 +115,7 @@ function Players() {
         <div className={'page-wrapper'} key="players-page-wrapper">
             <div className="players-headline-wrapper" key="players-headline">
                 <h1 className="players-page-title">
-                    <Icon path={mdiAccountSearch} size={1.5} className="icon-with-text"/>
+                    <Icon path={mdiAccountSearch} size={1.5} className="icon-with-text" />
                     {t('Players')}
                 </h1>
             </div>
@@ -137,6 +146,7 @@ function Players() {
                 </div>
             )}
             {!nameResultsError && searchResults}
+            <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' />
         </div>,
     ];
 }

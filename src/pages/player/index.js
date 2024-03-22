@@ -1,9 +1,9 @@
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
+import { Turnstile } from '@marsidev/react-turnstile'
 import { Icon } from '@mdi/react';
-import { 
+import {
     mdiAccountDetails,
     mdiChevronUp,
     mdiChevronDown,
@@ -57,6 +57,7 @@ const raritySort = {
 }
 
 function Player() {
+    const turnstileRef = useRef();
     const { t } = useTranslation();
     const params = useParams();
 
@@ -98,7 +99,13 @@ function Player() {
             }
             if (isNaN(accountId)) {
                 try {
-                    const response = await fetch('https://player.tarkov.dev/name/'+accountId);
+                    const response = await fetch('https://player.tarkov.dev/name/' + accountId,
+                        {
+                            method: 'GET',
+                            headers: {
+                                'Turnstile-Token': turnstileRef.current.getResponse(),
+                            },
+                        });
                     if (response.status !== 200) {
                         return;
                     }
@@ -122,7 +129,7 @@ function Player() {
                 }
             }
             try {
-                const response = await fetch('https://player.tarkov.dev/account/'+accountId);
+                const response = await fetch('https://player.tarkov.dev/account/' + accountId);
                 if (response.status !== 200) {
                     if (response.status === 429) {
                         setProfileError(`Rate limited exceeded. Wait ${response.headers.get('Retry-After')} seconds to send another request`);
@@ -162,9 +169,9 @@ function Player() {
             if (expTotal > playerData.info.experience) {
                 return metaData.playerLevels[i - 1].level;
             }
-            
+
         }
-        return metaData.playerLevels[metaData.playerLevels.length-1].level;
+        return metaData.playerLevels[metaData.playerLevels.length - 1].level;
     }, [playerData, metaData]);
 
     const pageTitle = useMemo(() => {
@@ -185,14 +192,14 @@ function Player() {
         if (playerData.info.bannedUntil < 0) {
             return t('Banned Permanently');
         }
-        return t('Banned until {{banLiftDate}}', {banLiftDate: new Date(playerData.info.bannedUntil * 1000).toLocaleString()});
+        return t('Banned until {{banLiftDate}}', { banLiftDate: new Date(playerData.info.bannedUntil * 1000).toLocaleString() });
     }, [playerData, t]);
 
     const achievementColumns = useMemo(
         () => [
             {
                 Header: () => (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('Name')}
                     </div>),
                 id: 'name',
@@ -200,7 +207,7 @@ function Player() {
             },
             {
                 Header: () => (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('Description')}
                     </div>),
                 id: 'description',
@@ -270,7 +277,7 @@ function Player() {
         () => [
             {
                 Header: (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('Side')}
                     </div>
                 ),
@@ -282,7 +289,7 @@ function Player() {
             },
             {
                 Header: (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('Raids')}
                     </div>
                 ),
@@ -291,7 +298,7 @@ function Player() {
             },
             {
                 Header: (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('Survived')}
                     </div>
                 ),
@@ -300,7 +307,7 @@ function Player() {
             },
             {
                 Header: (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('Runthrough')}
                     </div>
                 ),
@@ -312,7 +319,7 @@ function Player() {
             },
             {
                 Header: (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('MIA')}
                     </div>
                 ),
@@ -324,7 +331,7 @@ function Player() {
             },
             {
                 Header: (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('KIA')}
                     </div>
                 ),
@@ -336,7 +343,7 @@ function Player() {
             },
             {
                 Header: (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('Kills')}
                     </div>
                 ),
@@ -348,8 +355,8 @@ function Player() {
             },
             {
                 Header: (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
-                        {t('K:D', {nsSeparator: '|'})}
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
+                        {t('K:D', { nsSeparator: '|' })}
                     </div>
                 ),
                 id: 'kdr',
@@ -366,7 +373,7 @@ function Player() {
         if (!playerData.pmcStats?.eft) {
             return [];
         }
-        const statSides = {'pmcStats': 'PMC', 'scavStats': 'Scav'};
+        const statSides = { 'pmcStats': 'PMC', 'scavStats': 'Scav' };
         const statTypes = [
             {
                 name: 'raids',
@@ -422,7 +429,7 @@ function Player() {
         () => [
             {
                 Header: (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('Skill')}
                     </div>
                 ),
@@ -434,7 +441,7 @@ function Player() {
             },
             {
                 Header: (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('Level')}
                     </div>
                 ),
@@ -446,7 +453,7 @@ function Player() {
             },
             {
                 Header: (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('Last Access')}
                     </div>
                 ),
@@ -477,7 +484,7 @@ function Player() {
         () => [
             {
                 Header: (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('Weapon')}
                     </div>
                 ),
@@ -489,7 +496,7 @@ function Player() {
             },
             {
                 Header: (
-                    <div style={{textAlign:'left', paddingLeft:'10px'}}>
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('Progress')}
                     </div>
                 ),
@@ -548,11 +555,11 @@ function Player() {
             const key = items.find(i => i.id === loadoutItem._tpl);
             if (key) {
                 if (key.properties.uses) {
-                    countLabel = `${key.properties.uses-loadoutItem.upd.Key.NumberOfUsages}/${key.properties.uses}`;
+                    countLabel = `${key.properties.uses - loadoutItem.upd.Key.NumberOfUsages}/${key.properties.uses}`;
                 } else {
                     countLabel = loadoutItem.upd.Key.NumberOfUsages;
                 }
-                
+
             }
         }
         if (loadoutItem.upd?.Repairable) {
@@ -623,13 +630,13 @@ function Player() {
             </TreeItem>
         ));
 
-        return  <TreeView
-                    defaultExpandIcon={<Icon path={mdiChevronDown} size={1.5} className="icon-with-text"/>}
-                    defaultCollapseIcon={<Icon path={mdiChevronUp} size={1.5} className="icon-with-text"/>}
-                    defaultParentIcon={<span>***</span>}
-                >
-                    {contents}
-                </TreeView>
+        return <TreeView
+            defaultExpandIcon={<Icon path={mdiChevronDown} size={1.5} className="icon-with-text" />}
+            defaultCollapseIcon={<Icon path={mdiChevronUp} size={1.5} className="icon-with-text" />}
+            defaultParentIcon={<span>***</span>}
+        >
+            {contents}
+        </TreeView>
     }, [playerData, getItemDisplay, getLoadoutContents]);
 
     const getFavoriteItems = useCallback(() => {
@@ -637,7 +644,7 @@ function Player() {
             return '';
         }
         return ([
-            <h2 key="favorite-items-title"><Icon path={mdiTrophyAward} size={1.5} className="icon-with-text"/>{t('Favorite Items')}</h2>,
+            <h2 key="favorite-items-title"><Icon path={mdiTrophyAward} size={1.5} className="icon-with-text" />{t('Favorite Items')}</h2>,
             <ul key="favorite-items-content" className="favorite-item-list">
                 {playerData.favoriteItems.map(itemData => {
                     if (itemData.parentId) {
@@ -653,8 +660,8 @@ function Player() {
                     return (
                         <li key={itemData._id}>
                             <TreeView
-                                defaultExpandIcon={<Icon path={mdiChevronDown} size={1.5} className="icon-with-text"/>}
-                                defaultCollapseIcon={<Icon path={mdiChevronUp} size={1.5} className="icon-with-text"/>}
+                                defaultExpandIcon={<Icon path={mdiChevronDown} size={1.5} className="icon-with-text" />}
+                                defaultCollapseIcon={<Icon path={mdiChevronUp} size={1.5} className="icon-with-text" />}
                                 defaultParentIcon={<span>***</span>}
                             >
                                 <TreeItem key={`loadout-item-${itemData._id}`} nodeId={itemData._id} icon={itemImage} label={itemLabel}>
@@ -671,7 +678,7 @@ function Player() {
     const playerSearchDiv = (
         <div>
             <p>
-                <Link to="/players"><Icon path={mdiAccountSearch} size={1} className="icon-with-text"/>{t('Search different player')}</Link>
+                <Link to="/players"><Icon path={mdiAccountSearch} size={1} className="icon-with-text" />{t('Search different player')}</Link>
             </p>
         </div>
     );
@@ -686,7 +693,7 @@ function Player() {
     }
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Player Profile')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('player-page-description', 'View player profile.')}
             key="seo-wrapper"
@@ -695,7 +702,7 @@ function Player() {
             {playerSearchDiv}
             <div className="player-headline-wrapper" key="player-headline">
                 <h1 className="player-page-title">
-                    <Icon path={mdiAccountDetails} size={1.5} className="icon-with-text"/>
+                    <Icon path={mdiAccountDetails} size={1.5} className="icon-with-text" />
                     {pageTitle}
                 </h1>
             </div>
@@ -718,23 +725,23 @@ function Player() {
                         });
                     })()}`}</p>
                 )}
-                <h2><Icon path={mdiChartLine} size={1.5} className="icon-with-text"/>{t('Raid Stats')}</h2>
+                <h2><Icon path={mdiChartLine} size={1.5} className="icon-with-text" />{t('Raid Stats')}</h2>
                 {Object.keys(playerData.pmcStats).length > 0 ?
                     <DataTable
                         key="raids-table"
                         columns={raidsColumns}
                         data={raidsData}
                     />
-                : <p>{t('None')}</p>}
-                <h2><Icon path={mdiTrophy} size={1.5} className="icon-with-text"/>{t('Achievements')}</h2>
+                    : <p>{t('None')}</p>}
+                <h2><Icon path={mdiTrophy} size={1.5} className="icon-with-text" />{t('Achievements')}</h2>
                 {Object.keys(playerData.achievements).length > 0 ?
                     <DataTable
                         key="achievements-table"
                         columns={achievementColumns}
                         data={achievementsData}
                     />
-                 : <p>{t('None')}</p>}
-                <h2><Icon path={mdiBagPersonal} size={1.5} className="icon-with-text"/>{t('Loadout')}</h2>
+                    : <p>{t('None')}</p>}
+                <h2><Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" />{t('Loadout')}</h2>
                 <div className="inventory">
                     <div className="grid-container main">
                         <div className="earpiece">{getLoadoutInSlot('Earpiece')}</div>
@@ -756,16 +763,16 @@ function Player() {
                     </div>
                 </div>
                 {getFavoriteItems()}
-                {playerData.skills?.Common?.length > 0 &&  ([
-                    <h2 key="skills-title"><Icon path={mdiArmFlex} size={1.5} className="icon-with-text"/>{t('Skills')}</h2>,
+                {playerData.skills?.Common?.length > 0 && ([
+                    <h2 key="skills-title"><Icon path={mdiArmFlex} size={1.5} className="icon-with-text" />{t('Skills')}</h2>,
                     <DataTable
                         key="skills-table"
                         columns={skillsColumns}
                         data={skillsData}
                     />,
                 ])}
-                {playerData.skills?.Mastering?.length > 0 &&  ([
-                    <h2 key="mastering-title"><Icon path={mdiStarBox} size={1.5} className="icon-with-text"/>{t('Mastering')}</h2>,
+                {playerData.skills?.Mastering?.length > 0 && ([
+                    <h2 key="mastering-title"><Icon path={mdiStarBox} size={1.5} className="icon-with-text" />{t('Mastering')}</h2>,
                     <DataTable
                         key="skills-table"
                         columns={masteringColumns}
@@ -773,6 +780,7 @@ function Player() {
                     />,
                 ])}
             </div>
+            <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' />
         </div>,
     ];
 }
