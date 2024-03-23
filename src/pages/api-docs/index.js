@@ -58,9 +58,9 @@ function APIDocs() {
             <div className="section-text-wrapper">
                 <h3>{t('Is there a rate limit?')}</h3>
                 <Trans i18nKey={'api-faq-rate-limit-p'}>
-                    Nope! We currently do not have a rate-limit enabled. That being said, please respect this and do not hammer the API with requests just because you can. Use common sense!
+                    We occsionally get hit with a lot of traffic from bad actors that requires implementing rate limits.
                     Price data is updated every 5 minutes, so there's really no need to query faster than that.
-                    To view an up-to-date definition of our rate-limits (or lack there-of), check our Cloudflare GitHub repo where they are defined: <a href="https://github.com/the-hideout/cloudflare/blob/main/terraform/security.tf" target="_blank" rel="noopener noreferrer">rate limit definition</a>.
+                    Use common sense, and you should be fine.
                 </Trans>
             </div>
             <div className="section-text-wrapper">
