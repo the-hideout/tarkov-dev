@@ -238,7 +238,7 @@
     "Is it open source?": "オープンソースなのでしょうか？",
     "api-faq-open-source-p": "もちろんです！APIのソースコードは、<1>github.com/the-hideout/tarkov-api</1>のGitHubリポジトリで見ることができる。",
     "Is there a rate limit?": "料金の上限はあるのでしょうか？",
-    "api-faq-rate-limit-p": "いいえ！現在、レートリミットを有効にしていません。とはいえ、これを尊重し、できることだからといってAPIにリクエストをハンマーで叩き込むようなことはしないでください。常識的な範囲でお願いします！価格データは5分ごとに更新されるため、それ以上の速さでクエリを実行する必要はありません。レートリミット（またはその欠如）の最新の定義については、Cloudflare GitHubのレポで定義されている<1>レートリミット</1>定義をご覧ください。",
+    "api-faq-rate-limit-p": "We occsionally get hit with a lot of traffic from bad actors that requires implementing rate limits. Price data is updated every 5 minutes, so there's really no need to query faster than that. Use common sense, and you should be fine.",
     "What about caching?": "キャッシングについてはどうでしょうか？",
     "api-faq-caching-p": "私たちのデータは5分ごとに更新されるため、すべてのGraphQLクエリも同様に5分間キャッシュされます。これにより、私たちのサーバーのロード中が大幅に削減され、お客様のリクエストがスピーディーになるのです！",
     "Where is the data from?": "データはどこの国のものですか？",
