@@ -23,7 +23,7 @@
     grid-template-columns: auto;
 }
 
-.grid-container > div {
+.grid-container>div {
     background-color: rgba(0, 0, 0, 0.4);
     text-align: center;
     font-size: 20px;
@@ -49,4 +49,12 @@ ul.favorite-item-list li {
 
 .legendary {
     color: #ffe084;
+}
+
+.banned {
+    color: #cd1e2f;
+}
+
+.turnstile-widget {
+    margin-top: 20px;
 }
