@@ -16,3 +16,11 @@
     margin-right: 10px;
     width: 264px;
 }
+
+.turnstile-widget {
+    margin-top: 20px;
+}
+
+.error {
+    color: #cd1e2f;
+}
