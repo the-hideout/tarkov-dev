@@ -563,6 +563,9 @@ function Player() {
                 level,
                 subRows: mastering.weapons.map(w => {
                     const baseItem = items.find(i => i.id === w.id);
+                    if (!baseItem) {
+                        return false;
+                    }
                     const preset = items.find (i => i.id === baseItem.properties.defaultPreset?.id);
                     return {
                         ...baseItem,
