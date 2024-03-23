@@ -20,6 +20,8 @@ import { TreeView, TreeItem } from '@mui/x-tree-view';
 import SEO from '../../components/SEO.jsx';
 import DataTable from '../../components/data-table/index.js';
 import ItemImage from '../../components/item-image/index.js';
+import ArrowIcon from '../../components/data-table/Arrow.js';
+import ItemNameCell from '../../components/item-name-cell/index.js';
 
 import useItemsData from '../../features/items/index.js';
 import useMetaData from '../../features/meta/index.js';
@@ -409,7 +411,7 @@ function Player() {
                 id: 'skill',
                 accessor: 'skill',
                 Cell: (props) => {
-                    return t(props.value);
+                    return props.value;
                 },
             },
             {
@@ -445,25 +447,66 @@ function Player() {
             if (!s.Progress || s.LastAccess <= 0) {
                 return false;
             }
+            const skill = metaData.skills.find(skill => skill.id === s.Id);
             return {
-                skill: s.Id,
+                skill: skill?.name || s.Id,
                 progress: s.Progress,
                 lastAccess: s.LastAccess,
             }
         }).filter(Boolean) || [];
-    }, [playerData]);
+    }, [playerData, metaData]);
 
     const masteringColumns = useMemo(
         () => [
+            {
+                id: 'expander',
+                Header: ({
+                    getToggleAllRowsExpandedProps,
+                    isAllRowsExpanded,
+                }) =>
+                    // <span {...getToggleAllRowsExpandedProps()}>
+                    //     {isAllRowsExpanded ? 'v' : '>'}
+                    // </span>
+                    null,
+                Cell: ({ row }) =>
+                    // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
+                    // to build the toggle for expanding a row
+                    row.canExpand ? (
+                        <span
+                            {...row.getToggleRowExpandedProps({
+                                style: {
+                                    // We can even use the row.depth property
+                                    // and paddingLeft to indicate the depth
+                                    // of the row
+                                    // paddingLeft: `${row.depth * 2}rem`,
+                                },
+                            })}
+                        >
+                            {row.isExpanded ? (
+                                <ArrowIcon />
+                            ) : (
+                                <ArrowIcon className={'arrow-right'} />
+                            )}
+                        </span>
+                    ) : null,
+            },
             {
                 Header: (
                     <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('Weapon')}
                     </div>
                 ),
-                id: 'Id',
-                accessor: 'Id',
+                id: 'name',
+                accessor: 'name',
                 Cell: (props) => {
+                    if (props.row.original.shortName) {
+                        return (
+                            <ItemNameCell
+                                item={props.row.original}
+                                items={items}
+                            />
+                        );
+                    }
                     return props.value;
                 },
             },
@@ -476,12 +519,44 @@ function Player() {
                 id: 'Progress',
                 accessor: 'Progress',
                 Cell: (props) => {
-                    return props.value;
+                    if (props.row.original.shortName) {
+                        return '';
+                    }
+                    return props.value + ` (${props.row.original.level})`;
                 },
             },
         ],
-        [t],
+        [t, items],
     );
+
+    const masteringData = useMemo(() => {
+        return playerData.skills?.Mastering?.map(masteringProgress => {
+            const mastering = metaData.mastering.find(m => m.id === String(masteringProgress.Id));
+            if (!mastering) {
+                return false;
+            }
+            let level = 1;
+            if (masteringProgress.Progress > mastering.level3) {
+                level = 3;
+            } else if (masteringProgress.Progress > mastering.level2) {
+                level = 2;
+            }
+            return {
+                ...masteringProgress,
+                name: masteringProgress.Id,
+                level,
+                subRows: mastering.weapons.map(w => {
+                    const baseItem = items.find(i => i.id === w.id);
+                    const preset = items.find (i => i.id === baseItem.properties.defaultPreset?.id);
+                    return {
+                        ...baseItem,
+                        itemLink: `/item/${baseItem.normalizedName}`,
+                        iconLink: preset ? preset.iconLink : baseItem.iconLink,
+                    };
+                }).filter(Boolean),
+            };
+        }).filter(Boolean) || [];
+    }, [playerData, metaData, items]);
 
     const totalSecondsInGame = useMemo(() => {
         return playerData.pmcStats?.eft?.totalInGameTime || 0;
@@ -763,7 +838,7 @@ function Player() {
                     <DataTable
                         key="skills-table"
                         columns={masteringColumns}
-                        data={playerData.skills.Mastering}
+                        data={masteringData}
                     />,
                 ])}
             </div>
