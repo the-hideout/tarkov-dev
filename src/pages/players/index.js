@@ -47,8 +47,9 @@ function Players() {
             setNameResults([]);
             setNameResultsError(error.message);
         }
+        turnstileRef.current.reset();
         setButtonDisabled(false);
-    }, [nameFilter, setNameResults, setNameResultsError, turnstileToken]);
+    }, [nameFilter, setNameResults, setNameResultsError, turnstileToken, turnstileRef]);
 
     const searchResults = useMemo(() => {
         if (!searched) {

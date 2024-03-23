@@ -1,5 +1,7 @@
-const apiUrl = 'https://player.tarkov.dev';
-//const apiUrl = 'http://localhost:8787';
+//const apiUrl = 'https://player.tarkov.dev';
+const apiUrl = 'http://localhost:8787';
+
+const requestMethod = 'POST';
 
 const playerStats = {
     useTurnstile: false,
@@ -38,11 +40,16 @@ const playerStats = {
         // Create a form request to send the Turnstile token
         // This avoids sending an extra pre-flight request
         let body;
+        let searchParams = '';
         if (turnstileToken) {
-            body = new FormData();
-            body.append('Turnstile-Token', turnstileToken);
+            if (requestMethod === 'POST') {
+                body = new FormData();
+                body.append('Turnstile-Token', turnstileToken);
+            } else {
+                searchParams = `?token=${turnstileToken}`;
+            }
         }
-        return playerStats.request('/name/' + searchString, body).catch(error => {
+        return playerStats.request(`/name/${searchString}${searchParams}`, body).catch(error => {
             if (error.message.includes('Malformed')) {
                 return Promise.reject(new Error('Error searching player profile; try removing one character from the end until the search works.'));
             }
@@ -51,11 +58,16 @@ const playerStats = {
     },
     getProfile: async (accountId, turnstileToken) => {
         let body;
+        let searchParams = '';
         if (turnstileToken) {
-            body = new FormData();
-            body.append('Turnstile-Token', turnstileToken);
+            if (requestMethod === 'POST') {
+                body = new FormData();
+                body.append('Turnstile-Token', turnstileToken);
+            } else {
+                searchParams = `?token=${turnstileToken}`;
+            }
         }
-        return playerStats.request('/account/' + accountId, body);
+        return playerStats.request(`/account/${accountId}${searchParams}`, body);
     },
 };
 
