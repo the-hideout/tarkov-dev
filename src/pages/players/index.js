@@ -31,7 +31,7 @@ function Players() {
 
     const [isButtonDisabled, setButtonDisabled] = useState(true);
     const [searched, setSearched] = useState(false);
-    const [turnstileToken, setTurnstileToken] = useState()
+    const [turnstileToken, setTurnstileToken] = useState();
 
     const searchForName = useCallback(async () => {
         if (nameFilter.length < 3 || nameFilter.length > 15) {
@@ -48,7 +48,6 @@ function Players() {
             setNameResultsError(error.message);
         }
         turnstileRef.current.reset();
-        setButtonDisabled(false);
     }, [nameFilter, setNameResults, setNameResultsError, turnstileToken, turnstileRef]);
 
     const searchResults = useMemo(() => {

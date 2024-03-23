@@ -96,36 +96,37 @@ function Player() {
     const { data: achievements } = useAchievementsData();
     const [turnstileToken, setTurnstileToken] = useState()
 
-    useEffect(() => {
-        async function fetchProfile() {
-            if (!accountId) {
-                return;
-            }
-            if (isNaN(accountId)) {
-                try {
-                    const searchResponse = await playerStats.searchPlayers(accountId, turnstileToken);
-                    for (const result of searchResponse) {
-                        if (result.name.toLowerCase() === accountId.toLowerCase()) {
-                            navigate('/player/'+result.aid);
-                            return;
-                        }
-                    }
-                    setProfileError(`Account ${accountId} not found`);
-                } catch (error) {
-                    setProfileError(`Error searching for profile ${accountId}: ${error.message}`);
-                }
-                return;
-            }
+    const fetchProfile = useCallback(async () => {
+        const token = turnstileRef?.current?.getResponse();
+        if (!token) {
+            return;
+        }
+        if (!accountId) {
+            return;
+        }
+        if (isNaN(accountId)) {
             try {
-                setPlayerData(await playerStats.getProfile(accountId, turnstileToken));
+                const searchResponse = await playerStats.searchPlayers(accountId, turnstileToken);
+                turnstileRef.current?.reset();
+                for (const result of searchResponse) {
+                    if (result.name.toLowerCase() === accountId.toLowerCase()) {
+                        navigate('/player/'+result.aid);
+                        return;
+                    }
+                }
+                setProfileError(`Account ${accountId} not found`);
             } catch (error) {
-                setProfileError(error.message);
+                setProfileError(`Error searching for profile ${accountId}: ${error.message}`);
             }
+            return;
         }
-        if (turnstileToken) {
-            fetchProfile();
+        try {
+            setPlayerData(await playerStats.getProfile(accountId, turnstileToken));
+            turnstileRef.current?.reset();
+        } catch (error) {
+            setProfileError(error.message);
         }
-    }, [accountId, setPlayerData, setProfileError, navigate, turnstileToken]);
+    }, [accountId, setPlayerData, setProfileError, navigate, turnstileToken, turnstileRef]);
 
     const playerLevel = useMemo(() => {
         if (playerData.info.experience === 0) {
@@ -646,6 +647,16 @@ function Player() {
             </ul>
         ])
     }, [playerData, getItemDisplay, getLoadoutContents, t]);
+
+    useEffect(() => {
+        if (!turnstileToken) {
+            return;
+        }
+        if (String(playerData.aid) === accountId) {
+            return;
+        }
+        fetchProfile();
+    }, [playerData, accountId, turnstileToken, fetchProfile])
 
     const playerSearchDiv = (
         <div>

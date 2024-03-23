@@ -1,5 +1,5 @@
-//const apiUrl = 'https://player.tarkov.dev';
-const apiUrl = 'http://localhost:8787';
+const apiUrl = 'https://player.tarkov.dev';
+//const apiUrl = 'http://localhost:8787';
 
 const requestMethod = 'POST';
 
