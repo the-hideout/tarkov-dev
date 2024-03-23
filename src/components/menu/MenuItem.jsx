@@ -8,7 +8,7 @@ function MenuItem(props) {
     let currentAmmo = '';
     let ammoTypes = [];
     if (routeMatch) {
-        currentAmmo = routeMatch.params.currentAmmo;
+        currentAmmo = decodeURIComponent(routeMatch.params.currentAmmo);
         ammoTypes = currentAmmo.split(',');
     }
 
