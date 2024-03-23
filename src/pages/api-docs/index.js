@@ -58,7 +58,7 @@ function APIDocs() {
             <div className="section-text-wrapper">
                 <h3>{t('Is there a rate limit?')}</h3>
                 <Trans i18nKey={'api-faq-rate-limit-p'}>
-                    We occsionally get hit with a lot of traffic from bad actors that requires implementing rate limits.
+                    We occasionally get hit with a lot of traffic from bad actors that require implementing rate limits.
                     Price data is updated every 5 minutes, so there's really no need to query faster than that.
                     Use common sense, and you should be fine.
                 </Trans>
