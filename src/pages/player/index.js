@@ -340,6 +340,18 @@ function Player() {
                     return (props.value / props.row.original.kia).toFixed(2);
                 },
             },
+            {
+                Header: (
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
+                        {t('Win Streak')}
+                    </div>
+                ),
+                id: 'streak',
+                accessor: 'streak',
+                Cell: (props) => {
+                    return props.value;
+                },
+            },
         ],
         [t],
     );
@@ -374,6 +386,10 @@ function Player() {
                 name: 'kills',
                 key: ['Kills'],
             },
+            {
+                name: 'streak',
+                key: ['LongestWinStreak']
+            }
         ];
         const getStats = (side) => {
             return {
