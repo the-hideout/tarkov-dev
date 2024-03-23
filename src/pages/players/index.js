@@ -1,6 +1,7 @@
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
+import { Turnstile } from '@marsidev/react-turnstile'
 
 import { Icon } from '@mdi/react';
 import { mdiAccountSearch } from '@mdi/js';
@@ -10,9 +11,13 @@ import useKeyPress from '../../hooks/useKeyPress.jsx';
 import SEO from '../../components/SEO.jsx';
 import { InputFilter } from '../../components/filter/index.js';
 
+import playerStats from '../../modules/player-stats.mjs';
+
 import './index.css';
 
 function Players() {
+    const turnstileRef = useRef();
+
     const { t } = useTranslation();
 
     const enterPress = useKeyPress('Enter');
@@ -26,6 +31,7 @@ function Players() {
 
     const [isButtonDisabled, setButtonDisabled] = useState(true);
     const [searched, setSearched] = useState(false);
+    const [turnstileToken, setTurnstileToken] = useState();
 
     const searchForName = useCallback(async () => {
         if (nameFilter.length < 3 || nameFilter.length > 15) {
@@ -34,31 +40,15 @@ function Players() {
         try {
             setNameResultsError(false);
             setButtonDisabled(true);
-            const response = await fetch('https://player.tarkov.dev/name/'+nameFilter);
-            if (response.status !== 200) {
-                let errorMessage = await response.text();
-                try {
-                    const json = JSON.parse(errorMessage);
-                    errorMessage = json.errmsg;
-                } catch {}
-                throw new Error(errorMessage);
-            }
+            setNameResults(await playerStats.searchPlayers(nameFilter, turnstileToken));
             setSearched(true);
-            setNameResults(await response.json());
         } catch (error) {
-            let message = error.message;
-            if (message.includes('NetworkError')) {
-                message = 'Rate limited exceeded. Wait one minute to send another request.';
-            }
-            if (message.includes('Malformed')) {
-                message = 'Error searching player profile; try removing one character from the end until the search works.'
-            }
             setSearched(false);
             setNameResults([]);
-            setNameResultsError(message);
+            setNameResultsError(error.message);
         }
-        setButtonDisabled(false);
-    }, [nameFilter, setNameResults, setNameResultsError]);
+        turnstileRef.current.reset();
+    }, [nameFilter, setNameResults, setNameResultsError, turnstileToken, turnstileRef]);
 
     const searchResults = useMemo(() => {
         if (!searched) {
@@ -98,7 +88,7 @@ function Players() {
     }, [enterPress, searchForName]);
 
     return [
-        <SEO 
+        <SEO
             title={`${t('Players')} - ${t('Escape from Tarkov')} - ${t('Tarkov.dev')}`}
             description={t('players-page-description', 'Search Escape from Tarkov players. View player profiles and see their stats.')}
             key="seo-wrapper"
@@ -106,7 +96,7 @@ function Players() {
         <div className={'page-wrapper'} key="players-page-wrapper">
             <div className="players-headline-wrapper" key="players-headline">
                 <h1 className="players-page-title">
-                    <Icon path={mdiAccountSearch} size={1.5} className="icon-with-text"/>
+                    <Icon path={mdiAccountSearch} size={1.5} className="icon-with-text" />
                     {t('Players')}
                 </h1>
             </div>
@@ -129,14 +119,15 @@ function Players() {
                         setButtonDisabled(newNameFilter.length < 3 || newNameFilter.length > 15);
                     }}
                 />
-                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled}>{t('Search')}</button>
+                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled || turnstileToken === undefined}>{t('Search')}</button>
             </div>
             {!!nameResultsError && (
                 <div>
-                    <p>{`${t('Search error')}: ${nameResultsError}`}</p>
+                    <p className="error">{nameResultsError}</p>
                 </div>
             )}
             {!nameResultsError && searchResults}
+            <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' onSuccess={setTurnstileToken} />
         </div>,
     ];
 }
