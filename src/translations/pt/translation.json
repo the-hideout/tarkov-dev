@@ -242,7 +242,7 @@
     "Is it open source?": "É de código aberto?",
     "api-faq-open-source-p": "É claro! O código fonte da API pode ser encontrado no repositório no GitHub: <1>github.com/the-hideout/tarkov-api</1>.",
     "Is there a rate limit?": "Têm limite de uso?",
-    "api-faq-rate-limit-p": "We occsionally get hit with a lot of traffic from bad actors that requires implementing rate limits. Price data is updated every 5 minutes, so there's really no need to query faster than that. Use common sense, and you should be fine.",
+    "api-faq-rate-limit-p": "We occasionally get hit with a lot of traffic from bad actors that requires implementing rate limits. Price data is updated every 5 minutes, so there's really no need to query faster than that. Use common sense, and you should be fine.",
     "What about caching?": "E quanto a caching?",
     "api-faq-caching-p": "Já que os nosso dados são atualizados a cada 5 minutos, nós também fazemos cache de todas as consultas GraphQL por 5 minutos. Isso ajuda a reduzir muito o trabalho nos nossos servidores, ao mesmo tempo que torna os seus requests bem mais rápidos!",
     "Where is the data from?": "De onde vem as informações?",
