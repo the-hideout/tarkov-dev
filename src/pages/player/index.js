@@ -14,8 +14,12 @@ import {
     mdiStarBox,
     mdiTrophyAward,
     mdiAccountSearch,
+    mdiDownloadBox,
+    mdiFolderOpen,
 } from '@mdi/js';
 import { TreeView, TreeItem } from '@mui/x-tree-view';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
 
 import SEO from '../../components/SEO.jsx';
 import DataTable from '../../components/data-table/index.js';
@@ -62,6 +66,7 @@ const raritySort = {
 
 function Player() {
     const turnstileRef = useRef();
+    const inputFile = useRef() 
     const { t } = useTranslation();
     const params = useParams();
     const navigate = useNavigate();
@@ -129,6 +134,35 @@ function Player() {
             setProfileError(error.message);
         }
     }, [accountId, setPlayerData, setProfileError, navigate, turnstileToken, turnstileRef]);
+
+    const downloadProfile = useCallback(() => {
+        if (!playerData.aid) {
+            return;
+        }
+        const element = document.createElement('a');
+        const file = new Blob([JSON.stringify(playerData, null, 4)], {type: 'application/json'});
+        element.href = URL.createObjectURL(file);
+        element.download = `${playerData.aid}.json`;
+        document.body.appendChild(element); // Required for this to work in FireFox
+        element.click();
+    }, [playerData]);
+
+    const loadProfile = useCallback((e) => {
+        e.preventDefault()
+        const reader = new FileReader();
+        reader.onload = async (e) => { 
+            const text = (e.target.result);
+            try {
+                const data = JSON.parse(text);
+                data.saved = true;
+                setPlayerData(data);
+                window.history.replaceState(null, null, `/player/${data.aid}`);
+            } catch(error) {
+                setProfileError('Error reading profile');
+            }
+        };
+        reader.readAsText(e.target.files[0]);
+    }, [setPlayerData, setProfileError]);
 
     const playerLevel = useMemo(() => {
         if (playerData.info.experience === 0) {
@@ -753,6 +787,9 @@ function Player() {
         if (String(playerData.aid) === accountId) {
             return;
         }
+        if (playerData.saved) {
+            return;
+        }
         fetchProfile();
     }, [playerData, accountId, turnstileToken, fetchProfile])
 
@@ -760,6 +797,13 @@ function Player() {
         <div>
             <p>
                 <Link to="/players"><Icon path={mdiAccountSearch} size={1} className="icon-with-text" />{t('Search different player')}</Link>
+                <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={loadProfile}/>
+                <Tippy
+                    content={t('Load profile from file')}
+                    placement="bottom"
+                >
+                    <button className="profile-button open" onClick={() => {inputFile.current?.click();}}><Icon path={mdiFolderOpen} size={1} className="icon-with-text" /></button>    
+                </Tippy>
             </p>
         </div>
     );
@@ -785,9 +829,22 @@ function Player() {
                 <h1 className="player-page-title">
                     <Icon path={mdiAccountDetails} size={1.5} className="icon-with-text" />
                     {pageTitle}
+                    {playerData.aid !== 0 && (
+                        <span>
+                            <Tippy
+                                content={t('Save profile')}
+                            >
+                            <button className="profile-button download" onClick={downloadProfile}><Icon path={mdiDownloadBox} size={1} className="icon-with-text" /></button>
+                            </Tippy>
+                        </span>
+                        
+                    )}
                 </h1>
             </div>
             <div>
+                {!!playerData.saved && (
+                    <p className="banned">{t('Warning: Profiles loaded from files may contain edited information')}</p>
+                )}
                 {playerData.info.registrationDate !== 0 && (
                     <p>{`${t('Started current wipe')}: ${new Date(playerData.info.registrationDate * 1000).toLocaleString()}`}</p>
                 )}
