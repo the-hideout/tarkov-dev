@@ -832,7 +832,7 @@ function Player() {
                         <div className="body_armor">{getLoadoutInSlot('ArmorVest')}</div>
                         <div className="eyewear">{getLoadoutInSlot('Eyewear')}</div>
                         <div className="weapon on_sling">{getLoadoutInSlot('FirstPrimaryWeapon')}</div>
-                        <div className="holster">{getLoadoutInSlot('SecondaryWeapon')}</div>
+                        <div className="holster">{getLoadoutInSlot('Holster')}</div>
                         <div className="weapon on_back">{getLoadoutInSlot('SecondPrimaryWeapon')}</div>
                         <div className="sheath">{getLoadoutInSlot('Scabbard')}</div>
                     </div>
