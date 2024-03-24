@@ -611,9 +611,20 @@ function Player() {
         }).filter(Boolean) || [];
     }, [playerData, metaData, items]);
 
-    const totalSecondsInGame = useMemo(() => {
-        return playerData.pmcStats?.eft?.totalInGameTime || 0;
-    }, [playerData]);
+    const totalTimeInGame = useMemo(() => {
+        const totalSecondsInGame = playerData.pmcStats?.eft?.totalInGameTime || 0;
+        if (!totalSecondsInGame) {
+            return '';
+        }
+        const { days, hours, minutes, seconds } = getDHMS(totalSecondsInGame);
+        const formattedTime = t('{{days}} days, {{hours}} h, {{minutes}} m, {{seconds}} s', {
+            days,
+            hours,
+            minutes,
+            seconds
+        });
+        return (<p>{`${t('Total account time in game')}: ${formattedTime}`}</p>);
+    }, [playerData, t]);
 
     const getItemDisplay = useCallback((loadoutItem, imageOptions = {}) => {
         let item = items.find(i => i.id === loadoutItem._tpl);
@@ -744,7 +755,7 @@ function Player() {
         </TreeView>
     }, [playerData, getItemDisplay, getLoadoutContents]);
 
-    const getFavoriteItems = useCallback(() => {
+    const favoriteItemsContent = useMemo(() => {
         if (!playerData?.favoriteItems?.length) {
             return '';
         }
@@ -840,6 +851,7 @@ function Player() {
                         
                     )}
                 </h1>
+                <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' onSuccess={setTurnstileToken} options={{appearance: 'interaction-only'}} />
             </div>
             <div>
                 {!!playerData.saved && (
@@ -851,74 +863,74 @@ function Player() {
                 {!!bannedMessage && (
                     <p className="banned">{bannedMessage}</p>
                 )}
-                {totalSecondsInGame > 0 && (
-                    <p>{`${t('Total account time in game')}: ${(() => {
-                        const { days, hours, minutes, seconds } = getDHMS(totalSecondsInGame);
-
-                        return t('{{days}} days, {{hours}} h, {{minutes}} m, {{seconds}} s', {
-                            days,
-                            hours,
-                            minutes,
-                            seconds
-                        });
-                    })()}`}</p>
+                {totalTimeInGame}
+                {raidsData?.length > 0  && (
+                    <>
+                        <h2 key="raids-title"><Icon path={mdiChartLine} size={1.5} className="icon-with-text" />{t('Raid Stats')}</h2>
+                        <DataTable
+                            key="raids-table"
+                            columns={raidsColumns}
+                            data={raidsData}
+                        />
+                    </>
                 )}
-                <h2><Icon path={mdiChartLine} size={1.5} className="icon-with-text" />{t('Raid Stats')}</h2>
-                {Object.keys(playerData.pmcStats).length > 0 ?
-                    <DataTable
-                        key="raids-table"
-                        columns={raidsColumns}
-                        data={raidsData}
-                    />
-                    : <p>{t('None')}</p>}
-                <h2><Icon path={mdiTrophy} size={1.5} className="icon-with-text" />{t('Achievements')}</h2>
-                {Object.keys(playerData.achievements).length > 0 ?
-                    <DataTable
-                        key="achievements-table"
-                        columns={achievementColumns}
-                        data={achievementsData}
-                    />
-                    : <p>{t('None')}</p>}
-                <h2><Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" />{t('Loadout')}</h2>
-                <div className="inventory">
-                    <div className="grid-container main">
-                        <div className="earpiece">{getLoadoutInSlot('Earpiece')}</div>
-                        <div className="headwear">{getLoadoutInSlot('Headwear')}</div>
-                        <div className="face_cover">{getLoadoutInSlot('FaceCover')}</div>
-                        <div className="armband">{getLoadoutInSlot('ArmBand')}</div>
-                        <div className="body_armor">{getLoadoutInSlot('ArmorVest')}</div>
-                        <div className="eyewear">{getLoadoutInSlot('Eyewear')}</div>
-                        <div className="weapon on_sling">{getLoadoutInSlot('FirstPrimaryWeapon')}</div>
-                        <div className="holster">{getLoadoutInSlot('Holster')}</div>
-                        <div className="weapon on_back">{getLoadoutInSlot('SecondPrimaryWeapon')}</div>
-                        <div className="sheath">{getLoadoutInSlot('Scabbard')}</div>
-                    </div>
-                    <div className="grid-container side">
-                        <div className="tactical_rig">{getLoadoutInSlot('TacticalVest')}</div>
-                        <div className="pockets_and_special_slots">{getLoadoutInSlot('Pockets')}</div>
-                        <div className="backpack">{getLoadoutInSlot('Backpack')}</div>
-                        <div className="pouch">{getLoadoutInSlot('SecuredContainer')}</div>
-                    </div>
-                </div>
-                {getFavoriteItems()}
-                {playerData.skills?.Common?.length > 0 && ([
-                    <h2 key="skills-title"><Icon path={mdiArmFlex} size={1.5} className="icon-with-text" />{t('Skills')}</h2>,
-                    <DataTable
-                        key="skills-table"
-                        columns={skillsColumns}
-                        data={skillsData}
-                    />,
-                ])}
-                {playerData.skills?.Mastering?.length > 0 && ([
-                    <h2 key="mastering-title"><Icon path={mdiStarBox} size={1.5} className="icon-with-text" />{t('Mastering')}</h2>,
-                    <DataTable
-                        key="skills-table"
-                        columns={masteringColumns}
-                        data={masteringData}
-                    />,
-                ])}
+                {achievementsData?.length > 0  && (
+                    <>
+                        <h2 key="achievements-title"><Icon path={mdiTrophy} size={1.5} className="icon-with-text" />{t('Achievements')}</h2>
+                        <DataTable
+                            key="achievements-table"
+                            columns={achievementColumns}
+                            data={achievementsData}
+                        />
+                    </>
+                )}
+                {playerData.equipment?.Items?.length > 0 && (
+                    <>
+                        <h2><Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" />{t('Loadout')}</h2>
+                        <div className="inventory">
+                            <div className="grid-container main">
+                                <div className="earpiece">{getLoadoutInSlot('Earpiece')}</div>
+                                <div className="headwear">{getLoadoutInSlot('Headwear')}</div>
+                                <div className="face_cover">{getLoadoutInSlot('FaceCover')}</div>
+                                <div className="armband">{getLoadoutInSlot('ArmBand')}</div>
+                                <div className="body_armor">{getLoadoutInSlot('ArmorVest')}</div>
+                                <div className="eyewear">{getLoadoutInSlot('Eyewear')}</div>
+                                <div className="weapon on_sling">{getLoadoutInSlot('FirstPrimaryWeapon')}</div>
+                                <div className="holster">{getLoadoutInSlot('Holster')}</div>
+                                <div className="weapon on_back">{getLoadoutInSlot('SecondPrimaryWeapon')}</div>
+                                <div className="sheath">{getLoadoutInSlot('Scabbard')}</div>
+                            </div>
+                            <div className="grid-container side">
+                                <div className="tactical_rig">{getLoadoutInSlot('TacticalVest')}</div>
+                                <div className="pockets_and_special_slots">{getLoadoutInSlot('Pockets')}</div>
+                                <div className="backpack">{getLoadoutInSlot('Backpack')}</div>
+                                <div className="pouch">{getLoadoutInSlot('SecuredContainer')}</div>
+                            </div>
+                        </div>
+                    </>
+                )}
+                {favoriteItemsContent}
+                {skillsData?.length > 0 && (
+                    <>
+                        <h2 key="skills-title"><Icon path={mdiArmFlex} size={1.5} className="icon-with-text" />{t('Skills')}</h2>
+                        <DataTable
+                            key="skills-table"
+                            columns={skillsColumns}
+                            data={skillsData}
+                        />
+                    </>
+                )}
+                {masteringData?.length > 0 && (
+                    <>
+                        <h2 key="mastering-title"><Icon path={mdiStarBox} size={1.5} className="icon-with-text" />{t('Mastering')}</h2>
+                        <DataTable
+                            key="skills-table"
+                            columns={masteringColumns}
+                            data={masteringData}
+                        />
+                    </>
+                )}
             </div>
-            <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' onSuccess={setTurnstileToken} />
         </div>,
     ];
 }
