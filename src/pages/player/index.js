@@ -394,7 +394,7 @@ function Player() {
         if (!playerData.pmcStats?.eft) {
             return [];
         }
-        const statSides = { 'pmcStats': 'PMC', 'scavStats': 'Scav' };
+        const statSides = { 'scavStats': 'Scav', 'pmcStats': 'PMC' };
         const statTypes = [
             {
                 name: 'raids',
@@ -574,6 +574,15 @@ function Player() {
                     }
                     return props.value + ` (${props.row.original.level})`;
                 },
+                sortType: (a, b) => {
+                    const aValue = a.original;
+                    const bValue = b.original;
+                    const diff = aValue.level - bValue.level;
+                    if (diff !== 0) {
+                        return diff;
+                    }
+                    return aValue.Progress - bValue.Progress;
+                },
             },
         ],
         [t, items],
@@ -605,6 +614,8 @@ function Player() {
                         ...baseItem,
                         itemLink: `/item/${baseItem.normalizedName}`,
                         iconLink: preset ? preset.iconLink : baseItem.iconLink,
+                        Progress: masteringProgress.Progress,
+                        level,
                     };
                 }).filter(Boolean),
             };
@@ -881,6 +892,7 @@ function Player() {
                             key="achievements-table"
                             columns={achievementColumns}
                             data={achievementsData}
+                            sortBy={'completionDate'}
                         />
                     </>
                 )}
@@ -917,6 +929,7 @@ function Player() {
                             key="skills-table"
                             columns={skillsColumns}
                             data={skillsData}
+                            sortBy={'skill'}
                         />
                     </>
                 )}
@@ -927,6 +940,8 @@ function Player() {
                             key="skills-table"
                             columns={masteringColumns}
                             data={masteringData}
+                            sortBy={'Progress'}
+                            sortByDesc={true}
                         />
                     </>
                 )}
