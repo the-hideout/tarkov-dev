@@ -14,12 +14,18 @@ import {
     mdiStarBox,
     mdiTrophyAward,
     mdiAccountSearch,
+    mdiDownloadBox,
+    mdiFolderOpen,
 } from '@mdi/js';
 import { TreeView, TreeItem } from '@mui/x-tree-view';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
 
 import SEO from '../../components/SEO.jsx';
 import DataTable from '../../components/data-table/index.js';
 import ItemImage from '../../components/item-image/index.js';
+import ArrowIcon from '../../components/data-table/Arrow.js';
+import ItemNameCell from '../../components/item-name-cell/index.js';
 
 import useItemsData from '../../features/items/index.js';
 import useMetaData from '../../features/meta/index.js';
@@ -60,6 +66,7 @@ const raritySort = {
 
 function Player() {
     const turnstileRef = useRef();
+    const inputFile = useRef() 
     const { t } = useTranslation();
     const params = useParams();
     const navigate = useNavigate();
@@ -128,6 +135,35 @@ function Player() {
         }
     }, [accountId, setPlayerData, setProfileError, navigate, turnstileToken, turnstileRef]);
 
+    const downloadProfile = useCallback(() => {
+        if (!playerData.aid) {
+            return;
+        }
+        const element = document.createElement('a');
+        const file = new Blob([JSON.stringify(playerData, null, 4)], {type: 'application/json'});
+        element.href = URL.createObjectURL(file);
+        element.download = `${playerData.aid}.json`;
+        document.body.appendChild(element); // Required for this to work in FireFox
+        element.click();
+    }, [playerData]);
+
+    const loadProfile = useCallback((e) => {
+        e.preventDefault()
+        const reader = new FileReader();
+        reader.onload = async (e) => { 
+            const text = (e.target.result);
+            try {
+                const data = JSON.parse(text);
+                data.saved = true;
+                setPlayerData(data);
+                window.history.replaceState(null, null, `/player/${data.aid}`);
+            } catch(error) {
+                setProfileError('Error reading profile');
+            }
+        };
+        reader.readAsText(e.target.files[0]);
+    }, [setPlayerData, setProfileError]);
+
     const playerLevel = useMemo(() => {
         if (playerData.info.experience === 0) {
             return 0;
@@ -189,7 +225,7 @@ function Player() {
             {
                 Header: t('Player %'),
                 id: 'playersCompletedPercent',
-                accessor: 'playersCompletedPercent',
+                accessor: 'adjustedPlayersCompletedPercent',
                 Cell: (props) => {
                     return (
                         <div className="center-content">
@@ -338,6 +374,18 @@ function Player() {
                     return (props.value / props.row.original.kia).toFixed(2);
                 },
             },
+            {
+                Header: (
+                    <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
+                        {t('Win Streak')}
+                    </div>
+                ),
+                id: 'streak',
+                accessor: 'streak',
+                Cell: (props) => {
+                    return props.value;
+                },
+            },
         ],
         [t],
     );
@@ -346,7 +394,7 @@ function Player() {
         if (!playerData.pmcStats?.eft) {
             return [];
         }
-        const statSides = { 'pmcStats': 'PMC', 'scavStats': 'Scav' };
+        const statSides = { 'scavStats': 'Scav', 'pmcStats': 'PMC' };
         const statTypes = [
             {
                 name: 'raids',
@@ -372,6 +420,10 @@ function Player() {
                 name: 'kills',
                 key: ['Kills'],
             },
+            {
+                name: 'streak',
+                key: ['LongestWinStreak']
+            }
         ];
         const getStats = (side) => {
             return {
@@ -409,7 +461,7 @@ function Player() {
                 id: 'skill',
                 accessor: 'skill',
                 Cell: (props) => {
-                    return t(props.value);
+                    return props.value;
                 },
             },
             {
@@ -445,25 +497,66 @@ function Player() {
             if (!s.Progress || s.LastAccess <= 0) {
                 return false;
             }
+            const skill = metaData.skills.find(skill => skill.id === s.Id);
             return {
-                skill: s.Id,
+                skill: skill?.name || s.Id,
                 progress: s.Progress,
                 lastAccess: s.LastAccess,
             }
         }).filter(Boolean) || [];
-    }, [playerData]);
+    }, [playerData, metaData]);
 
     const masteringColumns = useMemo(
         () => [
+            {
+                id: 'expander',
+                Header: ({
+                    getToggleAllRowsExpandedProps,
+                    isAllRowsExpanded,
+                }) =>
+                    // <span {...getToggleAllRowsExpandedProps()}>
+                    //     {isAllRowsExpanded ? 'v' : '>'}
+                    // </span>
+                    null,
+                Cell: ({ row }) =>
+                    // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
+                    // to build the toggle for expanding a row
+                    row.canExpand ? (
+                        <span
+                            {...row.getToggleRowExpandedProps({
+                                style: {
+                                    // We can even use the row.depth property
+                                    // and paddingLeft to indicate the depth
+                                    // of the row
+                                    // paddingLeft: `${row.depth * 2}rem`,
+                                },
+                            })}
+                        >
+                            {row.isExpanded ? (
+                                <ArrowIcon />
+                            ) : (
+                                <ArrowIcon className={'arrow-right'} />
+                            )}
+                        </span>
+                    ) : null,
+            },
             {
                 Header: (
                     <div style={{ textAlign: 'left', paddingLeft: '10px' }}>
                         {t('Weapon')}
                     </div>
                 ),
-                id: 'Id',
-                accessor: 'Id',
+                id: 'name',
+                accessor: 'name',
                 Cell: (props) => {
+                    if (props.row.original.shortName) {
+                        return (
+                            <ItemNameCell
+                                item={props.row.original}
+                                items={items}
+                            />
+                        );
+                    }
                     return props.value;
                 },
             },
@@ -476,16 +569,73 @@ function Player() {
                 id: 'Progress',
                 accessor: 'Progress',
                 Cell: (props) => {
-                    return props.value;
+                    if (props.row.original.shortName) {
+                        return '';
+                    }
+                    return props.value + ` (${props.row.original.level})`;
+                },
+                sortType: (a, b) => {
+                    const aValue = a.original;
+                    const bValue = b.original;
+                    const diff = aValue.level - bValue.level;
+                    if (diff !== 0) {
+                        return diff;
+                    }
+                    return aValue.Progress - bValue.Progress;
                 },
             },
         ],
-        [t],
+        [t, items],
     );
 
-    const totalSecondsInGame = useMemo(() => {
-        return playerData.pmcStats?.eft?.totalInGameTime || 0;
-    }, [playerData]);
+    const masteringData = useMemo(() => {
+        return playerData.skills?.Mastering?.map(masteringProgress => {
+            const mastering = metaData.mastering.find(m => m.id === String(masteringProgress.Id));
+            if (!mastering) {
+                return false;
+            }
+            let level = 1;
+            if (masteringProgress.Progress > mastering.level3) {
+                level = 3;
+            } else if (masteringProgress.Progress > mastering.level2) {
+                level = 2;
+            }
+            return {
+                ...masteringProgress,
+                name: masteringProgress.Id,
+                level,
+                subRows: mastering.weapons.map(w => {
+                    const baseItem = items.find(i => i.id === w.id);
+                    if (!baseItem) {
+                        return false;
+                    }
+                    const preset = items.find (i => i.id === baseItem.properties.defaultPreset?.id);
+                    return {
+                        ...baseItem,
+                        itemLink: `/item/${baseItem.normalizedName}`,
+                        iconLink: preset ? preset.iconLink : baseItem.iconLink,
+                        Progress: masteringProgress.Progress,
+                        level,
+                    };
+                }).filter(Boolean),
+            };
+        }).filter(Boolean) || [];
+    }, [playerData, metaData, items]);
+
+    const totalTimeInGame = useMemo(() => {
+        const totalSecondsInGame = playerData.pmcStats?.eft?.totalInGameTime || 0;
+        if (!totalSecondsInGame) {
+            return '';
+        }
+        const { days, hours, minutes, seconds } = getDHMS(totalSecondsInGame);
+        const formattedTime = t('{{days}} days, {{hours}} h, {{minutes}} m, {{seconds}} s', {
+            days,
+            hours,
+            minutes,
+            seconds
+        });
+        return (<p>{`${t('Total account time in game')}: ${formattedTime}`}</p>);
+    }, [playerData, t]);
 
     const getItemDisplay = useCallback((loadoutItem, imageOptions = {}) => {
         let item = items.find(i => i.id === loadoutItem._tpl);
@@ -511,16 +661,20 @@ function Player() {
             const tag = loadoutItem.upd.Dogtag;
             const weapon = items.find(i => i.id === tag.WeaponName?.split(' ')[0]);
             countLabel = tag.Level;
+            let killerInfo = <span>{tag.KillerName}</span>;
+            if (tag.KillerAccountId) {
+                killerInfo = <Link to={`/player/${tag.KillerAccountId}`}>{tag.KillerName}</Link>;
+            }
             label = (
                 <span>
                     <Link to={`/player/${tag.AccountId}`}>{tag.Nickname}</Link>
                     <span>{` ${t(tag.Status)} `}</span>
-                    <Link to={`/player/${tag.KillerAccountId || tag.KillerName}`}>{tag.KillerName}</Link>
+                    {killerInfo}
                     {weapon !== undefined && [
                         <span key={'weapon-using-label'}>{` ${t('using')} `}</span>,
-                        <Link key={`weapon-using ${weapon.id}`} to={`/item/${weapon.normalizedName}`}>{weapon.name}</Link>
+                        <Link key={`weapon-using ${weapon.id}`} to={`/item/${weapon.normalizedName}`}>{weapon.shortName}</Link>
                     ]}
-                    <span>{` ${new Date(tag.Time).toLocaleString()}`}</span>
+                    <div>{` ${new Date(tag.Time).toLocaleString()}`}</div>
                 </span>
             );
         }
@@ -612,7 +766,7 @@ function Player() {
         </TreeView>
     }, [playerData, getItemDisplay, getLoadoutContents]);
 
-    const getFavoriteItems = useCallback(() => {
+    const favoriteItemsContent = useMemo(() => {
         if (!playerData?.favoriteItems?.length) {
             return '';
         }
@@ -655,6 +809,9 @@ function Player() {
         if (String(playerData.aid) === accountId) {
             return;
         }
+        if (playerData.saved) {
+            return;
+        }
         fetchProfile();
     }, [playerData, accountId, turnstileToken, fetchProfile])
 
@@ -662,6 +819,13 @@ function Player() {
         <div>
             <p>
                 <Link to="/players"><Icon path={mdiAccountSearch} size={1} className="icon-with-text" />{t('Search different player')}</Link>
+                <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={loadProfile}/>
+                <Tippy
+                    content={t('Load profile from file')}
+                    placement="bottom"
+                >
+                    <button className="profile-button open" onClick={() => {inputFile.current?.click();}}><Icon path={mdiFolderOpen} size={1} className="icon-with-text" /></button>    
+                </Tippy>
             </p>
         </div>
     );
@@ -687,83 +851,101 @@ function Player() {
                 <h1 className="player-page-title">
                     <Icon path={mdiAccountDetails} size={1.5} className="icon-with-text" />
                     {pageTitle}
+                    {playerData.aid !== 0 && (
+                        <span>
+                            <Tippy
+                                content={t('Save profile')}
+                            >
+                            <button className="profile-button download" onClick={downloadProfile}><Icon path={mdiDownloadBox} size={1} className="icon-with-text" /></button>
+                            </Tippy>
+                        </span>
+                        
+                    )}
                 </h1>
+                <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' onSuccess={setTurnstileToken} options={{appearance: 'interaction-only'}} />
             </div>
             <div>
+                {!!playerData.saved && (
+                    <p className="banned">{t('Warning: Profiles loaded from files may contain edited information')}</p>
+                )}
                 {playerData.info.registrationDate !== 0 && (
                     <p>{`${t('Started current wipe')}: ${new Date(playerData.info.registrationDate * 1000).toLocaleString()}`}</p>
                 )}
                 {!!bannedMessage && (
                     <p className="banned">{bannedMessage}</p>
                 )}
-                {totalSecondsInGame > 0 && (
-                    <p>{`${t('Total account time in game')}: ${(() => {
-                        const { days, hours, minutes, seconds } = getDHMS(totalSecondsInGame);
-
-                        return t('{{days}} days, {{hours}} h, {{minutes}} m, {{seconds}} s', {
-                            days,
-                            hours,
-                            minutes,
-                            seconds
-                        });
-                    })()}`}</p>
+                {totalTimeInGame}
+                {raidsData?.length > 0  && (
+                    <>
+                        <h2 key="raids-title"><Icon path={mdiChartLine} size={1.5} className="icon-with-text" />{t('Raid Stats')}</h2>
+                        <DataTable
+                            key="raids-table"
+                            columns={raidsColumns}
+                            data={raidsData}
+                        />
+                    </>
                 )}
-                <h2><Icon path={mdiChartLine} size={1.5} className="icon-with-text" />{t('Raid Stats')}</h2>
-                {Object.keys(playerData.pmcStats).length > 0 ?
-                    <DataTable
-                        key="raids-table"
-                        columns={raidsColumns}
-                        data={raidsData}
-                    />
-                    : <p>{t('None')}</p>}
-                <h2><Icon path={mdiTrophy} size={1.5} className="icon-with-text" />{t('Achievements')}</h2>
-                {Object.keys(playerData.achievements).length > 0 ?
-                    <DataTable
-                        key="achievements-table"
-                        columns={achievementColumns}
-                        data={achievementsData}
-                    />
-                    : <p>{t('None')}</p>}
-                <h2><Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" />{t('Loadout')}</h2>
-                <div className="inventory">
-                    <div className="grid-container main">
-                        <div className="earpiece">{getLoadoutInSlot('Earpiece')}</div>
-                        <div className="headwear">{getLoadoutInSlot('Headwear')}</div>
-                        <div className="face_cover">{getLoadoutInSlot('FaceCover')}</div>
-                        <div className="armband">{getLoadoutInSlot('ArmBand')}</div>
-                        <div className="body_armor">{getLoadoutInSlot('ArmorVest')}</div>
-                        <div className="eyewear">{getLoadoutInSlot('Eyewear')}</div>
-                        <div className="weapon on_sling">{getLoadoutInSlot('FirstPrimaryWeapon')}</div>
-                        <div className="holster">{getLoadoutInSlot('SecondaryWeapon')}</div>
-                        <div className="weapon on_back">{getLoadoutInSlot('SecondPrimaryWeapon')}</div>
-                        <div className="sheath">{getLoadoutInSlot('Scabbard')}</div>
-                    </div>
-                    <div className="grid-container side">
-                        <div className="tactical_rig">{getLoadoutInSlot('TacticalVest')}</div>
-                        <div className="pockets_and_special_slots">{getLoadoutInSlot('Pockets')}</div>
-                        <div className="backpack">{getLoadoutInSlot('Backpack')}</div>
-                        <div className="pouch">{getLoadoutInSlot('SecuredContainer')}</div>
-                    </div>
-                </div>
-                {getFavoriteItems()}
-                {playerData.skills?.Common?.length > 0 && ([
-                    <h2 key="skills-title"><Icon path={mdiArmFlex} size={1.5} className="icon-with-text" />{t('Skills')}</h2>,
-                    <DataTable
-                        key="skills-table"
-                        columns={skillsColumns}
-                        data={skillsData}
-                    />,
-                ])}
-                {playerData.skills?.Mastering?.length > 0 && ([
-                    <h2 key="mastering-title"><Icon path={mdiStarBox} size={1.5} className="icon-with-text" />{t('Mastering')}</h2>,
-                    <DataTable
-                        key="skills-table"
-                        columns={masteringColumns}
-                        data={playerData.skills.Mastering}
-                    />,
-                ])}
+                {achievementsData?.length > 0  && (
+                    <>
+                        <h2 key="achievements-title"><Icon path={mdiTrophy} size={1.5} className="icon-with-text" />{t('Achievements')}</h2>
+                        <DataTable
+                            key="achievements-table"
+                            columns={achievementColumns}
+                            data={achievementsData}
+                            sortBy={'completionDate'}
+                        />
+                    </>
+                )}
+                {playerData.equipment?.Items?.length > 0 && (
+                    <>
+                        <h2><Icon path={mdiBagPersonal} size={1.5} className="icon-with-text" />{t('Loadout')}</h2>
+                        <div className="inventory">
+                            <div className="grid-container main">
+                                <div className="earpiece">{getLoadoutInSlot('Earpiece')}</div>
+                                <div className="headwear">{getLoadoutInSlot('Headwear')}</div>
+                                <div className="face_cover">{getLoadoutInSlot('FaceCover')}</div>
+                                <div className="armband">{getLoadoutInSlot('ArmBand')}</div>
+                                <div className="body_armor">{getLoadoutInSlot('ArmorVest')}</div>
+                                <div className="eyewear">{getLoadoutInSlot('Eyewear')}</div>
+                                <div className="weapon on_sling">{getLoadoutInSlot('FirstPrimaryWeapon')}</div>
+                                <div className="holster">{getLoadoutInSlot('Holster')}</div>
+                                <div className="weapon on_back">{getLoadoutInSlot('SecondPrimaryWeapon')}</div>
+                                <div className="sheath">{getLoadoutInSlot('Scabbard')}</div>
+                            </div>
+                            <div className="grid-container side">
+                                <div className="tactical_rig">{getLoadoutInSlot('TacticalVest')}</div>
+                                <div className="pockets_and_special_slots">{getLoadoutInSlot('Pockets')}</div>
+                                <div className="backpack">{getLoadoutInSlot('Backpack')}</div>
+                                <div className="pouch">{getLoadoutInSlot('SecuredContainer')}</div>
+                            </div>
+                        </div>
+                    </>
+                )}
+                {favoriteItemsContent}
+                {skillsData?.length > 0 && (
+                    <>
+                        <h2 key="skills-title"><Icon path={mdiArmFlex} size={1.5} className="icon-with-text" />{t('Skills')}</h2>
+                        <DataTable
+                            key="skills-table"
+                            columns={skillsColumns}
+                            data={skillsData}
+                            sortBy={'skill'}
+                        />
+                    </>
+                )}
+                {masteringData?.length > 0 && (
+                    <>
+                        <h2 key="mastering-title"><Icon path={mdiStarBox} size={1.5} className="icon-with-text" />{t('Mastering')}</h2>
+                        <DataTable
+                            key="skills-table"
+                            columns={masteringColumns}
+                            data={masteringData}
+                            sortBy={'Progress'}
+                            sortByDesc={true}
+                        />
+                    </>
+                )}
             </div>
-            <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' onSuccess={setTurnstileToken} />
         </div>,
     ];
 }

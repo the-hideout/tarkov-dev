@@ -240,7 +240,7 @@
     "Is it open source?": "Is it open source?",
     "api-faq-open-source-p": "Of course! The source code for the API can be found in its GitHub repo: <1>github.com/the-hideout/tarkov-api</1>.",
     "Is there a rate limit?": "Is there a rate limit?",
-    "api-faq-rate-limit-p": "Nope! We currently do not have a rate-limit enabled. That being said, please respect this and do not hammer the API with requests just because you can. Use common sense! Price data is updated every 5 minutes, so there's really no need to query faster than that. To view an up-to-date definition of our rate-limits (or lack thereof), check our Cloudflare GitHub repo where they are defined: <1>rate limit definition</1>.",
+    "api-faq-rate-limit-p": "We occasionally get hit with a lot of traffic from bad actors that requires implementing rate limits. Price data is updated every 5 minutes, so there's really no need to query faster than that. Use common sense, and you should be fine.",
     "What about caching?": "What about caching?",
     "api-faq-caching-p": "Since our data is updated every 5 minutes, we also cache all GraphQL queries for 5 minutes as well. This helps to greatly reduce the load on our servers while making your requests speedy quick!",
     "Where is the data from?": "Where is the data from?",

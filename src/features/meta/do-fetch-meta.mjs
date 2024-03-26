@@ -36,6 +36,18 @@ class MetaQuery extends APIQuery {
                 level
                 exp
             }
+            skills(lang: ${language}) {
+                id
+                name
+            }
+            mastering {
+                id
+                weapons {
+                    id
+                }
+                level2
+                level3
+            }
         }`;
     
         const metaData = await this.graphqlRequest(query);
@@ -72,7 +84,14 @@ class MetaQuery extends APIQuery {
             }
         }
     
-        return {flea: metaData.data.fleaMarket, armor: metaData.data.armorMaterials, categories: metaData.data.itemCategories, playerLevels: metaData.data.playerLevels};
+        return {
+            flea: metaData.data.fleaMarket,
+            armor: metaData.data.armorMaterials,
+            categories: metaData.data.itemCategories,
+            playerLevels: metaData.data.playerLevels,
+            skills: metaData.data.skills,
+            mastering: metaData.data.mastering,
+        };
     }
 }
 

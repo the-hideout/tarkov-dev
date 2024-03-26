@@ -127,7 +127,7 @@ function Players() {
                 </div>
             )}
             {!nameResultsError && searchResults}
-            <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' onSuccess={setTurnstileToken} />
+            <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' onSuccess={setTurnstileToken} options={{appearance: 'interaction-only'}} />
         </div>,
     ];
 }
