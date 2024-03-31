@@ -34,7 +34,7 @@ function Players() {
     const [turnstileToken, setTurnstileToken] = useState();
 
     const searchTextValid = useMemo(() => {
-        const charactersValid = nameFilter.match(/^[a-zA-Z0-9-_]*$/);
+        const charactersValid = !!nameFilter.match(/^[a-zA-Z0-9-_]*$/);
         const lengthValid = nameFilter.length >= 3 && nameFilter.length <= 15;
         setButtonDisabled(!charactersValid || !lengthValid);
         setNameResultsError(false);
@@ -45,7 +45,7 @@ function Players() {
     }, [nameFilter, setButtonDisabled, setNameResultsError]);
 
     const searchForName = useCallback(async () => {
-        if (searchTextValid) {
+        if (!searchTextValid) {
             return;
         }
         try {
