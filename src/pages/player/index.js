@@ -5,8 +5,6 @@ import { Turnstile } from '@marsidev/react-turnstile'
 import { Icon } from '@mdi/react';
 import {
     mdiAccountDetails,
-    mdiChevronUp,
-    mdiChevronDown,
     mdiTrophy,
     mdiChartLine,
     mdiBagPersonal,
