@@ -19,7 +19,7 @@ jobs:
 
     steps:
 
-      - uses: github/branch-deploy@v9.1.0
+      - uses: github/branch-deploy@v9.1.1
         id: branch-deploy
         with:
           admins: the-hideout/core-contributors

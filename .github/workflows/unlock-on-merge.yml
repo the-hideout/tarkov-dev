@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: unlock on merge
-        uses: github/branch-deploy@v9.1.0
+        uses: github/branch-deploy@v9.1.1
         id: unlock-on-merge
         with:
           unlock_on_merge_mode: "true" # <-- indicates that this is the "Unlock on Merge Mode" workflow
