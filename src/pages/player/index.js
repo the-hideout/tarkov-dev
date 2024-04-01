@@ -735,6 +735,7 @@ function Player() {
 
     const getLoadoutInSlot = useCallback((slot) => {
         if (playerData?.equipment?.Id === undefined) {
+            console.log(slot, 'loadout root not found');
             return "None";
         }
 
@@ -742,6 +743,7 @@ function Player() {
         let loadoutItem = playerData.equipment.Items.find(i => i.slotId === slot && i.parentId === loadoutRoot._id);
 
         if (loadoutItem === undefined) {
+            console.log(`${slot} item not found`);
             return "None";
         }
 
