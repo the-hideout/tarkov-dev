@@ -17,7 +17,7 @@ import {
     mdiDownloadBox,
     mdiFolderOpen,
 } from '@mdi/js';
-import { TreeView, TreeItem } from '@mui/x-tree-view';
+import { SimpleTreeView, TreeItem } from '@mui/x-tree-view';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
@@ -725,7 +725,7 @@ function Player() {
                 return contents;
             }
             contents.push((
-                <TreeItem key={`${itemType}-item-${loadoutItem._id}`} nodeId={loadoutItem._id} icon={itemDisplay.image} label={itemDisplay.label}>
+                <TreeItem key={`${itemType}-item-${loadoutItem._id}`} itemId={loadoutItem._id} icon={itemDisplay.image} label={itemDisplay.label}>
                     {getLoadoutContents(loadoutItem, itemType)}
                 </TreeItem>
             ));
@@ -735,7 +735,6 @@ function Player() {
 
     const getLoadoutInSlot = useCallback((slot) => {
         if (playerData?.equipment?.Id === undefined) {
-            console.log(slot, 'loadout root not found');
             return "None";
         }
 
@@ -743,7 +742,6 @@ function Player() {
         let loadoutItem = playerData.equipment.Items.find(i => i.slotId === slot && i.parentId === loadoutRoot._id);
 
         if (loadoutItem === undefined) {
-            console.log(`${slot} item not found`);
             return "None";
         }
 
@@ -758,18 +756,20 @@ function Player() {
             itemLabel = slot;
         }
         contents.push((
-            <TreeItem key={`loadout-item-${loadoutItem._id}`} nodeId={loadoutItem._id} icon={itemImage} label={itemLabel}>
+            <TreeItem key={`loadout-item-${loadoutItem._id}`} itemId={loadoutItem._id} icon={itemImage} label={itemLabel}>
                 {getLoadoutContents(loadoutItem)}
             </TreeItem>
         ));
 
-        return <TreeView
-            defaultExpandIcon={<Icon path={mdiChevronDown} size={1.5} className="icon-with-text" />}
-            defaultCollapseIcon={<Icon path={mdiChevronUp} size={1.5} className="icon-with-text" />}
-            defaultParentIcon={<span>***</span>}
+        return <SimpleTreeView
+            slots={{ 
+                expandIcon: <Icon path={mdiChevronDown} size={1.5} className="icon-with-text" />,
+                collapseIcon: <Icon path={mdiChevronUp} size={1.5} className="icon-with-text" />,
+                parentIcon: <span>***</span>,
+            }}
         >
             {contents}
-        </TreeView>
+        </SimpleTreeView>
     }, [playerData, getItemDisplay, getLoadoutContents]);
 
     const favoriteItemsContent = useMemo(() => {
@@ -792,15 +792,17 @@ function Player() {
                     }
                     return (
                         <li key={itemData._id}>
-                            <TreeView
-                                defaultExpandIcon={<Icon path={mdiChevronDown} size={1.5} className="icon-with-text" />}
-                                defaultCollapseIcon={<Icon path={mdiChevronUp} size={1.5} className="icon-with-text" />}
-                                defaultParentIcon={<span>***</span>}
+                            <SimpleTreeView
+                                slots={{ 
+                                    expandIcon: <Icon path={mdiChevronDown} size={1.5} className="icon-with-text" />,
+                                    collapseIcon: <Icon path={mdiChevronUp} size={1.5} className="icon-with-text" />,
+                                    parentIcon: <span>***</span>,
+                                }}
                             >
-                                <TreeItem key={`loadout-item-${itemData._id}`} nodeId={itemData._id} icon={itemImage} label={itemLabel}>
+                                <TreeItem key={`loadout-item-${itemData._id}`} itemId={itemData._id} icon={itemImage} label={itemLabel}>
                                     {getLoadoutContents(itemData, 'favorite')}
                                 </TreeItem>
-                            </TreeView>
+                            </SimpleTreeView>
                         </li>
                     );
                 }).filter(Boolean)}
