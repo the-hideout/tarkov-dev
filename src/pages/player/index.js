@@ -761,13 +761,7 @@ function Player() {
             </TreeItem>
         ));
 
-        return <SimpleTreeView
-            slots={{ 
-                expandIcon: <Icon path={mdiChevronDown} size={1.5} className="icon-with-text" />,
-                collapseIcon: <Icon path={mdiChevronUp} size={1.5} className="icon-with-text" />,
-                parentIcon: <span>***</span>,
-            }}
-        >
+        return <SimpleTreeView>
             {contents}
         </SimpleTreeView>
     }, [playerData, getItemDisplay, getLoadoutContents]);
@@ -792,13 +786,7 @@ function Player() {
                     }
                     return (
                         <li key={itemData._id}>
-                            <SimpleTreeView
-                                slots={{ 
-                                    expandIcon: <Icon path={mdiChevronDown} size={1.5} className="icon-with-text" />,
-                                    collapseIcon: <Icon path={mdiChevronUp} size={1.5} className="icon-with-text" />,
-                                    parentIcon: <span>***</span>,
-                                }}
-                            >
+                            <SimpleTreeView>
                                 <TreeItem key={`loadout-item-${itemData._id}`} itemId={itemData._id} icon={itemImage} label={itemLabel}>
                                     {getLoadoutContents(itemData, 'favorite')}
                                 </TreeItem>
