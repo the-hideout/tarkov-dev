@@ -58,7 +58,9 @@ function Players() {
             setNameResults([]);
             setNameResultsError(error.message);
         }
-        turnstileRef.current.reset();
+        if (turnstileRef.current?.reset) {
+            turnstileRef.current.reset();
+        }
     }, [nameFilter, searchTextValid, setNameResults, setNameResultsError, turnstileToken, turnstileRef]);
 
     const searchResults = useMemo(() => {
@@ -137,7 +139,21 @@ function Players() {
                 </div>
             )}
             {!nameResultsError && searchResults}
-            <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' onSuccess={setTurnstileToken} options={{appearance: 'interaction-only'}} />
+            <Turnstile 
+                ref={turnstileRef}
+                className="turnstile-widget"
+                siteKey='0x4AAAAAAAVVIHGZCr2PPwrR'
+                onSuccess={setTurnstileToken}
+                onError={(errorCode) => {
+                    // https://developers.cloudflare.com/turnstile/reference/client-side-errors#error-codes
+                    if (errorCode === '110200') {
+                        setNameResultsError(`Turnstile error: ${window.location.hostname} is not a valid hostname`);
+                    } else {
+                        setNameResultsError(`Turnstile error code ${errorCode}`);
+                    }
+                }}
+                options={{appearance: 'interaction-only'}}
+            />
         </div>,
     ];
 }

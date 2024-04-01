@@ -114,7 +114,9 @@ function Player() {
         if (isNaN(accountId)) {
             try {
                 const searchResponse = await playerStats.searchPlayers(accountId, turnstileToken);
-                turnstileRef.current?.reset();
+                if (turnstileRef.current?.reset) {
+                    turnstileRef.current.reset();
+                }
                 for (const result of searchResponse) {
                     if (result.name.toLowerCase() === accountId.toLowerCase()) {
                         navigate('/player/'+result.aid);
@@ -129,7 +131,9 @@ function Player() {
         }
         try {
             setPlayerData(await playerStats.getProfile(accountId, turnstileToken));
-            turnstileRef.current?.reset();
+            if (turnstileRef.current?.reset) {
+                turnstileRef.current.reset();
+            }
         } catch (error) {
             setProfileError(error.message);
         }
@@ -862,7 +866,21 @@ function Player() {
                         
                     )}
                 </h1>
-                <Turnstile ref={turnstileRef} className="turnstile-widget" siteKey='0x4AAAAAAAVVIHGZCr2PPwrR' onSuccess={setTurnstileToken} options={{appearance: 'interaction-only'}} />
+                <Turnstile
+                    ref={turnstileRef}
+                    className="turnstile-widget"
+                    siteKey='0x4AAAAAAAVVIHGZCr2PPwrR'
+                    onSuccess={setTurnstileToken}
+                    onError={(errorCode) => {
+                        // https://developers.cloudflare.com/turnstile/reference/client-side-errors#error-codes
+                        if (errorCode === '110200') {
+                            setProfileError(`Turnstile error: ${window.location.hostname} is not a valid hostname`);
+                        } else {
+                            setProfileError(`Turnstile error code ${errorCode}`);
+                        }
+                    }}
+                    options={{appearance: 'interaction-only'}}
+                />
             </div>
             <div>
                 {!!playerData.saved && (
