@@ -67,6 +67,7 @@ const raritySort = {
 const memberFlags = {
     Developer: 1,
     EOD: 2,
+    ChatModerator: 32,
     Sherpa: 256,
     Emissary: 512,
 }
