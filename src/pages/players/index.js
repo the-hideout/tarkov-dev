@@ -56,7 +56,7 @@ function Players() {
         try {
             setNameResultsError(false);
             setButtonDisabled(true);
-            setNameResults(await playerStats.searchPlayers(nameFilter, turnstileToken.current));
+            setNameResults((await playerStats.searchPlayers(nameFilter, turnstileToken.current)).sort((a, b) => a.name.localeCompare(b.name)));
             setSearched(true);
         } catch (error) {
             setSearched(false);
@@ -74,15 +74,16 @@ function Players() {
             return '';
         }
         if (nameResults.length < 1) {
-            return 'No players with this name. Note: banned players do not show up in name searches.';
+            return <p>No players with this name</p>;
         }
         let morePlayers = '';
         if (nameResults.length >= 5) {
-            morePlayers = 'Refine you search to get better results';
+            morePlayers = <p>Refine you search to get better results</p>
         }
         return (
             <div>
-                <ul>
+                {morePlayers}
+                <ul className="name-results-list">
                     {nameResults.map(result => {
                         return <li key={`account-${result.aid}`}>
                             <Link to={`/player/${result.aid}`}>
@@ -91,7 +92,6 @@ function Players() {
                         </li>
                     })}
                 </ul>
-                {morePlayers}
             </div>
         );
     }, [searched, nameResults]);

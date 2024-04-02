@@ -211,7 +211,7 @@ function Player() {
             return false;
         }
         if (playerData.info.bannedUntil < 0) {
-            return t('Banned Permanently');
+            return t('Banned');
         }
         return t('Banned until {{banLiftDate}}', { banLiftDate: new Date(playerData.info.bannedUntil * 1000).toLocaleString() });
     }, [playerData, t]);
