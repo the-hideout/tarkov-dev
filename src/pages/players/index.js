@@ -74,11 +74,11 @@ function Players() {
             return '';
         }
         if (nameResults.length < 1) {
-            return <p>No players with this name</p>;
+            return <p>{t('No players with this name')}</p>;
         }
         let morePlayers = '';
         if (nameResults.length >= 5) {
-            morePlayers = <p>Refine you search to get better results</p>
+            morePlayers = <p>{t('Refine your search to get better results')}</p>
         }
         return (
             <div>
@@ -94,7 +94,7 @@ function Players() {
                 </ul>
             </div>
         );
-    }, [searched, nameResults]);
+    }, [searched, nameResults, t]);
 
     useEffect(() => {
         if (enterPress) {
