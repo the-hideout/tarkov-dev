@@ -23,10 +23,7 @@ function Players() {
 
     const enterPress = useKeyPress('Enter');
 
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
-    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [nameFilter, setNameFilter] = useState('');
     const [nameResults, setNameResults] = useState([]);
     const [nameResultsError, setNameResultsError] = useState(false);
 
@@ -98,10 +95,6 @@ function Players() {
             </div>
         );
     }, [searched, nameResults]);
-
-    if (defaultQuery) {
-        searchForName();
-    }
 
     useEffect(() => {
         if (enterPress) {
