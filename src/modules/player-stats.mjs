@@ -1,7 +1,7 @@
 const apiUrl = 'https://player.tarkov.dev';
 //const apiUrl = 'http://localhost:8787';
 
-const requestMethod = 'POST';
+const requestMethod = 'GET';
 
 const playerStats = {
     useTurnstile: false,
@@ -15,7 +15,10 @@ const playerStats = {
 
             if (response.status !== 200) {
                 if (response.status === 429) {
-                    Promise.reject(new Error(`Rate limited exceeded. Wait ${response.headers.get('Retry-After')} seconds to send another request`));
+                    return Promise.reject(new Error(`Rate limited exceeded. Wait a minute to send another request`));
+                }
+                if (response.status === 401) {
+                    return Promise.reject(new Error('Turnstile authentication failed'));
                 }
                 let errorMessage = await response.text();
                 try {

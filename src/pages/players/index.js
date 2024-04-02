@@ -17,21 +17,19 @@ import './index.css';
 
 function Players() {
     const turnstileRef = useRef();
+    const turnstileToken = useRef(false);
 
     const { t } = useTranslation();
 
     const enterPress = useKeyPress('Enter');
 
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
-    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [nameFilter, setNameFilter] = useState('');
     const [nameResults, setNameResults] = useState([]);
     const [nameResultsError, setNameResultsError] = useState(false);
 
     const [isButtonDisabled, setButtonDisabled] = useState(true);
     const [searched, setSearched] = useState(false);
-    const [turnstileToken, setTurnstileToken] = useState();
+    //const [turnstileToken, setTurnstileToken] = useState();
 
     const searchTextValid = useMemo(() => {
         const charactersValid = !!nameFilter.match(/^[a-zA-Z0-9-_]*$/);
@@ -48,16 +46,24 @@ function Players() {
         if (!searchTextValid) {
             return;
         }
+        if (!turnstileToken.current) {
+            setNameResultsError('Turnstile challenge not solved');
+            if (turnstileRef.current?.reset) {
+                turnstileRef.current.reset();
+            }
+            return;
+        }
         try {
             setNameResultsError(false);
             setButtonDisabled(true);
-            setNameResults(await playerStats.searchPlayers(nameFilter, turnstileToken));
+            setNameResults(await playerStats.searchPlayers(nameFilter, turnstileToken.current));
             setSearched(true);
         } catch (error) {
             setSearched(false);
             setNameResults([]);
             setNameResultsError(error.message);
         }
+        turnstileToken.current = false;
         if (turnstileRef.current?.reset) {
             turnstileRef.current.reset();
         }
@@ -89,10 +95,6 @@ function Players() {
             </div>
         );
     }, [searched, nameResults]);
-
-    if (defaultQuery) {
-        searchForName();
-    }
 
     useEffect(() => {
         if (enterPress) {
@@ -131,7 +133,7 @@ function Players() {
                         setNameFilter(newNameFilter);
                     }}
                 />
-                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled || turnstileToken === undefined}>{t('Search')}</button>
+                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled || !turnstileToken?.current}>{t('Search')}</button>
             </div>
             {!!nameResultsError && (
                 <div>
@@ -143,11 +145,15 @@ function Players() {
                 ref={turnstileRef}
                 className="turnstile-widget"
                 siteKey='0x4AAAAAAAVVIHGZCr2PPwrR'
-                onSuccess={setTurnstileToken}
+                onSuccess={(token) => {
+                    turnstileToken.current = token;
+                }}
                 onError={(errorCode) => {
                     // https://developers.cloudflare.com/turnstile/reference/client-side-errors#error-codes
                     if (errorCode === '110200') {
                         setNameResultsError(`Turnstile error: ${window.location.hostname} is not a valid hostname`);
+                    } else if (errorCode.startsWith('600')) {
+                        setNameResultsError('Turnstile challenge failed');
                     } else {
                         setNameResultsError(`Turnstile error code ${errorCode}`);
                     }
