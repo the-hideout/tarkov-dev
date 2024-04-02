@@ -140,7 +140,6 @@ function Players() {
                     <p className="error">{nameResultsError}</p>
                 </div>
             )}
-            {!nameResultsError && searchResults}
             <Turnstile 
                 ref={turnstileRef}
                 className="turnstile-widget"
@@ -160,6 +159,7 @@ function Players() {
                 }}
                 options={{appearance: 'interaction-only'}}
             />
+            {!nameResultsError && searchResults}
         </div>,
     ];
 }
