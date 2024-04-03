@@ -24,3 +24,9 @@
 .error {
     color: #cd1e2f;
 }
+
+.name-results-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
