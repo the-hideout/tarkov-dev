@@ -64,6 +64,14 @@ const raritySort = {
     "legendary": 2
 }
 
+const memberFlags = {
+    Developer: 1,
+    EOD: 2,
+    ChatModerator: 32,
+    Sherpa: 256,
+    Emissary: 512,
+}
+
 function Player() {
     const turnstileRef = useRef();
     const inputFile = useRef() 
@@ -203,9 +211,23 @@ function Player() {
             return false;
         }
         if (playerData.info.bannedUntil < 0) {
-            return t('Banned Permanently');
+            return t('Banned');
         }
         return t('Banned until {{banLiftDate}}', { banLiftDate: new Date(playerData.info.bannedUntil * 1000).toLocaleString() });
+    }, [playerData, t]);
+
+    const accountCategories = useMemo(() => {
+        if (!playerData?.info?.memberCategory) {
+            return '';
+        }
+        const flags = [];
+        for (const flagName of Object.keys(memberFlags)) {
+            const flag = memberFlags[flagName];
+            if (playerData.info.memberCategory & flag) {
+                flags.push(t(flagName));
+            }
+        }
+        return <div>{flags.join(', ')}</div>;
     }, [playerData, t]);
 
     const achievementColumns = useMemo(
@@ -883,6 +905,7 @@ function Player() {
                 />
             </div>
             <div>
+                {accountCategories}
                 {!!playerData.saved && (
                     <p className="banned">{t('Warning: Profiles loaded from files may contain edited information')}</p>
                 )}

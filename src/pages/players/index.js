@@ -17,21 +17,19 @@ import './index.css';
 
 function Players() {
     const turnstileRef = useRef();
+    const turnstileToken = useRef(false);
 
     const { t } = useTranslation();
 
     const enterPress = useKeyPress('Enter');
 
-    const defaultQuery = new URLSearchParams(window.location.search).get(
-        'search',
-    );
-    const [nameFilter, setNameFilter] = useState(defaultQuery || '');
+    const [nameFilter, setNameFilter] = useState('');
     const [nameResults, setNameResults] = useState([]);
     const [nameResultsError, setNameResultsError] = useState(false);
 
     const [isButtonDisabled, setButtonDisabled] = useState(true);
     const [searched, setSearched] = useState(false);
-    const [turnstileToken, setTurnstileToken] = useState();
+    //const [turnstileToken, setTurnstileToken] = useState();
 
     const searchTextValid = useMemo(() => {
         const charactersValid = !!nameFilter.match(/^[a-zA-Z0-9-_]*$/);
@@ -48,16 +46,24 @@ function Players() {
         if (!searchTextValid) {
             return;
         }
+        if (!turnstileToken.current) {
+            setNameResultsError('Turnstile challenge not solved');
+            if (turnstileRef.current?.reset) {
+                turnstileRef.current.reset();
+            }
+            return;
+        }
         try {
             setNameResultsError(false);
             setButtonDisabled(true);
-            setNameResults(await playerStats.searchPlayers(nameFilter, turnstileToken));
+            setNameResults((await playerStats.searchPlayers(nameFilter, turnstileToken.current)).sort((a, b) => a.name.localeCompare(b.name)));
             setSearched(true);
         } catch (error) {
             setSearched(false);
             setNameResults([]);
             setNameResultsError(error.message);
         }
+        turnstileToken.current = false;
         if (turnstileRef.current?.reset) {
             turnstileRef.current.reset();
         }
@@ -68,15 +74,16 @@ function Players() {
             return '';
         }
         if (nameResults.length < 1) {
-            return 'No players with this name. Note: banned players do not show up in name searches.';
+            return <p>{t('No players with this name')}</p>;
         }
         let morePlayers = '';
         if (nameResults.length >= 5) {
-            morePlayers = 'Refine you search to get better results';
+            morePlayers = <p>{t('Refine your search to get better results')}</p>
         }
         return (
             <div>
-                <ul>
+                {morePlayers}
+                <ul className="name-results-list">
                     {nameResults.map(result => {
                         return <li key={`account-${result.aid}`}>
                             <Link to={`/player/${result.aid}`}>
@@ -85,14 +92,9 @@ function Players() {
                         </li>
                     })}
                 </ul>
-                {morePlayers}
             </div>
         );
-    }, [searched, nameResults]);
-
-    if (defaultQuery) {
-        searchForName();
-    }
+    }, [searched, nameResults, t]);
 
     useEffect(() => {
         if (enterPress) {
@@ -131,29 +133,33 @@ function Players() {
                         setNameFilter(newNameFilter);
                     }}
                 />
-                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled || turnstileToken === undefined}>{t('Search')}</button>
+                <button className="search-button" onClick={searchForName} disabled={isButtonDisabled || !turnstileToken?.current}>{t('Search')}</button>
             </div>
             {!!nameResultsError && (
                 <div>
                     <p className="error">{nameResultsError}</p>
                 </div>
             )}
-            {!nameResultsError && searchResults}
             <Turnstile 
                 ref={turnstileRef}
                 className="turnstile-widget"
                 siteKey='0x4AAAAAAAVVIHGZCr2PPwrR'
-                onSuccess={setTurnstileToken}
+                onSuccess={(token) => {
+                    turnstileToken.current = token;
+                }}
                 onError={(errorCode) => {
                     // https://developers.cloudflare.com/turnstile/reference/client-side-errors#error-codes
                     if (errorCode === '110200') {
                         setNameResultsError(`Turnstile error: ${window.location.hostname} is not a valid hostname`);
+                    } else if (errorCode.startsWith('600')) {
+                        setNameResultsError('Turnstile challenge failed');
                     } else {
                         setNameResultsError(`Turnstile error code ${errorCode}`);
                     }
                 }}
                 options={{appearance: 'interaction-only'}}
             />
+            {!nameResultsError && searchResults}
         </div>,
     ];
 }
