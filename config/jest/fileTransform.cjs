@@ -1,40 +1,45 @@
-'use strict';
-
 const path = require('path');
-const camelcase = require('camelcase');
 
-// This is a custom Jest transformer turning file imports into filenames.
-// http://facebook.github.io/jest/docs/en/webpack.html
+// A simple camelCase function for demonstration purposes
+function camelCase(str) {
+    return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
+        if (+match === 0) return ''; // or if (/\s+/.test(match)) for white space
+        return index === 0 ? match.toLowerCase() : match.toUpperCase();
+    });
+}
 
 module.exports = {
-  process(src, filename) {
-    const assetFilename = JSON.stringify(path.basename(filename));
+    process(src, filename) {
+        const assetFilename = JSON.stringify(path.basename(filename));
 
-    if (filename.match(/\.svg$/)) {
-      // Based on how SVGR generates a component name:
-      // https://github.com/smooth-code/svgr/blob/01b194cf967347d43d4cbe6b434404731b87cf27/packages/core/src/state.js#L6
-      const pascalCaseFilename = camelcase(path.parse(filename).name, {
-        pascalCase: true,
-      });
-      const componentName = `Svg${pascalCaseFilename}`;
-      return `const React = require('react');
-      module.exports = {
-        __esModule: true,
-        default: ${assetFilename},
-        ReactComponent: React.forwardRef(function ${componentName}(props, ref) {
-          return {
-            $$typeof: Symbol.for('react.element'),
-            type: 'svg',
-            ref: ref,
-            key: null,
-            props: Object.assign({}, props, {
-              children: ${assetFilename}
-            })
-          };
-        }),
-      };`;
-    }
+        if (filename.match(/\.svg$/)) {
+            // Convert file name to PascalCase as a simple replacement for camelcase functionality
+            const pascalCaseFilename = camelCase(path.parse(filename).name).replace(
+                /(?:^\w|[A-Z]|\b\w)/g,
+                (letter, index) => (index === 0 ? letter.toUpperCase() : letter.toLowerCase()),
+            );
+            const componentName = `Svg${pascalCaseFilename}`;
+            const code = `const React = require('react');
+            module.exports = {
+                __esModule: true,
+                default: ${assetFilename},
+                ReactComponent: React.forwardRef(function ${componentName}(props, ref) {
+                return {
+                    $$typeof: Symbol.for('react.element'),
+                    type: 'svg',
+                    ref: ref,
+                    key: null,
+                    props: Object.assign({}, props, {
+                    children: ${assetFilename}
+                    })
+                };
+                }),
+            };`;
+            return { code }; // Return an object with a `code` property
+        }
 
-    return `module.exports = ${assetFilename};`;
-  },
+        // For non-SVG assets, simply return the asset filename as a module export
+        const code = `module.exports = ${assetFilename};`;
+        return { code }; // Return an object with a `code` property
+    },
 };

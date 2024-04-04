@@ -1,14 +1,9 @@
-'use strict';
-
-// This is a custom Jest transformer turning style imports into empty objects.
-// http://facebook.github.io/jest/docs/en/webpack.html
-
 module.exports = {
-  process() {
-    return 'module.exports = {};';
-  },
-  getCacheKey() {
-    // The output is always the same.
-    return 'cssTransform';
-  },
+    process(src, filename) {
+        // If you're simply mocking CSS modules or ignoring CSS content,
+        // return a placeholder or an empty object.
+        return {
+            code: 'module.exports = {};',
+        };
+    },
 };
