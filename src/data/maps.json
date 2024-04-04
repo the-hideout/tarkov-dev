@@ -326,6 +326,7 @@
         "maps": [
             {
                 "key": "ground-zero",
+                "altMaps": ["ground-zero-21"],
                 "projection": "interactive",
                 "tileSize": 256,
                 "minZoom": 1,

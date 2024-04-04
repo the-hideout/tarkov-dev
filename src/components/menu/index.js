@@ -54,11 +54,9 @@ const Menu = () => {
     const [open, setOpen] = useStateWithLocalStorage(alertConfig.bannerKey, true);
 
     const uniqueMaps = useMapImagesSortedArray();
-    let mapCurrent = '';
     for (const map of uniqueMaps) {
-        if (map.normalizedName !== mapCurrent) {
+        if (mapIcons[map.normalizedName]) {
             map.icon = mapIcons[map.normalizedName];
-            mapCurrent = map.normalizedName;
         }
         else {
             map.menuPadding = true;
