@@ -33,7 +33,7 @@
     "@mdi/react": "^1.6.1",
     "@mui/lab": "^5.0.0-alpha.169",
     "@mui/material": "^5.15.14",
-    "@mui/x-tree-view": "^6.17.0",
+    "@mui/x-tree-view": "^7.1.0",
     "@reduxjs/toolkit": "^2.2.3",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.2",
