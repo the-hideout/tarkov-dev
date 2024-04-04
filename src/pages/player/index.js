@@ -745,7 +745,7 @@ function Player() {
                 return contents;
             }
             contents.push((
-                <TreeItem key={`${itemType}-item-${loadoutItem._id}`} itemId={loadoutItem._id} icon={itemDisplay.image} label={itemDisplay.label}>
+                <TreeItem key={`${itemType}-item-${loadoutItem._id}`} itemId={loadoutItem._id} slots={{icon: () => { return itemDisplay.image}}} label={itemDisplay.label}>
                     {getLoadoutContents(loadoutItem, itemType)}
                 </TreeItem>
             ));
@@ -776,7 +776,7 @@ function Player() {
             itemLabel = slot;
         }
         contents.push((
-            <TreeItem key={`loadout-item-${loadoutItem._id}`} itemId={loadoutItem._id} icon={itemImage} label={itemLabel}>
+            <TreeItem key={`loadout-item-${loadoutItem._id}`} itemId={loadoutItem._id} slots={{icon: () => { return itemImage}}} label={itemLabel}>
                 {getLoadoutContents(loadoutItem)}
             </TreeItem>
         ));
@@ -807,7 +807,7 @@ function Player() {
                     return (
                         <li key={itemData._id}>
                             <SimpleTreeView>
-                                <TreeItem key={`loadout-item-${itemData._id}`} itemId={itemData._id} icon={itemImage} label={itemLabel}>
+                                <TreeItem key={`loadout-item-${itemData._id}`} itemId={itemData._id} slots={{icon: () => { return itemImage}}} label={itemLabel}>
                                     {getLoadoutContents(itemData, 'favorite')}
                                 </TreeItem>
                             </SimpleTreeView>
