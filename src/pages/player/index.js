@@ -5,8 +5,6 @@ import { Turnstile } from '@marsidev/react-turnstile'
 import { Icon } from '@mdi/react';
 import {
     mdiAccountDetails,
-    mdiChevronUp,
-    mdiChevronDown,
     mdiTrophy,
     mdiChartLine,
     mdiBagPersonal,
@@ -17,7 +15,7 @@ import {
     mdiDownloadBox,
     mdiFolderOpen,
 } from '@mdi/js';
-import { TreeView, TreeItem } from '@mui/x-tree-view';
+import { SimpleTreeView, TreeItem } from '@mui/x-tree-view';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
@@ -747,7 +745,7 @@ function Player() {
                 return contents;
             }
             contents.push((
-                <TreeItem key={`${itemType}-item-${loadoutItem._id}`} nodeId={loadoutItem._id} icon={itemDisplay.image} label={itemDisplay.label}>
+                <TreeItem key={`${itemType}-item-${loadoutItem._id}`} itemId={loadoutItem._id} slots={{icon: () => { return itemDisplay.image}}} label={itemDisplay.label}>
                     {getLoadoutContents(loadoutItem, itemType)}
                 </TreeItem>
             ));
@@ -778,18 +776,14 @@ function Player() {
             itemLabel = slot;
         }
         contents.push((
-            <TreeItem key={`loadout-item-${loadoutItem._id}`} nodeId={loadoutItem._id} icon={itemImage} label={itemLabel}>
+            <TreeItem key={`loadout-item-${loadoutItem._id}`} itemId={loadoutItem._id} slots={{icon: () => { return itemImage}}} label={itemLabel}>
                 {getLoadoutContents(loadoutItem)}
             </TreeItem>
         ));
 
-        return <TreeView
-            defaultExpandIcon={<Icon path={mdiChevronDown} size={1.5} className="icon-with-text" />}
-            defaultCollapseIcon={<Icon path={mdiChevronUp} size={1.5} className="icon-with-text" />}
-            defaultParentIcon={<span>***</span>}
-        >
+        return <SimpleTreeView>
             {contents}
-        </TreeView>
+        </SimpleTreeView>
     }, [playerData, getItemDisplay, getLoadoutContents]);
 
     const favoriteItemsContent = useMemo(() => {
@@ -812,15 +806,11 @@ function Player() {
                     }
                     return (
                         <li key={itemData._id}>
-                            <TreeView
-                                defaultExpandIcon={<Icon path={mdiChevronDown} size={1.5} className="icon-with-text" />}
-                                defaultCollapseIcon={<Icon path={mdiChevronUp} size={1.5} className="icon-with-text" />}
-                                defaultParentIcon={<span>***</span>}
-                            >
-                                <TreeItem key={`loadout-item-${itemData._id}`} nodeId={itemData._id} icon={itemImage} label={itemLabel}>
+                            <SimpleTreeView>
+                                <TreeItem key={`loadout-item-${itemData._id}`} itemId={itemData._id} slots={{icon: () => { return itemImage}}} label={itemLabel}>
                                     {getLoadoutContents(itemData, 'favorite')}
                                 </TreeItem>
-                            </TreeView>
+                            </SimpleTreeView>
                         </li>
                     );
                 }).filter(Boolean)}
