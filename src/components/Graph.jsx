@@ -212,7 +212,7 @@ const Graph = (props) => {
         <VictoryChart
             domainPadding={10}
             padding={chartPadding}
-            height={185}
+            height={Math.max((props.legendData.length * 7) + 17, 180)}
             theme={VictoryTheme.material}
             minDomain={chartMinDomain}
             maxDomain={chartMaxDomain}
