@@ -25,7 +25,7 @@ function Footer() {
                     <p>
                         The whole platform is open source and focused around developers. All code is available on <a href="https://github.com/the-hideout/tarkov-dev" target="_blank" rel="noopener noreferrer"><GithubIcon /> GitHub</a>.
                     </p>
-                    </Trans>
+                </Trans>
                 <Trans i18nKey={'about-discord-p'}>
                     <p>
                         If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
