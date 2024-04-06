@@ -2,8 +2,6 @@ import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as GithubIcon } from '../supporter/Github.svg';
-import { ReactComponent as DiscordIcon } from '../supporter/Discord.svg';
-import { ReactComponent as XIcon } from '../supporter/X.svg';
 
 import './index.css';
 import UkraineButton from '../ukraine-button/index.js';
@@ -26,22 +24,20 @@ function Footer() {
                         The whole platform is open source and focused around developers. All code is available on <a href="https://github.com/the-hideout/tarkov-dev" target="_blank" rel="noopener noreferrer"><GithubIcon /> GitHub</a>.
                     </p>
                 </Trans>
-                <Trans i18nKey={'about-discord-p'}>
-                    <p>
-                        If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
-                    </p>
-                </Trans>
-                <Trans i18nKey={'about-x-p'}>
-                    <p>
-                        Follow us on <a href="https://x.com/tarkov_dev" target="_blank" rel="noopener noreferrer"><XIcon /> X</a> for all the latest updates.
-                    </p>
-                </Trans>
+                <p>
+                    <a href="https://x.com/tarkov_dev" target="_blank" rel="noopener noreferrer">
+                        <img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/tarkov_dev?style=for-the-badge&logo=x&labelColor=%231b1919&color=%231b1919"/>
+                    </a>
+                </p>
+                <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer">
+                    <img alt="Discord" src="https://img.shields.io/discord/956236955815907388?style=for-the-badge&logo=discord&logoColor=white&label=Discord&labelColor=%231b1919&color=%231b1919"/>
+                </a>
                 <p>
                     <Link to="/about">{t('About')} tarkov.dev</Link>
                 </p>
                 <h3>{t('Contributors')}</h3>
                 <p>{t('Massive thanks to all the people who help build and maintain this project!')}</p>
-                <p>{t('Made with ❤️ by:')}</p>
+                <p>{t('Made with ❤️ by')}</p>
                 <Contributors size={20} />
             </div>
             <div className="footer-section-wrapper">
@@ -87,30 +83,30 @@ function Footer() {
                     <Link to={'/api/'}>{t('Tarkov.dev API')}</Link>
                 </p>
                 <p>
-                    <Link to={'/nightbot/'}>{t('{{bot}} integration', { bot: 'Nightbot' })}</Link>
-                </p>
-                <p>
-                    <Link to={'/streamelements/'}>{t('{{bot}} integration', { bot: 'StreamElements' })}</Link>
+                    <a href="https://github.com/the-hideout/TarkovMonitor" target="_blank" rel="noopener noreferrer">
+                        Tarkov Monitor
+                    </a>
                 </p>
                 <p>
                     <Link to={'/moobot'}>{t('{{bot}} integration', { bot: 'Moobot' })}</Link>
                 </p>
-                {/*<p>*/}
-                {/*    <Link to={'/api-users/'}>{t('API Users')}</Link>*/}
-                {/*</p>*/}
                 <p>
-                    <a
-                        href={
-                            'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'
-                        }
-                    >
+                    <Link to={'/nightbot/'}>{t('{{bot}} integration', { bot: 'Nightbot' })}</Link>
+                </p>
+                <p>
+                    <Link to={'/streamelements/'}>
+                        {t('{{bot}} integration', { bot: 'StreamElements' })}
+                    </Link>
+                </p>
+                <p>
+                    <a href={'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'}>
                         {t('Discord bot for your Discord')}
                     </a>
                 </p>
                 <h3>{t('External resources')}</h3>
                 <p>
-                    <a href="https://developertracker.com/escape-from-tarkov/" target="_blank" rel="noopener noreferrer">
-                        Escape from Tarkov Dev tracker
+                    <a href="https://tarkovtracker.io/" target="_blank" rel="noopener noreferrer">
+                        TarkovTracker.io
                     </a>
                 </p>
                 <p>
@@ -119,15 +115,9 @@ function Footer() {
                     </a>
                 </p>
                 <p>
-                    <a href="https://tarkovtracker.io/" target="_blank" rel="noopener noreferrer">TarkovTracker</a>
-                </p>
-                <p>
                     <a className="stellate-wrapper" href="https://stellate.co/?ref=powered-by" target="_blank" rel="noopener noreferrer">
                         <img src={`${process.env.PUBLIC_URL}/images/stellate-light.svg`} alt="Powered by Stellate, the GraphQL Edge Cache" width={200} />
                     </a>
-                </p>
-                <p>
-                    <iframe className='discord' title="discord-iframe" src="https://discord.com/widget?id=956236955815907388&theme=dark" loading="lazy" allowtransparency="true" frameBorder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
                 </p>
             </div>
             <div className="copyright-wrapper">
