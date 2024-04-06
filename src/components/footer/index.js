@@ -2,6 +2,8 @@ import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { ReactComponent as GithubIcon } from '../supporter/Github.svg';
+import { ReactComponent as DiscordIcon } from '../supporter/Discord.svg';
+import { ReactComponent as XIcon } from '../supporter/X.svg';
 
 import './index.css';
 import UkraineButton from '../ukraine-button/index.js';
@@ -23,21 +25,23 @@ function Footer() {
                     <p>
                         The whole platform is open source and focused around developers. All code is available on <a href="https://github.com/the-hideout/tarkov-dev" target="_blank" rel="noopener noreferrer"><GithubIcon /> GitHub</a>.
                     </p>
+                    </Trans>
+                <Trans i18nKey={'about-discord-p'}>
+                    <p>
+                        If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
+                    </p>
                 </Trans>
-                <p>
-                    <a href="https://x.com/tarkov_dev" target="_blank" rel="noopener noreferrer">
-                        <img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/tarkov_dev?style=for-the-badge&logo=x&labelColor=%231b1919&color=%231b1919"/>
-                    </a>
-                </p>
-                <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer">
-                    <img alt="Discord" src="https://img.shields.io/discord/956236955815907388?style=for-the-badge&logo=discord&logoColor=white&label=Discord&labelColor=%231b1919&color=%231b1919"/>
-                </a>
+                <Trans i18nKey={'about-x-p'}>
+                    <p>
+                        Follow us on <a href="https://x.com/tarkov_dev" target="_blank" rel="noopener noreferrer"><XIcon /> X</a> for all the latest updates.
+                    </p>
+                </Trans>
                 <p>
                     <Link to="/about">{t('About')} tarkov.dev</Link>
                 </p>
                 <h3>{t('Contributors')}</h3>
                 <p>{t('Massive thanks to all the people who help build and maintain this project!')}</p>
-                <p>{t('Made with ❤️ by')}</p>
+                <p>{t('Made with ❤️ by:')}</p>
                 <Contributors size={20} />
             </div>
             <div className="footer-section-wrapper">
