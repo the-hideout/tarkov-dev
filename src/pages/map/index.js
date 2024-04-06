@@ -6,6 +6,7 @@ import {
     TransformWrapper,
     TransformComponent,
 } from 'react-zoom-pan-pinch';
+import ResizeObserver from 'resize-observer-polyfill';
 
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
