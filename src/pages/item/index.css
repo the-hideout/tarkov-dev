@@ -1,8 +1,10 @@
 .item-page-wrapper {
     margin: 0 auto 100px auto;
     max-width: 1200px;
-    padding-top: 10px;
+    padding: 10px;
     position: relative;
+    background-color: #1b1919;
+    border: 4px solid #100f0f;
 }
 
 .item-page-wrapper h2 {

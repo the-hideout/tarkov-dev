@@ -5,6 +5,7 @@
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
+    background-color: #1b1919;
 }
 
 .data-table-filters-wrapper {
@@ -66,11 +67,11 @@ td.data-cell:last-child {
 }
 
 .data-table tr td {
-    background-color: #2d2d2f;
+    background-color: #131313;
 }
 
 .data-table tbody tr.expanded td {
-    background-color: #242324;
+    background-color: #242424;
 }
 
 .arrow-icon,
