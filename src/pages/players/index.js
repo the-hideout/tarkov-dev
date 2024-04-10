@@ -33,7 +33,7 @@ function Players() {
 
     const searchTextValid = useMemo(() => {
         const charactersValid = !!nameFilter.match(/^[a-zA-Z0-9-_]*$/);
-        const lengthValid = nameFilter.length >= 3 && nameFilter.length <= 15;
+        const lengthValid = !!nameFilter.match(/^[a-zA-Z0-9-_]{3,15}$|^TarkovCitizen\d{1,10}$/i);
         setButtonDisabled(!charactersValid || !lengthValid);
         setNameResultsError(false);
         if (!charactersValid) {
