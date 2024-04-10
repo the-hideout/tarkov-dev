@@ -5,6 +5,7 @@ import ImageViewer from 'react-simple-image-viewer';
 import { useTranslation } from 'react-i18next';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import ResizeObserver from 'resize-observer-polyfill';
 
 import './index.css';
 
