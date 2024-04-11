@@ -32,14 +32,15 @@
 }
 
 .discord {
-    width: 300px;
+    display: block;
+    width: 320px;
     height: 70px;
     transition: all 0.5s ease-in-out;
 }
 
 .discord:hover {
-    height: 500px;
-    width: 300px;
+    width: 320px;
+    height: 250px;
 }
 
 .stellate-wrapper img {
