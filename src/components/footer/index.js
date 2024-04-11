@@ -28,7 +28,7 @@ function Footer() {
                 </Trans>
                 <Trans i18nKey={'about-discord-p'}>
                     <p>
-                        If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
+                        If you wanna have a chat, ask questions or request features, we have a <a href="https://discord.gg/VGq6xtTD" target="_blank" rel="noopener noreferrer"><DiscordIcon /> Discord</a> server.
                     </p>
                 </Trans>
                 <Trans i18nKey={'about-x-p'}>
@@ -47,28 +47,26 @@ function Footer() {
             <div className="footer-section-wrapper">
                 <h3>{t('Supporters')}</h3>
                 <Trans i18nKey={'about-support-ukraine-p'}>
-                <p>
-                    We encourage everyone who can to donate to support the people of Ukraine using the button below.
-                </p>
+                    <p>
+                        We encourage everyone who can to donate to support the people of Ukraine using the button below.
+                    </p>
                 </Trans>
                 <UkraineButton large={true}/>
                 <Trans i18nKey={'about-support-collective-p'}>
-                <p>
-                    If you'd also like to support this project, you can make a donation and/or become a backer on <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noopener noreferrer">Open Collective</a>.
-                </p>
+                    <p>
+                        If you'd also like to support this project, you can make a donation and/or become a backer on <a href="https://opencollective.com/tarkov-dev" target="_blank" rel="noopener noreferrer">Open Collective</a>.
+                    </p>
                 </Trans>
                 <OpenCollectiveButton large={true}/>
                 <h3>{t('Item Data')}</h3>
                 <p>
-                    {t(
-                        'Fresh EFT data courtesy of',
-                    )}{' '}
+                    {t('Fresh EFT data courtesy of')}{' '}
                     <a href="https://tarkov-changes.com" target="_blank" rel="noopener noreferrer">
                         <span>Tarkov-Changes</span>
                     </a>
                 </p>
                 <p>
-                    {t('Additional data courtesy of')} {' '}
+                    {t('Additional data courtesy of')}{' '}
                     <a href="https://www.sp-tarkov.com/" target="_blank" rel="noopener noreferrer">
                         <span>SPT-AKI</span>
                     </a>
@@ -84,42 +82,45 @@ function Footer() {
             <div className="footer-section-wrapper">
                 <h3>{t('Resources')}</h3>
                 <p>
-                    <Link to={'/api/'}>{t('Tarkov.dev API')}</Link>
+                    <Link to={'/api/'}>
+                        {t('Tarkov.dev API')}
+                    </Link>
                 </p>
                 <p>
-                    <Link to={'/nightbot/'}>{t('{{bot}} integration', { bot: 'Nightbot' })}</Link>
+                    <a href="https://github.com/the-hideout/TarkovMonitor" target="_blank" rel="noopener noreferrer">
+                        Tarkov Monitor
+                    </a>
                 </p>
                 <p>
-                    <Link to={'/streamelements/'}>{t('{{bot}} integration', { bot: 'StreamElements' })}</Link>
+                    <Link to={'/moobot'}>
+                        {t('{{bot}} integration', { bot: 'Moobot' })}
+                    </Link>
                 </p>
                 <p>
-                    <Link to={'/moobot'}>{t('{{bot}} integration', { bot: 'Moobot' })}</Link>
+                    <Link to={'/nightbot/'}>
+                        {t('{{bot}} integration', { bot: 'Nightbot' })}
+                    </Link>
                 </p>
-                {/*<p>*/}
-                {/*    <Link to={'/api-users/'}>{t('API Users')}</Link>*/}
-                {/*</p>*/}
                 <p>
-                    <a
-                        href={
-                            'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'
-                        }
-                    >
+                    <Link to={'/streamelements/'}>
+                        {t('{{bot}} integration', { bot: 'StreamElements' })}
+                    </Link>
+                </p>
+                <p>
+                    <a href={'https://discord.com/api/oauth2/authorize?client_id=955521336904667227&permissions=309237664832&scope=bot%20applications.commands'}>
                         {t('Discord bot for your Discord')}
                     </a>
                 </p>
                 <h3>{t('External resources')}</h3>
                 <p>
-                    <a href="https://developertracker.com/escape-from-tarkov/" target="_blank" rel="noopener noreferrer">
-                        Escape from Tarkov Dev tracker
+                    <a href="https://tarkovtracker.io/" target="_blank" rel="noopener noreferrer">
+                        TarkovTracker.io
                     </a>
                 </p>
                 <p>
                     <a href="https://github.com/RatScanner/RatScanner" target="_blank" rel="noopener noreferrer">
                         RatScanner
                     </a>
-                </p>
-                <p>
-                    <a href="https://tarkovtracker.io/" target="_blank" rel="noopener noreferrer">TarkovTracker</a>
                 </p>
                 <p>
                     <a className="stellate-wrapper" href="https://stellate.co/?ref=powered-by" target="_blank" rel="noopener noreferrer">

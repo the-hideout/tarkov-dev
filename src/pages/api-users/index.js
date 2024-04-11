@@ -18,7 +18,7 @@ function ApiUsers() {
             <h1>{t('API Users')} - {t('Tarkov.dev')}</h1>
             <Trans i18nKey={'api-users-p'}>
                 <p>
-                    Want to be included on this page? Join the <a href="https://discord.gg/XPAsKGHSzH" target="_blank" rel="noopener noreferrer">Discord</a> and tell us about what you've made!
+                    Want to be included on this page? Join the <a href="https://discord.gg/VGq6xtTD" target="_blank" rel="noopener noreferrer">Discord</a> and tell us about what you've made!
                 </p>
             </Trans>
             {apiUsers.map((apiUser) => {
