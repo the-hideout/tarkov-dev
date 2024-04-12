@@ -133,6 +133,10 @@ export const useMapImages = () => {
             if (imageData.altMaps) {
                 for (const altKey of imageData.altMaps) {
                     const altApiMap = maps.find(map => map.normalizedName === altKey);
+                    if (!altApiMap) {
+                        // alt map is missing; so we skip it
+                        continue;
+                    }
                     apiImageDataMerge(mapGroup, {
                         ...imageData,
                         key: altKey,
