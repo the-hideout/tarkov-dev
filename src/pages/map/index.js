@@ -1065,6 +1065,9 @@ function Map() {
                 }
                 if (obj.possibleLocations) {
                     for (const loc of obj.possibleLocations) {
+                        if (!loc.map?.id) {
+                            continue;
+                        }
                         if (loc.map.id !== mapData.id) {
                             continue;
                         }
@@ -1103,7 +1106,7 @@ function Map() {
                 }
                 if (obj.zones) {
                     for (const zone of obj.zones) {
-                        if (zone.map.id !== mapData.id) {
+                        if (!zone.map?.id || zone.map.id !== mapData.id) {
                             continue;
                         }
                         if (!positionIsInBounds(zone.position)) {
