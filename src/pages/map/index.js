@@ -1065,7 +1065,7 @@ function Map() {
                 }
                 if (obj.possibleLocations) {
                     for (const loc of obj.possibleLocations) {
-                        if (!loc) {
+                        if (!loc.map?.id) {
                             continue;
                         }
                         if (loc.map.id !== mapData.id) {
