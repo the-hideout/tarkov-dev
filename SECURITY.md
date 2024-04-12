@@ -6,4 +6,4 @@ The `main` branch of this repo is considered active and supported for all securi
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability, please reach out in our [community Discord](https://discord.gg/XPAsKGHSzH) to report it.
+If you discover a security vulnerability, please reach out in our [community Discord](https://discord.gg/VGq6xtTD) to report it.
