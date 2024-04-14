@@ -230,6 +230,16 @@
                         "size": 70
                     },
                     {
+                        "position": [-173,226],
+                        "text": "Office",
+                        "size": 70
+                    },
+                    {
+                        "position": [-197, 340],
+                        "text": "Corner Restaurant",
+                        "size": 70
+                    },
+                    {
                         "position": [-43, 335],
                         "text": "Pharmacy 2",
                         "size": 70
@@ -272,6 +282,11 @@
                     {
                         "position": [-200, 248],
                         "text": "Marked Hotel",
+                        "size": 70
+                    },
+                    {
+                        "position": [-175, 297],
+                        "text": "South Hotel",
                         "size": 70
                     },
                     {
