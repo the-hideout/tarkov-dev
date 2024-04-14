@@ -226,7 +226,17 @@
                     },
                     {
                         "position": [42, 160],
-                        "text": "Pharmacy",
+                        "text": "Pharmacy 1",
+                        "size": 70
+                    },
+                    {
+                        "position": [-43, 335],
+                        "text": "Pharmacy 2",
+                        "size": 70
+                    },
+                    {
+                        "position": [90, -277],
+                        "text": "Pharmacy 3",
                         "size": 70
                     },
                     {
