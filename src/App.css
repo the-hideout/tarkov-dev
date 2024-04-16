@@ -10,8 +10,10 @@
 
 body {
     background-color: #2d2d2f;
-    background-image: url('images/background-1.png');
-    color: #c7c5b3;
+    background-image: url('images/background-4.png');
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+    color: #c7c0b3;
     margin: 0;
     padding: 0;
     height: 100%;

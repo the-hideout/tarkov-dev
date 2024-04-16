@@ -45,8 +45,8 @@
 }
 
 .start-section-wrapper {
-    background-color: #1b1919;
-    border: 4px solid #100f0f;
+    background-color: #33323100;
+    border: 2px solid #525252;
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -101,7 +101,7 @@
 }
 
 .load-more-button:hover {
-    background-color: #6e5f43;
+    background-color: #726856;
     color: white;
     cursor: pointer;
   }
