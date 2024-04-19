@@ -853,7 +853,7 @@ function Player() {
         <div>
             <p>
                 <Link to="/players"><Icon path={mdiAccountSearch} size={1} className="icon-with-text" />{t('Search different player')}</Link>
-                <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={loadProfile}/>
+                <input type='file' id='file' ref={inputFile} style={{display: 'none'}} onChange={loadProfile} accept="application/json,.json"/>
                 <Tippy
                     content={t('Load profile from file')}
                     placement="bottom"
