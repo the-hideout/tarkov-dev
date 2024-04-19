@@ -228,6 +228,24 @@ function Player() {
         return <div>{flags.join(', ')}</div>;
     }, [playerData, t]);
 
+    const lastActiveDate = useMemo(() => {
+        if (!playerData.info.registrationDate) {
+            return '';
+        }
+        let latest =  playerData.info.registrationDate;
+        for (const skill of playerData.skills.Common) {
+            if (skill.LastAccess > latest) {
+                latest = skill.LastAccess;
+            }
+        }
+        for (const timestamp of Object.values(playerData.achievements)) {
+            if (timestamp > latest) {
+                latest = timestamp;
+            }
+        }
+        return <div>{t('Last active: {{date}}', {date: new Date(latest * 1000).toLocaleString()})}</div>;
+    }, [playerData, t]);
+
     const achievementColumns = useMemo(
         () => [
             {
@@ -906,6 +924,7 @@ function Player() {
                     <p className="banned">{bannedMessage}</p>
                 )}
                 {totalTimeInGame}
+                {lastActiveDate}
                 {raidsData?.length > 0  && (
                     <>
                         <h2 key="raids-title"><Icon path={mdiChartLine} size={1.5} className="icon-with-text" />{t('Raid Stats')}</h2>
