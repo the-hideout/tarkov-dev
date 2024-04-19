@@ -82,7 +82,8 @@ const About = React.lazy(() => import('./pages/about/index.js'));
 
 const APIDocs = React.lazy(() => import('./pages/api-docs/index.js'));
 
-const socketServer = `wss://socket.tarkov.dev`;
+const socketServer = 'wss://socket.tarkov.dev';
+//const socketServer = 'ws://localhost:8080';
 
 let socket = false;
 let tarkovTrackerProgressInterval = false;
@@ -176,7 +177,7 @@ function App() {
         };
 
         const connect = function connect() {
-            socket = new WebSocket(socketServer);
+            socket = new WebSocket(socketServer+`?sessionid=${encodeURIComponent(sessionID)}`);
 
             const heartbeat = function heartbeat() {
                 clearTimeout(socket.pingTimeout);
@@ -214,13 +215,6 @@ function App() {
                 heartbeat();
 
                 dispatch(setConnectionStatus(true));
-
-                socket.send(
-                    JSON.stringify({
-                        sessionID: sessionID,
-                        type: 'connect',
-                    }),
-                );
             });
 
             socket.addEventListener('close', () => {
