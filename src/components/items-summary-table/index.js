@@ -18,7 +18,7 @@ import {
 import DataTable from '../data-table/index.js';
 import ItemNameCell from '../item-name-cell/index.js';
 import ValueCell from '../value-cell/index.js';
-import BarterTooltip from '../barter-tooltip/index.js';
+import BarterTooltip from '../barter-tooltip/BarterTooltip.jsx';
 
 import formatPrice from '../../modules/format-price.js';
 import { getCheapestPrice } from '../../modules/format-cost-items.js';

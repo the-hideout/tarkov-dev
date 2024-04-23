@@ -18,7 +18,7 @@ import TraderPriceCell from '../trader-price-cell/index.js';
 import CenterCell from '../center-cell/index.js';
 import ItemNameCell from '../item-name-cell/index.js';
 import FleaPriceCell from '../flea-price-cell/index.js';
-import BarterTooltip from '../barter-tooltip/index.js';
+import BarterTooltip from '../barter-tooltip/BarterTooltip.jsx';
 import DataTable from '../data-table/index.js';
 import LoadingSmall from '../loading-small/index.js';
 import ArrowIcon from '../../components/data-table/Arrow.js';
