@@ -21,6 +21,8 @@ import { formatCaliber } from '../../modules/format-ammo.mjs';
 import symbols from '../../symbols.json';
 
 import './index.css';
+import { useSelector } from 'react-redux';
+import { selectAllTraders } from '../../features/settings/settingsSlice.js';
 
 const MAX_DAMAGE = 170;
 const MAX_PENETRATION = 70;
@@ -34,6 +36,7 @@ const skipTypes = [
 ];
 
 function Ammo() {
+    const allTraders = useSelector(selectAllTraders);
     const { currentAmmo } = useParams();
     let currentAmmoList = useMemo(() => [], []);
     let redirect = false;
@@ -54,7 +57,8 @@ function Ammo() {
             navigate(`/ammo/${currentAmmoList.join(',')}`);
         }
     }, [redirect, currentAmmoList, navigate]);
-    
+
+    const [showOnlyTraderAmmo, setShowOnlyTraderAmmo] = useState(false);
     const [selectedLegendName, setSelectedLegendName] = useState(currentAmmoList);
     const [showAllTraderPrices, setShowAllTraderPrices] = useState(false);
     const [useAllProjectileDamage, setUseAllProjectileDamage] = useState(false);
@@ -159,6 +163,16 @@ function Ammo() {
                     selectedLegendName.length === 0 ||
                     selectedLegendName.includes(ammo.type),
             ).filter(ammo => {
+                if (showOnlyTraderAmmo) {
+                    if (!ammo.buyFor.some(buyForEntry =>
+                        buyForEntry.vendor.normalizedName !== 'flea-market' &&
+                        buyForEntry.vendor.minTraderLevel <= allTraders[buyForEntry.vendor.normalizedName])
+                    )
+                        return false;
+                }
+                return true;
+            }
+            ).filter(ammo => {
                 if (minPen === 0 && maxPen === 60) {
                     return true;
                 }
@@ -194,9 +208,8 @@ function Ammo() {
                     chartName: `${ammo.chartName} (${ammo.fragmentationChance})`,
                 };
             });
-
         return returnData;
-    }, [selectedLegendName, shiftPress, ammoData, minPen, maxPen]);
+    }, [selectedLegendName, shiftPress, ammoData, minPen, maxPen, showOnlyTraderAmmo, allTraders]);
 
     const handleLegendClick = useCallback(
         (event, { datum: { name } }) => {
@@ -266,6 +279,18 @@ function Ammo() {
                     tooltipContent={
                         <>
                             {t('Use total damage of all projectiles in a round')}
+                        </>
+                    }
+                />
+                <ToggleFilter
+                    checked={showOnlyTraderAmmo}
+                    label={t('Trader Ammo')}
+                    onChange={(e) =>
+                        setShowOnlyTraderAmmo(!showOnlyTraderAmmo)
+                    }
+                    tooltipContent={
+                        <>
+                            {t('Only show ammo available from traders on your settings')}
                         </>
                     }
                 />
