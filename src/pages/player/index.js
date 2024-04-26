@@ -68,6 +68,7 @@ const memberFlags = {
     ChatModerator: 32,
     Sherpa: 256,
     Emissary: 512,
+    Unheard: 1024,
 }
 
 function Player() {
@@ -92,7 +93,6 @@ function Player() {
             memberCategory: 0,
             bannedState: false,
             bannedUntil: 0,
-            registrationDate: 0,
         },
         customization: {},
         skills: {},
@@ -229,10 +229,10 @@ function Player() {
     }, [playerData, t]);
 
     const lastActiveDate = useMemo(() => {
-        if (!playerData.info.registrationDate) {
+        if (!playerData.skills.Common) {
             return '';
         }
-        let latest =  playerData.info.registrationDate;
+        let latest = 0;
         for (const skill of playerData.skills.Common) {
             if (skill.LastAccess > latest) {
                 latest = skill.LastAccess;
@@ -242,6 +242,9 @@ function Player() {
             if (timestamp > latest) {
                 latest = timestamp;
             }
+        }
+        if (latest === 0) {
+            return '';
         }
         return <div>{t('Last active: {{date}}', {date: new Date(latest * 1000).toLocaleString()})}</div>;
     }, [playerData, t]);
@@ -916,9 +919,6 @@ function Player() {
                 {accountCategories}
                 {!!playerData.saved && (
                     <p className="banned">{t('Warning: Profiles loaded from files may contain edited information')}</p>
-                )}
-                {playerData.info.registrationDate !== 0 && (
-                    <p>{`${t('Started current wipe')}: ${new Date(playerData.info.registrationDate * 1000).toLocaleString()}`}</p>
                 )}
                 {!!bannedMessage && (
                     <p className="banned">{bannedMessage}</p>
