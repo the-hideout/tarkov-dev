@@ -17,7 +17,7 @@ jobs:
       # Comment on new PR requests with deployment instructions
       - uses: actions/checkout@v4
       - name: comment
-        uses: GrantBirki/comment@v2.0.9
+        uses: GrantBirki/comment@v2.0.10
         continue-on-error: true
         with:
           file: .github/new-pr-comment.md
