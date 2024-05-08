@@ -323,6 +323,14 @@ const Menu = () => {
                             {t('Players')}
                         </Link>
                     </li>
+                    <li className="submenu-wrapper submenu-items overflow-member" key="menu-converter" data-targetid="converter">
+                        <Link
+                            to="/converter"
+                            //onClick={setIsOpen.bind(this, false)}
+                        >
+                            {t('Converter')}
+                        </Link>
+                    </li>
                     <li className="submenu-wrapper submenu-items overflow-member" key="menu-api" data-targetid="api">
                         <Link
                             to="/api/"

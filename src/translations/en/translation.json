@@ -602,5 +602,7 @@
     "wipe-length-description": "Get the latest information on the average wipe length in Escape from Tarkov. Find out how long wipes typically last, and prepare for the next wipe.",
     "Average Wipe Length among last 6 wipes:": "Average Wipe Length among last 6 wipes:",
     "Trader Ammo": "Trader Ammo",
-    "Only show ammo available from traders on your settings": "Only show ammo available from traders on your settings"
+    "Only show ammo available from traders on your settings": "Only show ammo available from traders on your settings",
+    "Reset": "Reset",
+    "Convert one currency to another": "Convert one currency to another"
 }

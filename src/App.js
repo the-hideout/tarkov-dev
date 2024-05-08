@@ -78,6 +78,7 @@ const WipeLength = React.lazy(() => import('./pages/wipe-length/index.js'));
 const Achievements = React.lazy(() => import('./pages/achievements/index.js'));
 const Players = React.lazy(() => import('./pages/players/index.js'));
 const Player = React.lazy(() => import('./pages/player/index.js'));
+const Converter = React.lazy(() => import('./pages/converter/index.js'));
 const About = React.lazy(() => import('./pages/about/index.js'));
 
 const APIDocs = React.lazy(() => import('./pages/api-docs/index.js'));
@@ -101,7 +102,7 @@ function Fallback({ error, resetErrorBoundary }) {
                     <pre style={{ color: "red" }}>{error.message}</pre>
                     <pre>{error.stack}</pre>
                     You can <button style={{ padding: '.2rem', borderRadius: '4px' }} onClick={resetErrorBoundary}>try again</button> or report the issue by
-                    joining our <a href="https://discord.gg/VGq6xtTD" target="_blank" rel="noopener noreferrer">Discord</a> server and 
+                    joining our <a href="https://discord.gg/VGq6xtTD" target="_blank" rel="noopener noreferrer">Discord</a> server and
                     copy/paste the above error and some details in <a href="https://discord.com/channels/956236955815907388/956239773742288896" target="_blank" rel="noopener noreferrer">#🐞bugs-issues</a> channel.
                 </details>
             </div>
@@ -129,7 +130,7 @@ function App() {
     const useTarkovTracker = useSelector(
         (state) => state.settings.useTarkovTracker,
     );
-    
+
     const progressStatus = useSelector((state) => {
         return state.settings.progressStatus;
     });
@@ -177,7 +178,7 @@ function App() {
         };
 
         const connect = function connect() {
-            socket = new WebSocket(socketServer+`?sessionid=${encodeURIComponent(sessionID)}`);
+            socket = new WebSocket(socketServer + `?sessionid=${encodeURIComponent(sessionID)}`);
 
             const heartbeat = function heartbeat() {
                 clearTimeout(socket.pingTimeout);
@@ -248,7 +249,8 @@ function App() {
                 // Wait a bit if we're not connected
                 setTimeout(() => {
                     socket.send(
-                        JSON.stringify({ sessionID: controlId,
+                        JSON.stringify({
+                            sessionID: controlId,
                             ...messageData,
                         }),
                     );
@@ -828,14 +830,14 @@ function App() {
                             remoteControlSessionElement,
                         ]}
                     />
-                    <Route 
-                        path={'/control'} 
+                    <Route
+                        path={'/control'}
                         key="control-route"
                         element={[
                             <Suspense fallback={<Loading />} key="suspense-control-wrapper">
                                 <Control send={send} />
                             </Suspense>,
-                        ]} 
+                        ]}
                     />
                     <Route
                         path={'/tasks/'}
@@ -883,6 +885,16 @@ function App() {
                         element={[
                             <Suspense fallback={<Loading />} key="suspense-player-wrapper">
                                 <Player />
+                            </Suspense>,
+                            remoteControlSessionElement,
+                        ]}
+                    />
+                    <Route
+                        path={'/converter'}
+                        key="converter-route"
+                        element={[
+                            <Suspense fallback={<Loading />} key="suspense-converter-wrapper">
+                                <Converter key="converter-wrapper" />
                             </Suspense>,
                             remoteControlSessionElement,
                         ]}
