@@ -21,7 +21,7 @@ jobs:
 
       # check to ensure all JSON files are valid in the repository
       - name: json-yaml-validate
-        uses: GrantBirki/json-yaml-validate@v2.6.1
+        uses: GrantBirki/json-yaml-validate@v2.7.1
         with:
           comment: "true"
 

@@ -10,7 +10,7 @@
 
 ## Opening a Pull Request 🌟
 
-If you have a fix for a bug or a feature request, follow the flow below to purpose your change
+If you have a fix for a bug or a feature request, follow the flow below to propose your change
 
 > If you are new to creating pull requests from a repository fork, check out this [guide](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
 
