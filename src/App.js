@@ -101,7 +101,7 @@ function Fallback({ error, resetErrorBoundary }) {
                     <pre style={{ color: "red" }}>{error.message}</pre>
                     <pre>{error.stack}</pre>
                     You can <button style={{ padding: '.2rem', borderRadius: '4px' }} onClick={resetErrorBoundary}>try again</button> or report the issue by
-                    joining our <a href="https://discord.gg/VGq6xtTD" target="_blank" rel="noopener noreferrer">Discord</a> server and 
+                    joining our <a href="https://discord.gg/WwTvNe356u" target="_blank" rel="noopener noreferrer">Discord</a> server and 
                     copy/paste the above error and some details in <a href="https://discord.com/channels/956236955815907388/956239773742288896" target="_blank" rel="noopener noreferrer">#🐞bugs-issues</a> channel.
                 </details>
             </div>
