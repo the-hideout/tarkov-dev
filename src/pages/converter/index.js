@@ -26,7 +26,7 @@ function Converter() {
 
     const enterPress = useKeyPress('Enter');
 
-    const getItems = useEffect(() => {
+    useEffect(() => {
         let euroConversion;
         let dollarConversion;
         const dollarsearch = itemSearch(items, 'Dollars');
@@ -47,7 +47,7 @@ function Converter() {
         if (enterPress) {
             resetInput();
         }
-    }, [enterPress, resetInput]);
+    }, [enterPress]);
 	
     function exchangeRate() {
         const exchangeRates = {
