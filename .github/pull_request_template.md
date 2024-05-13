@@ -32,7 +32,7 @@ Please delete any sections below which you do not need to fill out. You may keep
 <summary> Expand for Help </summary>
 
 - Have questions about the review or deployment process? View our [contributing docs](https://github.com/the-hideout/tarkov-dev/blob/main/CONTRIBUTING.md)
-- Need additional help and want to chat in real time? Join our [community Discord](https://discord.gg/VGq6xtTD)
+- Need additional help and want to chat in real time? Join our [community Discord](https://discord.gg/WwTvNe356u)
 
 > By submitting this pull request, you agree to our [code of conduct](https://github.com/the-hideout/tarkov-dev/blob/main/CODE_OF_CONDUCT.md)
 
