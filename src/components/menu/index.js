@@ -328,7 +328,7 @@ const Menu = () => {
                             to="/converter"
                             //onClick={setIsOpen.bind(this, false)}
                         >
-                            {t('Converter')}
+                            {t('Currency Converter')}
                         </Link>
                     </li>
                     <li className="submenu-wrapper submenu-items overflow-member" key="menu-api" data-targetid="api">
