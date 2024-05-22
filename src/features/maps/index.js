@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
@@ -17,7 +17,7 @@ import {
 } from '@mdi/js';
 
 import doFetchMaps from './do-fetch-maps.mjs';
-import { langCode } from '../../modules/lang-helpers.js';
+import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { placeholderMaps } from '../../modules/placeholder-data.js';
 import i18n from '../../i18n.js';
 
@@ -59,28 +59,32 @@ export const mapsReducer = mapsSlice.reducer;
 
 export const selectMaps = (state) => state.maps.data;
 
-let fetchedData = false;
-let refreshInterval = false;
-
 export default function useMapsData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.maps);
+    const lang = useLangCode();
+    const fetchedLang = useRef(false);
+    const refreshInterval = useRef(false);
+    const clearRefreshInterval = useCallback(() => {
+        clearInterval(refreshInterval.current);
+        refreshInterval.current = false;
+    }, [refreshInterval]);
 
     useEffect(() => {
-        if (!fetchedData) {
-            fetchedData = true;
+        if (fetchedLang.current !== lang) {
+            fetchedLang.current = lang;
             dispatch(fetchMaps());
+            clearRefreshInterval();
         }
-        if (!refreshInterval) {
-            refreshInterval = setInterval(() => {
+        if (!refreshInterval.current) {
+            refreshInterval.current = setInterval(() => {
                 dispatch(fetchMaps());
             }, 600000);
         }
         return () => {
-            clearInterval(refreshInterval);
-            refreshInterval = false;
+            clearRefreshInterval();
         };
-    }, [dispatch]);
+    }, [dispatch, fetchedLang, lang, refreshInterval, clearRefreshInterval]);
     
     return { data, status, error };
 };

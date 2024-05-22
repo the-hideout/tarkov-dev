@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
 import doFetchQuests from './do-fetch-quests.mjs';
-import { langCode } from '../../modules/lang-helpers.js';
+import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 import { placeholderTasks } from '../../modules/placeholder-data.js';
 
 const initialState = {
@@ -108,29 +108,33 @@ export const selectQuestsWithActive = createSelector([selectQuests, selectTrader
     });
 });
 
-let fetchedData = false;
-let refreshInterval = false;
-
 export default function useQuestsData() {
     const dispatch = useDispatch();
     const { status, error } = useSelector((state) => state.quests);
     const data = useSelector(selectQuestsWithActive);
+    const lang = useLangCode();
+    const fetchedLang = useRef(false);
+    const refreshInterval = useRef(false);
+    const clearRefreshInterval = useCallback(() => {
+        clearInterval(refreshInterval.current);
+        refreshInterval.current = false;
+    }, [refreshInterval]);
 
     useEffect(() => {
-        if (!fetchedData) {
-            fetchedData = true;
+        if (fetchedLang.current !== lang) {
+            fetchedLang.current = lang;
             dispatch(fetchQuests());
+            clearRefreshInterval();
         }
-        if (!refreshInterval) {
-            refreshInterval = setInterval(() => {
+        if (!refreshInterval.current) {
+            refreshInterval.current = setInterval(() => {
                 dispatch(fetchQuests());
             }, 600000);
         }
         return () => {
-            clearInterval(refreshInterval);
-            refreshInterval = false;
+            clearRefreshInterval();
         };
-    }, [dispatch]);
+    }, [dispatch, fetchedLang, lang, refreshInterval, clearRefreshInterval]);
     
     return { data, status, error };
 };

@@ -122,7 +122,7 @@ export const selectAllBarters = createSelector([selectBarters, selectQuests, sel
         return {
             ...barter,
             requiredItems: barter.requiredItems.reduce((requirements, req) => {
-                let matchedItem = items.find(it => it.id === req.item.id);
+                let matchedItem = items?.find(it => it.id === req.item.id);
                 if (matchedItem) {
                     requirements.push({
                         ...req,
@@ -132,7 +132,7 @@ export const selectAllBarters = createSelector([selectBarters, selectQuests, sel
                 return requirements;
             }, []),
             rewardItems: barter.rewardItems.reduce((requirements, req) => {
-                const matchedItem = items.find(it => it.id === req.item.id);
+                const matchedItem = items?.find(it => it.id === req.item.id);
                 if (matchedItem) {
                     requirements.push({
                         ...req,

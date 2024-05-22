@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
 
 import doFetchItems from './do-fetch-items.mjs';
 import { placeholderItems } from '../../modules/placeholder-data.js';
-import { langCode } from '../../modules/lang-helpers.js';
+import { langCode, useLangCode } from '../../modules/lang-helpers.js';
 
 const initialState = {
     data: placeholderItems(langCode()),
@@ -52,28 +52,32 @@ export const itemsReducer = itemsSlice.reducer;
 
 export const selectAllItems = (state) => state.items.data;
 
-let fetchedData = false;
-let refreshInterval = false;
-
 export default function useItemsData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.items);
+    const lang = useLangCode();
+    const fetchedLang = useRef(false);
+    const refreshInterval = useRef(false);
+    const clearRefreshInterval = useCallback(() => {
+        clearInterval(refreshInterval.current);
+        refreshInterval.current = false;
+    }, [refreshInterval]);
 
     useEffect(() => {
-        if (!fetchedData) {
-            fetchedData = true;
+        if (fetchedLang.current !== lang) {
+            fetchedLang.current = lang;
             dispatch(fetchItems());
+            clearRefreshInterval();
         }
-        if (!refreshInterval) {
-            refreshInterval = setInterval(() => {
+        if (!refreshInterval.current) {
+            refreshInterval.current = setInterval(() => {
                 dispatch(fetchItems());
             }, 600000);
         }
         return () => {
-            clearInterval(refreshInterval);
-            refreshInterval = false;
+            clearRefreshInterval();
         };
-    }, [dispatch]);
+    }, [dispatch, fetchedLang, lang, refreshInterval, clearRefreshInterval]);
     
     return { data, status, error };
 };
