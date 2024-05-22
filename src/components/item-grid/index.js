@@ -67,6 +67,7 @@ function ItemGrid(props) {
                         style={{gridRowEnd: `span ${item.baseImageLink ? item.height : 1}`, gridColumnEnd: `span ${item.baseImageLink ? item.width : 1}`}}
                     >
                         <ItemImage
+                            key={`${item.id}-itemimage`}
                             item={item}
                         >
                             <ItemTooltip
