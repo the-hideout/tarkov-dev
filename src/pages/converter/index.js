@@ -1,14 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Icon } from '@mdi/react';
-import { mdiCashSync } from '@mdi/js';
-import { mdiCurrencyUsd } from '@mdi/js';
-import { mdiCurrencyEur } from '@mdi/js';
-import { mdiCurrencyRub } from '@mdi/js';
+import { 
+    mdiCashSync,
+    mdiCurrencyRub,
+    mdiCurrencyUsd,
+    mdiCurrencyEur
+} from '@mdi/js';
 import { useTranslation } from 'react-i18next';
+
 import SEO from '../../components/SEO.jsx';
 import { InputFilter } from '../../components/filter/index.js';
+
 import useItemsData from '../../features/items/index.js';
+
 import itemSearch from '../../modules/item-search.js';
+
 import useKeyPress from '../../hooks/useKeyPress.jsx';
 
 import './index.css';
@@ -19,28 +25,29 @@ function Converter() {
     const [RUBFilter, setRUBFilter] = useState();
     const [USDFilter, setUSDFilter] = useState();
     const [EURFilter, setEURFilter] = useState();
+    const [USDRate, setUSDRate] = useState(143);
     const [EURRate, setEURRate] = useState(159);
-    const [USDRate, setUSDRate] = useState(149);
     const { data: items } = useItemsData();
 
 
     const enterPress = useKeyPress('Enter');
 
     useEffect(() => {
-        let euroConversion;
         let dollarConversion;
         const dollarsearch = itemSearch(items, 'dollars');
         const dollarItem = dollarsearch.find(item => item.normalizedName === 'dollars');
         if (dollarItem) {
             dollarConversion = dollarItem.buyForBest.price;
         }
+        setUSDRate(dollarConversion);
+
+        let euroConversion;
         const euroSearch = itemSearch(items, 'euros');
         const euroItem = euroSearch.find(item => item.normalizedName === 'euros');
         if (euroItem) {
             euroConversion = euroItem.buyForBest.price;
         }
         setEURRate(euroConversion);
-        setUSDRate(dollarConversion);
     }, [items, setEURRate, setUSDRate]);
 
     useEffect(() => {
@@ -51,9 +58,9 @@ function Converter() {
 	
     function exchangeRate() {
         const exchangeRates = {
+            RUB: { USD: 1 / USDRate, EUR: 1 / EURRate },
             USD: { EUR: USDRate / EURRate, RUB: USDRate },
             EUR: { USD: EURRate / USDRate, RUB: EURRate },
-            RUB: { USD: 1 / USDRate, EUR: 1 / EURRate },
         };
         return exchangeRates;
     }
@@ -62,10 +69,12 @@ function Converter() {
         if (fromCurrency === 'RUB') {
             setRUBFilter(amount);
             convertCurrency(fromCurrency, amount);
-        } else if (fromCurrency === 'USD') {
+        }
+        else if (fromCurrency === 'USD') {
             setUSDFilter(amount);
             convertCurrency(fromCurrency, amount);
-        } else if (fromCurrency === 'EUR') {
+        }
+        else if (fromCurrency === 'EUR') {
             setEURFilter(amount);
             convertCurrency(fromCurrency, amount);
         }
@@ -83,7 +92,8 @@ function Converter() {
             setEURFilter(convertedAmount);
             convertedAmount = Math.floor(amount * (exchangeRate()[fromCurrency]['RUB']));
             setRUBFilter(convertedAmount);
-        } else if (fromCurrency === 'EUR') {
+        }
+        else if (fromCurrency === 'EUR') {
             let convertedAmount = Math.floor(amount * (exchangeRate()[fromCurrency]['USD']));
             setUSDFilter(convertedAmount);
             convertedAmount = Math.floor(amount * (exchangeRate()[fromCurrency]['RUB']));
