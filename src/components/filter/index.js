@@ -375,6 +375,7 @@ function InputFilter({
     max,
     tooltip,
     inputMode,
+    parentRef,
 }) {
     return (
         <ConditionalWrapper
@@ -402,6 +403,7 @@ function InputFilter({
                     onChange={onChange}
                     min={min}
                     max={max}
+                    ref={parentRef}
                 />
             </label>
         </ConditionalWrapper>
