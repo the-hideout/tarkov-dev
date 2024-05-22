@@ -107,18 +107,23 @@ function DataTable({
 
         return rowContainer.map((row, i) => {
             prepareRow(row);
-            const tableProps = row.getRowProps();
+            const tableProps = {...row.getRowProps()};
 
             tableProps.className = `${
                 row.depth >= 1 ? 'expanded' : ''
             }`;
+            delete tableProps.key;
             return (
                 <tr key={row.original.id} {...tableProps}>
-                    {row.cells.map((cell) => {
+                    {row.cells.map((cell, i) => {
+                        const cellProps = {...cell.getCellProps()};
+                        const cellKey = cellProps.key;
+                        delete cellProps.key;
                         return (
                             <td
+                                key={cellKey}
                                 className={'data-cell'}
-                                {...cell.getCellProps()}
+                                {...cellProps}
                             >
                                 {cell.render('Cell')}
                             </td>
@@ -135,9 +140,19 @@ function DataTable({
             <table className={`data-table ${className ?? ''}`} {...getTableProps()}>
                 <thead>
                     {headerGroups.map((headerGroup) => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
+                        <tr key={headerGroup.getHeaderGroupProps().key} {...Object.keys(headerGroup.getHeaderGroupProps()).reduce((props, propName) => {
+                            if (propName !== 'key') {
+                                props[propName] = headerGroup.getHeaderGroupProps()[propName];
+                            }
+                            return props;
+                        }, {})}>
                             {headerGroup.headers.map((column) => (
-                                <th {...column.getHeaderProps(column.getSortByToggleProps({ title: undefined }))}>
+                                <th key={column.getHeaderProps(column.getSortByToggleProps({ title: undefined })).key} {...Object.keys(column.getHeaderProps(column.getSortByToggleProps({ title: undefined }))).reduce((props, propName) => {
+                                    if (propName !== 'key') {
+                                        props[propName] = column.getHeaderProps(column.getSortByToggleProps({ title: undefined }))[propName];
+                                    }
+                                    return props;
+                                }, {})}>
                                     <span>
                                         {column.render('Header')}
                                     </span>
