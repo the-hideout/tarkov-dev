@@ -29,13 +29,13 @@ function Converter() {
     useEffect(() => {
         let euroConversion;
         let dollarConversion;
-        const dollarsearch = itemSearch(items, 'Dollars');
-        const dollarItem = dollarsearch.find(item => item.name === 'Dollars');
+        const dollarsearch = itemSearch(items, 'dollars');
+        const dollarItem = dollarsearch.find(item => item.normalizedName === 'dollars');
         if (dollarItem) {
             dollarConversion = dollarItem.buyForBest.price;
         }
-        const euroSearch = itemSearch(items, 'Euros');
-        const euroItem = euroSearch.find(item => item.name === 'Euros');
+        const euroSearch = itemSearch(items, 'euros');
+        const euroItem = euroSearch.find(item => item.normalizedName === 'euros');
         if (euroItem) {
             euroConversion = euroItem.buyForBest.price;
         }
@@ -120,6 +120,7 @@ function Converter() {
                     value={RUBFilter}
                     placeholder={'0'}
                     type="number"
+                    min={0}
                     onChange={(event) => {
                         inputFilter('RUB', event.target.value);
                     }}
@@ -131,6 +132,7 @@ function Converter() {
                     value={USDFilter}
                     placeholder={'0'}
                     type="number"
+                    min={0}
                     onChange={(event) => {
                         inputFilter('USD', event.target.value);
                     }}
@@ -142,6 +144,7 @@ function Converter() {
                     value={EURFilter}
                     placeholder={'0'}
                     type="number"
+                    min={0}
                     onChange={(event) => {
                         inputFilter('EUR', event.target.value);
                     }}
