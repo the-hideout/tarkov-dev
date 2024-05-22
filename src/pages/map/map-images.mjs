@@ -11,7 +11,7 @@ const images = {
     'container_drawer': 'container_drawer',
     'container_duffle-bag': 'container_duffle-bag',
     'container_grenade-box': 'container_grenade-box',
-    'container_ground-cache': 'container_buried-barrel-cache',
+    'container_ground-cache': 'container_ground-cache',
     'container_jacket': 'container_jacket',
     'container_lab-technician-body': 'container_dead-scav',
     'container_medbag-smu06': 'container_medbag-smu06',
