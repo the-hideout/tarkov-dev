@@ -161,6 +161,11 @@ export const selectAllCrafts = createSelector([selectCrafts, selectQuests, selec
 let fetchedData = false;
 let refreshInterval = false;
 
+const clearRefreshInterval = () => {
+    clearInterval(refreshInterval);
+    refreshInterval = false;
+};
+
 export default function useCraftsData() {
     const dispatch = useDispatch();
     const { status, error } = useSelector((state) => state.crafts);
@@ -172,6 +177,7 @@ export default function useCraftsData() {
         if (!fetchedData) {
             fetchedData = true;
             dispatch(fetchCrafts());
+            clearRefreshInterval();
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
@@ -179,8 +185,7 @@ export default function useCraftsData() {
             }, 600000);
         }
         return () => {
-            clearInterval(refreshInterval);
-            refreshInterval = false;
+            clearRefreshInterval();
         };
     }, [dispatch]);
     

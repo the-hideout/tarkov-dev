@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
@@ -108,33 +108,35 @@ export const selectQuestsWithActive = createSelector([selectQuests, selectTrader
     });
 });
 
+let fetchedLang = false;
+let refreshInterval = false;
+
+const clearRefreshInterval = () => {
+    clearInterval(refreshInterval);
+    refreshInterval = false;
+};
+
 export default function useQuestsData() {
     const dispatch = useDispatch();
     const { status, error } = useSelector((state) => state.quests);
     const data = useSelector(selectQuestsWithActive);
     const lang = useLangCode();
-    const fetchedLang = useRef(false);
-    const refreshInterval = useRef(false);
-    const clearRefreshInterval = useCallback(() => {
-        clearInterval(refreshInterval.current);
-        refreshInterval.current = false;
-    }, [refreshInterval]);
 
     useEffect(() => {
-        if (fetchedLang.current !== lang) {
-            fetchedLang.current = lang;
+        if (fetchedLang !== lang) {
+            fetchedLang = lang;
             dispatch(fetchQuests());
             clearRefreshInterval();
         }
-        if (!refreshInterval.current) {
-            refreshInterval.current = setInterval(() => {
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
                 dispatch(fetchQuests());
             }, 600000);
         }
         return () => {
             clearRefreshInterval();
         };
-    }, [dispatch, fetchedLang, lang, refreshInterval, clearRefreshInterval]);
+    }, [dispatch, lang]);
     
     return { data, status, error };
 };

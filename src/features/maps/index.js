@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useCallback } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
@@ -59,32 +59,34 @@ export const mapsReducer = mapsSlice.reducer;
 
 export const selectMaps = (state) => state.maps.data;
 
+let fetchedLang = false;
+let refreshInterval = false;
+
+const clearRefreshInterval = () => {
+    clearInterval(refreshInterval);
+    refreshInterval = false;
+};
+
 export default function useMapsData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.maps);
     const lang = useLangCode();
-    const fetchedLang = useRef(false);
-    const refreshInterval = useRef(false);
-    const clearRefreshInterval = useCallback(() => {
-        clearInterval(refreshInterval.current);
-        refreshInterval.current = false;
-    }, [refreshInterval]);
 
     useEffect(() => {
-        if (fetchedLang.current !== lang) {
-            fetchedLang.current = lang;
+        if (fetchedLang !== lang) {
+            fetchedLang = lang;
             dispatch(fetchMaps());
             clearRefreshInterval();
         }
-        if (!refreshInterval.current) {
-            refreshInterval.current = setInterval(() => {
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
                 dispatch(fetchMaps());
             }, 600000);
         }
         return () => {
             clearRefreshInterval();
         };
-    }, [dispatch, fetchedLang, lang, refreshInterval, clearRefreshInterval]);
+    }, [dispatch, lang]);
     
     return { data, status, error };
 };

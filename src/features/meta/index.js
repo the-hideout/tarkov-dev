@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import equal from 'fast-deep-equal';
@@ -43,32 +43,34 @@ export const metaReducer = metaSlice.reducer;
 
 export const selectMeta = (state) => state.meta.data;
 
+let fetchedLang = false;
+let refreshInterval = false;
+
+const clearRefreshInterval = () => {
+    clearInterval(refreshInterval);
+    refreshInterval = false;
+};
+
 export default function useMetaData() {
     const dispatch = useDispatch();
     const { data, status, error } = useSelector((state) => state.meta);
     const lang = useLangCode();
-    const fetchedLang = useRef(false);
-    const refreshInterval = useRef(false);
-    const clearRefreshInterval = useCallback(() => {
-        clearInterval(refreshInterval.current);
-        refreshInterval.current = false;
-    }, [refreshInterval]);
 
     useEffect(() => {
-        if (fetchedLang.current !== lang) {
-            fetchedLang.current = lang;
+        if (fetchedLang !== lang) {
+            fetchedLang = lang;
             dispatch(fetchMeta());
             clearRefreshInterval();
         }
-        if (!refreshInterval.current) {
-            refreshInterval.current = setInterval(() => {
+        if (!refreshInterval) {
+            refreshInterval = setInterval(() => {
                 dispatch(fetchMeta());
             }, 600000);
         }
         return () => {
             clearRefreshInterval();
         };
-    }, [dispatch, fetchedLang, lang, refreshInterval, clearRefreshInterval]);
+    }, [dispatch, lang]);
     
     return { data, status, error };
 };

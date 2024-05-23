@@ -114,7 +114,7 @@ function DataTable({
             }`;
             delete tableProps.key;
             return (
-                <tr key={row.original.id} {...tableProps}>
+                <tr key={`data-table-row-${i}`} {...tableProps}>
                     {row.cells.map((cell, i) => {
                         const cellProps = {...cell.getCellProps()};
                         const cellKey = cellProps.key;
@@ -191,7 +191,7 @@ function DataTable({
                             </td>
                         </tr>
                     )}
-                    <tr className="last-row" ref={ref} />
+                    <tr key="last-row" className="last-row" ref={ref} />
                 </tbody>
                 {sumColumns && rows.length > 1 && (
                     <tfoot>
