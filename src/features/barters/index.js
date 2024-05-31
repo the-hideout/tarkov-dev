@@ -122,7 +122,7 @@ export const selectAllBarters = createSelector([selectBarters, selectQuests, sel
         return {
             ...barter,
             requiredItems: barter.requiredItems.reduce((requirements, req) => {
-                let matchedItem = items.find(it => it.id === req.item.id);
+                let matchedItem = items?.find(it => it.id === req.item.id);
                 if (matchedItem) {
                     requirements.push({
                         ...req,
@@ -132,7 +132,7 @@ export const selectAllBarters = createSelector([selectBarters, selectQuests, sel
                 return requirements;
             }, []),
             rewardItems: barter.rewardItems.reduce((requirements, req) => {
-                const matchedItem = items.find(it => it.id === req.item.id);
+                const matchedItem = items?.find(it => it.id === req.item.id);
                 if (matchedItem) {
                     requirements.push({
                         ...req,
@@ -149,6 +149,11 @@ export const selectAllBarters = createSelector([selectBarters, selectQuests, sel
 let fetchedData = false;
 let refreshInterval = false;
 
+const clearRefreshInterval = () => {
+    clearInterval(refreshInterval);
+    refreshInterval = false;
+};
+
 export default function useBartersData() {
     const dispatch = useDispatch();
     const { status, error } = useSelector((state) => state.barters);
@@ -160,6 +165,7 @@ export default function useBartersData() {
         if (!fetchedData) {
             fetchedData = true;
             dispatch(fetchBarters());
+            clearRefreshInterval();
         }
         if (!refreshInterval) {
             refreshInterval = setInterval(() => {
@@ -167,8 +173,7 @@ export default function useBartersData() {
             }, 600000);
         }
         return () => {
-            clearInterval(refreshInterval);
-            refreshInterval = false;
+            clearRefreshInterval();
         };
     }, [dispatch]);
     
