@@ -305,7 +305,7 @@ ul.menu {
 
 /* margin unless it is the only item showing */
 nav.navigation ul.menu li.more-dropdown-wrapper:not(:nth-child(1 of li.visible-menu-all)) {
-    margin-left: -50px;
+    margin-left: -40px;
 }
 
 nav.navigation ul.menu li:nth-last-child(1 of li.visible-menu-item):not(:nth-last-child(1 of li.overflow-member)) {
