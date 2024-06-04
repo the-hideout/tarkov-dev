@@ -16,7 +16,7 @@ import { getDurationDisplay } from '../../modules/format-duration.js';
 import useHideoutData from '../../features/hideout/index.js';
 import useTraderData from '../../features/traders/index.js';
 
-import './index.css';
+import './BarterTooltip.css';
 
 function BarterTooltip({ barter, showTitle = true, title, allowAllSources = false, crafts, barters, useBarterIngredients, useCraftIngredients }) {
     const settings = useSelector((state) => state.settings);
