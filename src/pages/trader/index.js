@@ -16,6 +16,7 @@ import SmallItemTable from '../../components/small-item-table/index.js';
 import QuestTable from '../../components/quest-table/index.js';
 import TraderResetTime from '../../components/trader-reset-time/index.js';
 import ErrorPage from '../error-page/index.js';
+import Loading from '../../components/loading/index.js';
 import LoadingSmall from '../../components/loading-small/index.js';
 import PropertyList from '../../components/property-list/index.js';
 import formatPrice from '../../modules/format-price.js';
@@ -81,12 +82,17 @@ function Trader() {
         },
         [setNameFilter],
     );
-    const { data: traders } = useTradersData();
+    const { data: traders, status } = useTradersData();
     
-    const trader = traders.find(tr => tr.normalizedName === traderName.toLowerCase());
+    const trader = useMemo(() => {
+        return traders.find(tr => tr.normalizedName === traderName.toLowerCase());;
+    }, [traders, traderName]);
 
     const levelProperties = useMemo(() => {
         const props = {};
+        if (!trader) {
+            return props;
+        }
         if (!Number.isInteger(selectedTable)) {
             return props;
         }
@@ -100,6 +106,9 @@ function Trader() {
         }
         return props;
     }, [trader, selectedTable, t]);
+    if (!trader && (status === 'idle' || status === 'loading')) {
+        return <Loading/>;
+    }
     if (!trader)
         return <ErrorPage />;
     

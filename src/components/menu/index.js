@@ -1,4 +1,4 @@
-//import { Suspense } from 'react';
+import { useMemo } from 'react';
 import useStateWithLocalStorage from '../../hooks/useStateWithLocalStorage.jsx';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -25,6 +25,7 @@ import alertConfig from './alert-config.js';
 import IntersectionObserverWrapper from './intersection-observer-wrapper.js';
 
 import './index.css';
+import useTradersData from '../../features/traders/index.js';
 
 // automatically selects the alert color
 const alertColor = alertConfig.alertColors[alertConfig.alertLevel];
@@ -64,6 +65,11 @@ const Menu = () => {
     }
 
     const { data: bosses } = useBossesData();
+    const { data: allTraders } = useTradersData();
+
+    const traders = useMemo(() => {
+        return allTraders.filter(t => t.barters?.length > 0)
+    }, [allTraders]);
 
     return (
         <>
@@ -197,48 +203,16 @@ const Menu = () => {
                     <li className="submenu-wrapper submenu-items overflow-member" key="menu-traders" data-targetid="traders">
                         <Link to="/traders">{t('Traders')}</Link>
                         <ul>
-                            <MenuItem
-                                displayText={t('Prapor')}
-                                key="menu-item-prapor"
-                                to={`/trader/prapor`}
-                                //onClick={setIsOpen.bind(this, false)}
-                            />
-                            <MenuItem
-                                displayText={t('Therapist')}
-                                key="menu-item-therapist"
-                                to={`/trader/therapist`}
-                                //onClick={setIsOpen.bind(this, false)}
-                            />
-                            <MenuItem
-                                displayText={t('Skier')}
-                                key="menu-item-skier"
-                                to={`/trader/skier`}
-                                //onClick={setIsOpen.bind(this, false)}
-                            />
-                            <MenuItem
-                                displayText={t('Peacekeeper')}
-                                key="menu-item-peacekeeper"
-                                to={`/trader/peacekeeper`}
-                                //onClick={setIsOpen.bind(this, false)}
-                            />
-                            <MenuItem
-                                displayText={t('Mechanic')}
-                                key="menu-item-mechanic"
-                                to={`/trader/mechanic`}
-                                //onClick={setIsOpen.bind(this, false)}
-                            />
-                            <MenuItem
-                                displayText={t('Ragman')}
-                                key="menu-item-ragman"
-                                to={`/trader/ragman`}
-                                //onClick={setIsOpen.bind(this, false)}
-                            />
-                            <MenuItem
-                                displayText={t('Jaeger')}
-                                key="menu-item-jaeger"
-                                to={`/trader/jaeger`}
-                                //onClick={setIsOpen.bind(this, false)}
-                            />
+                            {traders.map(trader => {
+                                return (
+                                    <MenuItem
+                                        displayText={trader.name}
+                                        key={`menu-item-${trader.normalizedName}`}
+                                        to={`/trader/${trader.normalizedName}`}
+                                        //onClick={setIsOpen.bind(this, false)}
+                                    />
+                                );
+                            })}
                         </ul>
                     </li>
                     <li className="submenu-wrapper submenu-items overflow-member" key="menu-bosses" data-targetid="bosses">
