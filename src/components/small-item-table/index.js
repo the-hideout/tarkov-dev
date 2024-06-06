@@ -355,7 +355,7 @@ function SmallItemTable(props) {
                         return false;
                     if (!showAllSources && settings.useTarkovTracker && buyFor.vendor.taskUnlock && !settings.completedQuests.includes(buyFor.vendor.taskUnlock.id)) 
                         return false;
-                    if (buyFor.vendor.normalizedName === 'flea-market' && traderValue && traderBuyback && itemData.types.includes('preset'))
+                    if (buyFor.vendor.normalizedName === 'flea-market' && traderValue && traderBuyback && (itemData.types.includes('preset') || itemData.lastOfferCount < 2))
                         return false;
                     return true;
                 }),
