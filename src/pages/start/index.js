@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useCallback, useEffect, lazy, Suspense, useMemo } from 'react';
 import { useSearchParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
@@ -13,6 +13,7 @@ import ItemIconList from '../../components/item-icon-list/index.js';
 import LoadingSmall from '../../components/loading-small/index.js';
 
 import { mapIcons, useMapImagesSortedArray } from '../../features/maps/index.js';
+import useTradersData from '../../features/traders/index.js';
 
 import { Icon } from '@mdi/react';
 import {
@@ -57,6 +58,12 @@ function Start() {
         }
         return maps;
     }, []);
+
+    const { data: allTraders } = useTradersData();
+
+    const traders = useMemo(() => {
+        return allTraders.filter(t => t.barters?.length > 0)
+    }, [allTraders]);
 
     useEffect(() => {
         setNameFilter(searchParams.get('search') || '');
@@ -278,86 +285,24 @@ function Start() {
                     </Link>
                 </h3>
                 <ul className="traders-list" key="traders-list">
-                    <li key="start-link-prapor">
-                        <Link to={`/trader/prapor`}>
-                            <img
-                                alt="Prapor icon"
-                                className="trader-icon"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/traders/prapor-icon.jpg`}
-                            />
-                            {t('Prapor')}
-                        </Link>
-                    </li>
-                    <li key="start-link-therapist">
-                        <Link to={`/trader/therapist`}>
-                            <img
-                                alt="Therapist icon"
-                                className="trader-icon"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/traders/therapist-icon.jpg`}
-                            />
-                            {t('Therapist')}
-                        </Link>
-                    </li>
-                    <li key="start-link-skier">
-                        <Link to={`/trader/skier`}>
-                            <img
-                                alt="Skier icon"
-                                className="trader-icon"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/traders/skier-icon.jpg`}
-                            />
-                            {t('Skier')}
-                        </Link>
-                    </li>
-                    <li key="start-link-peacekeeper">
-                        <Link to={`/trader/peacekeeper`}>
-                            <img
-                                alt="Peacekeeper icon"
-                                className="trader-icon"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/traders/peacekeeper-icon.jpg`}
-                            />
-                            {t('Peacekeeper')}
-                        </Link>
-                    </li>
-                    <li key="start-link-mechanic">
-                        <Link to={`/trader/mechanic`}>
-                            <img
-                                alt="Prapor icon"
-                                className="trader-icon"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/traders/mechanic-icon.jpg`}
-                            />
-                            {t('Mechanic')}
-                        </Link>
-                    </li>
-                    <li key="start-link-ragman">
-                        <Link to={`/trader/ragman`}>
-                            <img
-                                alt="Ragman icon"
-                                className="trader-icon"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/traders/ragman-icon.jpg`}
-                            />
-                            {t('Ragman')}
-                        </Link>
-                    </li>
-                    <li key="start-link-jaeger">
-                        <Link to={`/trader/jaeger`}>
-                            <img
-                                alt="Jaeger icon"
-                                className="trader-icon"
-                                loading="lazy"
-                                src={`${process.env.PUBLIC_URL}/images/traders/jaeger-icon.jpg`}
-                            />
-                            {t('Jaeger')}
-                        </Link>
-                    </li>
+                    {traders.map(trader => {
+                        return (
+                            <li key={`start-link-${trader.normalizedName}`}>
+                                <Link to={`/trader/${trader.normalizedName}`}>
+                                    <img
+                                        alt={`${trader.name} icon`}
+                                        className="trader-icon"
+                                        loading="lazy"
+                                        src={`${process.env.PUBLIC_URL}/images/traders/${trader.normalizedName}-icon.jpg`}
+                                    />
+                                    {trader.name}
+                                </Link>
+                            </li>
+                        );
+                    })}
                 </ul>
                 <h3>
-                    <Link to={'/bosses'} key={"maps-page"}>
+                    <Link to={'/bosses'} key={"bosses-page"}>
                         <Icon
                             path={mdiEmoticonDevil}
                             size={1}
